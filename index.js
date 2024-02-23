@@ -71,9 +71,9 @@ server.on("upgrade", (req, socket, head) => {
 });
 
 server.on("listening", () => {
-  console.log(`Running at http://localhost:443`);
+  console.log(`Running at http://localhost:8080`);
 });
 
 server.listen({
-  port: 443,
+  port: 8080,
 });
