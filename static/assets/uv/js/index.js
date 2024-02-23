@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     window.navigator.serviceWorker
-      .register("/assets/uv/sw.js", {
+      .register("./assets/uv/sw.js", {
         scope: __uv$config.prefix,
       })
       .then(() => {

@@ -23,7 +23,6 @@ const routes = [
   { path: "/d", file: "dashboard.html" },
   { path: "/e", file: "english.html" },
   { path: "/?", file: "math.html" },
-  { path: "/*", file: "404.html" },
 ];
 
 routes.forEach((route) => {
@@ -72,9 +71,9 @@ server.on("upgrade", (req, socket, head) => {
 });
 
 server.on("listening", () => {
-  console.log(`Running at http://localhost:8080`);
+  console.log(`Running at http://localhost:443`);
 });
 
 server.listen({
-  port: 8080,
+  port: 443,
 });
