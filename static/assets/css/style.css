@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+body {
+  font-family: "Inter", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #5e7594;
+  color: white;
+}
+
+title {
+  padding-top: 20%;
+}
+
+main {
+  padding: 20px;
+  overflow-wrap: break-word;
+}
+
+#gs {
+  cursor: pointer;
+  background-color: #413d3d;
+  border: none;
+  color: rgb(248, 244, 244);
+  padding: 10px 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+}
+#gs:hover {
+  transform: scale(1.06);
+  border-radius: 6px;
+}
+#gs:active {
+  transform: scale(0.94);
+  border-radius: 10px;
+}
+
+.button {
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: 1s;
+  padding-bottom: 5px;
+}
+
+.horizontal-items {
+  display: flex;
+  justify-content: left;
+}
+
+a {
+  color: #f1a727; /* change to match your theme */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #f1d41d; /* change to match your theme */
+}

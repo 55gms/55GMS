@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+nav {
+  font-family: "Inter", Arial, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  background: #0e70b0;
+}
+
+nav ul {
+  font-family: "Inter", Arial, sans-serif;
+  display: flex;
+  list-style: none;
+}
+
+nav li {
+  font-family: "Inter", Arial, sans-serif;
+  padding-left: 0.05rem;
+  /* put li nav in the middle */
+}
+
+nav a {
+  font-family: "Inter", Arial, sans-serif;
+  text-decoration: none;
+  color: #fff;
+  padding: 0.5rem;
+  transition: color 0.2s ease;
+  border-radius: 0px;
+  padding: 0.5rem;
+  scale: 1;
+  transition: color 0.3s, background-color 0.3s, border-radius 0.7s, scale 0.5s;
+}
+
+nav a:hover {
+  color: #484c51; /* #bbbbbb is og */
+  background-color: #e7928f;
+  border-radius: 10px;
+  scale: 1.1;
+}
+
+@media only screen and (max-width: 600px) {
+  nav {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  nav ul {
+    flex-direction: column;
+    padding-top: 0.5rem;
+  }
+
+  nav li {
+    padding: 0.5rem 0;
+  }
+}

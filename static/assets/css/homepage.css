@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+body {
+  background-color: #5e7594;
+  color: #c9c9c9;
+  font-family: "Inter", Arial, sans-serif;
+}
+
+.form__input {
+  padding: 1.3vw;
+  width: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  background: #7a8fab;
+  text-align: center;
+  font-size: 24px;
+  border: none;
+  outline: none;
+  color: white;
+  transition: 0.2s;
+  margin: 0;
+}
+
+#title {
+  font-size: 5vw;
+  color: #ffffff;
+  font-weight: bold;
+  font-family: "Inter", Arial, sans-serif;
+  position: absolute;
+  bottom: 59vh;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+#sub {
+  font-size: 1vw;
+  color: #f9f871;
+  top: 60vh;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  font-family: "Inter", Arial, sans-serif;
+  text-align: center;
+}
+
+.form__input::placeholder {
+  color: #aaa;
+  text-align: center;
+}

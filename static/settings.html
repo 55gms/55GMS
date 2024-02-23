@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <meta http-equiv="Cache-control" content="public">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-N0LG27M8L8"
+    ></script>
+    <script src="/assets/js/script.js"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-N0LG27M8L8");
+    </script>
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/nav.css" />
+    <script src="/assets/js/settings.js"></script>
+    <link rel="stylesheet" href="/assets/css/settings.css" />
+    <link rel="icon" type="image/x-icon" href="/img/canvas.ico" />
+    <script src="/assets/js/font.js" crossorigin="anonymous"></script>
+    <script src="/assets/js/easteregg.min.js" async></script>
+    <meta
+      name="description"
+      content="Canvas LMS is an open and reliable web-based software that allows institutions to manage digital learning, educators to create and present online learning materials and assess student learning, and students to engage in courses and receive feedback about skill development and learning achievement."
+    />
+    <meta charset="utf-8">
+  </head>
+  <script>
+    class ABC {
+  constructor(config = {}) {
+    this.type = config.type || "blank";
+    this.url = config.url || "about:blank";
+  }
+  setType(type) {
+    if (!type) return;
+    this.type = type;
+  }
+  setUrl(url) {
+    if (!url) return;
+    this.url = url;
+  }
+  getCode() {
+    return (
+      `<iframe style="height:100%; width: 100%; border: none; position: fixed; top: 0; right: 0; left: 0; bottom: 0; border: none" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation allow-top-navigation-by-user-activation" src="` +
+      this.url +
+      `"></iframe>`
+    );
+  }
+  open() {
+    if (this.type == "blank") {
+      try {
+        var page = window.open();
+        page.document.body.innerHTML =
+          `<iframe style="height:100%; width: 100%; border: none; position: fixed; top: 0; right: 0; left: 0; bottom: 0; border: none" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation allow-top-navigation-by-user-activation" src="` +
+          this.url +
+          `"></iframe>`;
+      } catch {}
+    } else if (this.type == "blob") {
+      try {
+        var page = new Blob(
+          [
+            `<iframe style="height:100%; width: 100%; border: none; position: fixed; top: 0; right: 0; left: 0; bottom: 0; border: none" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation allow-top-navigation-by-user-activation" src="` +
+              this.url +
+              `"></iframe>`,
+          ],
+          { type: "text/html" }
+        );
+        window.open(URL.createObjectURL(page));
+      } catch {}
+    } else if (this.type == "overwrite") {
+      try {
+        document.body.innerHTML =
+          `<iframe style="height:100%; width: 100%; border: none; position: fixed; top: 0; right: 0; left: 0; bottom: 0; border: none" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation allow-top-navigation-by-user-activation" src="` +
+          this.url +
+          `"></iframe>`;
+      } catch {}
+    }
+  }
+}
+
+function cloak() {
+  //Creates new ABC
+  var page = new ABC({
+    type: "blank", //Blank, blob, or overwrite
+    url: "https://google.com", //Any url
+  });
+  //Set the type
+  page.setType("blank");
+  //Set the url
+  page.setUrl("settings.html");
+  //Get iframe code
+  console.log(page.getCode());
+  //Open page
+  page.open();
+}
+  </script>
+
+  <body>
+    <nav>
+      <a href="/">
+        <h2>Reds Exploit Corner</h2>
+      </a>
+      <ul>
+        <li><a href="g">Games</a></li>
+        <li><a href="a">Apps</a></li>
+        <li><a href="?">Exploits</a></li>
+        <li><a href="p">Search</a></li>
+        <li><a href="e">AI</a></li>
+
+        <li>
+          <a href="s"><i class="fa-solid fa-gear fa-lg"></i></a>
+        </li>
+      </ul>
+    </nav>
+    <br />
+    <br />
+    <h1 style="text-align: center">Settings</h1>
+  <body>
+    <center>
+    <div class="row">
+      <div class="card">
+        <div class="container">
+          <div class="title">
+            <h4><b>About:Blank Cloaking</b></h4>
+          </div>
+          <br><br>
+          <div>
+            <button onclick="cloak()" class="cloak center-global tab-cloak tabcloak">Enable</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="container">
+          <div class="title">
+            <h4><b>Tab Cloaker</b></h4>
+          </div>
+          <form>
+            <input class="tab-cloaker-form" type="text" id="icon" placeholder="Title" onkeyup="setTitle(this.value)" name="icon">
+            <input class="tab-cloaker-form" type="text" id="name" name="name" placeholder="Icon" onkeyup="setFavicon(this.value.trim())">
+          </form>
+        </div>
+      </div>
+      <div class="card">
+        <div class="container">
+          <div class="title">
+            <h4><b>Tab Cloaker</b></h4>
+          </div>
+          <p>Choose a premade Cloak</p><br>
+        </div>
+        <div>
+          <select name="Readymade Cloaks" id="premadecloaks" title="Cloaks">
+            <option value="search">Google Search</option>
+            <option value="bsite">BilliBilli</option>
+            <option value="itchio">Itch.io</option>
+            <option value="wikipedia">Wikipedia</option>
+            <option value="drive">Google Drive</option>
+            <option value="gmail">Gmail</option>
+            <option value="calendar">Google Calendar</option>
+            <option value="meets">Google Meet</option>
+            <option value="classroom">Google Classroom</option>
+            <option value="canvas" selected>Canvas</option>
+            <option value="zoom">Zoom</option>
+            <option value="khan">Khan Academy</option>
+          </select>
+          <br><br><button class="center-global tab-cloak tabcloak" onclick="setCloak();">Set</button>
+          <button class="center-global tab-cloak tabcloak" onclick="resetTab();">Reset</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="container">
+          <div class="title">
+            <h4><b>Panic System</b></h4>
+          </div>
+          <form>
+            <input class="tab-cloaker-form" type="text" id="key" placeholder="Panic Key" onkeyup="setPanicKey()" name="icon">
+            <input class="tab-cloaker-form" type="text" id="link" name="name" placeholder="Panic Link" onkeyup="setPanicLink()">
+          </form>
+        </div>
+      </div>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317"
+     crossorigin="anonymous"></script>
+<!-- games -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6700774525685317"
+     data-ad-slot="5324022054"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </center>
+  </body>
+  </html>
