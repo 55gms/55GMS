@@ -22,7 +22,7 @@ const routes = [
   { path: "/", file: "index.html" },
   { path: "/d", file: "dashboard.html" },
   { path: "/e", file: "english.html" },
-  { path: "/?", file: "math.html" },
+  { path: "/-", file: "math.html" },
 ];
 
 routes.forEach((route) => {
