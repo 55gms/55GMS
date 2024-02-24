@@ -1,0 +1,39 @@
+{
+  "Waflash": {
+    "prefix": "waflash",
+    "body": [
+      "<!DOCTYPE html>",
+      "<html lang=\"en\">",
+      "  <head>",
+      "    <script src=\"/assets/js/script.js\"></script>",
+      "    <link",
+      "      href=\"/misc/papas/waflash.css\"",
+      "      rel=\"stylesheet\"",
+      "      type=\"text/css\"",
+      "    />",
+      "    <title>${1:Title}</title>",
+      "  </head>",
+      "",
+      "  <body>",
+      "    <script>",
+      "      var gameConfig = {",
+      "        swfUrl:",
+      "          \"${2:Link}\",",
+      "      };",
+      "    </script>",
+      "    <div id=\"waflashContainer\">",
+      "      <canvas class=\"waflashCanvas\" id=\"canvas\" tabindex=\"1\"></canvas>",
+      "      <div id=\"waflashStatus\" style=\"display: none\">Playing...</div>",
+      "      <script",
+      "        src=\"https://cdn.jsdelivr.net/gh/nate-games/waflash@main/main.js\"",
+      "        rossorigin=\"anonymous\"",
+      "        type=\"module\"",
+      "      ></script>",
+      "    </div>",
+      "  </body>",
+      "</html>",
+      ""
+    ],
+    "description": "Waflash"
+  }
+}

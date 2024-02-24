@@ -1,0 +1,7 @@
+{
+  "hire": {
+    "prefix": "hire",
+    "body": ["onclick=\"hire('${1:Link}')\""],
+    "description": "hire"
+  }
+}
