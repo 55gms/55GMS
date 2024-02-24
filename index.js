@@ -13,10 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static(path.join(__dirname, "static")));
 
-app.get("/*", function (req, res) {
-  res.set("X-Frame-Options", "SAMEORIGIN");
-});
-
 const routes = [
   { path: "/a", file: "apps.html" },
   { path: "/g", file: "art.html" },
@@ -32,6 +28,7 @@ const routes = [
 routes.forEach((route) => {
   app.get(route.path, (req, res) => {
     res.sendFile(path.join(__dirname, "static", route.file));
+    res.set("X-Frame-Options", "SAMEORIGIN");
   });
 });
 
@@ -48,6 +45,7 @@ async function fetchData(req, res, next, baseUrl) {
     if (asset.ok) {
       const data = await asset.arrayBuffer();
       res.end(Buffer.from(data));
+      res.set("X-Frame-Options", "SAMEORIGIN");
     } else {
       console.log(`Failed to fetch ${reqTarget}`);
       res.status(404).send("Not found");
