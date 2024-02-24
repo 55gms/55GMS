@@ -71,6 +71,7 @@ server.on("upgrade", (req, socket, head) => {
 });
 
 app.get("/*", function (req, res) {
+  res.set("X-Frame-Options", "SAMEORIGIN");
   res.sendFile(path.join(__dirname, "static/404.html"), function (err) {
     if (err) {
       res.status(404).send(err);
