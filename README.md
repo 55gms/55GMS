@@ -14,7 +14,7 @@ Welcome to 55GMS, a website for unblocked games, apps, and proxies. Our goal is 
 
 ## Stats
 
-![Alt](https://repobeats.axiom.co/api/embed/b77df5565e56c08265f686b4d075130bdc5276db.svg "Repobeats analytics image")
+[![Alt](https://repobeats.axiom.co/api/embed/b77df5565e56c08265f686b4d075130bdc5276db.svg "Repobeats analytics image")](https://repobeats.axiom.co/api/embed/aa0d492e7df85dd81f1e15509991745130be77cd.svg)
 
 ## Credits
 
