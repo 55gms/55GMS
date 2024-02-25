@@ -45,13 +45,7 @@ async function fetchData(req, res, next, baseUrl) {
       const data = await asset.arrayBuffer();
       res.end(Buffer.from(data));
     } else {
-      const indexReqTarget = `${baseUrl}/${req.params[0]}/index.html`;
-      const indexAsset = await fetch(indexReqTarget);
-      if (indexAsset.ok) {
-        const indexData = await indexAsset.arrayBuffer();
-        res.end(Buffer.from(indexData));
-      } else {
-        console.log(`Failed to fetch ${indexReqTarget}`);
+        console.log(`Failed to fetch ${reqTarget}`);
         res
           .status(404)
           .send(
