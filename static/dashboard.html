@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>Dashboard</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Cache-control" content="public" />
     <link rel="icon" type="image/x-icon" href="/img/canvas.ico" />
-    <script src="/assets/js/font.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?withthecssgsorelseitwontworklol" />
     <link rel="stylesheet" type="text/css" href="/assets/css/dash.css" />
     <link rel="stylesheet" href="/assets/css/nav.css" />
-    <title>Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta charset="utf-8" />
     <!-- Sweetalert for the message of the day -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="/assets/js/motd.js?betav1"></script>
     <script src="/assets/js/script.js"></script>
     <script src="/assets/js/easteregg.min.js" async></script>
+    <script src="/assets/js/font.js" crossorigin="anonymous"></script>
 
     <meta
       name="description"
@@ -42,14 +43,14 @@
       <h1 id="title">Reds Dashboard</h1>
       <br /><br />
       <button
-        id="gs"
-        onclick="Swal.fire({icon:'info', title:'Message Of The Day', html:`when life gives you lemons make apple juice`, footer: `<i style='font-size: 11px;'>submitted by liam.flinspach@ncasd.com</i>`});"
+        class="gs" id="motd"
+        onclick="Swal.fire({icon: 'warning', title: 'Message Of The Day', html: '<b>Loading...</b>', footer: `<i style='font-size: 11px;'>Blud have patience</i>`, timer: 2000, timerProgressBar: true});"
       >
         Message of the Day
       </button>
       <button
-        id="gs"
-        onclick="Swal.fire({icon:'info', title:'Quote Of The Day', html:`if you feel a lil dumb, just remember i exist <br> - Olivia`, footer: `<i style='font-size: 11px;'>submitted by s1922654@online.houstonisd.org</i>`});"
+        class="gs" id="qotd"
+        onclick="Swal.fire({icon: 'warning', title: 'Quote Of The Day', html: '<b>Loading...</b>', footer: `<i style='font-size: 11px;'>Blud have patience</i>`, timer: 2000, timerProgressBar: true});"
       >
         Quote of the Day
       </button>

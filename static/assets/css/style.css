@@ -42,6 +42,31 @@ main {
   border-radius: 10px;
 }
 
+.gs {
+  cursor: pointer;
+  background-color: #413d3d;
+  border: none;
+  color: rgb(248, 244, 244);
+  padding: 10px 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+}
+.gs:hover {
+  transform: scale(1.06);
+  border-radius: 6px;
+}
+.gs:active {
+  transform: scale(0.94);
+  border-radius: 10px;
+}
+
 .button {
   text-align: center;
   text-decoration: none;
