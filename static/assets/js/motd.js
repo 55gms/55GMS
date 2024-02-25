@@ -2,7 +2,7 @@ fetch("./assets/motd.json")
   .then((response) => response.json())
   .then((data) => {
     document.getElementById("motd").onclick = function() {
-      Swal.fire({icon: 'info', title: 'Message Of The Day', html: data.motd.body, footer: `<i style='font-size: 11px;'>${data.qotd.footer}</i>`});
+      Swal.fire({icon: 'info', title: 'Message Of The Day', html: data.motd.body, footer: `<i style='font-size: 11px;'>${data.motd.footer}</i>`});
     }
     document.getElementById("qotd").onclick = function() {
       Swal.fire({icon: 'info', title: 'Quote Of The Day', html: data.qotd.body, footer: `<i style='font-size: 11px;'>${data.qotd.footer}</i>`});
