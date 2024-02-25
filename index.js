@@ -46,7 +46,11 @@ async function fetchData(req, res, next, baseUrl) {
       res.end(Buffer.from(data));
     } else {
       console.log(`Failed to fetch ${reqTarget}`);
-      res.status(404).send("Not found");
+      res
+        .status(404)
+        .send(
+          "Not found, please clear your cache, or email me @ support@rednotsus.xyz"
+        );
     }
   } catch (error) {
     console.error("Error fetching:", error);
