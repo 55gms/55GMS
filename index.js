@@ -37,30 +37,25 @@ app.get("/misc/*", (req, res, next) => {
 });
 
 async function fetchData(req, res, next, baseUrl) {
-  try {
-    const reqTarget = `${baseUrl}/${req.params[0]}`;
-    const asset = await fetch(reqTarget);
+  const reqTarget = `${baseUrl}/${req.params[0]}`;
+  const asset = await fetch(reqTarget);
 
-    if (asset.ok) {
-      const data = await asset.arrayBuffer();
-      res.end(Buffer.from(data));
+  if (asset.ok) {
+    const data = await asset.arrayBuffer();
+    res.end(Buffer.from(data));
+  } else {
+    const indexReqTarget = `${baseUrl}/${req.params[0]}/index.html`;
+    const indexAsset = await fetch(indexReqTarget);
+    if (indexAsset.ok) {
+      const indexData = await indexAsset.arrayBuffer();
+      res.end(Buffer.from(indexData));
     } else {
-      const indexReqTarget = `${baseUrl}/${req.params[0]}/index.html`;
-      const indexAsset = await fetch(indexReqTarget);
-      if (indexAsset.ok) {
-        const indexData = await indexAsset.arrayBuffer();
-        res.end(Buffer.from(indexData));
-      } else {
-        console.log(`Failed to fetch ${indexReqTarget}`);
-        res
-          .status(404)
-          .send(
-            "Not found, please clear your cache, or email me at support@rednotsus.xyz, If this issue persists, try clicking <a href='index.html'>here</a> and if it works, change your bookmark to the new link."
-          );
-      }
-  } catch (error) {
-    console.error("Error fetching:", error);
-    next(error);
+      res
+        .status(404)
+        .send(
+          "Not found, please clear your cache, or email me at support@rednotsus.xyz, If this issue persists, try clicking <a href='index.html'>here</a> and if it works, change your bookmark to the new link."
+        );
+    }
   }
 }
 
