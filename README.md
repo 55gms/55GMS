@@ -18,6 +18,11 @@ Welcome to 55GMS, a website for unblocked games, apps, and proxies. Our goal is 
 
 ## Credits
 
+### Devs
+<a href="https://github.com/RedNotSus/">RedNotSus</a>
+<a href="https://github.com/22yeets22/">Little Panda (22yeets22)</a>
+<a href="https://github.com/kandurz/">Kandurz</a>
+
+### Others
 <a href="https://github.com/3kh0/3kh0.github.io">3kh0</a>
 <a href="https://github.com/interstellarnetwork/interstellar-v3">Interstellar</a>
-
