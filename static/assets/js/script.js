@@ -36,8 +36,8 @@ if (gaenabled == "false") {
   document.head.append(gascript, inlinegascript);
   script("Injected script 2/2");
 }
-// Collect Tab Cloak data from local storage
 
+// Collect Tab Cloak data from local storage
 var tab = localStorage.getItem("tab");
 if (tab) {
   try {
@@ -55,9 +55,8 @@ if (tabData.title) {
   document.title = tabData.title;
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
   // Set the Tab icon if the Tab cloak data is there
-
   if (tabData.icon) {
     var iconLink = document.querySelector('link[rel="icon"]');
     if (iconLink) {
