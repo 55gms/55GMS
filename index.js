@@ -53,7 +53,7 @@ async function fetchData(req, res, next, baseUrl) {
       res
         .status(404)
         .send(
-          "Not found, please clear your cache, or email me at support@rednotsus.xyz, If this issue persists, try clicking <a href='index.html'>here</a> and if it works, change your bookmark to the new link."
+          "Not found, please clear your cache, or email me at support@rednotsus.xyz, If this issue persists, try clicking <a href='index.html'>here</a> and if it works, change your bookmark to the new link.",
         );
     }
   }
