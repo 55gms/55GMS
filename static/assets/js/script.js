@@ -50,7 +50,6 @@ script("Injected script 2/3");
 })({});
 script("Injected script 3/3 (More Ad stuff)");
 
-// Collect Tab Cloak data from local storage
 var tab = localStorage.getItem("tab");
 if (tab) {
   try {

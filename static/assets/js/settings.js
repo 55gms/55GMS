@@ -16,10 +16,8 @@ if (tab) {
 }
 
 // Set the title and icon fields to the values saved in tabData, if they exist
-if (tabData.title)
-  document.getElementById("title").value = tabData.title;
-if (tabData.icon)
-  document.getElementById("icon").value = tabData.icon;
+if (tabData.title) document.getElementById("title").value = tabData.title;
+if (tabData.icon) document.getElementById("icon").value = tabData.icon;
 
 // Default tab settings
 var settingsDefaultTab = {
@@ -86,7 +84,7 @@ function setFavicon(icon) {
     // If there is no saved data, create an empty object
     var tabData = {};
   }
-  
+
   if (icon) {
     // If there is a new icon, update tabData
     tabData.icon = icon;
@@ -94,11 +92,10 @@ function setFavicon(icon) {
     // If the icon is empty, delete the icon field from tabData
     delete tabData.icon;
   }
-  
+
   // Save the updated tab data to localStorage
   localStorage.setItem("tab", JSON.stringify(tabData));
 }
-
 
 function setCloak() {
   // applies only to premade cloaks
@@ -151,7 +148,6 @@ function setCloak() {
   }
 }
 
-
 // Function to reset the tab settings to default
 function resetTab() {
   document.title = "Dashboard";
@@ -159,4 +155,4 @@ function resetTab() {
   document.getElementById("title").value = "";
   document.getElementById("icon").value = "";
   localStorage.setItem("tab", JSON.stringify({}));
-}  
+}

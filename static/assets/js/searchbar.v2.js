@@ -22,5 +22,5 @@ document.addEventListener("keydown", function (e) {
   
   let searchbar = document.getElementById("searchbar");
   searchbar.focus();
-  if (c.toLowerCase() != c.toUpperCase()) searchbar.value += e.key; // Is a letter
+  if (c.toLowerCase() != c.toUpperCase()) searchbar.value += e.key; 
 });
