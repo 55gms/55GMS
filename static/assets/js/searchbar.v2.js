@@ -8,19 +8,22 @@ function search() {
 }
 
 document.addEventListener("keydown", function (e) {
-  if ([
-    "ArrowUp",
-    "ArrowDown",
-    "ArrowLeft",
-    "ArrowRight",
-    "b",
-    "a",
-    "Control",
-    "Alt"
-  ].includes(e.key) || e.metaKey)
+  if (
+    [
+      "ArrowUp",
+      "ArrowDown",
+      "ArrowLeft",
+      "ArrowRight",
+      "b",
+      "a",
+      "Control",
+      "Alt",
+    ].includes(e.key) ||
+    e.metaKey
+  )
     return;
-  
+
   let searchbar = document.getElementById("searchbar");
   searchbar.focus();
-  if (c.toLowerCase() != c.toUpperCase()) searchbar.value += e.key; 
+  if (c.toLowerCase() != c.toUpperCase()) searchbar.value += e.key;
 });

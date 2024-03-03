@@ -2,7 +2,10 @@ window.addEventListener("load", (event) => {
   fetch("/assets/quotes.json")
     .then((response) => response.json())
     .then((data) => {
-      const totalFrequency = data.reduce((acc, item) => acc + item.frequency, 0);
+      const totalFrequency = data.reduce(
+        (acc, item) => acc + item.frequency,
+        0,
+      );
       const rng = Math.random() * totalFrequency;
 
       let cumulativeFrequency = 0;
@@ -16,6 +19,7 @@ window.addEventListener("load", (event) => {
       }
     })
     .catch((error) => {
-      document.getElementById("sub").innerHTML = "idk what happened something broke";
+      document.getElementById("sub").innerHTML =
+        "idk what happened something broke";
     });
 });
