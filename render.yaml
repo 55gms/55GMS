@@ -1,5 +1,6 @@
 services:
   - type: web
     name: gms
-    env: docker
+    env: node
     plan: free
+    startCommand: node .
