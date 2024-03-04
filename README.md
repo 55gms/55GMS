@@ -13,8 +13,7 @@ Welcome to 55GMS, a website for unblocked games, apps, and proxies. Our goal is 
 ## Deploying
 
 ### Quick Deployment
-
-> [!NOTE]
+> [!CAUTION]
 > You **can't** deploy to static hosts, like Netlify, Cloudflare Pages, or GitHub Pages.
 
 <a href="https://render.com/deploy?repo=https://github.com/55gms/55gms">
@@ -24,7 +23,6 @@ Welcome to 55GMS, a website for unblocked games, apps, and proxies. Our goal is 
 <a target="_blank" href="https://app.cyclic.sh/api/app/deploy/interstellarnetwork/Interstellar"><img alt="Deploy to Cyclic" src="https://binbashbanana.github.io/deploy-buttons/buttons/remade/cyclic.svg"></a>
 
 ### Deploy to a VPS
-
 Instructions to deploy to a VPS can be found on the wiki, or <a href='https://github.com/55gms/55GMS/wiki'>here</a>
 
 ## Stats
