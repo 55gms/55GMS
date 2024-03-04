@@ -4,7 +4,6 @@
 
 Welcome to 55GMS, a website for unblocked games, apps, and proxies. Our goal is to provide a safe and enjoyable experience for users who want to access blocked content.
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/f7eb45c3-8ed9-495c-b3c1-509454478f89/deploy-status)](https://app.netlify.com/sites/superlative-liger-9df658/deploys)
 ![GitHub repo size](https://img.shields.io/github/repo-size/55gms/55gms)
 ![Commit](https://img.shields.io/github/commit-activity/w/55gms/55gms)
 ![Site](https://img.shields.io/website?url=https%3A%2F%2F55gms.com)
