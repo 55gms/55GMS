@@ -14,8 +14,6 @@ Welcome to 55GMS, a website for unblocked games, apps, and proxies. Our goal is 
 
 ### Quick Deployment
 
-> [!CAUTION]
-> 
 > You **can't** deploy to static hosts, like Netlify, Cloudflare Pages, or GitHub Pages.
 
 <a href="https://render.com/deploy?repo=https://github.com/55gms/55gms">
