@@ -3,3 +3,4 @@ services:
     name: gms
     env: node
     plan: free
+    startCommand: node .
