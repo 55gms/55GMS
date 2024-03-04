@@ -10,6 +10,11 @@ Welcome to 55GMS, a website for unblocked games, apps, and proxies. Our goal is 
 ![Site](https://img.shields.io/website?url=https%3A%2F%2F55gms.com)
 ![Uptime](https://img.shields.io/uptimerobot/ratio/7/m793507060-97e6bef63b62591b668ced4f)
 
+## Deploying
+<a href="https://render.com/deploy?repo=https://github.com/55gms/55gms">
+<img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" />
+</a>
+
 ## Stats
 
 ![Alt](https://repobeats.axiom.co/api/embed/aa0d492e7df85dd81f1e15509991745130be77cd.svg "Repobeats analytics image")
