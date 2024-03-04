@@ -9,7 +9,7 @@
   },
   {
     "msg": "An<br>Actual<br><em>kinda</em><br>Rare<br>Find",
-    "frequency": 10
+    "frequency": 8
   },
   {
     "msg": "no more weird quotes",
@@ -106,5 +106,10 @@
   {
     "msg": "the server this is running on actually has 500 mpbs internet",
     "frequency": 20
+  },
+  {
+    "msg": "Laszlo is a skibidi rizzler",
+    "frequency": 20,
+    "comment": "i promised him"
   }
 ]
