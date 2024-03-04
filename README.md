@@ -31,8 +31,6 @@ Instructions to deploy to a VPS can be found on the wiki, or <a href='https://gi
 
 ## Credits
 
-### Devs
+### Contributors
 
-<a href="https://github.com/RedNotSus/">RedNotSus</a>
-<a href="https://github.com/22yeets22/">Little Panda (22yeets22)</a>
-<a href="https://github.com/kandurz/">Kandurz</a>
+[![Contributors](https://contrib.rocks/image?repo=55gms/55GMS)](https://github.com/55gms/55GMS/graphs/contributors)
