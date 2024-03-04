@@ -11,6 +11,7 @@ Welcome to 55GMS, a website for unblocked games, apps, and proxies. Our goal is 
 ![Uptime](https://img.shields.io/uptimerobot/ratio/7/m793507060-97e6bef63b62591b668ced4f)
 
 ## Deploying
+
 <a href="https://render.com/deploy?repo=https://github.com/55gms/55gms">
 <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" />
 </a>
