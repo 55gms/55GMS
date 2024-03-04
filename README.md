@@ -1,5 +1,3 @@
-<div align='center'>
-
 # 55GMS
 
 Welcome to 55GMS, a website for unblocked games, apps, and proxies. Our goal is to provide a safe and enjoyable experience for users who want to access blocked content.
@@ -12,9 +10,8 @@ Welcome to 55GMS, a website for unblocked games, apps, and proxies. Our goal is 
 ## Deploying
 
 ### Quick Deployment
-
+> [!NOTE]
 > You **can't** deploy to static hosts, like Netlify, Cloudflare Pages, or GitHub Pages.
-
 <a href="https://render.com/deploy?repo=https://github.com/55gms/55gms">
 <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" />
 </a>
