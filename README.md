@@ -18,7 +18,6 @@ Welcome to 55GMS, a website for unblocked games, apps, and proxies. Our goal is 
 [![Deploy to Koyeb](https://binbashbanana.github.io/deploy-buttons/buttons/remade/koyeb.svg)](https://app.koyeb.com/deploy?type=git&repository=github.com/55gms/55GMS&branch=main&name=55gms)
 [![Deploy to Cyclic](https://binbashbanana.github.io/deploy-buttons/buttons/remade/cyclic.svg)](https://app.cyclic.sh/api/app/deploy/55gms/55GMS)
 
-
 ### Deploy to a VPS
 
 Instructions to deploy to a VPS can be found on the wiki, or <a href='https://github.com/55gms/55GMS/wiki'>here</a>
