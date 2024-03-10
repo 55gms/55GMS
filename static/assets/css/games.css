@@ -1,12 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
-
 * {
   padding: 0;
   margin: 0;
 }
 
-body, h1, h3, h4, h5, h6 {
+body,
+h1,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Inter", Arial, Helvetica, sans-serif;
   text-align: center;
   font-weight: 100;
@@ -47,7 +51,6 @@ img {
   -ms-interpolation-mode: bicubic;
   vertical-align: middle;
   border-radius: 25px;
-  max-height: 145px;
   max-width: 145px;
 }
 
