@@ -23,13 +23,16 @@ inlinegascript.innerHTML = `window.dataLayer = window.dataLayer || [];
 document.head.append(gascript, inlinegascript);
 script("Injected script 1/3");
 
-(function (s) {
+(function (ovu) {
+  var d = document,
+    s = d.createElement("script"),
+    l = d.scripts[d.scripts.length - 1];
+  s.settings = ovu || {};
   s.src =
-    "https://cdn.jsdelivr.net/gh/55gms/55GMS@main/static/assets/js/ads.js";
-  try {
-    (document.body || document.documentElement).appendChild(s);
-  } catch (e) {}
-})(document.createElement("script"));
+    "//frighteningship.com/akW.5/wFYNW/dAlmQu2d9okIZZTM9Y6-bS2/5jleSeWvQR9iNnTqEFwGMoDjcyxANYiU0V1/MuTQA/whNJzxEu3Y";
+  s.async = true;
+  l.parentNode.insertBefore(s, l);
+})({});
 
 script("Injected script 2/3 (More Ad stuff)");
 
