@@ -21,8 +21,8 @@
       window.addEventListener("resize", navigator.keyboard.lock(["Escape"]));
     </script>
     <iframe
-      src=""
-      id="iframeId"
+      src="l"
+      id="iframeid"
       style="bottom: 0"
       style="border: 0px #ffffff none"
       name="Iframe"
@@ -44,82 +44,128 @@
       <i class="fa-solid fa-rotate-right"></i>
     </button>
     <button
-      id="bookmarklet-button"
+      id="ad-button"
       class="navbtn navbtn4"
+      title="Skip YT Ad"
+      onclick="skipAd()"
+    >
+      <i class="fa-solid fa-film"></i>
+    </button>
+    <button
+      id="bookmarklet-button"
+      class="navbtn navbtn5"
       title="Run a Bookmarklet"
     >
       <i class="fa-brands fa-js"></i>
     </button>
-
-    <script>
-      // roblox
-      const iframeIdValue = [
-        "hvtrs8%2F-nmweg%2Cnn%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Crmbnoz.alkelt%24pcrvngr%3F57gos",
-        // andriod
-        "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Culcwbg.nawnahgr1%26raptlep%3D75emq",
-        // genshin
-        "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2CmkHmYm.EelsjilIopccv%26raptlep%3D75emq",
-        //fortnite
-        "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Ceriagcmgs%2Cfmrvnktg%26raptlep%3D75emq",
-        //melon
-        "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Csvufim25.OenolPna%7Bgpownf%26raptlep%3D75EMQ",
-        //crc
-        "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Cdgvqiqtgrq.ak%24pcrvngr%3F57gos",
-        //toca
-        "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Ctmccbmcc.voaanideuoplf%26raptlep%3D75emq",
-        // fc soccor
-        "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Cec.ep%2Cfkfcmmbklg%26raptlep%3D75emq",
-      ];
-      if (iframeIdValue.includes(sessionStorage.getItem("encodedUrl"))) {
-        const nowJsScript = document.createElement("script");
-        nowJsScript.src = "/assets/uv/now.js";
-        document.head.appendChild(nowJsScript);
-        console.log("Now.js has been loaded");
-      }
-      const reloadButton = document.getElementById("reload-button");
-      reloadButton.addEventListener("click", function () {
-        document.getElementById("iframeId").contentWindow.location.reload(); // Prevents site.com/#xyz from not working
-        // Timeout
-        reloadButton.disabled = true;
-        setTimeout(function () {
-          reloadButton.disabled = false;
-        }, 3000);
-      });
-
-      const fullscreenButton = document.getElementById("fullscreen-button");
-      fullscreenButton.addEventListener("click", function () {
-        if (!document.fullscreenElement) {
-          document.documentElement.requestFullscreen();
-        } else {
-          document.exitFullscreen();
-        }
-      });
-
-      const homeButton = document.getElementById("home-page");
-      homeButton.addEventListener("click", function () {
-        window.location.href = "./";
-      });
-      const bookmarkletButton = document.getElementById("bookmarklet-button");
-      bookmarkletButton.addEventListener("click", function () {
-        const bookmarklet = prompt("Bookmarklet:");
-        if (bookmarklet) {
-          const iframe = document.getElementById("iframeId");
-          const iframeDoc =
-            iframe.contentDocument || iframe.contentWindow.document;
-          const script = iframeDoc.createElement("script");
-          script.textContent = decodeURIComponent(bookmarklet);
-          iframeDoc.head.appendChild(script);
-        }
-      });
-
-      window.addEventListener("load", function () {
-        let encodedUrl = sessionStorage.getItem("encodedUrl");
-        encodedUrl = "/assets/uv/service/" + encodedUrl;
-        console.log(encodedUrl);
-
-        let iframe = document.querySelector("#iframeid");
-        iframe.src = encodedUrl;
-      });
-    </script>
   </body>
+  <script>
+    // roblox
+    const iframeIdValue = [
+      "hvtrs8%2F-nmweg%2Cnn%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Crmbnoz.alkelt%24pcrvngr%3F57gos",
+      // andriod
+      "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Culcwbg.nawnahgr1%26raptlep%3D75emq",
+      // genshin
+      "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2CmkHmYm.EelsjilIopccv%26raptlep%3D75emq",
+      //fortnite
+      "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Ceriagcmgs%2Cfmrvnktg%26raptlep%3D75emq",
+      //melon
+      "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Csvufim25.OenolPna%7Bgpownf%26raptlep%3D75EMQ",
+      //crc
+      "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Cdgvqiqtgrq.ak%24pcrvngr%3F57gos",
+      //toca
+      "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Ctmccbmcc.voaanideuoplf%26raptlep%3D75emq",
+      // fc soccor
+      "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Cec.ep%2Cfkfcmmbklg%26raptlep%3D75emq",
+    ];
+    if (iframeIdValue.includes(sessionStorage.getItem("encodedUrl"))) {
+      const nowJsScript = document.createElement("script");
+      nowJsScript.src = "/assets/uv/now.js";
+      document.head.appendChild(nowJsScript);
+      console.log("Now.js has been loaded");
+    }
+    const reloadButton = document.getElementById("reload-button");
+    reloadButton.addEventListener("click", function () {
+      document.getElementById("iframeid").contentWindow.location.reload(); // Prevents site.com/#xyz from not working
+      // Timeout
+      reloadButton.disabled = true;
+      setTimeout(function () {
+        reloadButton.disabled = false;
+      }, 3000);
+    });
+
+    const fullscreenButton = document.getElementById("fullscreen-button");
+    fullscreenButton.addEventListener("click", function () {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    });
+
+    const homeButton = document.getElementById("home-page");
+    homeButton.addEventListener("click", function () {
+      window.location.href = "./";
+    });
+    const bookmarkletButton = document.getElementById("bookmarklet-button");
+    bookmarkletButton.addEventListener("click", function () {
+      const bookmarklet = prompt("Bookmarklet:");
+      if (bookmarklet) {
+        const iframe = document.getElementById("iframeid");
+        const iframeDoc =
+          iframe.contentDocument || iframe.contentWindow.document;
+        const script = iframeDoc.createElement("script");
+        script.textContent = decodeURIComponent(bookmarklet);
+        iframeDoc.head.appendChild(script);
+      }
+    });
+    function skipAd() {
+      const iframe = document.getElementById("iframeid");
+      if (!iframe) return;
+
+      while (
+        iframe.contentDocument.getElementsByClassName("video-ads")[0]
+          .innerHTML !== ""
+      ) {
+        var bannerClosed = false;
+
+        for (
+          var i = 0;
+          i <
+          iframe.contentDocument.getElementsByClassName(
+            "ytp-ad-overlay-close-button"
+          ).length;
+          i++
+        ) {
+          iframe.contentDocument
+            .getElementsByClassName("ytp-ad-overlay-close-button")
+            [i].click();
+          bannerClosed = true;
+        }
+
+        if (!bannerClosed) {
+          var mainVideo =
+            iframe.contentDocument.getElementsByClassName(
+              "html5-main-video"
+            )[0];
+          mainVideo.currentTime = mainVideo.duration;
+          iframe.contentDocument
+            .getElementsByClassName("ytp-ad-skip-button")[0]
+            .click();
+        }
+      }
+    }
+    window.addEventListener("load", function () {
+      let encodedUrl = sessionStorage.getItem("encodedUrl");
+      encodedUrl = "/assets/uv/service/" + encodedUrl;
+      console.log(encodedUrl);
+
+      let iframe = document.querySelector("#iframeid");
+      if (iframe) {
+        iframe.src = encodedUrl;
+      } else {
+        console.error('Iframe with id "iframeid" does not exist');
+      }
+    });
+  </script>
 </html>
