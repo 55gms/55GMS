@@ -1,10 +1,10 @@
 window.addEventListener("load", (event) => {
-  fetch("/assets/quotes.json")
+  fetch("/assets/json/quotes.json")
     .then((response) => response.json())
     .then((data) => {
       const totalFrequency = data.reduce(
         (acc, item) => acc + item.frequency,
-        0,
+        0
       );
       const rng = Math.random() * totalFrequency;
 

@@ -60,30 +60,18 @@
     </button>
   </body>
   <script>
-    // roblox
-    const iframeIdValue = [
-      "hvtrs8%2F-nmweg%2Cnn%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Crmbnoz.alkelt%24pcrvngr%3F57gos",
-      // andriod
-      "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Culcwbg.nawnahgr1%26raptlep%3D75emq",
-      // genshin
-      "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2CmkHmYm.EelsjilIopccv%26raptlep%3D75emq",
-      //fortnite
-      "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Ceriagcmgs%2Cfmrvnktg%26raptlep%3D75emq",
-      //melon
-      "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Csvufim25.OenolPna%7Bgpownf%26raptlep%3D75EMQ",
-      //crc
-      "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Cdgvqiqtgrq.ak%24pcrvngr%3F57gos",
-      //toca
-      "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Ctmccbmcc.voaanideuoplf%26raptlep%3D75emq",
-      // fc soccor
-      "hvtrs8%2F-nmw%2Cge%2Fkfpaoe-slirpgt%3Darp%5Dpig%3Fcmm%2Cec.ep%2Cfkfcmmbklg%26raptlep%3D75emq",
-    ];
-    if (iframeIdValue.includes(sessionStorage.getItem("encodedUrl"))) {
-      const nowJsScript = document.createElement("script");
-      nowJsScript.src = "/assets/uv/now.js";
-      document.head.appendChild(nowJsScript);
-      console.log("Now.js has been loaded");
-    }
+    fetch("/assets/json/nowgg.json")
+      .then((response) => response.json())
+      .then((data) => {
+        const iframeIdValue = data;
+        if (iframeIdValue.includes(sessionStorage.getItem("encodedUrl"))) {
+          const nowJsScript = document.createElement("script");
+          nowJsScript.src = "/assets/uv/now.js";
+          document.head.appendChild(nowJsScript);
+          console.log("Now.js has been loaded");
+        }
+      })
+      .catch((error) => console.error("Error:", error));
     const reloadButton = document.getElementById("reload-button");
     reloadButton.addEventListener("click", function () {
       document.getElementById("iframeid").contentWindow.location.reload(); // Prevents site.com/#xyz from not working
