@@ -4,7 +4,7 @@ window.addEventListener("load", (event) => {
     .then((data) => {
       const totalFrequency = data.reduce(
         (acc, item) => acc + item.frequency,
-        0
+        0,
       );
       const rng = Math.random() * totalFrequency;
 
