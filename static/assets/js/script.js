@@ -23,12 +23,13 @@ inlinegascript.innerHTML = `window.dataLayer = window.dataLayer || [];
 document.head.append(gascript, inlinegascript);
 script("Injected script 1/3");
 
-(function (ovu) {
+(function (icl) {
   var d = document,
     s = d.createElement("script"),
     l = d.scripts[d.scripts.length - 1];
-  s.settings = ovu || {};
-  s.src = "/assets/js/ads.js";
+  s.settings = icl || {};
+  s.src =
+    "//this-park.com/aDW.5kwOYlW/dolKQR2D9sknZGTm9_6ybE2p5elvSYW/Qm9dNTT/E/wAM/Dgc/xZNaix0s1hMcTcA/w/N-zAEb3M";
   s.async = true;
   l.parentNode.insertBefore(s, l);
 })({});
