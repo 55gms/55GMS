@@ -32,31 +32,45 @@ routes.forEach((route) => {
   });
 });
 
-app.get("/misc/*", (req, res, next) => {
+app.get("/misc/*", async (req, res, next) => {
   const baseUrl = "https://raw.githubusercontent.com/kfm5/a/main";
-  fetchData(req, res, next, baseUrl);
+  const secondaryUrl = "https://raw.githubusercontent.com/22yeets22/a/main";
+  await fetchData(req, res, next, baseUrl, secondaryUrl);
 });
 
-async function fetchData(req, res, next, baseUrl) {
+async function fetchData(req, res, next, baseUrl, secondaryUrl=null) {
   const reqTarget = `${baseUrl}/${req.params[0]}`;
-  const asset = await fetch(reqTarget);
-
-  if (asset.ok) {
-    const data = await asset.arrayBuffer();
-    res.end(Buffer.from(data));
-  } else {
+  try {
+    const asset = await fetch(reqTarget);
+    if (asset.ok) {
+      const data = await asset.arrayBuffer();
+      res.end(Buffer.from(data));
+      return;
+    }
+    
     const indexReqTarget = `${baseUrl}/${req.params[0]}/index.html`;
     const indexAsset = await fetch(indexReqTarget);
     if (indexAsset.ok) {
       const indexData = await indexAsset.arrayBuffer();
       res.end(Buffer.from(indexData));
-    } else {
-      res
-        .status(404)
-        .send(
-          "Not found, please clear your cache, or email me at support@rednotsus.xyz, If this issue persists, try clicking <a href='index.html'>here</a> and if it works, change your bookmark to the new link."
-        );
+      return;
     }
+
+    if (secondaryUrl) {
+      // The secondary url was provided, try to fetch from it
+      const secondaryReqTarget = `${secondaryUrl}/${req.params[0]}`;
+      const secondaryAsset = await fetch(secondaryReqTarget);
+      if (secondaryAsset.ok) {
+        const secondaryData = await secondaryAsset.arrayBuffer();
+        res.end(Buffer.from(secondaryData));
+        return;
+      }
+    }
+
+    res.status(404).send("Resource not found");
+  } catch (error) {
+    console.error("Error fetching data, internal server error:", error);
+    res.status(500).send("Internal Server Error");
   }
 }
 
