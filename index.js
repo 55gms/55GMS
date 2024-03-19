@@ -38,7 +38,7 @@ app.get("/misc/*", async (req, res, next) => {
   await fetchData(req, res, next, baseUrl, secondaryUrl);
 });
 
-async function fetchData(req, res, next, baseUrl, secondaryUrl=null) {
+async function fetchData(req, res, next, baseUrl, secondaryUrl = null) {
   const reqTarget = `${baseUrl}/${req.params[0]}`;
   try {
     const asset = await fetch(reqTarget);
@@ -47,7 +47,7 @@ async function fetchData(req, res, next, baseUrl, secondaryUrl=null) {
       res.end(Buffer.from(data));
       return;
     }
-    
+
     const indexReqTarget = `${baseUrl}/${req.params[0]}/index.html`;
     const indexAsset = await fetch(indexReqTarget);
     if (indexAsset.ok) {
