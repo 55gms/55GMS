@@ -85,9 +85,9 @@ app.get("/*", function (req, res) {
 });
 
 server.on("listening", () => {
-  console.log(`Running at http://localhost:8080`);
+  console.log(`Running at http://localhost:8000`);
 });
 
 server.listen({
-  port: 8080,
+  port: 8000,
 });
