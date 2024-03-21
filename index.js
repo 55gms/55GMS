@@ -39,23 +39,30 @@ app.get("/misc/*", async (req, res, next) => {
 });
 
 async function fetchData(req, res, next, baseUrl, secondaryUrl = null) {
-  const reqTarget = `${baseUrl}/${req.params[0]}`;
+  function hasFileExtension(urlString) {
+    const lastPathComponent = urlString.split('/').pop();
+    return lastPathComponent.includes('.');
+  }
+  
   try {
-    const asset = await fetch(reqTarget);
-    if (asset.ok) {
-      const data = await asset.arrayBuffer();
-      res.end(Buffer.from(data));
-      return;
+    if (hasFileExtension(req.params[0])) {
+      const reqTarget = `${baseUrl}/${req.params[0]}`;
+      const asset = await fetch(reqTarget);
+      if (asset.ok) {
+        const data = await asset.arrayBuffer();
+        res.end(Buffer.from(data));
+        return;
+      }
+    } else {
+      const indexReqTarget = `${baseUrl}/${req.params[0]}/index.html`;
+      const indexAsset = await fetch(indexReqTarget);
+      if (indexAsset.ok) {
+        const indexData = await indexAsset.arrayBuffer();
+        res.end(Buffer.from(indexData));
+        return;
+      }
     }
-
-    const indexReqTarget = `${baseUrl}/${req.params[0]}/index.html`;
-    const indexAsset = await fetch(indexReqTarget);
-    if (indexAsset.ok) {
-      const indexData = await indexAsset.arrayBuffer();
-      res.end(Buffer.from(indexData));
-      return;
-    }
-
+  
     if (secondaryUrl) {
       // The secondary url was provided, try to fetch from it
       const secondaryReqTarget = `${secondaryUrl}/${req.params[0]}`;
