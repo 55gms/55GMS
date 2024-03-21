@@ -1,5 +1,5 @@
 window.addEventListener("load", (event) => {
-  fetch("/assets/static/motd.json")
+  fetch("/assets/static/json/motd.json")
     .then((response) => response.json())
     .then((data) => {
       document.getElementById("motd").onclick = function () {
