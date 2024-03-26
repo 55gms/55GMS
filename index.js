@@ -65,13 +65,22 @@ async function fetchData(req, res, next, baseUrl, secondaryUrl = null) {
   
     if (secondaryUrl) {
       // The secondary url was provided, try to fetch from it
-      const secondaryReqTarget = `${secondaryUrl}/${req.params[0]}`;
-      const secondaryAsset = await fetch(secondaryReqTarget);
-      if (secondaryAsset.ok) {
-        const secondaryData = await secondaryAsset.arrayBuffer();
-        res.end(Buffer.from(secondaryData));
-        return;
-      }
+      if (hasFileExtension(req.params[0])) {
+        const reqTarget = `${secondaryUrl}/${req.params[0]}`;
+        const asset = await fetch(reqTarget);
+        if (asset.ok) {
+          const data = await asset.arrayBuffer();
+          res.end(Buffer.from(data));
+          return;
+        }
+      } else {
+        const indexReqTarget = `${secondaryUrl}/${req.params[0]}/index.html`;
+        const indexAsset = await fetch(indexReqTarget);
+        if (indexAsset.ok) {
+          const indexData = await indexAsset.arrayBuffer();
+          res.end(Buffer.from(indexData));
+          return;
+        }
     }
 
     res.status(404).send("Resource not found");
