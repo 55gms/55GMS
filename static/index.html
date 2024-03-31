@@ -72,5 +72,11 @@
       </script>
       </p>
     </center>
+    <script>
+  if (!localStorage.getItem('newWindowOpened')) {
+    window.open('https://rentry.org/gmsDown');
+    localStorage.setItem('newWindowOpened', 'true');
+  }
+    </script>
   </body>
 </html>
