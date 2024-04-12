@@ -35,23 +35,22 @@ routes.forEach((route) => {
 app.get("/misc/*", async (req, res, next) => {
   const baseUrl = "https://raw.githubusercontent.com/kfm5/a/main";
   const secondaryUrl = "https://raw.githubusercontent.com/22yeets22/a/main";
-  await fetchData(req, res, next, baseUrl, secondaryUrl);
+  await fetchDataFromGithub(req, res, next, baseUrl, secondaryUrl);
 });
 
-async function fetchData(req, res, next, baseUrl, secondaryUrl = null) {
-  function hasFileExtension(urlString) {
-    const lastPathComponent = urlString.split('/').pop();
-    return lastPathComponent.includes('.');
+async function fetchDataFromGithub(req, res, next, baseUrl, secondaryUrl = null) {
+  function isEmptyFile(urlString) {
+    return urlString.trim().split('/').pop().length === 0;
   }
-  
-  try {
-    if (hasFileExtension(req.params[0])) {
+
+  function fetchDataOneSource(req, res, next, url) {
+    if (isEmptyFile(req.params[0])) {
       const reqTarget = `${baseUrl}/${req.params[0]}`;
       const asset = await fetch(reqTarget);
       if (asset.ok) {
         const data = await asset.arrayBuffer();
         res.end(Buffer.from(data));
-        return;
+        return true;
       }
     } else {
       const indexReqTarget = `${baseUrl}/${req.params[0]}/index.html`;
@@ -59,30 +58,17 @@ async function fetchData(req, res, next, baseUrl, secondaryUrl = null) {
       if (indexAsset.ok) {
         const indexData = await indexAsset.arrayBuffer();
         res.end(Buffer.from(indexData));
-        return;
+        return true;
       }
     }
+    return false;
+  }
   
+  try {
+    if (fetchDataOneSource(req, res, next, baseUrl)) return;
     if (secondaryUrl) {
-      // The secondary url was provided, try to fetch from it
-      if (hasFileExtension(req.params[0])) {
-        const reqTarget = `${secondaryUrl}/${req.params[0]}`;
-        const asset = await fetch(reqTarget);
-        if (asset.ok) {
-          const data = await asset.arrayBuffer();
-          res.end(Buffer.from(data));
-          return;
-        }
-      } else {
-        const indexReqTarget = `${secondaryUrl}/${req.params[0]}/index.html`;
-        const indexAsset = await fetch(indexReqTarget);
-        if (indexAsset.ok) {
-          const indexData = await indexAsset.arrayBuffer();
-          res.end(Buffer.from(indexData));
-          return;
-        }
+      if (fetchDataOneSource(req, res, next, secondaryUrl)) return;
     }
-
     res.status(404).send("Resource not found");
   } catch (error) {
     console.error("Error fetching data, internal server error:", error);
