@@ -38,7 +38,13 @@ app.get("/misc/*", async (req, res, next) => {
   await fetchDataFromGithub(req, res, next, baseUrl, secondaryUrl);
 });
 
-async function fetchDataFromGithub(req, res, next,baseUrl, secondaryUrl = null) {
+async function fetchDataFromGithub(
+  req,
+  res,
+  next,
+  baseUrl,
+  secondaryUrl = null,
+) {
   function isAFile(urlString) {
     return urlString.trim().split("/").pop().length !== 0;
   }
