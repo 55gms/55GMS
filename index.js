@@ -38,19 +38,13 @@ app.get("/misc/*", async (req, res, next) => {
   await fetchDataFromGithub(req, res, next, baseUrl, secondaryUrl);
 });
 
-async function fetchDataFromGithub(
-  req,
-  res,
-  next,
-  baseUrl,
-  secondaryUrl = null
-) {
-  function isEmptyFile(urlString) {
-    return urlString.trim().split("/").pop().length === 0;
+async function fetchDataFromGithub(req, res, next,baseUrl, secondaryUrl = null) {
+  function isAFile(urlString) {
+    return urlString.trim().split("/").pop().length !== 0;
   }
 
   async function fetchDataOneSource(req, res, next, url) {
-    if (isEmptyFile(req.params[0])) {
+    if (isAFile(req.params[0])) {
       const reqTarget = `${url}/${req.params[0]}`;
       const asset = await fetch(reqTarget);
       if (asset.ok) {
@@ -73,7 +67,7 @@ async function fetchDataFromGithub(
   try {
     if (await fetchDataOneSource(req, res, next, baseUrl)) return;
     if (secondaryUrl) {
-      if (fetchDataOneSource(req, res, next, secondaryUrl)) return;
+      if (await fetchDataOneSource(req, res, next, secondaryUrl)) return;
     }
     res.status(404).send("Resource not found");
   } catch (error) {
