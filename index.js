@@ -32,31 +32,47 @@ routes.forEach((route) => {
   });
 });
 
-app.get("/misc/*", (req, res, next) => {
+app.get("/misc/*", async (req, res, next) => {
   const baseUrl = "https://raw.githubusercontent.com/kfm5/a/main";
-  fetchData(req, res, next, baseUrl);
+  const secondaryUrl = "https://raw.githubusercontent.com/22yeets22/a/main";
+  await fetchDataFromGithub(req, res, next, baseUrl, secondaryUrl);
 });
 
-async function fetchData(req, res, next, baseUrl) {
-  const reqTarget = `${baseUrl}/${req.params[0]}`;
-  const asset = await fetch(reqTarget);
+async function fetchDataFromGithub(req, res, next,baseUrl, secondaryUrl = null) {
+  function isAFile(urlString) {
+    return urlString.trim().split("/").pop().length !== 0;
+  }
 
-  if (asset.ok) {
-    const data = await asset.arrayBuffer();
-    res.end(Buffer.from(data));
-  } else {
-    const indexReqTarget = `${baseUrl}/${req.params[0]}/index.html`;
-    const indexAsset = await fetch(indexReqTarget);
-    if (indexAsset.ok) {
-      const indexData = await indexAsset.arrayBuffer();
-      res.end(Buffer.from(indexData));
+  async function fetchDataOneSource(req, res, next, url) {
+    if (isAFile(req.params[0])) {
+      const reqTarget = `${url}/${req.params[0]}`;
+      const asset = await fetch(reqTarget);
+      if (asset.ok) {
+        const data = await asset.arrayBuffer();
+        res.end(Buffer.from(data));
+        return true;
+      }
     } else {
-      res
-        .status(404)
-        .send(
-          "Not found, please clear your cache, or email me at support@rednotsus.xyz, If this issue persists, try clicking <a href='index.html'>here</a> and if it works, change your bookmark to the new link."
-        );
+      const indexReqTarget = `${url}/${req.params[0]}/index.html`;
+      const indexAsset = await fetch(indexReqTarget);
+      if (indexAsset.ok) {
+        const indexData = await indexAsset.arrayBuffer();
+        res.end(Buffer.from(indexData));
+        return true;
+      }
     }
+    return false;
+  }
+
+  try {
+    if (await fetchDataOneSource(req, res, next, baseUrl)) return;
+    if (secondaryUrl) {
+      if (await fetchDataOneSource(req, res, next, secondaryUrl)) return;
+    }
+    res.status(404).send("Resource not found");
+  } catch (error) {
+    console.error("Error fetching data, internal server error:", error);
+    res.status(500).send("Internal Server Error");
   }
 }
 
