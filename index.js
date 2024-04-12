@@ -38,14 +38,20 @@ app.get("/misc/*", async (req, res, next) => {
   await fetchDataFromGithub(req, res, next, baseUrl, secondaryUrl);
 });
 
-async function fetchDataFromGithub(req, res, next, baseUrl, secondaryUrl = null) {
+async function fetchDataFromGithub(
+  req,
+  res,
+  next,
+  baseUrl,
+  secondaryUrl = null
+) {
   function isEmptyFile(urlString) {
-    return urlString.trim().split('/').pop().length === 0;
+    return urlString.trim().split("/").pop().length === 0;
   }
 
-  function fetchDataOneSource(req, res, next, url) {
+  async function fetchDataOneSource(req, res, next, url) {
     if (isEmptyFile(req.params[0])) {
-      const reqTarget = `${baseUrl}/${req.params[0]}`;
+      const reqTarget = `${url}/${req.params[0]}`;
       const asset = await fetch(reqTarget);
       if (asset.ok) {
         const data = await asset.arrayBuffer();
@@ -53,7 +59,7 @@ async function fetchDataFromGithub(req, res, next, baseUrl, secondaryUrl = null)
         return true;
       }
     } else {
-      const indexReqTarget = `${baseUrl}/${req.params[0]}/index.html`;
+      const indexReqTarget = `${url}/${req.params[0]}/index.html`;
       const indexAsset = await fetch(indexReqTarget);
       if (indexAsset.ok) {
         const indexData = await indexAsset.arrayBuffer();
@@ -63,9 +69,9 @@ async function fetchDataFromGithub(req, res, next, baseUrl, secondaryUrl = null)
     }
     return false;
   }
-  
+
   try {
-    if (fetchDataOneSource(req, res, next, baseUrl)) return;
+    if (await fetchDataOneSource(req, res, next, baseUrl)) return;
     if (secondaryUrl) {
       if (fetchDataOneSource(req, res, next, secondaryUrl)) return;
     }
