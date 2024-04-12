@@ -20,7 +20,7 @@
   width: fill;
   margin: 15px;
   z-index: 100;
-  position: static;
+  position: fixed;
   color: #ffffff;
   padding: 10px;
   display: flex;
