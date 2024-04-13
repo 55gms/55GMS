@@ -82,3 +82,14 @@ fetch("/assets/static/ads.json")
       console.log("Skipping Adsense Injection for this domain.");
     }
   });
+
+// key
+var panicKey = localStorage.getItem("panicKey") || "`";
+var panicLink =
+  localStorage.getItem("PanicLink") || "https://canvas.houstonisd.org/";
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === panicKey) {
+    window.location.href = panicLink;
+  }
+});

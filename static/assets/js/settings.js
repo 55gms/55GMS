@@ -139,3 +139,22 @@ function resetTab() {
   document.getElementById("icon").value = "";
   localStorage.setItem("tab", JSON.stringify({}));
 }
+
+var panicKey = localStorage.getItem("panicKey") || "`";
+var panicLink =
+  localStorage.getItem("PanicLink") || "https://canvas.houstonisd.org/";
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("key").value = panicKey;
+  document.getElementById("link").value = panicLink;
+});
+
+function setPanicKey() {
+  var key = document.getElementById("key").value;
+  localStorage.setItem("panicKey", key);
+}
+
+function setPanicLink() {
+  var link = document.getElementById("link").value;
+  localStorage.setItem("PanicLink", link);
+}
