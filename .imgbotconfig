@@ -2,7 +2,7 @@
     "schedule": "daily", // daily|weekly|monthly
     "aggressiveCompression": "true", // true|false
     "compressWiki": "true", // true|false
-    "minKBReduced": 500 // set reduction threshold (default to 10),
+    "minKBReduced": 10 // set reduction threshold (default to 10),
     "prTitle" : "Compressed images", // set pull request title
     // set the pull request body, supports any valid github markdown
     // {optimization_ratio} display a message containing the optimization ratio
