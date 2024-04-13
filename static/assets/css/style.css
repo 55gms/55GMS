@@ -28,7 +28,7 @@ main {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-family: Inter, Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
   font-size: 16px;
   border-radius: 8px;
   transition: all 0.15s ease;
@@ -53,7 +53,7 @@ main {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-family: Inter, Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
   font-size: 16px;
   border-radius: 8px;
   transition: all 0.15s ease;
@@ -71,7 +71,7 @@ main {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-family: Inter, Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
