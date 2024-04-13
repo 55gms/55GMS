@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
-
 .row {
   margin-right: auto;
   grid-gap: 2rem;
@@ -40,7 +39,7 @@
 }
 
 .title {
-  font-family: "Inter", Arial, sans-serif;
+  font-family: Arial, sans-serif;
   margin-top: 20px;
   text-align: center;
   font-weight: bold;
@@ -48,9 +47,9 @@
 }
 
 p {
-  font-family: "Inter", Arial, sans-serif;
+  font-family: Arial, sans-serif;
   margin-top: 6px;
-  font-weight: 5px;
+  font-weight: normal;
 }
 
 .tab-cloak {
@@ -58,7 +57,7 @@ p {
   background-color: #fc8585;
   border: none;
   color: rgb(248, 244, 244);
-  padding: 15px 20px;
+  padding: 10px 20px;
   margin: 3px 6px 3px 6px;
   text-align: center;
   text-decoration: none;
@@ -71,11 +70,7 @@ p {
 }
 
 .tab-cloak:hover {
-  scale: 1.1;
-}
-
-img {
-  border-radius: 5px 5px 0 0;
+  transform: scale(1.1);
 }
 
 button {
@@ -104,8 +99,9 @@ button {
   border-radius: 12px;
 }
 
-select, input {
-  font-family: "Inter", Arial, sans-serif;
+select,
+input {
+  font-family: Arial, sans-serif;
   border: none;
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
@@ -116,7 +112,8 @@ select, input {
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 8px 0 rgba(0, 0, 0, 0.15);
 }
 
-select:hover, input:hover {
+select:hover,
+input:hover {
   opacity: 0.8;
 }
 
@@ -148,7 +145,7 @@ select {
   padding: 0.5rem;
   border-radius: 0.375rem;
   color: rgb(255, 255, 255);
-  padding: 10px;
+  padding: 5px;
   text-align: center;
 }
 

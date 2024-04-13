@@ -1,31 +1,32 @@
-var cloakElement = document.getElementById("premadecloaks");
+var cloakElement;
 
-// thanks 3kh0
+document.addEventListener("DOMContentLoaded", function () {
+  cloakElement = document.getElementById("premadecloaks");
+  var cloak = cloakElement.value;
+});
+
 var tab = localStorage.getItem("tab");
 if (tab) {
-  // If there is saved data, try to parse it
   try {
     var tabData = JSON.parse(tab);
   } catch {
-    // If there is an error in parsing, create an empty object
     var tabData = {};
   }
 } else {
-  // If there is no saved data, create an empty object
   var tabData = {};
 }
 
-// Set the title and icon fields to the values saved in tabData, if they exist
-if (tabData.title) document.getElementById("title").value = tabData.title;
-if (tabData.icon) document.getElementById("icon").value = tabData.icon;
+var titleElement = document.getElementById("title");
+var iconElement = document.getElementById("icon");
 
-// Default tab settings
+if (tabData.title && titleElement) titleElement.value = tabData.title;
+if (tabData.icon && iconElement) iconElement.value = tabData.icon;
+
 var settingsDefaultTab = {
   title: "Dashboard",
   icon: "/img/canvas.ico",
 };
 
-// Function to set the document title
 function setTitle(title = "") {
   if (title) {
     document.title = title;
@@ -33,35 +34,27 @@ function setTitle(title = "") {
     document.title = settingsDefaultTab.title;
   }
 
-  // Update the saved tab data with the new title
   var tab = localStorage.getItem("tab");
 
   if (tab) {
-    // If there is saved data, try to parse it
     try {
       var tabData = JSON.parse(tab);
     } catch {
-      // If there is an error in parsing, create an empty object
       var tabData = {};
     }
   } else {
-    // If there is no saved data, create an empty object
     var tabData = {};
   }
 
   if (title) {
-    // If there is a new title, update tabData
     tabData.title = title;
   } else {
-    // If the title is empty, delete the title field from tabData
     delete tabData.title;
   }
 
-  // Save the updated tab data to localStorage
   localStorage.setItem("tab", JSON.stringify(tabData));
 }
 
-// Function to set the favicon
 function setFavicon(icon) {
   if (icon) {
     document.querySelector("link[rel='icon']").href = icon;
@@ -69,86 +62,76 @@ function setFavicon(icon) {
     document.querySelector("link[rel='icon']").href = settingsDefaultTab.icon;
   }
 
-  // Update the saved tab data with the new icon
   var tab = localStorage.getItem("tab");
 
   if (tab) {
-    // If there is saved data, try to parse it
     try {
       var tabData = JSON.parse(tab);
     } catch {
-      // If there is an error in parsing, create an empty object
       var tabData = {};
     }
   } else {
-    // If there is no saved data, create an empty object
     var tabData = {};
   }
 
   if (icon) {
-    // If there is a new icon, update tabData
     tabData.icon = icon;
   } else {
-    // If the icon is empty, delete the icon field from tabData
     delete tabData.icon;
   }
 
-  // Save the updated tab data to localStorage
   localStorage.setItem("tab", JSON.stringify(tabData));
 }
 
 function setCloak() {
-  // applies only to premade cloaks
-  var cloak = cloakElement.value; // cloak seems kind of weird when you spell it out
+  var cloak = cloakElement.value;
   switch (cloak) {
-    case "search": // Google Search
+    case "search":
       setTitle("Google");
       setFavicon("/assets/cloaks/Google Search.ico");
       break;
-    case "wikipedia": // wikipedia
+    case "wikipedia":
       setTitle("Wikipedia, the free encyclopedia");
       setFavicon("/assets/cloaks/Wikipedia.ico");
       break;
-    case "bsite": // billibilli
+    case "bsite":
       setTitle("Billibilli");
       setFavicon("/assets/cloaks/Billibilli.ico");
       break;
-    case "drive": // Google Drive
+    case "drive":
       setTitle("My Drive - Google Drive");
       setFavicon("/assets/cloaks/Google Drive.ico");
       break;
-    case "gmail": // Gmail
+    case "gmail":
       setTitle("Gmail");
       setFavicon("/assets/cloaks/Gmail.ico");
       break;
-    case "calendar": // Google Calendar
+    case "calendar":
       setTitle("Google Calendar");
       setFavicon("/assets/cloaks/Calendar.ico");
       break;
-    case "meets": // Google Meet
+    case "meets":
       setTitle("Google Meet");
       setFavicon("/assets/cloaks/Meet.ico");
       break;
-    case "classroom": // Google Classroom
+    case "classroom":
       setTitle("Classes");
       setFavicon("/assets/cloaks/Classroom.png");
       break;
-    case "canvas": // Canvas
+    case "canvas":
       setTitle("Dashboard");
       setFavicon("/assets/cloaks/Canvas.ico");
       break;
-    case "zoom": // Zoom
+    case "zoom":
       setTitle("Zoom");
       setFavicon("/assets/cloaks/Zoom.ico");
       break;
-    case "khan": // Khan Academy
+    case "khan":
       setTitle("Dashboard | Khan Academy");
       setFavicon("/assets/cloaks/Khan Academy.ico");
       break;
   }
 }
-
-// Function to reset the tab settings to default
 function resetTab() {
   document.title = "Dashboard";
   document.querySelector("link[rel='icon']").href = "/img/canvas.ico";
