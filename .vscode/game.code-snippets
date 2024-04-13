@@ -1,0 +1,14 @@
+{
+  "game": {
+    "prefix": "game",
+    "body": [
+      "  {",
+      "    \"name\": \"${1:Game}\",",
+      "    \"url\": \"${2:https://google.com}\",",
+      "    \"image\": \"${3:/img/games/}\",",
+      "    \"usesProxy\": ${4:true}",
+      "  },"
+    ],
+    "description": "game"
+  }
+}

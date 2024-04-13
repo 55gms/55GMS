@@ -60,18 +60,6 @@
     "usesProxy": false
   },
   {
-    "name": "Advance Wars",
-    "url": "/misc/emulator/games/advancewars/index.html",
-    "image": "/misc/emulator/games/advancewars/advcewrs.webp",
-    "usesProxy": false
-  },
-  {
-    "name": "Advance Wars 2",
-    "url": "/misc/emulator/games/advancewars/2/index.html",
-    "image": "/misc/emulator/games/advancewars/2/advcewrs2.webp",
-    "usesProxy": false
-  },
-  {
     "name": "Adventure Capitalist",
     "url": "https://than1089.github.io/adventure-capitalist/",
     "image": "/misc/adventure-capitalist/img.webp",
@@ -222,12 +210,6 @@
     "usesProxy": false
   },
   {
-    "name": "Bad Times Simulator",
-    "url": "https://jcw87.github.io/c2-sans-fight/",
-    "image": "/misc/bsans/icon-256.png",
-    "usesProxy": true
-  },
-  {
     "name": "Cell Machine",
     "url": "https://samhogan.itch.io/cell-machine",
     "image": "/misc/cellmachine/img.webp",
@@ -246,12 +228,6 @@
     "usesProxy": false
   },
   {
-    "name": "Connect 4",
-    "url": "/misc/emulator/games/connect4/index.html",
-    "image": "/misc/emulator/games/connect4/connect4.jpeg",
-    "usesProxy": false
-  },
-  {
     "name": "Cookie Clicker",
     "url": "/misc/cookieclicker/index.html",
     "image": "/misc/cookieclicker/clicker.jpeg",
@@ -267,18 +243,6 @@
     "name": "Cubefield",
     "url": "/misc/flash/index.html?swf=cubefield.swf",
     "image": "/misc/flash/img/cubefield.webp",
-    "usesProxy": false
-  },
-  {
-    "name": "Crash Bandicoot",
-    "url": "/misc/emulator/games/chbc/index.html",
-    "image": "/misc/emulator/games/chbc/chbc.webp",
-    "usesProxy": false
-  },
-  {
-    "name": "Crash Bandicoot 2",
-    "url": "/misc/emulator/games/cb2/index.html",
-    "image": "/misc/emulator/games/cb2/cb2.webp",
     "usesProxy": false
   },
   {
@@ -369,24 +333,6 @@
     "name": "Dread Head Parkour",
     "url": "/misc/dreadheadparkour/index.html",
     "image": "/misc/dreadheadparkour/icons/icon-128.png",
-    "usesProxy": false
-  },
-  {
-    "name": "Donkey Kong Country",
-    "url": "/misc/emulator/games/donkeykong/index.html",
-    "image": "/misc/emulator/games/donkeykong/dkc.webp",
-    "usesProxy": false
-  },
-  {
-    "name": "Donkey Kong Country 2",
-    "url": "/misc/emulator/games/donkeykong/dkc/index.html",
-    "image": "/misc/emulator/games/donkeykong/dkc/dk.webp",
-    "usesProxy": false
-  },
-  {
-    "name": "Donkey Kong KOS",
-    "url": "/misc/emulator/games/donkeykong/dkkos/index.html",
-    "image": "/misc/emulator/games/donkeykong/dkkos/dkkos.jpeg",
     "usesProxy": false
   },
   {
@@ -495,12 +441,6 @@
     "name": "Factory Balls 3",
     "url": "/misc/flash/index.html?swf=factory-balls-3.swf",
     "image": "/misc/factory-balls/1.webp",
-    "usesProxy": false
-  },
-  {
-    "name": "Fake Virus",
-    "url": "/misc/fake-virus/index.html",
-    "image": "/misc/fake-virus/icon.png",
     "usesProxy": false
   },
   {
@@ -639,12 +579,6 @@
     "name": "Fortnite (Mobile)",
     "url": "https://now.gg/iframe/snippet?app_pkg=com.epicgames.fortnite&partner=55gms",
     "image": "/img/games/fortnite.jpeg",
-    "usesProxy": true
-  },
-  {
-    "name": "Genshin Impact",
-    "url": "https://now.gg/iframe/snippet?app_pkg=com.miHoYo.GenshinImpact&partner=55gms",
-    "image": "/misc/roblos/genshin.webp",
     "usesProxy": true
   },
   {
@@ -876,12 +810,6 @@
     "usesProxy": false
   },
   {
-    "name": "Infinite Craft",
-    "url": "https://neal.fun/infinite-craft/",
-    "image": "/img/games/inf.webp",
-    "usesProxy": false
-  },
-  {
     "name": "JustFall.LOL",
     "url": "/misc/just-fall/index.html",
     "image": "/misc/just-fall/unnamed.png",
@@ -996,12 +924,6 @@
     "usesProxy": false
   },
   {
-    "name": "Minesweeper",
-    "url": "/misc/minesweeper/index.html",
-    "image": "/misc/minesweeper/img/minesweeper.png",
-    "usesProxy": false
-  },
-  {
     "name": "MK48.io",
     "url": "https://mk48.io/",
     "image": "/misc/mk48/img.png",
@@ -1071,12 +993,6 @@
     "name": "Nut Simulator",
     "url": "/misc/nutsimulator/index.html",
     "image": "/misc/nutsimulator/img.webp",
-    "usesProxy": false
-  },
-  {
-    "name": "OSU!",
-    "url": "/misc/osu/index.html",
-    "image": "/misc/osu/osu.png",
     "usesProxy": false
   },
   {
@@ -1188,12 +1104,6 @@
     "usesProxy": false
   },
   {
-    "name": "Park Out",
-    "url": "/misc/park-out/index.html",
-    "image": "/misc/park-out/img.avif",
-    "usesProxy": false
-  },
-  {
     "name": "The Password Game",
     "url": "https://neal.fun/password-game/",
     "image": "/img/games/thepasswordgame.png",
@@ -1264,12 +1174,6 @@
     "url": "https://www.247freepoker.com/",
     "image": "/misc/poker/poker.png",
     "usesProxy": true
-  },
-  {
-    "name": "PooPoo.Pro [FUN]",
-    "url": "/misc/poopoo/index.html",
-    "image": "/img/no.webp",
-    "usesProxy": false
   },
   {
     "name": "Raft Wars",
@@ -1494,12 +1398,6 @@
     "usesProxy": false
   },
   {
-    "name": "Sonic Battle",
-    "url": "/misc/sonicbattle/index.html",
-    "image": "/misc/sonicbattle/img.png",
-    "usesProxy": false
-  },
-  {
     "name": "Stickman Boost",
     "url": "/misc/stickman-boost/index.html",
     "image": "misc/stickman-boost/img.webp",
@@ -1590,24 +1488,6 @@
     "usesProxy": false
   },
   {
-    "name": "Super Mario Bros 2",
-    "url": "/misc/emulator/games/marioBros/2/index.html",
-    "image": "/misc/emulator/games/marioBros/2/2.webp",
-    "usesProxy": false
-  },
-  {
-    "name": "Super Mario Bros 3",
-    "url": "/misc/emulator/games/marioBros/3/index.html",
-    "image": "/misc/emulator/games/marioBros/3/3.webp",
-    "usesProxy": false
-  },
-  {
-    "name": "Super Mario Bros 4",
-    "url": "/misc/emulator/games/marioBros/4/index.html",
-    "image": "/misc/emulator/games/marioBros/4/img.jpeg",
-    "usesProxy": false
-  },
-  {
     "name": "Table Tennis: WT",
     "url": "/misc/tabletennisworldtour/index.html",
     "image": "/misc/tabletennisworldtour/img.jpeg",
@@ -1624,12 +1504,6 @@
     "url": "https://watchdocumentaries.com/wp-content/uploads/games/tanuki-sunset",
     "image": "/misc/Tanuki-Sunset/img.png",
     "usesProxy": true
-  },
-  {
-    "name": "Teenage Mutant Ninja Turtles",
-    "url": "/misc/emulator/games/thmt/index.html",
-    "image": "/misc/emulator/games/thmt/tmnt.webp",
-    "usesProxy": false
   },
   {
     "name": "Team Fortress 2",
@@ -1690,12 +1564,6 @@
     "url": "/misc/emulator/games/thas/index.html",
     "image": "/misc/emulator/games/thas/thas.webp",
     "usesProxy": false
-  },
-  {
-    "name": "Toss The Turtle",
-    "url": "https://toss-the-turtle.game-files.crazygames.com/ruffle/tosstheturtle.html?czyExpInstantFun=disabled&v=1.277",
-    "image": "/img/games/turtle.webp",
-    "usesProxy": true
   },
   {
     "name": "Traffic Rider",
@@ -1878,15 +1746,9 @@
     "usesProxy": false
   },
   {
-    "name": "Zelda: The Minish Cap",
-    "url": "/misc/emulator/games/zelda/minish/index.html",
-    "image": "/misc/emulator/games/zelda/minish/minish.jpeg",
-    "usesProxy": false
-  },
-  {
-    "name": "Zelda: Link to the Past",
-    "url": "/misc/emulator/games/zelda/index.html",
-    "image": "/misc/emulator/games/zelda/zelda.webp",
-    "usesProxy": false
+    "name": "GBA Games",
+    "url": "https://real-sgs.vercel.app/Tools/GBA-Emulator",
+    "image": "/img/games/gba.webp",
+    "usesProxy": true
   }
 ]
