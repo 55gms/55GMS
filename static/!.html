@@ -50,9 +50,10 @@
     <button
       id="bookmarklet-button"
       class="navbtn navbtn5"
-      title="Run a Bookmarklet"
+      title="Toggle Eruda"
+      onclick="erudaToggle()"
     >
-      <i class="fa-brands fa-js"></i>
+      <i class="fa-solid fa-code"></i>
     </button>
   </body>
   <script>
@@ -91,18 +92,27 @@
     homeButton.addEventListener("click", function () {
       window.location.href = "./";
     });
-    const bookmarkletButton = document.getElementById("bookmarklet-button");
-    bookmarkletButton.addEventListener("click", function () {
-      const bookmarklet = prompt("Bookmarklet:");
-      if (bookmarklet) {
-        const iframe = document.getElementById("iframeid");
-        const iframeDoc =
-          iframe.contentDocument || iframe.contentWindow.document;
-        const script = iframeDoc.createElement("script");
-        script.textContent = decodeURIComponent(bookmarklet);
-        iframeDoc.head.appendChild(script);
+    function erudaToggle() {
+      if (!document.getElementById("iframeid")) return;
+
+      const erudaWindow = document.getElementById("iframeid").contentWindow;
+      const erudaDocument = document.getElementById("iframeid").contentDocument;
+
+      if (!erudaWindow || !erudaDocument) return;
+
+      if (erudaWindow.eruda?._isInit) {
+        erudaWindow.eruda.destroy();
+      } else {
+        let script = erudaDocument.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/eruda";
+        script.onload = function () {
+          if (!erudaWindow) return;
+          erudaWindow.eruda.init();
+          erudaWindow.eruda.show();
+        };
+        erudaDocument.head.appendChild(script);
       }
-    });
+    }
     function skipAd() {
       const iframe = document.getElementById("iframeid");
       if (!iframe) return;
