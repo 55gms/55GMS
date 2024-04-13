@@ -145,13 +145,13 @@
     "name": "Roblox",
     "link": "https://nowgg.nl/iframe/snippet?app_pkg=com.roblox.client&partner=55gms",
     "image": "misc/roblos/rbx.jpeg",
-    "broken": "true"
+    "alert": "This app is currently not working."
   },
   {
     "name": "Spotify",
     "link": "https://open.spotify.com/",
     "image": "assets/apps/spotify.png",
-    "broken": "true"
+    "alert": "This app is currently not working."
   },
   {
     "name": "SoundCloud",

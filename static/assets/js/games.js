@@ -8,18 +8,26 @@ window.addEventListener("load", (event) => {
         let gameHtml;
         if (game.usesProxy) {
           gameHtml = `<div class="card" style="padding-top: 5px">
-          <a onclick="hire('${game.url}');">
+          <a onclick="${game.alert ? `alert('${game.alert}');` : ""} hire('${
+            game.url
+          }');">
             <div class="image-container">
-              <img loading="lazy" src="${game.image}" style="border-radius: 25px">
+              <img loading="lazy" src="${
+                game.image
+              }" style="border-radius: 25px">
               <p class="item-name">${game.name}</p>
             </div>
           </a>
         </div>`;
         } else if (!game.usesProxy) {
           gameHtml = `<div class="card" style="padding-top: 5px">
-            <a href="${game.url}" rel="noopener noreferrer">
+            <a href="${game.url}" rel="noopener noreferrer" ${
+            game.alert ? `onclick="alert('${game.alert}');"` : ""
+          }>
             <div class="image-container">
-              <img loading="lazy" src="${game.image}" style="border-radius: 25px">
+              <img loading="lazy" src="${
+                game.image
+              }" style="border-radius: 25px">
               <p class="item-name">${game.name}</p>
             </div>
           </a>
