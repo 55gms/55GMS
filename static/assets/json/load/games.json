@@ -1746,6 +1746,12 @@
     "usesProxy": false
   },
   {
+    "name": "digdig.io",
+    "url": "https://digdig.io/",
+    "image": "/img/games/digdigio.webp",
+    "usesProxy": true
+  },
+  {
     "name": "GBA Games",
     "url": "https://real-sgs.vercel.app/Tools/GBA-Emulator",
     "image": "/img/games/gba.webp",
