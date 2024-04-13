@@ -18,7 +18,7 @@ h6 {
 }
 
 #searchbar {
-  font-family: "Inter", Arial, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   padding: 15px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -31,14 +31,14 @@ h6 {
 }
 #searchbar:focus {
   width: 60%;
-  border: 2px solid #555;
+  border: 1px solid #555;
   border-radius: 8px;
 }
 
 ::placeholder {
   font-family: "Inter", Arial, sans-serif;
   color: var(--textcolor);
-  opacity: 0.4; /* Firefox */
+  opacity: 0.6; /* Firefox */
   /* center the placeholder */
   text-align: center;
 }
@@ -71,9 +71,6 @@ img {
   transition: 0.2s;
 }
 
-body {
-  background-color: #5e7594;
-}
 /* Existing styles */
 
 .image-container {
