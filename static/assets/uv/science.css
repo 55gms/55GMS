@@ -1,34 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+
 .form__input {
-  top: -15vh;
-  padding: 1vw;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  top: 50%;
   width: 50%;
-  position: relative;
-  border-radius: 5px;
-  background: #7a8fab;
-  text-align: center;
-  font-size: 24px;
+  padding: 1vw;
   border: none;
+  border-radius: 10px;
+  text-align: center;
   outline: none;
   color: white;
-  transition: 0.2s;
   margin: 0;
   position: absolute;
-  top: 50%;
   left: 50%;
+  transition: 0.5s;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
 
 .form__input::placeholder {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-size: 16px;
   color: #aaa;
   text-align: center;
+  opacity: 0.4;
 }
 
 .form_input:hover {
-  scale: 1.2;
+  width: 53%;
 }
 
 .form__input:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  width: 60%;
 }

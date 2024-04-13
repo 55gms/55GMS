@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
-  <meta http-equiv="Cache-control" content="public">
+<html lang="en">
   <head>
     <title>Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-control" content="public">
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=2" />
     <script src="/assets/js/settings.js"></script>
@@ -13,107 +13,107 @@
     <script src="/assets/js/easteregg.min.js" async></script>
     <script src="/assets/js/script.js?v=4"></script>
   </head>
-  </script>
 
   <body>
-   <nav>
+    <nav>
        <div class="navbar">
-           <a class="title" href="/">Reds Exploit Corner</a>
-           <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
-           <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
-           <a href="/-"><i class="fa-solid fa-code">&nbsp;</i>Exploits</a>
-           <a href="/p"><i class="fa-solid fa-magnifying-glass">&nbsp;</i>Search</a>
-           <a href="/e"><i class="fa-solid fa-robot"></i>&nbsp;</i>AI</a>
-           <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
+         <a class="title" href="/">Reds Exploit Corner</a>
+         <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
+         <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
+         <a href="/-"><i class="fa-solid fa-code">&nbsp;</i>Exploits</a>
+         <a href="/p"><i class="fa-solid fa-magnifying-glass">&nbsp;</i>Search</a>
+         <a href="/e"><i class="fa-solid fa-robot"></i>&nbsp;</i>AI</a>
+         <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
        </div>
-   </nav>
+    </nav>
     <h1 style="text-align: center">Settings</h1>
-  <body>
-    <center>
-    <div class="row">
-      <div class="card">
-        <div class="container">
-          <div class="title">
-            <h4><b>About:Blank Cloaking</b></h4>
+    
+    <br><br>
+    <div style="text-align: center">
+      <div class="row">
+        <div class="card">
+          <div class="container">
+            <div class="title">
+              <h4><b>About:Blank Cloaking</b></h4>
+            </div>
+            <br>
+            <div>
+              <button onclick="cloak()" class="cloak center-global tab-cloak tabcloak">Enable</button>
+            </div>
           </div>
-          <br>
+        </div>
+        <div class="card">
+          <div class="container">
+            <div class="title">
+              <h4><b>Tab Cloaker</b></h4>
+            </div>
+            <form>
+              <input class="tab-cloaker-form" type="text" id="icon" placeholder="Title" onkeyup="setTitle(this.value)" name="icon">
+              <input class="tab-cloaker-form" type="text" id="name" name="name" placeholder="Icon" onkeyup="setFavicon(this.value.trim())">
+            </form>
+          </div>
+        </div>
+        <div class="card">
+          <div class="container">
+            <div class="title">
+              <h4><b>Tab Cloaker</b></h4>
+            </div>
+            <p>Choose a premade Cloak</p><br>
+          </div>
           <div>
-            <button onclick="cloak()" class="cloak center-global tab-cloak tabcloak">Enable</button>
+            <select name="Readymade Cloaks" id="premadecloaks" title="Cloaks">
+              <option value="bsite">BilliBilli</option>
+              <option value="calendar">Google Calendar</option>
+              <option value="canvas" selected>Canvas</option>
+              <option value="deltamath">Deltamath</option>
+              <option value="ed">Edpuzzle</option>
+              <option value="classroom">Google Classroom</option>
+              <option value="drive">Google Drive</option>
+              <option value="gmail">Gmail</option>
+              <option value="itchio">Itch.io</option>
+              <option value="khan">Khan Academy</option>
+              <option value="meets">Google Meet</option>
+              <option value="search">Google Search</option>
+              <option value="wikipedia">Wikipedia</option>
+              <option value="zoom">Zoom</option>
+            </select>
+            <br><button class="center-global tab-cloak tabcloak" onclick="setCloak();">Set</button>
+            <button class="center-global tab-cloak tabcloak" onclick="resetTab();">Reset</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="container">
+            <div class="title">
+              <h4><b>Panic System</b></h4>
+            </div>
+            <form>
+              <input class="tab-cloaker-form" type="text" id="key" placeholder="Panic Key" onkeyup="setPanicKey()" name="icon">
+              <input class="tab-cloaker-form" type="text" id="link" name="name" placeholder="Panic Link" onkeyup="setPanicLink()">
+            </form>
+          </div>
+        </div>
+        <div class="card">
+          <div class="container">
+            <div class="title">
+              <h4><b>Site Info</b></h4>
+            </div>
+            <p id="updated">Last Updated: </p>
+            <p>Version: 2.1.0<br>Join the discord for more unblocked links and support!<br><a href="https://discord.gg/vV7mkcPhMy">https://discord.gg/vV7mkcPhMy</a></p>
           </div>
         </div>
       </div>
-      <div class="card">
-        <div class="container">
-          <div class="title">
-            <h4><b>Tab Cloaker</b></h4>
-          </div>
-          <form>
-            <input class="tab-cloaker-form" type="text" id="icon" placeholder="Title" onkeyup="setTitle(this.value)" name="icon">
-            <input class="tab-cloaker-form" type="text" id="name" name="name" placeholder="Icon" onkeyup="setFavicon(this.value.trim())">
-          </form>
-        </div>
-      </div>
-      <div class="card">
-        <div class="container">
-          <div class="title">
-            <h4><b>Tab Cloaker</b></h4>
-          </div>
-          <p>Choose a premade Cloak</p><br>
-        </div>
-        <div>
-          <select name="Readymade Cloaks" id="premadecloaks" title="Cloaks">
-            <option value="bsite">BilliBilli</option>
-            <option value="calendar">Google Calendar</option>
-            <option value="canvas" selected>Canvas</option>
-            <option value="deltamath">Deltamath</option>
-            <option value="ed">Edpuzzle</option>
-            <option value="classroom">Google Classroom</option>
-            <option value="drive">Google Drive</option>
-            <option value="gmail">Gmail</option>
-            <option value="itchio">Itch.io</option>
-            <option value="khan">Khan Academy</option>
-            <option value="meets">Google Meet</option>
-            <option value="search">Google Search</option>
-            <option value="wikipedia">Wikipedia</option>
-            <option value="zoom">Zoom</option>
-          </select>
-          <br><button class="center-global tab-cloak tabcloak" onclick="setCloak();">Set</button>
-          <button class="center-global tab-cloak tabcloak" onclick="resetTab();">Reset</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="container">
-          <div class="title">
-            <h4><b>Panic System</b></h4>
-          </div>
-          <form>
-            <input class="tab-cloaker-form" type="text" id="key" placeholder="Panic Key" onkeyup="setPanicKey()" name="icon">
-            <input class="tab-cloaker-form" type="text" id="link" name="name" placeholder="Panic Link" onkeyup="setPanicLink()">
-          </form>
-        </div>
-      </div>
-      <div class="card">
-        <div class="container">
-          <div class="title">
-            <h4><b>Site Info</b></h4>
-          </div>
-          <p id="updated">Last Updated: </p>
-          <p>Version: 2.1.0<br>Join the discord for more unblocked links and support!<br><a href="https://discord.gg/vV7mkcPhMy">https://discord.gg/vV7mkcPhMy</a></p>
-        </div>
-      </div>
+    </div>
 
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317"
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317"
      crossorigin="anonymous"></script>
-<!-- games -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6700774525685317"
-     data-ad-slot="5324022054"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-    </center>
-  </body>
-  </html>
+    <!-- games -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-6700774525685317"
+         data-ad-slot="5324022054"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</html>
