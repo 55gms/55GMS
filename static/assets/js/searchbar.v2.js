@@ -1,6 +1,6 @@
 function search() {
   let e = document.getElementById("searchbar").value.toLowerCase();
-  let n = document.getElementsByClassName("animals");
+  let n = document.getElementsByClassName("card");
   for (let t = 0; t < n.length; t++)
     n[t].innerHTML.toLowerCase().includes(e)
       ? (n[t].style.display = "block")
@@ -25,5 +25,5 @@ document.addEventListener("keydown", function (e) {
 
   let searchbar = document.getElementById("searchbar");
   searchbar.focus();
-  if (c.toLowerCase() != c.toUpperCase()) searchbar.value += e.key;
+  if (e.toLowerCase() != e.toUpperCase()) searchbar.value += e.key;
 });
