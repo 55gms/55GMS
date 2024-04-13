@@ -85,6 +85,7 @@ function setFavicon(icon) {
 
 function setCloak() {
   var cloak = cloakElement.value;
+
   switch (cloak) {
     case "search":
       setTitle("Google");
@@ -129,6 +130,18 @@ function setCloak() {
     case "khan":
       setTitle("Dashboard | Khan Academy");
       setFavicon("/assets/cloaks/Khan Academy.ico");
+      break;
+    case "itchio":
+      setTitle("Download the latest indie games - itch.io");
+      setFavicon("/assets/cloaks/itchio.ico");
+      break;
+    case "deltamath":
+      setTitle("Deltamath Student Application");
+      setFavicon("/assets/cloaks/deltamath.png");
+      break;
+    case "ed":
+      setTitle("Edpuzzle");
+      setFavicon("/assets/cloaks/edpuzzle.png");
       break;
   }
 }
