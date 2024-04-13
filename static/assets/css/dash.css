@@ -25,3 +25,28 @@
   transform: scale(0.8);
   border-radius: 12px;
 }
+
+.btnn {
+  font-family: "Inter", Arial, sans-serif;
+  cursor: pointer;
+  background-color: #4993cf; /* #fc8585 is og */
+  border: none;
+  color: rgb(248, 244, 244);
+  padding: 15px 20px;
+  margin: 3px 6px 3px 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+  transform: scale(1);
+}
+.btnn:hover {
+  transform: scale(1.2);
+  border-radius: 5px;
+}
+.btnn:active {
+  transform: scale(0.8);
+  border-radius: 12px;
+}
