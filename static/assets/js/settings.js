@@ -224,3 +224,58 @@ function cloak() {
     }
   }
 }
+
+var months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+function convertDate(date_str) {
+  temp_date = date_str.split("-");
+  return (
+    temp_date[2] + " " + months[Number(temp_date[1]) - 1] + " " + temp_date[0]
+  );
+}
+var months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+function convertDate(date_str) {
+  temp_date = date_str.split("-");
+  return (
+    months[Number(temp_date[1]) - 1] + " " + temp_date[2] + ", " + temp_date[0]
+  );
+}
+
+fetch("https://api.github.com/repos/55gms/55gms/commits")
+  .then((response) => response.json())
+  .then((data) => {
+    var unformatted = new Date(data[0].commit.author.date)
+      .toISOString()
+      .split("T")[0];
+    var lastCommitDate = convertDate(unformatted);
+    document.querySelector(
+      "#updated"
+    ).textContent = `Last Updated: ${lastCommitDate}`;
+  });
