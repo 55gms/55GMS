@@ -14,15 +14,15 @@
   display: inline-block;
   font-size: 16px;
   border-radius: 10px;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.1s ease;
   transform: scale(1);
 }
 #btnn:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
   border-radius: 5px;
 }
 #btnn:active {
-  transform: scale(0.8);
+  transform: scale(0.9);
   border-radius: 12px;
 }
 
@@ -39,14 +39,14 @@
   display: inline-block;
   font-size: 16px;
   border-radius: 10px;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.1s ease;
   transform: scale(1);
 }
 .btnn:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
   border-radius: 5px;
 }
 .btnn:active {
-  transform: scale(0.8);
+  transform: scale(0.9);
   border-radius: 12px;
 }
