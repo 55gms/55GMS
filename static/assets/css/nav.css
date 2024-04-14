@@ -1,6 +1,14 @@
-#title {
-  font-family: "Arial";
-  font-size: 55px;
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+.title {
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 60px;
+  font-weight: 700;
+}
+
+.nav-title {
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 60px;
   font-weight: 700;
 }
 
@@ -52,10 +60,6 @@
   margin-right: auto;
 }
 
-.title {
-  font-weight: 300;
-  font-family: "Arial";
-}
 @media only screen and (max-width: 600px) {
   nav {
     flex-direction: column;
