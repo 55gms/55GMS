@@ -11,7 +11,7 @@
   border-radius: 10px;
   text-align: center;
   outline: none;
-  color: white;
+  color: rgb(0, 0, 0);
   margin: 0;
   position: absolute;
   left: 50%;
@@ -23,7 +23,7 @@
 .form__input::placeholder {
   font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 16px;
-  color: #aaa;
+  color: #000000;
   text-align: center;
   opacity: 0.4;
 }
