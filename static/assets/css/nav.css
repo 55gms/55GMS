@@ -42,12 +42,19 @@
 .navbar a:hover {
   font-size: 18px;
   transform: translateX(-10px);
+  color: #484c51; /* #bbbbbb is og */
+  background-color: #e7928f;
+  border-radius: 10px;
+  scale: 1.1;
 }
 
 #nav-title {
   font-size: 26px;
   font-weight: 700;
   margin-right: auto;
+}
+#nav-title:hover {
+  transform: translateX(10px);
 }
 
 @media only screen and (max-width: 600px) {
