@@ -85,7 +85,7 @@
   },
   {
     "name": "Android",
-    "url": "https://now.gg/iframe/snippet?app_pkg=com.uncube.launcher3&partner=55gms",
+    "url": "https://shuttle.lol/play/uncube/7074/now",
     "image": "/misc/roblos/android.webp",
     "usesProxy": true
   },
@@ -235,7 +235,7 @@
   },
   {
     "name": "Cookie Run Kingdom",
-    "url": "https://now.gg/iframe/snippet?app_pkg=com.devsisters.ck&partner=55gms",
+    "url": "https://shuttle.lol/play/a/3475/b",
     "image": "/misc/roblos/crc.webp",
     "usesProxy": true
   },
@@ -577,8 +577,9 @@
   },
   {
     "name": "Fortnite (Mobile)",
-    "url": "https://now.gg/iframe/snippet?app_pkg=com.epicgames.fortnite&partner=55gms",
+    "url": "https://shuttle.lol/apps/aptoide/5874/aptoide.html",
     "image": "/img/games/fortnite.jpeg",
+    "alert": "Search up fortnite, download and play.",
     "usesProxy": true
   },
   {
@@ -886,12 +887,6 @@
     "url": "/misc/mariokart/index.html",
     "image": "/misc/mariokart/img.jpeg",
     "usesProxy": false
-  },
-  {
-    "name": "Melon Playground",
-    "url": "https://now.gg/iframe/snippet?app_pkg=com.studio27.MelonPlayground&partner=55GMS",
-    "image": "/misc/roblos/melon.png",
-    "usesProxy": true
   },
   {
     "name": "Minecraft 1.8",
@@ -1529,12 +1524,6 @@
     "url": "/misc/tiny-fishing/index.html",
     "image": "/misc/tiny-fishing/thumb.webp",
     "usesProxy": false
-  },
-  {
-    "name": "Toca Life World",
-    "url": "https://now.gg/iframe/snippet?app_pkg=com.tocaboca.tocalifeworld&partner=55gms",
-    "image": "/img/games/toca.webp",
-    "usesProxy": true
   },
   {
     "name": "Tom Hawks Sk8land",

@@ -112,9 +112,8 @@
   },
   {
     "name": "Now.GG",
-    "link": "https://now.gg/",
-    "image": "assets/apps/nowgg.png",
-    "broken": "true"
+    "link": "https://shuttle.lol/",
+    "image": "assets/apps/nowgg.png"
   },
   {
     "name": "Paramount",
@@ -197,6 +196,12 @@
     "name": "Youtube",
     "link": "https://vid.puffyan.us/feed/popular",
     "image": "assets/apps/yt.png"
+  },
+  {
+    "name": "Snapchat",
+    "url": "https://shuttle.lol/apps/aptoide/5874/aptoide.html",
+    "image": "/assets/apps/snapchat.png",
+    "alert": "Search up snapchat, then download it and log in."
   },
   {
     "name": "Youtube Music",
