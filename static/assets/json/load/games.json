@@ -684,24 +684,6 @@
     "usesProxy": false
   },
   {
-    "name": "Breaking the Bank",
-    "url": "/misc/flash/index.html?swf=bank.swf",
-    "image": "/misc/henry-stickman/bank.jpeg",
-    "usesProxy": false
-  },
-  {
-    "name": "Escaping From Prison",
-    "url": "/misc/flash/index.html?swf=prison.swf",
-    "image": "/misc/henry-stickman/prison.png",
-    "usesProxy": false
-  },
-  {
-    "name": "Stealing the Diamond",
-    "url": "/misc/flash/index.html?swf=diamond.swf",
-    "image": "/misc/henry-stickman/diamond.jpeg",
-    "usesProxy": false
-  },
-  {
     "name": "HexGL",
     "url": "/misc/hexgl/index.html",
     "image": "/misc/hexgl/icon_256.webp",
@@ -891,12 +873,6 @@
     "name": "Madalin Stunt Cars 3",
     "url": "https://games.crazygames.com/en_US/madalin-stunt-cars-3/index.html",
     "image": "/misc/madstunt-cars2/msc.jpeg",
-    "usesProxy": true
-  },
-  {
-    "name": "Magic Tiles 3",
-    "url": "https://h5.4j.com/games/Magic-Tiles-3-Online/index.html",
-    "image": "/misc/magic-tiles/img.png",
     "usesProxy": true
   },
   {
@@ -1756,6 +1732,18 @@
     "name": "swordbattle.io",
     "url": "https://swordbattle.io/",
     "image": "/img/games/sword.webp",
+    "usesProxy": true
+  },
+  {
+    "name": "deadshot.io",
+    "url": "https://deadshot.io/",
+    "image": "/img/games/deadshot.webp",
+    "usesProxy": true
+  },
+  {
+    "name": "powerline.io",
+    "url": "https://powerline.io/",
+    "image": "/img/games/powerline.webp",
     "usesProxy": true
   },
   {
