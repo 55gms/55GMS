@@ -1,17 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
-.title {
-  font-family: "Inter", Arial, sans-serif;
-  font-size: 60px;
-  font-weight: 700;
-}
-
-.nav-title {
-  font-family: "Inter", Arial, sans-serif;
-  font-size: 60px;
-  font-weight: 700;
-}
-
 .navbar {
   top: 0;
   font-size: 22px;
@@ -38,6 +26,7 @@
   transition: 0.35s ease;
 }
 .navbar a {
+  font-family: "Inter", Arial, sans-serif;
   color: #fff;
   text-decoration: none;
   padding: 10px 15px;
@@ -55,8 +44,9 @@
   transform: translateX(-10px);
 }
 
-.navbar a:first-child {
-  font-size: 24px;
+#nav-title {
+  font-size: 26px;
+  font-weight: 700;
   margin-right: auto;
 }
 
