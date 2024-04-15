@@ -67,19 +67,6 @@ main {
   border-radius: 10px;
 }
 
-.button {
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-family: "Inter", Arial, sans-serif;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 12px;
-  transition: 1s;
-  padding-bottom: 5px;
-}
-
 .horizontal-items {
   display: flex;
   justify-content: left;
@@ -93,4 +80,22 @@ a {
 
 a:hover {
   color: #f1d41d; /* change to match your theme */
+}
+
+/* Scrollbar settings */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+  box-shadow: inset 0 0 5px grey;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 2px;
+  transform: background 0.1s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
