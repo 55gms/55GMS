@@ -10,7 +10,7 @@ window.addEventListener("load", (event) => {
         // Change color to red if the message has not been viewed
         if (!localStorage.getItem(`${type}-viewed`)) {
           document.getElementById(type).style.color = '#fc8585';
-          document.getElementById("motd").classList.add("pulse-button");
+          document.getElementById("motd").classList.add("pulse");
         }
 
         return Swal.fire({
@@ -21,7 +21,7 @@ window.addEventListener("load", (event) => {
         }).then((response) => {
           localStorage.setItem(`${type}-last-body`, body);
           localStorage.setItem(`${type}-viewed`, true);
-          document.getElementById("motd").classList.remove("pulse-button");
+          document.getElementById("motd").classList.remove("pulse");
         });
       };
 
