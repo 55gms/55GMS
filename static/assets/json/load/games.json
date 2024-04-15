@@ -1740,5 +1740,29 @@
     "url": "https://real-sgs.vercel.app/Tools/GBA-Emulator",
     "image": "/img/games/gba.webp",
     "usesProxy": true
+  },
+  {
+    "name": "Happy Cups",
+    "url": "https://www.mathplayground.com/happy-cups/index.html",
+    "image": "/img/games/happy-cups.png",
+    "usesProxy": true
+  },
+  {
+    "name": "Happy Filled Glass 2",
+    "url": "https://www.mathplayground.com/pp-happy-filled-glass-2/index.html",
+    "image": "/img/games/happy-filled-glass-2.png",
+    "usesProxy": true
+  },
+  {
+    "name": "Happy Filled Glass 3",
+    "url": "https://www.mathplayground.com/pp-happy-filled-glass-3/index.html",
+    "image": "/img/games/happy-filled-glass-3.png",
+    "usesProxy": true
+  },
+  {
+    "name": "Happy Filled Glass 4",
+    "url": "https://www.mathplayground.com/pp-happy-filled-glass-4/index.html",
+    "image": "/img/games/happy-filled-glass-4.png",
+    "usesProxy": true
   }
 ]
