@@ -8,6 +8,7 @@ Welcome to 55GMS, a website for unblocked games, apps, and proxies. Our goal is 
 ![Uptime](https://img.shields.io/uptimerobot/ratio/7/m793507060-97e6bef63b62591b668ced4f)
 
 ## Contributing
+
 Contributing to 55GMS is simple, all you need is to fork this repository and create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) that we will review and maybe merge.
 
 ## Deploying
