@@ -50,3 +50,11 @@
   transform: scale(0.9);
   border-radius: 12px;
 }
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+.pulse {
+  animation: pulse 0.5s infinite alternate; /* Change '1s' to adjust the speed of the pulse */
+}
