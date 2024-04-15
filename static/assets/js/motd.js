@@ -2,39 +2,46 @@ window.addEventListener("load", (event) => {
   fetch("/assets/json/motd.json")
     .then((response) => response.json())
     .then((data) => {
-      document.getElementById("motd").onclick = function () {
-        Swal.fire({
+      // Function to create SweetAlert modal
+      const createModal = (type, title, body, footer) => {
+        if (localStorage.getItem(`${type}-last-body`) !== body) {
+          localStorage.setItem(`${type}-viewed`, false);
+        }
+        // Change color to red if the message has not been viewed
+        if (!localStorage.getItem(`${type}-viewed`)) {
+          document.getElementById(type).style.color = '#fc8585';
+          document.getElementById("motd").classList.add("pulse-button");
+        }
+
+        return Swal.fire({
           icon: "info",
-          title: "Message Of The Day",
-          html: data.motd.body,
-          footer: `<i style='font-size: 11px;'>submitted by ${data.motd.footer}</i>`,
+          title: title,
+          html: body,
+          footer: `<i style='font-size: 11px;'>submitted by ${footer}</i>`,
+        }).then((response) => {
+          localStorage.setItem(`${type}-last-body`, body);
+          localStorage.setItem(`${type}-viewed`, true);
+          document.getElementById("motd").classList.remove("pulse-button");
         });
       };
-      document.getElementById("qotd").onclick = function () {
-        Swal.fire({
-          icon: "info",
-          title: "Quote Of The Day",
-          html: data.qotd.body,
-          footer: `<i style='font-size: 11px;'>submitted by ${data.qotd.footer}</i>`,
-        });
-      };
+
+      // Set onclick events for motd and qotd
+      document.getElementById("motd").onclick = () => createModal('motd', "Message Of The Day", data.motd.body, data.motd.footer);
+      document.getElementById("qotd").onclick = () => createModal('qotd', "Quote Of The Day", data.qotd.body, data.qotd.footer);
     })
     .catch((error) => {
-      document.getElementById("motd").onclick = function () {
+      console.error("An error occurred:", error);
+      // Display a generic error message to the user
+      const displayError = () => {
         Swal.fire({
           icon: "error",
-          title: "Error",
-          html: "Well oh no",
+          title: "uh oh",
+          html: "well oh no, prob error occurred while fetching or parsing data",
           footer: `<i style='font-size: 11px;'>${error}</i>`,
         });
       };
-      document.getElementById("qotd").onclick = function () {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          html: "Well oh no",
-          footer: `<i style='font-size: 11px;'>${error}</i>`,
-        });
-      };
+      // Set onclick events for motd and qotd to display the error message
+      document.getElementById("motd").onclick = displayError;
+      document.getElementById("qotd").onclick = displayError;
     });
 });
