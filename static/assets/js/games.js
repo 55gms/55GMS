@@ -33,7 +33,7 @@ window.addEventListener("load", (event) => {
         if (searchbar)
           searchbar.placeholder = `Click here or type to search through our ${games.length} games!`;
       } catch (error) {
-            console.error(error);
-            }
+        console.error(error);
+      }
     });
 });
