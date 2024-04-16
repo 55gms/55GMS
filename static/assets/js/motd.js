@@ -4,7 +4,7 @@ window.addEventListener("load", (event) => {
     .then((data) => {
       // Function to create SweetAlert modal
       const createModal = (type, title, body, footer) => {
-        if (localStorage.getItem(`${type}-last-body`) !== body) {
+        if (localStorage.getItem(`${type}-last-body`) != body) {
           localStorage.setItem(`${type}-viewed`, "false");
         }
         // Change color to red if the message has not been viewed
@@ -21,6 +21,7 @@ window.addEventListener("load", (event) => {
         }).then((response) => {
           localStorage.setItem(`${type}-last-body`, body);
           localStorage.setItem(`${type}-viewed`, "true");
+          document.getElementById(type).style.color = "#f8f4f4";
           document.getElementById(type).classList.remove("pulse");
         });
       };
