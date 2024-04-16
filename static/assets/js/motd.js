@@ -5,12 +5,12 @@ window.addEventListener("load", (event) => {
       // Function to create SweetAlert modal
       const createModal = (type, title, body, footer) => {
         if (localStorage.getItem(`${type}-last-body`) !== body) {
-          localStorage.setItem(`${type}-viewed`, false);
+          localStorage.setItem(`${type}-viewed`, "false");
         }
         // Change color to red if the message has not been viewed
-        if (!localStorage.getItem(`${type}-viewed`)) {
+        if (localStorage.getItem(`${type}-viewed`) == "false") {
           document.getElementById(type).style.color = "#fc8585";
-          document.getElementById("motd").classList.add("pulse");
+          document.getElementById(type).classList.add("pulse");
         }
 
         return Swal.fire({
@@ -20,8 +20,8 @@ window.addEventListener("load", (event) => {
           footer: `<i style='font-size: 11px;'>submitted by ${footer}</i>`,
         }).then((response) => {
           localStorage.setItem(`${type}-last-body`, body);
-          localStorage.setItem(`${type}-viewed`, true);
-          document.getElementById("motd").classList.remove("pulse");
+          localStorage.setItem(`${type}-viewed`, "true");
+          document.getElementById(type).classList.remove("pulse");
         });
       };
 
