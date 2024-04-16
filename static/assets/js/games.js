@@ -8,7 +8,7 @@ window.addEventListener("load", (event) => {
         games.sort((a, b) => a.name.localeCompare(b.name));
         games.forEach(function (game, gameNum) {
           text.innerText = `Loading games (${gameNum + 1}/${games.length})`;
-          
+
           let gameHtml;
           if (game.usesProxy) {
             gameHtml = `<div class="card" style="padding-top: 5px">
@@ -33,12 +33,12 @@ window.addEventListener("load", (event) => {
         });
       });
 
-      text.innerText = "";
-      const searchbar = document.getElementById("searchbar");
-      if (searchbar)
-        searchbar.placeholder = `Click here or type to search through our ${games.length} games!`;
+    text.innerText = "";
+    const searchbar = document.getElementById("searchbar");
+    if (searchbar)
+      searchbar.placeholder = `Click here or type to search through our ${games.length} games!`;
   } catch (error) {
-    text.innerHTML = `Error in fetching data<br>${error}`
+    text.innerHTML = `Error in fetching data<br>${error}`;
     console.error(error);
   }
 });
