@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-fetch("/assets/static/ads.json")
+fetch("/assets/json/ads.json")
   .then((response) => response.json())
   .then((data) => {
     if (data.domains.includes(window.location.hostname)) {
