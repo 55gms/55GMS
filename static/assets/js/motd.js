@@ -3,7 +3,7 @@ window.addEventListener("load", (event) => {
     .then((response) => response.json())
     .then((data) => {
       // Alert user if there is unread messages
-      ['motd', 'qotd'].forEach((type) => {
+      ["motd", "qotd"].forEach((type) => {
         if (localStorage.getItem(`${type}-last-body`) != body) {
           localStorage.setItem(`${type}-viewed`, "false");
         }
@@ -12,8 +12,8 @@ window.addEventListener("load", (event) => {
           document.getElementById(type).style.color = "#fc8585";
           document.getElementById(type).classList.add("pulse");
         }
-      })
-      
+      });
+
       // Function to create SweetAlert modal
       const createModal = (type, title, body, footer) => {
         return Swal.fire({
@@ -44,7 +44,8 @@ window.addEventListener("load", (event) => {
           data.qotd.body,
           data.qotd.footer,
         );
-    }).catch((error) => {
+    })
+    .catch((error) => {
       console.error("An error occurred:", error);
       // Display a generic error message to the user
       const displayError = () => {
