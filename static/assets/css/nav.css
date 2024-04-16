@@ -1,60 +1,57 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
 .navbar {
-  top: 0;
-  font-size: 22px;
-  left: 0;
-  right: 0;
-  padding: 0 25px;
   box-sizing: border-box;
   background: #5e7594;
   box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.5);
   backdrop-filter: #5e7594;
   -webkit-backdrop-filter: #5e7594;
   transition: 0.35s ease;
-  border-radius: 15px;
+  border-radius: 20px;
   width: fill;
-  margin: 15px;
+  margin: 15px 20px;
   z-index: 100;
-  position: static;
-  color: #ffffff;
+  position: static; /* Position is static */
   padding: 10px;
   display: flex;
   align-items: center;
   overflow: hidden;
-  text-align: left;
-  transition: 0.35s ease;
 }
 .navbar a {
   font-family: "Inter", Arial, sans-serif;
   color: #fff;
-  text-decoration: none;
-  padding: 10px 15px;
-  font-size: 16px;
-  transition: transform 0.3s ease, font-size 0.3s ease;
-  font-weight: 500;
 }
 
 .navbar a:not(:first-child) {
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: 500;
   text-transform: uppercase;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+}
+.navbar a:not(:first-child):hover {
+  font-size: 18px;
+  color: #484c51; /* #bbbbbb is og */
+  background-color: #e7928f;
+  border-radius: 10px;
+  scale: 1.05;
 }
 
-.navbar a:hover {
-  font-size: 18px;
-  transform: translateX(-10px);
+.navbar a:first-child {
+  padding: 10px 250px;
+  font-size: 26px;
+  font-weight: 650;
+  margin-right: auto;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.navbar a:first-child:hover {
+  transform: translateX(10px);
   color: #484c51; /* #bbbbbb is og */
   background-color: #e7928f;
   border-radius: 10px;
   scale: 1.1;
-}
-
-#nav-title {
-  font-size: 26px;
-  font-weight: 700;
-  margin-right: auto;
-}
-#nav-title:hover {
-  transform: translateX(10px);
 }
 
 @media only screen and (max-width: 600px) {
