@@ -33,7 +33,7 @@ window.addEventListener("load", (event) => {
         });
       });
 
-    text.innerText = "";
+    text.style.display = "none";
     const searchbar = document.getElementById("searchbar");
     if (searchbar)
       searchbar.placeholder = `Click here or type to search through our ${games.length} games!`;
