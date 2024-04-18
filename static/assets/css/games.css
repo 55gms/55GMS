@@ -53,6 +53,16 @@ img {
   border-radius: 25px;
   max-width: 145px;
 }
+img.ad {
+  height: auto;
+  max-height: none;
+  width: auto;
+  border: none;
+  -ms-interpolation-mode: auto;
+  vertical-align: baseline;
+  border-radius: 0px;
+  max-width: none;
+}
 
 .icon {
   border-radius: 25px;
