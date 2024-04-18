@@ -44,7 +44,7 @@ async function fetchDataFromGithub(
   res,
   next,
   baseUrl,
-  secondaryUrl = null
+  secondaryUrl = null,
 ) {
   function isAFile(urlString) {
     return urlString.trim().split("/").pop().length !== 0;
