@@ -136,7 +136,7 @@ function setCloak() {
       setFavicon("/assets/cloaks/itchio.ico");
       break;
     case "deltamath":
-      setTitle("Deltamath Student Application");
+      setTitle("DeltaMath Student Application");
       setFavicon("/assets/cloaks/deltamath.png");
       break;
     case "ed":
