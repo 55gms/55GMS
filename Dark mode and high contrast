@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            transition: background-color 0.3s ease;
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode {
+            background-color: #333 !important;
+            color: #fff !important;
+        }
+
+        .dark-mode .dark-mode-btn,
+        .dark-mode .high-contrast-btn {
+            background-color: #555 !important;
+            color: #fff !important;
+        }
+
+        .high-contrast {
+            filter: invert(1) grayscale(1) contrast(10);
+        }
+
+        .high-contrast .dark-mode-btn,
+        .high-contrast .high-contrast-btn {
+            filter: invert(1) grayscale(1) contrast(10);
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-mode-btn" onclick="toggleDarkMode()">Dark Mode</div>
+    <div class="high-contrast-btn" onclick="toggleHighContrast()">High Contrast Mode</div>
+
+    <script>
+        let darkModeEnabled = false;
+        let highContrastEnabled = false;
+
+        function toggleDarkMode() {
+            darkModeEnabled = !darkModeEnabled;
+            const body = document.body;
+            body.classList.toggle('dark-mode', darkModeEnabled);
+        }
+
+        function toggleHighContrast() {
+            highContrastEnabled = !highContrastEnabled;
+            const body = document.body;
+            body.classList.toggle('high-contrast', highContrastEnabled);
+        }
+    </script>
+</body>
+</html>
