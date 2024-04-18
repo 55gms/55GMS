@@ -29,8 +29,8 @@ window.addEventListener("load", (event) => {
           } else {
             gameHtml = `<div class="card" style="padding-top: 5px">
               <a href="${game.url}" rel="noopener noreferrer" ${
-              game.alert ? `onclick="alert('${game.alert}');"` : ""
-            }>
+                game.alert ? `onclick="alert('${game.alert}');"` : ""
+              }>
                 <div class="image-container">
                   <img loading="eager" src="${
                     game.image
