@@ -45,10 +45,11 @@
     "image": "assets/apps/deep.png"
   },
   {
-    "name": "Discord",
-    "url": "https://canary.discord.com",
-    "image": "assets/apps/discord.jpg",
-    "broken": "True"
+    "name": "Discord (Mobile)",
+    "url": "https://shuttle.lol/apps/aptoide/5874/aptoide.html",
+    "image": "static/assets/apps/discord.jpg",
+    "alert": "Search up fortnite, download and play.",
+    "usesProxy": true
   },
   {
     "name": "DuckDuckGo",
