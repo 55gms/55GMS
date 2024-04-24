@@ -48,7 +48,7 @@
     "name": "Discord (Mobile)",
     "url": "https://shuttle.lol/apps/aptoide/5874/aptoide.html",
     "image": "static/assets/apps/discord.jpg",
-    "alert": "Search up fortnite, download and play.",
+    "alert": "Search up discord, download and play.",
     "usesProxy": true
   },
   {
@@ -209,4 +209,15 @@
     "url": "https://music.youtube.com/",
     "image": "assets/apps/ytm.avif"
   }
+    {
+    "name": "APKonline",
+    "url": "https://music.youtube.com/",
+    "image": "assets/apps/ytm.avif"
+  }
+  {
+    "name": "APK online",
+    "url": "https://www.apkonline.net/free-android-online-emulator/run-android-online-emulator",
+    "image": "picture.jpeg",
+    "usesProxy": true
+  },
 ]
