@@ -18,7 +18,7 @@ window.addEventListener("load", (event) => {
                 game.alert ? `alert('${game.alert}'); ` : ""
               }hire('${game.url}');">
                 <div class="image-container">
-                  <img loading="lazy" src="${
+                  <img loading="eager" src="${
                     game.image
                   }" style="border-radius: 25px" 
                        onload="handleImageLoad(${totalImages})">
@@ -29,10 +29,10 @@ window.addEventListener("load", (event) => {
           } else {
             gameHtml = `<div class="card" style="padding-top: 5px">
               <a href="${game.url}" rel="noopener noreferrer" ${
-              game.alert ? `onclick="alert('${game.alert}');"` : ""
-            }>
+                game.alert ? `onclick="alert('${game.alert}');"` : ""
+              }>
                 <div class="image-container">
-                  <img loading="lazy" src="${
+                  <img loading="eager" src="${
                     game.image
                   }" style="border-radius: 25px" 
                        onload="handleImageLoad(${totalImages})">
