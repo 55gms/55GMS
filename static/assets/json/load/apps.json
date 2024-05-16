@@ -158,6 +158,12 @@
     "image": "assets/apps/soundcloud.jpg"
   },
   {
+    "name": "Scratch",
+    "url": "https://scratch.mit.edu/",
+    "image": "assets/apps/scratch.webp",
+    "usesProxy": true
+  },
+  {
     "name": "Twitch",
     "url": "https://www.twitch.tv/",
     "image": "assets/apps/twitch-tv.png"
