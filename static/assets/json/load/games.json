@@ -1,7 +1,7 @@
 [
   {
     "name": "[!!] Request A Game",
-    "url": "https://docs.google.com/forms/d/e/1FAIpQLScZqBpp2WIs2QUal22ZeRaPFdiePZ46QvUfdxvzqhZ_cKpnBQ/viewform?usp=sf_link",
+    "url": "https://docs.google.com/forms/d/e/1FAIpQLSfY7Eh5sWLn9DcNHilyp2Xi_I8YA0MxXbENQDsatkwD_F1qeA/viewform",
     "image": "/img/jotform.png",
     "usesProxy": false
   },
@@ -337,9 +337,9 @@
   },
   {
     "name": "Drift Boss",
-    "url": "/misc/drift-boss/index.html",
+    "url": "https://drift-boss.game-files.crazygames.com/drift-boss/4/index.html",
     "image": "/misc/drift-boss/img.jpeg",
-    "usesProxy": false
+    "usesProxy": true
   },
   {
     "name": "Drift Hunters",
@@ -752,9 +752,9 @@
   },
   {
     "name": "Hole.io",
-    "url": "/misc/hole-io/index.html",
+    "url": "https://hole-io.com/",
     "image": "/misc/hole-io/img.jpg",
-    "usesProxy": false
+    "usesProxy": true
   },
   {
     "name": "Hornex.pro",
@@ -1178,14 +1178,8 @@
   },
   {
     "name": "Raft Wars",
-    "url": "/misc/RaftWars/index.html",
+    "url": "https://boxing2.github.io/b/raft-wars",
     "image": "/misc/RaftWars/img.jpeg",
-    "usesProxy": false
-  },
-  {
-    "name": "The Life Engine",
-    "url": "https://thelifeengine.net/",
-    "image": "/img/games/lifeengine.webp",
     "usesProxy": true
   },
   {
@@ -1196,9 +1190,9 @@
   },
   {
     "name": "Raft Wars 2",
-    "url": "/misc/RaftWars2/index.html",
+    "url": "https://www.1001games.com/lib/game/game.php?d=ZmlsZT1odHRwcyUzQSUyRiUyRmdhbWVzLmdhbWVzeGwuY29tJTJGcmFmdC13YXJzLTIuc3dmJmF0dHJpYnV0ZXMlNUJmbGFzaF9wYXJhbSU1RCU1QmFsbG93TmV0d29ya2luZyU1RD1pbnRlcm5hbA",
     "image": "/misc/RaftWars2/img.jpeg",
-    "usesProxy": false
+    "usesProxy": true
   },
   {
     "name": "Rainbow Tower",
@@ -1280,7 +1274,7 @@
   },
   {
     "name": "Rise Higher",
-    "url": "https://rednotsus.github.io/eaglercraft/risehigher/",
+    "url": "https://www.mathplayground.com/rise-higher/index.html",
     "image": "/misc/risehigher/128x128.png",
     "usesProxy": true
   },
@@ -1550,12 +1544,6 @@
     "usesProxy": true
   },
   {
-    "name": "Team Fortress 2",
-    "url": "https://play.geforcenow.com/games?game-id=40512534-ad27-4a12-afa7-6fc412288072&lang=en_US&asset-id=01_547b2064-13ad-4ba5-b928-d2770accddf1",
-    "image": "/misc/teamfortress2/img.webp",
-    "usesProxy": true
-  },
-  {
     "name": "Territorial.io",
     "url": "https://territorial.io/",
     "image": "/misc/Territorial.io/img.jpeg",
@@ -1595,18 +1583,6 @@
     "name": "Tiny Fishing",
     "url": "/misc/tiny-fishing/index.html",
     "image": "/misc/tiny-fishing/thumb.webp",
-    "usesProxy": false
-  },
-  {
-    "name": "Tom Hawks Sk8land",
-    "url": "/misc/emulator/games/thas/index.html",
-    "image": "/misc/emulator/games/thas/thas.webp",
-    "usesProxy": false
-  },
-  {
-    "name": "Traffic Rider",
-    "url": "/misc/traffic-rider/index.html",
-    "image": "/misc/traffic-rider/img.webp",
     "usesProxy": false
   },
   {
@@ -1715,48 +1691,6 @@
     "name": "Whack Your Ex",
     "url": "/misc/flash/index.html?swf=whack-your-ex.swf",
     "image": "/misc/flash/img/wyx.png",
-    "usesProxy": false
-  },
-  {
-    "name": "Wheely 2",
-    "url": "/misc/wheely2/index.html",
-    "image": "/misc/wheely2/img.png",
-    "usesProxy": false
-  },
-  {
-    "name": "Wheely 3",
-    "url": "/misc/wheely3/index.html",
-    "image": "/misc/wheely3/img.png",
-    "usesProxy": false
-  },
-  {
-    "name": "Wheely 4",
-    "url": "/misc/wheely4/index.html",
-    "image": "/misc/wheely4/img.png",
-    "usesProxy": false
-  },
-  {
-    "name": "Wheely 5",
-    "url": "/misc/wheely5/index.html",
-    "image": "/misc/wheely5/img.png",
-    "usesProxy": false
-  },
-  {
-    "name": "Wheely 6",
-    "url": "/misc/wheely6/index.html",
-    "image": "/misc/wheely6/img.png",
-    "usesProxy": false
-  },
-  {
-    "name": "Wheely 7",
-    "url": "/misc/wheely7/index.html",
-    "image": "/misc/wheely7/img.png",
-    "usesProxy": false
-  },
-  {
-    "name": "Wheely 8",
-    "url": "/misc/wheely8/index.html",
-    "image": "/misc/wheely8/img.png",
     "usesProxy": false
   },
   {
