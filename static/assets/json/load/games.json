@@ -306,6 +306,12 @@
     "usesProxy": true
   },
   {
+    "name": "Taming.Io",
+    "url": "https://taming.io/",
+    "image": "/img/games/taming.webp",
+    "usesProxy": true
+  },
+  {
     "name": "Doge Miner",
     "url": "/misc/dogeminer/index.html",
     "image": "/misc/dogeminer/img.jpeg",
@@ -315,6 +321,12 @@
     "name": "Doodle Jump",
     "url": "/misc/doodlejump/index.html",
     "image": "/misc/doodlejump/icon.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "ShellShockers",
+    "url": "/misc/shellshocker/index.html",
+    "image": "/img/games/shell-shockers.webp",
     "usesProxy": false
   },
   {
@@ -339,6 +351,12 @@
     "name": "Drift Boss",
     "url": "https://drift-boss.game-files.crazygames.com/drift-boss/4/index.html",
     "image": "/misc/drift-boss/img.jpeg",
+    "usesProxy": true
+  },
+  {
+    "name": "Addicting Games",
+    "url": "https://www.addictinggames.com/",
+    "image": "/img/games/addictinggames.webp",
     "usesProxy": true
   },
   {
