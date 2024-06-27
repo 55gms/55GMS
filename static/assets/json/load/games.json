@@ -180,6 +180,12 @@
     "usesProxy": false
   },
   {
+    "name": "Wings.io",
+    "url": "https://wings.io/",
+    "image": "/img/games/wings.webp",
+    "usesProxy": true
+  },
+  {
     "name": "Bloons TD 4",
     "url": "/misc/flash/gfiles/btd4/index.html",
     "image": "/misc/flash/img/btd4.jpeg",
