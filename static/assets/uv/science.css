@@ -2,28 +2,27 @@
 
 
 .form__input {
-  font-family: "Inter", Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  top: 50%;
+  padding: 1.3vw;
   width: 50%;
-  padding: 1vw;
-  border: none;
-  border-radius: 10px;
-  text-align: center;
-  outline: none;
-  color: rgb(0, 0, 0);
-  margin: 0;
   position: absolute;
+  top: 50%;
   left: 50%;
-  transition: 0.5s;
-  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  border-radius: 5px;
+  background: #7a8fab;
+  text-align: center;
+  font-size: 24px;
+  border: none;
+  outline: none;
+  color: white;
+  transition: 0.2s;
+  margin: 0;
 }
 
 .form__input::placeholder {
   font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 16px;
-  color: #000000;
+  color: #ffffff;
   text-align: center;
   opacity: 0.4;
 }
