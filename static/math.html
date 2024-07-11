@@ -6,7 +6,7 @@
     <meta name="google" content="notranslate" />
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=3" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/media.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/media.css?1" />
     <title>Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Rednotsus" />
@@ -22,7 +22,7 @@
       />
     </script>
         <script src="/assets/js/script.js?v=5"></script>
-        <script src="/assets/js/media.js"></script>
+        <script src="/assets/js/media.js?1"></script>
     <script src="/assets/js/easteregg.min.js" async></script>
   </head>
   <body>
@@ -37,22 +37,25 @@
            <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
        </div>
    </nav>
-       <div class="container">
-        <div class="header">
-            <button id="moviePlayerBtn" class="active">Movies</button>
-            <button id="seriesPlayerBtn">TV Shows</button>
-        </div>
-        <div class="search-bar">
-            <input type="text" id="imdbTmdb" class='form__input' autocomplete="off" placeholder="IMDb or TMDB">
-            <input type="text" id="ssNumber" class='hidden form__input' autocomplete="off" placeholder="SS number">
-            <input type="text" id="epNumber" class='hidden form__input' autocomplete="off"  placeholder="EP number">
-        </div>
-        <script>
-          
-        </script>
-        <a id='go'><button class="gs">Go</button></a><br><br>
-    </div>
-
+       <br><h1>Movies/TV</h1>
+       <script type="text/javascript">
+	atOptions = {
+		'key' : '2bdac609c3330d4bf7b2c8b5fba87e8b',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//aboriginesprimary.com/2bdac609c3330d4bf7b2c8b5fba87e8b/invoke.js"></script><br><br>
+       <input tag="searchbar" id="searchbar" placeholder="Enter the Movie/TV Name and press Enter!" class="form__input" autocomplete="off">
+       <h5 id="cooldownNotice" style="display: none;">Hold on! You're on cooldown.</h5>
+      <div id="game-container"><p id="text"></p></div>
+      
+      <div class="attribution">
+  Images and Titles provided by
+  <a href="https://www.themoviedb.org/"><img src="/img/tmdb.svg" alt="TMDB Logo" style="height: 20px; vertical-align: middle;"></a>
+</div>
       <script src="/assets/uv/js/hiring.js"></script>
       <script src="assets/uv/uv.bundle.js" defer></script>
       <script src="assets/uv/uv.config.js" defer></script>

@@ -1,59 +1,67 @@
-document.addEventListener("DOMContentLoaded", function () {
-  document
-    .getElementById("moviePlayerBtn")
-    .addEventListener("click", function () {
-      document.getElementById("seriesPlayerBtn").classList.remove("active");
-      this.classList.add("active");
-      updateLink();
-    });
+function fetchTmdbId() {
+  let search = document.getElementById("searchbar").value;
+  let link;
+  let poster;
+  let encodedSearch = encodeURIComponent(search);
+  let url =
+    "https://api.themoviedb.org/3/search/multi?api_key=66ca93aa37686b7a47476585271855c6&language=en-US&query=" +
+    encodedSearch +
+    "&page=1&include_adult=false";
+  const gameContainer = document.getElementById("game-container");
+  gameContainer.innerHTML = "";
 
-  document
-    .getElementById("seriesPlayerBtn")
-    .addEventListener("click", function () {
-      document.getElementById("moviePlayerBtn").classList.remove("active");
-      this.classList.add("active");
-      updateLink();
-    });
+  try {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        const results = data.results;
+        results.forEach(function (movie) {
+          if (movie.poster_path === null) {
+            poster = "/img/no-media.svg";
+          } else {
+            poster = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
+          }
+          if (movie.media_type === "tv") {
+            link = "https://vidsrc.to/embed/tv/";
+          } else if (movie.media_type === "movie") {
+            link = "https://vidsrc.to/embed/movie/";
+          }
 
-  imdbTmdbValue = "";
-  ssNumberValue = "";
-  epNumberValue = "";
-  document.getElementById("imdbTmdb").addEventListener("input", function () {
-    imdbTmdbValue = this.value;
-    updateLink();
-  });
-
-  document.getElementById("ssNumber").addEventListener("input", function () {
-    ssNumberValue = this.value;
-    updateLink();
-  });
-
-  document.getElementById("epNumber").addEventListener("input", function () {
-    epNumberValue = this.value;
-    updateLink();
-  });
-  function updateLink() {
-    let link = "";
-    if (
-      document.getElementById("moviePlayerBtn").classList.contains("active")
-    ) {
-      if (imdbTmdbValue.includes("tt")) {
-        link = "https://vidsrc.to/embed/movie/" + imdbTmdbValue;
-      } else {
-        link = "https://vidsrc.to/embed/movie/tt" + imdbTmdbValue;
-      }
-    } else if (
-      document.getElementById("seriesPlayerBtn").classList.contains("active")
-    ) {
-      if (imdbTmdbValue.includes("tt")) {
-        link = "https://vidsrc.to/embed/tv/" + imdbTmdbValue;
-      } else {
-        link = "https://vidsrc.to/embed/tv/tt" + imdbTmdbValue;
-      }
-    }
-    console.log(link);
-    document.getElementById("go").onclick = function () {
-      hire(link);
-    };
+          let gameHtml = `<div class="card" style="padding-top: 5px">
+          <a onclick="hire('${link}${movie.id}');"> 
+            <div class="image-container">
+              <img loading="eager" src="${poster}" style="border-radius: 25px">
+              <p class="item-name">${movie.name || movie.title}</p> 
+            </div>
+          </a>
+        </div>`;
+          gameContainer.insertAdjacentHTML("beforeend", gameHtml);
+        });
+      });
+  } catch (error) {
+    text.innerHTML = `Error in fetching data<br>${error}`;
+    console.error(error);
   }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  let cooldown = false;
+
+  document
+    .getElementById("searchbar")
+    .addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        if (cooldown) {
+          document.getElementById("cooldownNotice").style.display = "block";
+        } else {
+          fetchTmdbId();
+          document.getElementById("cooldownNotice").style.display = "none";
+          cooldown = true;
+          setTimeout(function () {
+            cooldown = false;
+            document.getElementById("cooldownNotice").style.display = "none";
+          }, 3000);
+        }
+      }
+    });
 });
