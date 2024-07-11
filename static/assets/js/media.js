@@ -22,9 +22,9 @@ function fetchTmdbId() {
             poster = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
           }
           if (movie.media_type === "tv") {
-            link = "https://vidsrc.to/embed/tv/";
+            link = "https://vidsrc.xyz/embed/tv/";
           } else if (movie.media_type === "movie") {
-            link = "https://vidsrc.to/embed/movie/";
+            link = "https://vidsrc.xyz/embed/movie/";
           }
 
           let gameHtml = `<div class="card" style="padding-top: 5px">
