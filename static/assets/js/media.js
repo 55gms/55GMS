@@ -16,7 +16,7 @@ function fetchTmdbId() {
       .then((data) => {
         const results = data.results;
         results.forEach(function (movie) {
-          if (movie.poster_path === null) {
+          if (movie.poster_path === null || undefined) {
             poster = "/img/no-media.svg";
           } else {
             poster = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
