@@ -15,7 +15,6 @@ function fetchTmdbId() {
       .then((response) => response.json())
       .then((data) => {
         const results = data.results;
-        console.log(results);
         results.forEach(function (movie) {
           if (movie.poster_path === null) {
             poster = "/img/no-media.svg";
@@ -30,7 +29,7 @@ function fetchTmdbId() {
             link = "https://vidsrc.xyz/embed/movie/";
           }
           let gameHtml = `<div class="card" style="padding-top: 5px">
-          <a onclick="hire('${link}${movie.id}'); "> 
+          <a onclick="hire('${link}${movie.id}');"> 
             <div class="image-container">
               <img loading="eager" src="${poster}" style="border-radius: 25px">
               <p class="item-name">${movie.name || movie.title}</p> 
