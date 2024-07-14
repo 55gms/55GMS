@@ -2,7 +2,7 @@ function script(text) {
   console.log(
     "%cScript Injection",
     "color: cyan; font-weight: 600; background: black; padding: 0 5px; border-radius: 5px",
-    text
+    text,
   );
 }
 
@@ -55,7 +55,7 @@ fetch("/assets/json/ads.json")
       adscipterz92.setAttribute("async", "");
       adscipterz92.setAttribute(
         "src",
-        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317"
+        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317",
       );
       adscipterz92.setAttribute("crossorigin", "anonymous");
       document.head.append(adscipterz92);
