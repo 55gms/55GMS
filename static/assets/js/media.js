@@ -29,7 +29,9 @@ function fetchTmdbId() {
             link = "https://vidsrc.xyz/embed/movie/";
           }
           let gameHtml = `<div class="card" style="padding-top: 5px">
-          <a onclick="hire('${link}${movie.id}');"> 
+          <a onclick="hire('${link}${
+            movie.id
+          }');" class="plausible-event-name=Media+Interaction"> 
             <div class="image-container">
               <img loading="eager" src="${poster}" style="border-radius: 25px">
               <p class="item-name">${movie.name || movie.title}</p> 

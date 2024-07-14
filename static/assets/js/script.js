@@ -12,11 +12,14 @@ function script(text) {
 const newScript = document.createElement("script");
 newScript.setAttribute("defer", "");
 newScript.setAttribute("data-domain", "55gms.com");
-newScript.setAttribute("src", "https://data.ch3n.cc/js/script.js");
+newScript.setAttribute(
+  "src",
+  "https://data.ch3n.cc/js/script.tagged-events.js"
+);
 document.head.append(newScript);
 script("Injected script 1/3");
 
-script("Injected script 2/3 (More Ad stuff)");
+script("Injected script 2/3 (USE AN AD BLOCKER PLEASE)");
 
 var tab = localStorage.getItem("tab");
 if (tab) {
