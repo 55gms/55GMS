@@ -14,7 +14,7 @@ newScript.setAttribute("defer", "");
 newScript.setAttribute("data-domain", "55gms.com");
 newScript.setAttribute(
   "src",
-  "https://data.ch3n.cc/js/script.tagged-events.js"
+  "https://data.ch3n.cc/js/script.tagged-events.js",
 );
 document.head.append(newScript);
 script("Injected script 1/3");
