@@ -5,7 +5,7 @@ const path = require("path");
 const cors = require("cors");
 
 const server = http.createServer();
-const app = express(server);
+const app = express();
 const bareServer = createBareServer("/t/");
 
 app.use(express.json());
@@ -21,7 +21,6 @@ const routes = [
   { path: "/!", file: "!.html" },
   { path: "/", file: "index.html" },
   { path: "/d", file: "dashboard.html" },
-  { path: "/ad", file: "/assets/exploits/ad.html" },
   { path: "/e", file: "english.html" },
   { path: "/-", file: "math.html" },
   { path: "/l", file: "/assets/404/loading.html" },
@@ -44,7 +43,7 @@ async function fetchDataFromGithub(
   res,
   next,
   baseUrl,
-  secondaryUrl = null,
+  secondaryUrl = null
 ) {
   function isAFile(urlString) {
     return urlString.trim().split("/").pop().length !== 0;
