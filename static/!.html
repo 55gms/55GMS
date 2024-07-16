@@ -3,8 +3,9 @@
   <head>
     <title>Courses</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <script src="/assets/js/script.js?v=7"></script>
+    <script src="/assets/js/script.js?v=7" async></script>
     <link href="/img/canvas.ico" rel="icon" type="image/x-icon" />
+    <script src="/assets/js/frame.js"></script>
     <script crossorigin="anonymous" src="/assets/js/font.js"></script>
     <script src="/assets/js/easteregg.min.js" async></script>
     <meta charset="utf-8" />
@@ -16,6 +17,74 @@
     <script>
       window.addEventListener("resize", navigator.keyboard.lock(["Escape"]));
     </script>
+
+    <div class="bar">
+      <div class="bar-left">
+        &nbsp;&nbsp;<a class="button"
+          ><i
+            class="fa-solid fa-arrow-left icon"
+            onclick="back()"
+            title="Go Back"
+          ></i
+        ></a>
+        &nbsp;&nbsp;<a class="button"
+          ><i
+            class="fa-solid fa-arrow-right icon"
+            onclick="forward()"
+            title="Go Forward"
+          ></i
+        ></a>
+        &nbsp;&nbsp;<a class="button" onclick="reload()" title="Reload"
+          ><i class="fa-solid fa-rotate-right icon"></i
+        ></a>
+      </div>
+      <div class="input-icon-container">
+        <i class="fa-solid fa-magnifying-glass icon search-icon"></i>
+        <input
+          type="text"
+          class="search"
+          id="searchBar"
+          placeholder="Search Google or Enter an URL"
+        />
+      </div>
+      <div class="bar-right">
+        <a class="button"
+          ><i
+            class="fa-solid fa-house icon"
+            onclick="home()"
+            title="Go Home"
+          ></i
+        ></a>
+        &nbsp;&nbsp;<a class="button"
+          ><i
+            class="fa-solid fa-arrow-up icon"
+            onclick="hideBar()"
+            title="Hide This Bar"
+          ></i
+        ></a>
+        &nbsp;&nbsp;<a class="button"
+          ><i
+            class="fa-solid fa-arrow-up-right-from-square icon"
+            onclick="cloak()"
+            title="Open This Page in an about blank cloak"
+          ></i
+        ></a>
+        &nbsp;&nbsp;<a class="button"
+          ><i
+            class="fa-solid fa-code icon"
+            onclick="erudaToggle()"
+            title="Toggle Inspect Element"
+          ></i
+        ></a>
+        &nbsp;&nbsp;<a class="button"
+          ><i
+            class="fa-solid fa-expand icon"
+            onclick="fullscreen()"
+            title="Fullscreen"
+          ></i></a
+        >&nbsp;&nbsp;
+      </div>
+    </div>
     <iframe
       src="l"
       id="iframeid"
@@ -26,140 +95,9 @@
       frameborder="0"
       marginheight="0px"
       marginwidth="0px"
-      height="100%"
-      width="100%"
       allowfullscreen
     ></iframe>
-    <button id="fullscreen-button" class="navbtn navbtn1" title="Fullscreen">
-      <i class="fa-solid fa-expand"></i>
-    </button>
-    <button id="home-page" class="navbtn navbtn2" title="Go back Home">
-      <i class="fa-solid fa-house"></i>
-    </button>
-    <button id="reload-button" class="navbtn navbtn3" title="Reload the Page">
-      <i class="fa-solid fa-rotate-right"></i>
-    </button>
-    <button
-      id="ad-button"
-      class="navbtn navbtn4"
-      title="Skip YT Ad"
-      onclick="skipAd()"
-    >
-      <i class="fa-solid fa-film"></i>
-    </button>
-    <button
-      id="bookmarklet-button"
-      class="navbtn navbtn5"
-      title="Toggle Eruda"
-      onclick="erudaToggle()"
-    >
-      <i class="fa-solid fa-code"></i>
-    </button>
   </body>
-  <script>
-    fetch("/assets/json/nowgg.json")
-      .then((response) => response.json())
-      .then((data) => {
-        const iframeIdValue = data;
-        if (iframeIdValue.includes(sessionStorage.getItem("encodedUrl"))) {
-          const nowJsScript = document.createElement("script");
-          nowJsScript.src = "/assets/uv/now.js";
-          document.head.appendChild(nowJsScript);
-          console.log("Now.js has been loaded");
-        }
-      })
-      .catch((error) => console.error("Error:", error));
-    const reloadButton = document.getElementById("reload-button");
-    reloadButton.addEventListener("click", function () {
-      document.getElementById("iframeid").contentWindow.location.reload(); // Prevents site.com/#xyz from not working
-      // Timeout
-      reloadButton.disabled = true;
-      setTimeout(function () {
-        reloadButton.disabled = false;
-      }, 3000);
-    });
-
-    const fullscreenButton = document.getElementById("fullscreen-button");
-    fullscreenButton.addEventListener("click", function () {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
-    });
-
-    const homeButton = document.getElementById("home-page");
-    homeButton.addEventListener("click", function () {
-      window.location.href = "./";
-    });
-    function erudaToggle() {
-      if (!document.getElementById("iframeid")) return;
-
-      const erudaWindow = document.getElementById("iframeid").contentWindow;
-      const erudaDocument = document.getElementById("iframeid").contentDocument;
-
-      if (!erudaWindow || !erudaDocument) return;
-
-      if (erudaWindow.eruda?._isInit) {
-        erudaWindow.eruda.destroy();
-      } else {
-        let script = erudaDocument.createElement("script");
-        script.src = "https://cdn.jsdelivr.net/npm/eruda";
-        script.onload = function () {
-          if (!erudaWindow) return;
-          erudaWindow.eruda.init();
-          erudaWindow.eruda.show();
-        };
-        erudaDocument.head.appendChild(script);
-      }
-    }
-    function skipAd() {
-      const iframe = document.getElementById("iframeid");
-      if (!iframe) return;
-
-      while (
-        iframe.contentDocument.getElementsByClassName("video-ads")[0]
-          .innerHTML !== ""
-      ) {
-        var bannerClosed = false;
-
-        for (
-          var i = 0;
-          i <
-          iframe.contentDocument.getElementsByClassName(
-            "ytp-ad-overlay-close-button"
-          ).length;
-          i++
-        ) {
-          iframe.contentDocument
-            .getElementsByClassName("ytp-ad-overlay-close-button")
-            [i].click();
-          bannerClosed = true;
-        }
-
-        if (!bannerClosed) {
-          var mainVideo =
-            iframe.contentDocument.getElementsByClassName(
-              "html5-main-video"
-            )[0];
-          mainVideo.currentTime = mainVideo.duration;
-          iframe.contentDocument
-            .getElementsByClassName("ytp-ad-skip-button")[0]
-            .click();
-        }
-      }
-    }
-    window.addEventListener("load", function () {
-      let encodedUrl = sessionStorage.getItem("encodedUrl");
-      encodedUrl = "/assets/uv/service/" + encodedUrl;
-      console.log(encodedUrl);
-
-      let iframe = document.querySelector("#iframeid");
-      if (iframe) {
-        iframe.src = encodedUrl;
-      } else {
-        console.error('Iframe with id "iframeid" does not exist');
-      }
-    });
-  </script>
+  <script src="assets/uv/uv.bundle.js" defer></script>
+  <script src="assets/uv/uv.config.js?cdn" defer></script>
 </html>

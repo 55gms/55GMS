@@ -1,11 +1,82 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
+.bar {
+  display: flex;
+  justify-content: space-between; /* Adjusts children to align to the far edges */
+  align-items: center;
+  background-color: #333333;
+  width: 100vw;
+  height: 47.5px;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+.bar-left,
+.bar-right {
+  display: flex;
+}
+
+.bar-left {
+  justify-content: flex-start;
+}
+
+.bar-right {
+  justify-content: flex-end;
+}
+.icon {
+  color: #cccccc;
+  font-size: 15px;
+}
+.input-icon-container {
+  position: relative;
+  display: inline-block;
+}
+.search {
+  display: flex;
+  padding-left: 30px;
+  justify-content: center;
+  align-items: center;
+  background-color: #191919;
+  width: 75vw;
+  height: 34px;
+  top: 0;
+  z-index: 100;
+  border-radius: 15px;
+  border: none;
+  padding: 0px 35px;
+  color: #cccccc;
+}
+.search:focus {
+  outline: none;
+}
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.button {
+  display: inline-block;
+  border-radius: 100%;
+  padding: 7px;
+  transition: background-color 0.3s;
+  text-align: center;
+}
+.button:hover {
+  background-color: rgba(185, 185, 185, 0.178);
+}
+
 iframe {
   display: block;
   background: transparent;
   border: none;
-  height: 100vh;
+  height: calc(100vh - 47.5px);
   width: 100vw;
+  margin-top: 47.5px;
+  z-index: 99999;
 }
 
 .navbtn {
@@ -27,28 +98,6 @@ iframe {
   transition: background-color 0.3s ease;
 }
 
-.navbtn:hover {
-  background-color: rgba(255, 255, 255, 0.7);
-}
-
-.navbtn1 {
-  top: 10px;
-}
-
-.navbtn2 {
-  top: 70px;
-}
-
-.navbtn3 {
-  top: 130px;
-}
-.navbtn4 {
-  top: 190px;
-}
-.navbtn5 {
-  top: 250px;
-}
-
 body {
   background-color: #1c1c1c;
   font-family: "Inter", sans-serif;
@@ -58,4 +107,46 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+@media (max-width: 1300px) {
+  .search {
+    width: 60vw;
+    transition: 0.5s;
+  }
+}
+
+@media (max-width: 900px) {
+  .search {
+    width: 50vw;
+    transition: 0.5s;
+  }
+
+  .icon {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 700px) {
+  .button {
+    display: none;
+    transition: opacity 0.5s ease;
+  }
+}
+body.fullscreen-active .bar,
+body.fullscreen-active .icon,
+body.fullscreen-active .search,
+body.fullscreen-active .search-icon,
+body.fullscreen-active .navbtn {
+  display: none;
+}
+
+/* Adjust the iframe height and margin-top when in fullscreen */
+body.fullscreen-active iframe {
+  height: 100vh;
+  margin-top: 0;
 }
