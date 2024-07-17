@@ -43,7 +43,7 @@ async function fetchDataFromGithub(
   res,
   next,
   baseUrl,
-  secondaryUrl = null,
+  secondaryUrl = null
 ) {
   function isAFile(urlString) {
     return urlString.trim().split("/").pop().length !== 0;
@@ -83,17 +83,27 @@ async function fetchDataFromGithub(
 }
 
 server.on("request", (req, res) => {
-  if (bareServer.shouldRoute(req)) {
-    bareServer.routeRequest(req, res);
-  } else {
-    app(req, res);
+  try {
+    if (bareServer.shouldRoute(req)) {
+      bareServer.routeRequest(req, res);
+    } else {
+      app(req, res);
+    }
+  } catch (error) {
+    console.error("Request error:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
 
 server.on("upgrade", (req, socket, head) => {
-  if (bareServer.shouldRoute(req)) {
-    bareServer.routeUpgrade(req, socket, head);
-  } else {
+  try {
+    if (bareServer.shouldRoute(req)) {
+      bareServer.routeUpgrade(req, socket, head);
+    } else {
+      socket.end();
+    }
+  } catch (error) {
+    console.error("Upgrade error:", error);
     socket.end();
   }
 });
@@ -112,4 +122,8 @@ server.on("listening", () => {
 
 server.listen({
   port: 8080,
+});
+
+server.on("error", (error) => {
+  console.error("Server error:", error);
 });

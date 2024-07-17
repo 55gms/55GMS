@@ -43,7 +43,7 @@ window.addEventListener("DOMContentLoaded", function () {
   if (searchBar) {
     searchBar.setAttribute(
       "value",
-      decodeURL(sessionStorage.getItem("encodedUrl")),
+      decodeURL(sessionStorage.getItem("encodedUrl"))
     );
     // search bar functionality
     searchBar.addEventListener("keydown", function (event) {
@@ -63,7 +63,7 @@ function reload() {
 document.onfullscreenchange = function () {
   document.body.classList.toggle(
     "fullscreen-active",
-    document.fullscreenElement,
+    document.fullscreenElement
   );
   iframe = document.getElementById("iframeid");
   if (document.fullscreenElement) {
@@ -104,10 +104,10 @@ function erudaToggle() {
   }
 }
 function back() {
-  window.history.back();
+  document.getElementById("iframeid").contentWindow.history.back();
 }
 function forward() {
-  window.history.forward();
+  document.getElementById("iframeid").contentWindow.history.forward();
 }
 function hideBar() {
   const classesToHide = [
