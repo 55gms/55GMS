@@ -878,15 +878,21 @@
   },
   {
     "name": "Learn to Fly",
-    "url": "/misc/learntofly/index.html",
+    "url": "https://www.coolmathgames.com/0-learn-to-fly/play",
     "image": "/misc/learn-to-fly/2.jpeg",
-    "usesProxy": false
+    "usesProxy": true
   },
   {
     "name": "Learn to Fly 2",
     "url": "/misc/flash/index.html?swf=learn-to-fly-2.swf",
     "image": "/misc/learn-to-fly/1.jpeg",
     "usesProxy": false
+  },
+  {
+    "name": "Learn to Fly 3",
+    "url": "https://www.silvergames.com/en/learn-to-fly-3/iframe",
+    "image": "/img/games/learntofly3.webp",
+    "usesProxy": true
   },
   {
     "name": "Madalin Cars Multiplayer",
@@ -934,7 +940,7 @@
     "name": "Monkey Mart",
     "url": "/misc/monkey-mart/index.html",
     "image": "/misc/monkey-mart/img.jpeg",
-    "usesProxy": false
+    "usesProxy": true
   },
   {
     "name": "Monster Tracks",
@@ -1317,9 +1323,9 @@
   },
   {
     "name": "Roper",
-    "url": "/misc/roper/index.html",
+    "url": "https://games.poki.com/458768/0c650e37-4815-4faf-9f4d-9cc934d75f50/",
     "image": "/misc/roper/img.avif",
-    "usesProxy": false
+    "usesProxy": true
   },
   {
     "name": "Run 3",
