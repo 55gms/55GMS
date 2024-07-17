@@ -216,12 +216,6 @@
     "usesProxy": false
   },
   {
-    "name": "Cell Machine",
-    "url": "https://samhogan.itch.io/cell-machine",
-    "image": "/misc/cellmachine/img.webp",
-    "usesProxy": true
-  },
-  {
     "name": "Chrome Dino Game",
     "url": "/misc/chrome-dino/index.html",
     "image": "/misc/chrome-dino/icons/icon-256.png",
@@ -238,6 +232,12 @@
     "url": "/misc/cookieclicker/index.html",
     "image": "/misc/cookieclicker/clicker.jpeg",
     "usesProxy": false
+  },
+  {
+    "name": "Connections",
+    "url": "https://1games.io/game/connections-game/",
+    "image": "/img/games/connections.webp",
+    "usesProxy": true
   },
   {
     "name": "Cookie Run Kingdom",
@@ -360,16 +360,10 @@
     "usesProxy": true
   },
   {
-    "name": "Addicting Games",
-    "url": "https://www.addictinggames.com/",
-    "image": "/img/games/addictinggames.webp",
-    "usesProxy": true
-  },
-  {
     "name": "Drift Hunters",
-    "url": "/misc/drift-hunters/index.html",
+    "url": "https://webglmath.github.io/drift-hunters/",
     "image": "/misc/drift-hunters/drift-hunters.webp",
-    "usesProxy": false
+    "usesProxy": true
   },
   {
     "name": "Drive Mad",
@@ -456,16 +450,16 @@
     "usesProxy": false
   },
   {
-    "name": "Factory Balls 2",
-    "url": "/misc/flash/index.html?swf=factory-balls-2.swf",
-    "image": "/misc/factory-balls/1.webp",
-    "usesProxy": false
+    "name": "Bandit.RIP",
+    "url": "https://bandit.rip/",
+    "image": "/img/games/bandit.webp",
+    "usesProxy": true
   },
   {
-    "name": "Factory Balls 3",
-    "url": "/misc/flash/index.html?swf=factory-balls-3.swf",
-    "image": "/misc/factory-balls/1.webp",
-    "usesProxy": false
+    "name": "Snowball.io",
+    "url": "https://games.crazygames.com/en_US/snowball-io/index.html",
+    "image": "/img/games/snowball.webp",
+    "usesProxy": true
   },
   {
     "name": "FancyPants Adventure",
@@ -1406,22 +1400,10 @@
     "usesProxy": false
   },
   {
-    "name": "Slope 2",
-    "url": "/misc/slope-2/index.html",
-    "image": "/misc/slope-2/img.png",
-    "usesProxy": false
-  },
-  {
     "name": "Slowroads.io",
     "url": "https://slowroads.io/",
     "image": "/misc/slowroads/img.webp",
     "usesProxy": true
-  },
-  {
-    "name": "Slope Cyber",
-    "url": "/misc/slope-cyber/index.html",
-    "image": "/misc/slope-cyber/cyber.png",
-    "usesProxy": false
   },
   {
     "name": "Super Mario 64",

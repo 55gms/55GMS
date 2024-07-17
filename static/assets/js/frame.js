@@ -58,7 +58,7 @@ window.addEventListener("DOMContentLoaded", function () {
 });
 
 function reload() {
-  document.getElementById("iframeid").contentWindow.location.reload(); // Prevents site.com/#xyz from not working
+  document.getElementById("iframeid").contentWindow.location.reload();
 }
 document.onfullscreenchange = function () {
   document.body.classList.toggle(
