@@ -5,7 +5,7 @@ const path = require("path");
 const cors = require("cors");
 
 const server = http.createServer();
-const app = express();
+const app = express(server);
 const bareServer = createBareServer("/t/");
 
 app.use(express.json());
@@ -43,7 +43,7 @@ async function fetchDataFromGithub(
   res,
   next,
   baseUrl,
-  secondaryUrl = null,
+  secondaryUrl = null
 ) {
   function isAFile(urlString) {
     return urlString.trim().split("/").pop().length !== 0;
