@@ -21,6 +21,24 @@ Contributing to 55GMS is simple, all you need is to fork this repository and cre
 [![Deploy to Render](https://binbashbanana.github.io/deploy-buttons/buttons/remade/render.svg)](https://render.com/deploy?repo=https://github.com/55gms/55GMS)
 [![Deploy to Koyeb](https://binbashbanana.github.io/deploy-buttons/buttons/remade/koyeb.svg)](https://app.koyeb.com/deploy?type=git&repository=github.com/55gms/55GMS&branch=main&name=55gms)
 [![Deploy to Cyclic](https://binbashbanana.github.io/deploy-buttons/buttons/remade/cyclic.svg)](https://app.cyclic.sh/api/app/deploy/55gms/55GMS)
+### Deploy to Codespaces
+
+At the top of this repo, click Code.
+![image](https://github.com/user-attachments/assets/f39210a7-33a2-4ee8-b8da-97a894ddbf03)
+
+Then click Create Codespaces on Main
+
+You should be redirected to a new page
+In the terminal area, type `node .`
+![image](https://github.com/user-attachments/assets/ef75f5f1-e551-4332-8e60-7e4c8a2b563f)
+Click enter, you should see a popup on the bottom right
+![image](https://github.com/user-attachments/assets/7ebef636-6cde-474e-9ccc-b93f32906fe3)
+Click Make Public.
+
+Finally, Go to ports and click on the link.
+
+![image](https://github.com/user-attachments/assets/38b12552-aedb-442e-93c9-d2cda4904e49)
+
 
 ### Deploy to a VPS
 
