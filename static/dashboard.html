@@ -1,107 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Dashboard</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Cache-control" content="public" />
-    <link rel="icon" type="image/x-icon" href="/img/canvas.ico" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/assets/css/style.css?withthecssgsorelseitwontworklol"
-    />
-    <link rel="stylesheet" type="text/css" href="/assets/css/dash.css" />
-    <link rel="stylesheet" href="/assets/css/nav.css?v=3" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="/assets/js/motd.js?betav2"></script>
-    <script src="/assets/js/script.js?v=8"></script>
-    <script src="/assets/js/easteregg.min.js" async></script>
-    <script src="/assets/js/font.js" crossorigin="anonymous"></script>
-  </head>
-  <body>
-   <nav>
-       <div class="navbar">
-           <a id="nav-title" href="/">Reds Exploit Corner</a>
-           <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
-           <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
-           <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
-           <a href="/p"><i class="fa-solid fa-magnifying-glass">&nbsp;</i>Search</a>
-           <a href="/e"><i class="fa-solid fa-robot"></i>&nbsp;</i>AI</a>
-           <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
-       </div>
-   </nav>
-    <br /><br />
-    <div style="text-align: center">
-      <h1 id="title">Reds Dashboard</h1>
-      <br /><br />
-      <button
-        class="gs"
-        id="motd"
-        onclick="Swal.fire({icon: 'warning', title: 'Message Of The Day', html: '<b>Loading...</b>', footer: `<i style='font-size: 11px;'>Blud have patience</i>`, timer: 2000, timerProgressBar: true});"
-      >
-        Message of the Day
-      </button>
-      <button
-        class="gs"
-        id="qotd"
-        onclick="Swal.fire({icon: 'warning', title: 'Quote Of The Day', html: '<b>Loading...</b>', footer: `<i style='font-size: 11px;'>Blud have patience</i>`, timer: 2000, timerProgressBar: true});"
-      >
-        Quote of the Day
-      </button>
-      <button
-        class="gs"
-        onclick="Swal.fire({title:'Official Links', html:`55gms.com<br>55gms.me<br>55gms.lol<br>55gms.de<br>55gms.xyz<br>exploits.pages.dev<br><br>Join the <a href='https://discord.gg/XKCMxMeGmQ'>discord</a> for more unblocked links`});"
-      >
-        Official Links
-      </button>
 
-      <br /><br />
-      <a
-        href="https://docs.google.com/forms/d/e/1FAIpQLSfR3BM3EW6AwUs85eLVl7cUOMpuwHs7EzMdnKmPuFdrbnfjbg/viewform"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <button id="gs">Message of the Day and Quote of the Day Ideas</button>
-      </a>
+<head>
+  <title>Dashboard</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-control" content="public" />
+  <link rel="icon" type="image/x-icon" href="/img/canvas.ico" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?withthecssgsorelseitwontworklol" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/dash.css" />
+  <link rel="stylesheet" href="/assets/css/nav.css?v=3" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="/assets/js/motd.js?betav2"></script>
+  <script src="/assets/js/script.js?v=8"></script>
+  <script src="/assets/js/easteregg.min.js" async></script>
+  <script src="/assets/js/font.js" crossorigin="anonymous"></script>
+</head>
 
-      <br /><br /><br />
-      <a href="g"
-        ><button class="btnn"><b>Games</b></button></a
-      >
-      <a href="a"
-        ><button class="btnn"><b>Apps</b></button></a
-      >
-      <a href="-"
-        ><button class="btnn"><b>Exploits</b></button></a
-      ><br /><br />
-      <a href="p"
-        ><button class="btnn"><b>Proxies</b></button></a
-      >
-      <a href="e"
-        ><button class="btnn"><b>AI</b></button></a
-      ><br /><br /><br />
-      <a href="s"><button class="btnn">Settings</button></a>
-      <a href="/misc/index.html"><button class="btnn">Random Stuff</button></a
-      ><br />
-      <script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317"
-        crossorigin="anonymous"
-      ></script>
-      <!-- games -->
-      <script type="text/javascript" src="//aboriginesprimary.com/2bdac609c3330d4bf7b2c8b5fba87e8b/invoke.js"></script>
-      <ins
-        class="adsbygoogle"
-        style="display: block"
-        data-ad-client="ca-pub-6700774525685317"
-        data-ad-slot="5324022054"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      ></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+<body>
+  <nav>
+    <div class="navbar">
+      <a id="nav-title" href="/">Reds Exploit Corner</a>
+      <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
+      <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
+      <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
+      <a href="/p"><i class="fa-solid fa-magnifying-glass">&nbsp;</i>Search</a>
+      <a href="/e"><i class="fa-solid fa-robot"></i>&nbsp;</i>AI</a>
+      <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
     </div>
-  </body>
+  </nav>
+  <br /><br />
+  <div style="text-align: center">
+    <h1 id="title">Reds Dashboard</h1>
+    <br /><br />
+    <button class="gs" id="motd"
+      onclick="Swal.fire({icon: 'warning', title: 'Message Of The Day', html: '<b>Loading...</b>', footer: `<i style='font-size: 11px;'>Blud have patience</i>`, timer: 2000, timerProgressBar: true});">
+      Message of the Day
+    </button>
+    <button class="gs" id="qotd"
+      onclick="Swal.fire({icon: 'warning', title: 'Quote Of The Day', html: '<b>Loading...</b>', footer: `<i style='font-size: 11px;'>Blud have patience</i>`, timer: 2000, timerProgressBar: true});">
+      Quote of the Day
+    </button>
+    <button class="gs"
+      onclick="Swal.fire({title:'Official Links', html:`55gms.com<br>55gms.me<br>55gms.lol<br>55gms.de<br>55gms.xyz<br>exploits.pages.dev<br><br>Join the <a href='https://discord.gg/XKCMxMeGmQ'>discord</a> for more unblocked links`});">
+      Official Links
+    </button>
+
+    <br /><br />
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfR3BM3EW6AwUs85eLVl7cUOMpuwHs7EzMdnKmPuFdrbnfjbg/viewform"
+      target="_blank" rel="noopener noreferrer">
+      <button id="gs">Message of the Day and Quote of the Day Ideas</button>
+    </a>
+
+    <br /><br /><br />
+    <a href="g"><button class="btnn"><b>Games</b></button></a>
+    <a href="a"><button class="btnn"><b>Apps</b></button></a>
+    <a href="-"><button class="btnn"><b>Exploits</b></button></a><br /><br />
+    <a href="p"><button class="btnn"><b>Proxies</b></button></a>
+    <a href="e"><button class="btnn"><b>AI</b></button></a><br /><br /><br />
+    <a href="s"><button class="btnn">Settings</button></a>
+    <a href="/misc/index.html"><button class="btnn">Random Stuff</button></a><br />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317"
+      crossorigin="anonymous"></script>
+    <!-- games -->
+    <script async="async" data-cfasync="false" src="/assets/js/adsterra.js"></script>
+    <div id="container-d748553ce609adfb19cbe01dc3948c7b"></div>
+    <ins class="adsbygoogle" style="display: block" data-ad-client="ca-pub-6700774525685317" data-ad-slot="5324022054"
+      data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+</body>
+
 </html>
