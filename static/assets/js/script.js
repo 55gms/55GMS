@@ -2,7 +2,7 @@ function script(text) {
   console.log(
     "%cScript Injection",
     "color: cyan; font-weight: 600; background: black; padding: 0 5px; border-radius: 5px",
-    text,
+    text
   );
 }
 
@@ -14,16 +14,16 @@ newScript.setAttribute("defer", "");
 newScript.setAttribute("data-domain", "55gms.com");
 newScript.setAttribute(
   "src",
-  "https://data.ch3n.cc/js/script.tagged-events.js",
+  "https://data.ch3n.cc/js/script.tagged-events.js"
 );
 document.head.append(newScript);
 script("Injected script 1/3");
-(function (pdpva) {
+(function (snq) {
   var d = document,
     s = d.createElement("script"),
     l = d.scripts[d.scripts.length - 1];
-  s.settings = pdpva || {};
-  s.src = "/assets/js/ad.js";
+  s.settings = snq || {};
+  s.src = "/assets/js/hilltopads.js";
   s.async = true;
   s.referrerPolicy = "no-referrer-when-downgrade";
   l.parentNode.insertBefore(s, l);
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-fetch("/assets/json/ad.json")
+fetch("/assets/json/ads.json")
   .then((response) => response.json())
   .then((data) => {
     if (data.domains.includes(window.location.hostname)) {
@@ -67,25 +67,25 @@ fetch("/assets/json/ad.json")
       adscipterz92.setAttribute("async", "");
       adscipterz92.setAttribute(
         "src",
-        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317",
+        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317"
       );
       adscipterz92.setAttribute("crossorigin", "anonymous");
       document.head.append(adscipterz92);
-      script("Injected script 3/3 (Adsense)");
-    } else {
-      console.log("Skipping Adsense Injection for this domain.");
       var scriptElement = document.querySelector(
-        'script[src="//aboriginesprimary.com/d748553ce609adfb19cbe01dc3948c7b/invoke.js"]',
+        'script[src="//aboriginesprimary.com/d748553ce609adfb19cbe01dc3948c7b/invoke.js"]'
       );
       if (scriptElement) {
         scriptElement.remove();
       }
-    }
-    var divElement = document.getElementById(
-      "container-d748553ce609adfb19cbe01dc3948c7b",
-    );
-    if (divElement) {
-      divElement.remove();
+      var divElement = document.getElementById(
+        "container-d748553ce609adfb19cbe01dc3948c7b"
+      );
+      if (divElement) {
+        divElement.remove();
+      }
+      script("Injected script 3/3 (Adsense)");
+    } else {
+      console.log("Skipping Adsense Injection for this domain.");
     }
   });
 
