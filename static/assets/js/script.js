@@ -18,12 +18,16 @@ newScript.setAttribute(
 );
 document.head.append(newScript);
 script("Injected script 1/3");
-(function (s) {
+(function (pdpva) {
+  var d = document,
+    s = d.createElement("script"),
+    l = d.scripts[d.scripts.length - 1];
+  s.settings = pdpva || {};
   s.src = "/assets/js/ad.js";
-  try {
-    (document.body || document.documentElement).appendChild(s);
-  } catch (e) {}
-})(document.createElement("script"));
+  s.async = true;
+  s.referrerPolicy = "no-referrer-when-downgrade";
+  l.parentNode.insertBefore(s, l);
+})({});
 script("Injected script 2/3 (USE AN AD BLOCKER PLEASE)");
 
 var tab = localStorage.getItem("tab");

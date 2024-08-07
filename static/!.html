@@ -1,81 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" class="notranslate" translate="no">
-  <head>
-    <title>Courses</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <script src="/assets/js/script.js?v=8" async></script>
-    <link href="/img/canvas.ico" rel="icon" type="image/x-icon" />
-    <script src="/assets/js/frame.js"></script>
-    <script crossorigin="anonymous" src="/assets/js/font.js"></script>
-    <script src="/assets/js/easteregg.min.js" async></script>
-    <meta charset="utf-8" />
-    <meta http-equiv="Cache-control" content="public" />
-    <link href="/assets/css/science.css?1" rel="stylesheet" />
-  </head>
 
-  <body>
-    <script>
-      window.addEventListener("resize", navigator.keyboard.lock(["Escape"]));
-    </script>
+<head>
+  <title>Courses</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <script src="/assets/js/script.js?v=9" async></script>
+  <link href="/img/canvas.ico" rel="icon" type="image/x-icon" />
+  <script src="/assets/js/frame.js"></script>
+  <script crossorigin="anonymous" src="/assets/js/font.js"></script>
+  <script src="/assets/js/easteregg.min.js" async></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="Cache-control" content="public" />
+  <link href="/assets/css/science.css?1" rel="stylesheet" />
+</head>
 
-    <div class="bar">
-      <div class="bar-left">
-        &nbsp;&nbsp;<a class="button" onclick="back()" title="Go Back"
-          ><i class="fa-solid fa-arrow-left icon"></i
-        ></a>
-        &nbsp;&nbsp;<a class="button" onclick="forward()" title="Go Forward"
-          ><i class="fa-solid fa-arrow-right icon"></i
-        ></a>
-        &nbsp;&nbsp;<a class="button" onclick="reload()" title="Reload"
-          ><i class="fa-solid fa-rotate-right icon"></i
-        ></a>
-      </div>
-      <div class="input-icon-container">
-        <i class="fa-solid fa-magnifying-glass icon search-icon"></i>
-        <input
-          type="text"
-          class="search"
-          id="searchBar"
-          placeholder="Search Google or Enter an URL"
-        />
-      </div>
-      <div class="bar-right">
-        <a class="button" onclick="home()" title="Go Back"
-          ><i class="fa-solid fa-house icon"></i
-        ></a>
-        &nbsp;&nbsp;<a class="button" onclick="hideBar()" title="Go Back"
-          ><i class="fa-solid fa-arrow-up icon"></i
-        ></a>
-        &nbsp;&nbsp;<a
-          class="button"
-          onclick="cloak()"
-          title="Open This Page in an about blank cloak"
-          ><i class="fa-solid fa-arrow-up-right-from-square icon"></i
-        ></a>
-        &nbsp;&nbsp;<a
-          class="button"
-          onclick="erudaToggle()"
-          title="Toggle Inspect Element"
-          ><i class="fa-solid fa-code icon"></i
-        ></a>
-        &nbsp;&nbsp;<a class="button" onclick="fullscreen()" title="Fullscreen"
-          ><i class="fa-solid fa-expand icon"></i></a
-        >&nbsp;&nbsp;
-      </div>
+<body>
+  <script>
+    window.addEventListener("resize", navigator.keyboard.lock(["Escape"]));
+  </script>
+
+  <div class="bar">
+    <div class="bar-left">
+      &nbsp;&nbsp;<a class="button" onclick="back()" title="Go Back"><i class="fa-solid fa-arrow-left icon"></i></a>
+      &nbsp;&nbsp;<a class="button" onclick="forward()" title="Go Forward"><i
+          class="fa-solid fa-arrow-right icon"></i></a>
+      &nbsp;&nbsp;<a class="button" onclick="reload()" title="Reload"><i class="fa-solid fa-rotate-right icon"></i></a>
     </div>
-    <iframe
-      src=""
-      id="iframeid"
-      style="bottom: 0"
-      style="border: 0px #ffffff none"
-      name="Iframe"
-      scrolling="yes"
-      frameborder="0"
-      marginheight="0px"
-      marginwidth="0px"
-      allowfullscreen
-    ></iframe>
-  </body>
-  <script src="assets/uv/uv.bundle.js" defer></script>
-  <script src="assets/uv/uv.config.js?cdn" defer></script>
+    <div class="input-icon-container">
+      <i class="fa-solid fa-magnifying-glass icon search-icon"></i>
+      <input type="text" class="search" id="searchBar" placeholder="Search Google or Enter an URL" />
+    </div>
+    <div class="bar-right">
+      <a class="button" onclick="home()" title="Go Back"><i class="fa-solid fa-house icon"></i></a>
+      &nbsp;&nbsp;<a class="button" onclick="hideBar()" title="Go Back"><i class="fa-solid fa-arrow-up icon"></i></a>
+      &nbsp;&nbsp;<a class="button" onclick="cloak()" title="Open This Page in an about blank cloak"><i
+          class="fa-solid fa-arrow-up-right-from-square icon"></i></a>
+      &nbsp;&nbsp;<a class="button" onclick="erudaToggle()" title="Toggle Inspect Element"><i
+          class="fa-solid fa-code icon"></i></a>
+      &nbsp;&nbsp;<a class="button" onclick="fullscreen()" title="Fullscreen"><i
+          class="fa-solid fa-expand icon"></i></a>&nbsp;&nbsp;
+    </div>
+  </div>
+  <iframe src="" id="iframeid" style="bottom: 0" style="border: 0px #ffffff none" name="Iframe" scrolling="yes"
+    frameborder="0" marginheight="0px" marginwidth="0px" allowfullscreen></iframe>
+</body>
+<script src="assets/uv/uv.bundle.js" defer></script>
+<script src="assets/uv/uv.config.js?cdn" defer></script>
+
 </html>
