@@ -35,7 +35,7 @@ function fetchTmdbId() {
         </div>`;
             gameContainer.insertAdjacentHTML("beforeend", gameHtml);
           } else if (movie.media_type === "movie") {
-            link = `https://multiembed.mov/directstream.php?video_id=${movie.id}&tmdb=1`;
+            link = `https://multiembed.mov/?video_id=${movie.id}&tmdb=1`;
             let gameHtml = `<div class="card" style="padding-top: 5px">
           <a onclick="hire('${link}');"> 
             <div class="image-container">
@@ -55,7 +55,7 @@ function fetchTmdbId() {
 function promptForSeasonAndEpisode(videoId) {
   const season = prompt("Enter season number:");
   const episode = prompt("Enter episode number:");
-  const link = `https://multiembed.mov/directstream.php?video_id=${videoId}&tmdb=1&s=${season}&e=${episode}`;
+  const link = `https://multiembed.mov/?video_id=${videoId}&tmdb=1&s=${season}&e=${episode}`;
   hire(link);
 }
 document.addEventListener("DOMContentLoaded", function () {
