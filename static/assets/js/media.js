@@ -35,7 +35,7 @@ function fetchTmdbId() {
         </div>`;
             gameContainer.insertAdjacentHTML("beforeend", gameHtml);
           } else if (movie.media_type === "movie") {
-            link = `https://multiembed.mov/?video_id=${movie.id}&tmdb=1`;
+            link = `https://multiembed.mov/directstream.php?video_id=${movie.id}&tmdb=1`;
             let gameHtml = `<div class="card" style="padding-top: 5px">
           <a onclick="hire('${link}');"> 
             <div class="image-container">
