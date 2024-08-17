@@ -64,7 +64,6 @@ function getRandomLink(videoId, season = null, episode = null) {
     "https://multiembed.mov/directstream.php",
     "https://multiembed.mov/",
     "https://amethyst-liane-11.tiiny.io/",
-    "https://vidcloud1.com/",
   ];
   const randomLink = links[Math.floor(Math.random() * links.length)];
   if (season !== null && episode !== null) {
