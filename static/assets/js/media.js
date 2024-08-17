@@ -23,41 +23,57 @@ function fetchTmdbId() {
             poster = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
           }
 
-          let link;
+          let gameHtml;
           if (movie.media_type === "tv") {
-            let gameHtml = `<div class="card" style="padding-top: 5px">
-          <a onclick="promptForSeasonAndEpisode(${movie.id})"> 
-            <div class="image-container">
-              <img loading="eager" src="${poster}" style="border-radius: 25px">
-              <p class="item-name">${movie.name || movie.title}</p> 
-            </div>
-          </a>
-        </div>`;
-            gameContainer.insertAdjacentHTML("beforeend", gameHtml);
+            gameHtml = `<div class="card" style="padding-top: 5px">
+              <a onclick="promptForSeasonAndEpisode(${movie.id})"> 
+                <div class="image-container">
+                  <img loading="eager" src="${poster}" style="border-radius: 25px">
+                  <p class="item-name">${movie.name || movie.title}</p> 
+                </div>
+              </a>
+            </div>`;
           } else if (movie.media_type === "movie") {
-            link = `https://multiembed.mov/?video_id=${movie.id}&tmdb=1`;
-            let gameHtml = `<div class="card" style="padding-top: 5px">
-          <a onclick="hire('${link}');"> 
-            <div class="image-container">
-              <img loading="eager" src="${poster}" style="border-radius: 25px">
-              <p class="item-name">${movie.name || movie.title}</p> 
-            </div>
-          </a>
-        </div>`;
-            gameContainer.insertAdjacentHTML("beforeend", gameHtml);
+            link = getRandomLink(movie.id);
+            gameHtml = `<div class="card" style="padding-top: 5px">
+              <a onclick="hire('${link}');"> 
+                <div class="image-container">
+                  <img loading="eager" src="${poster}" style="border-radius: 25px">
+                  <p class="item-name">${movie.name || movie.title}</p> 
+                </div>
+              </a>
+            </div>`;
           }
+          gameContainer.insertAdjacentHTML("beforeend", gameHtml);
         });
       });
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
+
 function promptForSeasonAndEpisode(videoId) {
   const season = prompt("Enter season number:");
   const episode = prompt("Enter episode number:");
-  const link = `https://multiembed.mov/?video_id=${videoId}&tmdb=1&s=${season}&e=${episode}`;
+  const link = getRandomLink(videoId, season, episode);
   hire(link);
 }
+
+function getRandomLink(videoId, season = null, episode = null) {
+  const links = [
+    "https://multiembed.mov/directstream.php",
+    "https://multiembed.mov/",
+    "https://amethyst-liane-11.tiiny.io/",
+    "https://vidcloud1.com/",
+  ];
+  const randomLink = links[Math.floor(Math.random() * links.length)];
+  if (season !== null && episode !== null) {
+    return `${randomLink}?video_id=${videoId}&tmdb=1&s=${season}&e=${episode}`;
+  } else {
+    return `${randomLink}?video_id=${videoId}&tmdb=1`;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   let cooldown = false;
 
