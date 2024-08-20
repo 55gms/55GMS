@@ -61,9 +61,9 @@ function promptForSeasonAndEpisode(videoId) {
 
 function getRandomLink(videoId, season = null, episode = null) {
   const links = [
-    "https://multiembed.mov/directstream.php",
     "https://multiembed.mov/",
     "https://amethyst-liane-11.tiiny.io/",
+    "https://lime-valaree-4.tiiny.io/",
   ];
   const randomLink = links[Math.floor(Math.random() * links.length)];
   if (season !== null && episode !== null) {
