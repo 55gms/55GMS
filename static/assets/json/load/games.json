@@ -330,12 +330,6 @@
     "usesProxy": false
   },
   {
-    "name": "ShellShockers",
-    "url": "/misc/shellshocker/index.html",
-    "image": "/img/games/shell-shockers.webp",
-    "usesProxy": false
-  },
-  {
     "name": "DOOM",
     "url": "https://archive.org/details/doom-play",
     "image": "/misc/doom/img.webp",
@@ -940,7 +934,7 @@
     "name": "Monkey Mart",
     "url": "/misc/monkey-mart/index.html",
     "image": "/misc/monkey-mart/img.jpeg",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Monster Tracks",
@@ -1736,10 +1730,10 @@
     "usesProxy": true
   },
   {
-    "name": "swordbattle.io",
-    "url": "https://swordbattle.io/",
-    "image": "/img/games/sword.webp",
-    "usesProxy": true
+    "name": "Buckshot Roulette",
+    "url": "/misc/buckshot/index.html",
+    "image": "/img/games/buckshot.webp",
+    "usesProxy": false
   },
   {
     "name": "deadshot.io",
