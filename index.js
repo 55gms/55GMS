@@ -13,6 +13,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static(path.join(__dirname, "static")));
 
+app.use((req, res, next) => {
+  if (path.extname(req.url) === ".js") {
+    res.setHeader("Content-Type", "application/javascript");
+  }
+  next();
+});
+
 const routes = [
   { path: "/a", file: "apps.html" },
   { path: "/g", file: "art.html" },
@@ -43,7 +50,7 @@ async function fetchDataFromGithub(
   res,
   next,
   baseUrl,
-  secondaryUrl = null,
+  secondaryUrl = null
 ) {
   function isAFile(urlString) {
     return urlString.trim().split("/").pop().length !== 0;
