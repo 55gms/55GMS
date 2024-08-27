@@ -11,7 +11,6 @@ const bareServer = createBareServer("/t/");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use(express.static(path.join(__dirname, "static")));
 
 app.use((req, res, next) => {
   if (path.extname(req.url) === ".js") {
@@ -19,6 +18,8 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+app.use(express.static(path.join(__dirname, "static")));
 
 const routes = [
   { path: "/a", file: "apps.html" },
