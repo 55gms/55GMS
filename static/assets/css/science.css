@@ -2,7 +2,7 @@
 
 .bar {
   display: flex;
-  justify-content: space-between; /* Adjusts children to align to the far edges */
+  justify-content: space-between;
   align-items: center;
   background-color: #333333;
   width: 100vw;
@@ -113,7 +113,7 @@ a {
   text-decoration: none;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1400px) {
   .search {
     width: 60vw;
     transition: 0.5s;
