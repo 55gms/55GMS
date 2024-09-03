@@ -273,7 +273,6 @@ fetch("https://api.github.com/repos/55gms/55gms/commits")
       .toISOString()
       .split("T")[0];
     var lastCommitDate = convertDate(unformatted);
-    document.querySelector(
-      "#updated"
-    ).textContent = `Last Updated: ${lastCommitDate}`;
+    document.querySelector("#updated").textContent =
+      `Last Updated: ${lastCommitDate}`;
   });
