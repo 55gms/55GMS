@@ -23,7 +23,7 @@ if (tabData.title && titleElement) titleElement.value = tabData.title;
 if (tabData.icon && iconElement) iconElement.value = tabData.icon;
 
 var settingsDefaultTab = {
-  title: "Dashboard",
+  title: "Google",
   icon: "/img/favicon.ico",
 };
 
@@ -154,8 +154,7 @@ function resetTab() {
 }
 
 var panicKey = localStorage.getItem("panicKey") || "`";
-var panicLink =
-  localStorage.getItem("PanicLink") || "https://canvas.houstonisd.org/";
+var panicLink = localStorage.getItem("PanicLink") || "https://google.com/";
 
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("key").value = panicKey;
@@ -191,7 +190,7 @@ function cloak() {
       const style = iframe.style;
       const link = doc.createElement("link");
 
-      const name = tabData.title || "Dashboard";
+      const name = tabData.title || "Google";
       const icon = tabData.icon || "/img/favicon.ico";
 
       doc.title = name;
@@ -208,8 +207,7 @@ function cloak() {
       doc.body.appendChild(iframe);
 
       const pLink =
-        localStorage.getItem(encodeURI("pLink")) ||
-        "https://canvas.houstonisd.org/";
+        localStorage.getItem(encodeURI("pLink")) || "https://google.com";
       location.replace(pLink);
 
       const script = doc.createElement("script");
