@@ -34,7 +34,7 @@ function fetchTmdbId() {
               </a>
             </div>`;
           } else if (movie.media_type === "movie") {
-            link = getRandomLink(movie.id);
+            link = `https://vidsrc.rip/embed/movie/${movie.id}`;
             gameHtml = `<div class="card" style="padding-top: 5px">
               <a onclick="hire('${link}');"> 
                 <div class="image-container">
@@ -55,22 +55,21 @@ function fetchTmdbId() {
 function promptForSeasonAndEpisode(videoId) {
   const season = prompt("Enter season number:");
   const episode = prompt("Enter episode number:");
-  const link = getRandomLink(videoId, season, episode);
-  hire(link);
-}
-
-function getRandomLink(videoId, season = null, episode = null) {
-  const links = [
-    "https://multiembed.mov/",
-    "https://amethyst-liane-11.tiiny.io/",
-    "https://lime-valaree-4.tiiny.io/",
-  ];
-  const randomLink = links[Math.floor(Math.random() * links.length)];
-  if (season !== null && episode !== null) {
-    return `${randomLink}?video_id=${videoId}&tmdb=1&s=${season}&e=${episode}`;
-  } else {
-    return `${randomLink}?video_id=${videoId}&tmdb=1`;
+  if (!season || !episode) {
+    return;
+  } else if (isNaN(season) || isNaN(episode)) {
+    alert("Season and episode must be numbers");
+    return;
+  } else if (season < 1 || episode < 1) {
+    alert("Season and episode must be greater than 0");
+    return;
+  } else if (season.includes(".") || episode.includes(".")) {
+    alert("Season and episode must be whole numbers");
+    return;
   }
+
+  const link = `https://vidsrc.rip/embed/tv/${videoId}/${season}/${episode}`;
+  hire(link);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
