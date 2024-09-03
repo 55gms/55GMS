@@ -43,7 +43,7 @@ window.addEventListener("DOMContentLoaded", function () {
   if (searchBar) {
     searchBar.setAttribute(
       "value",
-      decodeURL(sessionStorage.getItem("encodedUrl")),
+      decodeURL(sessionStorage.getItem("encodedUrl"))
     );
     // search bar functionality
     searchBar.addEventListener("keydown", function (event) {
@@ -63,7 +63,7 @@ function reload() {
 document.onfullscreenchange = function () {
   document.body.classList.toggle(
     "fullscreen-active",
-    document.fullscreenElement,
+    document.fullscreenElement
   );
   iframe = document.getElementById("iframeid");
   if (document.fullscreenElement) {
@@ -147,7 +147,7 @@ function cloak() {
       const style = iframe.style;
       const link = doc.createElement("link");
       const name = tabData.title || "Dashboard";
-      const icon = tabData.icon || "/img/canvas.ico";
+      const icon = tabData.icon || "/img/favicon.ico";
       doc.title = name;
       link.rel = "icon";
       link.href = icon;

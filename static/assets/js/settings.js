@@ -24,7 +24,7 @@ if (tabData.icon && iconElement) iconElement.value = tabData.icon;
 
 var settingsDefaultTab = {
   title: "Dashboard",
-  icon: "/img/canvas.ico",
+  icon: "/img/favicon.ico",
 };
 
 function setTitle(title = "") {
@@ -147,7 +147,7 @@ function setCloak() {
 }
 function resetTab() {
   document.title = "Dashboard";
-  document.querySelector("link[rel='icon']").href = "/img/canvas.ico";
+  document.querySelector("link[rel='icon']").href = "/img/favicon.ico";
   document.getElementById("title").value = "";
   document.getElementById("icon").value = "";
   localStorage.setItem("tab", JSON.stringify({}));
@@ -192,7 +192,7 @@ function cloak() {
       const link = doc.createElement("link");
 
       const name = tabData.title || "Dashboard";
-      const icon = tabData.icon || "/img/canvas.ico";
+      const icon = tabData.icon || "/img/favicon.ico";
 
       doc.title = name;
       link.rel = "icon";
@@ -275,6 +275,7 @@ fetch("https://api.github.com/repos/55gms/55gms/commits")
       .toISOString()
       .split("T")[0];
     var lastCommitDate = convertDate(unformatted);
-    document.querySelector("#updated").textContent =
-      `Last Updated: ${lastCommitDate}`;
+    document.querySelector(
+      "#updated"
+    ).textContent = `Last Updated: ${lastCommitDate}`;
   });
