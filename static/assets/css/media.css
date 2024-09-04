@@ -149,3 +149,9 @@ img.ad {
 .attribution img {
   margin-left: 5px;
 }
+
+.popular {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
