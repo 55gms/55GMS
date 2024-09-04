@@ -90,13 +90,11 @@ function displayPopular() {
   if (!localStorage.getItem("popular")) {
     fetchPopular();
   }
-  let popular = JSON.parse(localStorage.getItem("popular"));
-  let lastFetchDate = new Date(localStorage.getItem("popularDate"));
-  let currentDate = new Date();
-  let timeDifferenceInDays =
-    Math.abs(currentDate - lastFetchDate) / (1000 * 60 * 60 * 24);
+  const popular = JSON.parse(localStorage.getItem("popular"));
+  const lastFetchDate = new Date(localStorage.getItem("popularDate"));
+  const daysSinceLastFetch = (new Date() - lastFetchDate) / 86400000;
 
-  if (timeDifferenceInDays > 7) {
+  if (daysSinceLastFetch > 7) {
     fetchPopular();
   }
   const gameContainer = document.getElementById("game-container");
