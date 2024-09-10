@@ -158,6 +158,6 @@ function promptForSeasonAndEpisode(videoId) {
     return;
   }
 
-  const link = `https://vidlink.pro/tv/${videoId}/${season}/${episode}`;
+  const link = `https://vidlink.pro/tv/${videoId}/${season}/${episode}?nextbutton=true`;
   hire(link);
 }
