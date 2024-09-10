@@ -24,21 +24,34 @@ function fetchTmdbId() {
           }
 
           let gameHtml;
+          let rating = Math.round(movie.vote_average * 10) / 10;
+          let year = movie.release_date
+            ? movie.release_date.slice(0, 4)
+            : "N/A";
           if (movie.media_type === "tv") {
+            year = movie.first_air_date
+              ? movie.first_air_date.slice(0, 4)
+              : "N/A";
             gameHtml = `<div class="card" style="padding-top: 5px">
               <a onclick="promptForSeasonAndEpisode(${movie.id})"> 
+              <div class="rating">★ ${rating}</div>
+              <div class="year">${year}</div>
                 <div class="image-container">
                   <img loading="eager" src="${poster}" style="border-radius: 25px">
+                  <div class="play-button"></div>
                   <p class="item-name">${movie.name || movie.title}</p> 
                 </div>
               </a>
             </div>`;
           } else if (movie.media_type === "movie") {
-            link = `https://vidsrc.rip/embed/movie/${movie.id}`;
+            let link = `https://vidlink.pro/movie/${movie.id}?icons=vid`;
             gameHtml = `<div class="card" style="padding-top: 5px">
+              <div class="rating">★ ${rating}</div>
+              <div class="year">${year}</div>
               <a onclick="hire('${link}');"> 
                 <div class="image-container">
                   <img loading="eager" src="${poster}" style="border-radius: 25px">
+                  <div class="play-button"></div>
                   <p class="item-name">${movie.name || movie.title}</p> 
                 </div>
               </a>
@@ -52,51 +65,13 @@ function fetchTmdbId() {
   }
 }
 
-function promptForSeasonAndEpisode(videoId) {
-  const season = prompt("Enter season number:");
-  const episode = prompt("Enter episode number:");
-  if (!season || !episode) {
-    return;
-  } else if (isNaN(season) || isNaN(episode)) {
-    alert("Season and episode must be numbers");
-    return;
-  } else if (season < 1 || episode < 1) {
-    alert("Season and episode must be greater than 0");
-    return;
-  } else if (season.includes(".") || episode.includes(".")) {
-    alert("Season and episode must be whole numbers");
-    return;
-  }
+async function displayPopular() {
+  const response = await fetch(
+    "https://api.themoviedb.org/3/trending/all/week?api_key=d93115754010beb32ae8956c26dbc590"
+  );
+  const data = await response.json();
+  const popular = data.results;
 
-  const link = `https://vidsrc.rip/embed/tv/${videoId}/${season}/${episode}`;
-  hire(link);
-}
-
-function fetchPopular() {
-  url = `https://api.themoviedb.org/3/trending/all/week?api_key=d93115754010beb32ae8956c26dbc590`;
-
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      date = new Date();
-      const results = data.results;
-
-      localStorage.setItem("popular", JSON.stringify(results));
-      localStorage.setItem("popularDate", date);
-    });
-}
-
-function displayPopular() {
-  if (!localStorage.getItem("popular")) {
-    fetchPopular();
-  }
-  const popular = JSON.parse(localStorage.getItem("popular"));
-  const lastFetchDate = new Date(localStorage.getItem("popularDate"));
-  const daysSinceLastFetch = (new Date() - lastFetchDate) / 86400000;
-
-  if (daysSinceLastFetch > 7) {
-    fetchPopular();
-  }
   const gameContainer = document.getElementById("game-container");
   gameContainer.innerHTML = "";
   popular.forEach(function (movie) {
@@ -108,21 +83,32 @@ function displayPopular() {
     }
 
     let gameHtml;
+    let rating = Math.round(movie.vote_average * 10) / 10;
+    let year = movie.release_date ? movie.release_date.slice(0, 4) : "N/A";
     if (movie.media_type === "tv") {
+      year = movie.first_air_date ? movie.first_air_date.slice(0, 4) : "N/A";
       gameHtml = `<div class="card" style="padding-top: 5px">
-        <a onclick="promptForSeasonAndEpisode(${movie.id})"> 
-          <div class="image-container">
-            <img loading="eager" src="${poster}" style="border-radius: 25px">
-            <p class="item-name">${movie.name || movie.title}</p> 
-          </div>
-        </a>
+        <div class="rating">★ ${rating}</div>
+        <div class="year">${year}</div>
+        <div class="image-container">
+          <a onclick="promptForSeasonAndEpisode(${movie.id})"> 
+            <div class="image-container">
+              <img loading="eager" src="${poster}" style="border-radius: 25px">
+              <div class="play-button"></div>
+              <p class="item-name">${movie.name || movie.title}</p> 
+            </div>
+          </a>
+        </div>
       </div>`;
     } else if (movie.media_type === "movie") {
-      link = `https://vidsrc.rip/embed/movie/${movie.id}`;
+      let link = `https://vidlink.pro/movie/${movie.id}?icons=vid`;
       gameHtml = `<div class="card" style="padding-top: 5px">
+        <div class="rating">★ ${rating}</div>
+        <div class="year">${year}</div>
         <a onclick="hire('${link}');"> 
           <div class="image-container">
             <img loading="eager" src="${poster}" style="border-radius: 25px">
+            <div class="play-button"></div>
             <p class="item-name">${movie.name || movie.title}</p> 
           </div>
         </a>

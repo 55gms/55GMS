@@ -82,6 +82,7 @@ img {
   border-radius: 25px;
   max-width: 145px;
 }
+
 img.ad {
   height: auto;
   max-height: none;
@@ -103,20 +104,19 @@ img.ad {
   background-color: transparent;
   margin: 16px;
   float: left;
+  position: relative;
 }
+
 .card:hover {
   color: rgb(164, 176, 176);
   scale: 1.2;
   transition: 0.2s;
+  cursor: pointer;
 }
 
 .image-container {
   position: relative;
   overflow: hidden;
-}
-
-.image-container:hover .item-name {
-  opacity: 1;
 }
 
 .item-name {
@@ -135,6 +135,7 @@ img.ad {
   border-bottom-right-radius: 500px;
   font-size: 12px;
 }
+
 .attribution {
   position: fixed;
   right: 10px;
@@ -146,6 +147,7 @@ img.ad {
   font-size: 12px;
   z-index: 1000;
 }
+
 .attribution img {
   margin-left: 5px;
 }
@@ -154,4 +156,68 @@ img.ad {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+.rating {
+  position: absolute;
+  top: 17px;
+  left: 17px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ffce44;
+  padding: 3px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+  z-index: 1000;
+  opacity: 0;
+}
+
+.year {
+  position: absolute;
+  top: 17px;
+  right: 17px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 3px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+  z-index: 1000;
+  opacity: 0;
+}
+
+.card:hover .rating,
+.card:hover .year {
+  opacity: 0.9;
+}
+.image-container:hover .item-name {
+  opacity: 1;
+}
+.card:hover .item-name {
+  opacity: 1;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+.play-button::before {
+  content: "▶";
+  font-size: 30px;
+  color: white;
+}
+
+.card:hover .play-button {
+  opacity: 1;
 }
