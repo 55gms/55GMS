@@ -55,6 +55,9 @@ window.addEventListener("DOMContentLoaded", function () {
   } else {
     console.error('Search bar with id "searchBar" does not exist');
   }
+  searchBar.addEventListener("focus", function () {
+    searchBar.select();
+  });
 });
 
 function reload() {
