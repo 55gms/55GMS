@@ -44,7 +44,7 @@ function fetchTmdbId() {
               </a>
             </div>`;
           } else if (movie.media_type === "movie") {
-            let link = `https://vidlink.pro/movie/${movie.id}?icons=vid`;
+            let link = `https://vidlink.pro/movie/${movie.id}`;
             gameHtml = `<div class="card" style="padding-top: 5px">
               <div class="rating">★ ${rating}</div>
               <div class="year">${year}</div>
@@ -67,7 +67,7 @@ function fetchTmdbId() {
 
 async function displayPopular() {
   const response = await fetch(
-    "https://api.themoviedb.org/3/trending/all/week?api_key=d93115754010beb32ae8956c26dbc590"
+    "https://api.themoviedb.org/3/trending/all/week?api_key=d93115754010beb32ae8956c26dbc590",
   );
   const data = await response.json();
   const popular = data.results;
@@ -101,7 +101,7 @@ async function displayPopular() {
         </div>
       </div>`;
     } else if (movie.media_type === "movie") {
-      let link = `https://vidlink.pro/movie/${movie.id}?icons=vid`;
+      let link = `https://vidlink.pro/movie/${movie.id}`;
       gameHtml = `<div class="card" style="padding-top: 5px">
         <div class="rating">★ ${rating}</div>
         <div class="year">${year}</div>
@@ -141,3 +141,23 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   displayPopular();
 });
+
+function promptForSeasonAndEpisode(videoId) {
+  const season = prompt("Enter season number:");
+  const episode = prompt("Enter episode number:");
+  if (!season || !episode) {
+    return;
+  } else if (isNaN(season) || isNaN(episode)) {
+    alert("Season and episode must be numbers");
+    return;
+  } else if (season < 1 || episode < 1) {
+    alert("Season and episode must be greater than 0");
+    return;
+  } else if (season.includes(".") || episode.includes(".")) {
+    alert("Season and episode must be whole numbers");
+    return;
+  }
+
+  const link = `https://vidlink.pro/tv/${videoId}/${season}/${episode}?nextbutton=true`;
+  hire(link);
+}
