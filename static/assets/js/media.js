@@ -18,7 +18,7 @@ function fetchTmdbId() {
         results.forEach(function (movie) {
           let poster;
           if (movie.poster_path === null || !movie.poster_path) {
-            poster = "/img/no-media.svg";
+            return;
           } else {
             poster = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
           }
@@ -67,7 +67,7 @@ function fetchTmdbId() {
 
 async function displayPopular() {
   const response = await fetch(
-    "https://api.themoviedb.org/3/trending/all/week?api_key=d93115754010beb32ae8956c26dbc590",
+    "https://api.themoviedb.org/3/trending/all/week?api_key=d93115754010beb32ae8956c26dbc590"
   );
   const data = await response.json();
   const popular = data.results;
