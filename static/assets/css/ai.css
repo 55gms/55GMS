@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif; /* Changed to Poppins */
+  font-family: "Poppins", sans-serif;
 }
 
 :root {
@@ -35,7 +35,7 @@ body {
 .chat-container .chat {
   padding: 15px 10px;
   display: flex;
-  align-items: flex-start; /* Ensures alignment */
+  align-items: flex-start;
   color: var(--text-color);
   background: var(--chat-bg);
   margin-bottom: 10px;
@@ -106,18 +106,24 @@ body {
   width: 100%;
   border: none;
   padding: 15px 45px 15px 20px;
-  color: var(--text-color);
+  color: #f8f0e3;
   font-size: 1rem;
   border-radius: 4px;
   max-height: 250px;
   overflow-y: auto;
   background: var(--input-bg);
+  transition: 0.5s;
 }
 
 .typing-textarea textarea::placeholder {
-  color: var(--placeholder-color);
+  color: #f8f0e3;
 }
 
+.typing-textarea textarea:focus {
+  outline: none;
+  transition: 0.5s;
+  background-color: #576980;
+}
 .typing-content span {
   width: 55px;
   height: 55px;
@@ -145,11 +151,14 @@ body {
   margin-left: 7px;
   font-size: 1.4rem;
   background: var(--button-bg);
+  transition: 0.3s;
 }
 
 .typing-controls span:hover,
 .typing-textarea span:hover {
   background: var(--button-hover-bg);
+  scale: 1.2;
+  transition: 0.3s;
 }
 
 @media screen and (max-width: 600px) {
@@ -222,6 +231,12 @@ body {
   background-color: var(--text-color);
   border-radius: 50%;
   animation: typing 1s infinite;
+}
+.typing-animation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 .typing-dot:nth-child(1) {

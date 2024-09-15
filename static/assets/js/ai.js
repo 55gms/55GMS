@@ -4,7 +4,19 @@ const chatContainer = document.querySelector(".chat-container");
 const deleteButton = document.querySelector("#delete-btn");
 
 const userId = Date.now().toString();
+
 let userText = null;
+let isProcessing = false;
+
+const loadDataFromLocalstorage = () => {
+  const defaultText = `<div class="default-text">
+                            <h1>GMS-GPT</h1>
+                            <p>Start a conversation and use AI.<br> Your chat history will be displayed here.</p>
+                        </div>`;
+
+  chatContainer.innerHTML = defaultText;
+  chatContainer.scrollTo(0, chatContainer.scrollHeight);
+};
 
 const createChatElement = (content, className) => {
   const chatDiv = document.createElement("div");
@@ -17,15 +29,15 @@ const getChatResponse = async (incomingChatDiv) => {
   const pElement = document.createElement("p");
   let html;
   try {
-    const response = await fetch("/api/chat", {
+    const data = await fetch("/api/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ message: userText, userId }),
     });
-    const data = await response.json();
-    html = `<p>${marked.parse(data.response)}</p>`;
+    const response = await data.json();
+    html = marked.parse(response.response);
     pElement.appendChild(document.createRange().createContextualFragment(html));
   } catch (error) {
     pElement.classList.add("error");
@@ -37,6 +49,8 @@ const getChatResponse = async (incomingChatDiv) => {
   incomingChatDiv.querySelector(".typing-animation").remove();
   incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
+  isProcessing = false;
+  sendButton.classList.replace("fa-stop", "fa-paper-plane");
 };
 
 const copyResponse = (copyBtn) => {
@@ -70,6 +84,10 @@ const showTypingAnimation = () => {
 };
 
 const handleOutgoingChat = () => {
+  if (isProcessing) {
+    return;
+  }
+
   userText = chatInput.value.trim();
   if (!userText) return;
 
@@ -87,16 +105,14 @@ const handleOutgoingChat = () => {
   chatContainer.querySelector(".default-text")?.remove();
   chatContainer.appendChild(outgoingChatDiv);
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
+  isProcessing = true;
+  sendButton.classList.replace("fa-paper-plane", "fa-stop");
   setTimeout(showTypingAnimation, 500);
 };
 
 deleteButton.addEventListener("click", () => {
   if (confirm("Are you sure you want to delete all the chats?")) {
-    chatContainer.innerHTML = `<div class="default-text">
-                            <h1>GMS-GPT</h1>
-                            <p>Start a conversation and use AI.<br> Your chat history will be displayed here.</p>
-                        </div>`;
-    userId = Date.now().toString();
+    location.reload();
   }
 });
 
@@ -116,7 +132,23 @@ chatInput.addEventListener("keydown", (e) => {
 
 sendButton.addEventListener("click", handleOutgoingChat);
 
+document.addEventListener("keydown", (e) => {
+  if (
+    [
+      "ArrowUp",
+      "ArrowDown",
+      "ArrowLeft",
+      "ArrowRight",
+      "Control",
+      "Alt",
+    ].includes(e.key) ||
+    e.metaKey
+  )
+    return;
+
+  chatInput.focus();
+});
 chatContainer.innerHTML = `<div class="default-text">
                             <h1>GMS-GPT</h1>
-                            <p>Start a conversation and use AI.<br> Your chat history will be displayed here.</p>
+                            <p>Start a conversation and use AI.<br> Start typing or click the prompt box.</p>
                         </div>`;
