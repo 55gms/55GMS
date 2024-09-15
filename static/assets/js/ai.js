@@ -37,7 +37,20 @@ const getChatResponse = async (incomingChatDiv) => {
       body: JSON.stringify({ message: userText, userId }),
     });
     const response = await data.json();
+    console.log(response.response);
     html = marked.parse(response.response);
+    html = html.replace(
+      /<pre><code class="language-(.*?)">([\s\S]*?)<\/code><\/pre>/g,
+      (match, lang, code) => {
+        const language = Prism.languages[lang] ? lang : "plaintext"; // Default to plaintext if unknown
+        const highlightedCode = Prism.highlight(
+          code,
+          Prism.languages[language],
+          language
+        );
+        return `<pre><code class="language-${language}">${highlightedCode}</code></pre>`;
+      }
+    );
     pElement.appendChild(document.createRange().createContextualFragment(html));
   } catch (error) {
     pElement.classList.add("error");
@@ -59,7 +72,7 @@ const copyResponse = (copyBtn) => {
   copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
   setTimeout(
     () => (copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>'),
-    1000,
+    1000
   );
 };
 
