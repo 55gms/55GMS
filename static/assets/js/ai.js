@@ -96,7 +96,7 @@ const handleOutgoingChat = () => {
 
   const html = `<div class="chat-content">
                     <div class="chat-details">
-                        <img src="img/no.webp" class='avatar' alt="user-img">
+                        <img src="img/user.webp" class='avatar' alt="user-img">
                         <p>${userText}</p>
                     </div>
                 </div>`;
