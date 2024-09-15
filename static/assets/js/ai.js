@@ -44,10 +44,10 @@ const getChatResponse = async (incomingChatDiv) => {
         const highlightedCode = Prism.highlight(
           code,
           Prism.languages[language],
-          language
+          language,
         );
         return `<pre><code class="language-${language}">${highlightedCode}</code></pre>`;
-      }
+      },
     );
     html = marked.parse(response.response);
     pElement.appendChild(document.createRange().createContextualFragment(html));
@@ -71,7 +71,7 @@ const copyResponse = (copyBtn) => {
   copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
   setTimeout(
     () => (copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>'),
-    1000
+    1000,
   );
 };
 
