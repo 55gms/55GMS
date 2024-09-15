@@ -1,0 +1,248 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif; /* Changed to Poppins */
+}
+
+:root {
+  --bg-color: #5d7392;
+  --text-color: #ffffff;
+  --icon-color: #acacbe;
+  --icon-hover-bg: #4e627a;
+  --placeholder-color: #dcdcdc;
+  --chat-bg: #6b82a3;
+  --input-bg: #4e627a;
+  --button-bg: #ff9797;
+  --button-hover-bg: #ff7b7b;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.chat-container {
+  overflow-y: auto;
+  max-height: calc(100vh - 110px);
+  padding: 30px 20px 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-container .chat {
+  padding: 15px 10px;
+  display: flex;
+  align-items: flex-start; /* Ensures alignment */
+  color: var(--text-color);
+  background: var(--chat-bg);
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.chat .chat-content {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.chat .chat-details {
+  display: flex;
+  align-items: flex-start;
+  width: calc(100% - 40px);
+}
+
+.chat .chat-details img {
+  width: 35px;
+  height: 35px;
+  border-radius: 4px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.chat .chat-details p {
+  white-space: pre-wrap;
+  font-size: 1.05rem;
+  padding: 0 10px 0 0;
+}
+
+.chat .chat-content span {
+  color: var(--icon-color);
+  cursor: pointer;
+  margin-left: auto;
+  font-size: 1.15rem;
+}
+
+.chat:hover .chat-content span {
+  visibility: visible;
+}
+
+.typing-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 20px 10px;
+  background: var(--bg-color);
+}
+
+.typing-content {
+  display: flex;
+  max-width: 950px;
+  margin: 0 auto;
+  align-items: flex-end;
+}
+
+.typing-textarea {
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.typing-textarea textarea {
+  resize: none;
+  height: 55px;
+  width: 100%;
+  border: none;
+  padding: 15px 45px 15px 20px;
+  color: var(--text-color);
+  font-size: 1rem;
+  border-radius: 4px;
+  max-height: 250px;
+  overflow-y: auto;
+  background: var(--input-bg);
+}
+
+.typing-textarea textarea::placeholder {
+  color: var(--placeholder-color);
+}
+
+.typing-content span {
+  width: 55px;
+  height: 55px;
+  display: flex;
+  border-radius: 4px;
+  font-size: 1.35rem;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+  background: var(--button-bg);
+  cursor: pointer;
+}
+
+.typing-textarea span {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.typing-controls {
+  display: flex;
+}
+
+.typing-controls span {
+  margin-left: 7px;
+  font-size: 1.4rem;
+  background: var(--button-bg);
+}
+
+.typing-controls span:hover,
+.typing-textarea span:hover {
+  background: var(--button-hover-bg);
+}
+
+@media screen and (max-width: 600px) {
+  .default-text h1 {
+    font-size: 2.3rem;
+  }
+  .default-text p,
+  textarea,
+  .chat p {
+    font-size: 0.95rem !important;
+  }
+  .chat-container .chat {
+    padding: 20px 10px;
+  }
+  .chat-container .chat p {
+    font-size: 0.95rem;
+    padding: 0 20px;
+  }
+  .typing-container {
+    padding: 15px 10px;
+  }
+  .typing-textarea textarea {
+    height: 45px;
+    padding: 10px 40px 10px 10px;
+  }
+  .typing-content span {
+    height: 45px;
+    width: 45px;
+    margin-left: 5px;
+  }
+}
+
+.default-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 70vh;
+  padding: 0 10px;
+  text-align: center;
+  color: var(--text-color);
+}
+.default-text h1 {
+  font-size: 3.3rem;
+}
+.default-text p {
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 10%;
+  margin-right: 15px;
+}
+
+.hr {
+  width: 100%;
+  height: 3px;
+  background-color: #4e627a;
+  border: none;
+  margin: 10px 0;
+}
+
+.typing-dot {
+  width: 8px;
+  height: 8px;
+  margin: 0 2px;
+  background-color: var(--text-color);
+  border-radius: 50%;
+  animation: typing 1s infinite;
+}
+
+.typing-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%,
+  60%,
+  100% {
+    opacity: 0.2;
+  }
+  30% {
+    opacity: 1;
+  }
+}

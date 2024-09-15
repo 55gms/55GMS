@@ -4,6 +4,10 @@ const { createBareServer } = require("@tomphttp/bare-server-node");
 const path = require("path");
 const cors = require("cors");
 
+const axios = require("axios");
+const dotenv = require("dotenv");
+dotenv.config();
+
 const server = http.createServer();
 const app = express(server);
 const bareServer = createBareServer("/t/");
@@ -17,6 +21,51 @@ app.use((req, res, next) => {
     res.setHeader("Content-Type", "application/javascript");
   }
   next();
+});
+
+app.post("/api/chat", async (req, res) => {
+  const { message, userId } = req.body;
+
+  if (!userId) {
+    return res.status(400).json({ error: "User ID is required" });
+  }
+
+  let conversation = activeConversations.get(userId) || [];
+  conversation.push({ role: "user", content: message });
+
+  try {
+    const response = await axios.post(
+      "https://api.groq.com/openai/v1/chat/completions",
+      {
+        model: "llama-3.1-70b-versatile",
+        messages: conversation,
+        temperature: 0.7,
+        max_tokens: 1024,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const aiResponse = response.data.choices[0].message.content;
+    conversation.push({ role: "assistant", content: aiResponse });
+
+    if (conversation.length > 10) {
+      conversation = conversation.slice(-10);
+    }
+
+    activeConversations.set(userId, conversation);
+
+    res.json({ response: aiResponse });
+  } catch (error) {
+    console.error("Error:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while processing your request." });
+  }
 });
 
 app.use(express.static(path.join(__dirname, "static")));
@@ -50,7 +99,7 @@ async function fetchDataFromGithub(
   res,
   next,
   baseUrl,
-  secondaryUrl = null,
+  secondaryUrl = null
 ) {
   function isAFile(urlString) {
     return urlString.trim().split("/").pop().length !== 0;
@@ -114,6 +163,8 @@ server.on("upgrade", (req, socket, head) => {
     socket.end();
   }
 });
+
+const activeConversations = new Map();
 
 app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "static/404.html"), function (err) {

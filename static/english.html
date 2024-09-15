@@ -6,13 +6,18 @@
   <script src="/assets/js/font.js"></script>
   <meta name="google" content="notranslate" />
   <link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/ai.css" />
   <link rel="stylesheet" href="/assets/css/nav.css?v=3" />
+
   <title>Google</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="Rednotsus" />
   <meta http-equiv="Cache-control" content="public" />
   <script src="/assets/js/script.js?v=10"></script>
   <script src="/assets/js/easteregg.min.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+
 </head>
 
 <body>
@@ -26,36 +31,27 @@
       <a href="/e"><i class="fa-solid fa-robot"></i>&nbsp;</i>AI</a>
       <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
     </div>
-  </nav>
-  <style>
-    body,
-    html {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
 
-    .row-container {
-      display: flex;
-      width: 100%;
-      height: calc(100vh - 93px);
-      flex-direction: column;
-      overflow: hidden;
-    }
+    <div class="chat-container"></div>
 
-    .second-row {
-      flex-grow: 1;
-      border: none;
-      margin: 0;
-      padding: 0;
-      background-color: #5e7594;
-    }
-  </style>
-  <div class="row-container">
-    <iframe src="/assets/uv/service/hvtr%3A-%2Fci%2C57gos%2Ccmm" class="second-row"></iframe>
-  </div>
+    <div class="typing-container">
+      <hr class="hr">
+      <div class="typing-content">
+
+        <div class="typing-textarea">
+          <textarea id="chat-input" spellcheck="false" placeholder="Enter a prompt here" required></textarea>
+        </div>
+        <div class="typing-controls">
+          <span id="send-btn" class="material-symbols-rounded fa-solid fa-paper-plane"></span>
+          </span>
+          <span id="delete-btn" class="material-symbols-rounded">
+            <i class="fa-solid fa-trash"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+    <script src="/assets/js/ai.js" defer></script>
 </body>
+
 
 </html>
