@@ -166,17 +166,28 @@ server.on("upgrade", (req, socket, head) => {
 
 const activeConversations = new Map();
 
-app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "static/404.html"), function (err) {
-    if (err) {
-      res.status(404).send(err);
-    }
-  });
+app.use((req, res) => {
+  res.statusCode = 404;
+  res.sendFile(path.join(__dirname, "./static/404.html"));
 });
 
 server.on("listening", () => {
-  console.log(`Running at http://localhost:8080`);
+  console.log(`------------------------------------`);
+  console.log(`🔗 URL: http://localhost:8080`);
+  console.log(`------------------------------------`);
 });
+
+function shutdown(signal) {
+  console.log(`  Shutting Down (Signal: ${signal})  ` + "\n");
+  console.log("-----------------------------------------------");
+  server.close(() => {
+    console.log("  55GMS has shut down.");
+    process.exit(0);
+  });
+}
+
+process.on("SIGTERM", () => shutdown("SIGTERM"));
+process.on("SIGINT", () => shutdown("SIGINT"));
 
 server.listen({
   port: 8080,
