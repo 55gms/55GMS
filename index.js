@@ -131,12 +131,16 @@ async function fetchDataFromGithub(
     if (secondaryUrl) {
       if (await fetchDataOneSource(req, res, next, secondaryUrl)) return;
     }
-    res.status(404).res.sendFile(path.join(__dirname, "./static/404.html"));
   } catch (error) {
     console.error("Error fetching data, internal server error:", error);
     res.status(500).send("Internal Server Error");
   }
 }
+
+app.use((req, res) => {
+  const notFoundPage = path.join(__dirname, "static", "404.html");
+  res.status(404).sendFile(notFoundPage);
+});
 
 server.on("request", (req, res) => {
   try {
@@ -167,14 +171,15 @@ server.on("upgrade", (req, socket, head) => {
 const activeConversations = new Map();
 
 server.on("listening", () => {
-  console.log(`------------------------------------`);
+  console.log(`\n------------------------------------`);
   console.log(`🔗 URL: http://localhost:8080`);
-  console.log(`------------------------------------`);
+  console.log(`------------------------------------\n`);
 });
 
 function shutdown(signal) {
-  console.log(`  Shutting Down (Signal: ${signal})  ` + "\n");
   console.log("-----------------------------------------------");
+  console.log(`  Shutting Down (Signal: ${signal})  `);
+  console.log("-----------------------------------------------\n");
   server.close(() => {
     console.log("  55GMS has shut down.");
     process.exit(0);
