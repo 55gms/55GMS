@@ -6,6 +6,10 @@ const cors = require("cors");
 
 const axios = require("axios");
 const dotenv = require("dotenv");
+const tokenLimit = 100;
+let tokenUsage = 0;
+const modelPrimary = "llama-3.1-70b-versatile";
+const modelBackup = "llama3-groq-70b-8192-tool-use-preview";
 dotenv.config();
 
 const server = http.createServer();
@@ -27,17 +31,18 @@ app.post("/api/chat", async (req, res) => {
   const { message, userId } = req.body;
 
   if (!userId) {
-    return res.status(400).json({ error: "User ID is required" });
+    return res.status(400).json({ error: "Not enough arguments" });
   }
 
   let conversation = activeConversations.get(userId) || [];
   conversation.push({ role: "user", content: message });
 
   try {
+    const modelToUse = tokenUsage < tokenLimit ? modelPrimary : modelBackup;
     const response = await axios.post(
       "https://api.groq.com/openai/v1/chat/completions",
       {
-        model: "llama-3.1-70b-versatile",
+        model: modelToUse,
         messages: conversation,
         temperature: 0.7,
         max_tokens: 1024,
@@ -47,12 +52,12 @@ app.post("/api/chat", async (req, res) => {
           Authorization: `Bearer ${process.env.API_KEY}`,
           "Content-Type": "application/json",
         },
-      },
+      }
     );
 
     const aiResponse = response.data.choices[0].message.content;
     conversation.push({ role: "assistant", content: aiResponse });
-
+    tokenUsage += response.data.usage.total_tokens;
     if (conversation.length > 10) {
       conversation = conversation.slice(-10);
     }
@@ -99,7 +104,7 @@ async function fetchDataFromGithub(
   res,
   next,
   baseUrl,
-  secondaryUrl = null,
+  secondaryUrl = null
 ) {
   function isAFile(urlString) {
     return urlString.trim().split("/").pop().length !== 0;
