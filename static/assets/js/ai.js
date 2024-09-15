@@ -59,7 +59,7 @@ const copyResponse = (copyBtn) => {
   copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
   setTimeout(
     () => (copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>'),
-    1000
+    1000,
   );
 };
 
