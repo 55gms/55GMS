@@ -52,7 +52,7 @@ app.post("/api/chat", async (req, res) => {
           Authorization: `Bearer ${process.env.API_KEY}`,
           "Content-Type": "application/json",
         },
-      },
+      }
     );
 
     const aiResponse = response.data.choices[0].message.content;
@@ -73,6 +73,9 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
+app.get("/api/usedTokens", (req, res) => {
+  res.json({ usedTokens: tokenUsage });
+});
 app.use(express.static(path.join(__dirname, "static")));
 
 const routes = [
@@ -104,7 +107,7 @@ async function fetchDataFromGithub(
   res,
   next,
   baseUrl,
-  secondaryUrl = null,
+  secondaryUrl = null
 ) {
   function isAFile(urlString) {
     return urlString.trim().split("/").pop().length !== 0;
