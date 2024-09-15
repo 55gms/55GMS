@@ -23,7 +23,9 @@ function loadNewPage(url) {
   if (iframe) {
     iframe.src = urlEncoded;
   }
-
+  if (url === "https://rayvonisamonkey.yourmom.eu.org/") {
+    url = "gms://roblox";
+  }
   searchBar.value = url;
 }
 
@@ -43,15 +45,23 @@ window.addEventListener("DOMContentLoaded", function () {
   if (searchBar) {
     searchBar.setAttribute(
       "value",
-      decodeURL(sessionStorage.getItem("encodedUrl")),
+      decodeURL(sessionStorage.getItem("encodedUrl"))
     );
     // search bar functionality
     searchBar.addEventListener("keydown", function (event) {
       if (event.key === "Enter") {
         let url = searchBar.value.trim();
+        if (url === "gms://roblox") {
+          url = "https://rayvonisamonkey.yourmom.eu.org/";
+        }
         loadNewPage(url);
       }
     });
+    if (searchBar.value === "https://rayvonisamonkey.yourmom.eu.org/") {
+      document.getElementById("iframeid").sandbox =
+        "allow-scripts allow-pointer-lock allow-forms allow-same-origin allow-downloads";
+      searchBar.value = "gms://roblox";
+    }
   } else {
     console.error('Search bar with id "searchBar" does not exist');
   }
@@ -66,7 +76,7 @@ function reload() {
 document.onfullscreenchange = function () {
   document.body.classList.toggle(
     "fullscreen-active",
-    document.fullscreenElement,
+    document.fullscreenElement
   );
   iframe = document.getElementById("iframeid");
   if (document.fullscreenElement) {

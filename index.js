@@ -131,7 +131,7 @@ async function fetchDataFromGithub(
     if (secondaryUrl) {
       if (await fetchDataOneSource(req, res, next, secondaryUrl)) return;
     }
-    res.status(404).send("Resource not found");
+    res.status(404).res.sendFile(path.join(__dirname, "./static/404.html"));
   } catch (error) {
     console.error("Error fetching data, internal server error:", error);
     res.status(500).send("Internal Server Error");
@@ -165,11 +165,6 @@ server.on("upgrade", (req, socket, head) => {
 });
 
 const activeConversations = new Map();
-
-app.use((req, res) => {
-  res.statusCode = 404;
-  res.sendFile(path.join(__dirname, "./static/404.html"));
-});
 
 server.on("listening", () => {
   console.log(`------------------------------------`);
