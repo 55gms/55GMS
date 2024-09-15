@@ -23,7 +23,7 @@ function loadNewPage(url) {
   if (iframe) {
     iframe.src = urlEncoded;
   }
-  if (url === "https://bentleysucksatgetawayshootout.yourmom.eu.org/") {
+  if (url === "http://api.v6.wiki/") {
     url = "gms://roblox";
   }
   searchBar.value = url;
@@ -52,15 +52,12 @@ window.addEventListener("DOMContentLoaded", function () {
       if (event.key === "Enter") {
         let url = searchBar.value.trim();
         if (url === "gms://roblox") {
-          url = "https://bentleysucksatgetawayshootout.yourmom.eu.org/";
+          url = "http://api.v6.wiki/";
         }
         loadNewPage(url);
       }
     });
-    if (
-      searchBar.value ===
-      "https://bentleysucksatgetawayshootout.yourmom.eu.org/"
-    ) {
+    if (searchBar.value === "http://api.v6.wiki/") {
       document.getElementById("iframeid").sandbox =
         "allow-scripts allow-pointer-lock allow-forms allow-same-origin allow-downloads";
       searchBar.value = "gms://roblox";
