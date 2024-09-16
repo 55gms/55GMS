@@ -25,6 +25,10 @@ function loadNewPage(url) {
   }
   if (url === "http://api.v6.wiki/") {
     url = "gms://roblox";
+  } else if (
+    url === "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html"
+  ) {
+    url = "gms://android";
   }
   searchBar.value = url;
 }
@@ -53,18 +57,28 @@ window.addEventListener("DOMContentLoaded", function () {
         let url = searchBar.value.trim();
         if (url === "gms://roblox") {
           url = "http://api.v6.wiki/";
+        } else if (url === "gms://android") {
+          url =
+            "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html";
         }
         loadNewPage(url);
       }
     });
     if (
-      searchBar.value === "http://api.v6.wiki/" ||
+      searchBar.value === "https://api.v6.wiki/" ||
       searchBar.value ===
         "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html"
     ) {
       document.getElementById("iframeid").sandbox =
         "allow-scripts allow-pointer-lock allow-forms allow-same-origin allow-downloads";
-      searchBar.value = "gms://roblox";
+      if (searchBar.value === "https://api.v6.wiki/") {
+        searchBar.value = "gms://roblox";
+      } else if (
+        searchBar.value ===
+        "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html"
+      ) {
+        searchBar.value = "gms://android";
+      }
     }
   } else {
     console.error('Search bar with id "searchBar" does not exist');
