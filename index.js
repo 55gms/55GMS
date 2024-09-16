@@ -52,7 +52,7 @@ app.post("/api/chat", async (req, res) => {
           Authorization: `Bearer ${process.env.API_KEY}`,
           "Content-Type": "application/json",
         },
-      },
+      }
     );
 
     const aiResponse = response.data.choices[0].message.content;
@@ -70,6 +70,8 @@ app.post("/api/chat", async (req, res) => {
     res
       .status(500)
       .json({ error: "An error occurred while processing your request." });
+    res.status(503).json({ error: "Service unavailable" });
+    res.status(429).json({ error: "Too many requests" });
   }
 });
 
@@ -107,7 +109,7 @@ async function fetchDataFromGithub(
   res,
   next,
   baseUrl,
-  secondaryUrl = null,
+  secondaryUrl = null
 ) {
   function isAFile(urlString) {
     return urlString.trim().split("/").pop().length !== 0;

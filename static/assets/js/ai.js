@@ -44,18 +44,27 @@ const getChatResponse = async (incomingChatDiv) => {
         const highlightedCode = Prism.highlight(
           code,
           Prism.languages[language],
-          language,
+          language
         );
         return `<pre><code class="language-${language}">${highlightedCode}</code></pre>`;
-      },
+      }
     );
     html = marked.parse(response.response);
     pElement.appendChild(document.createRange().createContextualFragment(html));
   } catch (error) {
-    pElement.classList.add("error");
-    pElement.textContent =
-      "Oops! Something went wrong while retrieving the response. Please try again.";
-    console.log(error);
+    if (error.response.status === 429) {
+      pElement.classList.add("error");
+      pElement.textContent =
+        "Too many requests have been sent in 1 minute, please try again later.";
+    } else if (error.response.status === 503) {
+      pElement.classList.add("error");
+      pElement.textContent = "AI is currently overloaded, please try again.";
+    } else {
+      pElement.classList.add("error");
+      pElement.textContent =
+        "Oops! Something went wrong while retrieving the response. Please try again.";
+      console.log(error);
+    }
   }
 
   incomingChatDiv.querySelector(".typing-animation").remove();
@@ -71,7 +80,7 @@ const copyResponse = (copyBtn) => {
   copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
   setTimeout(
     () => (copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>'),
-    1000,
+    1000
   );
 };
 
