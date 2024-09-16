@@ -589,7 +589,7 @@
   },
   {
     "name": "Fortnite (Mobile)",
-    "url": "https://now.gg/apps/aptoide/5874/aptoide.html",
+    "url": "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html",
     "image": "/img/games/fortnite.jpeg",
     "alert": "Search up fortnite, download and play.",
     "usesProxy": true
@@ -1241,6 +1241,12 @@
     "url": "/misc/retro-bowl/index.html",
     "image": "/misc/retro-bowl/img/icon.jpg",
     "usesProxy": false
+  },
+  {
+    "name": "Fortnite GeoGuessr",
+    "url": "https://lostgamer.io/fortnite",
+    "image": "/img/games/fngc.webp",
+    "usesProxy": true
   },
   {
     "name": "Polytrack",

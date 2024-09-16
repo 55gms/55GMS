@@ -45,7 +45,7 @@ window.addEventListener("DOMContentLoaded", function () {
   if (searchBar) {
     searchBar.setAttribute(
       "value",
-      decodeURL(sessionStorage.getItem("encodedUrl")),
+      decodeURL(sessionStorage.getItem("encodedUrl"))
     );
     // search bar functionality
     searchBar.addEventListener("keydown", function (event) {
@@ -57,7 +57,11 @@ window.addEventListener("DOMContentLoaded", function () {
         loadNewPage(url);
       }
     });
-    if (searchBar.value === "http://api.v6.wiki/") {
+    if (
+      searchBar.value === "http://api.v6.wiki/" ||
+      searchBar.value ===
+        "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html"
+    ) {
       document.getElementById("iframeid").sandbox =
         "allow-scripts allow-pointer-lock allow-forms allow-same-origin allow-downloads";
       searchBar.value = "gms://roblox";
@@ -76,7 +80,7 @@ function reload() {
 document.onfullscreenchange = function () {
   document.body.classList.toggle(
     "fullscreen-active",
-    document.fullscreenElement,
+    document.fullscreenElement
   );
   iframe = document.getElementById("iframeid");
   if (document.fullscreenElement) {
