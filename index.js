@@ -67,11 +67,15 @@ app.post("/api/chat", async (req, res) => {
     res.json({ response: aiResponse });
   } catch (error) {
     console.error("Error:", error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while processing your request." });
-    res.status(503).json({ error: "Service unavailable" });
-    res.status(429).json({ error: "Too many requests" });
+    if (error.response && error.response.status === 429) {
+      res.status(429).json({ error: "Too many requests" });
+    } else if (error.response && error.response.status === 503) {
+      res.status(503).json({ error: "Service unavailable" });
+    } else {
+      res
+        .status(500)
+        .json({ error: "An error occurred while processing your request." });
+    }
   }
 });
 
