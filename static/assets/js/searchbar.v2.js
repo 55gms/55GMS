@@ -4,7 +4,7 @@ function search() {
   let results = 0;
   for (let t = 0; t < gameNames.length; t++) {
     if (gameNames[t].innerText.toLowerCase().includes(searchbarVal)) {
-      gameNames[t].style.display = "block";
+      gameNames[t].style.display = "inline-block";
       results++;
     } else {
       gameNames[t].style.display = "none";

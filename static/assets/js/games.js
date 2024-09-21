@@ -13,31 +13,23 @@ window.addEventListener("load", (event) => {
         games.forEach(function (game, gameNum) {
           let gameHtml;
           if (game.usesProxy) {
-            gameHtml = `<div class="card" style="padding-top: 5px">
+            gameHtml = `<div class="card">
               <a onclick="${
                 game.alert ? `alert('${game.alert}'); ` : ""
               }hire('${game.url}');">
-                <div class="image-container">
-                  <img loading="eager" src="${
-                    game.image
-                  }" style="border-radius: 25px" 
+                  <img loading="eager" src="${game.image}" class="img" 
                        onload="handleImageLoad(${totalImages})">
-                  <p class="item-name">${game.name}</p>
-                </div>
+                  <p class="text">${game.name}</p>
               </a>
             </div>`;
           } else {
-            gameHtml = `<div class="card" style="padding-top: 5px">
+            gameHtml = `<div class="card">
               <a href="${game.url}" rel="noopener noreferrer" ${
-                game.alert ? `onclick="alert('${game.alert}');"` : ""
-              }>
-                <div class="image-container">
-                  <img loading="eager" src="${
-                    game.image
-                  }" style="border-radius: 25px" 
+              game.alert ? `onclick="alert('${game.alert}');"` : ""
+            }>
+                  <img loading="eager" src="${game.image}" class="img" 
                        onload="handleImageLoad(${totalImages})">
-                  <p class="item-name">${game.name}</p>
-                </div>
+                  <p class="text">${game.name}</p>
               </a>
             </div>`;
           }
