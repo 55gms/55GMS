@@ -356,7 +356,7 @@
   {
     "name": "Drift Hunters",
     "url": "https://webglmath.github.io/drift-hunters/",
-    "image": "/misc/drift-hunters/drift-hunters.webp",
+    "image": "/img/games/drifthunters.webp",
     "usesProxy": true
   },
   {
@@ -416,7 +416,7 @@
   {
     "name": "Eggy Car",
     "url": "/misc/eggy-car/index.html",
-    "image": "/misc/eggy-car/img.png",
+    "image": "/img/games/eggycar.webp",
     "usesProxy": false
   },
   {
@@ -1425,7 +1425,7 @@
   {
     "name": "Snow Rider 3D",
     "url": "/misc/SnowRider3D/index.html",
-    "image": "misc/SnowRider3D/img.webp",
+    "image": "/img/games/snowrider.webp",
     "usesProxy": false
   },
   {
@@ -1569,7 +1569,7 @@
   {
     "name": "Tetris",
     "url": "/misc/flash/index.html?swf=tetris.swf",
-    "image": "/misc/tetris/flashtetris.webp",
+    "image": "/img/games/tetris.webp",
     "usesProxy": false
   },
   {
