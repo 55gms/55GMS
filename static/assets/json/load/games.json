@@ -1123,12 +1123,6 @@
     "usesProxy": true
   },
   {
-    "name": "Pixel Shooter",
-    "url": "/misc/pixel-shooter/index.html",
-    "image": "/misc/pixel-shooter/img.jpeg",
-    "usesProxy": false
-  },
-  {
     "name": "Pizza Tower",
     "url": "/misc/pizzatower/index.html",
     "image": "/misc/pizzatower/img.png",
@@ -1441,6 +1435,12 @@
     "usesProxy": true
   },
   {
+    "name": "Football Bros",
+    "url": "https://footballbros.io/",
+    "image": "/img/games/footballbros.webp",
+    "usesProxy": true
+  },
+  {
     "name": "Soccer Random",
     "url": "/misc/soccer-random/index.html",
     "image": "misc/soccer-random/img.jpeg",
@@ -1603,9 +1603,9 @@
     "usesProxy": false
   },
   {
-    "name": "Travle",
-    "url": "https://travle.earth/",
-    "image": "/misc/travle/img.png",
+    "name": "WorldGuessr",
+    "url": "https://www.worldguessr.com/",
+    "image": "/img/games/world.webp",
     "usesProxy": true
   },
   {
