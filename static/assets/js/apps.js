@@ -8,8 +8,8 @@ window.addEventListener("load", (event) => {
         let gameHtml;
         gameHtml = `<div class="card">
           <a onclick="${game.alert ? `alert('${game.alert}');` : ""} hire('${
-          game.url
-        }');">
+            game.url
+          }');">
           
               <img loading="lazy" src="${game.image}" class='img'>
               <p class="text">${game.name}</p>
