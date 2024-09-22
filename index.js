@@ -1,6 +1,6 @@
 const express = require("express");
 const http = require("http");
-const { createBareServer } = require("@nebula-services/bare-server-node");
+const { createBareServer } = require("@tomphttp/bare-server-node");
 const path = require("path");
 const cors = require("cors");
 
