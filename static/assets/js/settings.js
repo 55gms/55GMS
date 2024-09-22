@@ -1,10 +1,5 @@
 var cloakElement;
 
-document.addEventListener("DOMContentLoaded", function () {
-  cloakElement = document.getElementById("premadecloaks");
-  var cloak = cloakElement.value;
-});
-
 var tab = localStorage.getItem("tab");
 if (tab) {
   try {
@@ -156,9 +151,28 @@ function resetTab() {
 var panicKey = localStorage.getItem("panicKey") || "`";
 var panicLink = localStorage.getItem("PanicLink") || "https://google.com/";
 
+var toggled = localStorage.getItem("aboutBlank") || "false";
+
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("key").value = panicKey;
   document.getElementById("link").value = panicLink;
+  cloakElement = document.getElementById("premadecloaks");
+
+  const toggle = document.getElementById("toggle");
+  if (toggled === "true") {
+    toggle.checked = true;
+  } else {
+    toggle.checked = false;
+  }
+  toggle.addEventListener("change", function () {
+    if (toggle.checked) {
+      localStorage.setItem("aboutBlank", "true");
+      toggle.checked = true;
+    } else {
+      localStorage.setItem("aboutBlank", "false");
+      toggle.checked = false;
+    }
+  });
 });
 
 function setPanicKey() {
@@ -273,6 +287,7 @@ fetch("https://api.github.com/repos/55gms/55gms/commits")
       .toISOString()
       .split("T")[0];
     var lastCommitDate = convertDate(unformatted);
-    document.querySelector("#updated").textContent =
-      `Last Updated: ${lastCommitDate}`;
+    document.querySelector(
+      "#updated"
+    ).textContent = `Last Updated: ${lastCommitDate}`;
   });

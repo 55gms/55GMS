@@ -10,13 +10,16 @@ function script(text) {
 // SCRIPT INJECTION
 // ====================================
 const newScript = document.createElement("script");
-newScript.setAttribute("defer", "");
-newScript.setAttribute("data-domain", "55gms.com");
 newScript.setAttribute(
   "src",
-  "https://data.ch3n.cc/js/script.tagged-events.js"
+  "https://www.googletagmanager.com/gtag/js?id=G-N0LG27M8L8"
 );
-document.head.append(newScript);
+const inlinegascript = document.createElement("script");
+inlinegascript.innerHTML = `window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-N0LG27M8L8');`;
+document.head.append(newScript, inlinegascript);
 script("Injected script 1/3");
 
 script("Injected script 2/3 (USE AN AD BLOCKER PLEASE)");
@@ -88,7 +91,7 @@ document.addEventListener("keydown", function (e) {
 });
 
 var blankerCheck = localStorage.getItem("aboutBlank");
-if (blankerCheck === "enabled") {
+if (blankerCheck === "true") {
   let inFrame;
   try {
     inFrame = window !== top;
