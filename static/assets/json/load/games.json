@@ -1753,14 +1753,8 @@
     "usesProxy": true
   },
   {
-    "name": "powerline.io",
-    "url": "https://powerline.io/",
-    "image": "/img/games/powerline.webp",
-    "usesProxy": true
-  },
-  {
     "name": "GBA Games",
-    "url": "https://real-sgs.vercel.app/Tools/GBA-Emulator",
+    "url": "https://real-sgs.vercel.app/Tools/GBA-Emulator/index.html",
     "image": "/img/games/gba.webp",
     "usesProxy": true
   }
