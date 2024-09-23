@@ -7,7 +7,7 @@ const cors = require("cors");
 const axios = require("axios");
 const dotenv = require("dotenv");
 const tokenLimit = 1000000;
-let tokenUsage = 1000000;
+let tokenUsage = 0;
 const modelPrimary = "llama-3.1-70b-versatile";
 const modelBackup = "llama3-groq-70b-8192-tool-use-preview";
 dotenv.config();
