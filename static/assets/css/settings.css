@@ -182,3 +182,9 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.uploadBox {
+  background: transparent;
+  border: 2px dashed #ccc;
+  margin-right: 10px;
+}

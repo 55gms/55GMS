@@ -7,8 +7,8 @@
   <meta http-equiv="Cache-control" content="public">
   <link rel="stylesheet" href="/assets/css/style.css" />
   <link rel="stylesheet" href="/assets/css/nav.css?v=3" />
-  <script src="/assets/js/settings.js?v=3"></script>
-  <link rel="stylesheet" href="/assets/css/settings.css?v=1" />
+  <script src="/assets/js/settings.js?v=4"></script>
+  <link rel="stylesheet" href="/assets/css/settings.css?v=2" />
   <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
   <script src="/assets/js/font.js" crossorigin="anonymous"></script>
   <script src="/assets/js/easteregg.min.js" async></script>
@@ -101,14 +101,11 @@
       <div class="card">
         <div class="container">
           <div class="title">
-            <h4><b>Panic System</b></h4>
+            <h4>Saves</h4>
           </div>
-          <form>
-            <input class="tab-cloaker-form" type="text" id="key" placeholder="Panic Key" onkeyup="setPanicKey()"
-              name="icon">
-            <input class="tab-cloaker-form" type="text" id="link" name="name" placeholder="Panic Link"
-              onkeyup="setPanicLink()">
-          </form>
+          <input type="file" id="uploadSave" class="uploadBox" accept=".gmsconfig">
+          <button class="center-global tab-cloak tabcloak" onclick="loadSave();">Load</button><br><br>
+          <button class="center-global tab-cloak tabcloak" onclick="saveSave();">Download Save</button>
         </div>
       </div>
       <div class="card">

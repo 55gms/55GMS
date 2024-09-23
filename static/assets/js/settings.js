@@ -237,6 +237,35 @@ function cloak() {
   }
 }
 
+function saveSave() {
+  var data = JSON.stringify(localStorage);
+  var blob = new Blob([data], { type: "text/plain" });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  date = new Date();
+  a.download = `${date.getMonth() + 1}_${date.getDate()}_${date
+    .getFullYear()
+    .toString()
+    .slice(-2)} ${date.getHours()}:${date.getMinutes()}.gmsconfig`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function loadSave() {
+  var input = document.getElementById("uploadSave");
+  var file = input.files[0];
+  var reader = new FileReader();
+  reader.readAsText(file);
+  reader.onload = function () {
+    var data = JSON.parse(reader.result);
+    for (var key in data) {
+      localStorage.setItem(key, data[key]);
+    }
+    alert("Save Loaded!");
+    input.value = "";
+  };
+}
 var months = [
   "January",
   "February",
