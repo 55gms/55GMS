@@ -6,11 +6,42 @@ const cors = require("cors");
 
 const axios = require("axios");
 const dotenv = require("dotenv");
-const tokenLimit = 1000000;
-let tokenUsage = 0;
-const modelPrimary = "llama-3.1-70b-versatile";
-const modelBackup = "llama3-groq-70b-8192-tool-use-preview";
 dotenv.config();
+
+const tokenLimit = 500000;
+let tokenUsage = 0;
+
+const modelData = `
+gemma-7b-it
+gemma2-9b-it
+llama-3.1-70b-versatile
+llama-3.1-8b-instant
+llama-3.2-11b-text-preview
+llama-3.2-1b-preview
+llama-3.2-3b-preview
+llama-3.2-90b-text-preview
+llama-guard-3-8b
+llama3-70b-8192
+llama3-8b-8192
+llama3-groq-70b-8192-tool-use-preview
+llama3-groq-8b-8192-tool-use-preview
+mixtral-8x7b-32768
+`
+  .trim()
+  .split("\n")
+  .map((line) => {
+    return { name: line.trim() };
+  });
+
+let currentModelIndex = 0;
+let currentModel = modelData[currentModelIndex].name;
+
+function switchModel() {
+  currentModelIndex = (currentModelIndex + 1) % modelData.length;
+  currentModel = modelData[currentModelIndex].name;
+  tokenUsage = 0;
+  console.log(`Switched to model: ${currentModel}`);
+}
 
 const server = http.createServer();
 const app = express(server);
@@ -38,11 +69,10 @@ app.post("/api/chat", async (req, res) => {
   conversation.push({ role: "user", content: message });
 
   try {
-    const modelToUse = tokenUsage < tokenLimit ? modelPrimary : modelBackup;
     const response = await axios.post(
       "https://api.groq.com/openai/v1/chat/completions",
       {
-        model: modelToUse,
+        model: currentModel,
         messages: conversation,
         temperature: 0.7,
         max_tokens: 1024,
@@ -52,14 +82,17 @@ app.post("/api/chat", async (req, res) => {
           Authorization: `Bearer ${process.env.API_KEY}`,
           "Content-Type": "application/json",
         },
-      },
+      }
     );
 
     const aiResponse = response.data.choices[0].message.content;
     conversation.push({ role: "assistant", content: aiResponse });
     tokenUsage += response.data.usage.total_tokens;
-    if (conversation.length > 10) {
-      conversation = conversation.slice(-10);
+    if (conversation.length > 5) {
+      conversation = conversation.slice(-5);
+    }
+    if (tokenUsage >= tokenLimit) {
+      switchModel();
     }
 
     activeConversations.set(userId, conversation);
@@ -80,8 +113,9 @@ app.post("/api/chat", async (req, res) => {
 });
 
 app.get("/api/usedTokens", (req, res) => {
-  res.json({ usedTokens: tokenUsage });
+  res.json({ usedTokens: tokenUsage, model: currentModel });
 });
+
 app.use(express.static(path.join(__dirname, "static")));
 
 const routes = [
@@ -108,12 +142,13 @@ app.get("/misc/*", async (req, res, next) => {
   const secondaryUrl = "https://raw.githubusercontent.com/22yeets22/a/main";
   await fetchDataFromGithub(req, res, next, baseUrl, secondaryUrl);
 });
+
 async function fetchDataFromGithub(
   req,
   res,
   next,
   baseUrl,
-  secondaryUrl = null,
+  secondaryUrl = null
 ) {
   function isAFile(urlString) {
     return urlString.trim().split("/").pop().length !== 0;

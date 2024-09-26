@@ -52,7 +52,7 @@ const getChatResponse = async (incomingChatDiv) => {
     html = marked.parse(response.response);
     pElement.appendChild(document.createRange().createContextualFragment(html));
   } catch (error) {
-    if (error.response.status === 429) {
+    if (data.response.status === 429) {
       pElement.classList.add("error");
       pElement.textContent =
         "Too many requests have been sent in 1 minute, please try again later.";
