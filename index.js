@@ -6,6 +6,7 @@ const cors = require("cors");
 
 const axios = require("axios");
 const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
 dotenv.config();
 
 const tokenLimit = 500000;
@@ -44,8 +45,8 @@ const server = http.createServer();
 const app = express(server);
 const bareServer = createBareServer("/t/");
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(cors());
 
 app.use((req, res, next) => {
@@ -79,7 +80,7 @@ app.post("/api/chat", async (req, res) => {
           Authorization: `Bearer ${process.env.API_KEY}`,
           "Content-Type": "application/json",
         },
-      },
+      }
     );
 
     const aiResponse = response.data.choices[0].message.content;
@@ -108,11 +109,168 @@ app.post("/api/chat", async (req, res) => {
     }
   }
 });
-
 app.get("/api/usedTokens", (req, res) => {
   res.json({ usedTokens: tokenUsage, model: currentModel });
 });
+app.post("/api/signUp", async (req, res) => {
+  let { email, password, username, premium = false } = req.body;
+  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
+  if (!email || !password || !username) {
+    return res.status(400).json({ error: "Not enough arguments" });
+  }
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ error: "Invalid email" });
+  }
+  if (password.length < 6) {
+    return res.status(400).json({ error: "Password too short" });
+  }
+  if (username.length < 3) {
+    return res.status(400).json({ error: "Username too short" });
+  }
+
+  try {
+    const response = await axios.post(
+      "https://55gms.rednotsus.workers.dev/api/signup",
+      {
+        username,
+        email,
+        password,
+        premium,
+      },
+      {
+        headers: {
+          Authorization: process.env.workerAUTH,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error("Error:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while processing your request." });
+  }
+});
+app.post("/api/login", async (req, res) => {
+  let { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: "Not enough arguments" });
+  }
+
+  try {
+    const response = await axios.post(
+      "https://55gms.rednotsus.workers.dev/api/login",
+      {
+        email,
+        password,
+      },
+      {
+        headers: {
+          Authorization: process.env.workerAUTH,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Invalid Email or password" });
+  }
+});
+app.post("/api/checkPremium", async (req, res) => {
+  let { uuid } = req.body;
+
+  if (!uuid) {
+    return res.status(400).json({ error: "Not enough arguments" });
+  }
+
+  try {
+    const response = await axios.post(
+      "https://55gms.rednotsus.workers.dev/api/users/premium",
+      {
+        uuid,
+      },
+      {
+        headers: {
+          Authorization: process.env.workerAUTH,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error("Error:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while processing your request." });
+  }
+});
+app.post("/api/uploadSave", async (req, res) => {
+  let saveData = req.body;
+  let uuid = req.headers["uuid"];
+
+  if (!saveData || !uuid) {
+    return res.status(400).json({ error: "Not enough arguments" });
+  }
+
+  try {
+    const response = await axios.post(
+      "https://55gms.rednotsus.workers.dev/api/users/uploadSave",
+      {
+        uuid,
+        saveData,
+      },
+      {
+        headers: {
+          Authorization: process.env.workerAUTH,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error("Error:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while processing your request." });
+  }
+});
+app.post("/api/readSave", async (req, res) => {
+  let { uuid } = req.body;
+
+  if (!uuid) {
+    return res.status(400).json({ error: "Not enough arguments" });
+  }
+
+  try {
+    const response = await axios.post(
+      "https://55gms.rednotsus.workers.dev/api/users/readSave",
+      {
+        uuid: uuid,
+      },
+      {
+        headers: {
+          Authorization: process.env.workerAUTH,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error("Error:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while processing your request." });
+  }
+});
 app.use(express.static(path.join(__dirname, "static")));
 
 const routes = [
@@ -125,6 +283,7 @@ const routes = [
   { path: "/d", file: "dashboard.html" },
   { path: "/e", file: "english.html" },
   { path: "/-", file: "math.html" },
+  { path: "/profile", file: "account.html" },
   { path: "/l", file: "/assets/404/loading.html" },
 ];
 
@@ -145,7 +304,7 @@ async function fetchDataFromGithub(
   res,
   next,
   baseUrl,
-  secondaryUrl = null,
+  secondaryUrl = null
 ) {
   function isAFile(urlString) {
     return urlString.trim().split("/").pop().length !== 0;
