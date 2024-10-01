@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+    <script src="/assets/js/font.js"></script>
+    <meta name="google" content="notranslate" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/nav.css?v=3" />
+    <title>Google</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Rednotsus" />
+    <meta http-equiv="Cache-control" content="public">
+    <meta charset="utf-8">
+    <meta name="description"
+        content="Canvas LMS is an open and reliable web-based software that allows institutions to manage digital learning, educators to create and present online learning materials and assess student learning, and students to engage in courses and receive feedback about skill development and learning achievement." />
+    <meta name="keywords"
+        content="unblocked games, 55gms tk, 55gms, reds exploit corner, games, unblocked, site, lanier, lanier middle school, gg, Minecraft, discord, chromebook, chromeos, rednotsus, vanillacraft, eaglercraft unblocked, resent client unblocked, fun, cool, proxy, slope unblocked, free, unblocked monkey mart, 555gms, 5gms, school" />
+    </script>
+    <script src="/assets/js/script.js?v=11"></script>
+    <script src="/assets/js/easteregg.min.js" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<style>
+    .circle {
+        height: 100px;
+        width: 100px;
+        margin: auto;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .initials {
+        font-size: 36px;
+        color: rgb(51, 45, 45);
+        font-weight: bold;
+    }
+
+    .badge {
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
+        transition: 0.3s
+    }
+
+    .badge:hover {
+        scale: 1.2;
+        transition: 0.3s
+    }
+</style>
+<script>
+    let uuid = localStorage.getItem("uuid");
+    fetch("/api/checkPremium", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            uuid: uuid,
+        }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.premium);
+            if (data.premium === 1) {
+                document.querySelector(".badges").innerHTML += "<img src='/img/premium.webp' class='badge' title='Premium'>";
+                localStorage.setItem("premium", 1);
+            }
+            let username = localStorage.getItem("username");
+            let initials = username.charAt(0);
+            document.getElementById("initials").textContent = initials
+            document.getElementById("username").textContent = username
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    let isOnCooldown = false;
+    function upload() {
+
+        const uploadButton = document.getElementById("uploadButton");
+        const uploadLoader = document.getElementById("uploadLoader");
+
+        if (isOnCooldown) {
+            return Swal.fire({
+                icon: "error",
+                text: "You're on cooldown, please wait a few seconds",
+            });
+
+        }
+
+        uploadLoader.style.display = "";
+        const uuid = localStorage.getItem("uuid");
+        const uploadJSON = JSON.stringify(localStorage);
+
+        isOnCooldown = true;
+
+        fetch("/api/uploadSave", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "uuid": uuid
+            },
+            body: uploadJSON
+        })
+            .then(response => response.json())
+            .then(data => {
+                uploadLoader.style.display = "none";
+                setTimeout(() => {
+                    isOnCooldown = false;
+                }, 30000);
+                if (data.success === true) {
+                    Swal.fire({
+                        icon: "success",
+                        text: "Successfully synced to the cloud",
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        text: `Please report this to rednotsus on discord, ${data}`,
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                Swal.fire({
+                    icon: "error",
+                    text: "An error occurred while uploading your save.",
+                });
+            })
+    }
+    function download() {
+        const downloadButton = document.getElementById("downloadButton");
+        const downloadLoader = document.getElementById("downloadLoader");
+
+        if (isOnCooldown) {
+            return Swal.fire({
+                icon: "error",
+                text: "You're on cooldown, please wait a few seconds",
+            });
+
+        }
+
+        downloadLoader.style.display = "";
+        const uuid = localStorage.getItem("uuid");
+
+        isOnCooldown = true;
+
+        fetch("/api/readSave", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                uuid: uuid,
+            }),
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json().then(data => ({ status: response.status, data }));
+                } else {
+                    return response.json().then(data => {
+                        throw new Error(`Error: ${response.status}, ${data.message}`);
+                    });
+                }
+            })
+            .then(({ status, data }) => {
+                downloadLoader.style.display = "none";
+                setTimeout(() => {
+                    isOnCooldown = false;
+                }, 30000);
+                if (status === 200) {
+                    for (const key in data) {
+                        if (typeof data[key] === 'object') {
+                            localStorage.setItem(key, JSON.stringify(data[key]));
+                        } else {
+                            localStorage.setItem(key, data[key]);
+                        }
+                    }
+                    Swal.fire({
+                        icon: "success",
+                        text: "Successfully loaded from the cloud",
+                    });
+                }
+            })
+            .catch(error => {
+                downloadLoader.style.display = "none";
+                setTimeout(() => {
+                    isOnCooldown = false;
+                }, 30000);
+                console.error("Error:", error);
+                Swal.fire({
+                    icon: "error",
+                    text: `An error occurred while downloading your save: ${error.message}`,
+                });
+            });
+    }
+    function logout() {
+        localStorage.removeItem("uuid");
+        localStorage.removeItem("username");
+        localStorage.removeItem("premium");
+        location.href = "/profile";
+    }
+    if (!uuid || !localStorage.getItem("username")) {
+        location.href = '/signup'
+    }
+</script>
+
+
+<body>
+    <nav>
+        <div class="navbar">
+            <a id="nav-title" href="/">Reds Exploit Corner</a>
+            <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
+            <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
+            <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
+            <a href="/p"><i class="fa-solid fa-magnifying-glass">&nbsp;</i>Search</a>
+            <a href="/e"><i class="fa-solid fa-robot"></i>&nbsp;</i>AI</a>
+            <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
+            <a href="/profile"><i class="fa-solid fa-user"></i></a>
+        </div>
+    </nav>
+    <div class="main-content">
+        <h1 class="title" style="text-align: center;">Profile</h1><br><br>
+        <center>
+            <div class="circle"><span class="initials" id="initials"></span></div>
+            <h2 id="username"></h2>
+            <div class="badges">
+            </div>
+            <br><br>
+            <h3>Cloud Sync</h3>
+            <p>Save your progress across sites through the cloud!</p>
+            <button class="gs" id='uploadButton' onclick="upload()">Sync To Cloud</button>&nbsp;<img
+                src="/assets/404/loading.gif" style="width: 20px; height: 20px; display:none" id="uploadLoader">
+            <button class="gs" id='downloadButton' onclick="download()">Load
+                From Cloud</button>&nbsp;<img src="/assets/404/loading.gif"
+                style="width: 20px; height: 20px; display:none" id="downloadLoader"><br><br>
+            <button class="gs" onclick="logout()" id="uploadButton">Log Out</button>
+
+        </center>
+
+        </center>
+    </div>
+    </div>
+</body>
+
+</html>

@@ -6,13 +6,16 @@ const cors = require("cors");
 
 const axios = require("axios");
 const dotenv = require("dotenv");
-const bodyParser = require("body-parser");
 dotenv.config();
 
 const tokenLimit = 500000;
 let tokenUsage = 0;
 
 const modelData = `
+llama3-groq-70b-8192-tool-use-preview
+llama3-groq-8b-8192-tool-use-preview
+llama3-70b-8192
+llama3-8b-8192
 gemma-7b-it
 gemma2-9b-it
 llama-3.1-70b-versatile
@@ -20,10 +23,6 @@ llama-3.1-8b-instant
 llama-3.2-11b-text-preview
 llama-3.2-3b-preview
 llama-3.2-90b-text-preview
-llama3-70b-8192
-llama3-8b-8192
-llama3-groq-70b-8192-tool-use-preview
-llama3-groq-8b-8192-tool-use-preview
 `
   .trim()
   .split("\n")
@@ -97,7 +96,6 @@ app.post("/api/chat", async (req, res) => {
 
     res.json({ response: aiResponse });
   } catch (error) {
-    console.error("Error:", error);
     if (error.response && error.response.status === 429) {
       res.status(429).json({ error: "Too many requests" });
     } else if (error.response && error.response.status === 503) {
@@ -113,14 +111,10 @@ app.get("/api/usedTokens", (req, res) => {
   res.json({ usedTokens: tokenUsage, model: currentModel });
 });
 app.post("/api/signUp", async (req, res) => {
-  let { email, password, username, premium = false } = req.body;
-  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  let { password, username, premium = false, captchaResponse } = req.body;
 
-  if (!email || !password || !username) {
+  if (!password || !username || !captchaResponse) {
     return res.status(400).json({ error: "Not enough arguments" });
-  }
-  if (!emailRegex.test(email)) {
-    return res.status(400).json({ error: "Invalid email" });
   }
   if (password.length < 6) {
     return res.status(400).json({ error: "Password too short" });
@@ -130,11 +124,28 @@ app.post("/api/signUp", async (req, res) => {
   }
 
   try {
+    const captchaVerifyResponse = await axios.post(
+      "https://hcaptcha.com/siteverify",
+      new URLSearchParams({
+        secret: process.env.hcaptchaSecret,
+        response: captchaResponse,
+      }),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
+
+    if (!captchaVerifyResponse.data.success) {
+      console.log(captchaVerifyResponse.data["error-codes"]);
+      return res.status(400).json({ error: "Invalid CAPTCHA" });
+    }
+
     const response = await axios.post(
-      "https://55gms.rednotsus.workers.dev/api/signup",
+      "https://db.55gms.com/api/signup",
       {
         username,
-        email,
         password,
         premium,
       },
@@ -148,24 +159,23 @@ app.post("/api/signUp", async (req, res) => {
 
     res.status(200).json(response.data);
   } catch (error) {
-    console.error("Error:", error);
     res
       .status(500)
       .json({ error: "An error occurred while processing your request." });
   }
 });
 app.post("/api/login", async (req, res) => {
-  let { email, password } = req.body;
+  let { username, password } = req.body;
 
-  if (!email || !password) {
+  if (!username || !password) {
     return res.status(400).json({ error: "Not enough arguments" });
   }
 
   try {
     const response = await axios.post(
-      "https://55gms.rednotsus.workers.dev/api/login",
+      "https://db.55gms.com/api/login",
       {
-        email,
+        username,
         password,
       },
       {
@@ -178,7 +188,6 @@ app.post("/api/login", async (req, res) => {
 
     res.status(200).json(response.data);
   } catch (error) {
-    console.error("Error:", error);
     res.status(500).json({ error: "Invalid Email or password" });
   }
 });
@@ -191,7 +200,7 @@ app.post("/api/checkPremium", async (req, res) => {
 
   try {
     const response = await axios.post(
-      "https://55gms.rednotsus.workers.dev/api/users/premium",
+      "https://db.55gms.com/api/users/premium",
       {
         uuid,
       },
@@ -205,10 +214,7 @@ app.post("/api/checkPremium", async (req, res) => {
 
     res.status(200).json(response.data);
   } catch (error) {
-    console.error("Error:", error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while processing your request." });
+    res.status(500).json({ error: error });
   }
 });
 app.post("/api/uploadSave", async (req, res) => {
@@ -221,7 +227,7 @@ app.post("/api/uploadSave", async (req, res) => {
 
   try {
     const response = await axios.post(
-      "https://55gms.rednotsus.workers.dev/api/users/uploadSave",
+      "https://db.55gms.com/api/users/uploadSave",
       {
         uuid,
         saveData,
@@ -236,10 +242,7 @@ app.post("/api/uploadSave", async (req, res) => {
 
     res.status(200).json(response.data);
   } catch (error) {
-    console.error("Error:", error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while processing your request." });
+    res.status(500).json({ error: error });
   }
 });
 app.post("/api/readSave", async (req, res) => {
@@ -251,7 +254,7 @@ app.post("/api/readSave", async (req, res) => {
 
   try {
     const response = await axios.post(
-      "https://55gms.rednotsus.workers.dev/api/users/readSave",
+      "https://db.55gms.com/api/users/readSave",
       {
         uuid: uuid,
       },
@@ -265,10 +268,7 @@ app.post("/api/readSave", async (req, res) => {
 
     res.status(200).json(response.data);
   } catch (error) {
-    console.error("Error:", error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while processing your request." });
+    res.status(500).json({ error: error });
   }
 });
 app.use(express.static(path.join(__dirname, "static")));
@@ -284,6 +284,8 @@ const routes = [
   { path: "/e", file: "english.html" },
   { path: "/-", file: "math.html" },
   { path: "/profile", file: "account.html" },
+  { path: "/login", file: "/assets/404/login.html" },
+  { path: "/signup", file: "/assets/404/signup.html" },
   { path: "/l", file: "/assets/404/loading.html" },
 ];
 

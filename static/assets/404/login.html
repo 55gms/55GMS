@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+    <script src="/assets/js/font.js"></script>
+    <meta name="google" content="notranslate" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/nav.css?v=3" />
+    <title>Google</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Rednotsus" />
+    <meta http-equiv="Cache-control" content="public">
+    <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <meta name="description"
+        content="Canvas LMS is an open and reliable web-based software that allows institutions to manage digital learning, educators to create and present online learning materials and assess student learning, and students to engage in courses and receive feedback about skill development and learning achievement." />
+    <meta name="keywords"
+        content="unblocked games, 55gms tk, 55gms, reds exploit corner, games, unblocked, site, lanier, lanier middle school, gg, Minecraft, discord, chromebook, chromeos, rednotsus, vanillacraft, eaglercraft unblocked, resent client unblocked, fun, cool, proxy, slope unblocked, free, unblocked monkey mart, 555gms, 5gms, school" />
+    </script>
+    <script src="/assets/js/script.js?v=11"></script>
+    <script src="/assets/js/easteregg.min.js" async></script>
+</head>
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+
+    .form__input {
+        padding: 1vw;
+        width: 40%;
+        border-radius: 5px;
+        background: #7a8fab;
+        text-align: center;
+        font-size: 24px;
+        border: none;
+        outline: none;
+        color: white;
+        transition: 0.2s;
+        margin: 0;
+    }
+
+    .form__input::placeholder {
+        font-family: "Inter", Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        color: #ffffff;
+        text-align: center;
+        opacity: 0.4;
+    }
+
+    .form_input:hover {
+        background: #6f829b
+    }
+
+    .form__input:focus {
+        outline: none;
+        background: #6f829b
+    }
+</style>
+<script>
+    async function login() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        if (username == "" || password == "") {
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill in all fields!',
+            });
+        }
+        try {
+            let response = await fetch("/api/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    password: password,
+                    username: username,
+                }),
+            });
+
+            if (response.status === 200) {
+                let data = await response.json();
+                localStorage.setItem("uuid", data.uuid);
+                localStorage.setItem("username", data.username);
+                localStorage.setItem("premium", data.premium);
+
+                let info = await fetch("/api/readSave", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        uuid: data.uuid,
+                    }),
+                });
+
+                if (info.status === 200) {
+                    location.href = "/profile";
+                } else {
+                    alert("Since it's your first time, we are uploading your current save to the cloud!")
+
+                    const save = JSON.stringify(localStorage);
+                    let uploadStatus = await fetch("/api/uploadSave", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "uuid": data.uuid,
+                        },
+                        body: save,
+                    });
+
+                    if (uploadStatus.status === 200) {
+                        location.href = "/profile";
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: `An error occurred while uploading your save, please report this to rednotsus on discord ${uploadStatus.status}`,
+                        });
+                    }
+                }
+            } else {
+                let errorData = await response.json();
+                Swal.fire({
+                    icon: "error",
+                    title: "Login Failed",
+                    text: errorData.error || 'An error occurred during login.',
+                });
+            }
+        } catch (e) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: `An error occurred while logging in, please report this to rednotsus on discord ${e}`,
+            });
+        }
+    }
+</script>
+
+<body>
+    <nav>
+        <div class="navbar">
+            <a id="nav-title" href="/">Reds Exploit Corner</a>
+            <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
+            <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
+            <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
+            <a href="/p"><i class="fa-solid fa-magnifying-glass">&nbsp;</i>Search</a>
+            <a href="/e"><i class="fa-solid fa-robot"></i>&nbsp;</i>AI</a>
+            <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
+            <a href="/profile"><i class="fa-solid fa-user"></i></a>
+        </div>
+    </nav>
+    <div style="text-align: center">
+        <br></br>
+        <h1>Welcome back!</h1>
+        <br><br>
+        <input type="text" id="username" class='form__input' name="email" autocomplete="off" placeholder="Username">
+        <br><br>
+
+        <input type="password" id="password" class='form__input' name="password" autocomplete="off"
+            placeholder="Password">
+        <br><br><br>
+        <button onclick="login()" class="gs">Login</button>
+        <br>
+        <p class="signup">Don't have an account yet? <a class='signupbutton' href="/signup">Sign Up</a></p>
+    </div>
+</body>
+
+</html>
