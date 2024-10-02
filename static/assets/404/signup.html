@@ -59,6 +59,13 @@
 </style>
 <script>
     async function signup() {
+        const signupButton = document.getElementById("signupButton");
+        const signupLoader = document.getElementById("signupLoader");
+
+        // Disable the button and show the loader
+        signupButton.disabled = true;
+        signupLoader.style.display = "inline-block";
+
         var password = document.getElementById("password").value;
         var user = document.getElementById("user").value;
         var hcaptcha = document.querySelector('[name="h-captcha-response"]').value;
@@ -67,31 +74,44 @@
                 icon: "error",
                 text: "Please fill in all the fields",
             });
+            signupButton.disabled = false;
+            signupLoader.style.display = "none";
             return;
         } else if (hcaptcha == "") {
             Swal.fire({
                 icon: "error",
                 text: "Please complete the captcha",
             });
+            signupButton.disabled = false;
+            signupLoader.style.display = "none";
             return;
         }
         if (password.length < 6) {
-            swal.fire({
+            Swal.fire({
                 icon: "error",
                 text: "Password must be at least 6 characters",
             });
+            signupButton.disabled = false;
+            signupLoader.style.display = "none";
+            return;
         }
         if (user.length < 3) {
-            swal.fire({
+            Swal.fire({
                 icon: "error",
                 text: "Username must be at least 3 characters",
             });
+            signupButton.disabled = false;
+            signupLoader.style.display = "none";
+            return;
         }
         if (user.length > 16) {
-            swal.fire({
+            Swal.fire({
                 icon: "error",
                 text: "Username must be at most 16 characters",
             });
+            signupButton.disabled = false;
+            signupLoader.style.display = "none";
+            return;
         }
         try {
             let response = await fetch("/api/signup", {
@@ -120,18 +140,24 @@
                         icon: "error",
                         text: "Invalid captcha",
                     });
+                    signupButton.disabled = false;
+                    signupLoader.style.display = "none";
                     return;
                 }
                 Swal.fire({
                     icon: "error",
                     text: "Someone already has that username.",
                 });
+                signupButton.disabled = false;
+                signupLoader.style.display = "none";
             }
         } catch (e) {
             Swal.fire({
                 icon: "error",
-                text: { e },
+                text: `An error occurred: ${e.message}`,
             });
+            signupButton.disabled = false;
+            signupLoader.style.display = "none";
             return;
         }
     }
@@ -160,7 +186,8 @@
             placeholder="Password">
         <br><br>
         <div class="h-captcha" data-sitekey="b53ebcec-4dfc-4536-b52e-a3bcbc1269e8"></div><br>
-        <button onclick="signup()" class="gs">Sign Up</button>
+        <button id="signupButton" onclick="signup()" class="gs">Sign Up</button>
+        <img id="signupLoader" src="/assets/404/loading.gif" style="width: 20px; height: 20px; display: none;">
         <br>
         <p>Already have an account? <a class='signupbutton' href="/login">Log in</a></p>
     </div>
