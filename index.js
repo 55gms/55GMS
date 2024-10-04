@@ -84,7 +84,7 @@ app.post("/api/chat", async (req, res) => {
           Authorization: `Bearer ${process.env.API_KEY}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     const aiResponse = response.data.choices[0].message.content;
@@ -139,7 +139,7 @@ app.post("/api/signUp", async (req, res) => {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-      }
+      },
     );
 
     if (!captchaVerifyResponse.data.success) {
@@ -159,7 +159,7 @@ app.post("/api/signUp", async (req, res) => {
           Authorization: process.env.workerAUTH,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     res.status(200).json(response.data);
@@ -188,7 +188,7 @@ app.post("/api/login", async (req, res) => {
           Authorization: process.env.workerAUTH,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     res.status(200).json(response.data);
@@ -214,7 +214,7 @@ app.post("/api/checkPremium", async (req, res) => {
           Authorization: process.env.workerAUTH,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     res.status(200).json(response.data);
@@ -242,7 +242,7 @@ app.post("/api/uploadSave", async (req, res) => {
           Authorization: process.env.workerAUTH,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     res.status(200).json(response.data);
@@ -268,7 +268,7 @@ app.post("/api/readSave", async (req, res) => {
           Authorization: process.env.workerAUTH,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     res.status(200).json(response.data);
@@ -311,7 +311,7 @@ async function fetchDataFromGithub(
   res,
   next,
   baseUrl,
-  secondaryUrl = null
+  secondaryUrl = null,
 ) {
   function isAFile(urlString) {
     return urlString.trim().split("/").pop().length !== 0;
