@@ -330,6 +330,12 @@
     "usesProxy": false
   },
   {
+    "name": "Gun Spin",
+    "url": "/misc/gunspin/",
+    "image": "/img/games/gunspin.webp",
+    "usesProxy": false
+  },
+  {
     "name": "DOOM",
     "url": "https://diekmann.github.io/wasm-fizzbuzz/doom/",
     "image": "/misc/doom/img.webp",
