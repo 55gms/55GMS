@@ -662,9 +662,9 @@
   },
   {
     "name": "Grand Prix Hero",
-    "url": "/misc/grandprixhero/index.html",
-    "image": "/misc/grandprixhero/img.webp",
-    "usesProxy": false
+    "url": "https://lnabros.github.io/a4/grand-prix-hero",
+    "image": "/img/games/grandprixhero.webp",
+    "usesProxy": true
   },
   {
     "name": "Grindcraft",
