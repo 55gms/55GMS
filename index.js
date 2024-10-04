@@ -12,6 +12,7 @@ const tokenLimit = 500000;
 let tokenUsage = 0;
 
 const modelData = `
+llama3-groq-70b-8192-tool-use-preview
 llama3-groq-8b-8192-tool-use-preview
 llama3-70b-8192
 llama3-8b-8192
