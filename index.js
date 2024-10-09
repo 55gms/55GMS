@@ -102,7 +102,7 @@ app.post("/api/chat", async (req, res) => {
             Authorization: `Bearer ${process.env.API_KEY}`,
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       const aiResponse = response.data.choices[0].message.content;
       conversation.push({ role: "assistant", content: aiResponse });
