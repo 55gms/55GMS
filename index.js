@@ -8,7 +8,7 @@ const axios = require("axios");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const tokenLimit = 500000;
+const tokenLimit = 498000;
 let tokenUsage = 0;
 
 const modelData = `
@@ -87,9 +87,41 @@ app.post("/api/chat", async (req, res) => {
         },
       }
     );
+    if (response.status === 429) {
+      switchModel();
+      const response = await axios.post(
+        "https://api.groq.com/openai/v1/chat/completions",
+        {
+          model: currentModel,
+          messages: conversation,
+          temperature: 0.7,
+          max_tokens: 1024,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.API_KEY}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const aiResponse = response.data.choices[0].message.content;
+      conversation.push({ role: "assistant", content: aiResponse });
 
+      tokenUsage += response.data.usage.total_tokens;
+      if (conversation.length > 5) {
+        conversation = conversation.slice(-5);
+      }
+      if (tokenUsage >= tokenLimit) {
+        switchModel();
+      }
+
+      activeConversations.set(userId, conversation);
+
+      res.json({ response: aiResponse });
+    }
     const aiResponse = response.data.choices[0].message.content;
     conversation.push({ role: "assistant", content: aiResponse });
+
     tokenUsage += response.data.usage.total_tokens;
     if (conversation.length > 5) {
       conversation = conversation.slice(-5);
@@ -104,6 +136,7 @@ app.post("/api/chat", async (req, res) => {
   } catch (error) {
     if (error.response && error.response.status === 429) {
       res.status(429).json({ error: "Too many requests" });
+      switchModel();
     } else if (error.response && error.response.status === 503) {
       res.status(503).json({ error: "Service unavailable" });
     } else {
