@@ -44,7 +44,7 @@ function fetchTmdbId() {
               </a>
             </div>`;
           } else if (movie.media_type === "movie") {
-            let link = `https://vidlink.pro/movie/${movie.id}`;
+            let link = `https://moviesapi.club/movie/${movie.id}`;
             gameHtml = `<div class="card" style="padding-top: 5px">
               <div class="rating">★ ${rating}</div>
               <div class="year">${year}</div>
