@@ -63,18 +63,6 @@ fetch("/assets/json/ads.json")
       );
       adscipterz92.setAttribute("crossorigin", "anonymous");
       document.head.append(adscipterz92);
-      var scriptElement = document.querySelector(
-        'script[src="//aboriginesprimary.com/d748553ce609adfb19cbe01dc3948c7b/invoke.js"]'
-      );
-      if (scriptElement) {
-        scriptElement.remove();
-      }
-      var divElement = document.getElementById(
-        "container-d748553ce609adfb19cbe01dc3948c7b"
-      );
-      if (divElement) {
-        divElement.remove();
-      }
       script("Injected script 3/3 (Adsense)");
     } else {
       console.log("Skipping Adsense Injection for this domain.");
