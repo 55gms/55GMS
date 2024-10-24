@@ -44,7 +44,7 @@ function fetchTmdbId() {
               </a>
             </div>`;
           } else if (movie.media_type === "movie") {
-            let link = `https://vidlink.pro/movie/${movie.id}`;
+            let link = `https://moviesapi.club/movie/${movie.id}`;
             gameHtml = `<div class="card" style="padding-top: 5px">
               <div class="rating">★ ${rating}</div>
               <div class="year">${year}</div>
@@ -101,7 +101,7 @@ async function displayPopular() {
         </div>
       </div>`;
     } else if (movie.media_type === "movie") {
-      let link = `https://vidlink.pro/movie/${movie.id}`;
+      let link = `https://moviesapi.club/movie/${movie.id}`;
       gameHtml = `<div class="card" style="padding-top: 5px">
         <div class="rating">★ ${rating}</div>
         <div class="year">${year}</div>
@@ -158,6 +158,6 @@ function promptForSeasonAndEpisode(videoId) {
     return;
   }
 
-  const link = `https://vidlink.pro/tv/${videoId}/${season}/${episode}`;
+  const link = `https://moviesapi.club/tv/${videoId}-${season}-${episode}`;
   hire(link);
 }
