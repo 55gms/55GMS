@@ -1,8 +1,3 @@
-@import "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap";
-@import url("themes.css");
-@import url("navbar.css");
-@import url("misc.css");
-
 #gameframe {
   margin-top: 1vw;
   margin-bottom: 6vw;
@@ -11,7 +6,7 @@
 }
 #gameframe .gameDisplay {
   margin: auto;
-  outline: 0.1vw solid #ffffff26;
+  outline: 0.2vw solid #ffffff26;
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
   width: 60.5vw;
   height: 38.5vw;
@@ -53,43 +48,17 @@
 }
 .addisplay {
   margin-left: 74vw;
-  width: 18vw;
+  width: 16vw;
   height: 32vw;
-  background-color: #19191b;
+  background-color: #3d4756;
   border-radius: 0.5vw;
   display: flex;
   margin-top: -42.5vw;
   margin-bottom: -5vw;
-  outline: 0.1vw solid #ffffff26;
+  outline: 0.2vw solid #ffffff26;
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
 }
-.aboutsection {
-  width: 75vw;
-  height: fit-content;
-  margin-top: 13vw;
-  margin-left: 12.5vw;
-  background-color: #19191b;
-  border-radius: 0.5vw;
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
-  outline: 0.1vw solid #ffffff26;
-}
-.recommendedgames {
-  width: 45vw;
-  height: 13vw;
-  margin-top: 4vw;
-  margin-bottom: 3vw;
-  background-color: #19191b;
-  border-radius: 0.5vw;
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
-  outline: 0.1vw solid #ffffff26;
-}
-.footer {
-  width: 100%;
-  height: 4.2vw;
-  margin-top: 1vw;
-  background-color: #19191b;
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
-}
+
 .gameicon {
   height: 2vw;
   width: 2vw;
@@ -145,7 +114,8 @@
   opacity: 0.7;
   letter-spacing: 0.05vw;
   position: absolute;
-  right: 13.6vw;
+  right: 15vw;
+  padding-top: 10px;
   margin-top: 32.2vw;
   transform-origin: right center;
 }
@@ -196,54 +166,4 @@
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
   margin-right: 1vw;
-}
-.anticlosebtn:hover {
-  transform: scaleX(1.2) scaleY(1.2);
-}
-.buttons {
-  margin-top: 2.4vw;
-}
-.footertext {
-  font-size: 1vw;
-  text-align: center;
-}
-.socialsbutton {
-  cursor: pointer;
-  height: 1.9vw;
-  width: 1.9vw;
-  transition: transform 0.3s ease-in-out;
-  margin-left: 0.2vw;
-  margin-top: 0.5vw;
-}
-.socialsbutton:hover {
-  transform: scaleX(1.1) scaleY(1.1);
-}
-.recommendedgameicon {
-  height: 8vw;
-  width: 8vw;
-  margin-top: 0.55vw;
-  margin-bottom: 0.2vw;
-  border-radius: 0.7vw;
-  box-shadow: 0 6px 12px 0 #0000003d;
-  transition: 0.2s;
-  margin-left: 0.5vw;
-}
-.recommendedgameicon:hover {
-  outline: 0.25vw solid var(--main2);
-}
-.recommendedgametext {
-  font-size: 1.66vw;
-}
-.recommendedgamesicons {
-  margin-left: 1vw;
-}
-.abouttitle {
-  margin-left: 1vw;
-  margin-bottom: 0.2vw;
-  font-size: 2vw;
-}
-.aboutparagraph {
-  margin-left: 1vw;
-  font-size: 1.15vw;
-  width: 65vw;
 }
