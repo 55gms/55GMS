@@ -3,7 +3,7 @@
     console.log(
       "%cScript Injection",
       "color: cyan; font-weight: 600; background: black; padding: 0 5px; border-radius: 5px",
-      text,
+      text
     );
   }
 
@@ -21,7 +21,7 @@
       document.head.appendChild(adsenseScript);
 
       adsenseScript.onload = function () {
-        var adContainer = document.createElement("ins");
+        var adContainer = document.getElementById("adElement");
         adContainer.className = "adsbygoogle";
         adContainer.style.display = "inline-block";
         adContainer.style.width = "16vw";
@@ -42,7 +42,7 @@
           adElement.style.display = "block";
         }
         console.log(
-          "Failed to load Adsense script, displaying fallback image.",
+          "Failed to load Adsense script, displaying fallback image."
         );
       };
 
@@ -53,7 +53,7 @@
         adElement.style.display = "block";
       }
       console.log(
-        "Skipping Adsense Injection for this domain, displaying fallback image.",
+        "Skipping Adsense Injection for this domain, displaying fallback image."
       );
     }
   } catch (error) {
