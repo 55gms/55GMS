@@ -3,14 +3,14 @@
     console.log(
       "%cScript Injection",
       "color: cyan; font-weight: 600; background: black; padding: 0 5px; border-radius: 5px",
-      text,
+      text
     );
   }
 
   try {
     const response = await fetch("/assets/json/ads.json");
     const data = await response.json();
-    const adElement = document.getElementById("displayads");
+    const addisplay = document.getElementById("addisplay");
 
     if (data.domains.includes(window.location.hostname)) {
       const adsenseScript = document.createElement("script");
@@ -37,31 +37,30 @@
       };
 
       adsenseScript.onerror = function () {
-        if (adElement) {
-          adElement.innerHTML = `<a href='https://discord.gg/55gms'><img src="/img/ad.png" style="width: 16vw; height: 32vw; border-radius: 5px;"></a>`;
-          adElement.style.display = "block";
+        if (addisplay) {
+          addisplay.innerHTML = `<a href='https://discord.gg/55gms'><img src="/img/ad.png" style="width: 16vw; height: 32vw; border-radius: 10px;"></a>`;
+          addisplay.style.display = "block";
         }
         console.log(
-          "Failed to load Adsense script, displaying fallback image.",
+          "Failed to load Adsense script, displaying fallback image."
         );
       };
 
       script("Injected Adsense script");
     } else {
-      if (adElement) {
-        adElement.innerHTML = `<a href='https://discord.gg/55gms'><img src="/img/ad.png" style="width: 16vw; height: 32vw; border-radius: 5px;"></a>`;
-        adElement.style.display = "block";
+      if (addisplay) {
+        addisplay.innerHTML = `<a href='https://discord.gg/55gms'><img src="/img/ad.png" style="width: 16vw; height: 32vw; border-radius: 10px;"></a>`;
+        addisplay.style.display = "block";
       }
       console.log(
-        "Skipping Adsense Injection for this domain, displaying fallback image.",
+        "Skipping Adsense Injection for this domain, displaying fallback image."
       );
     }
   } catch (error) {
     console.error("Error loading ads.json:", error);
-    const adElement = document.getElementById("displayads");
-    if (adElement) {
-      adElement.innerHTML = `<a href='https://discord.gg/55gms'><img src="/img/ad.png" style="width: 16vw; height: 32vw; border-radius: 5px;"></a>`;
-      adElement.style.display = "block";
+    if (addisplay) {
+      addisplay.innerHTML = `<a href='https://discord.gg/55gms'><img src="/img/ad.png" style="width: 16vw; height: 32vw; border-radius: 10px;"></a>`;
+      addisplay.style.display = "block";
     }
   }
 })();

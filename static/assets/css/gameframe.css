@@ -161,9 +161,3 @@
 .reloadbtn:hover {
   transform: scaleX(1.2) scaleY(1.2) rotate(360deg);
 }
-.anticlosebtn {
-  width: 2vw;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-  margin-right: 1vw;
-}
