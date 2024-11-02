@@ -109,13 +109,13 @@
   },
   {
     "name": "Awswome Tanks",
-    "url": "/misc/awesometanks/",
+    "url": "/misc/play/awesometanks.html",
     "image": "/misc/awesometanks/game.webp",
     "usesProxy": false
   },
   {
     "name": "Awesome Tanks 2",
-    "url": "/misc/awsometanks2/",
+    "url": "/misc/play/awesometanks2.html",
     "image": "/misc/awsometanks2/icon.webp",
     "usesProxy": false
   },
@@ -139,49 +139,49 @@
   },
   {
     "name": "Bad Ice Cream 3",
-    "url": "/misc/badicecream3/",
+    "url": "/misc/play/bad-ice-cream-3.html",
     "image": "/misc/badicecream3/img.webp",
     "usesProxy": false
   },
   {
     "name": "Basket Random",
-    "url": "/misc/basket-random/",
+    "url": "/misc/play/basket-random.html",
     "image": "/misc/basket-random/img.webp",
     "usesProxy": false
   },
   {
     "name": "Basketball Stars",
-    "url": "/misc/basketball-stars/",
+    "url": "/misc/play/basketball-stars.html",
     "image": "/misc/basketball-stars/basketstars.webp",
     "usesProxy": false
   },
   {
     "name": "Basketbros",
-    "url": "/misc/basketbros-io/",
+    "url": "/misc/play/basketbros.html",
     "image": "/misc/basketbros-io/thumb.webp",
     "usesProxy": false
   },
   {
     "name": "BitLife",
-    "url": "/misc/bitlife/",
+    "url": "/misc/play/bitlife.html",
     "image": "/misc/bitlife/splash.webp",
     "usesProxy": false
   },
   {
     "name": "Bloons TD",
-    "url": "/misc/flash/index.html?swf=bloonstd1.swf",
+    "url": "/misc/play/bloontd.html",
     "image": "/misc/flash/img/btd.webp",
     "usesProxy": false
   },
   {
     "name": "Bloons TD 2",
-    "url": "/misc/flash/index.html?swf=bloons-tower-defense-2.swf",
+    "url": "/misc/play/bloontd2.html",
     "image": "/misc/flash/img/btd2.webp",
     "usesProxy": false
   },
   {
     "name": "Bloons TD 3",
-    "url": "/misc/flash/index.html?swf=bloonstd3.swf",
+    "url": "/misc/play/bloontd3.html",
     "image": "/misc/flash/img/btd3.webp",
     "usesProxy": false
   },
@@ -193,15 +193,15 @@
   },
   {
     "name": "Bloons TD 4",
-    "url": "/misc/flash/gfiles/btd4/",
+    "url": "/misc/play/bloontd4.html",
     "image": "/misc/flash/img/btd4.jpeg",
     "usesProxy": false
   },
   {
     "name": "Bloxrz",
-    "url": "https://ad-freegames.github.io/flash/game/bloxorz.html",
+    "url": "/misc/play/bloxrz.html",
     "image": "/misc/bloxrz/img.webp",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Bottle Flip",
