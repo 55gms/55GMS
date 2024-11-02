@@ -37,9 +37,9 @@
   },
   {
     "name": "2Doom",
-    "url": "https://html-classic.itch.zone/html/2066606/index.html?v=1591302172",
+    "url": "/misc/play/2doom.html",
     "image": "/img/games/2doom.webp",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "2048",
@@ -79,13 +79,13 @@
   },
   {
     "name": "Alien Hominid",
-    "url": "/misc/play/alienhonminid.html",
+    "url": "/misc/emulator/games/alien/",
     "image": "/misc/emulator/games/alien/alien.webp",
     "usesProxy": false
   },
   {
     "name": "Amazing rope police",
-    "url": "/misc/amazing-rope-police/",
+    "url": "/misc/play/amazing-rope-police.html",
     "image": "/misc/amazing-rope-police/img.webp",
     "usesProxy": false
   },
@@ -127,13 +127,13 @@
   },
   {
     "name": "Bad Ice Cream",
-    "url": "/misc/badicecream/",
+    "url": "/misc/play/Badicecream.html",
     "image": "/misc/badicecream/img.webp",
     "usesProxy": false
   },
   {
     "name": "Bad Ice Cream 2",
-    "url": "/misc/badicecream2/",
+    "url": "/misc/play/bad-ice-cream-2.html",
     "image": "/misc/badicecream2/img.webp",
     "usesProxy": false
   },
@@ -271,19 +271,19 @@
   },
   {
     "name": "Dadish",
-    "url": "/misc/dadish/index.html",
+    "url": "/misc/play/Dadish.html",
     "image": "/misc/dadish/img.webp",
     "usesProxy": false
   },
   {
     "name": "Dadish 2",
-    "url": "/misc/dadish2/index.html",
+    "url": "/misc/play/Dadish-2.html",
     "image": "/misc/dadish2/2.webp",
     "usesProxy": false
   },
   {
     "name": "Dadish 3",
-    "url": "/misc/dadish3/index.html",
+    "url": "/misc/play/Dadish-3.html",
     "image": "/misc/dadish3/img.avif",
     "usesProxy": false
   },
@@ -337,7 +337,7 @@
   },
   {
     "name": "Gun Spin",
-    "url": "/misc/gunspin/",
+    "url": "/misc/play/Gun-Spin.html",
     "image": "/img/games/gunspin.webp",
     "usesProxy": false
   },
@@ -535,7 +535,7 @@
   },
   {
     "name": "Flippy Fish",
-    "url": "/misc/flippyfish/index.html",
+    "url": "/misc/play/Flippy-Fish.html",
     "image": "/misc/flippyfish/icon.png",
     "usesProxy": false
   },
@@ -992,7 +992,7 @@
   },
   {
     "name": "Mortal Kombat",
-    "url": "/misc/emulator/games/mortal/index.html",
+    "url": "/misc/play/Mortal-Kombat.html",
     "image": "/misc/emulator/games/mortal/mka.webp",
     "usesProxy": false
   },
