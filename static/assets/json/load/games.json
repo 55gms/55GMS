@@ -67,9 +67,9 @@
   },
   {
     "name": "Adventure Capitalist",
-    "url": "https://than1089.github.io/adventure-capitalist/",
+    "url": "/misc/play/adcap.html",
     "image": "/misc/adventure-capitalist/img.webp",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Cooking Fever",
@@ -88,12 +88,6 @@
     "url": "/misc/play/amazing-rope-police.html",
     "image": "/misc/amazing-rope-police/img.webp",
     "usesProxy": false
-  },
-  {
-    "name": "Android",
-    "url": "https://shuttle.lol/play/uncube/7074/now",
-    "image": "/misc/roblos/android.webp",
-    "usesProxy": true
   },
   {
     "name": "Archery World Tour",
@@ -121,7 +115,7 @@
   },
   {
     "name": "Bacon May Die",
-    "url": "https://boxing2.github.io/b88/bacon-may-die/",
+    "url": "https://games.poki.com/458768/5dd2c21a-015f-11ea-ad56-9cb6d0d995f7",
     "image": "/misc/bacon-may-die/splash.webp",
     "usesProxy": true
   },
@@ -205,13 +199,13 @@
   },
   {
     "name": "Bottle Flip",
-    "url": "/misc/BottleFlip/index.html",
+    "url": "/misc/play/bottleflip.html",
     "image": "/misc/BottleFlip/icons/icon-256.webp",
     "usesProxy": false
   },
   {
     "name": "Bottle Flip 3D",
-    "url": "/misc/BottleFlip3D/index.html",
+    "url": "/misc/playbottleflip3d.html",
     "image": "/misc/BottleFlip3D/img.png",
     "usesProxy": false
   },
@@ -235,7 +229,7 @@
   },
   {
     "name": "Cookie Clicker",
-    "url": "/misc/cookieclicker/index.html",
+    "url": "/misc/play/cookieclicker.html",
     "image": "/misc/cookieclicker/clicker.jpeg",
     "usesProxy": false
   },
@@ -243,12 +237,6 @@
     "name": "Connections",
     "url": "https://1games.io/game/connections-game/",
     "image": "/img/games/connections.webp",
-    "usesProxy": true
-  },
-  {
-    "name": "Cookie Run Kingdom",
-    "url": "https://shuttle.lol/play/a/3475/b",
-    "image": "/misc/roblos/crc.webp",
     "usesProxy": true
   },
   {
