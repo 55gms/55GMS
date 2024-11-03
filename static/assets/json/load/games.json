@@ -228,34 +228,34 @@
     "usesProxy": false
   },
   {
+    "name": "Astray",
+    "url": "/misc/play/astray.html",
+    "image": "/img/games/astray.webp",
+    "usesProxy": false
+  },
+  {
     "name": "Cookie Clicker",
     "url": "/misc/play/cookieclicker.html",
     "image": "/misc/cookieclicker/clicker.jpeg",
     "usesProxy": false
   },
   {
-    "name": "Connections",
-    "url": "https://1games.io/game/connections-game/",
-    "image": "/img/games/connections.webp",
-    "usesProxy": true
-  },
-  {
     "name": "Cubefield",
-    "url": "/misc/flash/index.html?swf=cubefield.swf",
+    "url": "/misc/play/cubefield.html",
     "image": "/misc/flash/img/cubefield.webp",
     "usesProxy": false
   },
   {
     "name": "Crossy Road",
-    "url": "/misc/crossy-road/index.html",
+    "url": "/misc/play/crossyroad.html",
     "image": "/misc/crossy-road/crossyroad.png",
     "usesProxy": false
   },
   {
     "name": "CSGO Clicker",
-    "url": "https://kingofkfcjamal.github.io/CaseClicker/",
+    "url": "/misc/play/csgo-clicker.html",
     "image": "/misc/csgo-clicker/new.webp",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Dadish",
@@ -283,7 +283,7 @@
   },
   {
     "name": "Deal or No Deal",
-    "url": "/misc/deal-or-no-deal/index.html",
+    "url": "/misc/play/deal-or-no-deal.html",
     "image": "/misc/deal-or-no-deal/index.jpg",
     "usesProxy": false
   },
@@ -291,12 +291,6 @@
     "name": "Deeeep.io",
     "url": "https://beta.deeeep.io/",
     "image": "/misc/deeeep-io/img.webp",
-    "usesProxy": true
-  },
-  {
-    "name": "Defly.io",
-    "url": "https://defly.io/",
-    "image": "/misc/defly-io/img.jpeg",
     "usesProxy": true
   },
   {
@@ -313,7 +307,7 @@
   },
   {
     "name": "Doge Miner",
-    "url": "/misc/dogeminer/index.html",
+    "url": "/misc/play/dogeminer.html",
     "image": "/misc/dogeminer/img.jpeg",
     "usesProxy": false
   },
