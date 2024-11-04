@@ -337,51 +337,51 @@
   },
   {
     "name": "Drift Boss",
-    "url": "https://drift-boss.game-files.crazygames.com/drift-boss/4/index.html",
+    "url": "/misc/play/drift-boss.html",
     "image": "/misc/drift-boss/img.jpeg",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Drift Hunters",
-    "url": "https://webglmath.github.io/drift-hunters/",
+    "url": "/misc/play/drift-hunters.html",
     "image": "/img/games/drifthunters.webp",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Drive Mad",
-    "url": "/misc/drive-mad/index.html",
+    "url": "/misc/play/drive-mad.html",
     "image": "/misc/drive-mad/img.jpeg",
     "usesProxy": false
   },
   {
+    "name": "Recoil",
+    "url": "/misc/play/recoil.html",
+    "image": "/img/games/recoil.webp",
+    "usesProxy": false
+  },
+  {
     "name": "Duck Life",
-    "url": "/misc/flash/index.html?swf=duck-life.swf",
+    "url": "/misc/play/duck-life.html",
     "image": "/misc/flash/img/dl.avif",
     "usesProxy": false
   },
   {
     "name": "Duck Life 2",
-    "url": "/misc/flash/index.html?swf=duck-life-2.swf",
+    "url": "/misc/play/duck-life2.html",
     "image": "/misc/flash/img/dl2.avif",
     "usesProxy": false
   },
   {
     "name": "Duck Life 3",
-    "url": "/misc/flash/index.html?swf=duck-life-3.swf",
+    "url": "/misc/play/duck-life3.html",
     "image": "/misc/flash/img/dl3.avif",
     "usesProxy": false
   },
   {
     "name": "Duck Life 4",
-    "url": "/misc/flash/index.html?swf=duck-life-4.swf",
+    "url": "/misc/play/duck-life4.html",
     "image": "/misc/flash/img/dl4.jpeg",
     "usesProxy": false
-  },
-  {
-    "name": "EA Sports FC24",
-    "url": "https://now.gg/iframe/snippet?app_pkg=com.ea.gp.fifamobile&partner=55gms",
-    "image": "/img/games/easportsfc.webp",
-    "usesProxy": true
   },
   {
     "name": "Eaglercraft X",
@@ -391,27 +391,21 @@
   },
   {
     "name": "Edge Surf",
-    "url": "/misc/edge-surf/index.html",
+    "url": "/misc/play/edge-surf.html",
     "image": "/misc/edge-surf/splash.png",
     "usesProxy": false
   },
   {
     "name": "Edge Not Found",
-    "url": "/misc/edgenotfound/index.html",
+    "url": "/misc/play/edgenotfound.html",
     "image": "/misc/edgenotfound/edge.png",
     "usesProxy": false
   },
   {
     "name": "Eggy Car",
-    "url": "/misc/eggy-car/index.html",
+    "url": "/misc/play/eggy-car.html",
     "image": "/img/games/eggycar.webp",
     "usesProxy": false
-  },
-  {
-    "name": "Elastic Face",
-    "url": "https://d21u3ic0kp9e91.cloudfront.net/elasticman/0/index.html",
-    "image": "/misc/elastic-face/img.jpeg",
-    "usesProxy": true
   },
   {
     "name": "Emulator JS",
@@ -424,12 +418,6 @@
     "url": "https://eparkour.io/",
     "image": "/img/games/eparkour.webp",
     "usesProxy": true
-  },
-  {
-    "name": "Factory Balls",
-    "url": "/misc/flash/index.html?swf=factory-balls.swf",
-    "image": "/misc/factory-balls/1.webp",
-    "usesProxy": false
   },
   {
     "name": "Bandit.RIP",
@@ -445,37 +433,37 @@
   },
   {
     "name": "FancyPants Adventure",
-    "url": "/misc/flash/index.html?swf=fancypantsadventure.swf",
+    "url": "/misc/play/fpa.html",
     "image": "/misc/flash/img/fpa.png",
     "usesProxy": false
   },
   {
     "name": "FancyPants Adventure 2",
-    "url": "/misc/flash/index.html?swf=fancypantsadventure2.swf",
+    "url": "/misc/play/fpa2.html",
     "image": "/misc/flash/img/fpa2.avif",
     "usesProxy": false
   },
   {
     "name": "Fire Boy Water Girl",
-    "url": "/misc/fbwg/index.html",
+    "url": "/misc/play/fbwg.html",
     "image": "/misc/fbwg/logo.jpeg",
     "usesProxy": false
   },
   {
     "name": "Fire Boy Water Girl 2",
-    "url": "/misc/fbwg2/index.html",
+    "url": "/misc/play/fbwg2.html",
     "image": "/misc/fbwg2/assets/img.jpeg",
     "usesProxy": false
   },
   {
     "name": "Fire Boy Water Girl 3",
-    "url": "/misc/fbwg3/index.html",
+    "url": "/misc/play/fbwg3.html",
     "image": "/misc/fbwg3/icon.png",
     "usesProxy": false
   },
   {
     "name": "Fire Boy Water Girl 4",
-    "url": "/misc/fbwg4/index.html",
+    "url": "/misc/play/fbwg4.html",
     "image": "/misc/fbwg4/img.jpg",
     "usesProxy": false
   },
