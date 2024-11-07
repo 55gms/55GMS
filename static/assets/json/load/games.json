@@ -474,34 +474,10 @@
     "usesProxy": true
   },
   {
-    "name": "FNAF 2",
-    "url": "https://sussygamedeveloper.github.io/FNAF2/",
-    "image": "/misc/fnaf/2.webp",
-    "usesProxy": true
-  },
-  {
-    "name": "FNAF 3",
-    "url": "https://sussygamedeveloper.github.io/fnaf3/",
-    "image": "/misc/fnaf/3.jpeg",
-    "usesProxy": true
-  },
-  {
-    "name": "FNAF 4",
-    "url": "/misc/fnaf4/index.html",
-    "image": "/misc/fnaf4/img.jpeg",
-    "usesProxy": false
-  },
-  {
-    "name": "FNAF 5",
-    "url": "/misc/fnaf5/index.html",
-    "image": "/misc/fnaf5/img.avif",
-    "usesProxy": false
-  },
-  {
     "name": "Friday Night Funkin",
-    "url": "https://w8.snokido.com/games/html5/friday-night-funkin/0281/index.html",
+    "url": "/misc/play/fnf.html",
     "image": "/misc/fnf/img.png",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Fruit Ninja",
@@ -513,19 +489,6 @@
     "name": "Funny Shooter 2",
     "url": "https://games.poki.com/458768/4a3fab9c-91b5-4737-b5cd-fbf50aedaf83",
     "image": "/misc/funny-shooter-2/img.jpeg",
-    "usesProxy": true
-  },
-  {
-    "name": "Fortnite",
-    "url": "https://play.geforcenow.com/games?game-id=46bfab06-d864-465d-9e56-2d9e45cdee0a&lang=en_US&asset-id=01_94ff5082-1d9e-40a3-9829-9a1abcbea7cc",
-    "image": "/img/games/fortnite.jpeg",
-    "usesProxy": true
-  },
-  {
-    "name": "Fortnite (Mobile)",
-    "url": "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html",
-    "image": "/img/games/fortnite.jpeg",
-    "alert": "Search up fortnite, download and play.",
     "usesProxy": true
   },
   {
@@ -1180,12 +1143,6 @@
     "name": "Retro Bowl",
     "url": "https://games.poki.com/458768/806e2242-df99-4dcd-b6ac-2c20175159a8/",
     "image": "/misc/retrobowl/img/icon.jpg",
-    "usesProxy": true
-  },
-  {
-    "name": "Fortnite GeoGuessr",
-    "url": "https://lostgamer.io/fortnite",
-    "image": "/img/games/fngc.webp",
     "usesProxy": true
   },
   {
