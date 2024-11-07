@@ -158,7 +158,7 @@
   {
     "name": "BitLife",
     "url": "/misc/play/bitlife.html",
-    "image": "/misc/bitlife/splash.webp",
+    "image": "/img/games/bitlife.webp",
     "usesProxy": false
   },
   {
@@ -489,6 +489,12 @@
     "name": "Funny Shooter 2",
     "url": "/misc/play/funnyshooter2.html",
     "image": "/misc/funny-shooter-2/img.jpeg",
+    "usesProxy": false
+  },
+  {
+    "name": "Block Blast",
+    "url": "/misc/play/block-blast.html",
+    "image": "/img/games/blockblast.webp",
     "usesProxy": false
   },
   {
