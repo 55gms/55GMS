@@ -487,9 +487,9 @@
   },
   {
     "name": "Funny Shooter 2",
-    "url": "https://games.poki.com/458768/4a3fab9c-91b5-4737-b5cd-fbf50aedaf83",
+    "url": "/misc/play/funnyshooter2.html",
     "image": "/misc/funny-shooter-2/img.jpeg",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Geometry Dash",
@@ -1416,10 +1416,10 @@
     "usesProxy": true
   },
   {
-    "name": "Suika Watermelon",
-    "url": "https://suikagame.io/game/suika-game/",
-    "image": "/misc/sukiawatermelon/img.webp",
-    "usesProxy": true
+    "name": "Fruit Merge",
+    "url": "/misc/play/fruit-merge.html",
+    "image": "/misc/fruit-merge/icons/icon-256.png",
+    "usesProxy": false
   },
   {
     "name": "Superhot",
