@@ -1195,8 +1195,14 @@
   },
   {
     "name": "Rooftop Snipers",
-    "url": "/misc/rooftop-snipers/index.html",
+    "url": "/misc/play/rooftopsnipers.html",
     "image": "/misc/rooftop-snipers/rooftop.avif",
+    "usesProxy": false
+  },
+  {
+    "name": "Rooftop Snipers 2",
+    "url": "/misc/play/rooftopsnipers2.html",
+    "image": "/img/games/rooftopsnipers.webp",
     "usesProxy": false
   },
   {
