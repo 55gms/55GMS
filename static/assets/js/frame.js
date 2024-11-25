@@ -23,7 +23,7 @@ function loadNewPage(url) {
   if (iframe) {
     iframe.src = urlEncoded;
   }
-  if (url === "http://api.v6.wiki/") {
+  if (url === "https://dashboard-cq4z.onrender.com/?ng_ifp_partner=skool") {
     url = "gms://roblox";
   } else if (
     url === "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html"
@@ -49,14 +49,14 @@ window.addEventListener("DOMContentLoaded", function () {
   if (searchBar) {
     searchBar.setAttribute(
       "value",
-      decodeURL(sessionStorage.getItem("encodedUrl")),
+      decodeURL(sessionStorage.getItem("encodedUrl"))
     );
     // search bar functionality
     searchBar.addEventListener("keydown", function (event) {
       if (event.key === "Enter") {
         let url = searchBar.value.trim();
         if (url === "gms://roblox") {
-          url = "http://api.v6.wiki/";
+          url = "https://dashboard-cq4z.onrender.com/?ng_ifp_partner=skool";
         } else if (url === "gms://android") {
           url =
             "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html";
@@ -65,13 +65,17 @@ window.addEventListener("DOMContentLoaded", function () {
       }
     });
     if (
-      searchBar.value === "https://api.v6.wiki/" ||
+      searchBar.value ===
+        "https://dashboard-cq4z.onrender.com/?ng_ifp_partner=skool" ||
       searchBar.value ===
         "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html"
     ) {
       document.getElementById("iframeid").sandbox =
         "allow-scripts allow-pointer-lock allow-forms allow-same-origin allow-downloads";
-      if (searchBar.value === "https://api.v6.wiki/") {
+      if (
+        searchBar.value ===
+        "https://dashboard-cq4z.onrender.com/?ng_ifp_partner=skool"
+      ) {
         searchBar.value = "gms://roblox";
       } else if (
         searchBar.value ===
@@ -94,7 +98,7 @@ function reload() {
 document.onfullscreenchange = function () {
   document.body.classList.toggle(
     "fullscreen-active",
-    document.fullscreenElement,
+    document.fullscreenElement
   );
   iframe = document.getElementById("iframeid");
   if (document.fullscreenElement) {
