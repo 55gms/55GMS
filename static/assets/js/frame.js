@@ -49,7 +49,7 @@ window.addEventListener("DOMContentLoaded", function () {
   if (searchBar) {
     searchBar.setAttribute(
       "value",
-      decodeURL(sessionStorage.getItem("encodedUrl"))
+      decodeURL(sessionStorage.getItem("encodedUrl")),
     );
     // search bar functionality
     searchBar.addEventListener("keydown", function (event) {
@@ -98,7 +98,7 @@ function reload() {
 document.onfullscreenchange = function () {
   document.body.classList.toggle(
     "fullscreen-active",
-    document.fullscreenElement
+    document.fullscreenElement,
   );
   iframe = document.getElementById("iframeid");
   if (document.fullscreenElement) {
