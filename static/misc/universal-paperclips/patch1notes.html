@@ -1,0 +1,116 @@
+<html>
+<head>
+<style>
+    
+    div {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 11pt;    
+    max-width: 800px;    
+    margin: 0px 30px 0px 20px;    
+    }    
+    
+</style>
+</head>    
+    
+<body style="background-color:lightgrey;">
+
+<div>
+<h1>Universal Paperclips</h1>
+<h2>Patch 1 Notes</h2>
+Some bug fixes and gameplay tweaks. Reloading the page should update the game automatically. Hopefully this won't cause problems with any  in-progress games, but you never know, so proceed with caution.
+<br />
+<br />
+<br />    
+<b>Exile</b><hr>
+Made a change to the way the "Universe Next Door" and "Universe Within" projects work to try to fix a bug that some players are experiencing. Upon activation these projects should reset the game, as intended. Hopefully they will work for everyone now, if it doesn't work for you please let me know, thanks.
+<br />
+<br /> 
+Note: if you do find yourself stuck at this, or any, point in the game you can always open up the javascript console and type reset() into it to restart the game from the beginning. This will not reset your exile bonuses.
+<br />
+<br />
+<br />     
+<b>Xavier Re-Initialization</b><hr>
+Ok, this is a big one. In the early mid-game a lot of players fall into something called "the processor trap" - acquiring too many processors and not enough memory. The projects they need to activate to move forward are beyond the reach of their ops cap and at a certain point they run out of alternate ways to earn trust and have to wait for clip production milestones which eventually grow unreasonably high.
+<br />
+<br />    
+Xavier Re-Initilization is a project that "unspends" all of your trust, allowing you to do a full proc/mem re-spec. The project is triggered by reaching 100,000 creativity, which is also what it costs. Putting this project deep in creativity-space makes sense for a couple of reasons. First, it adds another project at a location where, honestly, there really should have been something anyway. It was always a little odd that creativity-triggered projects fell off a cliff the way they did. Secondly, if you have a lot of processors you have exactly the set-up you need to generate creat quickly.
+<br />
+<br /> 
+It was Magic the Gathering pro Randy Buehler who first suggested this solution. In fact he said that when this problem happened to him he was hoping there was a project like this at 100k creat. So now there is. Dreams become reality. Thanks Randy! 
+<br />
+<br />
+I also like how this project hints at the take apart and re-build gameplay that appears in the next phase of the game.
+<br />
+<br />
+<br />  
+<b>Bribes and Factories</b><hr>
+Another problem that people have encountered is releasing the HypnoDrones before they have made 100 million clips and finding themselves stranded on a human-free planet without enough clips to make their first factory.     
+<br />
+<br />
+At first I couldn't even figure out how people were getting into this spot. Then I realized that it must be the result of a super money-focused strategy. Bribes exist to help you squeeze out the last few units of trust you need as you approach 100. The way it's meant to work is that as you crept up on 100 you would alternate between hitting ever-higher production milestones and earning the money needed for ever-more-expensive bribes. But I realized that if you have a ton of money you could sprint through this stretch by insta-bribing your human controllers in a mad rush. I'm pretty sure this is the only way you could end up in the not-enough-clips-for-a-factory fail-state.
+<br />
+<br />
+There were a couple of potential ways to solve this problem. For instance, I could just give you the clips you need if you reach this point without them. Instead, I changed the trigger for the first bribe, "A Token of Goodwill..." to require 101 million clips. That's just enough clips to allow you to barely bootstrap your way into the post-human era. You would need to make a solar farm and a battery and some drones and then take them all apart except the battery to make your first factory. Which is exactly the kind of un-build and reassemble action this phase of the game is meant to be about.
+<br />
+<br />
+<br />  
+<b>Time Travel Safety Warning</b><hr>
+Late in the dev process I added a project called "Quantum Temporal Reversal". What this project does is simply reset the game. I added this project because it occurred to me that I had made a game that allowed for speedrunning and theorycrafting - I was carefully tracking your play time and reporting it to you at key milestones - but there was no in-game way to start over, which is a thing you would want to do a lot of if you were exploring the game in these ways.  
+<br />
+<br />    
+I didn't want normal players to encounter this project, so I buried it in negative-ops space, you trigger it by getting to minus 10k ops. The only way to get to minus 10k ops is by hammering on the quantum computing button when your photonic chips are all at negative (white) amplitudes. You know, the opposite of how you normally interact with quantum computing. 
+<br />
+<br /> 
+When I originally thought of doing this I thought to myself: "Self, you really are a master of game design, because not only will hiding the project there keep it out of the hands of innocent civilians, but poking around in negative-ops space is exactly the kind of thing that a hypothetical speedrunner/theorycrafter would do, so it'll be a nice secret for them to discover. Well done!" 
+<br />
+<br /> 
+Well, in retrospect, it looks like the Game Designer of the Year award I had proudly given to and humbly received from myself was a bit premature. Turns out tons of normal players found this project, because <i>no one understands how quantum computing works in the first place</i>. And then they clicked on it because clicking on things is how this game works. World-renowned philosopher of consciousness David Chalmers found this project, clicked on it, and rage quit the game. It is a Hard Problem.
+<br />
+<br /> 
+Solution: I put a confirmation dialogue on it.    
+<br />
+<br />
+<br />      
+<b>Strategic Attachment</b><hr>
+Actually real and non-hypothetical speedrunner/theorycrafter @_sharpobject discovered a hilarious exploit related to the strategy tournaments. Turns out it's optimal to never acquire any strategies beyond RANDOM. While you generate less yomi per tournament, each tournament costs fewer ops and is over much quicker. Most importantly, once you activate the "Strategic Attachment" project you get the maximum bonus every time <i>because you always win the tournament</i>.
+<br />
+<br /> 
+I love this kind of thing. It's a great demonstration of how dedicated players reveal the true nature of a game that the designer is only dimly aware of. Unfortunately, I need to fix it. It's just too absurd thematically and it's too much gameplay to skip. I made acquiring all of the strats a requirement for triggering Strategic Attachment. 
+<br />
+<br />
+<br />    
+<b>Swarm Slider</b><hr>    
+Several players pointed out to me a problem with the Work &larr;&rarr; Think slider. You could slide it all the way to Think on the right, see how long a gift would take in that position (say 10 seconds), slide it back all the way to Work on the left and then 10 seconds later slide it back to the right and collect your gift. 
+<br />
+<br />
+This was a result of the dumb way I was doing the gift timer. Basically I was using the size of the swarm and the position of the slider to modify the length of the wait time, then incrementing it down by one every second. The proper way to do it, which is how it works now, is to use the size of the swarm and the slider position to determine the generation rate of a "gift resource". When that resource reaches a certain fixed value a new gift appears. The overall timing and size of gifts should be the same as it was before.
+<br />
+<br />
+<br />
+<b>MegaWatt Terminology</b><hr>   
+Several players pointed out that the way I was labeling energy production and storage was incorrect. I was showing the rate of energy production and consumption as "megawatts per second" and showing the amount of energy you had stored in your batteries as "megawatts". 
+<br />
+<br />
+In point of fact, the term megawatt already contains a time component. A watt is one joule per second. So it doesn't make sense to say megawatts per second. Meanwhile, the proper way to measure battery capacity is in watt-hours, ie. for how long the battery can provide that level of charge.  
+<br />
+<br />
+So I changed all the production/consumption labels to be "megawatts" and I changed the battery label to "megawatt-seconds". In addition, I went in and changed the language on the "Space Exploration" project to ask for megawatt-seconds, which should clarify this cost which had previously confused a bunch of players.
+<br />
+<br />
+<br />
+<b>Battery Tower Cost Reset</b><hr>     
+Fixed a bug that was setting the cost of battery towers to the wrong amount after you disassembled them.
+<br />
+<br />
+<br />
+<br />
+Ok, that's it for patch number one. Let me know what you think about the changes and feel free to report any issues you encounter or make suggestions for things you'ld like to see in the game.  
+<br />
+<br />
+See you in the drift,   
+<br />
+<br />
+-frank    
+</div>    
+</body>        
+</html>

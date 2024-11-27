@@ -1,0 +1,555 @@
+﻿{"frames": [
+
+{
+	"filename": "act-box instance 10000",
+	"frame": {"x":1358,"y":295,"w":297,"h":271},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":297,"h":271},
+	"sourceSize": {"w":297,"h":271}
+}
+,{
+	"filename": "act-box instance 10001",
+	"frame": {"x":1657,"y":295,"w":297,"h":271},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":297,"h":271},
+	"sourceSize": {"w":297,"h":271}
+}
+,{
+	"filename": "act-box instance 10002",
+	"frame": {"x":1,"y":347,"w":297,"h":271},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":297,"h":271},
+	"sourceSize": {"w":297,"h":271}
+}
+,{
+	"filename": "act-box instance 10003",
+	"frame": {"x":300,"y":347,"w":297,"h":271},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":297,"h":271},
+	"sourceSize": {"w":297,"h":271}
+}
+,{
+	"filename": "ads-icon instance 10000",
+	"frame": {"x":1960,"y":1,"w":83,"h":82},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":83,"h":82},
+	"sourceSize": {"w":83,"h":82}
+}
+,{
+	"filename": "ads-image instance 10000",
+	"frame": {"x":1074,"y":1,"w":282,"h":340},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":340},
+	"sourceSize": {"w":282,"h":340}
+}
+,{
+	"filename": "back-button instance 10000",
+	"frame": {"x":773,"y":1038,"w":117,"h":117},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":117,"h":117},
+	"sourceSize": {"w":117,"h":117}
+}
+,{
+	"filename": "btnSkin instance 10000",
+	"frame": {"x":1,"y":1036,"w":151,"h":126},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":151,"h":126},
+	"sourceSize": {"w":151,"h":126}
+}
+,{
+	"filename": "btnStick instance 10000",
+	"frame": {"x":1671,"y":568,"w":302,"h":200},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":10,"w":319,"h":220},
+	"sourceSize": {"w":319,"h":220}
+}
+,{
+	"filename": "btnStick instance 10001",
+	"frame": {"x":912,"y":488,"w":310,"h":220},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":319,"h":220},
+	"sourceSize": {"w":319,"h":220}
+}
+,{
+	"filename": "btnStick instance 10002",
+	"frame": {"x":599,"y":488,"w":311,"h":220},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":0,"w":319,"h":220},
+	"sourceSize": {"w":319,"h":220}
+}
+,{
+	"filename": "btn_actSelect instance 10000",
+	"frame": {"x":1672,"y":957,"w":151,"h":127},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":151,"h":127},
+	"sourceSize": {"w":151,"h":127}
+}
+,{
+	"filename": "btn_challenge instance 10000",
+	"frame": {"x":245,"y":950,"w":151,"h":127},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":151,"h":127},
+	"sourceSize": {"w":151,"h":127}
+}
+,{
+	"filename": "btn_dailyTasks instance 10000",
+	"frame": {"x":1120,"y":343,"w":152,"h":127},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":152,"h":127},
+	"sourceSize": {"w":152,"h":127}
+}
+,{
+	"filename": "btn_medals instance 10000",
+	"frame": {"x":1825,"y":957,"w":151,"h":127},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":151,"h":127},
+	"sourceSize": {"w":151,"h":127}
+}
+,{
+	"filename": "checkbox instance 10000",
+	"frame": {"x":1882,"y":770,"w":49,"h":53},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":49,"h":53},
+	"sourceSize": {"w":49,"h":53}
+}
+,{
+	"filename": "checkbox instance 10001",
+	"frame": {"x":1933,"y":781,"w":49,"h":53},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":49,"h":53},
+	"sourceSize": {"w":49,"h":53}
+}
+,{
+	"filename": "clockIcon instance 10000",
+	"frame": {"x":1975,"y":515,"w":58,"h":58},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":58,"h":58},
+	"sourceSize": {"w":58,"h":58}
+}
+,{
+	"filename": "completed-icon instance 10000",
+	"frame": {"x":1960,"y":85,"w":77,"h":60},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":77,"h":60},
+	"sourceSize": {"w":77,"h":60}
+}
+,{
+	"filename": "crouchButton instance 10000",
+	"frame": {"x":399,"y":856,"w":181,"h":180},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":181,"h":180},
+	"sourceSize": {"w":181,"h":180}
+}
+,{
+	"filename": "currency-b instance 10000",
+	"frame": {"x":1224,"y":472,"w":120,"h":83},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":83},
+	"sourceSize": {"w":120,"h":83}
+}
+,{
+	"filename": "currency-c instance 10000",
+	"frame": {"x":764,"y":856,"w":92,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":92,"h":96},
+	"sourceSize": {"w":92,"h":96}
+}
+,{
+	"filename": "currency-g instance 10000",
+	"frame": {"x":449,"y":620,"w":120,"h":83},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":83},
+	"sourceSize": {"w":120,"h":83}
+}
+,{
+	"filename": "currency-panel instance 10000",
+	"frame": {"x":398,"y":1038,"w":247,"h":71},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":247,"h":71},
+	"sourceSize": {"w":247,"h":71}
+}
+,{
+	"filename": "flag_de instance 10000",
+	"frame": {"x":1956,"y":333,"w":88,"h":89},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":88,"h":89},
+	"sourceSize": {"w":88,"h":89}
+}
+,{
+	"filename": "flag_en instance 10000",
+	"frame": {"x":1954,"y":151,"w":88,"h":89},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":88,"h":89},
+	"sourceSize": {"w":88,"h":89}
+}
+,{
+	"filename": "flag_es instance 10000",
+	"frame": {"x":1426,"y":1043,"w":88,"h":89},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":88,"h":89},
+	"sourceSize": {"w":88,"h":89}
+}
+,{
+	"filename": "flag_fr instance 10000",
+	"frame": {"x":154,"y":1036,"w":88,"h":89},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":88,"h":89},
+	"sourceSize": {"w":88,"h":89}
+}
+,{
+	"filename": "flag_it instance 10000",
+	"frame": {"x":1956,"y":242,"w":88,"h":89},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":88,"h":89},
+	"sourceSize": {"w":88,"h":89}
+}
+,{
+	"filename": "flag_ja instance 10000",
+	"frame": {"x":1956,"y":424,"w":88,"h":89},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":88,"h":89},
+	"sourceSize": {"w":88,"h":89}
+}
+,{
+	"filename": "green-button instance 10000",
+	"frame": {"x":1,"y":950,"w":242,"h":84},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":242,"h":84},
+	"sourceSize": {"w":242,"h":84}
+}
+,{
+	"filename": "green-buttonBig instance 10000",
+	"frame": {"x":1,"y":620,"w":446,"h":144},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":446,"h":144},
+	"sourceSize": {"w":446,"h":144}
+}
+,{
+	"filename": "jumpButton instance 10000",
+	"frame": {"x":582,"y":856,"w":180,"h":180},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":180,"h":180},
+	"sourceSize": {"w":180,"h":180}
+}
+,{
+	"filename": "language-box instance 10000",
+	"frame": {"x":1358,"y":151,"w":594,"h":142},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":600,"h":148},
+	"sourceSize": {"w":600,"h":148}
+}
+,{
+	"filename": "language-box instance 10001",
+	"frame": {"x":1358,"y":1,"w":600,"h":148},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":600,"h":148},
+	"sourceSize": {"w":600,"h":148}
+}
+,{
+	"filename": "language-button instance 10000",
+	"frame": {"x":1224,"y":568,"w":445,"h":145},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":445,"h":145},
+	"sourceSize": {"w":445,"h":145}
+}
+,{
+	"filename": "level-mission-panel instance 10000",
+	"frame": {"x":1,"y":204,"w":1062,"h":141},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1062,"h":141},
+	"sourceSize": {"w":1062,"h":141}
+}
+,{
+	"filename": "medal-box instance 10000",
+	"frame": {"x":1,"y":766,"w":197,"h":182},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":197,"h":182},
+	"sourceSize": {"w":197,"h":182}
+}
+,{
+	"filename": "medal-box instance 10001",
+	"frame": {"x":200,"y":766,"w":197,"h":182},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":197,"h":182},
+	"sourceSize": {"w":197,"h":182}
+}
+,{
+	"filename": "orange-button instance 10000",
+	"frame": {"x":1428,"y":957,"w":242,"h":84},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":242,"h":84},
+	"sourceSize": {"w":242,"h":84}
+}
+,{
+	"filename": "pagination-icon-active instance 10000",
+	"frame": {"x":1975,"y":728,"w":51,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":51,"h":51},
+	"sourceSize": {"w":51,"h":51}
+}
+,{
+	"filename": "pagination-icon-passive instance 10000",
+	"frame": {"x":399,"y":812,"w":38,"h":37},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":37},
+	"sourceSize": {"w":38,"h":37}
+}
+,{
+	"filename": "pagination-left-button instance 10000",
+	"frame": {"x":647,"y":1038,"w":124,"h":124},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":124,"h":124},
+	"sourceSize": {"w":124,"h":124}
+}
+,{
+	"filename": "pause-button instance 10000",
+	"frame": {"x":1010,"y":1038,"w":116,"h":116},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":116,"h":116},
+	"sourceSize": {"w":116,"h":116}
+}
+,{
+	"filename": "red-buttonBig instance 10000",
+	"frame": {"x":449,"y":710,"w":445,"h":144},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":445,"h":144},
+	"sourceSize": {"w":445,"h":144}
+}
+,{
+	"filename": "settings-button instance 10000",
+	"frame": {"x":892,"y":1038,"w":116,"h":116},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":116,"h":116},
+	"sourceSize": {"w":116,"h":116}
+}
+,{
+	"filename": "skins-currency-b instance 10000",
+	"frame": {"x":1984,"y":781,"w":56,"h":39},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":56,"h":39},
+	"sourceSize": {"w":56,"h":39}
+}
+,{
+	"filename": "skins-currency-c instance 10000",
+	"frame": {"x":399,"y":766,"w":42,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":44},
+	"sourceSize": {"w":42,"h":44}
+}
+,{
+	"filename": "skins-currency-g instance 10000",
+	"frame": {"x":1987,"y":822,"w":56,"h":39},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":56,"h":39},
+	"sourceSize": {"w":56,"h":39}
+}
+,{
+	"filename": "skip-task-button instance 10000",
+	"frame": {"x":1274,"y":408,"w":61,"h":61},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":61,"h":61},
+	"sourceSize": {"w":61,"h":61}
+}
+,{
+	"filename": "spark instance 10000",
+	"frame": {"x":1274,"y":343,"w":63,"h":63},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":63,"h":63},
+	"sourceSize": {"w":63,"h":63}
+}
+,{
+	"filename": "switch-button instance 10000",
+	"frame": {"x":1365,"y":844,"w":309,"h":111},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":309,"h":111},
+	"sourceSize": {"w":309,"h":111}
+}
+,{
+	"filename": "switch-button instance 10001",
+	"frame": {"x":1676,"y":844,"w":309,"h":111},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":309,"h":111},
+	"sourceSize": {"w":309,"h":111}
+}
+,{
+	"filename": "task-currency-b instance 10000",
+	"frame": {"x":1975,"y":634,"w":65,"h":45},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":45},
+	"sourceSize": {"w":65,"h":45}
+}
+,{
+	"filename": "task-currency-c instance 10000",
+	"frame": {"x":1975,"y":575,"w":55,"h":57},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":55,"h":57},
+	"sourceSize": {"w":55,"h":57}
+}
+,{
+	"filename": "task-currency-g instance 10000",
+	"frame": {"x":1975,"y":681,"w":65,"h":45},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":45},
+	"sourceSize": {"w":65,"h":45}
+}
+,{
+	"filename": "task-panel instance 10000",
+	"frame": {"x":1,"y":1,"w":1071,"h":201},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1071,"h":201},
+	"sourceSize": {"w":1071,"h":201}
+}
+,{
+	"filename": "task-progress-completed instance 10000",
+	"frame": {"x":764,"y":998,"w":662,"h":38},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":662,"h":38},
+	"sourceSize": {"w":662,"h":38}
+}
+,{
+	"filename": "task-progress-continuning instance 10000",
+	"frame": {"x":764,"y":957,"w":662,"h":39},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":662,"h":39},
+	"sourceSize": {"w":662,"h":39}
+}
+,{
+	"filename": "tntBarBg instance 10000",
+	"frame": {"x":1502,"y":715,"w":135,"h":25},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":135,"h":25},
+	"sourceSize": {"w":135,"h":25}
+}
+,{
+	"filename": "tntBarProgress instance 10000",
+	"frame": {"x":1365,"y":715,"w":135,"h":26},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":135,"h":26},
+	"sourceSize": {"w":135,"h":26}
+}
+,{
+	"filename": "transition_romb instance 10000",
+	"frame": {"x":896,"y":710,"w":212,"h":213},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":212,"h":213},
+	"sourceSize": {"w":212,"h":213}
+}
+,{
+	"filename": "vexTntPanel instance 10000",
+	"frame": {"x":1110,"y":715,"w":253,"h":169},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":253,"h":169},
+	"sourceSize": {"w":253,"h":169}
+}
+,{
+	"filename": "watch-ads-label instance 10000",
+	"frame": {"x":599,"y":347,"w":519,"h":139},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":519,"h":139},
+	"sourceSize": {"w":519,"h":139}
+}
+,{
+	"filename": "win-coin-icon instance 10000",
+	"frame": {"x":1128,"y":1038,"w":100,"h":105},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":105},
+	"sourceSize": {"w":100,"h":105}
+}
+,{
+	"filename": "win-currency-panel instance 10000",
+	"frame": {"x":1365,"y":770,"w":515,"h":72},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":515,"h":72},
+	"sourceSize": {"w":515,"h":72}
+}
+,{
+	"filename": "win-kill-icon instance 10000",
+	"frame": {"x":1332,"y":1038,"w":92,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":92,"h":96},
+	"sourceSize": {"w":92,"h":96}
+}
+,{
+	"filename": "win-kill-icon-no-blood instance 10000",
+	"frame": {"x":1230,"y":1038,"w":100,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+	"sourceSize": {"w":100,"h":100}
+}],
+"meta": {
+	"app": "Adobe Animate",
+	"version": "16.5.1.104",
+	"image": "ui.png",
+	"format": "RGBA8888",
+	"size": {"w":2048,"h":2048},
+	"scale": "1"
+}
+}
