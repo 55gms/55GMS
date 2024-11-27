@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>Football Bros | 55GMS</title>
+    <meta name="description" content="Online multiplayer football! Bone crushing hits, long bombs, and tons more!" />
+    <meta id="viewport" name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="shortcut icon" type="image/png" href="./favicon.png">
+    <meta name="Keywords" content="Football, Play, Free, Online, Multiplayer, Games, IO, Sports, Scrolling, Friends">
+    <meta name="author" content="Blue Wizard Digital">
+    <script src="/assets/js/script.js?v=11"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Football Bros | 55GMS" />
+    <meta property="og:description"
+        content="Online multiplayer football! Bone crushing hits, long bombs, and tons more via 55GMS!" />
+
+
+    <script type="text/javascript" src="./FootballBros.js?th=255"></script>
+
+    <script>
+        window.addEventListener("touchmove", function (event) { event.preventDefault(); }, { capture: false, passive: false });
+        if (typeof window.devicePixelRatio != 'undefined' && window.devicePixelRatio > 2) {
+            var meta = document.getElementById("viewport");
+            meta.setAttribute('content', 'width=device-width, initial-scale=' + (2 / window.devicePixelRatio) + ', user-scalable=no');
+        }
+        window.addEventListener('keydown', function (e) {
+            if ((e.keyCode == 32 || e.keyCode == 38 || e.keyCode == 40 || e.keyCode == 9) && e.target == document.body) {
+                e.preventDefault();
+            }
+        });
+        var aCo = 'US';
+    </script>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: #000000;
+            color: orange;
+            height: 100%;
+            width: 100%;
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+        }
+
+        .body::-webkit-scrollbar {
+            /* WebKit */
+            width: 0px;
+        }
+
+        #openfl-content {
+            background: #000000;
+            width: 100%;
+            height: 100%;
+        }
+
+        #spinner {
+            -webkit-transform-origin: 50% 50%;
+            -moz-transform-origin: 50% 50%;
+            -o-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            width: 82px;
+            height: 81px;
+            -webkit-animation: spin1 2s infinite linear;
+            -moz-animation: spin1 2s infinite linear;
+            -o-animation: spin1 2s infinite linear;
+            -ms-animation: spin1 2s infinite linear;
+            animation: spin1 2s infinite linear;
+        }
+
+
+
+
+        /* Main content styling */
+        #more {
+            display: flex;
+            justify-content: space-between;
+            background-color: #1a1a1a;
+            padding: 40px;
+            border-top: 0px solid #444;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .info-box {
+            width: 48%;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        h3 {
+            font-size: 24px;
+            color: #ffa500;
+            /* Football-themed color */
+            margin-bottom: 15px;
+        }
+
+        p,
+        b {
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        b {
+            color: #ffd700;
+            /* Highlighted question color */
+        }
+
+
+        /* unvisited link */
+        a:link {
+            color: #ffd700;
+        }
+
+        /* visited link */
+        a:visited {
+            color: #ffd700;
+        }
+
+        /* mouse over link */
+        a:hover {
+            color: #ffd700;
+        }
+
+        /* selected link */
+        a:active {
+            color: #ffd700;
+        }
+
+        .notch-top-left {
+            width: 20px;
+            height: 20px;
+            background-color: var(--background-color, #1a1a1a);
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            clip-path: polygon(100% 0, 0 100%, 100% 100%);
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #000;
+            padding: 20px 0;
+            text-align: center;
+            color: #ccc;
+            font-size: 14px;
+            border-top: 2px solid #444;
+            margin-top: 40px;
+            font-family: 'Arial', sans-serif;
+            border: 0;
+        }
+
+        .feedback-form {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50vw;
+            height: 50vh;
+            background-color: #2A6DB0;
+            padding: 20px;
+            border: 4px solid #FF0000;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            color: #FFFFFF;
+        }
+
+        .feedback-form h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #FFFFFF;
+            text-shadow: 2px 2px #000000;
+        }
+
+        .feedback-form textarea {
+            width: calc(100% - 20px);
+            height: 50%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+            font-family: 'Courier New', Courier, monospace;
+            border: 3px solid #000000;
+            background-color: #000000;
+            /* Black background */
+            color: #FFFFFF;
+            /* White text */
+            resize: none;
+            box-sizing: border-box;
+        }
+
+        .feedback-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: #FFD700;
+            /* Yellowish background */
+            color: #000000;
+            border: 3px solid #FF0000;
+            border-radius: 0;
+            font-size: 18px;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            text-shadow: 1px 1px #000000;
+        }
+
+        .feedback-form button:hover {
+            background-color: #FFB800;
+            /* Slightly darker yellow on hover */
+            color: #FFFFFF;
+        }
+    </style>
+
+    <script>
+
+
+
+        function SetupMSNotification() {
+            console.log("notifying");
+            if (typeof $msstart !== 'undefined') {
+                console.log("notifying2");
+                var id = btoa("https://footballbros.io/sbros_364x180.png");
+                $msstart.scheduleNotificationAsync({
+                    title: 'Unlock new bros now!',
+                    description: 'You are just about to unlock a new Bro! Who will it be?',
+                    type: 1,
+                    minDelayInSeconds: 24 * 60 * 60
+                }).then(response => {
+                    console.log("notification response: " + response);
+                });
+                $msstart.scheduleNotificationAsync({
+                    title: 'Dunk all over your bros!',
+                    description: 'New bros just waiting to be dunked on! Unlock them now!',
+                    type: 1,
+                    minDelayInSeconds: 24 * 7 * 60 * 60
+                }).then(response => {
+                    console.log("notification response: " + response);
+                });
+
+            }
+        }
+
+        var msAdID;
+        function LoadVideo() {
+            if (typeof $msstart !== 'undefined') {
+                $msstart.loadAdsAsync().then(adInstance => {
+                    // Use the adInstance.instanceId to make a call to showAdsAsync
+                    msAdID = adInstance.instanceId;
+                });
+
+                SetupMSNotification();
+            }
+        }
+
+        function ShowVideo(theUnitName = null) {
+            Main.DoneVideoAd(true);
+            return;//! when aip is live, remove this
+
+            console.log('SHOW_VIDEO:' + theUnitName);
+            var aUnitName = "";
+            if (typeof $msstart !== 'undefined') {
+                $msstart.showAdsAsync(msAdID).then(adInstance => {
+                    // Use the adInstance.showAdsCompletedAsync to be notified of the completion of showing the advertisement
+                    adInstance.showAdsCompletedAsync.then((val) => {
+                        console.log('MS Video Ad Complete');
+                        Main.DoneVideoAd();
+                        window.focus();
+                        window.document.getElementById('openfl-content').focus();
+                        LoadVideo();
+                    }).catch((err) => {
+                        console.log('Ms Video Ad Error');
+                        Main.DoneVideoAd();
+                        window.focus();
+                        window.document.getElementById('openfl-content').focus();
+                        LoadVideo();
+                    });
+                });
+            }
+            else if (typeof gCrazySDK !== 'undefined') {
+                gCrazySDK.addEventListener("adFinished", Main.DoneVideoAd); // reenable sound, enable ui
+                gCrazySDK.addEventListener("adError", Main.DoneVideoAd); // reenable sound, enable ui
+                gCrazySDK.requestAd();
+                console.log('CG_AD_REQUESTED');
+                SendEvent('event', 'cgvideo');
+                return;
+            }
+            else if (typeof adplayer === 'undefined') {
+                Main.DoneVideoAd(true);
+                SendEvent('event', 'video_adblocked');
+                console.log('VIDEO_ADBLOCKED');
+
+            } else {
+                var aStr = 'preroll';
+                //if(theUnitName != null) aStr = theUnitName;
+                lastUnitPlayed = aStr;
+                SendEvent('event', 'startvideo-' + aStr);
+
+                aiptag.cmd.player.push(function () { adplayer.startVideoAd(theUnitName); });
+            }
+        }
+    </script>
+
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <!-- Firebase Authentication -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <!-- Firebase Firestore (Database) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAFCwYdbkLozIgtH5zuGydcjk_LNhYnve0",
+            authDomain: "football-bros-8f1b3.firebaseapp.com",
+            projectId: "football-bros-8f1b3",
+            storageBucket: "football-bros-8f1b3.appspot.com",
+            messagingSenderId: "807434051106",
+            appId: "1:807434051106:web:7e2fd59782e7c13165f47b"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        var userData = "";
+
+        function triggerSignIn() {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider);
+        }
+
+        // Save game data function
+        function saveGameData(gameData) {
+            console.log('saving gamedata:' + gameData);
+            var userId = auth.currentUser.uid;
+            userData = gameData;
+            db.collection('users').doc(userId).set({
+                gameData: gameData
+            }).then(function () {
+                console.log('Game data saved');
+            }).catch(function (error) {
+                console.error('Error saving game data:', error);
+            });
+        }
+
+        // Load game data function
+        function loadGameData() { return userData; }
+
+        function loadGameDataAsync() {
+            var userId = auth.currentUser.uid;
+            db.collection('users').doc(userId).get().then(function (doc) {
+                if (doc.exists) {
+                    userData = doc.data().gameData;
+                    //Main.LoadGlobals();
+                    console.log('Game data:', doc.data().gameData);
+                    if (typeof Main != "undefined") {
+                        Main.LoadDataComplete();
+                    }
+                    // Use the game data in your game
+                } else {
+                    console.log('No such document!');
+                }
+            }).catch(function (error) {
+                console.error('Error loading game data:', error);
+            });
+        }
+
+        // Firebase auth state observer
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
+                loadGameDataAsync();
+                SendEvent('event', 'sign_in');
+                console.log('user signed in');
+            } else {
+                console.log('No user signed in');
+                SendEvent('event', 'sign_out');
+            }
+        });
+
+        function signOut() {
+            auth.signOut().then(() => {
+                Main.SignOutComplete();
+                console.log('signed out');
+            });
+        }
+
+        function isUserLoggedIn() {
+            return auth.currentUser !== null;
+        }		
+    </script>
+
+</head>
+
+<body style="overflow:hidden;">
+    <noscript>Enable JavaScript bro!</noscript>
+    <script>
+
+        //alert("Globals:"+localStorage.getItem("/:Globals").length);
+        /////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////
+        var url = window.location.href;
+        if (url.includes("www.")) {
+            url = url.replace("www.", "");
+
+            var f = document.createElement('form');
+            f.action = url;
+            f.method = 'POST';
+            var i = document.createElement('input');
+            i.type = 'hidden';
+            i.name = 'FGlobals';
+            i.value = localStorage.getItem("/:Globals");
+            f.appendChild(i);
+
+            document.body.appendChild(f);
+            f.submit();
+        }
+        else {
+            var aPost = "";
+            var aStorage = localStorage.getItem("/:Globals");
+            var aLen = 0;
+            if (aStorage != null && aStorage.length > 0) {
+                aLen = aStorage.length;
+            }
+            if (aPost.length > aLen) localStorage.setItem("/:Globals", aPost);
+            if (aPost.length > 0 && aPost.length == aLen) localStorage.setItem("/:Globals", aPost);
+        }
+        /////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////
+
+    </script>
+
+    <div id="loading"
+        style="position: absolute; z-index: 15; top: 60%; left: 50%; transform: translate(-50%, 0); background: black;">
+        <center><img src="assets/loading4.png"><br />
+            <img src="assets/fbro.png">
+            <img src="assets/sbro.png">
+            <img src="assets/wbro.png">
+            <img src="assets/bbro.png">
+        </center>
+    </div>
+
+    <div id="game2" style="width: 100%; height: 100%; ">
+        <div id="openfl-content" onblur="window.focus();" style="width: calc(100%); float:left;">
+            <script type="text/javascript">
+                lime.embed("FootballBros", "openfl-content", 0, 0, { parameters: {} });
+            </script>
+        </div>
+        <div id="preroll"
+            style="width: 960px; height: 540px; display: none; position: absolute; top: 50%; left: 50%; z-index: 100; transform: translate(-50%, -50%);">
+        </div>
+
+        <div id="footballbros-io_300x250"
+            style="width: 336px; height: 280px; visibility:hidden; display: none; position: absolute; top: 30px; left: 30px; z-index: 100;">
+            <script>
+                if (typeof gCrazySDK == 'undefined') {
+                    aiptag.cmd.display.push(function () { aipDisplayTag.display('footballbros-io_300x250'); });
+                }
+            </script>
+        </div>
+        <div id="footballbros-io_300x250_2"
+            style="width: 336px; height: 280px; visibility:hidden; display: none; position: absolute; top: 30px; left: 30px; z-index: 100; ">
+            <script>
+                if (typeof gCrazySDK == 'undefined') {
+                    aiptag.cmd.display.push(function () { aipDisplayTag.display('footballbros-io_300x250_2'); });
+                }
+            </script>
+        </div>
+        <div id="footballbros-io_336x280"
+            style="visibility:hidden; width: 336px; height: 600px; display: none; position: absolute; left: 30px; z-index: 100;">
+        </div>
+        <div id="footballbros-io_336x280_2"
+            style="visibility:hidden; width: 336px; height: 600px; display: none; position: absolute; left: 30px; z-index: 100;">
+        </div>
+        <div id="footballbros-io_728x90"
+            style="visibility:hidden; width: 728px; height: 90px; display: none; position: absolute; top: 30px; left: 30px; z-index: 100;">
+        </div>
+        <div id="footballbros-io_728x90_m"
+            style="visibility:hidden; width: 728px; height: 90px; display: none; position: absolute; top: 30px; left: 30px; z-index: 100;">
+        </div>
+        <div id="footballbros-io_970x250"
+            style="visibility:hidden; width: 970px; height: 250px; display: none; position: absolute; top: 30px; left: 30px; z-index: 100; text-align: center;">
+        </div>
+
+        <div class="feedback-form" id="feedbackForm" style="display:none;">
+            <h3>Report a Bug/Glitch</h3>
+            <textarea id="feedback"
+                placeholder="Describe the bug or glitch with a lot of details, like how to make the glitch happen and anything else whether it seems useful or not..."></textarea>
+            <textarea id="email" placeholder="Email address (optional)" style="height: 50px;"></textarea>
+            <textarea id="discord" placeholder="Discord ID (optional)" style="height: 50px;"></textarea>
+            <button onclick="sendFeedback()" id="submitBtn">Submit Feedback</button>
+            <br />
+            <br />
+            <button onclick="document.getElementById('feedbackForm').style.display='none'"
+                id="submitBtn">Cancel</button>
+            <p id="responseMsg"></p>
+        </div>
+        <script>
+            //var doFeedback = true;
+            function getOSFromUserAgent() {
+                const userAgent = navigator.userAgent;
+                const platform = navigator.platform;
+
+                // Check for common platforms and OS
+                if (/Windows NT/i.test(userAgent)) return 'Windows';
+                if (/Mac OS X/i.test(userAgent)) return 'macOS';
+                if (/Linux/i.test(userAgent)) return 'Linux';
+                if (/Android/i.test(userAgent)) return 'Android';
+                if (/iPhone|iPad|iPod/i.test(userAgent)) return 'iOS';
+                if (/CrOS/i.test(userAgent)) return 'Chrome OS';
+
+                // Default to the platform if no match
+                return platform || 'Unknown';
+            }
+            async function sendFeedback() {
+                var feedback = '*' + document.getElementById("feedback").value.trim() + '*';
+                var email = document.getElementById("email").value.trim();
+                var discord = document.getElementById("discord").value.trim();
+                const screenResolution = `${window.screen.width}x${window.screen.height}`;
+                const windowResolution = `${window.innerWidth}x${window.innerHeight}`;
+                var aOS = getOSFromUserAgent();
+                var aCity = 'Houston';
+                const hostname = window.location.hostname;
+                const gpu = (() => {
+                    const canvas = document.createElement('canvas');
+                    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                    const debugInfo = gl?.getExtension('WEBGL_debug_renderer_info');
+                    const gpuInfo = debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : 'Unknown';
+
+                    // Cleanup
+                    canvas.remove(); // Remove the canvas from the DOM (if it was added)
+                    return gpuInfo;
+                })();
+
+                feedback = feedback + '\nDomain: ' + hostname;
+                feedback = feedback + ', OS: ' + aOS;
+                feedback = feedback + ', Screen res: ' + screenResolution;
+                feedback = feedback + ', Window res: ' + windowResolution;
+                feedback = feedback + ', GPU: ' + gpu;
+                feedback = feedback + ', City: ' + aCity;
+                feedback = feedback + ', Email: ' + email;
+                feedback = feedback + ', Discord: ' + discord;
+
+                const responseMsg = document.getElementById("responseMsg");
+                const submitBtn = document.getElementById("submitBtn");
+
+                if (!feedback) {
+                    alert("Please enter feedback.");
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                responseMsg.textContent = "Submitting...";
+
+                try {
+                    const response = await fetch("sendFeedback.php", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        body: new URLSearchParams({
+                            feedback: feedback
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.status === "success") {
+                        document.getElementById("feedbackForm").style.display = "none"; // Close the feedback form
+                        alert(result.message); // Show success message
+                    } else {
+                        document.getElementById("feedbackForm").style.display = "none"; // Close the feedback form
+                        alert(result.message); // Show error message
+                    }
+                } catch (error) {
+                    document.getElementById("feedbackForm").style.display = "none"; // Close the feedback form
+                    alert("Error submitting feedback. Please try again.");
+                }
+
+                submitBtn.disabled = false;
+            }
+        </script>
+
+
+
+    </div>
+    <br />
+    <div tabindex="-1" id="more">
+        <div class="info-box">
+            <h3>About Football Bros</h3>
+            <p>Alt url: www.dunk.monster. Football Bros is a simple, fast-paced football game with all kinds of crazy
+                action! With online multiplayer gameplay, lots of plays, and all kinds of crazy football action!</p>
+            <p>The controls are very simple: Use either the arrow keys or WASD to control your bro. Space bar will throw
+                a pass, dive, or stiff arm, depending on the situation.</p>
+            <p>Be sure to follow us on social media for the latest updates and info!</p>
+            <br />
+            <h3>Changelog (11/7/2024)</h3>
+            <p>Fixed 1-6 keys messing up games.</p>
+            <p>Fixed new glitch where if your qb held the ball too long, he wouldn't be able to throw.</p>
+            <p>Added a bug report form.</p>
+            <p>Made some roster changes.</p>
+            <p>Fixed lag in between plays.</p>
+            <p>Fixed lag when starting a new game.</p>
+            <p>Fixed qb sometimes being able to throw on running plays and some other weirdness being able to throw when
+                you shouldn't be able to.</p>
+            <p>Allowing for more diving catches after tipped passes.</p>
+            <p>Changed some uniforms to look less similar ie Denver/Chicago and Detroit/Dallas.</p>
+            <p>Fixed the wins/losses being counted wrong if the game ended on a special teams play.</p>
+        </div>
+        <div class="info-box">
+            <h3>FAQ</h3>
+            <b>Why isn't the game loading?</b>
+            <p>You should check your internet connection and make sure our site isn't blocked. Also, disable all ad
+                blockers.</p>
+            <b>How do I play?</b>
+            <p>Use your arrow keys and space bar! The rest is easy- pick your play and go!</p>
+            <b>Which browser should I use?</b>
+            <p>You should use Chrome. It is the only browser guaranteed to work. Football Bros has also been tested to
+                work on Firefox and Safari, but not guaranteed.</p>
+            <b>Are there more Bros games?</b>
+            <p>Yes! Check out <a tabindex="-1" href="https://basketbros.io">Basket Bros</a>, <a tabindex="-1"
+                    href="https://soccerbros.gg">Soccer Bros</a> and <a tabindex="-1"
+                    href="https://wrestlebros.io">Wrestle Bros</a>. Also be sure to check out <a tabindex="-1"
+                    href="https://freegames.io" target="_blank">Web games at FreeGames.io</a></p>
+            <b>Do you have a favorite team?</b>
+            <p>Yes, but we're not saying which one. Drop us an e-mail if you think you know.</p>
+            <b>I'm blocked, where else can i play?</b>
+            <p>Check here, these links work for both football and basket bros: <a
+                    href="https://sites.google.com/bluewizard.com/basket-bros-unblocked">Football Bros Unblocked</a></p>
+
+        </div>
+    </div>
+    <footer>
+        <div tabindex="-1" class="footer-links">
+            <a href="https://bluewizard.com">Copyright 2024 Blue Wizard Digital</a> |
+            <a tabindex="-1" href="https://bluewizard.com/terms/">Terms of Service</a> |
+            <a tabindex="-1" href="https://bluewizard.com/privacypolicy/">Privacy Policy</a>
+        </div>
+    </footer>
+    <script>
+        var lastRefresh = 0;
+
+        function refreshTag(theTag) {
+            try {
+                aiptag.cmd.display.push(function () { aipDisplayTag.refresh(theTag); });
+                console.log('Tag refreshed successfully');
+            } catch (error) {
+                console.error('Error refreshing the tag:', error);
+            }
+        }
+
+
+
+        function ShowAd1(doRefresh) {
+            if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) {
+                return;
+            }
+            var l = window.document.getElementById('footballbros-io_160x600');
+            if (l == null) return;
+            l.style.display = '';
+            l.style.visibility = 'visible';
+
+            l = window.document.getElementById('footballbros-io_160x600');
+            if (l == null) return;
+            l.style.display = '';
+            l.style.visibility = 'visible';
+
+
+            if (typeof gCrazySDK !== 'undefined') {
+                var d = new Date();
+                var ms = d.getTime();
+                if (ms - lastRefresh > 10000) {
+                    gCrazySDK.requestResponsiveBanner(["footballbros-io_160x600"]);
+                    lastRefresh = ms;
+                }
+            }
+            else if (typeof aipDisplayTag !== 'undefined') {
+                refreshTag('footballbros-io_160x600');
+                refreshTag('footballbros-io_160x600_2');
+                SendEvent('event', 'aip_banner_requested');
+            }
+            else
+                SendEvent('event', 'banner_adblocked');
+
+        }
+
+        var lastRefresh6 = 0;
+        var doTagOnce = true;
+
+        function ShowAd6() {
+            var d = new Date();
+            var ms = d.getTime();
+            if (ms - lastRefresh6 < 10000) {
+                return;
+            }
+            lastRefresh6 = ms;
+
+
+            if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) {
+                return;
+            }
+            var l = window.document.getElementById('footballbros-io_300x250');
+            if (l == null) {
+                return;
+            }
+            l.style.display = '';
+            l.style.visibility = 'visible';
+
+            if (typeof gCrazySDK !== 'undefined') {
+            }
+            else if (typeof aipDisplayTag !== 'undefined') {
+                refreshTag('footballbros-io_300x250');
+                SendEvent('event', 'aip_banner_requested');
+                if (typeof aiptag !== 'undefined' && aiptag.settings == "") {
+                    if (doTagOnce) SendEvent('event', 'aip_prosper');
+                    SendEvent('event', 'request_prosper');
+                } else if (typeof aiptag !== 'undefined' && aiptag.settings.iProsperTest !== "undefined") {
+                    if (doTagOnce) SendEvent('event', 'aip_legacy');
+                    SendEvent('event', 'request_legacy');
+                }
+                doTagOnce = false;
+            }
+            else
+                SendEvent('event', 'banner_adblocked');
+        }
+
+        var lastRefresh2 = 0;
+        function ShowAd2() {
+
+            var d = new Date();
+            var ms = d.getTime();
+            if (ms - lastRefresh2 < 10000) {
+                return;
+            }
+            lastRefresh2 = ms;
+
+
+            if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) {
+                return;
+            }
+            var l = window.document.getElementById('footballbros-io_300x250_2');
+            if (l == null) return;
+            l.style.display = '';
+            l.style.visibility = 'visible';
+
+            if (typeof gCrazySDK !== 'undefined') {
+                var d = new Date();
+                var ms = d.getTime();
+                if (ms - lastRefresh2 > 10000) {
+                    //hndled by the first banner request
+                    //gCrazySDK.requestBanner([{containerId: 'footballbros-io_300x250_2',size: '300x250',}]);
+                    gCrazySDK.requestResponsiveBanner(["footballbros-io_300x250", "footballbros-io_300x250_2"]);
+
+                    lastRefresh2 = ms;
+                }
+            }
+            else if (typeof aipDisplayTag !== 'undefined') {
+                refreshTag('footballbros-io_300x250_2');
+                SendEvent('event', 'aip_banner_requested');
+                if (typeof aiptag !== 'undefined' && aiptag.settings == "") {
+                    if (doTagOnce) SendEvent('event', 'aip_prosper');
+                    SendEvent('event', 'request_prosper');
+                } else if (typeof aiptag !== 'undefined' && aiptag.settings.iProsperTest !== "undefined") {
+                    if (doTagOnce) SendEvent('event', 'aip_legacy');
+                    SendEvent('event', 'request_legacy');
+                }
+            }
+            else
+                SendEvent('event', 'banner_adblocked');
+        }
+        function ShowAd3() {
+            if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) {
+                return;
+            }
+            var l = window.document.getElementById('footballbros-io_728x90');
+            if (l == null) return;
+            l.style.display = '';
+            l.style.visibility = 'visible';
+            if (typeof gCrazySDK !== 'undefined') {
+                gCrazySDK.requestResponsiveBanner(["footballbros-io_728x90"]);
+            }
+            else if (typeof aipDisplayTag !== 'undefined') {
+                refreshTag('footballbros-io_728x90');
+                SendEvent('event', 'aip_banner_requested');
+            }
+            else
+                SendEvent('event', 'banner_adblocked');
+
+        }
+        function ShowAd4() {
+            if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) {
+                return;
+            }
+            if (window.innerWidth < 1200) return;
+            var l = window.document.getElementById('footballbros-io_336x280');
+            if (l == null) return;
+            l.style.display = '';
+            l.style.visibility = 'visible';
+            if (typeof gCrazySDK !== 'undefined') {
+                gCrazySDK.requestResponsiveBanner(["footballbros-io_336x280"]);
+            }
+            else if (typeof aipDisplayTag !== 'undefined') {
+                refreshTag('footballbros-io_336x280');
+                SendEvent('event', 'aip_banner_requested');
+                if (typeof aiptag !== 'undefined' && aiptag.settings == "") {
+                    if (doTagOnce) SendEvent('event', 'aip_prosper');
+                    SendEvent('event', 'request_prosper');
+                } else if (typeof aiptag !== 'undefined' && aiptag.settings.iProsperTest !== "undefined") {
+                    if (doTagOnce) SendEvent('event', 'aip_legacy');
+                    SendEvent('event', 'request_legacy');
+                }
+            }
+            else
+                SendEvent('event', 'banner_adblocked');
+
+        }
+        function ShowAd7() {
+            if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) {
+                return;
+            }
+            if (window.innerWidth < 1200) return;
+            var l = window.document.getElementById('footballbros-io_336x280_2');
+            if (l == null) return;
+            l.style.display = '';
+            l.style.visibility = 'visible';
+            if (typeof gCrazySDK !== 'undefined') {
+                gCrazySDK.requestResponsiveBanner(["footballbros-io_336x280_2"]);
+            }
+            else if (typeof aipDisplayTag !== 'undefined') {
+                refreshTag('footballbros-io_336x280_2');
+                SendEvent('event', 'aip_banner_requested');
+                if (typeof aiptag !== 'undefined' && aiptag.settings == "") {
+                    if (doTagOnce) SendEvent('event', 'aip_prosper');
+                    SendEvent('event', 'request_prosper');
+                } else if (typeof aiptag !== 'undefined' && aiptag.settings.iProsperTest !== "undefined") {
+                    if (doTagOnce) SendEvent('event', 'aip_legacy');
+                    SendEvent('event', 'request_legacy');
+                }
+            }
+            else
+                SendEvent('event', 'banner_adblocked');
+
+        }
+        function ShowAd8() {
+            if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) {
+                return;
+            }
+            var l = window.document.getElementById('footballbros-io_728x90_m');
+            if (l == null) return;
+            l.style.display = '';
+            l.style.visibility = 'visible';
+            if (typeof gCrazySDK !== 'undefined') {
+                gCrazySDK.requestResponsiveBanner(["footballbros-io_728x90"]);
+            }
+            else if (typeof aipDisplayTag !== 'undefined') {
+                refreshTag('footballbros-io_728x90_m');
+                SendEvent('event', 'aip_banner_requested');
+            }
+            else
+                SendEvent('event', 'banner_adblocked');
+
+        }
+
+        function ShowAd9() {
+            if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) {
+                return;
+            }
+            var l = window.document.getElementById('footballbros-io_970x250');
+            if (l == null) return;
+            l.style.display = '';
+            l.style.visibility = 'visible';
+            if (typeof gCrazySDK !== 'undefined') {
+                gCrazySDK.requestResponsiveBanner(["footballbros-io_970x250"]);
+            }
+            else if (typeof aipDisplayTag !== 'undefined') {
+                refreshTag('footballbros-io_970x250');
+                SendEvent('event', 'aip_banner_requested');
+                if (typeof aiptag !== 'undefined' && aiptag.settings == "") {
+                    if (doTagOnce) SendEvent('event', 'aip_prosper');
+                    SendEvent('event', 'request_prosper');
+                } else if (typeof aiptag !== 'undefined' && aiptag.settings.iProsperTest !== "undefined") {
+                    if (doTagOnce) SendEvent('event', 'aip_legacy');
+                    SendEvent('event', 'request_legacy');
+                }
+
+
+                doTagOnce = false;
+            }
+            else {
+                l.style.backgroundImage = "url(assets/turnoff.jpg)";
+                SendEvent('event', 'banner_adblocked_message_shown');
+            }
+
+        }
+
+
+
+
+        function right(str, chr) {
+            return str.slice(str.length - chr, str.length);
+        }
+        function SetCGInviteLink() {
+            if (typeof gCrazySDK !== 'undefined') {
+                var meta = document.getElementById("cglink");
+                var aStr = meta.value;
+                aStr = right(aStr, 8);
+                var aCGLink = gCrazySDK.inviteLink({ roomId: aStr });
+                meta.value = aCGLink;
+                meta.select
+                document.execCommand('Copy')
+                console.log("COPIED CG URL");
+            }
+        }
+
+        function ShowAdBreak() {
+            //check if the adslib is loaded correctly or blocked by adblockers etc.
+            if (typeof gCrazySDK !== 'undefined') {
+                Main.DoneInterstitialAd(false);
+                return;
+            }
+
+            if (typeof adplayer === 'undefined') {
+                Main.DoneInterstitialAd(true);
+                return;
+            }
+            aiptag.cmd.player.push(function () { adplayer.startAdBreak(); });
+        }
+
+
+        document.getElementById("openfl-content").addEventListener("wheel", doScroll);
+        document.getElementById("more").addEventListener("wheel", doScroll);
+        function doScroll(event) {
+            window.scroll(0, window.scrollY + event.deltaY);
+        }
+
+        setInterval(function () {
+            //console.log("active element:" + document.activeElement);
+            if (document.activeElement.tagName == "IFRAME") {
+                document.activeElement.blur();
+                document.getElementById('openfl-content').focus();
+                //console.log('refocusing');
+            }
+        }, 30);
+
+
+        /*setInterval(function () { 
+            var l = window.document.getElementById('preroll');
+            if(l != null && typeof l.style !== 'undefined' && l.style.visibility !== 'visible') {
+                document.getElementById('openfl-content').focus();
+                if(document.activeElement instanceof HTMLIFrameElement)
+                {
+                    //document.activeElement.style.display = "none";
+                    window.focus();
+                    window.document.getElementById('openfl-content').focus();
+                }
+            }
+        }, 1000);*/
+
+
+        /*		setInterval(function () { 
+                    var l = window.document.getElementById('footballbros-io_160x600');
+                    if(l != null && typeof l.style !== 'undefined' && l.style.visibility == 'visible') {
+                        ShowAd5();
+                    }
+                }, 30000);
+        
+                setInterval(function () { 
+                    var l = window.document.getElementById('footballbros-io_160x600_2');
+                    if(l != null && typeof l.style !== 'undefined' && l.style.visibility == 'visible') {
+                        ShowAd1();
+                    }
+                }, 32000);*/
+
+        var sid = 'rompdvj917i3jv4tqo92jogiqk'
+        function updateStatus(fromEvent = false) {
+
+        }
+        function SendEvent(theEvent, theAction, theParms = '') {
+            //console.log("Sending event: " + theEvent + "/" + theAction + "/" + theParms);
+        }
+        //setInterval(function() { updateStatus, 4*60*1000);			
+        //setInterval( function() { 
+        //	window.scrollTo(0, 0); 
+        //}, 2000 );					
+        updateStatus(true);
+
+        //setInterval(ClearAds, 2000);		
+
+        function EmailSignup() {
+            if (document.getElementById("signup") || document.getElementById("deleteme")) return;
+            const iframe = document.createElement("iframe");
+            iframe.src = "https://bluewizard.com/subscribe-to-bbros/";
+
+            //			iframe.style.display = "block";
+            iframe.style.width = "550px";
+            iframe.style.height = "" + window.innerHeight - 100 + "px";
+            iframe.style.position = "absolute";
+            iframe.style.top = "50px";
+            iframe.style.left = "50%";
+            iframe.style["margin-left"] = "-225px";
+            //iframe.style["margin-right"] = "-275px";
+            iframe.style["max-width"] = "100%";
+            iframe.setAttribute("id", "signup");
+
+            document.body.appendChild(iframe);
+        }
+
+        function GamePlayStart() {
+            if (typeof gCrazySDK !== 'undefined') {
+                console.log("GamePlayStart");
+                gCrazySDK.gameplayStart();
+            }
+        }
+
+        function GamePlayStop() {
+            if (typeof gCrazySDK !== 'undefined') {
+                console.log("GamePlayStop");
+                gCrazySDK.gameplayStop();
+            }
+        }
+
+        function HappyTime() {
+            if (typeof gCrazySDK !== 'undefined') {
+                console.log("happytime");
+                gCrazySDK.happytime();
+            }
+        }
+
+        var scrollerMessage = "WELCOME TO FOOTBALL BROS!  CHANGES/UPDATES LISTED BELOW! SO AS YOU CAN SEE WE ADDED A GLITCH REPORT BOX. PLEASE GIVE GOOD STEPS FOR HOW TO REPRODUCE! THE 1-6 KEY GLITCH WAS THE BIG ONE, BUT WE'RE STILL WORRIED SOMEHOW WINS ARE COUNTING AS LOSSES SO WE'RE LOOKING AT THAT NOW!";
+
+        const element = document.getElementById('openfl-content');
+        // Function to keep the element focused
+        function keepFocus() {
+            element.focus();
+        }
+        // Event listeners to restore focus when lost
+        element.addEventListener('blur', keepFocus);
+        element.addEventListener('focusout', keepFocus);		
+    </script>
+</body>
+
+</html>

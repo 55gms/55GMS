@@ -1,0 +1,259 @@
+/* @font-face {
+  font-family: Silver;
+  src: url(./silver.ttf);
+} */
+
+@font-face {
+  font-family: Rounds Black;
+  src: url(./Rounds Black.otf);
+}
+
+/*@font-face {
+  font-family: Retron2000;
+  src: url(./retron2000.ttf);
+}*/
+
+#gritter-notice-wrapper {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 301px;
+  z-index: 9999;
+}
+
+#gritter-notice-wrapper.top-left {
+  left: 20px;
+  right: auto;
+}
+
+#gritter-notice-wrapper.bottom-right {
+  top: auto;
+  left: auto;
+  bottom: 20px;
+  right: 20px;
+}
+
+#gritter-notice-wrapper.bottom-left {
+  top: auto;
+  right: auto;
+  bottom: 20px;
+  left: 20px;
+}
+
+.gritter-item-wrapper {
+  -webkit-border-radius: 0px;
+  -khtml-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 32px;
+  background-clip: padding-box;
+  background-color: rgba(0, 0, 0, 1);
+  color: #eee;
+  /*padding: 2px;*/
+  position: relative;
+  margin: 0 0 10px 0;
+  box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.5);
+}
+
+.gritter-item-wrapper {
+  /*border: 0px solid rgba(0, 0, 0, 1);*/
+  padding: 0;
+}
+
+.gritter-bottom {
+  height: 8px;
+  margin: 0;
+}
+
+.gritter-item {
+  display: block;
+  padding: 10px 9px 6px 9px;
+  font-family: Rounds Black;
+  color: rgba(255, 255, 255, 1);
+  font-size: 12px;
+  /*text-align:center;*/
+  /*padding: 8px 0 8px 0;*/
+}
+
+.gritter-item p {
+  padding: 0;
+  margin: 0;
+  word-wrap: break-word;
+}
+
+.gritter-close {
+  -webkit-border-radius: 0%;
+  -khtml-border-radius: 0%;
+  -moz-border-radius: 0%;
+  -ms-border-radius: 0%;
+  -o-border-radius: 0%;
+  border-radius: 0%;
+  border-radius: 32px;
+  background: white
+    url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAzSURBVChTYwCC/1CMDuDiMAayIgwxZAFkjALwSoIAXgXokjAMBhgCQIAihi4JA0Axhv8AUdAn2SXsGuAAAAAASUVORK5CYII=)
+    no-repeat center;
+  /*background-size: 50%;*/
+  /*border: 2px solid #000;*/
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.75);
+  display: none;
+  position: absolute;
+  top: 16px;
+  right: 8px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  text-indent: -9999em;
+  outline: none;
+}
+
+.gritter-close:hover {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
+}
+
+.gritter-item-wrapper:hover .gritter-close {
+  display: block;
+}
+
+.gritter-title {
+  font-size: 16px;
+  /*font-weight: bold;*/
+  /*text-align:center;*/
+  padding: 8px 0 0px 0;
+  display: block;
+  /*text-shadow: 1px 1px 0 #000;*/
+  /* Not supported by IE :( */
+}
+
+.gritter-image {
+  /*padding: 1px 1px 1px 1px;*/
+  width: 48px;
+  height: 48px;
+  float: left;
+  border-radius: 48px;
+}
+
+.gritter-with-image,
+.gritter-without-image {
+  padding: 0;
+}
+
+.gritter-with-image {
+  width: 220px;
+  float: right;
+}
+
+.gritter-clickable:hover {
+  cursor: pointer;
+}
+
+/* for the light (white) version of the gritter notice */
+
+.gritter-light.gritter-item-wrapper {
+  background-color: rgba(0, 0, 0, 1);
+  color: #222;
+}
+
+.gritter-light.gritter-item-wrapper {
+  border-color: rgba(0, 0, 0, 1);
+}
+
+/* for the success version of the gritter notice */
+
+.gritter-success.gritter-item-wrapper {
+  background-color: #dff0d8;
+  color: #468847;
+}
+
+.gritter-success.gritter-item-wrapper:hover {
+  border-color: #d6e9c6;
+}
+
+/* for the info version of the gritter notice */
+
+.gritter-info.gritter-item-wrapper {
+  background-color: #d9edf7;
+  color: #3a87ad;
+}
+
+.gritter-info.gritter-item-wrapper:hover {
+  border-color: #bce8f1;
+}
+
+/* for the warning version of the gritter notice */
+
+.gritter-warning.gritter-item-wrapper {
+  background-color: #fcf8e3;
+  color: #c09853;
+}
+
+.gritter-warning.gritter-item-wrapper:hover {
+  border-color: #fbeed5;
+}
+
+/* for the error version of the gritter notice */
+
+.gritter-error.gritter-item-wrapper {
+  background-color: #f2dede;
+  color: #b94a48;
+}
+
+.gritter-error.gritter-item-wrapper:hover {
+  border-color: #eed3d7;
+}
+
+/* for the red version of the gritter notice */
+
+.gritter-red.gritter-item-wrapper {
+  background-color: #f78b83;
+  color: #912323;
+}
+
+.gritter-red.gritter-item-wrapper:hover {
+  border-color: #d95252;
+}
+
+/* for the yellow version of the gritter notice */
+
+.gritter-yellow.gritter-item-wrapper {
+  background-color: #ffffa3;
+  color: #555;
+}
+
+.gritter-yellow.gritter-item-wrapper:hover {
+  border-color: #f1d031;
+}
+
+/* for the blue version of the gritter notice */
+
+.gritter-blue.gritter-item-wrapper {
+  background-color: #e5f6fe;
+  color: #5e99bd;
+}
+
+.gritter-blue.gritter-item-wrapper:hover {
+  border-color: #add9ed;
+}
+
+/* for the green version of the gritter notice */
+
+.gritter-green.gritter-item-wrapper {
+  background-color: #caed9e;
+  color: #3f6219;
+}
+
+.gritter-green.gritter-item-wrapper:hover {
+  border-color: #90d93f;
+}
+
+.gritter-light .gritter-title,
+.gritter-success .gritter-title,
+.gritter-info .gritter-title,
+.gritter-warning .gritter-title,
+.gritter-error .gritter-title,
+.gritter-red .gritter-title,
+.gritter-yellow .gritter-title,
+.gritter-blue .gritter-title,
+.gritter-green .gritter-title {
+  text-shadow: none;
+}

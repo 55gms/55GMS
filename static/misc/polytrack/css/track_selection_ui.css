@@ -1,0 +1,130 @@
+
+.track-selection {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: calc(100% - 320px);
+	text-align: center;
+}
+.track-selection.editor-track-selection {
+	height: 100%;
+}
+
+.track-selection > .bar {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	background-color: var(--surface-color);
+	text-align: left;
+
+	pointer-events:auto;
+}
+.track-selection > .bar > .button {
+	margin: 8px 12px;
+}
+.track-selection > .bar > .button.right {
+	float: right;
+}
+
+.track-selection .tracks-container {
+	margin: 0;
+	padding: 20px 0;
+	box-sizing: border-box;
+	width: 100%;
+	height: calc(100% - 64px);
+	overflow-y: auto;
+	pointer-events: auto;
+}
+.track-selection.editor-track-selection .tracks-container {
+	background-color: rgba(20, 20, 45, 0.8);
+}
+
+.track-selection h2 {
+	margin: 0.5em 0.75em;
+	padding: 0;
+	color: var(--text-color);
+	font-size: 50px;
+	font-weight: normal;
+	border-bottom: 2px solid var(--text-color);
+}
+
+.track-selection .tracks-container .track {
+	position: relative;
+	display: inline-block;
+}
+
+.track-selection .tracks-container .track button {
+	margin: 10px;
+	padding: 0;
+	color: var(--text-color);
+	font-size: 32px;
+}
+.track-selection .tracks-container .track button:focus-visible {
+	text-decoration: none;
+}
+
+.track-selection .track-title {
+	margin: 0;
+	padding: 4px;
+	font-size: 25px;
+	background-color: var(--surface-secondary-color);
+}
+.track-selection .tracks-container .track button:focus-visible .track-title {
+	text-decoration: underline;
+}
+.track-selection .track-title > p {
+	margin: 0;
+	padding: 0 22px;
+	width: 208px;
+	box-sizing: border-box;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.track-selection .track canvas {
+	margin: 0;
+	padding: 20px 40px;
+	width: 128px;
+	height: 128px;
+	object-fit: contain;
+	-webkit-filter: drop-shadow(0 0 3px #000);
+	filter: drop-shadow(0 0 3px #000);
+	image-rendering: pixelated;
+}
+
+.track-selection .record {
+	margin: 0;
+	padding: 4px;
+	font-size: 24px;
+	background-color: var(--surface-secondary-color);
+	color: var(--text-color);
+}
+
+.track-selection .delete-button {
+	position: absolute;
+	top: 7px;
+	right: 6px;
+	margin: 0;
+	padding: 0;
+	line-height: 0;
+	border-radius: 2px;
+	border: none;
+	background-color: var(--button-color);
+
+	pointer-events: auto;
+	cursor: pointer;
+}
+.track-selection .delete-button:hover {
+	background-color: var(--button-hover-color);
+}
+.track-selection .delete-button:active {
+	background-color: var(--button-active-color);
+}
+.track-selection .delete-button > img {
+	margin: 0;
+	padding: 0;
+	height: 20px;
+	vertical-align: top;
+	pointer-events: none;
+}

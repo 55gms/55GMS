@@ -1,0 +1,107 @@
+
+.menu {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(10,10,20,0.8);
+	text-align: center;
+}
+
+.menu > .logo {
+	display: block;
+	margin: 80px auto 180px auto;
+	padding: 0;
+	width: 1000px;
+	height: 200px;
+	-webkit-filter: drop-shadow(0 0 3px #000);
+	filter: drop-shadow(0 0 3px #000);
+}
+
+.menu .button-image {
+	display: inline-block;
+	margin: 10px 0;
+	padding: 0;
+	width: 200px;
+	height: 200px;
+	pointer-events: auto;
+	cursor: pointer;
+}
+.menu .button-image > img {
+	margin: 40px 40px 0 40px;
+	padding: 0;
+	width: 96px;
+	transition: transform 0.2s ease-in-out;
+	pointer-events: none;
+}
+.menu .button-image:not(:disabled):hover > img {
+	transform: translateY(-10px);
+}
+.menu .button-image > p {
+	margin: 0;
+	padding: 0;
+	color: var(--text-color);
+	font-size: 27px;
+}
+
+.menu > .bottom-buttons {
+	margin: 4px;
+	padding: 0;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+.menu > .bottom-buttons > .small {
+	padding: 6px 12px;
+	clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+	font-size: 22px;
+}
+.menu > .bottom-buttons > .small > img {
+	vertical-align: middle;
+}
+
+.menu > .discord-link {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	margin: 0;
+	padding: 8px;
+	height: 40px;
+	font-size: 22px;
+	color: #fff;
+	text-decoration: none;
+	pointer-events: auto;
+}
+.menu > .discord-link:hover, .menu > .discord-link:focus-visible {
+	text-decoration: underline;
+	outline: none;
+}
+.menu > .discord-link > img {
+	margin: 0 0 0 6px;
+	padding: 0;
+	vertical-align: middle;
+	height: 100%;
+}
+
+.menu > .info {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+}
+.menu > .info > a {
+	display: block;
+	margin: 0 auto;
+	padding: 5px;
+	width: fit-content;
+	color: var(--text-color);
+	text-decoration: none;
+	font-size: 20px;
+	pointer-events: auto;
+}
+.menu > .info > a:hover, .menu > .info > a:focus-visible {
+	text-decoration: underline;
+	outline: none;
+}

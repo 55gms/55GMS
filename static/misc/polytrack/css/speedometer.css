@@ -1,0 +1,35 @@
+
+.speedometer {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	margin: 0;
+	padding: 8px 5px 0 0;
+	min-width: 140px;
+	line-height: 0;
+	font-size: 40px;
+	color: var(--text-color);
+	text-align: right;
+	opacity: 0.9;
+	clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%);
+	background-color: var(--surface-color);
+}
+
+.speedometer > div {
+	margin: 0 0 6px 8px;
+	padding: 0 0 0 16px;
+	clip-path: polygon(6px 0, 100% 0, 100% 100%, 0 100%);
+	background-color: var(--surface-tertiary-color);
+}
+
+.speedometer > div > span:last-of-type {
+	opacity: 0.5;
+	margin: 0 0.3em 0 0.25em;
+	padding: 0;
+	font-size: 0.5em;
+}
+.speedometer > div > span > span {
+	display: inline-block;
+	width: 0.5em;
+	text-align: center;
+}

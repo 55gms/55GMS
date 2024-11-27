@@ -1,0 +1,47 @@
+
+.editor-height-selector {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+.editor-height-selector > .buttons {
+	display: inline-block;
+	vertical-align: bottom;
+}
+.editor-height-selector > .buttons > button {
+	display: block;
+	margin: 0;
+	padding: 0;
+	border: none;
+	background-color: var(--button-color);
+	pointer-events: auto;
+	cursor: pointer;
+}
+.editor-height-selector > .buttons > button:hover {
+	background-color: var(--button-hover-color);
+}
+.editor-height-selector > .buttons > button:active {
+	background-color: var(--button-active-color);
+}
+
+.editor-height-selector > .buttons > button > img {
+	margin: 0;
+	padding: 0 6px;
+	width: 20px;
+	height: 20px;
+	vertical-align: bottom;
+}
+
+.editor-height-selector > p {
+	margin: 0;
+	padding: 0 10px;
+	display: inline-block;
+	vertical-align: bottom;
+	line-height: 40px;
+	min-width: 140px;
+	font-size: 26px;
+	text-align: center;
+	background-color: var(--surface-transparent-color);
+	color: var(--text-color);
+}
