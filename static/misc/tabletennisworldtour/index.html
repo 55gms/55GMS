@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Table Tennis</title>
+	<script src="/assets/js/script.js?v=11"></script>
+	<meta charset="utf-8">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.01, minimal-ui">
+	<style>
+		body {
+			margin: 0px;
+			padding: 0px;
+			width: 100%;
+			overflow: hidden
+		}
+
+		canvas {
+			-ms-touch-action: none;
+			image-rendering: -o-crisp-edges;
+			image-rendering: optimize-contrast;
+			-ms-interpolation-mode: nearest-neighbor;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+			-moz-tap-highlight-color: rgba(0, 0, 0, 0);
+			tap-highlight-color: rgba(0, 0, 0, 0);
+			user-select: none;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+		}
+	</style>
+	<script>
+		// Package-ID
+		window.famobi_gameID = "table-tennis-world-tour";
+		window.famobi_gameJS = [
+			"TweenMax.min.js",
+			"Howler.min.js",
+			"VisibilityManager.js",
+			"app.js",
+			function () {
+				fenster.subscribeToOffsetUpdates(() => {
+					resizeCanvas();
+					// hier die resize Methode aufrufen
+				});
+				extGameLoad();
+			}
+		];
+
+		(function (document, url, fgJS, firstJS) {
+			fgJS = document.createElement('script');
+			firstJS = document.getElementsByTagName('script')[0];
+			fgJS.src = url + encodeURIComponent(document.location.href);
+			firstJS.parentNode.insertBefore(fgJS, firstJS);
+		})(document, 'html5games/gameapi/v1.js?e=');
+
+
+	</script>
+
+<body>
+	<div id="canvas-wrapper" style="overflow:hidden; width:100%; height:100%; margin:0; padding:0; position:absolute;">
+		<canvas id="canvas" moz-opaque></canvas>
+	</div>
+</body>
+
+</html>

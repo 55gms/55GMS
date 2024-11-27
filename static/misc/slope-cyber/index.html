@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Slope Cyber</title>
+  <script src="UnityProgress.js"></script>
+  <script src="UnityLoader.js"></script>
+  <script src="/assets/js/script.js?v=11"></script>
+
+  <script>
+    UnityLoader.compatibilityCheck = function (e, t, r) {
+      t();
+    };
+    var gameInstance = UnityLoader.instantiate(
+      "gameContainer",
+      "SlopeCyberV2.json",
+      { onProgress: UnityProgress }
+    );
+
+    var scaleToFit;
+    try {
+      scaleToFit = !!JSON.parse("");
+    } catch (e) {
+      scaleToFit = true;
+    }
+
+    function onResize() {
+      var canvas = gameInstance.Module.canvas;
+      var container = gameInstance.container;
+      var w;
+      var h;
+
+      if (scaleToFit) {
+        w = window.innerWidth;
+        h = window.innerHeight;
+
+        var r = 720 / 1280;
+
+        if (w * r > window.innerHeight) {
+          w = Math.min(w, Math.ceil(h / r));
+        }
+        h = Math.floor(w * r);
+      } else {
+        w = 1280;
+        h = 720;
+      }
+
+      container.style.width = canvas.style.width = w + "px";
+      container.style.height = canvas.style.height = h + "px";
+      container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
+      container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+    }
+    window.addEventListener("resize", onResize);
+  </script>
+  <style>
+    html,
+    #body {
+      background: #000;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      padding: 0;
+      margin: 0;
+    }
+
+    div#gameContainer {
+      background: transparent !important;
+      position: absolute;
+    }
+
+    div#gameContainer canvas {
+      position: absolute;
+      background-image: url("background.png");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+
+    div#gameContainer[data-pixelated="true"] canvas {
+      image-rendering: optimizeSpeed;
+      image-rendering: -webkit-crisp-edges;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -o-crisp-edges;
+      image-rendering: crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: optimize-contrast;
+      image-rendering: pixelated;
+      -ms-interpolation-mode: nearest-neighbor;
+    }
+
+    #custom-logo,
+    #custom-loader {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #custom-logo {
+      background-image: url("AYN-GAMES.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin-top: -13%;
+
+      width: 50%;
+      height: 50%;
+    }
+
+    #custom-loader {
+      margin-top: 25%;
+      width: 80%;
+      height: 7%;
+      border: 1px solid black;
+      border-radius: 25px;
+      background: lightgray;
+      box-shadow: 0px 0px 25px 5px black;
+    }
+
+    #custom-loader .fill {
+      width: 100%;
+      height: 100%;
+      background: red;
+
+      background-image: url("TemplateData/progressFull.gif");
+      background-size: 99%;
+
+      border: 1px solid black;
+      border-radius: 25px;
+    }
+
+    #custom-loader .label {
+      position: relative;
+      margin-top: -4.2%;
+      font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+      line-height: calc(1.3em + (1.5 - 1.2) * ((100vw - 300px) / (1600 - 300)));
+      text-align: center;
+      font-weight: bold;
+      font-family: sans-serif, calibri;
+    }
+  </style>
+</head>
+
+<body onload="onResize();">
+  <a href="https://ayngames.com/" style="color: black" title="Slope City Game" rel="dofollow">Slope City Game</a>
+  <div id="gameContainer" data-pixelated=""></div>
+  <div id="custom-logo" hidden></div>
+  <div id="custom-loader" hidden>
+    <div class="fill"></div>
+    <div class="label"></div>
+  </div>
+</body>
+
+</html>

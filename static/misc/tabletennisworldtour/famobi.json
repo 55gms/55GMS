@@ -1,0 +1,99 @@
+{
+	"features" : {"lockPointer":true},
+	"game_i18n" : {
+		"default": {
+			"filename.png" 	: "fg_i18n/en/images/filename.png",
+			"start game" : "START GAME"
+		}
+	},
+	"game_info": {
+		"client_version": "1.0.0",
+		"api_version": "2.1",
+		"forced_mode": {
+			"state": {
+				"player_country": {
+					"description": "Select the players country",
+					"type": "number",
+					"min": 0,
+					"max": 204
+				},
+				"enemy_country": {
+					"description": "Select the enemies country",
+					"type": "number",
+					"min": 0,
+					"max": 204
+				},
+				"user_score": {
+					"description": "Score the user starts with",
+					"type": "number",
+					"min": 0,
+					"max": 10
+				},
+				"enemy_score": {
+					"description": "Score the enemy starts with",
+					"type": "number",
+					"min": 0,
+					"max": 10
+				},
+				"wall_id": {
+					"description": "Select the wall",
+					"type": "number",
+					"min": 0,
+					"max": 4
+				}
+			},
+			"override": {
+				"hide_ui": {
+					"description": "Hide specific Ui Elements",
+					"type": "array",
+					"values": ["score", "flags"]
+				},
+				"max_score": {
+					"description": "Set the required score to win",
+					"type": "number",
+					"min": 1,
+					"max": 99
+				},
+				"enemy_difficulty": {
+					"description": "Set the difficulty of the enemy",
+					"type": "string",
+					"values": ["easy", "medium", "hard"]
+				},
+				"curve_mode": {
+					"description": "Set if curve mode is enabled",
+					"type": "boolean"
+				},
+				"curve_strength": {
+					"description": "Set the curve strength in curve mode",
+					"type": "number",
+					"min": 0,
+					"max": 1
+				}
+			}
+		},
+		"track_stats": {
+			"ball_hit":{
+				"description": "the ball was hit by the paddle",
+				"params":{
+					"hit_type":{
+						"type": "string",
+						"values":["curvedBall,powerBall"]
+					}
+				}
+			}
+		},
+		"point_scored":{
+			"description": "A score was made by the player or the enemy",
+			"params":{
+				"score_gained_by":{
+					"type": "string",
+					"values": ["player", "enemy"]
+				},
+				"hit_type":{
+					"type": "string",
+					"values":["curvedBall,powerBall"]
+				}
+			}
+		}
+	}
+}
