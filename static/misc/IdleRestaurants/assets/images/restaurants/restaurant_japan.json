@@ -1,0 +1,608 @@
+{
+	"textures": [
+		{
+			"image": "restaurant_japan.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 463,
+				"h": 990
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "rope_ld_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 420,
+						"h": 277
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 21,
+						"w": 404,
+						"h": 222
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 404,
+						"h": 222
+					}
+				},
+				{
+					"filename": "rope_ld_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 466,
+						"h": 159
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 17,
+						"w": 443,
+						"h": 128
+					},
+					"frame": {
+						"x": 1,
+						"y": 225,
+						"w": 443,
+						"h": 128
+					}
+				},
+				{
+					"filename": "rope_ld_03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 460,
+						"h": 159
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 18,
+						"w": 442,
+						"h": 128
+					},
+					"frame": {
+						"x": 1,
+						"y": 355,
+						"w": 442,
+						"h": 128
+					}
+				},
+				{
+					"filename": "small_table_ld",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 482,
+						"h": 122
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 16,
+						"w": 461,
+						"h": 98
+					},
+					"frame": {
+						"x": 1,
+						"y": 485,
+						"w": 461,
+						"h": 98
+					}
+				},
+				{
+					"filename": "lamp_ld_02",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 69,
+						"h": 404
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 69,
+						"h": 404
+					},
+					"frame": {
+						"x": 1,
+						"y": 585,
+						"w": 69,
+						"h": 404
+					}
+				},
+				{
+					"filename": "lamp_ld_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 122,
+						"h": 437
+					},
+					"spriteSourceSize": {
+						"x": 17,
+						"y": 18,
+						"w": 86,
+						"h": 390
+					},
+					"frame": {
+						"x": 72,
+						"y": 585,
+						"w": 86,
+						"h": 390
+					}
+				},
+				{
+					"filename": "ad_stand_ld_04",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 248
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 8,
+						"w": 107,
+						"h": 235
+					},
+					"frame": {
+						"x": 160,
+						"y": 585,
+						"w": 107,
+						"h": 235
+					}
+				},
+				{
+					"filename": "double_frame_ld",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 187,
+						"h": 129
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 12,
+						"w": 163,
+						"h": 106
+					},
+					"frame": {
+						"x": 269,
+						"y": 585,
+						"w": 163,
+						"h": 106
+					}
+				},
+				{
+					"filename": "ad_stand_ld_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 123,
+						"h": 160
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 13,
+						"w": 101,
+						"h": 137
+					},
+					"frame": {
+						"x": 160,
+						"y": 822,
+						"w": 101,
+						"h": 137
+					}
+				},
+				{
+					"filename": "ad_stand_ld_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 123,
+						"h": 160
+					},
+					"spriteSourceSize": {
+						"x": 12,
+						"y": 14,
+						"w": 101,
+						"h": 136
+					},
+					"frame": {
+						"x": 269,
+						"y": 693,
+						"w": 101,
+						"h": 136
+					}
+				},
+				{
+					"filename": "ad_stand_ld_03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 123,
+						"h": 160
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 13,
+						"w": 101,
+						"h": 136
+					},
+					"frame": {
+						"x": 263,
+						"y": 831,
+						"w": 101,
+						"h": 136
+					}
+				},
+				{
+					"filename": "flower_ld",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 84,
+						"h": 110
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 7,
+						"w": 72,
+						"h": 102
+					},
+					"frame": {
+						"x": 372,
+						"y": 693,
+						"w": 72,
+						"h": 102
+					}
+				},
+				{
+					"filename": "wall_lamp_ld",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 112
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 11,
+						"w": 50,
+						"h": 92
+					},
+					"frame": {
+						"x": 407,
+						"y": 1,
+						"w": 50,
+						"h": 92
+					}
+				},
+				{
+					"filename": "food/empty_plate",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 73,
+						"h": 60
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 4,
+						"w": 70,
+						"h": 56
+					},
+					"frame": {
+						"x": 372,
+						"y": 797,
+						"w": 70,
+						"h": 56
+					}
+				},
+				{
+					"filename": "seat_ld",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 118,
+						"h": 104
+					},
+					"spriteSourceSize": {
+						"x": 29,
+						"y": 20,
+						"w": 60,
+						"h": 55
+					},
+					"frame": {
+						"x": 366,
+						"y": 855,
+						"w": 60,
+						"h": 55
+					}
+				},
+				{
+					"filename": "Flower05_shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 69,
+						"h": 44
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 69,
+						"h": 44
+					},
+					"frame": {
+						"x": 366,
+						"y": 912,
+						"w": 69,
+						"h": 44
+					}
+				},
+				{
+					"filename": "food/Food_Ikura_Sushi",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 29,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 28,
+						"h": 27
+					},
+					"frame": {
+						"x": 434,
+						"y": 585,
+						"w": 28,
+						"h": 27
+					}
+				},
+				{
+					"filename": "food/Food_Somen",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 28,
+						"h": 22
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 28,
+						"h": 20
+					},
+					"frame": {
+						"x": 434,
+						"y": 614,
+						"w": 28,
+						"h": 20
+					}
+				},
+				{
+					"filename": "food/Food_Tekka_Maki",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 27,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 26,
+						"h": 28
+					},
+					"frame": {
+						"x": 160,
+						"y": 961,
+						"w": 26,
+						"h": 28
+					}
+				},
+				{
+					"filename": "food/Food_Ramen",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 27
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 30,
+						"h": 26
+					},
+					"frame": {
+						"x": 407,
+						"y": 95,
+						"w": 30,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Udon",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 33,
+						"h": 27
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 30,
+						"h": 26
+					},
+					"frame": {
+						"x": 188,
+						"y": 961,
+						"w": 30,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Soba",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 36,
+						"h": 21
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 35,
+						"h": 20
+					},
+					"frame": {
+						"x": 220,
+						"y": 961,
+						"w": 35,
+						"h": 20
+					}
+				},
+				{
+					"filename": "food/Food_Tamago",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 33,
+						"h": 24
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 32,
+						"h": 23
+					},
+					"frame": {
+						"x": 407,
+						"y": 123,
+						"w": 32,
+						"h": 23
+					}
+				},
+				{
+					"filename": "food/Food_Kappa_Maki",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 27,
+						"h": 26
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 27,
+						"h": 25
+					},
+					"frame": {
+						"x": 434,
+						"y": 636,
+						"w": 27,
+						"h": 25
+					}
+				},
+				{
+					"filename": "food/Food_Nato_Maki",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 27,
+						"h": 26
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 26,
+						"h": 26
+					},
+					"frame": {
+						"x": 407,
+						"y": 148,
+						"w": 26,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Shinko_Maki",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 27,
+						"h": 27
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 26,
+						"h": 26
+					},
+					"frame": {
+						"x": 434,
+						"y": 663,
+						"w": 26,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Sake_Sushi",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 27,
+						"h": 23
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 26,
+						"h": 23
+					},
+					"frame": {
+						"x": 407,
+						"y": 176,
+						"w": 26,
+						"h": 23
+					}
+				},
+				{
+					"filename": "food/Food_Ika_Sushi",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 25,
+						"h": 23
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 2,
+						"w": 24,
+						"h": 21
+					},
+					"frame": {
+						"x": 407,
+						"y": 201,
+						"w": 24,
+						"h": 21
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:46cbfb0ae8b7a89f4a08f0d257002db2:254307281f9dd8946d0e53b2ff838942:49c28d5954019e2f21aba1d7366cd78d$"
+	}
+}

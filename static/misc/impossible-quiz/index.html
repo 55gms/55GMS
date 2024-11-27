@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Worldshardestgame</title>
+  <script src="/assets/js/script.js?v=11"></script>
+</head>
+
+<body style="margin: 0; padding: 0">
+  <div id="container" style="position: absolute; width: auto; height: auto; inset: 0"></div>
+  <script src="/misc/flash/ruffle.js"></script>
+  <script>
+    window.RufflePlayer = window.RufflePlayer || {};
+    window.addEventListener("load", (event) => {
+      const ruffle = window.RufflePlayer.newest();
+      const player = ruffle.createPlayer();
+      const container = document.getElementById("container");
+      player.style.width = "100%";
+      player.style.height = "100%";
+      container.appendChild(player);
+      player.load("impossiblequiz.swf");
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+    <script src="/assets/js/script.js?v=11"></script>
+    <meta charset=UTF-8>
+    <meta name=viewport content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <link rel=manifest href=manifest.json>
+    <link rel=icon href=assets/img/icon/icon32.png>
+    <link rel=apple-touch-icon sizes=32x32 href=assets/img/icon/icon32.png>
+    <link rel=apple-touch-icon sizes=64x64 href=assets/img/icon/icon64.png>
+    <link rel=apple-touch-icon sizes=96x96 href=assets/img/icon/icon96.png>
+    <link rel=apple-touch-icon sizes=128x128 href=assets/img/icon/icon128.png>
+    <link rel=apple-touch-icon sizes=168x168 href=assets/img/icon/icon168.png>
+    <link rel=apple-touch-icon sizes=192x192 href=assets/img/icon/icon192.png>
+    <link rel=apple-touch-icon sizes=256x256 href=assets/img/icon/icon256.png>
+    <link rel=apple-touch-icon sizes=512x512 href=assets/img/icon/icon512.png>
+    <title>Idle Dice</title>
+    <script src=cordova.js></script>
+    <script src=js/app.js></script>
+    <script src=https://sdk.crazygames.com/crazygames-sdk-v1.js></script>
+    <style>
+        body {
+            margin: 0;
+            background: white;
+        }
+
+        canvas {
+            margin: auto;
+        }
+
+        #turn {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: white;
+            display: none;
+        }
+
+        #ui {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+
+        #text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            font-family: Verdana monospace;
+            color: slategray;
+        }
+
+        #savePrompt {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+        }
+
+        #promptWindow {
+            color: white;
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            width: 50%;
+            height: 25%;
+        }
+
+        #debug {
+            background-color: white;
+            position: absolute;
+        }
+
+        #save {
+            resize: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        @font-face {
+            font-family: 'regular';
+            src: url('assets/fonts/robotomono-thin-webfont.woff2') format('woff2'),
+                url('assets/fonts/robotomono-thin-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+
+        @font-face {
+            font-family: 'text';
+            src: url('assets/fonts/roboto-thin-webfont.woff2') format('woff2'),
+                url('assets/fonts/roboto-thin-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+
+        @font-face {
+            font-family: 'med';
+            src: url('assets/fonts/roboto-medium-webfont.woff2') format('woff2'),
+                url('assets/fonts/roboto-medium-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+    </style>
+</head>
+
+<body onload=init();>
+    <div style="font-family:regular; position:absolute; left:-10000px">Font Loaded</div>
+    <div style="font-family:text; position:absolute; left:-10000px">Font Loaded</div>
+    <div style="font-family:med; position:absolute; left:-10000px">Font Loaded</div>
+    <div id=debug></div>
+    <div id=savePrompt>
+        <div id=promptWindow><span id=saveInstruction>Copy this and save it somewhere.</span> <span
+                id=loadInstruction>Paste the savedata here and click load.</span> <textarea id=save></textarea> <button
+                id=copy>Copy</button> <button id=load>Load</button> <input id=file type=file> <button
+                id=close>Close</button></div>
+    </div>
+    <div id=turn><span id=text>Turn your Device</span></div>
+</body>
+
+</html>

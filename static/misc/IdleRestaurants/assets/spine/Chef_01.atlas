@@ -1,0 +1,118 @@
+
+Chef.png
+size: 381, 109
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+Avocado
+  rotate: false
+  xy: 322, 80
+  size: 53, 27
+  orig: 53, 27
+  offset: 0, 0
+  index: -1
+Body
+  rotate: true
+  xy: 241, 12
+  size: 40, 30
+  orig: 40, 30
+  offset: 0, 0
+  index: -1
+Hand1a
+  rotate: true
+  xy: 351, 22
+  size: 17, 23
+  orig: 17, 23
+  offset: 0, 0
+  index: -1
+Hand1b
+  rotate: true
+  xy: 293, 17
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+Hand2a
+  rotate: true
+  xy: 345, 59
+  size: 19, 34
+  orig: 19, 34
+  offset: 0, 0
+  index: -1
+Hand2b
+  rotate: true
+  xy: 351, 3
+  size: 17, 21
+  orig: 17, 21
+  offset: 0, 0
+  index: -1
+Hand2c
+  rotate: false
+  xy: 322, 55
+  size: 21, 23
+  orig: 21, 23
+  offset: 0, 0
+  index: -1
+Hand2d
+  rotate: false
+  xy: 328, 11
+  size: 21, 23
+  orig: 21, 23
+  offset: 0, 0
+  index: -1
+Head1
+  rotate: false
+  xy: 2, 3
+  size: 101, 104
+  orig: 101, 104
+  offset: 0, 0
+  index: -1
+Head2
+  rotate: false
+  xy: 105, 3
+  size: 101, 104
+  orig: 101, 104
+  offset: 0, 0
+  index: -1
+Salad
+  rotate: true
+  xy: 273, 15
+  size: 37, 18
+  orig: 37, 18
+  offset: 0, 0
+  index: -1
+Salad2
+  rotate: false
+  xy: 345, 41
+  size: 34, 16
+  orig: 34, 17
+  offset: 0, 1
+  index: -1
+Salad3
+  rotate: true
+  xy: 328, 36
+  size: 17, 15
+  orig: 17, 15
+  offset: 0, 0
+  index: -1
+Tomato
+  rotate: false
+  xy: 293, 2
+  size: 20, 13
+  orig: 20, 13
+  offset: 0, 0
+  index: -1
+TomatoMuch
+  rotate: true
+  xy: 208, 10
+  size: 42, 31
+  orig: 42, 31
+  offset: 0, 0
+  index: -1
+Wood
+  rotate: false
+  xy: 208, 54
+  size: 112, 53
+  orig: 115, 53
+  offset: 2, 0
+  index: -1

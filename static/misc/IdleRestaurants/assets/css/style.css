@@ -1,0 +1,252 @@
+@import url("ingame_ui.css");
+
+@font-face {
+    font-family: "LilitaOne-Regular";
+    src: url('../fonts/LilitaOne-Regular.ttf') format("truetype");
+    /*font-weight: bold;*/
+}
+
+html,
+body {
+    color: #FFF;
+    /*background: #5c7a56;*/
+    background: #000000;
+    /*background: #b600ff;*/
+    /*background: #ff0;*/
+    word-spacing: 9px;
+    /*background: #767474;*/
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    image-rendering: optimizeQuality;
+    /*image-rendering: optimizeSpeed;*/
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -o-crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: pixelated;
+    font-family: 'LilitaOne-Regular', Arial;
+
+    image-rendering: -moz-crisp-edges;
+    /* Disable selection after double click */
+    user-select: none; /* standard syntax */
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+    -moz-transform-origin: 0 0;
+    /**/
+    /*image-rendering: -moz-crisp-edges;*/
+    /*-ms-interpolation-mode: bicubic;*/
+}
+* {
+    image-rendering: -o-crisp-edges; /* Opera */
+    image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming) */
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
+    touch-action: manipulation;
+    image-rendering: -moz-crisp-edges; /* Firefox */
+    /*image-rendering: -moz-crisp-edges;*/
+    /*-ms-interpolation-mode: bicubic;*/
+}
+
+body.black-bg {
+    background-color: #000 !important;
+}
+
+a {text-decoration: none;}
+
+#content {
+    position: absolute;
+    z-index: 0;
+    display: block;
+    pointer-events: all;
+}
+
+
+#datGui {
+    top: 0;
+    position: absolute;
+    z-index: 105;
+}
+
+.bgShadow {
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.bgShadowMax{
+
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: black;
+}
+
+.ui {
+    max-width: 640px;
+    width: 100%;
+    left: 50%;
+    height: 100%;
+    transform: translateX(-50%);
+    position: absolute;
+    pointer-events: none;
+    z-index: 101;
+}
+
+/*Scaling start*/
+@media (max-height: 1042px) {
+    .ui {
+        transform: translateX(-50%) scale(0.7);
+        height: 145%;
+        transform-origin: center top;
+    }
+}
+
+@media (max-height: 500px) {
+    .ui {
+        transform: translateX(-50%) scale(0.6);
+        height: 175%;
+        transform-origin: center top;
+    }
+}
+
+@media (max-width: 430px) {
+    /* oneplus 9 pro -- buggy, looks like destkop */
+    .ui {
+        zoom: 0.76;
+    }
+
+    #IngamePauseMenu-button {
+        right: -29px !important;
+    }
+
+    #RestaurantSwitchDots .dots-wrapper {
+        width: 206px !important;
+    }
+}
+@media (max-width: 407px) {
+    /* iphone 6s -- buggy, looks like destkop */
+    .ui {
+        zoom: 0.70;
+    }
+
+    #IngamePauseMenu-button {
+        right: -29px !important;
+    }
+
+    #RestaurantSwitchDots .dots-wrapper {
+        width: 206px !important;
+    }
+}
+
+/*Scaling end*/
+
+
+.ui #unsupportedResolution {
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    color: red;
+    background: rgba(255, 0, 0, 0.25);
+    position: absolute;
+    transform: translateY(-50%);
+}
+
+.ingame-ui.hiddenUi {
+    opacity: 0;
+}
+
+
+.ib {
+    display: inline-block;
+}
+
+.tooltip {
+    position: relative;
+    /*display: inline-block;*/
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #410000;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    top: 5px;
+    right: 105%;
+}
+
+.mt5 {
+    margin-top: 5px;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt15 {
+    margin-top: 15px;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.mt25 {
+    margin-top: 25px;
+}
+
+.mt30 {
+    margin-top: 30px;
+}
+
+.mt35 {
+    margin-top: 35px;
+}
+
+.mt50 {
+    margin-top: 50px;
+}
+
+
+.mt60 {
+    margin-top: 60px;
+}
+
+
+@keyframes pulseGlobal {
+    0% {
+        transform: scale(1, 1);
+    }
+
+    50% {
+        transform: scale(1.1, 1.1);
+    }
+
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+.pulse-effect {
+    animation: pulseGlobal 1s linear infinite;
+}

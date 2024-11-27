@@ -1,0 +1,692 @@
+{
+	"textures": [
+		{
+			"image": "restaurant_mexican.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 749,
+				"h": 477
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "rope_tm_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 488,
+						"h": 152
+					},
+					"spriteSourceSize": {
+						"x": 20,
+						"y": 16,
+						"w": 444,
+						"h": 126
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 444,
+						"h": 126
+					}
+				},
+				{
+					"filename": "rope_tm_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 478,
+						"h": 158
+					},
+					"spriteSourceSize": {
+						"x": 23,
+						"y": 20,
+						"w": 443,
+						"h": 126
+					},
+					"frame": {
+						"x": 1,
+						"y": 129,
+						"w": 443,
+						"h": 126
+					}
+				},
+				{
+					"filename": "drink_machine_tm_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 89,
+						"h": 220
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 89,
+						"h": 219
+					},
+					"frame": {
+						"x": 1,
+						"y": 257,
+						"w": 89,
+						"h": 219
+					}
+				},
+				{
+					"filename": "drink_machine_tm_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 89,
+						"h": 220
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 89,
+						"h": 219
+					},
+					"frame": {
+						"x": 92,
+						"y": 257,
+						"w": 89,
+						"h": 219
+					}
+				},
+				{
+					"filename": "table_extra_tm",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 146,
+						"h": 186
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 146,
+						"h": 184
+					},
+					"frame": {
+						"x": 183,
+						"y": 257,
+						"w": 146,
+						"h": 184
+					}
+				},
+				{
+					"filename": "guitar",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 81,
+						"h": 193
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 0,
+						"w": 76,
+						"h": 193
+					},
+					"frame": {
+						"x": 331,
+						"y": 257,
+						"w": 76,
+						"h": 193
+					}
+				},
+				{
+					"filename": "blackboard_tm_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 88,
+						"h": 133
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 87,
+						"h": 132
+					},
+					"frame": {
+						"x": 447,
+						"y": 1,
+						"w": 87,
+						"h": 132
+					}
+				},
+				{
+					"filename": "flower_tm",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 81,
+						"h": 439
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 81,
+						"h": 439
+					},
+					"frame": {
+						"x": 536,
+						"y": 1,
+						"w": 81,
+						"h": 439
+					}
+				},
+				{
+					"filename": "lamp_tm",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 69,
+						"h": 395
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 8,
+						"w": 55,
+						"h": 384
+					},
+					"frame": {
+						"x": 619,
+						"y": 1,
+						"w": 55,
+						"h": 384
+					}
+				},
+				{
+					"filename": "left_seat_tm",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 142,
+						"h": 123
+					},
+					"spriteSourceSize": {
+						"x": 27,
+						"y": 0,
+						"w": 88,
+						"h": 96
+					},
+					"frame": {
+						"x": 446,
+						"y": 135,
+						"w": 88,
+						"h": 96
+					}
+				},
+				{
+					"filename": "right_seat_tm",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 142,
+						"h": 123
+					},
+					"spriteSourceSize": {
+						"x": 27,
+						"y": 0,
+						"w": 88,
+						"h": 96
+					},
+					"frame": {
+						"x": 446,
+						"y": 233,
+						"w": 88,
+						"h": 96
+					}
+				},
+				{
+					"filename": "cactus_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 73,
+						"h": 124
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 72,
+						"h": 122
+					},
+					"frame": {
+						"x": 676,
+						"y": 1,
+						"w": 72,
+						"h": 122
+					}
+				},
+				{
+					"filename": "cactus_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 81,
+						"h": 127
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 2,
+						"w": 79,
+						"h": 125
+					},
+					"frame": {
+						"x": 409,
+						"y": 331,
+						"w": 79,
+						"h": 125
+					}
+				},
+				{
+					"filename": "back_seat_tm",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 126,
+						"h": 111
+					},
+					"spriteSourceSize": {
+						"x": 27,
+						"y": 1,
+						"w": 72,
+						"h": 82
+					},
+					"frame": {
+						"x": 676,
+						"y": 125,
+						"w": 72,
+						"h": 82
+					}
+				},
+				{
+					"filename": "front_seat_tm",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 53,
+						"h": 85
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 53,
+						"h": 85
+					},
+					"frame": {
+						"x": 676,
+						"y": 209,
+						"w": 53,
+						"h": 85
+					}
+				},
+				{
+					"filename": "food/empty_plate",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 75,
+						"h": 59
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 2,
+						"w": 69,
+						"h": 56
+					},
+					"frame": {
+						"x": 676,
+						"y": 296,
+						"w": 69,
+						"h": 56
+					}
+				},
+				{
+					"filename": "Flower05_shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 69,
+						"h": 44
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 69,
+						"h": 44
+					},
+					"frame": {
+						"x": 676,
+						"y": 354,
+						"w": 69,
+						"h": 44
+					}
+				},
+				{
+					"filename": "food/Food_Ponche",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 29,
+						"h": 41
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 28,
+						"h": 40
+					},
+					"frame": {
+						"x": 490,
+						"y": 331,
+						"w": 28,
+						"h": 40
+					}
+				},
+				{
+					"filename": "food/Food_Tequila",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 27,
+						"h": 45
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 24,
+						"h": 44
+					},
+					"frame": {
+						"x": 409,
+						"y": 257,
+						"w": 24,
+						"h": 44
+					}
+				},
+				{
+					"filename": "food/Food_Burrito",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 33,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 2,
+						"w": 31,
+						"h": 26
+					},
+					"frame": {
+						"x": 409,
+						"y": 303,
+						"w": 31,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Taco",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 31,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 30,
+						"h": 36
+					},
+					"frame": {
+						"x": 619,
+						"y": 387,
+						"w": 30,
+						"h": 36
+					}
+				},
+				{
+					"filename": "food/Food_Michelada",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 28,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 1,
+						"w": 23,
+						"h": 37
+					},
+					"frame": {
+						"x": 651,
+						"y": 387,
+						"w": 23,
+						"h": 37
+					}
+				},
+				{
+					"filename": "food/Food_Agua_de_Horchata",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 27,
+						"h": 37
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 26,
+						"h": 37
+					},
+					"frame": {
+						"x": 490,
+						"y": 373,
+						"w": 26,
+						"h": 37
+					}
+				},
+				{
+					"filename": "food/Food_Mexican_Hot_Chocolate",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 35
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 29,
+						"h": 35
+					},
+					"frame": {
+						"x": 490,
+						"y": 412,
+						"w": 29,
+						"h": 35
+					}
+				},
+				{
+					"filename": "food/Food_Quesadilla",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 29
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 30,
+						"h": 28
+					},
+					"frame": {
+						"x": 183,
+						"y": 443,
+						"w": 30,
+						"h": 28
+					}
+				},
+				{
+					"filename": "food/Food_Tortilla",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 30,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 30,
+						"h": 28
+					},
+					"frame": {
+						"x": 215,
+						"y": 443,
+						"w": 30,
+						"h": 28
+					}
+				},
+				{
+					"filename": "food/Food_Guacamole",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 33,
+						"h": 29
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 31,
+						"h": 26
+					},
+					"frame": {
+						"x": 247,
+						"y": 443,
+						"w": 31,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Salsa_Picante",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 27
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 30,
+						"h": 26
+					},
+					"frame": {
+						"x": 280,
+						"y": 443,
+						"w": 30,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Molletes_de_Frijoles",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 39,
+						"h": 19
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 36,
+						"h": 18
+					},
+					"frame": {
+						"x": 676,
+						"y": 400,
+						"w": 36,
+						"h": 18
+					}
+				},
+				{
+					"filename": "food/Food_Nachos",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 22
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 31,
+						"h": 20
+					},
+					"frame": {
+						"x": 714,
+						"y": 400,
+						"w": 31,
+						"h": 20
+					}
+				},
+				{
+					"filename": "food/Food_Margarita",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 26,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 23,
+						"h": 32
+					},
+					"frame": {
+						"x": 619,
+						"y": 425,
+						"w": 23,
+						"h": 32
+					}
+				},
+				{
+					"filename": "food/Food_Virgin_Margarita",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 26,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 1,
+						"w": 23,
+						"h": 31
+					},
+					"frame": {
+						"x": 644,
+						"y": 426,
+						"w": 23,
+						"h": 31
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:367c3dd487ff87c0318dab840420d419:3baeaf5e87446e3319258c161e0076c4:b5fb1a12ca134f30ccfcb577a35e7010$"
+	}
+}

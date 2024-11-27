@@ -1,0 +1,88 @@
+{
+    "version": "1.3.335",
+    "colors": {
+        "purple": "0x8b628a",
+        "brown": "0x8c867a",
+        "green": "#587c27",
+        "green2": "0x8cc63f",
+        "red": "#e6515d",
+        "yellow": "#E5E55C",
+        "yellow2": "0xE5E55C",
+        "pink": "#FF66D2",
+        "gray": "#808080",
+        "white": "#ffffff"
+    },
+    "diceTypes": [2,4,6,8,10,12,20,100],
+    "dices": {
+        "main": [
+            {
+                "startD": 2,
+                "cost": 10,
+                "value": 0,
+                "costIncrease": 1.08,
+                "valueIncrease": 1,
+                "initialLevel": 1,
+                "ascentIncrease": 100000
+            },
+            {
+                "startD": 2,
+                "cost": 100,
+                "value": 0,
+                "costIncrease": 1.08,
+                "valueIncrease": 2,
+                "ascentIncrease": 100000
+            },
+            {
+                "startD": 2,
+                "cost": 1000,
+                "value": 0,
+                "costIncrease": 1.08,
+                "valueIncrease": 4,
+                "ascentIncrease": 100000
+            },
+            {
+                "startD": 2,
+                "cost": 10000,
+                "value": 0,
+                "costIncrease": 1.08,
+                "valueIncrease": 8,
+                "ascentIncrease": 100000
+            },
+            {
+                "startD": 2,
+                "cost": 100000,
+                "value": 0,
+                "costIncrease": 1.08,
+                "valueIncrease": 16,
+                "ascentIncrease": 100000
+            }
+        ],
+        "multi":[
+            {
+                "cost": 10000000,
+                "costIncrease": 10000,
+                "ascentIncrease": 10000000000000000000000000000000000000
+            },
+            {
+                "cost": 200000000,
+                "costIncrease": 20000,
+                "ascentIncrease": 100000000000000000000000000000000000000000
+            },
+            {
+                "cost": 4000000000,
+                "costIncrease": 30000,
+                "ascentIncrease": 1000000000000000000000000000000000000000000000
+            },
+            {
+                "cost": 80000000000,
+                "costIncrease": 40000,
+                "ascentIncrease": 10000000000000000000000000000000000000000000000000
+            },
+            {
+                "cost": 1600000000000,
+                "costIncrease": 50000,
+                "ascentIncrease": 100000000000000000000000000000000000000000000000000000
+            }
+        ]
+    }
+}

@@ -1,0 +1,587 @@
+{
+	"textures": [
+		{
+			"image": "restaurant_indian.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1502,
+				"h": 499
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "flower_im_01",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 88,
+						"h": 436
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 88,
+						"h": 436
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 88,
+						"h": 436
+					}
+				},
+				{
+					"filename": "food/empty_plate",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 71,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 69,
+						"h": 55
+					},
+					"frame": {
+						"x": 1,
+						"y": 439,
+						"w": 69,
+						"h": 55
+					}
+				},
+				{
+					"filename": "Flower05_shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 69,
+						"h": 44
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 69,
+						"h": 44
+					},
+					"frame": {
+						"x": 72,
+						"y": 439,
+						"w": 69,
+						"h": 44
+					}
+				},
+				{
+					"filename": "lamp_im",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 106,
+						"h": 417
+					},
+					"spriteSourceSize": {
+						"x": 12,
+						"y": 19,
+						"w": 86,
+						"h": 389
+					},
+					"frame": {
+						"x": 91,
+						"y": 1,
+						"w": 86,
+						"h": 389
+					}
+				},
+				{
+					"filename": "food/Food_Garlic_Naan",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 29
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 30,
+						"h": 28
+					},
+					"frame": {
+						"x": 91,
+						"y": 392,
+						"w": 30,
+						"h": 28
+					}
+				},
+				{
+					"filename": "food/Food_Lamb_Korma",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 33,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 30,
+						"h": 27
+					},
+					"frame": {
+						"x": 123,
+						"y": 392,
+						"w": 30,
+						"h": 27
+					}
+				},
+				{
+					"filename": "lamp_wall_im",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 56,
+						"h": 98
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 8,
+						"w": 47,
+						"h": 76
+					},
+					"frame": {
+						"x": 143,
+						"y": 421,
+						"w": 47,
+						"h": 76
+					}
+				},
+				{
+					"filename": "food/Food_Beef_Palak",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 27
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 30,
+						"h": 26
+					},
+					"frame": {
+						"x": 155,
+						"y": 392,
+						"w": 30,
+						"h": 26
+					}
+				},
+				{
+					"filename": "pole_im_03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 217,
+						"h": 387
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 12,
+						"w": 217,
+						"h": 375
+					},
+					"frame": {
+						"x": 179,
+						"y": 1,
+						"w": 217,
+						"h": 375
+					}
+				},
+				{
+					"filename": "rope_im_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 490,
+						"h": 172
+					},
+					"spriteSourceSize": {
+						"x": 26,
+						"y": 23,
+						"w": 442,
+						"h": 120
+					},
+					"frame": {
+						"x": 192,
+						"y": 378,
+						"w": 442,
+						"h": 120
+					}
+				},
+				{
+					"filename": "pole_im_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 197,
+						"h": 351
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 17,
+						"w": 185,
+						"h": 334
+					},
+					"frame": {
+						"x": 398,
+						"y": 1,
+						"w": 185,
+						"h": 334
+					}
+				},
+				{
+					"filename": "food/Food_Beef_Rogan_Josh",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 33,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 2,
+						"w": 30,
+						"h": 26
+					},
+					"frame": {
+						"x": 398,
+						"y": 337,
+						"w": 30,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Butter_Chicken",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 31,
+						"h": 27
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 30,
+						"h": 26
+					},
+					"frame": {
+						"x": 430,
+						"y": 337,
+						"w": 30,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Chicken_Tikka_Masala",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 31,
+						"h": 26
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 30,
+						"h": 26
+					},
+					"frame": {
+						"x": 462,
+						"y": 337,
+						"w": 30,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Tandoori_Chicken",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 41,
+						"h": 27
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 2,
+						"w": 40,
+						"h": 25
+					},
+					"frame": {
+						"x": 494,
+						"y": 337,
+						"w": 40,
+						"h": 25
+					}
+				},
+				{
+					"filename": "food/Food_Basmati_Egg_Rice",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 35,
+						"h": 26
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 33,
+						"h": 25
+					},
+					"frame": {
+						"x": 536,
+						"y": 337,
+						"w": 33,
+						"h": 25
+					}
+				},
+				{
+					"filename": "food/Food_Lamb_Madras_Curry",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 26
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 30,
+						"h": 25
+					},
+					"frame": {
+						"x": 571,
+						"y": 337,
+						"w": 30,
+						"h": 25
+					}
+				},
+				{
+					"filename": "pole_im_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 203,
+						"h": 342
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 9,
+						"w": 190,
+						"h": 333
+					},
+					"frame": {
+						"x": 585,
+						"y": 1,
+						"w": 190,
+						"h": 333
+					}
+				},
+				{
+					"filename": "table_im_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 162
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 9,
+						"w": 154,
+						"h": 153
+					},
+					"frame": {
+						"x": 636,
+						"y": 336,
+						"w": 154,
+						"h": 153
+					}
+				},
+				{
+					"filename": "food/Food_Lamb_Vindaloo",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 31,
+						"h": 27
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 2,
+						"w": 30,
+						"h": 25
+					},
+					"frame": {
+						"x": 603,
+						"y": 336,
+						"w": 30,
+						"h": 25
+					}
+				},
+				{
+					"filename": "wall_curatains_im",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 679,
+						"h": 282
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 7,
+						"w": 654,
+						"h": 256
+					},
+					"frame": {
+						"x": 777,
+						"y": 1,
+						"w": 654,
+						"h": 256
+					}
+				},
+				{
+					"filename": "seat_im",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 80,
+						"h": 75
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 10,
+						"w": 72,
+						"h": 65
+					},
+					"frame": {
+						"x": 777,
+						"y": 259,
+						"w": 72,
+						"h": 65
+					}
+				},
+				{
+					"filename": "table_im_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 161,
+						"h": 157
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 8,
+						"w": 157,
+						"h": 149
+					},
+					"frame": {
+						"x": 792,
+						"y": 326,
+						"w": 157,
+						"h": 149
+					}
+				},
+				{
+					"filename": "food/Food_Beef_Rezala",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 31,
+						"h": 23
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 30,
+						"h": 21
+					},
+					"frame": {
+						"x": 792,
+						"y": 477,
+						"w": 30,
+						"h": 21
+					}
+				},
+				{
+					"filename": "food/Food_Zafrani_Pulao_Rice",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 37,
+						"h": 27
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 2,
+						"w": 33,
+						"h": 24
+					},
+					"frame": {
+						"x": 851,
+						"y": 259,
+						"w": 33,
+						"h": 24
+					}
+				},
+				{
+					"filename": "flower_im_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 121,
+						"h": 205
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 9,
+						"w": 106,
+						"h": 189
+					},
+					"frame": {
+						"x": 951,
+						"y": 259,
+						"w": 106,
+						"h": 189
+					}
+				},
+				{
+					"filename": "rope_im_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 464,
+						"h": 152
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 15,
+						"w": 442,
+						"h": 121
+					},
+					"frame": {
+						"x": 1059,
+						"y": 259,
+						"w": 442,
+						"h": 121
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:d63fea8861c39abf50063fbc87b8e802:c647e933bd74dfee559308b6c47d40d5:941049f6ab8c44ec14b1ff4f7cbc3236$"
+	}
+}

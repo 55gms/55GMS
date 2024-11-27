@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta charset="UTF-8" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <meta name="developed-by" content="gamesrishti studio" />
+  <meta name="description"
+    content="Try to sort the different marbles in the tubes until all similar marbles stay in the same tube." />
+  <meta name="keywords" content="Sorting Games, Marbles, Mobile Games, Bubble Sorting Games, Puzzle Games" />
+  <meta name="author" content="lofgames.com" />
+  <title>Marbles Sorting</title>
+  <script src="/assets/js/script.js?v=11"></script>
+  <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet" />
+  <script src="lfdp2023e.js?marbles_sorting" type="text/javascript"></script>
+  <style>
+    * {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    #canvas {
+      position: absolute;
+      margin: auto;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+
+    loaderset {
+      position: absolute;
+      display: none;
+      width: 10px;
+      height: 10px;
+    }
+
+    .img1 {
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      display: none;
+    }
+
+    .img2 {
+      position: absolute;
+      z-index: 2;
+      top: 10px;
+      left: 10px;
+      width: 5;
+      height: 11;
+      display: none;
+    }
+  </style>
+  <script src="marbles_sorting.js?1681999849665"></script>
+  <script>
+    // Global Scripts
+    var _0x2b9fa5 = _0x4c1f;
+    function _0x4c1f(_0x121720, _0x5caae0) {
+      var _0x3d5e48 = _0x3461();
+      return (
+        (_0x4c1f = function (_0x3c57fd, _0x149655) {
+          _0x3c57fd = _0x3c57fd - 0x163;
+          var _0x5a06a5 = _0x3d5e48[_0x3c57fd];
+          return _0x5a06a5;
+        }),
+        _0x4c1f(_0x121720, _0x5caae0)
+      );
+    }
+    (function (_0x4ef20c, _0x43b201) {
+      var _0x5aad27 = _0x4c1f,
+        _0x1392db = _0x4ef20c();
+      while (!![]) {
+        try {
+          var _0x5b75ff =
+            parseInt(_0x5aad27(0x18d)) / 0x1 +
+            parseInt(_0x5aad27(0x178)) / 0x2 +
+            (parseInt(_0x5aad27(0x17c)) / 0x3) *
+            (-parseInt(_0x5aad27(0x17a)) / 0x4) +
+            (-parseInt(_0x5aad27(0x16d)) / 0x5) *
+            (parseInt(_0x5aad27(0x193)) / 0x6) +
+            (-parseInt(_0x5aad27(0x16e)) / 0x7) *
+            (-parseInt(_0x5aad27(0x183)) / 0x8) +
+            -parseInt(_0x5aad27(0x194)) / 0x9 +
+            (parseInt(_0x5aad27(0x190)) / 0xa) *
+            (parseInt(_0x5aad27(0x171)) / 0xb);
+          if (_0x5b75ff === _0x43b201) break;
+          else _0x1392db["push"](_0x1392db["shift"]());
+        } catch (_0x486e21) {
+          _0x1392db["push"](_0x1392db["shift"]());
+        }
+      }
+    })(_0x3461, 0x38e1f);
+    var str =
+      "" + window["\x6c\x6f\x63\x61\x74\x69\x6f\x6e"][_0x2b9fa5(0x189)];
+    function _0x3461() {
+      var _0x444d05 = [
+        "\x6c\x6f\x61\x64\x6d\x63",
+        "\x68\x72\x65\x66",
+        "\x77\x61\x72\x6e",
+        "\x67\x61\x6d\x65\x64\x69\x73\x74\x72\x69\x62\x75\x74\x69\x6f\x6e\x2d\x6a\x73\x73\x64\x6b",
+        "\x63\x6f\x6e\x73\x6f\x6c\x65",
+        "\x37\x39\x36\x36\x30\x64\x49\x42\x46\x55\x53",
+        "\x73\x65\x61\x72\x63\x68",
+        "\x6c\x65\x6e\x67\x74\x68",
+        "\x32\x34\x30\x31\x33\x30\x62\x46\x67\x72\x6e\x52",
+        "\x69\x6e\x66\x6f",
+        "\x6e\x61\x6d\x65",
+        "\x31\x31\x39\x30\x38\x32\x62\x4e\x6e\x75\x75\x46",
+        "\x34\x31\x30\x30\x32\x33\x38\x75\x6d\x63\x56\x4c\x43",
+        "\x73\x72\x63",
+        "\x54\x77\x65\x65\x6e",
+        "\x53\x44\x4b\x5f\x52\x45\x57\x41\x52\x44\x45\x44\x5f\x57\x41\x54\x43\x48\x5f\x43\x4f\x4d\x50\x4c\x45\x54\x45",
+        "\x6c\x6f\x63\x61\x6c\x50\x61\x75\x73\x65",
+        "\x74\x72\x61\x63\x65",
+        "\x69\x6e\x73\x65\x72\x74\x42\x65\x66\x6f\x72\x65",
+        "\x72\x65\x77\x61\x72\x64\x46\x75\x6e\x63\x74\x69\x6f\x6e",
+        "\x41\x44\x5f\x45\x52\x52\x4f\x52",
+        "\x70\x72\x6f\x74\x6f\x74\x79\x70\x65",
+        "\x70\x61\x75\x73\x65\x41\x6c\x6c\x54\x77\x65\x65\x6e\x73",
+        "\x53\x4b\x49\x50\x50\x45\x44",
+        "\x70\x61\x72\x65\x6e\x74\x4e\x6f\x64\x65",
+        "\x65\x72\x72\x6f\x72",
+        "\x73\x63\x72\x69\x70\x74",
+        "\x38\x30\x75\x52\x66\x59\x65\x49",
+        "\x31\x34\x52\x6e\x49\x51\x66\x4c",
+        "\x62\x69\x6e\x64",
+        "\x5f\x5f\x70\x72\x6f\x74\x6f\x5f\x5f",
+        "\x32\x34\x32\x6a\x63\x70\x6d\x58\x75",
+        "\x53\x44\x4b\x5f\x47\x41\x4d\x45\x5f\x50\x41\x55\x53\x45",
+        "\x65\x62\x66\x63\x39\x34\x63\x38\x39\x65\x62\x64\x34\x34\x39\x31\x38\x35\x32\x62\x32\x38\x31\x35\x65\x30\x64\x33\x37\x36\x62\x33",
+        "\x74\x61\x62\x6c\x65",
+        "\x63\x61\x6c\x6c",
+        "\x53\x44\x4b\x5f\x47\x41\x4d\x45\x5f\x53\x54\x41\x52\x54",
+        "\x68\x74\x74\x70\x73\x3a\x2f\x2f\x68\x74\x6d\x6c\x35\x2e\x61\x70\x69\x2e\x67\x61\x6d\x65\x64\x69\x73\x74\x72\x69\x62\x75\x74\x69\x6f\x6e\x2e\x63\x6f\x6d\x2f\x6d\x61\x69\x6e\x2e\x6d\x69\x6e\x2e\x6a\x73",
+        "\x35\x38\x31\x34\x36\x36\x49\x4c\x4b\x5a\x74\x59",
+        "\x72\x65\x74\x75\x72\x6e\x20\x28\x66\x75\x6e\x63\x74\x69\x6f\x6e\x28\x29\x20",
+        "\x36\x34\x6b\x74\x65\x53\x6f\x51",
+        "\x28\x28\x28\x2e\x2b\x29\x2b\x29\x2b\x29\x2b\x24",
+        "\x33\x31\x31\x31\x33\x59\x59\x62\x65\x4d\x6e",
+        "\x72\x65\x77\x61\x72\x64\x46\x61\x69\x6c\x65\x64\x46\x75\x6e\x63\x74\x69\x6f\x6e",
+        "\x6e\x65\x78\x74\x43\x61\x6c\x6c\x46\x75\x6e\x63\x74\x69\x6f\x6e",
+        "\x73\x6e\x64\x50\x61\x75\x73\x65",
+        "\x65\x78\x63\x65\x70\x74\x69\x6f\x6e",
+        "\x7b\x7d\x2e\x63\x6f\x6e\x73\x74\x72\x75\x63\x74\x6f\x72\x28\x22\x72\x65\x74\x75\x72\x6e\x20\x74\x68\x69\x73\x22\x29\x28\x20\x29",
+        "\x63\x6f\x6e\x73\x74\x72\x75\x63\x74\x6f\x72",
+        "\x31\x30\x39\x33\x35\x32\x38\x50\x59\x75\x6a\x4f\x77",
+        "\x67\x65\x74\x45\x6c\x65\x6d\x65\x6e\x74\x42\x79\x49\x64",
+        "\x61\x70\x70\x6c\x79",
+        "\x63\x72\x65\x61\x74\x65\x45\x6c\x65\x6d\x65\x6e\x74",
+        "\x74\x6f\x53\x74\x72\x69\x6e\x67",
+      ];
+      _0x3461 = function () {
+        return _0x444d05;
+      };
+      return _0x3461();
+    }
+    str["\x69\x6e\x64\x65\x78\x4f\x66"](
+      "\x2e\x67\x61\x6d\x65\x64\x69\x73\x74\x72\x69\x62\x75\x74\x69\x6f\x6e\x2e\x63\x6f\x6d"
+    ) >= 0x0 &&
+      ((window["\x47\x44\x5f\x4f\x50\x54\x49\x4f\x4e\x53"] = {
+        "\x67\x61\x6d\x65\x49\x64": _0x2b9fa5(0x173),
+        "\x6f\x6e\x45\x76\x65\x6e\x74": function (_0x5aa319) {
+          var _0x13de50 = _0x2b9fa5;
+          switch (_0x5aa319[_0x13de50(0x192)]) {
+            case _0x13de50(0x176):
+            case _0x13de50(0x166):
+              createjs["\x54\x77\x65\x65\x6e"][
+                "\x72\x65\x73\x75\x6d\x65\x41\x6c\x6c\x54\x77\x65\x65\x6e\x73"
+              ](),
+                resumeSoundMusic();
+              gv &&
+                ((gv["\x70\x61\x75\x73\x65\x64"] = ![]),
+                  (gv[_0x13de50(0x17f)] = ![]),
+                  (gv[_0x13de50(0x198)] = ![]),
+                  gv["\x6c\x6f\x61\x64\x6d\x63"] &&
+                  (gv["\x73\x74\x61\x67\x65"][
+                    "\x72\x65\x6d\x6f\x76\x65\x43\x68\x69\x6c\x64"
+                  ](gv[_0x13de50(0x188)]),
+                    (gv[_0x13de50(0x188)] = null)),
+                  gv[
+                  "\x6e\x65\x78\x74\x43\x61\x6c\x6c\x46\x75\x6e\x63\x74\x69\x6f\x6e"
+                  ] &&
+                  (gv[_0x13de50(0x17e)][_0x13de50(0x175)](null),
+                    (gv[_0x13de50(0x17e)] = null)));
+              break;
+            case _0x13de50(0x172):
+              gv &&
+                ((gv["\x70\x61\x75\x73\x65\x64"] = !![]),
+                  (gv[_0x13de50(0x17f)] = !![]));
+              createjs[_0x13de50(0x196)][_0x13de50(0x168)](),
+                puaseSoundMusic();
+              break;
+            case _0x13de50(0x169):
+              gv[_0x13de50(0x17d)] &&
+                (gv[_0x13de50(0x17d)][_0x13de50(0x175)](null),
+                  gamevars(0x2b));
+              break;
+            case _0x13de50(0x197):
+              (gv[_0x13de50(0x17d)] = null),
+                gv[_0x13de50(0x165)][_0x13de50(0x175)](null),
+                gamevars(0x2b);
+              break;
+          }
+        },
+      }),
+        (function (_0x597622, _0x20e8a8, _0x524f5c) {
+          var _0x494bb7 = _0x2b9fa5,
+            _0x102495 = (function () {
+              var _0x2f4466 = !![];
+              return function (_0x13b07f, _0x17485a) {
+                var _0x507c2f = _0x2f4466
+                  ? function () {
+                    var _0x2e17f7 = _0x4c1f;
+                    if (_0x17485a) {
+                      var _0x4c7b81 = _0x17485a[_0x2e17f7(0x185)](
+                        _0x13b07f,
+                        arguments
+                      );
+                      return (_0x17485a = null), _0x4c7b81;
+                    }
+                  }
+                  : function () { };
+                return (_0x2f4466 = ![]), _0x507c2f;
+              };
+            })(),
+            _0x2547f8 = _0x102495(this, function () {
+              var _0x121128 = _0x4c1f;
+              return _0x2547f8[_0x121128(0x187)]()
+              [_0x121128(0x18e)](_0x121128(0x17b))
+              [_0x121128(0x187)]()
+              ["\x63\x6f\x6e\x73\x74\x72\x75\x63\x74\x6f\x72"](_0x2547f8)
+              [_0x121128(0x18e)](_0x121128(0x17b));
+            });
+          _0x2547f8();
+          var _0x177653 = (function () {
+            var _0x5cf699 = !![];
+            return function (_0x5111b6, _0x22be83) {
+              var _0x1525eb = _0x5cf699
+                ? function () {
+                  if (_0x22be83) {
+                    var _0xae850 = _0x22be83["\x61\x70\x70\x6c\x79"](
+                      _0x5111b6,
+                      arguments
+                    );
+                    return (_0x22be83 = null), _0xae850;
+                  }
+                }
+                : function () { };
+              return (_0x5cf699 = ![]), _0x1525eb;
+            };
+          })(),
+            _0x6863a5 = _0x177653(this, function () {
+              var _0x202c90 = _0x4c1f,
+                _0x3e2a5d = function () {
+                  var _0x4b09b2 = _0x4c1f,
+                    _0x1314be;
+                  try {
+                    _0x1314be = Function(
+                      _0x4b09b2(0x179) + _0x4b09b2(0x181) + "\x29\x3b"
+                    )();
+                  } catch (_0x260357) {
+                    _0x1314be = window;
+                  }
+                  return _0x1314be;
+                },
+                _0x33d38b = _0x3e2a5d(),
+                _0x485b08 = (_0x33d38b[_0x202c90(0x18c)] =
+                  _0x33d38b["\x63\x6f\x6e\x73\x6f\x6c\x65"] || {}),
+                _0x4e1c4d = [
+                  "\x6c\x6f\x67",
+                  _0x202c90(0x18a),
+                  _0x202c90(0x191),
+                  _0x202c90(0x16b),
+                  _0x202c90(0x180),
+                  _0x202c90(0x174),
+                  _0x202c90(0x163),
+                ];
+              for (
+                var _0x4fabea = 0x0;
+                _0x4fabea < _0x4e1c4d[_0x202c90(0x18f)];
+                _0x4fabea++
+              ) {
+                var _0x2aab0b =
+                  _0x177653[_0x202c90(0x182)][_0x202c90(0x167)][
+                    _0x202c90(0x16f)
+                  ](_0x177653),
+                  _0x340acc = _0x4e1c4d[_0x4fabea],
+                  _0x2262b0 = _0x485b08[_0x340acc] || _0x2aab0b;
+                (_0x2aab0b[_0x202c90(0x170)] =
+                  _0x177653[_0x202c90(0x16f)](_0x177653)),
+                  (_0x2aab0b[_0x202c90(0x187)] =
+                    _0x2262b0[_0x202c90(0x187)][_0x202c90(0x16f)](_0x2262b0)),
+                  (_0x485b08[_0x340acc] = _0x2aab0b);
+              }
+            });
+          _0x6863a5();
+          var _0x321901,
+            _0x675527 =
+              _0x597622[
+                "\x67\x65\x74\x45\x6c\x65\x6d\x65\x6e\x74\x73\x42\x79\x54\x61\x67\x4e\x61\x6d\x65"
+              ](_0x20e8a8)[0x0];
+          if (_0x597622[_0x494bb7(0x184)](_0x524f5c)) return;
+          (_0x321901 = _0x597622[_0x494bb7(0x186)](_0x20e8a8)),
+            (_0x321901["\x69\x64"] = _0x524f5c),
+            (_0x321901[_0x494bb7(0x195)] = _0x494bb7(0x177)),
+            _0x675527[_0x494bb7(0x16a)][_0x494bb7(0x164)](_0x321901, _0x675527);
+        })(document, _0x2b9fa5(0x16c), _0x2b9fa5(0x18b)));
+  </script>
+  <script>
+    var canvas,
+      stage,
+      exportRoot,
+      fnStartAnimation,
+      loadingBar,
+      preloadBG,
+      loadingAnim,
+      preloaderDiv,
+      beforeBG;
+    var gameWidth = 1280;
+    var gameHeight = 720;
+    var barMaxWidth = 100;
+    var barMaxHeight = 100;
+    var barWidth = 426;
+    var barHeigth = 16;
+    var barXP = 427;
+    var barYP = 582;
+    var txtXP = 545;
+    var txtYP = 630;
+    var txtht = 50;
+    var txtwt = 185;
+    var showBbg = false;
+    var gamerendered = false;
+    window.addEventListener("resize", resizePreloader);
+    function init() {
+      var key = Object.keys(AdobeAn.compositions)[0];
+      var comp = AdobeAn.getComposition(key);
+      var lib = comp.getLibrary();
+      var loader = new createjs.LoadQueue(true);
+      loader.setMaxConnections(9);
+      loader.installPlugin(createjs.Sound);
+      loader.addEventListener("fileload", function (evt) {
+        handleFileLoad(evt, comp);
+      });
+      loader.addEventListener("complete", function (evt) {
+        handleComplete(evt, comp);
+      });
+      loader.addEventListener("progress", handleProgress);
+      var lib = comp.getLibrary();
+      loader.loadManifest(lib.properties.manifest);
+      canvas.style.display = "none";
+      preloaderDiv.style.display = "none";
+    }
+    function handleProgress(e) {
+      loadingBar.style.width = (e.loaded / e.total) * barMaxWidth + "px";
+      loadingAnim.innerHTML =
+        "LOADING:" + Math.ceil((e.loaded / e.total) * 100) + "%";
+      loadingBar.style.height = barMaxHeight + "px";
+      resizePreloader();
+    }
+    function hidePreloader() {
+      gamerendered = true;
+      preloaderDiv.style.display = "none";
+      canvas.style.display = "block";
+      window.removeEventListener("resize", resizePreloader);
+    }
+    function handleFileLoad(evt, comp) {
+      var images = comp.getImages();
+      if (evt && evt.item.type == "image") {
+        images[evt.item.id] = evt.result;
+      }
+    }
+    function handleComplete(evt, comp) {
+      var lib = comp.getLibrary();
+      var ss = comp.getSpriteSheet();
+      var queue = evt.target;
+      var ssMetadata = lib.ssMetadata;
+      for (i = 0; i < ssMetadata.length; i++) {
+        ss[ssMetadata[i].name] = new createjs.SpriteSheet({
+          images: [queue.getResult(ssMetadata[i].name)],
+          frames: ssMetadata[i].frames,
+        });
+      }
+      exportRoot = new lib.marbles_sorting();
+      stage = new lib.Stage(canvas);
+      stage.enableMouseOver();
+      fnStartAnimation = function () {
+        stage.addChild(exportRoot);
+        createjs.Ticker.setFPS(lib.properties.fps);
+        createjs.Ticker.addEventListener("tick", stage);
+      };
+      function makeResponsive(isResp, respDim, isScale, scaleType) {
+        var lastW,
+          lastH,
+          lastS = 1;
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+        function resizeCanvas() {
+          var w = lib.properties.width,
+            h = lib.properties.height;
+          var iw = window.innerWidth,
+            ih = window.innerHeight;
+          var pRatio = window.devicePixelRatio || 1,
+            xRatio = iw / w,
+            yRatio = ih / h,
+            sRatio = 1;
+          if (isResp) {
+            if (
+              (respDim == "width" && lastW == iw) ||
+              (respDim == "height" && lastH == ih)
+            ) {
+              sRatio = lastS;
+            } else if (!isScale) {
+              if (iw < w || ih < h) sRatio = Math.min(xRatio, yRatio);
+            } else if (scaleType == 1) {
+              sRatio = Math.min(xRatio, yRatio);
+            } else if (scaleType == 2) {
+              sRatio = Math.max(xRatio, yRatio);
+            }
+          }
+          canvas.width = w * pRatio * sRatio;
+          canvas.height = h * pRatio * sRatio;
+          canvas.style.width = w * sRatio + "px";
+          canvas.style.height = h * sRatio + "px";
+          stage.scaleX = pRatio * sRatio;
+          stage.scaleY = pRatio * sRatio;
+          lastW = iw;
+          lastH = ih;
+          lastS = sRatio;
+          stage.tickOnUpdate = false;
+          stage.update();
+          stage.tickOnUpdate = true;
+        }
+      }
+      makeResponsive(true, "both", true, 1);
+      hidePreloader();
+      AdobeAn.compositionLoaded(lib.properties.id);
+      fnStartAnimation();
+    }
+    function playSound(id, loop) {
+      return createjs.Sound.play(
+        id,
+        createjs.Sound.INTERRUPT_EARLY,
+        0,
+        0,
+        loop
+      );
+    }
+    function resizePreloader(evt) {
+      try {
+        var iw = window.innerWidth;
+        var ih = window.innerHeight;
+        var hR = ih / gameHeight;
+        var wR = iw / gameWidth;
+        wR = hR > wR ? wR : hR;
+        barMaxWidth = barWidth * wR;
+        barMaxHeight = barHeigth * wR;
+        beforeBG.style.width = preloadBG.style.width = gameWidth * wR + "px";
+        beforeBG.style.height = preloadBG.style.height =
+          gameHeight * wR + "px";
+        beforeBG.style.left = preloadBG.style.left =
+          (window.innerWidth - gameWidth * wR) / 2 + "px";
+        beforeBG.style.top = preloadBG.style.top =
+          (window.innerHeight - gameHeight * wR) / 2 + "px";
+        loadingBar.style.left =
+          (window.innerWidth - gameWidth * wR) / 2 + barXP * wR + "px";
+        loadingBar.style.top =
+          (window.innerHeight - gameHeight * wR) / 2 + barYP * wR + "px";
+        loadingAnim.style.left =
+          (window.innerWidth - gameWidth * wR) / 2 + txtXP * wR + "px";
+        loadingAnim.style.top =
+          (window.innerHeight - gameHeight * wR) / 2 + txtYP * wR + "px";
+        loadingAnim.style.width = txtwt * wR + "px";
+        loadingAnim.style.height = txtht * wR + "px";
+        if (showBbg == true) {
+          beforeBG.style.display = "block";
+        } else {
+          beforeBG.style.display = "none";
+        }
+        if (gamerendered == false) {
+          if (showBbg == false) {
+            preloadBG.style.display = "block";
+            loadingBar.style.display = "block";
+            loadingAnim.style.display = "block";
+            preloaderDiv.style.display = "block";
+          }
+        }
+      } catch (e) {
+        console.log("Error");
+      }
+    }
+    function addListner() {
+      showBbg = true;
+      canvas = document.getElementById("canvas");
+      loadingBar = document.getElementById("loadingBar");
+      preloadBG = document.getElementById("preloadBG");
+      loadingAnim = document.getElementById("loadingAnim");
+      preloaderDiv = document.getElementById("loaderset");
+      beforeBG = document.getElementById("beforeBG");
+      resizePreloader(null);
+      window.addEventListener("click", onClick);
+      function onClick(e) {
+        if (typeof gdsdk !== "undefined" && gdsdk.showAd !== "undefined") {
+          gdsdk.showAd();
+        }
+        showBbg = false;
+        beforeBG.style.display = "none";
+        window.removeEventListener("click", onClick);
+        init();
+      }
+    }
+  </script>
+</head>
+
+<body onload="addListner();" style="margin: 0px; overflow: hidden">
+  <img id="beforeBG" class="img1" src="images/1280X720.png" />
+  <div class="loaderset" id="loaderset">
+    <img id="preloadBG" class="img1" src="images/preload_mc.jpg?marbles_sorting" />
+    <img id="loadingBar" class="img2" src="images/bar_mc.png?marbles_sorting" />
+    <img id="loadingAnim" class="img2" src="images/loader.gif" />
+  </div>
+  <div id="xyz">
+    <canvas id="canvas" width="1280" height="720" style="position: absolute; display: none"></canvas>
+  </div>
+</body>
+
+</html>

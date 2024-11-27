@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="”viewport”" content="”width"="device-width," initial-scale="1," maximum-scale="1" />
+  <title>Happy Wheels</title>
+  <script src="/assets/js/script.js?v=11"></script>
+  <link rel="shortcut icon" href="favicon.ico" />
+  <style>
+    #logo {
+      position: absolute;
+      display: block;
+      top: 50%;
+      left: 50%;
+      width: 80%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      text-align: center;
+      overflow: hidden;
+    }
+  </style>
+  <link rel="stylesheet" href="TemplateData/style.css" />
+  <script src="Build/UnityLoader.js"></script>
+  <script type="text/javascript">
+    function UnityProgress(gameInstance, progress) {
+      var ua = window.navigator.userAgent;
+      var iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
+      var webkit = !!ua.match(/WebKit/i);
+      var iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
+
+      if (!gameInstance.Module) {
+        return;
+      } else if (progress === "complete") {
+        document.getElementById("logo").style.display = "none";
+        // document.getElementById("FullscreenImg").style.display = "none";
+        //document.getElementById("sitelogo").style.display = "block";
+        return;
+      } else if (progress == 1) {
+        document.getElementById("loadinginfo").innerHTML = "PROCESSING...";
+        document.getElementById("logo").style.display = "none";
+        //CANVAS TOUCH
+        var canvas = document.getElementsByTagName("canvas")[0];
+        const ctx = canvas.getContext("2d");
+        var finalX = 0;
+        var finalY = 0;
+        canvas.addEventListener("click", (e) => { });
+        var mousePos = { x: 0, y: 0 };
+        canvas.addEventListener(
+          "mousedown",
+          function (e) {
+            mousePos = { x: 0, y: 0 };
+          },
+          false
+        );
+        canvas.addEventListener(
+          "mouseup",
+          function (e) {
+            openLink();
+          },
+          false
+        );
+
+        // Set up touch events for mobile, etc
+        canvas.addEventListener(
+          "touchstart",
+          function (e) {
+            //mousePos = getTouchPos(canvas, e);
+            var touch = e.touches[0];
+            var mouseEvent = new MouseEvent("mousedown", {
+              clientX: touch.clientX,
+              clientY: touch.clientY,
+            });
+            canvas.dispatchEvent(mouseEvent);
+          },
+          false
+        );
+
+        canvas.addEventListener(
+          "touchend",
+          function (e) {
+            e.preventDefault();
+            var touch = e.changedTouches[0];
+
+            //mousePos = getTouchPos(canvas, e);
+
+            var mouseEvent = new MouseEvent("mouseup", {
+              clientX: touch.clientX,
+              clientY: touch.clientY,
+            });
+            canvas.dispatchEvent(mouseEvent);
+          },
+          false
+        );
+      } else if (progress > 0) {
+        document.getElementById("loadinginfo").innerHTML =
+          "Loading: " + Math.round(progress * 100) + "%";
+        //document.getElementById("sitelogo").style.display = "none";
+      }
+
+      gameInstance.container.onmouseup = function () {
+        if (!iOSSafari) openLink();
+      };
+    }
+    function getMousePos(canvasDom, mouseEvent) {
+      var rect = canvasDom.getBoundingClientRect();
+      return {
+        x: mouseEvent.clientX - rect.left,
+        y: mouseEvent.clientY - rect.top,
+      };
+    }
+    function getTouchPos(canvasDom, touchEvent) {
+      var rect = canvasDom.getBoundingClientRect();
+
+      return {
+        x: touchEvent.touches[0].clientX - rect.left,
+        y: touchEvent.touches[0].clientY - rect.top,
+      };
+    }
+    function openLink() {
+      if (btnIdLogo > 0 && isLogoClicked == true) {
+        switch (btnIdLogo) {
+          case 1:
+            CreateLinksInGame("Happy Wheels", "game", "logo");
+            break;
+          case 2:
+            CreateLinksInGame("Happy Wheels", "game", "logo");
+            break;
+          case 3:
+            CreateLinksInGame("Happy Wheels", "game", "logo");
+            break;
+          case 4:
+            CreateLinksInGame("Happy Wheels", "game", "logo");
+            break;
+        }
+        btnIdLogo = -1;
+        isLogoClicked = false;
+      } else if (btnIdMore > 0 && isMoreClicked == true) {
+        switch (btnIdMore) {
+          case 1:
+            CreateLinksInGame("Happy Wheels", "game", "moregames");
+            break;
+          case 2:
+            CreateLinksInGame("Happy Wheels", "game", "moregames");
+            break;
+          case 3:
+            CreateLinksInGame("Happy Wheels", "game", "moregames");
+            break;
+          case 4:
+            CreateLinksInGame("Happy Wheels", "game", "moregames");
+            break;
+        }
+        btnIdMore = -1;
+        isMoreClicked = false;
+      }
+    }
+    var gameInstance = UnityLoader.instantiate(
+      "gameContainer",
+      "Build/MBuild.json",
+      { onProgress: UnityProgress }
+    );
+
+    var btnIdLogo = -1;
+    var isLogoClicked = false;
+    var btnIdMore = -1;
+    var isMoreClicked = false;
+
+    function FitScreen() {
+      var w = 750;
+      var h = 440;
+      var availWidth = window.innerWidth;
+      var availHeight = window.innerHeight;
+
+      if (availWidth / availHeight > w / h) {
+        height = availHeight;
+        width = (height * w) / h;
+      } else {
+        width = availWidth;
+        height = (width * h) / w;
+      }
+      document.getElementById("logo").style.width = width * 0.8 + "px";
+      document.getElementById("loadinginfo").style.fontSize =
+        width * 0.04 + "px";
+    }
+  </script>
+  <!-- <script src="https://www.bestgames.com/forgame/functions.js?0123"></script>
+<script src="https://www.bestgames.com/ShowGames.js"></script> -->
+</head>
+
+<body onFocus="FitScreen();" onLoad="FitScreen();" onResize="FitScreen();">
+  <div class="webgl-content">
+    <div id="gameContainer" style="width: 750px; height: 440px"></div>
+    <div id="logo">
+      <img src="img.jpg" width="100%" height="100%" />
+      <div id="loadinginfo" style="
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            width: 50%;
+            transform: translate(-50%, 0%);
+            color: #a59d96;
+            font-size: 14px;
+          ">
+        Loading...
+      </div>
+    </div>
+  </div>
+  <script src="TemplateData/responsive.javascript"></script>
+</body>
+
+</html>

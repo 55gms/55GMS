@@ -1,0 +1,520 @@
+{
+  "logs":[
+    {
+      "version": "1.3.328",
+      "log": [
+        "added: tutorial"
+      ]
+    },
+    {
+      "version": "1.3.320",
+      "log": [
+        "changed: decreased size of saves",
+        "fixed: improved performance and stability"
+      ]
+    },
+    {
+      "version": "1.3.307",
+      "log": [
+        "fixed: not getting skillpoints from ads when resetting skills"
+      ]
+    },
+    {
+      "version": "1.3.306",
+      "log": [
+        "added: import file"
+      ]
+    },
+    {
+      "version": "1.3.297",
+      "log": [
+        "added: backup save",
+        "changed: tooltip size depends on screen size"
+      ]
+    },
+    {
+      "version": "1.3.223",
+      "log": [
+        "fixed: no more cards could be drawn in some cases"
+      ]
+    },
+    {
+      "version": "1.3.94",
+      "log": [
+        "changed: disabled p6firebaseortrait for now",
+        "changed: loading ad before it is requested",
+        "changed: removed donate and playstore reward",
+        "changed: moved tooltips on mobile to make them more visible",
+        "changed: hid statusbar"
+      ]
+    },
+    {
+      "version": "1.3.92",
+      "log": [
+        "fixed: some button issues on mobile"
+      ]
+    },
+    {
+      "version": "1.3.88",
+      "log": [
+        "added: portrait mode on mobile"
+      ]
+    },
+    {
+      "version": "1.3.86",
+      "log": [
+        "added: playstore link",
+        "changed: removed shortcut info on mobile",
+        "fixed: NaN displayed for numbers < e-308",
+        "fixed: duel background not loading"
+      ]
+    },
+    {
+      "version": "1.3.78",
+      "log": [
+        "fixed: some crashes at loading"
+      ]
+    },
+    {
+      "version": "1.3.47",
+      "log": [
+        "fixed: importing of data not working properly"
+      ]
+    },
+    {
+      "version": "1.3.46",
+      "log": [
+        "fixed: preventing random save loss better"
+      ]
+    },
+    {
+      "version": "1.3.45",
+      "log": [
+        "added: buy max cups and open max cups"
+      ]
+    },
+    {
+      "version": "1.3.44",
+      "log": [
+        "fixed: automatically unlocking everything that got already unlocked in case something went wrong with the save"
+      ]
+    },
+    {
+      "version": "1.3.43",
+      "log": [
+        "added: new enemy button for duels",
+        "fixed: improved performance"
+      ]
+    },
+    {
+      "version": "1.3.42",
+      "log": [
+        "added: highscore submit at start of game"
+      ]
+    },
+    {
+      "version": "1.3.40",
+      "log": [
+        "changed: lowered the kred price for BP (retroactive, you get the additional bps if you already bought some)"
+      ]
+    },
+    {
+      "version": "1.3.39",
+      "log": [
+        "changed: removed block for importing saves that started outside of kongregate"
+      ]
+    },
+    {
+      "version": "1.3.38",
+      "log": [
+        "fixed: duel enemy changing after refreshing",
+        "fixed: slot spin block after export not working",
+        "changed: disabled slot spin block if the layout is filled with the same item"
+      ]
+    },
+    {
+      "version": "1.3.37",
+      "log": [
+        "added: confirmation before saving to cloud",
+        "added: a roll gets triggered when rerollchance is maxed"
+      ]
+    },
+    {
+      "version": "1.3.36",
+      "log": [
+        "added: setting for short magnitudes",
+        "added: added scroll down button in casino window",
+        "fixed: exploit to get unlimited daily reward"
+      ]
+    },
+    {
+      "version": "1.3.35",
+      "log": [
+        "fixed: grand duel master achievement incorrect level needed",
+        "changed: description of Duel Grand champion achievement"
+      ]
+    },
+    {
+      "version": "1.3.34",
+      "log": [
+        "fixed: autoluck setting not unlocking"
+      ]
+    },
+    {
+      "version": "1.3.33",
+      "log": [
+          "added: new achievements",
+          "added: auto spend luck",
+          "added: suffixes for high orders of magnitudes (1e1000 -> 1e1k)",
+          "changed: won online duels give cuppoints based on elo instead of duel level (elo/200)³"
+      ]
+    },
+    {
+      "version": "1.3.32",
+      "log": [
+          "added: highscore for duel level and power",
+          "changed: decreased kred prices for dice cups"
+      ]
+    },
+    {
+      "version": "1.3.31",
+      "log": [
+          "fixed: crashing after a few hours"
+      ]
+    },
+    {
+      "version": "1.3.30",
+      "log": [
+          "changed: decreased prices of presige and convert in the bonus shop",
+          "changed: made all fast forward on the roulete at max level 1 hour"
+      ]
+    },
+    {
+      "version": "1.3.29",
+      "log": [
+          "added: number of casinos in statistics",
+          "added: info about rarities",
+          "fixed: chances of duel dice"
+      ]
+    },
+    {
+      "version": "1.3.25",
+      "log": [
+          "fixed: fixed tooltips being displayed in normal screen"
+      ]
+    },
+    {
+      "version": "1.3.25",
+      "log": [
+          "fixed: fixed tooltips being displayed in normal screen"
+      ]
+    },
+    {
+      "version": "1.3.12",
+      "log": [
+          "added: tooltips for dice in the duel screen",
+          "fixed: skills point reset locked when changing sp multi",
+          "fixed: cup point multi not working"
+      ]
+    },
+    {
+      "version": "1.3.11",
+      "log": [
+          "changed: enemy power calculation changed to linear",
+          "fixed: displayed power wrong"
+      ]
+    },
+    {
+      "version": "1.3.10",
+      "log": [
+          "fixed: every dice had the same probability"
+      ]
+    },
+    {
+      "version": "1.3.6",
+      "log": [
+          "added: slot machine fill",
+          "added: new achievements",
+          "added: card counter on main screen",
+          "fixed: time not saving",
+          "changed: cost of drawing diamond cards increases by 10 instead of doubling after each draw"
+      ]
+    },
+    {
+      "version": "1.3.5",
+      "log": [
+          "added: roll history now shows multiplier from multiplier dices",
+          "added: new achievement",
+          "fixed: 'i dont need these' achievement needing 52 cards instead of 39",
+          "changed: cost of drawing diamond cards now doubles after each draw"
+      ]
+    },
+    {
+      "version": "1.3.4",
+      "log": [
+          "added: more achievements",
+          "fixed: auto convert sometimes not converting"
+      ]
+    },
+    {
+      "version": "1.3",
+      "log": [
+          "added: dice duels",
+          "and some small stuff"
+      ]
+    },
+    {
+      "version": "1.2.63",
+      "log": [
+          "fixed: slot machine last coloumn endlessly spinning",
+          "changed: added popup confirmation to BP spin"
+      ]
+    },
+    {
+      "version": "1.2.62",
+      "log": [
+          "fixed: slot machine breaking when buying a coloumn while it is spinning",
+          "fixed: sometimes links not working"
+      ]
+    },
+    {
+      "version": "1.2.13",
+      "log": [
+          "fixed: roulette chance for upgrade not correct",
+          "fixed: card cost not resetting when buying a casino",
+          "fixed: scientifical notation is actually engineering notation",
+          "fixed: some dice not reseting on autoconvert",
+          "added: additional checks if a cloud save was successful"
+      ]
+    },
+    {
+      "version": "1.2.10",
+      "log": [
+          "fixed: changelog text overlapping",
+          "added: clicking on background rolls the dice",
+          "changed: made golden cards more visible"
+      ]
+    },
+    {
+      "version": "1.2.8",
+      "log": [
+          "fixed: added check if something got already unlocked (if something locked again that you already unlocked, reach the requirement for it and refresh the game)",
+          "changed: cap for BP earned for a casino = 33",
+          "changed: made green textcolor darker"
+      ]
+    },
+    {
+      "version": "1.2.7",
+      "log": [
+          "changed: roulette level multi max level infinite > 30"
+      ]
+    },
+    {
+      "version": "1.2.6",
+      "log": [
+          "fixed: diamond cards resetting after convert"
+      ]
+    },
+    {
+      "version": "1.2.4",
+      "log": [
+          "changed: roulette level skill cost increase 1 > 2",
+          "changed: slot spins per casino 1 > 0.1(rounded up)"
+      ]
+    },
+    {
+      "version": "1.2.3",
+      "log": [
+          "fixed: casino skills resetting on prestige"
+      ]
+    },
+    {
+      "version": "1.2.2",
+      "log": [
+          "added: roulette prestige, slot machine and diamond cards",
+          "fixed: roll interval and cardprogression not resetting on prestige",
+          "fixed: offline gain too high"
+      ]
+    },
+    {
+      "version": "1.1.33",
+      "log": [
+          "fixed: exploit to use exporting/importing to change the roulette result"
+      ]
+    },
+    {
+      "version": "1.1.23",
+      "log": [
+          "added: Auto roulette focus",
+          "fixed: loading after gilding a card doesnt reset that card"
+      ]
+    },
+    {
+      "version": "1.1.2",
+      "log": [
+          "fixed: selecting buy 10 or 100 not buying the correct amount"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "log": [
+          "added: buyamount buttons fur luck and skill upgrades",
+          "added: focus on card setting",
+          "added: more achievements",
+          "added: auto convert",
+          "added: seperate mutable sound and music and volume setting",
+          "added: casino button in top bar",
+          "changed: autoroll unlocks after upgrading the dice",
+          "fixed: achievements texts",
+          "fixed: overlapping respins in roulette",
+          "fixed: roulette only spinable once in some browsers"
+      ]
+    },
+    {
+      "version": "1.0.78",
+      "log": [
+          "added: auto draw/gild setting in autodraw tab",
+          "added: rewarding bonus points for casions"
+      ]
+    },
+    {
+      "version": "1.0.76",
+      "log": [
+          "added: new achievements",
+          "added: Bonus shop, bonus points and daily rewards",
+          "changed: focus cost increase 2 > 4",
+          "changed: level+ cost increase 3 > 5",
+          "fixed: auto spin switch in roulette not working",
+          "fixed: watch ad button visible when not ad is available",
+          "fixed: autospin only working when tab is active"
+      ]
+    },
+    {
+      "version": "1.0.75",
+      "log": [
+          "added: P shortcut for prestige",
+          "added: Tooltip for all buttons that have a shortcut",
+          "added: autospin setting in roulette",
+          "changed: luck multi per casino 2 > 1.2",
+          "fixed: roulette counter visible when it is locked"
+      ]
+    },
+    {
+      "version": "1.0.74",
+      "log": [
+          "fixed: focus charge not reseting on prestige. for real now",
+          "fixed: getting too many skill points at the 10th casino"
+        ]
+    },
+    {
+      "version": "1.0.73",
+      "log": [
+          "fixed: luck multi per golden card not working with autogild"
+        ]
+    },
+    {
+      "version": "1.0.71",
+      "log": [
+        "changed: focus chance cost increase 5 > 25",
+        "fixed: focus charge not reseting on prestige",
+        "fixed: switching focus to card on prestige when having 52 golden cards"
+        ]
+    },
+    {
+      "version": "1.0.70",
+      "log": [
+        "added: new achievements",
+        "added: switching focus to card after prestige and to none when you have all cards"
+        ]
+    },
+    {
+      "version": "1.0.69",
+      "log": [
+        "added: number of spins possible shown on roulette icon",
+        "added: auto gild",
+        "added: roulette focus",
+        "added: roulette focus chance luck upgrade",
+        "added: new achievements",
+        "added: showing MAX when an upgrade reached its max level",
+        "fixed: exploit to hold down invest button"
+        ]
+    },
+    {
+      "version": "1.0.68",
+      "log": [
+        "fixed: chip multi per card not working for golden cards"
+        ]
+    },
+    {
+      "version": "1.0.67",
+      "log": [
+        "added: press B to buy all",
+        "added: press S to spin",
+        "changed: roulette level multi cost increase 0 -> 1",
+        "changed: gilding per convert cost increase 1 -> 2"
+        ]
+    },
+    {
+      "version": "1.0.66",
+      "log": [
+        "fixed: clicking buttons not working in safari",
+        "fixed: auto reroll chance showing NaN"
+        ]
+    },
+    {
+      "version": "1.0.65",
+      "log": [
+        "changed: autodraw swap buttons",
+        "changed: rollcurve const increase 3.5 -> 15",
+        "fixed: now only one popup appears when forgetting to gild a card"
+        ]
+    },
+    {
+      "version": "1.0.64",
+      "log": [
+        "added: explaination in golden card window",
+        "added: google analytics + disclaimer button",
+        "added: roulette automatically respinning when hitting card proression while havin 52 cards",
+        "added: achievement for 4 casinos",
+        "fixed: reroll chance not working if having high level of slow but strong"
+        ]
+    },
+    {
+      "version": "1.0.62",
+      "log": [
+        "fixed: roulette breaking at max level"
+        ]
+    },
+    {
+      "version": "1.0.61",
+      "log": [
+        "fixed: not getting any luck by converting"
+        ]
+    },
+    {
+      "version": "1.0.60",
+      "log": [
+        "added: skills. you get one skill points per each casino",
+        "added: slow but strong luck upgrade. auto roll gets half as fast but dice multiplier doubles",
+        "changed: card progress per casino 90% -> 70%"
+        ]
+    },
+    {
+      "version": "1.0.57",
+      "log": [
+        "fixed: interest always displayed as 0",
+        "changed: buttons get clicked when the mouse is up instead down",
+        "some optimization"
+        ]
+    },
+    {
+      "version": "1.0.27",
+      "log": [
+        "fixed: dice ascending multiple times when auto draw is active",
+        "added: tooltip to reset goldcards",
+        "added: changelog",
+        "changed: color of d6 multiplier dice"
+        ]
+    }
+  ]
+}

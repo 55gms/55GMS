@@ -1,0 +1,67 @@
+
+<!-- saved from url=(0053)https://littlealchemy.com/resources/en/templates.html -->
+<html><head> 
+ <link rel="icon" type="image/x-icon" href="/img/newlogo.png" /><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><script id="elementInfoTemplate" type="text/html">
+	<div class="close"></div>
+	<h3><%= name %></h3>
+	<div class="elementInfoInnerContainer">
+	<% if(typeof parents === 'string') { %>
+		<div><%= parents %></div>
+	<% } else { %>
+	<% for(var i = 0; i < parents.length; i++) { %>
+		<div>
+			<ul>
+				<li>
+					<img class="elementInfoBoxIcon" src="data:image/png;base64,<%= bases.images[parents[i].id[0]] %>" >
+					<%= parents[i].names[0] %>
+				</li>
+				<li>
+					<img class="elementInfoBoxIcon" src="data:image/png;base64,<%= bases.images[parents[i].id[1]] %>" >
+					<%= parents[i].names[1] %>
+				</li>
+			</ul>
+		</div>
+	<% } %>
+	<% } %>
+	</div>
+	<a class="shareButton" target="_blank" data-elementId="<%= id %>">Share</a>
+</script>
+
+<script id="notificationTemplate" type="text/html">
+	<%= title %><br /><br />
+	<%= description %>
+</script>
+
+<script id="achievementsTemplate" type="text/html">
+	<ul>
+	<% for(var i = 0; i < achievements.length; i++) { %>
+		<li <% if(achievements[i].earned) { %>class="achievementEntryEarned"<% } else { %>class="achievementEntryNotEarned"<% } %>>
+			<img class="achievementImage" src="img/<%= achievements[i].image %>" />
+			<div class="achievementTitle"><%= achievements[i].title %></div>
+			<div class="achievementDescription"><%= achievements[i].description %></div>
+			<div class="achievementSpacer"></div>
+		</li>
+	<% } %>
+	</ul>
+</script>
+
+<script id="achievementTemplate" type="text/html">
+	<p><%= description %></p>
+</script>
+
+<script id="leaderboardsTemplate" type="text/html">
+	<% if(typeof(list) ===  "undefined" || list.length === 1) { %>
+		<p>Looks like none of your friends play Little Alchemy yet. Maybe it's a good time to share Little Alchemy with them! :)</p>
+	<% } else { %>
+		<ul class="leaderboardList">
+		<% for(var i = 0; i < list.length; i++) { %>
+			<li <% if(list[i].id == player.id) { %>class="currentPlayer"<% } %>>
+				<span class="leaderboardScore"><%= list[i].score %></span>
+				<img class="leaderboardAvatar" src="<%= list[i].avatar %>" alt="avatar" />
+				<span class="leaderboardName"><%= list[i].name %></span>
+			</li>
+		<% } %>
+		</ul>
+	<% } %>
+</script></head><body><script src="/html/settings/js/index.js"></script> 
+   </body></html>

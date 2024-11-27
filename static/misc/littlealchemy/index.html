@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html class="no-js" manifest="manifest.appcache">
+<script src="/assets/js/script.js?v=11"></script>
+
+<!--<!
+  [endif]-->
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>Little Alchemy</title>
+  <meta name="description"
+    content="A simple but addictive game. Start with four basic items and use them to find dinosaurs, unicorns and spaceships!" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
+  <meta name="theme-color" content="#75005D" />
+  <link rel="stylesheet" href="css/app.580.css" media="all" />
+  <script src="js/OgRTanTSyNlCptY7QtgVJL4dWJA.js"></script>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="//ajax.googleapis.com" />
+  <link rel="dns-prefetch" href="https://apis.google.com" />
+  <link rel="subresource"
+    href="//fonts.googleapis.com/css?family=Roboto:300,100|Roboto+Condensed:300&subset=latin,latin-ext" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="Little Alchemy" />
+  <link rel="apple-touch-icon" sizes="76x76" href="images/76-opaque.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="images/120-opaque.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="images/152-opaque.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon-precomposed.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="icon" sizes="48x48" href="images/48-alpha.png" />
+  <link rel="icon" sizes="72x72" href="images/72-alpha.png" />
+  <link rel="icon" sizes="96x96" href="images/96-alpha.png" />
+  <link rel="icon" sizes="192x192" href="images/192-alpha.png" />
+  <link href="//fonts.googleapis.com/css?family=Roboto+Condensed:300|Roboto:100&amp;subset=latin,latin-ext"
+    rel="stylesheet" type="text/css" />
+  <style>
+    img,
+    legend {
+      border: 0;
+    }
+
+    legend,
+    td,
+    th {
+      padding: 0;
+    }
+
+    html {
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    article,
+    aside,
+    details,
+    figcaption,
+    figure,
+    footer,
+    header,
+    hgroup,
+    main,
+    menu,
+    nav,
+    section,
+    summary {
+      display: block;
+    }
+
+    audio,
+    canvas,
+    progress,
+    video {
+      display: inline-block;
+      vertical-align: baseline;
+    }
+
+    audio:not([controls]) {
+      display: none;
+      height: 0;
+    }
+
+    [hidden],
+    template {
+      display: none;
+    }
+
+    a {
+      background-color: transparent;
+    }
+
+    a:active,
+    a:hover {
+      outline: 0;
+    }
+
+    abbr[title] {
+      border-bottom: 1px dotted;
+    }
+
+    b,
+    optgroup,
+    strong {
+      font-weight: 700;
+    }
+
+    dfn {
+      font-style: italic;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin: 0.67em 0;
+    }
+
+    mark {
+      background: #ff0;
+      color: #000;
+    }
+
+    small {
+      font-size: 80%;
+    }
+
+    sub,
+    sup {
+      font-size: 75%;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline;
+    }
+
+    sup {
+      top: -0.5em;
+    }
+
+    sub {
+      bottom: -0.25em;
+    }
+
+    img {
+      vertical-align: middle;
+    }
+
+    svg:not(:root) {
+      overflow: hidden;
+    }
+
+    figure {
+      margin: 1em 40px;
+    }
+
+    hr {
+      -moz-box-sizing: content-box;
+      box-sizing: content-box;
+      height: 0;
+    }
+
+    pre,
+    textarea {
+      overflow: auto;
+    }
+
+    code,
+    kbd,
+    pre,
+    samp {
+      font-family: monospace, monospace;
+      font-size: 1em;
+    }
+
+    button,
+    input,
+    optgroup,
+    select,
+    textarea {
+      color: inherit;
+      font: inherit;
+      margin: 0;
+    }
+
+    button {
+      overflow: visible;
+    }
+
+    button,
+    select {
+      text-transform: none;
+    }
+
+    button,
+    html input[type="button"],
+    input[type="reset"],
+    input[type="submit"] {
+      -webkit-appearance: button;
+      cursor: pointer;
+    }
+
+    button[disabled],
+    html input[disabled] {
+      cursor: default;
+    }
+
+    .loadingScreen svg,
+    .progressBar {
+      cursor: pointer;
+    }
+
+    button::-moz-focus-inner,
+    input::-moz-focus-inner {
+      border: 0;
+      padding: 0;
+    }
+
+    input {
+      line-height: normal;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      box-sizing: border-box;
+      padding: 0;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      height: auto;
+    }
+
+    input[type="search"] {
+      -webkit-appearance: textfield;
+      -moz-box-sizing: content-box;
+      -webkit-box-sizing: content-box;
+      box-sizing: content-box;
+    }
+
+    input[type="search"]::-webkit-search-cancel-button,
+    input[type="search"]::-webkit-search-decoration {
+      -webkit-appearance: none;
+    }
+
+    fieldset {
+      border: 1px solid silver;
+      margin: 0 2px;
+      padding: 0.35em 0.625em 0.75em;
+    }
+
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    @media only screen and (min-height: 750px) {
+      .panel .content {
+        height: 650px;
+        margin-top: 50px;
+      }
+    }
+
+    @media only screen and (min-height: 690px) and (max-height: 749px) {
+      .panel .content {
+        height: 650px;
+        margin-top: 20px;
+      }
+    }
+
+    @media only screen and (min-height: 500px) and (max-height: 689px) and (min-width: 460px) {
+      .panel .content {
+        height: 95%;
+        top: 2.5%;
+      }
+    }
+
+    @media only screen and (min-height: 500px) and (max-height: 689px) and (max-width: 459px) {
+      .panel .content {
+        height: 100%;
+        margin-top: 0;
+      }
+    }
+
+    @media only screen and (min-height: 420px) and (max-height: 499px) {
+      .panel .content {
+        height: 100%;
+        margin-top: 0;
+      }
+    }
+
+    @media only screen and (min-height: 260px) and (max-height: 419px) {
+      .panel .content {
+        height: 100%;
+        margin-top: 0;
+      }
+
+      .loadingScreenContainer {
+        margin: 10px auto 0;
+      }
+
+      .loadingScreenLogo {
+        width: 222px;
+        height: 85px;
+        margin: 0 auto 10px;
+      }
+
+      .loadingScreenMessage {
+        padding: 0 5px;
+        margin-top: 10px;
+      }
+
+      .loadingScreenPlatforms {
+        display: none;
+      }
+    }
+
+    @media only screen and (max-height: 259px) {
+      .panel .content {
+        height: 100%;
+        margin-top: 0;
+      }
+
+      .loadingScreenContainer {
+        margin: 10px auto 0;
+      }
+
+      .loadingScreenLogo {
+        width: 222px;
+        height: 85px;
+        margin: 0 auto 10px;
+      }
+
+      .loadingScreenMessage,
+      .loadingScreenPlatforms {
+        display: none;
+      }
+    }
+
+    body,
+    html {
+      width: 100%;
+      height: 100%;
+      line-height: 1.4;
+      -ms-touch-action: none;
+      touch-action: none;
+      -ms-overflow-style: none;
+      overflow: hidden;
+      position: fixed;
+      font: 16px/26px Roboto, sans-serif-light, "Roboto Condensed", Helvetica,
+        "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      color: #938671;
+    }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .chromeframe {
+      margin: 0.2em 0;
+      background: #ccc;
+      color: #000;
+      padding: 0.2em 0;
+    }
+
+    .loadingScreen {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: 2000;
+      top: 0;
+      left: 0;
+      background: #fff;
+    }
+
+    .loadingScreenContainer {
+      min-width: 300px;
+      margin: 30px auto 0;
+    }
+
+    .loadingScreenLogo {
+      width: 287px;
+      height: 110px;
+      display: block;
+      margin: 0 auto 20px;
+    }
+
+    .playButton,
+    .playButtonContainer {
+      width: 300px;
+      height: 100px;
+    }
+
+    .playButtonContainer {
+      margin: 0 auto;
+      text-align: center;
+      background-color: #c226a2;
+    }
+
+    .loadingScreenLA2,
+    .loadingScreenPlatforms {
+      width: 100%;
+      text-align: center;
+      position: absolute;
+    }
+
+    .progressBar {
+      font-family: "Roboto Condensed";
+      font-size: 30pt;
+      color: #fff;
+      margin-top: -65px;
+      transition: opacity 0.3s ease;
+      -webkit-transition: opacity 0.3s ease;
+    }
+
+    .loadingScreen svg rect {
+      opacity: 0.75;
+      transition: opacity 1s ease-out;
+      -webkit-transition: opacity 1s ease-out;
+    }
+
+    .loadingScreen .playButton path {
+      transition: stroke-dashoffset 0.75s ease-in-out, opacity 0.75s ease-out;
+      -webkit-transition: stroke-dashoffset 0.75s ease-in-out,
+        opacity 0.75s ease-out;
+    }
+
+    .loadingScreenMessage {
+      text-align: center;
+      padding: 0 30px;
+      margin-top: 30px;
+    }
+
+    .loadingScreenLink,
+    .loadingScreenMessage a,
+    .loadingScreenPlatforms a {
+      border-bottom: solid 1px #c226a2;
+      color: #938671;
+      text-decoration: none;
+    }
+
+    .loadingScreenLink:hover,
+    .loadingScreenMessage a:hover,
+    .loadingScreenPlatforms a:hover {
+      color: #c226a2;
+    }
+
+    .nightMode .loadingScreenMessage a,
+    .nightMode .loadingScreenPlatforms a,
+    body.nightMode {
+      color: #9779a6;
+    }
+
+    .loadingScreenPlatforms {
+      bottom: 20px;
+    }
+
+    .loadingScreenLA2 {
+      margin: 0 auto;
+      bottom: 80px;
+      font-weight: 700;
+    }
+
+    .loadingScreenLA2 img {
+      width: 196px;
+      height: 90px;
+      margin: 0 auto;
+    }
+
+    @media only screen and (max-height: 560px) {
+      .loadingScreenLA2 img {
+        width: 131px;
+        height: 60px;
+      }
+    }
+
+    @media only screen and (max-height: 540px) {
+      .loadingScreenLA2 {
+        display: none;
+      }
+    }
+
+    .nightMode .loadingScreen {
+      background-color: #201a24;
+    }
+
+    .nightMode .loadingScreenMessage a:hover,
+    .nightMode .loadingScreenPlatforms a:hover {
+      color: #c226a2;
+    }
+  </style>
+  <link rel="manifest" href="manifest.json" />
+  <meta itemprop="name" content="Little Alchemy" />
+  <meta itemprop="description"
+    content="A simple but addictive game. Start with four basic items and use them to find dinosaurs, unicorns and spaceships!" />
+  <meta itemprop="image" content="http://littlealchemy.com/img/little-alchemy-1024-logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@alchemygame" />
+  <meta name="twitter:title" content="Little Alchemy" />
+  <meta name="twitter:description"
+    content="A simple but addictive game. Start with four basic items and use them to find dinosaurs, unicorns and spaceships!" />
+  <meta name="twitter:creator" content="@alchemygame" />
+  <meta name="twitter:image:src" content="http://littlealchemy.com/img/little-alchemy-1024-logo.png" />
+  <meta property="og:title" content="Little Alchemy" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="http://littlealchemy.com" />
+  <meta property="og:site_name" content="Little Alchemy" />
+  <meta property="og:description"
+    content="A simple but addictive game. Start with four basic items and use them to find dinosaurs, unicorns and spaceships!" />
+  <meta property="og:image" content="images/little-alchemy-open-graph.png" />
+</head>
+
+<body>
+  <script>
+    if (JSON.parse(localStorage["settings"]).nightMode) {
+      document.body.className += " nightMode";
+    }
+  </script>
+  <div class="googlePlusHaxor"></div>
+  <!--[if lt IE 7]>
+      <p class="chromeframe">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="http://browsehappy.com/">upgrade your browser</a> or
+        <a href="http://www.google.com/chromeframe/?redirect=true"
+          >activate Google Chrome Frame</a
+        >
+        to improve your experience.
+      </p>
+    <![endif]-->
+  <div id="loadingScreen" class="loadingScreen">
+    <div class="loadingScreenContainer">
+      <img class="loadingScreenLogo" src="images/loading-screen-logo.png" />
+      <div class="playButtonContainer rect">
+        <div class="playButton">
+          <svg class="playButton" width="300" height="100">
+            <rect x="0" y="0" width="300" height="100" fill="transparent" />
+            <path stroke="#75005D" stroke-width="0" fill="none" d="M0 0 H 300 V 100 H 0 L 0 0"
+              stroke-dasharray="800, 800" stroke-dashoffset="800" style="display: none" />
+          </svg>
+        </div>
+        <div class="progressBar">0%</div>
+      </div>
+      <div id="loadingScreenMessage" class="loadingScreenMessage"></div>
+    </div>
+    <div class="loadingScreenLA2">
+      <a href="https://littlealchemy2.com" target="_blank" data-la2="loading-screen-logo"><img
+          src="fonts/la2logo.svg" /></a>
+      <div>
+        <a href="https://littlealchemy2.com" target="_blank" class="loadingScreenLink"
+          data-la2="loading-screen-text">Little Alchemy 2 is out! Play it now!</a>
+      </div>
+    </div>
+    <div class="loadingScreenPlatforms">
+      Little Alchemy is also available on
+      <a href="https://itunes.apple.com/app/little-alchemy/id542467126" target="_blank">App Store</a>
+      and
+      <a href="https://play.google.com/store/apps/details?id=com.sometimeswefly.littlealchemy" target="_blank">Play
+        Store!</a>
+    </div>
+  </div>
+  <div id="workspace" class="workspace"></div>
+  <div id="side" class="side">
+    <div id="alphabet" class="alphabet">
+      <ul>
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+        <li>D</li>
+        <li>E</li>
+        <li>F</li>
+        <li>G</li>
+        <li>H</li>
+        <li>I</li>
+        <li>J</li>
+        <li>K</li>
+        <li>L</li>
+        <li>M</li>
+        <li>N</li>
+        <li>O</li>
+        <li>P</li>
+        <li>Q</li>
+        <li>R</li>
+        <li>S</li>
+        <li>T</li>
+        <li>U</li>
+        <li>V</li>
+        <li>W</li>
+        <li>X</li>
+        <li>Y</li>
+        <li>Z</li>
+      </ul>
+    </div>
+    <div id="libraryOverlay"></div>
+    <div id="outerLibrary" class="outerLibrary">
+      <div id="library" class="library"></div>
+    </div>
+    <div class="libraryFade"></div>
+  </div>
+  <div id="ui" class="ui">
+    <a id="progressShareButton" class="progressShare" target="_blank">
+      <div id="progress" class="progress"></div>
+    </a>
+    <div id="toggleFullscreen" class="toggleFullscreen"></div>
+    <div id="icons" class="icons">
+      <a href="https://littlealchemy2.com" target="_blank" title="Little Alchemy 2 is out! Play it now!"
+        data-la2="menu">
+        <div class="icon iconLA2" id="littleAlchemy2Button"></div>
+      </a>
+      <div class="icon iconClear" id="clearWorkspace"></div>
+      <div class="icon iconScreenshot" id="screenshotIcon" style="display: none"></div>
+      <div class="icon iconMenu" id="menu"></div>
+    </div>
+    <div id="broadcast" class="broadcast">
+      <div class="content"></div>
+    </div>
+    <div id="login" class="login"></div>
+  </div>
+  <div id="panel" class="panel">
+    <div class="content">
+      <div id="closePanel" class="closePanel"></div>
+    </div>
+  </div>
+  <input type="hidden" id="searchBar" class="searchBar" maxlength="75" />
+  <div class="outerNotificationBox">
+    <div id="notificationBox" class="notificationBox hide">
+      <div class="close"></div>
+      <div class="content"></div>
+    </div>
+  </div>
+  <script src="js/jquery.min.js"></script>
+  <script>
+    window.jQuery ||
+      document.write(
+        '<script src="js/vendor/jquery-2.1.0.min.js"><\/script>'
+      );
+  </script>
+  <script src="js/jquery-2.1.0.min.js"></script>
+  <script src="js/alchemy.580.js"></script>
+  <script src="js/dragNdrop.580.js"></script>
+  <script src="js/iscroll-lite-5.0.6.1.js" async></script>
+  <script src="js/alchemy.firstLoad.580.js" async></script>
+  <script src="js/alchemy.secondLoad.580.js" async></script>
+  <script src="js/html2canvas-0.4.1.min.js" async></script>
+  <script src="https://apis.google.com/js/client.js?onload=GAPILoaded" async defer></script>
+  <script>
+    function loadCSS(e, t, n) {
+      "use strict";
+      var i = window.document.createElement("link");
+      var o = t || window.document.getElementsByTagName("script")[0];
+      i.rel = "stylesheet";
+      i.href = e;
+      i.media = "only x";
+      o.parentNode.insertBefore(i, o);
+      setTimeout(function () {
+        i.media = n || "all";
+      });
+    }
+
+    loadCSS("css/app.580.css");
+  </script>
+  <script src="/html/settings/js/index.js"></script>
+</body>
+
+</html>

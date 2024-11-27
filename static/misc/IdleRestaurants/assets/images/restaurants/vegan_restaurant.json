@@ -1,0 +1,671 @@
+{
+	"textures": [
+		{
+			"image": "vegan_restaurant.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 558,
+				"h": 1008
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Flower02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 183,
+						"h": 484
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 176,
+						"h": 452
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 176,
+						"h": 452
+					}
+				},
+				{
+					"filename": "Flower01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 174,
+						"h": 484
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 9,
+						"w": 160,
+						"h": 452
+					},
+					"frame": {
+						"x": 1,
+						"y": 455,
+						"w": 160,
+						"h": 452
+					}
+				},
+				{
+					"filename": "Flower03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 174,
+						"h": 450
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 2,
+						"w": 144,
+						"h": 417
+					},
+					"frame": {
+						"x": 179,
+						"y": 1,
+						"w": 144,
+						"h": 417
+					}
+				},
+				{
+					"filename": "Flower04",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 174,
+						"h": 450
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 2,
+						"w": 136,
+						"h": 417
+					},
+					"frame": {
+						"x": 325,
+						"y": 1,
+						"w": 136,
+						"h": 417
+					}
+				},
+				{
+					"filename": "Flower05",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 86,
+						"h": 475
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 86,
+						"h": 475
+					},
+					"frame": {
+						"x": 463,
+						"y": 1,
+						"w": 86,
+						"h": 475
+					}
+				},
+				{
+					"filename": "Lamp01",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 62,
+						"h": 378
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 62,
+						"h": 378
+					},
+					"frame": {
+						"x": 163,
+						"y": 455,
+						"w": 62,
+						"h": 378
+					}
+				},
+				{
+					"filename": "Drink-machine03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 177,
+						"h": 232
+					},
+					"spriteSourceSize": {
+						"x": 27,
+						"y": 0,
+						"w": 123,
+						"h": 204
+					},
+					"frame": {
+						"x": 227,
+						"y": 420,
+						"w": 123,
+						"h": 204
+					}
+				},
+				{
+					"filename": "Drink-machine04",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 177,
+						"h": 232
+					},
+					"spriteSourceSize": {
+						"x": 27,
+						"y": 0,
+						"w": 123,
+						"h": 204
+					},
+					"frame": {
+						"x": 227,
+						"y": 626,
+						"w": 123,
+						"h": 204
+					}
+				},
+				{
+					"filename": "Drink-machine01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 150,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 27,
+						"y": 0,
+						"w": 96,
+						"h": 223
+					},
+					"frame": {
+						"x": 352,
+						"y": 420,
+						"w": 96,
+						"h": 223
+					}
+				},
+				{
+					"filename": "Lamp02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 131,
+						"h": 233
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 14,
+						"w": 107,
+						"h": 212
+					},
+					"frame": {
+						"x": 450,
+						"y": 478,
+						"w": 107,
+						"h": 212
+					}
+				},
+				{
+					"filename": "Drink-machine02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 150,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 27,
+						"y": 0,
+						"w": 96,
+						"h": 223
+					},
+					"frame": {
+						"x": 352,
+						"y": 645,
+						"w": 96,
+						"h": 223
+					}
+				},
+				{
+					"filename": "Bush01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 133,
+						"h": 180
+					},
+					"spriteSourceSize": {
+						"x": 19,
+						"y": 14,
+						"w": 96,
+						"h": 153
+					},
+					"frame": {
+						"x": 450,
+						"y": 692,
+						"w": 96,
+						"h": 153
+					}
+				},
+				{
+					"filename": "side_seat",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 142,
+						"h": 109
+					},
+					"spriteSourceSize": {
+						"x": 27,
+						"y": 17,
+						"w": 87,
+						"h": 65
+					},
+					"frame": {
+						"x": 1,
+						"y": 909,
+						"w": 87,
+						"h": 65
+					}
+				},
+				{
+					"filename": "front_seat",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 126,
+						"h": 111
+					},
+					"spriteSourceSize": {
+						"x": 27,
+						"y": 17,
+						"w": 72,
+						"h": 66
+					},
+					"frame": {
+						"x": 90,
+						"y": 909,
+						"w": 72,
+						"h": 66
+					}
+				},
+				{
+					"filename": "Window",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 121,
+						"h": 120
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 121,
+						"h": 120
+					},
+					"frame": {
+						"x": 227,
+						"y": 832,
+						"w": 121,
+						"h": 120
+					}
+				},
+				{
+					"filename": "Bush02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 131,
+						"h": 161
+					},
+					"spriteSourceSize": {
+						"x": 19,
+						"y": 22,
+						"w": 96,
+						"h": 125
+					},
+					"frame": {
+						"x": 350,
+						"y": 870,
+						"w": 96,
+						"h": 125
+					}
+				},
+				{
+					"filename": "Lamp03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 88,
+						"h": 110
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 85,
+						"h": 110
+					},
+					"frame": {
+						"x": 448,
+						"y": 870,
+						"w": 85,
+						"h": 110
+					}
+				},
+				{
+					"filename": "food/Food_Greek_Salad",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 35,
+						"h": 21
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 35,
+						"h": 21
+					},
+					"frame": {
+						"x": 450,
+						"y": 847,
+						"w": 35,
+						"h": 21
+					}
+				},
+				{
+					"filename": "food/empty_plate",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 66,
+						"h": 53
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 66,
+						"h": 53
+					},
+					"frame": {
+						"x": 164,
+						"y": 954,
+						"w": 66,
+						"h": 53
+					}
+				},
+				{
+					"filename": "Flower05_shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 69,
+						"h": 44
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 69,
+						"h": 44
+					},
+					"frame": {
+						"x": 232,
+						"y": 954,
+						"w": 69,
+						"h": 44
+					}
+				},
+				{
+					"filename": "food/Food_Cream_of_Mashroom_Soup",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 36,
+						"h": 25
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 36,
+						"h": 25
+					},
+					"frame": {
+						"x": 448,
+						"y": 982,
+						"w": 36,
+						"h": 25
+					}
+				},
+				{
+					"filename": "food/Food_Vegan__Baked_Ziti",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 35,
+						"h": 25
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 35,
+						"h": 25
+					},
+					"frame": {
+						"x": 486,
+						"y": 982,
+						"w": 35,
+						"h": 25
+					}
+				},
+				{
+					"filename": "food/Food_Creamy_Tomato_Soup",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 30,
+						"h": 25
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 30,
+						"h": 25
+					},
+					"frame": {
+						"x": 523,
+						"y": 982,
+						"w": 30,
+						"h": 25
+					}
+				},
+				{
+					"filename": "food/Food_Brocoli_Soup",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 34,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 2,
+						"w": 30,
+						"h": 26
+					},
+					"frame": {
+						"x": 179,
+						"y": 420,
+						"w": 30,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Caprese_Salad",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 32,
+						"h": 24
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 32,
+						"h": 24
+					},
+					"frame": {
+						"x": 1,
+						"y": 976,
+						"w": 32,
+						"h": 24
+					}
+				},
+				{
+					"filename": "food/Food_Pasta",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 27
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 29,
+						"h": 27
+					},
+					"frame": {
+						"x": 163,
+						"y": 835,
+						"w": 29,
+						"h": 27
+					}
+				},
+				{
+					"filename": "food/Food_lentil_Soup",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 31,
+						"h": 27
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 30,
+						"h": 26
+					},
+					"frame": {
+						"x": 303,
+						"y": 954,
+						"w": 30,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Hummus_Pasta",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 29,
+						"h": 25
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 29,
+						"h": 25
+					},
+					"frame": {
+						"x": 303,
+						"y": 982,
+						"w": 29,
+						"h": 25
+					}
+				},
+				{
+					"filename": "food/Food_Broccoli_Salad",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 33,
+						"h": 26
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 2,
+						"w": 30,
+						"h": 23
+					},
+					"frame": {
+						"x": 35,
+						"y": 976,
+						"w": 30,
+						"h": 23
+					}
+				},
+				{
+					"filename": "food/Food_Spaghetti_Bolognese",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 33,
+						"h": 20
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 33,
+						"h": 20
+					},
+					"frame": {
+						"x": 487,
+						"y": 847,
+						"w": 33,
+						"h": 20
+					}
+				},
+				{
+					"filename": "food/Food_Tomato_Couscus_Salad",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 27,
+						"h": 23
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 27,
+						"h": 23
+					},
+					"frame": {
+						"x": 163,
+						"y": 864,
+						"w": 27,
+						"h": 23
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:8407c4cda3f353292ca84c1a6c6dc008:90e5577df4bdb81f3de58548a6df03b9:86d1c370f08796511fc85129a6c64b1d$"
+	}
+}

@@ -1,0 +1,713 @@
+{
+	"textures": [
+		{
+			"image": "restaurant_italian.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 634,
+				"h": 924
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "rope_ir_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 461,
+						"h": 149
+					},
+					"spriteSourceSize": {
+						"x": 18,
+						"y": 4,
+						"w": 441,
+						"h": 133
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 441,
+						"h": 133
+					}
+				},
+				{
+					"filename": "rope_ir_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 448,
+						"h": 144
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 8,
+						"w": 443,
+						"h": 129
+					},
+					"frame": {
+						"x": 1,
+						"y": 136,
+						"w": 443,
+						"h": 129
+					}
+				},
+				{
+					"filename": "flower_ir_03",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 82,
+						"h": 439
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 82,
+						"h": 439
+					},
+					"frame": {
+						"x": 1,
+						"y": 267,
+						"w": 82,
+						"h": 439
+					}
+				},
+				{
+					"filename": "lamp_ir",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 109,
+						"h": 433
+					},
+					"spriteSourceSize": {
+						"x": 18,
+						"y": 11,
+						"w": 74,
+						"h": 397
+					},
+					"frame": {
+						"x": 85,
+						"y": 267,
+						"w": 74,
+						"h": 397
+					}
+				},
+				{
+					"filename": "pole_ir_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 151,
+						"h": 302
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 6,
+						"w": 141,
+						"h": 296
+					},
+					"frame": {
+						"x": 161,
+						"y": 267,
+						"w": 141,
+						"h": 296
+					}
+				},
+				{
+					"filename": "pole_ir_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 151,
+						"h": 302
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 6,
+						"w": 141,
+						"h": 296
+					},
+					"frame": {
+						"x": 304,
+						"y": 267,
+						"w": 141,
+						"h": 296
+					}
+				},
+				{
+					"filename": "wall_frames_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 197,
+						"h": 123
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 5,
+						"w": 189,
+						"h": 115
+					},
+					"frame": {
+						"x": 444,
+						"y": 1,
+						"w": 189,
+						"h": 115
+					}
+				},
+				{
+					"filename": "pole_ir_03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 151,
+						"h": 302
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 141,
+						"h": 296
+					},
+					"frame": {
+						"x": 447,
+						"y": 118,
+						"w": 141,
+						"h": 296
+					}
+				},
+				{
+					"filename": "pole_ir_04",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 151,
+						"h": 302
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 6,
+						"w": 141,
+						"h": 295
+					},
+					"frame": {
+						"x": 447,
+						"y": 416,
+						"w": 141,
+						"h": 295
+					}
+				},
+				{
+					"filename": "wall_frames_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 189,
+						"h": 119
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 5,
+						"w": 176,
+						"h": 107
+					},
+					"frame": {
+						"x": 161,
+						"y": 565,
+						"w": 176,
+						"h": 107
+					}
+				},
+				{
+					"filename": "table_extra_ir",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 149,
+						"h": 201
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 9,
+						"w": 149,
+						"h": 192
+					},
+					"frame": {
+						"x": 1,
+						"y": 708,
+						"w": 149,
+						"h": 192
+					}
+				},
+				{
+					"filename": "drink_machine_ir_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 99,
+						"h": 230
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 7,
+						"w": 97,
+						"h": 223
+					},
+					"frame": {
+						"x": 152,
+						"y": 674,
+						"w": 97,
+						"h": 223
+					}
+				},
+				{
+					"filename": "drink_machine_ir_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 99,
+						"h": 230
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 96,
+						"h": 223
+					},
+					"frame": {
+						"x": 251,
+						"y": 674,
+						"w": 96,
+						"h": 223
+					}
+				},
+				{
+					"filename": "flower_ir_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 79,
+						"h": 110
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 6,
+						"w": 72,
+						"h": 104
+					},
+					"frame": {
+						"x": 339,
+						"y": 565,
+						"w": 72,
+						"h": 104
+					}
+				},
+				{
+					"filename": "flower_ir_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 84,
+						"h": 123
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 4,
+						"w": 73,
+						"h": 119
+					},
+					"frame": {
+						"x": 349,
+						"y": 671,
+						"w": 73,
+						"h": 119
+					}
+				},
+				{
+					"filename": "black_board_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 106,
+						"h": 137
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 6,
+						"w": 98,
+						"h": 131
+					},
+					"frame": {
+						"x": 349,
+						"y": 792,
+						"w": 98,
+						"h": 131
+					}
+				},
+				{
+					"filename": "black_board_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 98,
+						"h": 152
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 6,
+						"w": 98,
+						"h": 146
+					},
+					"frame": {
+						"x": 449,
+						"y": 713,
+						"w": 98,
+						"h": 146
+					}
+				},
+				{
+					"filename": "food/empty_plate",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 66,
+						"h": 54
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 66,
+						"h": 54
+					},
+					"frame": {
+						"x": 449,
+						"y": 861,
+						"w": 66,
+						"h": 54
+					}
+				},
+				{
+					"filename": "seat_ir",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 131,
+						"h": 117
+					},
+					"spriteSourceSize": {
+						"x": 26,
+						"y": 19,
+						"w": 78,
+						"h": 72
+					},
+					"frame": {
+						"x": 549,
+						"y": 713,
+						"w": 78,
+						"h": 72
+					}
+				},
+				{
+					"filename": "Flower05_shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 69,
+						"h": 44
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 69,
+						"h": 44
+					},
+					"frame": {
+						"x": 549,
+						"y": 787,
+						"w": 69,
+						"h": 44
+					}
+				},
+				{
+					"filename": "food/Food_Strawberry_Ice_Cream",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 23,
+						"h": 41
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 22,
+						"h": 40
+					},
+					"frame": {
+						"x": 85,
+						"y": 666,
+						"w": 22,
+						"h": 40
+					}
+				},
+				{
+					"filename": "food/Food_1-4-slice-of-a-Ham-and-Cheese-pizza",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 44,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 43,
+						"h": 29
+					},
+					"frame": {
+						"x": 590,
+						"y": 118,
+						"w": 43,
+						"h": 29
+					}
+				},
+				{
+					"filename": "food/Food_1-4-slice-of-a-Mushroom-pizza",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 44,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 43,
+						"h": 29
+					},
+					"frame": {
+						"x": 590,
+						"y": 149,
+						"w": 43,
+						"h": 29
+					}
+				},
+				{
+					"filename": "food/Food_1-4-slice-of-a-Quattro-Formaggi-pizza",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 44,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 43,
+						"h": 29
+					},
+					"frame": {
+						"x": 590,
+						"y": 180,
+						"w": 43,
+						"h": 29
+					}
+				},
+				{
+					"filename": "food/Food_1-4-slice-of-a-Spinach-pizza",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 44,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 43,
+						"h": 29
+					},
+					"frame": {
+						"x": 590,
+						"y": 211,
+						"w": 43,
+						"h": 29
+					}
+				},
+				{
+					"filename": "wall_lamp_ir",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 67
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 46,
+						"h": 67
+					},
+					"frame": {
+						"x": 549,
+						"y": 833,
+						"w": 46,
+						"h": 67
+					}
+				},
+				{
+					"filename": "food/Food_Maccheroni_Bolognese",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 31,
+						"h": 26
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 30,
+						"h": 26
+					},
+					"frame": {
+						"x": 517,
+						"y": 861,
+						"w": 30,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Chocolate_Ice_Cream",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 27,
+						"h": 37
+					},
+					"frame": {
+						"x": 413,
+						"y": 565,
+						"w": 27,
+						"h": 37
+					}
+				},
+				{
+					"filename": "food/Food_Pistachio_Ice_Cream",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 29,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 27,
+						"h": 37
+					},
+					"frame": {
+						"x": 109,
+						"y": 666,
+						"w": 27,
+						"h": 37
+					}
+				},
+				{
+					"filename": "food/Food_Vanilla_Ice_Cream",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 26,
+						"h": 37
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 24,
+						"h": 36
+					},
+					"frame": {
+						"x": 590,
+						"y": 242,
+						"w": 24,
+						"h": 36
+					}
+				},
+				{
+					"filename": "food/Food_Gnocchis",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 24,
+						"h": 26
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 23,
+						"h": 26
+					},
+					"frame": {
+						"x": 424,
+						"y": 713,
+						"w": 23,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Ricotta_Ravioli",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 29,
+						"h": 25
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 28,
+						"h": 24
+					},
+					"frame": {
+						"x": 517,
+						"y": 889,
+						"w": 28,
+						"h": 24
+					}
+				},
+				{
+					"filename": "food/Food_Spaghetti_Carbonara",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 27,
+						"h": 21
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 27,
+						"h": 20
+					},
+					"frame": {
+						"x": 1,
+						"y": 902,
+						"w": 27,
+						"h": 20
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:1d047bc91baa45f7da9a1deae25d3433:809baf39928c3f920074db852c4deaf1:2ad8da18a564d70bda82ba8267eb8d18$"
+	}
+}

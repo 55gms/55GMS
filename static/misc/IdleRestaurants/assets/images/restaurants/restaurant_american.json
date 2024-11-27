@@ -1,0 +1,671 @@
+{
+	"textures": [
+		{
+			"image": "restaurant_american.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1141,
+				"h": 490
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "rope_bw_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 442,
+						"h": 157
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 13,
+						"w": 440,
+						"h": 132
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 440,
+						"h": 132
+					}
+				},
+				{
+					"filename": "pole_bw_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 212,
+						"h": 318
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 9,
+						"w": 189,
+						"h": 305
+					},
+					"frame": {
+						"x": 443,
+						"y": 1,
+						"w": 189,
+						"h": 305
+					}
+				},
+				{
+					"filename": "pole_bw_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 212,
+						"h": 318
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 9,
+						"w": 189,
+						"h": 305
+					},
+					"frame": {
+						"x": 1,
+						"y": 135,
+						"w": 189,
+						"h": 305
+					}
+				},
+				{
+					"filename": "Flower05_shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 69,
+						"h": 44
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 69,
+						"h": 44
+					},
+					"frame": {
+						"x": 1,
+						"y": 442,
+						"w": 69,
+						"h": 44
+					}
+				},
+				{
+					"filename": "food/Food_Steak",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 46,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 46,
+						"h": 28
+					},
+					"frame": {
+						"x": 72,
+						"y": 442,
+						"w": 46,
+						"h": 28
+					}
+				},
+				{
+					"filename": "food/Food_Milkshake",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 25,
+						"h": 46
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 24,
+						"h": 45
+					},
+					"frame": {
+						"x": 120,
+						"y": 442,
+						"w": 24,
+						"h": 45
+					}
+				},
+				{
+					"filename": "food/Food_Chicken",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 41,
+						"h": 26
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 40,
+						"h": 26
+					},
+					"frame": {
+						"x": 146,
+						"y": 442,
+						"w": 40,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Waffle",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 34,
+						"h": 20
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 34,
+						"h": 19
+					},
+					"frame": {
+						"x": 146,
+						"y": 470,
+						"w": 34,
+						"h": 19
+					}
+				},
+				{
+					"filename": "food/Food_Fries",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 27,
+						"h": 34
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 27,
+						"h": 34
+					},
+					"frame": {
+						"x": 188,
+						"y": 442,
+						"w": 27,
+						"h": 34
+					}
+				},
+				{
+					"filename": "ad_stand",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 221
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 9,
+						"w": 138,
+						"h": 209
+					},
+					"frame": {
+						"x": 192,
+						"y": 135,
+						"w": 138,
+						"h": 209
+					}
+				},
+				{
+					"filename": "drink_machine_bw_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 99,
+						"h": 230
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 6,
+						"w": 96,
+						"h": 224
+					},
+					"frame": {
+						"x": 332,
+						"y": 135,
+						"w": 96,
+						"h": 224
+					}
+				},
+				{
+					"filename": "seat_bw",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 131,
+						"h": 118
+					},
+					"spriteSourceSize": {
+						"x": 26,
+						"y": 20,
+						"w": 78,
+						"h": 72
+					},
+					"frame": {
+						"x": 192,
+						"y": 346,
+						"w": 78,
+						"h": 72
+					}
+				},
+				{
+					"filename": "wall_lamp_bw",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 46,
+						"h": 67
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 46,
+						"h": 67
+					},
+					"frame": {
+						"x": 272,
+						"y": 346,
+						"w": 46,
+						"h": 67
+					}
+				},
+				{
+					"filename": "rope_bw_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 452,
+						"h": 167
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 23,
+						"w": 441,
+						"h": 122
+					},
+					"frame": {
+						"x": 320,
+						"y": 361,
+						"w": 441,
+						"h": 122
+					}
+				},
+				{
+					"filename": "food/Food_Onion_Rings",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 33,
+						"h": 26
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 33,
+						"h": 26
+					},
+					"frame": {
+						"x": 272,
+						"y": 415,
+						"w": 33,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Bacon_Burger",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 29,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 28,
+						"h": 30
+					},
+					"frame": {
+						"x": 217,
+						"y": 420,
+						"w": 28,
+						"h": 30
+					}
+				},
+				{
+					"filename": "food/Food_Cream_Cone",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 18,
+						"h": 35
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 18,
+						"h": 35
+					},
+					"frame": {
+						"x": 247,
+						"y": 420,
+						"w": 18,
+						"h": 35
+					}
+				},
+				{
+					"filename": "food/Food_Double_Decker",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 29,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 28,
+						"h": 30
+					},
+					"frame": {
+						"x": 217,
+						"y": 452,
+						"w": 28,
+						"h": 30
+					}
+				},
+				{
+					"filename": "food/Food_Cheeseburger",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 29,
+						"h": 27
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 29,
+						"h": 27
+					},
+					"frame": {
+						"x": 247,
+						"y": 457,
+						"w": 29,
+						"h": 27
+					}
+				},
+				{
+					"filename": "food/Food_Simple_Hamburger",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 27
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 30,
+						"h": 26
+					},
+					"frame": {
+						"x": 278,
+						"y": 443,
+						"w": 30,
+						"h": 26
+					}
+				},
+				{
+					"filename": "food/Food_Pancake",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 28,
+						"h": 26
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 27,
+						"h": 25
+					},
+					"frame": {
+						"x": 430,
+						"y": 308,
+						"w": 27,
+						"h": 25
+					}
+				},
+				{
+					"filename": "ad_wall",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 175,
+						"h": 179
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 167,
+						"h": 171
+					},
+					"frame": {
+						"x": 634,
+						"y": 1,
+						"w": 167,
+						"h": 171
+					}
+				},
+				{
+					"filename": "drink_machine_bw_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 121,
+						"h": 196
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 6,
+						"w": 100,
+						"h": 184
+					},
+					"frame": {
+						"x": 634,
+						"y": 174,
+						"w": 100,
+						"h": 184
+					}
+				},
+				{
+					"filename": "tv",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 95
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 2,
+						"w": 148,
+						"h": 90
+					},
+					"frame": {
+						"x": 736,
+						"y": 174,
+						"w": 148,
+						"h": 90
+					}
+				},
+				{
+					"filename": "food/empty_plate",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 69,
+						"h": 55
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 69,
+						"h": 55
+					},
+					"frame": {
+						"x": 736,
+						"y": 266,
+						"w": 69,
+						"h": 55
+					}
+				},
+				{
+					"filename": "flower_bw_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 85,
+						"h": 117
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 5,
+						"w": 72,
+						"h": 112
+					},
+					"frame": {
+						"x": 803,
+						"y": 1,
+						"w": 72,
+						"h": 112
+					}
+				},
+				{
+					"filename": "drink_machine_bw_03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 101,
+						"h": 204
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 6,
+						"w": 97,
+						"h": 196
+					},
+					"frame": {
+						"x": 807,
+						"y": 266,
+						"w": 97,
+						"h": 196
+					}
+				},
+				{
+					"filename": "banner_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 105,
+						"h": 264
+					},
+					"spriteSourceSize": {
+						"x": 15,
+						"y": 13,
+						"w": 81,
+						"h": 243
+					},
+					"frame": {
+						"x": 886,
+						"y": 1,
+						"w": 81,
+						"h": 243
+					}
+				},
+				{
+					"filename": "banner_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 105,
+						"h": 264
+					},
+					"spriteSourceSize": {
+						"x": 15,
+						"y": 13,
+						"w": 81,
+						"h": 243
+					},
+					"frame": {
+						"x": 906,
+						"y": 246,
+						"w": 81,
+						"h": 243
+					}
+				},
+				{
+					"filename": "flower_bw_02",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 76,
+						"h": 436
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 76,
+						"h": 436
+					},
+					"frame": {
+						"x": 989,
+						"y": 1,
+						"w": 76,
+						"h": 436
+					}
+				},
+				{
+					"filename": "lamp_bw",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 109,
+						"h": 426
+					},
+					"spriteSourceSize": {
+						"x": 17,
+						"y": 9,
+						"w": 73,
+						"h": 396
+					},
+					"frame": {
+						"x": 1067,
+						"y": 1,
+						"w": 73,
+						"h": 396
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:26da706fef3088cf0974e4677d3aa917:d2fec930f445125a845db86fd4d94a64:2505921fa564931636c6787cb721cb69$"
+	}
+}

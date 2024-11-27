@@ -1,0 +1,137 @@
+{
+  "json":[
+    {
+      "name": "text",
+      "url": "text.json"
+    },
+    {
+      "name": "changelog",
+      "url": "changelog.json"
+    }
+  ],
+  "font":[
+    {
+      "name": "regular",
+      "url": "regular_0.png",
+      "data": "regular.fnt"
+    }
+  ],
+  "atlas":[
+    {
+      "name": "ui",
+      "urlData": "ui.json",
+      "urlImg": "ui.png"
+    },
+    {
+      "name": "ingame",
+      "urlData": "ingame.json",
+      "urlImg": "ingame.png"
+    }
+  ],
+  "image":[
+    {
+      "name": "bg",
+      "url":  "bg/background.png"
+    },
+    {
+      "name": "bg2",
+      "url":  "bg/backgroun2.png"
+    },
+    {
+      "name": "tileable",
+      "url":  "bg/tileable.jpg"
+    }
+  ],
+  "sound":[
+    {
+      "name": "music",
+      "file": "music",
+      "credits":{
+        "author": "Kevin MacLeod",
+        "name": "George Street Shuffle",
+        "url": "incompetech.com"
+      }
+    },
+    {
+      "name": "button",
+      "file": "button",
+      "credits":{
+        "author": "bubaproducer",
+        "name": "button 17",
+        "url": "https://freesound.org/people/bubaproducer/sounds/107135/"
+      }
+    },
+    {
+      "name": "dice",
+      "file": "dice",
+      "credits":{
+        "author": "dermotte",
+        "name": "dice 17",
+        "url": "https://freesound.org/people/dermotte/sounds/220744/"
+      }
+    },
+    {
+      "name": "success",
+      "file": "success",
+      "credits":{
+        "author": "grunz",
+        "name": "success-low",
+        "url": "https://freesound.org/people/grunz/sounds/109663/"
+      }
+    },
+    {
+      "name": "success2",
+      "file": "success2",
+      "credits":{
+        "author": "soneproject",
+        "name": "sfx3",
+        "url": "https://freesound.org/people/soneproject/sounds/345270/"
+      }
+    },
+    {
+      "name": "spin",
+      "file": "spin",
+      "credits":{
+        "author": "GnoteSoundz",
+        "name": "Pebble Spin 001 +",
+        "url": "https://freesound.org/people/GnoteSoundz/sounds/169464/"
+      }
+    },
+    {
+      "name": "success3",
+      "file": "success3",
+      "credits":{
+        "author": "gabriellaraujo",
+        "name": "powerup success",
+        "url": "https://freesound.org/people/gabriellaraujo/sounds/242501/"
+      }
+    },
+    {
+      "name": "success4",
+      "file": "success4",
+      "credits":{
+        "author": "jacksonacademyashmore",
+        "name": "airhorn",
+        "url": "https://freesound.org/people/jacksonacademyashmore/sounds/414208/"
+      }
+    },
+    {
+      "name": "success5",
+      "file": "success5",
+      "credits":{
+        "author": "andre onate",
+        "name": "ragea syren",
+        "url": "https://freesound.org/people/andre-onate/sounds/135117/"
+      }
+    },
+    {
+      "name": "success6",
+      "file": "success6",
+      "credits":{
+        "author": "harbour11",
+        "name": "trumpet2",
+        "url": "https://freesound.org/people/harbour11/sounds/194624/"
+      }
+    }
+  ]
+}

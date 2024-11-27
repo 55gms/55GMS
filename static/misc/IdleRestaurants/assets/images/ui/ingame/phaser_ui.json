@@ -1,0 +1,629 @@
+{
+	"textures": [
+		{
+			"image": "phaser_ui.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 612,
+				"h": 612
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "chef_hire/Hire-Chef-Bubblebox",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 220,
+						"h": 230
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 3,
+						"w": 215,
+						"h": 227
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 215,
+						"h": 227
+					}
+				},
+				{
+					"filename": "chef_hire/button_state_01",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 183,
+						"h": 82
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 183,
+						"h": 82
+					},
+					"frame": {
+						"x": 217,
+						"y": 0,
+						"w": 183,
+						"h": 82
+					}
+				},
+				{
+					"filename": "chef_hire/button_state_01_pressed",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 183,
+						"h": 82
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 183,
+						"h": 82
+					},
+					"frame": {
+						"x": 402,
+						"y": 0,
+						"w": 183,
+						"h": 82
+					}
+				},
+				{
+					"filename": "chef_hire/button_state_04",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 181,
+						"h": 82
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 181,
+						"h": 82
+					},
+					"frame": {
+						"x": 217,
+						"y": 84,
+						"w": 181,
+						"h": 82
+					}
+				},
+				{
+					"filename": "chef_hire/button_state_04_pressed",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 181,
+						"h": 82
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 181,
+						"h": 82
+					},
+					"frame": {
+						"x": 400,
+						"y": 84,
+						"w": 181,
+						"h": 82
+					}
+				},
+				{
+					"filename": "coin-tip/Money-Icon2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 4,
+						"w": 29,
+						"h": 29
+					},
+					"frame": {
+						"x": 583,
+						"y": 84,
+						"w": 29,
+						"h": 29
+					}
+				},
+				{
+					"filename": "chef_hire/button_state_02",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 166,
+						"h": 82
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 166,
+						"h": 82
+					},
+					"frame": {
+						"x": 217,
+						"y": 168,
+						"w": 166,
+						"h": 82
+					}
+				},
+				{
+					"filename": "chef_hire/button_state_02_pressed",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 166,
+						"h": 82
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 166,
+						"h": 82
+					},
+					"frame": {
+						"x": 0,
+						"y": 229,
+						"w": 166,
+						"h": 82
+					}
+				},
+				{
+					"filename": "coin-tip/Money-Icon1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 51,
+						"h": 50
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 6,
+						"w": 36,
+						"h": 39
+					},
+					"frame": {
+						"x": 168,
+						"y": 229,
+						"w": 36,
+						"h": 39
+					}
+				},
+				{
+					"filename": "chef_silhouette",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 124,
+						"h": 130
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 9,
+						"w": 109,
+						"h": 121
+					},
+					"frame": {
+						"x": 385,
+						"y": 168,
+						"w": 109,
+						"h": 121
+					}
+				},
+				{
+					"filename": "chef_silhouette_hire",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 124,
+						"h": 130
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 9,
+						"w": 109,
+						"h": 121
+					},
+					"frame": {
+						"x": 496,
+						"y": 168,
+						"w": 109,
+						"h": 121
+					}
+				},
+				{
+					"filename": "chef_bubble/chef_notif_level_0",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 107,
+						"h": 108
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 107,
+						"h": 108
+					},
+					"frame": {
+						"x": 206,
+						"y": 252,
+						"w": 107,
+						"h": 108
+					}
+				},
+				{
+					"filename": "coin-tip/Money-Icon3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 45,
+						"h": 43
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 5,
+						"w": 34,
+						"h": 37
+					},
+					"frame": {
+						"x": 168,
+						"y": 270,
+						"w": 34,
+						"h": 37
+					}
+				},
+				{
+					"filename": "chef_bubble/chef_notif_level_1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 107,
+						"h": 108
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 107,
+						"h": 108
+					},
+					"frame": {
+						"x": 0,
+						"y": 313,
+						"w": 107,
+						"h": 108
+					}
+				},
+				{
+					"filename": "Btn_Padlock_Closed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 75,
+						"h": 75
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 2,
+						"w": 72,
+						"h": 72
+					},
+					"frame": {
+						"x": 109,
+						"y": 313,
+						"w": 72,
+						"h": 72
+					}
+				},
+				{
+					"filename": "chef_bubble/chef_notif_level_2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 107,
+						"h": 108
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 107,
+						"h": 108
+					},
+					"frame": {
+						"x": 0,
+						"y": 423,
+						"w": 107,
+						"h": 108
+					}
+				},
+				{
+					"filename": "Btn_Padlock_Closed_Pressed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 75,
+						"h": 75
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 2,
+						"w": 72,
+						"h": 72
+					},
+					"frame": {
+						"x": 0,
+						"y": 533,
+						"w": 72,
+						"h": 72
+					}
+				},
+				{
+					"filename": "Btn_Padlock_Green_Opened",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 73,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 72,
+						"h": 72
+					},
+					"frame": {
+						"x": 74,
+						"y": 533,
+						"w": 72,
+						"h": 72
+					}
+				},
+				{
+					"filename": "chef_bubble/chef_notif_level_3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 107,
+						"h": 108
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 107,
+						"h": 108
+					},
+					"frame": {
+						"x": 109,
+						"y": 387,
+						"w": 107,
+						"h": 108
+					}
+				},
+				{
+					"filename": "chef_bubble/chef_notif_pressed",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 107,
+						"h": 108
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 107,
+						"h": 108
+					},
+					"frame": {
+						"x": 148,
+						"y": 497,
+						"w": 107,
+						"h": 108
+					}
+				},
+				{
+					"filename": "chef_bubble/chef_notif_update_level_0",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 107,
+						"h": 108
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 107,
+						"h": 108
+					},
+					"frame": {
+						"x": 218,
+						"y": 362,
+						"w": 107,
+						"h": 108
+					}
+				},
+				{
+					"filename": "chef_bubble/chef_notif_update_level_1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 107,
+						"h": 108
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 107,
+						"h": 108
+					},
+					"frame": {
+						"x": 257,
+						"y": 472,
+						"w": 107,
+						"h": 108
+					}
+				},
+				{
+					"filename": "chef_bubble/chef_notif_update_level_2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 107,
+						"h": 108
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 107,
+						"h": 108
+					},
+					"frame": {
+						"x": 327,
+						"y": 291,
+						"w": 107,
+						"h": 108
+					}
+				},
+				{
+					"filename": "chef_bubble/chef_notif_update_level_3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 107,
+						"h": 108
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 107,
+						"h": 108
+					},
+					"frame": {
+						"x": 436,
+						"y": 291,
+						"w": 107,
+						"h": 108
+					}
+				},
+				{
+					"filename": "Chef-Btn-Boost",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 106,
+						"h": 107
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 106,
+						"h": 107
+					},
+					"frame": {
+						"x": 366,
+						"y": 401,
+						"w": 106,
+						"h": 107
+					}
+				},
+				{
+					"filename": "Btn_Padlock_Green_Opened_pressed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 73,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 72,
+						"h": 72
+					},
+					"frame": {
+						"x": 366,
+						"y": 510,
+						"w": 72,
+						"h": 72
+					}
+				},
+				{
+					"filename": "Btn_Padlock_Opened",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 73,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 72,
+						"h": 72
+					},
+					"frame": {
+						"x": 440,
+						"y": 510,
+						"w": 72,
+						"h": 72
+					}
+				},
+				{
+					"filename": "Chef-Btn-Boost_Pressed",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 106,
+						"h": 107
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 106,
+						"h": 107
+					},
+					"frame": {
+						"x": 474,
+						"y": 401,
+						"w": 106,
+						"h": 107
+					}
+				},
+				{
+					"filename": "Btn_Padlock_Opened_Pressed",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 75,
+						"h": 75
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 2,
+						"w": 72,
+						"h": 72
+					},
+					"frame": {
+						"x": 514,
+						"y": 510,
+						"w": 72,
+						"h": 72
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:acfcb2db0b036a39589af0108c05684f:a18ff2876c3593839813eb4c05cf19fd:697184a5f0802c352ec344a3aa784684$"
+	}
+}

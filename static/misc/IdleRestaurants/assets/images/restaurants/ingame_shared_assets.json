@@ -1,0 +1,62 @@
+{
+	"textures": [
+		{
+			"image": "ingame_shared_assets.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 58,
+				"h": 115
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Tips-Coin-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 57,
+						"h": 62
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 56,
+						"h": 62
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 56,
+						"h": 62
+					}
+				},
+				{
+					"filename": "Tips-Coin-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 50
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 49,
+						"h": 49
+					},
+					"frame": {
+						"x": 1,
+						"y": 65,
+						"w": 49,
+						"h": 49
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:3e8c9a30e9b8edecce069b22fec49498:5c3727ad0169819141be21f0d9976090:05a114ac69307a5d515a29ca081b9a77$"
+	}
+}
