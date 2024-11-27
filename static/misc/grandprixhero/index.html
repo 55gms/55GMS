@@ -1,29 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-N0LG27M8L8"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-N0LG27M8L8');
-  </script>
-  <script src="/assets/js/script.js?v=11"></script>
   <title>Grand Prix Hero</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta charset="utf-8">
+  <meta name="description" content="" />
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="256x256" href="assets/__Icon256.png">
+  <link rel="icon" sizes="196x196" href="assets/__Icon196.png">
+  <link rel="icon" sizes="128x128" href="assets/__Icon128.png">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="apple-touch-icon" href="assets/__Icon196.png" />
+  <style>
+    @font-face {
+      font-family: 'roboto-webfont';
+      src: url('assets/fonts/__Roboto-webfont.eot');
+      /*IE9*/
+      src: url('assets/fonts/__Roboto-webfont.eot?#iefix') format('embedded-opentype'),
+        /*IE6-IE8*/
+        url('assets/fonts/__Roboto-webfont.woff') format('woff'),
+        /*Modern Browsers*/
+        url('assets/fonts/__Roboto-webfont.ttf') format('truetype'),
+        /*Safari, Android, iOS*/
+        url('assets/fonts/__Roboto-webfont.svg#roboto-webfont') format('svg');
+      /*Legacy iOS*/
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    html {
+      height: 100%;
+      margin: 0px;
+    }
+
+    body {
+      background: #000000;
+      color: #808080;
+      font-family: 'roboto-webfont';
+      margin: 0px;
+      height: 100%;
+      -webkit-user-select: none;
+      overflow: hidden;
+    }
+  </style>
+  <script src="poki-sdk.js"></script>
 </head>
 
 <body>
-  <iframe src="https://bonbang.github.io/store3/grand-prix-hero" title="Iframe" style="
-        border: 0;
-        height: 100%;
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 100%;
-      "></iframe>
+  <canvas id="gameCanvas" no-config="assets/__Config.xml" fullScreen="all" nativeExperience="false"></canvas>
+  <script src="createjs.min.js"></script>
+  <script src="game.js"></script>
 </body>
 
 </html>

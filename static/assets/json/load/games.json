@@ -288,7 +288,7 @@
     "usesProxy": true
   },
   {
-    "name": "Diep.Io",
+    "name": "diep.Io",
     "url": "https://diep.io/",
     "image": "/img/games/diep.webp",
     "usesProxy": true
@@ -522,32 +522,20 @@
     "usesProxy": false
   },
   {
-    "name": "Google Baseball",
-    "url": "https://www.google.com/logos/2019/july4th19/r6/july4th19.html",
-    "image": "/img/games/googlebaseball.webp",
-    "usesProxy": true
-  },
-  {
     "name": "Google Snake",
-    "url": "/misc/google-snake/index.html",
+    "url": "/misc/play/google-snake.html",
     "image": "/misc/google-snake/img.png",
     "usesProxy": false
   },
   {
-    "name": "GTA Advance",
-    "url": "/misc/emulator/games/gta/index.html",
-    "image": "/misc/emulator/games/gta/gtaa.png",
+    "name": "Grand Prix Hero",
+    "url": "/misc/play/grandprixhero.html",
+    "image": "/img/games/grandprixhero.webp",
     "usesProxy": false
   },
   {
-    "name": "Grand Prix Hero",
-    "url": "https://lnabros.github.io/a4/grand-prix-hero",
-    "image": "/img/games/grandprixhero.webp",
-    "usesProxy": true
-  },
-  {
     "name": "Grindcraft",
-    "url": "/misc/grindcraft/index.html",
+    "url": "/misc/play/grindcraft.html",
     "image": "/misc/grindcraft/img.png",
     "usesProxy": false
   },
@@ -565,19 +553,19 @@
   },
   {
     "name": "Happy Wheels",
-    "url": "/misc/flash/index.html?swf=happywheels.swf",
+    "url": "/misc/play/happywheels.html",
     "image": "/misc/happyweels/b.png",
     "usesProxy": false
   },
   {
     "name": "Helix Jump",
-    "url": "https://helix-jump.game-files.crazygames.com/helix-jump/1/index.html",
+    "url": "/misc/play/helixjump.html",
     "image": "/misc/helixjump/gameIcon.webp",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Toss the Turtle",
-    "url": "https://toss-the-turtle.game-files.crazygames.com/ruffle/tosstheturtle.html?czyExpInstantFun=disabled&v=1.277",
+    "url": "/play/tosstheturtle.html",
     "image": "/img/games/turtle.webp",
     "usesProxy": true
   },
