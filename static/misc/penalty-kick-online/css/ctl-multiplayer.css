@@ -1,0 +1,346 @@
+
+.ctl-multiplayer-dlg-content *{
+    font-family: arial;
+}
+
+.ctl-multiplayer-form-group{
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.ctl-multiplayer-form-group p{
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+.ctl-multiplayer-dlg-content input[type=number],
+.ctl-multiplayer-dlg-content input[type=text],
+.ctl-multiplayer-dlg-content input[type=password],
+.ctl-multiplayer-dlg-content label,
+.ctl-multiplayer-dlg-content p,
+.ctl-multiplayer-dlg-content a,
+.ctl-multiplayer-dlg-content h1{    
+    color: #222;
+    margin-right: 50px;
+    display: inline-block;
+}
+
+.ctl-multiplayer-dlg-content input[type=number],
+.ctl-multiplayer-dlg-content input[type=text],
+.ctl-multiplayer-dlg-content input[type=password],
+.ctl-multiplayer-dlg-content button{
+    outline: 0;    
+    box-sizing: border-box; 
+    
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;     
+}
+
+.ctl-multiplayer-dlg-content label{
+    font-size: 12px;  
+    font-style: italic;
+    margin-bottom: 4px;
+}
+
+.ctl-multiplayer-dlg-content input[type=number],
+.ctl-multiplayer-dlg-content input[type=text],
+.ctl-multiplayer-dlg-content input[type=password]{
+    padding: 5px;
+    font-size: 12px;
+    border: 1px solid #aaa;
+}
+
+.ctl-multiplayer-dlg-content button{
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    color: #fff;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.ctl-multiplayer-dlg-content button{
+    background-color: #31a8fd; 
+}
+
+.ctl-multiplayer-dlg-content button:hover,
+.ctl-multiplayer-dlg-content button:active{
+    background-color: #0094ff;
+}
+
+.ctl-multiplayer-dlg-content button.ctl-multiplayer-btn-gray{
+    background-color: #c5c5c5; 
+    color: #222;
+}
+
+.ctl-multiplayer-dlg-content button.ctl-multiplayer-btn-gray:hover,
+.ctl-multiplayer-dlg-content button.ctl-multiplayer-btn-gray:active{
+    background-color: #a5a4a4;
+}
+
+
+.ctl-multiplayer-dlg-content button:active{
+    top: 1px;
+}
+
+.ctl-multiplayer-dlg-content label,
+.ctl-multiplayer-dlg-content input[type=number],
+.ctl-multiplayer-dlg-content input[type=text],
+.ctl-multiplayer-dlg-content input[type=password]{
+    width: 100%;
+    display: block;
+}
+
+.ctl-multiplayer-dlg-content button:focus{
+    outline:0;
+}
+
+
+.ctl-multiplayer-dlg-wrapper,
+.ctl-multiplayer-dlg-block{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px; 
+}
+
+.ctl-multiplayer-dlg-block{
+    background-color: rgba(255,255,255,0.3);
+}
+
+.ctl-multiplayer-dlg-content{
+
+    
+    position: absolute;
+    
+    top: 50%;
+    left: 50%;
+    
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    
+    background-color: #C7D8BB;
+    
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;    
+    
+    box-sizing: border-box;
+    
+    padding: 15px;
+    
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.65);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.65);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.65);  
+    
+    min-width: 220px;
+}
+
+.ctl-multiplayer-dlg-content-body{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+.ctl-multiplayer-dlg-footer{
+    text-align: center;
+}
+
+.ctl-multiplayer-dlg-footer{
+    margin-left: -3px;
+    margin-right: -3px;
+}
+
+.ctl-multiplayer-dlg-footer button{
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-bottom: 5px;    
+}
+
+.ctl-multiplayer-room-list{
+    border: 1px solid #aaa;
+    max-height: 300px;
+    min-height: 100px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: #fff;
+}
+
+.ctl-multiplayer-room-list li{
+    padding: 5px;
+    font-size: 12px;
+    position: relative;
+    cursor: pointer;   
+    padding-right: 20px;
+}
+
+.ctl-multiplayer-room-list li i{
+    position: absolute;
+    right: 5px;
+    font-size: 12px;
+    color: #d10101;
+}
+
+.ctl-multiplayer-room-list li:nth-child(odd) {
+    background-color: #eee;
+}
+
+.ctl-multiplayer-room-list li:hover{
+    color: #fff;
+    background-color: #ff9c00;    
+}
+
+.ctl-multiplayer-room-list li:hover > i{
+    color: #fff;
+}
+
+.ctl-multiplayer-align-center{
+    text-align: center;
+}
+
+.ctl-multiplayer-new-nickname,
+.ctl-multiplayer-update{
+    font-size: 11px !important;
+    margin-top: 5px;
+    margin-bottom: 5px;    
+}
+
+.ctl-multiplayer-new-nickname{
+    width: 100%;
+}
+
+.ctl-multiplayer-center{
+    text-align: center;
+}
+
+.ctl-multiplayer-copyright{
+    text-align: center;
+    margin-top: 5px;
+}
+
+.ctl-multiplayer-copyright a{
+    font-size: 11px;
+    line-height: 11px;
+    text-decoration: none;
+    display: block;    
+}
+
+.ctl-multiplayer-copyright a:visited{
+    
+}
+
+.ctl-multiplayer-copyright a:hover,
+.ctl-multiplayer-copyright a:active{
+    color: #99cc00;
+}
+
+.ctl-multiplayer-dlg-content .ctl-multiplayer-icons-cancel{
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    
+    background-color: #ee2c2c;
+    color: #fff;
+    font-size: 12px;
+    width:20px;
+    height:20px;
+    text-align: center;
+    
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    
+    cursor: pointer;
+    line-height: 18px;    
+}
+
+.ctl-multiplayer-dlg-content .ctl-multiplayer-icons-cancel:hover{
+    background-color: #f00;  
+}
+
+.ctl-multiplayer-dlg-content .ctl-multiplayer-icons-cancel:before{
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+
+#ctl-multiplayer-join-a-match-dlg .ctl-multiplayer-dlg-content-body{
+    margin-top: 5px;
+}
+
+#ctl-multiplayer-join-a-match-dlg .ctl-multiplayer-dlg-header{
+    margin-top: 20px;
+}
+
+#ctl-multiplayer-join-a-match-dlg .ctl-multiplayer-dlg-header h1{
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#ctl-multiplayer-join-a-match-dlg .ctl-multiplayer-update{
+    position: absolute;
+    right: 15px;
+    font-size: 10px !important;
+    margin: 0px;
+    top: 30px;
+}
+
+#ctl-multiplayer-join-a-match-dlg  .ctl-multiplayer-dlg-content button{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;  
+    margin-bottom: 10px;    
+    
+}
+
+#ctl-multiplayer-join-a-match-dlg .ctl-multiplayer-dlg-content{
+    width: 80%;
+    max-width: 400px;
+    padding-bottom: 5px !important;
+}
+
+#ctl-multiplayer-join-a-match-dlg  .ctl-multiplayer-dlg-content button.ctl-multiplayer-play-random-opponent-btn{
+    margin-top: 24px;
+    margin-bottom: 30px;
+}
+
+#ctl-multiplayer-join-a-match-dlg .ctl-multiplayer-dlg-footer:before{
+    /*
+    content: "Play someone sharing your computer";
+    font-weight: bold;
+    position: absolute;
+    bottom: 38px;
+    width: 100%;
+    font-size: 11px;
+    text-align: center;
+    left: 0px;
+    */
+}
+
+#ctl-multiplayer-join-a-match-dlg .ctl-multiplayer-dlg-footer:after{
+    /*
+   content: "";
+   position: absolute;
+   width: 100%;
+   height: 60px;
+   border: 2px solid #fdf5e7;
+   bottom: 0px;
+   left: 0px;
+   background-color: #ACC59B;
+   z-index: -1;
+    box-sizing: border-box;    
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    */
+}
+
+.ctl-multiplayer-btn-play-offline{
+    margin-top: 50px;
+    margin-bottom: 0px !important;
+}

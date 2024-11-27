@@ -1,0 +1,501 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="images/icon.png" />
+  <title>nut simulator</title>
+  <meta name="description" content="grow your nut empire" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <!-- Google Analytics -->
+  <script src="/assets/js/script.js?v=11"></script>
+
+  <!-- End Google Analytics -->
+</head>
+
+<body>
+  <div id="container">
+    <main>
+      <div id="nutsim">nut simulator v1.8</div>
+      <div id="time">played for 0:00:00</div>
+      <input type="file" name="file" id="customImage" style="position: absolute; right: 20%; bottom: 4%" />
+      <label for="customImage" onmouseover="uploadHover()" onmouseleave="uploadLeave()" id="uploadLabel"><img
+          src="images/upload.png" id="uploadIcon" style="
+              transition: 0.5s;
+              width: 30px;
+              height: 30px;
+              left: -2px;
+              padding-right: 10px;
+              position: relative;
+              top: 2px;
+            " /><span style="position: relative; top: 4%">choose a custom nut image</span></label>
+      <div id="xptonextlevel">
+        <span style="position: relative; top: 10%">xp to next level: <span id="xptonextlevelnumber">20</span></span>
+      </div>
+      <div id="level">
+        <span style="position: relative; top: 3%">level: <span id="levelnumber">0</span></span>
+      </div>
+      <div id="bonusdamage">
+        <span style="position: relative; top: 3%"><span id="multipliernumber">1x</span> bonus <br />nuts/sec</span>
+      </div>
+      <div id="bgbar"></div>
+      <div id="bar" style="
+            text-align: center;
+            overflow-x: visible;
+            white-space: nowrap;
+            transition: 0.2s;
+          ">
+        <span style="position: relative; top: -0.2vw; margin-left: 0.5vw">current xp: <span id="xp">0</span></span>
+      </div>
+
+      <div class="textContainer">
+        <div class="item1">
+          <div id="things" style="
+                font-size: 2.5vw;
+                font-weight: bold;
+                position: relative;
+                bottom: 8px;
+                display: none;
+              ">
+            things
+          </div>
+          <div class="buyNutKid" style="display: none">
+            Nut Kids: <span id="nutKids">0</span> -
+            <span id="nutKidTotalDmg">1</span> n/s
+          </div>
+
+          <div class="buyNutBoy" style="display: none">
+            Nut Boys: <span id="nutBoys">0</span> -
+            <span id="nutBoyTotalDmg">1</span> n/s
+          </div>
+
+          <div class="buyNutMan" style="display: none">
+            Nut Men: <span id="nutMen">0</span> -
+            <span id="nutManTotalDmg">1</span> n/s
+          </div>
+
+          <div class="buyNutFarm" style="display: none">
+            Nut Farms: <span id="nutFarms">0</span> -
+            <span id="nutFarmTotalDmg">1</span> n/s
+          </div>
+
+          <div class="buyNutFactory" style="display: none">
+            Nut Factories: <span id="nutFactories">0</span> -
+            <span id="nutFactoryTotalDmg">1</span> n/s
+          </div>
+
+          <div class="buyNutBank" style="display: none">
+            Nut Banks: <span id="nutBanks">0</span> -
+            <span id="nutBankTotalDmg">1</span> n/s
+          </div>
+
+          <div class="buyNutEmpire" style="display: none">
+            Nut Empires: <span id="nutEmpires">0</span> -
+            <span id="nutEmpireTotalDmg">1</span> n/s
+          </div>
+
+          <div class="buyNutWorldControl" style="display: none">
+            Nut World Control: <span id="nutWorldControls">0</span> -
+            <span id="nutWorldControlTotalDmg">1</span> n/s
+          </div>
+
+          <div class="buyNutGalacticReign" style="display: none">
+            Galactic Nut Reigns: <span id="nutGalacticReigns">0</span> -
+            <span id="nutGalacticReignTotalDmg">1</span> n/s
+          </div>
+
+          <div class="buyDeezNutGuy" style="display: none">
+            Deez Nut Guys: <span id="deezNutGuys">0</span> -
+            <span id="deezNutGuyTotalDmg">1</span> n/s
+          </div>
+
+          <div class="buyNutTimeTravel" style="display: none">
+            Time Travelling Nuts: <span id="nutTimeTravels">0</span> -
+            <span id="nutTimeTravelTotalDmg">1</span> n/s
+          </div>
+
+          <div class="buyNutUniversalDomination" style="display: none">
+            Universal Nut Dominations:
+            <span id="nutUniversalDominations">0</span> -
+            <span id="nutUniversalDominationTotalDmg">1</span> n/s
+          </div>
+
+          <div class="buyNutGod" style="display: none">
+            Nut Gods: <span id="nutGods">0</span> -
+            <span id="nutGodTotalDmg">1</span> n/s
+          </div>
+
+          <div class="buyNutAfterlife" style="display: none">
+            Nut Afterlives: <span id="nutAfterlives">0</span> -
+            <span id="nutAfterlifeTotalDmg">1</span> n/s
+          </div>
+          <div style="display: none">
+            <div class="buyNutBoyBonus" style="display: none">
+              Bigger Nuts: <span id="nutBoyBonuses">0</span>
+            </div>
+
+            <div class="buyClick" style="display: none">
+              Powerful Clicks: <span id="clickUpgrades">0</span> -
+              <span id="clickUpgradeDamage">1</span> click bonus
+            </div>
+
+            <div class="buyClick2" style="display: none">
+              Big Boy Clicks: <span id="clickUpgrades2">0</span> -
+              <span id="clickUpgrade2Damage">1</span> click bonus
+            </div>
+
+            <div class="buyAllUpgrade" style="display: none">
+              Nut Masteries: <span id="allUpgrades">0</span>
+            </div>
+
+            <div class="buyClick3" style="display: none">
+              Nuclear Clicks: <span id="clickUpgrades3">0</span> -
+              <span id="clickUpgrade3Damage">1</span> click bonus
+            </div>
+          </div>
+        </div>
+
+        <div class="item2">
+          <div id="upgrades" style="
+                font-size: 2.5vw;
+                font-weight: bold;
+                position: relative;
+                bottom: 8px;
+                display: none;
+              ">
+            upgrades
+          </div>
+          <span id="damage" style="display: none">total nuts/sec: <span id="totalDamage">0</span></span>
+          <br />
+          <span id="clickBonusText" style="display: none">nuts/click: <span id="clickDamage">1</span></span>
+          <br />
+          <hr size="1" noshade color="black" id="line2" style="display: none" />
+          <button onclick="buy('buyNutBoyBonus')" id="button" class="buyNutBoyBonus"
+            style="display: none; font-size: 0.8vw">
+            <b>Bigger Nuts</b><br />nut boy nuts/sec x
+            <span id="nutBoyBonusAmount">2</span><br />-
+            <span id="nutBoyBonusCost">100</span> nuts
+          </button>
+          <br />
+          <button onclick="buy('x2Click')" class="buyClick"
+            style="display: none; background-color: #f5ab35; font-size: 0.8vw">
+            <b>Powerful Clicking</b><br />click bonus + 15<br />-
+            <span id="clickCost">300</span> nuts
+          </button>
+          <br />
+          <button onclick="buy('clickUpgrade2')" class="buyClick2"
+            style="display: none; background-color: #87d37c; font-size: 0.8vw">
+            <b>Big Boy Clicks</b><br />click bonus + 50<br />-
+            <span id="clickCost2">5000</span> nuts
+          </button>
+          <br />
+          <button onclick="buy('allUpgrade')" class="buyAllUpgrade"
+            style="display: none; background-color: #26a65b; font-size: 0.8vw">
+            <b>Nut Mastery</b><br />all except click x 2<br />-
+            <span id="allUpgradeCost">100000</span> nuts
+          </button>
+          <br />
+          <button onclick="buy('clickUpgrade3')" class="buyClick3"
+            style="display: none; background-color: #03c9a9; font-size: 0.8vw">
+            <b>Nuclear Clicks</b><br />click bonus x 2<br />-
+            <span id="clickCost3">300000</span> nuts
+          </button>
+        </div>
+      </div>
+
+      <!--the big nut-->
+      <div onmousedown="return false">
+        <!--disable dragging-->
+        <img src="images/icon.png" onmousedown="clickAnimation();clickOnButton()"
+          onmouseup="releaseAnimation();pressed=false" onmouseleave="releaseAnimation();pressed=false" id="middleNut" />
+        <div id="middleNutContent">
+          <div id="middleNutCounter">
+            Nuts: <span id="nuts">0</span>
+            <span style="
+                  position: relative;
+                  bottom: 5px;
+                  align: left;
+                  font-size: 1vw;
+                " id="damageAdded">+ 0/sec</span>
+          </div>
+          <div id="amountAdded"></div>
+          <div id="addedNuts">addedNuts</div>
+        </div>
+      </div>
+
+      <div id="middle">
+        <!--<button onclick="clickOnButton()" class="clickButton" id="middleNut">click</button>-->
+        <button onclick="buy('nutKid')" class="buyNutKid" style="display: none; background-color: #eb9532">
+          <b>Nut Kid</b><br />(+<span id="nutKidDamage">0.1</span>
+          nuts/sec)<br />- <span id="nutKidCost">15</span> nuts
+        </button>
+        <button onclick="buy('nutBoy')" class="buyNutBoy" style="display: none; background-color: #f39c12">
+          <b>Nut Boy</b><br />(+<span id="nutBoyBonusTotal">1</span>
+          nuts/sec)<br />- <span id="nutBoyCost">50</span> nuts
+        </button>
+        <button onclick="buy('nutMan')" class="buyNutMan" style="display: none; background-color: #87d37c">
+          <b>Nut Man</b><br />(+<span id="nutManDamage"> </span>
+          nuts/sec)<br />- <span id="nutManCost">1000</span> nuts
+        </button>
+        <button onclick="buy('nutFarm')" class="buyNutFarm" style="display: none; background-color: #26a65b">
+          <b>Nut Farm</b><br />(+<span id="nutFarmDamage"> </span>
+          nuts/sec)<br />- <span id="nutFarmCost">13000</span> nuts
+        </button>
+        <button onclick="buy('nutFactory')" class="buyNutFactory" style="display: none; background-color: #03c9a9">
+          <b>Nut Factory</b><br />(+<span id="nutFactoryDamage"> </span>
+          nuts/sec)<br />- <span id="nutFactoryCost">150000</span> nuts
+        </button>
+        <button onclick="buy('nutBank')" class="buyNutBank" style="display: none; background-color: #5c97bf">
+          <b>Nut Bank</b><br />(+<span id="nutBankDamage"> </span>
+          nuts/sec)<br />- <span id="nutBankCost">1400000</span> nuts
+        </button>
+        <button onclick="buy('nutEmpire')" class="buyNutEmpire" style="display: none; background-color: #1f3a93">
+          <b>Nut Empire</b><br />(+<span id="nutEmpireDamage"> </span>
+          nuts/sec)<br />- <span id="nutEmpireCost">20000000</span> nuts
+        </button>
+        <button onclick="buy('nutWorldControl')" class="buyNutWorldControl"
+          style="display: none; background-color: #9b59b6">
+          <b>World Nut Control</b><br />(+<span id="nutWorldControlDamage">
+          </span>
+          nuts/sec)<br />-
+          <span id="nutWorldControlCost">330000000</span> nuts
+        </button>
+        <button onclick="buy('nutGalacticReign')" class="buyNutGalacticReign"
+          style="display: none; background-color: #f62459">
+          <b>Galactic Nut Reign</b><br />(+<span id="nutGalacticReignDamage">
+          </span>
+          nuts/sec)<br />-
+          <span id="nutGalacticReignCost">5100000000</span> nuts
+        </button>
+        <button onclick="buy('deezNutGuy')" class="buyDeezNutGuy" style="display: none; background-color: #f22613">
+          <b>Deez Nut Guy</b><br />(+<span id="deezNutGuyDamage"> </span>
+          nuts/sec)<br />- <span id="deezNutGuyCost">75000000000</span> nuts
+        </button>
+        <button onclick="buy('nutTimeTravel')" class="buyNutTimeTravel"
+          style="display: none; background-color: #96281b">
+          <b>Time Travelling Nuts</b><br />(+<span id="nutTimeTravelDamage">
+          </span>
+          nuts/sec)<br />-
+          <span id="nutTimeTravelCost">1000000000000</span> nuts
+        </button>
+        <button onclick="buy('nutUniversalDomination')" class="buyNutUniversalDomination"
+          style="display: none; background-color: #72231a">
+          <b>Universal Nut Domination</b><br />(+<span id="nutUniversalDominationDamage">
+          </span>
+          nuts/sec)<br />-
+          <span id="nutUniversalDominationCost">40000000000000</span> nuts
+        </button>
+        <button onclick="buy('nutGod')" class="buyNutGod" style="display: none; background-color: #2d0e0b">
+          <b>Nut God</b><br />(+<span id="nutGodDamage"> </span>
+          nuts/sec)<br />- <span id="nutGodCost">170000000000000</span> nuts
+        </button>
+        <button onclick="buy('nutAfterlife')" id="redglow" class="buyNutAfterlife" style="
+              display: none;
+              background-image: url('images/colours.gif');
+              -webkit-backface-visibility: hidden;
+            ">
+          <b>Nut Afterlife</b><br />(+<span id="nutAfterlifeDamage"> </span>
+          nuts/sec)<br />-
+          <span id="nutAfterlifeCost">2000000000000000</span> nuts
+        </button>
+      </div>
+
+      <div id="bottomLeft">
+        <button onclick="toggleMusic()" style="background-color: #7c7c7c; color: white">
+          Toggle Music
+        </button>
+        <br />
+        <button onclick="toggleAudio()" style="background-color: #606060; color: white">
+          Toggle Audio
+        </button>
+        <br />
+        <button onclick="showMenu()" class="button">show menu</button>
+        <span id="menu">
+          <button onclick="Save()" class="button" id="menuButton">
+            save
+          </button>
+          <button onclick="DeleteSave()" class="button" id="menuButton2">
+            delete save
+          </button>
+          <button onclick="Load()" class="button" id="menuButton3">
+            load save
+          </button>
+          <button onclick="Download()" class="button" id="menuButton4">
+            download save
+          </button>
+          <button onclick="Upload()" class="button" id="menuButton5">
+            upload save
+          </button>
+        </span>
+      </div>
+
+      <div id="bottomRight" align="right">
+        <span id="saved"></span>
+      </div>
+      <button onclick="ShowGambling()" id="gamblingButton" style="
+            display: none;
+            position: absolute;
+            top: 1.2vw;
+            left: 20vw;
+            background-color: #d35400;
+          ">
+        gambling
+      </button>
+      <div id="gambling">
+        <div style="
+              font-size: 2.5vw;
+              font-weight: bold;
+              position: relative;
+              bottom: 8px;
+              text-align: center;
+            ">
+          nut gambling
+        </div>
+        exact nuts:
+        <span id="nutsGamble" style="pointer-events: auto">0</span>
+        <br />
+
+        <hr size="1" noshade color="black" />
+        25% chance to get 3x
+        <br />
+        <button onclick="Gamble(1)" style="
+              position: relative;
+              top: -0.5vw;
+              width: 100%;
+              background-color: #bababa;
+            ">
+          gamble
+        </button>
+        <br />
+
+        <hr size="1" noshade color="black" />
+        12% chance to get 6x
+        <br />
+        <button onclick="Gamble(2)" style="
+              position: relative;
+              top: -0.5vw;
+              width: 100%;
+              background-color: #a3a3a3;
+            ">
+          gamble
+        </button>
+        <br />
+
+        <hr size="1" noshade color="black" />
+        6% chance to get 12x
+        <br />
+        <button onclick="Gamble(3)" style="
+              position: relative;
+              top: -0.5vw;
+              width: 100%;
+              background-color: #777777;
+            ">
+          gamble
+        </button>
+        <br />
+
+        <hr size="1" noshade color="black" />
+        3% chance to get 24x
+        <br />
+        <button onclick="Gamble(4)" style="
+              position: relative;
+              top: -0.5vw;
+              width: 100%;
+              background-color: #595959;
+            ">
+          gamble
+        </button>
+        <br />
+
+        <hr size="1" noshade color="black" />
+        1% chance to get 50x
+        <br />
+        <button onclick="Gamble(5)" style="
+              position: relative;
+              top: -0.5vw;
+              width: 100%;
+              background-color: #262626;
+            ">
+          gamble
+        </button>
+        <br />
+
+        <hr size="1" noshade color="black" />
+        scissors paper rock for 2.5x nuts
+        <br />
+        <button onclick="ScissorsPaperRock('scissors')" style="
+              position: relative;
+              top: -0.5vw;
+              width: 32.3%;
+              background-color: #7f8c8d;
+            ">
+          scissors
+        </button>
+        <button onclick="ScissorsPaperRock('paper')" style="
+              position: relative;
+              top: -0.5vw;
+              width: 32.3%;
+              background-color: #95a5a6;
+            ">
+          paper
+        </button>
+        <button onclick="ScissorsPaperRock('rock')" style="
+              position: relative;
+              top: -0.5vw;
+              width: 32.3%;
+              background-color: #2c3e50;
+            ">
+          rock
+        </button>
+        <br />
+      </div>
+      <button onclick="ShowPrestige()" id="prestigeButton" style="
+            display: none;
+            position: absolute;
+            top: 1.2vw;
+            right: 20vw;
+            background-color: #2c3e50;
+          ">
+        prestige
+      </button>
+      <div id="prestige">
+        <div style="
+              font-size: 2.5vw;
+              font-weight: bold;
+              position: relative;
+              bottom: 8px;
+              text-align: center;
+            ">
+          prestige
+        </div>
+        current level: <span id="prestigeLevel">0</span>
+        <br />
+        current total nuts/sec: <span id="prestigeDamage">0</span>
+        <br />
+        prestige to gain a permanent <span id="prestigeGain">0</span>x
+        nuts/sec increase
+        <br />
+
+        <button onclick="Prestige()">prestige</button>
+      </div>
+
+      <div id="prestigeGainDiv" style="display: none">
+        <span style="position: relative; top: 3%"><span id="prestigeGainText"></span> x bonus nuts/sec from
+          prestige</span>
+      </div>
+    </main>
+  </div>
+  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript">
+    var url = window.location.pathname;
+    var page = url.substring(url.lastIndexOf("/") + 1);
+    /*
+  if(page != "index.html"){
+    window.location.href = "index.html";
+  }
+  */
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>OSU! Web | GAMES.JM26.NET</title>
+        <link rel="stylesheet" href="style/picnic.min.css">
+        <link rel="stylesheet" type="text/css" href="style/main.css">
+        <link rel="stylesheet" type="text/css" href="style/font.css">
+        <link rel="icon" href="favicon.png">
+        <script src="scripts/launchgame.js"></script>
+        <script src="scripts/downloader.js"></script>
+        <script src="scripts/addbeatmaplist.js"></script>
+        <script src="scripts/settings.js"></script>
+        <script src="scripts/jsloader.js"></script>
+    </head>
+
+    <body>
+        <div class="game-area" id="game-area" hidden>
+        </div>
+
+        <div class="pause-menu" id="pause-menu" hidden>
+            <div class="paused-title">paused</div>
+            <div class="button-list">
+                <div class="pausebutton continue" id="pausebtn-continue">
+                    <div class="inner">Continue</div>
+                </div>
+                <div class="pausebutton retry" id="pausebtn-retry">
+                    <div class="inner">Retry</div>
+                </div>
+                <div class="pausebutton quit" id="pausebtn-quit">
+                    <div class="inner">Quit</div>
+                </div>
+            </div>
+        </div>
+
+        <nav id="main-nav">
+            <div class="nav-link">
+                <a href="index.html" class="brand">Osaka Salmon University!</a>
+                <a href="new.html" class="pseudo button">New</a>
+                <a href="hot.html" class="pseudo button">Popular</a>
+                <a href="genre.html" class="pseudo button">Genre</a>
+            </div>
+            <div class="nav-search">
+                <form action="search.html">
+                    <input type="text" name="q" placeholder="Keywords or SID"/>
+                    <input type="image" class="search-button" src="research.svg">
+                </form>
+            </div>
+            <div class="nav-tool">
+                <a href="local.html" class="pseudo button">Favorites</a>
+                <a href="faq.html" class="pseudo button">FAQ</a>
+                <a href="settings.html" class="pseudo button">Settings</a>
+                <a onclick="document.documentElement.requestFullscreen();" class="pseudo button">Full-Screen</a>
+            </div>
+        </nav>
+
+        <div class="main-page" id="main-page">
+            <div class="main-content">
+                <div class="sort-nav">
+                    <div class="title">Style</div>
+                    <div class="selitem" genre="1">All</div>
+                    <div class="selitem" genre="4">Games</div>
+                    <div class="selitem" genre="8">Anime</div>
+                    <div class="selitem" genre="16">Rock 'n' Roll</div>
+                    <div class="selitem" genre="32">Popular</div>
+                    <div class="selitem" genre="128">Novelty</div>
+                    <div class="selitem" genre="1024">Electronic</div>
+                    <div class="selitem" genre="2+64+256">Other</div>
+                </div>
+                <div class="sort-nav">
+                    <div class="title">Language</div>
+                    <div class="selitem" lang="1">All</div>
+                    <div class="selitem" lang="4">English</div>
+                    <div class="selitem" lang="8">Japanese</div>
+                    <div class="selitem" lang="32">Instrumental</div>
+                    <div class="selitem" lang="16">Chinese</div>
+                    <div class="selitem" lang="64">Korean</div>
+                    <div class="selitem" lang="256">German</div>
+                    <div class="selitem" lang="128">French</div>
+                    <div class="selitem" lang="2048">Italian</div>
+                    <div class="selitem" lang="512">Swedish</div>
+                    <div class="selitem" lang="2+1024">Other</div>
+                </div>
+                <hr>
+
+                <div class="beatmap-list" id="beatmap-list">
+                    <!-- to be filled in script -->
+                </div>
+                <div class="button" style="width:100%; margin-bottom: 10px;" id="btnmore">Load More</div>
+                <div class="text">We recommend using the latest version of Firefox or Chrome.</div>
+                <div class="text">Beta v1.4.3. <a href="https://github.com/111116/osu">Github</a></div>
+                <div class="text">Beatmaps previded by <a href="https://osu.sayobot.cn/">Sayobot</a></div>
+            </div>
+            <!-- <div class="side-panel">
+                to be activated in script
+            </div> -->
+            <div class="statuslines" id="statuslines">
+                <div class="progress" id="script-progress">
+                    Scripts
+                    <div class="lds-dual-ring"></div>
+                </div>
+                <div class="progress" id="skin-progress">
+                    Skin
+                    <div class="lds-dual-ring"></div>
+                </div>
+                <div class="progress" id="sound-progress">
+                    Hitsounds
+                    <div class="lds-dual-ring"></div>
+                </div>
+            </div>
+        </div>
+        <script>
+            let btns = document.getElementsByClassName("selitem");
+            function search(genre, lang) {
+                // clear list
+                list = document.getElementById("beatmap-list");
+                document.getElementById("btnmore").innerText = "View more";
+                while (list.firstChild) {
+                    list.removeChild(list.firstChild);
+                }
+                addBeatmapList("https://api.sayobot.cn/beatmaplist?0=20&1=0&2=4&5=1&7=" + genre + "&8=" + lang);
+                var cur = 20;
+                document.getElementById("btnmore").onclick = function() {
+                    if (typeof(window.list_endid) == "undefined") {
+                        addBeatmapList("https://api.sayobot.cn/beatmaplist?0=20&1="+cur+"&2=4&5=1&7=" + genre + "&8=" + lang);
+                    }
+                    else {
+                        if (window.list_endid == 0)
+                            document.getElementById("btnmore").innerText = "There's nothing more! OvO";
+                        else
+                            addBeatmapList("https://api.sayobot.cn/beatmaplist?0=20&1="+window.list_endid+"&2=4&5=1&7=" + genre + "&8=" + lang);
+                    }
+                    cur += 20;
+                }
+                // update buttons state
+                for (let i=0; i<btns.length; ++i) {
+                    let g = eval(btns[i].getAttribute("genre"));
+                    let l = eval(btns[i].getAttribute("lang"));
+                    if (g==genre || l==lang) {
+                        btns[i].classList.add("active");
+                    }
+                    else {
+                        btns[i].classList.remove("active");
+                    }
+                }
+            }
+            let curgenre = 1;
+            let curlang = 1;
+            search(curgenre, curlang);
+            for (let i=0; i<btns.length; ++i) {
+                btns[i].onclick = function() {
+                    let g = eval(btns[i].getAttribute("genre"));
+                    let l = eval(btns[i].getAttribute("lang"));
+                    if (g) curgenre = g;
+                    if (l) curlang = l;
+                    search(curgenre, curlang);
+                }
+            }
+        </script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169262247-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-169262247-1');
+</script> -->
+    </body>
+</html>
+
+<!-- attribution -->
+<!-- play icon made by https://www.flaticon.com/authors/those-icons -->
+<!-- search icon made by https://www.flaticon.com/authors/good-ware -->
