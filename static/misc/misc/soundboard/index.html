@@ -1,0 +1,57 @@
+<!--an unminifed version is at og.html-->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="img/mlg-favicon.png" />
+  <link rel="shortcut icon" href="img/mlg-favicon.png" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="img/mlg-favicon.png" type="image/x-icon" />
+  <script src="/assets/js/script.js?v=11"></script>
+  <title>Online Soundboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="title" content="Online Soundboard" />
+  <meta name="description"
+    content="A collection of sounds to play out of context. Perfect for school! Just play it when your teacher is talking and I bet they will love it!" />
+  <meta name="robots" content="index, follow" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="css/spinner.css" />
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/sw.js")
+        .then(function (registration) {
+          console.log("Service worker registered:", registration);
+        })
+        .catch(function (error) {
+          console.log("Service worker registration failed:", error);
+        });
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Online Soundboard</h1>
+  <h2>
+    Just click on the colorful buttons to play the sound.<br />
+    <a href="https://forms.gle/hoiTBEZ4p14iupXH6">Click here to submit a sound to be added!</a><br />
+  </h2>
+  <div class="control">
+    Audio Controls
+    <button class="woah" onclick="javascript:playAll()">Provoke Chaos</button>
+    <button class="woah" onclick="javascript:stopAll()">
+      Stop Everything
+    </button>
+  </div>
+  <div class="soundboard-container">
+    <div class="flex-container">
+      <div class="spinner"></div>
+    </div>
+  </div>
+  <p id="footer">3kh0 © 2023</p>
+  <script type="application/javascript" src="loader.js"></script>
+  <script src="/assets/js/script.js?v=11"></script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>GunSpin</title>
+  <link rel="shortcut icon" href="TemplateData/favicon.ico">
+  <link rel="stylesheet" href="TemplateData/style.css">
+  <script src="TemplateData/UnityProgress.js"></script>
+  <script src="Build/UnityLoader.js"></script>
+  <script src="/assets/js/script.js"></script>
+  <script>
+    //var unityInstance = UnityLoader.instantiate("unityContainer", "Build/GunSpin WebGL FinalVersion.json", {onProgress: UnityProgress});
+    window.gameInstance = UnityLoader.instantiate("unityContainer", "Build/GunSpin WebGL FinalVersion.json");
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: black;
+    }
+
+    div#unityContainer {
+      margin: auto !important;
+      position: absolute !important;
+      left: 50%;
+      top: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      width: 720px;
+      height: 480px;
+      width: 150vh !important;
+      height: 100vh !important;
+    }
+
+    .footer {
+      display: none
+    }
+  </style>
+</head>
+
+<body style="overflow:hidden;">
+  <div class="webgl-content">
+    <div id="unityContainer"></div>
+    <div class="footer">
+      <div class="webgl-logo"></div>
+      <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
+      <div class="title">GunSpin</div>
+    </div>
+  </div>
+</body>
+
+</html>

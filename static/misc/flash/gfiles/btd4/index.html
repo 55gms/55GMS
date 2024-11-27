@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="/js/script.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>BTD 4</title>
+<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<script type="text/javascript" src="./lib/clipboard.min.js"></script>
+<script type="text/javascript" src="./lib/howler.min.js"></script>
+<script type="text/javascript" src="./game.js"></script>
+<script>
+		window.open = () => null;
+		//window.addEventListener ("touchmove", function (event) { event.preventDefault (); }, false);
+		if (typeof window.devicePixelRatio != 'undefined' && window.devicePixelRatio > 2) {
+			var meta = document.getElementById ("viewport");
+			meta.setAttribute ('content', 'width=device-width, initial-scale=' + (2 / window.devicePixelRatio) + ', user-scalable=no');
+		}
+		
+		function visibilityChange() {
+			var hidden = 'hidden'
+
+			// Standards:
+			if (hidden in document)
+				document.addEventListener('visibilitychange', onchange)
+			else if ((hidden = 'mozHidden') in document)
+				document.addEventListener('mozvisibilitychange', onchange)
+			else if ((hidden = 'webkitHidden') in document)
+				document.addEventListener('webkitvisibilitychange', onchange)
+			else if ((hidden = 'msHidden') in document)
+				document.addEventListener('msvisibilitychange', onchange)
+			// IE 9 and lower:
+			else if ('onfocusin' in document)
+				document.onfocusin = document.onfocusout = onchange
+			// All others:
+			else
+				window.onpageshow = window.onpagehide = window.onfocus = window.onblur = onchange
+
+			function onchange(evt) {
+				let v = false,
+					h = true,
+					evtMap = {
+						focus: v,
+						focusin: v,
+						pageshow: v,
+						blur: h,
+						focusout: h,
+						pagehide: h
+					}
+
+				evt = evt || window.event
+
+				let windowHidden = false
+				if (evt.type in evtMap) {
+					windowHidden = evtMap[evt.type]
+				} else {
+					windowHidden = this[hidden]
+				}
+
+				var howl = Howler;
+
+				if (howl) {
+					if (windowHidden) {
+						howl.mute(true)
+					} else {
+						howl.mute(false)
+					}
+				}
+			}
+
+			// set the initial state (but only if browser supports the Page Visibility API)
+			if (document[hidden] !== undefined)
+				onchange({
+					type: document[hidden] ? 'blur' : 'focus'
+				})
+			}
+
+		visibilityChange();
+	</script>
+<style>
+		html,body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+		#openfl-content {}
+
+		canvas {
+			max-width:100%;
+			display:block;
+			margin:auto;
+		}
+
+		
+		@font-face {
+			font-family: 'Trebuchet MS';
+			src: url('assets/fonts/743_Trebuchet MS.woff2') format('woff2');
+			src: url('assets/fonts/743_Trebuchet MS.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Arial';
+			src: url('assets/fonts/1865_Arial.woff2') format('woff2');
+			src: url('assets/fonts/1865_Arial.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Arial Black';
+			src: url('assets/fonts/526_Arial Black.woff2') format('woff2');
+			src: url('assets/fonts/526_Arial Black.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Yikes!';
+			src: url('assets/fonts/849_Yikes!.woff2') format('woff2');
+			src: url('assets/fonts/849_Yikes!.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Cartoonist';
+			src: url('assets/fonts/1404_Cartoonist.woff2') format('woff2');
+			src: url('assets/fonts/1404_Cartoonist.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Tahoma';
+			src: url('assets/fonts/2103_Tahoma.woff2') format('woff2');
+			src: url('assets/fonts/2103_Tahoma.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Yikes!';
+			src: url('assets/fonts/164_Yikes!.woff2') format('woff2');
+			src: url('assets/fonts/164_Yikes!.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Visitor TT2 BRK';
+			src: url('assets/fonts/1546_Visitor TT2 BRK.woff2') format('woff2');
+			src: url('assets/fonts/1546_Visitor TT2 BRK.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Trebuchet MS';
+			src: url('assets/fonts/1582_Trebuchet MS.woff2') format('woff2');
+			src: url('assets/fonts/1582_Trebuchet MS.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Verdana';
+			src: url('assets/fonts/831_Verdana.woff2') format('woff2');
+			src: url('assets/fonts/831_Verdana.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'McBoing Boing';
+			src: url('assets/fonts/899_McBoing Boing.woff2') format('woff2');
+			src: url('assets/fonts/899_McBoing Boing.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Cartoonist';
+			src: url('assets/fonts/1455_Cartoonist.woff2') format('woff2');
+			src: url('assets/fonts/1455_Cartoonist.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Tahoma';
+			src: url('assets/fonts/717_Tahoma.woff2') format('woff2');
+			src: url('assets/fonts/717_Tahoma.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+	</style>
+<body>
+<div id="root">
+<div id="openfl-content"></div>
+</div>
+<script type="text/javascript">
+		lime.embed ("openfl-content", 640, 640, "FFFFFF");
+	</script>
+</body>
+</html>
