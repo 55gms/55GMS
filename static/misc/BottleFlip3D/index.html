@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Bottle Flip 3D</title>
+  <script src="/assets/js/script.js?v=11"></script>
+  <link rel="icon" type="image/x-icon" href="/img/canvas.ico" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #070c23;
+    }
+
+    #container {
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      /* background:#222c36; */
+      background: #000416;
+      overflow: hidden;
+    }
+
+    #logo {
+      position: absolute;
+      display: block;
+      top: 50%;
+      left: 50%;
+      min-width: 400px;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 2em;
+      color: #ffffff;
+      overflow: hidden;
+      z-index: 999;
+    }
+
+    #footer {
+      width: 100%;
+      height: 40px;
+      bottom: 0;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%, 0%);
+      background: linear-gradient(to bottom, #ccc 0%, #fff 100%);
+    }
+
+    div.button {
+      background: #222c36;
+      padding: 0 8px;
+      text-align: center;
+      border-radius: 3px;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    div.moregames {
+      height: 38px;
+      line-height: 38px;
+      padding: 0 5px;
+      margin: 1px 1px 0 0;
+      float: left;
+      color: #333;
+      text-align: left;
+      font-size: 15px;
+      position: relative;
+      z-index: 10;
+    }
+
+    div.fullscreen {
+      margin: 1px 1px 0 0;
+      position: absolute;
+      right: 5px;
+      height: 38px;
+      line-height: 38px;
+      display: inline-flex;
+      font-weight: bold;
+    }
+
+    div.fullscreen img {
+      padding-left: 5px;
+    }
+  </style>
+  <script src="Build/UnityLoader.js"></script>
+  <script type="text/javascript">
+    function UnityProgress(gameInstance, progress) {
+      if (!gameInstance.Module) {
+        return;
+      } else if (progress === "complete") {
+        document.getElementById("logo").style.display = "none";
+      } else if (progress == 1) {
+      } else if (progress > 0) {
+        document.getElementById("logo").innerText =
+          (progress * 100).toFixed(2) + "%";
+      }
+    }
+    var gameInstance = UnityLoader.instantiate(
+      "gameContainer",
+      "Build/GDBuild.json",
+      {
+        onProgress: UnityProgress,
+        Module: {
+          onRuntimeInitialized: function () {
+            UnityProgress(gameInstance, "complete");
+          },
+        },
+      }
+    );
+
+    function FitScreen() {
+      var w = 440;
+      var h = 750;
+      var availWidth = window.innerWidth;
+      var availHeight = window.innerHeight;
+
+      var canvas = document.getElementById("#canvas");
+      if (availWidth / availHeight > w / h) {
+        height = availHeight;
+        width = (height * w) / h;
+      } else {
+        width = availWidth;
+        height = (width * h) / w;
+      }
+      canvas.width = width;
+      canvas.height = height;
+      document.getElementById("container").style.width = width + "px";
+      document.getElementById("container").style.height = height + "px";
+      document.getElementById("gameContainer").style.width = width + "px";
+      document.getElementById("gameContainer").style.height = height + "px";
+    }
+  </script>
+  <script src="patch/js/null.js?www.bestgames.com/forgame/functions.js?0123"></script>
+  <script src="patch/js/null.js?www.bestgames.com/ShowGames.js"></script>
+  <script src="patch/js/null.js?www.cargames.com/forgame/functions.js?0123"></script>
+  <script src="patch/js/null.js?www.cargames.com/ShowGames.js"></script>
+
+  <script type="text/javascript">
+    function openWindow(Screen, Button, NameId, website) {
+      document.onmouseup = function () {
+        switch (website.trim().toLowerCase()) {
+          case "bestgames":
+            GameId = GetGameIdByNameId(NameId, gamesBest);
+            linkBest("Bottle Flip 3D", Screen, Button, GameId);
+            break;
+          case "cargames":
+            GameId = GetGameIdByNameId(NameId, gamesCar);
+            linkCar("Bottle Flip 3D", Screen, Button, GameId);
+            break;
+          default:
+            console.log(website + " is error");
+        }
+        document.onmouseup = null;
+      };
+    }
+    //éæºä¸ä¸ªnameId
+    function GetNameIdByRandom(len, website) {
+      var gamesArr;
+      switch (website.trim().toLowerCase()) {
+        case "bestgames":
+          gamesArr = gamesBest;
+          break;
+        case "cargames":
+          gamesArr = gamesCar;
+          break;
+        default:
+          console.log(website + " is error");
+      }
+      var nameIdArray = new Array();
+      var separator = ",";
+      for (var i = 0; i < len; i++) {
+        var randomIndex;
+        var nameId;
+        do {
+          randomIndex = Math.floor(Math.random() * gamesArr.length);
+          nameId = gamesArr[randomIndex]["nameid"];
+        } while (nameIdArray.includes(nameId) && len <= gamesArr.length);
+        nameIdArray[i] = nameId;
+      }
+      nameIdArray[len] = website;
+      var nameIds = nameIdArray.join(separator);
+      console.log(nameIds);
+      gameInstance.SendMessage("WWWLoader", "CallGetNameIds", nameIds);
+    }
+    //éè¿NameIdè·åGameId
+    function GetGameIdByNameId(NameId, Games) {
+      for (i = 0; i < Games.length; i++) {
+        if (Games[i]["nameid"] == NameId) {
+          return Games[i]["id"];
+        }
+      }
+      console.log("ShowGames.js not exist ", NameId, " correspond to vaule");
+      return "";
+    }
+    //ç´æ¥æ ¹æ®ç½åæå¼ç½é¡µ
+    function openWindowByUrl(Url) {
+      var url = encodeURI(Url);
+      document.onmouseup = function () {
+        window.xopen(url);
+        document.onmouseup = null;
+      };
+    }
+  </script>
+</head>
+
+<body onFocus="FitScreen();" onLoad="FitScreen();" onResize="FitScreen();">
+  <div id="container">
+    <div id="logo">Loading...</div>
+    <div id="gameContainer" height="750px" width="440px"></div>
+  </div>
+</body>
+
+</html>

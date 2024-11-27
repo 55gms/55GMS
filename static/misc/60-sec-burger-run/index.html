@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta name="viewport" content="width=512px, user-scalable=0, minimal-ui" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>60 Seconds Burger Run</title>
+  <script src="/assets/js/script.js?v=11"></script>
+  <script type="text/javascript" src="js/phaser.js"></script>
+  <script type="text/javascript" src="js/loader.js"></script>
+  <script type="text/javascript" src="js/title.js"></script>
+  <script type="text/javascript" src="js/level.js"></script>
+  <script type="text/javascript" src="js/bus.js"></script>
+  <script type="text/javascript" src="js/gameOver.js"></script>
+  <script type="text/javascript">
+    document.ontouchmove = function (e) {
+      e.preventDefault();
+    };
+  </script>
+
+  <style type="text/css">
+    @font-face {
+      font-family: "font";
+      src: url(font.ttf) format("truetype");
+    }
+
+    body {
+      font-size: 34px;
+      padding: 0px;
+      margin: 0px;
+      background: #000000;
+      width: 512px;
+      overflow-y: hidden;
+      padding-bottom: 280px;
+    }
+  </style>
+
+  <style type="text/css">
+    .no-select {
+      -webkit-touch-callout: none;
+      /* iOS Safari */
+      -webkit-user-select: none;
+      /* Safari */
+      -khtml-user-select: none;
+      /* Konqueror HTML */
+      -moz-user-select: none;
+      /* Old versions of Firefox */
+      -ms-user-select: none;
+      /* Internet Explorer/Edge */
+      user-select: none;
+      /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+    }
+  </style>
+
+  <script type="text/javascript">
+    setTimeout(function () {
+      if (document.getElementsByTagName("canvas").length) {
+        document.getElementsByTagName("canvas")[0].classList.add("no-select");
+      }
+    }, 2000);
+  </script>
+  <script type="text/javascript">
+    function setUserAgent(window, userAgent) {
+      // Works on Firefox, Chrome, Opera and IE9+
+      if (navigator.__defineGetter__) {
+        navigator.__defineGetter__("userAgent", function () {
+          return userAgent;
+        });
+      } else if (Object.defineProperty) {
+        Object.defineProperty(navigator, "userAgent", {
+          get: function () {
+            return userAgent;
+          },
+        });
+      }
+      // Works on Safari
+      if (window.navigator.userAgent !== userAgent) {
+        var userAgentProp = {
+          get: function () {
+            return userAgent;
+          },
+        };
+        try {
+          Object.defineProperty(window.navigator, "userAgent", userAgentProp);
+        } catch (e) {
+          window.navigator = Object.create(navigator, {
+            userAgent: userAgentProp,
+          });
+        }
+      }
+    }
+    if (
+      window.navigator.userAgent.indexOf("Safari") >= 0 &&
+      "ontouchstart" in window &&
+      window.navigator.userAgent.indexOf("iPhone") == -1
+    ) {
+      //var userAgent = window.navigator.userAgent.replace("Macintosh", "iPad");
+      var userAgent =
+        "Mozilla/5.0 (iPad; CPU OS 13_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.1 Mobile/15E148 Safari/604.1";
+      setUserAgent(window, userAgent);
+    }
+  </script>
+</head>
+
+<body>
+  <script>
+    // my custom code
+    let infjump;
+    let label;
+    let thetime;
+    let timer;
+    let gravity = 0.6;
+    let playerspeed = 4;
+    let jumpheight = -13;
+    let input = 0;
+    let inftime;
+    let noclip;
+    document.onkeydown = keydown;
+
+    function keydown(evt) {
+      if (!evt) evt = event;
+
+      if (evt.key === "r" && !evt.altKey) {
+        levl = 1;
+        newState();
+        tim = 0;
+      } else if (evt.altKey && evt.key === "r") {
+        newState();
+        tim = 0;
+      } else if (evt.altKey && evt.key === "q") {
+        cheat = prompt(
+          "dev menu made by egamepass:\n1: level changer\n2. fps changer\n3. time go bye bye\n4. no clip\n5. get picked up\n6: inf jump\n7: gravity\n8: no ground\n9: walk speed\n10: jump height"
+        );
+        if (cheat == 1) {
+          levl = prompt(
+            "set levl (complete level)\nlevl 0 = title\n-9 = game over\n1-6 = levels"
+          );
+        } else if (cheat == 2) {
+          world.time._desiredFps = prompt("what fps u want (default is 60)");
+        } else if (cheat == 3) {
+          inftime = !inftime;
+          setInterval(() => {
+            if (inftime == 1) {
+              tim = 0;
+            }
+          }, 700);
+        } else if (cheat == 4) {
+          noclip = !noclip;
+          setInterval(() => {
+            if (noclip == 1) {
+              spikes = "";
+            }
+          }, 100);
+        } else if (cheat == 5) {
+          callBus();
+        } else if (cheat == 6) {
+          infjump = !infjump;
+        } else if (cheat == 7) {
+          gravity = parseFloat(prompt("set gravity (default is 0.6)"));
+        } else if (cheat == 8) {
+          plats = "";
+        } else if (cheat == 9) {
+          playerspeed = prompt("set speed (default is 4)");
+          sprt.spd = playerspeed;
+        } else if (cheat == 10) {
+          jumpheight = parseFloat(prompt("jump height? default is -13"));
+          sprt.jh = jumpheight;
+        } else {
+          alert("idk what u want");
+        }
+      } else if (evt.key === "t") {
+        speedrun = 1;
+      } else if (
+        evt.key === "1" ||
+        evt.key === "2" ||
+        evt.key === "3" ||
+        evt.key === "4" ||
+        evt.key === "5" ||
+        evt.key === "6" ||
+        (evt.key === "7" && evt.altKey)
+      ) {
+        levl = evt.key;
+        newState();
+      } else if (evt.key === "i") {
+        input = !input;
+        gotoL1();
+        tim = 0;
+      }
+      document.addEventListener("keydown", (event) => {
+        if (
+          (event.code === "Space" || event.code === "ArrowUp") &&
+          infjump == 1
+        ) {
+          sprt.ju = 0;
+        }
+      });
+      document.addEventListener("keyup", (event) => {
+        if (event.code === "Space") {
+          spaceee = 0;
+        }
+      });
+    }
+
+    function initSpeedrunTimer() {
+      var graphics = game.add.graphics(0, 0);
+      graphics.beginFill("#000");
+      graphics.alpha = 0.5;
+      graphics.drawRect(0, 0, 105, 20);
+      graphics.fixedToCamera = true;
+      timer = game.add.text(0, 0, "Time: " + thetime, {
+        font: "15px font",
+        fill: "#ffffff",
+      });
+      timer.fixedToCamera = true;
+    }
+    function speedrunTimer() {
+      thetime = tim;
+      thetime = Math.round(thetime / 0.0012) / 5000;
+      thetime = thetime.toString();
+      timer.text = "Time: " + thetime;
+    }
+
+    var spaceinputview = game.add.graphics(0, 0);
+    var leftinputview = game.add.graphics(0, 0);
+    var rightinputview = game.add.graphics(0, 0);
+    var inputviewbg = game.add.graphics(0, 0);
+
+    function initInputViewer() {
+      if (input == 1) {
+        inputviewbg = game.add.graphics(0, 0);
+        inputviewbg.beginFill("#000");
+        inputviewbg.alpha = 0.7;
+        inputviewbg.drawRect(5, game.camera.height - 55, 65, 45);
+        inputviewbg.fixedToCamera = true;
+        spaceinputview = game.add.graphics(0, 0);
+        spaceinputview.beginFill(0xffffff);
+        spaceinputview.drawRect(0, 0, 15, 15);
+        spaceinputview.fixedToCamera = true;
+        spaceinputview.cameraOffset.setTo(30, game.camera.height - 50);
+        leftinputview = game.add.graphics(0, 0);
+        leftinputview.beginFill(0xffffff);
+        leftinputview.drawRect(0, 0, 15, 15);
+        leftinputview.fixedToCamera = true;
+        leftinputview.cameraOffset.setTo(10, game.camera.height - 30);
+        rightinputview = game.add.graphics(0, 0);
+        rightinputview.beginFill(0xffffff);
+        rightinputview.drawRect(0, 0, 15, 15);
+        rightinputview.fixedToCamera = true;
+        rightinputview.cameraOffset.setTo(50, game.camera.height - 30);
+      } else {
+        inputviewbg = game.add.graphics(0, 0);
+        inputviewbg.beginFill("#000");
+        inputviewbg.alpha = 0.7;
+        inputviewbg.drawRect(5, game.camera.height - 5000000005, 65, 45);
+        inputviewbg.fixedToCamera = true;
+        spaceinputview = game.add.graphics(0, 0);
+        spaceinputview.beginFill(0xffffff);
+        spaceinputview.drawRect(0, 0, 15, 15);
+        spaceinputview.fixedToCamera = true;
+        spaceinputview.cameraOffset.setTo(
+          30,
+          game.camera.height - 50234234234
+        );
+        leftinputview = game.add.graphics(0, 0);
+        leftinputview.beginFill(0xffffff);
+        leftinputview.drawRect(0, 0, 15, 15);
+        leftinputview.fixedToCamera = true;
+        leftinputview.cameraOffset.setTo(10, game.camera.height - 301434);
+        rightinputview = game.add.graphics(0, 0);
+        rightinputview.beginFill(0xffffff);
+        rightinputview.drawRect(0, 0, 15, 15);
+        rightinputview.fixedToCamera = true;
+        rightinputview.cameraOffset.setTo(
+          50,
+          game.camera.height - 3234234324230
+        );
+      }
+    }
+
+    function inputViewer() {
+      if (spaceKey.isDown || cursors.up.isDown) {
+        spaceinputview.alpha = 1;
+      } else {
+        spaceinputview.alpha = 0;
+      }
+
+      if (cursors.left.isDown) {
+        leftinputview.alpha = 1;
+      } else {
+        leftinputview.alpha = 0;
+      }
+      if (cursors.right.isDown) {
+        rightinputview.alpha = 1;
+      } else {
+        rightinputview.alpha = 0;
+      }
+    }
+  </script>
+  <script src="js/main.js"></script>
+  <script>
+    function fnSendMsg(evt) {
+      window.parent.postMessage("keypress-from-game", "*");
+    }
+    document.body.addEventListener("click", function (event) {
+      fnSendMsg(event);
+    });
+    document.addEventListener("keypress", function (event) {
+      fnSendMsg(event);
+    });
+    document.addEventListener("keydown", function (e) {
+      fnSendMsg(event);
+    });
+    document.addEventListener("keyup", function (e) {
+      fnSendMsg(event);
+    });
+  </script>
+</body>
+
+</html>

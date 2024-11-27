@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Awesome Tanks 2</title>
+  <meta name="HandheldFriendly" content="true" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+  <link href="styles/main.css" rel="stylesheet" />
+  <link href="styles/fonts.css" rel="stylesheet" />
+  <meta name="apple-mobile-web-app-title" content="Awesome Tanks" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <script src="/assets/js/script.js?v=11"></script>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="icon" type="image/x-icon" href="/img/canvas.ico" />
+</head>
+
+<body>
+  <p style="
+        font-family: 'Gunplay';
+        position: absolute;
+        pointer-events: none;
+        opacity: 0;
+      ">
+    Font loader
+  </p>
+  <script>
+    var AT = {
+      // URL where an user will be redirected after clicking "Play" button on the Site lock screen
+      SITE_LOCK_TARGET: "//www.coolmathgames.com/",
+    };
+
+    var WebFontConfig = {
+      classes: false,
+      timeout: 0,
+      active: function () { },
+      custom: { families: ["Gunplay"], urls: ["styles/fonts.css"] },
+    };
+  </script>
+  <script src="awesome_tanks_2.js"></script>
+</body>
+
+</html>

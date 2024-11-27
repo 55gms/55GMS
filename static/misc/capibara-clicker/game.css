@@ -1,0 +1,161 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    background-image: linear-gradient(rgb(0, 0, 0), rgb(0, 102, 255));
+}
+
+#gameContainer {
+    width: 100vw;
+    height: 100vh;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+canvas+* {
+    z-index: 2;
+}
+
+.container {
+    max-width: 1600px;
+    position: relative;
+}
+
+.posImg {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.logo {
+    position: absolute;
+    display: block;
+    max-width: 100vw;
+    max-height: 70vh;
+    top: 300px;
+}
+
+.pos_progress {
+    position: absolute;
+    bottom: 15%;
+    width: 100%;
+}
+
+.progress {
+    margin: 1.5em auto;
+    max-width: 436px;
+    height: auto;
+    display: none;
+    position: relative;
+}
+
+.full {
+    width: 97%;
+    transform-origin: top left;
+}
+
+.box_process {
+    width: 100%;
+}
+
+.process {
+    width: 98%;
+}
+
+.progress .posfull,
+.progress .posbox {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress .posfull {
+    top: 8px;
+    z-index: 1;
+}
+
+.progress .posbox {
+    top: 0;
+    z-index: 2;
+}
+
+#loader {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(rgb(0, 0, 0), rgb(0, 102, 255));
+}
+
+.pos_spinner {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-30%, -50%);
+}
+
+.spinner,
+.spinner:after {
+    display: none;
+    border-radius: 50%;
+    width: 5em;
+    height: 5em;
+}
+
+.spinner {
+    margin: 10px;
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border-top: 1.1em solid rgba(255, 255, 255, 0.2);
+    border-right: 1.1em solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
+    border-left: 1.1em solid #ffffff;
+    transform: translateZ(0);
+    animation: spinner-spin 1.1s infinite linear;
+}
+
+@keyframes spinner-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #000000;
+    overflow: hidden;
+}
+
+#app {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

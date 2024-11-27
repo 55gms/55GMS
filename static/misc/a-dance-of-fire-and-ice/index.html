@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>A Dance of Fire And Ice</title>
+  <script src="Build/UnityLoader.js"></script>
+  <script src="/assets/js/script.js?v=11"></script>
+  <script>
+    var gameInstance = UnityLoader.instantiate(
+      "gameContainer",
+      "Build/adofaiii4.json"
+    );
+  </script>
+  <link rel="icon" type="image/x-icon" href="/img/canvas.ico" />
+</head>
+
+<body style="margin: 0px; overflow: hidden">
+  <div id="gameContainer" style="
+        width: 800px;
+        height: 400px;
+        margin: auto;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      "></div>
+</body>
+
+</html>
