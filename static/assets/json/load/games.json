@@ -565,9 +565,9 @@
   },
   {
     "name": "Toss the Turtle",
-    "url": "/play/tosstheturtle.html",
+    "url": "/misc/play/tosstheturtle.html",
     "image": "/img/games/turtle.webp",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Infinite Craft",
@@ -576,14 +576,8 @@
     "usesProxy": true
   },
   {
-    "name": "Head Soccer",
-    "url": "/misc/HeadSoccer/index.html",
-    "image": "/misc/HeadSoccer/img.webp",
-    "usesProxy": false
-  },
-  {
     "name": "HexGL",
-    "url": "/misc/hexgl/index.html",
+    "url": "/misc/play/hexgl.html",
     "image": "/misc/hexgl/icon_256.webp",
     "usesProxy": false
   },
