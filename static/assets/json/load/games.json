@@ -648,32 +648,20 @@
     "usesProxy": false
   },
   {
-    "name": "Hole.io",
-    "url": "https://hole-io.com/",
-    "image": "/misc/hole-io/img.jpg",
-    "usesProxy": true
-  },
-  {
-    "name": "Hornex.pro",
-    "url": "https://hornex.pro",
-    "image": "/img/games/hornexpro.jpeg",
-    "usesProxy": true
-  },
-  {
     "name": "House Of Hazards",
-    "url": "/misc/houseofhazards/index.html",
+    "url": "/misc/play/houseofhazards.html",
     "image": "/misc/houseofhazards/img.jpeg",
     "usesProxy": false
   },
   {
     "name": "Idle Dice",
-    "url": "/misc/idle_dice/index.html",
+    "url": "/misc/play/idle_dice.html",
     "image": "/misc/idle_dice/img.jpeg",
     "usesProxy": false
   },
   {
     "name": "Idle Breakout",
-    "url": "/misc/idle-breakout/index.html",
+    "url": "/misc/play/idle-breakout.html",
     "image": "/misc/idle-breakout/img/thumbnail.png",
     "usesProxy": false
   },
