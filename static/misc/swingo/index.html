@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Swingo</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+	<meta name="generator" content="Scirra Construct">
+
+	<link rel="manifest" href="appmanifest.json">
+
+
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="file.css">
+
+</head>
+
+<body>
+
+	<script>
+		if (location.protocol.substr(0, 4) === "file") {
+			alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
+		}
+	</script>
+	<script src="box2d.wasm.js"></script>
+	<noscript>
+		<div id="notSupportedWrap">
+			<h2 id="notSupportedTitle">This content requires JavaScript</h2>
+			<p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content.</p>
+		</div>
+	</noscript>
+	<script src="scripts/supportcheck.js"></script>
+	<script src="scripts/offlineclient.js" type="module"></script>
+	<script src="scripts/main.js" type="module"></script>
+	<script src="scripts/register-sw.js" type="module"></script>
+	<script src="js/analytics_ubg_v1_4.js"></script>
+	<script src="js/ubg235_client_v1_2.js"></script>
+
+</body>
+
+</html>
