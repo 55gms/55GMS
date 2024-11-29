@@ -690,16 +690,10 @@
     "usesProxy": false
   },
   {
-    "name": "JustFall.LOL",
-    "url": "/misc/just-fall/index.html",
-    "image": "/misc/just-fall/unnamed.png",
-    "usesProxy": false
-  },
-  {
     "name": "KARLSON'T",
-    "url": "https://jankiestgame.netlify.app/",
-    "image": "/img/no.webp",
-    "usesProxy": true
+    "url": "/misc/play/karlsont.html",
+    "image": "/misc/karlsont/img.webp",
+    "usesProxy": false
   },
   {
     "name": "Kick the Buddy",
