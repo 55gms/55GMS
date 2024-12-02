@@ -4,7 +4,6 @@ const chatContainer = document.querySelector(".chat-container");
 const deleteButton = document.querySelector("#delete-btn");
 
 const userId = Date.now().toString();
-
 let userText = null;
 let isProcessing = false;
 
