@@ -10,7 +10,7 @@ function CCMGApi(){
         document.addEventListener("adBreakStart", (oEvt) => {
                 console.log("AdBreak Started")
                 //console.log(oEvt)
-                //TODO:  Developer needs to add the logic to pause the game and sound here
+
                 s_oMain.stopUpdate();
             });  
 
@@ -42,7 +42,7 @@ function CCMGApi(){
             return;
         }
         _oInterstitialEndPromise = new Promise(function(resolve, reject) {
-            // do a thing, possibly async, then…
+            // do a thing, possibly async, thenâ€¦
             resolve(oCallBack);
         });
         
