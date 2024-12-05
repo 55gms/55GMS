@@ -10,7 +10,7 @@
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
   width: 60.5vw;
   height: 38.5vw;
-  background-color: #19191b;
+  background-color: #353d49;
   border-radius: 0.5vw;
   overflow: hidden;
 }
@@ -60,26 +60,16 @@
 }
 
 .gameicon {
-  height: 2vw;
-  width: 2vw;
   margin-left: 0.6vw;
   margin-top: 1.9vw;
-  border-radius: 0.45vw;
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
-}
-.gameicon {
   border-radius: 0.5vw;
   background: #19191b;
   width: 2.6vw;
   height: 2.6vw;
   margin-top: 0.2vw;
-  box-shadow: 0 4px 7px 0 #131313;
   transition: 0.4s;
 }
-.gameicon:hover {
-  transform: scale(1.07) translate(0, -4px);
-  box-shadow: 0 4px 7px 0 var(--main2);
-}
+
 .margin {
   margin-top: 0.3vw;
   margin-left: 0.7vw;
@@ -89,7 +79,7 @@
 }
 .titletext {
   margin: 0;
-  font: 700 1.4vw/1.4vw Torus, sans-serif;
+  font-size: 1.4vw;
   padding: 0 0.5vw 0.5vw 0 0;
   color: #ffffff;
   width: 45vw;
@@ -100,7 +90,7 @@
   font-size: 1.1vw;
   margin: 0.2vw 0 0;
   letter-spacing: 0.3px;
-  font: 100 0.8vw/0.8vw Torus, sans-serif;
+  font-size: 0.8vw;
 }
 .gametext {
   font-size: 1.25vw;
@@ -108,7 +98,7 @@
   margin-top: 2vw;
 }
 .ad1 {
-  font: 400 0.5vw / 1 Arial, sans-serif;
+  font-size: 0.5vw;
   text-transform: uppercase;
   text-align: center;
   opacity: 0.7;
@@ -119,11 +109,7 @@
   margin-top: 32.2vw;
   transform-origin: right center;
 }
-.recommendedtext {
-  font-size: 2.3vw;
-  text-align: center;
-  margin-top: 1vw;
-}
+
 #gameframe .options .left,
 #gameframe .options .right {
   width: 50%;
@@ -141,22 +127,18 @@
 }
 .fullscreenbtn {
   border-radius: 0.3vw;
-  height: 1.6vw;
-  width: 1.6vw;
+  font-size: 1.6vw;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
   margin-left: 1.2vw;
 }
 .fullscreenbtn:hover {
   transform: scaleX(1.2) scaleY(1.2) rotate(-10deg);
 }
 .reloadbtn {
-  height: 1.6vw;
-  width: 1.6vw;
+  font-size: 1.6vw;
   cursor: pointer;
   transition: transform 0.55s ease-in-out;
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
 }
 .reloadbtn:hover {
   transform: scaleX(1.2) scaleY(1.2) rotate(360deg);

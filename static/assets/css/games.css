@@ -38,8 +38,7 @@ h6 {
 ::placeholder {
   font-family: "Inter", Arial, sans-serif;
   color: var(--textcolor);
-  opacity: 0.6; /* Firefox */
-  /* center the placeholder */
+  opacity: 0.6;
   text-align: center;
 }
 
