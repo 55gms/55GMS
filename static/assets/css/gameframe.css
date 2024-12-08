@@ -8,7 +8,7 @@
   margin: auto;
   outline: 0.2vw solid #ffffff26;
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
-  width: 60.5vw;
+  width: 72.5vw;
   height: 38.5vw;
   background-color: #353d49;
   border-radius: 0.5vw;
@@ -16,14 +16,14 @@
 }
 #gameframe .game {
   margin: auto;
-  width: 60.5vw;
+  width: 72.5vw;
   height: 34vw;
   background-color: #444;
   background-repeat: no-repeat;
   background-position: center;
 }
 #gameframe .game iframe {
-  width: 60.6vw;
+  width: 72.5vw;
   height: 34.1vw;
   border: 0;
 }
@@ -47,7 +47,7 @@
   justify-content: flex-end;
 }
 .addisplay {
-  margin-left: 74vw;
+  margin-left: 80vw;
   width: 16vw;
   height: 32vw;
   background-color: #3d4756;
@@ -97,7 +97,7 @@
   display: flex;
   margin-top: 2vw;
 }
-.ad1 {
+.adtext {
   font-size: 0.5vw;
   text-transform: uppercase;
   text-align: center;
