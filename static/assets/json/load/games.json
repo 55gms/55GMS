@@ -806,7 +806,7 @@
   {
     "name": "Monkey Mart",
     "url": "/misc/play/monkeymart.html",
-    "image": "/misc/monkey-mart/img.jpeg",
+    "image": "/misc/monkey-mart/img.webp",
     "usesProxy": false
   },
   {
@@ -1069,9 +1069,9 @@
   },
   {
     "name": "Unicycle Hero",
-    "url": "https://unicyclehero.github.io/file/",
+    "url": "/misc/play/unicyclehero.html",
     "image": "/img/games/hero.webp",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Raft Wars 2",
@@ -1310,7 +1310,7 @@
   {
     "name": "Football Bros",
     "url": "/misc/play/footballbros.html",
-    "image": "/img/games/footballbros.webp",
+    "image": "/misc/footballbros/img.webp",
     "usesProxy": false
   },
   {
