@@ -73,13 +73,13 @@ main {
 }
 
 a {
-  color: #f1a727; /* change to match your theme */
+  color: #f1a727;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #f1d41d; /* change to match your theme */
+  color: #f1d41d;
 }
 
 /* Scrollbar settings */

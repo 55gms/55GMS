@@ -29,7 +29,6 @@
       <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
       <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
       <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
-      <a href="/p"><i class="fa-solid fa-magnifying-glass">&nbsp;</i>Search</a>
       <a href="/e"><i class="fa-solid fa-robot"></i>&nbsp;</i>AI</a>
       <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
       <a href="/profile"><i class="fa-solid fa-user"></i></a>
@@ -42,17 +41,33 @@
 
   <div style="text-align: center">
     <br />
-    <a href="d"><button class="zoom glow-on-hover">Dashboard</button></a><br><br>
-    <a href="e"><button class="gs">ChatGPT For School</button></a>
-    <a href="https://docs.google.com/spreadsheets/d/1j4pSMcTHv8APUjVet4D5vgvzP1AeRw-jOQLZW5FIvao/edit?usp=sharing"><button
-        class="gs">Game request Status</button></a>
-    <a href="/misc/index.html"><button class="gs">Random Things</button></a>
-    <br /><br />
-    <iframe src="https://invidget.switchblade.xyz/xdaJ6Wytsu" frameborder="0"></iframe>
-
-    <!-- CuterCounter Code -->
-    <br><a href="https://www.cutercounter.com/hits.php?id=hxofkcx&nd=9&style=40" target="_blank"><img
-        src="https://www.cutercounter.com/hits.php?id=hxofkcx&nd=9&style=40" border="0" width="109" height="23"></a>
+    <form class="searchbar">
+      <input tag="searchbar" id="searchbar" placeholder="Search Google or Enter a Link" class="form__input"
+        autocomplete="off">
+    </form>
+    <div class="quicklinks">
+      <a class="quicklink" href="d"><img class='shortcut' src="/img/shortcuts/Dashboard.webp"></a>
+      <a class="quicklink" onclick="hire('https://discord.gg')"><img class='shortcut'
+          src="/img/shortcuts/Discord.webp"></a>
+      <a class="quicklink" onclick="hire('https://www.espn.com/watch/')"><img class='shortcut'
+          src="/img/shortcuts/ESPN.webp"></a>
+      <a class="quicklink" onclick="hire('https://github.com')"><img class='shortcut'
+          src="/img/shortcuts/GitHub.webp"></a>
+      <a class="quicklink" onclick="hire('https://google.com')"><img class='shortcut'
+          src="/img/shortcuts/Google.webp"></a>
+      <a class="quicklink" onclick="hire('https://nowgg.lol')"><img class='shortcut'
+          src="/img/shortcuts/nowgg.webp"></a>
+      <a class="quicklink" href='-'><img class='shortcut' src="/img/shortcuts/gmsmovies.webp"></a>
+      <a class="quicklink" onclick="hire('https://tiktok.com')"><img class='shortcut'
+          src="/img/shortcuts/TikTok.webp"></a>
+      <a class="quicklink" onclick="hire('https://twitch.tv')"><img class='shortcut'
+          src="/img/shortcuts/Twitch.webp"></a>
+      <a class="quicklink" onclick="hire('https://youtube.com')"><img class='shortcut'
+          src="/img/shortcuts/Youtube.webp"></a>
+    </div>
+  </div>
+  <br>
+  <div class="ad">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317"
       crossorigin="anonymous"></script>
     <!-- games -->
@@ -61,9 +76,15 @@
     <script>
       (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
-
   </div>
-
+  <div class="info">
+    <a class="infobtn" href='https://discord.gg/55gms'><i class="fa-brands fa-discord"></i></a>
+    <a class="infobtn" href="https://github.com/55gms/55gms"><i class="fa-brands fa-github"></i></a>
+  </div>
+  <script src="/assets/uv/js/index.js?v1"></script>
+  <script src="/assets/uv/js/hiring.js"></script>
+  <script src="/assets/uv/uv.bundle.js" defer></script>
+  <script src="/assets/uv/uv.config.js?cdn" defer></script>
 </body>
 
 </html>

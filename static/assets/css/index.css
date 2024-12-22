@@ -1,122 +1,89 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
 #title {
-  font-size: 48px;
+  font-size: 72px;
   color: #ffffff;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   font-family: "Inter", Arial, sans-serif;
   text-align: center;
-  padding-top: 3%;
+  padding-top: 2vh;
 }
 
-/* The message that pops up */
 #sub {
-  font-size: 20px;
-  color: #c1ce4b;
+  font-size: 17px;
+  color: #b5cae0;
   margin-bottom: 2px;
   font-family: "Inter", Arial, sans-serif;
   text-align: center;
 }
 
-
-.redBttn {
-  font-family: "Inter", Arial, sans-serif;
-  cursor: pointer;
-  background-color: #413d3d;
-  border: none;
-  color: rgb(248, 244, 244);
-  padding: 10px 30px;
-  margin-left: 10px;
-  margin-right: 10px;
+.form__input {
+  padding: 1.2vw;
+  width: 50%;
+  border-radius: 5px;
+  background: #7a8fab;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 8px;
-  transition: all 0.2s ease;
+  font-size: 24px;
+  border: none;
+  outline: none;
+  color: white;
+  transition: 0.2s;
+  margin: 0;
 }
-.redBttn:hover {
-  scale: 1.1;
+
+.form__input::placeholder {
+  color: #aaa;
+  text-align: center;
+}
+
+.shortcut {
+  width: 170px;
+  height: 90px;
+  border-radius: 15px;
+  margin-top: 10px;
   transition: 0.2s;
 }
 
-.glow-on-hover {
-  width: 220px;
-  height: 50px;
-  border: none;
-  outline: none;
-  color: #fff;
-  background: #111;
+.quicklinks {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  max-width: 1000px;
+}
+
+.quicklink {
+  margin-right: 10px;
   cursor: pointer;
-  position: relative;
-  z-index: 0;
-  border-radius: 10px;
-  font-family: "Inter", Arial, sans-serif;
-  font-size: 16px;
-  transition: transform 0.2s ease-in-out, scale 0.2s ease-in-out, border-radius 0.2s ease;
 }
-.glow-on-hover:before {
-  content: "";
-  background: linear-gradient(
-    45deg,
-    #ff0000,
-    #ff7300,
-    #fffb00,
-    #48ff00,
-    #00ffd5,
-    #002bff,
-    #7a00ff,
-    #ff00c8,
-    #ff0000
-  );
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  background-size: 400%;
-  z-index: -1;
-  filter: blur(5px);
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  animation: glowing 20s linear infinite;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  border-radius: 10px;
+
+.shortcut:hover {
+  transform: scale(1.1);
+  transition: 0.2s;
 }
-.glow-on-hover:active {
-  color: #fc8585;
-  scale: 0.9;
-  border-radius: 12px;
+
+.info {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 10px;
 }
-.glow-on-hover:active:after {
-  background: transparent;
-}
-.glow-on-hover:hover {
-  transform: scale(1.2);
+
+.infobtn {
+  background-color: #7a8fab;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
   border-radius: 8px;
+  transition: all 0.15s ease;
 }
-.glow-on-hover:hover:before {
-  opacity: 1;
-}
-.glow-on-hover:after {
-  z-index: -1;
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #fc8585;
-  left: 0;
-  top: 0;
-  border-radius: 10px;
-}
-@keyframes glowing {
-  0% {
-    background-position: 0 0;
-  }
-  50% {
-    background-position: 400% 0;
-  }
-  100% {
-    background-position: 0 0;
-  }
+
+.infobtn:hover {
+  scale: 1.05;
+  color: #b5cae0;
 }
