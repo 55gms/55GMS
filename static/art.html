@@ -29,33 +29,15 @@
       <a href="/profile"><i class="fa-solid fa-user"></i></a>
     </div>
   </nav>
-  <br />
-  <br />
-  <h1 style="text-align: center">Games</h1>
-  <h3 style="text-align: center">
-    <em>All games found here are properties of their creators</em>
-  </h3>
-
   <main>
     <link href="assets/css/games.css?v=2" rel="stylesheet" />
     <script src="/assets/js/games.js?v=5"></script>
-    <input id="searchbar" name="search" onkeyup="search();" placeholder="Search through our games..." type="text"
+    <input id="searchbar" class='searchbar' onkeyup="search();" placeholder="Search through our 000 games" type="text"
       autocomplete="off" /><br>
+    <text id="text"></text>
     <div id="game-container">
-      <p id="text"></p>
     </div>
     <br>
-    <p id="no-results" style="display: none;">No results were found...</p>
-
-    <script type="text/javascript">
-      atOptions = {
-        'key': '2bdac609c3330d4bf7b2c8b5fba87e8b',
-        'format': 'iframe',
-        'height': 90,
-        'width': 728,
-        'params': {}
-      }
-    </script>
   </main>
   <script src="/assets/js/searchbar.v2.js?v=4"></script>
 </body>

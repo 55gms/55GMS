@@ -6,15 +6,14 @@ window.addEventListener("load", (event) => {
       apps.sort((a, b) => a.name.localeCompare(b.name));
       apps.forEach(function (game) {
         let gameHtml;
-        gameHtml = `<div class="card">
-          <a onclick="${game.alert ? `alert('${game.alert}');` : ""} hire('${
-            game.url
-          }');">
-          
-              <img loading="lazy" src="${game.image}" class='img'>
-              <p class="text">${game.name}</p>
-          </a>
-        </div>`;
+        gameHtml = `<div class="game">
+              <a onclick="${
+                game.alert ? `alert('${game.alert}'); ` : ""
+              }hire('${game.url}');">
+                  <img loading="eager" src="${game.image}">
+                  <p class="text">${game.name}</p>
+              </a>
+            </div>`;
         gameContainer.insertAdjacentHTML("beforeend", gameHtml);
       });
 

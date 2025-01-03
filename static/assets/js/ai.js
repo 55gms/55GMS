@@ -7,14 +7,89 @@ const userId = Date.now().toString();
 let userText = null;
 let isProcessing = false;
 
+const examplePrompts = [
+  "Breakup text from a toaster.",
+  "Plan a road trip.",
+  "Give me some pick up lines.",
+  "Poem about a cat.",
+  "Story about a talking dog.",
+  "New ice cream flavor.",
+  "Letter to future self.",
+  "10 things for a deserted island.",
+  "Story about a haunted house.",
+  "Create a superhero.",
+  "Day in the life of a pirate.",
+  "Recipe for a magical potion.",
+  "Dialogue between a robot and an alien.",
+  "How to build a time machine.",
+  "News article about a dragon sighting.",
+  "Describe the perfect vacation.",
+  "Advice for starting high school.",
+  "Invent a new holiday.",
+  "Story set in a futuristic city.",
+  "Conversation between two animals.",
+  "Create a new planet.",
+  "Letter to a pen pal.",
+  "10 things to do on a rainy day.",
+  "Invent a new sport.",
+  "Create a new language.",
+  "How to train a dragon.",
+  "Create a new board game.",
+  "Invent a new technology.",
+  "Advice for a new teacher.",
+  "Create a new animal.",
+  "How to become a wizard.",
+  "Create a new currency.",
+  "Invent a new food.",
+  "Advice for a new parent.",
+  "Create a new toy.",
+  "How to become a superhero.",
+  "Create a new school subject.",
+];
+
+const initializeMarked = () => {
+  if (typeof marked !== "undefined") {
+    marked.use({
+      breaks: true,
+      gfm: true,
+      headerIds: false,
+      mangle: false,
+    });
+  }
+};
+
+document.addEventListener("DOMContentLoaded", initializeMarked);
+
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+};
+
 const loadDataFromLocalstorage = () => {
+  messageHistory = [];
+  shuffleArray(examplePrompts);
   const defaultText = `<div class="default-text">
                             <h1>GMS-GPT</h1>
                             <p>Start a conversation and use AI.<br> Your chat history will be displayed here.</p>
+                            <div class="example-prompts"><br><br>
+                                <button class="prompt-btn">${examplePrompts[0]}</button>
+                                <button class="prompt-btn">${examplePrompts[1]}</button>
+                                <button class="prompt-btn">${examplePrompts[2]}</button>
+                                <button class="prompt-btn">${examplePrompts[3]}</button>
+                            </div>
                         </div>`;
 
   chatContainer.innerHTML = defaultText;
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
+
+  document.querySelectorAll(".prompt-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      chatInput.value = btn.textContent;
+      handleOutgoingChat();
+    });
+  });
 };
 
 const createChatElement = (content, className) => {
@@ -24,6 +99,17 @@ const createChatElement = (content, className) => {
   return chatDiv;
 };
 
+const formatMarkdown = (text) => {
+  try {
+    if (typeof marked !== "undefined") {
+      return marked.parse(text);
+    }
+    return text;
+  } catch (error) {
+    console.error("Error parsing markdown:", error);
+    return text;
+  }
+};
 const getChatResponse = async (incomingChatDiv) => {
   const pElement = document.createElement("p");
   let html;
@@ -39,7 +125,7 @@ const getChatResponse = async (incomingChatDiv) => {
     html = response.response.replace(
       /<pre><code class="language-(.*?)">([\s\S]*?)<\/code><\/pre>/g,
       (match, lang, code) => {
-        const language = Prism.languages[lang] ? lang : "plaintext"; // Default to plaintext if unknown
+        const language = Prism.languages[lang] ? lang : "plaintext";
         const highlightedCode = Prism.highlight(
           code,
           Prism.languages[language],
@@ -168,7 +254,4 @@ document.addEventListener("keydown", (e) => {
 
   chatInput.focus();
 });
-chatContainer.innerHTML = `<div class="default-text">
-                            <h1>GMS-GPT</h1>
-                            <p>Start a conversation and use AI.<br> Start typing or click the prompt box.</p>
-                        </div>`;
+loadDataFromLocalstorage();

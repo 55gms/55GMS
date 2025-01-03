@@ -1,4 +1,4 @@
-let loadedImages = 0; // Initialize a counter for loaded images
+let loadedImages = 0;
 window.addEventListener("load", (event) => {
   const gameContainer = document.getElementById("game-container");
   const text = document.getElementById("text");
@@ -8,26 +8,26 @@ window.addEventListener("load", (event) => {
       .then((response) => response.json())
       .then((games) => {
         games.sort((a, b) => a.name.localeCompare(b.name));
-        const totalImages = games.length; // Get total number of images
+        const totalImages = games.length;
 
         games.forEach(function (game, gameNum) {
           let gameHtml;
           if (game.usesProxy) {
-            gameHtml = `<div class="card">
+            gameHtml = `<div class="game">
               <a onclick="${
                 game.alert ? `alert('${game.alert}'); ` : ""
               }hire('${game.url}');">
-                  <img loading="eager" src="${game.image}" class="img" 
+                  <img loading="eager" src="${game.image}"
                        onload="handleImageLoad(${totalImages})">
                   <p class="text">${game.name}</p>
               </a>
             </div>`;
           } else {
-            gameHtml = `<div class="card">
+            gameHtml = `<div class="game">
               <a href="${game.url}" rel="noopener noreferrer" ${
-                game.alert ? `onclick="alert('${game.alert}');"` : ""
-              }>
-                  <img loading="eager" src="${game.image}" class="img" 
+              game.alert ? `onclick="alert('${game.alert}');"` : ""
+            }>
+                  <img loading="eager" src="${game.image}"
                        onload="handleImageLoad(${totalImages})">
                   <p class="text">${game.name}</p>
               </a>
@@ -45,12 +45,11 @@ window.addEventListener("load", (event) => {
   }
 });
 
-// Function to handle image load
 function handleImageLoad(totalImages) {
-  loadedImages++; // Increment loaded images counter
+  loadedImages++;
   if (loadedImages >= totalImages) {
     text.style.display = "none";
     return;
   }
-  text.innerText = `Loading games (${loadedImages}/${totalImages})`; // Update loading text
+  text.innerText = `Loading games (${loadedImages}/${totalImages})`;
 }

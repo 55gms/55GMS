@@ -261,3 +261,20 @@ body {
     opacity: 1;
   }
 }
+.prompt-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--button-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.3s;
+  transition: 0.2s;
+  margin-top: 10px;
+}
+
+.prompt-btn:hover {
+  background-color: var(--button-hover-bg);
+  scale: 1.1;
+  transition: 0.2s;
+}
