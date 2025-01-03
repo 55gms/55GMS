@@ -72,6 +72,14 @@ body {
   opacity: 0.8;
 }
 
+.form__input:focus {
+  outline: none;
+  background: #6f829b;
+  scale: 1.1;
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 img {
   height: auto;
   max-height: 218px;
@@ -79,19 +87,7 @@ img {
   border: 0;
   -ms-interpolation-mode: bicubic;
   vertical-align: middle;
-  border-radius: 25px;
   max-width: 145px;
-}
-
-img.ad {
-  height: auto;
-  max-height: none;
-  width: auto;
-  border: none;
-  -ms-interpolation-mode: auto;
-  vertical-align: baseline;
-  border-radius: 0px;
-  max-width: none;
 }
 
 .icon {
@@ -105,6 +101,7 @@ img.ad {
   margin: 16px;
   float: left;
   position: relative;
+
 }
 
 .card:hover {
@@ -117,8 +114,10 @@ img.ad {
 .image-container {
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
 .item-name {
   font-family: "Inter", Arial, sans-serif;
   position: absolute;
@@ -131,16 +130,16 @@ img.ad {
   margin: 0px;
   opacity: 0;
   transition: opacity 0.2s;
-  border-bottom-left-radius: 500px;
-  border-bottom-right-radius: 500px;
   font-size: 12px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .attribution {
   position: fixed;
   right: 10px;
   bottom: 10px;
-  color: #fff;
+  color: #f5e0dc;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 5px;
   border-radius: 5px;
@@ -220,4 +219,35 @@ img.ad {
 
 .card:hover .play-button {
   opacity: 1;
+}
+.title {
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 24px;
+  text-align: center;
+  clear: both;
+}
+.scroll-container-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.scroll-container {
+  display: flex;
+  overflow-x: hidden;
+  white-space: nowrap;
+  padding: 10px 0;
+  scroll-behavior: smooth;
+  flex-grow: 1;
+}
+
+#movie-container,
+#tv-container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.btn {
+  color: #89b4fa;
+  font-size: 20px;
 }

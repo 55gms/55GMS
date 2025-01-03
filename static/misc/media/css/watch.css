@@ -1,0 +1,235 @@
+#gameframe {
+  margin-top: 5vh;
+  display: flex;
+}
+#gameframe .gameDisplay {
+  margin: auto;
+  outline: 0.4vw solid #ffffff26;
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
+  width: 65.5vw;
+  height: 34.1vw;
+  background-color: #19191b;
+  border-radius: 0.5vw;
+  overflow: hidden;
+}
+#gameframe .game {
+  margin: auto;
+  width: 65.5vw;
+  height: 34.1vw;
+  background-color: #6c7086;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#gameframe .game iframe {
+  width: 65.6vw;
+  height: 34.1vw;
+  border: 0;
+}
+#gameframe .options {
+  margin: auto;
+  width: 100%;
+  height: 2.3vw;
+  display: flex;
+  align-items: center;
+  padding-bottom: 1.5vh;
+}
+#gameframe .options .left {
+  display: flex;
+  align-items: center;
+}
+#gameframe .options .right {
+  display: flex;
+  margin-top: 2.2vw;
+  margin-right: 1.5vw;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.gameicon {
+  height: 2vw;
+  width: 2vw;
+  margin-left: 0.6vw;
+  margin-top: 1.9vw;
+  border-radius: 0.45vw;
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
+}
+.gameicon {
+  border-radius: 0.5vw;
+  background: #19191b;
+  width: 2.6vw;
+  height: 2.6vw;
+  margin-top: 0.2vw;
+  box-shadow: 0 4px 7px 0 #131313;
+  transition: 0.4s;
+}
+.gameicon:hover {
+  transform: scale(1.07) translate(0, -4px);
+  box-shadow: 0 4px 7px 0 var(--main2);
+}
+.margin {
+  margin-top: 0.3vw;
+  margin-left: 7vw;
+}
+.flex {
+  display: flex;
+}
+.titletext {
+  margin: 0;
+  font: 700 1.4vw/1.4vw Torus, sans-serif;
+  padding: 0 0.5vw 0.5vw 0 0;
+  color: #ffffff;
+  width: 45vw;
+}
+.bytext {
+  display: block;
+  color: #cfcfcf;
+  font-size: 1.1vw;
+  margin: 0.2vw 0 0;
+  letter-spacing: 0.3px;
+  font: 100 0.8vw/0.8vw Torus, sans-serif;
+}
+.gametext {
+  font-size: 1.25vw;
+  display: flex;
+  margin-top: 2vw;
+}
+
+#gameframe .options .left,
+#gameframe .options .right {
+  width: 50%;
+  height: 100%;
+}
+#gameframe .options .right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+#gameframe .options .right .game-button {
+  float: right;
+  margin-right: 1vw;
+  height: 70%;
+}
+.fullscreenbtn {
+  border-radius: 0.3vw;
+  height: 1.6vw;
+  width: 1.6vw;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
+  margin-left: 1.2vw;
+}
+.fullscreenbtn:hover {
+  transform: scaleX(1.2) scaleY(1.2) rotate(-10deg);
+}
+.reloadbtn {
+  height: 1.6vw;
+  width: 1.6vw;
+  cursor: pointer;
+  transition: transform 0.55s ease-in-out;
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
+}
+.reloadbtn:hover {
+  transform: scaleX(1.2) scaleY(1.2) rotate(360deg);
+}
+.episode-selector {
+  padding: 0.5vw;
+  background-color: #1e1e2e;
+  border-radius: 0.5vw;
+  color: #cdd6f4;
+  width: 20%;
+  max-width: 500px;
+  overflow: hidden;
+  margin-right: 2vw;
+  outline: 0.4vw solid #ffffff26;
+}
+
+#seasonSelectorContainer {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #1e1e2e;
+  padding: 0.5vw;
+}
+
+#seasonSelector {
+  width: 100%;
+  padding: 0.5vw;
+  margin-bottom: 0.5vw;
+  background-color: #313244;
+  color: #cdd6f4;
+  border: none;
+  border-radius: 0.3vw;
+  font-size: 1vw;
+  font-family: sans-serif;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+#seasonSelector:hover {
+  background-color: #45475a;
+}
+
+.scrollable-box {
+  max-height: 30vw;
+  overflow-y: auto;
+  padding-right: 0.5vw;
+}
+
+.scrollable-box::-webkit-scrollbar {
+  width: 0.4vw;
+}
+
+.scrollable-box::-webkit-scrollbar-thumb {
+  background-color: #6c7086;
+  border-radius: 0.3vw;
+}
+
+#episodeList .episode-item {
+  display: flex;
+  align-items: center;
+  padding: 0.8vw;
+  margin-bottom: 0.5vw;
+  background-color: #313244;
+  color: #cdd6f4;
+  border-radius: 0.3vw;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#episodeList .episode-item:hover {
+  background-color: #45475a;
+}
+
+.episode-item.active {
+  background-color: #d0d0d0;
+  font-weight: bold;
+}
+
+@media (max-width: 767px) {
+  #gameframe {
+    flex-direction: column;
+  }
+  .episode-selector {
+    width: 100vw;
+    margin-left: 15vw;
+    margin-top: 10vw;
+  }
+}
+
+@media (max-width: 600px) {
+  #gameframe {
+    flex-direction: column;
+  }
+  .episode-selector {
+    width: 65vw;
+    margin-left: 15vw;
+    margin-top: 10vw;
+  }
+  .scrollable-box {
+    max-height: 100vw;
+  }
+}

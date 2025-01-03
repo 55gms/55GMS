@@ -7,7 +7,7 @@
   <meta name="google" content="notranslate" />
   <link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
   <link rel="stylesheet" href="/assets/css/nav.css?v=3" />
-  <link rel="stylesheet" type="text/css" href="/assets/css/media.css?2" />
+  <link rel="stylesheet" type="text/css" href="/misc/media/css/media.css" />
   <title>Google</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="Rednotsus" />
@@ -19,7 +19,8 @@
     content="unblocked games, 55gms tk, 55gms, reds exploit corner, games, unblocked, site, lanier, lanier middle school, gg, Minecraft, discord, chromebook, chromeos, rednotsus, vanillacraft, eaglercraft unblocked, resent client unblocked, fun, cool, proxy, slope unblocked, free, unblocked monkey mart, 555gms, 5gms, school" />
   </script>
   <script src="/assets/js/script.js?v=11"></script>
-  <script src="/assets/js/media.js?19"></script>
+  <script src="/misc/media/js/homepage.js"></script>
+  <script src="/misc/media/js/search.js"></script>
   <script src="/assets/js/easteregg.min.js" async></script>
 </head>
 
@@ -40,19 +41,36 @@
   <input tag="searchbar" id="searchbar" placeholder="Enter the Movie/TV Name and press Enter!" class="form__input"
     autocomplete="off">
   <h5 id="cooldownNotice" style="display: none;">Hold on! You're on cooldown.</h5><br><br>
-  <script type="text/javascript">
-    atOptions = {
-      'key': '2bdac609c3330d4bf7b2c8b5fba87e8b',
-      'format': 'iframe',
-      'height': 90,
-      'width': 728,
-      'params': {}
-    };
-  </script>
   <br>
-  <h3 class="popular" id='popular'>Popular Movies/TV Shows</h3>
-  <div id="game-container">
-    <p id="text"></p>
+  <div id="bigDiv">
+    <h3 class="title">Trending</h3>
+    <div id="game-container">
+      <p id="text"></p>
+    </div>
+    <br>
+    <div class="title-container">
+      <h3 class="title">Latest Movies &nbsp;&nbsp;
+      </h3>
+    </div>
+    <div class="scroll-container-wrapper">
+      <div class="scroll-container" id="movie-scroll-container">
+        <div id="movie-container">
+          <p id="text"></p>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="title-container">
+      <h3 class="title">Latest TV Shows
+      </h3>
+    </div>
+    <div class="scroll-container-wrapper">
+      <div class="scroll-container" id="tv-scroll-container">
+        <div id="tv-container">
+          <p id="text"></p>
+        </div>
+      </div>
+    </div>
   </div>
 
 

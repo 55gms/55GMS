@@ -65,6 +65,7 @@ h6 {
   transform: scale(1.05) translateY(-0.2vw);
   filter: brightness(0.7);
   box-shadow: 0 0 0.5vw rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .text {
