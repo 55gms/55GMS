@@ -84,7 +84,7 @@
     "usesProxy": false
   },
   {
-    "name": "Awswome Tanks",
+    "name": "Awewome Tanks",
     "url": "/misc/play/awesometanks.html",
     "image": "/misc/awesometanks/game.webp",
     "usesProxy": false
@@ -162,12 +162,6 @@
     "usesProxy": false
   },
   {
-    "name": "Wings.io",
-    "url": "https://wings.io/",
-    "image": "/img/games/wings.webp",
-    "usesProxy": true
-  },
-  {
     "name": "Bloons TD 4",
     "url": "/misc/play/bloontd4.html",
     "image": "/misc/flash/img/btd4.jpeg",
@@ -201,12 +195,6 @@
     "name": "Cluster Rush",
     "url": "/misc/play/cluster-rush.html",
     "image": "/misc/cluster-rush/icon.jpg",
-    "usesProxy": false
-  },
-  {
-    "name": "Astray",
-    "url": "/misc/play/astray.html",
-    "image": "/img/games/astray.webp",
     "usesProxy": false
   },
   {
@@ -273,12 +261,6 @@
     "name": "diep.Io",
     "url": "https://diep.io/",
     "image": "/img/games/diep.webp",
-    "usesProxy": true
-  },
-  {
-    "name": "Taming.Io",
-    "url": "https://taming.io/",
-    "image": "/img/games/taming.webp",
     "usesProxy": true
   },
   {
