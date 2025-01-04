@@ -16,6 +16,7 @@
   margin-bottom: 2px;
   font-family: "Roboto", serif;
   text-align: center;
+  cursor: pointer;
 }
 
 .form__input {

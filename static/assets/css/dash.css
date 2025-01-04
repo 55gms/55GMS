@@ -1,8 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 #btnn {
-  font-family: "Inter", Arial, sans-serif;
+  font-family: "Roboto", serif;
   cursor: pointer;
   background-color: #fc8585;
   border: none;
@@ -27,7 +26,7 @@
 }
 
 .btnn {
-  font-family: "Inter", Arial, sans-serif;
+  font-family: "Roboto", serif;
   cursor: pointer;
   background-color: #fc8585;
   border: none;
@@ -52,8 +51,12 @@
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.1); }
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
 }
 .pulse {
   animation: pulse 0.5s infinite alternate; /* Change '1s' to adjust the speed of the pulse */

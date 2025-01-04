@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 .navbar {
   box-sizing: border-box;
   background: #5e7594;
@@ -11,14 +10,14 @@
   width: fill;
   margin: 15px 20px;
   z-index: 100;
-  position: static; /* Position is static */
+  position: static;
   padding: 10px;
   display: flex;
   align-items: center;
   overflow: hidden;
 }
 .navbar a {
-  font-family: "Inter", Arial, sans-serif;
+  font-family: "Roboto", serif;
   color: #fff;
 }
 

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 body {
   text-align: center;
 }
@@ -65,7 +66,7 @@ body {
 }
 
 .form__input::placeholder {
-  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-family: "Roboto", serif;
   font-size: 16px;
   color: #ffffff;
   text-align: center;
@@ -119,7 +120,7 @@ img {
   align-items: center;
 }
 .item-name {
-  font-family: "Inter", Arial, sans-serif;
+  font-family: "Roboto", serif;
   position: absolute;
   bottom: 0;
   left: 7.49px;
@@ -221,7 +222,7 @@ img {
   opacity: 1;
 }
 .title {
-  font-family: "Inter", Arial, sans-serif;
+  font-family: "Roboto", serif;
   font-size: 24px;
   text-align: center;
   clear: both;
