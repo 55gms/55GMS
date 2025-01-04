@@ -59,8 +59,7 @@ app.use((req, res, next) => {
   next();
 });
 const apiKeys = [process.env.API_KEY, process.env.API_KEY1];
-randomAPIKey = 
-  apiKeys[Math.floor(Math.random() * apiKeys.length)];
+randomAPIKey = apiKeys[Math.floor(Math.random() * apiKeys.length)];
 
 app.post("/api/chat", async (req, res) => {
   const { message, userId } = req.body;
@@ -318,6 +317,18 @@ app.post("/api/readSave", async (req, res) => {
 //   next();
 // });
 app.use(express.static(path.join(__dirname, "static")));
+app.use((req, res, next) => {
+  if (req.method === "GET" && !path.extname(req.url)) {
+    const filePath = path.join(__dirname, "static", req.url + ".html");
+    res.sendFile(filePath, (err) => {
+      if (err) {
+        next();
+      }
+    });
+  } else {
+    next();
+  }
+});
 
 const routes = [
   { path: "/a", file: "apps.html" },
