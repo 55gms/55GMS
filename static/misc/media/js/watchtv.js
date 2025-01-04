@@ -70,7 +70,7 @@ function displayEpisodes(episodes, tmdbId, seasonNumber, currentEpisode) {
     episodeItem.textContent = `Episode ${episode.episode_number}: ${episode.name}`;
 
     episodeItem.addEventListener("click", () => {
-      location.href = `tv?id=${tmdbId}&s=${seasonNumber}&e=${episode.episode_number}`;
+      location.href = `tv.html?id=${tmdbId}&s=${seasonNumber}&e=${episode.episode_number}`;
     });
 
     if (episode.episode_number == currentEpisode) {

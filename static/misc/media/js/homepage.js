@@ -24,7 +24,7 @@ async function displayPopular() {
         <div class="rating">★ ${rating}</div>
         <div class="year">${year}</div>
         <div class="image-container">
-          <a href='/misc/media/tv?id=${movie.id}'"> 
+          <a href='/misc/media/tv.html?id=${movie.id}'"> 
             <div class="image-container">
               <img loading="eager" src="${poster}" style="border-radius: 10px">
               <div class="play-button"></div>
@@ -37,7 +37,7 @@ async function displayPopular() {
       gameHtml = `<div class="card" style="padding-top: 5px">
         <div class="rating">★ ${rating}</div>
         <div class="year">${year}</div>
-        <a href="/misc/media/movie?id=${movie.id}"> 
+        <a href="/misc/media/movie.html?id=${movie.id}"> 
           <div class="image-container">
             <img loading="eager" src="${poster}" style="border-radius: 10px">
             <div class="play-button"></div>
@@ -75,7 +75,7 @@ async function displayMovies() {
         <div class="rating">★ ${rating}</div>
         <div class="year">${year}</div>
         <div class="image-container">
-          <a href='/misc/media/tv?id=${movie.id}'"> 
+          <a href='/misc/media/tv.html?id=${movie.id}'"> 
             <div class="image-container">
               <img loading="eager" src="${poster}" style="border-radius: 10px">
               <div class="play-button"></div>
@@ -88,7 +88,7 @@ async function displayMovies() {
       gameHtml = `<div class="card" style="padding-top: 5px">
         <div class="rating">★ ${rating}</div>
         <div class="year">${year}</div>
-        <a href='/misc/media/movie?id=${movie.id}'"> 
+        <a href='/misc/media/movie.html?id=${movie.id}'"> 
           <div class="image-container">
             <img loading="eager" src="${poster}" style="border-radius: 10px">
             <div class="play-button"></div>
@@ -126,7 +126,7 @@ async function displayTV() {
         <div class="rating">★ ${rating}</div>
         <div class="year">${year}</div>
         <div class="image-container">
-          <a href='/misc/media/tv?id=${movie.id}'"> 
+          <a href='/misc/media/tv.html?id=${movie.id}'"> 
             <div class="image-container">
               <img loading="eager" src="${poster}" style="border-radius: 10px">
               <div class="play-button"></div>
@@ -139,7 +139,7 @@ async function displayTV() {
       gameHtml = `<div class="card" style="padding-top: 5px">
         <div class="rating">★ ${rating}</div>
         <div class="year">${year}</div>
-        <a href="/misc/media/movie?id=${movie.id}"> 
+        <a href="/misc/media/movie.html?id=${movie.id}"> 
           <div class="image-container">
             <img loading="eager" src="${poster}" style="border-radius: 10px">
             <div class="play-button"></div>

@@ -1,5 +1,4 @@
 function visit(value) {
-  let iframe = document.querySelector(".iframe.active");
   window.navigator.serviceWorker
     .register("/assets/uv/sw.js", {
       scope: __uv$config.prefix,

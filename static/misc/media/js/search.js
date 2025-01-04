@@ -16,7 +16,7 @@ function createAndDisplayCard(movie, container) {
   ) {
     year = movie.first_air_date ? movie.first_air_date.slice(0, 4) : "N/A";
     gameHtml = `<div class="card" style="padding-top: 5px">
-      <a href='/misc/media/tv?id=${movie.id}'> 
+      <a href='/misc/media/tv.html?id=${movie.id}'> 
         <div class="rating">★ ${rating}</div>
         <div class="year">${year}</div>
         <div class="image-container">
@@ -28,7 +28,7 @@ function createAndDisplayCard(movie, container) {
     </div>`;
   } else {
     gameHtml = `<div class="card" style="padding-top: 5px">
-      <a href="/misc/media/movie?id=${movie.id}"> 
+      <a href="/misc/media/movie.html?id=${movie.id}"> 
         <div class="rating">★ ${rating}</div>
         <div class="year">${year}</div>
         <div class="image-container">
