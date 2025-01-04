@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=3" />
     <title>Google</title>
+    <meta name="googlebot" content="notranslate" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Rednotsus" />
     <meta http-equiv="Cache-control" content="public">
@@ -57,14 +58,23 @@
 </style>
 <script>
     async function login() {
+        const loginButton = document.getElementById("loginButton");
+        const loginLoader = document.getElementById("loginLoader");
+
+        loginButton.disabled = true;
+        loginLoader.style.display = "inline-block";
+
         var username = document.getElementById("username").value;
         var password = document.getElementById("password").value;
         if (username == "" || password == "") {
-            return Swal.fire({
+            Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Please fill in all fields!',
             });
+            loginButton.disabled = false;
+            loginLoader.style.display = "none";
+            return;
         }
         try {
             let response = await fetch("/api/login", {
@@ -126,6 +136,8 @@
                     title: "Login Failed",
                     text: errorData.error || 'An error occurred during login.',
                 });
+                loginButton.disabled = false;
+                loginLoader.style.display = "none";
             }
         } catch (e) {
             Swal.fire({
@@ -133,6 +145,8 @@
                 title: "Error",
                 text: `An error occurred while logging in, please report this to rednotsus on discord ${e}`,
             });
+            loginButton.disabled = false;
+            loginLoader.style.display = "none";
         }
     }
 </script>
@@ -159,7 +173,8 @@
         <input type="password" id="password" class='form__input' name="password" autocomplete="off"
             placeholder="Password">
         <br><br><br>
-        <button onclick="login()" class="gs">Login</button>
+        <button id="loginButton" onclick="login()" class="gs">Login</button>
+        <img id="loginLoader" src="/assets/404/loading.gif" style="width: 20px; height: 20px; display: none;">
         <br>
         <p class="signup">Don't have an account yet? <a class='signupbutton' href="/signup">Sign Up</a></p>
     </div>
