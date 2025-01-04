@@ -10,7 +10,7 @@ async function getTVShowData() {
     const iframe = document.getElementById("iframe");
     iframe.src = `embed/tv.html?id=${ID}&s=${season}&e=${episode}`;
   } else {
-    location.href = `tv?id=${ID}&s=1&e=1`;
+    location.href = `tv.html?id=${ID}&s=1&e=1`;
   }
 
   const url = `https://api.themoviedb.org/3/tv/${ID}?api_key=9a2954cb0084e80efa20b3729db69067&language=en-US`;
