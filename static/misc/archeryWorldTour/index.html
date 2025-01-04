@@ -1,29 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-N0LG27M8L8"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-N0LG27M8L8');
-  </script>
-  <script src="/assets/js/script.js?v=11"></script>
   <title>Archery World Tour</title>
+  <meta charset="utf-8">
+  <meta name="apple-mobile-web-app-capable" content="no" />
+  <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.01, minimal-ui" />
+  <style>
+    body {
+      margin: 0px;
+      padding: 0px;
+      width: 100%;
+      overflow: hidden
+    }
+
+    canvas {
+      -ms-touch-action: none;
+      image-rendering: -o-crisp-edges;
+      image-rendering: optimize-contrast;
+      -ms-interpolation-mode: nearest-neighbor;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+      tap-highlight-color: rgba(0, 0, 0, 0);
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+  </style>
+  <meta name="robots" content="noindex,nofollow" />
+  <script>
+    true && (console = {
+      log: function () {
+        // do nothing
+      },
+      warn: function () {
+        // do nothing
+      },
+      error: function () {
+        // do nothing
+      }
+    });
+  </script>
+
+  <script src="coolmath-games.js"></script>
 </head>
 
 <body>
-  <iframe src="https://bonbang.github.io/store4/archery-world-tour" title="Iframe" style="
-        border: 0;
-        height: 100%;
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 100%;
-      "></iframe>
+  <div id="canvas-wrapper" style="overflow:hidden; width:100%; height:100%; margin:0; padding:0; position:absolute;">
+    <canvas id="canvas" moz-opaque></canvas>
+  </div>
 </body>
 
 </html>

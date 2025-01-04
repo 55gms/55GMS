@@ -6,27 +6,9 @@
     "usesProxy": false
   },
   {
-    "name": "[!] Bug Reports",
-    "url": "https://forms.gle/st5iQsJ3AUrspRRv8",
-    "image": "/img/bug.webp",
-    "usesProxy": false
-  },
-  {
     "name": "1v1.lol",
     "url": "/misc/play/1v1lol.html",
     "image": "/misc/1v1-lol/splash.webp",
-    "usesProxy": false
-  },
-  {
-    "name": "1v1.lol Updated",
-    "url": "https://1v1.lol/",
-    "image": "/misc/1v1-lol2/img.webp",
-    "usesProxy": true
-  },
-  {
-    "name": "Urban Basketball",
-    "url": "/misc/play/urbanbasketball.html",
-    "image": "/img/games/ubb.webp",
     "usesProxy": false
   },
   {
@@ -91,9 +73,9 @@
   },
   {
     "name": "Archery World Tour",
-    "url": "https://www.coolmathgames.com/0-archery-world-tour/play",
+    "url": "/misc/play/archerworldtour.html",
     "image": "/misc/archeryWorldTour/img.webp",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "A Small World Cup",
