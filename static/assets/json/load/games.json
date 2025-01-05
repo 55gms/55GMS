@@ -846,12 +846,6 @@
     "usesProxy": false
   },
   {
-    "name": "Papas Bakeria",
-    "url": "/misc/play/papas-bakeria.html",
-    "image": "/misc/papas/papas-bakeria/img.webp",
-    "usesProxy": false
-  },
-  {
     "name": "Papas Cupcakeria",
     "url": "/misc/play/papas-cupcakeria.html",
     "image": "/misc/papas/papas-cupcakeria/img.webp",
@@ -866,7 +860,7 @@
   {
     "name": "Papas Freezeria",
     "url": "/misc/play/papas-freezeria.html",
-    "image": "/misc/papas/papas-freezeria/img.webp",
+    "image": "/misc/papas/papas-freezeria/img.webp?v=1",
     "usesProxy": false
   },
   {
@@ -896,7 +890,7 @@
   {
     "name": "Papas Scooperia",
     "url": "/misc/play/papas-scooperia.html",
-    "image": "/misc/papas/papas-scooperia/img.webp",
+    "image": "/misc/papas/papas-scooperia/img.webp?v=1",
     "usesProxy": false
   },
   {
