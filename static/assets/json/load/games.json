@@ -74,7 +74,7 @@
   {
     "name": "Alien Hominid",
     "url": "/misc/play/alienhonminid.html",
-    "image": "/misc/emulator/games/alien/alien.webp",
+    "image": "/img/games/alien.webp",
     "usesProxy": false
   },
   {
@@ -387,12 +387,6 @@
     "name": "E Parkour.Io",
     "url": "https://eparkour.io/",
     "image": "/img/games/eparkour.webp",
-    "usesProxy": true
-  },
-  {
-    "name": "Bandit.RIP",
-    "url": "https://bandit.rip/",
-    "image": "/img/games/bandit.webp",
     "usesProxy": true
   },
   {
@@ -848,7 +842,7 @@
   {
     "name": "OvO 2",
     "url": "/misc/play/ovo2.html",
-    "image": "/misc/ovo2/icons/icon-512.png",
+    "image": "/misc/ovo2/img.webp",
     "usesProxy": false
   },
   {
