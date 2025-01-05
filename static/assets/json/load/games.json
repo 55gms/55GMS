@@ -241,9 +241,9 @@
   },
   {
     "name": "Daily Dadish",
-    "url": "https://cloud.papasgaming.com/file/h5games/onlinegames/games/2023/q2/daily-dadish/index.html",
+    "url": "/misc/play/dailydadish.html",
     "image": "/misc/dadish3/img.webp",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Deal or No Deal",
@@ -1272,14 +1272,8 @@
     "usesProxy": false
   },
   {
-    "name": "Stickman Golf",
-    "url": "/misc/play/stickmanG.html",
-    "image": "/misc/stickman-golf/splash.png",
-    "usesProxy": false
-  },
-  {
     "name": "Stickman Hook",
-    "url": "/misc/stickman-hook/index.html",
+    "url": "/misc/play/stickmanH.html",
     "image": "/misc/stickman-hook/unnamed.webp",
     "usesProxy": false
   },
@@ -1420,12 +1414,6 @@
     "url": "/misc/play/tinyfish.html",
     "image": "/misc/tiny-fishing/thumb.webp",
     "usesProxy": false
-  },
-  {
-    "name": "WorldGuessr",
-    "url": "https://www.worldguessr.com/",
-    "image": "/img/games/world.webp",
-    "usesProxy": true
   },
   {
     "name": "Tunnel Rush",
