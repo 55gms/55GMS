@@ -841,20 +841,26 @@
   },
   {
     "name": "Papas Burgeria",
-    "url": "/misc/papas/papas-burgeria/index.html",
-    "image": "/misc/papas/papas-burgeria/img.avif",
+    "url": "/misc/play/papas-burgeria.html",
+    "image": "/misc/papas/papas-burgeria/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Papas Bakeria",
+    "url": "/misc/play/papas-bakeria.html",
+    "image": "/misc/papas/papas-bakeria/img.webp",
     "usesProxy": false
   },
   {
     "name": "Papas Cupcakeria",
     "url": "/misc/play/papas-cupcakeria.html",
-    "image": "/misc/papas/papas-cupcakeria/img.jpeg",
+    "image": "/misc/papas/papas-cupcakeria/img.webp",
     "usesProxy": false
   },
   {
     "name": "Papas Donuteria",
     "url": "/misc/play/papas-donuteria.html",
-    "image": "/misc/papas/papas-donuteria/img.jpeg",
+    "image": "/misc/papas/papas-donuteria/img.webp",
     "usesProxy": false
   },
   {
@@ -866,25 +872,25 @@
   {
     "name": "Papas Hot Doggeria",
     "url": "/misc/play/papas-hot-doggeria.html",
-    "image": "/misc/papas/papas-hot-doggeria/img.jpeg",
+    "image": "/misc/papas/papas-hot-doggeria/img.webp",
     "usesProxy": false
   },
   {
     "name": "Papas Pancakeria",
     "url": "/misc/play/papas-pankakeria.html",
-    "image": "/misc/papas/papas-pancakeria/img.avif",
+    "image": "/misc/papas/papas-pancakeria/img.webp",
     "usesProxy": false
   },
   {
     "name": "Papas Pasteria",
     "url": "/misc/play/papas-pasteria.html",
-    "image": "/misc/papas/papas-pastaria/img.png",
+    "image": "/misc/papas/papas-pastaria/img.webp",
     "usesProxy": false
   },
   {
     "name": "Papas Pizzaria",
     "url": "/misc/play/papas-pizzaria.html",
-    "image": "/misc/papas/papas-pizzaria/img.jpg",
+    "image": "/misc/papas/papas-pizzaria/img.webp",
     "usesProxy": false
   },
   {
@@ -896,26 +902,26 @@
   {
     "name": "Papas Sushiria",
     "url": "/misc/play/papas-sushiria.html",
-    "image": "/misc/papas/papas-sushiria/img.jpeg",
+    "image": "/misc/papas/papas-sushiria/img.webp",
     "usesProxy": false
   },
   {
     "name": "Papas Taco Mia",
     "url": "/misc/play/papas-taco-mia.html",
-    "image": "/misc/papas/papas-taco-mia/img.jpeg",
+    "image": "/misc/papas/papas-taco-mia/img.webp",
     "usesProxy": false
   },
   {
     "name": "Papas Wingeria",
     "url": "/misc/play/papas-wingaria.html",
-    "image": "/misc/papas/papas-wingeria/img.jpeg",
+    "image": "/misc/papas/papas-wingeria/img.webp",
     "usesProxy": false
   },
   {
     "name": "Papas Cheeseria",
-    "url": "https://papas-cheeseria.game-files.crazygames.com/ruffle/papas-cheeseria/3/game.html?v=1.285",
-    "image": "/img/games/papascheeseria.webp",
-    "usesProxy": true
+    "url": "/misc/play/papas-cheeseria.html",
+    "image": "/misc/papas/papas-cheeseria/img.webp",
+    "usesProxy": false
   },
   {
     "name": "Paper.io 2",
