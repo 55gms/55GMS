@@ -258,12 +258,6 @@
     "usesProxy": true
   },
   {
-    "name": "diep.Io",
-    "url": "https://diep.io/",
-    "image": "/img/games/diep.webp",
-    "usesProxy": true
-  },
-  {
     "name": "Doge Miner",
     "url": "/misc/play/dogeminer.html",
     "image": "/misc/dogeminer/img.jpeg",
@@ -354,9 +348,9 @@
     "usesProxy": false
   },
   {
-    "name": "Edge Surf",
-    "url": "/misc/play/edge-surf.html",
-    "image": "/misc/edge-surf/splash.png",
+    "name": "Poor Bunny",
+    "url": "/misc/play/poorbunny.html",
+    "image": "/misc/poor-bunny/img.webp",
     "usesProxy": false
   },
   {
