@@ -1261,9 +1261,9 @@
   },
   {
     "name": "Soccer Bros",
-    "url": "https://soccerbros.gg/",
-    "image": "/img/games/SoccerBros.webp",
-    "usesProxy": true
+    "url": "/misc/play/soccerbros.html",
+    "image": "/misc/soccerbros/icon.png",
+    "usesProxy": false
   },
   {
     "name": "Football Bros",

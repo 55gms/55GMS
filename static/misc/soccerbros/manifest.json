@@ -1,0 +1,71 @@
+{
+    "name": "Soccer Bros",
+    "short_name": "Soccer Bros",
+    "start_url": "index.php?ms=1",
+    "id": "com.bluewizard.soccerbros",
+    "description": "Fun, fast-paced 1 on 1 soccer/football game with lots of action. Pick from a variety of characters and let the play begin.  Go for crazy goals, penalty kicks, or maybe even tackle your opponent! The controls are very simple: Use either the arrow keys or wasd to control your bro and space bar to shoot or tackle.",
+    "background": {
+      "service_worker": "sw.js"
+    },
+    "scope": "./",
+    "icons": [
+      {
+        "src": "icon.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any"
+      },
+      {
+        "src": "superhero.png",
+        "sizes": "1920x1080",
+        "type": "image/png",
+        "purpose": "any"
+      }
+    ],
+    "images": [
+      {
+        "src": "superhero.png",
+        "sizes": "1920x1080",
+        "type": "image/png",
+        "purpose": "any"
+      }
+    ],
+    "theme_color": "#33BB33",
+    "background_color": "#686868",
+    "display": "standalone",
+    "ms_start_compatible": true,
+    "screenshots": [
+      {
+        "src": "ss3.jpg",
+        "type": "image/jpg",
+        "sizes": "1920x1080",
+        "form_factor": "wide"
+      },
+      {
+        "src": "ss2.jpg",
+        "type": "image/jpg",
+        "sizes": "1920x1080",
+        "form_factor": "wide"
+      }
+    ],
+    "display_override": [
+      "standalone",
+      "fullscreen",
+      "browser",
+      "minimal-ui",
+      "window-controls-overlay"
+    ],
+    "categories": [
+      "games"
+    ],
+    "lang": "en",
+    "dir": "auto",
+    "orientation": "landscape",
+    "edge_side_panel": {
+      "preferred_width": 0
+    },
+    "handle_links": "preferred",
+    "launch_handler": {
+      "client_mode": ["focus-existing", "auto"]
+    }
+  }
