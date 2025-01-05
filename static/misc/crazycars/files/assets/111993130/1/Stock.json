@@ -1,0 +1,50 @@
+{
+    "name": "Dikke Kar",
+    "anchors": [
+        {
+            "id": 0,
+            "attributes": {
+                "scale": [1,1,1]
+            },
+            "part": {
+                "id": 77
+            }
+        },
+        {
+            "id": 1,
+            "attributes": {
+                "scale": [1,1,1]
+            },
+            "part": {
+                "id": 77
+            }
+        },
+        {
+            "id": 2,
+            "attributes": {
+                "scale": [1,1,1]
+            },
+            "part": {
+                "id": 77
+            }
+        },
+        {
+            "id": 3,
+            "attributes": {
+                "scale": [1,1,1]
+            },
+            "part": {
+                "id": 77
+            }
+        },
+        {
+            "id": 6,
+            "attributes": {
+                "scale": [1,1,1]
+            },
+            "part": {
+                "id": 62
+            }
+        }
+    ]
+}

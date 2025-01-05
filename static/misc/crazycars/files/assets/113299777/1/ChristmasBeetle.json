@@ -1,0 +1,57 @@
+{
+    "name": "Christmas Beetle",
+    "colors": [
+        "2f891d",
+        "e0751f"
+    ],
+    "anchors": [
+        {
+            "id": 0,
+            "part": {
+                "id": 29
+            }
+        },
+        {
+            "id": 1,
+            "attributes": {
+                "scale": [0.9,0.9,0.9]
+            },
+            "part": {
+                "id": 1001
+            }
+        },
+        {
+            "id": 2,
+            "attributes": {
+                "scale": [0.9,0.9,0.9]
+            },
+            "part": {
+                "id": 1001
+            }
+        },
+        {
+            "id": 3,
+            "attributes": {
+                "scale": [0.9,0.9,0.9]
+            },
+            "part": {
+                "id": 1001
+            }
+        },
+        {
+            "id": 4,
+            "attributes": {
+                "scale": [0.9,0.9,0.9]
+            },
+            "part": {
+                "id": 1001
+            }
+        },
+        {
+            "id": 8,
+            "part": {
+                "id": 8000
+            }
+        }
+    ]
+}
