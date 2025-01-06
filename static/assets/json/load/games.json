@@ -1206,10 +1206,10 @@
     "usesProxy": false
   },
   {
-    "name": "Slowroads.io",
-    "url": "https://slowroads.io/",
-    "image": "/misc/slowroads/img.webp",
-    "usesProxy": true
+    "name": "Slowroads",
+    "url": "/misc/play/slowrds.html",
+    "image": "/misc/slowrds/img.webp",
+    "usesProxy": false
   },
   {
     "name": "Super Mario 64",
