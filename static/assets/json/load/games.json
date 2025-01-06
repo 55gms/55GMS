@@ -726,22 +726,10 @@
     "usesProxy": true
   },
   {
-    "name": "Madalin Cars Multiplayer",
-    "url": "https://games.crazygames.com/en_US/madalin-cars-multiplayer/index.html",
-    "image": "/img/games/mcm.webp",
-    "usesProxy": true
-  },
-  {
-    "name": "Madalin Stunt Cars 2",
-    "url": "https://games.crazygames.com/en_US/madalin-stunt-cars-2/index.html",
-    "image": "/misc/madstunt-cars2/img.jpeg",
-    "usesProxy": true
-  },
-  {
     "name": "Madalin Stunt Cars 3",
-    "url": "https://games.crazygames.com/en_US/madalin-stunt-cars-3/index.html",
-    "image": "/misc/madstunt-cars2/msc.jpeg",
-    "usesProxy": true
+    "url": "/misc/play/madalincars3.html",
+    "image": "/misc/madstunt-cars/img.webp",
+    "usesProxy": false
   },
   {
     "name": "Marbles Sorting",
@@ -813,12 +801,6 @@
     "name": "Mr. Bullet",
     "url": "/misc/play/mrbullet.html",
     "image": "/misc/mrbullet/icon-256.png",
-    "usesProxy": false
-  },
-  {
-    "name": "Microsoft Flight Sim",
-    "url": "/misc/play/microsoft-fly.html",
-    "image": "/misc/msflight/images/icon.png",
     "usesProxy": false
   },
   {
@@ -951,18 +933,6 @@
     "name": "Penalty Kick Online",
     "url": "/misc/play/penalty.html",
     "image": "/misc/penalty-kick-online/img.png",
-    "usesProxy": false
-  },
-  {
-    "name": "Pixel Combat 2",
-    "url": "https://frivez.com/games/pixel-combat-2/index.html",
-    "image": "/misc/pixel-combat-2/img.jpeg",
-    "usesProxy": true
-  },
-  {
-    "name": "Pizza Tower",
-    "url": "/misc/play/pizzatower.html",
-    "image": "/misc/pizzatower/img.png",
     "usesProxy": false
   },
   {
@@ -1192,12 +1162,6 @@
     "url": "/misc/play/savedoge.html",
     "image": "/misc/save-the-doge/img.webp",
     "usesProxy": false
-  },
-  {
-    "name": "Shellshock.io",
-    "url": "https://shellshock.io",
-    "image": "/misc/shellshocker/img.png",
-    "usesProxy": true
   },
   {
     "name": "Ships 3D",

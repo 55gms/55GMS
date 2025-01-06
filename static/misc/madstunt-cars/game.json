@@ -1,0 +1,13 @@
+{
+  "companyName": "Madalin Games",
+  "productName": "Madalin Cars Multiplayer",
+  "dataUrl": "unity/data.unityweb",
+  "asmCodeUrl": "unity/asmCode.unityweb",
+  "asmMemoryUrl": "unity/asmMemory.unityweb",
+  "asmFrameworkUrl": "unity/asmFramework.unityweb",
+  "TOTAL_MEMORY": 268435456,
+  "graphicsAPI": ["WebGL 2.0"],
+  "webglContextAttributes": { "preserveDrawingBuffer": false },
+  "splashScreenStyle": "Dark",
+  "backgroundColor": "#231F20"
+}
