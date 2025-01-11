@@ -24,7 +24,7 @@ Contributing to 55GMS is simple, all you need is to fork this repository and cre
 
 ### Deploy to Codespaces
 
-#### Note, Codespaces does not let your site run forever, if you leve the codespaces page alone for to long it will turn your site off.
+#### Note, Codespaces does not let your site run forever, if you leve the codespaces tab alone for to long it will turn your site off.
 
 At the top of this repo, click Code.
 ![image](https://github.com/user-attachments/assets/f39210a7-33a2-4ee8-b8da-97a894ddbf03)
