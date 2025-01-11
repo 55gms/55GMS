@@ -1,12 +1,12 @@
 window.addEventListener("load", (event) => {
-    const gameContainer = document.getElementById("game-container");
-    fetch("/assets/json/load/packs.json")
-      .then((response) => response.json())
-      .then((apps) => {
-        apps.sort((a, b) => a.name.localeCompare(b.name));
-        apps.forEach(function (game) {
-          let gameHtml;
-          gameHtml = `<div class="game">
+  const gameContainer = document.getElementById("game-container");
+  fetch("/assets/json/load/packs.json")
+    .then((response) => response.json())
+    .then((apps) => {
+      apps.sort((a, b) => a.name.localeCompare(b.name));
+      apps.forEach(function (game) {
+        let gameHtml;
+        gameHtml = `<div class="game">
                 <a onclick="${
                   game.alert ? `alert('${game.alert}'); ` : ""
                 }window.location.href='${game.url}';">
@@ -14,11 +14,11 @@ window.addEventListener("load", (event) => {
                     <p class="text">${game.name}</p>
                 </a>
               </div>`;
-          gameContainer.insertAdjacentHTML("beforeend", gameHtml);
-        });
-  
-        let searchbar = document.getElementById("searchbar");
-        if (searchbar)
-          searchbar.placeholder = `Click here to search through our ${apps.length} packs!`;
+        gameContainer.insertAdjacentHTML("beforeend", gameHtml);
       });
-  });
+
+      let searchbar = document.getElementById("searchbar");
+      if (searchbar)
+        searchbar.placeholder = `Click here to search through our ${apps.length} packs!`;
+    });
+});
