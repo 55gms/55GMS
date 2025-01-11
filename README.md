@@ -24,12 +24,17 @@ Contributing to 55GMS is simple, all you need is to fork this repository and cre
 
 ### Deploy to Codespaces
 
+#### Note, Codespaces does not let your site run forever, if you leve the codespaces tab alone for to long it will turn your site off.
+
 At the top of this repo, click Code.
 ![image](https://github.com/user-attachments/assets/f39210a7-33a2-4ee8-b8da-97a894ddbf03)
 
 Then click Create Codespaces on Main
 
 You should be redirected to a new page
+
+## It should automatically run so all you have to do is click public on the popup. If it does not follow the steps below. Then go below these two pictures to find how to access the site.
+
 In the terminal area, type `node .`
 ![image](https://github.com/user-attachments/assets/ef75f5f1-e551-4332-8e60-7e4c8a2b563f)
 Click enter, you should see a popup on the bottom right
