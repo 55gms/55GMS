@@ -385,9 +385,13 @@ server.on("upgrade", (req, socket, head) => {
 
 const activeConversations = new Map();
 
+server.listen({
+  port: process.env.PORT || 8080,
+});
+
 server.on("listening", () => {
   console.log(`\n------------------------------------`);
-  console.log(`🔗 URL: http://localhost:${process.env.PORT}`);
+  console.log(`🔗 URL: http://192.168.6.16:${process.env.PORT}`);
   console.log(`------------------------------------\n`);
 });
 
@@ -404,10 +408,9 @@ function shutdown(signal) {
 process.on("SIGTERM", () => shutdown("SIGTERM"));
 process.on("SIGINT", () => shutdown("SIGINT"));
 
-server.listen({
-  port: process.env.PORT || 8080,
-});
 
 server.on("error", (error) => {
   console.error("Server error:", error);
 });
+
+
