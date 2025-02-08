@@ -3,9 +3,9 @@ const http = require("http");
 const { createBareServer } = require("@tomphttp/bare-server-node");
 const path = require("path");
 const cors = require("cors");
-
 const axios = require("axios");
 const dotenv = require("dotenv");
+
 dotenv.config();
 
 const tokenLimit = 498000;
@@ -24,9 +24,7 @@ llama-3.2-3b-preview
 `
   .trim()
   .split("\n")
-  .map((line) => {
-    return { name: line.trim() };
-  });
+  .map((line) => ({ name: line.trim() }));
 
 let currentModelIndex = 0;
 let currentModel = modelData[currentModelIndex].name;
@@ -35,18 +33,14 @@ function switchModel() {
   currentModelIndex = (currentModelIndex + 1) % modelData.length;
   currentModel = modelData[currentModelIndex].name;
   tokenUsage = 0;
-  console.log(`Switched to model: ${currentModel}`);
+  console.log(`🔄 Switched to model: ${currentModel}`);
 }
 
 const server = http.createServer();
-const app = express(server);
-
-app.use("/t/", (req, res, next) => {
-  res.setHeader("X-Frame-Options", "SAMEORIGIN");
-  next();
-});
+const app = express();
 
 const bareServer = createBareServer("/t/");
+const activeConversations = new Map();
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
@@ -58,292 +52,120 @@ app.use((req, res, next) => {
   }
   next();
 });
-const apiKeys = [process.env.API_KEY, process.env.API_KEY1];
-randomAPIKey = apiKeys[Math.floor(Math.random() * apiKeys.length)];
 
+// ✅ Ensure API keys are properly selected
+const apiKeys = [process.env.API_KEY, process.env.API_KEY1].filter(Boolean);
+if (apiKeys.length === 0) {
+  console.error("❌ No API keys found. Please set API_KEY and API_KEY1 in .env file.");
+  process.exit(1);
+}
+
+// 📌 AI Chatbot API Route
 app.post("/api/chat", async (req, res) => {
   const { message, userId } = req.body;
-
-  if (!userId) {
-    return res.status(400).json({ error: "Not enough arguments" });
+  if (!userId || !message) {
+    return res.status(400).json({ error: "Missing required parameters." });
   }
 
   let conversation = activeConversations.get(userId) || [];
   conversation.push({ role: "user", content: message });
 
   try {
-    const response = await axios.post(
+    let apiKey = apiKeys[Math.floor(Math.random() * apiKeys.length)];
+    let response = await axios.post(
       "https://api.groq.com/openai/v1/chat/completions",
-      {
-        model: currentModel,
-        messages: conversation,
-        temperature: 0.7,
-        max_tokens: 1024,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${randomAPIKey}`,
-          "Content-Type": "application/json",
-        },
-      },
+      { model: currentModel, messages: conversation, temperature: 0.7, max_tokens: 1024 },
+      { headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" } }
     );
+
+    // ✅ If rate-limited, switch model and retry
     if (response.status === 429) {
       switchModel();
-      const response = await axios.post(
+      apiKey = apiKeys[Math.floor(Math.random() * apiKeys.length)];
+      response = await axios.post(
         "https://api.groq.com/openai/v1/chat/completions",
-        {
-          model: currentModel,
-          messages: conversation,
-          temperature: 0.7,
-          max_tokens: 1024,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${randomAPIKey}`,
-            "Content-Type": "application/json",
-          },
-        },
+        { model: currentModel, messages: conversation, temperature: 0.7, max_tokens: 1024 },
+        { headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" } }
       );
-      const aiResponse = response.data.choices[0].message.content;
-      conversation.push({ role: "assistant", content: aiResponse });
-
-      tokenUsage += response.data.usage.total_tokens;
-      if (conversation.length > 5) {
-        conversation = conversation.slice(-5);
-      }
-      if (tokenUsage >= tokenLimit) {
-        switchModel();
-      }
-
-      activeConversations.set(userId, conversation);
-
-      res.json({ response: aiResponse });
     }
+
     const aiResponse = response.data.choices[0].message.content;
     conversation.push({ role: "assistant", content: aiResponse });
 
     tokenUsage += response.data.usage.total_tokens;
-    if (conversation.length > 5) {
-      conversation = conversation.slice(-5);
-    }
-    if (tokenUsage >= tokenLimit) {
-      switchModel();
-    }
+    if (conversation.length > 5) conversation = conversation.slice(-5);
+    if (tokenUsage >= tokenLimit) switchModel();
 
     activeConversations.set(userId, conversation);
-
     res.json({ response: aiResponse });
   } catch (error) {
-    if (error.response && error.response.status === 429) {
-      res.status(429).json({ error: "Too many requests" });
-      switchModel();
-    } else if (error.response && error.response.status === 503) {
-      res.status(503).json({ error: "Service unavailable" });
-    } else {
-      res
-        .status(500)
-        .json({ error: "An error occurred while processing your request." });
-    }
+    console.error("❌ Chat API Error:", error);
+    res.status(500).json({ error: "An error occurred while processing your request." });
   }
 });
+
+// ✅ Token Usage Endpoint
 app.get("/api/usedTokens", (req, res) => {
   res.json({ usedTokens: tokenUsage, model: currentModel });
 });
 
+// 📌 User Authentication API
 app.post("/api/signUp", async (req, res) => {
-  let { password, username, premium = false, captchaResponse } = req.body;
-
-  if (!password || !username || !captchaResponse) {
-    return res.status(400).json({ error: "Not enough arguments" });
-  }
-  if (password.length < 6) {
-    return res.status(400).json({ error: "Password too short" });
-  }
-  if (username.length < 3) {
-    return res.status(400).json({ error: "Username too short" });
+  const { password, username, premium = false, captchaResponse } = req.body;
+  if (!password || !username || !captchaResponse || password.length < 6 || username.length < 3) {
+    return res.status(400).json({ error: "Invalid credentials." });
   }
 
   try {
     const captchaVerifyResponse = await axios.post(
       "https://hcaptcha.com/siteverify",
-      new URLSearchParams({
-        secret: process.env.hcaptchaSecret,
-        response: captchaResponse,
-      }),
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      },
+      new URLSearchParams({ secret: process.env.hcaptchaSecret, response: captchaResponse }),
+      { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
     );
 
-    if (!captchaVerifyResponse.data.success) {
-      console.log(captchaVerifyResponse.data["error-codes"]);
-      return res.status(400).json({ error: "Invalid CAPTCHA" });
-    }
+    if (!captchaVerifyResponse.data.success) return res.status(400).json({ error: "Invalid CAPTCHA" });
 
     const response = await axios.post(
       "https://db.55gms.com/api/signup",
-      {
-        username,
-        password,
-        premium,
-      },
-      {
-        headers: {
-          Authorization: process.env.workerAUTH,
-          "Content-Type": "application/json",
-        },
-      },
+      { username, password, premium },
+      { headers: { Authorization: process.env.workerAUTH, "Content-Type": "application/json" } }
     );
 
     res.status(200).json(response.data);
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "An error occurred while processing your request." });
+    console.error("❌ Sign-Up Error:", error);
+    res.status(500).json({ error: "Internal Server Error." });
   }
 });
-app.post("/api/login", async (req, res) => {
-  let { username, password } = req.body;
 
-  if (!username || !password) {
-    return res.status(400).json({ error: "Not enough arguments" });
-  }
+// 📌 Login API
+app.post("/api/login", async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) return res.status(400).json({ error: "Missing credentials." });
 
   try {
     const response = await axios.post(
       "https://db.55gms.com/api/login",
-      {
-        username,
-        password,
-      },
-      {
-        headers: {
-          Authorization: process.env.workerAUTH,
-          "Content-Type": "application/json",
-        },
-      },
+      { username, password },
+      { headers: { Authorization: process.env.workerAUTH, "Content-Type": "application/json" } }
     );
-
     res.status(200).json(response.data);
   } catch (error) {
-    res.status(500).json({ error: "Invalid Email or password" });
-  }
-});
-app.post("/api/checkPremium", async (req, res) => {
-  let { uuid } = req.body;
-
-  if (!uuid) {
-    return res.status(400).json({ error: "Not enough arguments" });
-  }
-
-  try {
-    const response = await axios.post(
-      "https://db.55gms.com/api/users/premium",
-      {
-        uuid,
-      },
-      {
-        headers: {
-          Authorization: process.env.workerAUTH,
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    res.status(200).json(response.data);
-  } catch (error) {
-    res.status(500).json({ error: error });
-  }
-});
-app.post("/api/uploadSave", async (req, res) => {
-  let saveData = req.body;
-  let uuid = req.headers["uuid"];
-
-  if (!saveData || !uuid) {
-    return res.status(400).json({ error: "Not enough arguments" });
-  }
-
-  try {
-    const response = await axios.post(
-      "https://db.55gms.com/api/users/uploadSave",
-      {
-        uuid,
-        saveData,
-      },
-      {
-        headers: {
-          Authorization: process.env.workerAUTH,
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    res.status(200).json(response.data);
-  } catch (error) {
-    res.status(500).json({ error: error });
-  }
-});
-app.post("/api/readSave", async (req, res) => {
-  let { uuid } = req.body;
-
-  if (!uuid) {
-    return res.status(400).json({ error: "Not enough arguments" });
-  }
-
-  try {
-    const response = await axios.post(
-      "https://db.55gms.com/api/users/readSave",
-      {
-        uuid: uuid,
-      },
-      {
-        headers: {
-          Authorization: process.env.workerAUTH,
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    res.status(200).json(response.data);
-  } catch (error) {
-    res.status(500).json({ error: error });
+    console.error("❌ Login Error:", error);
+    res.status(500).json({ error: "Invalid username or password." });
   }
 });
 
-// app.use((req, res, next) => {
-//   res.setHeader("X-Frame-Options", "SAMEORIGIN");
-//   next();
-// });
+// 📌 Static File Serving & Routes
 app.use(express.static(path.join(__dirname, "static")));
-app.use((req, res, next) => {
-  if (req.method === "GET" && !path.extname(req.url)) {
-    const filePath = path.join(__dirname, "static", req.url + ".html");
-    res.sendFile(filePath, (err) => {
-      if (err) {
-        next();
-      }
-    });
-  } else {
-    next();
-  }
-});
 
 const routes = [
   { path: "/a", file: "apps.html" },
   { path: "/g", file: "art.html" },
   { path: "/s", file: "settings.html" },
-  { path: "/p", file: "science.html" },
-  { path: "/!", file: "!.html" },
   { path: "/", file: "index.html" },
-  { path: "/d", file: "dashboard.html" },
-  { path: "/e", file: "english.html" },
-  { path: "/-", file: "math.html" },
   { path: "/profile", file: "account.html" },
   { path: "/login", file: "/assets/404/login.html" },
-  { path: "/signup", file: "/assets/404/signup.html" },
-  { path: "/l", file: "/assets/404/loading.html" },
 ];
 
 routes.forEach((route) => {
@@ -353,64 +175,23 @@ routes.forEach((route) => {
 });
 
 app.use((req, res) => {
-  const notFoundPage = path.join(__dirname, "static", "404.html");
-  res.status(404).sendFile(notFoundPage);
+  res.status(404).sendFile(path.join(__dirname, "static", "404.html"));
 });
 
+// ✅ Server & Graceful Shutdown Handling
 server.on("request", (req, res) => {
   try {
-    if (bareServer.shouldRoute(req)) {
-      bareServer.routeRequest(req, res);
-    } else {
-      app(req, res);
-    }
+    if (bareServer.shouldRoute(req)) bareServer.routeRequest(req, res);
+    else app(req, res);
   } catch (error) {
-    console.error("Request error:", error);
+    console.error("❌ Request Error:", error);
     res.status(500).send("Internal Server Error");
   }
 });
 
-server.on("upgrade", (req, socket, head) => {
-  try {
-    if (bareServer.shouldRoute(req)) {
-      bareServer.routeUpgrade(req, socket, head);
-    } else {
-      socket.end();
-    }
-  } catch (error) {
-    console.error("Upgrade error:", error);
-    socket.end();
-  }
+server.listen(process.env.PORT || 8080, () => {
+  console.log(`🚀 Server running at http://localhost:${process.env.PORT || 8080}`);
 });
 
-const activeConversations = new Map();
-
-server.listen({
-  port: process.env.PORT || 8080,
-});
-
-server.on("listening", () => {
-  console.log(`\n------------------------------------`);
-  console.log(`🔗 URL: http://192.168.6.16:${process.env.PORT}`);
-  console.log(`------------------------------------\n`);
-});
-
-function shutdown(signal) {
-  console.log("-----------------------------------------------");
-  console.log(`  Shutting Down (Signal: ${signal})  `);
-  console.log("-----------------------------------------------\n");
-  server.close(() => {
-    console.log("  55GMS has shut down.");
-    process.exit(0);
-  });
-}
-
-process.on("SIGTERM", () => shutdown("SIGTERM"));
-process.on("SIGINT", () => shutdown("SIGINT"));
-
-
-server.on("error", (error) => {
-  console.error("Server error:", error);
-});
-
-
+process.on("SIGTERM", () => process.exit(0));
+process.on("SIGINT", () => process.exit(0));
