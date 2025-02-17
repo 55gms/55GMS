@@ -1548,6 +1548,12 @@
     "usesProxy": true
   },
   {
+    "name": "Zombie Derby",
+    "url": "/misc/play/zombiederby.html",
+    "image": "/misc/zombiederby/img.webp",
+    "usesProxy": false
+  },
+  {
     "name": "GBA Games",
     "url": "https://real-sgs.vercel.app/Tools/GBA-Emulator/index.html",
     "image": "/img/games/gba.webp",

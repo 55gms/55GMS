@@ -1,0 +1,16 @@
+{
+"companyName": "Brinemedia",
+"productName": "Zombie Derby: Pixel Survival",
+"productVersion": "1.0.17",
+"dataUrl": "zd_pixel_2020_10_29_poki_3.data.unityweb",
+"wasmCodeUrl": "zd_pixel_2020_10_29_poki_3.wasm.code.unityweb",
+"wasmFrameworkUrl": "zd_pixel_2020_10_29_poki_3.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.2.12f1"
+}
