@@ -143,3 +143,57 @@
 .reloadbtn:hover {
   transform: scaleX(1.2) scaleY(1.2) rotate(360deg);
 }
+
+.addisplay {
+  margin-left: 80vw;
+  width: 16vw;
+  height: 32vw;
+  background-color: #3d4756;
+  border-radius: 0.5vw;
+  display: flex;
+  margin-top: -42.5vw;
+  margin-bottom: 6vw;
+  outline: 0.2vw solid #ffffff26;
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
+  position: relative;
+}
+
+.addisplay .adtext {
+  font-size: 0.5vw;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 0.7;
+  letter-spacing: 0.05vw;
+  position: absolute;
+  right: 15vw;
+  padding-top: 10px;
+  margin-top: 32.2vw;
+  transform-origin: right center;
+}
+
+.bottom-addisplay {
+  width: 100%;
+  max-width: 468px;
+  height: auto;
+  aspect-ratio: 468 / 60;
+  background-color: #3d4756;
+  border-radius: 0.5vw;
+  display: flex;
+  margin: 20px auto;
+  outline: 0.2vw solid #ffffff26;
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
+  position: relative;
+}
+
+.bottom-addisplay .adtext {
+  font-size: 0.5vw;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 0.7;
+  letter-spacing: 0.05vw;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: -15px;
+  transform-origin: center;
+}
