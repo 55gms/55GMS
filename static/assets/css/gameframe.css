@@ -173,9 +173,9 @@
 
 .bottom-addisplay {
   width: 100%;
-  max-width: 468px;
+  max-width: 728px;
   height: auto;
-  aspect-ratio: 468 / 60;
+  aspect-ratio: 730 / 90;
   background-color: #3d4756;
   border-radius: 0.5vw;
   display: flex;
