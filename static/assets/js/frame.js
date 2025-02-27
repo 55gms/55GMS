@@ -14,7 +14,7 @@ function loadNewPage(url) {
   window.navigator.serviceWorker.register("/assets/uv/sw.js", {
     scope: "/assets/uv/service/",
   });
-  if (!isUrl(url)) url = "https://www.google.com/search?q=" + url;
+  if (!isUrl(url)) url = "https://www.startpage.com/do/dsearch?q=" + url;
   else if (!(url.startsWith("https://") || url.startsWith("http://")))
     url = "https://" + url;
   let urlEncoded = __uv$config.encodeUrl(url);
