@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui, shrink-to-fit=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Hills of Steel 1.0</title>
+    <style type="text/css">
+        /* Disable user selection to avoid strange bug in Chrome on Windows:
+	* Selecting a text outside the canvas, then clicking+draging would
+	* drag the selected text but block mouse down/up events to the engine.
+	*/
+        body {
+
+            position: fixed;
+            /* Prevent overscroll */
+
+            margin: 0;
+            padding: 0;
+        }
+
+        .canvas-app-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .canvas-app-container:-webkit-full-screen {
+            /* Auto width and height in Safari/Chrome fullscreen. */
+            width: auto;
+            height: auto;
+        }
+
+        #canvas {
+            outline: none;
+            border: 0;
+            width: 100%;
+            vertical-align: bottom;
+        }
+
+        #canvas-container {
+            position: relative;
+        }
+
+        canvas:focus,
+        canvas:active {
+            outline: none;
+            border: 0;
+            ie-dummy: expression(this.hideFocus=true);
+            -moz-outline-style: none;
+        }
+
+        div {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .canvas-app-progress {
+            position: absolute;
+            background-color: #d1dbeb;
+            height: 6px;
+            margin-top: -6px;
+            width: 100%;
+        }
+
+        .canvas-app-progress-bar {
+            font-size: 12px;
+            height: 6px;
+            color: rgb(255, 255, 255);
+            background-color: #1a72eb;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        .link,
+        .button {
+            font-family: sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: 0px;
+            padding-top: 12px;
+        }
+
+        .buttons-background {
+            background-color: #ffffff;
+            width: 100%;
+            height: 42px;
+        }
+
+        body {
+            background-color: #ffffff;
+        }
+
+        .canvas-app-container {
+            background: rgba(250, 252, 255, 1);
+            background: -moz-linear-gradient(-45deg, rgba(250, 252, 255, 1) 0%, rgba(250, 252, 255, 1) 50%, rgba(245, 249, 255, 1) 50%, rgba(245, 249, 255, 1) 100%);
+            background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(250, 252, 255, 1)), color-stop(50%, rgba(250, 252, 255, 1)), color-stop(50%, rgba(245, 249, 255, 1)), color-stop(100%, rgba(245, 249, 255, 1)));
+            background: -webkit-linear-gradient(-45deg, rgba(250, 252, 255, 1) 0%, rgba(250, 252, 255, 1) 50%, rgba(245, 249, 255, 1) 50%, rgba(245, 249, 255, 1) 100%);
+            background: -o-linear-gradient(-45deg, rgba(250, 252, 255, 1) 0%, rgba(250, 252, 255, 1) 50%, rgba(245, 249, 255, 1) 50%, rgba(245, 249, 255, 1) 100%);
+            background: -ms-linear-gradient(-45deg, rgba(250, 252, 255, 1) 0%, rgba(250, 252, 255, 1) 50%, rgba(245, 249, 255, 1) 50%, rgba(245, 249, 255, 1) 100%);
+            background: linear-gradient(135deg, rgba(250, 252, 255, 1) 0%, rgba(250, 252, 255, 1) 50%, rgba(245, 249, 255, 1) 50%, rgba(245, 249, 255, 1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafcff', endColorstr='#f5f9ff', GradientType=1);
+        }
+
+        .canvas-app-canvas {
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-image: url("splash_x256.jpg");
+        }
+
+        .canvas-app-canvas {
+            background-size: 100% !important;
+        }
+    </style>
+    <script src="poki-sdk.js"></script>
+</head>
+
+<body>
+    <div id="app-container" class="canvas-app-container">
+        <div id="running-from-file-warning" style="display: none; margin: 3em;">
+            <h1>Running from local file ⚠️</h1>
+            <p>It seems like you have opened this file by double-clicking on it. In order to test your build in a
+                browser <b>you need to load this file from a web server</b>. You can either upload this file and the
+                rest of the files from a Defold HTML5 bundle to a web hosting service OR host them using a local web
+                server on your home network.</p>
+            <p><a href="https://defold.com/manuals/html5/#testing-html5-build" target="_blank">Learn more about running
+                    a local web server in the Defold HTML5 manual</a>.</p>
+        </div>
+        <div id="webgl-not-supported" style="display: none; margin: 3em;">
+            <h1>WebGL not supported ⚠️</h1>
+            <p>WebGL is not supported by your browser - visit <a
+                    href="https://get.webgl.org/">https://get.webgl.org/</a> to learn more.</p>
+        </div>
+        <div id="canvas-container" class="canvas-app-canvas-container">
+            <canvas id="canvas" class="canvas-app-canvas" tabindex="1" width="1031" height="580"></canvas>
+        </div>
+        <div class="buttons-background">
+        </div>
+    </div>
+    <!-- -->
+    <script id="engine-loader" type="text/javascript" src="dmloader.js"></script>
+    <!-- -->
+    <script id="engine-setup" type="text/javascript">
+        var extra_params = {
+            archive_location_filter: function (path) {
+                return ("archive" + path + "");
+            },
+            engine_arguments: ["--verify-graphics-calls=false",],
+            custom_heap_size: 268435456,
+            full_screen_container: "#canvas-container",
+            disable_context_menu: true,
+            retry_time: 1.0,
+            retry_count: 10,
+            unsupported_webgl_callback: function () {
+                var e = document.getElementById("webgl-not-supported");
+                e.style.display = "block";
+            }
+        }
+
+        Module['persistentStorage'] = (typeof window !== 'undefined') && !!(window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB);
+
+        Module['INITIAL_MEMORY'] = extra_params.custom_heap_size;
+
+        Module['onRuntimeInitialized'] = function () {
+            Module.runApp("canvas", extra_params);
+        };
+
+        Module["locateFile"] = function (path, scriptDirectory) {
+            // dmengine*.wasm is hardcoded in the built JS loader for WASM,
+            // we need to replace it here with the correct project name.
+            if (path == "dmengine.wasm" || path == "dmengine_release.wasm" || path == "dmengine_headless.wasm") {
+                path = "HillsofSteel.wasm";
+            }
+            return scriptDirectory + path;
+        };
+
+
+
+        var is_iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var buttonHeight = 0;
+        var prevInnerWidth = -1;
+        var prevInnerHeight = -1;
+        function resize_game_canvas() {
+            // Hack for iOS when exit from Fullscreen mode
+            if (is_iOS) {
+                window.scrollTo(0, 0);
+            }
+
+            var app_container = document.getElementById('app-container');
+            var game_canvas = document.getElementById('canvas');
+            var innerWidth = window.innerWidth;
+            var innerHeight = window.innerHeight - buttonHeight;
+            if (prevInnerWidth == innerWidth && prevInnerHeight == innerHeight) {
+                return;
+            }
+            prevInnerWidth = innerWidth;
+            prevInnerHeight = innerHeight;
+            var width = 1031;
+            var height = 580;
+            var targetRatio = width / height;
+            var actualRatio = innerWidth / innerHeight;
+
+
+            //Stretch
+            width = innerWidth;
+            height = innerHeight;
+
+
+
+            app_container.style.width = width + "px";
+            app_container.style.height = height + buttonHeight + "px";
+            game_canvas.width = width;
+            game_canvas.height = height;
+        }
+        resize_game_canvas();
+        window.addEventListener('resize', resize_game_canvas, false);
+        window.addEventListener('orientationchange', resize_game_canvas, false);
+        window.addEventListener('focus', resize_game_canvas, false);
+    </script>
+    <script id="engine-start" type="text/javascript">
+        var runningFromFileWarning = document.getElementById("running-from-file-warning");
+        if (window.location.href.startsWith("file://")) {
+            runningFromFileWarning.style.display = "block";
+        }
+        else {
+            EngineLoader.stream_wasm = "false" === "true";
+            EngineLoader.load("canvas", "HillsofSteel");
+            runningFromFileWarning.parentNode.removeChild(runningFromFileWarning);
+        }
+    </script>
+    <script id="poki-sdk-setup" type="text/javascript">
+        var data = {};
+        var isLoadFinished = false;
+        Progress.addListener(function (percentage) {
+            data.percentageDone = percentage / 100;
+            if (!isLoadFinished)
+                PokiSDK.gameLoadingProgress(data);
+            if (percentage == 100 && !isLoadFinished) {
+                PokiSDK.gameLoadingFinished();
+                isLoadFinished = true;
+            }
+        });
+        Module['onRuntimeInitialized'] = function () {
+            PokiSDK.init().then(() => {
+                Module.runApp("canvas");
+            }).catch(() => {
+                Module.runApp("canvas");
+            });
+        };
+    </script>
+    <script defer
+        src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon='{"rayId":"905c1bb388a86444","version":"2025.1.0","r":1,"token":"f32b117169f04cb0b6df465d556ac0f6","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}'
+        crossorigin="anonymous"></script>
+    <script defer
+        src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon='{"rayId":"9184b327bc172e25","version":"2025.1.0","r":1,"token":"3af592e2f72249a2939700dadf653634","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}'
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
