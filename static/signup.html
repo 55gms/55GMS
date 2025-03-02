@@ -8,12 +8,10 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=1" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=3" />
     <title>Google</title>
-    <meta name="googlebot" content="notranslate" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Rednotsus" />
     <meta http-equiv="Cache-control" content="public">
     <meta charset="utf-8">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta name="description"
         content="Canvas LMS is an open and reliable web-based software that allows institutions to manage digital learning, educators to create and present online learning materials and assess student learning, and students to engage in courses and receive feedback about skill development and learning achievement." />
     <meta name="keywords"
@@ -21,6 +19,8 @@
     </script>
     <script src="/assets/js/script.js?v=11"></script>
     <script src="/assets/js/easteregg.min.js" async></script>
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
@@ -57,96 +57,107 @@
     }
 </style>
 <script>
-    async function login() {
-        const loginButton = document.getElementById("loginButton");
-        const loginLoader = document.getElementById("loginLoader");
+    async function signup() {
+        const signupButton = document.getElementById("signupButton");
+        const signupLoader = document.getElementById("signupLoader");
 
-        loginButton.disabled = true;
-        loginLoader.style.display = "inline-block";
+        // Disable the button and show the loader
+        signupButton.disabled = true;
+        signupLoader.style.display = "inline-block";
 
-        var username = document.getElementById("username").value;
         var password = document.getElementById("password").value;
-        if (username == "" || password == "") {
+        var user = document.getElementById("user").value;
+        var hcaptcha = document.querySelector('[name="h-captcha-response"]').value;
+        if (password == "" || user == "") {
             Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Please fill in all fields!',
+                icon: "error",
+                text: "Please fill in all the fields",
             });
-            loginButton.disabled = false;
-            loginLoader.style.display = "none";
+            signupButton.disabled = false;
+            signupLoader.style.display = "none";
+            return;
+        } else if (hcaptcha == "") {
+            Swal.fire({
+                icon: "error",
+                text: "Please complete the captcha",
+            });
+            signupButton.disabled = false;
+            signupLoader.style.display = "none";
+            return;
+        }
+        if (password.length < 6) {
+            Swal.fire({
+                icon: "error",
+                text: "Password must be at least 6 characters",
+            });
+            signupButton.disabled = false;
+            signupLoader.style.display = "none";
+            return;
+        }
+        if (user.length < 3) {
+            Swal.fire({
+                icon: "error",
+                text: "Username must be at least 3 characters",
+            });
+            signupButton.disabled = false;
+            signupLoader.style.display = "none";
+            return;
+        }
+        if (user.length > 16) {
+            Swal.fire({
+                icon: "error",
+                text: "Username must be at most 16 characters",
+            });
+            signupButton.disabled = false;
+            signupLoader.style.display = "none";
             return;
         }
         try {
-            let response = await fetch("/api/login", {
+            let response = await fetch("/api/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     password: password,
-                    username: username,
+                    username: user,
+                    captchaResponse: hcaptcha,
                 }),
-            });
-
-            if (response.status === 200) {
-                let data = await response.json();
-                localStorage.setItem("uuid", data.uuid);
-                localStorage.setItem("username", data.username);
-                localStorage.setItem("premium", data.premium);
-
-                let info = await fetch("/api/readSave", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        uuid: data.uuid,
-                    }),
+            })
+            if (response.status == 200) {
+                Swal.fire({
+                    icon: "success",
+                    text: "Account created successfully",
+                    confirmButtonText: "Login",
+                }).then(() => {
+                    window.location.href = "/login";
                 });
 
-                if (info.status === 200) {
-                    location.href = "/profile";
-                } else {
-                    alert("Since it's your first time, we are uploading your current save to the cloud!")
-
-                    const save = JSON.stringify(localStorage);
-                    let uploadStatus = await fetch("/api/uploadSave", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "uuid": data.uuid,
-                        },
-                        body: save,
-                    });
-
-                    if (uploadStatus.status === 200) {
-                        location.href = "/profile";
-                    } else {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Error",
-                            text: `An error occurred while uploading your save, please report this to rednotsus on discord ${uploadStatus.status}`,
-                        });
-                    }
-                }
             } else {
-                let errorData = await response.json();
+                if (response.status == 400) {
+                    Swal.fire({
+                        icon: "error",
+                        text: "Invalid captcha",
+                    });
+                    signupButton.disabled = false;
+                    signupLoader.style.display = "none";
+                    return;
+                }
                 Swal.fire({
                     icon: "error",
-                    title: "Login Failed",
-                    text: errorData.error || 'An error occurred during login.',
+                    text: "Someone already has that username.",
                 });
-                loginButton.disabled = false;
-                loginLoader.style.display = "none";
+                signupButton.disabled = false;
+                signupLoader.style.display = "none";
             }
         } catch (e) {
             Swal.fire({
                 icon: "error",
-                title: "Error",
-                text: `An error occurred while logging in, please report this to rednotsus on discord ${e}`,
+                text: `An error occurred: ${e.message}`,
             });
-            loginButton.disabled = false;
-            loginLoader.style.display = "none";
+            signupButton.disabled = false;
+            signupLoader.style.display = "none";
+            return;
         }
     }
 </script>
@@ -165,19 +176,20 @@
     </nav>
     <div style="text-align: center">
         <br></br>
-        <h1>Welcome back!</h1>
+        <h1>Register a new account</h1>
         <br><br>
-        <input type="text" id="username" class='form__input' name="email" autocomplete="off" placeholder="Username">
+        <input type="text" id="user" class='form__input' name="User" autocomplete="off" placeholder="Username">
         <br><br>
-
         <input type="password" id="password" class='form__input' name="password" autocomplete="off"
             placeholder="Password">
-        <br><br><br>
-        <button id="loginButton" onclick="login()" class="gs">Login</button>
-        <img id="loginLoader" src="/assets/404/loading.gif" style="width: 20px; height: 20px; display: none;">
+        <br><br>
+        <div class="h-captcha" data-sitekey="b53ebcec-4dfc-4536-b52e-a3bcbc1269e8"></div><br>
+        <button id="signupButton" onclick="signup()" class="gs">Sign Up</button>
+        <img id="signupLoader" src="/assets/404/loading.gif" style="width: 20px; height: 20px; display: none;">
         <br>
-        <p class="signup">Don't have an account yet? <a class='signupbutton' href="/signup">Sign Up</a></p>
+        <p>Already have an account? <a class='signupbutton' href="/login">Log in</a></p>
     </div>
+
 </body>
 
 </html>
