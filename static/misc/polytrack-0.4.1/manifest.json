@@ -1,0 +1,17 @@
+{
+	"name": "PolyTrack",
+	"icons": [
+		{
+			"src": "images/icon.svg",
+			"sizes": "any",
+			"type": "image/svg+xml",
+			"purpose": "any"
+		}
+	],
+	"background_color": "#28346a",
+	"theme_color": "#28346a",
+	"start_url": "./index.html",
+	"orientation": "landscape",
+	"display_override": ["fullscreen", "standalone", "minimal-ui"],
+	"display": "fullscreen"
+}
