@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/x-icon" href="/images/pizzalogo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pizza Edition</title>
+    <link id="favicon" rel="icon" href="/jsload/favicon.js" type="image/x-icon">
+    <script src="/jsload/favicon.js"></script>
+    <script src="/jsload/panickey.js"></script>
+    <script src="/jsload/confirmation.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/fullg.css">
+</head>
+
+<body>
+    <div class="embed-container">
+
+        <div id="overlay">
+            <img src="/images/games/stackbounce-min.png" alt="Play Image">
+            <div class="overlay-content">
+                <div class="game-title">Stack Bounce</div>
+                <div class="developer-info">BY: Creator</div>
+                <button id="play-btn">Play Now!</button>
+            </div>
+        </div>
+        <iframe id="embed-frame" src=""></iframe>
+    </div>
+    </div>
+    <script>
+        document.getElementById('play-btn').addEventListener('click', function () {
+            const iframe = document.getElementById('embed-frame');
+            iframe.src = "/assets/allgames/stackbounce/";
+            document.getElementById('overlay').style.display = 'none';
+        });
+
+
+    </script>

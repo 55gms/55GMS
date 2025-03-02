@@ -804,6 +804,12 @@
     "usesProxy": false
   },
   {
+    "name": "Ping Pong Go",
+    "url": "/misc/play/pingponggo.html",
+    "image": "/misc/pingponggo/img.webp",
+    "usesProxy": false
+  },
+  {
     "name": "Mr. Bullet",
     "url": "/misc/play/mrbullet.html",
     "image": "/misc/mrbullet/icon-256.png",
@@ -1173,12 +1179,6 @@
     "name": "Sandboxels",
     "url": "https://sandboxels.r74n.com/",
     "image": "/misc/sandboxels/img.webp",
-    "usesProxy": true
-  },
-  {
-    "name": "Half Life",
-    "url": "https://pixelsuft.github.io/hl/xash.html#150",
-    "image": "/img/games/halflife.webp",
     "usesProxy": true
   },
   {
