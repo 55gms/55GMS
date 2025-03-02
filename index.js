@@ -88,7 +88,7 @@ app.post("/api/chat", async (req, res) => {
           Authorization: `Bearer ${process.env.API_KEY}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
     if (response.status === 429) {
       switchModel();
@@ -105,7 +105,7 @@ app.post("/api/chat", async (req, res) => {
             Authorization: `Bearer ${randomAPIKey}`,
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       const aiResponse = response.data.choices[0].message.content;
       conversation.push({ role: "assistant", content: aiResponse });
@@ -178,7 +178,7 @@ app.post("/api/signUp", async (req, res) => {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-      }
+      },
     );
 
     if (!captchaVerifyResponse.data.success) {
@@ -198,7 +198,7 @@ app.post("/api/signUp", async (req, res) => {
           Authorization: process.env.workerAUTH,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     res.status(200).json(response.data);
@@ -228,7 +228,7 @@ app.post("/api/login", async (req, res) => {
           Authorization: process.env.workerAUTH,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     res.status(200).json(response.data);
@@ -254,7 +254,7 @@ app.post("/api/checkPremium", async (req, res) => {
           Authorization: process.env.workerAUTH,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     res.status(200).json(response.data);
@@ -282,7 +282,7 @@ app.post("/api/uploadSave", async (req, res) => {
           Authorization: process.env.workerAUTH,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     res.status(200).json(response.data);
@@ -308,7 +308,7 @@ app.post("/api/readSave", async (req, res) => {
           Authorization: process.env.workerAUTH,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     res.status(200).json(response.data);
@@ -343,7 +343,8 @@ const routes = [
   { path: "/", file: "index.html" },
   { path: "/d", file: "dashboard.html" },
   { path: "/e", file: "ai.html" },
-  { path: "/-", file: "media.html" }, { path: "/m", file: "media.html" },  // possibly change all navbars to use /m
+  { path: "/-", file: "media.html" },
+  { path: "/m", file: "media.html" }, // possibly change all navbars to use /m
   { path: "/profile", file: "account.html" },
   { path: "/login", file: "login.html" },
   { path: "/signup", file: "signup.html" },
