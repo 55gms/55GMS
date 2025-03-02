@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Ping Pong Go!</title>
+    <meta name="robots" content="noindex">
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.01, minimal-ui" />
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            overflow: hidden
+        }
+
+        canvas {
+            -ms-touch-action: none;
+            image-rendering: -o-crisp-edges;
+            image-rendering: optimize-contrast;
+            -ms-interpolation-mode: nearest-neighbor;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+            tap-highlight-color: rgba(0, 0, 0, 0);
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+
+
+    <style type="text/css">
+        @font-face {
+            font-family: "luckiestGuy";
+            src: url("fonts/LuckiestGuy-Regular.ttf") format("opentype");
+        }
+
+        @font-face {
+            font-family: "benchNine";
+            src: url("fonts/BenchNine-Regular.ttf") format("opentype");
+        }
+    </style>
+</head>
+<script src="poki/poki-sdk.js"></script>
+
+<body>
+    <div id="canvas-wrapper" style="overflow:visible; width:100%; height:100%; margin:0; padding:0; position:absolute;">
+        <canvas id="canvas" moz-opaque></canvas>
+    </div>
+    <script defer
+        src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon='{"rayId":"919d7cc6684783ab","version":"2025.1.0","r":1,"token":"3af592e2f72249a2939700dadf653634","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}'
+        crossorigin="anonymous"></script>
+</body>
+<script src="seedRandom.js"></script>
+<script src="gsap.min.js"></script>
+<script src="Howler.min.js"></script>
+<script src="VisibilityManager.js"></script>
+<script src="app.js"></script>
+<script type="text/javascript">
+
+
+    PokiSDK.init().then(() => {
+        console.log("Poki SDK successfully initialized");
+        // fire your function to continue to game
+
+        loadLang("en");
+    }).catch(() => {
+        console.log("Initialized, something went wrong, load you game anyway");
+        // fire your function to continue to game
+
+        loadLang("en");
+    });
+</script>
+
+</html>
