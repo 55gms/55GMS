@@ -337,17 +337,16 @@ app.use((req, res, next) => {
 
 const routes = [
   { path: "/a", file: "apps.html" },
-  { path: "/g", file: "art.html" },
+  { path: "/g", file: "games.html" },
   { path: "/s", file: "settings.html" },
-  { path: "/p", file: "science.html" },
-  { path: "/!", file: "!.html" },
+  { path: "/!", file: "proxy.html" },
   { path: "/", file: "index.html" },
   { path: "/d", file: "dashboard.html" },
-  { path: "/e", file: "english.html" },
-  { path: "/-", file: "math.html" },
+  { path: "/e", file: "ai.html" },
+  { path: "/-", file: "media.html" }, { path: "/m", file: "media.html" },  // possibly change all navbars to use /m
   { path: "/profile", file: "account.html" },
-  { path: "/login", file: "/assets/404/login.html" },
-  { path: "/signup", file: "/assets/404/signup.html" },
+  { path: "/login", file: "login.html" },
+  { path: "/signup", file: "signup.html" },
   { path: "/l", file: "/assets/404/loading.html" },
 ];
 
