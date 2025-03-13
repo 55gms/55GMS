@@ -108,7 +108,7 @@
     "usesProxy": false
   },
   {
-    "name": "Awewome Tanks",
+    "name": "Awesome Tanks",
     "url": "/misc/play/awesometanks.html",
     "image": "/misc/awesometanks/game.webp",
     "usesProxy": false
@@ -727,9 +727,9 @@
   },
   {
     "name": "Learn to Fly 3",
-    "url": "https://www.silvergames.com/en/learn-to-fly-3/iframe",
+    "url": "/misc/play/learn-to-fly-3.html",
     "image": "/img/games/learntofly3.webp",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Madalin Stunt Cars 3",
