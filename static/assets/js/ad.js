@@ -38,7 +38,7 @@
 
       adsenseScript.onerror = function () {
         if (addisplay) {
-          addisplay.innerHTML = `<a href='https://discord.gg/55gms'><img src="/img/ad.webp" style="width: 16vw; height: 32vw; border-radius: 10px;"></a>`;
+          addisplay.innerHTML = `<a href='https://www.youtube.com/@FeelFactCentral'><img src="/img/ad.webp" style="width: 16vw; height: 32vw; border-radius: 10px;"></a>`;
           addisplay.style.display = "block";
         }
         console.log(
@@ -49,7 +49,7 @@
       script("Injected Adsense script");
     } else {
       if (addisplay) {
-        addisplay.innerHTML = `<a href='https://discord.gg/55gms'><img src="/img/ad.webp" style="width: 16vw; height: 32vw; border-radius: 10px;"></a>`;
+        addisplay.innerHTML = `<a href='https://www.youtube.com/@FeelFactCentral'><img src="/img/ad.webp" style="width: 16vw; height: 32vw; border-radius: 10px;"></a>`;
         addisplay.style.display = "block";
       }
       console.log(
@@ -59,7 +59,7 @@
   } catch (error) {
     console.error("Error loading ads.json:", error);
     if (addisplay) {
-      addisplay.innerHTML = `<a href='https://discord.gg/55gms'><img src="/img/ad.webp" style="width: 16vw; height: 32vw; border-radius: 10px;"></a>`;
+      addisplay.innerHTML = `<a href='https://www.youtube.com/@FeelFactCentral'><img src="/img/ad.webp" style="width: 16vw; height: 32vw; border-radius: 10px;"></a>`;
       addisplay.style.display = "block";
     }
   }
