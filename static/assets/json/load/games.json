@@ -1189,9 +1189,9 @@
   },
   {
     "name": "SandTrix",
-    "url": "https://files.crazygames.com/sandtrix/24/index.html",
+    "url": "/misc/play/?title=SandTrix&author=mslivo&link=sandtrix",
     "image": "/misc/sandtrix/img.webp",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Save The Doge",
