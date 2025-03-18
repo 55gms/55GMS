@@ -1230,6 +1230,12 @@
     "usesProxy": true
   },
   {
+    "name": "Bike Obby",
+    "url": "/misc/play/?title=Bike Obby&author=Asher Lee&link=bikeobby",
+    "image": "/misc/bikeobby/img.webp",
+    "usesProxy": false
+  },
+  {
     "name": "Slither.io",
     "url": "https://slither.io/",
     "image": "/misc/slither-io/img.webp",
