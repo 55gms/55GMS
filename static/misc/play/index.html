@@ -71,7 +71,7 @@
 
             titleElement.textContent = title;
             byTextElement.textContent = 'By ' + author;
-            iframeElement.src = '/misc/' + link + '/index.html';
+            iframeElement.src = `/misc/misc/frame.html?link=${link}&title=${title}`;
             gameIconElement.src = '/misc/' + link + '/img.webp';
         });
     </script>
@@ -108,6 +108,10 @@
                 elem.webkitRequestFullscreen();
             } else if (elem.msRequestFullscreen) {
                 elem.msRequestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            } else {
+                location.href = elem.src;
             }
         }
         function reload() {

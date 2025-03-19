@@ -90,6 +90,10 @@
                 elem.webkitRequestFullscreen();
             } else if (elem.msRequestFullscreen) {
                 elem.msRequestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            } else {
+                location.href = elem.src;
             }
         }
         function reload() {
