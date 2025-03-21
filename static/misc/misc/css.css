@@ -70,16 +70,11 @@ body {
 }
 
 #overlay .game-title {
-    font-size: 5vw; 
+    font-size: 3vw; 
     font-weight: bold;
     margin-left: 6vw;
 }
 
-#overlay .developer-info {
-    font-size: 2.7vw; 
-    margin: 1vw 0;
-    margin-left: 6vw;
-}
 
 #play-btn {
     position: relative;
