@@ -51,7 +51,7 @@
                       d,
                       i,
                       n,
-                      t
+                      t,
                     ),
                       h();
                   else if (o) A(s.computeStackTrace(o), !0, o);
@@ -69,11 +69,11 @@
                     }
                     (c.func = s.computeStackTrace.guessFunctionName(
                       c.url,
-                      c.line
+                      c.line,
                     )),
                       (c.context = s.computeStackTrace.gatherContext(
                         c.url,
-                        c.line
+                        c.line,
                       )),
                       A(
                         {
@@ -83,7 +83,7 @@
                           stack: [c],
                         },
                         !0,
-                        null
+                        null,
                       );
                   }
                   return !!e && e.apply(this, arguments);
@@ -112,7 +112,7 @@
                       function () {
                         a === e && h();
                       },
-                      t.incomplete ? 2e3 : 0
+                      t.incomplete ? 2e3 : 0,
                     ),
                     e)
                   );
@@ -154,7 +154,7 @@
                       r = i.document.domain;
                     } catch (e) {}
                     var o = /(.*)\:\/\/([^:\/]+)([:\d]*)\/{0,1}([\s\S]*)/.exec(
-                      e
+                      e,
                     );
                     o &&
                       o[2] === r &&
@@ -266,7 +266,7 @@
                     if (
                       (r =
                         /^function(?:\s+([\w$]+))?\s*\(([\w\s,]*)\)\s*\{\s*(\S[\s\S]*\S)\s*\}\s*$/.exec(
-                          l
+                          l,
                         ))
                     ) {
                       var m = r[1] ? "\\s+" + r[1] : "",
@@ -279,14 +279,14 @@
                             g +
                             "\\s*\\)\\s*{\\s*" +
                             t +
-                            "\\s*}"
+                            "\\s*}",
                         ));
                     } else n = new RegExp(a(l).replace(/\s+/g, "\\s+"));
                     if ((o = A(n, s))) return o;
                     if (
                       (r =
                         /^function on([\w$]+)\s*\(event\)\s*\{\s*(\S[\s\S]*\S)\s*\}\s*$/.exec(
-                          l
+                          l,
                         ))
                     ) {
                       var f = r[1];
@@ -295,9 +295,9 @@
                         (o = A(
                           (n = new RegExp(
                             "on" + f + "=[\\'\"]\\s*" + t + "\\s*[\\'\"]",
-                            "i"
+                            "i",
                           )),
-                          s[0]
+                          s[0],
                         )))
                       )
                         return o;
@@ -464,7 +464,7 @@
                       b,
                       e.sourceURL || e.fileName,
                       e.line || e.lineNumber,
-                      e.message || e.description
+                      e.message || e.description,
                     ),
                     b
                   );
@@ -952,15 +952,15 @@
             }),
             a.addEventListener(
               n.ads.requested,
-              this.startTimeBetweenAdsTimer.bind(this)
+              this.startTimeBetweenAdsTimer.bind(this),
             ),
             a.addEventListener(
               n.ads.completed,
-              this.startTimeBetweenAdsTimer.bind(this)
+              this.startTimeBetweenAdsTimer.bind(this),
             ),
             a.addEventListener(
               n.ads.stopped,
-              this.startTimeBetweenAdsTimer.bind(this)
+              this.startTimeBetweenAdsTimer.bind(this),
             );
         }
         return (
@@ -1023,7 +1023,7 @@
           (e.prototype.nextTiming = function (e) {
             if (void 0 === this.timingIdx[e])
               throw new Error(
-                "AdTimings Error: " + e + " does not have multiple timers"
+                "AdTimings Error: " + e + " does not have multiple timers",
               );
             this.timingIdx[e] =
               (this.timingIdx[e] + 1) % this.timings[e].length;
@@ -1031,7 +1031,7 @@
           (e.prototype.resetTimingIdx = function (e) {
             if (void 0 === this.timingIdx[e])
               throw new Error(
-                "AdTimings Error: " + e + " does not have multiple timers"
+                "AdTimings Error: " + e + " does not have multiple timers",
               );
             this.timingIdx[e] = 0;
           }),
@@ -1129,8 +1129,8 @@
                           2 & o[0]
                             ? n.return
                             : o[0]
-                            ? n.throw || ((r = n.return) && r.call(n), 0)
-                            : n.next) &&
+                              ? n.throw || ((r = n.return) && r.call(n), 0)
+                              : n.next) &&
                         !(r = r.call(n, o[1])).done)
                     )
                       return r;
@@ -1239,12 +1239,12 @@
                                 return {
                                   name: e.name,
                                   expire_seconds: Math.round(
-                                    (e.expires - Date.now()) / 1e3
+                                    (e.expires - Date.now()) / 1e3,
                                   ),
                                   type: "cookie",
                                 };
                               }),
-                              !0
+                              !0,
                             ),
                             Object.keys(window.localStorage).map(function (e) {
                               return {
@@ -1253,7 +1253,7 @@
                                 type: "localStorage",
                               };
                             }),
-                            !0
+                            !0,
                           ),
                           t.map(function (e) {
                             return {
@@ -1262,7 +1262,7 @@
                               type: "idb",
                             };
                           }),
-                          !0
+                          !0,
                         )),
                         (r = {
                           cookies: n,
@@ -1307,7 +1307,7 @@
           return (
             "undefined" != typeof navigator &&
             /(?:phone|windows\s+phone|ipod|blackberry|(?:android|bb\d+|meego|silk|googlebot) .+? mobile|palm|windows\s+ce|opera\smini|avantgo|mobilesafari|docomo)/i.test(
-              navigator.userAgent
+              navigator.userAgent,
             )
           );
         },
@@ -1315,7 +1315,7 @@
           return (
             "undefined" != typeof navigator &&
             /(?:ipad|playbook|(?:android|bb\d+|meego|silk)(?! .+? mobile))/i.test(
-              navigator.userAgent
+              navigator.userAgent,
             )
           );
         },
@@ -1332,7 +1332,7 @@
                     : window.location) || void 0 === i
                 ? void 0
                 : i.search) ||
-              ""
+              "",
           );
           return null === n ? "" : decodeURIComponent(n[1].replace(/\+/g, " "));
         },
@@ -1430,24 +1430,24 @@
         return x.includes(e)
           ? 0.13
           : C.includes(e)
-          ? 0.07
-          : T.includes(e)
-          ? 0.04
-          : 0.02;
+            ? 0.07
+            : T.includes(e)
+              ? 0.04
+              : 0.02;
       }
 
       function B(e) {
         return "US" === e
           ? 1.5
           : x.includes(e)
-          ? 0.5
-          : C.includes(e)
-          ? 0.15
-          : T.includes(e)
-          ? 0.08
-          : _.includes(e)
-          ? 0.03
-          : 0.02;
+            ? 0.5
+            : C.includes(e)
+              ? 0.15
+              : T.includes(e)
+                ? 0.08
+                : _.includes(e)
+                  ? 0.03
+                  : 0.02;
       }
       const D = function (e) {
         r.debug
@@ -2353,13 +2353,13 @@
                         : {
                             skip: 1,
                             skipafter: 5,
-                          }
+                          },
                     ),
                     {
                       boxingallowed: 1,
                       pos: 1,
                       api: [2],
-                    }
+                    },
                   );
                 return {
                   bids: U(
@@ -2439,7 +2439,7 @@
                             },
                           ]
                         : [],
-                      !0
+                      !0,
                     ),
                     [
                       {
@@ -2456,7 +2456,7 @@
                         },
                       },
                     ],
-                    !1
+                    !1,
                   ),
                   mediaTypes: {
                     video: G(
@@ -2464,7 +2464,7 @@
                         context: "instream",
                         playerSize: [640, 480],
                       },
-                      o
+                      o,
                     ),
                   },
                 };
@@ -2552,7 +2552,7 @@
                             },
                           ]
                         : [],
-                      !0
+                      !0,
                     ),
                     [
                       {
@@ -2568,7 +2568,7 @@
                         },
                       },
                     ],
-                    !1
+                    !1,
                   ),
                 },
                 {
@@ -2641,7 +2641,7 @@
                             },
                           ]
                         : [],
-                      !0
+                      !0,
                     ),
                     [
                       {
@@ -2657,7 +2657,7 @@
                         },
                       },
                     ],
-                    !1
+                    !1,
                   ),
                 },
                 {
@@ -2722,7 +2722,7 @@
                             },
                           ]
                         : [],
-                      !0
+                      !0,
                     ),
                     [
                       {
@@ -2738,7 +2738,7 @@
                         },
                       },
                     ],
-                    !1
+                    !1,
                   ),
                 },
                 {
@@ -2811,7 +2811,7 @@
                             },
                           ]
                         : [],
-                      !0
+                      !0,
                     ),
                     [
                       {
@@ -2827,7 +2827,7 @@
                         },
                       },
                     ],
-                    !1
+                    !1,
                   ),
                 },
                 {
@@ -2900,7 +2900,7 @@
                             },
                           ]
                         : [],
-                      !0
+                      !0,
                     ),
                     [
                       {
@@ -2916,7 +2916,7 @@
                         },
                       },
                     ],
-                    !1
+                    !1,
                   ),
                 },
                 {
@@ -2990,7 +2990,7 @@
                             },
                           ]
                         : [],
-                      !0
+                      !0,
                     ),
                     [
                       {
@@ -3006,7 +3006,7 @@
                         },
                       },
                     ],
-                    !1
+                    !1,
                   ),
                 },
                 {
@@ -3079,7 +3079,7 @@
                             },
                           ]
                         : [],
-                      !0
+                      !0,
                     ),
                     [
                       {
@@ -3096,7 +3096,7 @@
                         },
                       },
                     ],
-                    !1
+                    !1,
                   ),
                 },
                 {
@@ -3169,7 +3169,7 @@
                             },
                           ]
                         : [],
-                      !0
+                      !0,
                     ),
                     [
                       {
@@ -3185,7 +3185,7 @@
                         },
                       },
                     ],
-                    !1
+                    !1,
                   ),
                 },
                 {
@@ -3258,7 +3258,7 @@
                             },
                           ]
                         : [],
-                      !0
+                      !0,
                     ),
                     [
                       {
@@ -3274,7 +3274,7 @@
                         },
                       },
                     ],
-                    !1
+                    !1,
                   ),
                 },
                 {
@@ -3347,7 +3347,7 @@
                             },
                           ]
                         : [],
-                      !0
+                      !0,
                     ),
                     [
                       {
@@ -3364,7 +3364,7 @@
                         },
                       },
                     ],
-                    !1
+                    !1,
                   ),
                 },
               ],
@@ -3490,9 +3490,9 @@
                       },
                     },
                   },
-                  d
+                  d,
                 ),
-                e.config
+                e.config,
               );
               window.pbjs.addAdUnits(
                 (function (e, t, i) {
@@ -3528,7 +3528,7 @@
                       d[c.bidder] && l > d[c.bidder] && e[a].bids.splice(A, 1);
                     }
                   return e;
-                })(e.adUnits || s, i, t)
+                })(e.adUnits || s, i, t),
               ),
                 window.pbjs.setConfig(n),
                 (window.pbjs.bidderSettings = {
@@ -3586,7 +3586,7 @@
                           cmpTimeout: 1e4,
                         },
                       }
-                    : {}
+                    : {},
                 ),
               function () {
                 (H = !(function (e, t) {
@@ -3603,7 +3603,7 @@
                   return !!r && Math.random() > r;
                 })(n, t)),
                   e.callback && e.callback();
-              }
+              },
             );
         },
         W = function () {
@@ -3637,7 +3637,7 @@
                       (t[n.callId](n.returnValue, n.success),
                       (t[n.callId] = null));
                   },
-                  !1
+                  !1,
                 );
             }
           })(),
@@ -3679,7 +3679,7 @@
                       (t[i.callId](i.returnValue, i.success),
                       (t[i.callId] = null));
                   },
-                  !1
+                  !1,
                 );
             }
           })(),
@@ -3715,7 +3715,7 @@
                   if ("undefined" === f)
                     return (
                       console.error(
-                        "Video-ad-unit not found, did you give it the adunit.code='video' value?"
+                        "Video-ad-unit not found, did you give it the adunit.code='video' value?",
                       ),
                       void e.requestAd(A)
                     );
@@ -3738,7 +3738,7 @@
                     c &&
                       (v = v.replace(
                         "cust_params=",
-                        "cust_params=" + c + "%26"
+                        "cust_params=" + c + "%26",
                       )),
                     k &&
                       (null ===
@@ -3796,14 +3796,14 @@
                           return "US" === e
                             ? 6.1
                             : x.includes(e)
-                            ? 0.5
-                            : C.includes(e)
-                            ? 0.15
-                            : T.includes(e)
-                            ? 0.08
-                            : _.includes(e)
-                            ? 0.03
-                            : 0.02;
+                              ? 0.5
+                              : C.includes(e)
+                                ? 0.15
+                                : T.includes(e)
+                                  ? 0.08
+                                  : _.includes(e)
+                                    ? 0.03
+                                    : 0.02;
                         })(o)),
                         (k = {
                           cpm: S,
@@ -3816,7 +3816,7 @@
                     }
                     if (!k || !k.videoCacheKey)
                       return void a.dispatchEvent(
-                        1 === d ? n.ads.video.error : n.ads.completed
+                        1 === d ? n.ads.video.error : n.ads.completed,
                       );
                     switch (k.bidder) {
                       case "onetag":
@@ -3894,7 +3894,7 @@
                 },
                 function (e) {
                   e.length > 0 && (c = e[0].encodedQsParams), g();
-                }
+                },
               ),
             s &&
               D({
@@ -3935,8 +3935,8 @@
               ("ninja.io" === t
                 ? Math.random() <= 0.5
                 : "venge.io" === t
-                ? Math.random() <= 0.05
-                : "makeitmeme.com" === t);
+                  ? Math.random() <= 0.05
+                  : "makeitmeme.com" === t);
       }
       var ee = (function () {
         function e(e, t) {
@@ -3951,15 +3951,15 @@
             (this.timing = t.timing || new c(d.adTiming)),
             a.addEventListener(
               n.ads.video.error,
-              this.moveThroughWaterfall.bind(this)
+              this.moveThroughWaterfall.bind(this),
             ),
             a.addEventListener(
               n.ads.video.loaderError,
-              this.moveThroughWaterfall.bind(this)
+              this.moveThroughWaterfall.bind(this),
             ),
             a.addEventListener(
               n.ads.ready,
-              this.timing.stopWaterfallTimer.bind(this.timing)
+              this.timing.stopWaterfallTimer.bind(this.timing),
             ),
             a.addEventListener(n.ads.started, this.stopWaterfall.bind(this));
         }
@@ -3986,8 +3986,8 @@
               return e === n.ads.position.rewarded
                 ? [t + "debug-video-rewarded"]
                 : e === n.ads.position.preroll
-                ? [t + "debug-video-preroll"]
-                : [t + "debug-video-midroll"];
+                  ? [t + "debug-video-preroll"]
+                  : [t + "debug-video-midroll"];
             }
             var i = "desktop",
               o = "midroll";
@@ -4066,7 +4066,7 @@
             var r =
               Math.max(
                 document.documentElement.clientWidth || 0,
-                window.innerWidth || 0
+                window.innerWidth || 0,
               ) > 970;
             this.criteria.billboards_fit = r ? "yes" : "no";
             var o,
@@ -4103,7 +4103,7 @@
                       this.retries +
                       "/" +
                       this.totalRetries +
-                      ")"
+                      ")",
                   ),
                   Y(
                     this.ima,
@@ -4112,33 +4112,33 @@
                     this.rewarded,
                     this.country,
                     !0,
-                    this.retries
+                    this.retries,
                   ))
                 : 1 === this.retries
-                ? (console.debug(
-                    "adRequest started with Prebid Video enabled (" +
-                      this.retries +
-                      "/" +
-                      this.totalRetries +
-                      ")"
-                  ),
-                  Y(
-                    this.ima,
-                    d,
-                    this.criteria,
-                    this.rewarded,
-                    this.country,
-                    !1,
-                    this.retries
-                  ))
-                : (console.debug(
-                    "adRequest started in plain mode (" +
-                      this.retries +
-                      "/" +
-                      this.totalRetries +
-                      ")"
-                  ),
-                  this.ima.requestAd(d));
+                  ? (console.debug(
+                      "adRequest started with Prebid Video enabled (" +
+                        this.retries +
+                        "/" +
+                        this.totalRetries +
+                        ")",
+                    ),
+                    Y(
+                      this.ima,
+                      d,
+                      this.criteria,
+                      this.rewarded,
+                      this.country,
+                      !1,
+                      this.retries,
+                    ))
+                  : (console.debug(
+                      "adRequest started in plain mode (" +
+                        this.retries +
+                        "/" +
+                        this.totalRetries +
+                        ")",
+                    ),
+                    this.ima.requestAd(d));
           }),
           (e.prototype.isRunning = function () {
             return true;
@@ -4190,7 +4190,7 @@
             this.progressFaker.queueFakeProgress(
               10,
               1e3,
-              n.ads.prebidRequested
+              n.ads.prebidRequested,
             ),
             this.progressFaker.queueFakeProgress(20, 2e3, n.ads.started),
             this.createElements(e.wrapper),
@@ -4242,7 +4242,7 @@
               this.internalSDK &&
                 this.pauseButton.addEventListener(
                   "click",
-                  this.internalSDK.resumeAd.bind(this.internalSDK)
+                  this.internalSDK.resumeAd.bind(this.internalSDK),
                 );
           }),
           (e.prototype.hidePauseButton = function () {
@@ -4250,7 +4250,7 @@
               this.internalSDK &&
                 this.pauseButton.removeEventListener(
                   "click",
-                  this.internalSDK.resumeAd.bind(this.internalSDK)
+                  this.internalSDK.resumeAd.bind(this.internalSDK),
                 );
           }),
           (e.prototype.showStartAdButton = function () {
@@ -4258,7 +4258,7 @@
               this.internalSDK &&
                 this.startAdButton.addEventListener(
                   "click",
-                  this.internalSDK.startAdClicked.bind(this.internalSDK)
+                  this.internalSDK.startAdClicked.bind(this.internalSDK),
                 );
           }),
           (e.prototype.hideStartAdButton = function () {
@@ -4266,7 +4266,7 @@
               this.internalSDK &&
                 this.startAdButton.removeEventListener(
                   "click",
-                  this.internalSDK.startAdClicked.bind(this.internalSDK)
+                  this.internalSDK.startAdClicked.bind(this.internalSDK),
                 );
           }),
           (e.prototype.createElements = function (e) {
@@ -4323,7 +4323,7 @@
               i instanceof HTMLElement ||
               ((i = null),
               console.error(
-                "POKI-SDK: wrapper is not a HTMLElement, falling back to document.body"
+                "POKI-SDK: wrapper is not a HTMLElement, falling back to document.body",
               )),
               n();
           }),
@@ -4380,7 +4380,7 @@
                 this.startTime = Date.now();
                 (this.tickInterval = window.setInterval(
                   this.tick.bind(this),
-                  50
+                  50,
                 )),
                   (this.active = !0);
               }
@@ -4449,7 +4449,7 @@
               ((window.pokiKeysChanged = new Map()),
               e.contentWindow.document.open(),
               e.contentWindow.document.write(
-                "<script>\nconst lsKey = 'poki_lsexpire';\nconst lifetime = 1000*60*60*24*30*6;\n\nwindow.addEventListener('storage', function(event) {\n\ttry {\n\t\tconst key = event.key;\n\n\t\t// key is null when localStorage.clear() is called.\n\t\tif (key === null) {\n\t\t\tlocalStorage.removeItem(lsKey);\n\t\t\treturn;\n\t\t}\n\n\t\tif (key === lsKey) return;\n\n\t\tconst updates = JSON.parse(localStorage.getItem(lsKey)) || {};\n\n\t\t// newValue is null when localStorage.removeItem() is called.\n\t\tif (event.newValue === null) {\n\t\t\tdelete updates[key];\n\n\t\t\t// window.parent is the game itself. This code is executed in\n\t\t\t// an iframe without src which makes it the same context as it's parent\n\t\t\t// which makes it save to access the parent's properties.\n\t\t\twindow.parent.pokiKeysChanged.set(key, 'remove');\n\t\t} else {\n\t\t\tupdates[key] = Date.now();\n\t\t\twindow.parent.pokiKeysChanged.set(key, 'set');\n\t\t}\n\t\tlocalStorage.setItem(lsKey, JSON.stringify(updates));\n\t} catch (e) {}\n});\n\nfunction expire() {\n\tconst updates = JSON.parse(localStorage.getItem(lsKey)) || {};\n\tconst expireBefore = Date.now() - lifetime;\n\tvar removed = false;\n\n\tObject.keys(updates).map(function(key) {\n\t\tif (updates[key] < expireBefore) {\n\t\t\tlocalStorage.removeItem(key);\n\t\t\tdelete updates[key];\n\t\t\tremoved = true;\n\t\t}\n\t});\n\n\tif (removed) {\n\t\tlocalStorage.setItem(lsKey, JSON.stringify(updates));\n\t}\n}\n\ntry {\n\texpire();\n} catch (e) {}\n</script>"
+                "<script>\nconst lsKey = 'poki_lsexpire';\nconst lifetime = 1000*60*60*24*30*6;\n\nwindow.addEventListener('storage', function(event) {\n\ttry {\n\t\tconst key = event.key;\n\n\t\t// key is null when localStorage.clear() is called.\n\t\tif (key === null) {\n\t\t\tlocalStorage.removeItem(lsKey);\n\t\t\treturn;\n\t\t}\n\n\t\tif (key === lsKey) return;\n\n\t\tconst updates = JSON.parse(localStorage.getItem(lsKey)) || {};\n\n\t\t// newValue is null when localStorage.removeItem() is called.\n\t\tif (event.newValue === null) {\n\t\t\tdelete updates[key];\n\n\t\t\t// window.parent is the game itself. This code is executed in\n\t\t\t// an iframe without src which makes it the same context as it's parent\n\t\t\t// which makes it save to access the parent's properties.\n\t\t\twindow.parent.pokiKeysChanged.set(key, 'remove');\n\t\t} else {\n\t\t\tupdates[key] = Date.now();\n\t\t\twindow.parent.pokiKeysChanged.set(key, 'set');\n\t\t}\n\t\tlocalStorage.setItem(lsKey, JSON.stringify(updates));\n\t} catch (e) {}\n});\n\nfunction expire() {\n\tconst updates = JSON.parse(localStorage.getItem(lsKey)) || {};\n\tconst expireBefore = Date.now() - lifetime;\n\tvar removed = false;\n\n\tObject.keys(updates).map(function(key) {\n\t\tif (updates[key] < expireBefore) {\n\t\t\tlocalStorage.removeItem(key);\n\t\t\tdelete updates[key];\n\t\t\tremoved = true;\n\t\t}\n\t});\n\n\tif (removed) {\n\t\tlocalStorage.setItem(lsKey, JSON.stringify(updates));\n\t}\n}\n\ntry {\n\texpire();\n} catch (e) {}\n</script>",
               ),
               e.contentWindow.document.close(),
               !window.location.hostname.endsWith("poki-gdn.com") && $e.gameId))
@@ -4476,7 +4476,7 @@
                               type: "store",
                               data: e,
                             },
-                            "*"
+                            "*",
                           ),
                         window.pokiKeysChanged.clear());
                   }, 1e3),
@@ -4493,7 +4493,7 @@
                         type: "store",
                         data: e,
                       },
-                      "*"
+                      "*",
                     ),
                     localStorage.setItem("pokiMigrated", "1");
                 }
@@ -4616,8 +4616,8 @@
                           2 & o[0]
                             ? n.return
                             : o[0]
-                            ? n.throw || ((r = n.return) && r.call(n), 0)
-                            : n.next) &&
+                              ? n.throw || ((r = n.return) && r.call(n), 0)
+                              : n.next) &&
                         !(r = r.call(n, o[1])).done)
                     )
                       return r;
@@ -4714,7 +4714,7 @@
               });
             }),
             (this.videoElement = document.getElementById(
-              "pokiSDKVideoContainer"
+              "pokiSDKVideoContainer",
             )),
             (this.adsManager = null),
             (this.volume = e),
@@ -4728,7 +4728,7 @@
               (window.google &&
                 (this.adDisplayContainer = new google.ima.AdDisplayContainer(
                   document.getElementById("pokiSDKAdContainer"),
-                  this.videoElement
+                  this.videoElement,
                 )));
           }),
           (e.prototype.initBlankVideo = function () {
@@ -4744,7 +4744,7 @@
             this.adsLoader ||
               (window.google &&
                 ((this.adsLoader = new google.ima.AdsLoader(
-                  this.adDisplayContainer
+                  this.adDisplayContainer,
                 )),
                 this.adsLoader
                   .getSettings()
@@ -4756,13 +4756,13 @@
                   google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
                   this.onAdsManagerLoaded,
                   !1,
-                  this
+                  this,
                 ),
                 this.adsLoader.addEventListener(
                   google.ima.AdErrorEvent.Type.AD_ERROR,
                   this.onAdLoaderError,
                   !1,
-                  this
+                  this,
                 ),
                 this.videoElement.addEventListener("onended", function () {
                   return e.adsLoader.contentComplete();
@@ -4829,7 +4829,7 @@
             (this.volume = e),
               this.adsManager &&
                 this.adsManager.setVolume(
-                  Math.max(0, Math.min(1, this.volume))
+                  Math.max(0, Math.min(1, this.volume)),
                 );
           }),
           (e.prototype.startPlayback = function () {
@@ -4837,7 +4837,7 @@
               this.adsManager.init(
                 this.currentWidth,
                 this.currentHeight,
-                google.ima.ViewMode.NORMAL
+                google.ima.ViewMode.NORMAL,
               ),
                 this.adsManager.start();
             } catch (e) {
@@ -4875,7 +4875,7 @@
               google.ima.AdErrorEvent.Type.AD_ERROR,
               this.onAdError,
               !1,
-              this
+              this,
             ),
               [
                 t.AD_PROGRESS,
@@ -4903,12 +4903,15 @@
                 (e.remainingTime = this.adsManager.getRemainingTime()),
                   e.remainingTime <= 0 && (e.remainingTime = 15),
                   i.isLinear() ||
-                    (this.bannerTimeout = window.setTimeout(function () {
-                      a.dispatchEvent(n.ads.completed, {
-                        rewardAllowed: !!e.rewardAllowed,
-                      }),
-                        t.tearDown();
-                    }, 1e3 * (e.remainingTime + 1))),
+                    (this.bannerTimeout = window.setTimeout(
+                      function () {
+                        a.dispatchEvent(n.ads.completed, {
+                          rewardAllowed: !!e.rewardAllowed,
+                        }),
+                          t.tearDown();
+                      },
+                      1e3 * (e.remainingTime + 1),
+                    )),
                   a.setDataAnnotations({
                     creativeId: i.getCreativeId(),
                   }),
@@ -5059,8 +5062,8 @@
                           2 & o[0]
                             ? n.return
                             : o[0]
-                            ? n.throw || ((r = n.return) && r.call(n), 0)
-                            : n.next) &&
+                              ? n.throw || ((r = n.return) && r.call(n), 0)
+                              : n.next) &&
                         !(r = r.call(n, o[1])).done)
                     )
                       return r;
@@ -5133,7 +5136,7 @@
               "//" +
               window.location.host +
               e +
-              window.location.search
+              window.location.search,
           ),
           i = encodeURIComponent(document.referrer);
         return fetch(
@@ -5146,7 +5149,7 @@
             headers: {
               "Content-Type": "text/plain",
             },
-          }
+          },
         )
           .then(function (e) {
             return Be(void 0, void 0, void 0, function () {
@@ -5319,8 +5322,8 @@
                           2 & o[0]
                             ? n.return
                             : o[0]
-                            ? n.throw || ((r = n.return) && r.call(n), 0)
-                            : n.next) &&
+                              ? n.throw || ((r = n.return) && r.call(n), 0)
+                              : n.next) &&
                         !(r = r.call(n, o[1])).done)
                     )
                       return r;
@@ -5509,8 +5512,8 @@
                           2 & o[0]
                             ? n.return
                             : o[0]
-                            ? n.throw || ((r = n.return) && r.call(n), 0)
-                            : n.next) &&
+                              ? n.throw || ((r = n.return) && r.call(n), 0)
+                              : n.next) &&
                         !(r = r.call(n, o[1])).done)
                     )
                       return r;
@@ -5731,8 +5734,8 @@
                           2 & o[0]
                             ? n.return
                             : o[0]
-                            ? n.throw || ((r = n.return) && r.call(n), 0)
-                            : n.next) &&
+                              ? n.throw || ((r = n.return) && r.call(n), 0)
+                              : n.next) &&
                         !(r = r.call(n, o[1])).done)
                     )
                       return r;
@@ -5898,7 +5901,7 @@
                           return null;
                         var t = new RegExp(
                             '(?:(?:pbjs\\.renderAd\\(document,|adId:*|hb_adid":\\[)|(?:pbadid=)|(?:adId=))[\'"](.*?)["\']',
-                            "gi"
+                            "gi",
                           ),
                           i = e.replace(/ /g, ""),
                           n = t.exec(i);
@@ -5906,7 +5909,7 @@
                       })(
                         null === (o = (r = A).getHtml) || void 0 === o
                           ? void 0
-                          : o.call(r)
+                          : o.call(r),
                       ),
                       m = !!h,
                       g = d.pbjsTargetting || {},
@@ -5970,7 +5973,7 @@
                 y() ||
                 w() ||
                 ["970x250", "300x250", "728x90", "160x600", "320x50"].includes(
-                  e
+                  e,
                 )
               ) && !((y() || w()) && !["320x50"].includes(e))
             );
@@ -6018,7 +6021,7 @@
             a &&
               this.slotMap.get(a) &&
               (console.error(
-                "displayAd called with a container that already contains an ad"
+                "displayAd called with a container that already contains an ad",
               ),
               this.clearIGDAd(e));
             var s = this.getDisplaySlotConfig(t);
@@ -6051,7 +6054,7 @@
                 },
                 {
                   threshold: 1,
-                }
+                },
               )),
               s.intersectionObserver.observe(d);
           }),
@@ -6109,7 +6112,7 @@
                   },
                   function () {
                     r();
-                  }
+                  },
                 ),
               tt.prebidAvailable &&
                 window.pbjs.requestBids({
@@ -6175,7 +6178,7 @@
               throw new TypeError(
                 "Class extends value " +
                   String(t) +
-                  " is not a constructor or null"
+                  " is not a constructor or null",
               );
 
             function i() {
@@ -6227,7 +6230,7 @@
                   },
                   function (t) {
                     t && t.length > 0 && (e.amznTargetting = t[0]), n();
-                  }
+                  },
                 )),
                 window.pbjs.requestBids({
                   adUnitCodes: [e.adUnitPath],
@@ -6269,7 +6272,7 @@
                     return (
                       console.error(
                         "IGD error - iframe injection for ad failed",
-                        e
+                        e,
                       ),
                       void this.clearIGDAd(d.parentNode)
                     );
@@ -6351,7 +6354,7 @@
                       },
                       {
                         threshold: 0.5,
-                      }
+                      },
                     )),
                     a.intersectionObserver.observe(d);
                 } else console.error("IGD error - container not found", e);
@@ -6365,7 +6368,7 @@
                   : (console.error(
                       "IGD info - prebid nothing to render",
                       e,
-                      n.pbjsTargetting
+                      n.pbjsTargetting,
                     ),
                     void this.clearIGDAd(t.parentNode));
             }),
@@ -6385,12 +6388,12 @@
                       null === (r = null == o ? void 0 : o.amznTargetting) ||
                         void 0 === r
                         ? void 0
-                        : r.amzniid
+                        : r.amzniid,
                     )
                   : (console.error(
                       "IGD info - amazon nothing to render",
                       e,
-                      o.pbjsTargetting
+                      o.pbjsTargetting,
                     ),
                     void this.clearIGDAd(t.parentNode));
             }),
@@ -6529,8 +6532,8 @@
                   void 0 !== this.initOptions.isCCPA
                     ? this.initOptions.isCCPA
                     : "" !== E
-                    ? "1" === E
-                    : void 0;
+                      ? "1" === E
+                      : void 0;
               x &&
                 void 0 !== C &&
                 (S = function () {
@@ -6547,11 +6550,11 @@
               this.isBot ||
                 (_.push(
                   Pe(
-                    "null.html?https://imasdk.googleapis.com/js/sdkloader/ima3.js"
+                    "null.html?https://imasdk.googleapis.com/js/sdkloader/ima3.js",
                   ),
                   Pe(
-                    "null.html?https://securepubads.g.doubleclick.net/tag/js/gpt.js"
-                  )
+                    "null.html?https://securepubads.g.doubleclick.net/tag/js/gpt.js",
+                  ),
                 ),
                 (I("url_referrer") || "").includes("kiloo.com")
                   ? ((e.prebidAvailable = !1),
@@ -6561,8 +6564,8 @@
                   : _.push(
                       Pe("null.html?https://a.poki.com/prebid/prebid6.12.0.js"),
                       Pe(
-                        "null.html?https://c.amazon-adsystem.com/aax2/apstag.js"
-                      )
+                        "null.html?https://c.amazon-adsystem.com/aax2/apstag.js",
+                      ),
                     ));
               var P = function (e, i, o) {
                 if (
@@ -6580,7 +6583,7 @@
                 ) {
                   $e.gameId || ($e.gameId = e.gameId);
                   ["7fb1fd45-24ce-4ade-b5c4-9ee55ec99526"].includes(
-                    $e.gameId
+                    $e.gameId,
                   ) &&
                     (y() || w()) &&
                     Ke(),
@@ -6601,7 +6604,7 @@
                   setTimeout(function () {
                     t.installedTCFv2 ||
                       (console.error(
-                        "GDPR - No __tcfapi callback after 2s, verify implementation!"
+                        "GDPR - No __tcfapi callback after 2s, verify implementation!",
                       ),
                       o && a.dispatchEvent(n.ready));
                   }, 2e3)),
@@ -6617,7 +6620,7 @@
                     setTimeout(function () {
                       t.installedUSP ||
                         (console.error(
-                          "USPrivacy - No __uspapi callback after 2s, verify implementation!"
+                          "USPrivacy - No __uspapi callback after 2s, verify implementation!",
                         ),
                         o && a.dispatchEvent(n.ready));
                     }, 2e3));
@@ -6728,7 +6731,7 @@
                             if (
                               u !== n.ads.position.rewarded &&
                               this.adSettings.countryExclusion.includes(
-                                this.country
+                                this.country,
                               )
                             )
                               a.dispatchEvent(n.ads.limit, {
@@ -6738,11 +6741,11 @@
                               var p = Je(
                                 Je(
                                   Je({}, this.genericCriteria()),
-                                  this.criteria
+                                  this.criteria,
                                 ),
                                 {
                                   position: u,
-                                }
+                                },
                               );
                               this.playerSkin.show(),
                                 this.resize(),
@@ -6854,7 +6857,7 @@
                           return ke[e];
                         }
                       })("playerAge"),
-                      10
+                      10,
                     ) || 0,
                   n = this.country,
                   r = Ee(n),
@@ -7044,7 +7047,7 @@
                 return "poki.message." + e;
               });
               throw new TypeError(
-                "Argument 'type' must be one of " + r.join(", ")
+                "Argument 'type' must be one of " + r.join(", "),
               );
             }
             var o = t || {};
@@ -7059,7 +7062,7 @@
                   type: e,
                   content: o,
                 },
-                "*"
+                "*",
               );
           }),
           e
@@ -7094,7 +7097,7 @@
           (e.track = function (e, t) {
             if ((void 0 === t && (t = {}), -1 === ot.indexOf(e)))
               throw new TypeError(
-                "Invalid 'event', must be one of " + ot.join(", ")
+                "Invalid 'event', must be one of " + ot.join(", "),
               );
             if ("object" != typeof t)
               throw new TypeError("Invalid data, must be an object");
@@ -7108,8 +7111,8 @@
                         event: "video-impression",
                         size: "640x360v",
                       },
-                      i
-                    )
+                      i,
+                    ),
                   );
                   break;
                 case n.tracking.ads.video.error:
@@ -7119,8 +7122,8 @@
                         event: "video-error",
                         size: "640x360v",
                       },
-                      i
-                    )
+                      i,
+                    ),
                   );
                   break;
                 case n.tracking.ads.video.loaderError:
@@ -7130,8 +7133,8 @@
                         event: "video-adsloader-error",
                         size: "640x360v",
                       },
-                      i
-                    )
+                      i,
+                    ),
                   );
                   break;
                 case n.tracking.ads.status.completed:
@@ -7141,8 +7144,8 @@
                         event: "video-complete",
                         size: "640x360v",
                       },
-                      i
-                    )
+                      i,
+                    ),
                   );
               }
             if (r.debug || r.log) {
@@ -7157,12 +7160,12 @@
                     "%cPOKI_TRACKER: %cTracked event '" + e + "' with data:",
                     "font-weight: bold",
                     "",
-                    t
+                    t,
                   )
                 : console.info(
                     "%cPOKI_TRACKER: %cTracked event '" + e + "'",
                     "font-weight: bold",
-                    ""
+                    "",
                   );
             }
             it.sendMessage(n.message.event, {
@@ -7318,8 +7321,8 @@
                           },
                           onAdblocked: r,
                         },
-                        e
-                      )
+                        e,
+                      ),
                     ),
                       it.sendMessage(n.message.sdkDetails, {
                         version: "2.263.0",
@@ -7355,7 +7358,7 @@
                             ? void 0
                             : e.now) || void 0 === t
                         ? void 0
-                        : t.call(e)
+                        : t.call(e),
                     ) || void 0,
                   error_user_id: lt(),
                 });
@@ -7399,7 +7402,7 @@
                             ? void 0
                             : e.now) || void 0 === t
                         ? void 0
-                        : t.call(e)
+                        : t.call(e),
                     ) || void 0,
                 });
               }),
@@ -7414,7 +7417,7 @@
                     n.tracking.screen.gameplayStart,
                     pt(pt({}, e), {
                       playId: t.gameplayStartCounter,
-                    })
+                    }),
                   );
               }),
               (this.gameInteractive = function () {
@@ -7428,7 +7431,7 @@
                     pt(pt({}, e), {
                       playId: t.gameplayStartCounter,
                       stopId: t.gameplayStopCounter,
-                    })
+                    }),
                   );
               }),
               (this.roundStart = function (e) {
@@ -7458,7 +7461,7 @@
                       }))
                     : t.error(
                         "customEvent",
-                        "customEvent needs at least a noun and a verb"
+                        "customEvent needs at least a noun and a verb",
                       );
               }),
               (this.commercialBreak = function (e) {
@@ -7512,7 +7515,7 @@
                     t.warning(
                       "happyTime",
                       "Intensity should be a value between 0 and 1, adjusted to " +
-                        e
+                        e,
                     )),
                   at.track(n.tracking.screen.happyTime, {
                     intensity: e,
@@ -7591,12 +7594,12 @@
                               window.location.origin +
                               window.location.pathname +
                               "?" +
-                              r.toString()
+                              r.toString(),
                           ))
                         : i(
                             new Error(
-                              "shareableURL only works on Poki or a top level frame"
-                            )
+                              "shareableURL only works on Poki or a top level frame",
+                            ),
                           );
                   })
                 );

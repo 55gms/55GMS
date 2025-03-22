@@ -38,7 +38,7 @@
           }),
           (this.throwNotLoaded = function () {
             console.debug(
-              "PokiSDK is not loaded yet. Not all methods are available."
+              "PokiSDK is not loaded yet. Not all methods are available.",
             );
           });
       }
