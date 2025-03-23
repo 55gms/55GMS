@@ -41,6 +41,10 @@ h6 {
   opacity: 0.4;
 }
 
+#progress-bar {
+  width: 100%;
+  background-color: grey;
+}
 #loading-bar {
   width: 10%;
   height: 30px;
