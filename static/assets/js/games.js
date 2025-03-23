@@ -8,7 +8,7 @@ window.addEventListener("load", (event) => {
   const gameContainer = document.getElementById("game-container");
   text = document.getElementById("text"); // Assign to global variable
   loadingBar = document.getElementById("loading-bar"); // Assign to global variable
-  loadingBarContainer = document.getElementById("loading-bar-container"); // Get container
+  loadingBarContainer = document.getElementById("progress-bar"); // Get container
   loadingText = document.getElementById("loading-text"); // Get text element
   
   try {
