@@ -1,0 +1,70 @@
+[
+  {
+    "category": "Misc",
+    "games": [
+      {
+        "name": "[!!] Request A Game",
+        "url": "https://docs.google.com/forms/d/e/1FAIpQLSfY7Eh5sWLn9DcNHilyp2Xi_I8YA0MxXbENQDsatkwD_F1qeA/viewform",
+        "image": "/img/jotform.png",
+        "usesProxy": false
+      }
+    ]
+  },
+  {
+    "category": "Action",
+    "games": [
+      { "name": "1v1.lol", "url": "/misc/play/1v1lol.html", "image": "/misc/1v1-lol/splash.webp", "usesProxy": false },
+      { "name": "Alien Hominid", "url": "/misc/play/alienhonminid.html", "image": "/img/games/alien.webp", "usesProxy": false },
+      { "name": "Awesome Tanks", "url": "/misc/play/awesometanks.html", "image": "/misc/awesometanks/game.webp", "usesProxy": false },
+      { "name": "Awesome Tanks 2", "url": "/misc/play/awesometanks2.html", "image": "/misc/awsometanks2/icon.webp", "usesProxy": false },
+      { "name": "Gunblood", "url": "/misc/play/gunblood.html", "image": "/misc/gunblood/img.webp", "usesProxy": false },
+      { "name": "Gun Mayhem 2", "url": "/misc/flash/index.html?swf=gmayhem2.swf", "image": "/misc/flash/img/gm2.webp", "usesProxy": false },
+      { "name": "Superhot", "url": "/misc/play/superhot.html", "image": "/misc/superhot/hot.jpg", "usesProxy": false },
+      { "name": "Happy Wheels", "url": "/misc/play/happywheels.html", "image": "/misc/happyweels/b.png", "usesProxy": false },
+      { "name": "Hobo", "url": "/misc/play/hobo.html", "image": "/misc/flash/img/hobo.webp", "usesProxy": false }
+    ]
+  },
+  {
+    "category": "Adventure/RPG",
+    "games": [
+      { "name": "BitLife", "url": "/misc/play/bitlife.html", "image": "/img/games/bitlife.webp", "usesProxy": false },
+      { "name": "Pokemon Crystal", "url": "/misc/play/pokemonc.html", "image": "/misc/emulator/pokemon/crystal/crystal.jpg", "usesProxy": false },
+      { "name": "Pokemon Emerald", "url": "/misc/play/pokemone.html", "image": "/misc/emulator/pokemon/emerald/img.jpeg", "usesProxy": false },
+      { "name": "Minecraft 1.8", "url": "/misc/eaglercraftx/index.html", "image": "/misc/eaglercraftx/img.png", "usesProxy": false }
+    ]
+  },
+  {
+    "category": "Strategy",
+    "games": [
+      { "name": "Bloons TD", "url": "/misc/play/bloontd.html", "image": "/misc/flash/img/btd.webp", "usesProxy": false },
+      { "name": "Bloons TD 2", "url": "/misc/play/bloontd2.html", "image": "/misc/flash/img/btd2.webp", "usesProxy": false },
+      { "name": "Territorial.io", "url": "https://territorial.io/", "image": "/misc/Territorial.io/img.jpeg", "usesProxy": true }
+    ]
+  },
+  {
+    "category": "Puzzle",
+    "games": [
+      { "name": "2048", "url": "/misc/play/2048.html", "image": "/misc/2048/2048.webp", "usesProxy": false },
+      { "name": "Tetris", "url": "/misc/play/tetris.html", "image": "/img/games/tetris.webp", "usesProxy": false },
+      { "name": "Little Alchemy", "url": "/misc/play/little-alchemy.html", "image": "/misc/littlealchemy/little.png", "usesProxy": false }
+    ]
+  },
+  {
+    "category": "Sports/Racing",
+    "games": [
+      { "name": "1 on 1 Soccer", "url": "/misc/play/1o1soccer.html", "image": "/misc/flash/img/1o1.webp", "usesProxy": false },
+      { "name": "Blumgi Racers", "url": "/misc/play/blumgiracers.html", "image": "/misc/blumgiracers/img.webp", "usesProxy": false },
+      { "name": "Crazy Cars", "url": "/misc/play/crazycars.html", "image": "/misc/crazycars/img.webp", "usesProxy": false },
+      { "name": "Super Star Car", "url": "/misc/play/superstarcar.html", "image": "/misc/superstarcar/splash.avif", "usesProxy": false }
+    ]
+  },
+  {
+    "category": "Casual/Arcade",
+    "games": [
+      { "name": "Cookie Clicker", "url": "/misc/play/cookieclicker.html", "image": "/misc/cookieclicker/clicker.jpeg", "usesProxy": false },
+      { "name": "Crossy Road", "url": "/misc/play/crossyroad.html", "image": "/misc/crossy-road/crossyroad.png", "usesProxy": false },
+      { "name": "Doodle Jump", "url": "/misc/play/doodlejump.html", "image": "/misc/doodlejump/icon.webp", "usesProxy": false },
+      { "name": "Flappy Bird", "url": "/misc/play/flappybird.html", "image": "/misc/flappybird/img.png", "usesProxy": false }
+    ]
+  }
+]
