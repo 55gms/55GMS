@@ -1,7 +1,9 @@
 let loadedImages = 0;
+
 window.addEventListener("load", (event) => {
   const gameContainer = document.getElementById("game-container");
   const text = document.getElementById("text");
+  const loadingBar = document.getElementById("loading-bar");
 
   try {
     fetch("/assets/json/load/games-test.json")
@@ -55,7 +57,13 @@ function handleImageLoad(totalImages) {
   loadedImages++;
   if (loadedImages >= totalImages) {
     text.style.display = "none";
+    loadingBar.style.display = "none";
     return;
   }
+  
   text.innerText = `Loading games (${loadedImages}/${totalImages})`;
+  
+  width = Math.round(loadedImages / totalImages);
+  loadingBar.style.width = width + "%";
+  loadingBar.innerHTML = width + "%";
 }
