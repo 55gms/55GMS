@@ -1,11 +1,16 @@
 let loadedImages = 0;
 let text; // Declare in global scope
 let loadingBar; // Declare in global scope
+let loadingBarContainer; // Add container reference
+let loadingText; // Add text element reference
 
 window.addEventListener("load", (event) => {
   const gameContainer = document.getElementById("game-container");
   text = document.getElementById("text"); // Assign to global variable
   loadingBar = document.getElementById("loading-bar"); // Assign to global variable
+  loadingBarContainer = document.getElementById("loading-bar-container"); // Get container
+  loadingText = document.getElementById("loading-text"); // Get text element
+  
   try {
     fetch("/assets/json/load/games-test.json")
       .then((response) => response.json())
@@ -54,14 +59,10 @@ window.addEventListener("load", (event) => {
 function handleImageLoad(totalImages) {
   loadedImages++;
   if (loadedImages >= totalImages) {
-    text.style.display = "none";
-    loadingBar.style.display = "none";
+    loadingBarContainer.style.display = "none";
     return;
   }
-  
-  text.innerText = `Loading games (${loadedImages}/${totalImages})`;
-  
-  let width = Math.round(loadedImages / totalImages * 100); // Added *100 for proper percentage calculation
+  let width = Math.round(loadedImages / totalImages * 100);
   loadingBar.style.width = width + "%";
-  loadingBar.innerHTML = width + "%";
+  loadingText.textContent = width + "%"; // Update the text content
 }
