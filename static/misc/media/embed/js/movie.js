@@ -4,7 +4,7 @@ async function getMovie() {
     window.location.href = "/";
     return;
   }
-  url = `https://vidsrc.rip/embed/movie/${ID}`;
+  url = `https://player.autoembed.cc/embed/movie/${ID}`;
   visit(url);  
 }
 

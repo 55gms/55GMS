@@ -1,0 +1,21 @@
+{ 
+
+  "name": "EVIL Classroom", 
+
+  "short_name": "EVIL Classroom", 
+
+  "start_url": "/compiled/rayvon-shootout/index.html", 
+
+  "display": "standalone", 
+
+  "icons": [{ 
+
+    "src": "evil.png", 
+
+    "sizes": "512x512", 
+
+    "type": "image/png" 
+
+  }] 
+
+}
