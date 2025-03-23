@@ -7,64 +7,1621 @@
         "url": "https://docs.google.com/forms/d/e/1FAIpQLSfY7Eh5sWLn9DcNHilyp2Xi_I8YA0MxXbENQDsatkwD_F1qeA/viewform",
         "image": "/img/jotform.png",
         "usesProxy": false
+      },
+      {
+        "name": "Dadish 3",
+        "url": "/misc/play/Dadish-3.html",
+        "image": "/misc/dadish3/img.avif",
+        "usesProxy": false
+      },
+      {
+        "name": "Eaglercraft X",
+        "url": "/misc/eaglercraftx/index.html",
+        "image": "/misc/eaglercraftx/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Poor Bunny",
+        "url": "/misc/play/poorbunny.html",
+        "image": "/misc/poor-bunny/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Emulator JS",
+        "url": "/misc/emulator/emulatorjs/index.html",
+        "image": "/misc/emulator/emulatorjs/logo.png",
+        "usesProxy": false
+      },
+      {
+        "name": "HexGL",
+        "url": "/misc/play/hexgl.html",
+        "image": "/misc/hexgl/icon_256.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Idle Mining Empire",
+        "url": "/misc/play/idleminingempire.html",
+        "image": "/misc/idle-mining-empire/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "OvO",
+        "url": "/misc/play/ovo1.html",
+        "image": "/misc/ovo/ovo.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "OvO 2",
+        "url": "/misc/play/ovo2.html",
+        "image": "/misc/ovo2/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Super Foulist",
+        "url": "/misc/play/super-foulist.html",
+        "image": "/misc/super-foulist/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Steel Hills",
+        "url": "/misc/play/steelhills.html",
+        "image": "/misc/steelhills/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Blumgi Slime",
+        "url": "/misc/play/blumgislime.html",
+        "image": "/misc/blumgislime/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Rise Higher",
+        "url": "https://www.mathplayground.com/rise-higher/index.html",
+        "image": "/misc/risehigher/128x128.png",
+        "usesProxy": true
+      },
+      {
+        "name": "Resent Client 1.8",
+        "url": "/misc/eaglercraftx/r/index.html",
+        "image": "/img/games/res.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Roper",
+        "url": "https://games.poki.com/458768/0c650e37-4815-4faf-9f4d-9cc934d75f50/",
+        "image": "/misc/roper/img.avif",
+        "usesProxy": true
+      },
+      {
+        "name": "Sandboxels",
+        "url": "https://sandboxels.r74n.com/",
+        "image": "/misc/sandboxels/img.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Slowroads",
+        "url": "/misc/play/slowrds.html",
+        "image": "/misc/slowrds/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "buildnow.gg",
+        "url": "https://games.crazygames.com/en_US/buildnow-gg/index.html?v=1.279",
+        "image": "/img/games/buildnow.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "WBWWB",
+        "url": "/misc/play/wbwwb.html",
+        "image": "/misc/webecomewhatwebehold/img.avif",
+        "usesProxy": false
+      },
+      {
+        "name": "GBA Games",
+        "url": "https://real-sgs.vercel.app/Tools/GBA-Emulator/index.html",
+        "image": "/img/games/gba.webp",
+        "usesProxy": true
       }
     ]
   },
   {
     "category": "Action",
     "games": [
-      { "name": "1v1.lol", "url": "/misc/play/1v1lol.html", "image": "/misc/1v1-lol/splash.webp", "usesProxy": false },
-      { "name": "Alien Hominid", "url": "/misc/play/alienhonminid.html", "image": "/img/games/alien.webp", "usesProxy": false },
-      { "name": "Awesome Tanks", "url": "/misc/play/awesometanks.html", "image": "/misc/awesometanks/game.webp", "usesProxy": false },
-      { "name": "Awesome Tanks 2", "url": "/misc/play/awesometanks2.html", "image": "/misc/awsometanks2/icon.webp", "usesProxy": false },
-      { "name": "Gunblood", "url": "/misc/play/gunblood.html", "image": "/misc/gunblood/img.webp", "usesProxy": false },
-      { "name": "Gun Mayhem 2", "url": "/misc/flash/index.html?swf=gmayhem2.swf", "image": "/misc/flash/img/gm2.webp", "usesProxy": false },
-      { "name": "Superhot", "url": "/misc/play/superhot.html", "image": "/misc/superhot/hot.jpg", "usesProxy": false },
-      { "name": "Happy Wheels", "url": "/misc/play/happywheels.html", "image": "/misc/happyweels/b.png", "usesProxy": false },
-      { "name": "Hobo", "url": "/misc/play/hobo.html", "image": "/misc/flash/img/hobo.webp", "usesProxy": false }
-    ]
-  },
-  {
-    "category": "Adventure/RPG",
-    "games": [
-      { "name": "BitLife", "url": "/misc/play/bitlife.html", "image": "/img/games/bitlife.webp", "usesProxy": false },
-      { "name": "Pokemon Crystal", "url": "/misc/play/pokemonc.html", "image": "/misc/emulator/pokemon/crystal/crystal.jpg", "usesProxy": false },
-      { "name": "Pokemon Emerald", "url": "/misc/play/pokemone.html", "image": "/misc/emulator/pokemon/emerald/img.jpeg", "usesProxy": false },
-      { "name": "Minecraft 1.8", "url": "/misc/eaglercraftx/index.html", "image": "/misc/eaglercraftx/img.png", "usesProxy": false }
-    ]
-  },
-  {
-    "category": "Strategy",
-    "games": [
-      { "name": "Bloons TD", "url": "/misc/play/bloontd.html", "image": "/misc/flash/img/btd.webp", "usesProxy": false },
-      { "name": "Bloons TD 2", "url": "/misc/play/bloontd2.html", "image": "/misc/flash/img/btd2.webp", "usesProxy": false },
-      { "name": "Territorial.io", "url": "https://territorial.io/", "image": "/misc/Territorial.io/img.jpeg", "usesProxy": true }
-    ]
-  },
-  {
-    "category": "Puzzle",
-    "games": [
-      { "name": "2048", "url": "/misc/play/2048.html", "image": "/misc/2048/2048.webp", "usesProxy": false },
-      { "name": "Tetris", "url": "/misc/play/tetris.html", "image": "/img/games/tetris.webp", "usesProxy": false },
-      { "name": "Little Alchemy", "url": "/misc/play/little-alchemy.html", "image": "/misc/littlealchemy/little.png", "usesProxy": false }
+      {
+        "name": "1v1.lol",
+        "url": "/misc/play/1v1lol.html",
+        "image": "/misc/1v1-lol/splash.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "2Doom",
+        "url": "/misc/play/2doom.html",
+        "image": "/img/games/2doom.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Alien Hominid",
+        "url": "/misc/play/alienhonminid.html",
+        "image": "/img/games/alien.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Amazing Rope Police",
+        "url": "/misc/play/amazing-rope-police.html",
+        "image": "/misc/amazing-rope-police/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Awesome Tanks",
+        "url": "/misc/play/awesometanks.html",
+        "image": "/misc/awesometanks/game.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Awesome Tanks 2",
+        "url": "/misc/play/awesometanks2.html",
+        "image": "/misc/awsometanks2/icon.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Bacon May Die",
+        "url": "https://games.poki.com/458768/5dd2c21a-015f-11ea-ad56-9cb6d0d995f7",
+        "image": "/misc/bacon-may-die/splash.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Cubefield",
+        "url": "/misc/play/cubefield.html",
+        "image": "/misc/flash/img/cubefield.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Red Vs. Bluez",
+        "url": "/misc/play/redvsbluez.html",
+        "image": "/misc/redvsbluez/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Deeeep.io",
+        "url": "https://beta.deeeep.io/",
+        "image": "/misc/deeeep-io/img.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Gun Spin",
+        "url": "/misc/play/Gun-Spin.html",
+        "image": "/img/games/gunspin.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "DOOM",
+        "url": "https://diekmann.github.io/wasm-fizzbuzz/doom/",
+        "image": "/misc/doom/img.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Dread Head Parkour",
+        "url": "/misc/play/dreadheadparkour.html",
+        "image": "/misc/dreadheadparkour/icons/icon-128.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Recoil",
+        "url": "/misc/play/recoil.html",
+        "image": "/img/games/recoil.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "E Parkour.Io",
+        "url": "https://eparkour.io/",
+        "image": "/img/games/eparkour.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Snowball.io",
+        "url": "https://games.crazygames.com/en_US/snowball-io/index.html",
+        "image": "/img/games/snowball.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Florr.io",
+        "url": "https://florr.io/",
+        "image": "/misc/florr/img.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "FNAF",
+        "url": "https://wellsousaaa.github.io/Five-Nights-at-Freddys-Web/",
+        "image": "/misc/fnaf/img.jpeg",
+        "usesProxy": true
+      },
+      {
+        "name": "Funny Shooter 2",
+        "url": "/misc/play/funnyshooter2.html",
+        "image": "/misc/funny-shooter-2/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Getaway Shootout",
+        "url": "/misc/play/getaway-shootout.html",
+        "image": "/misc/getaway-shootout/getaway.avif",
+        "usesProxy": false
+      },
+      {
+        "name": "Gun Mayhem 2",
+        "url": "/misc/flash/index.html?swf=gmayhem2.swf",
+        "image": "/misc/flash/img/gm2.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Gun Mayhem 3",
+        "url": "/misc/flash/index.html?swf=gun-mayhem-3.swf",
+        "image": "/misc/flash/img/gm3.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Happy Wheels",
+        "url": "/misc/play/happywheels.html",
+        "image": "/misc/happyweels/b.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Hobo 2",
+        "url": "/misc/play/hobo2.html",
+        "image": "/misc/flash/img/hobo2.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Hobo 3",
+        "url": "/misc/play/hobo3.html",
+        "image": "/misc/flash/img/hobo3.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Hobo 4",
+        "url": "/misc/play/hobo4.html",
+        "image": "/misc/flash/img/hobo4.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Hobo 5",
+        "url": "/misc/play/hobo5.html",
+        "image": "/misc/flash/img/hobo5.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Hobo 6",
+        "url": "/misc/play/hobo6.html",
+        "image": "/misc/flash/img/hobo6.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Hobo 7",
+        "url": "/misc/play/hobo7.html",
+        "image": "/misc/flash/img/hobo7.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Gunblood",
+        "url": "/misc/play/gunblood.html",
+        "image": "/misc/gunblood/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "kour.io",
+        "url": "https://kour.io",
+        "image": "/img/games/kour.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "MK48.io",
+        "url": "https://mk48.io/",
+        "image": "/misc/mk48/img.png",
+        "usesProxy": true
+      },
+      {
+        "name": "Mortal Kombat",
+        "url": "/misc/play/Mortal-Kombat.html",
+        "image": "/misc/emulator/games/mortal/mka.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Fury Wars",
+        "url": "/misc/play/furywars.html",
+        "image": "/misc/furywars/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Raft Wars",
+        "url": "https://games.poki.com/458768/raftwars",
+        "image": "/misc/RaftWars/img.jpeg",
+        "usesProxy": true
+      },
+      {
+        "name": "Raft Wars 2",
+        "url": "https://games.poki.com/458768/raftwars2",
+        "image": "/misc/RaftWars2/img.jpeg",
+        "usesProxy": true
+      },
+      {
+        "name": "nzp.gay (COD ZOMBIES)",
+        "url": "https://nzp.gay/",
+        "image": "/img/games/codzombie.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Rooftop Snipers",
+        "url": "/misc/play/rooftopsnipers.html",
+        "image": "/misc/rooftop-snipers/rooftop.avif",
+        "usesProxy": false
+      },
+      {
+        "name": "Rooftop Snipers 2",
+        "url": "/misc/play/rooftopsnipers2.html",
+        "image": "/img/games/rooftopsnipers.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Run 3",
+        "url": "https://player03.com/run/3/beta/",
+        "image": "/misc/run3/run3.avif",
+        "usesProxy": true
+      },
+      {
+        "name": "Slither.io",
+        "url": "https://slither.io/",
+        "image": "/misc/slither-io/img.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Super Mario 64",
+        "url": "/misc/play/mario64.html",
+        "image": "/misc/sm64/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Street Fighter 2",
+        "url": "/misc/play/streetfight2.html",
+        "image": "/misc/emulator/games/street/sf2.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Street Fighter 3",
+        "url": "/misc/play/streetfight3.html",
+        "image": "/misc/emulator/games/street/3/sf3.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Superhot",
+        "url": "/misc/play/superhot.html",
+        "image": "/misc/superhot/hot.jpg",
+        "usesProxy": false
+      },
+      {
+        "name": "Super Smash Bros",
+        "url": "/misc/play/supersmashbro.html",
+        "image": "/misc/supersmashbros/logo.jpg",
+        "usesProxy": false
+      },
+      {
+        "name": "Super Mario Bros",
+        "url": "/misc/play/supermario.html",
+        "image": "/misc/smb/icon.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Super Mario Bros Advanced",
+        "url": "/misc/play/supermarioadv.html",
+        "image": "/misc/emulator/games/marioBros/1.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "The Binding Of Issac",
+        "url": "/misc/play/thebindingofissac.html",
+        "image": "/misc/thebindingofissac/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Time Shooter 1",
+        "url": "/misc/play/timeshoot1.html",
+        "image": "/misc/time-shooter1/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Time Shooter 2",
+        "url": "/misc/play/timeshoot2.html",
+        "image": "/misc/time-shooter2/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Venge.io",
+        "url": "https://venge.io/",
+        "image": "/misc/venge-io/img.jpeg",
+        "usesProxy": true
+      },
+      {
+        "name": "Vex 3",
+        "url": "/misc/play/vex3.html",
+        "image": "/misc/vex3/vex3.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Vex 4",
+        "url": "/misc/play/vex4.html",
+        "image": "/misc/vex4/vex4.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Vex 5",
+        "url": "/misc/play/vex5.html",
+        "image": "/misc/vex5/vex5.jpg",
+        "usesProxy": false
+      },
+      {
+        "name": "Vex 6",
+        "url": "/misc/play/vex6.html",
+        "image": "/misc/vex6/assets/icon.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Vex 7",
+        "url": "/misc/play/vex7.html",
+        "image": "/misc/vex7/assets/icon.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Yohoho.io",
+        "url": "/misc/play/yohoho.html",
+        "image": "/misc/yohoho/favicon/android-chrome-512x512.png",
+        "usesProxy": false
+      },
+      {
+        "name": "digdig.io",
+        "url": "https://digdig.io/",
+        "image": "/img/games/digdigio.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Buckshot Roulette",
+        "url": "/misc/play/buckshot.html",
+        "image": "/img/games/buckshot.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "deadshot.io",
+        "url": "https://deadshot.io/",
+        "image": "/img/games/deadshot.webp",
+        "usesProxy": true
+      }
     ]
   },
   {
     "category": "Sports/Racing",
     "games": [
-      { "name": "1 on 1 Soccer", "url": "/misc/play/1o1soccer.html", "image": "/misc/flash/img/1o1.webp", "usesProxy": false },
-      { "name": "Blumgi Racers", "url": "/misc/play/blumgiracers.html", "image": "/misc/blumgiracers/img.webp", "usesProxy": false },
-      { "name": "Crazy Cars", "url": "/misc/play/crazycars.html", "image": "/misc/crazycars/img.webp", "usesProxy": false },
-      { "name": "Super Star Car", "url": "/misc/play/superstarcar.html", "image": "/misc/superstarcar/splash.avif", "usesProxy": false }
+      {
+        "name": "1 on 1 Soccer",
+        "url": "/misc/play/1o1soccer.html",
+        "image": "/misc/flash/img/1o1.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Crazy Cars",
+        "url": "/misc/play/crazycars.html",
+        "image": "/misc/crazycars/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Blumgi Racers",
+        "url": "/misc/play/blumgiracers.html",
+        "image": "/misc/blumgiracers/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "2D Rocket League",
+        "url": "/misc/play/2drocketleague.html",
+        "image": "/misc/2drocketleague/unnamed.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Archery World Tour",
+        "url": "/misc/play/archeryworldtour.html",
+        "image": "/misc/archeryWorldTour/img.webp?v=1",
+        "usesProxy": false
+      },
+      {
+        "name": "Super Star Car",
+        "url": "/misc/play/superstarcar.html",
+        "image": "/misc/superstarcar/splash.avif",
+        "usesProxy": false
+      },
+      {
+        "name": "Basket Random",
+        "url": "/misc/play/basket-random.html",
+        "image": "/misc/basket-random/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Basketball Stars",
+        "url": "/misc/play/basketball-stars.html",
+        "image": "/misc/basketball-stars/basketstars.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Basketbros",
+        "url": "/misc/play/basketbros.html",
+        "image": "/misc/basketbros-io/thumb.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Boxing Random",
+        "url": "/misc/play/boxing-random.html",
+        "image": "/misc/boxing-random/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Drift Boss",
+        "url": "/misc/play/drift-boss.html",
+        "image": "/misc/drift-boss/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Drift Hunters",
+        "url": "/misc/play/drift-hunters.html",
+        "image": "/img/games/drifthunters.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Drive Mad",
+        "url": "/misc/play/drive-mad.html",
+        "image": "/misc/drive-mad/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Duck Life",
+        "url": "/misc/play/duck-life.html",
+        "image": "/misc/flash/img/dl.avif",
+        "usesProxy": false
+      },
+      {
+        "name": "Duck Life 2",
+        "url": "/misc/play/duck-life2.html",
+        "image": "/misc/flash/img/dl2.avif",
+        "usesProxy": false
+      },
+      {
+        "name": "Duck Life 3",
+        "url": "/misc/play/duck-life3.html",
+        "image": "/misc/flash/img/dl3.avif",
+        "usesProxy": false
+      },
+      {
+        "name": "Duck Life 4",
+        "url": "/misc/play/duck-life4.html",
+        "image": "/misc/flash/img/dl4.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Flight Pilot Airplane",
+        "url": "/misc/play/flightpilotairline.html",
+        "image": "/img/games/fpag24.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Gladihoppers",
+        "url": "/misc/play/gladihoppers.html",
+        "image": "/misc/gladihoppers/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Grand Prix Hero",
+        "url": "/misc/play/grandprixhero.html",
+        "image": "/img/games/grandprixhero.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Race Survival",
+        "url": "/misc/play/survival-race.html",
+        "image": "/img/games/racesurvival.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Learn to Fly",
+        "url": "https://www.coolmathgames.com/0-learn-to-fly/play",
+        "image": "/misc/learn-to-fly/2.jpeg",
+        "usesProxy": true
+      },
+      {
+        "name": "Learn to Fly 2",
+        "url": "/misc/play/learn-to-fly-2.html",
+        "image": "/misc/learn-to-fly/1.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Learn to Fly 3",
+        "url": "/misc/play/learn-to-fly-3.html",
+        "image": "/img/games/learntofly3.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Madalin Stunt Cars 3",
+        "url": "/misc/play/madalincars3.html",
+        "image": "/misc/madstunt-cars/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Mario Kart",
+        "url": "/misc/play/mario-kart.html",
+        "image": "/misc/mariokart/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Monster Tracks",
+        "url": "/misc/play/monstertrack.html",
+        "image": "/misc/monster-track/thumb.jpg",
+        "usesProxy": false
+      },
+      {
+        "name": "MotoX3M",
+        "url": "/misc/play/motox3m.html",
+        "image": "/misc/motox3m/splash.jpg",
+        "usesProxy": false
+      },
+      {
+        "name": "Bouncy Basketball",
+        "url": "/misc/play/bouncybasketball.html",
+        "image": "/misc/bouncybasketball/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "MotoX3M Pool Party",
+        "url": "/misc/play/motox3m-party.html",
+        "image": "/misc/motox3m-pool/splash.jpg",
+        "usesProxy": false
+      },
+      {
+        "name": "MotoX3M Spooky",
+        "url": "/misc/play/motox3m-spook.html",
+        "image": "/misc/motox3m-spooky/splash.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "MotoX3M Winter",
+        "url": "/misc/play/motox3m-w.html",
+        "image": "/misc/motox3m-winter/download.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Ping Pong Go",
+        "url": "/misc/play/pingponggo.html",
+        "image": "/misc/pingponggo/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Penalty Kick Online",
+        "url": "/misc/play/penalty.html",
+        "image": "/misc/penalty-kick-online/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Unicycle Hero",
+        "url": "/misc/play/unicyclehero.html",
+        "image": "/img/games/hero.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Retro Bowl",
+        "url": "https://games.poki.com/458768/806e2242-df99-4dcd-b6ac-2c20175159a8/",
+        "image": "/misc/retrobowl/img/icon.jpg",
+        "usesProxy": true
+      },
+      {
+        "name": "Polytrack",
+        "url": "/misc/play/polytrack.html",
+        "image": "/img/games/polytrack.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Polytrack 0.4.1",
+        "url": "/misc/play/polytrack-0.4.1.html",
+        "image": "/img/games/polytrack.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Retro Bowl College",
+        "url": "/misc/play/retrobowlcollege.html",
+        "image": "/misc/retrobowlcollege/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Smash Karts",
+        "url": "https://htmlxm.github.io/h/smash-karts/",
+        "image": "/misc/smashkarts/img.jpeg",
+        "usesProxy": true
+      },
+      {
+        "name": "Snow Rider 3D",
+        "url": "/misc/play/snow3D.html",
+        "image": "/img/games/snowrider.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Soccer Bros",
+        "url": "/misc/play/soccerbros.html",
+        "image": "/misc/soccerbros/icon.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Football Bros",
+        "url": "/misc/play/footballbros.html",
+        "image": "/misc/footballbros/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Soccer Random",
+        "url": "/misc/play/soccerR.html",
+        "image": "misc/soccer-random/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Table Tennis: WT",
+        "url": "/misc/play/tabletennis.html",
+        "image": "/misc/tabletennisworldtour/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Tunnel Rush",
+        "url": "/misc/play/tunnelrush.html",
+        "image": "/misc/tunnel-rush/img/tunnel.jpg",
+        "usesProxy": false
+      },
+      {
+        "name": "Tunnel Rush 2",
+        "url": "/misc/play/tunnelrush2.html",
+        "image": "/misc/tunnelrush2/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Volley Random",
+        "url": "/misc/play/volleyran.html",
+        "image": "/misc/volley-random/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Zombie Derby",
+        "url": "/misc/play/zombiederby.html",
+        "image": "/misc/zombiederby/img.webp",
+        "usesProxy": false
+      }
+    ]
+  },
+  {
+    "category": "Puzzle",
+    "games": [
+      {
+        "name": "2048",
+        "url": "/misc/play/2048.html",
+        "image": "/misc/2048/2048.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "A Dance Of Fire & Ice",
+        "url": "/misc/play/a-dance-of-fire-and-ice.html",
+        "image": "/misc/a-dance-of-fire-and-ice/splash.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Bad Ice Cream",
+        "url": "/misc/play/Badicecream.html",
+        "image": "/misc/badicecream/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Bad Ice Cream 2",
+        "url": "/misc/play/bad-ice-cream-2.html",
+        "image": "/misc/badicecream2/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Bad Ice Cream 3",
+        "url": "/misc/play/bad-ice-cream-3.html",
+        "image": "/misc/badicecream3/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Bloxrz",
+        "url": "/misc/play/bloxrz.html",
+        "image": "/misc/bloxrz/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Cluster Rush",
+        "url": "/misc/play/cluster-rush.html",
+        "image": "/misc/cluster-rush/icon.jpg",
+        "usesProxy": false
+      },
+      {
+        "name": "Daily Dadish",
+        "url": "/misc/play/dailydadish.html",
+        "image": "/misc/dadish3/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Deal or No Deal",
+        "url": "/misc/play/deal-or-no-deal.html",
+        "image": "/misc/deal-or-no-deal/index.jpg",
+        "usesProxy": false
+      },
+      {
+        "name": "Draw The Hill",
+        "url": "/misc/play/draw_the_hill.html",
+        "image": "/misc/draw_the_hill/icons/icon-512.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Edge Not Found",
+        "url": "/misc/play/edgenotfound.html",
+        "image": "/misc/edgenotfound/edge.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Fire Boy Water Girl",
+        "url": "/misc/play/fbwg.html",
+        "image": "/misc/fbwg/logo.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Block Blast",
+        "url": "/misc/play/block-blast.html",
+        "image": "/img/games/blockblast.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Geometry Dash",
+        "url": "/misc/play/geometry-dash.html",
+        "image": "/misc/geometry-dash/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Helix Jump",
+        "url": "/misc/play/helixjump.html",
+        "image": "/misc/helixjump/gameIcon.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Swingo",
+        "url": "/misc/play/swingo.html",
+        "image": "/misc/swingo/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Hextris",
+        "url": "/misc/play/hextris.html",
+        "image": "/misc/hextris/images/icons/apple-touch-512.png",
+        "usesProxy": false
+      },
+      {
+        "name": "House Of Hazards",
+        "url": "/misc/play/houseofhazards.html",
+        "image": "/misc/houseofhazards/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Impossible Quiz",
+        "url": "/misc/play/impossiblequiz.html",
+        "image": "/misc/impossible-quiz/img.avif",
+        "usesProxy": false
+      },
+      {
+        "name": "Impossible Quiz 2",
+        "url": "/misc/play/impossiblequiz2.html",
+        "image": "/misc/impossible-quiz/2.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "KARLSON'T",
+        "url": "/misc/play/karlsont.html",
+        "image": "/misc/karlsont/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Little Alchemy",
+        "url": "/misc/play/little-alchemy.html",
+        "image": "/misc/littlealchemy/little.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Little Alchemy 2",
+        "url": "https://littlealchemy2.com/",
+        "image": "/misc/littlealchemy/2.png",
+        "usesProxy": true
+      },
+      {
+        "name": "Marbles Sorting",
+        "url": "/misc/play/marbles-sorting.html",
+        "image": "/misc/MarblesSorting/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Mr. Bullet",
+        "url": "/misc/play/mrbullet.html",
+        "image": "/misc/mrbullet/icon-256.png",
+        "usesProxy": false
+      },
+      {
+        "name": "N Gon",
+        "url": "/misc/play/n-gon1.html",
+        "image": "/misc/n-gon/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "OvO Dimensions",
+        "url": "/misc/play/ovo3.html",
+        "image": "/misc/ovo3/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Rainbow Tower",
+        "url": "https://www.mathplayground.com/mobile_rainbow_tower/index.html",
+        "image": "/img/games/rainbowtower.png",
+        "usesProxy": true
+      },
+      {
+        "name": "Big Tower Tiny Square",
+        "url": "https://www.coolmathgames.com/0-big-tower-tiny-square/play",
+        "image": "/img/games/btts.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Riddle School",
+        "url": "/misc/play/riddleschool.html",
+        "image": "/misc/riddleschool/riddleschool.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Riddle School 2",
+        "url": "/misc/play/riddleschool2.html",
+        "image": "/misc/riddleschool2/riddleschool2.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Riddle School 3",
+        "url": "/misc/play/riddleschool3.html",
+        "image": "/misc/riddleschool3/riddleschool3.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Riddle School 4",
+        "url": "/misc/play/riddleschool4.html",
+        "image": "/misc/riddleschool4/riddleschool4.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Riddle School 5",
+        "url": "/misc/play/riddleschool5.html",
+        "image": "/misc/riddleschool5/riddleschool5.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Riddle School Transfer",
+        "url": "/misc/play/riddleschoolT.html",
+        "image": "/misc/riddletransfer/riddletransfer.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Riddle Transfer 2",
+        "url": "/misc/play/riddleschoolT2.html",
+        "image": "/misc/riddletransfer2/riddletransfer2.png",
+        "usesProxy": false
+      },
+      {
+        "name": "SandTrix",
+        "url": "https://files.crazygames.com/sandtrix/24/index.html",
+        "image": "/misc/sandtrix/img.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Save The Doge",
+        "url": "/misc/play/savedoge.html",
+        "image": "/misc/save-the-doge/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Ships 3D",
+        "url": "https://yp3d.com/ships3d/",
+        "image": "/misc/ships/img.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Skribble.IO",
+        "url": "https://skribbl.io/",
+        "image": "/img/games/skribble.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Level Devil",
+        "url": "/misc/play/leveldevil.html",
+        "image": "/misc/leveldevil/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Tomb Of The Mask",
+        "url": "/misc/play/tombofthemask.html",
+        "image": "/misc/tombofthemask/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Sugar Sugar",
+        "url": "https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fsugar-sugar.xml",
+        "image": "/misc/sugarsugar/img.png",
+        "usesProxy": true
+      },
+      {
+        "name": "Sugar Sugar 2",
+        "url": "https://files.crazygames.com/ruffle/sugarsugar2.html",
+        "image": "/misc/sugarsugar2/img.png",
+        "usesProxy": true
+      },
+      {
+        "name": "Sugar Sugar 3",
+        "url": "https://www.coolmathgames.com/0-sugar-sugar-3/play",
+        "image": "/misc/sugarsugar3/img.jpeg",
+        "usesProxy": true
+      },
+      {
+        "name": "Fruit Merge",
+        "url": "/misc/play/fruit-merge.html",
+        "image": "/misc/fruit-merge/icons/icon-256.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Tetris",
+        "url": "/misc/play/tetris.html",
+        "image": "/img/games/tetris.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "There Is No Game",
+        "url": "/misc/play/thereisnogame.html",
+        "image": "/misc/thereisnogame/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Twitch Tetris",
+        "url": "/misc/play/twitchtetris.html",
+        "image": "/misc/twitchtetris/logo.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Unfair Mario",
+        "url": "/misc/play/unfairmario.html",
+        "image": "/misc/unfair-mario/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Vex 8",
+        "url": "/misc/play/vex8.html",
+        "image": "/misc/vex8/assets/icon.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Wordle",
+        "url": "/misc/wordle/index.html",
+        "image": "/misc/wordle/img/logo_512x512.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Worlds Hardest Game",
+        "url": "/misc/play/whg.html",
+        "image": "/misc/worldshardestgame/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Worlds Hardest Game 2",
+        "url": "/misc/play/whg2.html",
+        "image": "/misc/worldshardestgame/img.jpeg",
+        "usesProxy": false
+      }
     ]
   },
   {
     "category": "Casual/Arcade",
     "games": [
-      { "name": "Cookie Clicker", "url": "/misc/play/cookieclicker.html", "image": "/misc/cookieclicker/clicker.jpeg", "usesProxy": false },
-      { "name": "Crossy Road", "url": "/misc/play/crossyroad.html", "image": "/misc/crossy-road/crossyroad.png", "usesProxy": false },
-      { "name": "Doodle Jump", "url": "/misc/play/doodlejump.html", "image": "/misc/doodlejump/icon.webp", "usesProxy": false },
-      { "name": "Flappy Bird", "url": "/misc/play/flappybird.html", "image": "/misc/flappybird/img.png", "usesProxy": false }
+      {
+        "name": "60 Second Burger Run",
+        "url": "/misc/play/60-sec-burger-run.html",
+        "image": "/misc/60-sec-burger-run/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Adventure Capitalist",
+        "url": "/misc/play/adcap.html",
+        "image": "/misc/adventure-capitalist/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Cooking Fever",
+        "url": "https://www.silvergames.com/en/cooking-fever/gameframe",
+        "image": "/img/games/cooking.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Spacebar Clicker",
+        "url": "/misc/play/spacebarclicker.html",
+        "image": "/misc/spacebarclicker/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "BitLife",
+        "url": "/misc/play/bitlife.html",
+        "image": "/img/games/bitlife.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Bottle Flip",
+        "url": "/misc/play/bottleflip.html",
+        "image": "/misc/BottleFlip/icons/icon-256.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Bottle Flip 3D",
+        "url": "/misc/play/bottleflip3d.html",
+        "image": "/misc/BottleFlip3D/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Cookie Clicker",
+        "url": "/misc/play/cookieclicker.html",
+        "image": "/misc/cookieclicker/clicker.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Crossy Road",
+        "url": "/misc/play/crossyroad.html",
+        "image": "/misc/crossy-road/crossyroad.png",
+        "usesProxy": false
+      },
+      {
+        "name": "CSGO Clicker",
+        "url": "/misc/play/csgo-clicker.html",
+        "image": "/misc/csgo-clicker/new.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Dadish",
+        "url": "/misc/play/Dadish.html",
+        "image": "/misc/dadish/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Dadish 2",
+        "url": "/misc/play/Dadish-2.html",
+        "image": "/misc/dadish2/2.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Doge Miner",
+        "url": "/misc/play/dogeminer.html",
+        "image": "/misc/dogeminer/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Doodle Jump",
+        "url": "/misc/play/doodlejump.html",
+        "image": "/misc/doodlejump/icon.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Eggy Car",
+        "url": "/misc/play/eggy-car.html",
+        "image": "/misc/eggy-car/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Flippy Fish",
+        "url": "/misc/play/Flippy-Fish.html",
+        "image": "/misc/flippyfish/icon.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Friday Night Funkin",
+        "url": "/misc/play/fnf.html",
+        "image": "/misc/fnf/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Fruit Ninja",
+        "url": "/misc/play/fruitninja.html",
+        "image": "/misc/fruit-ninja/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Gimme the Airpod",
+        "url": "/misc/play/gimme-the-airpod.html",
+        "image": "/img/games/gimmetheairpod.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Google Snake",
+        "url": "/misc/play/google-snake.html",
+        "image": "/misc/google-snake/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Grindcraft",
+        "url": "/misc/play/grindcraft.html",
+        "image": "/misc/grindcraft/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Toss the Turtle",
+        "url": "/misc/play/tosstheturtle.html",
+        "image": "/img/games/turtle.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Infinite Craft",
+        "url": "https://infinite-craft.com/infinite-craft/",
+        "image": "/img/games/infinitecraft.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Astro Survivors",
+        "url": "/misc/play/astrosurvivor.html",
+        "image": "/misc/astrosurvivor/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Idle Dice",
+        "url": "/misc/play/idle_dice.html",
+        "image": "/misc/idle_dice/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Idle Breakout",
+        "url": "/misc/play/idle-breakout.html",
+        "image": "/misc/idle-breakout/img/thumbnail.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Idle Restaurants",
+        "url": "/misc/play/IdleRestaurants.html",
+        "image": "/misc/IdleRestaurants/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Knife Hit",
+        "url": "/misc/play/knifehit.html",
+        "image": "/misc/knifehit/icon.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Capybara Clicker",
+        "url": "/misc/play/capybaraclicker.html",
+        "image": "/img/games/capybaraclicker.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Monkey Mart",
+        "url": "/misc/play/monkeymart.html",
+        "image": "/misc/monkey-mart/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Nut Simulator",
+        "url": "/misc/play/nutsim.html",
+        "image": "/misc/nutsimulator/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Papas Burgeria",
+        "url": "/misc/play/papas-burgeria.html",
+        "image": "/misc/papas/papas-burgeria/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Papas Cupcakeria",
+        "url": "/misc/play/papas-cupcakeria.html",
+        "image": "/misc/papas/papas-cupcakeria/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Papas Donuteria",
+        "url": "/misc/play/papas-donuteria.html",
+        "image": "/misc/papas/papas-donuteria/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Papas Freezeria",
+        "url": "/misc/play/papas-freezeria.html",
+        "image": "/misc/papas/papas-freezeria/img.webp?v=1",
+        "usesProxy": false
+      },
+      {
+        "name": "Papas Hot Doggeria",
+        "url": "/misc/play/papas-hot-doggeria.html",
+        "image": "/misc/papas/papas-hot-doggeria/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Papas Pancakeria",
+        "url": "/misc/play/papas-pankakeria.html",
+        "image": "/misc/papas/papas-pancakeria/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Papas Pasteria",
+        "url": "/misc/play/papas-pasteria.html",
+        "image": "/misc/papas/papas-pastaria/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Papas Pizzaria",
+        "url": "/misc/play/papas-pizzaria.html",
+        "image": "/misc/papas/papas-pizzaria/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Papas Scooperia",
+        "url": "/misc/play/papas-scooperia.html",
+        "image": "/misc/papas/papas-scooperia/img.webp?v=1",
+        "usesProxy": false
+      },
+      {
+        "name": "Papas Sushiria",
+        "url": "/misc/play/papas-sushiria.html",
+        "image": "/misc/papas/papas-sushiria/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Papas Taco Mia",
+        "url": "/misc/play/papas-taco-mia.html",
+        "image": "/misc/papas/papas-taco-mia/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Papas Wingeria",
+        "url": "/misc/play/papas-wingaria.html",
+        "image": "/misc/papas/papas-wingeria/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Papas Cheeseria",
+        "url": "/misc/play/papas-cheeseria.html",
+        "image": "/misc/papas/papas-cheeseria/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Paper.io 2",
+        "url": "/misc/play/paperio2.html",
+        "image": "/misc/paperio2/images/icon512.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Papery Planes",
+        "url": "/misc/play/paperyplanes.html",
+        "image": "/misc/papery-planes/splash.jpg",
+        "usesProxy": false
+      },
+      {
+        "name": "Big Flappy Tower Tiny Square",
+        "url": "https://big-flappy-tower-vs-tiny-square.game-files.crazygames.com/big-flappy-tower-vs-tiny-square/1/index.html",
+        "image": "/img/games/flappy.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Slope",
+        "url": "/misc/play/slope.html",
+        "image": "/misc/slope/slope.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Stickman Boost",
+        "url": "/misc/play/stickmanB.html",
+        "image": "misc/stickman-boost/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Stickman Hook",
+        "url": "/misc/play/stickmanH.html",
+        "image": "/misc/stickman-hook/unnamed.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Stumble Guys",
+        "url": "https://www.stumbleguys.com/play",
+        "image": "/misc/stumbleguys/img.jpeg",
+        "usesProxy": true
+      },
+      {
+        "name": "Subway Surfers",
+        "url": "/misc/play/subwaysurf.html",
+        "image": "/misc/subway-surfers/NewYorkIcon.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Takuni Sunset",
+        "url": "/misc/play/takuni-sunset.html",
+        "image": "/misc/Tanuki-Sunset/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Kiwi Clicker",
+        "url": "/misc/play/kiwiclicker.html",
+        "image": "/misc/kiwiclicker/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Tiny Fishing",
+        "url": "/misc/play/tinyfish.html",
+        "image": "/misc/tiny-fishing/thumb.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Whack Your Boss",
+        "url": "/misc/play/wyb.html",
+        "image": "/misc/flash/img/1.jpg",
+        "usesProxy": false
+      },
+      {
+        "name": "Whack Your Computer",
+        "url": "/misc/play/wyc.html",
+        "image": "/misc/flash/img/wyc.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Whack Your Ex",
+        "url": "/misc/play/wye.html",
+        "image": "/misc/flash/img/wyx.png",
+        "usesProxy": false
+      }
+    ]
+  },
+  {
+    "category": "Strategy",
+    "games": [
+      {
+        "name": "A Small World Cup",
+        "url": "/misc/play/asmallworldcup.html",
+        "image": "/misc/asmallworldcup/img.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Bloons TD",
+        "url": "/misc/play/bloontd.html",
+        "image": "/misc/flash/img/btd.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Bloons TD 2",
+        "url": "/misc/play/bloontd2.html",
+        "image": "/misc/flash/img/btd2.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Bloons TD 3",
+        "url": "/misc/play/bloontd3.html",
+        "image": "/misc/flash/img/btd3.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Bloons TD 4",
+        "url": "/misc/play/bloontd4.html",
+        "image": "/misc/flash/img/btd4.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Pokemon Showdown",
+        "url": "https://play.pokemonshowdown.com/",
+        "image": "/img/games/pshow.jpeg",
+        "usesProxy": true
+      },
+      {
+        "name": "Poker",
+        "url": "https://www.247freepoker.com/",
+        "image": "/misc/poker/poker.png",
+        "usesProxy": true
+      },
+      {
+        "name": "Space Company",
+        "url": "https://sparticle999.github.io/SpaceCompany/",
+        "image": "/img/games/space.webp",
+        "usesProxy": true
+      },
+      {
+        "name": "Territorial.io",
+        "url": "https://territorial.io/",
+        "image": "/misc/Territorial.io/img.jpeg",
+        "usesProxy": true
+      },
+      {
+        "name": "Universal Paperclips",
+        "url": "/misc/play/universalpaper.html",
+        "image": "/misc/universal-paperclips/img.webp",
+        "usesProxy": false
+      }
+    ]
+  },
+  {
+    "category": "Adventure/RPG",
+    "games": [
+      {
+        "name": "FancyPants Adventure",
+        "url": "/misc/play/fpa.html",
+        "image": "/misc/flash/img/fpa.png",
+        "usesProxy": false
+      },
+      {
+        "name": "FancyPants Adventure 2",
+        "url": "/misc/play/fpa2.html",
+        "image": "/misc/flash/img/fpa2.avif",
+        "usesProxy": false
+      },
+      {
+        "name": "Hobo",
+        "url": "/misc/play/hobo.html",
+        "image": "/misc/flash/img/hobo.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Minecraft 1.8",
+        "url": "/misc/eaglercraftx/index.html",
+        "image": "/misc/eaglercraftx/img.png",
+        "usesProxy": false
+      },
+      {
+        "name": "Pokemon Crystal",
+        "url": "/misc/play/pokemonc.html",
+        "image": "/misc/emulator/pokemon/crystal/crystal.jpg",
+        "usesProxy": false
+      },
+      {
+        "name": "Pokemon Emerald",
+        "url": "/misc/play/pokemone.html",
+        "image": "/misc/emulator/pokemon/emerald/img.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Pokemon Ruby Red",
+        "url": "/misc/play/pokemonRR.html",
+        "image": "/misc/emulator/pokemon/ruby/pruby.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Pokemon Fire Red",
+        "url": "/misc/play/pokemonFR.html",
+        "image": "/misc/emulator/pokemon/red/pred.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Pokemon Chaos Black",
+        "url": "/misc/play/pokemonCB.html",
+        "image": "/misc/emulator/pokemon/black/chaosblack.jpg",
+        "usesProxy": false
+      },
+      {
+        "name": "Pokemon Flora Sky",
+        "url": "/misc/play/pokemonFS.html",
+        "image": "/misc/emulator/pokemon/florasky/florasky.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Pokemon Ultraviolet",
+        "url": "/misc/play/pokemonU.html",
+        "image": "/misc/emulator/pokemon/ultraviolent/ultraviolent.webp",
+        "usesProxy": false
+      },
+      {
+        "name": "Pokemon Sapphire",
+        "url": "/misc/play/pokemonS.html",
+        "image": "/misc/emulator/pokemon/sapphire/psapphire.jpeg",
+        "usesProxy": false
+      },
+      {
+        "name": "Roblox",
+        "url": "https://nowgg.lol/",
+        "image": "/misc/roblos/rbx.jpeg",
+        "usesProxy": true
+      }
     ]
   }
 ]
