@@ -41,6 +41,15 @@ h6 {
   opacity: 0.4;
 }
 
+#loading-bar {
+  width: 10%;
+  height: 30px;
+  background-color: #04AA6D;
+  text-align: center; /* To center it horizontally (if you want) */
+  line-height: 30px; /* To center it vertically */
+  color: white;
+}
+
 .searchbar:focus {
   outline: none;
   background: #6f829b;
