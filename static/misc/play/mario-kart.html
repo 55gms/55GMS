@@ -88,6 +88,10 @@
                 elem.webkitRequestFullscreen();
             } else if (elem.msRequestFullscreen) {
                 elem.msRequestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            } else {
+                location.href = elem.src;
             }
         }
         function reload() {
@@ -95,7 +99,7 @@
         }
         reloadbtn.onclick = reload;
     </script>
-    <script src="/assets/js/ad.js?v=1"></script>
+    <script src="/assets/js/ad.js?v=2"></script>
 </body>
 
 </html>

@@ -4,46 +4,40 @@ window.addEventListener("load", (event) => {
   const text = document.getElementById("text");
 
   try {
-    fetch("/assets/json/load/games-test.json")
+    fetch("/assets/json/load/games.json")
       .then((response) => response.json())
-      .then((categories) => {
-        let totalImages = 0;
-        categories.forEach(category => totalImages += category.games.length);
+      .then((games) => {
+        games.sort((a, b) => a.name.localeCompare(b.name));
+        const totalImages = games.length;
 
-        categories.forEach(category => {
-          if (category.games.length > 0) {
-            const categoryHeader = `<h2 class="category-header">${category.category}</h2>`;
-            gameContainer.insertAdjacentHTML("beforeend", categoryHeader);
+        games.forEach(function (game, gameNum) {
+          let gameHtml;
+          if (game.usesProxy) {
+            gameHtml = `<div class="game">
+              <a onclick="${
+                game.alert ? `alert('${game.alert}'); ` : ""
+              }hire('${game.url}');">
+                  <img loading="eager" src="${game.image}"
+                       onload="handleImageLoad(${totalImages})">
+                  <p class="text">${game.name}</p>
+              </a>
+            </div>`;
+          } else {
+            gameHtml = `<div class="game">
+              <a href="${game.url}" rel="noopener noreferrer" ${
+              game.alert ? `onclick="alert('${game.alert}');"` : ""
+            }>
+                  <img loading="eager" src="${game.image}"
+                       onload="handleImageLoad(${totalImages})">
+                  <p class="text">${game.name}</p>
+              </a>
+            </div>`;
           }
-
-          category.games.sort((a, b) => a.name.localeCompare(b.name));
-          
-          category.games.forEach(game => {
-            let gameHtml;
-            if (game.usesProxy) {
-              gameHtml = `<div class="game">
-                <a onclick="${game.alert ? `alert('${game.alert}'); ` : ""}hire('${game.url}');">
-                    <img loading="eager" src="${game.image}"
-                         onload="handleImageLoad(${totalImages})">
-                    <p class="text">${game.name}</p>
-                </a>
-              </div>`;
-            } else {
-              gameHtml = `<div class="game">
-                <a href="${game.url}" rel="noopener noreferrer" ${game.alert ? `onclick="alert('${game.alert}');"` : ""}>
-                    <img loading="eager" src="${game.image}"
-                         onload="handleImageLoad(${totalImages})">
-                    <p class="text">${game.name}</p>
-                </a>
-              </div>`;
-            }
-            gameContainer.insertAdjacentHTML("beforeend", gameHtml);
-          });
+          gameContainer.insertAdjacentHTML("beforeend", gameHtml);
+          const searchbar = document.getElementById("searchbar");
+          if (searchbar)
+            searchbar.placeholder = `Click here or type to search through our ${games.length} games!`;
         });
-
-        const searchbar = document.getElementById("searchbar");
-        if (searchbar)
-          searchbar.placeholder = `Click here or type to search through our ${totalImages} games!`;
       });
   } catch (error) {
     text.innerHTML = `Error in fetching data<br>${error}`;

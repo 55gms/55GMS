@@ -15,8 +15,7 @@
     <meta name="keywords"
         content="unblocked games, 55gms tk, 55gms, reds exploit corner, games, unblocked, site, lanier, lanier middle school, gg, Minecraft, discord, chromebook, chromeos, rednotsus, vanillacraft, eaglercraft unblocked, resent client unblocked, fun, cool, proxy, slope unblocked, free, unblocked monkey mart, 555gms, 5gms, school" />
     <link rel="stylesheet" href="/assets/css/gameframe.css?v=3" />
-    <script src="/assets/js/script.js?v=11"></script>\
-    <script src="/misc/play/game/script.js"></script>
+    <script src="/assets/js/script.js?v=11"></script>
 </head>
 
 <body>
@@ -35,17 +34,17 @@
     <div id="gameframe">
         <div class="gameDisplay">
             <div class="game">
-                <iframe id="iframe" src=""></iframe>
+                <iframe id="iframe" src="/l"></iframe>
             </div>
             <div class="options">
                 <div class="left">
                     <div class="gametext">
-                        <img src="" class="gameicon" />
+                        <img src="#" class="gameicon" />
                         <div class="margin">
                             <div class="flex">
-                                <h1 class="titletext" id="titletext"></h1>
+                                <h1 class="titletext">&nbsp;</h1>
                             </div>
-                            <span class="bytext"></span>
+                            <span class="bytext">By </span>
                         </div>
                     </div>
                 </div>
@@ -56,6 +55,26 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+
+            const title = urlParams.get('title') || 'No title provided';
+            const author = urlParams.get('author') || 'Author';
+            const link = urlParams.get('link') || '';
+
+            const titleElement = document.querySelector('.titletext');
+            const byTextElement = document.querySelector('.bytext');
+            const iframeElement = document.getElementById('iframe');
+            const gameIconElement = document.querySelector('.gameicon');
+
+            titleElement.textContent = title;
+            byTextElement.textContent = 'By ' + author;
+            iframeElement.src = `/misc/misc/frame.html?link=${link}&title=${title}`;
+            gameIconElement.src = '/misc/' + link + '/img.webp';
+        });
+    </script>
     <div class="addisplay" id="addisplay">
         <ins id="adElement"></ins>
         <div class="script-container"></div>
@@ -89,6 +108,10 @@
                 elem.webkitRequestFullscreen();
             } else if (elem.msRequestFullscreen) {
                 elem.msRequestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            } else {
+                location.href = elem.src;
             }
         }
         function reload() {
@@ -96,7 +119,7 @@
         }
         reloadbtn.onclick = reload;
     </script>
-    <script src="/assets/js/ad.js?v=1"></script>
+    <script src="/assets/js/ad.js?v=2"></script>
 </body>
 
 </html>

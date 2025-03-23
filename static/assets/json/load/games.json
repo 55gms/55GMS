@@ -487,8 +487,14 @@
   },
   {
     "name": "Getaway Shootout",
-    "url": "/misc/play/getaway-shootout.html",
-    "image": "/misc/getaway-shootout/getaway.avif",
+    "url": "/misc/play/?title=Getaway Shootout&author=New Eich Games&link=getaway-shootout",
+    "image": "/misc/getaway-shootout/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Light The Lamp",
+    "url": "/misc/play/?title=Light The Lamp&author=Eray Zesen&link=lightthelamp",
+    "image": "/misc/lightthelamp/img.webp",
     "usesProxy": false
   },
   {
@@ -1044,6 +1050,18 @@
     "usesProxy": false
   },
   {
+    "name": "Cat Pizza",
+    "url": "/misc/play/?title=Cat Pizza&link=catpizza&author=JetGames",
+    "image": "/misc/catpizza/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Tag",
+    "url": "/misc/play/?title=Tag&link=tag&author=JetGames",
+    "image": "/misc/tag/img.webp",
+    "usesProxy": false
+  },
+  {
     "name": "Raft Wars 2",
     "url": "https://games.poki.com/458768/raftwars2",
     "image": "/misc/RaftWars2/img.jpeg",
@@ -1183,15 +1201,15 @@
   },
   {
     "name": "Sandboxels",
-    "url": "https://sandboxels.r74n.com/",
+    "url": "/misc/play/?title=Sandboxels&author=R74N&link=sandboxels",
     "image": "/misc/sandboxels/img.webp",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "SandTrix",
-    "url": "https://files.crazygames.com/sandtrix/24/index.html",
+    "url": "/misc/play/?title=SandTrix&author=mslivo&link=sandtrix",
     "image": "/misc/sandtrix/img.webp",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Save The Doge",
@@ -1216,6 +1234,12 @@
     "url": "https://sparticle999.github.io/SpaceCompany/",
     "image": "/img/games/space.webp",
     "usesProxy": true
+  },
+  {
+    "name": "Bike Obby",
+    "url": "/misc/play/?title=Bike Obby&author=Asher Lee&link=bikeobby",
+    "image": "/misc/bikeobby/img.webp",
+    "usesProxy": false
   },
   {
     "name": "Slither.io",

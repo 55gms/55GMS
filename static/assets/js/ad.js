@@ -3,7 +3,7 @@
     console.log(
       "%cScript Injection",
       "color: cyan; font-weight: 600; background: black; padding: 0 5px; border-radius: 5px",
-      text
+      text,
     );
   }
 
@@ -38,28 +38,28 @@
 
       adsenseScript.onerror = function () {
         if (addisplay) {
-          addisplay.innerHTML = `<a href='https://discord.gg/55gms'><img src="/img/ad.png" style="width: 16vw; height: 32vw; border-radius: 10px;"></a>`;
+          addisplay.innerHTML = `<a href='https://www.youtube.com/@FeelFactCentral'><img src="/img/ad.webp" style="width: 16vw; height: 32vw; border-radius: 10px;"></a>`;
           addisplay.style.display = "block";
         }
         console.log(
-          "Failed to load Adsense script, displaying fallback image."
+          "Failed to load Adsense script, displaying fallback image.",
         );
       };
 
       script("Injected Adsense script");
     } else {
       if (addisplay) {
-        addisplay.innerHTML = `<a href='https://discord.gg/55gms'><img src="/img/ad.png" style="width: 16vw; height: 32vw; border-radius: 10px;"></a>`;
+        addisplay.innerHTML = `<a href='https://www.youtube.com/@FeelFactCentral'><img src="/img/ad.webp" style="width: 16vw; height: 32vw; border-radius: 10px;"></a>`;
         addisplay.style.display = "block";
       }
       console.log(
-        "Skipping Adsense Injection for this domain, displaying fallback image."
+        "Skipping Adsense Injection for this domain, displaying fallback image.",
       );
     }
   } catch (error) {
     console.error("Error loading ads.json:", error);
     if (addisplay) {
-      addisplay.innerHTML = `<a href='https://discord.gg/55gms'><img src="/img/ad.png" style="width: 16vw; height: 32vw; border-radius: 10px;"></a>`;
+      addisplay.innerHTML = `<a href='https://www.youtube.com/@FeelFactCentral'><img src="/img/ad.webp" style="width: 16vw; height: 32vw; border-radius: 10px;"></a>`;
       addisplay.style.display = "block";
     }
   }
