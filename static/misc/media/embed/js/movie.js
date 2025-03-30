@@ -4,7 +4,7 @@ async function getMovie() {
     window.location.href = "/";
     return;
   }
-  url = `https://vidsrc.rip/embed/movie/${ID}`;
+  url = `https://vidfast.pro/movie/${ID}?title=false`;
   visit(url);  
 }
 

@@ -14,5 +14,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
  function play() {
-  visit(`https://player.autoembed.cc/embed/tv/${ID}/${season}/${episode}`);
+  visit(`https://vidfast.pro/tv/${ID}/${season}/${episode}?title=false`);
 }
