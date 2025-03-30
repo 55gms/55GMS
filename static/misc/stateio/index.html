@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>state.io yt</title>
+    <script src="/assets/js/script.js?v=11"></script>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="format-detection" content="telephone-no" />
+    <meta name="viewport"
+        content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width,height=device-height" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <script src="ytgame.js" nonce="ALCptTnMqExzeyG4tfXnIw"></script>
+    <style>
+        body,
+        html {
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+            background: black;
+        }
+
+        #game-root {
+            position: absolute;
+        }
+
+        #game-canvas,
+        #game-root {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script nonce="ALCptTnMqExzeyG4tfXnIw">(function (b) {
+            console.info("SDK", ytgame.SDK_VERSION);
+            var _loaded = 0;
+            Object.defineProperty(b, "loaded", {
+                set: function (v) {
+                    _loaded = v;
+                },
+                get: function () {
+                    return _loaded;
+                }
+            });
+            b.onLoaded = function (params) {
+                b.ready = true;
+                while (b.cbc.length) {
+                    var cb = b.cbc.pop();
+                    cb && cb(params);
+                }
+            };
+            ytgame.game.firstFrameReady();
+            b.params = b.params || {};
+            b.params.ytgame = ytgame;
+            b.onLoaded(ytgame);
+        })((window.__diffbus = { ready: false, cbc: [], params: undefined }));</script>
+    <script defer="defer" src="main.js" nonce="ALCptTnMqExzeyG4tfXnIw"></script>
+    <link href="main.css" rel="stylesheet" nonce="ALCptTnMqExzeyG4tfXnIw">
+</head>
+
+<body>
+    <div id="game-root"><canvas id="game-canvas"></canvas></div>
+</body>
+
+</html>
