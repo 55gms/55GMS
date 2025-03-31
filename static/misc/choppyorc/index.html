@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Choppy Orc</title>
+
+	<link rel="shortcut icon" href="favicon.ico" />
+
+	<!-- Standardised web app manifest -->
+	<link rel="manifest" href="appmanifest.json" />
+
+	<!-- Allow fullscreen mode on iOS devices. (These are Apple specific meta tags.) -->
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="HandheldFriendly" content="true" />
+	<script type="text/javascript" src="patch/js/null.js?//66games.io/controls.js"></script>
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body style="overflow:hidden;">
+	<!-- The canvas must be inside a div called c2canvasdiv -->
+	<div id="c2canvasdiv">
+
+		<!-- The canvas the project will render to.  If you change its ID, don't forget to change the
+		ID the runtime looks for in the jQuery ready event (above). -->
+		<canvas id="c2canvas" width="320" height="180">
+			<!-- This text is displayed if the visitor's browser does not support HTML5.
+			You can change it, but it is a good idea to link to a description of a browser
+			and provide some links to download some popular HTML5-compatible browsers. -->
+			Your browser does not appear to support HTML5. Try upgrading your browser to the latest version. <a
+				href="http://www.whatbrowser.org">What is a browser?</a>
+			<br /><br /><a href="http://www.microsoft.com/windows/internet-explorer/default.aspx">Microsoft Internet
+				Explorer</a><br />
+			<a href="http://www.mozilla.com/firefox/">Mozilla Firefox</a><br />
+			<a href="https://www.google.com/chrome/">Google Chrome</a><br />
+			<a href="http://www.apple.com/safari/download/">Apple Safari</a><br />
+		</canvas>
+
+	</div>
+
+
+	<div class="autosplitter-data" id="autosplitter_data">
+		<div> Level time: <span id="level_timer" class="data-number">---</span> || </div>
+		<div> <span id="level_wr_title">WR</span>: <span id="level_wr" class="data-number">---</span> || </div>
+
+		<div id="speedrun_mode_data" style="display: none;">
+			<div> Speedrun time: <span id="speedrun_timer" class="data-number"> --- </span> || </div>
+			<div> Load time: <span id="transition_timer" class="data-number"> --- </span> </div>
+		</div>
+
+		<div id="practice_mode_data" style="display: none;">
+			<span id="level_select_message">Press '+' or '-' to move between levels</span>
+		</div>
+
+	</div>
+
+	<div class="speedrun-stats-modal" id="speedrun_stats">
+
+		<table class="speedrun-stats-table" cellpadding="5" cellspacing="10">
+			<tr>
+				<td colspan="2" class="speedrun-stats-title" id="speedrun_stats_title">Last speedrun</td>
+			</tr>
+			<tr>
+				<td>Speedrun time:</td>
+				<td><span id="speedrun_time_stat" class="data-number">---</span></td>
+			</tr>
+			<tr>
+				<td>Loadless time:</td>
+				<td><span id="loadless_time_stat" class="data-number">---</span></td>
+			</tr>
+		</table>
+
+		<div class="extra-stats-button" id="btn_extra_stats">
+			<span id="extra_stats_button_arrow">&lt;</span> Extra stats
+		</div>
+	</div>
+
+	<div class="extra-speedrun-stats-modal" id="extra_speedrun_stats">
+		<table class="h-align-center" cellpadding="5" cellspacing="10">
+			<tr>
+				<td>Total deaths:</td>
+				<td><span id="total_deaths_stat" class="data-number">---</span></td>
+
+				<td class="td-spacer"></td>
+
+				<td>Total jumps:</td>
+				<td><span id="total_jumps_stat" class="data-number">---</span></td>
+
+				<td class="td-spacer"></td>
+
+				<td>Axe throws:</td>
+				<td><span id="total_axethrows_stat" class="data-number">---</span></td>
+			</tr>
+			<tr>
+				<td>Long loads time:</td>
+				<td><span id="extra_load_time_stat" class="data-number">---</span></td>
+
+				<td colspan="6"></td>
+			</tr>
+		</table>
+
+		<div class="h-align-center levels-times-title">Total level times:</div>
+
+		<table class="h-align-center" cellpadding="5" cellspacing="15">
+			<tr>
+				<td>Level 1:</td>
+				<td><span data-stat-level="1" class="data-number">---</span></td>
+
+				<td class="td-spacer"></td>
+
+				<td>Level 6:</td>
+				<td><span data-stat-level="6" class="data-number">---</span></td>
+
+				<td class="td-spacer"></td>
+
+				<td>Level 11:</td>
+				<td><span data-stat-level="11" class="data-number">---</span></td>
+			</tr>
+			<tr>
+				<td>Level 2:</td>
+				<td><span data-stat-level="2" class="data-number">---</span></td>
+
+				<td></td>
+
+				<td>Level 7:</td>
+				<td><span data-stat-level="7" class="data-number">---</span></td>
+
+				<td></td>
+
+				<td>Level 12:</td>
+				<td><span data-stat-level="12" class="data-number">---</span></td>
+			</tr>
+			<tr>
+				<td>Level 3:</td>
+				<td><span data-stat-level="3" class="data-number">---</span></td>
+
+				<td></td>
+
+				<td>Level 8:</td>
+				<td><span data-stat-level="8" class="data-number">---</span></td>
+
+				<td></td>
+
+				<td>Level 13:</td>
+				<td><span data-stat-level="13" class="data-number">---</span></td>
+			</tr>
+			<tr>
+				<td>Level 4:</td>
+				<td><span data-stat-level="4" class="data-number">---</span></td>
+
+				<td></td>
+
+				<td>Level 9:</td>
+				<td><span data-stat-level="9" class="data-number">---</span></td>
+
+				<td></td>
+
+				<td>Level 14:</td>
+				<td><span data-stat-level="14" class="data-number">---</span></td>
+			</tr>
+			<tr>
+				<td>Level 5:</td>
+				<td><span data-stat-level="5" class="data-number">---</span></td>
+
+				<td></td>
+
+				<td>Level 10:</td>
+				<td><span data-stat-level="10" class="data-number">---</span></td>
+
+				<td></td>
+
+				<td>Level 15:</td>
+				<td><span data-stat-level="15" class="data-number">---</span></td>
+			</tr>
+		</table>
+	</div>
+
+
+	<div id="div_music_volume" class="music-volume-message"></div>
+
+
+	<!-- Pages load faster with scripts at the bottom -->
+
+	<script src="js/jquery-2.1.1.min.js"></script>
+	<script src="js/jquery.fittext.js"></script>
+
+	<script lang="javascript">
+		const TAS_MODE = false;
+	</script>
+
+	<script src="js/wrs.js"></script>
+	<script src="js/speedrun_stats_handler.js"></script>
+	<script src="js/volume_handler.js"></script>
+	<script src="js/autosplitter.js"></script>
+
+	<!-- The runtime script.  You can rename it, but don't forget to rename the reference here as well.
+    This file will have been minified and obfuscated if you enabled "Minify script" during export. -->
+	<script src="js/c2runtime.js"></script>
+	<script src="js/c2webappstart.js"></script>
+
+	<script>
+		console.log("Welcome to or321's speedrun patch for Choppy Orc by eddynardo.");
+		console.log("You can use 'Z' as an alternate jump button.");
+		console.log("You can use 'N' to mute/unmute only the music. 'M' is still the master volume key.");
+		console.log("You can set custom pace times by running: _wrs.setCustomTimes(Array);");
+	</script>
+
+
+</html>

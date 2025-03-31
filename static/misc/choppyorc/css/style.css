@@ -1,0 +1,152 @@
+/* All margins and padding must be zero for the canvas to fill the screen. */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+* {
+	padding: 0;
+	margin: 0;
+}
+
+html,
+body {
+	background: #000;
+	color: #fff;
+	overflow: hidden;
+	touch-action-delay: none;
+	touch-action: none;
+	-ms-touch-action: none;
+	font-family: 'Press Start 2P', sans-serif;
+}
+
+canvas {
+	touch-action-delay: none;
+	touch-action: none;
+	-ms-touch-action: none;
+}
+
+.td-spacer {
+	width: 20px;
+}
+
+.data-number {
+	color: rgb(0, 173, 0);
+}
+
+.fake-speedrun .data-number {
+	color: rgb(255, 70, 70);
+}
+
+.h-align-center {
+	margin: auto;
+}
+
+.autosplitter-data {
+	position: fixed;
+	width: 100%;
+	background-color: #2121218c;
+	font-weight: bold;
+	font-size: 20px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	padding: 5px;
+
+	user-select: none;
+}
+
+.autosplitter-data div {
+	display: inline-block;
+}
+
+.speedrun-stats-modal {
+	/* Hidden by default */
+	display: none;
+
+	position: fixed;
+	z-index: 1;
+
+	background-color: #212121fb;
+	border: 1px solid white;
+
+	font-weight: bold;
+	font-size: 1px;
+
+	user-select: none;
+}
+
+.speedrun-stats-table {
+	margin: 5px auto;
+}
+
+.speedrun-stats-title {
+	text-align: center;
+	text-decoration: underline;
+}
+
+.extra-stats-button {
+	bottom: 0px;
+	width: 100%;
+	padding: 10px;
+
+	box-sizing: border-box;
+
+	background-color: transparent;
+	border: 1px solid white;
+
+	cursor: pointer;
+	outline: 0;
+	text-align: center;
+
+	color: white;
+}
+
+.extra-stats-button:hover {
+	background-color: #333333ee;
+}
+
+.extra-speedrun-stats-modal {
+	/* Hidden by default */
+	display: none;
+
+	position: fixed;
+	right: 330x;
+	bottom: 60px;
+	z-index: 1;
+	padding: 5px;
+
+	min-width: 460px;
+
+	background-color: #212121fb;
+	border: 1px solid white;
+
+	font-weight: bold;
+
+	user-select: none;
+}
+
+.levels-times-title {
+	margin-top: 20px;
+	width: 100%;
+	text-align: center;
+	text-decoration: underline;
+}
+
+
+
+.music-volume-message {
+	/* Hidden by default */
+	display: none;
+
+	position: fixed;
+	z-index: 1;
+
+	width: 230px;
+	min-height: 30px;
+
+	padding: 5px;
+
+	background-color: #212121dd;
+	border: 1px solid black;
+
+	font-weight: bold;
+	font-size: 27px;
+	text-align: center;
+}
