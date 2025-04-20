@@ -1,6 +1,5 @@
 const express = require("express");
-const http = require("http");
-const { createBareServer } = require("@tomphttp/bare-server-node");
+const { ChemicalServer } = require("chemicaljs");
 const path = require("path");
 const cors = require("cors");
 
@@ -43,15 +42,17 @@ function switchModel() {
   console.log(`Switched to model: ${currentModel}`);
 }
 
-const server = http.createServer();
-const app = express(server);
-
+const [app, listen] = new ChemicalServer({
+  default: "uv",
+  uv: true,
+  rh: true,
+  scramjet: true,
+});
+app.serveChemical();
 app.use("/t/", (req, res, next) => {
   res.setHeader("X-Frame-Options", "SAMEORIGIN");
   next();
 });
-
-const bareServer = createBareServer("/t/");
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
@@ -88,7 +89,7 @@ app.post("/api/chat", async (req, res) => {
           Authorization: `Bearer ${process.env.API_KEY}`,
           "Content-Type": "application/json",
         },
-      },
+      }
     );
     if (response.status === 429) {
       switchModel();
@@ -105,7 +106,7 @@ app.post("/api/chat", async (req, res) => {
             Authorization: `Bearer ${randomAPIKey}`,
             "Content-Type": "application/json",
           },
-        },
+        }
       );
       const aiResponse = response.data.choices[0].message.content;
       conversation.push({ role: "assistant", content: aiResponse });
@@ -178,7 +179,7 @@ app.post("/api/signUp", async (req, res) => {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-      },
+      }
     );
 
     if (!captchaVerifyResponse.data.success) {
@@ -198,7 +199,7 @@ app.post("/api/signUp", async (req, res) => {
           Authorization: process.env.workerAUTH,
           "Content-Type": "application/json",
         },
-      },
+      }
     );
 
     res.status(200).json(response.data);
@@ -228,7 +229,7 @@ app.post("/api/login", async (req, res) => {
           Authorization: process.env.workerAUTH,
           "Content-Type": "application/json",
         },
-      },
+      }
     );
 
     res.status(200).json(response.data);
@@ -254,7 +255,7 @@ app.post("/api/checkPremium", async (req, res) => {
           Authorization: process.env.workerAUTH,
           "Content-Type": "application/json",
         },
-      },
+      }
     );
 
     res.status(200).json(response.data);
@@ -282,7 +283,7 @@ app.post("/api/uploadSave", async (req, res) => {
           Authorization: process.env.workerAUTH,
           "Content-Type": "application/json",
         },
-      },
+      }
     );
 
     res.status(200).json(response.data);
@@ -308,7 +309,7 @@ app.post("/api/readSave", async (req, res) => {
           Authorization: process.env.workerAUTH,
           "Content-Type": "application/json",
         },
-      },
+      }
     );
 
     res.status(200).json(response.data);
@@ -362,39 +363,7 @@ app.use((req, res) => {
   res.status(404).sendFile(notFoundPage);
 });
 
-server.on("request", (req, res) => {
-  try {
-    if (bareServer.shouldRoute(req)) {
-      bareServer.routeRequest(req, res);
-    } else {
-      app(req, res);
-    }
-  } catch (error) {
-    console.error("Request error:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-server.on("upgrade", (req, socket, head) => {
-  try {
-    if (bareServer.shouldRoute(req)) {
-      bareServer.routeUpgrade(req, socket, head);
-    } else {
-      socket.end();
-    }
-  } catch (error) {
-    console.error("Upgrade error:", error);
-    socket.end();
-  }
-});
-
 const activeConversations = new Map();
-
-server.on("listening", () => {
-  console.log(`\n------------------------------------`);
-  console.log(`🔗 URL: http://localhost:${process.env.PORT}`);
-  console.log(`------------------------------------\n`);
-});
 
 function shutdown(signal) {
   console.log("-----------------------------------------------");
@@ -409,10 +378,8 @@ function shutdown(signal) {
 process.on("SIGTERM", () => shutdown("SIGTERM"));
 process.on("SIGINT", () => shutdown("SIGINT"));
 
-server.listen({
-  port: process.env.PORT || 8080,
-});
-
-server.on("error", (error) => {
-  console.error("Server error:", error);
+listen(process.env.PORT || 8080, () => {
+  console.log(`\n------------------------------------`);
+  console.log(`🔗 URL: http://localhost:${process.env.PORT}`);
+  console.log(`------------------------------------\n`);
 });

@@ -14,20 +14,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="/misc/media/css/watch.css" />
     <script src="/assets/js/script.js?v=11"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-                navigator.serviceWorker.register('/assets/uv/sw.js', {
-                    scope: '/assets/uv/service/',
-                }).then(function (registration) {
-                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                }, function (error) {
-                    console.log('ServiceWorker registration failed: ', error);
-                });
-            });
-        }
-    </script>
-    <script src="/misc/media/js/watchmovie.js?v=1"></script>
+    <script src="/misc/media/js/watchmovie.js?v=2"></script>
 </head>
 
 <body>
