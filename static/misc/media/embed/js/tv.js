@@ -1,5 +1,4 @@
-
-window.addEventListener("chemicalLoaded", async function(e) {
+async function getMovie() {
   ID = new URLSearchParams(window.location.search).get("id");
   season = new URLSearchParams(window.location.search).get("s");
   episode = new URLSearchParams(window.location.search).get("e");
@@ -7,7 +6,13 @@ window.addEventListener("chemicalLoaded", async function(e) {
     window.location.href = "/";
     return;
   }
-    url = `https://vidfast.pro/tv/${ID}/${season}/${episode}?title=false`;
+}
 
-    location.href = await chemical.encode(url)
+document.addEventListener("DOMContentLoaded", function () {
+  getMovie();
 });
+
+
+ function play() {
+  visit(`https://vidfast.pro/tv/${ID}/${season}/${episode}?title=false`);
+}

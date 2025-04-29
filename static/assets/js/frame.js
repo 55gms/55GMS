@@ -6,25 +6,36 @@ function isUrl(val = "") {
     return true;
   return false;
 }
-async function loadNewPage(url) {
+function decodeURL(url) {
+  return __uv$config.decodeUrl(url);
+}
+function loadNewPage(url) {
   document.getElementById("searchBar").blur();
-  if (!isUrl(url))
-    url =
-      "https://www.startpage.com/do/dsearch?q=" +
-      url +
-      "&prfe=c57c22e13e460563a35c92a15473c441f5c29b69ccd3205ec7ef196c47a9e998dd39b212fcc6cfe1c0543668da628df8bacab528394fdc69853b68959f7a1fe67bf84ac42cd4ef5a0fb0fd0b";
+  window.navigator.serviceWorker.register("/assets/uv/sw.js", {
+    scope: "/assets/uv/service/",
+  });
+  if (!isUrl(url)) url = "https://www.startpage.com/do/dsearch?q=" + url;
   else if (!(url.startsWith("https://") || url.startsWith("http://")))
     url = "https://" + url;
-  let urlEncoded = await chemical.encode(url);
+  let urlEncoded = __uv$config.encodeUrl(url);
+  urlEncoded = "/assets/uv/service/" + urlEncoded;
   const iframe = document.getElementById("iframeid");
   if (iframe) {
     iframe.src = urlEncoded;
+  }
+  if (url === "https://nowgg.lol/") {
+    url = "gms://roblox";
+  } else if (
+    url === "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html"
+  ) {
+    url = "gms://android";
   }
   searchBar.value = url;
 }
 
 window.addEventListener("load", function () {
   let encodedUrl = sessionStorage.getItem("encodedUrl");
+  encodedUrl = "/assets/uv/service/" + encodedUrl;
   console.log(encodedUrl);
   const iframe = document.getElementById("iframeid");
   if (iframe) {
@@ -33,42 +44,48 @@ window.addEventListener("load", function () {
     console.error('Iframe with id "iframeid" does not exist');
   }
 });
-window.addEventListener("chemicalLoaded", async function () {
+window.addEventListener("DOMContentLoaded", function () {
   const searchBar = document.getElementById("searchBar");
   if (searchBar) {
-    try {
-      const encodedUrl = sessionStorage.getItem("encodedUrl");
-      if (encodedUrl) {
-        const decodedUrl = await chemical.decode(encodedUrl);
-        searchBar.value = decodedUrl;
-      }
-
-      searchBar.addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-          let url = searchBar.value.trim();
-          loadNewPage(url);
+    searchBar.setAttribute(
+      "value",
+      decodeURL(sessionStorage.getItem("encodedUrl"))
+    );
+    // search bar functionality
+    searchBar.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        let url = searchBar.value.trim();
+        if (url === "gms://roblox") {
+          url = "https://nowgg.lol/";
+        } else if (url === "gms://android") {
+          url =
+            "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html";
         }
-      });
-
-      const iframe = document.getElementById("iframeid");
-      iframe.addEventListener("load", async function () {
-        const currentSrc = iframe.contentWindow.location.href;
-        const decodedUrl = await chemical.decode(currentSrc);
-        searchBar.value = decodedUrl;
-        sessionStorage.setItem("encodedUrl", currentSrc);
-      });
-    } catch (error) {
-      console.error("Error:", error);
+        loadNewPage(url);
+      }
+    });
+    if (
+      searchBar.value === "https://nowgg.lol/" ||
+      searchBar.value ===
+        "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html"
+    ) {
+      document.getElementById("iframeid").sandbox =
+        "allow-scripts allow-pointer-lock allow-forms allow-same-origin allow-downloads";
+      if (searchBar.value === "https://nowgg.lol/") {
+        searchBar.value = "gms://roblox";
+      } else if (
+        searchBar.value ===
+        "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html"
+      ) {
+        searchBar.value = "gms://android";
+      }
     }
   } else {
     console.error('Search bar with id "searchBar" does not exist');
   }
-
-  if (searchBar) {
-    searchBar.addEventListener("focus", function () {
-      searchBar.select();
-    });
-  }
+  searchBar.addEventListener("focus", function () {
+    searchBar.select();
+  });
 });
 
 function reload() {
