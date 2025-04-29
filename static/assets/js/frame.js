@@ -94,7 +94,7 @@ function reload() {
 document.onfullscreenchange = function () {
   document.body.classList.toggle(
     "fullscreen-active",
-    document.fullscreenElement
+    document.fullscreenElement,
   );
   iframe = document.getElementById("iframeid");
   if (document.fullscreenElement) {
