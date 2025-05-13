@@ -49,7 +49,7 @@ window.addEventListener("DOMContentLoaded", function () {
   if (searchBar) {
     searchBar.setAttribute(
       "value",
-      decodeURL(sessionStorage.getItem("encodedUrl"))
+      decodeURL(sessionStorage.getItem("encodedUrl")),
     );
     // search bar functionality
     searchBar.addEventListener("keydown", function (event) {
