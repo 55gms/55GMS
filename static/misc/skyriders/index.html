@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Sky Rider</title>
+  <link rel="stylesheet" href="./styles/gameloader.css" />
+  <script src="./js/gameloader.js"></script>
+  <script src="./js/gameloaderhelper.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <script type="text/javascript">
+    var options = {
+      logo: "logo.png",
+      gameName: "Sky Riders",
+      gameNameEu: "Sky Riders",
+      gameUrl: "41246",
+      moreLink: ("#"),
+      allowFullscreen: true,
+      locale: "en_US",
+      loader: "unity2020",
+      loaderOptions: {
+        unityLoaderUrl: "Build/SkyRiders-Save.loader.js",
+        unityConfigOptions: {
+          dataUrl: "Build/99606e9dae7504bbb37c9e9eab12dc88.data.br",
+          frameworkUrl: "Build/360a95477d1db22789707b3fb22b15d0.js.br?v=3",
+          codeUrl: "Build/bb237ea77de62208b03beff88d1b3703.wasm.br",
+          streamingAssetsUrl: "StreamingAssets"
+        }
+      },
+    };
+    GameInit.load(options);   
+  </script>
+</body>
+
+</html>
+
+
+<style>
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow: hidden;
+  }
+
+  html {
+    overflow: hidden;
+  }
+</style>
