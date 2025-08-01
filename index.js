@@ -3,48 +3,26 @@ const http = require("http");
 const { createBareServer } = require("@tomphttp/bare-server-node");
 const path = require("path");
 const cors = require("cors");
-
-const axios = require("axios");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const tokenLimit = 498000;
-let tokenUsage = 0;
+// Import route modules
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/users");
+const { router: chatRoutes, initializeChatRoute } = require("./routes/chat");
 
-const modelData = `
-gemma2-9b-it
-llama-3.3-70b-versatile
-llama-3.1-8b-instant
-llama3-70b-8192
-llama3-8b-8192
-mixtral-8x7b-32768
-llama-3.3-70b-versatile
-llama-3.3-70b-specdec
-llama-3.2-1b-preview
-llama-3.2-3b-preview
-deepseek-r1-distill-llama-70b
-deepseek-r1-distill-qwen-32b
-qwen-2.5-32b
-qwen-2.5-coder-32b
-`
-  .trim()
-  .split("\n")
-  .map((line) => {
-    return { name: line.trim() };
-  });
+// Import utilities
+const ModelManager = require("./utils/modelManager");
 
-let currentModelIndex = 0;
-let currentModel = modelData[currentModelIndex].name;
-
-function switchModel() {
-  currentModelIndex = (currentModelIndex + 1) % modelData.length;
-  currentModel = modelData[currentModelIndex].name;
-  tokenUsage = 0;
-  console.log(`Switched to model: ${currentModel}`);
-}
+// Initialize model manager
+const modelManager = new ModelManager();
 
 const server = http.createServer();
 const app = express(server);
+const activeConversations = new Map();
+
+// Initialize chat route with dependencies
+initializeChatRoute(modelManager, activeConversations);
 
 app.use("/t/", (req, res, next) => {
   res.setHeader("X-Frame-Options", "SAMEORIGIN");
@@ -64,258 +42,15 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post("/api/chat", async (req, res) => {
-  const { message, userId } = req.body;
+// Use route modules
+app.use("/api", authRoutes);
+app.use("/api", userRoutes);
+app.use("/api", chatRoutes);
 
-  if (!userId) {
-    return res.status(400).json({ error: "Not enough arguments" });
-  }
-
-  let conversation = activeConversations.get(userId) || [];
-  conversation.push({ role: "user", content: message });
-
-  try {
-    const response = await axios.post(
-      "https://api.groq.com/openai/v1/chat/completions",
-      {
-        model: currentModel,
-        messages: conversation,
-        temperature: 0.7,
-        max_tokens: 1024,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.API_KEY}`,
-          "Content-Type": "application/json",
-        },
-      },
-    );
-    if (response.status === 429) {
-      switchModel();
-      const response = await axios.post(
-        "https://api.groq.com/openai/v1/chat/completions",
-        {
-          model: currentModel,
-          messages: conversation,
-          temperature: 0.7,
-          max_tokens: 1024,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${randomAPIKey}`,
-            "Content-Type": "application/json",
-          },
-        },
-      );
-      const aiResponse = response.data.choices[0].message.content;
-      conversation.push({ role: "assistant", content: aiResponse });
-
-      tokenUsage += response.data.usage.total_tokens;
-      if (conversation.length > 5) {
-        conversation = conversation.slice(-5);
-      }
-      if (tokenUsage >= tokenLimit) {
-        switchModel();
-      }
-
-      activeConversations.set(userId, conversation);
-
-      res.json({ response: aiResponse });
-    }
-    const aiResponse = response.data.choices[0].message.content;
-    conversation.push({ role: "assistant", content: aiResponse });
-
-    tokenUsage += response.data.usage.total_tokens;
-    if (conversation.length > 5) {
-      conversation = conversation.slice(-5);
-    }
-    if (tokenUsage >= tokenLimit) {
-      switchModel();
-    }
-
-    activeConversations.set(userId, conversation);
-
-    res.json({ response: aiResponse });
-  } catch (error) {
-    if (error.response && error.response.status === 429) {
-      res.status(429).json({ error: "Too many requests" });
-      switchModel();
-    } else if (error.response && error.response.status === 503) {
-      res.status(503).json({ error: "Service unavailable" });
-    } else {
-      res
-        .status(500)
-        .json({ error: "An error occurred while processing your request." });
-      console.log(error);
-    }
-  }
-});
-app.get("/api/usedTokens", (req, res) => {
-  res.json({ usedTokens: tokenUsage, model: currentModel });
-});
-
-app.post("/api/signUp", async (req, res) => {
-  let { password, username, premium = false, captchaResponse } = req.body;
-
-  if (!password || !username || !captchaResponse) {
-    return res.status(400).json({ error: "Not enough arguments" });
-  }
-  if (password.length < 6) {
-    return res.status(400).json({ error: "Password too short" });
-  }
-  if (username.length < 3) {
-    return res.status(400).json({ error: "Username too short" });
-  }
-
-  try {
-    const captchaVerifyResponse = await axios.post(
-      "https://hcaptcha.com/siteverify",
-      new URLSearchParams({
-        secret: process.env.hcaptchaSecret,
-        response: captchaResponse,
-      }),
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      },
-    );
-
-    if (!captchaVerifyResponse.data.success) {
-      console.log(captchaVerifyResponse.data["error-codes"]);
-      return res.status(400).json({ error: "Invalid CAPTCHA" });
-    }
-
-    const response = await axios.post(
-      "https://db.55gms.com/api/signup",
-      {
-        username,
-        password,
-        premium,
-      },
-      {
-        headers: {
-          Authorization: process.env.workerAUTH,
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    res.status(200).json(response.data);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "An error occurred while processing your request." });
-    console.log(error);
-  }
-});
-app.post("/api/login", async (req, res) => {
-  let { username, password } = req.body;
-
-  if (!username || !password) {
-    return res.status(400).json({ error: "Not enough arguments" });
-  }
-
-  try {
-    const response = await axios.post(
-      "https://db.55gms.com/api/login",
-      {
-        username,
-        password,
-      },
-      {
-        headers: {
-          Authorization: process.env.workerAUTH,
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    res.status(200).json(response.data);
-  } catch (error) {
-    res.status(500).json({ error: "Invalid Email or password" });
-  }
-});
-app.post("/api/checkPremium", async (req, res) => {
-  let { uuid } = req.body;
-
-  if (!uuid) {
-    return res.status(400).json({ error: "Not enough arguments" });
-  }
-
-  try {
-    const response = await axios.post(
-      "https://db.55gms.com/api/users/premium",
-      {
-        uuid,
-      },
-      {
-        headers: {
-          Authorization: process.env.workerAUTH,
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    res.status(200).json(response.data);
-  } catch (error) {
-    res.status(500).json({ error: error });
-  }
-});
-app.post("/api/uploadSave", async (req, res) => {
-  let saveData = req.body;
-  let uuid = req.headers["uuid"];
-
-  if (!saveData || !uuid) {
-    return res.status(400).json({ error: "Not enough arguments" });
-  }
-
-  try {
-    const response = await axios.post(
-      "https://db.55gms.com/api/users/uploadSave",
-      {
-        uuid,
-        saveData,
-      },
-      {
-        headers: {
-          Authorization: process.env.workerAUTH,
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    res.status(200).json(response.data);
-  } catch (error) {
-    res.status(500).json({ error: error });
-  }
-});
-app.post("/api/readSave", async (req, res) => {
-  let { uuid } = req.body;
-
-  if (!uuid) {
-    return res.status(400).json({ error: "Not enough arguments" });
-  }
-
-  try {
-    const response = await axios.post(
-      "https://db.55gms.com/api/users/readSave",
-      {
-        uuid: uuid,
-      },
-      {
-        headers: {
-          Authorization: process.env.workerAUTH,
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    res.status(200).json(response.data);
-  } catch (error) {
-    res.status(500).json({ error: error });
-  }
-});
+// Use route modules
+app.use("/api", authRoutes);
+app.use("/api", userRoutes);
+app.use("/api", chatRoutes);
 
 app.use((req, res, next) => {
   res.setHeader("X-Frame-Options", "SAMEORIGIN");
@@ -387,8 +122,6 @@ server.on("upgrade", (req, socket, head) => {
     socket.end();
   }
 });
-
-const activeConversations = new Map();
 
 server.on("listening", () => {
   console.log(`\n------------------------------------`);
