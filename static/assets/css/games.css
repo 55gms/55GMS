@@ -18,6 +18,125 @@ h6 {
   color: #faf9f6;
 }
 
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 15px;
+}
+
+.loading-text {
+  font-family: "Roboto", serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #faf9f6;
+  opacity: 0.9;
+}
+
+.progress-bar-container {
+  width: 400px;
+  height: 12px;
+  background: rgba(122, 143, 171, 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(122, 143, 171, 0.5);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #7a8fab 0%, #6f829b 50%, #8fa5c7 100%);
+  border-radius: 6px;
+  width: 0%;
+  transition: width 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shine 2s infinite;
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.progress-percentage {
+  font-family: "Roboto", serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #faf9f6;
+  opacity: 0.8;
+  margin-top: 5px;
+}
+
+@media screen and (max-width: 1000px) {
+  .progress-bar-container {
+    width: 80%;
+    max-width: 350px;
+  }
+
+  .loading-text {
+    font-size: 16px;
+  }
+
+  .searchbar {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .searchbar:focus {
+    scale: 1.05;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .progress-bar-container {
+    width: 90%;
+    max-width: 300px;
+    height: 10px;
+  }
+
+  .loading-text {
+    font-size: 14px;
+  }
+
+  .progress-percentage {
+    font-size: 12px;
+  }
+
+  .searchbar {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .searchbar:focus {
+    scale: 1.02;
+  }
+}
+
 .searchbar {
   padding: 1vw;
   width: 40%;

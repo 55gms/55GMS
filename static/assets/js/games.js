@@ -2,6 +2,10 @@ let loadedImages = 0;
 window.addEventListener("load", (event) => {
   const gameContainer = document.getElementById("game-container");
   const text = document.getElementById("text");
+  const loadingContainer = document.getElementById("loading-container");
+  const progressBar = document.getElementById("progress-bar");
+  const progressPercentage = document.getElementById("progress-percentage");
+  const loadingText = document.getElementById("loading-text");
 
   try {
     fetch("/assets/json/load/games.json")
@@ -9,6 +13,8 @@ window.addEventListener("load", (event) => {
       .then((games) => {
         games.sort((a, b) => a.name.localeCompare(b.name));
         const totalImages = games.length;
+
+        loadingText.textContent = `Loading ${totalImages} games...`;
 
         games.forEach(function (game, gameNum) {
           let gameHtml;
@@ -25,8 +31,8 @@ window.addEventListener("load", (event) => {
           } else {
             gameHtml = `<div class="game">
               <a href="${game.url}" rel="noopener noreferrer" ${
-                game.alert ? `onclick="alert('${game.alert}');"` : ""
-              }>
+              game.alert ? `onclick="alert('${game.alert}');"` : ""
+            }>
                   <img loading="eager" src="${game.image}"
                        onload="handleImageLoad(${totalImages})">
                   <p class="text">${game.name}</p>
@@ -47,9 +53,39 @@ window.addEventListener("load", (event) => {
 
 function handleImageLoad(totalImages) {
   loadedImages++;
+  const progressBar = document.getElementById("progress-bar");
+  const progressPercentage = document.getElementById("progress-percentage");
+  const loadingContainer = document.getElementById("loading-container");
+  const loadingText = document.getElementById("loading-text");
+
+  const percentage = Math.round((loadedImages / totalImages) * 100);
+
+  if (progressBar) {
+    progressBar.style.width = `${percentage}%`;
+  }
+
+  if (progressPercentage) {
+    progressPercentage.textContent = `${percentage}%`;
+  }
+
+  if (loadingText) {
+    if (percentage === 100) {
+      loadingText.textContent = "All games loaded!";
+    } else {
+      loadingText.textContent = `Loading games... (${loadedImages}/${totalImages})`;
+    }
+  }
+
   if (loadedImages >= totalImages) {
-    text.style.display = "none";
+    setTimeout(() => {
+      if (loadingContainer) {
+        loadingContainer.style.opacity = "0";
+        loadingContainer.style.transition = "opacity 0.5s ease";
+        setTimeout(() => {
+          loadingContainer.style.display = "none";
+        }, 500);
+      }
+    }, 800);
     return;
   }
-  text.innerText = `Loading games (${loadedImages}/${totalImages})`;
 }

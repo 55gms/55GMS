@@ -30,11 +30,20 @@
     </div>
   </nav>
   <main>
-    <link href="assets/css/games.css?v=3" rel="stylesheet" />
-    <script src="/assets/js/games.js?v=6"></script>
+    <link href="assets/css/games.css?v=4" rel="stylesheet" />
+    <script src="/assets/js/games.js?v=7"></script>
     <input id="searchbar" class='searchbar' onkeyup="search();" placeholder="Search through our games" type="text"
       autocomplete="off" /><br>
-    <text id="text"></text>
+
+    <div id="loading-container" class="loading-container">
+      <div class="loading-text" id="loading-text">Loading games...</div>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="progress-percentage" id="progress-percentage">0%</div>
+    </div>
+
+    <text id="text" style="display: none;"></text>
     <div id="game-container">
     </div>
     <br>
