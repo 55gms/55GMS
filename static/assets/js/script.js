@@ -2,7 +2,7 @@ function script(text) {
   console.log(
     "%cScript Injection",
     "color: cyan; font-weight: 600; background: black; padding: 0 5px; border-radius: 5px",
-    text,
+    text
   );
 }
 
@@ -12,7 +12,7 @@ function script(text) {
 const newScript = document.createElement("script");
 newScript.setAttribute(
   "src",
-  "https://www.googletagmanager.com/gtag/js?id=G-N0LG27M8L8",
+  "https://www.googletagmanager.com/gtag/js?id=G-N0LG27M8L8"
 );
 const inlinegascript = document.createElement("script");
 inlinegascript.innerHTML = `window.dataLayer = window.dataLayer || [];
@@ -49,6 +49,9 @@ document.addEventListener("DOMContentLoaded", function () {
       console.warn('No link element with rel="icon" found');
     }
   }
+
+  // Initialize online status tracking for logged-in users
+  initializeOnlineStatus();
 });
 
 fetch("/assets/json/ads.json")
@@ -59,7 +62,7 @@ fetch("/assets/json/ads.json")
       adscipterz92.setAttribute("async", "");
       adscipterz92.setAttribute(
         "src",
-        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317",
+        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317"
       );
       adscipterz92.setAttribute("crossorigin", "anonymous");
       document.head.append(adscipterz92);
@@ -111,5 +114,48 @@ if (blankerCheck === "true") {
       popup.document.body.appendChild(iframe);
       location.replace("https://www.google.com");
     }
+  }
+}
+
+// Online status tracking for chat system
+function initializeOnlineStatus() {
+  const uuid = localStorage.getItem("uuid");
+
+  // Only track if user is logged in and not on chat page (chat page handles its own connection)
+  if (uuid && !window.location.pathname.startsWith("/chat")) {
+    let statusSocket;
+
+    function connectStatusSocket() {
+      try {
+        statusSocket = io();
+
+        statusSocket.on("connect", () => {
+          statusSocket.emit("authenticate", { uuid });
+        });
+
+        statusSocket.on("disconnect", () => {
+          console.log("Status socket disconnected");
+        });
+
+        // Heartbeat to keep connection alive
+        setInterval(() => {
+          if (statusSocket && statusSocket.connected) {
+            statusSocket.emit("heartbeat", { uuid });
+          }
+        }, 30000); // Every 30 seconds
+      } catch (error) {
+        console.log("Chat system not available");
+      }
+    }
+
+    // Connect status socket
+    connectStatusSocket();
+
+    // Disconnect on page unload
+    window.addEventListener("beforeunload", () => {
+      if (statusSocket) {
+        statusSocket.disconnect();
+      }
+    });
   }
 }

@@ -1,14 +1,25 @@
 const express = require("express");
 const http = require("http");
+const socketIo = require("socket.io");
 const { createBareServer } = require("@tomphttp/bare-server-node");
 const path = require("path");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const { Op } = require("sequelize");
 dotenv.config();
+
+const {
+  initDatabase,
+  UserStatus,
+  Chat,
+  Message,
+  ChatMember,
+} = require("./models");
 
 // Import route modules
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
+const messagingRoutes = require("./routes/messaging");
 const { router: chatRoutes, initializeChatRoute } = require("./routes/chat");
 
 // Import utilities
@@ -17,19 +28,37 @@ const ModelManager = require("./utils/modelManager");
 // Initialize model manager
 const modelManager = new ModelManager();
 
-const server = http.createServer();
-const app = express(server);
+const app = express();
+const server = http.createServer(app);
+
+// Create bare server for /t/ routes
+const bareServer = createBareServer("/t/");
+
+// Create Socket.IO instance
+const io = socketIo(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
+
 const activeConversations = new Map();
+const connectedUsers = new Map(); // Map of socketId -> userUuid
+
+// Initialize database
+initDatabase().catch(console.error);
 
 // Initialize chat route with dependencies
 initializeChatRoute(modelManager, activeConversations);
 
-app.use("/t/", (req, res, next) => {
-  res.setHeader("X-Frame-Options", "SAMEORIGIN");
-  next();
+// Middleware to handle bare server routes
+app.use((req, res, next) => {
+  if (bareServer.shouldRoute(req)) {
+    bareServer.routeRequest(req, res);
+  } else {
+    next();
+  }
 });
-
-const bareServer = createBareServer("/t/");
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
@@ -45,17 +74,220 @@ app.use((req, res, next) => {
 // Use route modules
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
+app.use("/api", messagingRoutes);
 app.use("/api", chatRoutes);
 
-// Use route modules
-app.use("/api", authRoutes);
-app.use("/api", userRoutes);
-app.use("/api", chatRoutes);
+// Socket.IO connection handling
+io.on("connection", (socket) => {
+  console.log("User connected:", socket.id);
 
-app.use((req, res, next) => {
-  res.setHeader("X-Frame-Options", "SAMEORIGIN");
-  next();
+  // Handle user authentication and online status
+  socket.on("authenticate", async (data) => {
+    try {
+      const { uuid } = data;
+      if (!uuid) return;
+
+      connectedUsers.set(socket.id, uuid);
+
+      // Update user status to online
+      await UserStatus.upsert({
+        userUuid: uuid,
+        isOnline: true,
+        lastSeen: new Date(),
+        socketId: socket.id,
+      });
+
+      // Join user to their personal room for notifications
+      socket.join(`user_${uuid}`);
+
+      // Get user's chats and join those rooms
+      const userChats = await ChatMember.findAll({
+        where: { userUuid: uuid },
+        include: [{ model: Chat, as: "chat" }],
+      });
+
+      userChats.forEach((chatMember) => {
+        socket.join(`chat_${chatMember.chatId}`);
+      });
+
+      // Notify friends that user is online
+      socket.broadcast.emit("user_status_change", {
+        userUuid: uuid,
+        isOnline: true,
+      });
+
+      console.log(`User ${uuid} authenticated and joined rooms`);
+    } catch (error) {
+      console.error("Error during authentication:", error);
+    }
+  });
+
+  // Handle joining specific chat rooms
+  socket.on("join_chat", (chatId) => {
+    socket.join(`chat_${chatId}`);
+    console.log(`Socket ${socket.id} joined chat ${chatId}`);
+  });
+
+  // Handle leaving chat rooms
+  socket.on("leave_chat", (chatId) => {
+    socket.leave(`chat_${chatId}`);
+    console.log(`Socket ${socket.id} left chat ${chatId}`);
+  });
+
+  // Handle new messages
+  socket.on("send_message", async (data) => {
+    try {
+      const { chatId, content, senderUuid } = data;
+
+      // Verify sender is authenticated
+      const authenticatedUuid = connectedUsers.get(socket.id);
+      if (authenticatedUuid !== senderUuid) {
+        return socket.emit("error", "Authentication mismatch");
+      }
+
+      // Broadcast the message to all users in the chat
+      socket.to(`chat_${chatId}`).emit("new_message", {
+        chatId,
+        content,
+        senderUuid,
+        timestamp: new Date(),
+      });
+
+      // Update chat's last activity
+      await Chat.update(
+        { lastActivity: new Date() },
+        { where: { id: chatId } }
+      );
+    } catch (error) {
+      console.error("Error handling message:", error);
+      socket.emit("error", "Failed to send message");
+    }
+  });
+
+  // Handle typing indicators
+  socket.on("typing_start", (data) => {
+    const { chatId, senderUuid } = data;
+    socket.to(`chat_${chatId}`).emit("user_typing", {
+      chatId,
+      userUuid: senderUuid,
+      isTyping: true,
+    });
+  });
+
+  socket.on("typing_stop", (data) => {
+    const { chatId, senderUuid } = data;
+    socket.to(`chat_${chatId}`).emit("user_typing", {
+      chatId,
+      userUuid: senderUuid,
+      isTyping: false,
+    });
+  });
+
+  // Handle read receipts
+  socket.on("mark_read", async (data) => {
+    try {
+      const { chatId } = data;
+      const userUuid = connectedUsers.get(socket.id);
+
+      if (!userUuid) return;
+
+      // Update last read timestamp
+      await ChatMember.update(
+        { lastReadAt: new Date() },
+        { where: { chatId, userUuid } }
+      );
+
+      // Notify other chat members
+      socket.to(`chat_${chatId}`).emit("messages_read", {
+        chatId,
+        userUuid,
+        readAt: new Date(),
+      });
+    } catch (error) {
+      console.error("Error marking messages as read:", error);
+    }
+  });
+
+  // Handle heartbeat to keep users online
+  socket.on("heartbeat", async (data) => {
+    try {
+      const { uuid } = data;
+      if (!uuid) return;
+
+      // Update last seen timestamp
+      await UserStatus.upsert({
+        userUuid: uuid,
+        isOnline: true,
+        lastSeen: new Date(),
+        socketId: socket.id,
+      });
+    } catch (error) {
+      console.error("Error handling heartbeat:", error);
+    }
+  });
+
+  // Handle disconnect
+  socket.on("disconnect", async () => {
+    try {
+      const userUuid = connectedUsers.get(socket.id);
+      if (userUuid) {
+        // Update user status to offline
+        await UserStatus.update(
+          {
+            isOnline: false,
+            lastSeen: new Date(),
+            socketId: null,
+          },
+          { where: { userUuid } }
+        );
+
+        // Notify friends that user is offline
+        socket.broadcast.emit("user_status_change", {
+          userUuid,
+          isOnline: false,
+          lastSeen: new Date(),
+        });
+
+        connectedUsers.delete(socket.id);
+        console.log(`User ${userUuid} disconnected`);
+      }
+    } catch (error) {
+      console.error("Error during disconnect:", error);
+    }
+  });
 });
+
+// Heartbeat system to keep users online
+setInterval(async () => {
+  try {
+    // Mark users as offline if they haven't been seen in 2 minutes
+    const twoMinutesAgo = new Date(Date.now() - 2 * 60 * 1000);
+
+    const staleUsers = await UserStatus.findAll({
+      where: {
+        isOnline: true,
+        lastSeen: { [Op.lt]: twoMinutesAgo },
+      },
+    });
+
+    for (const user of staleUsers) {
+      await user.update({
+        isOnline: false,
+        socketId: null,
+      });
+
+      // Notify friends about status change
+      io.emit("user_status_change", {
+        userUuid: user.userUuid,
+        isOnline: false,
+        lastSeen: user.lastSeen,
+      });
+    }
+  } catch (error) {
+    console.error("Error in heartbeat cleanup:", error);
+  }
+}, 60000); // Run every minute
+
 app.use(express.static(path.join(__dirname, "static")));
 app.use((req, res, next) => {
   if (req.method === "GET" && !path.extname(req.url)) {
@@ -84,6 +316,8 @@ const routes = [
   { path: "/login", file: "login.html" },
   { path: "/signup", file: "signup.html" },
   { path: "/l", file: "/assets/404/loading.html" },
+  { path: "/c", file: "chat.html" },
+  { path: "/chat", file: "chat.html" },
 ];
 
 routes.forEach((route) => {
@@ -92,33 +326,21 @@ routes.forEach((route) => {
   });
 });
 
+// Handle dynamic chat routes
+app.get("/chat/:chatId", (req, res) => {
+  res.sendFile(path.join(__dirname, "static", "chat.html"));
+});
+
 app.use((req, res) => {
   const notFoundPage = path.join(__dirname, "static", "404.html");
   res.status(404).sendFile(notFoundPage);
 });
 
-server.on("request", (req, res) => {
-  try {
-    if (bareServer.shouldRoute(req)) {
-      bareServer.routeRequest(req, res);
-    } else {
-      app(req, res);
-    }
-  } catch (error) {
-    console.error("Request error:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
+// Handle upgrade events for bare server
 server.on("upgrade", (req, socket, head) => {
-  try {
-    if (bareServer.shouldRoute(req)) {
-      bareServer.routeUpgrade(req, socket, head);
-    } else {
-      socket.end();
-    }
-  } catch (error) {
-    console.error("Upgrade error:", error);
+  if (bareServer.shouldRoute(req)) {
+    bareServer.routeUpgrade(req, socket, head);
+  } else {
     socket.end();
   }
 });
