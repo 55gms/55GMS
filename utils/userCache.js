@@ -3,7 +3,7 @@ const axios = require("axios");
 class UserCache {
   constructor() {
     this.cache = new Map();
-    this.cacheTimeout = 5 * 60 * 1000; // 5 minutes cache
+    this.cacheTimeout = 5 * 60 * 1000;
   }
 
   async getUserByUuid(uuid) {
@@ -73,12 +73,10 @@ class UserCache {
     this.cache.delete(uuid);
   }
 
-  // Clear all cache
   clearCache() {
     this.cache.clear();
   }
 
-  // Clean up expired entries
   cleanupExpired() {
     const now = Date.now();
     for (const [uuid, cached] of this.cache.entries()) {
@@ -89,10 +87,8 @@ class UserCache {
   }
 }
 
-// Create singleton instance
 const userCache = new UserCache();
 
-// Cleanup expired entries every 10 minutes
 setInterval(() => {
   userCache.cleanupExpired();
 }, 10 * 60 * 1000);

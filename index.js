@@ -16,25 +16,20 @@ const {
   ChatMember,
 } = require("./models");
 
-// Import route modules
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
 const messagingRoutes = require("./routes/messaging");
 const { router: chatRoutes, initializeChatRoute } = require("./routes/chat");
 
-// Import utilities
 const ModelManager = require("./utils/modelManager");
 
-// Initialize model manager
 const modelManager = new ModelManager();
 
 const app = express();
 const server = http.createServer(app);
 
-// Create bare server for /t/ routes
 const bareServer = createBareServer("/t/");
 
-// Create Socket.IO instance
 const io = socketIo(server, {
   cors: {
     origin: "*",
@@ -43,16 +38,13 @@ const io = socketIo(server, {
 });
 
 const activeConversations = new Map();
-const connectedUsers = new Map(); // Map of socketId -> userUuid
-const activeChats = new Map(); // Map of socketId -> chatId (currently viewing)
+const connectedUsers = new Map();
+const activeChats = new Map();
 
-// Initialize database
 initDatabase().catch(console.error);
 
-// Initialize chat route with dependencies
 initializeChatRoute(modelManager, activeConversations);
 
-// Middleware to handle bare server routes
 app.use((req, res, next) => {
   if (bareServer.shouldRoute(req)) {
     bareServer.routeRequest(req, res);
@@ -72,15 +64,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// Use route modules
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", messagingRoutes);
 app.use("/api", chatRoutes);
 
-// Socket.IO connection handling
 io.on("connection", (socket) => {
-  // Handle user authentication and online status
   socket.on("authenticate", async (data) => {
     try {
       const { uuid, joinChatRooms = false } = data;
@@ -88,7 +77,6 @@ io.on("connection", (socket) => {
 
       connectedUsers.set(socket.id, uuid);
 
-      // Update user status to online
       await UserStatus.upsert({
         userUuid: uuid,
         isOnline: true,
@@ -96,12 +84,9 @@ io.on("connection", (socket) => {
         socketId: socket.id,
       });
 
-      // Join user to their personal room for notifications
       socket.join(`user_${uuid}`);
 
-      // Only join chat rooms if explicitly requested (for chat page)
       if (joinChatRooms) {
-        // Get user's chats and join those rooms
         const userChats = await ChatMember.findAll({
           where: { userUuid: uuid },
           include: [{ model: Chat, as: "chat" }],
@@ -146,7 +131,6 @@ io.on("connection", (socket) => {
         return socket.emit("error", "Authentication mismatch");
       }
 
-      // Use the provided username instead of making an HTTP request
       const finalSenderUsername = senderUsername || "Unknown User";
 
       socket.to(`chat_${chatId}`).emit("new_message", {
