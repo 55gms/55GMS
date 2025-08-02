@@ -98,6 +98,10 @@ function initializeSocket() {
 
   socket.on("messages_read", (data) => {
     console.log("Messages read by:", data.userUuid);
+    // Clear unread count for the chat if it's the current user
+    if (data.userUuid === currentUser.uuid) {
+      clearUnreadCount(data.chatId);
+    }
   });
 
   socket.on("error", (error) => {
@@ -353,6 +357,9 @@ async function selectChat(chatId) {
       item.classList.add("active");
     }
   });
+
+  // Immediately clear unread count for this chat
+  clearUnreadCount(chatId);
 
   // Load chat messages
   await loadChatMessages(chatId);
@@ -1121,12 +1128,37 @@ function updateUserStatus(userUuid, isOnline) {
   }
 }
 
+// Clear unread count for a specific chat
+function clearUnreadCount(chatId) {
+  const chatIndex = chats.findIndex((c) => c.id === chatId);
+  if (chatIndex !== -1) {
+    chats[chatIndex].unreadCount = 0;
+
+    // Update the unread badge in the UI immediately
+    const chatItem = document.querySelector(`[data-chat-id="${chatId}"]`);
+    if (chatItem) {
+      const unreadBadge = chatItem.querySelector(".unread-badge");
+      if (unreadBadge) {
+        unreadBadge.remove();
+      }
+    }
+  }
+}
+
 // Update chat in list with new message
 function updateChatInList(chatId, messageData) {
   const chatIndex = chats.findIndex((c) => c.id === chatId);
   if (chatIndex !== -1) {
     chats[chatIndex].lastMessage = messageData;
     chats[chatIndex].lastActivity = messageData.timestamp || new Date();
+
+    // Increment unread count if this chat is not currently active and message is not from current user
+    if (
+      chatId !== currentChatId &&
+      messageData.senderUuid !== currentUser.uuid
+    ) {
+      chats[chatIndex].unreadCount = (chats[chatIndex].unreadCount || 0) + 1;
+    }
 
     // Move to top
     const chat = chats.splice(chatIndex, 1)[0];
