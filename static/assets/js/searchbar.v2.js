@@ -1,5 +1,5 @@
 function search() {
-  let searchbarVal = document.querySelector(".form__input").value.toLowerCase();
+  let searchbarVal = document.querySelector(".searchbar").value.toLowerCase();
   let gameNames = document.getElementsByClassName("game");
   let results = 0;
   for (let t = 0; t < gameNames.length; t++) {
@@ -28,6 +28,6 @@ document.addEventListener("keydown", function (e) {
   )
     return;
 
-  let searchbar = document.querySelector(".form__input");
+  let searchbar = document.querySelector(".searchbar");
   searchbar.focus();
 });
