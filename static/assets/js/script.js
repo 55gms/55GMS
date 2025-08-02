@@ -120,16 +120,28 @@ if (blankerCheck === "true") {
 // Online status tracking for chat system
 function initializeOnlineStatus() {
   const uuid = localStorage.getItem("uuid");
+  console.log("Initializing online status tracking for UUID:", uuid);
 
   // Only track if user is logged in and not on chat page (chat page handles its own connection)
   if (uuid && !window.location.pathname.startsWith("/chat")) {
+    console.log("Setting up status socket connection (not on chat page)");
     let statusSocket;
 
     function connectStatusSocket() {
       try {
+        console.log("Attempting to connect status socket for user:", uuid);
+
+        // Check if socket.io is available
+        if (typeof io === "undefined") {
+          console.error("Socket.IO library not loaded");
+          throw new Error("Socket.IO library not available");
+        }
+
+        console.log("Socket.IO library is available, creating connection...");
         statusSocket = io();
 
         statusSocket.on("connect", () => {
+          console.log("Status socket connected successfully");
           statusSocket.emit("authenticate", { uuid });
         });
 
@@ -137,25 +149,48 @@ function initializeOnlineStatus() {
           console.log("Status socket disconnected");
         });
 
+        statusSocket.on("connect_error", (error) => {
+          console.error("Status socket connection error:", error);
+        });
+
+        statusSocket.on("error", (error) => {
+          console.error("Status socket error:", error);
+        });
+
         // Heartbeat to keep connection alive
         setInterval(() => {
           if (statusSocket && statusSocket.connected) {
             statusSocket.emit("heartbeat", { uuid });
+          } else {
+            console.warn(
+              "Status socket not connected during heartbeat attempt"
+            );
           }
         }, 30000); // Every 30 seconds
+
+        console.log("Status socket setup completed");
       } catch (error) {
+        console.error("Error setting up chat system:", error);
         console.log("Chat system not available");
       }
     }
 
-    // Connect status socket
     connectStatusSocket();
 
-    // Disconnect on page unload
     window.addEventListener("beforeunload", () => {
       if (statusSocket) {
         statusSocket.disconnect();
       }
     });
+  } else {
+    console.log(
+      "Status socket not initialized - either no UUID or on chat page"
+    );
+    if (!uuid) {
+      console.log("No UUID found in localStorage");
+    }
+    if (window.location.pathname.startsWith("/chat")) {
+      console.log("On chat page - status socket handled by chat system");
+    }
   }
 }

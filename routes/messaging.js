@@ -208,6 +208,21 @@ router.post("/chats/:chatId/messages", authenticateUser, async (req, res) => {
         .json({ error: "Not authorized to send messages to this chat" });
     }
 
+    // Enforce max 200 messages per chat: delete oldest if at limit
+    const messageCount = await Message.count({ where: { chatId } });
+    if (messageCount >= 200) {
+      // Find the oldest message(s) to delete
+      const oldestMessages = await Message.findAll({
+        where: { chatId },
+        order: [["createdAt", "ASC"]],
+        limit: messageCount - 199, // delete enough to make room for 200
+      });
+      const idsToDelete = oldestMessages.map((msg) => msg.id);
+      if (idsToDelete.length > 0) {
+        await Message.destroy({ where: { id: idsToDelete } });
+      }
+    }
+
     // Create message
     const message = await Message.create({
       chatId,
@@ -495,7 +510,19 @@ router.put("/friends/:friendId", authenticateUser, async (req, res) => {
     if (action === "accept") {
       friendship.status = "accepted";
       await friendship.save();
-      res.json({ message: "Friend request accepted" });
+
+      let friendUsername = "Unknown User";
+      try {
+        const userResponse = await getUsernameByUuid(friendship.requesterUuid);
+        friendUsername = userResponse.username;
+      } catch (error) {
+        console.error("Error fetching friend username:", error);
+      }
+
+      res.json({
+        message: "Friend request accepted",
+        friendUsername: friendUsername,
+      });
     } else {
       await friendship.destroy();
       res.json({ message: "Friend request rejected" });

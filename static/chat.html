@@ -16,6 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/assets/js/script.js?v=11"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="/assets/js/easteregg.min.js" async></script>
 </head>
 
@@ -27,8 +28,8 @@
             <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
             <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
             <a href="/e"><i class="fa-solid fa-robot"></i>&nbsp;</i>AI</a>
-            <a href="/chat"><i class="fa-solid fa-comments">&nbsp;</i>Chat</a>
             <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
+            <a href="/chat"><i class="fa-solid fa-comments">&nbsp;</i></a>
             <a href="/profile"><i class="fa-solid fa-user"></i></a>
         </div>
     </nav>
@@ -44,16 +45,18 @@
                     </button>
                     <button id="friendsBtn" class="action-btn" title="Friends">
                         <i class="fa-solid fa-users"></i>
+                        <span id="friendsNotificationBadge" class="friends-notification-badge"
+                            style="display: none;"></span>
                     </button>
                 </div>
             </div>
 
             <div class="chat-search">
-                <input type="text" id="chatSearch" placeholder="Search conversations..." />
+                <input type="text" id="chatSearch" placeholder="Search conversations..." autocomplete="off" />
             </div>
 
             <div class="chat-list" id="chatList">
-                <!-- Chat items will be loaded here -->
+
             </div>
         </div>
 
@@ -99,7 +102,8 @@
 
                 <div class="message-input-container">
                     <div class="message-input">
-                        <input type="text" id="messageInput" placeholder="Type a message..." maxlength="1000" />
+                        <input type="text" id="messageInput" placeholder="Type a message..." maxlength="1000"
+                            autocomplete="off" />
                         <button id="sendBtn" class="send-btn">
                             <i class="fa-solid fa-paper-plane"></i>
                         </button>
@@ -137,7 +141,8 @@
 
                     <div id="addTab" class="tab-panel">
                         <div class="add-friend-form">
-                            <input type="text" id="friendUsername" placeholder="Enter username..." />
+                            <input type="text" id="friendUsername" placeholder="Enter username..." class="friendRequest"
+                                autocomplete="off" />
                             <button id="addFriendBtn" class="gs">Send Request</button>
                         </div>
                     </div>
@@ -165,7 +170,7 @@
                     <div id="directTab" class="tab-panel active">
                         <div class="form-group">
                             <label>Username:</label>
-                            <input type="text" id="directUsername" placeholder="Enter username..." />
+                            <input type="text" id="directUsername" placeholder="Enter username..." autocomplete="off" />
                         </div>
                         <button id="createDirectBtn" class="gs">Start Chat</button>
                     </div>
@@ -173,12 +178,13 @@
                     <div id="groupTab" class="tab-panel">
                         <div class="form-group">
                             <label>Group Name:</label>
-                            <input type="text" id="groupName" placeholder="Enter group name..." />
+                            <input type="text" id="groupName" placeholder="Enter group name..." autocomplete="off" />
                         </div>
                         <div class="form-group">
                             <label>Add Members:</label>
                             <div id="membersList"></div>
-                            <input type="text" id="addMemberInput" placeholder="Enter username and press Enter..." />
+                            <input type="text" id="addMemberInput" placeholder="Enter username and press Enter..."
+                                autocomplete="off" />
                         </div>
                         <button id="createGroupBtn" class="gs">Create Group</button>
                     </div>

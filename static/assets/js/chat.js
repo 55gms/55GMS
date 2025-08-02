@@ -37,6 +37,11 @@ function initializeChat() {
     // Wait a bit for chats to load, then select the chat
     setTimeout(() => selectChat(chatId), 1000);
   }
+
+  // Periodically check for new friend requests to update the notification badge
+  setInterval(() => {
+    loadFriendRequests();
+  }, 30000); // Check every 30 seconds
 }
 
 // Initialize Socket.IO connection
@@ -81,7 +86,6 @@ function initializeSocket() {
   });
 
   socket.on("messages_read", (data) => {
-    // Handle read receipts if needed
     console.log("Messages read by:", data.userUuid);
   });
 
@@ -95,7 +99,6 @@ function initializeSocket() {
   });
 }
 
-// Setup event listeners
 function setupEventListeners() {
   // Message input
   const messageInput = document.getElementById("messageInput");
@@ -361,7 +364,6 @@ async function loadChatMessages(chatId) {
     if (response.ok) {
       const messages = await response.json();
       renderMessages(messages);
-      scrollToBottom();
     } else {
       console.error("Failed to load messages");
     }
@@ -372,9 +374,12 @@ async function loadChatMessages(chatId) {
 
 // Render messages
 function renderMessages(messages) {
+  // Limit to last 200 messages
+  const limitedMessages =
+    messages.length > 200 ? messages.slice(-200) : messages;
   const messagesContainer = document.getElementById("messages");
 
-  messagesContainer.innerHTML = messages
+  messagesContainer.innerHTML = limitedMessages
     .map((message) => {
       const isOwn = message.senderUuid === currentUser.uuid;
       const senderInitials = message.senderUsername
@@ -418,6 +423,7 @@ function renderMessages(messages) {
         `;
     })
     .join("");
+  scrollToBottom();
 }
 
 // Append a new message to the chat
@@ -464,6 +470,11 @@ function appendMessage(messageData) {
             : ""
         }
     `;
+
+  // Remove oldest message if over 200
+  while (messagesContainer.children.length >= 200) {
+    messagesContainer.removeChild(messagesContainer.firstChild);
+  }
 
   messagesContainer.appendChild(messageElement);
 }
@@ -516,7 +527,6 @@ async function sendMessage() {
 
       scrollToBottom();
 
-      // Update chat list
       updateChatInList(currentChatId, message);
     } else {
       throw new Error("Failed to send message");
@@ -872,13 +882,22 @@ async function loadFriendRequests() {
       const requests = await response.json();
       renderFriendRequests(requests);
 
-      // Update badge
-      const badge = document.getElementById("requestCount");
+      // Update badge in modal
+      const modalBadge = document.getElementById("requestCount");
       if (requests.length > 0) {
-        badge.textContent = requests.length;
-        badge.style.display = "inline";
+        modalBadge.textContent = requests.length;
+        modalBadge.style.display = "inline";
       } else {
-        badge.style.display = "none";
+        modalBadge.style.display = "none";
+      }
+
+      // Update friends button notification badge
+      const friendsBadge = document.getElementById("friendsNotificationBadge");
+      if (requests.length > 0) {
+        friendsBadge.textContent = requests.length > 9 ? "9+" : requests.length;
+        friendsBadge.style.display = "flex";
+      } else {
+        friendsBadge.style.display = "none";
       }
     }
   } catch (error) {
@@ -943,9 +962,49 @@ async function handleFriendRequest(requestId, action) {
     });
 
     if (response.ok) {
+      const data = await response.json();
+
       loadFriendRequests();
       if (action === "accept") {
         loadFriends();
+
+        // Send automatic friend request acceptance message
+        if (data.friendUsername) {
+          try {
+            // Create or get direct chat with the new friend
+            const chatResponse = await fetch("/api/chats/direct", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-User-UUID": currentUser.uuid,
+              },
+              body: JSON.stringify({ username: data.friendUsername }),
+            });
+
+            if (chatResponse.ok) {
+              const chatData = await chatResponse.json();
+
+              // Send automatic message
+              await fetch("/api/messages", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  "X-User-UUID": currentUser.uuid,
+                },
+                body: JSON.stringify({
+                  chatId: chatData.chatId,
+                  content: "I've accepted your friend request!",
+                  senderUuid: currentUser.uuid,
+                }),
+              });
+
+              // Reload chats to show the new conversation
+              await loadChats();
+            }
+          } catch (messageError) {
+            console.error("Error sending acceptance message:", messageError);
+          }
+        }
       }
 
       Swal.fire({
@@ -1037,9 +1096,7 @@ function filterChats() {
   });
 }
 
-// Show notification
 function showNotification(title, message, onClick) {
-  // Check if notifications are supported and permitted
   if ("Notification" in window && Notification.permission === "granted") {
     const notification = new Notification(title, {
       body: message,
@@ -1053,7 +1110,6 @@ function showNotification(title, message, onClick) {
     };
   }
 
-  // Also show in-page notification
   const container = document.getElementById("notificationContainer");
   const notificationElement = document.createElement("div");
   notificationElement.className = "notification";
@@ -1074,7 +1130,6 @@ function showNotification(title, message, onClick) {
 
   container.appendChild(notificationElement);
 
-  // Auto remove after 5 seconds
   setTimeout(() => {
     if (notificationElement.parentElement) {
       notificationElement.remove();
@@ -1082,14 +1137,12 @@ function showNotification(title, message, onClick) {
   }, 5000);
 }
 
-// Request notification permission
 function requestNotificationPermission() {
   if ("Notification" in window && Notification.permission === "default") {
     Notification.requestPermission();
   }
 }
 
-// Utility functions
 function formatTime(timestamp) {
   const date = new Date(timestamp);
   const now = new Date();
@@ -1117,10 +1170,13 @@ function escapeHtml(text) {
 
 function scrollToBottom() {
   const container = document.getElementById("messagesContainer");
-  container.scrollTop = container.scrollHeight;
+  if (!container) return;
+
+  setTimeout(() => {
+    container.scrollTop = container.scrollHeight;
+  }, 0);
 }
 
-// Request notification permission on load
 document.addEventListener("DOMContentLoaded", () => {
   requestNotificationPermission();
 });
