@@ -619,6 +619,7 @@ async function sendMessage() {
         chatId: currentChatId,
         content: content,
         senderUuid: currentUser.uuid,
+        senderUsername: currentUser.username,
       });
 
       // Add message to UI immediately

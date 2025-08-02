@@ -1,7 +1,7 @@
 const express = require("express");
 const { Op } = require("sequelize");
 const DOMPurify = require("isomorphic-dompurify");
-const axios = require("axios");
+const userCache = require("../utils/userCache");
 const {
   Chat,
   Message,
@@ -62,7 +62,7 @@ router.get("/user-chats", authenticateUser, async (req, res) => {
           );
           if (otherMember) {
             try {
-              const userResponse = await getUsernameByUuid(
+              const userResponse = await userCache.getUserByUuid(
                 otherMember.userUuid
               );
               chatName = userResponse.username;
@@ -85,7 +85,9 @@ router.get("/user-chats", authenticateUser, async (req, res) => {
               .filter((m) => m.userUuid !== req.userUuid)
               .map(async (member) => {
                 try {
-                  const userResponse = await getUsernameByUuid(member.userUuid);
+                  const userResponse = await userCache.getUserByUuid(
+                    member.userUuid
+                  );
                   const status = await UserStatus.findOne({
                     where: { userUuid: member.userUuid },
                   });
@@ -572,14 +574,11 @@ router.get("/friends/requests", authenticateUser, async (req, res) => {
 });
 
 // Helper functions
+// Use the userCache for getting user information
 async function getUsernameByUuid(uuid) {
   try {
-    const response = await axios.get(`https://db.55gms.com/api/user/${uuid}`, {
-      headers: {
-        Authorization: process.env.workerAUTH,
-      },
-    });
-    return response.data;
+    const userData = await userCache.getUserByUuid(uuid);
+    return userData;
   } catch (error) {
     throw new Error("User not found");
   }
@@ -587,15 +586,8 @@ async function getUsernameByUuid(uuid) {
 
 async function getUserByUsername(username) {
   try {
-    const response = await axios.get(
-      `https://db.55gms.com/api/user/by-username/${username}`,
-      {
-        headers: {
-          Authorization: process.env.workerAUTH,
-        },
-      }
-    );
-    return response.data;
+    const userData = await userCache.getUserByUsername(username);
+    return userData;
   } catch (error) {
     throw new Error("User not found");
   }

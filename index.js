@@ -139,34 +139,21 @@ io.on("connection", (socket) => {
 
   socket.on("send_message", async (data) => {
     try {
-      const { chatId, content, senderUuid } = data;
+      const { chatId, content, senderUuid, senderUsername } = data;
 
       const authenticatedUuid = connectedUsers.get(socket.id);
       if (authenticatedUuid !== senderUuid) {
         return socket.emit("error", "Authentication mismatch");
       }
 
-      let senderUsername = "Unknown User";
-      try {
-        const axios = require("axios");
-        const response = await axios.get(
-          `https://db.55gms.com/api/user/${senderUuid}`,
-          {
-            headers: {
-              Authorization: process.env.workerAUTH,
-            },
-          }
-        );
-        senderUsername = response.data.username;
-      } catch (error) {
-        console.error("Error fetching sender username:", error);
-      }
+      // Use the provided username instead of making an HTTP request
+      const finalSenderUsername = senderUsername || "Unknown User";
 
       socket.to(`chat_${chatId}`).emit("new_message", {
         chatId,
         content,
         senderUuid,
-        senderUsername,
+        senderUsername: finalSenderUsername,
         timestamp: new Date(),
       });
 
@@ -191,7 +178,7 @@ io.on("connection", (socket) => {
                 chatId,
                 content,
                 senderUuid,
-                senderUsername,
+                senderUsername: finalSenderUsername,
                 timestamp: new Date(),
               });
           }
