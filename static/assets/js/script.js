@@ -157,6 +157,18 @@ function initializeOnlineStatus() {
           console.error("Status socket error:", error);
         });
 
+        // Handle notifications for new messages
+        statusSocket.on("new_message", (data) => {
+          if (Notification.permission === "granted") {
+            new Notification("New Message", {
+              body: data.content,
+              icon: "/img/favicon.ico",
+            }).onclick = () => {
+              window.open(`/chat/${data.chatId}`, "_blank");
+            };
+          }
+        });
+
         // Heartbeat to keep connection alive
         setInterval(() => {
           if (statusSocket && statusSocket.connected) {

@@ -58,6 +58,21 @@
             <div class="chat-list" id="chatList">
 
             </div>
+
+            <div class="user-info-bar">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <span id="userInitials"></span>
+                    </div>
+                    <div class="user-details">
+                        <span id="userDisplayName"></span>
+                        <span class="user-status">Online</span>
+                    </div>
+                </div>
+                <button id="copyUsernameBtn" class="copy-btn" title="Copy Username">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+            </div>
         </div>
 
         <!-- Main Chat Area -->
@@ -87,6 +102,14 @@
                         <button class="menu-btn" id="chatMenuBtn">
                             <i class="fa-solid fa-ellipsis-vertical"></i>
                         </button>
+                        <div class="chat-menu-dropdown" id="chatMenuDropdown" style="display: none;">
+                            <button id="addFriendOption" class="menu-option">
+                                <i class="fa-solid fa-user-plus"></i> Add Friend
+                            </button>
+                            <button id="removeFriendOption" class="menu-option" style="display: none;">
+                                <i class="fa-solid fa-user-minus"></i> Remove Friend
+                            </button>
+                        </div>
                     </div>
                 </div>
 

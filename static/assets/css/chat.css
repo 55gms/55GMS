@@ -114,6 +114,80 @@
   background: #4a5f7a;
 }
 
+.user-info-bar {
+  padding: 15px 20px;
+  border-top: 2px solid #353d49;
+  background: #3d4f66;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.user-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #353d49;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  color: #b5cae0;
+  border: 2px solid #b5cae0;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.user-details span:first-child {
+  font-weight: 600;
+  font-size: 14px;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-status {
+  font-size: 12px;
+  color: #4caf50;
+}
+
+.copy-btn {
+  background: #353d49;
+  border: none;
+  border-radius: 6px;
+  width: 30px;
+  height: 30px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy-btn:hover {
+  background: #2f2b2b;
+  transform: scale(1.05);
+}
+
+.copy-btn:active {
+  transform: scale(0.95);
+}
+
 .chat-item {
   padding: 15px 20px;
   border-bottom: 1px solid #3d4f66;
@@ -300,6 +374,7 @@
   padding: 10px;
   border-radius: 8px;
   transition: all 0.15s ease;
+  position: relative;
 }
 
 .menu-btn:hover {
@@ -311,6 +386,54 @@
 .menu-btn:active {
   transform: scale(0.94);
   border-radius: 10px;
+}
+
+.chat-menu {
+  position: relative;
+}
+
+.chat-menu-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #3d4f66;
+  border: 2px solid #353d49;
+  border-radius: 8px;
+  min-width: 150px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  margin-top: 5px;
+}
+
+.menu-option {
+  width: 100%;
+  background: none;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.menu-option:hover {
+  background: #4a5f7a;
+}
+
+.menu-option:first-child {
+  border-radius: 6px 6px 0 0;
+}
+
+.menu-option:last-child {
+  border-radius: 0 0 6px 6px;
+}
+
+.menu-option:only-child {
+  border-radius: 6px;
 }
 
 .messages-container {
@@ -778,7 +901,7 @@
   background: #4a5f7a;
   border: 2px solid #353d49;
   border-radius: 8px;
-  padding: 15px;
+  padding: 20px;
   margin-bottom: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   animation: notificationSlideIn 0.3s ease;
@@ -873,12 +996,35 @@
     padding: 12px 15px;
   }
 
+  .user-info-bar {
+    padding: 12px 15px;
+  }
+
+  .user-avatar {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .user-details span:first-child {
+    font-size: 13px;
+  }
+
+  .user-status {
+    font-size: 11px;
+  }
+
+  .copy-btn {
+    width: 26px;
+    height: 26px;
+    font-size: 10px;
+  }
+
   .avatar-circle {
     width: 40px;
     height: 40px;
     font-size: 16px;
   }
-
   .chat-item-name {
     font-size: 14px;
   }

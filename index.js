@@ -79,8 +79,6 @@ app.use("/api", chatRoutes);
 
 // Socket.IO connection handling
 io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
-
   // Handle user authentication and online status
   socket.on("authenticate", async (data) => {
     try {
@@ -125,13 +123,11 @@ io.on("connection", (socket) => {
   // Handle joining specific chat rooms
   socket.on("join_chat", (chatId) => {
     socket.join(`chat_${chatId}`);
-    console.log(`Socket ${socket.id} joined chat ${chatId}`);
   });
 
   // Handle leaving chat rooms
   socket.on("leave_chat", (chatId) => {
     socket.leave(`chat_${chatId}`);
-    console.log(`Socket ${socket.id} left chat ${chatId}`);
   });
 
   // Handle new messages
@@ -145,12 +141,49 @@ io.on("connection", (socket) => {
         return socket.emit("error", "Authentication mismatch");
       }
 
+      // Get sender username
+      let senderUsername = "Unknown User";
+      try {
+        const axios = require("axios");
+        const response = await axios.get(
+          `https://db.55gms.com/api/user/${senderUuid}`,
+          {
+            headers: {
+              Authorization: process.env.workerAUTH,
+            },
+          }
+        );
+        senderUsername = response.data.username;
+      } catch (error) {
+        console.error("Error fetching sender username:", error);
+      }
+
       // Broadcast the message to all users in the chat
       socket.to(`chat_${chatId}`).emit("new_message", {
         chatId,
         content,
         senderUuid,
+        senderUsername,
         timestamp: new Date(),
+      });
+
+      // Get all chat members for cross-page notifications
+      const chatMembers = await ChatMember.findAll({
+        where: { chatId },
+      });
+
+      // Send notifications to all chat members (except sender)
+      chatMembers.forEach((member) => {
+        if (member.userUuid !== senderUuid) {
+          // Send notification to user's personal room
+          socket.to(`user_${member.userUuid}`).emit("new_message", {
+            chatId,
+            content,
+            senderUuid,
+            senderUsername,
+            timestamp: new Date(),
+          });
+        }
       });
 
       // Update chat's last activity
@@ -260,13 +293,13 @@ io.on("connection", (socket) => {
 // Heartbeat system to keep users online
 setInterval(async () => {
   try {
-    // Mark users as offline if they haven't been seen in 2 minutes
-    const twoMinutesAgo = new Date(Date.now() - 2 * 60 * 1000);
+    // Mark users as offline if they haven't been seen in 5 minutes (increased from 2)
+    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
 
     const staleUsers = await UserStatus.findAll({
       where: {
         isOnline: true,
-        lastSeen: { [Op.lt]: twoMinutesAgo },
+        lastSeen: { [Op.lt]: fiveMinutesAgo },
       },
     });
 

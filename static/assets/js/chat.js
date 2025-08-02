@@ -27,6 +27,9 @@ function initializeChat() {
   loadFriends();
   loadFriendRequests();
 
+  // Initialize user info bar
+  initializeUserInfoBar();
+
   // Setup event listeners
   setupEventListeners();
 
@@ -42,6 +45,11 @@ function initializeChat() {
   setInterval(() => {
     loadFriendRequests();
   }, 30000); // Check every 30 seconds
+
+  // Update timestamps every 30 seconds
+  setInterval(() => {
+    updateTimestamps();
+  }, 30000);
 }
 
 // Initialize Socket.IO connection
@@ -169,6 +177,22 @@ function setupEventListeners() {
   // Search
   document.getElementById("chatSearch").addEventListener("input", filterChats);
 
+  // Copy username button
+  document
+    .getElementById("copyUsernameBtn")
+    .addEventListener("click", copyUsername);
+
+  // Chat menu functionality
+  document
+    .getElementById("chatMenuBtn")
+    .addEventListener("click", toggleChatMenu);
+  document
+    .getElementById("addFriendOption")
+    .addEventListener("click", handleAddFriend);
+  document
+    .getElementById("removeFriendOption")
+    .addEventListener("click", handleRemoveFriend);
+
   // Click outside to close modals
   window.addEventListener("click", (e) => {
     const modals = document.querySelectorAll(".modal");
@@ -177,6 +201,17 @@ function setupEventListeners() {
         modal.style.display = "none";
       }
     });
+
+    // Close chat menu if clicking outside
+    const chatMenu = document.getElementById("chatMenuDropdown");
+    const menuBtn = document.getElementById("chatMenuBtn");
+    if (
+      chatMenu &&
+      !menuBtn.contains(e.target) &&
+      !chatMenu.contains(e.target)
+    ) {
+      chatMenu.style.display = "none";
+    }
   });
 }
 
@@ -272,7 +307,9 @@ function renderChatList() {
                 <div class="chat-item-meta">
                     ${
                       lastMessage
-                        ? `<div class="chat-time">${formatTime(
+                        ? `<div class="chat-time" data-timestamp="${new Date(
+                            lastMessage.createdAt
+                          ).getTime()}">${formatTime(
                             lastMessage.createdAt
                           )}</div>`
                         : ""
@@ -386,6 +423,15 @@ function renderMessages(messages) {
         ? message.senderUsername.charAt(0).toUpperCase()
         : "?";
 
+      // Ensure timestamp is properly handled
+      let timestamp = message.createdAt || new Date();
+      if (typeof timestamp === "string") {
+        timestamp = new Date(timestamp);
+      }
+      if (isNaN(timestamp.getTime())) {
+        timestamp = new Date();
+      }
+
       return `
             <div class="message ${isOwn ? "own" : ""}">
                 ${
@@ -402,9 +448,9 @@ function renderMessages(messages) {
                         <span class="message-sender">${
                           message.senderUsername || "Unknown"
                         }</span>
-                        <span class="message-time">${formatTime(
-                          message.createdAt
-                        )}</span>
+                        <span class="message-time" data-timestamp="${timestamp.getTime()}">${formatTime(
+        timestamp
+      )}</span>
                     </div>
                     <div class="message-text">${escapeHtml(
                       message.content
@@ -436,6 +482,17 @@ function appendMessage(messageData) {
     ? currentUser.username.charAt(0).toUpperCase()
     : "?";
 
+  // Ensure timestamp is properly formatted
+  let timestamp = messageData.timestamp || messageData.createdAt || new Date();
+  if (typeof timestamp === "string") {
+    timestamp = new Date(timestamp);
+  }
+
+  // Check if timestamp is valid
+  if (isNaN(timestamp.getTime())) {
+    timestamp = new Date();
+  }
+
   const messageElement = document.createElement("div");
   messageElement.className = `message ${isOwn ? "own" : ""}`;
   messageElement.innerHTML = `
@@ -454,9 +511,9 @@ function appendMessage(messageData) {
                   messageData.senderUsername ||
                   (isOwn ? currentUser.username : "Unknown")
                 }</span>
-                <span class="message-time">${formatTime(
-                  messageData.timestamp || new Date()
-                )}</span>
+                <span class="message-time" data-timestamp="${timestamp.getTime()}">${formatTime(
+    timestamp
+  )}</span>
             </div>
             <div class="message-text">${escapeHtml(messageData.content)}</div>
         </div>
@@ -477,6 +534,7 @@ function appendMessage(messageData) {
   }
 
   messagesContainer.appendChild(messageElement);
+  scrollToBottom();
 }
 
 // Send a message
@@ -1143,25 +1201,6 @@ function requestNotificationPermission() {
   }
 }
 
-function formatTime(timestamp) {
-  const date = new Date(timestamp);
-  const now = new Date();
-  const diff = now - date;
-
-  if (diff < 60000) {
-    // Less than 1 minute
-    return "Now";
-  } else if (diff < 3600000) {
-    // Less than 1 hour
-    return `${Math.floor(diff / 60000)}m`;
-  } else if (diff < 86400000) {
-    // Less than 1 day
-    return `${Math.floor(diff / 3600000)}h`;
-  } else {
-    return date.toLocaleDateString();
-  }
-}
-
 function escapeHtml(text) {
   const div = document.createElement("div");
   div.textContent = text;
@@ -1180,3 +1219,189 @@ function scrollToBottom() {
 document.addEventListener("DOMContentLoaded", () => {
   requestNotificationPermission();
 });
+
+// Initialize user info bar
+function initializeUserInfoBar() {
+  const userInitials = document.getElementById("userInitials");
+  const userDisplayName = document.getElementById("userDisplayName");
+
+  if (currentUser.username) {
+    userInitials.textContent = currentUser.username.charAt(0).toUpperCase();
+    userDisplayName.textContent = currentUser.username;
+  }
+}
+
+// Copy username to clipboard
+function copyUsername() {
+  navigator.clipboard
+    .writeText(currentUser.username)
+    .then(() => {
+      // Show brief feedback
+      const copyBtn = document.getElementById("copyUsernameBtn");
+      const originalIcon = copyBtn.innerHTML;
+      copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+      copyBtn.style.background = "#4caf50";
+
+      setTimeout(() => {
+        copyBtn.innerHTML = originalIcon;
+        copyBtn.style.background = "#353d49";
+      }, 1000);
+    })
+    .catch((err) => {
+      console.error("Failed to copy username:", err);
+    });
+}
+
+// Toggle chat menu dropdown
+function toggleChatMenu(e) {
+  e.stopPropagation();
+  const dropdown = document.getElementById("chatMenuDropdown");
+  dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
+
+  // Update friend options based on current chat
+  updateChatMenuOptions();
+}
+
+// Update chat menu options based on friendship status
+async function updateChatMenuOptions() {
+  if (!currentChatId) return;
+
+  const currentChat = chats.find((c) => c.id === currentChatId);
+  if (!currentChat || currentChat.type !== "direct") {
+    document.getElementById("addFriendOption").style.display = "none";
+    document.getElementById("removeFriendOption").style.display = "none";
+    return;
+  }
+
+  const otherUserUuid = currentChat.members[0]?.uuid;
+  if (!otherUserUuid) return;
+
+  // Check if already friends
+  const isFriend = friends.some((f) => f.uuid === otherUserUuid);
+
+  document.getElementById("addFriendOption").style.display = isFriend
+    ? "none"
+    : "block";
+  document.getElementById("removeFriendOption").style.display = isFriend
+    ? "block"
+    : "none";
+}
+
+// Handle add friend
+async function handleAddFriend() {
+  if (!currentChatId) return;
+
+  const currentChat = chats.find((c) => c.id === currentChatId);
+  if (!currentChat || currentChat.type !== "direct") return;
+
+  const otherUser = currentChat.members[0];
+  if (!otherUser) return;
+
+  try {
+    const response = await fetch("/api/friends/request", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-User-UUID": currentUser.uuid,
+      },
+      body: JSON.stringify({ username: otherUser.username }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      Swal.fire({
+        icon: "success",
+        title: "Friend Request Sent",
+        text: data.message,
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      document.getElementById("chatMenuDropdown").style.display = "none";
+    } else {
+      throw new Error(data.error);
+    }
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: error.message,
+    });
+  }
+}
+
+// Handle remove friend
+async function handleRemoveFriend() {
+  if (!currentChatId) return;
+
+  const currentChat = chats.find((c) => c.id === currentChatId);
+  if (!currentChat || currentChat.type !== "direct") return;
+
+  const otherUser = currentChat.members[0];
+  if (!otherUser) return;
+
+  const result = await Swal.fire({
+    title: "Remove Friend",
+    text: `Are you sure you want to remove ${otherUser.username} from your friends?`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, remove",
+  });
+
+  if (result.isConfirmed) {
+    // Find the friendship and remove it
+    // This would require a new API endpoint for removing friends
+    // For now, show a message that this feature is coming soon
+    Swal.fire({
+      icon: "info",
+      title: "Coming Soon",
+      text: "Friend removal feature is coming soon!",
+    });
+  }
+
+  document.getElementById("chatMenuDropdown").style.display = "none";
+}
+
+// Update timestamps in real-time
+function updateTimestamps() {
+  const timestamps = document.querySelectorAll(".message-time[data-timestamp]");
+  timestamps.forEach((element) => {
+    const timestamp = parseInt(element.dataset.timestamp);
+    element.textContent = formatTime(new Date(timestamp));
+  });
+
+  // Also update chat list timestamps
+  const chatTimes = document.querySelectorAll(".chat-time[data-timestamp]");
+  chatTimes.forEach((element) => {
+    const timestamp = parseInt(element.dataset.timestamp);
+    element.textContent = formatTime(new Date(timestamp));
+  });
+}
+
+// Enhanced formatTime function for live updates
+function formatTime(timestamp) {
+  const date = new Date(timestamp);
+  const now = new Date();
+  const diff = now - date;
+
+  if (diff < 30000) {
+    // Less than 30 seconds
+    return "now";
+  } else if (diff < 60000) {
+    // Less than 1 minute
+    return `${Math.floor(diff / 1000)}s`;
+  } else if (diff < 3600000) {
+    // Less than 1 hour
+    return `${Math.floor(diff / 60000)}m`;
+  } else if (diff < 86400000) {
+    // Less than 1 day
+    return `${Math.floor(diff / 3600000)}h`;
+  } else if (diff < 604800000) {
+    // Less than 1 week
+    return `${Math.floor(diff / 86400000)}d`;
+  } else {
+    return date.toLocaleDateString();
+  }
+}
