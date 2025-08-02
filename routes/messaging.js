@@ -51,33 +51,49 @@ router.get("/chats/:chatId/members", authenticateUser, async (req, res) => {
     // Get all members of the chat
     const members = await ChatMember.findAll({
       where: { chatId: chatId },
-      include: [
-        {
-          model: require("../models").User,
-          attributes: ["uuid", "username", "avatar"],
-          include: [
-            {
-              model: require("../models").UserStatus,
-              attributes: ["status"],
-            },
-          ],
-        },
-      ],
       order: [
         ["role", "ASC"],
         ["createdAt", "ASC"],
       ], // Admin first, then by join order
     });
 
-    // Format the response
-    const formattedMembers = members.map((member) => ({
-      uuid: member.User.uuid,
-      username: member.User.username,
-      avatar: member.User.avatar || "/img/user.webp",
-      role: member.role,
-      status: member.User.UserStatus?.status || "offline",
-      joinedAt: member.createdAt,
-    }));
+    // Format the response with user data from cache and status
+    const formattedMembers = await Promise.all(
+      members.map(async (member) => {
+        let userData = { username: "Unknown User", avatar: "/img/user.webp" };
+        let userStatus = "offline";
+
+        try {
+          userData = await getUsernameByUuid(member.userUuid);
+        } catch (error) {
+          console.error(
+            `Error fetching user data for ${member.userUuid}:`,
+            error
+          );
+        }
+
+        try {
+          const status = await UserStatus.findOne({
+            where: { userUuid: member.userUuid },
+          });
+          userStatus = status?.isOnline ? "online" : "offline";
+        } catch (error) {
+          console.error(
+            `Error fetching user status for ${member.userUuid}:`,
+            error
+          );
+        }
+
+        return {
+          uuid: member.userUuid,
+          username: userData.username,
+          avatar: userData.avatar || "/img/user.webp",
+          role: member.role,
+          status: userStatus,
+          joinedAt: member.createdAt,
+        };
+      })
+    );
 
     res.json({
       success: true,
@@ -465,74 +481,6 @@ router.post("/chats/group", authenticateUser, async (req, res) => {
     res.status(201).json({ chatId: chat.id });
   } catch (error) {
     console.error("Error creating group chat:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-// GET /chats/:chatId/members
-router.get("/chats/:chatId/members", authenticateUser, async (req, res) => {
-  try {
-    const chatId = req.params.chatId;
-    const userUuid = req.user.uuid;
-
-    // First verify the user is a member of this chat
-    const userMembership = await ChatMember.findOne({
-      where: {
-        chatId: chatId,
-        userUuid: userUuid,
-      },
-    });
-
-    if (!userMembership) {
-      return res.status(403).json({ error: "Not a member of this chat" });
-    }
-
-    // Get the chat to make sure it's a group chat
-    const chat = await Chat.findByPk(chatId);
-    if (!chat || chat.type !== "group") {
-      return res
-        .status(400)
-        .json({ error: "Chat not found or not a group chat" });
-    }
-
-    // Get all members of the chat
-    const members = await ChatMember.findAll({
-      where: { chatId: chatId },
-      include: [
-        {
-          model: require("../models").User,
-          attributes: ["uuid", "username", "avatar"],
-          include: [
-            {
-              model: require("../models").UserStatus,
-              attributes: ["status"],
-            },
-          ],
-        },
-      ],
-      order: [
-        ["role", "ASC"],
-        ["createdAt", "ASC"],
-      ], // Admin first, then by join order
-    });
-
-    // Format the response
-    const formattedMembers = members.map((member) => ({
-      uuid: member.User.uuid,
-      username: member.User.username,
-      avatar: member.User.avatar || "/img/user.webp",
-      role: member.role,
-      status: member.User.UserStatus?.status || "offline",
-      joinedAt: member.createdAt,
-    }));
-
-    res.json({
-      success: true,
-      members: formattedMembers,
-      memberCount: formattedMembers.length,
-    });
-  } catch (error) {
-    console.error("Error fetching chat members:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
