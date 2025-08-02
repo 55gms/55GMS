@@ -344,6 +344,14 @@ router.post("/chats/group", authenticateUser, async (req, res) => {
       return res.status(400).json({ error: "Group name is required" });
     }
 
+    // Check if trying to add more than 10 people total (including creator)
+    if (members.length > 9) {
+      return res.status(400).json({
+        error:
+          "Cannot add more than 10 people to a group chat (including yourself)",
+      });
+    }
+
     const sanitizedName = DOMPurify.sanitize(name.trim());
 
     // Create group chat
@@ -358,16 +366,19 @@ router.post("/chats/group", authenticateUser, async (req, res) => {
       { chatId: chat.id, userUuid: req.userUuid, role: "admin" },
     ];
 
-    // Add other members
+    // Add other members, but prevent adding self
     for (const username of members) {
       try {
         const userResponse = await getUserByUsername(username);
+        // Prevent adding yourself to the group
         if (userResponse.uuid !== req.userUuid) {
           chatMembers.push({
             chatId: chat.id,
             userUuid: userResponse.uuid,
             role: "member",
           });
+        } else {
+          console.log(`Skipping self-addition attempt for user ${username}`);
         }
       } catch (error) {
         console.error(`User ${username} not found, skipping`);

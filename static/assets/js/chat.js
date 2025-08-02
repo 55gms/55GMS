@@ -165,6 +165,7 @@ function setupEventListeners() {
   // Modal handlers
   document.getElementById("newChatBtn").addEventListener("click", () => {
     document.getElementById("newChatModal").style.display = "flex";
+    updateMemberCounter(); // Initialize counter when modal opens
   });
 
   document.getElementById("friendsBtn").addEventListener("click", () => {
@@ -175,11 +176,16 @@ function setupEventListeners() {
 
   document.getElementById("startChatBtn").addEventListener("click", () => {
     document.getElementById("newChatModal").style.display = "flex";
+    updateMemberCounter(); // Initialize counter when modal opens
   });
 
   // Close modals
   document.getElementById("closeNewChatModal").addEventListener("click", () => {
     document.getElementById("newChatModal").style.display = "none";
+    // Reset form when closing
+    document.getElementById("groupName").value = "";
+    document.getElementById("membersList").innerHTML = "";
+    updateMemberCounter();
   });
 
   document.getElementById("closeFriendsModal").addEventListener("click", () => {
@@ -229,6 +235,9 @@ function setupEventListeners() {
   document
     .getElementById("removeFriendOption")
     .addEventListener("click", handleRemoveFriend);
+  document
+    .getElementById("leaveGroupOption")
+    .addEventListener("click", handleLeaveGroup);
 
   // Click outside to close modals
   window.addEventListener("click", (e) => {
@@ -236,6 +245,12 @@ function setupEventListeners() {
     modals.forEach((modal) => {
       if (e.target === modal) {
         modal.style.display = "none";
+        // Reset new chat modal form when closing
+        if (modal.id === "newChatModal") {
+          document.getElementById("groupName").value = "";
+          document.getElementById("membersList").innerHTML = "";
+          updateMemberCounter();
+        }
       }
     });
 
@@ -768,6 +783,29 @@ async function createGroupChat() {
     return;
   }
 
+  // Double-check member limit (should already be handled by addMemberToGroup)
+  if (members.length > 9) {
+    Swal.fire({
+      icon: "warning",
+      title: "Too Many Members",
+      text: "You can only add up to 9 other people to a group chat (10 people total including yourself).",
+    });
+    return;
+  }
+
+  // Filter out any attempt to add yourself (extra safety check)
+  const filteredMembers = members.filter(
+    (username) => username.toLowerCase() !== currentUser.username.toLowerCase()
+  );
+
+  if (filteredMembers.length !== members.length) {
+    Swal.fire({
+      icon: "info",
+      title: "Note",
+      text: "Removed your own username from the members list. You're automatically added as the group creator.",
+    });
+  }
+
   try {
     const response = await fetch("/api/chats/group", {
       method: "POST",
@@ -775,7 +813,7 @@ async function createGroupChat() {
         "Content-Type": "application/json",
         "X-User-UUID": currentUser.uuid,
       },
-      body: JSON.stringify({ name: groupName, members }),
+      body: JSON.stringify({ name: groupName, members: filteredMembers }),
     });
 
     const data = await response.json();
@@ -784,6 +822,7 @@ async function createGroupChat() {
       document.getElementById("newChatModal").style.display = "none";
       document.getElementById("groupName").value = "";
       document.getElementById("membersList").innerHTML = "";
+      updateMemberCounter(); // Reset counter
 
       // Reload chats and select the new one
       await loadChats();
@@ -816,9 +855,32 @@ function addMemberToGroup() {
 
   if (!username) return;
 
+  // Check if trying to add yourself
+  if (username.toLowerCase() === currentUser.username.toLowerCase()) {
+    Swal.fire({
+      icon: "warning",
+      title: "Cannot Add Yourself",
+      text: "You cannot add yourself to the group. You're already the creator!",
+    });
+    input.value = "";
+    return;
+  }
+
   // Check if already added
   const existing = document.querySelector(`[data-username="${username}"]`);
   if (existing) {
+    input.value = "";
+    return;
+  }
+
+  // Check member limit (9 others + creator = 10 total)
+  const currentMembers = document.querySelectorAll("#membersList .member-tag");
+  if (currentMembers.length >= 9) {
+    Swal.fire({
+      icon: "warning",
+      title: "Member Limit Reached",
+      text: "You can only add up to 9 other people to a group chat (10 people total including yourself).",
+    });
     input.value = "";
     return;
   }
@@ -830,11 +892,40 @@ function addMemberToGroup() {
   memberTag.dataset.username = username;
   memberTag.innerHTML = `
         ${username}
-        <span class="remove" onclick="this.parentElement.remove()">×</span>
+        <span class="remove" onclick="removeMemberFromGroup(this)">×</span>
     `;
 
   membersList.appendChild(memberTag);
   input.value = "";
+
+  // Update member counter
+  updateMemberCounter();
+}
+
+// Remove member from group and update counter
+function removeMemberFromGroup(element) {
+  element.parentElement.remove();
+  updateMemberCounter();
+}
+
+// Update the member counter display
+function updateMemberCounter() {
+  const memberCount = document.querySelectorAll(
+    "#membersList .member-tag"
+  ).length;
+  const counterElement = document.getElementById("memberCount");
+  if (counterElement) {
+    counterElement.textContent = `(${memberCount}/9)`;
+
+    // Change color based on limit
+    if (memberCount >= 9) {
+      counterElement.style.color = "#ff6b6b";
+    } else if (memberCount >= 7) {
+      counterElement.style.color = "#ffa726";
+    } else {
+      counterElement.style.color = "#888";
+    }
+  }
 }
 
 // Load friends list
@@ -1461,24 +1552,41 @@ async function updateChatMenuOptions() {
   if (!currentChatId) return;
 
   const currentChat = chats.find((c) => c.id === currentChatId);
-  if (!currentChat || currentChat.type !== "direct") {
+  if (!currentChat) return;
+
+  // Handle direct chats
+  if (currentChat.type === "direct") {
+    document.getElementById("leaveGroupOption").style.display = "none";
+
+    const otherUserUuid = currentChat.members[0]?.uuid;
+    if (!otherUserUuid) {
+      document.getElementById("addFriendOption").style.display = "none";
+      document.getElementById("removeFriendOption").style.display = "none";
+      return;
+    }
+
+    // Check if already friends
+    const isFriend = friends.some((f) => f.uuid === otherUserUuid);
+
+    document.getElementById("addFriendOption").style.display = isFriend
+      ? "none"
+      : "block";
+    document.getElementById("removeFriendOption").style.display = isFriend
+      ? "block"
+      : "none";
+  } 
+  // Handle group chats
+  else if (currentChat.type === "group") {
     document.getElementById("addFriendOption").style.display = "none";
     document.getElementById("removeFriendOption").style.display = "none";
-    return;
+    document.getElementById("leaveGroupOption").style.display = "block";
   }
-
-  const otherUserUuid = currentChat.members[0]?.uuid;
-  if (!otherUserUuid) return;
-
-  // Check if already friends
-  const isFriend = friends.some((f) => f.uuid === otherUserUuid);
-
-  document.getElementById("addFriendOption").style.display = isFriend
-    ? "none"
-    : "block";
-  document.getElementById("removeFriendOption").style.display = isFriend
-    ? "block"
-    : "none";
+  // Default case - hide all options
+  else {
+    document.getElementById("addFriendOption").style.display = "none";
+    document.getElementById("removeFriendOption").style.display = "none";
+    document.getElementById("leaveGroupOption").style.display = "none";
+  }
 }
 
 // Handle add friend

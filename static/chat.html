@@ -108,6 +108,9 @@
                             <button id="removeFriendOption" class="menu-option" style="display: none;">
                                 <i class="fa-solid fa-user-minus"></i> Remove Friend
                             </button>
+                            <button id="leaveGroupOption" class="menu-option" style="display: none;">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i> Leave Group
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -203,10 +206,14 @@
                             <input type="text" id="groupName" placeholder="Enter group name..." autocomplete="off" />
                         </div>
                         <div class="form-group">
-                            <label>Add Members:</label>
+                            <label>Add Members: <span id="memberCount"
+                                    style="color: #888; font-size: 12px;">(0/9)</span></label>
                             <div id="membersList"></div>
                             <input type="text" id="addMemberInput" placeholder="Enter username and press Enter..."
                                 autocomplete="off" />
+                            <div style="font-size: 12px; color: #888; margin-top: 5px;">
+                                Maximum 10 people total (including yourself)
+                            </div>
                         </div>
                         <button id="createGroupBtn" class="gs">Create Group</button>
                     </div>

@@ -888,6 +888,12 @@
   color: #ff4444;
 }
 
+/* Member counter styling */
+#memberCount {
+  font-weight: normal;
+  transition: color 0.3s ease;
+}
+
 /* Notification Styles */
 .notification-container {
   position: fixed;
