@@ -33,6 +33,13 @@ function initializeChat() {
   // Setup event listeners
   setupEventListeners();
 
+  // Handle page unload to stop viewing chat
+  window.addEventListener("beforeunload", () => {
+    if (currentChatId && socket) {
+      socket.emit("stop_viewing_chat");
+    }
+  });
+
   // Check for specific chat in URL
   const pathParts = window.location.pathname.split("/");
   if (pathParts[1] === "chat" && pathParts[2]) {
@@ -90,6 +97,23 @@ function initializeSocket() {
     if (data.chatId === currentChatId && data.userUuid !== currentUser.uuid) {
       showTypingIndicator(data.userUuid, data.isTyping);
     }
+  });
+
+  socket.on("new_message_notification", (data) => {
+    // This handles messages from other chats when user is not in that chat room
+    console.log("Received notification for new message:", data);
+
+    // Update chat list with the new message
+    updateChatInList(data.chatId, data);
+
+    // Show notification since this is for a chat the user is not currently viewing
+    showNotification(
+      "New Message",
+      `${data.senderUsername}: ${data.content}`,
+      () => {
+        selectChat(data.chatId);
+      }
+    );
   });
 
   socket.on("user_status_change", (data) => {
@@ -337,15 +361,17 @@ function renderChatList() {
 async function selectChat(chatId) {
   if (currentChatId === chatId) return;
 
-  // Leave previous chat room
+  // Stop viewing previous chat
   if (currentChatId) {
     socket.emit("leave_chat", currentChatId);
+    socket.emit("stop_viewing_chat");
   }
 
   currentChatId = chatId;
 
-  // Join new chat room
+  // Join new chat room and start viewing it
   socket.emit("join_chat", chatId);
+  socket.emit("viewing_chat", chatId);
 
   // Update URL
   history.pushState(null, "", `/chat/${chatId}`);

@@ -44,6 +44,7 @@ const io = socketIo(server, {
 
 const activeConversations = new Map();
 const connectedUsers = new Map(); // Map of socketId -> userUuid
+const activeChats = new Map(); // Map of socketId -> chatId (currently viewing)
 
 // Initialize database
 initDatabase().catch(console.error);
@@ -137,6 +138,18 @@ io.on("connection", (socket) => {
     socket.leave(`chat_${chatId}`);
   });
 
+  // Handle when user starts viewing a specific chat
+  socket.on("viewing_chat", (chatId) => {
+    activeChats.set(socket.id, chatId);
+    console.log(`User is now viewing chat ${chatId}`);
+  });
+
+  // Handle when user stops viewing a specific chat
+  socket.on("stop_viewing_chat", () => {
+    activeChats.delete(socket.id);
+    console.log(`User stopped viewing chat`);
+  });
+
   // Handle new messages
   socket.on("send_message", async (data) => {
     try {
@@ -179,33 +192,32 @@ io.on("connection", (socket) => {
         where: { chatId },
       });
 
-      // Get list of sockets currently in the chat room to avoid duplicate notifications
-      const chatRoomSockets =
-        io.sockets.adapter.rooms.get(`chat_${chatId}`) || new Set();
-      const connectedUsersInRoom = new Set();
-      chatRoomSockets.forEach((socketId) => {
-        const userUuid = connectedUsers.get(socketId);
-        if (userUuid) {
-          connectedUsersInRoom.add(userUuid);
-        }
-      });
-
-      // Send notifications to chat members who are NOT currently in the chat room
+      // Send notifications to all chat members
       chatMembers.forEach((member) => {
-        if (
-          member.userUuid !== senderUuid &&
-          !connectedUsersInRoom.has(member.userUuid)
-        ) {
-          // Send notification to user's personal room (only if they're not in the chat room)
-          socket
-            .to(`user_${member.userUuid}`)
-            .emit("new_message_notification", {
-              chatId,
-              content,
-              senderUuid,
-              senderUsername,
-              timestamp: new Date(),
-            });
+        if (member.userUuid !== senderUuid) {
+          // Find all sockets for this user
+          const userSockets = Array.from(connectedUsers.entries())
+            .filter(([socketId, userUuid]) => userUuid === member.userUuid)
+            .map(([socketId]) => socketId);
+
+          // Check if any of the user's sockets are currently viewing this chat
+          const isCurrentlyViewing = userSockets.some(
+            (socketId) => activeChats.get(socketId) === chatId
+          );
+
+          if (!isCurrentlyViewing) {
+            // User is not currently viewing this chat, send notification
+            socket
+              .to(`user_${member.userUuid}`)
+              .emit("new_message_notification", {
+                chatId,
+                content,
+                senderUuid,
+                senderUsername,
+                timestamp: new Date(),
+              });
+          }
+          // Note: Users currently viewing the chat will receive the message via the regular new_message event
         }
       });
 
@@ -305,6 +317,7 @@ io.on("connection", (socket) => {
         });
 
         connectedUsers.delete(socket.id);
+        activeChats.delete(socket.id);
         console.log(`User ${userUuid} disconnected`);
       }
     } catch (error) {
