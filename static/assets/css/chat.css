@@ -30,7 +30,7 @@
 
 .chat-header h2 {
   margin: 0;
-  color: #315cad;
+  color: white;
   font-size: 20px;
   font-weight: 700;
 }
@@ -73,7 +73,7 @@
   width: 100%;
   padding: 12px 16px;
   background: #5e7594;
-  border: 2px solid #413d3d;
+  border: none;
   border-radius: 8px;
   color: white;
   font-size: 14px;
@@ -84,8 +84,6 @@
 
 .chat-search input:focus {
   outline: none;
-  border-color: #315cad;
-  box-shadow: 0 0 5px rgba(241, 167, 39, 0.3);
 }
 
 .chat-search input::placeholder {
@@ -114,7 +112,7 @@
 }
 
 .chat-item.active {
-  background: #315cad;
+  background: #000000;
   color: #413d3d;
   font-weight: 600;
 }
@@ -137,13 +135,13 @@
   justify-content: center;
   font-weight: bold;
   font-size: 18px;
-  color: #315cad;
-  border: 2px solid #315cad;
+  color: #ffd700;
+  border: 2px solid #ffd700;
 }
 
 .chat-item.active .avatar-circle {
   background: #413d3d;
-  color: #315cad;
+  color: #ffd700;
   border-color: #413d3d;
 }
 
@@ -239,7 +237,7 @@
 
 .welcome-icon {
   font-size: 80px;
-  color: #315cad;
+  color: #ffd700;
   margin-bottom: 20px;
 }
 
@@ -278,7 +276,7 @@
 .chat-details h3 {
   margin: 0 0 5px 0;
   font-size: 18px;
-  color: #315cad;
+  color: #ffd700;
   font-weight: 700;
 }
 
@@ -343,9 +341,9 @@
   justify-content: center;
   font-weight: bold;
   font-size: 14px;
-  color: #315cad;
+  color: #ffd700;
   flex-shrink: 0;
-  border: 2px solid #315cad;
+  border: 2px solid #ffd700;
 }
 
 .message-content {
@@ -359,7 +357,7 @@
 }
 
 .message.own .message-content {
-  background: #315cad;
+  background: #ffd700;
   color: #413d3d;
   border-color: #f1d41d;
 }
@@ -374,7 +372,7 @@
 
 .message-sender {
   font-weight: 600;
-  color: #315cad;
+  color: #ffd700;
 }
 
 .message.own .message-sender {
@@ -420,7 +418,7 @@
 }
 
 .message-input:focus-within {
-  border-color: #315cad;
+  border-color: #ffd700;
   box-shadow: 0 0 10px rgba(241, 167, 39, 0.3);
 }
 
@@ -518,7 +516,7 @@
 
 .modal-header h3 {
   margin: 0;
-  color: #315cad;
+  color: #ffd700;
   font-weight: 700;
 }
 
@@ -570,8 +568,8 @@
 }
 
 .tab-btn.active {
-  color: #315cad;
-  border-bottom-color: #315cad;
+  color: #ffd700;
+  border-bottom-color: #ffd700;
   background: #4a5f7a;
 }
 
@@ -605,7 +603,7 @@
 .form-group label {
   display: block;
   margin-bottom: 8px;
-  color: #315cad;
+  color: #ffd700;
   font-weight: 500;
 }
 
@@ -624,7 +622,7 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: #315cad;
+  border-color: #ffd700;
   box-shadow: 0 0 5px rgba(241, 167, 39, 0.3);
 }
 
@@ -724,7 +722,7 @@
 .member-tag {
   display: inline-flex;
   align-items: center;
-  background: #315cad;
+  background: #ffd700;
   color: #413d3d;
   padding: 6px 12px;
   border-radius: 12px;
@@ -790,7 +788,7 @@
 
 .notification-title {
   font-weight: 600;
-  color: #315cad;
+  color: #ffd700;
   font-size: 14px;
 }
 
@@ -876,7 +874,7 @@
   width: 20px;
   height: 20px;
   border: 2px solid #413d3d;
-  border-top: 2px solid #315cad;
+  border-top: 2px solid #ffd700;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-left: 10px;
