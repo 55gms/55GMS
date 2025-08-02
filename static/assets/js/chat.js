@@ -103,13 +103,19 @@ function initializeSocket() {
     // This handles messages from other chats when user is not in that chat room
     console.log("Received notification for new message:", data);
 
+    // Validate the data before processing
+    if (!data.chatId || !data.content || !data.senderUuid) {
+      console.error("Invalid notification data received:", data);
+      return;
+    }
+
     // Update chat list with the new message
     updateChatInList(data.chatId, data);
 
     // Show notification since this is for a chat the user is not currently viewing
     showNotification(
       "New Message",
-      `${data.senderUsername}: ${data.content}`,
+      `${data.senderUsername || "Unknown"}: ${data.content}`,
       () => {
         selectChat(data.chatId);
       }
@@ -1175,8 +1181,15 @@ function clearUnreadCount(chatId) {
 function updateChatInList(chatId, messageData) {
   const chatIndex = chats.findIndex((c) => c.id === chatId);
   if (chatIndex !== -1) {
-    chats[chatIndex].lastMessage = messageData;
-    chats[chatIndex].lastActivity = messageData.timestamp || new Date();
+    // Ensure the message data has the correct timestamp properties
+    const normalizedMessage = {
+      ...messageData,
+      createdAt: messageData.createdAt || messageData.timestamp || new Date(),
+      timestamp: messageData.timestamp || messageData.createdAt || new Date(),
+    };
+
+    chats[chatIndex].lastMessage = normalizedMessage;
+    chats[chatIndex].lastActivity = normalizedMessage.timestamp || new Date();
 
     // Increment unread count if this chat is not currently active and message is not from current user
     if (
@@ -1559,7 +1572,27 @@ function updateTimestamps() {
 
 // Enhanced formatTime function for live updates
 function formatTime(timestamp) {
-  const date = new Date(timestamp);
+  // Handle different timestamp formats
+  let date;
+
+  if (!timestamp) {
+    return "now";
+  }
+
+  if (timestamp instanceof Date) {
+    date = timestamp;
+  } else if (typeof timestamp === "string" || typeof timestamp === "number") {
+    date = new Date(timestamp);
+  } else {
+    return "now";
+  }
+
+  // Check if date is valid
+  if (isNaN(date.getTime())) {
+    console.warn("Invalid timestamp received:", timestamp);
+    return "now";
+  }
+
   const now = new Date();
   const diff = now - date;
 
