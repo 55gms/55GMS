@@ -22,7 +22,7 @@ class UserCache {
           headers: {
             Authorization: process.env.workerAUTH,
           },
-        }
+        },
       );
 
       // Cache the result
@@ -51,7 +51,7 @@ class UserCache {
           headers: {
             Authorization: process.env.workerAUTH,
           },
-        }
+        },
       );
 
       // Cache by UUID for future UUID lookups
@@ -89,8 +89,11 @@ class UserCache {
 
 const userCache = new UserCache();
 
-setInterval(() => {
-  userCache.cleanupExpired();
-}, 10 * 60 * 1000);
+setInterval(
+  () => {
+    userCache.cleanupExpired();
+  },
+  10 * 60 * 1000,
+);
 
 module.exports = userCache;
