@@ -110,10 +110,6 @@ io.on("connection", (socket) => {
         userChats.forEach((chatMember) => {
           socket.join(`chat_${chatMember.chatId}`);
         });
-
-        console.log(`User ${uuid} authenticated and joined chat rooms`);
-      } else {
-        console.log(`User ${uuid} authenticated for status tracking only`);
       }
 
       // Notify friends that user is online
@@ -121,8 +117,6 @@ io.on("connection", (socket) => {
         userUuid: uuid,
         isOnline: true,
       });
-
-      console.log(`User ${uuid} authenticated and joined rooms`);
     } catch (error) {
       console.error("Error during authentication:", error);
     }
@@ -141,13 +135,11 @@ io.on("connection", (socket) => {
   // Handle when user starts viewing a specific chat
   socket.on("viewing_chat", (chatId) => {
     activeChats.set(socket.id, chatId);
-    console.log(`User is now viewing chat ${chatId}`);
   });
 
   // Handle when user stops viewing a specific chat
   socket.on("stop_viewing_chat", () => {
     activeChats.delete(socket.id);
-    console.log(`User stopped viewing chat`);
   });
 
   // Handle new messages
@@ -318,7 +310,6 @@ io.on("connection", (socket) => {
 
         connectedUsers.delete(socket.id);
         activeChats.delete(socket.id);
-        console.log(`User ${userUuid} disconnected`);
       }
     } catch (error) {
       console.error("Error during disconnect:", error);

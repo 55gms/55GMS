@@ -321,10 +321,13 @@ function renderChatList() {
           lastMessage.content
         : "No messages yet";
 
+      // Check if this chat is currently active
+      const isActive = chat.id === currentChatId;
+
       return `
-            <div class="chat-item" data-chat-id="${
-              chat.id
-            }" onclick="selectChat('${chat.id}')">
+            <div class="chat-item ${isActive ? "active" : ""}" data-chat-id="${
+        chat.id
+      }" onclick="selectChat('${chat.id}')">
                 <div class="chat-avatar">
                     <div class="avatar-circle">
                         ${chat.name.charAt(0).toUpperCase()}
