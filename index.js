@@ -172,17 +172,33 @@ io.on("connection", (socket) => {
         where: { chatId },
       });
 
-      // Send notifications to all chat members (except sender)
+      // Get list of sockets currently in the chat room to avoid duplicate notifications
+      const chatRoomSockets =
+        io.sockets.adapter.rooms.get(`chat_${chatId}`) || new Set();
+      const connectedUsersInRoom = new Set();
+      chatRoomSockets.forEach((socketId) => {
+        const userUuid = connectedUsers.get(socketId);
+        if (userUuid) {
+          connectedUsersInRoom.add(userUuid);
+        }
+      });
+
+      // Send notifications to chat members who are NOT currently in the chat room
       chatMembers.forEach((member) => {
-        if (member.userUuid !== senderUuid) {
-          // Send notification to user's personal room
-          socket.to(`user_${member.userUuid}`).emit("new_message", {
-            chatId,
-            content,
-            senderUuid,
-            senderUsername,
-            timestamp: new Date(),
-          });
+        if (
+          member.userUuid !== senderUuid &&
+          !connectedUsersInRoom.has(member.userUuid)
+        ) {
+          // Send notification to user's personal room (only if they're not in the chat room)
+          socket
+            .to(`user_${member.userUuid}`)
+            .emit("new_message_notification", {
+              chatId,
+              content,
+              senderUuid,
+              senderUsername,
+              timestamp: new Date(),
+            });
         }
       });
 

@@ -117,13 +117,152 @@ if (blankerCheck === "true") {
   }
 }
 
+// Notification functions
+function formatTime(date) {
+  return date.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
+
+function initializeNotificationSystem() {
+  // Add notification styles if not already present
+  if (!document.getElementById("notification-styles")) {
+    const style = document.createElement("style");
+    style.id = "notification-styles";
+    style.textContent = `
+      .notification-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 10000;
+        max-width: 350px;
+      }
+
+      .notification {
+        background: #2c2c2c;
+        border: 1px solid #444;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        color: #fff;
+        animation: notificationSlideIn 0.3s ease;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+
+      .notification:hover {
+        transform: translateX(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      @keyframes notificationSlideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .notification-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .notification-title {
+        font-weight: 600;
+        font-size: 14px;
+        color: #fff;
+      }
+
+      .notification-time {
+        font-size: 12px;
+        color: #aaa;
+      }
+
+      .notification-message {
+        font-size: 13px;
+        color: #ddd;
+        line-height: 1.4;
+      }
+
+      @media (max-width: 768px) {
+        .notification-container {
+          top: 10px;
+          right: 10px;
+          left: 10px;
+          max-width: none;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // Add notification container if not already present
+  if (!document.getElementById("notificationContainer")) {
+    const container = document.createElement("div");
+    container.id = "notificationContainer";
+    container.className = "notification-container";
+    document.body.appendChild(container);
+  }
+}
+
+function showNotification(title, message, onClick) {
+  // Ensure notification system is initialized
+  initializeNotificationSystem();
+
+  const container = document.getElementById("notificationContainer");
+  if (!container) {
+    console.warn("Notification container not found");
+    return;
+  }
+
+  const notificationElement = document.createElement("div");
+  notificationElement.className = "notification";
+  notificationElement.innerHTML = `
+    <div class="notification-header">
+      <div class="notification-title">${title}</div>
+      <div class="notification-time">${formatTime(new Date())}</div>
+    </div>
+    <div class="notification-message">${message}</div>
+  `;
+
+  if (onClick) {
+    notificationElement.onclick = () => {
+      onClick();
+      notificationElement.remove();
+    };
+    notificationElement.style.cursor = "pointer";
+  }
+
+  container.appendChild(notificationElement);
+
+  // Auto-remove after 5 seconds
+  setTimeout(() => {
+    if (notificationElement.parentElement) {
+      notificationElement.remove();
+    }
+  }, 5000);
+}
+
 // Online status tracking for chat system
 function initializeOnlineStatus() {
   const uuid = localStorage.getItem("uuid");
   console.log("Initializing online status tracking for UUID:", uuid);
 
   // Only track if user is logged in and not on chat page (chat page handles its own connection)
-  if (uuid && !window.location.pathname.startsWith("/chat")) {
+  if (
+    uuid &&
+    !window.location.pathname.startsWith("/chat") &&
+    !window.location.pathname.startsWith("/c")
+  ) {
     console.log("Setting up status socket connection (not on chat page)");
     let statusSocket;
 
@@ -158,15 +297,17 @@ function initializeOnlineStatus() {
         });
 
         // Handle notifications for new messages
-        statusSocket.on("new_message", (data) => {
-          if (Notification.permission === "granted") {
-            new Notification("New Message", {
-              body: data.content,
-              icon: "/img/favicon.ico",
-            }).onclick = () => {
+        statusSocket.on("new_message_notification", (data) => {
+          console.log("Received new_message_notification:", data);
+
+          // Show in-page notification
+          showNotification(
+            `New Message from ${data.senderUsername}`,
+            data.content,
+            () => {
               window.open(`/chat/${data.chatId}`, "_blank");
-            };
-          }
+            }
+          );
         });
 
         // Heartbeat to keep connection alive
