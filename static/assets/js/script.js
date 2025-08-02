@@ -53,11 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initialize notification system
   initializeNotificationSystem();
 
-  // Request notification permission
-  if ("Notification" in window && Notification.permission === "default") {
-    Notification.requestPermission();
-  }
-
   // Initialize online status tracking for logged-in users
   initializeOnlineStatus();
 });
