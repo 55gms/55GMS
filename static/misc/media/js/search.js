@@ -75,7 +75,7 @@ async function searchMedia(searchQuery) {
 
 document.addEventListener("DOMContentLoaded", function () {
   let cooldown = false;
-  const searchbar = document.getElementById("searchbar");
+  const searchbar = document.querySelector('input[tag="searchbar"]');
   const cooldownNotice = document.getElementById("cooldownNotice");
 
   searchbar.addEventListener("keypress", function (e) {
@@ -109,12 +109,25 @@ document.addEventListener("keydown", function (e) {
       "a",
       "Control",
       "Alt",
+      "Meta", 
+      "Shift",
+      "Enter",
+      "Escape",
+      "Backspace",
     ].includes(e.key) ||
-    e.metaKey
+    (e.ctrlKey || e.metaKey) 
   )
     return;
 
-  let searchbar = document.getElementById("searchbar");
+  let searchbar = document.querySelector('input[tag="searchbar"]');
+  
+  if (document.activeElement === searchbar && searchbar.selectionStart !== searchbar.selectionEnd) {
+    return;
+  }
+  
   searchbar.focus();
-  if (e.toLowerCase() != e.toUpperCase()) searchbar.value += e.key;
+  if (e.key.toLowerCase() != e.key.toUpperCase()) {
+    searchbar.value += e.key;
+    e.preventDefault(); 
+  }
 });

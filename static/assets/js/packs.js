@@ -17,7 +17,7 @@ window.addEventListener("load", (event) => {
         gameContainer.insertAdjacentHTML("beforeend", gameHtml);
       });
 
-      let searchbar = document.getElementById("searchbar");
+      let searchbar = document.querySelector(".searchbar");
       if (searchbar)
         searchbar.placeholder = `Click here to search through our ${apps.length} packs!`;
     });

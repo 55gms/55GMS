@@ -40,7 +40,7 @@ window.addEventListener("load", (event) => {
             </div>`;
           }
           gameContainer.insertAdjacentHTML("beforeend", gameHtml);
-          const searchbar = document.getElementById("searchbar");
+          const searchbar = document.querySelector(".searchbar");
           if (searchbar)
             searchbar.placeholder = `Click here or type to search through our ${games.length} games!`;
         });
