@@ -112,7 +112,6 @@ io.on("connection", (socket) => {
         });
       }
 
-      // Notify friends that user is online
       socket.broadcast.emit("user_status_change", {
         userUuid: uuid,
         isOnline: true,
@@ -122,38 +121,31 @@ io.on("connection", (socket) => {
     }
   });
 
-  // Handle joining specific chat rooms
   socket.on("join_chat", (chatId) => {
     socket.join(`chat_${chatId}`);
   });
 
-  // Handle leaving chat rooms
   socket.on("leave_chat", (chatId) => {
     socket.leave(`chat_${chatId}`);
   });
 
-  // Handle when user starts viewing a specific chat
   socket.on("viewing_chat", (chatId) => {
     activeChats.set(socket.id, chatId);
   });
 
-  // Handle when user stops viewing a specific chat
   socket.on("stop_viewing_chat", () => {
     activeChats.delete(socket.id);
   });
 
-  // Handle new messages
   socket.on("send_message", async (data) => {
     try {
       const { chatId, content, senderUuid } = data;
 
-      // Verify sender is authenticated
       const authenticatedUuid = connectedUsers.get(socket.id);
       if (authenticatedUuid !== senderUuid) {
         return socket.emit("error", "Authentication mismatch");
       }
 
-      // Get sender username
       let senderUsername = "Unknown User";
       try {
         const axios = require("axios");
@@ -170,7 +162,6 @@ io.on("connection", (socket) => {
         console.error("Error fetching sender username:", error);
       }
 
-      // Broadcast the message to all users in the chat
       socket.to(`chat_${chatId}`).emit("new_message", {
         chatId,
         content,
@@ -179,26 +170,21 @@ io.on("connection", (socket) => {
         timestamp: new Date(),
       });
 
-      // Get all chat members for cross-page notifications
       const chatMembers = await ChatMember.findAll({
         where: { chatId },
       });
 
-      // Send notifications to all chat members
       chatMembers.forEach((member) => {
         if (member.userUuid !== senderUuid) {
-          // Find all sockets for this user
           const userSockets = Array.from(connectedUsers.entries())
             .filter(([socketId, userUuid]) => userUuid === member.userUuid)
             .map(([socketId]) => socketId);
 
-          // Check if any of the user's sockets are currently viewing this chat
           const isCurrentlyViewing = userSockets.some(
             (socketId) => activeChats.get(socketId) === chatId
           );
 
           if (!isCurrentlyViewing) {
-            // User is not currently viewing this chat, send notification
             socket
               .to(`user_${member.userUuid}`)
               .emit("new_message_notification", {
@@ -209,11 +195,9 @@ io.on("connection", (socket) => {
                 timestamp: new Date(),
               });
           }
-          // Note: Users currently viewing the chat will receive the message via the regular new_message event
         }
       });
 
-      // Update chat's last activity
       await Chat.update(
         { lastActivity: new Date() },
         { where: { id: chatId } }
@@ -224,7 +208,6 @@ io.on("connection", (socket) => {
     }
   });
 
-  // Handle typing indicators
   socket.on("typing_start", (data) => {
     const { chatId, senderUuid } = data;
     socket.to(`chat_${chatId}`).emit("user_typing", {
@@ -243,7 +226,6 @@ io.on("connection", (socket) => {
     });
   });
 
-  // Handle read receipts
   socket.on("mark_read", async (data) => {
     try {
       const { chatId } = data;
@@ -251,13 +233,11 @@ io.on("connection", (socket) => {
 
       if (!userUuid) return;
 
-      // Update last read timestamp
       await ChatMember.update(
         { lastReadAt: new Date() },
         { where: { chatId, userUuid } }
       );
 
-      // Notify other chat members
       socket.to(`chat_${chatId}`).emit("messages_read", {
         chatId,
         userUuid,
@@ -268,13 +248,11 @@ io.on("connection", (socket) => {
     }
   });
 
-  // Handle heartbeat to keep users online
   socket.on("heartbeat", async (data) => {
     try {
       const { uuid } = data;
       if (!uuid) return;
 
-      // Update last seen timestamp
       await UserStatus.upsert({
         userUuid: uuid,
         isOnline: true,
@@ -291,7 +269,6 @@ io.on("connection", (socket) => {
     try {
       const userUuid = connectedUsers.get(socket.id);
       if (userUuid) {
-        // Update user status to offline
         await UserStatus.update(
           {
             isOnline: false,
@@ -301,7 +278,6 @@ io.on("connection", (socket) => {
           { where: { userUuid } }
         );
 
-        // Notify friends that user is offline
         socket.broadcast.emit("user_status_change", {
           userUuid,
           isOnline: false,
@@ -317,11 +293,9 @@ io.on("connection", (socket) => {
   });
 });
 
-// Heartbeat system to keep users online
 setInterval(async () => {
   try {
-    // Mark users as offline if they haven't been seen in 5 minutes (increased from 2)
-    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+    const fiveMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
 
     const staleUsers = await UserStatus.findAll({
       where: {
@@ -336,7 +310,6 @@ setInterval(async () => {
         socketId: null,
       });
 
-      // Notify friends about status change
       io.emit("user_status_change", {
         userUuid: user.userUuid,
         isOnline: false,
@@ -346,7 +319,7 @@ setInterval(async () => {
   } catch (error) {
     console.error("Error in heartbeat cleanup:", error);
   }
-}, 60000); // Run every minute
+}, 60000);
 
 app.use(express.static(path.join(__dirname, "static")));
 app.use((req, res, next) => {
@@ -371,7 +344,7 @@ const routes = [
   { path: "/d", file: "dashboard.html" },
   { path: "/e", file: "ai.html" },
   { path: "/-", file: "media.html" },
-  { path: "/m", file: "media.html" }, // possibly change all navbars to use /m
+  { path: "/m", file: "media.html" },
   { path: "/profile", file: "account.html" },
   { path: "/login", file: "login.html" },
   { path: "/signup", file: "signup.html" },
@@ -386,7 +359,6 @@ routes.forEach((route) => {
   });
 });
 
-// Handle dynamic chat routes
 app.get("/chat/:chatId", (req, res) => {
   res.sendFile(path.join(__dirname, "static", "chat.html"));
 });
@@ -396,7 +368,6 @@ app.use((req, res) => {
   res.status(404).sendFile(notFoundPage);
 });
 
-// Handle upgrade events for bare server
 server.on("upgrade", (req, socket, head) => {
   if (bareServer.shouldRoute(req)) {
     bareServer.routeUpgrade(req, socket, head);
