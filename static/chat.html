@@ -111,6 +111,9 @@
                             <button id="leaveGroupOption" class="menu-option" style="display: none;">
                                 <i class="fa-solid fa-arrow-right-from-bracket"></i> Leave Group
                             </button>
+                            <button id="viewMembersOption" class="menu-option" style="display: none;">
+                                <i class="fa-solid fa-users"></i> View Members
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -132,6 +135,9 @@
                         <button id="sendBtn" class="send-btn">
                             <i class="fa-solid fa-paper-plane"></i>
                         </button>
+                    </div>
+                    <div class="character-counter">
+                        <span id="charCount">0</span>/1000
                     </div>
                 </div>
             </div>
@@ -217,6 +223,23 @@
                         </div>
                         <button id="createGroupBtn" class="gs">Create Group</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Group Members Modal -->
+    <div id="groupMembersModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="groupMembersTitle">Group Members</h3>
+                <button class="modal-close" id="closeGroupMembersModal">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="groupMembersList">
+                    <!-- Group members will be loaded here -->
                 </div>
             </div>
         </div>

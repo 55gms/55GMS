@@ -22,6 +22,75 @@ const authenticateUser = async (req, res, next) => {
   next();
 };
 
+// GET /chats/:chatId/members
+router.get("/chats/:chatId/members", authenticateUser, async (req, res) => {
+  try {
+    const chatId = req.params.chatId;
+    const userUuid = req.userUuid;
+
+    // First verify the user is a member of this chat
+    const userMembership = await ChatMember.findOne({
+      where: {
+        chatId: chatId,
+        userUuid: userUuid,
+      },
+    });
+
+    if (!userMembership) {
+      return res.status(403).json({ error: "Not a member of this chat" });
+    }
+
+    // Get the chat to make sure it's a group chat
+    const chat = await Chat.findByPk(chatId);
+    if (!chat || chat.type !== "group") {
+      return res
+        .status(400)
+        .json({ error: "Chat not found or not a group chat" });
+    }
+
+    // Get all members of the chat
+    const members = await ChatMember.findAll({
+      where: { chatId: chatId },
+      include: [
+        {
+          model: require("../models").User,
+          attributes: ["uuid", "username", "avatar"],
+          include: [
+            {
+              model: require("../models").UserStatus,
+              attributes: ["status"],
+            },
+          ],
+        },
+      ],
+      order: [
+        ["role", "ASC"],
+        ["createdAt", "ASC"],
+      ], // Admin first, then by join order
+    });
+
+    // Format the response
+    const formattedMembers = members.map((member) => ({
+      uuid: member.User.uuid,
+      username: member.User.username,
+      avatar: member.User.avatar || "/img/user.webp",
+      role: member.role,
+      status: member.User.UserStatus?.status || "offline",
+      joinedAt: member.createdAt,
+    }));
+
+    res.json({
+      success: true,
+      members: formattedMembers,
+      memberCount: formattedMembers.length,
+    });
+  } catch (error) {
+    console.error("Error fetching chat members:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Leave a group chat
 // Get user's chats
 router.get("/user-chats", authenticateUser, async (req, res) => {
   try {
@@ -194,6 +263,12 @@ router.post("/chats/:chatId/messages", authenticateUser, async (req, res) => {
 
     if (!content || content.trim().length === 0) {
       return res.status(400).json({ error: "Message content is required" });
+    }
+
+    if (content.length > 2000) {
+      return res
+        .status(400)
+        .json({ error: "Message too long. Maximum 2000 characters allowed." });
     }
 
     // Sanitize content
@@ -390,6 +465,74 @@ router.post("/chats/group", authenticateUser, async (req, res) => {
     res.status(201).json({ chatId: chat.id });
   } catch (error) {
     console.error("Error creating group chat:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// GET /chats/:chatId/members
+router.get("/chats/:chatId/members", authenticateUser, async (req, res) => {
+  try {
+    const chatId = req.params.chatId;
+    const userUuid = req.user.uuid;
+
+    // First verify the user is a member of this chat
+    const userMembership = await ChatMember.findOne({
+      where: {
+        chatId: chatId,
+        userUuid: userUuid,
+      },
+    });
+
+    if (!userMembership) {
+      return res.status(403).json({ error: "Not a member of this chat" });
+    }
+
+    // Get the chat to make sure it's a group chat
+    const chat = await Chat.findByPk(chatId);
+    if (!chat || chat.type !== "group") {
+      return res
+        .status(400)
+        .json({ error: "Chat not found or not a group chat" });
+    }
+
+    // Get all members of the chat
+    const members = await ChatMember.findAll({
+      where: { chatId: chatId },
+      include: [
+        {
+          model: require("../models").User,
+          attributes: ["uuid", "username", "avatar"],
+          include: [
+            {
+              model: require("../models").UserStatus,
+              attributes: ["status"],
+            },
+          ],
+        },
+      ],
+      order: [
+        ["role", "ASC"],
+        ["createdAt", "ASC"],
+      ], // Admin first, then by join order
+    });
+
+    // Format the response
+    const formattedMembers = members.map((member) => ({
+      uuid: member.User.uuid,
+      username: member.User.username,
+      avatar: member.User.avatar || "/img/user.webp",
+      role: member.role,
+      status: member.User.UserStatus?.status || "offline",
+      joinedAt: member.createdAt,
+    }));
+
+    res.json({
+      success: true,
+      members: formattedMembers,
+      memberCount: formattedMembers.length,
+    });
+  } catch (error) {
+    console.error("Error fetching chat members:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

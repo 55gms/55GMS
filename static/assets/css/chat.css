@@ -297,6 +297,8 @@
   flex-direction: column;
   position: relative;
   background: #5e7594;
+  overflow: hidden; /* Prevent horizontal scroll */
+  max-width: 100%;
 }
 
 .chat-welcome {
@@ -449,8 +451,10 @@
 .messages-container {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden; /* Prevent horizontal scroll */
   padding: 20px;
   background: #5e7594;
+  max-width: 100%;
 }
 
 .messages {
@@ -492,6 +496,9 @@
   border-radius: 18px;
   position: relative;
   word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   border: 1px solid #353d49;
 }
@@ -570,10 +577,20 @@
   padding: 8px 12px;
   outline: none;
   font-family: "Roboto", serif;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .message-input input::placeholder {
   color: #b8c5d1;
+}
+
+.character-counter {
+  text-align: right;
+  font-size: 12px;
+  color: #95a5a6;
+  margin-top: 5px;
+  padding-right: 10px;
 }
 
 .send-btn {
@@ -1363,4 +1380,130 @@ select {
 
 .notification-container {
   z-index: 2000;
+}
+
+/* Group Members Modal */
+.group-member-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #3a4a5c;
+  transition: background-color 0.2s ease;
+}
+
+.group-member-item:hover {
+  background-color: #3a4a5c;
+}
+
+.group-member-item:last-child {
+  border-bottom: none;
+}
+
+.member-avatar {
+  position: relative;
+  margin-right: 12px;
+}
+
+.member-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #4a5f7a;
+}
+
+.status-indicator {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #2c3e50;
+}
+
+.status-indicator.online {
+  background-color: #27ae60;
+}
+
+.status-indicator.offline {
+  background-color: #7f8c8d;
+}
+
+.member-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.member-username {
+  font-weight: 500;
+  color: white;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.member-status {
+  font-size: 12px;
+  color: #95a5a6;
+  text-transform: capitalize;
+}
+
+/* Group Members Modal Header */
+#groupMembersModal .modal-header {
+  padding: 20px;
+  border-bottom: 1px solid #3a4a5c;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#groupMembersModal .modal-header h3 {
+  margin: 0;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+#groupMembersModal .close {
+  background: none;
+  border: none;
+  color: #95a5a6;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+#groupMembersModal .close:hover {
+  background-color: #3a4a5c;
+  color: white;
+}
+
+#groupMembersList {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+#groupMembersList::-webkit-scrollbar {
+  width: 8px;
+}
+
+#groupMembersList::-webkit-scrollbar-track {
+  background: #2c3e50;
+}
+
+#groupMembersList::-webkit-scrollbar-thumb {
+  background: #4a5f7a;
+  border-radius: 4px;
+}
+
+#groupMembersList::-webkit-scrollbar-thumb:hover {
+  background: #5a6f8a;
 }

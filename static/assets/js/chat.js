@@ -159,6 +159,7 @@ function setupEventListeners() {
   });
 
   messageInput.addEventListener("input", handleTyping);
+  messageInput.addEventListener("input", updateCharacterCounter);
 
   sendBtn.addEventListener("click", sendMessage);
 
@@ -191,6 +192,12 @@ function setupEventListeners() {
   document.getElementById("closeFriendsModal").addEventListener("click", () => {
     document.getElementById("friendsModal").style.display = "none";
   });
+
+  document
+    .getElementById("closeGroupMembersModal")
+    .addEventListener("click", () => {
+      document.getElementById("groupMembersModal").style.display = "none";
+    });
 
   // Tab switching
   setupTabSwitching();
@@ -238,6 +245,9 @@ function setupEventListeners() {
   document
     .getElementById("leaveGroupOption")
     .addEventListener("click", handleLeaveGroup);
+  document
+    .getElementById("viewMembersOption")
+    .addEventListener("click", handleViewMembers);
 
   // Click outside to close modals
   window.addEventListener("click", (e) => {
@@ -604,8 +614,19 @@ async function sendMessage() {
 
   if (!content || !currentChatId) return;
 
+  // Check character limit
+  if (content.length > 2000) {
+    Swal.fire({
+      icon: "error",
+      title: "Message Too Long",
+      text: "Messages must be 2000 characters or less.",
+    });
+    return;
+  }
+
   // Clear input immediately
   messageInput.value = "";
+  updateCharacterCounter(); // Update counter after clearing
 
   // Stop typing indicator
   if (isTyping) {
@@ -1417,29 +1438,7 @@ function showNotification(title, message, onClick) {
     console.log("Notification container created");
   }
 
-  // Show browser notification if permission granted
-  if ("Notification" in window && Notification.permission === "granted") {
-    try {
-      const notification = new Notification(title, {
-        body: message,
-        icon: "/img/favicon.ico",
-      });
-
-      notification.onclick = () => {
-        window.focus();
-        if (onClick) onClick();
-        notification.close();
-      };
-
-      console.log("Browser notification created");
-    } catch (error) {
-      console.log("Browser notification failed:", error);
-    }
-  } else {
-    console.log("Browser notification permission:", Notification.permission);
-  }
-
-  // Show in-page notification
+  // Show in-page notification only (browser notifications removed)
   const notificationElement = document.createElement("div");
   notificationElement.className = "notification";
   notificationElement.innerHTML = `
@@ -1468,9 +1467,22 @@ function showNotification(title, message, onClick) {
   }, 5000);
 }
 
-function requestNotificationPermission() {
-  if ("Notification" in window && Notification.permission === "default") {
-    Notification.requestPermission();
+function updateCharacterCounter() {
+  const messageInput = document.getElementById("messageInput");
+  const charCount = document.getElementById("charCount");
+
+  if (messageInput && charCount) {
+    const currentLength = messageInput.value.length;
+    charCount.textContent = currentLength;
+
+    // Change color based on character limit
+    if (currentLength > 1800) {
+      charCount.style.color = "#e74c3c"; // Red when approaching limit
+    } else if (currentLength > 1500) {
+      charCount.style.color = "#f39c12"; // Orange when getting close
+    } else {
+      charCount.style.color = "#95a5a6"; // Default gray
+    }
   }
 }
 
@@ -1490,7 +1502,7 @@ function scrollToBottom() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  requestNotificationPermission();
+  // Browser notification permissions removed - using in-page notifications only
 });
 
 // Test function for chat notifications (can be called from browser console)
@@ -1557,6 +1569,7 @@ async function updateChatMenuOptions() {
   // Handle direct chats
   if (currentChat.type === "direct") {
     document.getElementById("leaveGroupOption").style.display = "none";
+    document.getElementById("viewMembersOption").style.display = "none";
 
     const otherUserUuid = currentChat.members[0]?.uuid;
     if (!otherUserUuid) {
@@ -1580,12 +1593,14 @@ async function updateChatMenuOptions() {
     document.getElementById("addFriendOption").style.display = "none";
     document.getElementById("removeFriendOption").style.display = "none";
     document.getElementById("leaveGroupOption").style.display = "block";
+    document.getElementById("viewMembersOption").style.display = "block";
   }
   // Default case - hide all options
   else {
     document.getElementById("addFriendOption").style.display = "none";
     document.getElementById("removeFriendOption").style.display = "none";
     document.getElementById("leaveGroupOption").style.display = "none";
+    document.getElementById("viewMembersOption").style.display = "none";
   }
 }
 
@@ -1755,6 +1770,75 @@ async function handleLeaveGroup() {
   }
 
   document.getElementById("chatMenuDropdown").style.display = "none";
+}
+
+// Handle view members button click
+async function handleViewMembers() {
+  if (!currentChatId) return;
+
+  const currentChat = chats.find((c) => c.id === currentChatId);
+  if (!currentChat || currentChat.type !== "group") {
+    return;
+  }
+
+  try {
+    const response = await fetch(`/api/chats/${currentChat.id}/members`, {
+      method: "GET",
+      headers: {
+        "X-User-UUID": currentUser.uuid,
+      },
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch group members");
+    }
+
+    const data = await response.json();
+
+    if (data.success) {
+      displayGroupMembers(data.members);
+      document.getElementById("groupMembersModal").style.display = "block";
+    } else {
+      throw new Error(data.error || "Failed to fetch group members");
+    }
+  } catch (error) {
+    console.error("Error fetching group members:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Failed to load group members. Please try again.",
+    });
+  }
+
+  document.getElementById("chatMenuDropdown").style.display = "none";
+}
+
+// Display group members in the modal
+function displayGroupMembers(members) {
+  const membersList = document.getElementById("groupMembersList");
+  membersList.innerHTML = "";
+
+  members.forEach((member) => {
+    const memberElement = document.createElement("div");
+    memberElement.className = "group-member-item";
+
+    const statusClass = member.status === "online" ? "online" : "offline";
+    const roleText = member.role === "admin" ? " (Admin)" : "";
+
+    memberElement.innerHTML = `
+      <div class="member-avatar">
+        <img src="${member.avatar}" alt="${member.username}" />
+        <span class="status-indicator ${statusClass}"></span>
+      </div>
+      <div class="member-info">
+        <span class="member-username">${member.username}${roleText}</span>
+        <span class="member-status">${member.status}</span>
+      </div>
+    `;
+
+    membersList.appendChild(memberElement);
+  });
 }
 
 // Update timestamps in real-time
