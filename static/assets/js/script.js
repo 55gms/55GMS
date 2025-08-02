@@ -230,29 +230,6 @@ function showNotification(title, message, onClick) {
   }
 
   console.log("Notification container found, creating notification");
-
-  // Try to show browser notification if permission granted
-  if ("Notification" in window && Notification.permission === "granted") {
-    try {
-      const notification = new Notification(title, {
-        body: message,
-        icon: "/img/favicon.ico",
-      });
-
-      notification.onclick = () => {
-        window.focus();
-        if (onClick) onClick();
-        notification.close();
-      };
-
-      console.log("Browser notification created");
-    } catch (error) {
-      console.log("Browser notification failed:", error);
-    }
-  } else {
-    console.log("Browser notification permission:", Notification.permission);
-  }
-
   const notificationElement = document.createElement("div");
   notificationElement.className = "notification";
   notificationElement.innerHTML = `
