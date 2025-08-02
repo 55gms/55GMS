@@ -58,8 +58,11 @@ function initializeSocket() {
 
   socket.on("connect", () => {
     console.log("Connected to server");
-    // Authenticate user
-    socket.emit("authenticate", { uuid: currentUser.uuid });
+    // Authenticate user and join chat rooms
+    socket.emit("authenticate", {
+      uuid: currentUser.uuid,
+      joinChatRooms: true,
+    });
   });
 
   socket.on("disconnect", () => {
@@ -1155,28 +1158,130 @@ function filterChats() {
 }
 
 function showNotification(title, message, onClick) {
-  if ("Notification" in window && Notification.permission === "granted") {
-    const notification = new Notification(title, {
-      body: message,
-      icon: "/img/favicon.ico",
-    });
+  console.log("Chat showNotification called:", { title, message });
 
-    notification.onclick = () => {
-      window.focus();
-      if (onClick) onClick();
-      notification.close();
-    };
+  // Initialize notification system if not already done
+  if (!document.getElementById("notification-styles")) {
+    console.log("Initializing notification styles...");
+    const style = document.createElement("style");
+    style.id = "notification-styles";
+    style.textContent = `
+      .notification-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 10000;
+        max-width: 350px;
+      }
+
+      .notification {
+        background: #2c2c2c;
+        border: 1px solid #444;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        color: #fff;
+        animation: notificationSlideIn 0.3s ease;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+
+      .notification:hover {
+        transform: translateX(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      @keyframes notificationSlideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .notification-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .notification-title {
+        font-weight: 600;
+        font-size: 14px;
+        color: #fff;
+      }
+
+      .notification-time {
+        font-size: 12px;
+        color: #aaa;
+      }
+
+      .notification-message {
+        font-size: 13px;
+        color: #ddd;
+        line-height: 1.4;
+      }
+
+      @media (max-width: 768px) {
+        .notification-container {
+          top: 10px;
+          right: 10px;
+          left: 10px;
+          max-width: none;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    console.log("Notification styles added");
   }
 
-  const container = document.getElementById("notificationContainer");
+  // Create notification container if not already present
+  let container = document.getElementById("notificationContainer");
+  if (!container) {
+    console.log("Creating notification container...");
+    container = document.createElement("div");
+    container.id = "notificationContainer";
+    container.className = "notification-container";
+    document.body.appendChild(container);
+    console.log("Notification container created");
+  }
+
+  // Show browser notification if permission granted
+  if ("Notification" in window && Notification.permission === "granted") {
+    try {
+      const notification = new Notification(title, {
+        body: message,
+        icon: "/img/favicon.ico",
+      });
+
+      notification.onclick = () => {
+        window.focus();
+        if (onClick) onClick();
+        notification.close();
+      };
+
+      console.log("Browser notification created");
+    } catch (error) {
+      console.log("Browser notification failed:", error);
+    }
+  } else {
+    console.log("Browser notification permission:", Notification.permission);
+  }
+
+  // Show in-page notification
   const notificationElement = document.createElement("div");
   notificationElement.className = "notification";
   notificationElement.innerHTML = `
         <div class="notification-header">
-            <div class="notification-title">${title}</div>
+            <div class="notification-title">${escapeHtml(title)}</div>
             <div class="notification-time">${formatTime(new Date())}</div>
         </div>
-        <div class="notification-message">${message}</div>
+        <div class="notification-message">${escapeHtml(message)}</div>
     `;
 
   if (onClick) {
@@ -1187,10 +1292,12 @@ function showNotification(title, message, onClick) {
   }
 
   container.appendChild(notificationElement);
+  console.log("In-page notification added to container");
 
   setTimeout(() => {
     if (notificationElement.parentElement) {
       notificationElement.remove();
+      console.log("Chat notification auto-removed");
     }
   }, 5000);
 }
@@ -1219,6 +1326,18 @@ function scrollToBottom() {
 document.addEventListener("DOMContentLoaded", () => {
   requestNotificationPermission();
 });
+
+// Test function for chat notifications (can be called from browser console)
+function testChatNotification() {
+  console.log("Testing chat notification system...");
+  showNotification(
+    "Test Chat Notification",
+    "This is a test notification for the chat system!",
+    () => {
+      console.log("Test chat notification clicked!");
+    }
+  );
+}
 
 // Initialize user info bar
 function initializeUserInfoBar() {

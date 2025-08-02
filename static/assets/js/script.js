@@ -50,6 +50,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // Initialize notification system
+  initializeNotificationSystem();
+
+  // Request notification permission
+  if ("Notification" in window && Notification.permission === "default") {
+    Notification.requestPermission();
+  }
+
   // Initialize online status tracking for logged-in users
   initializeOnlineStatus();
 });
@@ -215,6 +223,8 @@ function initializeNotificationSystem() {
 }
 
 function showNotification(title, message, onClick) {
+  console.log("showNotification called:", { title, message });
+
   // Ensure notification system is initialized
   initializeNotificationSystem();
 
@@ -224,14 +234,38 @@ function showNotification(title, message, onClick) {
     return;
   }
 
+  console.log("Notification container found, creating notification");
+
+  // Try to show browser notification if permission granted
+  if ("Notification" in window && Notification.permission === "granted") {
+    try {
+      const notification = new Notification(title, {
+        body: message,
+        icon: "/img/favicon.ico",
+      });
+
+      notification.onclick = () => {
+        window.focus();
+        if (onClick) onClick();
+        notification.close();
+      };
+
+      console.log("Browser notification created");
+    } catch (error) {
+      console.log("Browser notification failed:", error);
+    }
+  } else {
+    console.log("Browser notification permission:", Notification.permission);
+  }
+
   const notificationElement = document.createElement("div");
   notificationElement.className = "notification";
   notificationElement.innerHTML = `
     <div class="notification-header">
-      <div class="notification-title">${title}</div>
+      <div class="notification-title">${escapeHtml(title)}</div>
       <div class="notification-time">${formatTime(new Date())}</div>
     </div>
-    <div class="notification-message">${message}</div>
+    <div class="notification-message">${escapeHtml(message)}</div>
   `;
 
   if (onClick) {
@@ -243,13 +277,34 @@ function showNotification(title, message, onClick) {
   }
 
   container.appendChild(notificationElement);
+  console.log("In-page notification added to container");
 
   // Auto-remove after 5 seconds
   setTimeout(() => {
     if (notificationElement.parentElement) {
       notificationElement.remove();
+      console.log("Notification auto-removed");
     }
   }, 5000);
+}
+
+// Helper function to escape HTML
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// Test function for notifications (can be called from browser console)
+function testNotification() {
+  console.log("Testing notification system...");
+  showNotification(
+    "Test Notification",
+    "This is a test notification to verify the system is working!",
+    () => {
+      console.log("Test notification clicked!");
+    }
+  );
 }
 
 // Online status tracking for chat system
@@ -281,6 +336,7 @@ function initializeOnlineStatus() {
 
         statusSocket.on("connect", () => {
           console.log("Status socket connected successfully");
+          console.log("Sending authentication for UUID:", uuid);
           statusSocket.emit("authenticate", { uuid });
         });
 
@@ -296,6 +352,11 @@ function initializeOnlineStatus() {
           console.error("Status socket error:", error);
         });
 
+        // Listen for authentication confirmation
+        statusSocket.on("authenticated", (data) => {
+          console.log("Status socket authenticated:", data);
+        });
+
         // Handle notifications for new messages
         statusSocket.on("new_message_notification", (data) => {
           console.log("Received new_message_notification:", data);
@@ -307,6 +368,11 @@ function initializeOnlineStatus() {
             () => {
               window.open(`/chat/${data.chatId}`, "_blank");
             }
+          );
+
+          console.log(
+            "Notification shown for message from",
+            data.senderUsername
           );
         });
 

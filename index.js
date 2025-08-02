@@ -82,7 +82,7 @@ io.on("connection", (socket) => {
   // Handle user authentication and online status
   socket.on("authenticate", async (data) => {
     try {
-      const { uuid } = data;
+      const { uuid, joinChatRooms = false } = data;
       if (!uuid) return;
 
       connectedUsers.set(socket.id, uuid);
@@ -98,15 +98,22 @@ io.on("connection", (socket) => {
       // Join user to their personal room for notifications
       socket.join(`user_${uuid}`);
 
-      // Get user's chats and join those rooms
-      const userChats = await ChatMember.findAll({
-        where: { userUuid: uuid },
-        include: [{ model: Chat, as: "chat" }],
-      });
+      // Only join chat rooms if explicitly requested (for chat page)
+      if (joinChatRooms) {
+        // Get user's chats and join those rooms
+        const userChats = await ChatMember.findAll({
+          where: { userUuid: uuid },
+          include: [{ model: Chat, as: "chat" }],
+        });
 
-      userChats.forEach((chatMember) => {
-        socket.join(`chat_${chatMember.chatId}`);
-      });
+        userChats.forEach((chatMember) => {
+          socket.join(`chat_${chatMember.chatId}`);
+        });
+
+        console.log(`User ${uuid} authenticated and joined chat rooms`);
+      } else {
+        console.log(`User ${uuid} authenticated for status tracking only`);
+      }
 
       // Notify friends that user is online
       socket.broadcast.emit("user_status_change", {
