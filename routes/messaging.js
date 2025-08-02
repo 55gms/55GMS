@@ -394,6 +394,57 @@ router.post("/chats/group", authenticateUser, async (req, res) => {
   }
 });
 
+// Leave a group chat
+router.post("/chats/:chatId/leave", authenticateUser, async (req, res) => {
+  try {
+    const { chatId } = req.params;
+
+    // Verify that the chat exists and is a group chat
+    const chat = await Chat.findOne({
+      where: { id: chatId, type: "group" },
+    });
+
+    if (!chat) {
+      return res.status(404).json({ error: "Group chat not found" });
+    }
+
+    // Verify that the user is a member of this chat
+    const membership = await ChatMember.findOne({
+      where: {
+        chatId: chatId,
+        userUuid: req.userUuid,
+      },
+    });
+
+    if (!membership) {
+      return res
+        .status(404)
+        .json({ error: "You are not a member of this group" });
+    }
+
+    // Remove the user from the chat
+    await membership.destroy();
+
+    // Check if this was the last member
+    const remainingMembers = await ChatMember.count({
+      where: { chatId: chatId },
+    });
+
+    // If no members remain, delete the chat and all its messages
+    if (remainingMembers === 0) {
+      await Message.destroy({
+        where: { chatId: chatId },
+      });
+      await chat.destroy();
+    }
+
+    res.json({ message: "Successfully left the group" });
+  } catch (error) {
+    console.error("Error leaving group chat:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 // Get friends list
 router.get("/friends", authenticateUser, async (req, res) => {
   try {

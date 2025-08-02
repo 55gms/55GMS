@@ -436,6 +436,16 @@
   border-radius: 6px;
 }
 
+/* Leave group option styling */
+#leaveGroupOption {
+  color: #ff6b6b;
+}
+
+#leaveGroupOption:hover {
+  background: #4a5f7a;
+  color: #ff5252;
+}
+
 .messages-container {
   flex: 1;
   overflow-y: auto;

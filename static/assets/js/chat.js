@@ -1574,7 +1574,7 @@ async function updateChatMenuOptions() {
     document.getElementById("removeFriendOption").style.display = isFriend
       ? "block"
       : "none";
-  } 
+  }
   // Handle group chats
   else if (currentChat.type === "group") {
     document.getElementById("addFriendOption").style.display = "none";
@@ -1661,6 +1661,97 @@ async function handleRemoveFriend() {
       title: "Coming Soon",
       text: "Friend removal feature is coming soon!",
     });
+  }
+
+  document.getElementById("chatMenuDropdown").style.display = "none";
+}
+
+// Handle leave group
+async function handleLeaveGroup() {
+  if (!currentChatId) return;
+
+  const currentChat = chats.find((c) => c.id === currentChatId);
+  if (!currentChat || currentChat.type !== "group") return;
+
+  const result = await Swal.fire({
+    title: "Leave Group",
+    text: `Are you sure you want to leave "${currentChat.name}"?`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, leave group",
+    cancelButtonText: "Cancel",
+  });
+
+  if (result.isConfirmed) {
+    try {
+      // First, send a departure message
+      const response = await fetch(`/api/chats/${currentChatId}/messages`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-User-UUID": currentUser.uuid,
+        },
+        body: JSON.stringify({ content: "I've left this group" }),
+      });
+
+      if (response.ok) {
+        // Emit the departure message via socket for real-time delivery
+        socket.emit("send_message", {
+          chatId: currentChatId,
+          content: "I've left this group",
+          senderUuid: currentUser.uuid,
+          senderUsername: currentUser.username,
+        });
+      }
+
+      // Then leave the group
+      const leaveResponse = await fetch(`/api/chats/${currentChatId}/leave`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-User-UUID": currentUser.uuid,
+        },
+      });
+
+      if (leaveResponse.ok) {
+        // Leave the socket room
+        socket.emit("leave_chat", currentChatId);
+
+        // Remove chat from local list
+        chats = chats.filter((chat) => chat.id !== currentChatId);
+
+        // Update UI
+        renderChatList();
+
+        // Show welcome screen
+        document.getElementById("chatWelcome").style.display = "flex";
+        document.getElementById("chatContent").style.display = "none";
+        currentChatId = null;
+
+        // Update URL
+        history.pushState(null, "", "/chat");
+
+        Swal.fire({
+          icon: "success",
+          title: "Left Group",
+          text: "You have successfully left the group",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      } else {
+        const errorData = await leaveResponse.json();
+        throw new Error(errorData.error || "Failed to leave group");
+      }
+    } catch (error) {
+      console.error("Error leaving group:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message || "Failed to leave group",
+      });
+    }
   }
 
   document.getElementById("chatMenuDropdown").style.display = "none";
