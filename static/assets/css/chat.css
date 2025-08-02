@@ -112,6 +112,7 @@
   flex: 1;
   overflow-y: auto;
   background: #4a5f7a;
+  overflow-x: hidden;
 }
 
 .user-info-bar {
