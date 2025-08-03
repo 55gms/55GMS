@@ -1,0 +1,13 @@
+{
+"companyName": "YusufTaha",
+"productName": "LD46",
+"dataUrl": "Web7.data.unityweb",
+"wasmCodeUrl": "Web7.wasm.code.unityweb",
+"wasmFrameworkUrl": "Web7.wasm.framework.unityweb",
+"TOTAL_MEMORY": 268435456,
+"graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#805C44",
+"cacheControl": {"default": "must-revalidate"}
+}
