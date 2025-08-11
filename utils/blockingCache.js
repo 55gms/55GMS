@@ -26,26 +26,26 @@ class BlockingCache {
         where: {
           requesterUuid: otherUserUuid,
           addresseeUuid: userUuid,
-          status: "blocked"
-        }
+          status: "blocked",
+        },
       });
-      
+
       // Cache the result
       this.cache.set(cacheKey, {
         isBlocked: !!blockedByOther,
         blockedBy: blockedByOther ? "other" : null,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       });
 
       return !!blockedByOther;
     } catch (error) {
       console.error("Error checking blocking status:", error);
-      
+
       // If we have stale cached data, return it as fallback
       if (cached) {
         return cached.isBlocked;
       }
-      
+
       return false;
     }
   }
@@ -65,26 +65,26 @@ class BlockingCache {
         where: {
           requesterUuid: userUuid,
           addresseeUuid: otherUserUuid,
-          status: "blocked"
-        }
+          status: "blocked",
+        },
       });
-      
+
       // Cache the result
       this.cache.set(cacheKey, {
         isBlocked: !!blockedByMe,
         blockedBy: blockedByMe ? "me" : null,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       });
 
       return !!blockedByMe;
     } catch (error) {
       console.error("Error checking blocking status:", error);
-      
+
       // If we have stale cached data, return it as fallback
       if (cached) {
         return cached.blockedBy === "me";
       }
-      
+
       return false;
     }
   }
@@ -96,14 +96,14 @@ class BlockingCache {
     return {
       isBlocked: blockedByOther || blockedByMe,
       blockedByOther,
-      blockedByMe
+      blockedByMe,
     };
   }
 
   invalidateCache(userUuid, otherUserUuid) {
     const key1 = this.getCacheKey(userUuid, otherUserUuid);
     const key2 = this.getCacheKey(otherUserUuid, userUuid);
-    
+
     this.cache.delete(key1);
     this.cache.delete(key2);
   }
@@ -125,8 +125,11 @@ class BlockingCache {
 const blockingCache = new BlockingCache();
 
 // Cleanup expired cache entries every 10 minutes
-setInterval(() => {
-  blockingCache.cleanupExpired();
-}, 10 * 60 * 1000);
+setInterval(
+  () => {
+    blockingCache.cleanupExpired();
+  },
+  10 * 60 * 1000,
+);
 
 module.exports = blockingCache;

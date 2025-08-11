@@ -119,7 +119,7 @@ function initializeSocket() {
       `${data.senderUsername || "Unknown"}: ${data.content}`,
       () => {
         selectChat(data.chatId);
-      }
+      },
     );
   });
 
@@ -358,8 +358,8 @@ function renderChatList() {
 
       return `
             <div class="chat-item ${isActive ? "active" : ""}" data-chat-id="${
-        chat.id
-      }" onclick="selectChat('${chat.id}')">
+              chat.id
+            }" onclick="selectChat('${chat.id}')">
                 <div class="chat-avatar">
                     <div class="avatar-circle">
                         ${chat.name.charAt(0).toUpperCase()}
@@ -380,9 +380,9 @@ function renderChatList() {
                     ${
                       lastMessage
                         ? `<div class="chat-time" data-timestamp="${new Date(
-                            lastMessage.createdAt
+                            lastMessage.createdAt,
                           ).getTime()}">${formatTime(
-                            lastMessage.createdAt
+                            lastMessage.createdAt,
                           )}</div>`
                         : ""
                     }
@@ -496,7 +496,8 @@ function renderMessages(messages) {
   messagesContainer.innerHTML = limitedMessages
     .map((message) => {
       const isOwn = message.senderUuid === currentUser.uuid;
-      const isSystem = message.senderUuid === "system" || message.isSystem === true;
+      const isSystem =
+        message.senderUuid === "system" || message.isSystem === true;
       const senderInitials = message.senderUsername
         ? message.senderUsername.charAt(0).toUpperCase()
         : "?";
@@ -521,7 +522,7 @@ function renderMessages(messages) {
           </div>
         `;
       }
-      
+
       // Regular message
       return `
             <div class="message ${isOwn ? "own" : ""}">
@@ -540,11 +541,11 @@ function renderMessages(messages) {
                           message.senderUsername || "Unknown"
                         }</span>
                         <span class="message-time" data-timestamp="${timestamp.getTime()}">${formatTime(
-        timestamp
-      )}</span>
+                          timestamp,
+                        )}</span>
                     </div>
                     <div class="message-text">${escapeHtml(
-                      message.content
+                      message.content,
                     )}</div>
                 </div>
                 ${
@@ -567,13 +568,14 @@ function renderMessages(messages) {
 function appendMessage(messageData) {
   const messagesContainer = document.getElementById("messages");
   const isOwn = messageData.senderUuid === currentUser.uuid;
-  const isSystem = messageData.senderUuid === "system" || messageData.isSystem === true;
-  
+  const isSystem =
+    messageData.senderUuid === "system" || messageData.isSystem === true;
+
   const senderInitials = messageData.senderUsername
     ? messageData.senderUsername.charAt(0).toUpperCase()
     : isOwn
-    ? currentUser.username.charAt(0).toUpperCase()
-    : "?";
+      ? currentUser.username.charAt(0).toUpperCase()
+      : "?";
 
   // Ensure timestamp is properly formatted
   let timestamp = messageData.timestamp || messageData.createdAt || new Date();
@@ -587,7 +589,7 @@ function appendMessage(messageData) {
   }
 
   const messageElement = document.createElement("div");
-  
+
   if (isSystem) {
     // System message style
     messageElement.className = "message system";
@@ -617,8 +619,8 @@ function appendMessage(messageData) {
                   (isOwn ? currentUser.username : "Unknown")
                 }</span>
                 <span class="message-time" data-timestamp="${timestamp.getTime()}">${formatTime(
-      timestamp
-    )}</span>
+                  timestamp,
+                )}</span>
             </div>
             <div class="message-text">${escapeHtml(messageData.content)}</div>
         </div>
@@ -706,7 +708,7 @@ async function sendMessage() {
       updateChatInList(currentChatId, message);
     } else {
       const errorData = await response.json();
-      
+
       // Handle blocked messages specially
       if (errorData.blocked) {
         Swal.fire({
@@ -718,7 +720,7 @@ async function sendMessage() {
         messageInput.value = content;
         return;
       }
-      
+
       throw new Error(errorData.error || "Failed to send message");
     }
   } catch (error) {
@@ -866,7 +868,7 @@ async function createGroupChat() {
 
   // Filter out any attempt to add yourself (extra safety check)
   const filteredMembers = members.filter(
-    (username) => username.toLowerCase() !== currentUser.username.toLowerCase()
+    (username) => username.toLowerCase() !== currentUser.username.toLowerCase(),
   );
 
   if (filteredMembers.length !== members.length) {
@@ -982,7 +984,7 @@ function removeMemberFromGroup(element) {
 // Update the member counter display
 function updateMemberCounter() {
   const memberCount = document.querySelectorAll(
-    "#membersList .member-tag"
+    "#membersList .member-tag",
   ).length;
   const counterElement = document.getElementById("memberCount");
   if (counterElement) {
@@ -1058,7 +1060,7 @@ function renderFriendsList() {
                 </button>
             </div>
         </div>
-    `
+    `,
     )
     .join("");
 }
@@ -1210,7 +1212,7 @@ function renderFriendRequests(requests) {
                 </button>
             </div>
         </div>
-    `
+    `,
     )
     .join("");
 }
@@ -1563,7 +1565,7 @@ function testChatNotification() {
     "This is a test notification for the chat system!",
     () => {
       console.log("Test chat notification clicked!");
-    }
+    },
   );
 }
 
@@ -1637,19 +1639,21 @@ async function updateChatMenuOptions() {
     let isBlocked = false;
     try {
       const blockedUsers = await getBlockedUsers();
-      isBlocked = blockedUsers.some(user => user.uuid === otherUserUuid);
+      isBlocked = blockedUsers.some((user) => user.uuid === otherUserUuid);
     } catch (error) {
       console.error("Error checking blocked status:", error);
     }
 
-    document.getElementById("addFriendOption").style.display = 
-      (isFriend || isBlocked) ? "none" : "block";
-    document.getElementById("removeFriendOption").style.display = 
-      (isFriend && !isBlocked) ? "block" : "none";
-    document.getElementById("blockUserOption").style.display = 
-      isBlocked ? "none" : "block";
-    document.getElementById("unblockUserOption").style.display = 
-      isBlocked ? "block" : "none";
+    document.getElementById("addFriendOption").style.display =
+      isFriend || isBlocked ? "none" : "block";
+    document.getElementById("removeFriendOption").style.display =
+      isFriend && !isBlocked ? "block" : "none";
+    document.getElementById("blockUserOption").style.display = isBlocked
+      ? "none"
+      : "block";
+    document.getElementById("unblockUserOption").style.display = isBlocked
+      ? "block"
+      : "none";
   }
   // Handle group chats
   else if (currentChat.type === "group") {
@@ -1860,16 +1864,17 @@ async function handleBlockUser() {
           timer: 2000,
           showConfirmButton: false,
         });
-        
+
         // Add a system message to show blocking status
         appendMessage({
           chatId: currentChatId,
-          content: "You blocked this user. You can no longer receive messages from them.",
+          content:
+            "You blocked this user. You can no longer receive messages from them.",
           senderUuid: "system",
           senderUsername: "System",
-          timestamp: new Date()
+          timestamp: new Date(),
         });
-        
+
         // Update UI
         loadBlockedUsers();
         updateChatMenuOptions();
@@ -1930,16 +1935,17 @@ async function handleUnblockUser() {
           timer: 2000,
           showConfirmButton: false,
         });
-        
+
         // Add a system message to show unblocking status
         appendMessage({
           chatId: currentChatId,
-          content: "You unblocked this user. You can now receive messages from them.",
+          content:
+            "You unblocked this user. You can now receive messages from them.",
           senderUuid: "system",
           senderUsername: "System",
-          timestamp: new Date()
+          timestamp: new Date(),
         });
-        
+
         // Update UI
         loadBlockedUsers();
         updateChatMenuOptions();
@@ -2028,7 +2034,7 @@ function renderBlockedUsers(blockedUsers) {
                 </button>
             </div>
         </div>
-    `
+    `,
     )
     .join("");
 }
@@ -2064,10 +2070,10 @@ async function unblockUser(username) {
           timer: 2000,
           showConfirmButton: false,
         });
-        
+
         // Refresh blocked users list
         loadBlockedUsers();
-        
+
         // Update menu options in current chat (if we're in a chat with the unblocked user)
         updateChatMenuOptions();
       } else {

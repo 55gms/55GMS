@@ -49,7 +49,7 @@ const Message = sequelize.define(
         fields: ["senderUuid"],
       },
     ],
-  }
+  },
 );
 
 module.exports = Message;

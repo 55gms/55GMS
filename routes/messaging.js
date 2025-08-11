@@ -70,7 +70,7 @@ router.get("/chats/:chatId/members", authenticateUser, async (req, res) => {
         } catch (error) {
           console.error(
             `Error fetching user data for ${member.userUuid}:`,
-            error
+            error,
           );
         }
 
@@ -82,7 +82,7 @@ router.get("/chats/:chatId/members", authenticateUser, async (req, res) => {
         } catch (error) {
           console.error(
             `Error fetching user status for ${member.userUuid}:`,
-            error
+            error,
           );
         }
 
@@ -94,7 +94,7 @@ router.get("/chats/:chatId/members", authenticateUser, async (req, res) => {
           status: userStatus,
           joinedAt: member.createdAt,
         };
-      })
+      }),
     );
 
     res.json({
@@ -145,12 +145,12 @@ router.get("/user-chats", authenticateUser, async (req, res) => {
         // For direct messages, get the other user's username
         if (chat.type === "direct") {
           const otherMember = chat.members.find(
-            (m) => m.userUuid !== req.userUuid
+            (m) => m.userUuid !== req.userUuid,
           );
           if (otherMember) {
             try {
               const userResponse = await userCache.getUserByUuid(
-                otherMember.userUuid
+                otherMember.userUuid,
               );
               chatName = userResponse.username;
               const status = await UserStatus.findOne({
@@ -173,7 +173,7 @@ router.get("/user-chats", authenticateUser, async (req, res) => {
               .map(async (member) => {
                 try {
                   const userResponse = await userCache.getUserByUuid(
-                    member.userUuid
+                    member.userUuid,
                   );
                   const status = await UserStatus.findOne({
                     where: { userUuid: member.userUuid },
@@ -190,7 +190,7 @@ router.get("/user-chats", authenticateUser, async (req, res) => {
                     isOnline: false,
                   };
                 }
-              })
+              }),
           );
         }
 
@@ -202,12 +202,12 @@ router.get("/user-chats", authenticateUser, async (req, res) => {
           unreadCount: await getUnreadMessageCount(
             chat.id,
             req.userUuid,
-            chatMember.lastReadAt
+            chatMember.lastReadAt,
           ),
           members: otherUsersOnline,
           lastActivity: chat.lastActivity,
         };
-      })
+      }),
     );
 
     res.json(chatsWithUsernames);
@@ -257,13 +257,13 @@ router.get("/chats/:chatId/messages", authenticateUser, async (req, res) => {
             senderUsername: "Unknown User",
           };
         }
-      })
+      }),
     );
 
     // Update last read timestamp
     await ChatMember.update(
       { lastReadAt: new Date() },
-      { where: { chatId, userUuid: req.userUuid } }
+      { where: { chatId, userUuid: req.userUuid } },
     );
 
     res.json(messagesWithUsernames.reverse()); // Return in chronological order
@@ -308,29 +308,32 @@ router.post("/chats/:chatId/messages", authenticateUser, async (req, res) => {
     if (chat && chat.type === "direct") {
       // Find other chat member
       const otherMember = await ChatMember.findOne({
-        where: { 
-          chatId, 
-          userUuid: { [Op.ne]: req.userUuid } 
-        }
+        where: {
+          chatId,
+          userUuid: { [Op.ne]: req.userUuid },
+        },
       });
-      
+
       if (otherMember) {
         // Use the blocking cache to check blocking status
-        const blockingStatus = await blockingCache.getBlockingStatus(req.userUuid, otherMember.userUuid);
-        
+        const blockingStatus = await blockingCache.getBlockingStatus(
+          req.userUuid,
+          otherMember.userUuid,
+        );
+
         if (blockingStatus.blockedByOther) {
-          return res.status(403).json({ 
-            error: "Cannot send message", 
-            blocked: true, 
-            message: "You have been blocked by this user" 
+          return res.status(403).json({
+            error: "Cannot send message",
+            blocked: true,
+            message: "You have been blocked by this user",
           });
         }
-        
+
         if (blockingStatus.blockedByMe) {
-          return res.status(403).json({ 
-            error: "Cannot send message", 
-            blocked: true, 
-            message: "You have blocked this user" 
+          return res.status(403).json({
+            error: "Cannot send message",
+            blocked: true,
+            message: "You have blocked this user",
           });
         }
       }
@@ -356,7 +359,7 @@ router.post("/chats/:chatId/messages", authenticateUser, async (req, res) => {
       chatId,
       senderUuid: req.userUuid,
       content: sanitizedContent,
-      isSystem: isSystem || false
+      isSystem: isSystem || false,
     });
 
     // Update chat's last activity
@@ -436,7 +439,7 @@ router.post("/chats/direct", authenticateUser, async (req, res) => {
       (chatId) =>
         chatCounts[chatId].length === 2 &&
         chatCounts[chatId].includes(req.userUuid) &&
-        chatCounts[chatId].includes(otherUserUuid)
+        chatCounts[chatId].includes(otherUserUuid),
     );
 
     if (existingChatId) {
@@ -540,7 +543,7 @@ router.post("/chats/:chatId/leave", authenticateUser, async (req, res) => {
       where: {
         chatId: chatId,
         userUuid: req.userUuid,
-      }
+      },
     });
 
     if (!membership) {
@@ -558,7 +561,7 @@ router.post("/chats/:chatId/leave", authenticateUser, async (req, res) => {
       chatId,
       senderUuid: req.userUuid,
       content: `${username} has left this group`,
-      isSystem: true
+      isSystem: true,
     });
 
     // Remove the user from the chat
@@ -624,7 +627,7 @@ router.get("/friends", authenticateUser, async (req, res) => {
             lastSeen: null,
           };
         }
-      })
+      }),
     );
 
     res.json(friendsWithUsernames);
@@ -770,11 +773,13 @@ router.post("/friends/block", authenticateUser, async (req, res) => {
 
     if (friendship) {
       // If already blocked, just return success
-      if (friendship.status === "blocked" && 
-          friendship.requesterUuid === req.userUuid) {
+      if (
+        friendship.status === "blocked" &&
+        friendship.requesterUuid === req.userUuid
+      ) {
         return res.status(200).json({ message: "User already blocked" });
       }
-      
+
       // If there's an existing friendship, update it to blocked
       // Only the requester can block
       if (friendship.requesterUuid !== req.userUuid) {
@@ -796,7 +801,7 @@ router.post("/friends/block", authenticateUser, async (req, res) => {
         status: "blocked",
       });
     }
-    
+
     // Invalidate the blocking cache for these users
     blockingCache.invalidateCache(req.userUuid, otherUserUuid);
 
@@ -840,7 +845,7 @@ router.post("/friends/unblock", authenticateUser, async (req, res) => {
 
     // Remove the block (delete the friendship record)
     await friendship.destroy();
-    
+
     // Invalidate the blocking cache for these users
     blockingCache.invalidateCache(req.userUuid, otherUserUuid);
 
@@ -864,7 +869,9 @@ router.get("/friends/blocked", authenticateUser, async (req, res) => {
     const blockedUsers = await Promise.all(
       blockedFriendships.map(async (friendship) => {
         try {
-          const userResponse = await getUsernameByUuid(friendship.addresseeUuid);
+          const userResponse = await getUsernameByUuid(
+            friendship.addresseeUuid,
+          );
           return {
             uuid: friendship.addresseeUuid,
             username: userResponse.username,
@@ -875,7 +882,7 @@ router.get("/friends/blocked", authenticateUser, async (req, res) => {
             username: "Unknown User",
           };
         }
-      })
+      }),
     );
 
     res.json(blockedUsers);
@@ -913,7 +920,7 @@ router.get("/friends/requests", authenticateUser, async (req, res) => {
             createdAt: request.createdAt,
           };
         }
-      })
+      }),
     );
 
     res.json(requestsWithUsernames);

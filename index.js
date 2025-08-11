@@ -139,7 +139,7 @@ io.on("connection", (socket) => {
         senderUuid,
         senderUsername: finalSenderUsername,
         timestamp: new Date(),
-        isSystem: isSystem || false
+        isSystem: isSystem || false,
       });
 
       const chatMembers = await ChatMember.findAll({
@@ -165,7 +165,7 @@ io.on("connection", (socket) => {
                 senderUuid,
                 senderUsername: finalSenderUsername,
                 timestamp: new Date(),
-                isSystem: isSystem || false
+                isSystem: isSystem || false,
               });
           }
         }

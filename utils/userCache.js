@@ -75,7 +75,7 @@ class UserCache {
         uuid: userData.uuid,
         username: userData.username,
         displayName: userData.displayName || userData.username,
-        avatar: userData.avatar
+        avatar: userData.avatar,
       };
     } catch (error) {
       console.error(`Error getting user info for ${uuid}:`, error);
