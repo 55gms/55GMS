@@ -68,6 +68,21 @@ class UserCache {
     }
   }
 
+  async getUserInfo(uuid) {
+    try {
+      const userData = await this.getUserByUuid(uuid);
+      return {
+        uuid: userData.uuid,
+        username: userData.username,
+        displayName: userData.displayName || userData.username,
+        avatar: userData.avatar
+      };
+    } catch (error) {
+      console.error(`Error getting user info for ${uuid}:`, error);
+      return null;
+    }
+  }
+
   // Clear cache entry for a specific UUID
   invalidateUser(uuid) {
     this.cache.delete(uuid);

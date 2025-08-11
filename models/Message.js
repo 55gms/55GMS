@@ -33,6 +33,10 @@ const Message = sequelize.define(
       type: DataTypes.DATE,
       allowNull: true,
     },
+    isSystem: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
   {
     tableName: "messages",

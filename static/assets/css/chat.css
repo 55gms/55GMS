@@ -539,6 +539,36 @@
   font-family: "Roboto", serif;
 }
 
+/* System message styles */
+.message.system {
+  max-width: 100%;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.system-message {
+  background: rgba(59, 72, 91, 0.9) !important;
+  color: #b8c5d1 !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  font-style: italic;
+  display: inline-block;
+  text-align: center;
+  border: 1px dashed #353d49 !important;
+  box-shadow: none !important;
+}
+
+.system-message .message-text {
+  margin-bottom: 4px;
+}
+
+.system-message .message-time {
+  font-size: 10px;
+  color: #8fa3b8 !important;
+  display: block;
+  text-align: center;
+}
+
 .typing-indicator {
   padding: 10px 20px;
   color: #b8c5d1;

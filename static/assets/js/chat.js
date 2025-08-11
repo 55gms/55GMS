@@ -26,6 +26,7 @@ function initializeChat() {
   loadChats();
   loadFriends();
   loadFriendRequests();
+  loadBlockedUsers();
 
   // Initialize user info bar
   initializeUserInfoBar();
@@ -248,6 +249,12 @@ function setupEventListeners() {
   document
     .getElementById("viewMembersOption")
     .addEventListener("click", handleViewMembers);
+  document
+    .getElementById("blockUserOption")
+    .addEventListener("click", handleBlockUser);
+  document
+    .getElementById("unblockUserOption")
+    .addEventListener("click", handleUnblockUser);
 
   // Click outside to close modals
   window.addEventListener("click", (e) => {
@@ -489,6 +496,7 @@ function renderMessages(messages) {
   messagesContainer.innerHTML = limitedMessages
     .map((message) => {
       const isOwn = message.senderUuid === currentUser.uuid;
+      const isSystem = message.senderUuid === "system" || message.isSystem === true;
       const senderInitials = message.senderUsername
         ? message.senderUsername.charAt(0).toUpperCase()
         : "?";
@@ -502,6 +510,19 @@ function renderMessages(messages) {
         timestamp = new Date();
       }
 
+      if (isSystem) {
+        // System message style
+        return `
+          <div class="message system">
+            <div class="message-content system-message">
+              <div class="message-text">${escapeHtml(message.content)}</div>
+              <span class="message-time" data-timestamp="${timestamp.getTime()}">${formatTime(timestamp)}</span>
+            </div>
+          </div>
+        `;
+      }
+      
+      // Regular message
       return `
             <div class="message ${isOwn ? "own" : ""}">
                 ${
@@ -546,6 +567,8 @@ function renderMessages(messages) {
 function appendMessage(messageData) {
   const messagesContainer = document.getElementById("messages");
   const isOwn = messageData.senderUuid === currentUser.uuid;
+  const isSystem = messageData.senderUuid === "system" || messageData.isSystem === true;
+  
   const senderInitials = messageData.senderUsername
     ? messageData.senderUsername.charAt(0).toUpperCase()
     : isOwn
@@ -564,8 +587,20 @@ function appendMessage(messageData) {
   }
 
   const messageElement = document.createElement("div");
-  messageElement.className = `message ${isOwn ? "own" : ""}`;
-  messageElement.innerHTML = `
+  
+  if (isSystem) {
+    // System message style
+    messageElement.className = "message system";
+    messageElement.innerHTML = `
+      <div class="message-content system-message">
+        <div class="message-text">${escapeHtml(messageData.content)}</div>
+        <span class="message-time" data-timestamp="${timestamp.getTime()}">${formatTime(timestamp)}</span>
+      </div>
+    `;
+  } else {
+    // Regular message
+    messageElement.className = `message ${isOwn ? "own" : ""}`;
+    messageElement.innerHTML = `
         ${
           !isOwn
             ? `
@@ -582,8 +617,8 @@ function appendMessage(messageData) {
                   (isOwn ? currentUser.username : "Unknown")
                 }</span>
                 <span class="message-time" data-timestamp="${timestamp.getTime()}">${formatTime(
-    timestamp
-  )}</span>
+      timestamp
+    )}</span>
             </div>
             <div class="message-text">${escapeHtml(messageData.content)}</div>
         </div>
@@ -597,6 +632,7 @@ function appendMessage(messageData) {
             : ""
         }
     `;
+  }
 
   // Remove oldest message if over 200
   while (messagesContainer.children.length >= 200) {
@@ -669,7 +705,21 @@ async function sendMessage() {
 
       updateChatInList(currentChatId, message);
     } else {
-      throw new Error("Failed to send message");
+      const errorData = await response.json();
+      
+      // Handle blocked messages specially
+      if (errorData.blocked) {
+        Swal.fire({
+          icon: "error",
+          title: "Cannot Send Message",
+          text: errorData.message || "Message cannot be sent due to blocking",
+        });
+        // Restore message to input to allow copying
+        messageInput.value = content;
+        return;
+      }
+      
+      throw new Error(errorData.error || "Failed to send message");
     }
   } catch (error) {
     console.error("Error sending message:", error);
@@ -1575,23 +1625,38 @@ async function updateChatMenuOptions() {
     if (!otherUserUuid) {
       document.getElementById("addFriendOption").style.display = "none";
       document.getElementById("removeFriendOption").style.display = "none";
+      document.getElementById("blockUserOption").style.display = "none";
+      document.getElementById("unblockUserOption").style.display = "none";
       return;
     }
 
     // Check if already friends
     const isFriend = friends.some((f) => f.uuid === otherUserUuid);
 
-    document.getElementById("addFriendOption").style.display = isFriend
-      ? "none"
-      : "block";
-    document.getElementById("removeFriendOption").style.display = isFriend
-      ? "block"
-      : "none";
+    // Check if user is blocked
+    let isBlocked = false;
+    try {
+      const blockedUsers = await getBlockedUsers();
+      isBlocked = blockedUsers.some(user => user.uuid === otherUserUuid);
+    } catch (error) {
+      console.error("Error checking blocked status:", error);
+    }
+
+    document.getElementById("addFriendOption").style.display = 
+      (isFriend || isBlocked) ? "none" : "block";
+    document.getElementById("removeFriendOption").style.display = 
+      (isFriend && !isBlocked) ? "block" : "none";
+    document.getElementById("blockUserOption").style.display = 
+      isBlocked ? "none" : "block";
+    document.getElementById("unblockUserOption").style.display = 
+      isBlocked ? "block" : "none";
   }
   // Handle group chats
   else if (currentChat.type === "group") {
     document.getElementById("addFriendOption").style.display = "none";
     document.getElementById("removeFriendOption").style.display = "none";
+    document.getElementById("blockUserOption").style.display = "none";
+    document.getElementById("unblockUserOption").style.display = "none";
     document.getElementById("leaveGroupOption").style.display = "block";
     document.getElementById("viewMembersOption").style.display = "block";
   }
@@ -1599,6 +1664,8 @@ async function updateChatMenuOptions() {
   else {
     document.getElementById("addFriendOption").style.display = "none";
     document.getElementById("removeFriendOption").style.display = "none";
+    document.getElementById("blockUserOption").style.display = "none";
+    document.getElementById("unblockUserOption").style.display = "none";
     document.getElementById("leaveGroupOption").style.display = "none";
     document.getElementById("viewMembersOption").style.display = "none";
   }
@@ -1701,27 +1768,7 @@ async function handleLeaveGroup() {
 
   if (result.isConfirmed) {
     try {
-      // First, send a departure message
-      const response = await fetch(`/api/chats/${currentChatId}/messages`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-User-UUID": currentUser.uuid,
-        },
-        body: JSON.stringify({ content: "I've left this group" }),
-      });
-
-      if (response.ok) {
-        // Emit the departure message via socket for real-time delivery
-        socket.emit("send_message", {
-          chatId: currentChatId,
-          content: "I've left this group",
-          senderUuid: currentUser.uuid,
-          senderUsername: currentUser.username,
-        });
-      }
-
-      // Then leave the group
+      // Leave the group
       const leaveResponse = await fetch(`/api/chats/${currentChatId}/leave`, {
         method: "POST",
         headers: {
@@ -1770,6 +1817,272 @@ async function handleLeaveGroup() {
   }
 
   document.getElementById("chatMenuDropdown").style.display = "none";
+}
+
+// Handle block user
+async function handleBlockUser() {
+  if (!currentChatId) return;
+
+  const currentChat = chats.find((c) => c.id === currentChatId);
+  if (!currentChat || currentChat.type !== "direct") return;
+
+  const otherUser = currentChat.members[0];
+  if (!otherUser) return;
+
+  const result = await Swal.fire({
+    title: "Block User",
+    text: `Are you sure you want to block ${otherUser.username}? You will not be able to receive messages from them.`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, block user",
+  });
+
+  if (result.isConfirmed) {
+    try {
+      const response = await fetch("/api/friends/block", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-User-UUID": currentUser.uuid,
+        },
+        body: JSON.stringify({ username: otherUser.username }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "User Blocked",
+          text: "You have successfully blocked this user",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        
+        // Add a system message to show blocking status
+        appendMessage({
+          chatId: currentChatId,
+          content: "You blocked this user. You can no longer receive messages from them.",
+          senderUuid: "system",
+          senderUsername: "System",
+          timestamp: new Date()
+        });
+        
+        // Update UI
+        loadBlockedUsers();
+        updateChatMenuOptions();
+      } else {
+        throw new Error(data.error || "Failed to block user");
+      }
+    } catch (error) {
+      console.error("Error blocking user:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message || "Failed to block user",
+      });
+    }
+  }
+
+  document.getElementById("chatMenuDropdown").style.display = "none";
+}
+
+// Handle unblock user
+async function handleUnblockUser() {
+  if (!currentChatId) return;
+
+  const currentChat = chats.find((c) => c.id === currentChatId);
+  if (!currentChat || currentChat.type !== "direct") return;
+
+  const otherUser = currentChat.members[0];
+  if (!otherUser) return;
+
+  const result = await Swal.fire({
+    title: "Unblock User",
+    text: `Are you sure you want to unblock ${otherUser.username}? They will be able to send messages to you again.`,
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, unblock user",
+  });
+
+  if (result.isConfirmed) {
+    try {
+      const response = await fetch("/api/friends/unblock", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-User-UUID": currentUser.uuid,
+        },
+        body: JSON.stringify({ username: otherUser.username }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "User Unblocked",
+          text: "You have successfully unblocked this user",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        
+        // Add a system message to show unblocking status
+        appendMessage({
+          chatId: currentChatId,
+          content: "You unblocked this user. You can now receive messages from them.",
+          senderUuid: "system",
+          senderUsername: "System",
+          timestamp: new Date()
+        });
+        
+        // Update UI
+        loadBlockedUsers();
+        updateChatMenuOptions();
+      } else {
+        throw new Error(data.error || "Failed to unblock user");
+      }
+    } catch (error) {
+      console.error("Error unblocking user:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message || "Failed to unblock user",
+      });
+    }
+  }
+
+  document.getElementById("chatMenuDropdown").style.display = "none";
+}
+
+// Load blocked users
+async function loadBlockedUsers() {
+  try {
+    const response = await fetch("/api/friends/blocked", {
+      headers: {
+        "X-User-UUID": currentUser.uuid,
+      },
+    });
+
+    if (response.ok) {
+      const blockedUsers = await response.json();
+      renderBlockedUsers(blockedUsers);
+      return blockedUsers;
+    }
+    return [];
+  } catch (error) {
+    console.error("Error loading blocked users:", error);
+    return [];
+  }
+}
+
+// Get blocked users (without rendering)
+async function getBlockedUsers() {
+  try {
+    const response = await fetch("/api/friends/blocked", {
+      headers: {
+        "X-User-UUID": currentUser.uuid,
+      },
+    });
+
+    if (response.ok) {
+      return await response.json();
+    }
+    return [];
+  } catch (error) {
+    console.error("Error getting blocked users:", error);
+    return [];
+  }
+}
+
+// Render blocked users list
+function renderBlockedUsers(blockedUsers) {
+  const blockedList = document.getElementById("blockedUsersList");
+
+  if (blockedUsers.length === 0) {
+    blockedList.innerHTML = '<div class="loading">No blocked users</div>';
+    return;
+  }
+
+  blockedList.innerHTML = blockedUsers
+    .map(
+      (user) => `
+        <div class="friend-item">
+            <div class="friend-info">
+                <div class="chat-avatar">
+                    <div class="avatar-circle">
+                        ${user.username.charAt(0).toUpperCase()}
+                    </div>
+                </div>
+                <div>
+                    <div style="font-weight: 600;">${user.username}</div>
+                </div>
+            </div>
+            <div class="friend-actions">
+                <button class="btn-sm btn-primary" onclick="unblockUser('${user.username}')">
+                    Unblock
+                </button>
+            </div>
+        </div>
+    `
+    )
+    .join("");
+}
+
+// Unblock user from blocked list
+async function unblockUser(username) {
+  try {
+    const result = await Swal.fire({
+      title: "Unblock User",
+      text: `Are you sure you want to unblock ${username}?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, unblock",
+    });
+
+    if (result.isConfirmed) {
+      const response = await fetch("/api/friends/unblock", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-User-UUID": currentUser.uuid,
+        },
+        body: JSON.stringify({ username }),
+      });
+
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "User Unblocked",
+          text: "User has been unblocked successfully",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        
+        // Refresh blocked users list
+        loadBlockedUsers();
+        
+        // Update menu options in current chat (if we're in a chat with the unblocked user)
+        updateChatMenuOptions();
+      } else {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to unblock user");
+      }
+    }
+  } catch (error) {
+    console.error("Error unblocking user:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: error.message || "Failed to unblock user",
+    });
+  }
 }
 
 // Handle view members button click

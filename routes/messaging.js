@@ -2,12 +2,14 @@ const express = require("express");
 const { Op } = require("sequelize");
 const DOMPurify = require("isomorphic-dompurify");
 const userCache = require("../utils/userCache");
+const blockingCache = require("../utils/blockingCache");
 const {
   Chat,
   Message,
   ChatMember,
   Friend,
   UserStatus,
+  User,
   sequelize,
 } = require("../models");
 const router = express.Router();
@@ -275,7 +277,7 @@ router.get("/chats/:chatId/messages", authenticateUser, async (req, res) => {
 router.post("/chats/:chatId/messages", authenticateUser, async (req, res) => {
   try {
     const { chatId } = req.params;
-    const { content } = req.body;
+    const { content, isSystem } = req.body;
 
     if (!content || content.trim().length === 0) {
       return res.status(400).json({ error: "Message content is required" });
@@ -301,6 +303,39 @@ router.post("/chats/:chatId/messages", authenticateUser, async (req, res) => {
         .json({ error: "Not authorized to send messages to this chat" });
     }
 
+    // Check if this is a direct chat and if the user is blocked
+    const chat = await Chat.findByPk(chatId);
+    if (chat && chat.type === "direct") {
+      // Find other chat member
+      const otherMember = await ChatMember.findOne({
+        where: { 
+          chatId, 
+          userUuid: { [Op.ne]: req.userUuid } 
+        }
+      });
+      
+      if (otherMember) {
+        // Use the blocking cache to check blocking status
+        const blockingStatus = await blockingCache.getBlockingStatus(req.userUuid, otherMember.userUuid);
+        
+        if (blockingStatus.blockedByOther) {
+          return res.status(403).json({ 
+            error: "Cannot send message", 
+            blocked: true, 
+            message: "You have been blocked by this user" 
+          });
+        }
+        
+        if (blockingStatus.blockedByMe) {
+          return res.status(403).json({ 
+            error: "Cannot send message", 
+            blocked: true, 
+            message: "You have blocked this user" 
+          });
+        }
+      }
+    }
+
     // Enforce max 200 messages per chat: delete oldest if at limit
     const messageCount = await Message.count({ where: { chatId } });
     if (messageCount >= 200) {
@@ -321,6 +356,7 @@ router.post("/chats/:chatId/messages", authenticateUser, async (req, res) => {
       chatId,
       senderUuid: req.userUuid,
       content: sanitizedContent,
+      isSystem: isSystem || false
     });
 
     // Update chat's last activity
@@ -504,7 +540,7 @@ router.post("/chats/:chatId/leave", authenticateUser, async (req, res) => {
       where: {
         chatId: chatId,
         userUuid: req.userUuid,
-      },
+      }
     });
 
     if (!membership) {
@@ -512,6 +548,18 @@ router.post("/chats/:chatId/leave", authenticateUser, async (req, res) => {
         .status(404)
         .json({ error: "You are not a member of this group" });
     }
+
+    // Get username from cache or default to "A user"
+    const userInfo = await userCache.getUserInfo(req.userUuid);
+    const username = userInfo ? userInfo.username : "A user";
+
+    // Create a system message about the user leaving
+    await Message.create({
+      chatId,
+      senderUuid: req.userUuid,
+      content: `${username} has left this group`,
+      isSystem: true
+    });
 
     // Remove the user from the chat
     await membership.destroy();
@@ -684,6 +732,155 @@ router.put("/friends/:friendId", authenticateUser, async (req, res) => {
     }
   } catch (error) {
     console.error("Error handling friend request:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Block a user
+router.post("/friends/block", authenticateUser, async (req, res) => {
+  try {
+    const { username } = req.body;
+
+    if (!username) {
+      return res.status(400).json({ error: "Username is required" });
+    }
+
+    // Get the other user's UUID
+    let otherUserUuid;
+    try {
+      const userResponse = await getUserByUsername(username);
+      otherUserUuid = userResponse.uuid;
+    } catch (error) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    if (otherUserUuid === req.userUuid) {
+      return res.status(400).json({ error: "Cannot block yourself" });
+    }
+
+    // Check if there's an existing friendship
+    let friendship = await Friend.findOne({
+      where: {
+        [Op.or]: [
+          { requesterUuid: req.userUuid, addresseeUuid: otherUserUuid },
+          { requesterUuid: otherUserUuid, addresseeUuid: req.userUuid },
+        ],
+      },
+    });
+
+    if (friendship) {
+      // If already blocked, just return success
+      if (friendship.status === "blocked" && 
+          friendship.requesterUuid === req.userUuid) {
+        return res.status(200).json({ message: "User already blocked" });
+      }
+      
+      // If there's an existing friendship, update it to blocked
+      // Only the requester can block
+      if (friendship.requesterUuid !== req.userUuid) {
+        // If current user is not the requester, delete the existing friendship
+        // and create a new one where current user is the requester
+        await friendship.destroy();
+        friendship = null;
+      } else {
+        friendship.status = "blocked";
+        await friendship.save();
+      }
+    }
+
+    // If no friendship exists or was deleted, create a new one
+    if (!friendship) {
+      await Friend.create({
+        requesterUuid: req.userUuid,
+        addresseeUuid: otherUserUuid,
+        status: "blocked",
+      });
+    }
+    
+    // Invalidate the blocking cache for these users
+    blockingCache.invalidateCache(req.userUuid, otherUserUuid);
+
+    res.status(200).json({ message: "User blocked successfully" });
+  } catch (error) {
+    console.error("Error blocking user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Unblock a user
+router.post("/friends/unblock", authenticateUser, async (req, res) => {
+  try {
+    const { username } = req.body;
+
+    if (!username) {
+      return res.status(400).json({ error: "Username is required" });
+    }
+
+    // Get the other user's UUID
+    let otherUserUuid;
+    try {
+      const userResponse = await getUserByUsername(username);
+      otherUserUuid = userResponse.uuid;
+    } catch (error) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Find the block record
+    const friendship = await Friend.findOne({
+      where: {
+        requesterUuid: req.userUuid,
+        addresseeUuid: otherUserUuid,
+        status: "blocked",
+      },
+    });
+
+    if (!friendship) {
+      return res.status(404).json({ error: "Block record not found" });
+    }
+
+    // Remove the block (delete the friendship record)
+    await friendship.destroy();
+    
+    // Invalidate the blocking cache for these users
+    blockingCache.invalidateCache(req.userUuid, otherUserUuid);
+
+    res.status(200).json({ message: "User unblocked successfully" });
+  } catch (error) {
+    console.error("Error unblocking user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Get blocked users
+router.get("/friends/blocked", authenticateUser, async (req, res) => {
+  try {
+    const blockedFriendships = await Friend.findAll({
+      where: {
+        requesterUuid: req.userUuid,
+        status: "blocked",
+      },
+    });
+
+    const blockedUsers = await Promise.all(
+      blockedFriendships.map(async (friendship) => {
+        try {
+          const userResponse = await getUsernameByUuid(friendship.addresseeUuid);
+          return {
+            uuid: friendship.addresseeUuid,
+            username: userResponse.username,
+          };
+        } catch (error) {
+          return {
+            uuid: friendship.addresseeUuid,
+            username: "Unknown User",
+          };
+        }
+      })
+    );
+
+    res.json(blockedUsers);
+  } catch (error) {
+    console.error("Error fetching blocked users:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

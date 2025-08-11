@@ -108,6 +108,12 @@
                             <button id="removeFriendOption" class="menu-option" style="display: none;">
                                 <i class="fa-solid fa-user-minus"></i> Remove Friend
                             </button>
+                            <button id="blockUserOption" class="menu-option" style="display: none;">
+                                <i class="fa-solid fa-ban"></i> Block User
+                            </button>
+                            <button id="unblockUserOption" class="menu-option" style="display: none;">
+                                <i class="fa-solid fa-unlock"></i> Unblock User
+                            </button>
                             <button id="leaveGroupOption" class="menu-option" style="display: none;">
                                 <i class="fa-solid fa-arrow-right-from-bracket"></i> Leave Group
                             </button>
@@ -158,6 +164,7 @@
                     <button class="tab-btn active" data-tab="friends">Friends</button>
                     <button class="tab-btn" data-tab="requests">Requests <span id="requestCount"
                             class="badge"></span></button>
+                    <button class="tab-btn" data-tab="blocked">Blocked</button>
                     <button class="tab-btn" data-tab="add">Add Friend</button>
                 </div>
 
@@ -168,6 +175,10 @@
 
                     <div id="requestsTab" class="tab-panel">
                         <div id="friendRequests"></div>
+                    </div>
+                    
+                    <div id="blockedTab" class="tab-panel">
+                        <div id="blockedUsersList"></div>
                     </div>
 
                     <div id="addTab" class="tab-panel">

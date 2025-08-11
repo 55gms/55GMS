@@ -124,10 +124,10 @@ io.on("connection", (socket) => {
 
   socket.on("send_message", async (data) => {
     try {
-      const { chatId, content, senderUuid, senderUsername } = data;
+      const { chatId, content, senderUuid, senderUsername, isSystem } = data;
 
       const authenticatedUuid = connectedUsers.get(socket.id);
-      if (authenticatedUuid !== senderUuid) {
+      if (authenticatedUuid !== senderUuid && !isSystem) {
         return socket.emit("error", "Authentication mismatch");
       }
 
@@ -139,6 +139,7 @@ io.on("connection", (socket) => {
         senderUuid,
         senderUsername: finalSenderUsername,
         timestamp: new Date(),
+        isSystem: isSystem || false
       });
 
       const chatMembers = await ChatMember.findAll({
@@ -164,6 +165,7 @@ io.on("connection", (socket) => {
                 senderUuid,
                 senderUsername: finalSenderUsername,
                 timestamp: new Date(),
+                isSystem: isSystem || false
               });
           }
         }
