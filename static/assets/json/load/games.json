@@ -1266,6 +1266,12 @@
     "usesProxy": false
   },
   {
+    "name": "Gobble",
+    "url": "/misc/play/?title=Gobble&author=Fancade&link=gobble",
+    "image": "/misc/gobble/img.webp",
+    "usesProxy": false
+  },
+  {
     "name": "SandTrix",
     "url": "/misc/play/?title=SandTrix&author=mslivo&link=sandtrix",
     "image": "/misc/sandtrix/img.webp",
@@ -1407,24 +1413,6 @@
     "name": "buildnow.gg",
     "url": "https://games.crazygames.com/en_US/buildnow-gg/index.html?v=1.279",
     "image": "/img/games/buildnow.webp",
-    "usesProxy": true
-  },
-  {
-    "name": "Sugar Sugar",
-    "url": "https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fsugar-sugar.xml",
-    "image": "/misc/sugarsugar/img.png",
-    "usesProxy": true
-  },
-  {
-    "name": "Sugar Sugar 2",
-    "url": "https://files.crazygames.com/ruffle/sugarsugar2.html",
-    "image": "/misc/sugarsugar2/img.png",
-    "usesProxy": true
-  },
-  {
-    "name": "Sugar Sugar 3",
-    "url": "https://www.coolmathgames.com/0-sugar-sugar-3/play",
-    "image": "/misc/sugarsugar3/img.jpeg",
     "usesProxy": true
   },
   {
