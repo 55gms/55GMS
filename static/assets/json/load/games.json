@@ -456,6 +456,12 @@
     "usesProxy": true
   },
   {
+    "name": "Google Baseball",
+    "url": "/misc/play/?title=Google Baseball&author=Google Doodles&link=googlebaseball",
+    "image": "/misc/googlebaseball/img.webp",
+    "usesProxy": false
+  },
+  {
     "name": "Friday Night Funkin",
     "url": "/misc/play/fnf.html",
     "image": "/misc/fnf/img.png",
