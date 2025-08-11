@@ -338,7 +338,7 @@
   {
     "name": "Drive Mad",
     "url": "/misc/play/drive-mad.html",
-    "image": "/misc/drive-mad/img.jpeg",
+    "image": "/misc/drive-mad/img.webp",
     "usesProxy": false
   },
   {
@@ -1107,6 +1107,12 @@
     "name": "Spiral Roll",
     "url": "/misc/play/?title=Spiral Roll&link=spiralroll&author=VooDoo Games",
     "image": "/misc/spiralroll/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Bank Robbery 2",
+    "url": "/misc/play/?title=Bank Robbery 2&link=bankrob2&author=justaliendev",
+    "image": "/misc/bankrob2/img.webp",
     "usesProxy": false
   },
   {
