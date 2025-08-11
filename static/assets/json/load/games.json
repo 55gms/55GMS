@@ -1255,9 +1255,9 @@
   },
   {
     "name": "Run 3",
-    "url": "https://player03.com/run/3/beta/",
-    "image": "/misc/run3/run3.avif",
-    "usesProxy": true
+    "url": "/misc/play/?title=Run 3&author=Joseph Cloutier&link=run3",
+    "image": "/misc/run3/run3.webp",
+    "usesProxy": false
   },
   {
     "name": "Sandboxels",

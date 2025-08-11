@@ -4,18 +4,11 @@
 <head>
 
 	<meta charset="utf-8">
-
 	<title>Run 3</title>
-
 	<meta id="viewport" name="viewport"
 		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
-
-
-
-	<script type="text/javascript" src="./Run3.js"></script>
-	<script src="/assets/js/script.js?v=12"></script>
-	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="Run3.js"></script>
 	<script>
 		window.addEventListener("touchmove", function (event) { event.preventDefault(); }, { capture: false, passive: false });
 		if (typeof window.devicePixelRatio != 'undefined' && window.devicePixelRatio > 2) {
@@ -23,7 +16,6 @@
 			meta.setAttribute('content', 'width=device-width, initial-scale=' + (2 / window.devicePixelRatio) + ', user-scalable=no');
 		}
 	</script>
-
 	<style>
 		html,
 		body {
@@ -72,16 +64,12 @@
 </head>
 
 <body>
-
 	<noscript>This webpage makes extensive use of JavaScript. Please enable JavaScript in your web browser to view this
 		page.</noscript>
-
 	<div id="openfl-content"></div>
-
 	<script type="text/javascript">
 		lime.embed("Run3", "openfl-content", 800, 600, { parameters: {} });
 	</script>
-
 </body>
 
 </html>
