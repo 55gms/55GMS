@@ -1672,5 +1672,11 @@
     "url": "https://real-sgs.vercel.app/Tools/GBA-Emulator/index.html",
     "image": "/img/games/gba.webp",
     "usesProxy": true
+  },
+  {
+    "name": "Stacktrix",
+    "url": "/misc/play/?title=Stacktrix&author=Fancade&link=stacktris",
+    "image": "/misc/stacktrix/img.webp",
+    "usesProxy": false
   }
 ]
