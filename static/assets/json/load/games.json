@@ -1674,9 +1674,15 @@
     "usesProxy": true
   },
   {
-    "name": "Stacktrix",
+    "name": "Stacktris",
     "url": "/misc/play/?title=Stacktrix&author=Fancade&link=stacktris",
-    "image": "/misc/stacktrix/img.webp",
+    "image": "/misc/stacktris/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Harvest Simulator",
+    "url": "/misc/play/?title=Harvest Simulator&author=Camu&link=harvestsimulator",
+    "image": "/misc/harvestsimulator/img.webp",
     "usesProxy": false
   }
 ]
