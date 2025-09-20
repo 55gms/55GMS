@@ -1,5 +1,5 @@
-const { Friend } = require("../models");
-const { Op } = require("sequelize");
+import { Friend } from "../models/index.js";
+import { Op } from "sequelize";
 
 class BlockingCache {
   constructor() {
@@ -125,11 +125,8 @@ class BlockingCache {
 const blockingCache = new BlockingCache();
 
 // Cleanup expired cache entries every 10 minutes
-setInterval(
-  () => {
-    blockingCache.cleanupExpired();
-  },
-  10 * 60 * 1000,
-);
+setInterval(() => {
+  blockingCache.cleanupExpired();
+}, 10 * 60 * 1000);
 
-module.exports = blockingCache;
+export default blockingCache;

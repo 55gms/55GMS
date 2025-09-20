@@ -1,30 +1,37 @@
-const express = require("express");
-const http = require("http");
-const socketIo = require("socket.io");
-const path = require("path");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const { Op } = require("sequelize");
-const { epoxyPath } = require("@mercuryworkshop/epoxy-transport");
-const { baremuxPath } = require("@mercuryworkshop/bare-mux");
-const wisp = require("wisp-server-node");
-const { scramjetPath } = require("@mercuryworkshop/scramjet/path");
-dotenv.config();
+import express from "express";
+import { createServer } from "http";
+import { Server as SocketIO } from "socket.io";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import { createRequire } from "module";
+import cors from "cors";
+import "dotenv/config";
+import { Op } from "sequelize";
+import wisp from "wisp-server-node";
 
-const {
+const require = createRequire(import.meta.url);
+const { epoxyPath } = require("@mercuryworkshop/epoxy-transport");
+const { baremuxPath } = require("@mercuryworkshop/bare-mux/node");
+const { scramjetPath } = require("@mercuryworkshop/scramjet/path");
+
+import {
   initDatabase,
   UserStatus,
   Chat,
   Message,
   ChatMember,
-} = require("./models");
+} from "./models/index.js";
 
-const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/users");
-const messagingRoutes = require("./routes/messaging");
-const { router: chatRoutes, initializeChatRoute } = require("./routes/chat");
+import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import messagingRoutes from "./routes/messaging.js";
+import { router as chatRoutes, initializeChatRoute } from "./routes/chat.js";
 
-const ModelManager = require("./utils/modelManager");
+import ModelManager from "./utils/modelManager.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const modelManager = new ModelManager();
 
@@ -32,9 +39,9 @@ const app = express();
 app.use("/epoxy/", express.static(epoxyPath));
 app.use("/baremux/", express.static(baremuxPath));
 app.use("/sj/", express.static(scramjetPath));
-const server = http.createServer(app);
+const server = createServer(app);
 
-const io = socketIo(server, {
+const io = new SocketIO(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],

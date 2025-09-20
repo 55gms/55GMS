@@ -1,17 +1,16 @@
-const express = require("express");
-const { Op } = require("sequelize");
-const DOMPurify = require("isomorphic-dompurify");
-const userCache = require("../utils/userCache");
-const blockingCache = require("../utils/blockingCache");
-const {
+import express from "express";
+import { Op } from "sequelize";
+import DOMPurify from "isomorphic-dompurify";
+import userCache from "../utils/userCache.js";
+import blockingCache from "../utils/blockingCache.js";
+import {
   Chat,
   Message,
   ChatMember,
   Friend,
   UserStatus,
-  User,
   sequelize,
-} = require("../models");
+} from "../models/index.js";
 const router = express.Router();
 
 // Middleware to authenticate user via UUID
@@ -70,7 +69,7 @@ router.get("/chats/:chatId/members", authenticateUser, async (req, res) => {
         } catch (error) {
           console.error(
             `Error fetching user data for ${member.userUuid}:`,
-            error,
+            error
           );
         }
 
@@ -82,7 +81,7 @@ router.get("/chats/:chatId/members", authenticateUser, async (req, res) => {
         } catch (error) {
           console.error(
             `Error fetching user status for ${member.userUuid}:`,
-            error,
+            error
           );
         }
 
@@ -94,7 +93,7 @@ router.get("/chats/:chatId/members", authenticateUser, async (req, res) => {
           status: userStatus,
           joinedAt: member.createdAt,
         };
-      }),
+      })
     );
 
     res.json({
@@ -145,12 +144,12 @@ router.get("/user-chats", authenticateUser, async (req, res) => {
         // For direct messages, get the other user's username
         if (chat.type === "direct") {
           const otherMember = chat.members.find(
-            (m) => m.userUuid !== req.userUuid,
+            (m) => m.userUuid !== req.userUuid
           );
           if (otherMember) {
             try {
               const userResponse = await userCache.getUserByUuid(
-                otherMember.userUuid,
+                otherMember.userUuid
               );
               chatName = userResponse.username;
               const status = await UserStatus.findOne({
@@ -173,7 +172,7 @@ router.get("/user-chats", authenticateUser, async (req, res) => {
               .map(async (member) => {
                 try {
                   const userResponse = await userCache.getUserByUuid(
-                    member.userUuid,
+                    member.userUuid
                   );
                   const status = await UserStatus.findOne({
                     where: { userUuid: member.userUuid },
@@ -190,7 +189,7 @@ router.get("/user-chats", authenticateUser, async (req, res) => {
                     isOnline: false,
                   };
                 }
-              }),
+              })
           );
         }
 
@@ -202,12 +201,12 @@ router.get("/user-chats", authenticateUser, async (req, res) => {
           unreadCount: await getUnreadMessageCount(
             chat.id,
             req.userUuid,
-            chatMember.lastReadAt,
+            chatMember.lastReadAt
           ),
           members: otherUsersOnline,
           lastActivity: chat.lastActivity,
         };
-      }),
+      })
     );
 
     res.json(chatsWithUsernames);
@@ -257,13 +256,13 @@ router.get("/chats/:chatId/messages", authenticateUser, async (req, res) => {
             senderUsername: "Unknown User",
           };
         }
-      }),
+      })
     );
 
     // Update last read timestamp
     await ChatMember.update(
       { lastReadAt: new Date() },
-      { where: { chatId, userUuid: req.userUuid } },
+      { where: { chatId, userUuid: req.userUuid } }
     );
 
     res.json(messagesWithUsernames.reverse()); // Return in chronological order
@@ -318,7 +317,7 @@ router.post("/chats/:chatId/messages", authenticateUser, async (req, res) => {
         // Use the blocking cache to check blocking status
         const blockingStatus = await blockingCache.getBlockingStatus(
           req.userUuid,
-          otherMember.userUuid,
+          otherMember.userUuid
         );
 
         if (blockingStatus.blockedByOther) {
@@ -439,7 +438,7 @@ router.post("/chats/direct", authenticateUser, async (req, res) => {
       (chatId) =>
         chatCounts[chatId].length === 2 &&
         chatCounts[chatId].includes(req.userUuid) &&
-        chatCounts[chatId].includes(otherUserUuid),
+        chatCounts[chatId].includes(otherUserUuid)
     );
 
     if (existingChatId) {
@@ -627,7 +626,7 @@ router.get("/friends", authenticateUser, async (req, res) => {
             lastSeen: null,
           };
         }
-      }),
+      })
     );
 
     res.json(friendsWithUsernames);
@@ -870,7 +869,7 @@ router.get("/friends/blocked", authenticateUser, async (req, res) => {
       blockedFriendships.map(async (friendship) => {
         try {
           const userResponse = await getUsernameByUuid(
-            friendship.addresseeUuid,
+            friendship.addresseeUuid
           );
           return {
             uuid: friendship.addresseeUuid,
@@ -882,7 +881,7 @@ router.get("/friends/blocked", authenticateUser, async (req, res) => {
             username: "Unknown User",
           };
         }
-      }),
+      })
     );
 
     res.json(blockedUsers);
@@ -920,7 +919,7 @@ router.get("/friends/requests", authenticateUser, async (req, res) => {
             createdAt: request.createdAt,
           };
         }
-      }),
+      })
     );
 
     res.json(requestsWithUsernames);
@@ -960,4 +959,4 @@ async function getUnreadMessageCount(chatId, userUuid, lastReadAt) {
   });
 }
 
-module.exports = router;
+export default router;
