@@ -1,11 +1,14 @@
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
-const { createBareServer } = require("@tomphttp/bare-server-node");
 const path = require("path");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const { Op } = require("sequelize");
+const { epoxyPath } = require("@mercuryworkshop/epoxy-transport");
+const { baremuxPath } = require("@mercuryworkshop/bare-mux");
+const wisp = require("wisp-server-node");
+const { scramjetPath } = require("@mercuryworkshop/scramjet/path");
 dotenv.config();
 
 const {
@@ -26,9 +29,10 @@ const ModelManager = require("./utils/modelManager");
 const modelManager = new ModelManager();
 
 const app = express();
+app.use("/epoxy/", express.static(epoxyPath));
+app.use("/baremux/", express.static(baremuxPath));
+app.use("/sj/", express.static(scramjetPath));
 const server = http.createServer(app);
-
-const bareServer = createBareServer("/t/");
 
 const io = socketIo(server, {
   cors: {
@@ -44,14 +48,6 @@ const activeChats = new Map();
 initDatabase().catch(console.error);
 
 initializeChatRoute(modelManager, activeConversations);
-
-app.use((req, res, next) => {
-  if (bareServer.shouldRoute(req)) {
-    bareServer.routeRequest(req, res);
-  } else {
-    next();
-  }
-});
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
@@ -153,7 +149,7 @@ io.on("connection", (socket) => {
             .map(([socketId]) => socketId);
 
           const isCurrentlyViewing = userSockets.some(
-            (socketId) => activeChats.get(socketId) === chatId,
+            (socketId) => activeChats.get(socketId) === chatId
           );
 
           if (!isCurrentlyViewing) {
@@ -173,7 +169,7 @@ io.on("connection", (socket) => {
 
       await Chat.update(
         { lastActivity: new Date() },
-        { where: { id: chatId } },
+        { where: { id: chatId } }
       );
     } catch (error) {
       console.error("Error handling message:", error);
@@ -208,7 +204,7 @@ io.on("connection", (socket) => {
 
       await ChatMember.update(
         { lastReadAt: new Date() },
-        { where: { chatId, userUuid } },
+        { where: { chatId, userUuid } }
       );
 
       socket.to(`chat_${chatId}`).emit("messages_read", {
@@ -248,7 +244,7 @@ io.on("connection", (socket) => {
             lastSeen: new Date(),
             socketId: null,
           },
-          { where: { userUuid } },
+          { where: { userUuid } }
         );
 
         socket.broadcast.emit("user_status_change", {
@@ -342,11 +338,7 @@ app.use((req, res) => {
 });
 
 server.on("upgrade", (req, socket, head) => {
-  if (bareServer.shouldRoute(req)) {
-    bareServer.routeUpgrade(req, socket, head);
-  } else {
-    socket.end();
-  }
+  wisp.routeRequest(req, socket, head);
 });
 
 server.on("listening", () => {
