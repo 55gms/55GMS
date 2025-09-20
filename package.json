@@ -13,18 +13,20 @@
     "@mercuryworkshop/bare-mux": "^2.1.7",
     "@mercuryworkshop/epoxy-transport": "^2.1.28",
     "@mercuryworkshop/scramjet": "^2.0.0-alpha",
+    "@mercuryworkshop/wisp-js": "^0.3.3",
     "axios": "^1.8.3",
     "cors": "^2.8.5",
     "dompurify": "^3.2.6",
     "dotenv": "^16.4.5",
     "express": "^4.21.2",
+    "i": "^0.3.7",
     "isomorphic-dompurify": "^2.26.0",
     "jquery": "^3.7.1",
+    "npm": "^11.6.0",
     "pg": "^8.16.3",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.7",
     "socket.io": "^4.8.1",
-    "uuid": "^11.1.0",
-    "wisp-server-node": "^1.1.7"
+    "uuid": "^11.1.0"
   }
 }

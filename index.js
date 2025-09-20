@@ -8,12 +8,11 @@ import { createRequire } from "module";
 import cors from "cors";
 import "dotenv/config";
 import { Op } from "sequelize";
-import wisp from "wisp-server-node";
+import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 
 const require = createRequire(import.meta.url);
 const { epoxyPath } = require("@mercuryworkshop/epoxy-transport");
 const { baremuxPath } = require("@mercuryworkshop/bare-mux/node");
-const { scramjetPath } = require("@mercuryworkshop/scramjet/path");
 
 import {
   initDatabase,
@@ -36,9 +35,8 @@ const __dirname = dirname(__filename);
 const modelManager = new ModelManager();
 
 const app = express();
-app.use("/epoxy/", express.static(epoxyPath));
-app.use("/baremux/", express.static(baremuxPath));
-app.use("/sj/", express.static(scramjetPath));
+app.use("/epxy/", express.static(epoxyPath));
+app.use("/bm/", express.static(baremuxPath));
 const server = createServer(app);
 
 const io = new SocketIO(server, {
@@ -46,6 +44,13 @@ const io = new SocketIO(server, {
     origin: "*",
     methods: ["GET", "POST"],
   },
+});
+
+io.engine.on("connection_error", (err) => {
+  console.error("Socket.IO connection error:", err.req);
+  console.error("Error code:", err.code);
+  console.error("Error message:", err.message);
+  console.error("Error context:", err.context);
 });
 
 const activeConversations = new Map();
@@ -73,6 +78,11 @@ app.use("/api", messagingRoutes);
 app.use("/api", chatRoutes);
 
 io.on("connection", (socket) => {
+  // Add error handling for Socket.IO connections
+  socket.on("error", (error) => {
+    console.error("Socket.IO connection error:", error);
+  });
+
   socket.on("authenticate", async (data) => {
     try {
       const { uuid, joinChatRooms = false } = data;
@@ -345,7 +355,14 @@ app.use((req, res) => {
 });
 
 server.on("upgrade", (req, socket, head) => {
-  wisp.routeRequest(req, socket, head);
+  if (req.url && (req.url.startsWith("/wisp/") || req.url.includes("wisp"))) {
+    try {
+      wisp.routeRequest(req, socket, head);
+    } catch (error) {
+      console.error("Wisp routing error:", error);
+      socket.destroy();
+    }
+  }
 });
 
 server.on("listening", () => {

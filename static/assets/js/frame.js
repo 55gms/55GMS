@@ -35,7 +35,7 @@ function loadNewPage(url) {
 
 window.addEventListener("load", function () {
   let encodedUrl = sessionStorage.getItem("encodedUrl");
-  encodedUrl = "/assets/uv/service/" + encodedUrl;
+  encodedUrl = encodedUrl;
   console.log(encodedUrl);
   const iframe = document.getElementById("iframeid");
   if (iframe) {
@@ -49,7 +49,7 @@ window.addEventListener("DOMContentLoaded", function () {
   if (searchBar) {
     searchBar.setAttribute(
       "value",
-      decodeURL(sessionStorage.getItem("encodedUrl")),
+      decodeURL(sessionStorage.getItem("encodedUrl"))
     );
     // search bar functionality
     searchBar.addEventListener("keydown", function (event) {
@@ -94,7 +94,7 @@ function reload() {
 document.onfullscreenchange = function () {
   document.body.classList.toggle(
     "fullscreen-active",
-    document.fullscreenElement,
+    document.fullscreenElement
   );
   iframe = document.getElementById("iframeid");
   if (document.fullscreenElement) {
