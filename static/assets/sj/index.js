@@ -5,35 +5,17 @@ const { ScramjetController } = $scramjetLoadController();
 
 const scramjet = new ScramjetController({
   files: {
-    wasm: "/assets/sj/wasm.wasm",
-    all: "/assets/sj/all.js",
-    sync: "/assets/sj/sync.js",
+    wasm: "/scram/scramjet.wasm.wasm",
+    all: "/scram/scramjet.all.js",
+    sync: "/scram/scramjet.sync.js",
   },
 });
 
 scramjet.init();
 
-navigator.serviceWorker.register("/assets/sj/sw.js");
-
-let connection;
+const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
 
 document.addEventListener("DOMContentLoaded", async function () {
-  // Small delay to ensure dependencies are loaded
-  await new Promise((resolve) => setTimeout(resolve, 100));
-
-  try {
-    if (typeof BareMux === "undefined" || !BareMux.BareMuxConnection) {
-      throw new Error("BareMux is not available");
-    }
-
-    connection = new BareMux.BareMuxConnection("/bm/worker.js");
-
-    await new Promise((resolve) => setTimeout(resolve, 500));
-  } catch (error) {
-    console.error("Failed to initialize BareMux:", error);
-    return;
-  }
-
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -44,12 +26,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       return;
     }
 
-    if (!connection) {
-      console.error("BareMux connection is not initialized");
-      return;
-    }
-
     let url = input.value.trim();
+
     if (!isUrl(url)) url = "https://www.startpage.com/do/dsearch?q=" + url;
     else if (!(url.startsWith("https://") || url.startsWith("http://")))
       url = "http://" + url;
@@ -58,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       "://" +
       location.host +
       "/wisp/";
-    await connection.setTransport("/epxy/index.mjs", [
+    await connection.setTransport("/epoxy/index.mjs", [
       { wisp: "wss://anura.pro/" },
     ]);
 

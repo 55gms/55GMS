@@ -8,11 +8,14 @@ import { createRequire } from "module";
 import cors from "cors";
 import "dotenv/config";
 import { Op } from "sequelize";
-import { server as wisp } from "@mercuryworkshop/wisp-js/server";
+import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
 
 const require = createRequire(import.meta.url);
 const { epoxyPath } = require("@mercuryworkshop/epoxy-transport");
 const { baremuxPath } = require("@mercuryworkshop/bare-mux/node");
+import { scramjetPath } from "@mercuryworkshop/scramjet/path";
+
+logging.set_level(logging.WARN);
 
 import {
   initDatabase,
@@ -35,8 +38,9 @@ const __dirname = dirname(__filename);
 const modelManager = new ModelManager();
 
 const app = express();
-app.use("/epxy/", express.static(epoxyPath));
-app.use("/bm/", express.static(baremuxPath));
+app.use("/epoxy/", express.static(epoxyPath));
+app.use("/baremux/", express.static(baremuxPath));
+app.use("/scram/", express.static(scramjetPath));
 const server = createServer(app);
 
 const io = new SocketIO(server, {
@@ -377,6 +381,7 @@ function shutdown(signal) {
   console.log("-----------------------------------------------\n");
   server.close(() => {
     console.log("  55GMS has shut down.");
+    io.close();
     process.exit(0);
   });
 }
