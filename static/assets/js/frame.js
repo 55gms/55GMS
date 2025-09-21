@@ -39,6 +39,20 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+
+  function getFaviconUrl(url) {
+    try {
+      const domain = new URL(url).origin;
+      return `https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${encodeURIComponent(
+        domain
+      )}`;
+    } catch {
+      return `https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${encodeURIComponent(
+        url
+      )}`;
+    }
+  }
+
   function isUrl(val = "") {
     if (
       /^http(s?):\/\//.test(val) ||
@@ -70,7 +84,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const tab = document.createElement("div");
     tab.className = "tab";
     tab.dataset.id = id;
-    tab.innerHTML = `<span>Tab ${tabCount}</span> <i class="fa-solid fa-x close"></i>`;
+
+    // Create tab with favicon and title elements like PeteZah browser
+    tab.innerHTML = `
+      <img class="tab-favicon" src="${getFaviconUrl(
+        url
+      )}" alt="" style="width: 16px; height: 16px; margin-right: 8px;">
+      <span class="tab-title">New Tab</span> 
+      <i class="fa-solid fa-x close" style="margin-left: auto; cursor: pointer;"></i>
+    `;
 
     const newTabButton = document.getElementById("new-tab");
     tabsContainer.insertBefore(tab, newTabButton);
@@ -81,6 +103,15 @@ document.addEventListener("DOMContentLoaded", () => {
     iframe.style.border = "0px #ffffff none";
     iframe.name = "Iframe";
     iframe.allowFullscreen = true;
+
+    // Store tab metadata for URL tracking
+    iframe.tabData = {
+      id: id,
+      url: url,
+      title: "New Tab",
+      favicon: getFaviconUrl(url),
+    };
+
     framesContainer.appendChild(iframe);
 
     tab.addEventListener("click", (e) => {
@@ -97,6 +128,49 @@ document.addEventListener("DOMContentLoaded", () => {
       resizeTabs();
     }, 50);
   }
+
+  // Add message listener for real-time URL change detection
+  window.addEventListener("message", (event) => {
+    // Handle messages from embed.html iframe
+    if (event.data && event.data.type === "urlchange") {
+      const { url, title, frameId } = event.data;
+
+      console.log("Received URL change:", url, "for frame:", frameId);
+
+      // Find the corresponding tab and iframe
+      const iframe = document.getElementById(frameId);
+      const tab = tabsContainer.querySelector(`[data-id='${frameId}']`);
+
+      if (iframe && tab) {
+        // Update tab data
+        iframe.tabData = {
+          ...iframe.tabData,
+          url: url,
+          title: title || new URL(url).hostname || "Untitled",
+          favicon: getFaviconUrl(url),
+        };
+
+        // Update tab UI elements
+        const faviconElement = tab.querySelector(".tab-favicon");
+        const titleElement = tab.querySelector(".tab-title");
+
+        if (faviconElement) {
+          faviconElement.src = iframe.tabData.favicon;
+        }
+        if (titleElement) {
+          titleElement.textContent = iframe.tabData.title;
+        }
+
+        // Update address bar if this is the active tab
+        if (tab.classList.contains("active")) {
+          const searchInput = document.getElementById("proxy-address");
+          if (searchInput) {
+            searchInput.value = url;
+          }
+        }
+      }
+    }
+  });
 
   function activateTab(id) {
     // Remove active class from all tabs and iframes first
@@ -118,12 +192,13 @@ document.addEventListener("DOMContentLoaded", () => {
       // Force layout recalculation to ensure classes are applied
       iframe.offsetHeight;
 
-      // Update search bar immediately, then with a small delay for backup
-      updateSearchBarForSpecificFrame(iframe);
-
-      setTimeout(() => {
-        updateSearchBarForSpecificFrame(iframe);
-      }, 100);
+      // Update search bar with tab data if available
+      if (iframe.tabData && iframe.tabData.url) {
+        const searchInput = document.getElementById("proxy-address");
+        if (searchInput) {
+          searchInput.value = iframe.tabData.url;
+        }
+      }
     }
   }
 
@@ -172,108 +247,14 @@ document.addEventListener("DOMContentLoaded", () => {
     return null;
   }
 
-  // Function to update search bar for a specific iframe
-  function updateSearchBarForSpecificFrame(frame) {
-    if (!frame) return;
-
-    try {
-      // First try to get URL from the Scramjet iframe inside embed.html
-      const scramjetUrl = getScramjetIframeUrl(frame);
-      if (
-        scramjetUrl &&
-        scramjetUrl !== "about:blank" &&
-        !isScramjetProxyUrl(scramjetUrl)
-      ) {
-        prxAddress.value = scramjetUrl;
-        return;
-      }
-
-      // Try to get URL from embed.html hash
-      const extractedUrl = extractUrlFromEmbed(frame.src);
-      if (
-        extractedUrl &&
-        extractedUrl !== "about:blank" &&
-        !isScramjetProxyUrl(extractedUrl)
-      ) {
-        prxAddress.value = extractedUrl;
-        return;
-      }
-
-      // Fallback: try to get the actual URL from the embed iframe
-      const actualUrl = frame.contentWindow.location.href;
-      if (actualUrl && actualUrl !== "about:blank") {
-        const hashExtractedUrl = extractUrlFromEmbed(actualUrl);
-        if (hashExtractedUrl && !isScramjetProxyUrl(hashExtractedUrl)) {
-          prxAddress.value = hashExtractedUrl;
-          return;
-        }
-      }
-    } catch (e) {
-      // If we can't access the iframe content (cross-origin),
-      // extract URL from the embed src
-      const extractedUrl = extractUrlFromEmbed(frame.src);
-      if (extractedUrl && !isScramjetProxyUrl(extractedUrl)) {
-        prxAddress.value = extractedUrl;
-      }
-    }
-  }
-
-  // Function to extract the actual URL from the iframe src
-  function extractUrlFromEmbed(embedSrc) {
-    if (embedSrc.includes("#")) {
-      const hashPart = embedSrc.split("#")[1];
-      return hashPart || "";
-    }
-    return embedSrc;
-  }
-
-  // Function to check if a URL is a Scramjet proxy URL
-  function isScramjetProxyUrl(url) {
-    return url && (url.includes("/scramjet/") || url.includes("/sw/"));
-  }
-
-  function decodeScramjetUrl(scramjetUrl) {
-    try {
-      if (scramjetUrl.includes("/scramjet/")) {
-        const encodedPart = scramjetUrl.split("/scramjet/")[1];
-        return decodeURIComponent(encodedPart);
-      }
-    } catch (e) {
-      console.log("Error decoding Scramjet URL:", e);
-    }
-    return scramjetUrl;
-  }
-
-  function getScramjetIframeUrl(embedIframe) {
-    try {
-      // Access the embed.html document
-      const embedDoc =
-        embedIframe.contentDocument || embedIframe.contentWindow.document;
-
-      // Look for the Scramjet iframe inside embed.html
-      const scramjetIframe = embedDoc.querySelector("#iframe-container iframe");
-
-      if (scramjetIframe && scramjetIframe.src) {
-        const scramjetUrl = scramjetIframe.src;
-
-        // If it's a Scramjet proxy URL, decode it to get the actual URL
-        if (isScramjetProxyUrl(scramjetUrl)) {
-          return decodeScramjetUrl(scramjetUrl);
-        }
-
-        return scramjetUrl;
-      }
-    } catch (e) {
-      // Cross-origin or other access issues
-      console.log("Cannot access embed iframe content:", e.message);
-    }
-    return null;
-  }
-
+  // Simplified function to update search bar from tab data
   function updateSearchBar() {
     const frame = getActiveFrame();
-    if (frame) {
-      updateSearchBarForSpecificFrame(frame);
+    if (frame && frame.tabData && frame.tabData.url) {
+      const searchInput = document.getElementById("proxy-address");
+      if (searchInput) {
+        searchInput.value = frame.tabData.url;
+      }
     }
   }
 
@@ -281,7 +262,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const frame = getActiveFrame();
     if (frame) {
       frame.contentWindow.history.back();
-      setTimeout(updateSearchBar, 300);
     }
   });
 
@@ -289,7 +269,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const frame = getActiveFrame();
     if (frame) {
       frame.contentWindow.history.forward();
-      setTimeout(updateSearchBar, 300);
     }
   });
 
@@ -297,7 +276,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const frame = getActiveFrame();
     if (frame) {
       frame.contentWindow.location.reload();
-      setTimeout(updateSearchBar, 500);
     }
   });
 
@@ -374,8 +352,6 @@ document.addEventListener("DOMContentLoaded", () => {
           const frame = getActiveFrame();
           if (frame) {
             frame.src = getTabUrl(s.phrase);
-            // Update search bar after navigation
-            setTimeout(updateSearchBar, 500);
           }
         };
         autocompleteBox.appendChild(item);
@@ -399,11 +375,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const frame = getActiveFrame();
         if (frame) {
           frame.src = getTabUrl(query);
-          // Update search bar after navigation
-          setTimeout(updateSearchBar, 500);
         }
         autocompleteBox.innerHTML = "";
         hideAutocomplete();
+        searchInput.blur();
       }
     }
   });

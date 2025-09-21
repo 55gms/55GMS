@@ -526,9 +526,56 @@
             const frame = scramjet.createFrame();
             container.appendChild(frame.frame);
 
+            // Set up URL change detection similar to PeteZah browser
+            frame.addEventListener("urlchange", (e) => {
+                if (!e.url) return;
+
+                console.log("URL change detected:", e.url);
+
+                // Get page title from iframe content
+                let title = "Loading...";
+                try {
+                    const iframeDoc = frame.frame.contentDocument || frame.frame.contentWindow.document;
+                    title = iframeDoc.title || new URL(e.url).hostname || "Untitled";
+                } catch (err) {
+                    title = new URL(e.url).hostname || "Untitled";
+                }
+
+                // Send URL and title change to parent window
+                if (window.parent && window.parent !== window) {
+                    window.parent.postMessage({
+                        type: 'urlchange',
+                        url: e.url,
+                        title: title,
+                        frameId: window.frameElement?.id
+                    }, '*');
+                }
+            });
 
             frame.frame.onload = () => {
                 window.preloaderDone();
+
+                // Also send initial load event
+                if (window.parent && window.parent !== window) {
+                    try {
+                        const iframeDoc = frame.frame.contentDocument || frame.frame.contentWindow.document;
+                        const title = iframeDoc.title || new URL(url).hostname || "Untitled";
+                        window.parent.postMessage({
+                            type: 'frameload',
+                            url: url,
+                            title: title,
+                            frameId: window.frameElement?.id
+                        }, '*');
+                    } catch (err) {
+                        // Cross-origin restrictions
+                        window.parent.postMessage({
+                            type: 'frameload',
+                            url: url,
+                            title: new URL(url).hostname || "Untitled",
+                            frameId: window.frameElement?.id
+                        }, '*');
+                    }
+                }
             };
 
             frame.go(url);

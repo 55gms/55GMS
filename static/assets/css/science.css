@@ -278,7 +278,7 @@ iframe.active {
   border: none;
   border-top: none;
   border-radius: 0 0 var(--border-radius) var(--border-radius);
-  max-height: 240px;
+  max-height: 300px;
   overflow-y: auto;
   z-index: 999;
   padding: 0;
