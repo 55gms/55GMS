@@ -88,10 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
         closeTab(id, tab, iframe);
       } else {
         activateTab(id);
-        // Extra update for search bar when clicking tabs
-        setTimeout(() => {
-          updateSearchBar();
-        }, 200);
       }
     });
 
@@ -103,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function activateTab(id) {
+    // Remove active class from all tabs and iframes first
     document
       .querySelectorAll(".tab")
       .forEach((t) => t.classList.remove("active"));
@@ -114,43 +111,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const iframe = document.getElementById(id);
 
     if (tab && iframe) {
+      // Add active class synchronously
       tab.classList.add("active");
       iframe.classList.add("active");
 
-      // Update search bar with current iframe URL - try multiple approaches
+      // Force layout recalculation to ensure classes are applied
+      iframe.offsetHeight;
+
+      // Update search bar immediately, then with a small delay for backup
+      updateSearchBarForSpecificFrame(iframe);
+
       setTimeout(() => {
-        try {
-          // First try to get URL from Scramjet iframe
-          const scramjetUrl = getScramjetIframeUrl(iframe);
-          if (
-            scramjetUrl &&
-            scramjetUrl !== "about:blank" &&
-            !isScramjetProxyUrl(scramjetUrl)
-          ) {
-            prxAddress.value = scramjetUrl;
-            return;
-          }
-
-          // Try to extract from embed URL hash
-          const extractedUrl = extractUrlFromEmbed(iframe.src);
-          if (extractedUrl && !isScramjetProxyUrl(extractedUrl)) {
-            prxAddress.value = extractedUrl;
-            return;
-          }
-
-          // Fallback to iframe src
-          if (iframe.src && iframe.src !== "about:blank") {
-            prxAddress.value = iframe.src;
-          }
-        } catch (e) {
-          console.log("Error updating search bar on tab switch:", e);
-          // Fallback to extracting from src
-          const extractedUrl = extractUrlFromEmbed(iframe.src);
-          if (extractedUrl) {
-            prxAddress.value = extractedUrl;
-          }
-        }
-      }, 150);
+        updateSearchBarForSpecificFrame(iframe);
+      }, 100);
     }
   }
 
@@ -161,8 +134,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const remainingTabs = tabsContainer.querySelectorAll(".tab");
     if (remainingTabs.length === 0) {
       createTab("/new");
-      prxAddress.value = "";
       prxAddress.focus();
+      prxAddress.select();
     } else {
       const actualTabs = Array.from(remainingTabs);
       const lastTab = actualTabs[actualTabs.length - 1];
@@ -177,11 +150,72 @@ document.addEventListener("DOMContentLoaded", () => {
   newTabBtn.addEventListener("click", () => {
     createTab();
     prxAddress.focus();
-    prxAddress.select();
   });
 
   function getActiveFrame() {
-    return document.querySelector("iframe.active");
+    // Use querySelector to find the iframe with active class
+    const activeFrame = document.querySelector("iframe.active");
+
+    // Double-check that it exists and is displayed
+    if (activeFrame && activeFrame.style.display !== "none") {
+      return activeFrame;
+    }
+
+    // Fallback: look for any iframe that has the active class
+    const allFrames = document.querySelectorAll("iframe");
+    for (let frame of allFrames) {
+      if (frame.classList.contains("active")) {
+        return frame;
+      }
+    }
+
+    return null;
+  }
+
+  // Function to update search bar for a specific iframe
+  function updateSearchBarForSpecificFrame(frame) {
+    if (!frame) return;
+
+    try {
+      // First try to get URL from the Scramjet iframe inside embed.html
+      const scramjetUrl = getScramjetIframeUrl(frame);
+      if (
+        scramjetUrl &&
+        scramjetUrl !== "about:blank" &&
+        !isScramjetProxyUrl(scramjetUrl)
+      ) {
+        prxAddress.value = scramjetUrl;
+        return;
+      }
+
+      // Try to get URL from embed.html hash
+      const extractedUrl = extractUrlFromEmbed(frame.src);
+      if (
+        extractedUrl &&
+        extractedUrl !== "about:blank" &&
+        !isScramjetProxyUrl(extractedUrl)
+      ) {
+        prxAddress.value = extractedUrl;
+        return;
+      }
+
+      // Fallback: try to get the actual URL from the embed iframe
+      const actualUrl = frame.contentWindow.location.href;
+      if (actualUrl && actualUrl !== "about:blank") {
+        const hashExtractedUrl = extractUrlFromEmbed(actualUrl);
+        if (hashExtractedUrl && !isScramjetProxyUrl(hashExtractedUrl)) {
+          prxAddress.value = hashExtractedUrl;
+          return;
+        }
+      }
+    } catch (e) {
+      // If we can't access the iframe content (cross-origin),
+      // extract URL from the embed src
+      const extractedUrl = extractUrlFromEmbed(frame.src);
+      if (extractedUrl && !isScramjetProxyUrl(extractedUrl)) {
+        prxAddress.value = extractedUrl;
+      }
+    }
   }
 
   // Function to extract the actual URL from the iframe src
@@ -239,46 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateSearchBar() {
     const frame = getActiveFrame();
     if (frame) {
-      try {
-        // First try to get URL from the Scramjet iframe inside embed.html
-        const scramjetUrl = getScramjetIframeUrl(frame);
-        if (
-          scramjetUrl &&
-          scramjetUrl !== "about:blank" &&
-          !isScramjetProxyUrl(scramjetUrl)
-        ) {
-          prxAddress.value = scramjetUrl;
-          return;
-        }
-
-        // Try to get URL from embed.html hash
-        const extractedUrl = extractUrlFromEmbed(frame.src);
-        if (
-          extractedUrl &&
-          extractedUrl !== "about:blank" &&
-          !isScramjetProxyUrl(extractedUrl)
-        ) {
-          prxAddress.value = extractedUrl;
-          return;
-        }
-
-        // Fallback: try to get the actual URL from the embed iframe
-        const actualUrl = frame.contentWindow.location.href;
-        if (actualUrl && actualUrl !== "about:blank") {
-          const hashExtractedUrl = extractUrlFromEmbed(actualUrl);
-          if (hashExtractedUrl && !isScramjetProxyUrl(hashExtractedUrl)) {
-            prxAddress.value = hashExtractedUrl;
-            return;
-          }
-        }
-      } catch (e) {
-        // If we can't access the iframe content (cross-origin),
-        // extract URL from the embed src
-        const extractedUrl = extractUrlFromEmbed(frame.src);
-        if (extractedUrl && !isScramjetProxyUrl(extractedUrl)) {
-          prxAddress.value = extractedUrl;
-        }
-      }
+      updateSearchBarForSpecificFrame(frame);
     }
   }
 
