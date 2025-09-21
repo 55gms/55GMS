@@ -15,7 +15,7 @@ const { epoxyPath } = require("@mercuryworkshop/epoxy-transport");
 const { baremuxPath } = require("@mercuryworkshop/bare-mux/node");
 import { scramjetPath } from "@mercuryworkshop/scramjet/path";
 
-logging.set_level(logging.WARN);
+logging.set_level(logging.ERROR);
 
 import {
   initDatabase,

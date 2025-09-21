@@ -1,20 +1,17 @@
-function hire(value) {
-  let iframe = document.querySelector(".iframe.active");
+function hire(url) {
+  url = url.trim();
+  if (!isUrl(url)) url = "https://www.duckduckgo.com/?q=" + url;
+  else if (!(url.startsWith("https://") || url.startsWith("http://")))
+    url = "https://" + url;
+  else if (
+    /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+      url
+    )
+  )
+    url = "http://" + url;
 
-  window.navigator.serviceWorker
-    .register("/assets/uv/sw.js", {
-      scope: __uv$config.prefix,
-    })
-    .then(() => {
-      let url = value.trim();
-      if (!isUrl(url)) url = "https://www.startpage.com/do/dsearch?q=" + url;
-      else if (!(url.startsWith("https://") || url.startsWith("http://")))
-        url = "https://" + url;
-
-      // Pass the encoded url to the second page
-      sessionStorage.setItem("encodedUrl", __uv$config.encodeUrl(url));
-      location.href = "!";
-    });
+  sessionStorage.setItem("encodedUrl", url);
+  location.href = "!";
 }
 
 function isUrl(str = "") {

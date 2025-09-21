@@ -10,6 +10,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (!isUrl(url)) url = "https://www.duckduckgo.com/?q=" + url;
     else if (!(url.startsWith("https://") || url.startsWith("http://")))
       url = "https://" + url;
+    else if (
+      /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+        url
+      )
+    )
+      url = "http://" + url;
+
     sessionStorage.setItem("encodedUrl", url);
     location.href = "!";
   });
