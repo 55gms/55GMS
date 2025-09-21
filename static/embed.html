@@ -445,13 +445,55 @@
         });
 
         scramjet.init();
-        navigator.serviceWorker.register("./sw.js").catch(() => { });
+        navigator.serviceWorker.register("/sw.js").catch(() => { });
 
         const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
 
+
+        function $store(defaultSettings, options = {}) {
+            const { ident = 'settings', backing = 'localstorage', autosave = 'auto' } = options;
+            const storageKey = ident;
+
+            let settings = { ...defaultSettings };
+            if (backing === 'localstorage') {
+                try {
+                    const stored = localStorage.getItem(storageKey);
+                    if (stored) {
+                        settings = { ...defaultSettings, ...JSON.parse(stored) };
+                    }
+                } catch (e) {
+                    console.warn('Failed to load settings from localStorage:', e);
+                }
+            }
+
+            function save() {
+                if (backing === 'localstorage') {
+                    try {
+                        localStorage.setItem(storageKey, JSON.stringify(settings));
+                    } catch (e) {
+                        console.warn('Failed to save settings to localStorage:', e);
+                    }
+                }
+            }
+            return new Proxy(settings, {
+                set(target, property, value) {
+                    target[property] = value;
+                    if (autosave === 'auto') {
+                        save();
+                    }
+                    return true;
+                },
+                get(target, property) {
+                    if (property === 'save') {
+                        return save;
+                    }
+                    return target[property];
+                }
+            });
+        }
+
         const store = $store(
             {
-                url: "https://google.com",
                 wispurl:
                     wispurl ||
                     (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/",
@@ -471,22 +513,9 @@
                     await connection.setTransport("/epoxy/index.mjs", [{ wisp: store.wispurl }]);
                     return;
                 } catch (e) {
-                    try {
-                        await connection.setTransport("/baremux/index.mjs", [store.bareurl]);
-                        return;
-                    } catch (e2) {
-                        try {
-                            await connection.setTransport("/libcurl/index.mjs", [{ wisp: store.wispurl }]);
-                            return;
-                        } catch (e3) {
-                            attempts++;
-                            if (attempts >= maxAttempts) {
-                                console.error("Failed to set any transport after", maxAttempts, "attempts");
-                                throw new Error("No bare clients available");
-                            }
-                            await new Promise(resolve => setTimeout(resolve, 120));
-                        }
-                    }
+                    attempts++;
+                    pushLine(`Transport init failed (attempt ${attempts} of ${maxAttempts})`);
+                    await new Promise(res => setTimeout(res, 800 * attempts));
                 }
             }
         }
@@ -497,7 +526,7 @@
             const frame = scramjet.createFrame();
             container.appendChild(frame.frame);
 
-            // Hide loader ONLY after the iframe signals load (fast-feel bar races to 100 then fades).
+
             frame.frame.onload = () => {
                 window.preloaderDone();
             };

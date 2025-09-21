@@ -29,6 +29,7 @@ import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import messagingRoutes from "./routes/messaging.js";
 import { router as chatRoutes, initializeChatRoute } from "./routes/chat.js";
+import searchRoutes from "./routes/search.js";
 
 import ModelManager from "./utils/modelManager.js";
 
@@ -80,6 +81,7 @@ app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", messagingRoutes);
 app.use("/api", chatRoutes);
+app.use("/api", searchRoutes);
 
 io.on("connection", (socket) => {
   // Add error handling for Socket.IO connections

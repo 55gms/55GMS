@@ -12,43 +12,49 @@
   <script src="/assets/js/easteregg.min.js" async></script>
   <meta charset="utf-8" />
   <meta http-equiv="Cache-control" content="public" />
-  <link href="/assets/css/science.css?2" rel="stylesheet" />
+  <link href="/assets/css/science.css" rel="stylesheet" />
   <script src="/scram/scramjet.all.js"></script>
   <script src="/baremux/index.js" defer></script>
   <script src="/epoxy/index.js" defer></script>
   <script src="/assets/sj/register-sw.js" defer></script>
   <script src="/assets/sj/hiring.js" defer></script>
+  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css" />
+  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
 </head>
 
-<body>
-  <script>
-    window.addEventListener("resize", navigator.keyboard.lock(["Escape"]));
-  </script>
+<body style="overflow: hidden">
 
-  <div class="bar">
-    <div class="bar-left">
-      &nbsp;&nbsp;<a class="button" onclick="back()" title="Go Back"><i class="fa-solid fa-arrow-left icon"></i></a>
-      &nbsp;&nbsp;<a class="button" onclick="forward()" title="Go Forward"><i
-          class="fa-solid fa-arrow-right icon"></i></a>
-      &nbsp;&nbsp;<a class="button" onclick="reload()" title="Reload"><i class="fa-solid fa-rotate-right icon"></i></a>
-    </div>
-    <div class="input-icon-container">
-      <i class="fa-solid fa-magnifying-glass icon search-icon"></i>
-      <input type="text" class="search" id="searchBar" placeholder="Search Google or Enter an URL" autocomplete="off" />
-    </div>
-    <div class="bar-right">
-      <a class="button" onclick="home()" title="Go Back"><i class="fa-solid fa-house icon"></i></a>
-      &nbsp;&nbsp;<a class="button" onclick="hideBar()" title="Go Back"><i class="fa-solid fa-arrow-up icon"></i></a>
-      &nbsp;&nbsp;<a class="button" onclick="cloak()" title="Open This Page in an about blank cloak"><i
-          class="fa-solid fa-arrow-up-right-from-square icon"></i></a>
-      &nbsp;&nbsp;<a class="button" onclick="erudaToggle()" title="Toggle Inspect Element"><i
-          class="fa-solid fa-code icon"></i></a>
-      &nbsp;&nbsp;<a class="button" onclick="fullscreen()" title="Fullscreen"><i
-          class="fa-solid fa-expand icon"></i></a>&nbsp;&nbsp;
+  <div id="tab-bar">
+    <div id="tabs">
+      <button id="new-tab" class="btn"><i class="fa-solid fa-plus"></i></button>
     </div>
   </div>
-  <iframe src="" id="iframeid" style="bottom: 0" style="border: 0px #ffffff none" name="Iframe" scrolling="yes"
-    frameborder="0" marginheight="0px" marginwidth="0px" allowfullscreen></iframe>
+
+
+  <div class="proxy-container">
+    <nav class="navbar-proxy">
+      <div class="navbar-left">
+        <a id="prx-bck" class="navbar-link pro"><i class="fa-solid fa-arrow-left"></i></a>
+        <a id="prx-fwd" class="navbar-link pro"><i class="fa-solid fa-arrow-right"></i></a>
+        <a id="prx-refresh" class="navbar-link pro"><i class="fa-solid fa-rotate-right"></i></a>
+      </div>
+
+      <input type="text" id="proxy-address" placeholder="Search Google or Enter an URL" class="search navbar-input"
+        autocomplete="off" />
+
+      <div class="navbar-right">
+        <a id="prx-home" class="navbar-link pro"><i class="fa-solid fa-house"></i></a>
+        <a id="prx-fullscreen" class="navbar-link pro"><i class="fa-solid fa-expand"></i></a>
+        <a id="prx-inspect" class="navbar-link pro"><i class="fa-solid fa-code"></i></a>
+      </div>
+    </nav>
+  </div>
+  <div id="autocomplete" class="autocomplete"></div>
+
+  <div class="loader"></div>
+
+  <div id="frames"></div>
+
 </body>
 
 </html>
