@@ -383,11 +383,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  document.addEventListener("click", (e) => {
-    if (!autocompleteBox.contains(e.target) && e.target !== searchInput) {
-      autocompleteBox.innerHTML = "";
-      hideAutocomplete();
-    }
+  searchInput.addEventListener("blur", () => {
+    setTimeout(() => {
+      if (autocompleteBox && autocompleteBox.style.display === "block") {
+        autocompleteBox.innerHTML = "";
+        hideAutocomplete();
+      }
+    }, 150);
   });
 
   window.addEventListener("resize", () => {
