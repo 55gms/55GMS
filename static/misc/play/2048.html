@@ -5,7 +5,7 @@
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
     <script src="/assets/js/font.js"></script>
     <meta name="google" content="notranslate" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=1" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=2" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=3" />
     <title>Google</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,7 +13,7 @@
     <meta http-equiv="Cache-control" content="public">
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="/assets/css/gameframe.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/gameframe.css?v=4" />
     <script src="/assets/js/script.js?v=12"></script>
     <script src="/socket.io/socket.io.js"></script>
 </head>
@@ -56,18 +56,25 @@
             </div>
         </div>
     </div>
-    <div class="addisplay" id="addisplay">
-        <ins id="adElement"></ins>
-        <div class="script-container"></div>
-        <div class="adtext">Advertisement</div>
-    </div>
 
     <div class="bottom-addisplay" id="bottomAddisplay">
-        <ins id="bottomAdElement"></ins>
+        <div class="adcenter">
+            <script type="text/javascript">
+                atOptions = {
+                    'key': 'b3a5490f293f185d1d7b4c6e5a0c1c50',
+                    'format': 'iframe',
+                    'height': 90,
+                    'width': 728,
+                    'params': {}
+                };
+            </script>
+            <script type="text/javascript"
+                src="//www.highperformanceformat.com/b3a5490f293f185d1d7b4c6e5a0c1c50/invoke.js"></script>
+        </div>
+
 
     </div>
-    <div class="adtext">Advertisement</div>
-    </div>
+
 
     <script>
         var elem = document.getElementById("iframe");
@@ -91,7 +98,31 @@
         reloadbtn.onclick = reload;
     </script>
 
-    <script src="/assets/js/ad.js?v=2"></script>
+    <div id="adleft">
+        <script type="text/javascript">
+            atOptions = {
+                'key': '9116277e8ea77908b4f2daec2924df67',
+                'format': 'iframe',
+                'height': 600,
+                'width': 160,
+                'params': {}
+            };
+        </script>
+        <script type="text/javascript"
+            src="//www.highperformanceformat.com/9116277e8ea77908b4f2daec2924df67/invoke.js"></script>
+    </div>
+    <div id="adright">
+        <script type="text/javascript">
+            atOptions = {
+                'key': '9116277e8ea77908b4f2daec2924df67',
+                'format': 'iframe',
+                'height': 600,
+                'width': 160,
+                'params': {}
+            };
+        </script>
+        <script type="text/javascript"
+            src="//www.highperformanceformat.com/9116277e8ea77908b4f2daec2924df67/invoke.js"></script>
 
 </body>
 
