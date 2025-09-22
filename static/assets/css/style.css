@@ -16,6 +16,21 @@ main {
   overflow-wrap: break-word;
 }
 
+#adleft {
+  position: fixed;
+  overflow: hidden;
+  scale: 0.7;
+  left: -24px;
+  top: 25vh;
+}
+#adright {
+  position: fixed;
+  overflow: hidden;
+  scale: 0.7;
+  right: -24px;
+  top: 25vh;
+}
+
 #gs {
   cursor: pointer;
   background-color: #413d3d;
