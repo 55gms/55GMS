@@ -1,9 +1,9 @@
-const sequelize = require("../config/database");
-const Chat = require("./Chat");
-const Message = require("./Message");
-const ChatMember = require("./ChatMember");
-const Friend = require("./Friend");
-const UserStatus = require("./UserStatus");
+import sequelize from "../config/database.js";
+import Chat from "./Chat.js";
+import Message from "./Message.js";
+import ChatMember from "./ChatMember.js";
+import Friend from "./Friend.js";
+import UserStatus from "./UserStatus.js";
 
 // Define associations
 Chat.hasMany(Message, { foreignKey: "chatId", as: "messages" });
@@ -27,7 +27,7 @@ const initDatabase = async () => {
   }
 };
 
-module.exports = {
+export {
   sequelize,
   Chat,
   Message,

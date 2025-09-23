@@ -1,5 +1,5 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
+import { DataTypes } from "sequelize";
+import sequelize from "../config/database.js";
 
 const Message = sequelize.define(
   "Message",
@@ -49,7 +49,7 @@ const Message = sequelize.define(
         fields: ["senderUuid"],
       },
     ],
-  },
+  }
 );
 
-module.exports = Message;
+export default Message;

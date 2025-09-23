@@ -1,40 +1,61 @@
-const express = require("express");
-const http = require("http");
-const socketIo = require("socket.io");
-const { createBareServer } = require("@tomphttp/bare-server-node");
-const path = require("path");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const { Op } = require("sequelize");
-dotenv.config();
+import express from "express";
+import { createServer } from "http";
+import { Server as SocketIO } from "socket.io";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import { createRequire } from "module";
+import cors from "cors";
+import "dotenv/config";
+import { Op } from "sequelize";
+import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
 
-const {
+const require = createRequire(import.meta.url);
+const { epoxyPath } = require("@mercuryworkshop/epoxy-transport");
+const { baremuxPath } = require("@mercuryworkshop/bare-mux/node");
+import { scramjetPath } from "@mercuryworkshop/scramjet/path";
+
+logging.set_level(logging.ERROR);
+
+import {
   initDatabase,
   UserStatus,
   Chat,
   Message,
   ChatMember,
-} = require("./models");
+} from "./models/index.js";
 
-const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/users");
-const messagingRoutes = require("./routes/messaging");
-const { router: chatRoutes, initializeChatRoute } = require("./routes/chat");
+import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import messagingRoutes from "./routes/messaging.js";
+import { router as chatRoutes, initializeChatRoute } from "./routes/chat.js";
+import searchRoutes from "./routes/search.js";
 
-const ModelManager = require("./utils/modelManager");
+import ModelManager from "./utils/modelManager.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const modelManager = new ModelManager();
 
 const app = express();
-const server = http.createServer(app);
+app.use("/epoxy/", express.static(epoxyPath));
+app.use("/baremux/", express.static(baremuxPath));
+app.use("/scram/", express.static(scramjetPath));
+const server = createServer(app);
 
-const bareServer = createBareServer("/t/");
-
-const io = socketIo(server, {
+const io = new SocketIO(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
   },
+});
+
+io.engine.on("connection_error", (err) => {
+  console.error("Socket.IO connection error:", err.req);
+  console.error("Error code:", err.code);
+  console.error("Error message:", err.message);
+  console.error("Error context:", err.context);
 });
 
 const activeConversations = new Map();
@@ -44,14 +65,6 @@ const activeChats = new Map();
 initDatabase().catch(console.error);
 
 initializeChatRoute(modelManager, activeConversations);
-
-app.use((req, res, next) => {
-  if (bareServer.shouldRoute(req)) {
-    bareServer.routeRequest(req, res);
-  } else {
-    next();
-  }
-});
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
@@ -68,8 +81,14 @@ app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", messagingRoutes);
 app.use("/api", chatRoutes);
+app.use("/api", searchRoutes);
 
 io.on("connection", (socket) => {
+  // Add error handling for Socket.IO connections
+  socket.on("error", (error) => {
+    console.error("Socket.IO connection error:", error);
+  });
+
   socket.on("authenticate", async (data) => {
     try {
       const { uuid, joinChatRooms = false } = data;
@@ -153,7 +172,7 @@ io.on("connection", (socket) => {
             .map(([socketId]) => socketId);
 
           const isCurrentlyViewing = userSockets.some(
-            (socketId) => activeChats.get(socketId) === chatId,
+            (socketId) => activeChats.get(socketId) === chatId
           );
 
           if (!isCurrentlyViewing) {
@@ -173,7 +192,7 @@ io.on("connection", (socket) => {
 
       await Chat.update(
         { lastActivity: new Date() },
-        { where: { id: chatId } },
+        { where: { id: chatId } }
       );
     } catch (error) {
       console.error("Error handling message:", error);
@@ -208,7 +227,7 @@ io.on("connection", (socket) => {
 
       await ChatMember.update(
         { lastReadAt: new Date() },
-        { where: { chatId, userUuid } },
+        { where: { chatId, userUuid } }
       );
 
       socket.to(`chat_${chatId}`).emit("messages_read", {
@@ -248,7 +267,7 @@ io.on("connection", (socket) => {
             lastSeen: new Date(),
             socketId: null,
           },
-          { where: { userUuid } },
+          { where: { userUuid } }
         );
 
         socket.broadcast.emit("user_status_change", {
@@ -342,10 +361,13 @@ app.use((req, res) => {
 });
 
 server.on("upgrade", (req, socket, head) => {
-  if (bareServer.shouldRoute(req)) {
-    bareServer.routeUpgrade(req, socket, head);
-  } else {
-    socket.end();
+  if (req.url && (req.url.startsWith("/wisp/") || req.url.includes("wisp"))) {
+    try {
+      wisp.routeRequest(req, socket, head);
+    } catch (error) {
+      console.error("Wisp routing error:", error);
+      socket.destroy();
+    }
   }
 });
 
@@ -361,6 +383,7 @@ function shutdown(signal) {
   console.log("-----------------------------------------------\n");
   server.close(() => {
     console.log("  55GMS has shut down.");
+    io.close();
     process.exit(0);
   });
 }

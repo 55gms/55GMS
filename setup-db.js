@@ -1,4 +1,4 @@
-const { initDatabase } = require("./models");
+import { initDatabase } from "./models/index.js";
 
 async function setupDatabase() {
   try {

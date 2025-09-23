@@ -1,206 +1,419 @@
-function isUrl(val = "") {
-  if (
-    /^http(s?):\/\//.test(val) ||
-    (val.includes(".") && val.slice(0, 1) !== " ")
-  )
-    return true;
-  return false;
-}
-function decodeURL(url) {
-  return __uv$config.decodeUrl(url);
-}
-function loadNewPage(url) {
-  document.getElementById("searchBar").blur();
-  window.navigator.serviceWorker.register("/assets/uv/sw.js", {
-    scope: "/assets/uv/service/",
-  });
-  if (!isUrl(url)) url = "https://www.startpage.com/do/dsearch?q=" + url;
-  else if (!(url.startsWith("https://") || url.startsWith("http://")))
-    url = "https://" + url;
-  let urlEncoded = __uv$config.encodeUrl(url);
-  urlEncoded = "/assets/uv/service/" + urlEncoded;
-  const iframe = document.getElementById("iframeid");
-  if (iframe) {
-    iframe.src = urlEncoded;
-  }
-  if (url === "https://nowgg.lol/") {
-    url = "gms://roblox";
-  } else if (
-    url === "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html"
-  ) {
-    url = "gms://android";
-  }
-  searchBar.value = url;
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const prxBck = document.getElementById("prx-bck");
+  const prxFwd = document.getElementById("prx-fwd");
+  const prxRefresh = document.getElementById("prx-refresh");
+  const prxAddress = document.getElementById("proxy-address");
+  const prxHome = document.getElementById("prx-home");
+  const prxFullScreen = document.getElementById("prx-fullscreen");
+  const prxInspect = document.getElementById("prx-inspect");
 
-window.addEventListener("load", function () {
-  let encodedUrl = sessionStorage.getItem("encodedUrl");
-  encodedUrl = "/assets/uv/service/" + encodedUrl;
-  console.log(encodedUrl);
-  const iframe = document.getElementById("iframeid");
-  if (iframe) {
-    iframe.src = encodedUrl;
-  } else {
-    console.error('Iframe with id "iframeid" does not exist');
+  let devTools = false;
+  const tabsContainer = document.getElementById("tabs");
+  const framesContainer = document.getElementById("frames");
+  const newTabBtn = document.getElementById("new-tab");
+  let tabCount = 0;
+
+  function resizeTabs() {
+    const tabs = tabsContainer.querySelectorAll(".tab");
+    const newTabButton = document.getElementById("new-tab");
+
+    if (tabs.length === 0) return;
+
+    // Wait for layout to settle
+    requestAnimationFrame(() => {
+      // Get available space (container width minus new tab button width and gaps)
+      const containerWidth = tabsContainer.offsetWidth;
+      const newTabButtonWidth = newTabButton.offsetWidth + 5; // include margin
+      const gapSpace = (tabs.length - 1) * 5; // 5px gap between tabs
+      const availableSpace = containerWidth - newTabButtonWidth - gapSpace - 10; // 10px buffer
+
+      // Calculate ideal tab width
+      const idealWidth = Math.max(
+        60,
+        Math.min(200, availableSpace / tabs.length)
+      );
+
+      // Apply the calculated width to all tabs
+      tabs.forEach((tab) => {
+        tab.style.width = `${idealWidth}px`;
+      });
+    });
   }
-});
-window.addEventListener("DOMContentLoaded", function () {
-  const searchBar = document.getElementById("searchBar");
-  if (searchBar) {
-    searchBar.setAttribute(
-      "value",
-      decodeURL(sessionStorage.getItem("encodedUrl")),
-    );
-    // search bar functionality
-    searchBar.addEventListener("keydown", function (event) {
-      if (event.key === "Enter") {
-        let url = searchBar.value.trim();
-        if (url === "gms://roblox") {
-          url = "https://nowgg.lol/";
-        } else if (url === "gms://android") {
-          url =
-            "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html";
-        }
-        loadNewPage(url);
+
+  function getFaviconUrl(url) {
+    try {
+      const domain = new URL(url).origin;
+      return `https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${encodeURIComponent(
+        domain
+      )}`;
+    } catch {
+      return `https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${encodeURIComponent(
+        url
+      )}`;
+    }
+  }
+
+  function isUrl(val = "") {
+    if (
+      /^http(s?):\/\//.test(val) ||
+      (val.includes(".") && val.slice(0, 1) !== " ")
+    )
+      return true;
+    return false;
+  }
+
+  function getTabUrl(url) {
+    if (url.startsWith("/")) {
+      return url;
+    } else if (!isUrl(url)) {
+      // It's a search query
+      return "/embed.html#https://duckduckgo.com/?q=" + encodeURIComponent(url);
+    } else if (!(url.startsWith("https://") || url.startsWith("http://"))) {
+      // It's a domain without protocol
+      return "/embed.html#https://" + url;
+    } else {
+      // It's a full URL with protocol
+      return "/embed.html#" + url;
+    }
+  }
+
+  function createTab(url = "/new") {
+    tabCount++;
+    const id = "tab-" + tabCount;
+
+    const tab = document.createElement("div");
+    tab.className = "tab";
+    tab.dataset.id = id;
+
+    // Create tab with favicon and title elements like PeteZah browser
+    tab.innerHTML = `
+      <img class="tab-favicon" src="${getFaviconUrl(
+        url
+      )}" alt="" style="width: 16px; height: 16px; margin-right: 8px;">
+      <span class="tab-title">New Tab</span> 
+      <i class="fa-solid fa-x close" style="margin-left: auto; cursor: pointer;"></i>
+    `;
+
+    const newTabButton = document.getElementById("new-tab");
+    tabsContainer.insertBefore(tab, newTabButton);
+
+    const iframe = document.createElement("iframe");
+    iframe.src = getTabUrl(url);
+    iframe.id = id;
+    iframe.style.border = "0px #ffffff none";
+    iframe.name = "Iframe";
+    iframe.allowFullscreen = true;
+
+    // Store tab metadata for URL tracking
+    iframe.tabData = {
+      id: id,
+      url: url,
+      title: "New Tab",
+      favicon: getFaviconUrl(url),
+    };
+
+    framesContainer.appendChild(iframe);
+
+    tab.addEventListener("click", (e) => {
+      if (e.target.classList.contains("close")) {
+        closeTab(id, tab, iframe);
+      } else {
+        activateTab(id);
       }
     });
-    if (
-      searchBar.value === "https://nowgg.lol/" ||
-      searchBar.value ===
-        "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html"
-    ) {
-      document.getElementById("iframeid").sandbox =
-        "allow-scripts allow-pointer-lock allow-forms allow-same-origin allow-downloads";
-      if (searchBar.value === "https://nowgg.lol/") {
-        searchBar.value = "gms://roblox";
-      } else if (
-        searchBar.value ===
-        "https://api.v6.wiki/apps/frogiee1/69420/custom-thingy-loader.html"
-      ) {
-        searchBar.value = "gms://android";
+
+    activateTab(id);
+
+    setTimeout(() => {
+      resizeTabs();
+    }, 50);
+  }
+
+  // Add message listener for real-time URL change detection
+  window.addEventListener("message", (event) => {
+    // Handle messages from embed.html iframe
+    if (event.data && event.data.type === "urlchange") {
+      const { url, title, frameId } = event.data;
+
+      console.log("Received URL change:", url, "for frame:", frameId);
+
+      // Find the corresponding tab and iframe
+      const iframe = document.getElementById(frameId);
+      const tab = tabsContainer.querySelector(`[data-id='${frameId}']`);
+
+      if (iframe && tab) {
+        // Update tab data
+        iframe.tabData = {
+          ...iframe.tabData,
+          url: url,
+          title: title || new URL(url).hostname || "Untitled",
+          favicon: getFaviconUrl(url),
+        };
+
+        // Update tab UI elements
+        const faviconElement = tab.querySelector(".tab-favicon");
+        const titleElement = tab.querySelector(".tab-title");
+
+        if (faviconElement) {
+          faviconElement.src = iframe.tabData.favicon;
+        }
+        if (titleElement) {
+          titleElement.textContent = iframe.tabData.title;
+        }
+
+        // Update address bar if this is the active tab
+        if (tab.classList.contains("active")) {
+          const searchInput = document.getElementById("proxy-address");
+          if (searchInput) {
+            searchInput.value = url;
+          }
+        }
       }
     }
-  } else {
-    console.error('Search bar with id "searchBar" does not exist');
+  });
+
+  function activateTab(id) {
+    // Remove active class from all tabs and iframes first
+    document
+      .querySelectorAll(".tab")
+      .forEach((t) => t.classList.remove("active"));
+    document
+      .querySelectorAll("iframe")
+      .forEach((f) => f.classList.remove("active"));
+
+    const tab = tabsContainer.querySelector(`[data-id='${id}']`);
+    const iframe = document.getElementById(id);
+
+    if (tab && iframe) {
+      // Add active class synchronously
+      tab.classList.add("active");
+      iframe.classList.add("active");
+
+      // Force layout recalculation to ensure classes are applied
+      iframe.offsetHeight;
+
+      // Update search bar with tab data if available
+      if (iframe.tabData && iframe.tabData.url) {
+        const searchInput = document.getElementById("proxy-address");
+        if (searchInput) {
+          searchInput.value = iframe.tabData.url;
+        }
+      }
+    }
   }
-  searchBar.addEventListener("focus", function () {
-    searchBar.select();
+
+  function closeTab(id, tab, iframe) {
+    tab.remove();
+    iframe.remove();
+
+    const remainingTabs = tabsContainer.querySelectorAll(".tab");
+    if (remainingTabs.length === 0) {
+      createTab("/new");
+      prxAddress.focus();
+      prxAddress.select();
+    } else {
+      const actualTabs = Array.from(remainingTabs);
+      const lastTab = actualTabs[actualTabs.length - 1];
+      if (lastTab) activateTab(lastTab.dataset.id);
+
+      setTimeout(() => {
+        resizeTabs();
+      }, 50);
+    }
+  }
+
+  newTabBtn.addEventListener("click", () => {
+    createTab();
+    prxAddress.focus();
+  });
+
+  function getActiveFrame() {
+    // Use querySelector to find the iframe with active class
+    const activeFrame = document.querySelector("iframe.active");
+
+    // Double-check that it exists and is displayed
+    if (activeFrame && activeFrame.style.display !== "none") {
+      return activeFrame;
+    }
+
+    // Fallback: look for any iframe that has the active class
+    const allFrames = document.querySelectorAll("iframe");
+    for (let frame of allFrames) {
+      if (frame.classList.contains("active")) {
+        return frame;
+      }
+    }
+
+    return null;
+  }
+
+  // Simplified function to update search bar from tab data
+  function updateSearchBar() {
+    const frame = getActiveFrame();
+    if (frame && frame.tabData && frame.tabData.url) {
+      const searchInput = document.getElementById("proxy-address");
+      if (searchInput) {
+        searchInput.value = frame.tabData.url;
+      }
+    }
+  }
+
+  prxBck.addEventListener("click", () => {
+    const frame = getActiveFrame();
+    if (frame) {
+      frame.contentWindow.history.back();
+    }
+  });
+
+  prxFwd.addEventListener("click", () => {
+    const frame = getActiveFrame();
+    if (frame) {
+      frame.contentWindow.history.forward();
+    }
+  });
+
+  prxRefresh.addEventListener("click", () => {
+    const frame = getActiveFrame();
+    if (frame) {
+      frame.contentWindow.location.reload();
+    }
+  });
+
+  prxHome.addEventListener("click", () => {
+    window.location.href = "/";
+  });
+
+  prxFullScreen.addEventListener("click", () => {
+    const frame = getActiveFrame();
+    if (frame && frame.requestFullscreen) frame.requestFullscreen();
+  });
+
+  prxInspect.addEventListener("click", () => {
+    if (devTools === false) {
+      eruda.init();
+      eruda.show();
+      devTools = true;
+    } else {
+      eruda.destroy();
+      devTools = false;
+    }
+  });
+
+  const searchInput = document.getElementById("proxy-address");
+  const autocompleteBox = document.getElementById("autocomplete");
+
+  function positionAutocomplete() {
+    if (searchInput && autocompleteBox) {
+      const rect = searchInput.getBoundingClientRect();
+      autocompleteBox.style.left = rect.left + "px";
+      autocompleteBox.style.top = rect.bottom - 2 + "px";
+      autocompleteBox.style.width = rect.width + "px";
+    }
+  }
+
+  function showAutocomplete() {
+    if (searchInput && autocompleteBox) {
+      searchInput.classList.add("autocomplete-active");
+      positionAutocomplete();
+      autocompleteBox.style.display = "block";
+    }
+  }
+
+  function hideAutocomplete() {
+    if (searchInput && autocompleteBox) {
+      searchInput.classList.remove("autocomplete-active");
+      autocompleteBox.style.display = "none";
+    }
+  }
+
+  async function fetchSuggestions(query) {
+    if (!query) {
+      autocompleteBox.innerHTML = "";
+      hideAutocomplete();
+      return;
+    }
+    try {
+      const res = await fetch(
+        `/api/autocomplete?q=${encodeURIComponent(query)}`
+      );
+      const suggestions = await res.json();
+      autocompleteBox.innerHTML = "";
+      if (suggestions.length === 0) {
+        hideAutocomplete();
+        return;
+      }
+      suggestions.forEach((s) => {
+        const item = document.createElement("div");
+        item.textContent = s.phrase;
+        item.onclick = () => {
+          searchInput.value = s.phrase;
+          autocompleteBox.innerHTML = "";
+          hideAutocomplete();
+          const frame = getActiveFrame();
+          if (frame) {
+            frame.src = getTabUrl(s.phrase);
+          }
+        };
+        autocompleteBox.appendChild(item);
+      });
+      showAutocomplete();
+    } catch (err) {
+      console.error("Autocomplete error:", err);
+      hideAutocomplete();
+    }
+  }
+
+  searchInput.addEventListener("input", (e) => {
+    fetchSuggestions(e.target.value);
+  });
+
+  searchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const query = searchInput.value.trim();
+      if (query) {
+        const frame = getActiveFrame();
+        if (frame) {
+          frame.src = getTabUrl(query);
+        }
+        autocompleteBox.innerHTML = "";
+        hideAutocomplete();
+        searchInput.blur();
+      }
+    }
+  });
+
+  searchInput.addEventListener("blur", () => {
+    setTimeout(() => {
+      if (autocompleteBox && autocompleteBox.style.display === "block") {
+        autocompleteBox.innerHTML = "";
+        hideAutocomplete();
+      }
+    }, 150);
+  });
+
+  window.addEventListener("resize", () => {
+    resizeTabs();
+    if (autocompleteBox && autocompleteBox.style.display === "block") {
+      positionAutocomplete();
+    }
+  });
+
+  setTimeout(() => {
+    resizeTabs();
+  }, 100);
+
+  if (sessionStorage.getItem("encodedUrl")) {
+    createTab("/embed.html#" + sessionStorage.getItem("encodedUrl"));
+  }
+
+  prxAddress.addEventListener("focus", () => {
+    prxAddress.select();
   });
 });
 
-function reload() {
-  document.getElementById("iframeid").contentWindow.location.reload();
-}
-document.onfullscreenchange = function () {
-  document.body.classList.toggle(
-    "fullscreen-active",
-    document.fullscreenElement,
-  );
-  iframe = document.getElementById("iframeid");
-  if (document.fullscreenElement) {
-    iframe.style.height = "100vh";
-  } else {
-    iframe.style.height = "calc(100vh - 47.5px)";
+window.addEventListener("resize", () => {
+  if (navigator.keyboard && navigator.keyboard.lock) {
+    navigator.keyboard.lock(["Escape"]);
   }
-};
-
-function fullscreen() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen();
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    }
-  }
-}
-function home() {
-  window.location.href = "/";
-}
-function erudaToggle() {
-  if (!document.getElementById("iframeid")) return;
-  const erudaWindow = document.getElementById("iframeid").contentWindow;
-  const erudaDocument = document.getElementById("iframeid").contentDocument;
-  if (!erudaWindow || !erudaDocument) return;
-  if (erudaWindow.eruda?._isInit) {
-    erudaWindow.eruda.destroy();
-  } else {
-    let script = erudaDocument.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/npm/eruda";
-    script.onload = function () {
-      if (!erudaWindow) return;
-      erudaWindow.eruda.init();
-      erudaWindow.eruda.show();
-    };
-    erudaDocument.head.appendChild(script);
-  }
-}
-function back() {
-  document.getElementById("iframeid").contentWindow.history.back();
-}
-function forward() {
-  document.getElementById("iframeid").contentWindow.history.forward();
-}
-function hideBar() {
-  const classesToHide = [
-    "bar",
-    "bar-left",
-    "bar-right",
-    "icon",
-    "search",
-    "search-icon",
-    "navbtn",
-  ];
-  classesToHide.forEach((className) => {
-    const elements = document.getElementsByClassName(className);
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].style.display = "none";
-    }
-  });
-  const iframe = document.getElementById("iframeid");
-  iframe.style.height = "100vh";
-  iframe.style.margin = "0";
-  iframe.style.padding = "0";
-}
-function cloak() {
-  let inFrame;
-  try {
-    inFrame = window !== top;
-  } catch (e) {
-    inFrame = true;
-  }
-  if (!inFrame && !navigator.userAgent.includes("Firefox")) {
-    const popup = open("about:blank", "_blank");
-    if (!popup || popup.closed) {
-      alert("Please allow popups and redirects.");
-    } else {
-      const doc = popup.document;
-      const iframe = doc.createElement("iframe");
-      const style = iframe.style;
-      const link = doc.createElement("link");
-      const name = tabData.title || "Dashboard";
-      const icon = tabData.icon || "/img/favicon.ico";
-      doc.title = name;
-      link.rel = "icon";
-      link.href = icon;
-      iframe.src = location.href;
-      style.position = "fixed";
-      style.top = style.bottom = style.left = style.right = 0;
-      style.border = style.outline = "none";
-      style.width = style.height = "100%";
-      doc.head.appendChild(link);
-      doc.body.appendChild(iframe);
-      const pLink =
-        localStorage.getItem(encodeURI("pLink")) || "https://www.google.com/";
-      location.replace(pLink);
-      const script = doc.createElement("script");
-      script.textContent = `
-      window.onbeforeunload = function (event) {
-        const confirmationMessage = 'Leave Site?';
-        (event || window.event).returnValue = confirmationMessage;
-        return confirmationMessage;
-      };
-    `;
-      doc.head.appendChild(script);
-    }
-  }
-}
+});

@@ -1,5 +1,5 @@
-const { Sequelize } = require("sequelize");
-require("dotenv").config();
+import { Sequelize } from "sequelize";
+import "dotenv/config";
 
 const sequelize = new Sequelize(process.env.POSTGRES_URL, {
   dialect: "postgres",
@@ -12,4 +12,4 @@ const sequelize = new Sequelize(process.env.POSTGRES_URL, {
   },
 });
 
-module.exports = sequelize;
+export default sequelize;

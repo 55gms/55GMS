@@ -1,5 +1,5 @@
-const express = require("express");
-const axios = require("axios");
+import express from "express";
+import axios from "axios";
 const router = express.Router();
 
 let modelManager = null;
@@ -104,4 +104,4 @@ router.get("/usedTokens", (req, res) => {
   });
 });
 
-module.exports = { router, initializeChatRoute };
+export { router, initializeChatRoute };
