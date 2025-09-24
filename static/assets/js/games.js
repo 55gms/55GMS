@@ -29,7 +29,8 @@ window.addEventListener("load", (event) => {
               </a>
             </div>`;
           } else {
-            gameHtml = `<div class="game">
+            if (!game.author && game.url) {
+              gameHtml = `<div class="game">
               <a href="${game.url}" rel="noopener noreferrer" ${
                 game.alert ? `onclick="alert('${game.alert}');"` : ""
               }>
@@ -38,6 +39,24 @@ window.addEventListener("load", (event) => {
                   <p class="text">${game.name}</p>
               </a>
             </div>`;
+            } else if (game.author && !game.url) {
+              gameLink = game.image.split("/").filter(Boolean).at(-2);
+              gameHtml = `<div class="game">
+              <a href="/misc/play/?title=${encodeURIComponent(
+                game.name
+              )}&author=${encodeURIComponent(
+                game.author
+              )}&link=${encodeURIComponent(
+                gameLink
+              )}" rel="noopener noreferrer" ${
+                game.alert ? `onclick="alert('${game.alert}');"` : ""
+              }>
+                  <img loading="eager" src="${game.image}"
+                       onload="handleImageLoad(${totalImages})">
+                  <p class="text">${game.name}</p>
+              </a>
+            </div>`;
+            }
           }
           gameContainer.insertAdjacentHTML("beforeend", gameHtml);
           const searchbar = document.querySelector(".searchbar");

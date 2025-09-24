@@ -444,12 +444,6 @@
     "usesProxy": false
   },
   {
-    "name": "Florr.io",
-    "url": "https://florr.io/",
-    "image": "/misc/florr/img.webp",
-    "usesProxy": true
-  },
-  {
     "name": "FNAF",
     "url": "https://wellsousaaa.github.io/Five-Nights-at-Freddys-Web/",
     "image": "/misc/fnaf/img.jpeg",
@@ -583,8 +577,8 @@
   },
   {
     "name": "HexGL",
-    "url": "/misc/play/hexgl.html",
-    "image": "/misc/hexgl/icon_256.webp",
+    "author": "BKcore",
+    "image": "/misc/hexgl/img.webp",
     "usesProxy": false
   },
   {
@@ -1149,12 +1143,6 @@
     "name": "Big Flappy Tower Tiny Square",
     "url": "https://big-flappy-tower-vs-tiny-square.game-files.crazygames.com/big-flappy-tower-vs-tiny-square/1/index.html",
     "image": "/img/games/flappy.webp",
-    "usesProxy": true
-  },
-  {
-    "name": "nzp.gay (COD ZOMBIES)",
-    "url": "https://nzp.gay/",
-    "image": "/img/games/codzombie.webp",
     "usesProxy": true
   },
   {
