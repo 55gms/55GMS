@@ -373,9 +373,10 @@
   },
   {
     "name": "Eaglercraft X",
-    "url": "/misc/eaglercraftx/index.html",
+    "url": "/misc/misc/eloader/",
     "image": "/misc/eaglercraftx/img.png",
-    "usesProxy": false
+    "usesProxy": false,
+    "alert": "This game will be removed, when it is click minecraft instead from the games page."
   },
   {
     "name": "Poor Bunny",
@@ -804,8 +805,8 @@
     "usesProxy": false
   },
   {
-    "name": "Minecraft 1.8",
-    "url": "/misc/eaglercraftx/index.html",
+    "name": "Minecraft",
+    "url": "/misc/misc/eloader/",
     "image": "/misc/eaglercraftx/img.png",
     "usesProxy": false
   },
@@ -1237,7 +1238,8 @@
   },
   {
     "name": "Resent Client 1.8",
-    "url": "/misc/eaglercraftx/r/index.html",
+    "url": "/misc/misc/eloader/",
+    "alert": "This game will be removed, when it is click minecraft instead from the games page.",
     "image": "/img/games/res.webp",
     "usesProxy": false
   },

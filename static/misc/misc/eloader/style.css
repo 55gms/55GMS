@@ -1,0 +1,54 @@
+/* Centering styles for eloader */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    padding-top: 80px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+
+
+
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    width: 100%;
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .games-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .game {
+        width: 90%;
+        max-width: 300px;
+    }
+}
