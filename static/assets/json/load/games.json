@@ -582,6 +582,12 @@
     "usesProxy": false
   },
   {
+    "name": "Hollow Night",
+    "author": "Bog",
+    "image": "/misc/hollow-night/img.webp",
+    "usesProxy": false
+  },
+  {
     "name": "Swingo",
     "url": "/misc/play/swingo.html",
     "image": "/misc/swingo/img.webp",
@@ -1269,12 +1275,6 @@
     "name": "SandTrix",
     "url": "/misc/play/?title=SandTrix&author=mslivo&link=sandtrix",
     "image": "/misc/sandtrix/img.webp",
-    "usesProxy": false
-  },
-  {
-    "name": "Save The Doge",
-    "url": "/misc/play/savedoge.html",
-    "image": "/misc/save-the-doge/img.webp",
     "usesProxy": false
   },
   {
