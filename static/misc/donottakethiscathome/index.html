@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <base href="https://cdn.jsdelivr.net/gh/genizy/web-port@main/donottakethiscathome/">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Do NOT Take This Cat Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="icons/icon.png" type="image/png" />
+    <meta name="theme-color" content="#000" />
+    <style>
+        html {
+            background: #444;
+            font-family: sans-serif;
+        }
+
+        body,
+        html {
+            overscroll-behavior: none;
+        }
+
+        #canvas,
+        #overlayDiv {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+
+            width: 100%;
+            height: 100%;
+
+            border: 0 none;
+        }
+
+        #canvas {
+            background: #000;
+        }
+
+        .visible {
+            visibility: visible;
+            opacity: 1.0;
+            transition: opacity .1s linear;
+        }
+
+        .hidden {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s .25s, opacity .25s linear;
+        }
+
+        #statusDiv,
+        #inputDiv {
+            background: rgba(0, 0, 0, 0.75);
+            width: 50%;
+            margin: auto;
+            min-width: 340px;
+            padding: 10px;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+
+            border-radius: 0 0 5px 5px;
+        }
+
+        #statusTextDiv {
+            overflow: auto;
+            max-height: 40vh;
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        #statusProgress {
+            display: none;
+            width: 100%;
+        }
+
+        #inputDiv {
+            width: 65%;
+            padding-left: 10px;
+            padding-right: 20px;
+        }
+
+        #inputPrompt {
+            color: #eee;
+            font-size: 150%;
+            margin-bottom: 1em;
+            margin-top: 1em;
+
+        }
+
+        #inputText {
+            width: 100%;
+            font-size: 175%;
+            padding: 5px;
+            background: inherit;
+            color: #eee;
+        }
+
+        #inputText:focus {
+            color: #ffffff;
+        }
+
+        #ContextContainer {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            color: white;
+        }
+
+        #ContextContainer.shown {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 0px 0px 5px 0px;
+        }
+
+        #ContextButton {
+            text-decoration: none;
+            color: lightgrey;
+            font-size: xx-large;
+            cursor: pointer;
+            user-select: none;
+            -moz-user-select: none;
+            padding: 10px 10px;
+            opacity: .75;
+        }
+
+        #ContextButton:focus {
+            outline: none;
+            color: #ffffff;
+            opacity: 1.0;
+        }
+
+        #ContextMenu a {
+            text-decoration: none;
+            color: lightgrey;
+            background: #444;
+            height: 48px;
+            width: 250px;
+            border-radius: 5px;
+            border: 1px solid lightgrey;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px 5px;
+            opacity: 1.0;
+        }
+
+        #ContextMenu a:hover {
+            text-decoration: none;
+            background: #666666;
+            color: #ffffff
+        }
+
+        #presplash {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            margin: auto;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    </style>
+
+</head>
+
+<body>
+    <canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+    <div id="overlayDiv"></div>
+
+
+    <div id="ContextContainer">
+        <a id="ContextButton">&#8801;</a><br />
+        <div id="ContextMenu" style="display: none;">
+            <input id="ID_SavegamesImport" type="file" onchange="onSavegamesImport(this)" accept="application/zip"
+                style=display:none></input>
+            <a href="javascript:document.getElementById('ID_SavegamesImport').click();">Import Saves</a>
+            <a href="javascript:onSavegamesExport();">Export Saves</a>
+            <a href="javascript:FSDownload('/log.txt', 'text/plain');">Download Log</a>
+            </span>
+        </div>
+    </div>
+
+    <div id="statusDiv" class="hidden">
+        <div id="statusTextDiv"></div>
+        <progress id="statusProgress" value="0" max="100"></progress>
+    </div>
+
+    <div id="inputDiv" class="hidden">
+        <form id="inputForm">
+            <div id="inputPrompt"></div>
+            <input id="inputText" type="text">
+        </form>
+    </div>
+
+    <script>
+        // The URL to game.zip, relative to the URL of this file.
+        window.gameZipURL = 'game.zip';
+
+        // Register the service worker.
+        if (navigator.serviceWorker) {
+            if (!navigator.serviceWorker.controller) {
+                navigator.serviceWorker.register('./service-worker.js', { updateViaCache: 'all' });
+            }
+        }
+    </script>
+    <script src="renpy-pre.js"></script>
+    <script async type="text/javascript" src="renpy.js"></script>
+</body>
+
+</html>
