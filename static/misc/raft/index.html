@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <base href="https://cdn.jsdelivr.net/gh/genizy/web-port@main/raft/">
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Unity WebGL Player | Raft</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            overflow: hidden;
+        }
+
+        body {
+            background: #231F20;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .webgl-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        #unityContainer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        #loading-text {
+            color: white;
+            font-size: 48px;
+            font-family: cursive;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            white-space: nowrap;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+
+        .fullscreen {
+            cursor: pointer;
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: url('TemplateData/fullscreen.png') no-repeat center;
+        }
+
+        /* Loading animation */
+        @keyframes pulse {
+            0% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.6;
+            }
+        }
+
+        #loading-text {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            #loading-text {
+                font-size: 24px;
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #loading-text {
+                font-size: 18px;
+                padding: 0 10px;
+            }
+        }
+    </style>
+    <script src="Build/UnityLoader.js"></script>
+    <script>
+        let totalBytes = 0;
+        let loadedBytes = 0;
+
+        async function getSize(url) {
+            try {
+                const res = await fetch(url, {
+                    method: "HEAD"
+                });
+                return parseInt(res.headers.get("Content-Length") || "0", 10);
+            } catch {
+                return 0;
+            }
+        }
+
+        async function fetchWithProgress(url) {
+            const response = await fetch(url);
+            const reader = response.body.getReader();
+            let chunks = [];
+            let received = 0;
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                received += value.length;
+                loadedBytes += value.length;
+                chunks.push(value);
+
+                let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
+                let mbTotal = (totalBytes / (1024 * 1024)).toFixed(2);
+
+                const loadingText = document.querySelector("#loading-text");
+                if (loadingText) {
+                    loadingText.textContent = `${mbDone} MB / ${mbTotal} MB`;
+                }
+            }
+
+            let fullBuffer = new Uint8Array(received);
+            let offset = 0;
+            for (let chunk of chunks) {
+                fullBuffer.set(chunk, offset);
+                offset += chunk.length;
+            }
+            return fullBuffer.buffer;
+        }
+
+        async function mergeFiles(fileParts) {
+            const buffers = await Promise.all(fileParts.map(part => fetchWithProgress(part)));
+            const mergedBlob = new Blob(buffers);
+            return URL.createObjectURL(mergedBlob);
+        }
+
+        UnityLoader.downloadJob = function (e, t) {
+            var r = new XMLHttpRequest;
+            if (t.parameters.url.startsWith("Build/blob")) {
+                r.open("GET", t.parameters.url.replace("Build/", ""));
+            } else {
+                r.open("GET", t.parameters.url);
+            }
+            r.responseType = "arraybuffer",
+                r.onload = function () {
+                    UnityLoader.Compression.decompress(new Uint8Array(r.response), function (e) {
+                        t.complete(e)
+                    })
+                }
+                ,
+                t.parameters.onprogress && r.addEventListener("progress", t.parameters.onprogress),
+                t.parameters.onload && r.addEventListener("load", t.parameters.onload),
+                r.send()
+        };
+
+        function getParts(file, start, end) {
+            let parts = [];
+            for (let i = start; i <= end; i++) {
+                parts.push(file + ".part" + i);
+            }
+            return parts;
+        }
+
+        function resizeUnityContainer() {
+            var container = document.getElementById("unityContainer");
+            container.style.width = window.innerWidth + "px";
+            container.style.height = window.innerHeight + "px";
+        }
+
+        (async () => {
+            const dataPartsFiles = getParts("Build/Raft-WEBGL.data.unityweb", 1, 3);
+            const asmPartsFiles = getParts("Build/Raft-WEBGL.asm.code.unityweb", 1, 2);
+            const allParts = [...dataPartsFiles, ...asmPartsFiles];
+
+            const sizes = await Promise.all(allParts.map(getSize));
+            totalBytes = sizes.reduce((a, b) => a + b, 0);
+
+            let mbTotal = (totalBytes / (1024 * 1024)).toFixed(2);
+            const loadingText = document.querySelector("#loading-text");
+            if (loadingText) {
+                loadingText.textContent = `LOADING... 0.00 MB / ${mbTotal} MB`;
+            }
+
+            // Start merging files with progress
+            const [dataUrl, asmCode] = await Promise.all([
+                mergeFiles(dataPartsFiles),
+                mergeFiles(asmPartsFiles)
+            ]);
+
+            window.dataUrll = dataUrl;
+            window.asmUrll = asmCode;
+            var json = {
+                "TOTAL_MEMORY": 268435456,
+                "dataUrl": dataUrl,
+                "asmCodeUrl": asmCode,
+                "asmMemoryUrl": "Raft-WEBGL.asm.memory.unityweb",
+                "asmFrameworkUrl": "Raft-WEBGL.asm.framework.unityweb",
+                "splashScreenStyle": "Dark",
+                "backgroundColor": "#231F20"
+            };
+            let blob = new Blob([JSON.stringify(json)], {
+                type: "application/json",
+            });
+            let blobUrl = URL.createObjectURL(blob);
+            window.addEventListener("resize", resizeUnityContainer);
+            UnityLoader.instantiate("unityContainer", json, {
+                url: blobUrl,
+                Module: {
+                    onRuntimeInitialized: function () {
+                        resizeUnityContainer();
+                        const finalLoadingText = document.querySelector("#loading-text");
+                        if (finalLoadingText) {
+                            finalLoadingText.remove();
+                        }
+                    },
+                },
+            });
+        })();
+    </script>
+</head>
+
+<body>
+    <div class="webgl-content">
+        <div id="loading-text">LOADING...</div>
+        <div id="unityContainer"></div>
+    </div>
+</body>
+
+</html>
