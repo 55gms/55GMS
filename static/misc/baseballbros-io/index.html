@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+
+	<title>BASEBALL BROS! | Official Site</title>
+	<meta name="description" content="Online multiplayer baseball! Strikeouts, steals, and grand slams! Hit Nukes!" />
+	<meta id="viewport" name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link rel="shortcut icon" type="image/png" href="./favicon.png">
+	<meta name="Keywords" content="Baseball, Play, Free, Online, Multiplayer, Games, IO, Sports, Scrolling, Friends">
+	<meta name="author" content="Blue Wizard Digital">
+
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://baseballbros.io" />
+	<meta property="og:title" content="Baseball Bros" />
+	<meta property="og:description"
+		content="Online multiplayer baseball! Hit home runs, steal bases, strike out the side!" />
+	<meta property="og:image" content="https://baseballbros.io/splash.jpg" />
+	<link rel="manifest" href="manifest.json">
+
+
+	<script type="text/javascript" src="./BaseballBros.js?th=100"></script>
+
+	<script>
+		window.addEventListener("touchmove", function (event) { event.preventDefault(); }, { capture: false, passive: false });
+		if (typeof window.devicePixelRatio != 'undefined' && window.devicePixelRatio > 2) {
+			var meta = document.getElementById("viewport");
+			meta.setAttribute('content', 'width=device-width, initial-scale=' + (2 / window.devicePixelRatio) + ', user-scalable=no');
+		}
+		window.addEventListener('keydown', function (e) {
+			if ((e.keyCode == 32 || e.keyCode == 38 || e.keyCode == 40 || e.keyCode == 9) && e.target == document.body) {
+				e.preventDefault();
+			}
+		});
+		var aCo = 'US';
+	</script>
+
+	<script type="module">
+		import initModule from './physics.js';
+		const Module = await initModule();   // MODULARIZE=1 returns a promise
+		// Boolean args become 0/1 integers:
+		//const result = Module.ccall('DoPhysics', 'number', ['number'], [0]);
+		//console.log('DoPhysics returned:', !!result);
+	</script>
+
+	<style>
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background: #000000;
+			color: orange;
+			height: 100%;
+			width: 100%;
+			height: 100vh;
+			width: 100vw;
+			margin: 0;
+			padding: 0;
+		}
+
+		.body::-webkit-scrollbar {
+			/* WebKit */
+			width: 0px;
+		}
+
+		#openfl-content {
+			background: #000000;
+			width: 100%;
+			height: 100%;
+		}
+
+		#spinner {
+			-webkit-transform-origin: 50% 50%;
+			-moz-transform-origin: 50% 50%;
+			-o-transform-origin: 50% 50%;
+			transform-origin: 50% 50%;
+			width: 82px;
+			height: 81px;
+			-webkit-animation: spin1 2s infinite linear;
+			-moz-animation: spin1 2s infinite linear;
+			-o-animation: spin1 2s infinite linear;
+			-ms-animation: spin1 2s infinite linear;
+			animation: spin1 2s infinite linear;
+		}
+
+
+
+
+		/* Main content styling */
+		#more {
+			display: flex;
+			justify-content: space-between;
+			background-color: #1a1a1a;
+			padding: 40px;
+			border-top: 0px solid #444;
+			color: #fff;
+			font-family: 'Arial', sans-serif;
+		}
+
+		.info-box {
+			width: 48%;
+			background-color: #222;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+		}
+
+		h3 {
+			font-size: 24px;
+			color: #ffa500;
+			/* Baseball-themed color */
+			margin-bottom: 15px;
+		}
+
+		p,
+		b {
+			line-height: 1.6;
+			font-size: 16px;
+		}
+
+		p {
+			margin-bottom: 10px;
+		}
+
+		b {
+			color: #ffd700;
+			/* Highlighted question color */
+		}
+
+
+		/* unvisited link */
+		a:link {
+			color: #ffd700;
+		}
+
+		/* visited link */
+		a:visited {
+			color: #ffd700;
+		}
+
+		/* mouse over link */
+		a:hover {
+			color: #ffd700;
+		}
+
+		/* selected link */
+		a:active {
+			color: #ffd700;
+		}
+
+		.notch-top-left {
+			width: 20px;
+			height: 20px;
+			background-color: var(--background-color, #1a1a1a);
+			position: absolute;
+			top: -10px;
+			left: -10px;
+			clip-path: polygon(100% 0, 0 100%, 100% 100%);
+		}
+
+		/* Footer styling */
+		footer {
+			background-color: #000;
+			padding: 20px 0;
+			text-align: center;
+			color: #ccc;
+			font-size: 14px;
+			border-top: 2px solid #444;
+			margin-top: 40px;
+			font-family: 'Arial', sans-serif;
+			border: 0;
+		}
+
+		.feedback-form {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 50vw;
+			height: 50vh;
+			background-color: #2A6DB0;
+			padding: 20px;
+			border: 4px solid #FF0000;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+			text-align: center;
+			color: #FFFFFF;
+		}
+
+		.feedback-form h3 {
+			font-size: 24px;
+			margin-bottom: 20px;
+			color: #FFFFFF;
+			text-shadow: 2px 2px #000000;
+		}
+
+		.feedback-form textarea {
+			width: calc(100% - 20px);
+			height: 50%;
+			margin-bottom: 10px;
+			padding: 10px;
+			font-size: 16px;
+			font-family: 'Courier New', Courier, monospace;
+			border: 3px solid #000000;
+			background-color: #000000;
+			/* Black background */
+			color: #FFFFFF;
+			/* White text */
+			resize: none;
+			box-sizing: border-box;
+		}
+
+		.feedback-form button {
+			width: 100%;
+			padding: 12px;
+			background-color: #FFD700;
+			/* Yellowish background */
+			color: #000000;
+			border: 3px solid #FF0000;
+			border-radius: 0;
+			font-size: 18px;
+			cursor: pointer;
+			font-family: 'Courier New', Courier, monospace;
+			text-shadow: 1px 1px #000000;
+		}
+
+		.feedback-form button:hover {
+			background-color: #FFB800;
+			/* Slightly darker yellow on hover */
+			color: #FFFFFF;
+		}
+	</style>
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-N0LG27M8L8"></script>
+
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		if (location.hostname != "localhost") gtag('config', 'G-N0LG27M8L8', { cookie_flags: 'secure;samesite=none' });
+	</script>
+
+	<script>
+		//Interstitial ad available event
+		document.addEventListener("aip_interstitialadavailable", function (e) {
+			console.log("An interstitial ad is available");
+		});
+	</script>
+	<script>
+		console.log("Initting AIP")
+		window.aiptag = window.aiptag || { cmd: [] };
+		aiptag.cmd.display = aiptag.cmd.display || [];
+		aiptag.cmd.player = aiptag.cmd.player || [];
+
+		//CMP tool settings
+		aiptag.consented = false; // GDPR setting, please set this value to false if an EU user has declined or not yet accepted marketing cookies, for users outside the EU please use true and for users accepted the GDPR also use true
+		aiptag.cmp = {
+			show: true,
+			position: "centered",
+			button: false,
+			buttonText: "Privacy settings",
+			buttonPosition: "bottom-left"
+		}
+	</script>
+
+
+	<script>
+
+
+
+		function SetupMSNotification() {
+			console.log("notifying");
+			if (typeof $msstart !== 'undefined') {
+				console.log("notifying2");
+				var id = btoa("https://baseballbros.io/sbros_364x180.png");
+				$msstart.scheduleNotificationAsync({
+					title: 'Unlock new bros now!',
+					description: 'You are just about to unlock a new Bro! Who will it be?',
+					type: 1,
+					minDelayInSeconds: 24 * 60 * 60
+				}).then(response => {
+					console.log("notification response: " + response);
+				});
+				$msstart.scheduleNotificationAsync({
+					title: 'Dunk all over your bros!',
+					description: 'New bros just waiting to be dunked on! Unlock them now!',
+					type: 1,
+					minDelayInSeconds: 24 * 7 * 60 * 60
+				}).then(response => {
+					console.log("notification response: " + response);
+				});
+
+			}
+		}
+
+		var msAdID;
+		function LoadVideo() {
+			if (typeof $msstart !== 'undefined') {
+				$msstart.loadAdsAsync().then(adInstance => {
+					// Use the adInstance.instanceId to make a call to showAdsAsync
+					msAdID = adInstance.instanceId;
+				});
+
+				SetupMSNotification();
+			}
+		}
+
+		function ShowVideo(theUnitName = null) {
+			Main.DoneVideoAd(true);
+			return;//! when aip is live, remove this
+
+			console.log('SHOW_VIDEO:' + theUnitName);
+			var aUnitName = "";
+			if (typeof $msstart !== 'undefined') {
+				$msstart.showAdsAsync(msAdID).then(adInstance => {
+					// Use the adInstance.showAdsCompletedAsync to be notified of the completion of showing the advertisement
+					adInstance.showAdsCompletedAsync.then((val) => {
+						console.log('MS Video Ad Complete');
+						Main.DoneVideoAd();
+						window.focus();
+						window.document.getElementById('openfl-content').focus();
+						LoadVideo();
+					}).catch((err) => {
+						console.log('Ms Video Ad Error');
+						Main.DoneVideoAd();
+						window.focus();
+						window.document.getElementById('openfl-content').focus();
+						LoadVideo();
+					});
+				});
+			}
+			else if (typeof gCrazySDK !== 'undefined') {
+				gCrazySDK.addEventListener("adFinished", Main.DoneVideoAd); // reenable sound, enable ui
+				gCrazySDK.addEventListener("adError", Main.DoneVideoAd); // reenable sound, enable ui
+				gCrazySDK.requestAd();
+				console.log('CG_AD_REQUESTED');
+				SendEvent('event', 'cgvideo');
+				return;
+			}
+			else if (typeof adplayer === 'undefined') {
+				Main.DoneVideoAd(true);
+				SendEvent('event', 'video_adblocked');
+				console.log('VIDEO_ADBLOCKED');
+
+			} else {
+				var aStr = 'preroll';
+				//if(theUnitName != null) aStr = theUnitName;
+				lastUnitPlayed = aStr;
+				SendEvent('event', 'startvideo-' + aStr);
+
+				aiptag.cmd.player.push(function () { adplayer.startVideoAd(theUnitName); });
+			}
+		}
+	</script>
+
+	<!-- Firebase App (the core Firebase SDK) -->
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+	<!-- Firebase Authentication -->
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+	<!-- Firebase Firestore (Database) -->
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+	<script>
+		// Your web app's Firebase configuration
+		const firebaseConfig = {
+			apiKey: "AIzaSyBuzj8XEP7-5kOFFhyuxylQ6P0B2G_ogsM",
+			authDomain: "baseball-bros-8dd7f.firebaseapp.com",
+			projectId: "baseball-bros-8dd7f",
+			storageBucket: "baseball-bros-8dd7f.firebasestorage.app",
+			messagingSenderId: "618024516218",
+			appId: "1:618024516218:web:11efff2d4b092aefaf99c3"
+		};
+
+
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		const auth = firebase.auth();
+		const db = firebase.firestore();
+		var userData = "";
+
+		function triggerSignIn() {
+			var provider = new firebase.auth.GoogleAuthProvider();
+			auth.signInWithPopup(provider);
+		}
+
+		// Save game data function
+		function saveGameData(gameData) {
+			console.log('saving gamedata:' + gameData);
+			var userId = auth.currentUser.uid;
+			userData = gameData;
+			db.collection('users').doc(userId).set({
+				gameData: gameData
+			}).then(function () {
+				console.log('Game data saved');
+			}).catch(function (error) {
+				console.error('Error saving game data:', error);
+			});
+		}
+
+		// Load game data function
+		function loadGameData() { return userData; }
+
+		function loadGameDataAsync() {
+			var userId = auth.currentUser.uid;
+			db.collection('users').doc(userId).get().then(function (doc) {
+				if (doc.exists) {
+					userData = doc.data().gameData;
+					//Main.LoadGlobals();
+					console.log('Game data:', doc.data().gameData);
+					if (typeof Main != "undefined") {
+						Main.LoadDataComplete();
+					}
+					// Use the game data in your game
+				} else {
+					console.log('No such document!');
+				}
+			}).catch(function (error) {
+				console.error('Error loading game data:', error);
+			});
+		}
+
+		// Firebase auth state observer
+		auth.onAuthStateChanged(function (user) {
+			if (user) {
+				loadGameDataAsync();
+				SendEvent('event', 'sign_in');
+				console.log('user signed in');
+			} else {
+				console.log('No user signed in');
+				SendEvent('event', 'sign_out');
+			}
+		});
+
+		function signOut() {
+			auth.signOut().then(() => {
+				Main.SignOutComplete();
+				console.log('signed out');
+			});
+		}
+
+		function isUserLoggedIn() {
+			return auth.currentUser !== null;
+		}		
+	</script>
+
+</head>
+
+<body style="overflow:hidden;">
+	<noscript>Enable JavaScript bro!</noscript>
+	<script>
+
+		//alert("Globals:"+localStorage.getItem("/:Globals").length);
+		/////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////
+		var url = window.location.href;
+		if (url.includes("www.")) {
+			url = url.replace("www.", "");
+
+			var f = document.createElement('form');
+			f.action = url;
+			f.method = 'POST';
+			var i = document.createElement('input');
+			i.type = 'hidden';
+			i.name = 'FGlobals';
+			i.value = localStorage.getItem("/:Globals");
+			f.appendChild(i);
+
+			document.body.appendChild(f);
+			f.submit();
+		}
+		else {
+			var aPost = "";
+			var aStorage = localStorage.getItem("/:Globals");
+			var aLen = 0;
+			if (aStorage != null && aStorage.length > 0) {
+				aLen = aStorage.length;
+			}
+			if (aPost.length > aLen) localStorage.setItem("/:Globals", aPost);
+			if (aPost.length > 0 && aPost.length == aLen) localStorage.setItem("/:Globals", aPost);
+		}
+		/////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////
+
+	</script>
+
+	<div id="loading"
+		style="position: absolute; z-index: 15; top: 60%; left: 50%; transform: translate(-50%, 0); background: black;">
+		<center><img src="assets/loading4.png"><br />
+			<img src="assets/fbro.png">
+			<img src="assets/bbbro.png">
+			<img src="assets/sbro.png">
+			<img src="assets/wbro.png">
+			<img src="assets/kbro.png">
+			<img src="assets/bbro.png">
+		</center>
+	</div>
+
+	<div id="game2" style="width: 100%; height: 100%; ">
+		<div id="openfl-content" onblur="window.focus(); window.scrollTo(0, 0);" style="width: calc(100%); float:left;">
+			<script type="text/javascript">
+				lime.embed("BaseballBros", "openfl-content", 0, 0, { parameters: {} });
+			</script>
+		</div>
+		<div id="preroll"
+			style="width: 960px; height: 540px; display: none; position: absolute; top: 50%; left: 50%; z-index: 100; transform: translate(-50%, -50%);">
+		</div>
+
+
+		<div id="baseballbros-io_160x600"
+			style="width: 160px; height: 600px; visibility:hidden; display: none; position: absolute; top: 30px; left: 30px; z-index: 100;overflow: hidden;">
+		</div>
+		<div id="baseballbros-io_160x600_2"
+			style="width: 160px; height: 600px; visibility:hidden; display: none; position: absolute; top: 30px; left: 30px; z-index: 100;overflow: hidden;">
+		</div>
+		<div id="baseballbros-io_300x250"
+			style="width: 336px; height: 280px; visibility:hidden; display: none; position: absolute; top: 30px; left: 30px; z-index: 100;overflow: hidden;">
+		</div>
+		<div id="baseballbros-io_300x250_2"
+			style="width: 336px; height: 280px; visibility:hidden; display: none; position: absolute; top: 30px; left: 30px; z-index: 100;overflow: hidden;">
+		</div>
+		<div id="baseballbros-io_336x280"
+			style="visibility:hidden; width: 336px; height: 600px; display: none; position: absolute; left: 30px; z-index: 100;overflow: hidden;">
+		</div>
+		<div id="baseballbros-io_336x280_2"
+			style="visibility:hidden; width: 336px; height: 600px; display: none; position: absolute; left: 30px; z-index: 100;overflow: hidden;">
+		</div>
+		<div id="baseballbros-io_728x90"
+			style="visibility:hidden; width: 728px; height: 90px; display: none; position: absolute; top: 30px; left: 30px; z-index: 100;overflow: hidden;">
+		</div>
+		<div id="baseballbros-io_728x90_m"
+			style="visibility:hidden; width: 728px; height: 90px; display: none; position: absolute; top: 30px; left: 30px; z-index: 100;overflow: hidden;">
+		</div>
+		<div id="baseballbros-io_970x250"
+			style="visibility:hidden; width: 970px; height: 250px; display: none; position: absolute; top: 30px; left: 30px; z-index: 100; text-align: center;overflow: hidden;">
+		</div>
+
+		<div class="feedback-form" id="feedbackForm" style="display:none;">
+			<h3>Report a Bug/Glitch</h3>
+			<textarea id="feedback"
+				placeholder="Describe the bug or glitch with a lot of details, like how to make the glitch happen and anything else whether it seems useful or not..."></textarea>
+			<textarea id="email" placeholder="Email address (optional)" style="height: 50px;"></textarea>
+			<textarea id="discord" placeholder="Discord ID (optional)" style="height: 50px;"></textarea>
+			<button onclick="sendFeedback()" id="submitBtn">Submit Feedback</button>
+			<br />
+			<br />
+			<button onclick="document.getElementById('feedbackForm').style.display='none'"
+				id="submitBtn">Cancel</button>
+			<p id="responseMsg"></p>
+		</div>
+		<script>
+			//                                                                                                                          var doFeedback = true;
+			function getOSFromUserAgent() {
+				const userAgent = navigator.userAgent;
+				const platform = navigator.platform;
+
+				// Check for common platforms and OS
+				if (/Windows NT/i.test(userAgent)) return 'Windows';
+				if (/Mac OS X/i.test(userAgent)) return 'macOS';
+				if (/Linux/i.test(userAgent)) return 'Linux';
+				if (/Android/i.test(userAgent)) return 'Android';
+				if (/iPhone|iPad|iPod/i.test(userAgent)) return 'iOS';
+				if (/CrOS/i.test(userAgent)) return 'Chrome OS';
+
+				// Default to the platform if no match
+				return platform || 'Unknown';
+			}
+			async function sendFeedback() {
+				var feedback = '*' + document.getElementById("feedback").value.trim() + '*';
+				var email = document.getElementById("email").value.trim();
+				var discord = document.getElementById("discord").value.trim();
+				const screenResolution = `${window.screen.width}x${window.screen.height}`;
+				const windowResolution = `${window.innerWidth}x${window.innerHeight}`;
+				var aOS = getOSFromUserAgent();
+				var aCity = 'Unknown';
+				const hostname = window.location.hostname;
+				const gpu = (() => {
+					const canvas = document.createElement('canvas');
+					const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+					const debugInfo = gl?.getExtension('WEBGL_debug_renderer_info');
+					const gpuInfo = debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : 'Unknown';
+
+					// Cleanup
+					canvas.remove(); // Remove the canvas from the DOM (if it was added)
+					return gpuInfo;
+				})();
+
+				feedback = feedback + '\nDomain: ' + hostname;
+				feedback = feedback + ', OS: ' + aOS;
+				feedback = feedback + ', Screen res: ' + screenResolution;
+				feedback = feedback + ', Window res: ' + windowResolution;
+				feedback = feedback + ', GPU: ' + gpu;
+				feedback = feedback + ', City: ' + aCity;
+				feedback = feedback + ', Email: ' + email;
+				feedback = feedback + ', Discord: ' + discord;
+
+				const responseMsg = document.getElementById("responseMsg");
+				const submitBtn = document.getElementById("submitBtn");
+
+				if (!feedback) {
+					alert("Please enter feedback.");
+					return;
+				}
+
+				submitBtn.disabled = true;
+				responseMsg.textContent = "Submitting...";
+
+				try {
+					const response = await fetch("sendFeedback.php", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/x-www-form-urlencoded"
+						},
+						body: new URLSearchParams({
+							feedback: feedback
+						})
+					});
+
+					const result = await response.json();
+
+					if (result.status === "success") {
+						document.getElementById("feedbackForm").style.display = "none"; // Close the feedback form
+						alert(result.message); // Show success message
+					} else {
+						document.getElementById("feedbackForm").style.display = "none"; // Close the feedback form
+						alert(result.message); // Show error message
+					}
+				} catch (error) {
+					document.getElementById("feedbackForm").style.display = "none"; // Close the feedback form
+					alert("Error submitting feedback. Please try again.");
+				}
+
+				submitBtn.disabled = false;
+			}
+		</script>
+
+
+
+	</div>
+	<br />
+	<div tabindex="-1" id="more">
+		<div class="info-box">
+		</div>
+	</div>
+	</div>
+	<script>
+		var lastRefresh = 0;
+
+		function refreshTag(theTag) {
+			try {
+				aiptag.cmd.display.push(function () { aipDisplayTag.refresh(theTag); });
+				console.log('Tag refreshed successfully');
+			} catch (error) {
+				console.error('Error refreshing the tag:', error);
+			}
+		}
+
+
+		// Configuration for all banner ad slots
+		const AD_CONFIGS = {
+			ShowAd0: { // Targets 'baseballbros-io_160x600'
+				elementId: 'baseballbros-io_160x600',
+				msPlacementId: 'left:160x600', // Assumed MS Placement ID, please verify
+				cgBannerId: 'baseballbros-io_160x600',
+				requiresDesktopWidth: true,
+				checkMobile: true,
+				logName: 'ShowAd0'
+			},
+			ShowAd1: { // Targets 'baseballbros-io_160x600_2'
+				elementId: 'baseballbros-io_160x600_2',
+				msPlacementId: 'right:160x600', // Assumed MS Placement ID, please verify
+				cgBannerId: 'baseballbros-io_160x600_2',
+				requiresDesktopWidth: true,
+				checkMobile: true,
+				logName: 'ShowAd1'
+			},
+			ShowAd6: { // Targets 'baseballbros-io_300x250'
+				elementId: 'baseballbros-io_300x250',
+				msPlacementId: 'right:300x250',
+				cgBannerId: 'baseballbros-io_300x250',
+				requiresDesktopWidth: true,
+				checkMobile: true,
+				logName: 'ShowAd6'
+			},
+			ShowAd2: { // Targets 'baseballbros-io_300x250_2'
+				elementId: 'baseballbros-io_300x250_2',
+				msPlacementId: 'left:300x250',
+				cgBannerId: ["baseballbros-io_300x250", "baseballbros-io_300x250_2"], // Original CG call targets both
+				requiresDesktopWidth: true,
+				checkMobile: true,
+				logName: 'ShowAd2'
+			},
+			ShowAd3: { // Targets 'baseballbros-io_728x90'
+				elementId: 'baseballbros-io_728x90',
+				msPlacementId: 'bottom:728x90',
+				cgBannerId: 'baseballbros-io_728x90',
+				requiresDesktopWidth: false,
+				checkMobile: true,
+				logName: 'ShowAd3'
+			},
+			ShowAd8: { // Targets 'baseballbros-io_728x90_m'
+				elementId: 'baseballbros-io_728x90_m',
+				msPlacementId: 'bottom:728x90_m', // Assuming this MS placement ID exists
+				cgBannerId: 'baseballbros-io_728x90_m',
+				requiresDesktopWidth: false,
+				checkMobile: true,
+				logName: 'ShowAd8'
+			},
+			ShowAd4: { // Originally targeted 'baseballbros-io_player_300x600' (div ID not in HTML, HTML has 160x600)
+				elementId: 'baseballbros-io_player_300x600', // Keeping original JS elementId
+				msPlacementId: 'bottom:728x90', // This was the original MS placement, likely incorrect for a 300x600/160x600 ad.
+				cgBannerId: 'baseballbros-io_player_300x600',
+				requiresDesktopWidth: true,
+				checkMobile: true,
+				logName: 'ShowAd4'
+			},
+			ShowAd7: { // Originally targeted 'baseballbros-io_300x600_m' (div ID not in HTML, HTML has 160x600_2)
+				elementId: 'baseballbros-io_300x600_m', // Keeping original JS elementId
+				msPlacementId: 'right:300x600',
+				cgBannerId: 'baseballbros-io_300x600_m', // Adjusted for consistency, original CG was same as ShowAd4.
+				requiresDesktopWidth: true,
+				checkMobile: true,
+				logName: 'ShowAd7'
+			},
+			ShowAd9: { // Targets 'baseballbros-io_970x250'
+				elementId: 'baseballbros-io_970x250',
+				msPlacementId: 'bottom:970x250',
+				cgBannerId: 'baseballbros-io_970x250',
+				requiresDesktopWidth: false,
+				checkMobile: true,
+				logName: 'ShowAd9'
+			},
+			ShowAd10: { // Originally targeted 'baseballbros-io_320x100' (div ID not in HTML)
+				elementId: 'baseballbros-io_320x100',
+				msPlacementId: null, // No MSStart specific logic in original
+				cgBannerId: null,    // No CrazyGames specific logic in original
+				requiresDesktopWidth: false,
+				checkMobile: true,
+				logName: 'ShowAd10'
+			}
+		};
+
+		function _displayBannerAd(config, forceAipParam = false) {
+			console.log(config.logName + (forceAipParam ? " (force AIP)" : ""));
+
+			if (config.checkMobile && /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) {
+				return;
+			}
+
+			if (config.requiresDesktopWidth && window.innerWidth < 1200) {
+				return;
+			}
+
+			var adElement = window.document.getElementById(config.elementId);
+			if (adElement == null) {
+				console.error('Ad element not found:', config.elementId);
+				return;
+			}
+			adElement.style.display = ''; // Ensure it's not 'none'
+			// Visibility is handled by specific SDK logic paths below
+
+			const attemptMsStart = typeof $msstart !== 'undefined' && config.msPlacementId && !forceAipParam && !config.internalForceAip;
+
+			if (attemptMsStart) {
+				adElement.style.visibility = 'hidden'; // Hide before MSStart call, as in original
+				console.log(config.logName + " - MSStart attempt for placement: " + config.msPlacementId);
+				$msstart.showDisplayAdsAsync(config.msPlacementId).then(response => {
+					console.log(config.msPlacementId + ' requested via MSStart.');
+					SendEvent('event', 'ms_banner_shown', { 'placement': config.msPlacementId });
+					adElement.style.visibility = 'visible'; // Show on success
+				}).catch(theError => {
+					console.log(config.msPlacementId + " nofill via MSStart. Error: ", theError);
+					SendEvent('event', 'ms_banner_nofill', { 'placement': config.msPlacementId });
+					adElement.style.visibility = 'visible'; // Ensure visible for fallback
+					config.internalForceAip = true; // Mark for internal fallback logic
+					_displayBannerAd(config, true); // Fallback by calling again with forceAipParam = true
+				});
+			} else {
+				// If not attempting MSStart, or if it's an MSStart fallback, ensure element is visible for CG/AIP
+				adElement.style.visibility = 'visible';
+				if (typeof window.CrazyGames !== 'undefined' && window.CrazyGames.SDK && window.CrazyGames.SDK.environment != "disabled" && config.cgBannerId) {
+					console.log(config.logName + " - CrazyGames attempt for banner(s): " + JSON.stringify(config.cgBannerId));
+					const bannerIds = Array.isArray(config.cgBannerId) ? config.cgBannerId : [config.cgBannerId];
+					window.CrazyGames.SDK.banner.requestResponsiveBanner(bannerIds);
+					SendEvent('event', 'cg_banner_requested', { 'banners': bannerIds.join(',') });
+				} else if (typeof aipDisplayTag !== 'undefined') {
+					console.log(config.logName + " - AIP attempt for tag: " + config.elementId);
+					aipDisplayTag.refresh(config.elementId);
+					SendEvent('event', 'aip_banner_requested', { 'tag': config.elementId });
+					if (typeof $msstart !== 'undefined' && (forceAipParam || config.internalForceAip)) { // Log if this AIP call is an MS fallback
+						SendEvent('event', 'ms_aip_banner_requested', { 'tag': config.elementId });
+					}
+				} else {
+					console.log(config.logName + " - No ad SDK available or ad blocked for: " + config.elementId);
+					SendEvent('event', 'banner_adblocked', { 'tag': config.elementId });
+				}
+			}
+		}
+
+		var lastRefresh6 = 0;
+		function ShowAd6(forceaip = false) {
+			console.log('ShowAd6');
+
+			if (window.innerWidth < 1200) return;
+			if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) {
+				return;
+			}
+			// Pass a copy of the config to avoid modification of the original object by internalForceAip
+			_displayBannerAd({ ...AD_CONFIGS.ShowAd6 }, forceaip);
+		}
+
+		function ShowAd0(forceaip = false) {
+			console.log('ShowAd0');
+
+		}
+		function ShowAd1(forceaip = false) {
+		}
+
+		function ShowAd2(forceaip = false) {
+			console.log('ShowAd2');
+
+		}
+		function ShowAd3(forceaip = false) {
+			console.log('ShowAd3');
+
+		}
+
+
+		function ShowAd8(forceaip = false) {
+			console.log('ShowAd8');
+
+		}
+
+
+		function ShowAd4(forceaip = false) {
+			console.log('ShowAd4');
+
+		}
+		function ShowAd7(forceaip = false) {
+			console.log('ShowAd7');
+
+		}
+
+		function ShowAd9(forceaip = false) {
+			console.log('ShowAd9');
+
+		}
+
+		function ShowAd10(forceaip = false) {
+			console.log('ShowAd10');
+
+		}
+
+
+
+		function right(str, chr) {
+			return str.slice(str.length - chr, str.length);
+		}
+		function SetCGInviteLink() {
+			if (typeof gCrazySDK !== 'undefined') {
+				var meta = document.getElementById("cglink");
+				var aStr = meta.value;
+				aStr = right(aStr, 8);
+				var aCGLink = gCrazySDK.inviteLink({ roomId: aStr });
+				meta.value = aCGLink;
+				meta.select
+				document.execCommand('Copy')
+				console.log("COPIED CG URL");
+			}
+		}
+
+		function ShowAdBreak() {
+			//check if the adslib is loaded correctly or blocked by adblockers etc.
+			if (typeof gCrazySDK !== 'undefined') {
+				Main.DoneInterstitialAd(false);
+				return;
+			}
+
+			if (typeof adplayer === 'undefined') {
+				Main.DoneInterstitialAd(true);
+				return;
+			}
+			aiptag.cmd.player.push(function () { adplayer.startAdBreak(); });
+		}
+
+
+		document.getElementById("openfl-content").addEventListener("wheel", doScroll);
+		document.getElementById("more").addEventListener("wheel", doScroll);
+		function doScroll(event) {
+			window.scroll(0, window.scrollY + event.deltaY);
+		}
+		function doScroll2(event) {
+			window.scroll(0, window.scrollY + event.deltaY);
+		}
+
+
+		setInterval(function () {
+			//console.log("active element:" + document.activeElement);
+			if (document.activeElement.tagName == "IFRAME") {
+				document.activeElement.blur();
+				document.getElementById('openfl-content').focus();
+				//console.log('refocusing');
+			}
+		}, 30);
+
+
+		var sid = '84ni6nemekkj4qh9qj90n44b7g'
+		function updateStatus(fromEvent = false) {
+
+			const req = new XMLHttpRequest();
+			var aStr = "recordsession.php?s=" + sid;
+			if (fromEvent == true) aStr = aStr + "&e=1"
+			req.open("GET", aStr);
+			req.send();
+		}
+		function SendEvent(theEvent, theAction, theParms = '') {
+			if (theParms == '') {
+				gtag(theEvent, theAction);
+			} else {
+				gtag(theEvent, theAction, theParms);
+			}
+			updateStatus(true);
+			//console.log("Sending event: " + theEvent + "/" + theAction + "/" + theParms);
+		}
+		//setInterval(function() { updateStatus, 4*60*1000);			
+		//setInterval( function() { 
+		//	window.scrollTo(0, 0); 
+		//}, 2000 );					
+		updateStatus(true);
+
+		//setInterval(ClearAds, 2000);		
+
+		function EmailSignup() {
+			if (document.getElementById("signup") || document.getElementById("deleteme")) return;
+			const iframe = document.createElement("iframe");
+			iframe.src = "https://bluewizard.com/subscribe-to-bbros/";
+
+			//			iframe.style.display = "block";
+			iframe.style.width = "550px";
+			iframe.style.height = "" + window.innerHeight - 100 + "px";
+			iframe.style.position = "absolute";
+			iframe.style.top = "50px";
+			iframe.style.left = "50%";
+			iframe.style["margin-left"] = "-225px";
+			//iframe.style["margin-right"] = "-275px";
+			iframe.style["max-width"] = "100%";
+			iframe.setAttribute("id", "signup");
+
+			document.body.appendChild(iframe);
+		}
+
+		function GamePlayStart() {
+			if (typeof gCrazySDK !== 'undefined') {
+				console.log("GamePlayStart");
+				gCrazySDK.gameplayStart();
+			}
+		}
+
+		function GamePlayStop() {
+			if (typeof gCrazySDK !== 'undefined') {
+				console.log("GamePlayStop");
+				gCrazySDK.gameplayStop();
+			}
+		}
+
+		function HappyTime() {
+			if (typeof gCrazySDK !== 'undefined') {
+				console.log("happytime");
+				gCrazySDK.happytime();
+			}
+		}
+
+		var scrollerMessage = " WELCOME TO BASEBALL BROS! UNLOCKED TEAMS ARE NOW SAVING AGAIN! MORE FIXES LISTED AT THE BOTTOM OF THE PAGE FOR THE LATEST CHANGES! IF YOU HAVE A GLITCH OR FEEDBACK, YOU CAN EMAIL INFO@BLUEWIZARD.COM!!! ";
+
+		const element = document.getElementById('openfl-content');
+		// Function to keep the element focused
+		function keepFocus() {
+			element.focus();
+		}
+		// Event listeners to restore focus when lost
+		element.addEventListener('blur', keepFocus);
+		element.addEventListener('focusout', keepFocus);		
+	</script>
+
+</body>
+
+</html>
