@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <base href="https://cdn.jsdelivr.net/gh/web-ports/cuphead@latest/">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | Cuphead</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background: #231F20;
+        }
+
+        #unity-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            background: #231F20;
+        }
+    </style>
+    <script src="TemplateData/UnityProgress.js"></script>
+    <script src="Build/UnityLoader.js"></script>
+</head>
+
+<body>
+    <div id="loading-text"
+        style="color: white; font-size: 48px; font-family: cursive; text-align: center; margin-top: 20px;"> LOADING...
+    </div>
+    <div id="unityContainer"></div>
+    <script>
+        var loadingText = document.querySelector("#loading-text");
+
+        let loadedBytes = 0;
+
+        async function fetchWithProgress(url) {
+            const response = await fetch(url);
+            const reader = response.body.getReader();
+            let chunks = [];
+            let received = 0;
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                received += value.length;
+                loadedBytes += value.length;
+                chunks.push(value);
+
+                let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
+                let mbTotal = '2127.34';
+                loadingText.innerHTML = `LOADING... ${mbDone} MB / ${mbTotal} MB<br>`;
+            }
+
+            let fullBuffer = new Uint8Array(received);
+            let offset = 0;
+            for (let chunk of chunks) {
+                fullBuffer.set(chunk, offset);
+                offset += chunk.length;
+            }
+            return fullBuffer.buffer;
+        }
+
+        async function mergeFiles(fileParts) {
+            const buffers = await Promise.all(fileParts.map(part => fetchWithProgress(part)));
+            const mergedBlob = new Blob(buffers);
+            return URL.createObjectURL(mergedBlob);
+        }
+
+        function getParts(file, start, end) {
+            let parts = [];
+            for (let i = start; i <= end; i++) {
+                parts.push(file + ".part" + i);
+            }
+            return parts;
+        }
+
+        function resizeUnityContainer() {
+            var container = document.getElementById("unityContainer");
+            var canvas = container.querySelector("canvas");
+
+            container.style.width = window.innerWidth + "px";
+            container.style.height = window.innerHeight + "px";
+
+            if (canvas) {
+                canvas.style.width = window.innerWidth + "px";
+                canvas.style.height = window.innerHeight + "px";
+            }
+        }
+
+
+        (async () => {
+            const allParts = [
+                ...getParts("Build/Build.asm.code.unityweb", 1, 3),
+                ...getParts("Build/Build.data.unityweb", 1, 102),
+                ...getParts("Build/Build.wasm.code.unityweb", 1, 2),
+            ];
+
+
+            const [asmurl, dataUrl, wasmurl] = await Promise.all([
+                mergeFiles(getParts("Build/Build.asm.code.unityweb", 1, 3)),
+                mergeFiles(getParts("Build/Build.data.unityweb", 1, 102)),
+                mergeFiles(getParts("Build/Build.wasm.code.unityweb", 1, 2)),
+            ]);
+
+            const json = {
+                "companyName": "SpanishFreddy",
+                "productName": "Cuphead",
+                "dataUrl": dataUrl,
+                "wasmCodeUrl": wasmurl,
+                "wasmFrameworkUrl": "Build.wasm.framework.unityweb",
+                "asmCodeUrl": asmurl,
+                "asmMemoryUrl": "Build.asm.memory.unityweb",
+                "asmFrameworkUrl": "Build.asm.framework.unityweb",
+                // last memory size was too big for some people so maybe this is good enough
+                "TOTAL_MEMORY": 134217728,
+                "graphicsAPI": ["WebGL 2.0"],
+                "webglContextAttributes": { "preserveDrawingBuffer": false },
+                "splashScreenStyle": "Dark",
+                "backgroundColor": "#231F20"
+            };
+
+            let blob = new Blob([JSON.stringify(json)], { type: "application/json" });
+            let blobUrl = URL.createObjectURL(blob);
+            window.addEventListener("resize", resizeUnityContainer);
+
+            UnityLoader.instantiate("unityContainer", json, {
+                url: blobUrl,
+                Module: {
+                    onRuntimeInitialized: function () {
+                        resizeUnityContainer();
+                        document.querySelector("#loading-text").remove();
+                    },
+                },
+            });
+        })();
+    </script>
+</body>
+
+</html>
