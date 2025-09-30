@@ -2,10 +2,10 @@
 <html lang="en-us">
 
 <head>
-    <base href="https://cdn.jsdelivr.net/gh/genizy/web-port@main/kindergarten/2/">
+    <base href="https://cdn.jsdelivr.net/gh/genizy/web-port@main/kindergarten/1/">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>gn-math.github.io | Kindergarten2</title>
+    <title>gn-math.github.io | Kindergarten</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <style>
@@ -131,7 +131,7 @@
 
                 const loadingText = document.querySelector("#loading-text");
                 if (loadingText) {
-                    loadingText.textContent = `LOADING... ${mbDone} MB / ${mbTotal} MB`;
+                    loadingText.textContent = `LOADING... ${mbDone} MB / 52.32 MB`;
                 }
             }
 
@@ -144,7 +144,9 @@
             return fullBuffer.buffer;
         }
 
-        function unityShowBanner(msg, type) { }
+        function unityShowBanner(msg, type) {
+
+        }
 
         async function mergeFiles(fileParts) {
             const buffers = await Promise.all(fileParts.map(part => fetchWithProgress(part)));
@@ -161,12 +163,21 @@
         }
 
         (async () => {
-            const dataParts = getParts("Build/Build.data", 1, 2);
-            const wasmParts = getParts("Build/Build.wasm", 1, 3);
-            const allParts = [...dataParts, ...wasmParts];
+            const allParts = getParts("Build/Build.wasm", 1, 3);
 
-            const sizes = await Promise.all(allParts.map(getSize));
-            totalBytes = sizes.reduce((a, b) => a + b, 0);
+            // Include all files that Unity will download
+            const additionalFiles = [
+                "Build/Build.data",
+                "Build/Build.loader.js",
+                "Build/Build.framework.js"
+            ];
+
+            const [partSizes, additionalSizes] = await Promise.all([
+                Promise.all(allParts.map(getSize)),
+                Promise.all(additionalFiles.map(getSize))
+            ]);
+
+            totalBytes = [...partSizes, ...additionalSizes].reduce((a, b) => a + b, 0);
 
             let mbTotal = (totalBytes / (1024 * 1024)).toFixed(2);
             const loadingText = document.querySelector("#loading-text");
@@ -174,22 +185,21 @@
                 loadingText.textContent = `LOADING... 0.00 MB / ${mbTotal} MB`;
             }
 
-            const [dataUrl, wasmUrl] = await Promise.all([
-                mergeFiles(dataParts),
-                mergeFiles(wasmParts)
+            const [wasmUrl] = await Promise.all([
+                mergeFiles(allParts)
             ]);
 
             container.hidden = false;
             var buildUrl = "Build";
             var loaderUrl = buildUrl + "/Build.loader.js";
             var config = {
-                dataUrl: dataUrl,
+                dataUrl: buildUrl + '/Build.data',
                 frameworkUrl: buildUrl + "/Build.framework.js",
                 codeUrl: wasmUrl,
                 streamingAssetsUrl: "StreamingAssets",
                 companyName: "SmashGames",
-                productName: "Kindergarten2",
-                productVersion: "2.00",
+                productName: "Kindergarten",
+                productVersion: "2.04",
                 showBanner: unityShowBanner,
             };
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
