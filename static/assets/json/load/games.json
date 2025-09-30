@@ -1063,6 +1063,12 @@
     "usesProxy": false
   },
   {
+    "name": "Nazi Zombies: Portable",
+    "author": "erysdren",
+    "image": "/misc/nzp/img.webp",
+    "usesProxy": false
+  },
+  {
     "name": "Fury Wars",
     "url": "/misc/play/furywars.html",
     "image": "/misc/furywars/img.webp",
@@ -1485,8 +1491,8 @@
   },
   {
     "name": "There Is No Game",
-    "url": "/misc/play/thereisnogame.html",
-    "image": "/misc/thereisnogame/img.png",
+    "author": "Pascal Cammisotto",
+    "image": "/misc/thereisnogame/img.webp",
     "usesProxy": false
   },
   {
@@ -1635,8 +1641,8 @@
   },
   {
     "name": "Yohoho.io",
-    "url": "/misc/play/yohoho.html",
-    "image": "/misc/yohoho/favicon/android-chrome-512x512.png",
+    "author": "Exodragon Games",
+    "image": "/misc/yohoho/img.webp",
     "usesProxy": false
   },
   {
