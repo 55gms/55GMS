@@ -1,13 +1,13 @@
+<!DOCTYPE html>
 <html lang="en-us">
 
 <head>
-    <base href="https://cdn.jsdelivr.net/gh/web-ports/hollow-knight@main/">
+    <base href="https://cdn.jsdelivr.net/gh/web-ports/hollow-knight@latest/">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Hollow Knight</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
-    <script src="/assets/js/script.js"></script>
     <style>
         html,
         body {
@@ -30,9 +30,9 @@
 
 <body>
     <div id="loading-text"
-        style="color: white; font-size: 48px; font-family: cursive; text-align: center; margin-top: 20px;">
-        LOADING... 18.76 MB / 909.17 MB</div>
-    <div hidden="" id="unity-container" class="unity-desktop">
+        style="color: white; font-size: 48px; font-family: cursive; text-align: center; margin-top: 20px;"> LOADING...
+    </div>
+    <div hidden id="unity-container" class="unity-desktop">
         <canvas id="unity-canvas"></canvas>
         <div id="unity-loading-bar">
             <div id="unity-logo"></div>
@@ -71,7 +71,7 @@
                 loadedBytes += value.length;
                 chunks.push(value);
                 let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
-                let mbTotal = '909.17';
+                let mbTotal = '860.36';
                 loadingText.textContent = `LOADING... ${mbDone} MB / ${mbTotal} MB`;
             }
             let fullBuffer = new Uint8Array(received);
@@ -96,18 +96,18 @@
             return parts;
         }
         (async () => {
-            const allParts = [...getParts("Build/bog.data", 1, 44), ...getParts("Build/bog.wasm", 1, 2),];
+            const allParts = [...getParts("Build/hk.data", 1, 42), ...getParts("Build/hk.wasm", 1, 2),];
             const sizes = await Promise.all(allParts.map(getSize));
             totalBytes = sizes.reduce((a, b) => a + b, 0);
             const [dataUrl, wasmurl] = await Promise.all([
-                mergeFiles(getParts("Build/bog.data", 1, 44)),
-                mergeFiles(getParts("Build/bog.wasm", 1, 2)),
+                mergeFiles(getParts("Build/hk.data", 1, 42)),
+                mergeFiles(getParts("Build/hk.wasm", 1, 2)),
             ]);
             var buildUrl = "Build";
-            var loaderUrl = buildUrl + "/bog.loader.js";
+            var loaderUrl = buildUrl + "/hk.loader.js";
             var config = {
                 dataUrl: dataUrl,
-                frameworkUrl: buildUrl + "/bog.framework.js",
+                frameworkUrl: buildUrl + "/hk.framework.js",
                 codeUrl: wasmurl,
                 streamingAssetsUrl: "StreamingAssets",
                 companyName: "Team Cherry & Truffled",
@@ -164,8 +164,6 @@
             document.body.appendChild(script);
         })();
     </script>
-
-
 </body>
 
 </html>
