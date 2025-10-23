@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base href="https://cdn.jsdelivr.net/gh/genizy/web-port@latest/hotline-miami/">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>HOTLINE MIAMI</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #fff;
+            font-family: 'Press Start 2P', monospace;
+            overflow: hidden;
+            transform: scale(1);
+            transform-origin: center center;
+            animation: zoomOut 2s ease-out forwards;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        @keyframes zoomOut {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(0.95);
+            }
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ff0080, #00ffe5);
+            mix-blend-mode: screen;
+            opacity: 0.15;
+            animation: flicker 1s infinite steps(2);
+            z-index: 0;
+        }
+
+        @keyframes flicker {
+
+            0%,
+            100% {
+                opacity: 0.15;
+            }
+
+            50% {
+                opacity: 0.05;
+            }
+        }
+
+        canvas {
+            display: block;
+            border: none;
+            image-rendering: pixelated;
+            z-index: 1;
+            position: relative;
+        }
+
+        #loading-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #ff0080;
+            text-shadow: 2px 2px #00ffe5, -2px -2px #ffea00;
+            animation: pulse 0.6s infinite alternate, glitch 1s infinite;
+            letter-spacing: 2px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        @keyframes pulse {
+            from {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            to {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 2px 2px #00ffe5, -2px -2px #ffea00;
+            }
+
+            20% {
+                text-shadow: -2px 2px #00ffe5, 2px -2px #ffea00;
+            }
+
+            40% {
+                text-shadow: 2px -2px #00ffe5, -2px 2px #ffea00;
+            }
+
+            60% {
+                text-shadow: -2px -2px #00ffe5, 2px 2px #ffea00;
+            }
+
+            80% {
+                text-shadow: 0px 0px #00ffe5, 0px 0px #ffea00;
+            }
+
+            100% {
+                text-shadow: 2px 2px #00ffe5, -2px -2px #ffea00;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        const OriginalXHR = window.XMLHttpRequest;
+
+        function InterceptedXHR() {
+            const xhr = new OriginalXHR();
+
+            let blocked = false;
+
+            const originalOpen = xhr.open;
+            xhr.open = function (method, url, async, user, password) {
+                blocked = (url.endsWith("steamon") || url.endsWith("achievements.dat") || url.endsWith("mask.tmp") || url.endsWith("surfaces") || url.endsWith("steamoff") || url.endsWith("skip") || url.endsWith("restartmusic") || url.endsWith("xbox") || url.endsWith("volume.dat") || url.endsWith("keyboard.dat") || url.endsWith("volume.dat") || url.endsWith("blood") || url.endsWith("volume.dat") || url.endsWith("alienware"));
+                return originalOpen.apply(this, arguments);
+            };
+
+            const originalSend = xhr.send;
+            xhr.send = function (body) {
+                if (blocked) {
+                    // simulate async 404 response
+                    setTimeout(() => {
+                        this.readyState = 4;
+                        this.status = 404;
+                        this.statusText = "Not Found";
+                        this.response = "Not Found";
+                        this.responseText = "Not Found";
+
+                        if (typeof this.onreadystatechange === "function") {
+                            this.onreadystatechange();
+                        }
+                        if (typeof this.onload === "function") {
+                            this.onload();
+                        }
+                    }, 0);
+                    return;
+                }
+                return originalSend.apply(this, arguments);
+            };
+
+            return xhr;
+        }
+
+        window.XMLHttpRequest = function () {
+            return new InterceptedXHR();
+        };
+    </script>
+
+
+
+    <div class="gm4html5_div_class" id="gm4html5_div_id">
+        <canvas id="canvas" width="1920" height="1080">
+            <p>Your browser doesn't support HTML5 canvas.</p>
+        </canvas>
+    </div>
+    <div id="loading-text"> </div>
+    <script type="text/javascript" src="html5game/HotlineMiami.js?PPPYB=938827661"></script>
+    <script>
+        window.onload = () => {
+            const loader = document.getElementById("loading-text");
+            loader.style.display = "block";
+            GameMaker_Init();
+            setTimeout(() => loader.style.display = "none", 4000);
+        };
+    </script>
+</body>
+
+</html>
