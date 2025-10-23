@@ -17,6 +17,7 @@
     "image": "/misc/1v1-lol/splash.webp",
     "usesProxy": false
   },
+
   {
     "name": "1 on 1 Soccer",
     "url": "/misc/play/1o1soccer.html",
@@ -267,6 +268,12 @@
     "name": "Dadish 3",
     "url": "/misc/play/Dadish-3.html",
     "image": "/misc/dadish3/img.avif",
+    "usesProxy": false
+  },
+  {
+    "name": "Dadish 3D",
+    "image": "/misc/dadish3d/img.webp",
+    "author": "Thomas K. Young",
     "usesProxy": false
   },
   {
