@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Skibidi Shooter Unblocked - ClassRoom6x</title>
+    <script src="/assets/js/script.js"></script>
+    <meta name="website" content="classroom6x.gitlab.io" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+    <meta name="generator" content="Scirra Construct">
+    <meta name="author" content="Syder Studio">
+    <meta name="description" content="Skibidi Shooter Game Exclusive Licensed to Kool Games.">
+    <link rel="manifest" href="appmanifest.json">
+    <link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128.png">
+    <link rel="apple-touch-icon" sizes="256x256" href="icons/icon-256.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512.png">
+    <link rel="icon" type="image/png" href="icons/icon-512.png">
+
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+
+<body style="overflow:hidden;">
+    <script>
+        window.addEventListener('keydown', ev => {
+            if (['ArrowDown', 'ArrowUp', ' '].includes(ev.key)) {
+                ev.preventDefault();
+            }
+        });
+        window.addEventListener('wheel', ev => ev.preventDefault(), { passive: false });
+    </script>
+    <script>
+        if (location.protocol.substr(0, 4) === "file") {
+            alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
+        }
+    </script>
+    <script src="gl-matrix.js"></script>
+    <script src="gltfData.js"></script>
+    <script src="gltfModel.js"></script>
+    <script src="gltfModelW.js"></script>
+    <noscript>
+        <div id="notSupportedWrap">
+            <h2 id="notSupportedTitle">This content requires JavaScript</h2>
+            <p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content.</p>
+        </div>
+    </noscript>
+    <script src="scripts/supportcheck.js"></script>
+    <script src="scripts/offlineclient.js" type="module"></script>
+    <script src="scripts/main.js" type="module"></script>
+    <script src="scripts/register-sw.js" type="module"></script>
+
+
+
+</body>
+
+</html>

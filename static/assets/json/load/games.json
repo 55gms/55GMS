@@ -296,6 +296,12 @@
     "usesProxy": false
   },
   {
+    "name": "Skibidi Shooter",
+    "image": "/misc/skibidi-shooter/img.webp",
+    "author": "Luqman Kalil",
+    "usesProxy": false
+  },
+  {
     "name": "Hotline Miami",
     "image": "/misc/hotlinemiami/img.webp",
     "author": "Dennaton Games",
@@ -1483,24 +1489,6 @@
     "name": "Superhot",
     "url": "/misc/play/superhot.html",
     "image": "/misc/superhot/hot.jpg",
-    "usesProxy": false
-  },
-  {
-    "name": "Super Smash Bros",
-    "url": "/misc/play/supersmashbro.html",
-    "image": "/misc/supersmashbros/logo.jpg",
-    "usesProxy": false
-  },
-  {
-    "name": "Super Mario Bros",
-    "url": "/misc/play/supermario.html",
-    "image": "/misc/smb/icon.png",
-    "usesProxy": false
-  },
-  {
-    "name": "Super Mario Bros Advanced",
-    "url": "/misc/play/supermarioadv.html",
-    "image": "/misc/emulator/games/marioBros/1.webp",
     "usesProxy": false
   },
   {
