@@ -252,6 +252,7 @@
     "image": "/misc/csgo-clicker/new.webp",
     "usesProxy": false
   },
+
   {
     "name": "Dadish",
     "url": "/misc/play/Dadish.html",
@@ -274,6 +275,12 @@
     "name": "Dadish 3D",
     "image": "/misc/dadish3d/img.webp",
     "author": "Thomas K. Young",
+    "usesProxy": false
+  },
+  {
+    "name": "Getting Over It",
+    "image": "/misc/gettingoverit/img.webp",
+    "author": "Bennett Foddy",
     "usesProxy": false
   },
   {
