@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <base href="https://cdn.jsdelivr.net/gh/genizy/web-port@main/jelly-drift/">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | Jelly Drift</title>
+
+    <script src="Build/UnityLoader.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            overflow: hidden;
+        }
+
+        body {
+            background: #000;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+
+        #unityContainer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script>
+        let max = 0;
+        let done = 0;
+        function mergeFiles(fileParts) {
+            return new Promise((resolve, reject) => {
+                let buffers = [];
+
+                function fetchPart(index) {
+                    if (index >= fileParts.length) {
+                        let mergedBlob = new Blob(buffers);
+                        let mergedFileUrl = URL.createObjectURL(mergedBlob);
+                        resolve(mergedFileUrl);
+                        return;
+                    }
+                    fetch(fileParts[index])
+                        .then((response) => response.arrayBuffer())
+                        .then((data) => {
+                            buffers.push(data);
+                            done = done + 1;
+                            document.querySelector("#loading-text").textContent = `LOADING... (${done}/${max})`;
+                            fetchPart(index + 1);
+                        })
+                        .catch(reject);
+                }
+                fetchPart(0);
+            });
+        }
+
+        function getParts(file, start, end) {
+            let parts = [];
+            for (let i = start; i <= end; i++) {
+                parts.push(file + ".part" + i);
+            }
+            max = max + end;
+            return parts;
+        }
+
+        function resizeUnityContainer() {
+            var container = document.getElementById("unityContainer");
+            container.style.width = window.innerWidth + "px";
+            container.style.height = window.innerHeight + "px";
+        }
+        Promise.all([
+            mergeFiles(getParts("Build/jellydrift.data.unityweb", 1, 3)),
+            mergeFiles(getParts("Build/jellydrift.wasm.code.unityweb", 1, 2)),
+        ]).then(([dataUrl, wasmurl]) => {
+            window.dataUrll = dataUrl;
+            window.wasmurll = wasmurl;
+            var json = {
+                "companyName": "Dani",
+                "productName": "Jelly Drift",
+                "productVersion": "0.4",
+                "dataUrl": dataUrl,
+                "wasmCodeUrl": wasmurl,
+                "wasmFrameworkUrl": "jellydrift.wasm.framework.js",
+                "graphicsAPI": ["WebGL 2.0"],
+                "webglContextAttributes": { "preserveDrawingBuffer": false },
+                "splashScreenStyle": "Dark",
+                "backgroundColor": "#231F20",
+                "developmentBuild": false,
+                "multithreading": false,
+                "unityVersion": "2019.4.19f1"
+            };
+            let blob = new Blob([JSON.stringify(json)], {
+                type: "application/json",
+            });
+            let blobUrl = URL.createObjectURL(blob);
+            window.addEventListener("resize", resizeUnityContainer);
+            UnityLoader.instantiate("unityContainer", json, {
+                url: blobUrl,
+                Module: {
+                    onRuntimeInitialized: function () {
+                        resizeUnityContainer();
+                        document.querySelector("#loading-text").remove();
+                    },
+                },
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="webgl-content">
+        <div id="loading-text" style="
+					color: white;
+					font-size: 48px;
+					font-family: cursive;
+					text-align: center;
+					margin-top: 20px;
+				">
+            LOADING...
+        </div>
+        <div id="unityContainer" style="width: 960px; height: 600px"></div>
+    </div>
+</body>
+
+</html>
