@@ -5,7 +5,11 @@
     <title>Google</title>
     <link rel="stylesheet" href="/misc/flash/waflash/waflash-style.css" type="text/css">
     <script>
-        var gameConfig = { swfUrl: "https://cdn.jsdelivr.net/gh/55gms/55gms@main/misc/pvz/swf.swf" };
+        // get current domain
+        var domain = window.location.hostname;
+
+        var gameConfig = { swfUrl: `https://${domain}/misc/pvz/swf.swf` };
+        console.log(gameConfig);
     </script>
     <script src="/assets/js/script.js"></script>
 </head>
