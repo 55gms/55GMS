@@ -4,6 +4,12 @@ import { recentActivityManager } from './storage.js';
 export class UIRenderer {
     constructor(api) {
         this.api = api;
+        this.currentSearchQuery = null;
+        this.searchData = {
+            tracks: null,
+            albums: null,
+            artists: null,
+        };
     }
 
     createExplicitBadge() {
@@ -169,73 +175,70 @@ export class UIRenderer {
     async renderSearchPage(query) {
         this.showPage('search');
         document.getElementById('search-results-title').textContent = `Search Results for "${query}"`;
-        
+
+        // Reset previous search
+        if (this.currentSearchQuery !== query) {
+            this.currentSearchQuery = query;
+            this.searchData = { tracks: null, albums: null, artists: null };
+        }
+
+        // Reset tabs
+        document.querySelectorAll('.search-tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.search-tab-content').forEach(content => content.classList.remove('active'));
+        document.querySelector('.search-tab[data-tab="tracks"]').classList.add('active');
+        document.getElementById('search-tab-tracks').classList.add('active');
+
         const tracksContainer = document.getElementById('search-tracks-container');
+        
+        // Only fetch tracks if they haven't been fetched for the current query
+        if (!this.searchData.tracks) {
+            tracksContainer.innerHTML = this.createSkeletonTracks(8, false);
+            try {
+                const result = await this.api.searchTracks(query);
+                this.searchData.tracks = result.items;
+                
+                if (this.searchData.tracks.length) {
+                    this.renderListWithTracks(tracksContainer, this.searchData.tracks, false);
+                } else {
+                    tracksContainer.innerHTML = createPlaceholder('No tracks found.');
+                }
+            } catch (error) {
+                console.error("Track search failed:", error);
+                tracksContainer.innerHTML = createPlaceholder(`Error during track search. ${error.message}`);
+            }
+        }
+    }
+
+    async handleSearchTabClick(tab, query) {
         const artistsContainer = document.getElementById('search-artists-container');
         const albumsContainer = document.getElementById('search-albums-container');
-        
-        tracksContainer.innerHTML = this.createSkeletonTracks(8, false);
-        artistsContainer.innerHTML = this.createSkeletonCards(6, true);
-        albumsContainer.innerHTML = this.createSkeletonCards(6, false);
-        
-        try {
-            const [tracksResult, artistsResult, albumsResult] = await Promise.all([
-                this.api.searchTracks(query),
-                this.api.searchArtists(query),
-                this.api.searchAlbums(query)
-            ]);
-            
-            let finalTracks = tracksResult.items;
-            let finalArtists = artistsResult.items;
-            let finalAlbums = albumsResult.items;
-            
-            if (finalArtists.length === 0 && finalTracks.length > 0) {
-                const artistMap = new Map();
-                finalTracks.forEach(track => {
-                    if (track.artist && !artistMap.has(track.artist.id)) {
-                        artistMap.set(track.artist.id, track.artist);
-                    }
-                    if (track.artists) {
-                        track.artists.forEach(artist => {
-                            if (!artistMap.has(artist.id)) {
-                                artistMap.set(artist.id, artist);
-                            }
-                        });
-                    }
-                });
-                finalArtists = Array.from(artistMap.values());
+
+        if (tab === 'albums' && !this.searchData.albums) {
+            albumsContainer.innerHTML = this.createSkeletonCards(6, false);
+            try {
+                const result = await this.api.searchAlbums(query);
+                this.searchData.albums = result.items;
+                albumsContainer.innerHTML = this.searchData.albums.length
+                    ? this.searchData.albums.map(album => this.createAlbumCardHTML(album)).join('')
+                    : createPlaceholder('No albums found.');
+            } catch (error) {
+                console.error("Album search failed:", error);
+                albumsContainer.innerHTML = createPlaceholder(`Error during album search. ${error.message}`);
             }
-            
-            if (finalAlbums.length === 0 && finalTracks.length > 0) {
-                const albumMap = new Map();
-                finalTracks.forEach(track => {
-                    if (track.album && !albumMap.has(track.album.id)) {
-                        albumMap.set(track.album.id, track.album);
-                    }
-                });
-                finalAlbums = Array.from(albumMap.values());
+        }
+
+        if (tab === 'artists' && !this.searchData.artists) {
+            artistsContainer.innerHTML = this.createSkeletonCards(6, true);
+            try {
+                const result = await this.api.searchArtists(query);
+                this.searchData.artists = result.items;
+                artistsContainer.innerHTML = this.searchData.artists.length
+                    ? this.searchData.artists.map(artist => this.createArtistCardHTML(artist)).join('')
+                    : createPlaceholder('No artists found.');
+            } catch (error) {
+                console.error("Artist search failed:", error);
+                artistsContainer.innerHTML = createPlaceholder(`Error during artist search. ${error.message}`);
             }
-            
-            if (finalTracks.length) {
-                this.renderListWithTracks(tracksContainer, finalTracks, false);
-            } else {
-                tracksContainer.innerHTML = createPlaceholder('No tracks found.');
-            }
-            
-            artistsContainer.innerHTML = finalArtists.length
-                ? finalArtists.map(artist => this.createArtistCardHTML(artist)).join('')
-                : createPlaceholder('No artists found.');
-            
-            albumsContainer.innerHTML = finalAlbums.length
-                ? finalAlbums.map(album => this.createAlbumCardHTML(album)).join('')
-                : createPlaceholder('No albums found.');
-                
-        } catch (error) {
-            console.error("Search failed:", error);
-            const errorMsg = createPlaceholder(`Error during search. ${error.message}`);
-            tracksContainer.innerHTML = errorMsg;
-            artistsContainer.innerHTML = errorMsg;
-            albumsContainer.innerHTML = errorMsg;
         }
     }
 

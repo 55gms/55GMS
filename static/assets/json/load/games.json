@@ -425,8 +425,7 @@
     "name": "Eaglercraft X",
     "url": "/misc/misc/eloader/",
     "image": "/misc/eaglercraftx/img.png",
-    "usesProxy": false,
-    "alert": "This game will be removed, when it is click minecraft instead from the games page."
+    "usesProxy": false
   },
   {
     "name": "Poor Bunny",
@@ -1255,6 +1254,13 @@
     "url": "/misc/play/riddleschool2.html",
     "image": "/misc/riddleschool2/riddleschool2.png",
     "usesProxy": false
+  },
+  {
+    "name": "Music Player",
+    "url": "/misc/musicplayer/index.html",
+    "image": "/misc/musicplayer/img.webp",
+    "usesProxy": false,
+    "alert": "keep this niche for now"
   },
   {
     "name": "Riddle School 3",

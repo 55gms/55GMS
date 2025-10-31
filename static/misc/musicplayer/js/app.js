@@ -9,7 +9,7 @@ import { initializeSettings } from '/misc/musicplayer/js/settings.js';
 import { initializePlayerEvents, initializeTrackInteractions } from '/misc/musicplayer/js/events.js';
 import { initializeUIInteractions } from '/misc/musicplayer/js/ui-interactions.js';
 import { downloadAlbumAsZip, downloadDiscography, downloadCurrentTrack } from '/misc/musicplayer/js/downloads.js';
-import { debounce, SVG_PLAY } from '/misc/musicplayer/js/utils.js';
+import { SVG_PLAY } from '/misc/musicplayer/js/utils.js';
 
 function initializeCasting(audioPlayer, castBtn) {
     if (!castBtn) return;
@@ -361,19 +361,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const searchForm = document.getElementById('search-form');
     const searchInput = document.getElementById('search-input');
     
-    const performSearch = debounce((query) => {
-        if (query) {
-            window.location.hash = `#search/${encodeURIComponent(query)}`;
-        }
-    }, 300);
-    
-    searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.trim();
-        if (query.length > 2) {
-            performSearch(query);
-        }
-    });
-    
     searchForm.addEventListener('submit', e => {
         e.preventDefault();
         const query = searchInput.value.trim();
@@ -382,6 +369,26 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
     
+    // Search Tabs
+    document.querySelector('.search-tabs').addEventListener('click', (e) => {
+        if (e.target.classList.contains('search-tab')) {
+            const tab = e.target.dataset.tab;
+            
+            // Update active tab
+            document.querySelectorAll('.search-tab').forEach(t => t.classList.remove('active'));
+            e.target.classList.add('active');
+            
+            // Show correct content
+            document.querySelectorAll('.search-tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(`search-tab-${tab}`).classList.add('active');
+            
+            // Fetch data if needed
+            if (ui.currentSearchQuery) {
+                ui.handleSearchTabClick(tab, ui.currentSearchQuery);
+            }
+        }
+    });
+
     // Network status monitoring
     window.addEventListener('online', () => {
         hideOfflineNotification();
