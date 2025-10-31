@@ -304,7 +304,7 @@ function initializeOnlineStatus() {
         }
 
         console.log("Socket.IO library is available, creating connection...");
-        statusSocket = io();
+        statusSocket = io({ transports: ["websocket"] });
 
         statusSocket.on("connect", () => {
           console.log("Status socket connected successfully");
