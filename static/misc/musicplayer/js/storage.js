@@ -9,11 +9,11 @@ export const apiSettings = {
         if (this.instancesLoaded) {
             return this.defaultInstances;
         }
-        const url = location.hostname
+        const url = window.location.origin
         console.log(url)
          this.defaultInstances = [
-                `http://${url}:8081/api/music/url=https://ohio.monochrome.tf/`,
-                `http://${url}:8081/api/music/url=https://wolf.qqdl.site/`
+                `${url}}/api/music/url=https://ohio.monochrome.tf/`,
+                `${url}}/api/music/url=https://wolf.qqdl.site/`
             ];
             this.instancesLoaded = true;
             return this.defaultInstances;
