@@ -165,7 +165,7 @@ try {
               .map(([socketId]) => socketId);
 
             const isCurrentlyViewing = userSockets.some(
-              (socketId) => activeChats.get(socketId) === chatId
+              (socketId) => activeChats.get(socketId) === chatId,
             );
 
             if (!isCurrentlyViewing) {
@@ -185,7 +185,7 @@ try {
 
         await Chat.update(
           { lastActivity: new Date() },
-          { where: { id: chatId } }
+          { where: { id: chatId } },
         );
       } catch (error) {
         console.error("Error handling message:", error);
@@ -220,7 +220,7 @@ try {
 
         await ChatMember.update(
           { lastReadAt: new Date() },
-          { where: { chatId, userUuid } }
+          { where: { chatId, userUuid } },
         );
 
         socket.to(`chat_${chatId}`).emit("messages_read", {
@@ -260,7 +260,7 @@ try {
               lastSeen: new Date(),
               socketId: null,
             },
-            { where: { userUuid } }
+            { where: { userUuid } },
           );
 
           socket.broadcast.emit("user_status_change", {
