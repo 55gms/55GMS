@@ -12,8 +12,8 @@ export const apiSettings = {
         const url = window.location.origin
         console.log(url)
          this.defaultInstances = [
-                `${url}}/api/music/url=https://ohio.monochrome.tf/`,
-                `${url}}/api/music/url=https://wolf.qqdl.site/`
+                `${url}/api/music/url=https://ohio.monochrome.tf/`,
+                `${url}/api/music/url=https://wolf.qqdl.site/`
             ];
             this.instancesLoaded = true;
             return this.defaultInstances;
