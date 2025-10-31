@@ -407,7 +407,7 @@ async getArtist(artistId) {
                 throw new Error('Could not resolve stream URL');
             }
         }
-        const proxiedUrl = `/api/music/url=${encodeURIComponent(streamUrl)}`;
+        const proxiedUrl = streamUrl
         this.streamCache.set(cacheKey, proxiedUrl);
         return proxiedUrl;
     }
