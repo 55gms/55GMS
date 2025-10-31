@@ -55,13 +55,6 @@ try {
 
   io.attach(server);
 
-  io.engine.on("connection_error", (err) => {
-    console.error("Socket.IO connection error:", err.req);
-    console.error("Error code:", err.code);
-    console.error("Error message:", err.message);
-    console.error("Error context:", err.context);
-  });
-
   const activeConversations = new Map();
   const connectedUsers = new Map();
   const activeChats = new Map();
@@ -89,11 +82,6 @@ try {
   app.use("/api/music", proxyRoutes);
 
   io.on("connection", (socket) => {
-    // Add error handling for Socket.IO connections
-    socket.on("error", (error) => {
-      console.error("Socket.IO connection error:", error);
-    });
-
     socket.on("authenticate", async (data) => {
       try {
         const { uuid, joinChatRooms = false } = data;
