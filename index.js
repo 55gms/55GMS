@@ -46,12 +46,14 @@ try {
   app.use("/scram/", express.static(scramjetPath));
   const server = createServer(app);
 
-  const io = new SocketIO(server, {
+  const io = new SocketIO({
     cors: {
       origin: "*",
       methods: ["GET", "POST"],
     },
   });
+
+  io.attach(server);
 
   io.engine.on("connection_error", (err) => {
     console.error("Socket.IO connection error:", err.req);
@@ -363,14 +365,13 @@ try {
     res.status(404).sendFile(notFoundPage);
   });
 
+  server.removeAllListeners("upgrade");
+
   server.on("upgrade", (req, socket, head) => {
-    if (req.url && (req.url.startsWith("/wisp/") || req.url.includes("wisp"))) {
-      try {
-        wisp.routeRequest(req, socket, head);
-      } catch (error) {
-        console.error("Wisp routing error:", error);
-        socket.destroy();
-      }
+    if (req.url.startsWith("/wisp/")) {
+      wisp.routeRequest(req, socket, head);
+    } else {
+      io.engine.handleUpgrade(req, socket, head);
     }
   });
 
