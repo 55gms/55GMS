@@ -19,10 +19,20 @@ const allowedHosts = [
   "vogel.qqdl.site",
   "katze.qqdl.site",
   "hund.qqdl.site",
-  "audio.tidal.com",
-  "lgf.audio.tidal.com",
-  "resources.tidal.com",
+  "uploads.frogiesarcade.win",
 ];
+
+function isAllowedHost(hostname) {
+  if (allowedHosts.includes(hostname)) {
+    return true;
+  }
+
+  if (hostname === "tidal.com" || hostname.endsWith(".tidal.com")) {
+    return true;
+  }
+
+  return false;
+}
 
 // Connection pool for reusing HTTP connections
 const axiosInstance = axios.create({
@@ -157,7 +167,7 @@ router.all("/*", async (req, res) => {
     return res.status(400).send("Invalid URL format.");
   }
 
-  if (!allowedHosts.includes(url.hostname)) {
+  if (!isAllowedHost(url.hostname)) {
     return res.status(403).send("Host is not allowed.");
   }
 

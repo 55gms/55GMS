@@ -152,7 +152,8 @@ async function downloadTrackBlob(track, quality, api, lyricsManager = null) {
         }
     }
 
-    const response = await fetch(streamUrl);
+    const proxiedUrl = `/api/music/url=${encodeURIComponent(streamUrl)}`;
+    const response = await fetch(proxiedUrl);
     if (!response.ok) {
         throw new Error(`Failed to fetch track: ${response.status}`);
     }
@@ -165,7 +166,7 @@ export async function downloadAlbumAsZip(album, tracks, api, quality, lyricsMana
     const JSZip = await loadJSZip();
     const zip = new JSZip();
     
-    const template = localStorage.getItem('zip-folder-template') || '{albumTitle} - {albumArtist} - monochrome.tf';
+    const template = localStorage.getItem('zip-folder-template') || '{albumTitle} - {albumArtist} - 55gms.com';
     const folderName = formatTemplate(template, {
         albumTitle: album.title,
         albumArtist: album.artist?.name,
@@ -229,10 +230,10 @@ export async function downloadAlbumAsZip(album, tracks, api, quality, lyricsMana
 export async function downloadDiscography(artist, api, quality, lyricsManager = null) {
     const JSZip = await loadJSZip();
     const zip = new JSZip();
-    
-    const template = localStorage.getItem('zip-folder-template') || '{albumTitle} - {albumArtist} - monochrome.tf';
-    const rootFolder = `${sanitizeForFilename(artist.name)} discography - monochrome.tf`;
-    
+
+    const template = localStorage.getItem('zip-folder-template') || '{albumTitle} - {albumArtist} - 55gms.com';
+    const rootFolder = `${sanitizeForFilename(artist.name)} discography - 55gms.com`;
+
     const totalAlbums = artist.albums.length;
     const notification = createBulkDownloadNotification('discography', artist.name, totalAlbums);
     

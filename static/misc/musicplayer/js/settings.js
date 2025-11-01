@@ -155,7 +155,7 @@ export function initializeSettings(scrobbler, player, api, ui) {
     // Quality setting
     const qualitySetting = document.getElementById('quality-setting');
     if (qualitySetting) {
-        const savedQuality = localStorage.getItem('playback-quality') || 'LOSSLESS';
+        const savedQuality = localStorage.getItem('playback-quality') || 'LOW';
         qualitySetting.value = savedQuality;
         player.setQuality(savedQuality);
         
@@ -196,7 +196,7 @@ export function initializeSettings(scrobbler, player, api, ui) {
     // ZIP folder template
     const zipFolderTemplate = document.getElementById('zip-folder-template');
     if (zipFolderTemplate) {
-        zipFolderTemplate.value = localStorage.getItem('zip-folder-template') || '{albumTitle} - {albumArtist} - monochrome.tf';
+        zipFolderTemplate.value = localStorage.getItem('zip-folder-template') || '{albumTitle} - {albumArtist} - 55gms.com';
         zipFolderTemplate.addEventListener('change', (e) => {
             localStorage.setItem('zip-folder-template', e.target.value);
         });

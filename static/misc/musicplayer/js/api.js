@@ -428,7 +428,8 @@ async getArtist(artistId) {
                 }
             }
 
-            const response = await fetch(streamUrl, { 
+            const proxiedUrl = `/api/music/url=${encodeURIComponent(streamUrl)}`;
+            const response = await fetch(proxiedUrl, { 
                 cache: 'no-store',
                 signal: options.signal 
             });

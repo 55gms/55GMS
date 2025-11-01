@@ -1,7 +1,7 @@
 import { REPEAT_MODE, formatTime, getTrackArtists, getTrackTitle} from './utils.js';
 
 export class Player {
-    constructor(audioElement, api, quality = 'LOSSLESS') {
+    constructor(audioElement, api, quality = 'LOW') {
         this.audio = audioElement;
         this.api = api;
         this.quality = quality;
