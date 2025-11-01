@@ -6,20 +6,13 @@ import https from "https";
 const router = express.Router();
 
 const allowedHosts = [
-  "ohio.monochrome.tf",
-  "virginia.monochrome.tf",
-  "oregon.monochrome.tf",
-  "california.monochrome.tf",
-  "frankfurt.monochrome.tf",
-  "singapore.monochrome.tf",
-  "tokyo.monochrome.tf",
-  "jakarta.monochrome.tf",
   "wolf.qqdl.site",
   "maus.qqdl.site",
   "vogel.qqdl.site",
   "katze.qqdl.site",
   "hund.qqdl.site",
   "uploads.frogiesarcade.win",
+  "triton.squid.wtf",
 ];
 
 function isAllowedHost(hostname) {
