@@ -1,5 +1,5 @@
-import { formatTime, createPlaceholder, trackDataStore, hasExplicitContent, getTrackArtists, getTrackTitle, calculateTotalDuration, formatDuration } from './utils.js?v=1';
-import { recentActivityManager } from './storage.js?v=1';
+import { formatTime, createPlaceholder, trackDataStore, hasExplicitContent, getTrackArtists, getTrackTitle, calculateTotalDuration, formatDuration, getInitials } from './utils.js?v=1';
+import { recentActivityManager, playlistManager } from './storage.js?v=1';
 
 export class UIRenderer {
     constructor(api) {
@@ -10,6 +10,8 @@ export class UIRenderer {
             albums: null,
             artists: null,
         };
+        this.activePlaylistId = null;
+        this.playlistSearchState = new Map();
     }
 
     createExplicitBadge() {
@@ -28,12 +30,23 @@ export class UIRenderer {
         `;
     }
 
-    createTrackItemHTML(track, index, showCover = false) {
+    createTrackItemHTML(track, index, showCover = false, options = {}) {
         const playIconSmall = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>';
         const trackNumberHTML = `<div class="track-number">${showCover ? playIconSmall : index + 1}</div>`;
         const explicitBadge = hasExplicitContent(track) ? this.createExplicitBadge() : '';
         const trackArtists = getTrackArtists(track);
         const trackTitle = getTrackTitle(track);
+        const context = options.context || {};
+        const playlistRemoveBtn = context.type === 'playlist'
+            ? `
+                <button class="track-remove-btn" type="button" title="Remove from playlist" data-action="remove-track-from-playlist" data-index="${index}">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            `
+            : '';
         
         return `
             <div class="track-item" data-track-id="${track.id}">
@@ -49,6 +62,7 @@ export class UIRenderer {
                     </div>
                 </div>
                 <div class="track-item-duration">${formatTime(track.duration)}</div>
+                ${playlistRemoveBtn}
                 <button class="track-menu-btn" type="button" title="More options">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="1"></circle>
@@ -82,6 +96,35 @@ export class UIRenderer {
                 <h3 class="card-title">${artist.name}</h3>
                 <p class="card-subtitle">Artist</p>
             </a>
+        `;
+    }
+
+    createPlaylistCardHTML(playlist) {
+        const initials = getInitials(playlist.name, 2);
+        const trackCount = playlist.tracks.length;
+        const tracks = playlist.tracks.map(entry => entry.track || entry);
+        const duration = formatDuration(calculateTotalDuration(tracks));
+        const subtitleParts = [];
+        subtitleParts.push(`${trackCount} ${trackCount === 1 ? 'song' : 'songs'}`);
+        if (trackCount > 0) {
+            subtitleParts.push(duration);
+        }
+
+        return `
+            <div class="playlist-card" data-playlist-id="${playlist.id}">
+                <a href="#playlist/${playlist.id}" class="playlist-card-link">
+                    <div class="playlist-card-cover" aria-hidden="true">${initials}</div>
+                    <div class="playlist-card-info">
+                        <h3 class="playlist-card-title">${playlist.name}</h3>
+                        <p class="playlist-card-subtitle">${subtitleParts.join(' • ')}</p>
+                    </div>
+                </a>
+                <div class="playlist-card-actions">
+                    <button class="btn-secondary" data-action="play-playlist" data-playlist-id="${playlist.id}">Play</button>
+                    <button class="btn-secondary" data-action="shuffle-playlist" data-playlist-id="${playlist.id}">Shuffle</button>
+                    <button class="btn-danger" data-action="delete-playlist" data-playlist-id="${playlist.id}">Delete</button>
+                </div>
+            </div>
         `;
     }
 
@@ -119,24 +162,38 @@ export class UIRenderer {
         return `<div class="card-grid">${Array(count).fill(0).map(() => this.createSkeletonCard(isArtist)).join('')}</div>`;
     }
 
-    renderListWithTracks(container, tracks, showCover) {
+    renderListWithTracks(container, tracks, showCover, options = {}) {
         const fragment = document.createDocumentFragment();
         const tempDiv = document.createElement('div');
 
         tempDiv.innerHTML = tracks.map((track, i) => 
-            this.createTrackItemHTML(track, i, showCover)
+            this.createTrackItemHTML(track, i, showCover, options)
         ).join('');
         
         while (tempDiv.firstChild) {
             fragment.appendChild(tempDiv.firstChild);
         }
         
-        container.innerHTML = '';
+        if (!options.append) {
+            container.innerHTML = '';
+        }
         container.appendChild(fragment);
         
-        tracks.forEach(track => {
-            const element = container.querySelector(`[data-track-id="${track.id}"]`);
-            if (element) trackDataStore.set(element, track);
+        const elements = container.querySelectorAll('.track-item');
+        elements.forEach((element, index) => {
+            const track = tracks[index];
+            if (!track) return;
+            trackDataStore.set(element, track);
+            if (options.draggable) {
+                element.setAttribute('draggable', 'true');
+            }
+            if (options.context?.type === 'playlist') {
+                element.dataset.playlistId = options.context.playlistId;
+                element.dataset.playlistIndex = String(index);
+            } else {
+                element.removeAttribute('data-playlist-id');
+                element.removeAttribute('data-playlist-index');
+            }
         });
     }
 
@@ -146,7 +203,8 @@ export class UIRenderer {
         });
         
         document.querySelectorAll('.sidebar-nav a').forEach(link => {
-            link.classList.toggle('active', link.hash === `#${pageId}`);
+            const isActive = link.hash === `#${pageId}` || (pageId === 'playlist' && link.hash === '#playlists');
+            link.classList.toggle('active', isActive);
         });
         
         document.querySelector('.main-content').scrollTop = 0;
@@ -170,6 +228,158 @@ export class UIRenderer {
         artistsContainer.innerHTML = recents.artists.length
             ? recents.artists.map(artist => this.createArtistCardHTML(artist)).join('')
             : createPlaceholder("You haven't viewed any artists yet. Search for music to get started!");
+    }
+
+    renderPlaylistsPage() {
+        this.showPage('playlists');
+        this.activePlaylistId = null;
+        const container = document.getElementById('playlists-list');
+        if (!container) return;
+        const playlists = playlistManager.getAll()
+            .sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+        if (!playlists.length) {
+            container.innerHTML = createPlaceholder('No playlists yet. Create one to get started.');
+            return;
+        }
+        container.innerHTML = playlists.map(playlist => this.createPlaylistCardHTML(playlist)).join('');
+    }
+
+    renderPlaylistPage(playlistId) {
+        this.showPage('playlist');
+        this.activePlaylistId = playlistId;
+
+        const coverEl = document.getElementById('playlist-detail-cover');
+        const titleEl = document.getElementById('playlist-detail-title');
+        const metaEl = document.getElementById('playlist-detail-meta');
+        const tracklistContainer = document.getElementById('playlist-tracklist');
+        const searchInput = document.getElementById('playlist-search-input');
+
+        if (tracklistContainer) {
+            tracklistContainer.dataset.playlistId = playlistId || '';
+        }
+
+        const playlist = playlistManager.getPlaylist(playlistId);
+        if (!playlist) {
+            this.activePlaylistId = null;
+            if (coverEl) coverEl.textContent = '--';
+            if (titleEl) titleEl.textContent = 'Playlist not found';
+            if (metaEl) metaEl.innerHTML = '';
+            if (tracklistContainer) tracklistContainer.innerHTML = createPlaceholder('This playlist could not be found.');
+            this.updatePlaylistSearchState(playlistId, { query: '', items: [], status: 'idle' });
+            return;
+        }
+
+        const initials = getInitials(playlist.name, 2);
+        const tracks = playlist.tracks.map(entry => entry.track || entry);
+        const trackCount = tracks.length;
+        const durationSeconds = calculateTotalDuration(tracks);
+        const updatedAt = playlist.updatedAt ? new Date(playlist.updatedAt) : null;
+
+        if (coverEl) coverEl.textContent = initials || 'PL';
+        if (titleEl) titleEl.textContent = playlist.name;
+        if (metaEl) {
+            const parts = [];
+            parts.push(`${trackCount} ${trackCount === 1 ? 'song' : 'songs'}`);
+            if (trackCount > 0) {
+                parts.push(formatDuration(durationSeconds));
+            }
+            if (updatedAt) {
+                parts.push(`Updated ${updatedAt.toLocaleDateString()}`);
+            }
+            metaEl.textContent = parts.join(' • ');
+        }
+
+        document.title = `${playlist.name} - Playlist - Monochrome`;
+
+        if (tracklistContainer) {
+            if (trackCount === 0) {
+                tracklistContainer.innerHTML = createPlaceholder('No tracks yet. Search and add songs to this playlist.');
+            } else {
+                tracklistContainer.innerHTML = `
+                    <div class="track-list-header">
+                        <span style="width: 40px; text-align: center;">#</span>
+                        <span>Title</span>
+                        <span class="duration-header">Duration</span>
+                    </div>
+                    <div class="playlist-track-items"></div>
+                `;
+                const itemsContainer = tracklistContainer.querySelector('.playlist-track-items');
+                this.renderListWithTracks(itemsContainer, tracks, false, {
+                    context: { type: 'playlist', playlistId },
+                    draggable: true,
+                    append: true
+                });
+            }
+        }
+
+        const state = this.playlistSearchState.get(playlistId) || { query: '', items: [], status: 'idle' };
+        this.playlistSearchState.set(playlistId, state);
+        if (searchInput) {
+            searchInput.value = state.query || '';
+        }
+        this.renderPlaylistSearchResults(playlistId, state);
+    }
+
+    renderPlaylistSearchResults(playlistId, state) {
+        const container = document.getElementById('playlist-search-results');
+        if (!container) return;
+        const { status = 'idle', items = [], query = '', error } = state || {};
+
+        if (!query && status === 'idle') {
+            container.innerHTML = createPlaceholder('Search for songs to add to this playlist.');
+            return;
+        }
+
+        if (status === 'loading') {
+            container.innerHTML = this.createSkeletonTracks(3, false);
+            return;
+        }
+
+        if (error) {
+            container.innerHTML = createPlaceholder(error);
+            return;
+        }
+
+        if (!items.length) {
+            container.innerHTML = createPlaceholder('No tracks found. Try a different search.');
+            return;
+        }
+
+        const fragment = document.createDocumentFragment();
+        items.forEach(track => {
+            const row = document.createElement('div');
+            row.className = 'playlist-search-result';
+            row.dataset.trackId = track.id;
+            row.innerHTML = `
+                <div class="playlist-search-info">
+                    <div class="playlist-search-title">${getTrackTitle(track)}</div>
+                    <div class="playlist-search-subtitle">${getTrackArtists(track)}</div>
+                </div>
+                <button class="btn-secondary" data-action="add-track-to-playlist" data-track-id="${track.id}" data-playlist-id="${playlistId}">Add</button>
+            `;
+            trackDataStore.set(row, track);
+            fragment.appendChild(row);
+        });
+        container.innerHTML = '';
+        container.appendChild(fragment);
+    }
+
+    updatePlaylistSearchState(playlistId, partial) {
+        if (!playlistId) return;
+        const prev = this.playlistSearchState.get(playlistId) || { query: '', items: [], status: 'idle' };
+        const next = { ...prev, ...partial };
+        this.playlistSearchState.set(playlistId, next);
+        this.renderPlaylistSearchResults(playlistId, next);
+    }
+
+    clearPlaylistSearchState(playlistId) {
+        if (!playlistId) return;
+        this.playlistSearchState.delete(playlistId);
+        this.renderPlaylistSearchResults(playlistId, { status: 'idle', items: [], query: '' });
+    }
+
+    getActivePlaylistId() {
+        return this.activePlaylistId;
     }
 
     async renderSearchPage(query) {

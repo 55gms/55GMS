@@ -171,6 +171,155 @@ export const apiSettings = {
     }
 };
 
+const safeParseJSON = (value, fallback) => {
+    try {
+        return value ? JSON.parse(value) : fallback;
+    } catch (e) {
+        return fallback;
+    }
+};
+
+const generatePlaylistId = () => {
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+        return crypto.randomUUID();
+    }
+    return `pl_${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
+};
+
+const cloneTrack = (track) => {
+    try {
+        return JSON.parse(JSON.stringify(track));
+    } catch (e) {
+        return track;
+    }
+};
+
+const normalizePlaylistName = (name) => {
+    const trimmed = (name || '').trim();
+    return trimmed || 'Untitled Playlist';
+};
+
+export const playlistManager = {
+    STORAGE_KEY: 'monochrome-playlists',
+
+    _getPlaylists() {
+        return safeParseJSON(localStorage.getItem(this.STORAGE_KEY), []);
+    },
+
+    _savePlaylists(playlists) {
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(playlists));
+    },
+
+    _touchPlaylist(playlist) {
+        playlist.updatedAt = Date.now();
+        return playlist;
+    },
+
+    getAll() {
+        return this._getPlaylists();
+    },
+
+    getPlaylist(id) {
+        if (!id) return null;
+        return this._getPlaylists().find(playlist => playlist.id === id) || null;
+    },
+
+    createPlaylist(name) {
+        const playlists = this._getPlaylists();
+        const now = Date.now();
+        const newPlaylist = {
+            id: generatePlaylistId(),
+            name: normalizePlaylistName(name),
+            createdAt: now,
+            updatedAt: now,
+            tracks: []
+        };
+        playlists.push(newPlaylist);
+        this._savePlaylists(playlists);
+        return newPlaylist;
+    },
+
+    renamePlaylist(id, name) {
+        if (!id) return null;
+        const playlists = this._getPlaylists();
+        const playlist = playlists.find(p => p.id === id);
+        if (!playlist) return null;
+        playlist.name = normalizePlaylistName(name);
+        this._touchPlaylist(playlist);
+        this._savePlaylists(playlists);
+        return playlist;
+    },
+
+    deletePlaylist(id) {
+        if (!id) return false;
+        const playlists = this._getPlaylists();
+        const next = playlists.filter(p => p.id !== id);
+        if (next.length === playlists.length) {
+            return false;
+        }
+        this._savePlaylists(next);
+        return true;
+    },
+
+    addTrack(playlistId, track) {
+        if (!playlistId || !track) return null;
+        const playlists = this._getPlaylists();
+        const playlist = playlists.find(p => p.id === playlistId);
+        if (!playlist) return null;
+        const entry = {
+            id: track.id,
+            addedAt: Date.now(),
+            track: cloneTrack(track)
+        };
+        playlist.tracks.push(entry);
+        this._touchPlaylist(playlist);
+        this._savePlaylists(playlists);
+        return entry;
+    },
+
+    removeTrack(playlistId, trackIndex) {
+        if (!playlistId) return false;
+        const playlists = this._getPlaylists();
+        const playlist = playlists.find(p => p.id === playlistId);
+        if (!playlist) return false;
+        if (typeof trackIndex === 'number') {
+            if (trackIndex < 0 || trackIndex >= playlist.tracks.length) {
+                return false;
+            }
+            playlist.tracks.splice(trackIndex, 1);
+        } else if (trackIndex) {
+            const idx = playlist.tracks.findIndex(entry => entry.id === trackIndex);
+            if (idx === -1) return false;
+            playlist.tracks.splice(idx, 1);
+        } else {
+            return false;
+        }
+        this._touchPlaylist(playlist);
+        this._savePlaylists(playlists);
+        return true;
+    },
+
+    moveTrack(playlistId, fromIndex, toIndex) {
+        if (!playlistId) return false;
+        const playlists = this._getPlaylists();
+        const playlist = playlists.find(p => p.id === playlistId);
+        if (!playlist) return false;
+        if (fromIndex === toIndex) return true;
+        if (
+            typeof fromIndex !== 'number' || typeof toIndex !== 'number' ||
+            fromIndex < 0 || fromIndex >= playlist.tracks.length ||
+            toIndex < 0 || toIndex >= playlist.tracks.length
+        ) {
+            return false;
+        }
+        const [entry] = playlist.tracks.splice(fromIndex, 1);
+        playlist.tracks.splice(toIndex, 0, entry);
+        this._touchPlaylist(playlist);
+        this._savePlaylists(playlists);
+        return true;
+    }
+};
+
 export const recentActivityManager = {
     STORAGE_KEY: 'monochrome-recent-activity',
     LIMIT: 10,

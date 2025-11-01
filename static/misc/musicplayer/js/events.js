@@ -1,5 +1,5 @@
 import { SVG_PLAY, SVG_PAUSE, SVG_VOLUME, SVG_MUTE, REPEAT_MODE, trackDataStore, RATE_LIMIT_ERROR_MESSAGE, buildTrackFilename } from './utils.js?v=1';
-import { lastFMStorage } from './storage.js?v=1';
+import { lastFMStorage, playlistManager } from './storage.js?v=1';
 import { addDownloadTask, updateDownloadProgress, completeDownloadTask } from './downloads.js?v=1';
 import { updateTabTitle } from './router.js?v=1';
 
@@ -262,8 +262,29 @@ function initializeSmoothSliders(audioPlayer, player) {
     });
 }
 
-export function initializeTrackInteractions(player, api, mainContent, contextMenu) {
+export function initializeTrackInteractions(player, api, mainContent, contextMenu, ui) {
     let contextTrack = null;
+
+    const showContextMenu = (x, y) => {
+        if (!contextMenu) return;
+        const padding = 8;
+        contextMenu.style.display = 'block';
+        contextMenu.style.left = `${x}px`;
+        contextMenu.style.top = `${y}px`;
+        const menuRect = contextMenu.getBoundingClientRect();
+        let finalLeft = Math.min(x, window.innerWidth - menuRect.width - padding);
+        let finalTop = Math.min(y, window.innerHeight - menuRect.height - padding);
+        finalLeft = Math.max(padding, finalLeft);
+        finalTop = Math.max(padding, finalTop);
+        contextMenu.style.left = `${finalLeft}px`;
+        contextMenu.style.top = `${finalTop}px`;
+    };
+
+    const hideContextMenu = () => {
+        if (contextMenu) {
+            contextMenu.style.display = 'none';
+        }
+    };
     
     mainContent.addEventListener('click', e => {
         const menuBtn = e.target.closest('.track-menu-btn');
@@ -273,10 +294,19 @@ export function initializeTrackInteractions(player, api, mainContent, contextMen
             if (trackItem && !trackItem.dataset.queueIndex) {
                 contextTrack = trackDataStore.get(trackItem);
                 if (contextTrack) {
+                    const playlistId = trackItem.dataset.playlistId;
+                    const removeItem = contextMenu.querySelector('[data-action="remove-from-playlist"]');
+                    if (playlistId && removeItem) {
+                        removeItem.style.display = 'block';
+                        removeItem.dataset.playlistId = playlistId;
+                        removeItem.dataset.index = trackItem.dataset.playlistIndex || '';
+                    } else if (removeItem) {
+                        removeItem.style.display = 'none';
+                        removeItem.dataset.playlistId = '';
+                        removeItem.dataset.index = '';
+                    }
                     const rect = menuBtn.getBoundingClientRect();
-                    contextMenu.style.top = `${rect.bottom + 5}px`;
-                    contextMenu.style.left = `${rect.left}px`;
-                    contextMenu.style.display = 'block';
+                    showContextMenu(rect.left, rect.bottom + 5);
                 }
             }
             return;
@@ -306,16 +336,25 @@ export function initializeTrackInteractions(player, api, mainContent, contextMen
             contextTrack = trackDataStore.get(trackItem);
             
             if (contextTrack) {
-                contextMenu.style.top = `${e.pageY}px`;
-                contextMenu.style.left = `${e.pageX}px`;
-                contextMenu.style.display = 'block';
+                const playlistId = trackItem.dataset.playlistId;
+                const removeItem = contextMenu.querySelector('[data-action="remove-from-playlist"]');
+                if (playlistId && removeItem) {
+                    removeItem.style.display = 'block';
+                    removeItem.dataset.playlistId = playlistId;
+                    removeItem.dataset.index = trackItem.dataset.playlistIndex || '';
+                } else if (removeItem) {
+                    removeItem.style.display = 'none';
+                    removeItem.dataset.playlistId = '';
+                    removeItem.dataset.index = '';
+                }
+                showContextMenu(e.clientX, e.clientY);
             }
         }
     });
     
-    document.addEventListener('click', () => {
-        contextMenu.style.display = 'none';
-    });
+    document.addEventListener('click', hideContextMenu);
+    window.addEventListener('resize', hideContextMenu);
+    mainContent.addEventListener('scroll', hideContextMenu, true);
     
     contextMenu.addEventListener('click', async e => {
         e.stopPropagation();
@@ -324,6 +363,24 @@ export function initializeTrackInteractions(player, api, mainContent, contextMen
         if (action === 'add-to-queue' && contextTrack) {
             player.addToQueue(contextTrack);
             renderQueue(player);
+        } else if (action === 'add-to-playlist' && contextTrack) {
+            document.dispatchEvent(new CustomEvent('showPlaylistPicker', {
+                detail: { track: contextTrack }
+            }));
+        } else if (action === 'remove-from-playlist' && contextTrack) {
+            const playlistId = e.target.dataset.playlistId;
+            const index = e.target.dataset.index;
+            if (playlistId && index !== undefined) {
+                const parsedIndex = index === '' ? null : parseInt(index, 10);
+                if (playlistManager.removeTrack(playlistId, parsedIndex)) {
+                    if (ui?.getActivePlaylistId() === playlistId) {
+                        ui.renderPlaylistPage(playlistId);
+                    }
+                    if (window.location.hash === '#playlists') {
+                        ui?.renderPlaylistsPage();
+                    }
+                }
+            }
         } else if (action === 'download' && contextTrack) {
             const quality = player.quality;
             const filename = buildTrackFilename(contextTrack, quality);
@@ -353,8 +410,7 @@ export function initializeTrackInteractions(player, api, mainContent, contextMen
                 }
             }
         }
-        
-        contextMenu.style.display = 'none';
+        hideContextMenu();
     });
     
     // Now playing bar interactions

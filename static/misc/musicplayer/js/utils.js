@@ -199,3 +199,12 @@ export const formatDuration = (seconds) => {
     }
     return `${minutes} min`;
 };
+
+export const getInitials = (value, maxLetters = 2) => {
+    if (!value) return '?';
+    const trimmed = value.trim();
+    if (!trimmed) return '?';
+    const words = trimmed.split(/\s+/).filter(Boolean);
+    const letters = words.slice(0, maxLetters).map(word => word[0]);
+    return letters.join('').toUpperCase().slice(0, maxLetters);
+};

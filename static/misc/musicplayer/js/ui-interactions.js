@@ -1,6 +1,6 @@
 import { formatTime, trackDataStore, getTrackTitle, getTrackArtists } from './utils.js?v=1';
 
-export function initializeUIInteractions(player, api) {
+export function initializeUIInteractions(player, api, ui) {
     const sidebar = document.querySelector('.sidebar');
     const sidebarOverlay = document.getElementById('sidebar-overlay');
     const hamburgerBtn = document.getElementById('hamburger-btn');

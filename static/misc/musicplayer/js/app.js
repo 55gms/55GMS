@@ -1,5 +1,5 @@
 import { LosslessAPI } from '/misc/musicplayer/js/api.js?v=1';
-import { apiSettings, themeManager, nowPlayingSettings } from '/misc/musicplayer/js/storage.js?v=1';
+import { apiSettings, themeManager, nowPlayingSettings, playlistManager } from '/misc/musicplayer/js/storage.js?v=1';
 import { UIRenderer } from '/misc/musicplayer/js/ui.js?v=1';
 import { Player } from '/misc/musicplayer/js/player.js?v=1';
 import { LastFMScrobbler } from '/misc/musicplayer/js/lastfm.js?v=1';
@@ -9,7 +9,7 @@ import { initializeSettings } from '/misc/musicplayer/js/settings.js?v=1';
 import { initializePlayerEvents, initializeTrackInteractions } from '/misc/musicplayer/js/events.js?v=1';
 import { initializeUIInteractions } from '/misc/musicplayer/js/ui-interactions.js?v=1';
 import { downloadAlbumAsZip, downloadDiscography, downloadCurrentTrack } from '/misc/musicplayer/js/downloads.js?v=1';
-import { SVG_PLAY } from '/misc/musicplayer/js/utils.js?v=1';
+import { SVG_PLAY, getInitials, trackDataStore } from '/misc/musicplayer/js/utils.js?v=1';
 
 function initializeCasting(audioPlayer, castBtn) {
     if (!castBtn) return;
@@ -194,9 +194,202 @@ function hideOfflineNotification() {
     }
 }
 
+function createDialogManager() {
+    const overlay = document.getElementById('app-dialog-overlay');
+    const titleEl = document.getElementById('app-dialog-title');
+    const messageEl = document.getElementById('app-dialog-message');
+    const confirmBtn = document.getElementById('app-dialog-confirm');
+    const cancelBtn = document.getElementById('app-dialog-cancel');
+    const closeBtn = document.getElementById('app-dialog-close');
+    const inputWrapper = document.getElementById('app-dialog-input-wrapper');
+    const inputEl = document.getElementById('app-dialog-input');
+
+    if (!overlay || !titleEl || !messageEl || !confirmBtn || !cancelBtn || !inputWrapper || !inputEl) {
+        return {
+            alert: async ({ message, title }) => {
+                if (title) {
+                    window.alert(`${title}\n\n${message || ''}`.trim());
+                } else {
+                    window.alert(message || '');
+                }
+            },
+            confirm: async ({ message, title }) => {
+                const text = title ? `${title}\n\n${message || ''}`.trim() : (message || '');
+                return window.confirm(text);
+            },
+            prompt: async ({ message, title, defaultValue }) => {
+                const text = title ? `${title}\n\n${message || ''}`.trim() : (message || '');
+                const result = window.prompt(text, defaultValue ?? '');
+                return result === null ? null : result;
+            }
+        };
+    }
+
+    const confirmVariants = ['btn-primary', 'btn-secondary', 'btn-danger'];
+    let resolveFn = null;
+    let currentConfig = null;
+
+    const closeDialog = (result) => {
+        overlay.classList.remove('visible');
+        overlay.style.display = 'none';
+        document.removeEventListener('keydown', handleKeyDown);
+        resolveFn?.(result);
+        resolveFn = null;
+        currentConfig = null;
+    };
+
+    const handleConfirm = () => {
+        if (!currentConfig) return;
+        if (currentConfig.showInput) {
+            closeDialog(inputEl.value);
+        } else {
+            closeDialog(true);
+        }
+    };
+
+    const handleCancel = () => {
+        if (!currentConfig) return;
+        closeDialog(null);
+    };
+
+    const handleOverlayClick = (event) => {
+        if (event.target === overlay && currentConfig?.dismissible) {
+            handleCancel();
+        }
+    };
+
+    const handleKeyDown = (event) => {
+        if (!currentConfig) return;
+        if (event.key === 'Escape' && currentConfig.dismissible) {
+            event.preventDefault();
+            handleCancel();
+        } else if (event.key === 'Enter') {
+            if (currentConfig.showInput) {
+                if (event.target !== cancelBtn) {
+                    event.preventDefault();
+                    handleConfirm();
+                }
+            } else if (event.target !== cancelBtn) {
+                event.preventDefault();
+                handleConfirm();
+            }
+        }
+    };
+
+    confirmBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        handleConfirm();
+    });
+
+    cancelBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        handleCancel();
+    });
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            handleCancel();
+        });
+    }
+
+    overlay.addEventListener('click', handleOverlayClick);
+
+    const openDialog = (config) => new Promise((resolve) => {
+        currentConfig = config;
+        resolveFn = resolve;
+
+        titleEl.textContent = config.title || '';
+        messageEl.textContent = config.message || '';
+        confirmBtn.textContent = config.confirmText || 'OK';
+        cancelBtn.textContent = config.cancelText || 'Cancel';
+
+        confirmBtn.classList.remove(...confirmVariants);
+        confirmBtn.classList.add(config.confirmClass || 'btn-primary');
+
+        cancelBtn.classList.remove(...confirmVariants);
+        cancelBtn.classList.add(config.cancelClass || 'btn-secondary');
+        cancelBtn.style.display = config.showCancel ? '' : 'none';
+        if (closeBtn) {
+            closeBtn.style.display = config.showCancel ? '' : 'none';
+        }
+
+        inputWrapper.style.display = config.showInput ? '' : 'none';
+        if (config.showInput) {
+            inputEl.value = config.inputValue ?? '';
+            if (config.placeholder) {
+                inputEl.placeholder = config.placeholder;
+            } else {
+                inputEl.removeAttribute('placeholder');
+            }
+        } else {
+            inputEl.value = '';
+            inputEl.removeAttribute('placeholder');
+        }
+
+        overlay.style.display = 'flex';
+        requestAnimationFrame(() => {
+            overlay.classList.add('visible');
+            if (config.showInput) {
+                inputEl.focus();
+                inputEl.select();
+            } else {
+                confirmBtn.focus();
+            }
+        });
+
+        document.addEventListener('keydown', handleKeyDown);
+    });
+
+    const makeDismissible = (config) => ({ ...config, dismissible: config.dismissible ?? config.showCancel });
+
+    return {
+        alert: async ({ title, message, confirmText }) => {
+            await openDialog(makeDismissible({
+                title,
+                message,
+                confirmText: confirmText || 'OK',
+                showCancel: false,
+                showInput: false,
+                dismissible: false
+            }));
+        },
+        confirm: async ({ title, message, confirmText, cancelText, confirmClass, cancelClass }) => {
+            const result = await openDialog(makeDismissible({
+                title,
+                message,
+                confirmText: confirmText || 'Confirm',
+                cancelText: cancelText || 'Cancel',
+                confirmClass: confirmClass || 'btn-primary',
+                cancelClass: cancelClass || 'btn-secondary',
+                showCancel: true,
+                showInput: false
+            }));
+            return result === true;
+        },
+        prompt: async ({ title, message, confirmText, cancelText, confirmClass, defaultValue, placeholder }) => {
+            const result = await openDialog(makeDismissible({
+                title,
+                message,
+                confirmText: confirmText || 'Save',
+                cancelText: cancelText || 'Cancel',
+                confirmClass: confirmClass || 'btn-primary',
+                cancelClass: 'btn-secondary',
+                showCancel: true,
+                showInput: true,
+                inputValue: defaultValue ?? '',
+                placeholder: placeholder || ''
+            }));
+            if (result === null) return null;
+            return typeof result === 'string' ? result.trim() : result;
+        }
+    };
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     const api = new LosslessAPI(apiSettings);
     const ui = new UIRenderer(api);
+    const dialogs = createDialogManager();
     
     const audioPlayer = document.getElementById('audio-player');
     const currentQuality = localStorage.getItem('playback-quality') || 'LOSSLESS';
@@ -212,8 +405,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Initialize all modules
     initializeSettings(scrobbler, player, api, ui);
     initializePlayerEvents(player, audioPlayer, scrobbler);
-    initializeTrackInteractions(player, api, document.querySelector('.main-content'), document.getElementById('context-menu'));
-    initializeUIInteractions(player, api);
+    initializeTrackInteractions(player, api, document.querySelector('.main-content'), document.getElementById('context-menu'), ui);
+    initializeUIInteractions(player, api, ui);
     initializeKeyboardShortcuts(player, audioPlayer);
     initializeMediaSessionHandlers(player);
     
@@ -406,6 +599,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const router = createRouter(ui);
     router();
     window.addEventListener('hashchange', router);
+
+    setupPlaylistUI(player, api, ui, dialogs);
     
     // Update tab title on track change
     audioPlayer.addEventListener('play', () => {
@@ -461,6 +656,388 @@ function showUpdateNotification() {
         <button class="btn-secondary" onclick="window.location.reload()">Update Now</button>
     `;
     document.body.appendChild(notification);
+}
+
+function setupPlaylistUI(player, api, ui, dialogs) {
+    const createPlaylistBtn = document.getElementById('create-playlist-btn');
+    const playlistPlayBtn = document.getElementById('playlist-play-btn');
+    const playlistShuffleBtn = document.getElementById('playlist-shuffle-btn');
+    const playlistRenameBtn = document.getElementById('playlist-rename-btn');
+    const playlistDeleteBtn = document.getElementById('playlist-delete-btn');
+    const playlistTracklist = document.getElementById('playlist-tracklist');
+    const playlistsList = document.getElementById('playlists-list');
+    const playlistSearchForm = document.getElementById('playlist-search-form');
+    const playlistSearchInput = document.getElementById('playlist-search-input');
+    const playlistPickerOverlay = document.getElementById('playlist-picker-overlay');
+    const playlistPickerList = document.getElementById('playlist-picker-list');
+    const playlistPickerCreateBtn = document.getElementById('playlist-picker-create');
+    const playlistPickerClose = document.getElementById('playlist-picker-close');
+
+    window.pendingPlaylistTrack = null;
+
+    const hidePicker = (clearTrack = true) => {
+        if (playlistPickerOverlay) {
+            playlistPickerOverlay.style.display = 'none';
+            playlistPickerOverlay.dataset.trackId = '';
+        }
+        if (clearTrack) {
+            window.pendingPlaylistTrack = null;
+        }
+    };
+
+    const showPicker = (track) => {
+        if (!playlistPickerOverlay || !playlistPickerList) return;
+        const playlists = playlistManager.getAll().sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+        playlistPickerList.innerHTML = playlists.length
+            ? playlists.map(pl => `
+                <button class="playlist-picker-item" data-playlist-id="${pl.id}">
+                    <span class="picker-initials">${getInitials(pl.name)}</span>
+                    <span class="picker-name">${pl.name}</span>
+                    <span class="picker-count">${pl.tracks.length} ${pl.tracks.length === 1 ? 'song' : 'songs'}</span>
+                </button>
+            `).join('')
+            : '<div class="placeholder-text">No playlists yet. Create one below.</div>';
+
+        playlistPickerOverlay.dataset.trackId = track?.id || '';
+        playlistPickerOverlay.style.display = 'flex';
+    };
+
+    playlistsList?.addEventListener('click', async (e) => {
+        const actionBtn = e.target.closest('[data-action]');
+        if (!actionBtn) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const playlistId = actionBtn.dataset.playlistId;
+        if (!playlistId) return;
+        if (actionBtn.dataset.action === 'play-playlist') {
+            const playlist = playlistManager.getPlaylist(playlistId);
+            if (!playlist || !playlist.tracks.length) {
+                await dialogs.alert({
+                    title: 'Playlist Empty',
+                    message: 'Add some songs to this playlist to start playing.'
+                });
+                return;
+            }
+            playPlaylist(player, playlist, false);
+        } else if (actionBtn.dataset.action === 'shuffle-playlist') {
+            const playlist = playlistManager.getPlaylist(playlistId);
+            if (!playlist || !playlist.tracks.length) {
+                await dialogs.alert({
+                    title: 'Playlist Empty',
+                    message: 'Add some songs to this playlist to start playing.'
+                });
+                return;
+            }
+            playPlaylist(player, playlist, true);
+        } else if (actionBtn.dataset.action === 'delete-playlist') {
+            const confirmed = await dialogs.confirm({
+                title: 'Delete Playlist',
+                message: 'Delete this playlist? This cannot be undone.',
+                confirmText: 'Delete',
+                confirmClass: 'btn-danger'
+            });
+            if (!confirmed) return;
+            if (playlistManager.deletePlaylist(playlistId)) {
+                ui.renderPlaylistsPage();
+                if (ui.getActivePlaylistId() === playlistId) {
+                    window.location.hash = '#playlists';
+                }
+            }
+        }
+    });
+
+    createPlaylistBtn?.addEventListener('click', async () => {
+        const name = await dialogs.prompt({
+            title: 'New Playlist',
+            message: 'Give your playlist a name.',
+            confirmText: 'Create',
+            placeholder: 'Playlist name'
+        });
+        if (name === null) return;
+        const playlist = playlistManager.createPlaylist(name);
+        ui.renderPlaylistsPage();
+        window.location.hash = `#playlist/${playlist.id}`;
+    });
+
+    playlistPlayBtn?.addEventListener('click', async () => {
+        const playlistId = ui.getActivePlaylistId();
+        if (!playlistId) return;
+        const playlist = playlistManager.getPlaylist(playlistId);
+        if (!playlist || playlist.tracks.length === 0) {
+            await dialogs.alert({
+                title: 'Playlist Empty',
+                message: 'Add some songs to this playlist to start playing.'
+            });
+            return;
+        }
+        playPlaylist(player, playlist, false);
+    });
+
+    playlistShuffleBtn?.addEventListener('click', async () => {
+        const playlistId = ui.getActivePlaylistId();
+        if (!playlistId) return;
+        const playlist = playlistManager.getPlaylist(playlistId);
+        if (!playlist || playlist.tracks.length === 0) {
+            await dialogs.alert({
+                title: 'Playlist Empty',
+                message: 'Add some songs to this playlist to start playing.'
+            });
+            return;
+        }
+        playPlaylist(player, playlist, true);
+    });
+
+    playlistRenameBtn?.addEventListener('click', async () => {
+        const playlistId = ui.getActivePlaylistId();
+        if (!playlistId) return;
+        const playlist = playlistManager.getPlaylist(playlistId);
+        if (!playlist) return;
+        const nextName = await dialogs.prompt({
+            title: 'Rename Playlist',
+            message: 'Update the playlist name.',
+            confirmText: 'Save',
+            defaultValue: playlist.name,
+            placeholder: 'Playlist name'
+        });
+        if (nextName === null) return;
+        const updated = playlistManager.renamePlaylist(playlistId, nextName);
+        if (updated) {
+            ui.renderPlaylistPage(playlistId);
+            if (window.location.hash === '#playlists') {
+                ui.renderPlaylistsPage();
+            }
+        }
+    });
+
+    playlistDeleteBtn?.addEventListener('click', async () => {
+        const playlistId = ui.getActivePlaylistId();
+        if (!playlistId) return;
+        const confirmed = await dialogs.confirm({
+            title: 'Delete Playlist',
+            message: 'Delete this playlist? This cannot be undone.',
+            confirmText: 'Delete',
+            confirmClass: 'btn-danger'
+        });
+        if (!confirmed) return;
+        if (playlistManager.deletePlaylist(playlistId)) {
+            ui.renderPlaylistsPage();
+            window.location.hash = '#playlists';
+        }
+    });
+
+    playlistSearchForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const playlistId = ui.getActivePlaylistId();
+        if (!playlistId) return;
+        const query = playlistSearchInput?.value.trim();
+        if (!query) {
+            ui.clearPlaylistSearchState(playlistId);
+            return;
+        }
+
+        ui.updatePlaylistSearchState(playlistId, { status: 'loading', query });
+        try {
+            const result = await api.searchTracks(query);
+            ui.updatePlaylistSearchState(playlistId, {
+                status: 'success',
+                items: result.items,
+                query
+            });
+        } catch (error) {
+            ui.updatePlaylistSearchState(playlistId, {
+                status: 'error',
+                error: error.message || 'Search failed',
+                query
+            });
+        }
+    });
+
+    playlistSearchInput?.addEventListener('input', () => {
+        const playlistId = ui.getActivePlaylistId();
+        if (!playlistId) return;
+        if (!playlistSearchInput.value.trim()) {
+            ui.clearPlaylistSearchState(playlistId);
+        }
+    });
+
+    playlistTracklist?.addEventListener('dragstart', (e) => {
+        const item = e.target.closest('.track-item');
+        if (!item) return;
+        item.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', item.dataset.playlistIndex || '');
+    });
+
+    playlistTracklist?.addEventListener('dragend', (e) => {
+        const item = e.target.closest('.track-item');
+        if (item) item.classList.remove('dragging');
+    });
+
+    playlistTracklist?.addEventListener('dragover', (e) => {
+        if (!e.dataTransfer) return;
+        const playlistId = ui.getActivePlaylistId();
+        if (!playlistId) return;
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+    });
+
+    playlistTracklist?.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const playlistId = ui.getActivePlaylistId();
+        if (!playlistId) return;
+        const playlist = playlistManager.getPlaylist(playlistId);
+        if (!playlist) return;
+        const targetItem = e.target.closest('.track-item');
+        const fromIndex = parseInt(e.dataTransfer?.getData('text/plain') || '-1', 10);
+        let toIndex = targetItem ? parseInt(targetItem.dataset.playlistIndex || '-1', 10) : playlist.tracks.length - 1;
+        if (toIndex < 0 || toIndex >= playlist.tracks.length) {
+            toIndex = playlist.tracks.length - 1;
+        }
+        if (Number.isNaN(fromIndex) || Number.isNaN(toIndex) || fromIndex === toIndex) return;
+        if (playlistManager.moveTrack(playlistId, fromIndex, toIndex)) {
+            ui.renderPlaylistPage(playlistId);
+        }
+    });
+
+    playlistTracklist?.addEventListener('click', (e) => {
+        const actionBtn = e.target.closest('[data-action]');
+        const playlistId = ui.getActivePlaylistId();
+        if (actionBtn) {
+            e.stopPropagation();
+            if (!playlistId) return;
+            const action = actionBtn.dataset.action;
+            if (action === 'remove-track-from-playlist') {
+                const index = parseInt(actionBtn.dataset.index || '-1', 10);
+                if (!Number.isNaN(index) && playlistManager.removeTrack(playlistId, index)) {
+                    if (ui.getActivePlaylistId() === playlistId) {
+                        ui.renderPlaylistPage(playlistId);
+                    }
+                    if (window.location.hash === '#playlists') {
+                        ui.renderPlaylistsPage();
+                    }
+                }
+            }
+            return;
+        }
+
+        const trackItem = e.target.closest('.track-item');
+        if (!trackItem || !playlistId) return;
+        const index = parseInt(trackItem.dataset.playlistIndex || '-1', 10);
+        if (Number.isNaN(index)) return;
+        const playlist = playlistManager.getPlaylist(playlistId);
+        if (!playlist) return;
+        const tracks = playlist.tracks.map(entry => entry.track || entry);
+        player.setQueue(tracks, index);
+        player.playTrackFromQueue();
+    });
+
+    document.getElementById('playlist-search-results')?.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-action="add-track-to-playlist"]');
+        if (!btn) return;
+        const playlistId = btn.dataset.playlistId;
+        const trackId = btn.dataset.trackId;
+        const track = trackDataStore.get(btn.closest('.playlist-search-result'));
+        if (!playlistId || !track) return;
+        playlistManager.addTrack(playlistId, track);
+        if (ui.getActivePlaylistId() === playlistId) {
+            ui.renderPlaylistPage(playlistId);
+        }
+        if (window.location.hash === '#playlists') {
+            ui.renderPlaylistsPage();
+        }
+        btn.disabled = true;
+        btn.textContent = 'Added';
+    });
+
+    playlistTracklist?.addEventListener('contextmenu', (e) => {
+        const item = e.target.closest('.track-item');
+        if (!item) return;
+        if (!playlistPickerOverlay) return;
+        item.dataset.context = 'playlist';
+    });
+
+    playlistPickerOverlay?.addEventListener('click', (e) => {
+        if (e.target === playlistPickerOverlay) {
+            hidePicker();
+        }
+    });
+
+    playlistPickerClose?.addEventListener('click', hidePicker);
+
+    playlistPickerList?.addEventListener('click', (e) => {
+        const btn = e.target.closest('.playlist-picker-item');
+        if (!btn) return;
+        const playlistId = btn.dataset.playlistId;
+        const trackId = playlistPickerOverlay.dataset.trackId;
+        if (!playlistId || !trackId) {
+            hidePicker();
+            return;
+        }
+        const track = window.pendingPlaylistTrack;
+        if (track) {
+            playlistManager.addTrack(playlistId, track);
+            if (ui.getActivePlaylistId() === playlistId) {
+                ui.renderPlaylistPage(playlistId);
+            }
+            if (window.location.hash === '#playlists') {
+                ui.renderPlaylistsPage();
+            }
+        }
+        window.pendingPlaylistTrack = null;
+        hidePicker();
+    });
+
+    playlistPickerCreateBtn?.addEventListener('click', async () => {
+        const track = window.pendingPlaylistTrack;
+        hidePicker(false);
+        const name = await dialogs.prompt({
+            title: 'New Playlist',
+            message: 'Give your playlist a name.',
+            confirmText: 'Create',
+            placeholder: 'Playlist name'
+        });
+        if (name === null) {
+            hidePicker();
+            return;
+        }
+        const playlist = playlistManager.createPlaylist(name);
+        if (track) {
+            playlistManager.addTrack(playlist.id, track);
+        }
+        ui.renderPlaylistsPage();
+        hidePicker();
+        window.location.hash = `#playlist/${playlist.id}`;
+    });
+
+    document.addEventListener('showPlaylistPicker', (e) => {
+        const { track } = e.detail || {};
+        if (!track) return;
+        window.pendingPlaylistTrack = track;
+        showPicker(track);
+    });
+}
+
+function playPlaylist(player, playlist, shuffle) {
+    const tracks = playlist.tracks.map(entry => entry.track || entry);
+    if (!tracks.length) return;
+    player.setQueue(tracks, 0);
+    const shuffleBtn = document.getElementById('shuffle-btn');
+    if (shuffle) {
+        player.shuffleActive = true;
+        player.originalQueueBeforeShuffle = [...tracks];
+        player.shuffledQueue = [...tracks].sort(() => Math.random() - 0.5);
+        player.currentQueueIndex = 0;
+        shuffleBtn?.classList.add('active');
+    } else {
+        player.shuffleActive = false;
+        player.shuffledQueue = [];
+        player.originalQueueBeforeShuffle = [];
+        shuffleBtn?.classList.remove('active');
+    }
+    player.playTrackFromQueue();
+    if (typeof window.renderQueueFunction === 'function') {
+        window.renderQueueFunction();
+    }
 }
 
 function showInstallPrompt(deferredPrompt) {

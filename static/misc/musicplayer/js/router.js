@@ -13,6 +13,12 @@ export function createRouter(ui) {
             case 'artist':
                 ui.renderArtistPage(param);
                 break;
+            case 'playlists':
+                ui.renderPlaylistsPage();
+                break;
+            case 'playlist':
+                ui.renderPlaylistPage(param);
+                break;
             case 'home':
                 ui.renderHomePage();
                 break;

@@ -4,20 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monochrome Music</title>
     <meta name="theme-color" content="#000000" />
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Monochrome">
-    <meta name="description" content="A minimalist music streaming application">
-    <link rel="apple-touch-icon" href="assets/logo.svg">
+    <meta name="apple-mobile-web-app-title" content="55GMS Music">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="/assets/js/script.js"></script>
+    <title>Google</title>
 </head>
 
 <body>
@@ -25,8 +25,40 @@
     <div id="context-menu">
         <ul>
             <li data-action="add-to-queue">Add to Queue</li>
+            <li data-action="add-to-playlist">Add to Playlist</li>
             <li data-action="download">Download</li>
+            <li data-action="remove-from-playlist" style="display: none;">Remove from Playlist</li>
         </ul>
+    </div>
+    <div id="app-dialog-overlay" class="app-dialog-overlay" style="display: none;">
+        <div class="app-dialog" role="dialog" aria-modal="true" aria-labelledby="app-dialog-title" aria-describedby="app-dialog-message">
+            <div class="app-dialog-header">
+                <h3 id="app-dialog-title"></h3>
+                <button id="app-dialog-close" type="button" class="dialog-close-btn" aria-label="Close">&times;</button>
+            </div>
+            <div class="app-dialog-body">
+                <p id="app-dialog-message"></p>
+                <div id="app-dialog-input-wrapper" class="app-dialog-input-wrapper" style="display: none;">
+                    <input id="app-dialog-input" type="text" autocomplete="off">
+                </div>
+            </div>
+            <div class="app-dialog-actions">
+                <button id="app-dialog-cancel" type="button" class="btn-secondary">Cancel</button>
+                <button id="app-dialog-confirm" type="button" class="btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+    <div id="playlist-picker-overlay" class="playlist-picker-overlay" style="display: none;">
+        <div class="playlist-picker-modal">
+            <div class="playlist-picker-header">
+                <h3>Add to Playlist</h3>
+                <button id="playlist-picker-close" type="button" title="Close">&times;</button>
+            </div>
+            <div class="playlist-picker-body">
+                <div id="playlist-picker-list" class="playlist-picker-list"></div>
+                <button id="playlist-picker-create" type="button" class="btn-secondary">Create New Playlist</button>
+            </div>
+        </div>
     </div>
     <div id="queue-modal-overlay" style="display: none;">
         <div id="queue-modal">
@@ -68,6 +100,19 @@
                                         d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                                 </svg>
                                 <span>Home</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#playlists">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                                </svg>
+                                <span>Playlists</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -117,6 +162,22 @@
                     <h2 class="section-title">Recent Artists</h2>
                     <div class="card-grid" id="home-recent-artists"></div>
                 </section>
+            </div>
+
+            <div id="page-playlists" class="page">
+                <div class="page-toolbar">
+                    <h2 class="section-title">Playlists</h2>
+                    <button id="create-playlist-btn" class="btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        <span>New Playlist</span>
+                    </button>
+                </div>
+                <div class="playlist-grid" id="playlists-list"></div>
             </div>
 
             <div id="page-search" class="page">
@@ -196,6 +257,74 @@
                 <section class="content-section">
                     <h2 class="section-title">Albums</h2>
                     <div class="card-grid" id="artist-detail-albums"></div>
+                </section>
+            </div>
+
+            <div id="page-playlist" class="page">
+                <header class="detail-header playlist-detail-header">
+                    <div class="playlist-detail-cover" id="playlist-detail-cover">PL</div>
+                    <div class="detail-header-info">
+                        <div class="type">Playlist</div>
+                        <h1 class="title" id="playlist-detail-title"></h1>
+                        <div class="meta" id="playlist-detail-meta"></div>
+                        <div class="detail-header-actions playlist-actions">
+                            <button id="playlist-play-btn" class="btn-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                                <span>Play</span>
+                            </button>
+                            <button id="playlist-shuffle-btn" class="btn-secondary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="m18 14 4 4-4 4" />
+                                    <path d="m18 2 4 4-4 4" />
+                                    <path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22" />
+                                    <path d="M2 6h1.972a4 4 0 0 1 3.6 2.2" />
+                                    <path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45" />
+                                </svg>
+                                <span>Shuffle</span>
+                            </button>
+                            <button id="playlist-rename-btn" class="btn-secondary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z" />
+                                    <path d="M14.06 4.94l3.75 3.75" />
+                                </svg>
+                                <span>Rename</span>
+                            </button>
+                            <button id="playlist-delete-btn" class="btn-danger">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6" />
+                                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                                    <path d="M10 11v6" />
+                                    <path d="M14 11v6" />
+                                    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                                </svg>
+                                <span>Delete</span>
+                            </button>
+                        </div>
+                    </div>
+                </header>
+                <section class="content-section">
+                    <h2 class="section-title">Tracks</h2>
+                    <div class="track-list" id="playlist-tracklist"></div>
+                </section>
+                <section class="content-section">
+                    <h2 class="section-title">Add Songs</h2>
+                    <div class="playlist-search">
+                        <form id="playlist-search-form" class="playlist-search-form">
+                            <input type="search" id="playlist-search-input" placeholder="Search songs to add..."
+                                autocomplete="off">
+                            <button type="submit" class="btn-secondary">Search</button>
+                        </form>
+                        <div id="playlist-search-results" class="playlist-search-results"></div>
+                    </div>
                 </section>
             </div>
 
