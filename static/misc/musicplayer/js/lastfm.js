@@ -1,5 +1,5 @@
 //lastfm.js
-import { delay } from './utils.js';
+import { delay } from './utils.js?v=1';
 
 export class LastFMScrobbler {
     constructor() {

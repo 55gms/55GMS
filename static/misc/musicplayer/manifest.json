@@ -1,6 +1,6 @@
 {
-  "name": "Monochrome Music",
-  "short_name": "Monochrome",
+  "name": "55GMS Music",
+  "short_name": "GMS Music",
   "description": "A minimalist music streaming application",
   "start_url": "/",
   "display": "standalone",
@@ -9,19 +9,19 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/assets/appicon.png",
+      "src": "assets/appicon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/assets/appicon.png",
+      "src": "assets/appicon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/assets/appicon.png",
+      "src": "assets/appicon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -36,10 +36,10 @@
       "name": "Search",
       "short_name": "Search",
       "description": "Search for music",
-      "url": "/search",
+      "url": "search",
       "icons": [
         {
-          "src": "/assets/96.png",
+          "src": "assets/96.png",
           "sizes": "96x96",
           "type": "image/png"
         }

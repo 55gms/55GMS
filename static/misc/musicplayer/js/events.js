@@ -1,7 +1,7 @@
-import { SVG_PLAY, SVG_PAUSE, SVG_VOLUME, SVG_MUTE, REPEAT_MODE, trackDataStore, RATE_LIMIT_ERROR_MESSAGE, buildTrackFilename } from './utils.js';
-import { lastFMStorage } from './storage.js';
-import { addDownloadTask, updateDownloadProgress, completeDownloadTask } from './downloads.js';
-import { updateTabTitle } from './router.js';
+import { SVG_PLAY, SVG_PAUSE, SVG_VOLUME, SVG_MUTE, REPEAT_MODE, trackDataStore, RATE_LIMIT_ERROR_MESSAGE, buildTrackFilename } from './utils.js?v=1';
+import { lastFMStorage } from './storage.js?v=1';
+import { addDownloadTask, updateDownloadProgress, completeDownloadTask } from './downloads.js?v=1';
+import { updateTabTitle } from './router.js?v=1';
 
 export function initializePlayerEvents(player, audioPlayer, scrobbler) {
     const playPauseBtn = document.querySelector('.play-pause-btn');

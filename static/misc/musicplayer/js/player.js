@@ -1,4 +1,4 @@
-import { REPEAT_MODE, formatTime, getTrackArtists, getTrackTitle} from './utils.js';
+import { REPEAT_MODE, formatTime, getTrackArtists, getTrackTitle} from './utils.js?v=1';
 
 export class Player {
     constructor(audioElement, api, quality = 'LOW') {

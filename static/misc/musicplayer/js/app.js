@@ -1,15 +1,15 @@
-import { LosslessAPI } from '/misc/musicplayer/js/api.js';
-import { apiSettings, themeManager, nowPlayingSettings } from '/misc/musicplayer/js/storage.js';
-import { UIRenderer } from '/misc/musicplayer/js/ui.js';
-import { Player } from '/misc/musicplayer/js/player.js';
-import { LastFMScrobbler } from '/misc/musicplayer/js/lastfm.js';
-import { LyricsManager, createLyricsPanel, showKaraokeView } from '/misc/musicplayer/js/lyrics.js';
-import { createRouter, updateTabTitle } from '/misc/musicplayer/js/router.js';
-import { initializeSettings } from '/misc/musicplayer/js/settings.js';
-import { initializePlayerEvents, initializeTrackInteractions } from '/misc/musicplayer/js/events.js';
-import { initializeUIInteractions } from '/misc/musicplayer/js/ui-interactions.js';
-import { downloadAlbumAsZip, downloadDiscography, downloadCurrentTrack } from '/misc/musicplayer/js/downloads.js';
-import { SVG_PLAY } from '/misc/musicplayer/js/utils.js';
+import { LosslessAPI } from '/misc/musicplayer/js/api.js?v=1';
+import { apiSettings, themeManager, nowPlayingSettings } from '/misc/musicplayer/js/storage.js?v=1';
+import { UIRenderer } from '/misc/musicplayer/js/ui.js?v=1';
+import { Player } from '/misc/musicplayer/js/player.js?v=1';
+import { LastFMScrobbler } from '/misc/musicplayer/js/lastfm.js?v=1';
+import { LyricsManager, createLyricsPanel, showKaraokeView } from '/misc/musicplayer/js/lyrics.js?v=1';
+import { createRouter, updateTabTitle } from '/misc/musicplayer/js/router.js?v=1';
+import { initializeSettings } from '/misc/musicplayer/js/settings.js?v=1';
+import { initializePlayerEvents, initializeTrackInteractions } from '/misc/musicplayer/js/events.js?v=1';
+import { initializeUIInteractions } from '/misc/musicplayer/js/ui-interactions.js?v=1';
+import { downloadAlbumAsZip, downloadDiscography, downloadCurrentTrack } from '/misc/musicplayer/js/downloads.js?v=1';
+import { SVG_PLAY } from '/misc/musicplayer/js/utils.js?v=1';
 
 function initializeCasting(audioPlayer, castBtn) {
     if (!castBtn) return;
@@ -415,7 +415,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Service Worker
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/misc/musicplayer/js/sw.js')
+            navigator.serviceWorker.register('/misc/musicplayer/js/sw.js?v=1')
                 .then(reg => {
                     console.log('Service worker registered');
                     
@@ -464,33 +464,7 @@ function showUpdateNotification() {
 }
 
 function showInstallPrompt(deferredPrompt) {
-    if (!deferredPrompt) return;
-    
-    const notification = document.createElement('div');
-    notification.className = 'install-prompt';
-    notification.innerHTML = `
-        <div>
-            <strong>Install Monochrome</strong>
-            <p>Install this app for a better experience.</p>
-        </div>
-        <div style="display: flex; gap: 0.5rem;">
-            <button class="btn-secondary" id="install-btn">Install</button>
-            <button class="btn-secondary" id="dismiss-install">Dismiss</button>
-        </div>
-    `;
-    document.body.appendChild(notification);
-    
-    document.getElementById('install-btn').addEventListener('click', async () => {
-        notification.remove();
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`User response to install prompt: ${outcome}`);
-        deferredPrompt = null;
-    });
-    
-    document.getElementById('dismiss-install').addEventListener('click', () => {
-        notification.remove();
-    });
+    // hello
 }
 
 function showKeyboardShortcuts() {

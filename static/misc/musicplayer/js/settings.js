@@ -1,4 +1,4 @@
-import { themeManager, lastFMStorage, nowPlayingSettings, lyricsSettings } from './storage.js';
+import { themeManager, lastFMStorage, nowPlayingSettings, lyricsSettings } from './storage.js?v=1';
 
 export function initializeSettings(scrobbler, player, api, ui) {
     const lastfmConnectBtn = document.getElementById('lastfm-connect-btn');

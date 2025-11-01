@@ -1,4 +1,4 @@
-import { formatTime, trackDataStore, getTrackTitle, getTrackArtists } from './utils.js';
+import { formatTime, trackDataStore, getTrackTitle, getTrackArtists } from './utils.js?v=1';
 
 export function initializeUIInteractions(player, api) {
     const sidebar = document.querySelector('.sidebar');

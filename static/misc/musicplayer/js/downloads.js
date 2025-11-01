@@ -1,5 +1,5 @@
-import { buildTrackFilename, sanitizeForFilename, RATE_LIMIT_ERROR_MESSAGE, getTrackArtists, getTrackTitle, formatTemplate } from './utils.js';
-import { lyricsSettings } from './storage.js';
+import { buildTrackFilename, sanitizeForFilename, RATE_LIMIT_ERROR_MESSAGE, getTrackArtists, getTrackTitle, formatTemplate } from './utils.js?v=1';
+import { lyricsSettings } from './storage.js?v=1';
 
 const downloadTasks = new Map();
 let downloadNotificationContainer = null;

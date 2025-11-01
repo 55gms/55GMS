@@ -1,4 +1,4 @@
-import { getTrackTitle, getTrackArtists } from './utils.js';
+import { getTrackTitle, getTrackArtists } from './utils.js?v=1';
 
 export class LyricsManager {
     constructor(api) {

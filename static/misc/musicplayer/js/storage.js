@@ -15,7 +15,6 @@ export const apiSettings = {
                 `${url}/api/music/url=https://wolf.qqdl.site/`,
                 `${url}/api/music/url=https://maus.qqdl.site/`,
                 `${url}/api/music/url=https://vogel.qqdl.site/`,
-                `${url}/api/music/url=https://katze.qqdl.site/`,
                 `${url}/api/music/url=https://hund.qqdl.site/`,
             ];
             this.instancesLoaded = true;

@@ -1,5 +1,5 @@
-import { formatTime, createPlaceholder, trackDataStore, hasExplicitContent, getTrackArtists, getTrackTitle, calculateTotalDuration, formatDuration } from './utils.js';
-import { recentActivityManager } from './storage.js';
+import { formatTime, createPlaceholder, trackDataStore, hasExplicitContent, getTrackArtists, getTrackTitle, calculateTotalDuration, formatDuration } from './utils.js?v=1';
+import { recentActivityManager } from './storage.js?v=1';
 
 export class UIRenderer {
     constructor(api) {
