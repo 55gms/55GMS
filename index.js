@@ -9,6 +9,7 @@ import cors from "cors";
 import "dotenv/config";
 import { Op } from "sequelize";
 import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
+import axios from "axios";
 
 const require = createRequire(import.meta.url);
 const { epoxyPath } = require("@mercuryworkshop/epoxy-transport");
@@ -66,6 +67,16 @@ try {
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ extended: true, limit: "50mb" }));
   app.use(cors());
+
+  app.get('/api/quote', async (req, res) => {
+    try {
+      const { data } = await axios.get('https://zenquotes.io/api/today');
+      res.json(data);
+    } catch (error) {
+      console.error('Error fetching quote:', error);
+      res.status(500).json({ error: 'Failed to fetch quote' });
+    }
+  });
 
   app.use((req, res, next) => {
     if (path.extname(req.url) === ".js") {
