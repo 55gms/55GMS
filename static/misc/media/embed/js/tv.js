@@ -14,5 +14,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
  function play() {
-  location.href = `/embed.html#https://player.videasy.net/tv/${ID}/${season}/${episode}`;
+  location.href = `/embed.html#https://vidfast.pro/tv/${ID}/${season}/${episode}`;
 }

@@ -4,7 +4,7 @@ async function getMovie() {
     window.location.href = "/";
     return;
   }
-  url = `/embed.html#https://player.videasy.net/movie/${ID}?title=false`;
+  url = `/embed.html#https://vidfast.pro/movie/${ID}?title=false`;
   location.href = url;
 }
 
