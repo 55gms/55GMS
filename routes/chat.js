@@ -33,7 +33,7 @@ async function chatPlugin(fastify, opts) {
             Authorization: `Bearer ${process.env.API_KEY}`,
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       if (response.status === 429) {
@@ -63,7 +63,7 @@ async function chatPlugin(fastify, opts) {
               Authorization: `Bearer ${randomAPIKey}`, // undefined variable
               "Content-Type": "application/json",
             },
-          }
+          },
         );
         const aiResponse = responseRetry.data.choices[0].message.content;
         conversation.push({ role: "assistant", content: aiResponse });

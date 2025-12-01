@@ -120,11 +120,11 @@ export default async function (fastify, opts) {
     reply.header("Access-Control-Allow-Methods", "GET, OPTIONS, HEAD");
     reply.header(
       "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Referer, User-Agent, Range"
+      "Origin, X-Requested-With, Content-Type, Accept, Referer, User-Agent, Range",
     );
     reply.header(
       "Access-Control-Expose-Headers",
-      "Accept-Ranges, Content-Length, Content-Range, Content-Type, ETag, Cache-Control"
+      "Accept-Ranges, Content-Length, Content-Range, Content-Type, ETag, Cache-Control",
     );
 
     // Handle preflight OPTIONS request
@@ -213,7 +213,7 @@ export default async function (fastify, opts) {
 
       return reply.send(response.data);
     } catch (error) {
-        // Fastify: if headers are not sent yet
+      // Fastify: if headers are not sent yet
       if (!reply.raw.headersSent) {
         reply.code(error.response?.status || 500).send({
           error: error.message,

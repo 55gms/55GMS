@@ -157,7 +157,6 @@ try {
     reply.status(404).sendFile("404.html");
   });
 
-
   io.on("connection", (socket) => {
     socket.on("authenticate", async (data) => {
       try {
@@ -383,7 +382,6 @@ try {
     }
   }, 60000);
 
-
   fastify.ready().then(() => {
     // Wisp/Epoxy/Baremux/Scramjet handling
     // We attach upgrade listeners to the underlying node server
@@ -396,7 +394,6 @@ try {
       }
     });
   });
-
 
   function shutdown(signal) {
     console.log("-----------------------------------------------");
@@ -414,7 +411,7 @@ try {
 
   const start = async () => {
     try {
-      await fastify.listen({ port: process.env.PORT || 8080, host: '0.0.0.0' });
+      await fastify.listen({ port: process.env.PORT || 8080, host: "0.0.0.0" });
       console.log(`\n------------------------------------`);
       console.log(`🔗 URL: http://localhost:${process.env.PORT || 8080}`);
       console.log(`------------------------------------\n`);
@@ -425,7 +422,6 @@ try {
   };
 
   start();
-
 } catch (e) {
   console.error("Failed to start server:", e);
   process.exit(1);

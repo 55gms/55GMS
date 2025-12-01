@@ -25,7 +25,7 @@ export default async function (fastify, opts) {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-        }
+        },
       );
 
       if (!captchaVerifyResponse.data.success) {
@@ -45,7 +45,7 @@ export default async function (fastify, opts) {
             Authorization: process.env.workerAUTH,
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       reply.code(200).send(response.data);
@@ -76,7 +76,7 @@ export default async function (fastify, opts) {
             Authorization: process.env.workerAUTH,
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       reply.code(200).send(response.data);

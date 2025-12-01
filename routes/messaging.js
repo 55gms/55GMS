@@ -70,7 +70,7 @@ export default async function (fastify, opts) {
           } catch (error) {
             console.error(
               `Error fetching user data for ${member.userUuid}:`,
-              error
+              error,
             );
           }
 
@@ -82,7 +82,7 @@ export default async function (fastify, opts) {
           } catch (error) {
             console.error(
               `Error fetching user status for ${member.userUuid}:`,
-              error
+              error,
             );
           }
 
@@ -94,7 +94,7 @@ export default async function (fastify, opts) {
             status: userStatus,
             joinedAt: member.createdAt,
           };
-        })
+        }),
       );
 
       reply.send({
@@ -145,12 +145,12 @@ export default async function (fastify, opts) {
           // For direct messages, get the other user's username
           if (chat.type === "direct") {
             const otherMember = chat.members.find(
-              (m) => m.userUuid !== req.userUuid
+              (m) => m.userUuid !== req.userUuid,
             );
             if (otherMember) {
               try {
                 const userResponse = await userCache.getUserByUuid(
-                  otherMember.userUuid
+                  otherMember.userUuid,
                 );
                 chatName = userResponse.username;
                 const status = await UserStatus.findOne({
@@ -173,7 +173,7 @@ export default async function (fastify, opts) {
                 .map(async (member) => {
                   try {
                     const userResponse = await userCache.getUserByUuid(
-                      member.userUuid
+                      member.userUuid,
                     );
                     const status = await UserStatus.findOne({
                       where: { userUuid: member.userUuid },
@@ -190,7 +190,7 @@ export default async function (fastify, opts) {
                       isOnline: false,
                     };
                   }
-                })
+                }),
             );
           }
 
@@ -202,12 +202,12 @@ export default async function (fastify, opts) {
             unreadCount: await getUnreadMessageCount(
               chat.id,
               req.userUuid,
-              chatMember.lastReadAt
+              chatMember.lastReadAt,
             ),
             members: otherUsersOnline,
             lastActivity: chat.lastActivity,
           };
-        })
+        }),
       );
 
       reply.send(chatsWithUsernames);
@@ -257,13 +257,13 @@ export default async function (fastify, opts) {
               senderUsername: "Unknown User",
             };
           }
-        })
+        }),
       );
 
       // Update last read timestamp
       await ChatMember.update(
         { lastReadAt: new Date() },
-        { where: { chatId, userUuid: req.userUuid } }
+        { where: { chatId, userUuid: req.userUuid } },
       );
 
       reply.send(messagesWithUsernames.reverse()); // Return in chronological order
@@ -284,11 +284,9 @@ export default async function (fastify, opts) {
       }
 
       if (content.length > 2000) {
-        return reply
-          .code(400)
-          .send({
-            error: "Message too long. Maximum 2000 characters allowed.",
-          });
+        return reply.code(400).send({
+          error: "Message too long. Maximum 2000 characters allowed.",
+        });
       }
 
       // Sanitize content
@@ -320,7 +318,7 @@ export default async function (fastify, opts) {
           // Use the blocking cache to check blocking status
           const blockingStatus = await blockingCache.getBlockingStatus(
             req.userUuid,
-            otherMember.userUuid
+            otherMember.userUuid,
           );
 
           if (blockingStatus.blockedByOther) {
@@ -367,7 +365,7 @@ export default async function (fastify, opts) {
       // Update chat's last activity
       await Chat.update(
         { lastActivity: new Date() },
-        { where: { id: chatId } }
+        { where: { id: chatId } },
       );
 
       // Get sender username
@@ -410,7 +408,9 @@ export default async function (fastify, opts) {
       }
 
       if (otherUserUuid === req.userUuid) {
-        return reply.code(400).send({ error: "Cannot create chat with yourself" });
+        return reply
+          .code(400)
+          .send({ error: "Cannot create chat with yourself" });
       }
 
       // Check if direct chat already exists
@@ -442,7 +442,7 @@ export default async function (fastify, opts) {
         (chatId) =>
           chatCounts[chatId].length === 2 &&
           chatCounts[chatId].includes(req.userUuid) &&
-          chatCounts[chatId].includes(otherUserUuid)
+          chatCounts[chatId].includes(otherUserUuid),
       );
 
       if (existingChatId) {
@@ -630,7 +630,7 @@ export default async function (fastify, opts) {
               lastSeen: null,
             };
           }
-        })
+        }),
       );
 
       reply.send(friendsWithUsernames);
@@ -723,7 +723,7 @@ export default async function (fastify, opts) {
         let friendUsername = "Unknown User";
         try {
           const userResponse = await getUsernameByUuid(
-            friendship.requesterUuid
+            friendship.requesterUuid,
           );
           friendUsername = userResponse.username;
         } catch (error) {
@@ -875,7 +875,7 @@ export default async function (fastify, opts) {
         blockedFriendships.map(async (friendship) => {
           try {
             const userResponse = await getUsernameByUuid(
-              friendship.addresseeUuid
+              friendship.addresseeUuid,
             );
             return {
               uuid: friendship.addresseeUuid,
@@ -887,7 +887,7 @@ export default async function (fastify, opts) {
               username: "Unknown User",
             };
           }
-        })
+        }),
       );
 
       reply.send(blockedUsers);
@@ -925,7 +925,7 @@ export default async function (fastify, opts) {
               createdAt: request.createdAt,
             };
           }
-        })
+        }),
       );
 
       reply.send(requestsWithUsernames);
