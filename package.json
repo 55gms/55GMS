@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fastify/cors": "^11.1.0",
+    "@fastify/formbody": "^8.0.2",
+    "@fastify/static": "^8.3.0",
     "@mercuryworkshop/bare-mux": "^2.1.7",
     "@mercuryworkshop/epoxy-transport": "^2.1.28",
     "@mercuryworkshop/scramjet": "https://github.com/MercuryWorkshop/scramjet/releases/download/latest/mercuryworkshop-scramjet-2.0.0-alpha.tgz",
@@ -18,7 +21,7 @@
     "cors": "^2.8.5",
     "dompurify": "^3.2.6",
     "dotenv": "^16.4.5",
-    "express": "^4.21.2",
+    "fastify": "^5.6.2",
     "i": "^0.3.7",
     "isomorphic-dompurify": "^2.26.0",
     "jquery": "^3.7.1",

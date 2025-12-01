@@ -1,11 +1,12 @@
-import express from "express";
-import { createServer } from "http";
+import Fastify from "fastify";
+import fastifyStatic from "@fastify/static";
+import fastifyCors from "@fastify/cors";
+import fastifyFormbody from "@fastify/formbody";
 import { Server as SocketIO } from "socket.io";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { createRequire } from "module";
-import cors from "cors";
 import "dotenv/config";
 import { Op } from "sequelize";
 import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
@@ -40,20 +41,52 @@ try {
 
   const modelManager = new ModelManager();
 
-  const app = express();
-  app.use("/epoxy/", express.static(epoxyPath));
-  app.use("/baremux/", express.static(baremuxPath));
-  app.use("/scram/", express.static(scramjetPath));
-  const server = createServer(app);
+  const fastify = Fastify({
+    bodyLimit: 52428800, // 50MB
+  });
 
-  const io = new SocketIO({
+  // Static file serving
+  fastify.register(fastifyStatic, {
+    root: epoxyPath,
+    prefix: "/epoxy/",
+    decorateReply: false,
+    list: true,
+  });
+  fastify.register(fastifyStatic, {
+    root: baremuxPath,
+    prefix: "/baremux/",
+    decorateReply: false,
+    list: true,
+  });
+  fastify.register(fastifyStatic, {
+    root: scramjetPath,
+    prefix: "/scram/",
+    decorateReply: false,
+    list: true,
+  });
+  fastify.register(fastifyStatic, {
+    root: path.join(__dirname, "static"),
+    prefix: "/",
+  });
+
+  // Plugins
+  fastify.register(fastifyFormbody);
+  fastify.register(fastifyCors);
+
+  // Routes
+  fastify.register(authRoutes, { prefix: "/api" });
+  fastify.register(userRoutes, { prefix: "/api" });
+  fastify.register(messagingRoutes, { prefix: "/api" });
+  fastify.register(chatRoutes, { prefix: "/api" });
+  fastify.register(searchRoutes, { prefix: "/api" });
+  fastify.register(proxyRoutes, { prefix: "/api/music" });
+
+  const io = new SocketIO(fastify.server, {
     cors: {
       origin: "*",
       methods: ["GET", "POST"],
     },
   });
-
-  io.attach(server);
 
   const activeConversations = new Map();
   const connectedUsers = new Map();
@@ -63,23 +96,67 @@ try {
 
   initializeChatRoute(modelManager, activeConversations);
 
-  app.use(express.json({ limit: "50mb" }));
-  app.use(express.urlencoded({ extended: true, limit: "50mb" }));
-  app.use(cors());
+  // Custom static file handler for extensionless URLs
+  // The original express code did this:
+  // 1. serve static files (via express.static)
+  // 2. if GET and no extension, try to serve url + .html
+  // 3. define specific routes like /a -> apps.html
+  // 4. /chat/:chatId -> chat.html
+  // 5. 404 handler
 
-  app.use((req, res, next) => {
-    if (path.extname(req.url) === ".js") {
-      res.setHeader("Content-Type", "application/javascript");
-    }
-    next();
+  // In Fastify, @fastify/static handles #1.
+  // For #3 and #4, we can define routes.
+  // For #2, we can use setNotFoundHandler or a wildcard route, but let's try to map the specific routes first.
+
+  const routes = [
+    { path: "/a", file: "apps.html" },
+    { path: "/g", file: "games.html" },
+    { path: "/s", file: "settings.html" },
+    { path: "/!", file: "proxy.html" },
+    { path: "/", file: "index.html" },
+    { path: "/d", file: "dashboard.html" },
+    { path: "/e", file: "ai.html" },
+    { path: "/-", file: "media.html" },
+    { path: "/m", file: "media.html" },
+    { path: "/profile", file: "account.html" },
+    { path: "/login", file: "login.html" },
+    { path: "/signup", file: "signup.html" },
+    { path: "/l", file: "/assets/404/loading.html" },
+    { path: "/c", file: "chat.html" },
+    { path: "/chat", file: "chat.html" },
+  ];
+
+  routes.forEach((route) => {
+    fastify.get(route.path, (req, reply) => {
+      reply.sendFile(route.file);
+    });
   });
 
-  app.use("/api", authRoutes);
-  app.use("/api", userRoutes);
-  app.use("/api", messagingRoutes);
-  app.use("/api", chatRoutes);
-  app.use("/api", searchRoutes);
-  app.use("/api/music", proxyRoutes);
+  fastify.get("/chat/:chatId", (req, reply) => {
+    reply.sendFile("chat.html");
+  });
+
+  // Javascript MIME type handling was done via middleware in Express:
+  // app.use((req, res, next) => { if (path.extname(req.url) === ".js") ... })
+  // Fastify/static usually handles this correctly.
+
+  // The "extensionless -> .html" fallback (#2)
+  fastify.setNotFoundHandler(async (req, reply) => {
+    if (req.method === "GET" && !path.extname(req.url)) {
+      const potentialFile = path.join(__dirname, "static", req.url + ".html");
+      const require = createRequire(import.meta.url);
+      const fs = require("fs").promises;
+
+      try {
+        await fs.access(potentialFile);
+        return reply.sendFile(req.url + ".html");
+      } catch (err) {
+        // File doesn't exist, proceed to 404
+      }
+    }
+    reply.status(404).sendFile("404.html");
+  });
+
 
   io.on("connection", (socket) => {
     socket.on("authenticate", async (data) => {
@@ -306,74 +383,26 @@ try {
     }
   }, 60000);
 
-  app.use(express.static(path.join(__dirname, "static")));
-  app.use((req, res, next) => {
-    if (req.method === "GET" && !path.extname(req.url)) {
-      const filePath = path.join(__dirname, "static", req.url + ".html");
-      res.sendFile(filePath, (err) => {
-        if (err) {
-          next();
-        }
-      });
-    } else {
-      next();
-    }
-  });
 
-  const routes = [
-    { path: "/a", file: "apps.html" },
-    { path: "/g", file: "games.html" },
-    { path: "/s", file: "settings.html" },
-    { path: "/!", file: "proxy.html" },
-    { path: "/", file: "index.html" },
-    { path: "/d", file: "dashboard.html" },
-    { path: "/e", file: "ai.html" },
-    { path: "/-", file: "media.html" },
-    { path: "/m", file: "media.html" },
-    { path: "/profile", file: "account.html" },
-    { path: "/login", file: "login.html" },
-    { path: "/signup", file: "signup.html" },
-    { path: "/l", file: "/assets/404/loading.html" },
-    { path: "/c", file: "chat.html" },
-    { path: "/chat", file: "chat.html" },
-  ];
-
-  routes.forEach((route) => {
-    app.get(route.path, (req, res) => {
-      res.sendFile(path.join(__dirname, "static", route.file));
+  fastify.ready().then(() => {
+    // Wisp/Epoxy/Baremux/Scramjet handling
+    // We attach upgrade listeners to the underlying node server
+    fastify.server.removeAllListeners("upgrade");
+    fastify.server.on("upgrade", (req, socket, head) => {
+      if (req.url.startsWith("/wisp/")) {
+        wisp.routeRequest(req, socket, head);
+      } else {
+        io.engine.handleUpgrade(req, socket, head);
+      }
     });
   });
 
-  app.get("/chat/:chatId", (req, res) => {
-    res.sendFile(path.join(__dirname, "static", "chat.html"));
-  });
-
-  app.use((req, res) => {
-    const notFoundPage = path.join(__dirname, "static", "404.html");
-    res.status(404).sendFile(notFoundPage);
-  });
-
-  server.removeAllListeners("upgrade");
-
-  server.on("upgrade", (req, socket, head) => {
-    if (req.url.startsWith("/wisp/")) {
-      wisp.routeRequest(req, socket, head);
-    } else {
-      io.engine.handleUpgrade(req, socket, head);
-    }
-  });
-
-  server.on("listening", () => {
-    console.log(`\n------------------------------------`);
-    console.log(`🔗 URL: http://localhost:${process.env.PORT}`);
-    console.log(`------------------------------------\n`);
-  });
 
   function shutdown(signal) {
     console.log("-----------------------------------------------");
     console.log(`  Shutting Down (Signal: ${signal})  `);
     console.log("-----------------------------------------------\n");
-    server.close(() => {
+    fastify.close(() => {
       console.log("  55GMS has shut down.");
       io.close();
       process.exit(0);
@@ -383,13 +412,20 @@ try {
   process.on("SIGTERM", () => shutdown("SIGTERM"));
   process.on("SIGINT", () => shutdown("SIGINT"));
 
-  server.listen({
-    port: process.env.PORT || 8080,
-  });
+  const start = async () => {
+    try {
+      await fastify.listen({ port: process.env.PORT || 8080, host: '0.0.0.0' });
+      console.log(`\n------------------------------------`);
+      console.log(`🔗 URL: http://localhost:${process.env.PORT || 8080}`);
+      console.log(`------------------------------------\n`);
+    } catch (err) {
+      console.error("Failed to start server:", err);
+      process.exit(1);
+    }
+  };
 
-  server.on("error", (error) => {
-    console.error("Server error:", error);
-  });
+  start();
+
 } catch (e) {
   console.error("Failed to start server:", e);
   process.exit(1);
