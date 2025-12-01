@@ -17,7 +17,17 @@ router.post("/chat", async (req, res) => {
     return res.status(400).json({ error: "Not enough arguments" });
   }
 
-  let conversation = activeConversations.get(userId) || [];
+  let conversationData = activeConversations.get(userId) || {
+    history: [],
+    lastActive: Date.now(),
+  };
+
+  // If we fetched a raw array (legacy data from before restart), wrap it
+  if (Array.isArray(conversationData)) {
+    conversationData = { history: conversationData, lastActive: Date.now() };
+  }
+
+  let conversation = conversationData.history;
   conversation.push({ role: "user", content: message });
 
   try {
@@ -64,7 +74,10 @@ router.post("/chat", async (req, res) => {
         modelManager.switchModel();
       }
 
-      activeConversations.set(userId, conversation);
+      activeConversations.set(userId, {
+        history: conversation,
+        lastActive: Date.now(),
+      });
 
       res.json({ response: aiResponse });
     }
@@ -79,7 +92,10 @@ router.post("/chat", async (req, res) => {
       modelManager.switchModel();
     }
 
-    activeConversations.set(userId, conversation);
+    activeConversations.set(userId, {
+      history: conversation,
+      lastActive: Date.now(),
+    });
 
     res.json({ response: aiResponse });
   } catch (error) {
