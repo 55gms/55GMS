@@ -1,18 +1,16 @@
-import express from "express";
-const router = express.Router();
+export default async function (fastify, opts) {
+  fastify.get("/autocomplete", async (req, reply) => {
+    const q = req.query.q || "";
+    const duckUrl = `https://duckduckgo.com/ac/?q=${encodeURIComponent(q)}`;
 
-router.get("/autocomplete", async (req, res) => {
-  const q = req.query.q || "";
-  const duckUrl = `https://duckduckgo.com/ac/?q=${encodeURIComponent(q)}`;
+    try {
+      const response = await fetch(duckUrl);
+      const data = await response.json();
 
-  try {
-    const response = await fetch(duckUrl);
-    const data = await response.json();
-
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.json(data);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch suggestions" });
-  }
-});
-export default router;
+      reply.header("Access-Control-Allow-Origin", "*");
+      reply.send(data);
+    } catch (err) {
+      reply.code(500).send({ error: "Failed to fetch suggestions" });
+    }
+  });
+}

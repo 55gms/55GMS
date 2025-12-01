@@ -1,9 +1,6 @@
-import express from "express";
 import axios from "axios";
 import http from "http";
 import https from "https";
-
-const router = express.Router();
 
 const allowedHosts = [
   "wolf.qqdl.site",
@@ -116,113 +113,114 @@ function getStreamingHeaders(responseHeaders) {
   return headers;
 }
 
-router.all("/*", async (req, res) => {
-  // Set CORS headers immediately
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, OPTIONS, HEAD");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Referer, User-Agent, Range",
-  );
-  res.header(
-    "Access-Control-Expose-Headers",
-    "Accept-Ranges, Content-Length, Content-Range, Content-Type, ETag, Cache-Control",
-  );
+export default async function (fastify, opts) {
+  fastify.all("/*", async (req, reply) => {
+    // Set CORS headers immediately
+    reply.header("Access-Control-Allow-Origin", "*");
+    reply.header("Access-Control-Allow-Methods", "GET, OPTIONS, HEAD");
+    reply.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Referer, User-Agent, Range"
+    );
+    reply.header(
+      "Access-Control-Expose-Headers",
+      "Accept-Ranges, Content-Length, Content-Range, Content-Type, ETag, Cache-Control"
+    );
 
-  // Handle preflight OPTIONS request
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
+    // Handle preflight OPTIONS request
+    if (req.method === "OPTIONS") {
+      return reply.code(200).send();
+    }
 
-  let targetUrl = req.params[0];
-  if (req.query.url) {
-    targetUrl = req.query.url;
-  } else if (targetUrl && targetUrl.startsWith("url=")) {
-    targetUrl = targetUrl.substring(4);
-  }
+    let targetUrl = req.params["*"];
+    if (req.query.url) {
+      targetUrl = req.query.url;
+    } else if (targetUrl && targetUrl.startsWith("url=")) {
+      targetUrl = targetUrl.substring(4);
+    }
 
-  if (!targetUrl) {
-    return res.status(400).send("Target URL is required.");
-  }
+    if (!targetUrl) {
+      return reply.code(400).send("Target URL is required.");
+    }
 
-  if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
-    targetUrl = "https://" + targetUrl;
-  }
+    if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
+      targetUrl = "https://" + targetUrl;
+    }
 
-  if (targetUrl.endsWith("/track")) {
-    targetUrl += "/";
-  }
+    if (targetUrl.endsWith("/track")) {
+      targetUrl += "/";
+    }
 
-  let url;
-  try {
-    url = new URL(targetUrl);
-  } catch (error) {
-    return res.status(400).send("Invalid URL format.");
-  }
-
-  if (!isAllowedHost(url.hostname)) {
-    return res.status(403).send("Host is not allowed.");
-  }
-
-  // Handle HEAD requests for metadata
-  if (req.method === "HEAD") {
+    let url;
     try {
-      const headResponse = await axiosInstance.head(targetUrl, {
-        headers: getRequestHeaders(req),
-        timeout: 10000, // Shorter timeout for HEAD requests
-      });
-
-      const headers = getStreamingHeaders(headResponse.headers);
-      res.status(headResponse.status).set(headers).end();
+      url = new URL(targetUrl);
     } catch (error) {
-      res.status(error.response?.status || 500).end();
+      return reply.code(400).send("Invalid URL format.");
     }
-    return;
-  }
 
-  try {
-    const isRangeRequest = !!req.headers.range;
+    if (!isAllowedHost(url.hostname)) {
+      return reply.code(403).send("Host is not allowed.");
+    }
 
-    const requestHeaders = getRequestHeaders(req);
+    // Handle HEAD requests for metadata
+    if (req.method === "HEAD") {
+      try {
+        const headResponse = await axiosInstance.head(targetUrl, {
+          headers: getRequestHeaders(req),
+          timeout: 10000, // Shorter timeout for HEAD requests
+        });
 
-    const response = await axiosInstance.get(targetUrl, {
-      responseType: "stream",
-      headers: requestHeaders,
-      validateStatus: function (status) {
-        return status < 400;
-      },
-      maxContentLength: Infinity,
-      maxBodyLength: Infinity,
-      decompress: false,
-    });
-
-    const streamingHeaders = getStreamingHeaders(response.headers);
-
-    res.status(response.status);
-    res.set(streamingHeaders);
-
-    response.data.on("error", (error) => {
-      if (!res.headersSent) {
-        res.status(500).send("Stream error");
+        const headers = getStreamingHeaders(headResponse.headers);
+        reply.code(headResponse.status).headers(headers).send();
+      } catch (error) {
+        reply.code(error.response?.status || 500).send();
       }
-    });
+      return;
+    }
 
-    req.on("close", () => {
-      if (response.data && typeof response.data.destroy === "function") {
-        response.data.destroy();
-      }
-    });
+    try {
+      const isRangeRequest = !!req.headers.range;
 
-    response.data.pipe(res, { end: true });
-  } catch (error) {
-    if (!res.headersSent) {
-      res.status(error.response?.status || 500).json({
-        error: error.message,
-        status: error.response?.status || "unknown",
-        code: error.code,
+      const requestHeaders = getRequestHeaders(req);
+
+      const response = await axiosInstance.get(targetUrl, {
+        responseType: "stream",
+        headers: requestHeaders,
+        validateStatus: function (status) {
+          return status < 400;
+        },
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity,
+        decompress: false,
       });
-    }
-  }
-});
 
-export default router;
+      const streamingHeaders = getStreamingHeaders(response.headers);
+
+      reply.code(response.status);
+      reply.headers(streamingHeaders);
+
+      response.data.on("error", (error) => {
+        // Fastify handles errors in streams usually, but if headers are sent it might be tricky.
+        // We can just log it here.
+        console.error("Stream error", error);
+      });
+
+      req.raw.on("close", () => {
+        if (response.data && typeof response.data.destroy === "function") {
+          response.data.destroy();
+        }
+      });
+
+      return reply.send(response.data);
+    } catch (error) {
+        // Fastify: if headers are not sent yet
+      if (!reply.raw.headersSent) {
+        reply.code(error.response?.status || 500).send({
+          error: error.message,
+          status: error.response?.status || "unknown",
+          code: error.code,
+        });
+      }
+    }
+  });
+}
