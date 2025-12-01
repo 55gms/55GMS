@@ -33,9 +33,9 @@ window.addEventListener("load", (event) => {
       document.getElementById("motd").onclick = () =>
         createModal(
           "motd",
-          "Message Of The Day",
-          data.motd.body,
-          data.motd.footer,
+          "Word Of The Day",
+          data.qotd.body,
+          data.qotd.footer,
         );
       document.getElementById("qotd").onclick = () =>
         createModal(
