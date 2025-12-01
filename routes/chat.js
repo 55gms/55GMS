@@ -44,7 +44,7 @@ router.post("/chat", async (req, res) => {
           Authorization: `Bearer ${process.env.API_KEY}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
     if (response.status === 429) {
       modelManager.switchModel();
@@ -61,7 +61,7 @@ router.post("/chat", async (req, res) => {
             Authorization: `Bearer ${randomAPIKey}`,
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       const aiResponse = response.data.choices[0].message.content;
       conversation.push({ role: "assistant", content: aiResponse });

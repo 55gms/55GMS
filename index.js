@@ -325,7 +325,9 @@ try {
       }
 
       if (cleanedConversations > 0) {
-        console.log(`Cleaned up ${cleanedConversations} inactive conversations.`);
+        console.log(
+          `Cleaned up ${cleanedConversations} inactive conversations.`,
+        );
       }
     } catch (error) {
       console.error("Error in periodic cleanup:", error);
