@@ -8,7 +8,7 @@ window.addEventListener("load", (event) => {
   const loadingText = document.getElementById("loading-text");
 
   try {
-    fetch("/assets/json/load/games.json")
+    fetch("/assets/json/load/g.json")
       .then((response) => response.json())
       .then((games) => {
         games.sort((a, b) => a.name.localeCompare(b.name));
