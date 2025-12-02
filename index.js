@@ -280,12 +280,13 @@ try {
 
   setInterval(async () => {
     try {
-      const fiveMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
+      // 1. Clean up stale users in database
+      const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
 
       const staleUsers = await UserStatus.findAll({
         where: {
           isOnline: true,
-          lastSeen: { [Op.lt]: fiveMinutesAgo },
+          lastSeen: { [Op.lt]: thirtyMinutesAgo },
         },
       });
 
@@ -301,8 +302,35 @@ try {
           lastSeen: user.lastSeen,
         });
       }
+
+      // 2. Clean up in-memory conversation history
+      // Remove conversations inactive for more than 60 minutes
+      const now = Date.now();
+      const oneHour = 60 * 60 * 1000;
+      let cleanedConversations = 0;
+
+      for (const [userId, data] of activeConversations.entries()) {
+        if (!data.lastActive) {
+          // If no lastActive (legacy data), treat it as old and remove, or update?
+          // Let's assume if it's missing, we clean it up to be safe.
+          activeConversations.delete(userId);
+          cleanedConversations++;
+          continue;
+        }
+
+        if (now - data.lastActive > oneHour) {
+          activeConversations.delete(userId);
+          cleanedConversations++;
+        }
+      }
+
+      if (cleanedConversations > 0) {
+        console.log(
+          `Cleaned up ${cleanedConversations} inactive conversations.`,
+        );
+      }
     } catch (error) {
-      console.error("Error in heartbeat cleanup:", error);
+      console.error("Error in periodic cleanup:", error);
     }
   }, 60000);
 
