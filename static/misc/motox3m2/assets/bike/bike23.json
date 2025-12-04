@@ -1,0 +1,92 @@
+{"frames": {
+
+    "Car23FrameExploded0000":
+    {
+        "frame": {"x":0,"y":0,"w":160,"h":118},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x":0,"y":0,"w":160,"h":118},
+        "sourceSize": {"w":160,"h":118}
+    },
+    "suspend_back230000":
+    {
+        "frame": {"x":94,"y":120,"w":40,"h":18},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x":0,"y":0,"w":40,"h":18},
+        "sourceSize": {"w":40,"h":18}
+    },
+    "driver_shin230000":
+    {
+        "frame": {"x":460,"y":78,"w":36,"h":66},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x":0,"y":0,"w":36,"h":66},
+        "sourceSize": {"w":36,"h":66}
+    },
+    "driver_hip230000":
+    {
+        "frame": {"x":136,"y":120,"w":32,"h":26},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x":0,"y":0,"w":32,"h":26},
+        "sourceSize": {"w":32,"h":26}
+    },
+    "driver_head230000":
+    {
+        "frame": {"x":0,"y":120,"w":54,"h":56},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x":0,"y":0,"w":54,"h":56},
+        "sourceSize": {"w":54,"h":56}
+    },
+    "driver_forearm230000":
+    {
+        "frame": {"x":170,"y":120,"w":40,"h":14},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x":0,"y":0,"w":40,"h":14},
+        "sourceSize": {"w":40,"h":14}
+    },
+    "driver_corpse230000":
+    {
+        "frame": {"x":402,"y":78,"w":56,"h":62},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x":0,"y":0,"w":56,"h":62},
+        "sourceSize": {"w":56,"h":62}
+    },
+    "driver_arm230000":
+    {
+        "frame": {"x":56,"y":120,"w":36,"h":24},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x":0,"y":0,"w":36,"h":24},
+        "sourceSize": {"w":36,"h":24}
+    },
+    "bike_23_base0000":
+    {
+        "frame": {"x":162,"y":0,"w":160,"h":118},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x":0,"y":0,"w":160,"h":118},
+        "sourceSize": {"w":160,"h":118}
+    },
+    "Wheel_23_00000":
+    {
+        "frame": {"x":324,"y":78,"w":76,"h":76},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x":0,"y":0,"w":76,"h":76},
+        "sourceSize": {"w":76,"h":76}
+    }
+},
+"meta": {
+	"app": "Adobe Flash Professional",
+	"version": "15.0.1.179",
+	"image": "bike23.png",
+	"format": "RGBA8888",
+	"size": {"w":512,"h":256},
+	"scale": "1"
+}
+}

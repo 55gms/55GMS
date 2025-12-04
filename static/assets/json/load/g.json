@@ -356,12 +356,6 @@
     "usesProxy": false
   },
   {
-    "name": "DOOM",
-    "url": "https://diekmann.github.io/wasm-fizzbuzz/doom/",
-    "image": "/misc/doom/img.webp",
-    "usesProxy": true
-  },
-  {
     "name": "Draw The Hill",
     "url": "/misc/play/draw_the_hill.html",
     "image": "/misc/draw_the_hill/icons/icon-512.png",
@@ -893,6 +887,12 @@
     "name": "MotoX3M",
     "url": "/misc/play/motox3m.html",
     "image": "/misc/motox3m/splash.jpg",
+    "usesProxy": false
+  },
+  {
+    "name": "MotoX3M 2",
+    "author": "Madpuffers",
+    "image": "/misc/motox3m2/img.webp",
     "usesProxy": false
   },
   {
