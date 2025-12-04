@@ -1,7 +1,39 @@
+let tmdbAccessible = null;
+
+async function checkTmdbAccess() {
+  if (tmdbAccessible !== null) return tmdbAccessible;
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1500);
+    const [apiResponse, imageResponse] = await Promise.all([
+      fetch(
+        "https://api.themoviedb.org/3/configuration?api_key=9a2954cb0084e80efa20b3729db69067",
+        {
+          method: "HEAD",
+          signal: controller.signal,
+        }
+      ),
+      fetch("https://image.tmdb.org/t/p/w92/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg", {
+        method: "HEAD",
+        signal: controller.signal,
+      }),
+    ]);
+    clearTimeout(timeoutId);
+    tmdbAccessible = apiResponse.ok && imageResponse.ok;
+  } catch (error) {
+    tmdbAccessible = false;
+  }
+  return tmdbAccessible;
+}
+
 async function displayPopular() {
-  const response = await fetch(
-    "https://api.themoviedb.org/3/trending/all/week?api_key=d93115754010beb32ae8956c26dbc590"
-  );
+  let url = "https://api.themoviedb.org/3/trending/all/week?api_key=d93115754010beb32ae8956c26dbc590";
+  const isAccessible = await checkTmdbAccess();
+  if (!isAccessible) {
+    url = `/api/music/url=${encodeURIComponent(url)}`;
+  }
+
+  const response = await fetch(url);
   const data = await response.json();
   const popular = data.results;
 
@@ -12,7 +44,12 @@ async function displayPopular() {
     if (movie.poster_path === null || !movie.poster_path) {
       return;
     } else {
-      poster = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
+      let posterUrl = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
+      if (!isAccessible) {
+        poster = "/api/music/url=" + encodeURIComponent(posterUrl);
+      } else {
+        poster = posterUrl;
+      }
     }
 
     let gameHtml;
@@ -50,9 +87,13 @@ async function displayPopular() {
   });
 }
 async function displayMovies() {
-  const response = await fetch(
-    "https://api.themoviedb.org/3/trending/movie/day?language=en-US&api_key=9a2954cb0084e80efa20b3729db69067"
-  );
+  let url = "https://api.themoviedb.org/3/trending/movie/day?language=en-US&api_key=9a2954cb0084e80efa20b3729db69067";
+  const isAccessible = await checkTmdbAccess();
+  if (!isAccessible) {
+    url = `/api/music/url=${encodeURIComponent(url)}`;
+  }
+
+  const response = await fetch(url);
   const data = await response.json();
   const popular = data.results;
 
@@ -63,7 +104,12 @@ async function displayMovies() {
     if (movie.poster_path === null || !movie.poster_path) {
       return;
     } else {
-      poster = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
+      let posterUrl = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
+      if (!isAccessible) {
+        poster = "/api/music/url=" + encodeURIComponent(posterUrl);
+      } else {
+        poster = posterUrl;
+      }
     }
 
     let gameHtml;
@@ -101,9 +147,13 @@ async function displayMovies() {
   });
 }
 async function displayTV() {
-  const response = await fetch(
-    "https://api.themoviedb.org/3/trending/tv/day?language=en-US&api_key=d93115754010beb32ae8956c26dbc590"
-  );
+  let url = "https://api.themoviedb.org/3/trending/tv/day?language=en-US&api_key=d93115754010beb32ae8956c26dbc590";
+  const isAccessible = await checkTmdbAccess();
+  if (!isAccessible) {
+    url = `/api/music/url=${encodeURIComponent(url)}`;
+  }
+
+  const response = await fetch(url);
   const data = await response.json();
   const popular = data.results;
 
@@ -114,7 +164,12 @@ async function displayTV() {
     if (movie.poster_path === null || !movie.poster_path) {
       return;
     } else {
-      poster = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
+      let posterUrl = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
+      if (!isAccessible) {
+        poster = "/api/music/url=" + encodeURIComponent(posterUrl);
+      } else {
+        poster = posterUrl;
+      }
     }
 
     let gameHtml;

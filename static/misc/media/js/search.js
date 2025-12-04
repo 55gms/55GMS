@@ -1,9 +1,43 @@
-function createAndDisplayCard(movie, container) {
+
+let tmdbAccessible = null;
+
+async function checkTmdbAccess() {
+  if (tmdbAccessible !== null) return tmdbAccessible;
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1500);
+    const [apiResponse, imageResponse] = await Promise.all([
+      fetch(
+        "https://api.themoviedb.org/3/configuration?api_key=9a2954cb0084e80efa20b3729db69067",
+        {
+          method: "HEAD",
+          signal: controller.signal,
+        }
+      ),
+      fetch("https://image.tmdb.org/t/p/w92/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg", {
+        method: "HEAD",
+        signal: controller.signal,
+      }),
+    ]);
+    clearTimeout(timeoutId);
+    tmdbAccessible = apiResponse.ok && imageResponse.ok;
+  } catch (error) {
+    tmdbAccessible = false;
+  }
+  return tmdbAccessible;
+}
+
+function createAndDisplayCard(movie, container, useProxy = false) {
   let poster;
   if (movie.poster_path === null || !movie.poster_path) {
     return;
   } else {
-    poster = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
+    let posterUrl = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
+    if (useProxy) {
+      poster = "/api/music/url=" + encodeURIComponent(posterUrl);
+    } else {
+      poster = posterUrl;
+    }
   }
 
   let gameHtml;
@@ -45,7 +79,12 @@ function createAndDisplayCard(movie, container) {
 async function searchMedia(searchQuery) {
   try {
     const encodedSearch = encodeURIComponent(searchQuery);
-    const url = `https://api.themoviedb.org/3/search/multi?api_key=9a2954cb0084e80efa20b3729db69067&language=en-US&query=${encodedSearch}&page=1&include_adult=false`;
+    let url = `https://api.themoviedb.org/3/search/multi?api_key=9a2954cb0084e80efa20b3729db69067&language=en-US&query=${encodedSearch}&page=1&include_adult=false`;
+
+    const isAccessible = await checkTmdbAccess();
+    if (!isAccessible) {
+      url = `/api/music/url=${encodeURIComponent(url)}`;
+    }
 
     const response = await fetch(url);
     const data = await response.json();
@@ -59,7 +98,7 @@ async function searchMedia(searchQuery) {
     bigDiv.appendChild(resultsContainer);
 
     data.results.forEach((movie) =>
-      createAndDisplayCard(movie, resultsContainer)
+      createAndDisplayCard(movie, resultsContainer, !isAccessible)
     );
 
     if (resultsContainer.innerHTML.trim() === "") {

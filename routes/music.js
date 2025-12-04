@@ -13,6 +13,8 @@ const allowedHosts = [
   "hund.qqdl.site",
   "uploads.frogiesarcade.win",
   "triton.squid.wtf",
+  "api.themoviedb.org",
+  "image.tmdb.org",
 ];
 
 function isAllowedHost(hostname) {
@@ -122,11 +124,11 @@ router.all("/*", async (req, res) => {
   res.header("Access-Control-Allow-Methods", "GET, OPTIONS, HEAD");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Referer, User-Agent, Range",
+    "Origin, X-Requested-With, Content-Type, Accept, Referer, User-Agent, Range"
   );
   res.header(
     "Access-Control-Expose-Headers",
-    "Accept-Ranges, Content-Length, Content-Range, Content-Type, ETag, Cache-Control",
+    "Accept-Ranges, Content-Length, Content-Range, Content-Type, ETag, Cache-Control"
   );
 
   // Handle preflight OPTIONS request
