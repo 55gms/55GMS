@@ -1,7 +1,19 @@
 let tmdbAccessible = null;
+const CACHE_KEY = "tmdb_accessibility";
+const CACHE_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 async function checkTmdbAccess() {
   if (tmdbAccessible !== null) return tmdbAccessible;
+
+  const cached = localStorage.getItem(CACHE_KEY);
+  if (cached) {
+    const { value, timestamp } = JSON.parse(cached);
+    if (Date.now() - timestamp < CACHE_DURATION) {
+      tmdbAccessible = value;
+      return tmdbAccessible;
+    }
+  }
+
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 1500);
@@ -23,6 +35,15 @@ async function checkTmdbAccess() {
   } catch (error) {
     tmdbAccessible = false;
   }
+
+  localStorage.setItem(
+    CACHE_KEY,
+    JSON.stringify({
+      value: tmdbAccessible,
+      timestamp: Date.now(),
+    })
+  );
+
   return tmdbAccessible;
 }
 

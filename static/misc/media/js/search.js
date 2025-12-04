@@ -1,31 +1,4 @@
 
-let tmdbAccessible = null;
-
-async function checkTmdbAccess() {
-  if (tmdbAccessible !== null) return tmdbAccessible;
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 1500);
-    const [apiResponse, imageResponse] = await Promise.all([
-      fetch(
-        "https://api.themoviedb.org/3/configuration?api_key=9a2954cb0084e80efa20b3729db69067",
-        {
-          method: "HEAD",
-          signal: controller.signal,
-        }
-      ),
-      fetch("https://image.tmdb.org/t/p/w92/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg", {
-        method: "HEAD",
-        signal: controller.signal,
-      }),
-    ]);
-    clearTimeout(timeoutId);
-    tmdbAccessible = apiResponse.ok && imageResponse.ok;
-  } catch (error) {
-    tmdbAccessible = false;
-  }
-  return tmdbAccessible;
-}
 
 function createAndDisplayCard(movie, container, useProxy = false) {
   let poster;
