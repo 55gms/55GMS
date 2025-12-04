@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Golf Orbit</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
+  <body>
+    <div id="unity-container" class="unity-desktop">
+      <!-- <button id="unity-fullscreen-button" onclick="toggleFullscreen()"></button> -->
+      <canvas id="unity-canvas"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-warning"> </div>
+    </div>
+    <script>
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      var warningBanner = document.querySelector("#unity-warning");
+      
+      function isFullscreen()
+      {
+        return document.fullscreenElement !== null && document.fullscreenElement
+          || document.webkitFullscreenElement !== null && document.webkitFullscreenElement
+          || document.msFullscreenElement !== null && document.msFullscreenElement;
+      }
+      
+      function rebuildFullscreenGUI()
+      {
+        if (isFullscreen()) {
+          document.getElementById("unity-fullscreen-button").style.backgroundImage="url('TemplateData/fullscreen-button-in.png')";
+        }
+        else {
+          document.getElementById("unity-fullscreen-button").style.backgroundImage="url('TemplateData/fullscreen-button-out.png')";
+        }
+      }
+      
+      function unityShowBanner(msg, type) {
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        }
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
+      }
+      
+      function toggleFullscreen() {
+         if (isFullscreen()) {
+            if (document.exitFullscreen) {
+              document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+              document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+              document.msExitFullscreen();
+            } else {
+              alert("Full screen is not supported by this browser.");
+            }
+         }
+         else {
+           var element = document.getElementById("unity-container");
+            if (element.requestFullscreen) {
+              element.requestFullscreen();
+            } else if (element.webkitRequestFullscreen) {
+              element.webkitRequestFullscreen();
+            } else if (element.msRequestFullscreen) {
+              element.msRequestFullscreen();
+            } else {
+              alert("Full screen is not supported by this browser.");
+            }
+         }
+      }
+
+      function confirmUnload(event) {
+        return confirm("All unsaved progress will be lost.");
+      }
+      
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/GolfOrbit GD-OLD-1.loader.js";
+      var config = {
+        dataUrl: buildUrl + "/9f3df01cf497c68a2e3151c8a29899f0.data.unityweb",
+        frameworkUrl: buildUrl + "/47ce531e6c131fa08799b72c713d0bad.js.unityweb",
+        codeUrl: buildUrl + "/d07bde9b0a3437b981b713197a986525.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "PinpinTeam",
+        productName: "Golf Orbit",
+        productVersion: "1.25.39",
+        showBanner: unityShowBanner,
+      };
+      
+      // By default Unity keeps WebGL canvas render target size matched with
+      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+      // Set this to false if you want to decouple this synchronization from
+      // happening inside the engine, and you would instead like to size up
+      // the canvas DOM size and WebGL render target sizes yourself.
+      //config.matchWebGLToCanvasSize = false;
+      
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        container.className = "unity-mobile";
+      
+        // To lower canvas resolution on mobile devices to gain some
+        // performance, uncomment the following line:
+        //config.devicePixelRatio = 1;
+      }
+      
+      loadingBar.style.display = "block";
+      
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+        }).then((unityInstance) => {
+          loadingBar.style.display = "none";
+
+          // If you want to warn the player before they close the tab,
+          // uncomment the following:
+          //window.onbeforeunload = confirmUnload;
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+      
+      document.onfullscreenchange = rebuildFullscreenGUI;
+    </script>
+  </body>
+</html>
