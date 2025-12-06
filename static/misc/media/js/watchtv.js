@@ -29,6 +29,7 @@ async function getTVShowData() {
 
 function populateSeasonSelector(seasons, currentSeason, currentEpisode) {
   const seasonSelector = document.getElementById("seasonSelector");
+  const ID = new URLSearchParams(window.location.search).get("id");
   seasonSelector.innerHTML = "";
   seasons.forEach((season) => {
     const option = document.createElement("option");
@@ -39,6 +40,7 @@ function populateSeasonSelector(seasons, currentSeason, currentEpisode) {
 
   seasonSelector.addEventListener("change", () => {
     const seasonNumber = seasonSelector.value;
+    document.getElementById("iframe").src = `embed/tv.html?id=${ID}&s=${seasonNumber}&e=1`;
     getEpisodes(seasonNumber, currentEpisode);
   });
 
