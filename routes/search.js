@@ -1,12 +1,6 @@
 import express from "express";
 const router = express.Router();
-
-function toIPv4(ip) {
-  if (!ip) return "127.0.0.1";
-  if (ip.includes(",")) ip = ip.split(",")[0].trim();
-  if (ip.startsWith("::ffff:")) ip = ip.replace("::ffff:", "");
-  return ip.match(/^(\d{1,3}\.){3}\d{1,3}$/) ? ip : "127.0.0.1";
-}
+import requestIp from "request-ip";
 
 router.get("/autocomplete", async (req, res) => {
   const q = req.query.q || "";
@@ -24,12 +18,12 @@ router.get("/autocomplete", async (req, res) => {
 });
 
 router.get("/ip", (req, res) => {
-  const rawIp =
-    req.headers["cf-connecting-ip"] ||
-    req.headers["x-forwarded-for"] ||
-    req.socket.remoteAddress;
-  const ipv4 = toIPv4(rawIp);
-  const prefix = ipv4.split(".")[0];
+  const clientIp = requestIp.getClientIp(req);
+  const ip = clientIp || "127.0.0.1";
+  const cleanIp = ip.includes("::ffff:") ? ip.replace("::ffff:", "") : ip;
+  const prefix = cleanIp.split(".")[0];
+
   res.send(prefix);
 });
+
 export default router;
