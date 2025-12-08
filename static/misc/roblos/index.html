@@ -9,7 +9,8 @@
         margin: 0;
     }
 </style>
-<iframe></iframe>
+<!--all iframe but allowing alerts-->
+<iframe sandbox="allow-scripts allow-pointer-lock allow-forms allow-same-origin allow-downloads"></iframe>
 <script>
     async function directsetip() {
         try {
@@ -17,7 +18,7 @@
             if (!res.ok) throw new Error('fetch failed');
 
             const ip = await res.text();
-            sessionStorage.setItem("prefix", ip)
+            localStorage.setItem("prefix", ip)
             return ip
         } catch (err) {
             console.error(err);
@@ -25,11 +26,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', async () => {
-        let ipPrefix = sessionStorage.getItem("ipPrefix");
-        if (!ipPrefix) {
-            ipPrefix = await directsetip();
-            console.log('IP fetched and stored:', ipPrefix);
-        }
+        ipPrefix = await directsetip();
         if (ipPrefix) {
             const iframe = document.querySelector("iframe");
             iframe.src = `/embed.html#https://${ipPrefix}.ip.nowgg.fun/apps/a/19900/b.html`;
