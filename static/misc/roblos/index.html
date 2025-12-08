@@ -1,0 +1,40 @@
+<style>
+    iframe {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        margin: 0;
+    }
+</style>
+<iframe></iframe>
+<script>
+    async function directsetip() {
+        try {
+            const res = await fetch('/api/ip');
+            if (!res.ok) throw new Error('fetch failed');
+
+            const ip = await res.text();
+            sessionStorage.setItem("prefix", ip)
+            return ip
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', async () => {
+        let ipPrefix = sessionStorage.getItem("ipPrefix");
+        if (!ipPrefix) {
+            ipPrefix = await directsetip();
+            console.log('IP fetched and stored:', ipPrefix);
+        }
+        if (ipPrefix) {
+            const iframe = document.querySelector("iframe");
+            iframe.src = `/embed.html#https://${ipPrefix}.ip.nowgg.fun/apps/a/19900/b.html`;
+        } else {
+            console.warn('No IP, iframe not set.');
+        }
+    });
+</script>

@@ -1337,17 +1337,15 @@
   {
     "name": "Resent Client 1.8",
     "url": "/misc/misc/eloader/",
-    "alert": "This game will be removed, when it is click minecraft instead from the games page.",
     "image": "/img/games/res.webp",
     "usesProxy": false
   },
   {
     "name": "Roblox",
-    "url": "https://nowgg.fun",
+    "url": "/misc/roblos/",
     "image": "/misc/roblos/rbx.jpeg",
-    "usesProxy": true
+    "usesProxy": false
   },
-
   {
     "name": "Roper",
     "author": "Fancade",

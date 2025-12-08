@@ -147,8 +147,9 @@
   },
   {
     "name": "Roblox",
-    "url": "https://nowgg.fun",
-    "image": "misc/roblos/rbx.jpeg"
+    "url": "/misc/roblos/",
+    "image": "/misc/roblos/rbx.jpeg",
+    "usesProxy": false
   },
   {
     "name": "Spotify",
