@@ -28,17 +28,12 @@ import {
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import messagingRoutes from "./routes/messaging.js";
-import { router as chatRoutes, initializeChatRoute } from "./routes/chat.js";
 import searchRoutes from "./routes/search.js";
 import proxyRoutes from "./routes/music.js";
-
-import ModelManager from "./utils/modelManager.js";
 
 try {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
-
-  const modelManager = new ModelManager();
 
   const app = express();
   app.use("/epoxy/", express.static(epoxyPath));
@@ -61,8 +56,6 @@ try {
 
   initDatabase().catch(console.error);
 
-  initializeChatRoute(modelManager, activeConversations);
-
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ extended: true, limit: "50mb" }));
   app.use(cors());
@@ -77,7 +70,6 @@ try {
   app.use("/api", authRoutes);
   app.use("/api", userRoutes);
   app.use("/api", messagingRoutes);
-  app.use("/api", chatRoutes);
   app.use("/api", searchRoutes);
   app.use("/api/music", proxyRoutes);
 
@@ -355,7 +347,6 @@ try {
     { path: "/!", file: "proxy.html" },
     { path: "/", file: "index.html" },
     { path: "/d", file: "dashboard.html" },
-    { path: "/e", file: "ai.html" },
     { path: "/-", file: "media.html" },
     { path: "/m", file: "media.html" },
     { path: "/profile", file: "account.html" },
