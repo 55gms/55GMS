@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Memory Emoji Game</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+<style>
+body {
+margin: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+background: #f0f0f0;
+font-family: Arial, sans-serif;
+}
+canvas {
+border: 3px solid #333;
+border-radius: 10px;
+}
+</style>
+</head>
+<body>
+
+<script>
+let gameState = "HOME";
+let previousGameState = "HOME";
+let cards = [];
+let flippedCards = [];
+let lockBoard = false;
+let matchesFound = 0;
+let particleSystems = [];
+let startTime, currentTimer = 0;
+let gameCompleted = false;
+let isPaused = false;
+let pauseStartTime = 0;
+let totalPausedTime = 0;
+
+let bestTimes = {
+ANIMALS: Infinity,
+FOOD: Infinity,
+FACES: Infinity,
+MIX: Infinity
+};
+
+const themes = {
+ANIMALS: ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼'],
+FOOD: ['🍎', '🍓', '🍕', '🌮', '🍦', '🍩', '🍔', '🥨'],
+FACES: ['😀', '😎', '😜', '🤩', '🤔', '🤠', '🥳', '👻'],
+MIX: []
+};
+
+let selectedThemeName = "ANIMALS";
+let selectedTheme = themes.ANIMALS;
+
+const BTN_W = 180;
+const BTN_H = 50;
+const PRIMARY_COLOR = "#4682B4";
+const BACK_COLOR = "#CD5C5C";
+
+function setup() {
+createCanvas(400, 400);
+loadBestTimes();
+}
+
+function loadBestTimes() {
+try {
+let data = localStorage.getItem('emojiGameBestTimes');
+if (data) {
+let loaded = JSON.parse(data);
+bestTimes.ANIMALS = loaded.ANIMALS || Infinity;
+bestTimes.FOOD = loaded.FOOD || Infinity;
+bestTimes.FACES = loaded.FACES || Infinity;
+bestTimes.MIX = loaded.MIX || Infinity;
+}
+} catch(e) {
+console.log("Error loading times");
+}
+}
+
+function saveBestTimes() {
+try {
+localStorage.setItem('emojiGameBestTimes', JSON.stringify(bestTimes));
+} catch(e) {
+console.log("Error saving times");
+}
+}
+
+function initGame() {
+cards = [];
+flippedCards = [];
+matchesFound = 0;
+startTime = millis();
+gameCompleted = false;
+isPaused = false;
+pauseStartTime = 0;
+totalPausedTime = 0;
+
+if (selectedThemeName === "MIX") {
+themes.MIX = [...themes.ANIMALS, ...themes.FOOD, ...themes.FACES]
+.sort(() => Math.random() - 0.5)
+.slice(0, 8);
+selectedTheme = themes.MIX;
+} else {
+selectedTheme = themes[selectedThemeName];
+}
+
+let deck = [...selectedTheme, ...selectedTheme].sort(() => Math.random() - 0.5);
+let cols = 4, rows = 4;
+let w = width / cols, h = height / (rows + 0.5);
+
+for (let i = 0; i < cols; i++) {
+for (let j = 0; j < rows; j++) {
+cards.push(new Card(i * w, j * h + 40, w, h, deck[i * rows + j]));
+}
+}
+}
+
+function draw() {
+background(255);
+
+if (gameState === "HOME") {
+textAlign(CENTER, CENTER);
+fill(0); 
+textSize(32);
+text("Memory Emoji Game", width / 2, 80);
+drawCustomButton("PLAY", width / 2, 160, BTN_W, BTN_H, PRIMARY_COLOR);
+drawCustomButton("HOW TO PLAY", width / 2, 230, BTN_W, BTN_H, PRIMARY_COLOR);
+drawCustomButton("CREDITS", width / 2, 300, BTN_W, BTN_H, PRIMARY_COLOR);
+drawLogo(width - 70, height - 55);
+
+} else if (gameState === "RESET_CONFIRM") {
+if (previousGameState === "PLAY") {
+if (matchesFound < 8 && !isPaused) {
+currentTimer = millis() - startTime - totalPausedTime;
+}
+
+textAlign(LEFT, TOP);
+textSize(16); 
+fill(50);
+text(`Time: ${(currentTimer/1000).toFixed(1)}s`, 15, 10);
+
+let bt = bestTimes[selectedThemeName] === Infinity ? "--" : (bestTimes[selectedThemeName]/1000).toFixed(1) + "s";
+textAlign(RIGHT, TOP);
+text(`Best (${selectedThemeName}): ${bt}`, width - 15, 10);
+
+for (let c of cards) { 
+c.display(); 
+}
+}
+
+fill(0, 0, 0, 200);
+rectMode(CORNER);
+rect(0, 0, width, height);
+
+rectMode(CENTER);
+fill(255);
+noStroke();
+rect(width / 2, height / 2, 340, 220, 10);
+
+textAlign(CENTER, CENTER);
+fill(0);
+textSize(18);
+text("Are you sure that you would like\nto reset your game?\nThis will delete all of your progress.", width / 2, height / 2 - 50);
+
+drawCustomButton("CANCEL", width / 2 - 90, height / 2 + 40, 120, 50, "#CD5C5C");
+drawCustomButton("CONFIRM", width / 2 + 90, height / 2 + 40, 120, 50, "#32CD32");
+
+} else if (gameState === "MODES") {
+textAlign(CENTER, CENTER);
+fill(0); 
+textSize(24);
+text("Choose Your Theme", width / 2, 40);
+
+let m = ["ANIMALS", "FOOD", "FACES", "MIX"];
+let icons = ["🐶", "🍕", "😎", "🔀"];
+
+for (let i = 0; i < m.length; i++) {
+let bt = bestTimes[m[i]] === Infinity ? "--" : (bestTimes[m[i]]/1000).toFixed(1) + "s";
+drawCustomButton(`${m[i]} ${icons[i]}`, width / 2, 100 + (i*60), BTN_W, BTN_H, PRIMARY_COLOR);
+textSize(12); 
+fill(100);
+text(`Best: ${bt}`, width / 2 + 130, 100 + (i*60));
+}
+
+drawCustomButton("BACK TO HOME", width / 2, 360, BTN_W, BTN_H, BACK_COLOR);
+
+} else if (gameState === "PLAY") {
+if (matchesFound < 8 && !isPaused) {
+currentTimer = millis() - startTime - totalPausedTime;
+}
+
+textAlign(LEFT, TOP);
+textSize(16); 
+fill(50);
+text(`Time: ${(currentTimer/1000).toFixed(1)}s`, 15, 10);
+
+let bt = bestTimes[selectedThemeName] === Infinity ? "--" : (bestTimes[selectedThemeName]/1000).toFixed(1) + "s";
+textAlign(RIGHT, TOP);
+text(`Best (${selectedThemeName}): ${bt}`, width - 15, 10);
+
+for (let c of cards) { 
+c.update(); 
+c.display(); 
+}
+
+for (let i = particleSystems.length - 1; i >= 0; i--) {
+particleSystems[i].update();
+particleSystems[i].display();
+if (particleSystems[i].isFinished()) {
+particleSystems.splice(i, 1);
+}
+}
+
+if (isPaused) {
+fill(0, 0, 0, 200);
+rectMode(CORNER);
+rect(0, 0, width, height);
+
+textAlign(CENTER, CENTER);
+fill(255);
+textSize(48);
+text("PAUSED", width / 2, height / 2 - 40);
+
+drawCustomButton("UNPAUSE", width / 2, height / 2 + 30, 140, 50, "#32CD32");
+}
+
+if (matchesFound === 8) {
+if (!gameCompleted) {
+gameCompleted = true;
+if (currentTimer < bestTimes[selectedThemeName]) {
+bestTimes[selectedThemeName] = currentTimer;
+saveBestTimes();
+}
+}
+
+fill(255, 230);
+rect(width/2, height/2, width, height);
+
+textAlign(CENTER, CENTER);
+fill(0, 150, 0); 
+textSize(40);
+text("🎉 YOU WIN! 🎉", width / 2, height / 2 - 20);
+
+drawCustomButton("BACK TO HOME SCREEN", width / 2, height / 2 + 60, 260, BTN_H, BACK_COLOR);
+}
+
+} else if (gameState === "HOW_TO_PLAY") {
+textAlign(CENTER, CENTER);
+fill(0); 
+textSize(30);
+text("How to Play", width / 2, 70);
+
+textSize(14);
+fill(0);
+text("Click any two cards to reveal the emojis.", width / 2, 125);
+text("Find all 8 matching pairs to win the game!", width / 2, 150);
+text("Your time will be recorded and saved as the", width / 2, 185);
+text("fastest time for that specific game mode.", width / 2, 205);
+text("Press P to pause/unpause during gameplay.", width / 2, 240);
+text("Press R to reset all your best scores.", width / 2, 265);
+
+drawCustomButton("BACK TO HOME", width / 2, 340, BTN_W, BTN_H, BACK_COLOR);
+
+} else if (gameState === "CREDITS") {
+textAlign(CENTER, CENTER);
+fill(0); 
+textSize(30);
+text("Credits", width / 2, 70);
+
+textSize(20);
+fill(0);
+text("Game Design & Programming", width / 2, 160);
+text("by", width / 2, 190);
+text("Daniel Cejka", width / 2, 220);
+
+drawCustomButton("BACK TO HOME", width / 2, 340, BTN_W, BTN_H, BACK_COLOR);
+}
+}
+
+function drawLogo(x, y) {
+push();
+textAlign(CENTER, CENTER);
+fill(0); 
+noStroke();
+ellipse(x, y, 45, 45);
+fill(255); 
+textSize(13);
+text("DVGS", x, y + 1);
+fill(0); 
+textSize(10);
+text("Danny's Video Game Studio", x, y + 38);
+pop();
+}
+
+function keyPressed() {
+if (key === 'r' || key === 'R') {
+if (gameState !== "RESET_CONFIRM") {
+previousGameState = gameState;
+gameState = "RESET_CONFIRM";
+}
+}
+if (gameState === "PLAY" && matchesFound < 8 && !gameCompleted) {
+if (key === 'p' || key === 'P') {
+if (isPaused) {
+totalPausedTime += millis() - pauseStartTime;
+isPaused = false;
+} else {
+pauseStartTime = millis();
+isPaused = true;
+}
+}
+}
+}
+
+function mousePressed() {
+if (gameState === "HOME") {
+if (isMouseOver(width/2, 160, BTN_W, BTN_H)) {
+gameState = "MODES";
+}
+else if (isMouseOver(width/2, 230, BTN_W, BTN_H)) {
+gameState = "HOW_TO_PLAY";
+}
+else if (isMouseOver(width/2, 300, BTN_W, BTN_H)) {
+gameState = "CREDITS";
+}
+
+} else if (gameState === "RESET_CONFIRM") {
+if (isMouseOver(width / 2 - 90, height / 2 + 40, 120, 50)) {
+gameState = previousGameState;
+} else if (isMouseOver(width / 2 + 90, height / 2 + 40, 120, 50)) {
+bestTimes.ANIMALS = Infinity;
+bestTimes.FOOD = Infinity;
+bestTimes.FACES = Infinity;
+bestTimes.MIX = Infinity;
+saveBestTimes();
+isPaused = false;
+gameState = "HOME";
+}
+
+} else if (gameState === "MODES") {
+if (isMouseOver(width/2, 100, BTN_W, BTN_H)) { 
+selectedThemeName = "ANIMALS"; 
+initGame(); 
+gameState = "PLAY"; 
+}
+else if (isMouseOver(width/2, 160, BTN_W, BTN_H)) { 
+selectedThemeName = "FOOD"; 
+initGame(); 
+gameState = "PLAY"; 
+}
+else if (isMouseOver(width/2, 220, BTN_W, BTN_H)) { 
+selectedThemeName = "FACES"; 
+initGame(); 
+gameState = "PLAY"; 
+}
+else if (isMouseOver(width/2, 280, BTN_W, BTN_H)) { 
+selectedThemeName = "MIX"; 
+initGame(); 
+gameState = "PLAY"; 
+}
+else if (isMouseOver(width/2, 360, BTN_W, BTN_H)) {
+gameState = "HOME";
+}
+
+} else if (gameState === "HOW_TO_PLAY") {
+if (isMouseOver(width/2, 340, BTN_W, BTN_H)) {
+gameState = "HOME";
+}
+
+} else if (gameState === "CREDITS") {
+if (isMouseOver(width/2, 340, BTN_W, BTN_H)) {
+gameState = "HOME";
+}
+
+} else if (gameState === "PLAY") {
+if (isPaused) {
+if (isMouseOver(width / 2, height / 2 + 30, 140, 50)) {
+totalPausedTime += millis() - pauseStartTime;
+isPaused = false;
+}
+return;
+}
+
+if (matchesFound === 8 && isMouseOver(width/2, height/2+60, 260, BTN_H)) {
+gameState = "HOME";
+} else if (!lockBoard) {
+for (let c of cards) {
+if (c.isClicked(mouseX, mouseY) && !c.revealed && flippedCards.length < 2) {
+c.flip();
+flippedCards.push(c);
+
+if (flippedCards.length === 2) {
+lockBoard = true;
+
+if (flippedCards[0].val === flippedCards[1].val) {
+particleSystems.push(new ParticleSystem(flippedCards[0].getCenter()));
+particleSystems.push(new ParticleSystem(flippedCards[1].getCenter()));
+matchesFound++;
+flippedCards = [];
+lockBoard = false;
+
+} else {
+setTimeout(() => {
+flippedCards[0].flip();
+flippedCards[1].flip();
+flippedCards = [];
+lockBoard = false;
+}, 800);
+}
+}
+}
+}
+}
+}
+}
+
+function drawCustomButton(txt, x, y, w, h, c) {
+rectMode(CENTER); 
+noStroke(); 
+fill(c);
+rect(x, y, w, h, 5);
+fill(255); 
+textSize(16); 
+textAlign(CENTER, CENTER);
+text(txt, x, y);
+}
+
+function isMouseOver(x, y, w, h) {
+return mouseX > x - w/2 && mouseX < x + w/2 && mouseY > y - h/2 && mouseY < y + h/2;
+}
+
+class Card {
+constructor(x, y, w, h, val) {
+this.x = x; 
+this.y = y; 
+this.w = w; 
+this.h = h; 
+this.val = val;
+this.revealed = false; 
+this.animScale = 1; 
+this.targetScale = 1;
+}
+flip() {
+this.revealed = !this.revealed;
+this.targetScale = this.revealed ? -1 : 1;
+}
+update() {
+this.animScale = lerp(this.animScale, this.targetScale, 0.2);
+}
+display() {
+push();
+translate(this.x + this.w/2, this.y + this.h/2);
+scale(this.animScale, 1);
+rectMode(CENTER); 
+stroke(220);
+
+if (this.animScale < 0) {
+fill(255);
+rect(0, 0, this.w - 10, this.h - 10);
+scale(-1, 1);
+noStroke();
+textSize(Math.floor(this.w * 0.5));
+textAlign(CENTER, CENTER);
+text(this.val, 0, 0);
+} else {
+fill(70, 130, 180);
+rect(0, 0, this.w - 10, this.h - 10);
+}
+pop();
+}
+getCenter() {
+return createVector(this.x + this.w/2, this.y + this.h/2);
+}
+isClicked(mx, my) {
+return mx > this.x && mx < this.x + this.w && my > this.y && my < this.y + this.h;
+}
+}
+
+class Particle {
+constructor(pos) {
+this.pos = pos.copy();
+this.vel = p5.Vector.random2D().mult(random(2, 5));
+this.lifespan = 255;
+this.color = color(random(255), random(255), random(255));
+}
+update() {
+this.pos.add(this.vel);
+this.lifespan -= 10;
+}
+display() {
+push();
+noStroke();
+fill(this.color);
+ellipse(this.pos.x, this.pos.y, 8);
+pop();
+}
+}
+
+class ParticleSystem {
+constructor(pos) {
+this.particles = [];
+for (let i = 0; i < 15; i++) {
+this.particles.push(new Particle(pos));
+}
+}
+update() {
+for (let i = this.particles.length - 1; i >= 0; i--) {
+this.particles[i].update();
+if (this.particles[i].lifespan < 0) {
+this.particles.splice(i, 1);
+}
+}
+}
+display() {
+for (let p of this.particles) {
+p.display();
+}
+}
+isFinished() {
+return this.particles.length === 0;
+}
+}
+</script>
+
+</body>
+</html>
