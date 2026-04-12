@@ -1,0 +1,1136 @@
+<html lang="en-us">
+
+<head>
+    <base href="https://cdn.jsdelivr.net/gh/genizy/google-class@main/brawl-3d/">
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        canvas:focus {
+            outline: none;
+        }
+
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            overscroll-behavior: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            height: 100%;
+            background-color: rgb(65, 65, 65);
+        }
+
+        #loading-text {
+            color: white;
+            font-size: 48px;
+            font-family: cursive;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            white-space: nowrap;
+        }
+
+        /* Loading animation */
+        @keyframes pulse {
+            0% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.6;
+            }
+        }
+
+        #loading-text {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            #loading-text {
+                font-size: 24px;
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #loading-text {
+                font-size: 18px;
+                padding: 0 10px;
+            }
+        }
+    </style>
+    <!-- Additional head modules -->
+</head>
+
+<body class="dark">
+    <div id="loading-text">LOADING...</div>
+    <div id="unity-container" class="unity-desktop">
+        <canvas id="unity-canvas" tabindex="-1"></canvas>
+    </div>
+    <div id="loading-cover" style="display:none;">
+        <div id="unity-loading-bar">
+            <div id="unity-logo"><img src="Images/logo.png" /></div>
+            <div id="unity-progress-bar-empty" style="display: none;">
+                <div id="unity-progress-bar-full"></div>
+            </div>
+            <div class="spinner"></div>
+        </div>
+    </div>
+    <!-- Additional body modules -->
+    <script>
+        var loadingText = document.querySelector("#loading-text");
+        let totalBytes = 0;
+        let loadedBytes = 0;
+
+        async function fetchWithProgress(url) {
+            const response = await fetch(url);
+            const reader = response.body.getReader();
+            let chunks = [];
+            let received = 0;
+            while (true) {
+                const {
+                    done,
+                    value
+                } = await reader.read();
+                if (done) break;
+                received += value.length;
+                loadedBytes += value.length;
+                chunks.push(value);
+                let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
+                let mbTotal = '101.82';
+                loadingText.textContent = `LOADING... ${mbDone} MB / ${mbTotal} MB`;
+            }
+            let fullBuffer = new Uint8Array(received);
+            let offset = 0;
+            for (let chunk of chunks) {
+                fullBuffer.set(chunk, offset);
+                offset += chunk.length;
+            }
+            return fullBuffer.buffer;
+        }
+
+        async function mergeFiles(fileParts, cacheKey) {
+            const buffers = await Promise.all(
+                fileParts.map(part => fetchWithProgress(part))
+            );
+            const mergedBlob = new Blob(buffers);
+            return URL.createObjectURL(mergedBlob);
+        }
+
+        function getParts(file, start, end) {
+            let parts = [];
+            for (let i = start; i <= end; i++) {
+                parts.push(file + ".part" + i);
+            }
+            return parts;
+        }
+        (async () => {
+            const [wasmUrl, dataUrl] = await Promise.all([
+                mergeFiles(getParts("Build/brawl.wasm", 1, 4), "brawl.wasm"),
+                mergeFiles(getParts("Build/brawl.data", 1, 2), "brawl.data"),
+            ]);
+            const hideFullScreenButton = "";
+            const buildUrl = "Build";
+            const loaderUrl = buildUrl + "/brawl.loader.js";
+            const config = {
+                dataUrl: dataUrl,
+                frameworkUrl: buildUrl + "/brawl.framework.js",
+                codeUrl: wasmUrl,
+                streamingAssetsUrl: "StreamingAssets",
+                companyName: "Fire Games",
+                productName: "Brawl 2018",
+                productVersion: "1.07"
+            };
+
+            const container = document.querySelector("#unity-container");
+            const canvas = document.querySelector("#unity-canvas");
+            const loadingCover = document.querySelector("#loading-cover");
+            const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+            const progressBarFull = document.querySelector("#unity-progress-bar-full");
+            const spinner = document.querySelector('.spinner');
+
+            const canFullscreen = (function () {
+                for (const key of [
+                    'exitFullscreen',
+                    'webkitExitFullscreen',
+                    'webkitCancelFullScreen',
+                    'mozCancelFullScreen',
+                    'msExitFullscreen',
+                ]) {
+                    if (key in document) {
+                        return true;
+                    }
+                }
+                return false;
+            }());
+
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                container.className = "unity-mobile";
+
+            }
+
+            // The background image when loading the game. When building a build, the code changes depending on the project settings.
+
+            loadingCover.style.display = "";
+
+            window.StartUnityInstance;
+            window.ygGameInstance = null;
+            window.ysdk = null;
+            window.initYSDK = false;
+            window.initGame = false;
+            window.syncInit = false;
+            window.isVisibility = true;
+            window.isPausedGame = false;
+            window.NO_DATA = 'no data';
+
+            document.addEventListener('contextmenu', event => event.preventDefault());
+            document.addEventListener('visibilitychange', () => SetVisibility(!document.hidden));
+            window.addEventListener('blur', () => SetVisibility(false));
+            window.addEventListener('focus', () => SetVisibility(true));
+
+
+            window.addEventListener('pointerdown', () => {
+                FocusGame();
+                SetVisibility(true);
+            });
+
+            const oRequestPointerLock = Element.prototype.requestPointerLock;
+            Element.prototype.requestPointerLock = async function hkRequestPointerLock(...args) {
+                try {
+                    (args[0] ||= {}).unadjustedMovement = true;
+                    await oRequestPointerLock.apply(this, args);
+                } catch (err) {
+                    console.log(err);
+                }
+            };
+
+            window.InstallBlurFocusBlocker = function () {
+                if (!('onblur' in document)) return;
+                if (window.blurFocusHandlersInstalled) return;
+
+                window.addEventListener('blur', function () {
+                    let blockerButton = document.createElement('button');
+                    blockerButton.style.position = 'fixed';
+                    blockerButton.style.top = '0';
+                    blockerButton.style.left = '0';
+                    blockerButton.style.width = '100%';
+                    blockerButton.style.height = '100%';
+                    blockerButton.style.zIndex = '9999';
+                    blockerButton.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+                    blockerButton.style.border = 'none';
+                    blockerButton.style.cursor = 'default';
+
+                    document.body.appendChild(blockerButton);
+
+                    function removeBlocker() {
+                        if (blockerButton && blockerButton.parentNode) {
+                            blockerButton.parentNode.removeChild(blockerButton);
+                        }
+                        window.removeEventListener('focus', removeBlocker);
+                    }
+
+                    window.addEventListener('focus', removeBlocker);
+                });
+
+                window.blurFocusHandlersInstalled = true;
+            }
+
+            window.FocusGame = function () {
+                if (!isPausedGame) canvas.focus();
+            }
+
+            window.SetVisibility = function (visibility) {
+                if (ysdk !== null && initGame === true && isVisibility !== visibility) {
+                    isVisibility = visibility;
+                    if (!visibility) {
+                        YG2Instance('SetFocusWindowGame', 'false');
+                    }
+                    else {
+                        YG2Instance('SetFocusWindowGame', 'true');
+                    }
+                }
+            }
+
+            const PauseCallback = () => {
+                isPausedGame = true;
+                YG2Instance('SetPauseGame', 'true');
+            };
+
+            const ResumeCallback = () => {
+                isPausedGame = false;
+                YG2Instance('SetPauseGame', 'false');
+            };
+
+            const script = document.createElement("script");
+            script.src = loaderUrl;
+            script.onload = () => {
+                StartUnityInstance = function () {
+                    createUnityInstance(canvas, config, (progress) => {
+                        spinner.style.display = "none";
+                        progressBarEmpty.style.display = "";
+                        const adjustedProgress = Math.max(progress, 0.05);
+                        progressBarFull.style.width = `${100 * adjustedProgress}%`;
+                    }).then((unityInstance) => {
+                        ygGameInstance = unityInstance;
+                        loadingCover.style.background = "";
+                        loadingCover.style.display = "none";
+                        // Fill Background [Build Modify]
+                    }).catch((message) => {
+                        console.error(message);
+                    });
+                };
+
+                InstallBlurFocusBlocker();
+                InitYSDK();
+
+                if (IsLocalHost() || syncInit)
+                    StartUnityInstance_IfUnloaded();
+            };
+
+            window.StartUnityInstance_IfUnloaded = function () {
+                if (spinner.style.display !== "none")
+                    StartUnityInstance();
+            }
+
+            window.IsLocalHost = function () {
+                try {
+                    if (window.top !== window) {
+                        return false;
+                    }
+
+                    const host = window.location.hostname;
+                    if (host === "localhost" || host === "127.0.0.1" || host.endsWith(".local")) {
+                        LogStyledMessage("Local Host");
+                        return true;
+                    }
+                }
+                catch (error) {
+                    console.error("Error checking the local host:", error);
+                    return false;
+                }
+            }
+
+            window.YG2Instance = function (method) {
+                if (ygGameInstance == null)
+                    return;
+
+                if (!initGame) {
+                    setTimeout(function () {
+                        if (ygGameInstance)
+                            ygGameInstance.SendMessage('YG2Instance', method);
+                    }, 100);
+                }
+                else {
+                    ygGameInstance.SendMessage('YG2Instance', method);
+                }
+
+            }
+            window.YG2Instance = function (method, arg) {
+                if (ygGameInstance == null)
+                    return;
+
+                if (!initGame) {
+                    setTimeout(function () {
+                        ygGameInstance.SendMessage('YG2Instance', method, arg);
+                    }, 100);
+                }
+                else {
+                    ygGameInstance.SendMessage('YG2Instance', method, arg);
+                }
+            }
+
+            window.LogStyledMessage = function (message, style) {
+                console.log('%c' + message, style || 'color: #FFDF73; background-color: #454545');
+            }
+
+            window.InitYSDK = async function () {
+                try {
+                    if (IsLocalHost()) return;
+
+                    ysdk.on('game_api_pause', PauseCallback);
+                    ysdk.on('game_api_resume', ResumeCallback);
+
+                    // Additional init0 modules
+                    await RequestingEnvironmentData();
+                    LogStyledMessage('Init EnvirData ysdk');
+
+
+                    // Additional init1 modules
+
+                    // Additional init2 modules
+                    await InitPlayer();
+                    LogStyledMessage('Init Authorization ysdk');
+
+
+                    // Additional init modules
+                    await LoadCloud();
+                    LogStyledMessage('Init Storage ysdk');
+
+                    await InitReview();
+                    LogStyledMessage('Init Review ysdk');
+
+                    await GetStats();
+                    LogStyledMessage('Init PlayerStats ysdk');
+
+                    await InitPayments();
+                    LogStyledMessage('Init Payments ysdk');
+
+                    await GetAllGames();
+                    LogStyledMessage('Init OpenURL ysdk');
+
+                    await InitGameLabel();
+                    LogStyledMessage('Init GameLabel ysdk');
+
+
+                    initYSDK = true;
+                    if (ygGameInstance != null)
+                        ygGameInstance.SendMessage('YG2Instance', 'InitSDKComplete');
+
+                    LogStyledMessage('Init YandexSDK Success');
+
+                } catch (e) {
+                    console.error('CRASH Initialization SDK: ', e);
+                }
+
+                if (!IsLocalHost() && !syncInit)
+                    StartUnityInstance_IfUnloaded();
+            }
+
+            window.InitGame = function () {
+                loadingText.remove();
+                initGame = true;
+
+                ygGameInstance.SendMessage(
+                    "YG2Instance",
+                    "SetEnvirData",
+                    JSON.stringify({
+                        language: "en",
+                        domain: "com",
+                        deviceType: "desktop",
+                        isMobile: false,
+                        isDesktop: true,
+                        isTablet: false,
+                        isTV: false,
+                        appID: "local",
+                        browserLang: "en",
+                        payload: null,
+                        platform: navigator.platform,
+                        browser: "Chrome",
+                    }),
+                );
+                ygGameInstance.SendMessage(
+                    "YG2Instance",
+                    "SetAuth",
+                    JSON.stringify({
+                        playerAuth: "resolved",
+                        playerName: "Player",
+                        playerId: "local_player",
+                        playerPhoto: "no data",
+                        payingStatus: "unknown",
+                    }),
+                );
+                ygGameInstance.SendMessage("YG2Instance", "SetLoadSaves", "no data");
+                ygGameInstance.SendMessage("YG2Instance", "InitSDKComplete");
+
+                setTimeout(function () {
+                    if (isPausedGame == true) YG2Instance("SetPauseGame", "true");
+                }, 100);
+            }
+
+            // Additional script modules
+            LogStyledMessage('[PluginYG2 v2.008] [Build: 40] [Platform: YandexGames]');
+
+            window.cloudSaves = NO_DATA;
+
+            window.SaveCloud = function (jsonData, flush) {
+                if (player == null) {
+                    console.error('CRASH Save Cloud: ', 'Didnt have time to load');
+                    return;
+                }
+                try {
+                    player.setData({
+                        saves: [jsonData],
+                    }, flush);
+                } catch (e) {
+                    console.error('CRASH Save Cloud: ', e.message);
+                }
+            }
+
+            window.LoadCloud = function () {
+                return new Promise((resolve) => {
+                    if (ysdk == null) {
+                        Final(window.NO_DATA);
+                        return;
+                    }
+                    try {
+                        player.getData(["saves"]).then(data => {
+                            if (data.saves) {
+                                Final(JSON.stringify(data.saves));
+                            } else {
+                                Final(NO_DATA);
+                            }
+                        }).catch(() => {
+                            console.error('Load Cloud Error!');
+                            Final(NO_DATA);
+                        });
+                    }
+                    catch (e) {
+                        console.error('CRASH Load saves Cloud: ', e.message);
+                        Final(NO_DATA);
+                    }
+
+                    function Final(res) {
+                        cloudSaves = res;
+                        YG2Instance('SetLoadSaves', res);
+                        resolve(res);
+                    }
+                });
+            }
+
+
+            window.StickyAdActivity = function (show) {
+                try {
+                    ysdk.adv.getBannerAdvStatus().then(({ stickyAdvIsShowing, reason }) => {
+                        if (stickyAdvIsShowing) {
+                            if (!show) {
+                                ysdk.adv.hideBannerAdv();
+                            }
+                        }
+                        else if (reason) {
+                            LogStyledMessage('StickyAdv are not shown. Reason:', reason);
+                        }
+                        else if (show) {
+                            ysdk.adv.showBannerAdv();
+                        }
+                    })
+                } catch (e) {
+                    console.error('CRASH StickyAdv activity: ', e.message);
+                }
+            }
+
+
+            window.RewardedAdvShow = function (id) {
+                try {
+                    ysdk.adv.showRewardedVideo(
+                        {
+                            callbacks:
+                            {
+                                onOpen: () => {
+                                    LogStyledMessage('Opened Rewarded Adv');
+                                    YG2Instance('OpenRewardedAdv');
+                                },
+                                onClose: () => {
+                                    LogStyledMessage('Closed Rewarded Adv');
+                                    YG2Instance('CloseRewardedAdv');
+                                    FocusGame();
+                                },
+                                onRewarded: () => {
+                                    YG2Instance('RewardAdv', id);
+                                },
+                                onError: (err) => {
+                                    console.error('Error Rewarded Adv', err);
+                                    YG2Instance('ErrorRewardedAdv');
+                                }
+                            }
+                        });
+                } catch (err) {
+                    console.error('CRASH Rewarded Adv Show: ', err.message);
+                }
+            }
+
+            window.reviewData = 'false';
+
+            window.InitReview = function () {
+                return new Promise((resolve) => {
+                    if (ysdk == null) {
+                        resolve('false');
+                        return;
+                    }
+                    try {
+                        ysdk.feedback.canReview().then(({ value }) => {
+                            if (value) {
+                                reviewData = 'true';
+                                resolve('true');
+                            }
+                            else {
+                                resolve('false');
+                            }
+                        });
+                    }
+                    catch (e) {
+                        console.error('CRASH Init Review: ', e.message);
+                        resolve('false');
+                    }
+                });
+            }
+
+            window.Review = function () {
+                try {
+                    ysdk.feedback.canReview()
+                        .then(({ value, reason }) => {
+                            if (value) {
+                                ysdk.feedback.requestReview().then(({ feedbackSent }) => {
+                                    LogStyledMessage('feedbackSent ', feedbackSent);
+                                    if (feedbackSent) {
+                                        LogStyledMessage('Review Success')
+                                        YG2Instance('ReviewSent', 'true');
+                                    }
+                                    else {
+                                        YG2Instance('ReviewSent', 'false');
+                                        LogStyledMessage('Review Fail', reason)
+                                    }
+                                    FocusGame();
+                                })
+                            }
+                            else {
+                                LogStyledMessage('Review can show = false', reason);
+                                FocusGame();
+                            }
+                        })
+                } catch (e) {
+                    console.error('CRASH Review: ', e.message);
+                    FocusGame();
+                }
+            }
+
+
+            window.statsSaves = NO_DATA;
+
+            window.GetStats = function () {
+                return new Promise((resolve) => {
+                    if (ysdk == null) {
+                        Final(NO_DATA);
+                        return;
+                    }
+                    try {
+                        player.getStats()
+                            .then(stats => {
+                                Final(JSON.stringify(stats));
+                            }).catch(e => {
+                                console.error('GetStats Error!', e.message);
+                                Final(NO_DATA);
+                            });
+                    }
+                    catch (e) {
+                        console.error('CRASH GetStats: ', e.message);
+                        Final(NO_DATA);
+                    }
+
+                    function Final(res) {
+                        statsSaves = res;
+                        YG2Instance('ReceiveStats', res);
+                        resolve(res);
+                    }
+                });
+            }
+
+            window.SetStats = function (jsonStats) {
+                if (ysdk == null || player == null) {
+                    console.error('SetStats: Error initialization');
+                    return;
+                }
+                try {
+                    player.setStats(JSON.parse(jsonStats));
+                } catch (e) {
+                    console.error('CRASH SetStats:', e.message);
+                }
+            }
+
+            window.paymentsData = NO_DATA;
+            let payments = null;
+
+            window.InitPayments = function (sendback) {
+                return new Promise((resolve) => {
+                    try {
+                        if (ysdk == null) {
+                            Final(NO_DATA);
+                            return;
+                        }
+
+                        ysdk.getPayments().then(_payments => {
+                            payments = _payments;
+
+                            payments.getCatalog()
+                                .then(products => {
+                                    let productID = [];
+                                    let title = [];
+                                    let description = [];
+                                    let imageURI = [];
+                                    let price = [];
+                                    let priceValue = [];
+                                    let priceCurrencyCode = [];
+                                    let currencyImageURL = [];
+                                    let consumed = [];
+
+                                    payments.getPurchases().then(purchases => {
+                                        for (let i = 0; i < products.length; i++) {
+                                            productID[i] = products[i].id;
+                                            title[i] = products[i].title;
+                                            description[i] = products[i].description;
+                                            imageURI[i] = products[i].imageURI;
+                                            price[i] = products[i].price;
+                                            priceValue[i] = products[i].priceValue;
+                                            priceCurrencyCode[i] = products[i].priceCurrencyCode;
+                                            currencyImageURL[i] = products[i].getPriceCurrencyImage("medium");
+
+                                            consumed[i] = true;
+                                            for (i2 = 0; i2 < purchases.length; i2++) {
+                                                if (purchases[i2].productID === productID[i]) {
+                                                    consumed[i] = false;
+                                                    break;
+                                                }
+                                            }
+                                        }
+
+                                        let jsonPayments = {
+                                            "id": productID,
+                                            "title": title,
+                                            "description": description,
+                                            "imageURI": imageURI,
+                                            "price": price,
+                                            "priceValue": priceValue,
+                                            "priceCurrencyCode": priceCurrencyCode,
+                                            "currencyImageURL": currencyImageURL,
+                                            "consumed": consumed,
+                                            "language": "en"
+                                        };
+
+                                        Final(JSON.stringify(jsonPayments));
+                                    });
+                                });
+
+                        }).catch(e => {
+                            LogStyledMessage('Purchases are not available', e.message);
+                            Final(NO_DATA);
+                        })
+                    } catch (e) {
+                        console.error('CRASH Init Payments: ', e.message);
+                        Final(NO_DATA);
+                    }
+
+                    function Final(res) {
+                        paymentsData = res;
+                        YG2Instance('PaymentsEntries', res);
+                        resolve(res);
+                    }
+                });
+            }
+
+            window.BuyPayments = function (id) {
+                try {
+                    LogStyledMessage('Purchase Success');
+                    ConsumePurchase(id, true);
+                    FocusGame();
+                } catch (e) {
+                    console.error('CRASH Buy Payments: ', e.message);
+                    YG2Instance('OnPurchaseFailed', id);
+                    FocusGame();
+                }
+            }
+
+            window.ConsumePurchase = function (id, onPurchaseSuccess) {
+                try {
+                    YG2Instance('OnPurchaseSuccess', id);
+                } catch (e) {
+                    console.error('CRASH Consume Purchase: ', e.message);
+                }
+            }
+
+            window.ConsumePurchases = function (onPurchaseSuccess) {
+                try {
+                    YG2Instance('OnPurchaseSuccess', purchases[i].productID);
+                } catch (e) {
+                    console.error('CRASH Consume purchases: ', e.message);
+                }
+            }
+
+            window.allGamesData = NO_DATA;
+
+            window.GetAllGames = function () {
+                return new Promise((resolve) => {
+                    if (ysdk == null) {
+                        Final(NO_DATA);
+                        return;
+                    }
+                    try {
+                        ysdk.features.GamesAPI.getAllGames().then(({ games, developerURL }) => {
+                            let appID = new Array(games);
+                            let title = new Array(games);
+                            let url = new Array(games);
+                            let coverURL = new Array(games);
+                            let iconURL = new Array(games);
+
+                            for (var i = 0; i < games.length; i++) {
+                                appID[i] = games[i].appID;
+                                title[i] = games[i].title;
+                                url[i] = games[i].url;
+                                coverURL[i] = games[i].coverURL;
+                                iconURL[i] = games[i].iconURL;
+                            }
+
+                            let jsonGames = {
+                                "appID": appID,
+                                "title": title,
+                                "url": url,
+                                "coverURL": coverURL,
+                                "iconURL": iconURL,
+                                "developerURL": developerURL
+                            };
+
+                            Final(JSON.stringify(jsonGames));
+
+                        }).catch(err => {
+                            console.error('Error getAllGames', err);
+                            Final(NO_DATA);
+                        })
+                    } catch (e) {
+                        console.error('CRASH Get All Games: ', e.message);
+                        Final(NO_DATA);
+                    }
+
+                    function Final(res) {
+                        allGamesData = res;
+                        resolve(res);
+                    }
+                });
+            }
+
+
+            window.SetLeaderboard = function (name, score, extraData) {
+                if (!ysdk) return;
+
+                try {
+                    ysdk.leaderboards.setScore(name, score, extraData);
+                } catch (e) {
+                    console.error('CRASH Set Leaderboard: ', e.message);
+                }
+            }
+
+            window.GetLeaderboard = function (nameLB, quantityTop, quantityAround, photoSize, auth) {
+                if (!ysdk) return;
+
+                var jsonEntries = {
+                    technoName: '',
+                    isDefault: false,
+                    isInvertSortOrder: false,
+                    decimalOffset: 0,
+                    type: ''
+                };
+
+                ysdk.leaderboards.getDescription(nameLB)
+                    .then(res => {
+                        jsonEntries.technoName = nameLB;
+                        jsonEntries.isDefault = res.default;
+                        jsonEntries.isInvertSortOrder = res.description.invert_sort_order;
+                        jsonEntries.decimalOffset = res.description.score_format.options.decimal_offset;
+                        jsonEntries.type = res.description.type;
+
+                        return ysdk.leaderboards.getEntries(nameLB, {
+                            quantityTop: quantityTop,
+                            includeUser: auth,
+                            quantityAround: quantityAround
+                        });
+                    })
+                    .then(res => {
+                        let jsonPlayers = EntriesLB(res, photoSize);
+                        let combinedJson = { ...jsonEntries, ...jsonPlayers };
+
+                        YG2Instance('LeaderboardEntries', JSON.stringify(combinedJson));
+                    })
+                    .catch(err => {
+                        if (err.code === 'LEADERBOARD_PLAYER_NOT_PRESENT')
+                            LogStyledMessage('Leaderboard player not present');
+                        console.error(err);
+                    });
+            }
+
+            window.EntriesLB = function (res, photoSize) {
+                let LbdEntriesText = '';
+                let plCount = res.entries.length;
+
+                let ranks = new Array(plCount);
+                let photos = new Array(plCount);
+                let names = new Array(plCount);
+                let scores = new Array(plCount);
+                let uniqueIDs = new Array(plCount);
+                let extraDataArray = new Array(plCount);
+
+                for (i = 0; i < plCount; i++) {
+                    ranks[i] = res.entries[i].rank;
+                    scores[i] = res.entries[i].score;
+                    uniqueIDs[i] = res.entries[i].player.uniqueID;
+                    photos[i] = res.entries[i].player.getAvatarSrc(photoSize);
+
+                    if (res.entries[i].extraData == "" || res.entries[i].extraData == null)
+                        extraDataArray[i] = NO_DATA;
+                    else
+                        extraDataArray[i] = res.entries[i].extraData;
+
+                    if (res.entries[i].player.scopePermissions.public_name !== "allow")
+                        names[i] = "anonymous";
+                    else
+                        names[i] = res.entries[i].player.publicName;
+
+                    LbdEntriesText += ranks[i] + '. ' + names[i] + ": " + scores[i] + '\n';
+                }
+
+                if (plCount === 0) {
+                    LbdEntriesText = 'no data';
+                }
+
+                let jsonPlayers = {
+                    "entries": LbdEntriesText,
+                    "ranks": ranks,
+                    "photos": photos,
+                    "names": names,
+                    "scores": scores,
+                    "uniqueIDs": uniqueIDs,
+                    "extraDataArray": extraDataArray
+                };
+
+                return jsonPlayers;
+            }
+
+
+            window.nowFullAdOpen = false;
+
+            window.InterAdvShow = function () {
+                try {
+                    if (ysdk == null) {
+                        LogStyledMessage('Cancel InterAdvShow: SDK is not initialized');
+                        return;
+                    }
+                    if (nowFullAdOpen == true) {
+                        LogStyledMessage('Cancel InterAdvShow: The advertisement is already open');
+                        return;
+                    }
+
+                    ysdk.adv.showFullscreenAdv({
+                        callbacks: {
+                            onOpen: () => {
+                                LogStyledMessage('Open Interstitial Adv');
+                                nowFullAdOpen = true;
+                                if (initGame === true) {
+                                    YG2Instance('OpenInterAdv');
+                                }
+                            },
+                            onClose: (wasShown) => {
+                                LogStyledMessage('Close Interstitial Adv');
+                                nowFullAdOpen = false;
+                                if (initGame === true) {
+                                    if (wasShown) {
+                                        YG2Instance('CloseInterAdv', 'true');
+                                    }
+                                    else {
+                                        YG2Instance('CloseInterAdv', 'false');
+                                    }
+                                }
+                                FocusGame();
+                            },
+                            onError: (error) => {
+                                console.error('Error Interstitial Adv', error);
+                                nowFullAdOpen = false;
+                                YG2Instance('ErrorInterAdv');
+                                FocusGame();
+                            }
+                        }
+                    });
+                }
+                catch (e) {
+                    console.error('CRASH Interstitial Adv Show: ', e.message);
+                }
+            }
+
+
+            window.gameLabelData = 'false';
+
+            window.InitGameLabel = function () {
+                return new Promise((resolve) => {
+                    if (ysdk == null) {
+                        resolve('false');
+                        return;
+                    }
+                    try {
+                        ysdk.shortcut.canShowPrompt().then(prompt => {
+                            if (prompt.canShow) {
+                                gameLabelData = 'true';
+                                resolve('true');
+                            }
+                            else {
+                                resolve('false');
+                            }
+                        });
+                    }
+                    catch (e) {
+                        console.error('CRASH Init Game Label: ', e.message);
+                        resolve('false');
+                    }
+                });
+            }
+
+            window.GameLabelShowDialog = function () {
+                try {
+                    ysdk.shortcut.showPrompt()
+                        .then(result => {
+                            LogStyledMessage('Shortcut created?:', result);
+                            if (result.outcome === 'accepted') {
+                                LogStyledMessage('Game Label Success');
+                                YG2Instance('OnGameLabelSuccess');
+                            }
+                            else {
+                                YG2Instance('OnGameLabelFail');
+                            }
+                            FocusGame();
+                        });
+                }
+                catch (e) {
+                    console.error('CRASH Game Label Show: ', e.message);
+                    FocusGame();
+                }
+            }
+
+            window.environmentData = NO_DATA;
+
+            window.RequestingEnvironmentData = function () {
+                return new Promise((resolve) => {
+                    if (ysdk == null) {
+                        Final(NO_DATA);
+                        return;
+                    }
+                    try {
+                        var browser = navigator.userAgent;
+                        if (browser.includes('YaBrowser') || browser.includes('YaSearchBrowser'))
+                            browser = 'Yandex';
+                        else if (browser.includes('Opera') || browser.includes('OPR'))
+                            browser = 'Opera';
+                        else if (browser.includes('Firefox'))
+                            browser = 'Firefox';
+                        else if (browser.includes('MSIE'))
+                            browser = 'IE';
+                        else if (browser.includes('Edge'))
+                            browser = 'Edge';
+                        else if (browser.includes('Chrome'))
+                            browser = 'Chrome';
+                        else if (browser.includes('Safari'))
+                            browser = 'Safari';
+                        else
+                            browser = 'Other';
+
+                        let jsonEnvir = {
+                            "language": "en",
+                            "domain": "com",
+                            "deviceType": ysdk.deviceInfo.type,
+                            "isMobile": ysdk.deviceInfo.isMobile(),
+                            "isDesktop": ysdk.deviceInfo.isDesktop(),
+                            "isTablet": ysdk.deviceInfo.isTablet(),
+                            "isTV": ysdk.deviceInfo.isTV(),
+                            "appID": ysdk.environment.app.id,
+                            "browserLang": "en",
+                            "payload": ysdk.environment.payload,
+                            "platform": navigator.platform,
+                            "browser": browser
+                        };
+
+                        Final(JSON.stringify(jsonEnvir));
+                        LogStyledMessage("Environment Data: " + JSON.stringify(jsonEnvir));
+                    }
+                    catch (e) {
+                        console.error('CRASH Requesting Environment Data: ', e.message);
+                        Final(NO_DATA);
+                    }
+
+                    function Final(res) {
+                        environmentData = res;
+                        YG2Instance('SetEnvirData', res);
+                        resolve(res);
+                    }
+                });
+            }
+
+            window.playerData = NO_DATA;
+            window.player = null;
+
+            window.InitPlayer = async function () {
+                return new Promise(async (resolve) => {
+                    try {
+                        if (!ysdk)
+                            return Final(NotAuthorized(false));
+
+                        player = await ysdk.getPlayer();
+
+                        if (!player.isAuthorized())
+                            return Final(NotAuthorized());
+
+                        const authJson = {
+                            "playerAuth": "resolved",
+                            "playerName": player.getName(),
+                            "playerId": player.getUniqueID(),
+                            "playerPhoto": player.getPhoto('medium'),
+                            "payingStatus": player.getPayingStatus()
+                        };
+
+                        return Final(JSON.stringify(authJson));
+                    } catch (e) {
+                        console.error('CRASH init Player: ', e.message);
+                        return Final(NotAuthorized(false));
+                    }
+
+                    function Final(res) {
+                        playerData = res;
+                        YG2Instance('SetAuth', res);
+                        resolve(res);
+                    }
+                });
+            }
+
+
+            window.NotAuthorized = async function (isInitSDK = true) {
+                let authJson = {
+                    "playerAuth": "rejected",
+                    "playerName": "unauthorized",
+                    "playerId": isInitSDK ? player.getUniqueID() : "unauthorized",
+                    "playerPhoto": "no data",
+                    "payingStatus": "unknown"
+                };
+                return JSON.stringify(authJson);
+            }
+
+            window.OpenAuthDialog = function () {
+                if (ysdk !== null) {
+                    try {
+                        ysdk.auth.openAuthDialog().then(() => {
+                            InitPlayer()
+                                .then(() => {
+                                    YG2Instance('LoggedIn');
+                                });
+                        });
+                    }
+                    catch (e) {
+                        LogStyledMessage('CRASH Open Auth Dialog: ', e.message);
+                    }
+                }
+            }
+
+            document.body.appendChild(script);
+        })();
+    </script>
+</body>
+
+</html>
