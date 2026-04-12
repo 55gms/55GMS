@@ -524,9 +524,15 @@
     "usesProxy": false
   },
   {
-    "name": "Geometry Dash",
+    "name": "Geometry Dash Lite",
     "url": "/misc/play/geometry-dash.html",
     "image": "/misc/geometry-dash/img.jpeg",
+    "usesProxy": false
+  },
+  {
+    "name": "Geometry Dash",
+    "author": "RobTop Games",
+    "image": "/misc/geometry/img.webp",
     "usesProxy": false
   },
   {

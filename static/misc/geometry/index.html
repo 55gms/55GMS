@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base href="https://cdn.jsdelivr.net/gh/web-dashers/web-dashers.github.io@latest/">
+    <meta charset="UTF-8">
+    <script src="/assets/js/script.js?v=14"></script>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="assets/scripts/allObjects.js"></script>
+    <script src="assets/scripts/allLevels.js"></script>
+    <script src="assets/scripts/phaser.min.js"></script>
+    <script src="assets/scripts/pako.min.js"></script>
+    <script type="module" crossorigin src="assets/scripts/index-game.js"></script>
+    <script>
+        new ResizeObserver(() => {
+            window.dispatchEvent(new Event('resize'));
+        }).observe(document.documentElement);
+
+        document.oncontextmenu = (event) => {
+            event.preventDefault();
+        };
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

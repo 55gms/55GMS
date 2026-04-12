@@ -1,0 +1,103 @@
+Here is a guide with the exact instructions and code snippets you can copy and paste to another AI coding agent to have them perform this exact same change:
+
+***
+
+### Prompt to provide to the AI Agent:
+
+**Task:** Replace the "rainbow" loading text animation with a centered "pulse" animation in the Unity WebGL loader index.html file.
+
+Please make the following two replacements in the index.html file:
+
+#### 1. Update the CSS Styles
+Find the `<style>` section in the `<head>`. Locate the `#loading-text` styles and the `@keyframes rainbow` animation that look like this:
+
+```css
+        #loading-text {
+            font-weight: bold;
+            background: linear-gradient(270deg,
+                    #ff0000,
+                    #ff7f00,
+                    #ffff00,
+                    #00ff00,
+                    #0000ff,
+                    #4b0082,
+                    #8f00ff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 3s ease infinite;
+        }
+
+        @keyframes rainbow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+```
+
+**Replace** that entire CSS block with the following:
+
+```css
+        #loading-text {
+            color: white;
+            font-size: 48px;
+            font-family: cursive;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            white-space: nowrap;
+        }
+
+        /* Loading animation */
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        #loading-text {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            #loading-text {
+                font-size: 24px;
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #loading-text {
+                font-size: 18px;
+                padding: 0 10px;
+            }
+        }
+```
+
+#### 2. Clean up the HTML Element
+Next, scroll down to the `<body>` tag. Locate the existing `#loading-text` div, which likely has hardcoded inline styles:
+
+```html
+    <div id="loading-text"
+        style="color: white; font-size: 48px; font-family: cursive; text-align: center; margin-top: 20px;"> LOADING...
+    </div>
+```
+
+**Replace** it with this clean HTML (since the styling is now correctly handled by the CSS classes):
+
+```html
+    <div id="loading-text">LOADING...</div>
+```
