@@ -14,5 +14,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
  function play() {
-  location.href = `/embed.html#https://cinemaos.tech/embed/${ID}/${season}/${episode}`;
+  location.href = `/embed.html#https://cinemaos.tech/player/${ID}/${season}/${episode}`;
 }
