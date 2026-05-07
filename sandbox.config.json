@@ -1,0 +1,13 @@
+{
+  "infiniteLoopProtection": true,
+  "hardReloadOnChange": false,
+  "view": "browser",
+  "disableAstValidation": false,
+  "previewMaxWidth": 100,
+  "previewMaxHeight": 100,
+  "syncData": false,
+  "container": {
+    "port": 3000,
+    "node": "18"
+  }
+}
