@@ -98,11 +98,16 @@
     <!-- Additional body modules -->
     <script>
         var loadingText = document.querySelector("#loading-text");
+        const chunkBaseUrl = "https://raw.githubusercontent.com/genizy/google-class/main/brawl-3d/";
         let totalBytes = 0;
         let loadedBytes = 0;
 
         async function fetchWithProgress(url) {
             const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Failed to load ${url}: ${response.status} ${response.statusText}`);
+            }
+
             const reader = response.body.getReader();
             let chunks = [];
             let received = 0;
@@ -139,7 +144,7 @@
         function getParts(file, start, end) {
             let parts = [];
             for (let i = start; i <= end; i++) {
-                parts.push(file + ".part" + i);
+                parts.push(chunkBaseUrl + file + ".part" + i);
             }
             return parts;
         }
