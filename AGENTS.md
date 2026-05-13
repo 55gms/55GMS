@@ -34,17 +34,17 @@ A running PostgreSQL instance is required. Run `node setup-db.js` after configur
 
 ### Backend layout
 
-| Path | Purpose |
-|------|---------|
-| `index.js` | Server entry point — Express routes, Socket.IO events, static file serving |
-| `config/database.js` | Sequelize PostgreSQL connection (pool: max 10) |
-| `models/` | Sequelize ORM models: `Chat`, `Message`, `ChatMember`, `Friend`, `UserStatus` |
-| `routes/auth.js` | Login/signup, delegates to external API at `https://db.55gms.com/api/` with hcaptcha |
-| `routes/users.js` | Premium checks, per-user save-data upload/download |
-| `routes/messaging.js` | Full chat REST API (~962 lines) |
-| `routes/music.js` | Proxy routes for music/media |
-| `utils/userCache.js` | In-memory user data cache |
-| `utils/blockingCache.js` | In-memory blocked-user cache |
+| Path                     | Purpose                                                                              |
+| ------------------------ | ------------------------------------------------------------------------------------ |
+| `index.js`               | Server entry point — Express routes, Socket.IO events, static file serving           |
+| `config/database.js`     | Sequelize PostgreSQL connection (pool: max 10)                                       |
+| `models/`                | Sequelize ORM models: `Chat`, `Message`, `ChatMember`, `Friend`, `UserStatus`        |
+| `routes/auth.js`         | Login/signup, delegates to external API at `https://db.55gms.com/api/` with hcaptcha |
+| `routes/users.js`        | Premium checks, per-user save-data upload/download                                   |
+| `routes/messaging.js`    | Full chat REST API (~962 lines)                                                      |
+| `routes/music.js`        | Proxy routes for music/media                                                         |
+| `utils/userCache.js`     | In-memory user data cache                                                            |
+| `utils/blockingCache.js` | In-memory blocked-user cache                                                         |
 
 ### Authentication flow
 
@@ -53,6 +53,7 @@ User identity is managed by an external worker API (`https://db.55gms.com/api/`)
 ### Real-time (Socket.IO)
 
 Key events handled in `index.js`:
+
 - `authenticate` — associates a socket with a user UUID
 - `join_chat` / `leave_chat` — room management
 - `send_message` — persists to DB and broadcasts
@@ -63,6 +64,7 @@ Key events handled in `index.js`:
 ### Frontend
 
 All frontend code is static files under `static/`:
+
 - `static/*.html` — page templates (no templating engine; plain HTML)
 - `static/assets/js/` — client-side JS (chat, auth, games UI)
 - `static/assets/json/` — game/app catalog data
@@ -72,6 +74,7 @@ All frontend code is static files under `static/`:
 ### Proxy infrastructure
 
 The site uses Mercury Workshop libraries for browser-based proxying:
+
 - `@mercuryworkshop/bare-mux`, `wisp-js`, `epoxy-transport`, `scramjet`
 
 These are served from `static/assets/sj/` and `static/assets/cloaks/`.
