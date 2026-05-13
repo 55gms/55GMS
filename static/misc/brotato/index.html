@@ -2,7 +2,7 @@
 <html xmlns='http://www.w3.org/1999/xhtml' lang='' xml:lang=''>
 
 <head>
-    <base href="/misc/brotato/">
+    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@master/static/misc/brotato/">
     <script src="/assets/js/script.js?v=14"></script>
     <meta charset='utf-8' />
     <meta name='viewport' content='width=device-width, user-scalable=no' />
@@ -21,7 +21,7 @@
             border: 0 none;
             padding: 0;
             text-align: center;
-            background-color: black;
+            background: #231F20;
         }
 
         #canvas {
@@ -34,6 +34,56 @@
 
         #canvas:focus {
             outline: none;
+        }
+
+        #loading-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #231F20;
+            color: white;
+            pointer-events: none;
+        }
+
+        #loading-text {
+            color: white;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 48px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            white-space: nowrap;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.6;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #loading-text {
+                font-size: 24px;
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #loading-text {
+                font-size: 18px;
+                padding: 0 10px;
+            }
         }
 
         .godot {
@@ -55,7 +105,7 @@
             top: 0;
             right: 0;
             bottom: 0;
-            display: flex;
+            display: none !important;
             justify-content: center;
             align-items: center;
             /* don't consume click events - make children visible explicitly */
@@ -156,6 +206,9 @@
         HTML5 canvas appears to be unsupported in the current browser.<br />
         Please try updating or use a different browser.
     </canvas>
+    <div id="loading-overlay">
+        <div id="loading-text">LOADING...</div>
+    </div>
     <div id='status'>
         <div id='status-progress' style='display: none;' oncontextmenu='event.preventDefault();'>
             <div id='status-progress-inner'></div>
@@ -172,17 +225,17 @@
         </div>
         <div id='status-notice' class='godot' style='display: none;'></div>
     </div>
-
-    <div id="loading-text"
-        style="color: white; font-family: times new roman; font-size: 48px; text-align: center; margin-top: 20px;">the
-        game is loading be patient</div>
-    <div id="status">
-        <img id="status-splash" class="show-image--false fullsize--false use-filter--false" src="index.png" alt="">
-        <progress id="status-progress"></progress>
-        <div id="status-notice"></div>
-    </div>
-    <script type='text/javascript' src='/misc/brotato/index.js'></script>
+    <script type='text/javascript'>
+        document.write('<script src="' + window.location.origin + '/misc/brotato/index.js"><' + '/script>');
+    </script>
     <script type='text/javascript'>//<![CDATA[
+        window.hideLoadingOverlay = function () {
+            var loadingOverlay = document.getElementById('loading-overlay');
+
+            if (loadingOverlay) {
+                loadingOverlay.remove();
+            }
+        };
 
         window.godotRunStart = function () {
             const GODOT_CONFIG = { "args": [], "canvasResizePolicy": 2, "executable": "index", "experimentalVK": false, "fileSizes": { "index.pck": 138330272, "index.wasm": 25658069 }, "focusCanvas": true, "gdnativeLibs": [] };
@@ -285,12 +338,15 @@
                     }).then(() => {
                         setStatusMode('hidden');
                         initializing = false;
+                        window.hideLoadingOverlay();
                     }, displayFailureNotice);
                 }
             })();
         };
         //]]></script>
-    <script src="/misc/brotato/main.js"></script>
+    <script>
+        document.write('<script src="' + window.location.origin + '/misc/brotato/main.js?v=7"><' + '/script>');
+    </script>
 </body>
 
 </html>

@@ -71,6 +71,40 @@ All frontend code is static files under `static/`:
 - `static/assets/cloaks/` — Mercury Workshop proxy-cloaking libraries
 - `static/misc/` — 200+ self-contained embedded game directories
 
+### Game asset handling
+
+`static/misc/` is huge and contains many full game ports. Be careful with context:
+- Do not bulk-read, `cat`, or recursively dump large game folders.
+- Prefer targeted `rg`, `find ... -maxdepth`, `ls -lh`, `du -sh`, and small `sed` ranges.
+- When diagnosing one game, inspect only that game's folder plus the relevant catalog entry in `static/assets/json/load/g.json`.
+
+For game pages, prefer the existing jsDelivr base pattern when possible because it is faster for end users and reduces load on the app server:
+
+```html
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@master/static/misc/<folder-name>/">
+```
+
+Use relative asset paths inside the game page (`index.js`, `main.js`, `data/file.wasm`, etc.) so the `<base>` URL controls where game assets load from. Keep site-wide assets that should come from this server, such as `/assets/js/script.js`, as absolute paths.
+
+Before relying on jsDelivr, verify the actual game assets work there. jsDelivr/GitHub has practical file-size limits; individual files around 25 MB or larger may fail, be blocked, or behave inconsistently. Check large assets with `curl -I` or range requests before assuming they will load.
+
+If a required game asset is too large for jsDelivr, split it into chunk files in the same game folder, for example:
+
+```text
+index.pck.part1
+index.pck.part2
+index.wasm.part1
+index.wasm.part2
+```
+
+Then add a small loader script that fetches the relative chunk paths, combines them into a `Blob`, creates an object URL, and intercepts the game engine's fetch for the original large filename (`index.pck`, `index.wasm`, etc.). Keep chunk filenames stable and verify the final game in a browser, not only with HTTP status checks.
+
+Helpful checks for game asset work:
+- Search for accidental remote dependencies with `rg -n "githubusercontent|cdn\\.jsdelivr|<old-repo-or-folder>" static/misc/<folder>`.
+- Validate JS syntax with `node --check` for edited `.js` loader files.
+- Start the app locally with `PORT=8099 node .` and test the game through `http://localhost:8099/misc/<folder>/index.html`.
+- Watch the browser console: Godot/Unity games can show harmless in-game warnings, but missing `.wasm`, `.pck`, `.data`, or chunk files are blockers.
+
 ### Proxy infrastructure
 
 The site uses Mercury Workshop libraries for browser-based proxying:
