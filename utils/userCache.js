@@ -4,6 +4,20 @@ class UserCache {
   constructor() {
     this.cache = new Map();
     this.cacheTimeout = 5 * 60 * 1000;
+    this.maxEntries = 1000;
+  }
+
+  setCacheEntry(uuid, data) {
+    if (this.cache.has(uuid)) {
+      this.cache.delete(uuid);
+    }
+
+    this.cache.set(uuid, {
+      data,
+      timestamp: Date.now(),
+    });
+
+    this.enforceMaxEntries();
   }
 
   async getUserByUuid(uuid) {
@@ -22,14 +36,10 @@ class UserCache {
           headers: {
             Authorization: process.env.workerAUTH,
           },
-        }
+        },
       );
 
-      // Cache the result
-      this.cache.set(uuid, {
-        data: response.data,
-        timestamp: Date.now(),
-      });
+      this.setCacheEntry(uuid, response.data);
 
       return response.data;
     } catch (error) {
@@ -51,15 +61,12 @@ class UserCache {
           headers: {
             Authorization: process.env.workerAUTH,
           },
-        }
+        },
       );
 
       // Cache by UUID for future UUID lookups
       if (response.data.uuid) {
-        this.cache.set(response.data.uuid, {
-          data: response.data,
-          timestamp: Date.now(),
-        });
+        this.setCacheEntry(response.data.uuid, response.data);
       }
 
       return response.data;
@@ -100,12 +107,23 @@ class UserCache {
       }
     }
   }
+
+  enforceMaxEntries() {
+    while (this.cache.size > this.maxEntries) {
+      const oldestKey = this.cache.keys().next().value;
+      this.cache.delete(oldestKey);
+    }
+  }
 }
 
 const userCache = new UserCache();
 
-setInterval(() => {
-  userCache.cleanupExpired();
-}, 10 * 60 * 1000);
+const cleanupInterval = setInterval(
+  () => {
+    userCache.cleanupExpired();
+  },
+  10 * 60 * 1000,
+);
+cleanupInterval.unref?.();
 
 export default userCache;

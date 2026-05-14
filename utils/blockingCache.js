@@ -1,14 +1,27 @@
 import { Friend } from "../models/index.js";
-import { Op } from "sequelize";
 
 class BlockingCache {
   constructor() {
     this.cache = new Map();
     this.cacheTimeout = 5 * 60 * 1000; // 5 minutes
+    this.maxEntries = 5000;
   }
 
   getCacheKey(userUuid, otherUserUuid) {
     return `${userUuid}:${otherUserUuid}`;
+  }
+
+  setCacheEntry(cacheKey, data) {
+    if (this.cache.has(cacheKey)) {
+      this.cache.delete(cacheKey);
+    }
+
+    this.cache.set(cacheKey, {
+      ...data,
+      timestamp: Date.now(),
+    });
+
+    this.enforceMaxEntries();
   }
 
   async isBlocked(userUuid, otherUserUuid) {
@@ -30,11 +43,9 @@ class BlockingCache {
         },
       });
 
-      // Cache the result
-      this.cache.set(cacheKey, {
+      this.setCacheEntry(cacheKey, {
         isBlocked: !!blockedByOther,
         blockedBy: blockedByOther ? "other" : null,
-        timestamp: Date.now(),
       });
 
       return !!blockedByOther;
@@ -69,11 +80,9 @@ class BlockingCache {
         },
       });
 
-      // Cache the result
-      this.cache.set(cacheKey, {
+      this.setCacheEntry(cacheKey, {
         isBlocked: !!blockedByMe,
-        blockedBy: blockedByMe ? "me" : null,
-        timestamp: Date.now(),
+        blockedBy: blockedByMe ? "other" : null,
       });
 
       return !!blockedByMe;
@@ -82,7 +91,7 @@ class BlockingCache {
 
       // If we have stale cached data, return it as fallback
       if (cached) {
-        return cached.blockedBy === "me";
+        return cached.blockedBy === "other";
       }
 
       return false;
@@ -120,13 +129,24 @@ class BlockingCache {
       }
     }
   }
+
+  enforceMaxEntries() {
+    while (this.cache.size > this.maxEntries) {
+      const oldestKey = this.cache.keys().next().value;
+      this.cache.delete(oldestKey);
+    }
+  }
 }
 
 const blockingCache = new BlockingCache();
 
 // Cleanup expired cache entries every 10 minutes
-setInterval(() => {
-  blockingCache.cleanupExpired();
-}, 10 * 60 * 1000);
+const cleanupInterval = setInterval(
+  () => {
+    blockingCache.cleanupExpired();
+  },
+  10 * 60 * 1000,
+);
+cleanupInterval.unref?.();
 
 export default blockingCache;

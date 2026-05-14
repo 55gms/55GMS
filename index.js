@@ -50,9 +50,50 @@ try {
 
   io.attach(server);
 
-  const activeConversations = new Map();
   const connectedUsers = new Map();
   const activeChats = new Map();
+
+  function hasOtherUserSocket(userUuid, currentSocketId) {
+    for (const [socketId, connectedUuid] of connectedUsers.entries()) {
+      if (
+        socketId !== currentSocketId &&
+        connectedUuid === userUuid &&
+        io.sockets.sockets.has(socketId)
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  function leaveAuthenticatedRooms(socket) {
+    for (const room of socket.rooms) {
+      if (
+        room !== socket.id &&
+        (room.startsWith("user_") || room.startsWith("chat_"))
+      ) {
+        socket.leave(room);
+      }
+    }
+  }
+
+  async function markUserOffline(userUuid, lastSeen) {
+    await UserStatus.update(
+      {
+        isOnline: false,
+        lastSeen,
+        socketId: null,
+      },
+      { where: { userUuid } },
+    );
+
+    io.emit("user_status_change", {
+      userUuid,
+      isOnline: false,
+      lastSeen,
+    });
+  }
 
   initDatabase().catch(console.error);
 
@@ -79,7 +120,16 @@ try {
         const { uuid, joinChatRooms = false } = data;
         if (!uuid) return;
 
-        connectedUsers.set(socket.id, uuid);
+        const previousUuid = connectedUsers.get(socket.id);
+        if (previousUuid && previousUuid !== uuid) {
+          connectedUsers.delete(socket.id);
+          activeChats.delete(socket.id);
+          leaveAuthenticatedRooms(socket);
+
+          if (!hasOtherUserSocket(previousUuid, socket.id)) {
+            await markUserOffline(previousUuid, new Date());
+          }
+        }
 
         await UserStatus.upsert({
           userUuid: uuid,
@@ -88,6 +138,7 @@ try {
           socketId: socket.id,
         });
 
+        connectedUsers.set(socket.id, uuid);
         socket.join(`user_${uuid}`);
 
         if (joinChatRooms) {
@@ -229,6 +280,7 @@ try {
       try {
         const { uuid } = data;
         if (!uuid) return;
+        if (connectedUsers.get(socket.id) !== uuid) return;
 
         await UserStatus.upsert({
           userUuid: uuid,
@@ -243,27 +295,17 @@ try {
 
     // Handle disconnect
     socket.on("disconnect", async () => {
+      const userUuid = connectedUsers.get(socket.id);
+      connectedUsers.delete(socket.id);
+      activeChats.delete(socket.id);
+
+      if (!userUuid || hasOtherUserSocket(userUuid, socket.id)) {
+        return;
+      }
+
+      const lastSeen = new Date();
       try {
-        const userUuid = connectedUsers.get(socket.id);
-        if (userUuid) {
-          await UserStatus.update(
-            {
-              isOnline: false,
-              lastSeen: new Date(),
-              socketId: null,
-            },
-            { where: { userUuid } },
-          );
-
-          socket.broadcast.emit("user_status_change", {
-            userUuid,
-            isOnline: false,
-            lastSeen: new Date(),
-          });
-
-          connectedUsers.delete(socket.id);
-          activeChats.delete(socket.id);
-        }
+        await markUserOffline(userUuid, lastSeen);
       } catch (error) {
         console.error("Error during disconnect:", error);
       }
@@ -295,36 +337,16 @@ try {
         });
       }
 
-      // 2. Clean up in-memory conversation history
-      // Remove conversations inactive for more than 60 minutes
-      const now = Date.now();
-      const oneHour = 60 * 60 * 1000;
-      let cleanedConversations = 0;
-
-      for (const [userId, data] of activeConversations.entries()) {
-        if (!data.lastActive) {
-          // If no lastActive (legacy data), treat it as old and remove, or update?
-          // Let's assume if it's missing, we clean it up to be safe.
-          activeConversations.delete(userId);
-          cleanedConversations++;
-          continue;
+      for (const socketId of connectedUsers.keys()) {
+        if (!io.sockets.sockets.has(socketId)) {
+          connectedUsers.delete(socketId);
+          activeChats.delete(socketId);
         }
-
-        if (now - data.lastActive > oneHour) {
-          activeConversations.delete(userId);
-          cleanedConversations++;
-        }
-      }
-
-      if (cleanedConversations > 0) {
-        console.log(
-          `Cleaned up ${cleanedConversations} inactive conversations.`,
-        );
       }
     } catch (error) {
       console.error("Error in periodic cleanup:", error);
     }
-  }, 60000);
+  }, 60000).unref?.();
 
   app.use(express.static(path.join(__dirname, "static")));
   app.use((req, res, next) => {
