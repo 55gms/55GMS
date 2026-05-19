@@ -22,8 +22,9 @@ const initDatabase = async () => {
     await sequelize.sync({ alter: true }); // Use { force: true } only in development to reset tables
     console.log("✅ Database models synchronized successfully.");
   } catch (error) {
-    console.error("❌ Unable to connect to the database:", error);
-    throw error;
+    console.warn("⚠️ Unable to connect to the database:", error.message);
+    console.log("⚠️ Continuing without persistent database. Chat features will be limited.");
+    // Don't throw - allow the server to continue without DB
   }
 };
 

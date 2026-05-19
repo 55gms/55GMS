@@ -10,8 +10,7 @@ function hire(url) {
   )
     url = "http://" + url;
 
-  sessionStorage.setItem("encodedUrl", url);
-  location.href = "!";
+  window.open(url, '_blank');
 }
 
 function isUrl(str = "") {

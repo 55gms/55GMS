@@ -41,9 +41,13 @@ try {
   app.use("/scram/", express.static(scramjetPath));
   const server = createServer(app);
 
+  // Detect if running in CodeSandbox
+  const isCodeSandbox = process.env.CODESANDBOX_HOST || process.env.SANDBOX_URL;
+  const codesandboxOrigin = isCodeSandbox ? process.env.CODESANDBOX_HOST?.replace(/^wss?:\/\//, 'https://') : null;
+
   const io = new SocketIO({
     cors: {
-      origin: "*",
+      origin: isCodeSandbox ? ["*", codesandboxOrigin].filter(Boolean) : "*",
       methods: ["GET", "POST"],
     },
   });
@@ -424,8 +428,12 @@ try {
   process.on("SIGTERM", () => shutdown("SIGTERM"));
   process.on("SIGINT", () => shutdown("SIGINT"));
 
-  server.listen({
-    port: process.env.PORT || 8080,
+  // Determine port - CodeSandbox prefers 3000
+  const port = isCodeSandbox ? 3000 : (process.env.PORT || 8080);
+  
+  server.listen(port, () => {
+    const host = isCodeSandbox ? `CodeSandbox environment` : `localhost:${port}`;
+    console.log(`🚀 Server running on ${host}`);
   });
 
   server.on("error", (error) => {
