@@ -1,0 +1,72 @@
+<html>
+<head>
+<style>
+    
+    div {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 11pt;    
+    max-width: 800px;    
+    margin: 0px 30px 0px 20px;    
+    }    
+    
+</style>
+</head>    
+    
+<body style="background-color:lightgrey;">
+
+<div>
+<h1>Universal Paperclips</h1>
+<h2>Patch 2 Notes</h2>
+Couple of major improvements, one for performance, one for gameplay. Shift-reload to get the new code, shouldn't affect in-progress games but, as always, there are no guarantees out here on the world wide web.
+<br />
+<br />
+<br />    
+<b>Optimization</b><hr>
+Under the generous guidance of my friend Matt, the code went through a substantial optimization pass. There's still room for improvement, but we believe we have achieved significant (10x - 100x) performance increases. Hopefully the game will no longer melt your computer and I will be the target of fewer jokes about bitcoin mining.
+<br />
+<br />
+<br />     
+<b>Strategy/Yomi Revision</b><hr>
+As I mentioned last patch, I knew there was a problem with yomi generation. I thought I could fix it with the change to Strategic Attachment, but I finally learned from talking to some of the most dedicated and observant players (hi guys) that things were much worse than I thought.
+<br />
+<br />     
+The problem is that every time you added a strategy to the pool the amount of yomi you generated per tournament went up linearly, but the amount of time a tournament took to complete went up <em>quadratically</em>. As a result, it was far superior to never add any strats and to constantly run quick random-only tournaments. 
+<br />
+<br />    
+You could solve this with a bonus to yomi-reward based on the number of strats in the pool, but there was something very flat about that solution. I wanted to incentivize adding strats, but not just because strats were intrinsically good but because of what they <em>did</em>, how they <em>worked</em>, I wanted the player to want more strats because it <em>allowed them to play better</em>.
+<br />
+<br />    
+So now tournaments work like this - you earn yomi equal to the number of points your pick scored times the number of stategies it beat. (If it didn't beat any strats it gets 1x not zero, so there's no difference between last place and second-to-last.) Adding strats to the pool is good because it magnifies the rewards to picking the best strategy. As a result, players are rewarded for understanding the tournament system and thinking about which strategies work for which payoff matrices. Fewer tournaments but each one matters more. 
+<br />
+<br /> 
+I'm pretty happy with this change. Something always felt a little <em>off</em> about the strategy tournaments, they didn't seem as interesting as they should have given how complicated they were. I think that even though I wasn't smart enough to recognize it I was subconsciously picking up on the flaw in the underlying math. With this fix it now <em>feels</em> right to me, I'm no longer doing the classic game designer fool-myself fake playtesting thing where I pay attention to the tournaments because it's "fun" I'm now paying attention to the tournaments because that's how to <em>get that yomi.</em> 
+<br />
+<br />     
+With this new system, overall yomi production went up about 5x, so I also tuned the projects that cost yomi to be roughly 3x more expensive. In general it's a more yomi-rich environment, which I think is good for overall timings and rhythms. In particular, I left the yomi costs for improving the investment engine the same, accelerating the ramp up to aggressive market play, which I think is a good thing.
+<br />
+<br />
+<br />
+<b>Gift Shop</b><hr>     
+At Universal Paperclips making world-class office supplies isn't just a job, it's a <em>passion</em>. If you share our obsession then let the world know with this <a href = "https://teespring.com/stores/universal-paperclips?page=1">top-quality merchandise</a>. Now featuring swag from our newest team - the Advanced AI Research Group (AARG).
+<br />
+<br />
+<br />    
+<b>Mobile Version Coming Soon</b><hr>     
+Meanwhile, back at Everybody House Games HQ, the rest of the gang (James and Hilary) have been hard at work preparing the official mobile version of the game. Look for Universal Paperclips&trade; coming soon to an app store near you.    
+<br />
+<br />
+There are already several clones of the game in the app store, btw. Don't be fooled! Ours will be the only one with the Everybody House seal of approval, the only one that actually works, with no in-app garbage, and with music by Four Tet. Yes, for real.     
+<br />
+<br />
+<br />
+<br />
+Ok, that's it for patch number 2. Feedback welcome. Thanks for playing. 
+<br />
+<br />
+See you in the drift,   
+<br />
+<br />
+-frank    
+</div>    
+</body>        
+</html>

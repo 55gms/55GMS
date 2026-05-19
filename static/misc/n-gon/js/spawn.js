@@ -356,7 +356,7 @@ const spawn = {
                                 document.getElementById("health").style.display = "none"
                                 document.getElementById("health-bg").style.display = "none"
                                 document.getElementById("text-log").style.opacity = 0; //fade out any active text logs
-                                document.getElementById("fade-out").style.opacity = 1; //slowly fades out
+                                 //slowly fades out
                                 // build.shareURL(false)
                                 setTimeout(function() {
                                     if (!simulation.onTitlePage) {

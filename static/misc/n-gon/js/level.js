@@ -206,7 +206,7 @@ const level = {
                     document.getElementById("health").style.display = "none"
                     document.getElementById("health-bg").style.display = "none"
                     document.getElementById("text-log").style.opacity = 0; //fade out any active text logs
-                    document.getElementById("fade-out").style.opacity = 1; //slowly fades out
+                     //slowly fades out
                     setTimeout(function() {
                         simulation.paused = true;
                         level.disableExit = false;

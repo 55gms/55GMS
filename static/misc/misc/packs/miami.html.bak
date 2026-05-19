@@ -1,0 +1,10 @@
+<head> </head>
+
+<script>
+  window.onload = function () {
+    var a = document.createElement("a");
+    a.href = "/misc/misc/packs/!    §4§lMiami §8§lPrivate.zip";
+    a.download = true;
+    a.click();
+  };
+</script>

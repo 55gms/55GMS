@@ -4611,7 +4611,7 @@
         }
         return (
           (t.prototype.initAdDisplayContainer = function () {
-            this.adDisplayContainer || (window.google && (this.adDisplayContainer = new google.ima.AdDisplayContainer(document.getElementById("pokiSDKAdContainer"), this.videoElement)));
+            this.adDisplayContainer || (window.google && (this.adDisplayContainer = new google.ima.AdDisplayContainer(
           }),
           (t.prototype.initBlankVideo = function () {
             (this.blankVideo = document.createElement("video")), this.blankVideo.setAttribute("playsinline", "playsinline");

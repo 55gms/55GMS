@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Madalin Stunt Cars 3</title>
+</head>
+<link rel="icon" type="image/x-icon" href="img/index.jpg" />
+<link rel="stylesheet" href="TemplateData/style.css" />
+<script src="TemplateData/UnityProgress.js"></script>
+<script src="js/unityloader35.js"></script>
+
+<body>
+  <script>
+    var gameInstance = UnityLoader.instantiate("gameContainer", "game.json", {
+      onProgress: UnityProgress,
+      Module: {
+        onRuntimeInitialized: function () {
+          UnityProgress(gameInstance, "complete");
+        },
+      },
+    });
+  </script>
+  <div class="webgl-content">
+    <div id="gameContainer" style="width: 100vw; height: 100vh;"></div>
+  </div>
+</body>
+
+</html>

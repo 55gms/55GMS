@@ -533,20 +533,7 @@
     }
 
     function i() {
-        d = document.getElementById("game-container"), u = document.getElementById("loader"), f = document.getElementById("progress-container"), h = document.getElementById("progress-fill"), m = document.getElementById("progress-amount"), p = document.getElementById("progress-comment"), window.addEventListener("resize", o), window.addEventListener("focus", o), window.PokiSDK.init().then(function() {
-            window.pokiBridge ? window.unityGame.SendMessage(window.pokiBridge, "ready") : window.pokiReady = !0
-        }).catch(function() {
-            window.pokiBridge ? window.unityGame.SendMessage(window.pokiBridge, "adblock") : window.pokiAdBlock = !0, console.info("AdBlocker active")
-        }), window.PokiSDK.setDebug(w.a && w.a.debug)
-    }
-
-    function r() {
-        d.style.display = "block", u.style.display = "none", o(), PokiSDK.gameLoadingFinished(), window.removeSlideshowEventListeners(), g && clearTimeout(g)
-    }
-
-    function a(n, e) {
-        if (n.Module) {
-            var t = 100 * e;
+        d = document.getElementById("game-container"), u = 
             h.style.width = "".concat(t, "%"), m.innerHTML = "".concat(t << 0, "%"), w.a.fileSize && (m.innerHTML += " of ".concat(w.a.fileSize, "MB"));
             var o = {
                 percentageDone: t

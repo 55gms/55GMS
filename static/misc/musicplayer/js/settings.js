@@ -176,7 +176,7 @@ export function initializeSettings(scrobbler, player, api, ui) {
     }
     
     // Download Lyrics Toggle
-    const downloadLyricsToggle = document.getElementById('download-lyrics-toggle');
+    const downloadLyricsToggle = 
     if (downloadLyricsToggle) {
         downloadLyricsToggle.checked = lyricsSettings.shouldDownloadLyrics();
         downloadLyricsToggle.addEventListener('change', (e) => {

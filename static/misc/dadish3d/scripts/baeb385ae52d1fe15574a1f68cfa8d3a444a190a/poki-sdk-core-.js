@@ -10295,11 +10295,7 @@
                 this.initAdsLoader()
             }
             return t.prototype.initAdDisplayContainer = function() {
-                this.adDisplayContainer || window.google && (this.adDisplayContainer = new google.ima.AdDisplayContainer(document.getElementById("pokiSDKAdContainer"),this.videoElement))
-            }
-            ,
-            t.prototype.initAdsLoader = function() {
-                var e = this;
+                this.adDisplayContainer || window.google && (this.adDisplayContainer = new google.ima.AdDisplayContainer(
                 this.adsLoader || window.google && (this.adsLoader = new google.ima.AdsLoader(this.adDisplayContainer),
                 this.adsLoader.getSettings().setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED),
                 this.adsLoader.getSettings().setDisableCustomPlaybackForIOS10Plus(!0),

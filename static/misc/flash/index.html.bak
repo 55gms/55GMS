@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-N0LG27M8L8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-N0LG27M8L8');
+  </script>
+
+  <title>Flash Player</title>
+  <link rel="icon" type="image/x-icon" href="/img/canvas.ico" />
+  <style>
+    body {
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    .main {
+      background: black;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0px;
+      right: 0px;
+      top: 0px;
+      bottom: 0px;
+      overflow: hidden;
+    }
+
+    .gembed {
+      width: 100%;
+      height: 100%;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      position: absolute;
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iNTAiPjx0ZXh0IHN0eWxlPSJmb250OiAzMHB4IHNhbnMtc2VyaWY7IiBmaWxsPSJ3aGl0ZSIgeD0iNTAlIiB5PSI1MCUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkxvYWRpbmc8L3RleHQ+PC9zdmc+");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    #ffd {
+      height: 200px;
+      width: 400px;
+      position: absolute;
+      background-color: #dddddd;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      border-radius: 2px;
+      overflow: auto;
+      z-index: 5;
+    }
+
+    #ffd::before {
+      opacity: 0;
+      width: 100%;
+      height: 0px;
+      background-color: #333333;
+      content: "Drop File Here";
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: bold;
+      color: white;
+    }
+
+    #ffd.filehover::before {
+      opacity: 1;
+      height: 100%;
+    }
+
+    #ffd.filehover {
+      border: 2px dashed #dddddd;
+      background-color: #333333;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    #upload+label {
+      border: 1px solid rgb(118, 118, 118);
+      border-radius: 2px;
+      padding: 4px;
+      margin: 10px;
+      font-size: 13px;
+      background-color: white;
+      display: inline-block;
+      transition: ease 0.1s;
+      user-select: none;
+    }
+
+    #upload+label:hover {
+      background-color: #eee;
+    }
+
+    #ffd .source {
+      display: block;
+      position: absolute;
+      left: 50%;
+      transform: translatex(-50%);
+      bottom: 5px;
+      text-decoration: none;
+      color: black;
+      font-size: 10px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #menu {
+      position: fixed;
+      background-color: #ffffff;
+      transition: opacity 0.3s ease;
+      z-index: 20;
+      opacity: 0;
+    }
+
+    #menu:hover {
+      opacity: 0.9;
+    }
+
+    #menu li {
+      white-space: nowrap;
+      max-width: 250px;
+      position: relative;
+      padding: 12px 16px;
+      cursor: help;
+      display: inline-block;
+      float: left;
+    }
+
+    #menu li:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    #menu li input {
+      transform: scale(1.5);
+      cursor: pointer;
+      margin: 0px 12px 0px 0px;
+    }
+  </style>
+  <script>
+    var mainarea, ffd, upload, legacy, rplayer, useLegacy;
+    var cdn = "/misc/flash/swf/";
+
+    // query string into object
+    var search = decodeURIComponent(window.location.search)
+      .substring(1)
+      .split("&");
+    var queries = {};
+    for (var i = 0; i < search.length; i++) {
+      var p = search[i].split("=");
+      queries[p[0]] = p[1];
+    }
+
+    // xhr using fetch
+    function grab(url, type, success, fail) {
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.arrayBuffer();
+        })
+        .then((data) => {
+          success(data);
+        })
+        .catch((error) => {
+          fail(error);
+          console.error("Failed to fetch SWF file:", error);
+        });
+    }
+
+    // file reader
+    function readFile(file, callback) {
+      var reader = new FileReader();
+      reader.onload = function () {
+        callback(this.result);
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    // start
+    function startPlayer(data) {
+      console.log("Initializing with " + data.byteLength + " bytes of data");
+      if (useLegacy) {
+        alert(
+          'Using flash object mode. If the game does not work, turn "Use flash object" in the menu off.'
+        );
+
+        var flashObject = document.createElement("object");
+        flashObject.classList.add("gembed");
+        flashObject.type = "application/x-shockwave-flash";
+        flashObject.data = URL.createObjectURL(new Blob([data]));
+        var flashObjectWmode = document.createElement("param");
+        flashObjectWmode.name = "wmode";
+        flashObjectWmode.value = "direct";
+        flashObject.appendChild(flashObjectWmode);
+        mainarea.appendChild(flashObject);
+      } else {
+        if (!rplayer) {
+          console.error("Ruffle player is not initialized!");
+          return;
+        }
+
+        // Safeguard for contextMenuElement
+        if (rplayer.contextMenuElement && rplayer.contextMenuElement.style) {
+          // Hide the custom context menu for now, but allow it to be shown later
+          rplayer.contextMenuElement.style.display = "none";
+          rplayer.contextMenuElement.style.zIndex = "auto";
+        } else {
+          console.warn("Context menu element is undefined or missing style. Skipping context menu setup.");
+        }
+
+        // Load the SWF data into Ruffle
+        rplayer.load({ data: data });
+      }
+    }
+
+    function readyForLoad() {
+      // ready for file upload
+      upload.onchange = function () {
+        ffd.style.display = "none";
+        let file = this.files[0];
+        readFile(file, function (data) {
+          console.log('Succesfully read SWF file "' + file.name + '"');
+          startPlayer(data);
+        });
+      };
+      document.ondragenter = function (e) {
+        if (e.dataTransfer.types.includes("Files"))
+          ffd.classList.add("filehover");
+      };
+      ffd.ondragover = function (e) {
+        e.preventDefault();
+      };
+      ffd.ondrop = function (e) {
+        if (e.dataTransfer.types.includes("Files")) {
+          e.preventDefault();
+          ffd.style.display = "none";
+          let file = event.dataTransfer.files[0];
+          readFile(file, function (data) {
+            console.log('Succesfully read SWF file "' + file.name + '"');
+            startPlayer(data);
+          });
+        }
+      };
+
+      if (queries.swf) {
+        var swfloc = /^(http:\/\/|https:\/\/|\/\/)/i.test(queries.swf)
+          ? queries.swf
+          : cdn + queries.swf;
+        grab(
+          swfloc,
+          "arraybuffer",
+          function (data) {
+            console.log("Succesfully fetched SWF from " + swfloc);
+            startPlayer(data);
+          },
+          function (error) {
+            ffd.style.display = "block";
+            console.error("Failed to fetch SWF file.", error);
+          }
+        );
+      } else {
+        ffd.style.display = "block";
+      }
+    }
+
+    window.onload = function () {
+      mainarea = document.querySelector(".main");
+      ffd = document.getElementById("ffd");
+      upload = document.getElementById("upload");
+      legacy = document.getElementById("legacy");
+      rplayer = window.RufflePlayer
+        ? window.RufflePlayer.newest().createPlayer()
+        : undefined;
+
+      // Embed ruffle player
+      if (rplayer) {
+        rplayer.classList.add("gembed");
+        mainarea.appendChild(rplayer);
+        console.log("Ruffle is loaded and initialized!");
+      } else {
+        console.log("Flash player object will be used instead.");
+      }
+
+      useLegacy = legacy ? legacy.checked : false;
+
+      readyForLoad();
+    };
+  </script>
+</head>
+
+<body>
+  <div class="main"></div>
+  <div id="ffd" style="display:none;">
+    <input id="upload" type="file" accept=".swf" />
+    <label for="upload">Click to open SWF file</label>
+    <div>
+      Or Drag and Drop file here
+    </div>
+  </div>
+</body>
+
+</html>

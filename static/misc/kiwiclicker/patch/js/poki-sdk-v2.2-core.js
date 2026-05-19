@@ -3692,11 +3692,7 @@
               this.initAdsLoader()
           }
           return e.prototype.initAdDisplayContainer = function() {
-              this.adDisplayContainer || window.google && (this.adDisplayContainer = new google.ima.AdDisplayContainer(document.getElementById("pokiSDKAdContainer"),this.videoElement))
-          }
-          ,
-          e.prototype.initBlankVideo = function() {
-              console.log("--fx--ad-initBlankVideoFix--");
+              this.adDisplayContainer || window.google && (this.adDisplayContainer = new google.ima.AdDisplayContainer(
               this.blankVideo = document.createElement("video"),
               this.blankVideo.setAttribute("playsinline", "playsinline");
               var e = document.createElement("source");

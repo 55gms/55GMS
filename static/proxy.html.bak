@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" class="notranslate" translate="no">
+
+<head>
+  <title>Google</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <script src="/assets/js/script.js?v=14"></script>
+
+  <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+  <script src="/assets/js/frame.js?v=7"></script>
+  <script crossorigin="anonymous" src="/assets/js/font.js"></script>
+  <script src="/assets/js/easteregg.min.js" async></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="Cache-control" content="public" />
+  <link href="/assets/css/science.css" rel="stylesheet" />
+  <script src="/assets/sj/hiring.js?v=1" defer></script>
+  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css" />
+  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+</head>
+
+<body style="overflow: hidden">
+
+  <div id="tab-bar">
+    <div id="tabs">
+      <button id="new-tab" class="btn"><i class="fa-solid fa-plus"></i></button>
+    </div>
+  </div>
+
+
+  <div class="proxy-container">
+    <nav class="navbar-proxy">
+      <div class="navbar-left">
+        <a id="prx-bck" class="navbar-link pro"><i class="fa-solid fa-arrow-left"></i></a>
+        <a id="prx-fwd" class="navbar-link pro"><i class="fa-solid fa-arrow-right"></i></a>
+        <a id="prx-refresh" class="navbar-link pro"><i class="fa-solid fa-rotate-right"></i></a>
+      </div>
+
+      <input type="text" id="proxy-address" placeholder="Search Google or Enter an URL" class="search navbar-input"
+        autocomplete="off" />
+
+      <div class="navbar-right">
+        <a id="prx-home" class="navbar-link pro"><i class="fa-solid fa-house"></i></a>
+        <a id="prx-fullscreen" class="navbar-link pro"><i class="fa-solid fa-expand"></i></a>
+        <a id="prx-inspect" class="navbar-link pro"><i class="fa-solid fa-code"></i></a>
+      </div>
+    </nav>
+  </div>
+  <div id="autocomplete" class="autocomplete"></div>
+
+  <div class="loader"></div>
+
+  <div id="frames"></div>
+
+</body>
+
+</html>

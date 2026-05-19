@@ -217,7 +217,7 @@ function setupEventListeners() {
     .addEventListener("click", sendFriendRequest);
 
   // Group member input
-  const addMemberInput = document.getElementById("addMemberInput");
+  const addMemberInput = 
   addMemberInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -923,7 +923,7 @@ async function createGroupChat() {
 
 // Add member to group
 function addMemberToGroup() {
-  const input = document.getElementById("addMemberInput");
+  const input = 
   const username = input.value.trim();
 
   if (!username) return;
@@ -1160,7 +1160,7 @@ async function loadFriendRequests() {
       }
 
       // Update friends button notification badge
-      const friendsBadge = document.getElementById("friendsNotificationBadge");
+      const friendsBadge = 
       if (requests.length > 0) {
         friendsBadge.textContent = requests.length > 9 ? "9+" : requests.length;
         friendsBadge.style.display = "flex";
@@ -1625,7 +1625,7 @@ async function updateChatMenuOptions() {
 
     const otherUserUuid = currentChat.members[0]?.uuid;
     if (!otherUserUuid) {
-      document.getElementById("addFriendOption").style.display = "none";
+      
       document.getElementById("removeFriendOption").style.display = "none";
       document.getElementById("blockUserOption").style.display = "none";
       document.getElementById("unblockUserOption").style.display = "none";
@@ -1644,8 +1644,7 @@ async function updateChatMenuOptions() {
       console.error("Error checking blocked status:", error);
     }
 
-    document.getElementById("addFriendOption").style.display =
-      isFriend || isBlocked ? "none" : "block";
+    
     document.getElementById("removeFriendOption").style.display =
       isFriend && !isBlocked ? "block" : "none";
     document.getElementById("blockUserOption").style.display = isBlocked
@@ -1657,7 +1656,7 @@ async function updateChatMenuOptions() {
   }
   // Handle group chats
   else if (currentChat.type === "group") {
-    document.getElementById("addFriendOption").style.display = "none";
+    
     document.getElementById("removeFriendOption").style.display = "none";
     document.getElementById("blockUserOption").style.display = "none";
     document.getElementById("unblockUserOption").style.display = "none";
@@ -1666,7 +1665,7 @@ async function updateChatMenuOptions() {
   }
   // Default case - hide all options
   else {
-    document.getElementById("addFriendOption").style.display = "none";
+    
     document.getElementById("removeFriendOption").style.display = "none";
     document.getElementById("blockUserOption").style.display = "none";
     document.getElementById("unblockUserOption").style.display = "none";

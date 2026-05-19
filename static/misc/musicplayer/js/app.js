@@ -469,16 +469,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
     
     // Download LRC button
-    document.getElementById('download-lrc-btn')?.addEventListener('click', (e) => {
-        e.stopPropagation();
+    
         if (lyricsManager.currentLyrics && player.currentTrack) {
             lyricsManager.downloadLRC(lyricsManager.currentLyrics, player.currentTrack);
         }
     });
     
     // Download current track button
-    document.getElementById('download-current-btn')?.addEventListener('click', () => {
-        downloadCurrentTrack(player.currentTrack, player.quality, api, lyricsManager);
+    
     });
     
     // Album/Discography downloads

@@ -698,7 +698,7 @@ const simulation = {
 
         simulation.clearNow = true;
         document.getElementById("text-log").style.opacity = 0;
-        document.getElementById("fade-out").style.opacity = 0;
+        
         document.title = "n-gon";
         // simulation.makeTextLog(`input.key.up<span class='color-symbol'>:</span> ["<span class='color-text'>${input.key.up}</span>", "<span class='color-text'>ArrowUp</span>"]`);
         // simulation.makeTextLog(`input.key.left<span class='color-symbol'>:</span> ["<span class='color-text'>${input.key.left}</span>", "<span class='color-text'>ArrowLeft</span>"]`);

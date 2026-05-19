@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Golf Orbit</title>
+	<script>
+		window.config = {
+			loader: 'unity-2020',
+			debug: false,
+			maxRatio: 24 / 9,
+			minRatio: 9 / 24,
+
+			title: 'Golf Orbit',
+			thumbnail: 'img.webp',
+			numScreenshots: 4,
+
+			unityVersion: '2022.3.14f1',
+			unityWebglBuildUrl: '',
+
+			fileSize: 16,
+			cachedDecompressedFileSizes: {
+				'0c04d6b6682fe0ab904220e6929d4f26.data.br': 10042353,
+				'33e6be708bfab6e911e5f52f261f6a21.js.br': 73444,
+				'Poki 03.2.loader.js': 20672,
+				'aea9a879728b451553b7377ede5ae537.wasm.br': 6674127,
+			},
+			"metadata": { "poki_template_version": 1, "background_color": "#000000", "code_filename": "aea9a879728b451553b7377ede5ae537.wasm.br", "company_name": "PinpinTeam", "data_filename": "0c04d6b6682fe0ab904220e6929d4f26.data.br", "development_player": "false", "framework_filename": "33e6be708bfab6e911e5f52f261f6a21.js.br", "height": "580", "loader_filename": "Poki 03.2.loader.js", "product_name": "Golf Orbit", "product_version": "1.25.39", "splash_screen_style": "Dark", "unity_version": "2022.3.14f1", "use_data_caching": "true", "use_threads": "false", "use_wasm": "true", "use_webgl_1_0": "false", "use_webgl_2_0": "true", "width": "1031" }
+		};
+	</script>
+	<script>
+		window.alert = function () { };
+		window.confirm = function () { return false; };
+		window.prompt = function () { return null; };
+	</script>
+
+
+	<!-- will be copied to the resulting head //-->
+</head>
+
+<body>
+	<script src="master-loader.js"></script>
+	<script src="/assets/js/script.js"></script>
+
+</body>
+
+</html>

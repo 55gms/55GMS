@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity Web Player | Escape Road 2</title>
+    <script src="/assets/js/script.js?v=14"></script>
+    <style>
+        html {
+            box-sizing: border-box
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow-y: hidden
+        }
+
+        canvas {
+            display: block
+        }
+
+        body {
+            margin: 0;
+            padding: 0
+        }
+
+        #unity-container {
+            width: 100%;
+            height: 100%
+        }
+
+        #unity-canvas {
+            width: 100%;
+            height: 100%;
+            background: #231f20
+        }
+
+        #loading-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center
+        }
+
+        #unity-loading-bar {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center
+        }
+
+        #unity-logo {
+            text-align: center
+        }
+
+        #unity-logo img {
+            max-width: 100%
+        }
+
+        #unity-progress-bar-empty {
+            width: 80%;
+            height: 24px;
+            margin: 10px 20px 20px 10px;
+            text-align: left;
+            border: 1px solid #fff;
+            padding: 2px
+        }
+
+        #unity-progress-bar-full {
+            width: 0%;
+            height: 100%;
+            background: #fff
+        }
+
+        .light #unity-progress-bar-empty {
+            border-color: #000
+        }
+
+        .light #unity-progress-bar-full {
+            background: #000
+        }
+
+        #unity-fullscreen-button {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            width: 38px;
+            height: 38px;
+            background: url(fullscreen-button.png) no-repeat center;
+            background-size: contain
+        }
+
+        .spinner,
+        .spinner:after {
+            border-radius: 50%;
+            width: 5em;
+            height: 5em
+        }
+
+        .spinner {
+            margin: 10px;
+            font-size: 10px;
+            position: relative;
+            text-indent: -9999em;
+            border-top: 1.1em solid rgba(255, 255, 255, .2);
+            border-right: 1.1em solid rgba(255, 255, 255, .2);
+            border-bottom: 1.1em solid rgba(255, 255, 255, .2);
+            border-left: 1.1em solid #fff;
+            transform: translateZ(0);
+            animation: spinner-spin 1.1s infinite linear
+        }
+
+        .az {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0
+        }
+
+        @keyframes spinner-spin {
+            0% {
+                transform: rotate(0deg)
+            }
+
+            100% {
+                transform: rotate(360deg)
+            }
+        }
+
+        #button {
+            display: none;
+        }
+
+        .imgb_vis {
+            animation: imgb-animation 7s linear;
+        }
+
+        @keyframes imgb-animation {
+            10% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(100px);
+            }
+
+            90% {
+                transform: translateX(100px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        #loading-text {
+            color: #f0f0f0 !important;
+            background: transparent !important;
+            -webkit-text-fill-color: initial !important;
+            font-size: 48px;
+            font-family: cursive;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            white-space: nowrap;
+        }
+
+        /* Loading animation */
+        @keyframes pulse {
+            0% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.6;
+            }
+        }
+
+        #loading-text {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            #loading-text {
+                font-size: 24px;
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #loading-text {
+                font-size: 18px;
+                padding: 0 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="unity-container">
+        <canvas id="unity-canvas" width="960" height="540" tabindex="-1"></canvas>
+        <div id="loading-text">LOADING...</div>
+        <div id="unity-warning"> </div>
+    </div>
+    <script>
+        var container = document.querySelector("#unity-container");
+        var canvas = document.querySelector("#unity-canvas");
+        var loadingText = document.querySelector("#loading-text");
+        var warningBanner = document.querySelector("#unity-warning");
+
+        // Shows a temporary message banner/ribbon for a few seconds, or
+        // a permanent error message on top of the canvas if type=='error'.
+        // If type=='warning', a yellow highlight color is used.
+        // Modify or remove this function to customize the visually presented
+        // way that non-critical warnings and error messages are presented to the
+        // user.
+        function unityShowBanner(msg, type) {
+        }
+
+        var loaderUrl = "https://cdn.jsdelivr.net/gh/genizy/google-class@main/escaperoad2/random3.js";
+        const config = {
+            dataUrl: "https://cdn.jsdelivr.net/gh/lonya-k/aws@8e4931429a9c08b542c8def752b11a412dfef6b2/eks_cicd/csrd.js",
+            frameworkUrl: "https://cdn.jsdelivr.net/gh/genizy/google-class@3b96af8847aa44f44774e663a9e99b9ca235da7f/escaperoad2/random1.js",
+            codeUrl: "https://cdn.jsdelivr.net/gh/lonya-k/aws@8e4931429a9c08b542c8def752b11a412dfef6b2/eks_cicd/csrw.js",
+            streamingAssetsUrl: "https://cdn.jsdelivr.net/gh/lonya-k/aws@193add90970804b994d7c2cb1159bf825810a8be/eks_cicd",
+            companyName: "1games.io",
+            productName: "Escape Road",
+            productVersion: "2.0",
+        };
+
+        // By default Unity keeps WebGL canvas render target size matched with
+        // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+        // Set this to false if you want to decouple this synchronization from
+        // happening inside the engine, and you would instead like to size up
+        // the canvas DOM size and WebGL render target sizes yourself.
+        // config.matchWebGLToCanvasSize = false;
+
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            // Mobile device style: fill the whole browser client area with the game canvas:
+            var meta = document.createElement('meta');
+            meta.name = 'viewport';
+            meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+            document.getElementsByTagName('head')[0].appendChild(meta);
+        }
+
+
+        loadingText.style.display = "block";
+
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(canvas, config, (progress) => {
+                loadingText.textContent = `LOADING... ${Math.round(progress * 100)}%`;
+            }).then((unityInstance) => {
+                loadingText.style.display = "none";
+            }).catch((message) => {
+            });
+        };
+        document.body.appendChild(script);
+    </script>
+</body>
+
+</html>

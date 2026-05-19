@@ -3433,7 +3433,7 @@
     }
     var jh = function(a, b) {
         var c = void 0 === c ? !1 : c;
-        var d = "https://pagead2.googlesyndication.com/pagead/gen_204?id=" + b;
+        var d = "" + b;
         Mg(a, function(e, f) {
             if (e || 0 === e)
                 d += "&" + f + "=" + encodeURIComponent("" + e)
@@ -3494,7 +3494,7 @@
         });
         return Bf(c)
     }
-    ;var nh = p(["https://pagead2.googlesyndication.com/pagead/js/err_rep.js"])
+    ;var nh = p([""])
       , oh = function() {
         var a = void 0 === a ? "jserror" : a;
         var b = void 0 === b ? .01 : b;
@@ -16988,7 +16988,7 @@ Dual licensed under the MIT and GPL licenses.
             a = ji().sort().join(",");
             ib(Wf(a)) || (b.e = a);
             b = YA(this, b);
-            var d = new Q("http://pagead2.googlesyndication.com/pagead/gen_204");
+            var d = new Q("");
             ff(b, function(e, f) {
                 Bt(d, f, null == e ? "" : "boolean" === typeof e ? e ? "t" : "f" : "" + e)
             }, this);
@@ -17245,9 +17245,9 @@ Dual licensed under the MIT and GPL licenses.
         return null
     }
     ;var yB = "abort canplay canplaythrough durationchange emptied loadstart loadeddata loadedmetadata progress ratechange seeked seeking stalled suspend waiting".split(" ");
-    var zB = Bf(Se(new Re(Pe,"https://pagead2.googlesyndication.com/omsdk/releases/live/omweb-v1.js")))
-      , AB = Bf(Se(new Re(Pe,"https://pagead2.googlesyndication.com/omsdk/releases/canary/omweb-v1.js")))
-      , BB = Bf(Se(new Re(Pe,"https://pagead2.googlesyndication.com/omsdk/releases/experimental/omweb-v1.js")));
+    var zB = Bf(Se(new Re(Pe,"")))
+      , AB = Bf(Se(new Re(Pe,"")))
+      , BB = Bf(Se(new Re(Pe,"")));
     var EB = function(a, b) {
         CB ? a.srcdoc = b : (a = a.contentWindow) && DB(a.document, b)
     }
@@ -21597,7 +21597,7 @@ Dual licensed under the MIT and GPL licenses.
                 e = Ya(),
                 f = e + 1E3 * f,
                 g = e + 1E3 * g,
-                1E-5 > Math.random() && hh(u, "https://pagead2.googlesyndication.com/pagead/gen_204?id=imerr&err=" + c),
+                1E-5 > Math.random() && hh(u, "" + c),
                 k[5] = c,
                 k[1] = b,
                 k[2] = f,
