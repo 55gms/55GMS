@@ -1,0 +1,8 @@
+<script>
+    window.onload = function () {
+        var a = document.createElement("a");
+        a.href = "/misc/eaglercraft/index.html";
+        a.download = 'EaglerCraft 1.5 - 55gms.tk';
+        a.click();
+    };
+</script>

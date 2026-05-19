@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<!--page to display a lot of aads to make money, whole page is ads-->
+
+<head>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+    <script src="/assets/js/font.js"></script>
+    <meta name="google" content="notranslate" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=2" />
+    <title>Make me Money</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Rednotsus" />
+    <meta http-equiv="Cache-control" content="public">
+    <meta charset="utf-8">
+    <script src="/assets/js/script.js?v=14"></script>
+    <script type="text/javascript"
+        src="//pl28203360.effectivegatecpm.com/d9/3a/37/d93a37e7b2afbbd457a6e8a0cfad3678.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+        var adConfigs = [
+            {
+                key: '2bc359ee717714657438164e432d39b1',
+                format: 'iframe',
+                height: 300,
+                width: 160,
+                params: {}
+            },
+            {
+                key: '9116277e8ea77908b4f2daec2924df67',
+                format: 'iframe',
+                height: 600,
+                width: 160,
+                params: {}
+            },
+            {
+                key: '9df3ddd33363f176eab580a300858965',
+                format: 'iframe',
+                height: 600,
+                width: 160,
+                params: {}
+            }
+        ];
+
+        for (var i = 0; i < 50; i++) {
+            var config = adConfigs[Math.floor(Math.random() * adConfigs.length)];
+
+            document.write('<script type="text/javascript">');
+            document.write('atOptions = ' + JSON.stringify(config) + ';');
+            document.write('<\/script>');
+            document.write('<script type="text/javascript" src="//www.highperformanceformat.com/' + config.key + '/invoke.js"><\/script>');
+        }
+    </script>
+    <script type="text/javascript"
+        src="//pl28203415.effectivegatecpm.com/c0/e2/21/c0e221ecd9d035d599f6f102e41fa9d0.js"></script>
+</body>
+
+</html>

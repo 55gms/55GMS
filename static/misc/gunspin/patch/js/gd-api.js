@@ -2289,15 +2289,7 @@
                             t.style.width = "100%",
                             t.innerHTML = '\n            <div id="gdsdk__console_container">\n                <button id="gdsdk__hbgdDebug">Activate hbgd debug</button>\n                <button id="gdsdk__hbgdConfig">Log idhb config</button>\n                \x3c!--\n                <button id="gdsdk__resumeGame">Resume</button>\n                <button id="gdsdk__pauseGame">Pause</button>\n                --\x3e\n                <button id="gdsdk__showLeaderboard">LeaderBoard</button>\n                <button id="gdsdk__showInterstitial">Interstitial</button>\n                <button id="gdsdk__showRewarded">Rewarded</button>\n                \x3c!--\n                <button id="gdsdk__preloadRewarded">Preload rewarded</button>\n                --\x3e\n                <button id="gdsdk__cancel">Cancel</button>\n                <button id="gdsdk__demo">Demo VAST tag</button>\n                <button id="gdsdk__disableMidrollTimer">Disable delay</button>\n                <button id="gdsdk__closeDebug">Close</button>\n            </div>\n        ',
                             e.appendChild(t),
-                            document.getElementById("gdsdk__showLeaderboard"))
-                              , e = document.getElementById("gdsdk__showInterstitial")
-                              , t = document.getElementById("gdsdk__showRewarded")
-                              , n = document.getElementById("gdsdk__cancel")
-                              , o = document.getElementById("gdsdk__demo")
-                              , i = document.getElementById("gdsdk__disableMidrollTimer")
-                              , a = document.getElementById("gdsdk__hbgdDebug")
-                              , s = document.getElementById("gdsdk__hbgdConfig")
-                              , u = document.getElementById("gdsdk__closeDebug");
+                            
                             xn("gd_tag") ? (o.innerHTML = "Revert Vast tag",
                             o.style.background = "#ff8c1c") : (o.innerHTML = "Demo VAST tag",
                             o.style.background = "#44a5ab"),
@@ -17308,7 +17300,7 @@
                                         0 < (null == t || null == (n = t.adsense_host) ? void 0 : n.length) && (o["data-ad-host"] = t.adsense_host),
                                         !0 === (null == t ? void 0 : t.adsense_adbreak_test) && (o["data-adbreak-test"] = "on"),
                                         e.next = 14,
-                                        bn("patch/js/null.js?https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", "afg", {
+                                        bn("patch/js/null.js?", "afg", {
                                             error_prefix: "Blocked:",
                                             exists: function() {
                                                 return D(this, i),

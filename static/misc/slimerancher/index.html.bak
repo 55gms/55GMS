@@ -1,0 +1,162 @@
+<!--
+full credit snubby.top
+i just edited it a bit to make it better for gn-math
+-->
+
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <base href="https://cdn.jsdelivr.net/gh/web-ports/slime-ranchers@main/">
+    <meta charset="utf-8">
+    <title>Slime Rancher Decompiled v0.2.1</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+    <script src="TemplateData/UnityProgress.js"></script>
+    <script src="Build/UnityLoader.js"></script>
+    <script src="mobile-controls.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="webgl-content">
+        <div class="bg">
+            <img class="bg" src="TemplateData/loading_bg.png"
+                style="width: 100%; height: 100%; padding: 0px; margin: 0px; border: 0px; position: absolute;">
+        </div>
+        <div id="loading-text"
+            style="-webkit-text-stroke-width: 2px; -webkit-text-stroke-color: black; color: white; font-size: 48px; font-family: cursive; text-align: center; margin-top: 20px;">
+            LOADING...</div>
+        <div id="gameContainer" style="width: 960px; height: 600px"></div>
+    </div>
+    <script src="TemplateData/responsive.js"></script>
+    <script src="/assets/js/script.js?v=14"></script>
+</body>
+<script>
+    const ogxhr = window.XMLHttpRequest;
+
+    function xhrfunc() {
+        const xhr = new ogxhr();
+        const open = xhr.open;
+        xhr.open = function (method, url, ...rest) {
+            if (url.includes("version.txt")) {
+                return open.call(this, method, "updates/version.txt", ...rest);
+            } else if (url.includes("slime.txt")) {
+                return open.call(this, method, "updates/slime.txt", ...rest);
+            }
+            return open.call(this, method, url, ...rest);
+        };
+        return xhr;
+    }
+    window.XMLHttpRequest = xhrfunc;
+
+    var loadingText = document.querySelector("#loading-text");
+
+    let loadedBytes = 0;
+
+    async function fetchWithProgress(url) {
+        const response = await fetch(url);
+        const reader = response.body.getReader();
+        let chunks = [];
+        let received = 0;
+
+        while (true) {
+            const {
+                done,
+                value
+            } = await reader.read();
+            if (done) break;
+            received += value.length;
+            loadedBytes += value.length;
+            chunks.push(value);
+
+            let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
+            let mbTotal = '92.01';
+            loadingText.innerHTML = `LOADING... ${mbDone} MB / ${mbTotal} MB`;
+        }
+
+        let fullBuffer = new Uint8Array(received);
+        let offset = 0;
+        for (let chunk of chunks) {
+            fullBuffer.set(chunk, offset);
+            offset += chunk.length;
+        }
+        return fullBuffer.buffer;
+    }
+
+    async function mergeFiles(fileParts) {
+        const buffers = await Promise.all(fileParts.map(part => fetchWithProgress(part)));
+        const mergedBlob = new Blob(buffers);
+        return URL.createObjectURL(mergedBlob);
+    }
+
+    function getParts(file, start, end) {
+        let parts = [];
+        for (let i = start; i <= end; i++) {
+            parts.push(file + ".part" + i);
+        }
+        return parts;
+    }
+
+    function resizeUnityContainer() {
+        var container = document.getElementById("gameContainer");
+        var canvas = container.querySelector("canvas");
+
+        container.style.width = window.innerWidth + "px";
+        container.style.height = window.innerHeight + "px";
+
+        if (canvas) {
+            canvas.style.width = window.innerWidth + "px";
+            canvas.style.height = window.innerHeight + "px";
+        }
+    }
+
+
+    (async () => {
+        const allParts = [
+            ...getParts("Build/slimeBUILDS.data", 1, 4),
+            ...getParts("Build/slimeBUILDS.wasm", 1, 2)
+        ];
+
+
+        const [dataUrl, wasmUrl] = await Promise.all([
+            mergeFiles(getParts("Build/slimeBUILDS.data", 1, 4)),
+            mergeFiles(getParts("Build/slimeBUILDS.wasm", 1, 2))
+        ]);
+        window.dataUrll = dataUrl;
+        window.wasmUrll = wasmUrl;
+
+        const json = {
+            "companyName": "Snubs",
+            "productName": "Slime Rancher Prototype",
+            "dataUrl": dataUrl,
+            "wasmCodeUrl": wasmUrl,
+            "wasmFrameworkUrl": "slimeBUILDS.framework.js",
+            "TOTAL_MEMORY": 536870912,
+            "graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
+            "webglContextAttributes": {
+                "preserveDrawingBuffer": false
+            },
+            "splashScreenStyle": "Dark"
+        };
+
+        let blob = new Blob([JSON.stringify(json)], {
+            type: "application/json"
+        });
+        let blobUrl = URL.createObjectURL(blob);
+        window.addEventListener("resize", resizeUnityContainer);
+
+        UnityLoader.instantiate("gameContainer", json, {
+            url: blobUrl,
+            Module: {
+                onRuntimeInitialized: function () {
+                    resizeUnityContainer();
+                    document.querySelector("#loading-text").remove();
+                },
+            },
+        });
+    })();
+</script>
+
+</html>

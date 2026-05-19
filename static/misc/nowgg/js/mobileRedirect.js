@@ -11,7 +11,7 @@ else if (/windows phone/i.test(userAgent)) {
 
 // Android
 else if (/android/i.test(userAgent)) {
-  // window.location.replace("https://play.google.com/store/apps/details?id=lol.onevone");
+  // window./* popup redirect removed */
 }
 
 // iOS

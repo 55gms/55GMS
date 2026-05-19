@@ -3169,7 +3169,7 @@ function createDisplayAdComponent(templateId) {
 				if (extern.adsLoaded) {
 					return;
 				}
-                this.theAd = document.getElementById(this.adUnit);
+                this.theAd = 
 
 				if (this.finishedSetup) {
 					console.log('display ad stop trying to append');
@@ -5413,7 +5413,7 @@ var comp_house_ad_big = {
         },
 
         outsideClickClose: function() {
-            const showingId = document.getElementById('house-ad-big-template', true);
+            const showingId = 
             this.removeOverlayClick = this.handleOutsideClick;
             document.addEventListener('click', this.removeOverlayClick);
         },
@@ -14079,7 +14079,7 @@ const CompShellStreakMsg = {
             },
 
             resizeBannerAdTagForGame: function() {
-                const pauseAdPlacement = document.getElementById('pauseAdPlacement');
+                const pauseAdPlacement = 
                 const rect = document.getElementById('pausePopup').getBoundingClientRect();
 
                 pauseAdPlacement.style.top = (rect.height).toString() + 'px';

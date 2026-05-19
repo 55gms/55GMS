@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Kingdom Rush Unblocked - ubg235 GameDistribution</title>
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="patch/unity/TemplateData/style.css">
+  <script src="patch/unity/TemplateData/UnityProgress.js"></script>
+  <script src="Build/UnityLoader.js"></script>
+  <!-- <script src="js/unity-mod.js"></script> -->
+  <script>
+    function fixGameView() {
+      const gameView= document.getElementById("gameView");
+      if (gameView.clientHeight> gameView.clientWidth) {
+        gameView.style.height= Math.floor(gameView.clientWidth)+ "px";
+      }
+    }
+  var gameInstance = UnityLoader.instantiate(
+    "gameContainer",
+    "Build/GD.json", {
+      onProgress: UnityProgress,Module:{
+        onRuntimeInitialized: function() {
+          UnityProgress(gameInstance, "complete")
+        }
+      }
+    });
+  </script>
+</head>
+<body style="overflow:hidden; margin:0; padding:0;" onload="fixGameView()">
+  <div id="gameView" class="webgl-content" style="overflow:hidden; width:100%; height:100%; margin:0; padding:0; position:absolute;">
+    <div id="gameContainer" style="width: 100%; height: 100%;"></div>
+  </div>
+  <script src="js/analytics_ubg_v1_4.js"></script>
+  <script src="js/ubg235_client_v1_2.js"></script>
+</body>
+</html>

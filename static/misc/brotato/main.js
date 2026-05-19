@@ -30,7 +30,7 @@
     let loadedBytes = 0;
 
     function setLoadingText(text) {
-        const loadingText = document.getElementById("loading-text");
+        const loadingText = 
 
         if (loadingText) {
             loadingText.textContent = text;
@@ -137,7 +137,7 @@
     window.godotRunStart();
 })().catch((error) => {
     console.error(error);
-    const loadingText = document.getElementById("loading-text");
+    const loadingText = 
 
     if (loadingText) {
         loadingText.textContent = "Brotato failed to load. Please try refreshing.";

@@ -1,0 +1,14 @@
+
+<!-- saved from url=(0057)https://littlealchemy.com/resources/en/notifications.html -->
+<html><head> 
+ <link rel="icon" type="image/x-icon" href="/img/newlogo.png" /><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><script id="manyFails" type="text/html">
+	<a href="http://littlealchemy.com/cheats/" class="notificationLink" target="_blank">If you're stuck click here for some help!</a>
+</script>
+<script id="manyFails2" type="text/html">
+	<a href="http://littlealchemy.com/cheats/" class="notificationLink" target="_blank">If you need some help, here you can find some hints.</a>
+</script>
+
+<script id="element" type="text/html">
+	<div><img src="data:image/png;base64,<%= image %>" />Try to create <%= name %>.</div>
+</script></head><body><script src="/html/settings/js/index.js"></script> 
+   </body></html>

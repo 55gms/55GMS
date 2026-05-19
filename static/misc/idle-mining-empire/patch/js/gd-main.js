@@ -4740,15 +4740,7 @@
                             i.style.width = "100%",
                             i.innerHTML = '\n            <div id="gdsdk__console_container">\n                <button id="gdsdk__hbgdDebug">Activate hbgd debug</button>\n                <button id="gdsdk__hbgdConfig">Log idhb config</button>\n                \x3c!--\n                <button id="gdsdk__resumeGame">Resume</button>\n                <button id="gdsdk__pauseGame">Pause</button>\n                --\x3e\n                <button id="gdsdk__showLeaderboard">LeaderBoard</button>\n                <button id="gdsdk__showInterstitial">Interstitial</button>\n                <button id="gdsdk__showRewarded">Rewarded</button>\n                \x3c!--\n                <button id="gdsdk__preloadRewarded">Preload rewarded</button>\n                --\x3e\n                <button id="gdsdk__cancel">Cancel</button>\n                <button id="gdsdk__demo">Demo VAST tag</button>\n                <button id="gdsdk__disableMidrollTimer">Disable delay</button>\n                <button id="gdsdk__closeDebug">Close</button>\n            </div>\n        ',
                             r.appendChild(i);
-                            var o = document.getElementById("gdsdk__showLeaderboard")
-                              , a = document.getElementById("gdsdk__showInterstitial")
-                              , s = document.getElementById("gdsdk__showRewarded")
-                              , c = document.getElementById("gdsdk__cancel")
-                              , e = document.getElementById("gdsdk__demo")
-                              , t = document.getElementById("gdsdk__disableMidrollTimer")
-                              , n = document.getElementById("gdsdk__hbgdDebug")
-                              , r = document.getElementById("gdsdk__hbgdConfig")
-                              , i = document.getElementById("gdsdk__closeDebug");
+                            var o = 
                             rd("gd_tag") ? (e.innerHTML = "Revert Vast tag",
                             e.style.background = "#ff8c1c") : (e.innerHTML = "Demo VAST tag",
                             e.style.background = "#44a5ab"),

@@ -78,7 +78,7 @@ Game.animate = function(){
 // GAME PAUSED?
 // ON BLUR & PAUSE
 
-var modal_shade = document.getElementById("modal_shade");
+var modal_shade = 
 var paused = document.getElementById("paused");
 window.onblur = function(){
 	if(Game.scene && Game.scene.UNPAUSEABLE) return;

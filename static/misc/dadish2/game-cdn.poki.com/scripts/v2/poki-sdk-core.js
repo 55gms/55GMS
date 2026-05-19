@@ -4334,9 +4334,7 @@
 					(t.prototype.initAdDisplayContainer = function () {
 						this.adDisplayContainer ||
 							(this.adDisplayContainer = new google.ima.AdDisplayContainer(
-								document.getElementById('pokiSDKAdContainer'),
-								this.videoElement
-							));
+								
 					}),
 					(t.prototype.initBlankVideo = function () {
 						(this.blankVideo = document.createElement('video')),

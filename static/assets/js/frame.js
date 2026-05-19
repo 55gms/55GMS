@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const prxBck = document.getElementById("prx-bck");
   const prxFwd = document.getElementById("prx-fwd");
   const prxRefresh = document.getElementById("prx-refresh");
-  const prxAddress = document.getElementById("proxy-address");
+  const prxAddress = 
   const prxHome = document.getElementById("prx-home");
   const prxFullScreen = document.getElementById("prx-fullscreen");
   const prxInspect = document.getElementById("prx-inspect");
@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Update address bar if this is the active tab
         if (tab.classList.contains("active")) {
-          const searchInput = document.getElementById("proxy-address");
+          const searchInput = 
           if (searchInput) {
             searchInput.value = url;
           }
@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Update search bar with tab data if available
       if (iframe.tabData && iframe.tabData.url) {
-        const searchInput = document.getElementById("proxy-address");
+        const searchInput = 
         if (searchInput) {
           searchInput.value = iframe.tabData.url;
         }
@@ -251,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateSearchBar() {
     const frame = getActiveFrame();
     if (frame && frame.tabData && frame.tabData.url) {
-      const searchInput = document.getElementById("proxy-address");
+      const searchInput = 
       if (searchInput) {
         searchInput.value = frame.tabData.url;
       }
@@ -299,7 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  const searchInput = document.getElementById("proxy-address");
+  const searchInput = 
   const autocompleteBox = document.getElementById("autocomplete");
 
   function positionAutocomplete() {

@@ -1,0 +1,112 @@
+
+<!-- saved from url=(0048)https://littlealchemy.com/resources/en/menu.html -->
+<html><head> 
+ <link rel="icon" type="image/x-icon" href="/img/newlogo.png" /><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><script src="./menu_files/OgRTanTSyNlCptY7QtgVJL4dWJA.js.download"></script><script id="menuTemplate" type="text/html">
+	<div id="outerMenuTabs" class="outerMenuTabs">
+		<ul id="menuTabs" class="menuTabs">
+			<% for(var menuItem in data) { %>
+				<li data-tabName="<%= menuItem %>" class="menu<%= menuItem %>"><%= data[menuItem].title %></li>
+			<% } %>
+		</ul>
+	</div>
+	<div id="menuContent" class="menuContent">
+		<div id="menuScroll" class="menuScroll">
+			<% for(var menuItem in data) { %>
+				<div id="<%= menuItem %>" class="hidden"><div></div></div>
+			<% } %>
+		</div>
+	</div>
+</script>
+
+<script id="welcomeTemplate" type="text/html">
+	<h3>Newsletter</h3>
+	<p><a href="http://littlealchemy.com/newsletter" target="_blank">Sign up for our newsletter and never miss an update again.</a></p>
+	<h3>Social Media</h3>
+	<p>Follow us on social media!</p>
+	<ul class="menuSocialMedia">
+		<li><a href="http://twitter.com/alchemygame" target="_blank"><img src="img/icon-twitter.png" class="menuSocialMediaTwitter" /></a></li>
+		<li><a href="https://plus.google.com/100024456292124591499/posts" target="_blank"><img src="img/icon-googleplus.png" class="menuSocialMediaGoogle" /></a></li>
+		<li><a href="http://facebook.com/littlealchemy" target="_blank"><img src="img/icon-facebook.png" class="menuSocialMediaFacebook" /></a></li>
+	</ul>
+	<h3>Contact</h3>
+	<ul>
+		<li>contact@littlealchemy.com</li>
+		<li><a href="http://jakubkoziol.com/press/sheet.php?p=little_alchemy" target="_blank">presskit</a></li>
+	</ul>
+	<h3>Team</h3>
+	<p>A game by Jakub Koziol // <a href="http://twitter.com/jakubkoziol" target="_blank">@jakubkoziol</a></p>
+	<p>Little Alchemy wouldn&#39;t be possible without the help from these fine folks:</p>
+	<ul>
+		<li>Łukasz Nawrot - Code</li>
+		<li>Marcin Bychawski - Code, Tools</li>
+		<li>Ewa Koziol - Icons</li>
+		<li>Kamil Kubiak - QA</li>
+	</ul>
+</script>
+
+<script id="settingsTemplate" type="text/html">
+	<h3>Settings</h3>
+	<ul>
+		<li>
+			<select class="menuSelect" id="settingsLanguage">
+				<% for(var lang in languages) { %>
+					<option value="<%= lang %>" <% if(lang === selected) { %>selected<% } %>>
+						<%= languages[lang] %>
+					</option>
+				<% } %>
+			</select>
+			<label for="settingsLanguage">Choose language</label>
+		</li>
+		<li>
+			<input type="checkbox" class="menuCheckbox" id="settingsCheckAlreadyCombined"/>
+			<label class="menuCheckboxLabel" for="settingsCheckAlreadyCombined">Don't mix previously combined elements</label>
+		</li>
+		<li>
+			<input type="checkbox" class="menuCheckbox" id="settingsMarkFinalElements"/>
+			<label class="menuCheckboxLabel" for="settingsMarkFinalElements">Mark final elements</label>
+		</li>
+		<li>
+			<input type="checkbox" class="menuCheckbox" id="settingsHideFinalElements"/>
+			<label class="menuCheckboxLabel" for="settingsHideFinalElements">Hide final elements from the library</label>
+		</li>
+		<li>
+			<input type="checkbox" class="menuCheckbox" id="settingsTurnOffNotifications"/>
+			<label class="menuCheckboxLabel" for="settingsTurnOffNotifications">Turn off notifications</label>
+		</li>
+		<li>
+			<input type="checkbox" class="menuCheckbox" id="settingsTurnOffElementsPositions"/>
+			<label class="menuCheckboxLabel" for="settingsTurnOffElementsPositions">Don't save positions on the workspace</label>
+		</li>
+		<li>
+			<input type="checkbox" class="menuCheckbox" id="settingsHideElementNames"/>
+			<label class="menuCheckboxLabel" for="settingsHideElementNames">Hide names on the workspace</label>
+		</li>
+		<li>
+			<input type="checkbox" class="menuCheckbox" id="settingsNightMode"/>
+			<label class="menuCheckboxLabel" for="settingsNightMode">Night mode</label>
+		</li>
+		<li id="loggedInAs" class="loggedInAs" style="display: none">
+			You are logged in as: <span></span>
+		</li>
+		<li class="menuButtonContainer">
+			<button class="menuButton" id="settingsDisconnect">Disconnect from Google+</button>
+		</li>
+		<li class="menuButtonContainer">
+			<button class="menuButton" id="settingsResetProgress">Reset progress</button>
+		</li>
+	</ul>
+</script>
+
+<script id="leaderboardsTemplate" type="text/html">
+	<h3>Leaderboard</h3>
+	<div class="waitText" id="leaderboardWaitText" style="display: none">
+		<div class="waitingIndicator" id="leaderboardWaitingIndicator"></div>
+	</div>
+	<div id="leaderboard"></div>
+</script>
+
+<script id="achievementsTemplate" type="text/html">
+	<h3>Achievements</h3>
+	<div id="achievementsList"></div>
+</script></head><body><script src="/html/settings/js/index.js"></script> 
+   </body></html>

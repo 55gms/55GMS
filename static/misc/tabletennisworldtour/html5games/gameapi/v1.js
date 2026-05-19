@@ -1113,7 +1113,7 @@ if (typeof window !== "undefined" && !window.famobi) {
 
                         window.famobi.menu.fgOverlay.appendChild(window.famobi.menu.fgNavigation);
                         window.famobi.menu.fgOverlay_visible = false;
-                        window.famobi.menu.fgHeader = document.getElementById("fg-header");
+                        window.famobi.menu.fgHeader = 
 
                         faZepto("#fg-clip, #fg-logo").each(function() {
                             window.famobi.menu.handleClick(this, window.famobi.menu.toggleOverlay);

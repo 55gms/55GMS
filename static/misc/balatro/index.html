@@ -30,7 +30,7 @@
         type: 'adcall'
       }, '*');
     }
-    var canvas = document.getElementById("loadingCanvas");
+    var canvas = 
     canvas.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     canvas.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
@@ -49,7 +49,7 @@
       canvas.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
       canvas.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     }
-    var loadingContext = document.getElementById('loadingCanvas').getContext('2d');
+    var loadingContext = 
 
     function drawLoadingText(text) {
       var canvas = loadingContext.canvas;
@@ -101,7 +101,7 @@
         if (text) {
           drawLoadingText(text);
         } else if (Module.remainingDependencies === 0) {
-          document.getElementById('loadingCanvas').style.display = 'none';
+          
           document.getElementById('canvas').style.visibility = 'visible';
         }
       },

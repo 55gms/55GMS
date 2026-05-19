@@ -13,7 +13,8 @@ import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
 const require = createRequire(import.meta.url);
 const { epoxyPath } = require("@mercuryworkshop/epoxy-transport");
 const { baremuxPath } = require("@mercuryworkshop/bare-mux/node");
-import { scramjetPath } from "@mercuryworkshop/scramjet/path";
+// import { scramjetPath } from "@mercuryworkshop/scramjet/path";
+let scramjetPath = null; // Disabled: package unavailable
 
 logging.set_level(logging.ERROR);
 
@@ -38,7 +39,7 @@ try {
   const app = express();
   app.use("/epoxy/", express.static(epoxyPath));
   app.use("/baremux/", express.static(baremuxPath));
-  app.use("/scram/", express.static(scramjetPath));
+  // app.use("/scram/", express.static(scramjetPath)); // Disabled: package unavailable
   const server = createServer(app);
 
   const io = new SocketIO({

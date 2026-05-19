@@ -39,7 +39,7 @@
         //document.getElementById("sitelogo").style.display = "block";
         return;
       } else if (progress == 1) {
-        document.getElementById("loadinginfo").innerHTML = "PROCESSING...";
+        
         document.getElementById("logo").style.display = "none";
         //CANVAS TOUCH
         var canvas = document.getElementsByTagName("canvas")[0];
@@ -95,8 +95,7 @@
           false
         );
       } else if (progress > 0) {
-        document.getElementById("loadinginfo").innerHTML =
-          "Loading: " + Math.round(progress * 100) + "%";
+        
         //document.getElementById("sitelogo").style.display = "none";
       }
 
@@ -181,8 +180,7 @@
         height = (width * h) / w;
       }
       document.getElementById("logo").style.width = width * 0.8 + "px";
-      document.getElementById("loadinginfo").style.fontSize =
-        width * 0.04 + "px";
+      
     }
   </script>
   <!-- <script src="https://www.bestgames.com/forgame/functions.js?0123"></script>

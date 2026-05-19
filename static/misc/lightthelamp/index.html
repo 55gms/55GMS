@@ -263,8 +263,7 @@
 			};
 
 			if (!Engine.isWebGLAvailable()) {
-				document.getElementById("loading_text").remove()
-				displayFailureNotice('WebGL not available');
+				
 			} else {
 				setStatusMode('indeterminate');
 				PokiSDK.gameLoadingStart();
@@ -287,8 +286,7 @@
 					setStatusMode('hidden');
 					initializing = false;
 					PokiSDK.gameLoadingFinished();
-					document.getElementById("loading_text").remove()
-				}, displayFailureNotice);
+					
 			}
 		}
 

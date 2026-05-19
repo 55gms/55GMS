@@ -9,11 +9,11 @@ function onControlsLoad() {
     // these actions will trigger the controls configurations
     if (customControls === 'TRUE') {
 	// if there is a cookie, set up the controls for it
-	document.getElementById('customRadio').checked = true;
+	
 	configureCustomControls();
     } else {
 	// if no cookie, assign defaults, create the cookie
-	document.getElementById('defaultRadio').checked = true;
+	
 	setDefaultControls();
     }
 
@@ -90,7 +90,7 @@ function controlsUnitClicked(controlName) {
     // if default controls, switch to custom
     if (readCookie('customControls') !== 'TRUE') {
 	// if no cookie, assign defaults, create the cookie
-	document.getElementById('customRadio').checked = true;
+	
 	configureCustomControls();
     }
 

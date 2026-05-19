@@ -61761,7 +61761,7 @@ function _vg2(_mg2) {
     if (typeof(gml_Script_gmcallback_html5_set_load_location) != 'undefined') {
         _QC = gml_Script_gmcallback_html5_set_load_location
     } else _QC = _tg2;
-    _Jf2 = document.getElementById('GM4HTML5_loadingscreen');
+    _Jf2 = 
     _og2(_mg2);
     _wg2 = _xg2;
     _LX = 0;
@@ -68164,7 +68164,7 @@ function _Uv2(_dw) {
             return false
         };
         canvas.addEventListener("DOMMouseScroll", _7v2, false);
-        var _Wf = document.getElementById("loading_screen");
+        var _Wf = 
         if (_Wf) {
             _Wf.onmousemove = _4v2;
             _Wf.onmousedown = _6v2;
@@ -68186,7 +68186,7 @@ function _Uv2(_dw) {
         canvas.onmousewheel = null;
         canvas.onselectstart = null;
         canvas.removeEventListener("DOMMouseScroll", _7v2);
-        var _Wf = document.getElementById("loading_screen");
+        var _Wf = 
         if (_Wf) {
             _Wf.onmousemove = null;
             _Wf.onmousedown = null;
@@ -78507,7 +78507,7 @@ function _XP2() {
 
 function _YP2() {
     var _12 = document.getElementById(_qA);
-    var _Wf = document.getElementById("loading_screen");
+    var _Wf = 
     var _CB = _12.parentNode;
     if (_Wf != null) {
         _CB.removeChild(_Wf)
@@ -78667,7 +78667,7 @@ function GameMaker_Init() {
     _Zu2();
     _EY(_Xh);
     _Rn();
-    _Jf2 = document.getElementById('GM4HTML5_loadingscreen');
+    _Jf2 = 
     if ((_aA.__6 && _aA.__6._07) || (_aA.__6 && _aA.__6._07 == undefined)) {
         _5A = true
     }

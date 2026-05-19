@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>BlueVSRed</title>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@master/static/misc/redvsbluez/">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        #unity-container {
+            position: fixed;
+            inset: 0;
+        }
+
+        #unity-canvas {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            outline: none;
+            background: center / cover no-repeat url('');
+        }
+
+        #loading-cover {
+            position: fixed;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            background: #0b0b0b;
+        }
+
+        #unity-loading-bar {
+            display: grid;
+            gap: 16px;
+            justify-items: center;
+            width: min(90vw, 420px);
+        }
+
+        #unity-logo img {
+            width: 120px;
+            height: auto;
+            opacity: .9;
+        }
+
+        #unity-progress-bar-empty {
+            width: 100%;
+            height: 10px;
+            background: #222;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        #unity-progress-bar-full {
+            width: 0%;
+            height: 100%;
+            background: #27ae60;
+            transition: width .15s linear;
+        }
+
+        .spinner {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 3px solid #444;
+            border-top-color: #9b59b6;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="unity-container">
+        <canvas id="unity-canvas" tabindex="-1"></canvas>
+    </div>
+
+    <div id="loading-cover">
+        <div id="unity-loading-bar">
+            <div id="unity-logo"><img src="logo.png" alt=""></div>
+            <div id="unity-progress-bar-empty">
+                <div id="unity-progress-bar-full"></div>
+            </div>
+            <div class="spinner" aria-hidden="true"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- REQUIRED GLOBALS (fix for your crash) ---
+        let ysdk = null, player = null, leaderboard = null, payments = null;
+        let environmentData = "";      // Unity reads this during env init
+        let cloudSaves = "noData";
+        let playerData = "noData";
+        let flasgsData = "null";       // keep misspelling to match original expectations
+
+        // --- Config: same public build you shared ---
+        const loaderUrl = "BlueVSRed1.loader.js";
+        const config = {
+            dataUrl: "a36b9f5940448d36a8d5682bc38478ea.data.unityweb",
+            frameworkUrl: "bc3e88a086fb03a73daece7610914c2f.js.unityweb",
+            codeUrl: "b8e5b3dfc39c219988e9b794d0e2b865.wasm.unityweb",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "AhioGame", productName: "BlueVSRed", productVersion: "1.0"
+        };
+
+        // --- Elements & UX ---
+        const canvas = document.getElementById("unity-canvas");
+        const loadingCover = document.getElementById("loading-cover");
+        const barFull = document.getElementById("unity-progress-bar-full");
+
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        function focusGame() { window.focus(); canvas.focus(); }
+        window.addEventListener('pointerdown', focusGame, { passive: true });
+        window.addEventListener('touchstart', focusGame, { passive: true });
+
+        // --- Unity boot ---
+        let myGameInstance = null;
+        function bootUnity() {
+            const s = document.createElement("script");
+            s.src = loaderUrl;
+            s.onload = () => {
+                createUnityInstance(canvas, config, (progress) => {
+                    barFull.style.width = `${Math.floor(progress * 100)}%`;
+                }).then((inst) => {
+                    myGameInstance = inst;
+                    loadingCover.style.display = "none";
+                }).catch((err) => {
+                    console.error(err);
+                    barFull.style.background = "#e74c3c";
+                });
+            };
+            document.body.appendChild(s);
+        }
+
+        // --- Ad stubs (no-ads) ---
+        function FullAdShow() {
+            console.log("[no-ads] Fullscreen ad suppressed");
+            if (myGameInstance) myGameInstance.SendMessage('YandexGame', 'CloseFullAd', 'true');
+        }
+        function RewardedShow(rewardId) {
+            console.log("[no-ads] Rewarded ad suppressed", rewardId);
+            if (myGameInstance) myGameInstance.SendMessage('YandexGame', 'CloseRewardVideo');
+        }
+        function StickyAdActivity(show) { console.log("[no-ads] Sticky banner suppressed", show); }
+
+        // --- Other SDK stubs / helpers the game may call ---
+        function Review() { }
+        function PromptShow() { }
+        function InitLeaderboard() { }
+        function SetLeaderboardScores() { }
+        function GetLeaderboardScores() { }
+        function BuyPayments() { }
+        function GetPayments() { }
+        function ConsumePurchase() { }
+        function ConsumePurchases() { }
+        function SaveCloud() { }
+        function LoadCloud(sendback) {
+            if (sendback && myGameInstance)
+                myGameInstance.SendMessage('YandexGame', 'SetLoadSaves', 'noData');
+            return Promise.resolve('noData');
+        }
+        function RequestingEnvironmentData(sendback) {
+            const payload = {
+                language: "en", domain: "com",
+                deviceType: "desktop", isMobile: false, isDesktop: true, isTablet: false, isTV: false,
+                appID: "", browserLang: navigator.language || "en", payload: "",
+                promptCanShow: false, reviewCanShow: false
+            };
+            environmentData = JSON.stringify(payload); // <-- set the global
+            if (sendback && myGameInstance)
+                myGameInstance.SendMessage('YandexGame', 'SetEnvirData', environmentData);
+            return Promise.resolve(environmentData);
+        }
+        function InitPlayer(sendback) {
+            const unauth = JSON.stringify({
+                playerAuth: 'rejected', playerName: 'unauthorized', playerId: 'unauthorized', playerPhoto: 'null'
+            });
+            playerData = unauth; // set global for safety
+            if (sendback && myGameInstance)
+                myGameInstance.SendMessage('YandexGame', 'SetInitializationSDK', unauth);
+            return Promise.resolve(unauth);
+        }
+        function OpenAuthDialog() { }
+        function GetFlags() { flasgsData = "null"; return Promise.resolve('null'); }
+        function PaintRBT() { }
+        function StaticRBTDeactivate() { }
+        function InitGame() { console.log("Unity signaled ready"); }
+
+        window.addEventListener('beforeunload', () => {
+            if (myGameInstance) myGameInstance.SendMessage('YandexGame', '_SaveProgress');
+        });
+
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                canvas.style.width = "100vw";
+                canvas.style.height = "100vh";
+            }, 200);
+        });
+
+        bootUnity();
+    </script>

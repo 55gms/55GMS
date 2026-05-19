@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <script src="/assets/js/script.js?v=14"></script>
+
+  <title>Google</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=2" />
+  <link rel="stylesheet" href="/assets/css/nav.css?v=3" />
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+  <script src="/assets/js/font.js" crossorigin="anonymous"></script>
+  <meta http-equiv="Cache-Control" content="public, max-age=31536000">
+</head>
+
+<body>
+  <nav>
+    <div class="navbar">
+      <a id="nav-title" href="/">Reds Exploit Corner</a>
+      <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
+      <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
+      <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
+      <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
+      <a href="/chat"><i class="fa-solid fa-comments">&nbsp;</i></a>
+      <a href="/profile"><i class="fa-solid fa-user"></i></a>
+    </div>
+  </nav>
+  <br />
+  <br />
+  <h1 style="text-align: center">Packs</h1>
+  <main>
+    <script src="/assets/js/searchbar.v2.js?v=7"></script>
+    <input class="searchbar" onkeyup="search();" placeholder="Search through our 000 packs" type="text"
+      autocomplete="off" />
+    <link rel="stylesheet" href="/assets/css/games.css?v=3" />
+    <script src="/assets/js/packs.js?v=6"></script>
+    <div id="game-container"></div>
+    <br>
+
+
+  </main>
+</body>
+
+</html>

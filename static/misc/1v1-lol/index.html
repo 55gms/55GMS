@@ -237,8 +237,7 @@
     function injectAdByWindowSize() {
       // Inject small ad if screen is small, or large ad if screen is large
       if (window.innerHeight < 900) {
-        if (document.getElementById("adRectangleBottom") == null) {
-          var el = document.getElementsByClassName("ad-rectangle-bottom")[0];
+        if (
           el.id = "adRectangleBottom";
           cpmstarAPI({
             kind: "go",
@@ -247,10 +246,7 @@
           });
         }
       } else {
-        if (document.getElementById("adLeaderboardBottom") == null) {
-          var el = document.getElementsByClassName(
-            "ad-leaderboard-bottom"
-          )[0];
+        if (
           el.id = "adLeaderboardBottom";
           cpmstarAPI({
             kind: "go",
@@ -272,7 +268,7 @@
       document.getElementsByClassName(
         "ad-leaderboard-bottom"
       )[0].style.display = "block";
-      document.getElementById("adRectangleUpper").style.display = "block";
+      
 
       if (typeof counter === "undefined") {
         startCounter();
@@ -290,7 +286,7 @@
       document.getElementsByClassName(
         "ad-leaderboard-bottom"
       )[0].style.display = "none";
-      document.getElementById("adRectangleUpper").style.display = "none";
+      
 
       pauseCounter();
     }
@@ -308,29 +304,11 @@
       }
 
       if (
-        document.getElementById("adRectangleBottom") != null &&
-        window.getComputedStyle(
-          document.getElementsByClassName("ad-smallscreen")[0]
-        ).display != "none"
-      ) {
-        cpmstarAPI({
-          kind: "adcmd",
-          module: "POOL 83023",
-          command: "refresh",
-        });
+        
       }
 
       if (
-        document.getElementById("adLeaderboardBottom") != null &&
-        window.getComputedStyle(
-          document.getElementsByClassName("ad-largescreen")[0]
-        ).display != "none"
-      ) {
-        cpmstarAPI({
-          kind: "adcmd",
-          module: "POOL 85420",
-          command: "refresh",
-        });
+        
       }
 
       cpmstarAPI({ kind: "adcmd", module: "POOL 83025", command: "refresh" });

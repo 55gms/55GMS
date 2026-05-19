@@ -339,7 +339,7 @@
         const telem = document.getElementById('telemetry');
         const h1 = document.getElementById('theh1');
         const p = document.getElementById('thep');
-        const preloader = document.getElementById('preloader');
+        const preloader = 
 
         const statuses = [
             "This might take a bit",
@@ -420,10 +420,10 @@
 
         // Old helper compatibility (as requested)
         window.lowtaperfade = function () {
-            document.getElementById('fadeout').style = "opacity: 0;";
+            ";
         }
         window.highslipperybuzz = function () {
-            document.getElementById('fadeout').style = "opacity: 1;";
+            ";
             document.getElementById('theh1').innerText = "This is taking a while…";
             document.getElementById('thep').innerText = "Server could be overloaded, or the target is slow.";
         }
@@ -586,8 +586,8 @@
         async function loadFromHash() {
             // Show loader while switching
             document.getElementById('iframe-container').style.display = 'none';
-            document.getElementById('fadeout').classList.remove('hidden');
-            document.getElementById('preloader').classList.remove('hidden');
+            
+            
 
             // Reset loader headline/desc for a new navigation cycle
             h1.textContent = "Deploying proxy…";

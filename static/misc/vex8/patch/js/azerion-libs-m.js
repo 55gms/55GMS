@@ -3398,9 +3398,7 @@ var enableAnalytics;
       (SplashLoader.prototype.showBanner = function () {
         var banner;
         return this.bannerAllowed &&
-          (banner = document.getElementById("h5branding-ad"))
-          ? ((banner.style.display = "inline-flex"), banner)
-          : null;
+          (banner = 
       }),
       (SplashLoader.prototype.setScriptloadProgress = function (
         maxScripts,

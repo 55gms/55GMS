@@ -254,9 +254,9 @@ function clickOnButton(){
 }
 
 function clickAnimation() {
-    document.getElementById("amountAdded").innerHTML = "+" + kFormatter(clickDamage);
+    
 	var middleNut = document.getElementById("middleNut");
-	var amountAdded = document.getElementById("amountAdded");
+	var amountAdded = 
 	var middleNutCounter = document.getElementById("middleNutCounter");
 
 	setTimeout(function (){
@@ -276,7 +276,7 @@ function clickAnimation() {
 
 function releaseAnimation() {
 	var middleNut = document.getElementById("middleNut");
-	var amountAdded = document.getElementById("amountAdded");
+	var amountAdded = 
 	var middleNutCounter = document.getElementById("middleNutCounter");
 
 	setTimeout(function (){
@@ -318,7 +318,7 @@ window.setInterval(function(){
 
 	document.title = kFormatter(nuts) + " nuts";
 
-	var addedNuts = document.getElementById("addedNuts");
+	var addedNuts = 
 	if(totalDamage >= 1){
 		window.setTimeout(function ()
 		{
@@ -719,7 +719,7 @@ function buy(building){
 	GreyOutButtons();
 	Save();
 	if(page != "mobile.html"){
-		document.getElementById('upgrades').style.display = "";
+		
 		document.getElementById('damage').style.display = "";
 		document.getElementById('clickBonusText').style.display = "";
 		document.getElementById('line2').style.display = "";
@@ -877,7 +877,7 @@ function showAllUpgrades(){
 }
 
 function NewUpgrade(){
-	var newUpgrade = document.getElementById("newUpgrade");
+	var newUpgrade = 
 	if(newUpgrade.style.width < "100px"){
 		newUpgrade.style.width = "42%";
     } else {
@@ -886,15 +886,15 @@ function NewUpgrade(){
 }
 
 function uploadHover(){
-	var uploadLabel = document.getElementById("uploadLabel");
-	var uploadIcon = document.getElementById("uploadIcon");
+	var uploadLabel = 
+	var uploadIcon = 
 	uploadLabel.style.height = "50px";
     uploadLabel.style.width = "370px";
 	uploadIcon.style.top = "10%";
 }
 
 function uploadLeave(){
-	var uploadLabel = document.getElementById("uploadLabel");
+	var uploadLabel = 
     uploadLabel.style.height = "40px";
     uploadLabel.style.width = "25px";
 	uploadIcon.style.top = "5%";
@@ -1419,7 +1419,7 @@ function GreyOutButtons(){
 	
 	if(allUpgrades >= 5){
 		document.getElementsByClassName('buyAllUpgrade')[1].style.webkitFilter = "brightness(60%)";
-		document.getElementById('allUpgradeCost').innerHTML = "sold out";
+		
 	}
 }
 
@@ -1453,7 +1453,7 @@ function CheckAmounts(){
 			classes[i].style.display = '';
 		}
 		if(page != "mobile.html"){
-			document.getElementById('upgrades').style.display = "";
+			
 			document.getElementById('damage').style.display = "";
 			document.getElementById('clickBonusText').style.display = "";
 			document.getElementById('line2').style.display = "";
@@ -1626,12 +1626,12 @@ function UpdateValues(){
 	document.getElementById('nutBoyBonuses').innerHTML = nutBoyBonuses;
 	document.getElementById('nutBoyBonusTotal').innerHTML = kFormatter(nutBoyDamage);
 	document.getElementById('clickDamage').innerHTML = clickDamage;
-	document.getElementById('clickUpgrades').innerHTML = clickUpgrades;
-	document.getElementById('clickUpgrades2').innerHTML = clickUpgrades2;
-	document.getElementById('clickUpgrades3').innerHTML = clickUpgrades3;
+	
+	
+	
 	document.getElementById('nutMen').innerHTML = nutMen;
 	document.getElementById('nutFarms').innerHTML = nutFarms;
-	document.getElementById('allUpgrades').innerHTML = allUpgrades;
+	
 	document.getElementById('nutFactories').innerHTML = nutFactories;
 	document.getElementById('nutBanks').innerHTML = nutBanks;
 	document.getElementById('nutEmpires').innerHTML = nutEmpires;
@@ -1642,9 +1642,9 @@ function UpdateValues(){
 	document.getElementById('nutUniversalDominations').innerHTML = nutUniversalDominations;
 	document.getElementById('nutGods').innerHTML = nutGods;
 	document.getElementById('nutAfterlives').innerHTML = nutAfterlives;
-	document.getElementById('addedNuts').innerHTML = "+ " + kFormatter(totalDamage);
+	
 	document.getElementById('totalDamage').innerHTML = kFormatter(totalDamage);
-	document.getElementById("damageAdded").innerHTML = "+ " + kFormatter(totalDamage) + "/sec";
+	
 
 	document.getElementById('nutKidDamage').innerHTML = kFormatter(round(nutKidDamage));
 	document.getElementById('nutBoyBonusTotal').innerHTML = kFormatter(round(nutBoyDamage));
@@ -1661,9 +1661,9 @@ function UpdateValues(){
 	document.getElementById('nutGodDamage').innerHTML = kFormatter(round(nutGodDamage));
 	document.getElementById('nutAfterlifeDamage').innerHTML = kFormatter(round(nutAfterlifeDamage));
 	
-	document.getElementById('clickUpgradeDamage').innerHTML = kFormatter(round(clickUpgradesTemp));
-	document.getElementById('clickUpgrade2Damage').innerHTML = kFormatter(round(clickUpgrades2Temp));
-	document.getElementById('clickUpgrade3Damage').innerHTML = kFormatter(round(clickUpgrades3 * (3 * (1 + clickUpgradesTemp + clickUpgrades2Temp))));
+	
+	
+	
 	
 	document.getElementById('nutKidTotalDmg').innerHTML = kFormatter(round(nutKids * (prestigeGain + levelMultiplier * nutKidDamage)));
 	document.getElementById('nutBoyTotalDmg').innerHTML = kFormatter(round(nutBoys * (prestigeGain + levelMultiplier * nutBoyDamage)));
@@ -1709,7 +1709,7 @@ function UpdateCosts(){
 	document.getElementById('clickCost3').innerHTML = kFormatter(clickUpgrade3CostNext);
 	document.getElementById('nutManCost').innerHTML = kFormatter(nutManCostNext);
 	document.getElementById('nutFarmCost').innerHTML = kFormatter(nutFarmCostNext);
-	document.getElementById('allUpgradeCost').innerHTML = kFormatter(allUpgradeCostNext);
+	
 	document.getElementById('nutFactoryCost').innerHTML = kFormatter(nutFactoryCostNext);
 	document.getElementById('nutBankCost').innerHTML = kFormatter(nutBankCostNext);
 	document.getElementById('nutEmpireCost').innerHTML = kFormatter(nutEmpireCostNext);

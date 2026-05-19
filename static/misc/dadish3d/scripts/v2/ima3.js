@@ -3912,7 +3912,7 @@
     }
     var wj = function(a, b) {
             var c = c === void 0 ? !1 : c;
-            var d = "https://pagead2.googlesyndication.com/pagead/gen_204?id=" + b;
+            var d = "" + b;
             ij(a, function(e, f) {
                 if (e || e === 0) d += "&" + f + "=" + encodeURIComponent("" + e)
             });
@@ -4228,7 +4228,7 @@
         }
     };
     var Ak = function(a, b, c, d, e, f) {
-        yk.call(this, a, b, "https://pagead2.googlesyndication.com/pagead/ping", xk, c === void 0 ? 1E3 : c, d === void 0 ? 100 : d, (e === void 0 ? !1 : e) && !!globalThis.fetch, f)
+        yk.call(this, a, b, "", xk, c === void 0 ? 1E3 : c, d === void 0 ? 100 : d, (e === void 0 ? !1 : e) && !!globalThis.fetch, f)
     };
     w(Ak, yk);
     var Bk = function(a, b) {
@@ -4445,7 +4445,7 @@
         Pk = null,
         Rk = {},
         Mk = (Rk[8] = "google_prev_ad_formats_by_region", Rk[9] = "google_prev_ad_slotnames_by_region", Rk);
-    var Sk = ta(["https://pagead2.googlesyndication.com/pagead/js/err_rep.js"]),
+    var Sk = ta([""]),
         Tk = function() {
             var a = a === void 0 ? "jserror" : a;
             var b = b === void 0 ? .01 : b;
@@ -17277,7 +17277,7 @@
             a = Hm().sort().join(",");
             wb(Ri(a)) || (b.e = a);
             b = nJ(this, b);
-            var d = new TC("http://pagead2.googlesyndication.com/pagead/gen_204");
+            var d = new TC("");
             Zh(b, function(e, f) {
                 e != null && gD(d, f, e == null ? "" : typeof e === "boolean" ? e ? "t" : "f" : "" + e)
             }, this);

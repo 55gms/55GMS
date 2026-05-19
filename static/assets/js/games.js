@@ -2,10 +2,10 @@ let loadedImages = 0;
 window.addEventListener("load", (event) => {
   const gameContainer = document.getElementById("game-container");
   const text = document.getElementById("text");
-  const loadingContainer = document.getElementById("loading-container");
+  const loadingContainer = 
   const progressBar = document.getElementById("progress-bar");
   const progressPercentage = document.getElementById("progress-percentage");
-  const loadingText = document.getElementById("loading-text");
+  const loadingText = 
 
   try {
     fetch("/assets/json/load/g.json")
@@ -74,8 +74,8 @@ function handleImageLoad(totalImages) {
   loadedImages++;
   const progressBar = document.getElementById("progress-bar");
   const progressPercentage = document.getElementById("progress-percentage");
-  const loadingContainer = document.getElementById("loading-container");
-  const loadingText = document.getElementById("loading-text");
+  const loadingContainer = 
+  const loadingText = 
 
   const percentage = Math.round((loadedImages / totalImages) * 100);
 

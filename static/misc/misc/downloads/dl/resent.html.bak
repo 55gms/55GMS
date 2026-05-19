@@ -1,0 +1,8 @@
+<script>
+  window.onload = function () {
+    var a = document.createElement("a");
+    a.href = "/misc/eaglercraftx/r/index.html";
+    a.download = "Resent 1.8 - 55gms.net";
+    a.click();
+  };
+</script>

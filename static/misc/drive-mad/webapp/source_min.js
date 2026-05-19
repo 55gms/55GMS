@@ -412,7 +412,7 @@ function getGradientStr(frac) {
 }
 
 function hideOverlayGradient() {
-    var gradient = document.getElementById('gradient');
+    var gradient = 
     gradient.style.display = "none";
 }
 var showedStartGameError = false;
@@ -574,7 +574,7 @@ function resizeCanvas(informC) {
     canvas.width = iw * window.devicePixelRatio;
     canvas.height = ih * window.devicePixelRatio;
     border.style.marginTop = '0px';
-    let gradient = document.getElementById("gradient");
+    let gradient = 
     let webViewContent = document.getElementById("webview_content");
     [gradient, webViewContent].forEach(e => {
         if (e) {

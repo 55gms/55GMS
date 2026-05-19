@@ -2863,7 +2863,7 @@ fg_api.prototype.navigationModule = function() {
 		self.fgOverlay.innerHTML = self.config.headerHtml;
 		self.fgOverlay.appendChild(self.fgNavigation);
 		self.fgOverlay_visible = false;
-		self.fgHeader = document.getElementById("fg-header");
+		self.fgHeader = 
 
 		faZepto("#fg-clip, #fg-logo").each(function(){
 			self.handleClick(this, toggleOverlay);

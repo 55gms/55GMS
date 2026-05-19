@@ -62,11 +62,11 @@ function dj_loading_get_height() { return dj_loading_height; }
 ///
 
 var showBH5Icon = false;
-var loadingBg = document.getElementById('img_loadingbg');
-var loadingIcon = document.getElementById('img_loadingicon');
-var loadingLogoIcon = document.getElementById('img_loadinglogoicon');
-var loadingBar = document.getElementById('img_loadingbar');
-var loadingBarOverlay = document.getElementById('img_loadingbaroverlay');
+var loadingBg = 
+var loadingIcon = 
+var loadingLogoIcon = 
+var loadingBar = 
+var loadingBarOverlay = 
 
 if (showBH5Icon == false)
 {

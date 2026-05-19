@@ -3586,7 +3586,7 @@ var s=i(/*! @/src/bridge/UIBridge.js */"./src/bridge/UIBridge.js"),n=i(/*! @/src
 //   <!-- Loading content -->
 // </div>
 //exports.__esModule = true;
-var i=function(){function t(){}return t.show=function(){var t=document.getElementById("loader");t&&(t.style.display="block")},t.hide=function(){var t=document.getElementById("loader");t&&(t.style.display="none")},t}();e.default=i}
+var i=function(){function t(){}return t.show=function(){var t=t&&(t.style.display="block")},t.hide=function(){var t=t&&(t.style.display="none")},t}();e.default=i}
 /***/,
 /***/"./src/ui/LoadingFade.js":
 /*!*******************************!*\

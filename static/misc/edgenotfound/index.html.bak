@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Edge Not Found by Tom Hermans (@Auroriax)</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/ico">
+  <meta property="og:title" content="Edge Not Found" />
+  <meta property="og:description"
+    content="Edge Not Found is a Sokoban-style puzzle game set on an infinitely repeating grid. Push the boxes to the targets in ~20 puzzles. By Tom Hermans (@Auroriax)." />
+</head>
+
+<body>
+  <noscript>Please enable Javascript to play this game!</noscript>
+  <div id="browserUnsupported">Your browser is not supported. Consider updating to a newer one.</div>
+  <canvas id="canvas" width="500" height="500"> </canvas>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      if (window.document.documentMode) {
+        document.getElementById("browserUnsupported").style.visibility = "visible";
+      }
+    });
+  </script>
+  <script src="tomato.js"></script>
+  <script src="rough.js"></script>
+  <script src="zzfx.js"></script>
+  <script src="levels.js"></script>
+  <script src="game.js"></script>
+</body>
+
+</html>

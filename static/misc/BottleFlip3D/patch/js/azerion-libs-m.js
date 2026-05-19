@@ -2460,12 +2460,7 @@ var enableAnalytics;
         }),
         SplashLoader.prototype.showBanner = function() {
             var banner;
-            return this.bannerAllowed && (banner = document.getElementById("h5branding-ad")) ? (banner.style.display = "inline-flex",
-            banner) : null
-        }
-        ,
-        SplashLoader.prototype.setScriptloadProgress = function(maxScripts, increment) {
-            var progress;
+            return this.bannerAllowed && (banner = 
             this.circleLoader.animate(.3 * increment / maxScripts, null, function() {})
         }
         ,

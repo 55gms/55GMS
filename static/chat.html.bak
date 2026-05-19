@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+    <script src="/assets/js/font.js"></script>
+    <meta name="google" content="notranslate" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/nav.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/chat.css?v=1" />
+    <title>Google</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Rednotsus" />
+    <meta http-equiv="Cache-control" content="public">
+    <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/assets/js/script.js?v=14"></script>
+    <script src="/assets/js/easteregg.min.js" async></script>
+</head>
+
+<body>
+    <nav>
+        <div class="navbar">
+            <a id="nav-title" href="/">Reds Exploit Corner</a>
+            <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
+            <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
+            <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
+            <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
+            <a href="/chat"><i class="fa-solid fa-comments">&nbsp;</i></a>
+            <a href="/profile"><i class="fa-solid fa-user"></i></a>
+        </div>
+    </nav>
+
+    <div class="chat-container">
+        <!-- Sidebar -->
+        <div class="chat-sidebar">
+            <div class="chat-header">
+                <h2>Messages</h2>
+                <div class="chat-actions">
+                    <button id="newChatBtn" class="action-btn" title="New Chat">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <button id="friendsBtn" class="action-btn" title="Friends">
+                        <i class="fa-solid fa-users"></i>
+                        <span id="friendsNotificationBadge" class="friends-notification-badge"
+                            style="display: none;"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="chat-search">
+                <input type="text" id="chatSearch" placeholder="Search conversations..." autocomplete="off" />
+            </div>
+
+            <div class="chat-list" id="chatList">
+
+            </div>
+
+            <div class="user-info-bar">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <span id="userInitials"></span>
+                    </div>
+                    <div class="user-details">
+                        <span id="userDisplayName"></span>
+                        <span class="user-status">Online</span>
+                    </div>
+                </div>
+                <button id="copyUsernameBtn" class="copy-btn" title="Copy Username">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Chat Area -->
+        <div class="chat-main">
+            <div class="chat-welcome" id="chatWelcome">
+                <div class="welcome-content">
+                    <i class="fa-solid fa-comments welcome-icon"></i>
+                    <h2>Welcome to Chat!</h2>
+                    <p>Select a conversation to start messaging, or create a new chat.</p>
+                    <button id="startChatBtn" class="gs">Start New Chat</button>
+                </div>
+            </div>
+
+            <div class="chat-content" id="chatContent" style="display: none;">
+                <div class="chat-info" id="chatInfo">
+                    <div class="chat-avatar">
+                        <div class="avatar-circle">
+                            <span id="chatInitials"></span>
+                        </div>
+                        <div class="online-indicator" id="onlineIndicator"></div>
+                    </div>
+                    <div class="chat-details">
+                        <h3 id="chatName"></h3>
+                        <span id="chatStatus"></span>
+                    </div>
+                    <div class="chat-menu">
+                        <button class="menu-btn" id="chatMenuBtn">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+                        <div class="chat-menu-dropdown" id="chatMenuDropdown" style="display: none;">
+                            <button id="addFriendOption" class="menu-option">
+                                <i class="fa-solid fa-user-plus"></i> Add Friend
+                            </button>
+                            <button id="removeFriendOption" class="menu-option" style="display: none;">
+                                <i class="fa-solid fa-user-minus"></i> Remove Friend
+                            </button>
+                            <button id="blockUserOption" class="menu-option" style="display: none;">
+                                <i class="fa-solid fa-ban"></i> Block User
+                            </button>
+                            <button id="unblockUserOption" class="menu-option" style="display: none;">
+                                <i class="fa-solid fa-unlock"></i> Unblock User
+                            </button>
+                            <button id="leaveGroupOption" class="menu-option" style="display: none;">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i> Leave Group
+                            </button>
+                            <button id="viewMembersOption" class="menu-option" style="display: none;">
+                                <i class="fa-solid fa-users"></i> View Members
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="messages-container" id="messagesContainer">
+                    <div class="messages" id="messages">
+                        <!-- Messages will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                    <span id="typingText"></span>
+                </div>
+
+                <div class="message-input-container">
+                    <div class="message-input">
+                        <input type="text" id="messageInput" placeholder="Type a message..." maxlength="1000"
+                            autocomplete="off" />
+                        <button id="sendBtn" class="send-btn">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="character-counter">
+                        <span id="charCount">0</span>/1000
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Friend Requests Modal -->
+    <div id="friendsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Friends & Requests</h3>
+                <button class="modal-close" id="closeFriendsModal">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="friends-tabs">
+                    <button class="tab-btn active" data-tab="friends">Friends</button>
+                    <button class="tab-btn" data-tab="requests">Requests <span id="requestCount"
+                            class="badge"></span></button>
+                    <button class="tab-btn" data-tab="blocked">Blocked</button>
+                    <button class="tab-btn" data-tab="add">Add Friend</button>
+                </div>
+
+                <div class="tab-content">
+                    <div id="friendsTab" class="tab-panel active">
+                        <div id="friendsList"></div>
+                    </div>
+
+                    <div id="requestsTab" class="tab-panel">
+                        <div id="friendRequests"></div>
+                    </div>
+
+                    <div id="blockedTab" class="tab-panel">
+                        <div id="blockedUsersList"></div>
+                    </div>
+
+                    <div id="addTab" class="tab-panel">
+                        <div class="add-friend-form">
+                            <input type="text" id="friendUsername" placeholder="Enter username..." class="friendRequest"
+                                autocomplete="off" />
+                            <button id="addFriendBtn" class="gs">Send Request</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Chat Modal -->
+    <div id="newChatModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>New Chat</h3>
+                <button class="modal-close" id="closeNewChatModal">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="chat-type-tabs">
+                    <button class="tab-btn active" data-tab="direct">Direct Message</button>
+                    <button class="tab-btn" data-tab="group">Group Chat</button>
+                </div>
+
+                <div class="tab-content">
+                    <div id="directTab" class="tab-panel active">
+                        <div class="form-group">
+                            <label>Username:</label>
+                            <input type="text" id="directUsername" placeholder="Enter username..." autocomplete="off" />
+                        </div>
+                        <button id="createDirectBtn" class="gs">Start Chat</button>
+                    </div>
+
+                    <div id="groupTab" class="tab-panel">
+                        <div class="form-group">
+                            <label>Group Name:</label>
+                            <input type="text" id="groupName" placeholder="Enter group name..." autocomplete="off" />
+                        </div>
+                        <div class="form-group">
+                            <label>Add Members: <span id="memberCount"
+                                    style="color: #888; font-size: 12px;">(0/9)</span></label>
+                            <div id="membersList"></div>
+                            <input type="text" id="addMemberInput" placeholder="Enter username and press Enter..."
+                                autocomplete="off" />
+                            <div style="font-size: 12px; color: #888; margin-top: 5px;">
+                                Maximum 10 people total (including yourself)
+                            </div>
+                        </div>
+                        <button id="createGroupBtn" class="gs">Create Group</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Group Members Modal -->
+    <div id="groupMembersModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="groupMembersTitle">Group Members</h3>
+                <button class="modal-close" id="closeGroupMembersModal">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="groupMembersList">
+                    <!-- Group members will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <script src="/assets/js/chat.js?v=1"></script>
+    <script>
+        // Check authentication
+        const uuid = localStorage.getItem('uuid');
+        const username = localStorage.getItem('username');
+
+        if (!uuid || !username) {
+            window.location.href = '/login';
+        }
+
+        // Initialize chat system
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeChat();
+        });
+    </script>
+</body>
+
+</html>
