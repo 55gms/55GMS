@@ -27,11 +27,7 @@ class BlockingCache {
   }
 
   async setCacheEntry(cacheKey, data) {
-    await setJsonCache(
-      this.getRedisKey(cacheKey),
-      data,
-      this.cacheTtlSeconds,
-    );
+    await setJsonCache(this.getRedisKey(cacheKey), data, this.cacheTtlSeconds);
 
     if (this.cache.has(cacheKey)) {
       this.cache.delete(cacheKey);
