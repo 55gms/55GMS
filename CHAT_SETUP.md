@@ -30,7 +30,12 @@ POSTGRES_URL=postgresql://username:password@localhost:5432/your_database_name
 workerAUTH=your_worker_auth_token
 hcaptchaSecret=your_hcaptcha_secret
 PORT=8080
+REDIS_URL=redis://localhost:6379
 ```
+
+`REDIS_URL` is required when running more than one app instance behind a load
+balancer. It lets Socket.IO fan out chat events and query socket state across
+instances. Single-instance local development can run without it.
 
 ### Step 2: Set Up Database Schema
 

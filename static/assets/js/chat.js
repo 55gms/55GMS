@@ -62,7 +62,9 @@ function initializeChat() {
 
 // Initialize Socket.IO connection
 function initializeSocket() {
-  socket = io();
+  socket = io({
+    transports: ["websocket"],
+  });
 
   socket.on("connect", () => {
     console.log("Connected to server");

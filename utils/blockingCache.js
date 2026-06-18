@@ -1,9 +1,11 @@
 import { Friend } from "../models/index.js";
+import { deleteCacheKeys, getJsonCache, setJsonCache } from "./redisCache.js";
 
 class BlockingCache {
   constructor() {
     this.cache = new Map();
     this.cacheTimeout = 5 * 60 * 1000; // 5 minutes
+    this.cacheTtlSeconds = Math.floor(this.cacheTimeout / 1000);
     this.maxEntries = 5000;
   }
 
@@ -11,7 +13,26 @@ class BlockingCache {
     return `${userUuid}:${otherUserUuid}`;
   }
 
-  setCacheEntry(cacheKey, data) {
+  getRedisKey(cacheKey) {
+    return `blocking:${cacheKey}`;
+  }
+
+  async getCacheEntry(cacheKey) {
+    const redisCached = await getJsonCache(this.getRedisKey(cacheKey));
+    if (redisCached) {
+      return { ...redisCached, timestamp: Date.now() };
+    }
+
+    return this.cache.get(cacheKey);
+  }
+
+  async setCacheEntry(cacheKey, data) {
+    await setJsonCache(
+      this.getRedisKey(cacheKey),
+      data,
+      this.cacheTtlSeconds,
+    );
+
     if (this.cache.has(cacheKey)) {
       this.cache.delete(cacheKey);
     }
@@ -26,7 +47,7 @@ class BlockingCache {
 
   async isBlocked(userUuid, otherUserUuid) {
     const cacheKey = this.getCacheKey(userUuid, otherUserUuid);
-    const cached = this.cache.get(cacheKey);
+    const cached = await this.getCacheEntry(cacheKey);
 
     // Check if we have valid cached data
     if (cached && Date.now() - cached.timestamp < this.cacheTimeout) {
@@ -43,7 +64,7 @@ class BlockingCache {
         },
       });
 
-      this.setCacheEntry(cacheKey, {
+      await this.setCacheEntry(cacheKey, {
         isBlocked: !!blockedByOther,
         blockedBy: blockedByOther ? "other" : null,
       });
@@ -63,7 +84,7 @@ class BlockingCache {
 
   async hasBlocked(userUuid, otherUserUuid) {
     const cacheKey = this.getCacheKey(otherUserUuid, userUuid); // Reverse the order for the cache key
-    const cached = this.cache.get(cacheKey);
+    const cached = await this.getCacheEntry(cacheKey);
 
     // Check if we have valid cached data
     if (cached && Date.now() - cached.timestamp < this.cacheTimeout) {
@@ -80,7 +101,7 @@ class BlockingCache {
         },
       });
 
-      this.setCacheEntry(cacheKey, {
+      await this.setCacheEntry(cacheKey, {
         isBlocked: !!blockedByMe,
         blockedBy: blockedByMe ? "other" : null,
       });
@@ -112,6 +133,13 @@ class BlockingCache {
   invalidateCache(userUuid, otherUserUuid) {
     const key1 = this.getCacheKey(userUuid, otherUserUuid);
     const key2 = this.getCacheKey(otherUserUuid, userUuid);
+
+    void deleteCacheKeys([
+      this.getRedisKey(key1),
+      this.getRedisKey(key2),
+    ]).catch((error) => {
+      console.error("Error invalidating blocking cache:", error);
+    });
 
     this.cache.delete(key1);
     this.cache.delete(key2);

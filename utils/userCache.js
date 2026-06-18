@@ -1,13 +1,30 @@
 import axios from "axios";
+import { deleteCacheKeys, getJsonCache, setJsonCache } from "./redisCache.js";
 
 class UserCache {
   constructor() {
     this.cache = new Map();
     this.cacheTimeout = 5 * 60 * 1000;
+    this.cacheTtlSeconds = Math.floor(this.cacheTimeout / 1000);
     this.maxEntries = 1000;
   }
 
-  setCacheEntry(uuid, data) {
+  getCacheKey(uuid) {
+    return `user:${uuid}`;
+  }
+
+  async getCacheEntry(uuid) {
+    const redisCached = await getJsonCache(this.getCacheKey(uuid));
+    if (redisCached) {
+      return { data: redisCached, timestamp: Date.now() };
+    }
+
+    return this.cache.get(uuid);
+  }
+
+  async setCacheEntry(uuid, data) {
+    await setJsonCache(this.getCacheKey(uuid), data, this.cacheTtlSeconds);
+
     if (this.cache.has(uuid)) {
       this.cache.delete(uuid);
     }
@@ -21,7 +38,7 @@ class UserCache {
   }
 
   async getUserByUuid(uuid) {
-    const cached = this.cache.get(uuid);
+    const cached = await this.getCacheEntry(uuid);
 
     // Check if we have valid cached data
     if (cached && Date.now() - cached.timestamp < this.cacheTimeout) {
@@ -39,7 +56,7 @@ class UserCache {
         },
       );
 
-      this.setCacheEntry(uuid, response.data);
+      await this.setCacheEntry(uuid, response.data);
 
       return response.data;
     } catch (error) {
@@ -66,7 +83,7 @@ class UserCache {
 
       // Cache by UUID for future UUID lookups
       if (response.data.uuid) {
-        this.setCacheEntry(response.data.uuid, response.data);
+        await this.setCacheEntry(response.data.uuid, response.data);
       }
 
       return response.data;
@@ -92,6 +109,9 @@ class UserCache {
 
   // Clear cache entry for a specific UUID
   invalidateUser(uuid) {
+    void deleteCacheKeys([this.getCacheKey(uuid)]).catch((error) => {
+      console.error(`Error invalidating user cache for ${uuid}:`, error);
+    });
     this.cache.delete(uuid);
   }
 

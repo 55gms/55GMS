@@ -1,6 +1,8 @@
 import express from "express";
 import { createServer } from "http";
 import { Server as SocketIO } from "socket.io";
+import { createAdapter } from "@socket.io/redis-adapter";
+import { createClient } from "redis";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -50,21 +52,35 @@ try {
 
   io.attach(server);
 
-  const connectedUsers = new Map();
-  const activeChats = new Map();
+  let redisPubClient;
+  let redisSubClient;
 
-  function hasOtherUserSocket(userUuid, currentSocketId) {
-    for (const [socketId, connectedUuid] of connectedUsers.entries()) {
-      if (
-        socketId !== currentSocketId &&
-        connectedUuid === userUuid &&
-        io.sockets.sockets.has(socketId)
-      ) {
-        return true;
-      }
+  async function configureSocketAdapter() {
+    if (!process.env.REDIS_URL) {
+      console.warn(
+        "REDIS_URL is not set. Socket.IO will only coordinate within this Node process.",
+      );
+      return;
     }
 
-    return false;
+    redisPubClient = createClient({ url: process.env.REDIS_URL });
+    redisSubClient = redisPubClient.duplicate();
+
+    redisPubClient.on("error", (error) => {
+      console.error("Redis pub client error:", error);
+    });
+    redisSubClient.on("error", (error) => {
+      console.error("Redis sub client error:", error);
+    });
+
+    await Promise.all([redisPubClient.connect(), redisSubClient.connect()]);
+    io.adapter(createAdapter(redisPubClient, redisSubClient));
+    console.log("✅ Socket.IO Redis adapter connected.");
+  }
+
+  async function hasOtherUserSocket(userUuid, currentSocketId) {
+    const sockets = await io.in(`user_${userUuid}`).fetchSockets();
+    return sockets.some((userSocket) => userSocket.id !== currentSocketId);
   }
 
   function leaveAuthenticatedRooms(socket) {
@@ -95,8 +111,6 @@ try {
     });
   }
 
-  initDatabase().catch(console.error);
-
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ extended: true, limit: "50mb" }));
   app.use(cors());
@@ -120,13 +134,13 @@ try {
         const { uuid, joinChatRooms = false } = data;
         if (!uuid) return;
 
-        const previousUuid = connectedUsers.get(socket.id);
+        const previousUuid = socket.data.userUuid;
         if (previousUuid && previousUuid !== uuid) {
-          connectedUsers.delete(socket.id);
-          activeChats.delete(socket.id);
+          socket.data.userUuid = null;
+          socket.data.activeChat = null;
           leaveAuthenticatedRooms(socket);
 
-          if (!hasOtherUserSocket(previousUuid, socket.id)) {
+          if (!(await hasOtherUserSocket(previousUuid, socket.id))) {
             await markUserOffline(previousUuid, new Date());
           }
         }
@@ -138,7 +152,8 @@ try {
           socketId: socket.id,
         });
 
-        connectedUsers.set(socket.id, uuid);
+        socket.data.userUuid = uuid;
+        socket.data.activeChat = null;
         socket.join(`user_${uuid}`);
 
         if (joinChatRooms) {
@@ -162,6 +177,7 @@ try {
     });
 
     socket.on("join_chat", (chatId) => {
+      if (!socket.data.userUuid) return;
       socket.join(`chat_${chatId}`);
     });
 
@@ -170,18 +186,19 @@ try {
     });
 
     socket.on("viewing_chat", (chatId) => {
-      activeChats.set(socket.id, chatId);
+      if (!socket.data.userUuid) return;
+      socket.data.activeChat = chatId;
     });
 
     socket.on("stop_viewing_chat", () => {
-      activeChats.delete(socket.id);
+      socket.data.activeChat = null;
     });
 
     socket.on("send_message", async (data) => {
       try {
         const { chatId, content, senderUuid, senderUsername, isSystem } = data;
 
-        const authenticatedUuid = connectedUsers.get(socket.id);
+        const authenticatedUuid = socket.data.userUuid;
         if (authenticatedUuid !== senderUuid && !isSystem) {
           return socket.emit("error", "Authentication mismatch");
         }
@@ -201,14 +218,15 @@ try {
           where: { chatId },
         });
 
-        chatMembers.forEach((member) => {
+        for (const member of chatMembers) {
           if (member.userUuid !== senderUuid) {
-            const userSockets = Array.from(connectedUsers.entries())
-              .filter(([socketId, userUuid]) => userUuid === member.userUuid)
-              .map(([socketId]) => socketId);
+            const userSockets = await io
+              .in(`user_${member.userUuid}`)
+              .fetchSockets();
 
             const isCurrentlyViewing = userSockets.some(
-              (socketId) => activeChats.get(socketId) === chatId,
+              (userSocket) =>
+                String(userSocket.data.activeChat) === String(chatId),
             );
 
             if (!isCurrentlyViewing) {
@@ -224,7 +242,7 @@ try {
                 });
             }
           }
-        });
+        }
 
         await Chat.update(
           { lastActivity: new Date() },
@@ -257,7 +275,7 @@ try {
     socket.on("mark_read", async (data) => {
       try {
         const { chatId } = data;
-        const userUuid = connectedUsers.get(socket.id);
+        const userUuid = socket.data.userUuid;
 
         if (!userUuid) return;
 
@@ -280,7 +298,7 @@ try {
       try {
         const { uuid } = data;
         if (!uuid) return;
-        if (connectedUsers.get(socket.id) !== uuid) return;
+        if (socket.data.userUuid !== uuid) return;
 
         await UserStatus.upsert({
           userUuid: uuid,
@@ -293,13 +311,11 @@ try {
       }
     });
 
-    // Handle disconnect
-    socket.on("disconnect", async () => {
-      const userUuid = connectedUsers.get(socket.id);
-      connectedUsers.delete(socket.id);
-      activeChats.delete(socket.id);
+    socket.on("disconnecting", async () => {
+      const userUuid = socket.data.userUuid;
+      socket.data.activeChat = null;
 
-      if (!userUuid || hasOtherUserSocket(userUuid, socket.id)) {
+      if (!userUuid || (await hasOtherUserSocket(userUuid, socket.id))) {
         return;
       }
 
@@ -335,13 +351,6 @@ try {
           isOnline: false,
           lastSeen: user.lastSeen,
         });
-      }
-
-      for (const socketId of connectedUsers.keys()) {
-        if (!io.sockets.sockets.has(socketId)) {
-          connectedUsers.delete(socketId);
-          activeChats.delete(socketId);
-        }
       }
     } catch (error) {
       console.error("Error in periodic cleanup:", error);
@@ -414,9 +423,13 @@ try {
     console.log("-----------------------------------------------");
     console.log(`  Shutting Down (Signal: ${signal})  `);
     console.log("-----------------------------------------------\n");
-    server.close(() => {
+    server.close(async () => {
       console.log("  55GMS has shut down.");
       io.close();
+      await Promise.allSettled([
+        redisPubClient?.quit(),
+        redisSubClient?.quit(),
+      ]);
       process.exit(0);
     });
   }
@@ -424,9 +437,16 @@ try {
   process.on("SIGTERM", () => shutdown("SIGTERM"));
   process.on("SIGINT", () => shutdown("SIGINT"));
 
-  server.listen({
-    port: process.env.PORT || 8080,
-  });
+  Promise.all([initDatabase(), configureSocketAdapter()])
+    .then(() => {
+      server.listen({
+        port: process.env.PORT || 8080,
+      });
+    })
+    .catch((error) => {
+      console.error("Failed to initialize server dependencies:", error);
+      process.exit(1);
+    });
 
   server.on("error", (error) => {
     console.error("Server error:", error);
