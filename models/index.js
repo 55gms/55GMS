@@ -13,14 +13,16 @@ Chat.hasMany(ChatMember, { foreignKey: "chatId", as: "members" });
 ChatMember.belongsTo(Chat, { foreignKey: "chatId", as: "chat" });
 
 // Initialize database
-const initDatabase = async () => {
+const initDatabase = async ({ sync = false, alter = false } = {}) => {
   try {
     await sequelize.authenticate();
     console.log("✅ Database connection established successfully.");
 
-    // Sync all models
-    await sequelize.sync({ alter: true }); // Use { force: true } only in development to reset tables
-    console.log("✅ Database models synchronized successfully.");
+    if (sync) {
+      // Sync all models
+      await sequelize.sync({ alter }); // Use { force: true } only in development to reset tables
+      console.log("✅ Database models synchronized successfully.");
+    }
   } catch (error) {
     console.error("❌ Unable to connect to the database:", error);
     throw error;
