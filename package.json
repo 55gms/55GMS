@@ -15,7 +15,7 @@
     "@mercuryworkshop/scramjet": "https://github.com/MercuryWorkshop/scramjet/releases/download/latest/mercuryworkshop-scramjet-2.0.0-alpha.tgz",
     "@mercuryworkshop/wisp-js": "^0.3.3",
     "@socket.io/redis-adapter": "^8.3.0",
-    "axios": "^1.15.2",
+    "axios": "^1.18.0",
     "cors": "^2.8.5",
     "dompurify": "^3.3.3",
     "dotenv": "^16.4.5",
