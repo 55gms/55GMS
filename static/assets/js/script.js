@@ -25,23 +25,63 @@ function script(text) {
   document.documentElement.dataset.theme = theme;
 })();
 
+fetch("/api/me", { credentials: "same-origin" })
+  .then((response) => (response.ok ? response.json() : null))
+  .then((user) => {
+    if (user?.admin) {
+      document.querySelectorAll(".navbar").forEach((navbar) => {
+        let link = navbar.querySelector("#adminLink");
+        if (!link) {
+          link = document.createElement("a");
+          link.id = "adminLink";
+          link.href = "/admin";
+          link.textContent = "Admin";
+          const chatLink = navbar.querySelector('a[href="/chat"]');
+          const profileLink = navbar.querySelector('a[href="/profile"]');
+          navbar.insertBefore(link, chatLink || profileLink || null);
+        }
+        link.style.display = "inline-block";
+      });
+    }
+  })
+  .catch(() => {});
+
+async function promptForPendingNameRequests() {
+  const uuid = localStorage.getItem("uuid");
+  if (!uuid || window.location.pathname.startsWith("/chat")) return;
+
+  try {
+    const response = await fetch("/api/name-requests/pending", {
+      headers: { "X-User-UUID": uuid },
+    });
+    if (!response.ok) return;
+
+    const requests = await response.json();
+    for (const request of requests) {
+      const firstName = window.prompt(
+        `${request.requesterUsername} wants to know your first name. What should I tell them?`,
+      );
+      if (!firstName?.trim()) continue;
+
+      await fetch(`/api/name-requests/${request.id}/respond`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-User-UUID": uuid },
+        body: JSON.stringify({ firstName: firstName.trim() }),
+      });
+    }
+  } catch (error) {
+    console.error("Error handling pending name request:", error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", promptForPendingNameRequests);
+
 // ====================================
 // SCRIPT INJECTION
 // ====================================
-const newScript = document.createElement("script");
-newScript.setAttribute(
-  "src",
-  "https://www.googletagmanager.com/gtag/js?id=G-N0LG27M8L8",
-);
-const inlinegascript = document.createElement("script");
-inlinegascript.innerHTML = `window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-N0LG27M8L8');`;
-document.head.append(newScript, inlinegascript);
-script("Injected script 1/3");
+// Ad/tracking scripts intentionally disabled.
 
-script("Injected script 2/3 (USE AN AD BLOCKER PLEASE)");
+script("Site scripts loaded without external ad injection.");
 
 var tab = localStorage.getItem("tab");
 if (tab) {
@@ -69,24 +109,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 });
-
-fetch("/assets/json/ads.json")
-  .then((response) => response.json())
-  .then((data) => {
-    if (data.domains.includes(window.location.hostname)) {
-      const adscipterz92 = document.createElement("script");
-      adscipterz92.setAttribute("async", "");
-      adscipterz92.setAttribute(
-        "src",
-        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317",
-      );
-      adscipterz92.setAttribute("crossorigin", "anonymous");
-      document.head.append(adscipterz92);
-      script("Injected script 3/3 (Adsense)");
-    } else {
-      console.log("Skipping Adsense Injection for this domain.");
-    }
-  });
 
 var panicKey = localStorage.getItem("panicKey") || "`";
 var panicLink = localStorage.getItem("PanicLink") || "https://google.com";

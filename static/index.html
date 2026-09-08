@@ -30,6 +30,7 @@
       <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
       <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
       <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
+      <a id="adminLink" href="/admin" style="display: none;"><i class="fa-solid fa-shield-halved">&nbsp;</i>Admin</a>
       <a href="/chat"><i class="fa-solid fa-comments">&nbsp;</i></a>
       <a href="/profile"><i class="fa-solid fa-user"></i></a>
     </div>
@@ -69,7 +70,14 @@
     <a class="infobtn" href="https://github.com/55gms"><i class="fa-brands fa-github"></i></a>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/gh/docklib/partners@master/partner-7a44b4ab.js?v=1"></script>
+  <script>
+    fetch("/api/me", { credentials: "same-origin" })
+      .then(response => response.ok ? response.json() : null)
+      .then(user => {
+        if (user?.admin) document.getElementById("adminLink").style.display = "inline-block";
+      })
+      .catch(() => {});
+  </script>
 </body>
 
 </html>

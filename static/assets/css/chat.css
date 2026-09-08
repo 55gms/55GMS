@@ -121,6 +121,13 @@ body.chat-page {
   position: relative;
 }
 
+.new-chat-btn {
+  width: auto;
+  gap: 8px;
+  padding: 0 12px;
+  white-space: nowrap;
+}
+
 .copy-btn {
   width: 30px;
   height: 30px;
@@ -1177,6 +1184,11 @@ select {
     height: 36px;
   }
 
+  .new-chat-btn {
+    width: auto;
+    padding: 0 10px;
+  }
+
   .chat-item {
     padding: 12px 15px;
   }
@@ -1229,6 +1241,11 @@ select {
     width: 32px;
     height: 32px;
     font-size: 12px;
+  }
+
+  .new-chat-btn {
+    width: auto;
+    padding: 0 8px;
   }
 
   .chat-item {

@@ -1,0 +1,9 @@
+Check if running: pgrep -af "python3 flask_app.py"
+
+Run in the background: nohup python3 flask_app.py > flask.log 2>&1 &
+
+Stop the background version: pkill -f "python3 flask_app.py"
+
+Restart: pkill -f "node ."
+pkill -f "python3 flask_app.py"
+python3 flask_app.py

@@ -1,0 +1,5 @@
+Flask>=3.0,<4
+Flask-SocketIO>=5.3,<6
+bcrypt>=4.1,<5
+python-dotenv>=1.0,<2
+simple-websocket>=1.0,<2

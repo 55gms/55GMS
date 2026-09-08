@@ -1,4 +1,5 @@
 import express from "express";
+import crypto from "crypto";
 import { createServer } from "http";
 import { Server as SocketIO } from "socket.io";
 import { createAdapter } from "@socket.io/redis-adapter";
@@ -21,6 +22,7 @@ logging.set_level(logging.ERROR);
 
 import {
   initDatabase,
+  User,
   UserStatus,
   Chat,
   Message,
@@ -54,6 +56,87 @@ try {
 
   let redisPubClient;
   let redisSubClient;
+
+  const SESSION_COOKIE_NAME = "site_session";
+  const SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+
+  function getSessionSecret() {
+    return process.env.SESSION_SECRET || "55gms-default-dev-secret-change-me";
+  }
+
+  function parseCookies(cookieHeader = "") {
+    return Object.fromEntries(
+      cookieHeader
+        .split(";")
+        .map((part) => part.trim())
+        .filter(Boolean)
+        .map((part) => {
+          const idx = part.indexOf("=");
+          if (idx === -1) {
+            return [part, ""];
+          }
+          return [part.slice(0, idx), decodeURIComponent(part.slice(idx + 1))];
+        }),
+    );
+  }
+
+  function signSession(data) {
+    const payload = Buffer.from(JSON.stringify(data)).toString("base64url");
+    const signature = crypto
+      .createHmac("sha256", getSessionSecret())
+      .update(payload)
+      .digest("base64url");
+    return `${payload}.${signature}`;
+  }
+
+  function verifySession(token) {
+    if (!token || typeof token !== "string") return null;
+
+    const [payloadBase64, signature] = token.split(".");
+    if (!payloadBase64 || !signature) return null;
+
+    const expected = crypto
+      .createHmac("sha256", getSessionSecret())
+      .update(payloadBase64)
+      .digest("base64url");
+
+    if (!crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature))) {
+      return null;
+    }
+
+    try {
+      const payload = JSON.parse(
+        Buffer.from(payloadBase64, "base64url").toString("utf8"),
+      );
+
+      if (!payload?.uuid || !payload?.username) {
+        return null;
+      }
+
+      return payload;
+    } catch {
+      return null;
+    }
+  }
+
+  function requireAuth(req, res, next) {
+    const cookies = parseCookies(req.headers.cookie || "");
+    const session = verifySession(cookies[SESSION_COOKIE_NAME]);
+
+    if (!session) {
+      return res.redirect("/login");
+    }
+
+    req.user = session;
+    next();
+  }
+
+  function requireAdmin(req, res, next) {
+    if (!req.user?.admin) {
+      return res.status(403).json({ error: "Admin access required" });
+    }
+    next();
+  }
 
   async function configureSocketAdapter() {
     if (!process.env.REDIS_URL) {
@@ -120,6 +203,48 @@ try {
       res.setHeader("Content-Type", "application/javascript");
     }
     next();
+  });
+
+  const publicUrlPrefixes = [
+    "/assets/",
+    "/img/",
+    "/epoxy/",
+    "/baremux/",
+    "/scram/",
+    "/favicon.ico",
+    "/login",
+    "/signup",
+  ];
+
+  app.use((req, res, next) => {
+    const pathName = req.path || "/";
+    const isPublicApi =
+      pathName === "/api/login" ||
+      pathName === "/api/signUp" ||
+      pathName === "/api/logout";
+    const isPublicRoute =
+      publicUrlPrefixes.some((prefix) => pathName.startsWith(prefix)) ||
+      pathName === "/login" ||
+      pathName === "/signup";
+
+    if (isPublicApi || isPublicRoute) {
+      return next();
+    }
+
+    if (req.path.startsWith("/api/")) {
+      return requireAuth(req, res, next);
+    }
+
+    if (!path.extname(pathName) || pathName === "/") {
+      return requireAuth(req, res, next);
+    }
+
+    return next();
+  });
+
+  app.get("/api/logout", (req, res) => {
+    res.clearCookie(SESSION_COOKIE_NAME, { path: "/" });
+    res.status(200).json({ success: true, message: "Logged out" });
   });
 
   app.use("/api", authRoutes);
@@ -371,31 +496,89 @@ try {
     }
   });
 
-  const routes = [
+  const publicRoutes = [
     { path: "/a", file: "apps.html" },
     { path: "/g", file: "games.html" },
-    { path: "/s", file: "settings.html" },
     { path: "/!", file: "proxy.html" },
     { path: "/", file: "index.html" },
-    { path: "/d", file: "dashboard.html" },
     { path: "/-", file: "media.html" },
     { path: "/m", file: "media.html" },
-    { path: "/profile", file: "account.html" },
     { path: "/login", file: "login.html" },
     { path: "/signup", file: "signup.html" },
     { path: "/l", file: "/assets/404/loading.html" },
-    { path: "/c", file: "chat.html" },
-    { path: "/chat", file: "chat.html" },
   ];
 
-  routes.forEach((route) => {
+  const protectedRoutes = [
+    { path: "/s", file: "settings.html" },
+    { path: "/d", file: "dashboard.html" },
+    { path: "/profile", file: "account.html" },
+    { path: "/c", file: "chat.html" },
+    { path: "/chat", file: "chat.html" },
+    { path: "/admin", file: "admin.html" },
+  ];
+
+  publicRoutes.forEach((route) => {
     app.get(route.path, (req, res) => {
       res.sendFile(path.join(__dirname, "static", route.file));
     });
   });
 
-  app.get("/chat/:chatId", (req, res) => {
+  protectedRoutes.forEach((route) => {
+    const handler = route.path === "/admin" ? requireAdmin : requireAuth;
+    app.get(route.path, requireAuth, (req, res) => {
+      if (route.path === "/admin" && !req.user?.admin) {
+        return res.status(403).send("Admin access required");
+      }
+      res.sendFile(path.join(__dirname, "static", route.file));
+    });
+  });
+
+  app.get("/chat/:chatId", requireAuth, (req, res) => {
     res.sendFile(path.join(__dirname, "static", "chat.html"));
+  });
+
+  app.get("/api/admin/users", requireAuth, requireAdmin, async (req, res) => {
+    try {
+      const { User } = await import("./models/index.js");
+      const users = await User.findAll({
+        attributes: ["id", "username", "nickname", "premium", "admin", "createdAt", "lastLoginAt"],
+        order: [["createdAt", "DESC"]],
+      });
+      res.json(users.map((user) => ({
+        id: user.id,
+        username: user.username,
+        nickname: user.nickname,
+        premium: user.premium,
+        admin: user.admin,
+        createdAt: user.createdAt,
+        lastLoginAt: user.lastLoginAt,
+      })));
+    } catch (error) {
+      console.error("Admin user fetch failed:", error);
+      res.status(500).json({ error: "Could not load users" });
+    }
+  });
+
+  app.patch("/api/admin/users/:userId/nickname", requireAuth, requireAdmin, async (req, res) => {
+    const nickname = typeof req.body.nickname === "string" ? req.body.nickname.trim() : "";
+
+    if (nickname.length > 64) {
+      return res.status(400).json({ error: "Nickname must be 64 characters or fewer" });
+    }
+
+    try {
+      const user = await User.findByPk(req.params.userId);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      user.nickname = nickname || null;
+      await user.save();
+      res.json({ id: user.id, nickname: user.nickname });
+    } catch (error) {
+      console.error("Admin nickname update failed:", error);
+      res.status(500).json({ error: "Could not update nickname" });
+    }
   });
 
   app.use((req, res) => {
