@@ -51,6 +51,34 @@
 </style>
 <script>
     let uuid = localStorage.getItem("uuid");
+    const usernameFromStorage = localStorage.getItem("username") || "User";
+    const setProfileUsername = (name) => {
+        const cleaned = (name || "User").toString().trim();
+        if (!cleaned) return;
+        const initials = cleaned.charAt(0).toUpperCase();
+        const usernameEl = document.getElementById("username");
+        const initialsEl = document.getElementById("initials");
+        if (usernameEl) usernameEl.textContent = cleaned;
+        if (initialsEl) initialsEl.textContent = initials;
+    };
+
+    fetch("/api/me", { credentials: "same-origin" })
+        .then(response => {
+            if (response.status === 200) return response.json();
+            throw new Error("Not authenticated");
+        })
+        .then(data => {
+            localStorage.setItem("uuid", data.uuid);
+            localStorage.setItem("username", data.username);
+            setProfileUsername(data.username || usernameFromStorage);
+        })
+        .catch(() => {
+            localStorage.removeItem("uuid");
+            localStorage.removeItem("username");
+            localStorage.removeItem("premium");
+            window.location.href = "/login";
+        });
+
     fetch("/api/checkPremium", {
         method: "POST",
         headers: {
@@ -67,10 +95,8 @@
                 document.querySelector(".badges").innerHTML += "<img src='/img/premium.webp' class='badge' title='Premium'>";
                 localStorage.setItem("premium", 1);
             }
-            let username = localStorage.getItem("username");
-            let initials = username.charAt(0);
-            document.getElementById("initials").textContent = initials
-            document.getElementById("username").textContent = username
+            const username = localStorage.getItem("username") || usernameFromStorage;
+            setProfileUsername(username);
         })
         .catch(error => {
             console.error("Error:", error);
@@ -199,10 +225,10 @@
         localStorage.removeItem("uuid");
         localStorage.removeItem("username");
         localStorage.removeItem("premium");
-        location.href = "/profile";
+        window.location.href = "/api/logout";
     }
     if (!uuid || !localStorage.getItem("username")) {
-        location.href = '/login'
+        setProfileUsername(usernameFromStorage);
     }
 </script>
 

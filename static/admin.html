@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="/assets/css/style.css?v=5">
+  <link rel="stylesheet" href="/assets/css/nav.css?v=5">
+  <style>
+    main { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+    table { width: 100%; border-collapse: collapse; background: rgba(0, 0, 0, .2); }
+    th, td { padding: 12px; border-bottom: 1px solid rgba(255, 255, 255, .15); text-align: left; }
+    .status { margin: 16px 0; }
+    .user-link { padding: 0; border: 0; color: inherit; background: transparent; font: inherit; cursor: pointer; text-decoration: underline; }
+    .nickname-input { width: 140px; }
+    .nickname-save { margin-left: 6px; }
+    .activity-panel { display: none; margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="navbar admin-navbar">
+      <a id="nav-title" href="/">Reds Exploit Corner</a>
+      <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
+      <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
+      <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
+      <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
+      <a id="adminLink" href="/admin" style="display: inline-block;"><i class="fa-solid fa-shield-halved">&nbsp;</i>Admin</a>
+      <a href="/chat"><i class="fa-solid fa-comments">&nbsp;</i></a>
+      <a href="/profile"><i class="fa-solid fa-user"></i></a>
+    </div>
+  </nav>
+  <main>
+    <h1>Admin Panel</h1>
+    <p class="status" id="status">Loading users...</p>
+    <table>
+      <thead><tr><th>Username</th><th>Nickname</th><th>Admin</th><th>Premium</th><th>Created</th><th>Last login</th></tr></thead>
+      <tbody id="users"></tbody>
+    </table>
+    <section class="activity-panel" id="activityPanel">
+      <h2 id="activityTitle">Activity</h2>
+      <table>
+        <thead><tr><th>Action</th><th>Details</th><th>Device</th><th>Time</th></tr></thead>
+        <tbody id="activity"></tbody>
+      </table>
+    </section>
+    <h2>Device bans</h2>
+    <table>
+      <thead><tr><th>Device ID</th><th>Reason</th><th>Created</th><th>Status</th><th></th></tr></thead>
+      <tbody id="deviceBans"></tbody>
+    </table>
+  </main>
+  <script>
+    fetch("/api/admin/users", { credentials: "same-origin" })
+      .then(async response => {
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Unable to load users");
+        return data;
+      })
+      .then(users => {
+        document.getElementById("status").textContent = `${users.length} user${users.length === 1 ? "" : "s"}`;
+        document.getElementById("users").innerHTML = users.map(user => `
+          <tr>
+            <td><button type="button" class="user-link" data-user-id="${escapeHtml(user.id)}">${escapeHtml(user.username)}</button></td>
+            <td><input class="nickname-input" data-user-id="${escapeHtml(user.id)}" value="${escapeHtml(user.nickname || "")}" maxlength="64"><button type="button" class="nickname-save" data-user-id="${escapeHtml(user.id)}">Save</button></td>
+            <td>${user.admin ? "Yes" : "No"}</td>
+            <td>${user.premium ? "Yes" : "No"}</td>
+            <td>${formatDate(user.createdAt)}</td>
+            <td>${formatDate(user.lastLoginAt)}</td>
+          </tr>`).join("");
+      })
+      .catch(error => {
+        document.getElementById("status").textContent = error.message;
+      });
+
+    let activityEntries = [];
+
+    fetch("/api/admin/activity", { credentials: "same-origin" })
+      .then(response => response.json())
+      .then(entries => {
+        activityEntries = entries;
+      });
+
+    document.getElementById("users").addEventListener("click", event => {
+      const button = event.target.closest(".user-link");
+      if (!button) return;
+      const userEntries = activityEntries.filter(entry => entry.userId === button.dataset.userId);
+      document.getElementById("activityPanel").style.display = "block";
+      document.getElementById("activityTitle").textContent = `${button.textContent}'s activity, last 30 days`;
+      document.getElementById("activity").innerHTML = userEntries.length
+        ? userEntries.map(entry => `
+          <tr>
+            <td>${escapeHtml(entry.action)}</td>
+            <td>${escapeHtml(entry.details || "")}</td>
+            <td>${entry.deviceId ? `<button type="button" data-device-id="${escapeHtml(entry.deviceId)}">Ban</button><br>${escapeHtml(entry.deviceId)}` : "Unknown"}</td>
+            <td>${formatDate(entry.createdAt)}</td>
+          </tr>`).join("")
+        : '<tr><td colspan="4">No activity in the last 30 days.</td></tr>';
+    });
+
+    document.getElementById("users").addEventListener("click", async event => {
+      const button = event.target.closest(".nickname-save");
+      if (!button) return;
+      const input = document.querySelector(`.nickname-input[data-user-id="${CSS.escape(button.dataset.userId)}"]`);
+      button.disabled = true;
+      try {
+        const response = await fetch(`/api/admin/users/${encodeURIComponent(button.dataset.userId)}/nickname`, {
+          method: "PATCH",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nickname: input.value }),
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Could not save nickname");
+        input.value = data.nickname || "";
+      } catch (error) {
+        document.getElementById("status").textContent = error.message;
+      } finally {
+        button.disabled = false;
+      }
+    });
+
+    fetch("/api/admin/device-bans", { credentials: "same-origin" })
+      .then(response => response.json())
+      .then(bans => {
+        document.getElementById("deviceBans").innerHTML = bans.length
+          ? bans.map(ban => `<tr><td>${escapeHtml(ban.device_id)}</td><td>${escapeHtml(ban.reason || "")}</td><td>${formatDate(ban.created_at)}</td><td>${ban.unbanned_at ? "Unbanned" : "Banned"}</td><td>${ban.unbanned_at ? "" : `<button type="button" data-unban-device="${escapeHtml(ban.device_id)}">Unban</button>`}</td></tr>`).join("")
+          : '<tr><td colspan="5">No device bans.</td></tr>';
+      });
+
+    document.getElementById("activity").addEventListener("click", event => {
+      const deviceId = event.target.closest("[data-device-id]")?.dataset.deviceId;
+      if (!deviceId) return;
+      const reason = prompt("Reason for this device ban:") || "";
+      fetch("/api/admin/device-bans", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ deviceId, reason }) }).then(() => location.reload());
+    });
+
+    document.getElementById("deviceBans").addEventListener("click", event => {
+      const deviceId = event.target.closest("[data-unban-device]")?.dataset.unbanDevice;
+      if (!deviceId) return;
+      fetch(`/api/admin/device-bans/${encodeURIComponent(deviceId)}`, { method: "DELETE", credentials: "same-origin" }).then(() => location.reload());
+    });
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>'"]/g, character => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", "\"": "&quot;"
+      })[character]);
+    }
+
+    function formatDate(value) {
+      return value ? new Date(value).toLocaleString() : "Never";
+    }
+  </script>
+</body>
+</html>

@@ -8,7 +8,9 @@ import {
   Message,
   ChatMember,
   Friend,
+  User,
   UserStatus,
+  NameRequest,
   sequelize,
 } from "../models/index.js";
 const router = express.Router();
@@ -300,6 +302,110 @@ router.post("/chats/:chatId/messages", authenticateUser, async (req, res) => {
   } catch (error) {
     console.error("Error sending message:", error);
     res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Ask another member of a direct chat for their first name.
+router.post("/name-requests", authenticateUser, async (req, res) => {
+  try {
+    const requester = await User.findByPk(req.userUuid);
+    if (req.user?.uuid !== req.userUuid || !requester?.admin) {
+      return res.status(403).json({
+        error: "Only an admin can request a first name",
+      });
+    }
+
+    const { chatId, recipientUuid } = req.body;
+    const membership = await ChatMember.findOne({
+      where: { chatId, userUuid: req.userUuid },
+      include: [{ model: Chat, as: "chat", where: { type: "direct" } }],
+    });
+    const recipientMembership = await ChatMember.findOne({
+      where: { chatId, userUuid: recipientUuid },
+    });
+
+    if (!membership || !recipientMembership || recipientUuid === req.userUuid) {
+      return res.status(400).json({ error: "Invalid direct chat recipient" });
+    }
+
+    const existingRequest = await NameRequest.findOne({
+      where: { chatId, requesterUuid: req.userUuid, recipientUuid, status: "pending" },
+    });
+    if (existingRequest) {
+      return res.status(409).json({ error: "A name request is already pending" });
+    }
+
+    await NameRequest.create({
+      chatId,
+      requesterUuid: req.userUuid,
+      recipientUuid,
+    });
+    res.status(201).json({ message: "Name request sent" });
+  } catch (error) {
+    console.error("Error creating name request:", error);
+    res.status(500).json({ error: "Could not send name request" });
+  }
+});
+
+// Return pending name requests for the authenticated user.
+router.get("/name-requests/pending", authenticateUser, async (req, res) => {
+  try {
+    const requests = await NameRequest.findAll({
+      where: { recipientUuid: req.userUuid, status: "pending" },
+      order: [["createdAt", "ASC"]],
+    });
+    const formattedRequests = await Promise.all(
+      requests.map(async (request) => {
+        let requesterUsername = "Someone";
+        try {
+          requesterUsername = (await getUsernameByUuid(request.requesterUuid)).username;
+        } catch {}
+        return { ...request.toJSON(), requesterUsername: "Admin" };
+      }),
+    );
+    res.json(formattedRequests);
+  } catch (error) {
+    console.error("Error loading name requests:", error);
+    res.status(500).json({ error: "Could not load name requests" });
+  }
+});
+
+// Save the answer and add it to the requesting user's chat.
+router.post("/name-requests/:requestId/respond", authenticateUser, async (req, res) => {
+  try {
+    const firstName = typeof req.body.firstName === "string" ? req.body.firstName.trim() : "";
+    if (!firstName || firstName.length > 64) {
+      return res.status(400).json({ error: "First name must be 1 to 64 characters" });
+    }
+
+    const request = await NameRequest.findOne({
+      where: { id: req.params.requestId, recipientUuid: req.userUuid, status: "pending" },
+    });
+    if (!request) {
+      return res.status(404).json({ error: "Name request not found" });
+    }
+
+    const chatMembership = await ChatMember.findOne({
+      where: { chatId: request.chatId, userUuid: req.userUuid },
+    });
+    if (!chatMembership) {
+      return res.status(403).json({ error: "You are no longer in this chat" });
+    }
+
+    const senderUsername = (await getUsernameByUuid(req.userUuid)).username;
+    const message = await Message.create({
+      chatId: request.chatId,
+      senderUuid: req.userUuid,
+      senderUsername,
+      content: `My first name is ${DOMPurify.sanitize(firstName)}.`,
+    });
+    await request.update({ status: "answered", firstName });
+    await Chat.update({ lastActivity: new Date() }, { where: { id: request.chatId } });
+
+    res.json({ message: message.toJSON() });
+  } catch (error) {
+    console.error("Error answering name request:", error);
+    res.status(500).json({ error: "Could not save first name" });
   }
 });
 

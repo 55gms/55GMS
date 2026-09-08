@@ -7,15 +7,15 @@
     <meta name="google" content="notranslate" />
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=5" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=5" />
-    <link rel="stylesheet" href="/assets/css/chat.css?v=6" />
+    <link rel="stylesheet" href="/assets/css/chat.css?v=7" />
     <title>Google</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Rednotsus" />
     <meta http-equiv="Cache-control" content="public">
     <meta charset="utf-8">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/assets/js/script.js?v=16"></script>
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script src="/assets/js/script.js?v=17"></script>
     <script src="/assets/js/easteregg.min.js" async></script>
 </head>
 
@@ -38,8 +38,10 @@
             <div class="chat-header">
                 <h2>Messages</h2>
                 <div class="chat-actions">
-                    <button id="newChatBtn" class="action-btn" title="New Chat">
+                    <button id="newChatBtn" class="action-btn new-chat-btn" type="button" title="New Chat" aria-label="Start a new chat"
+                        onclick="document.getElementById('newChatModal').style.display = 'flex'; updateMemberCounter();">
                         <i class="fa-solid fa-plus"></i>
+                        <span>New Chat</span>
                     </button>
                     <button id="friendsBtn" class="action-btn" title="Friends">
                         <i class="fa-solid fa-users"></i>
@@ -80,7 +82,10 @@
                     <i class="fa-solid fa-comments welcome-icon"></i>
                     <h2>Welcome to Chat!</h2>
                     <p>Select a conversation to start messaging, or create a new chat.</p>
-                    <button id="startChatBtn" class="gs">Start New Chat</button>
+                    <button id="startChatBtn" class="gs" type="button"
+                        onclick="document.getElementById('newChatModal').style.display = 'flex'; updateMemberCounter();">
+                        Start New Chat
+                    </button>
                 </div>
             </div>
 
@@ -116,6 +121,9 @@
                             </button>
                             <button id="unblockUserOption" class="menu-option" style="display: none;">
                                 <i class="fa-solid fa-unlock"></i> Unblock User
+                            </button>
+                            <button id="askNameOption" class="menu-option" style="display: none;">
+                                <i class="fa-solid fa-id-card"></i> Ask for First Name
                             </button>
                             <button id="leaveGroupOption" class="menu-option" style="display: none;">
                                 <i class="fa-solid fa-arrow-right-from-bracket"></i> Leave Group
@@ -217,7 +225,7 @@
                             <label>Username:</label>
                             <input type="text" id="directUsername" placeholder="Enter username..." autocomplete="off" />
                         </div>
-                        <button id="createDirectBtn" class="gs">Start Chat</button>
+                        <button id="createDirectBtn" class="gs" type="button" onclick="createDirectChat()">Start Chat</button>
                     </div>
 
                     <div id="groupTab" class="tab-panel">
@@ -261,7 +269,7 @@
     <!-- Notification Container -->
     <div id="notificationContainer" class="notification-container"></div>
 
-    <script src="/assets/js/chat.js?v=3"></script>
+    <script src="/assets/js/chat.js?v=4"></script>
     <script>
         // Check authentication
         const uuid = localStorage.getItem('uuid');

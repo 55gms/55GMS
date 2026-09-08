@@ -1,3 +1,11 @@
+#adleft,
+#adright,
+.bottom-addisplay,
+.addisplay,
+.adtext {
+  display: none !important;
+}
+
 #gameframe {
   margin-top: 1vw;
   display: flex;

@@ -12,10 +12,11 @@
   "dependencies": {
     "@mercuryworkshop/bare-mux": "^2.1.7",
     "@mercuryworkshop/epoxy-transport": "^2.1.28",
-    "@mercuryworkshop/scramjet": "https://github.com/MercuryWorkshop/scramjet/releases/download/latest/mercuryworkshop-scramjet-2.0.0-alpha.tgz",
+    "@mercuryworkshop/scramjet": "https://github.com/MercuryWorkshop/scramjet/releases/download/v1.1.0/mercuryworkshop-scramjet-1.1.0.tgz",
     "@mercuryworkshop/wisp-js": "^0.3.3",
     "@socket.io/redis-adapter": "^8.3.0",
     "axios": "^1.15.2",
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dompurify": "^3.3.3",
     "dotenv": "^16.4.5",

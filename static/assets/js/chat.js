@@ -12,11 +12,22 @@ async function initializeChat() {
   currentUser = {
     uuid: localStorage.getItem("uuid"),
     username: localStorage.getItem("username"),
+    admin: false,
   };
 
   if (!currentUser.uuid || !currentUser.username) {
     window.location.href = "/login";
     return;
+  }
+
+  try {
+    const sessionResponse = await fetch("/api/me");
+    if (sessionResponse.ok) {
+      const sessionUser = await sessionResponse.json();
+      currentUser.admin = Boolean(sessionUser.admin);
+    }
+  } catch (error) {
+    console.error("Could not load current user permissions:", error);
   }
 
   // Initialize Socket.IO
@@ -33,6 +44,9 @@ async function initializeChat() {
   loadFriends();
   loadFriendRequests();
   loadBlockedUsers();
+  if (window.location.pathname.startsWith("/chat")) {
+    checkPendingNameRequests();
+  }
 
   // Handle page unload to stop viewing chat
   window.addEventListener("beforeunload", () => {
@@ -261,6 +275,9 @@ function setupEventListeners() {
   document
     .getElementById("unblockUserOption")
     .addEventListener("click", handleUnblockUser);
+  document
+    .getElementById("askNameOption")
+    .addEventListener("click", handleAskForName);
 
   // Click outside to close modals
   window.addEventListener("click", (e) => {
@@ -1629,6 +1646,7 @@ async function updateChatMenuOptions() {
       document.getElementById("removeFriendOption").style.display = "none";
       document.getElementById("blockUserOption").style.display = "none";
       document.getElementById("unblockUserOption").style.display = "none";
+      document.getElementById("askNameOption").style.display = "none";
       return;
     }
 
@@ -1654,6 +1672,10 @@ async function updateChatMenuOptions() {
     document.getElementById("unblockUserOption").style.display = isBlocked
       ? "block"
       : "none";
+    document.getElementById("askNameOption").style.display =
+      !currentUser.admin || isBlocked
+      ? "none"
+      : "block";
   }
   // Handle group chats
   else if (currentChat.type === "group") {
@@ -1661,6 +1683,7 @@ async function updateChatMenuOptions() {
     document.getElementById("removeFriendOption").style.display = "none";
     document.getElementById("blockUserOption").style.display = "none";
     document.getElementById("unblockUserOption").style.display = "none";
+    document.getElementById("askNameOption").style.display = "none";
     document.getElementById("leaveGroupOption").style.display = "block";
     document.getElementById("viewMembersOption").style.display = "block";
   }
@@ -1672,6 +1695,72 @@ async function updateChatMenuOptions() {
     document.getElementById("unblockUserOption").style.display = "none";
     document.getElementById("leaveGroupOption").style.display = "none";
     document.getElementById("viewMembersOption").style.display = "none";
+    document.getElementById("askNameOption").style.display = "none";
+  }
+}
+
+async function handleAskForName() {
+  const currentChat = chats.find((chat) => isSameChatId(chat.id, currentChatId));
+  const recipientUuid = currentChat?.members?.[0]?.uuid;
+  if (!currentChat || currentChat.type !== "direct" || !recipientUuid) return;
+
+  try {
+    const response = await fetch("/api/name-requests", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-User-UUID": currentUser.uuid },
+      body: JSON.stringify({ chatId: currentChatId, recipientUuid }),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Could not send request");
+    Swal.fire({ icon: "success", title: "Request Sent", text: "They will be asked next time they log on.", timer: 2200, showConfirmButton: false });
+  } catch (error) {
+    Swal.fire({ icon: "error", title: "Error", text: error.message });
+  }
+  document.getElementById("chatMenuDropdown").style.display = "none";
+}
+
+async function checkPendingNameRequests() {
+  try {
+    const response = await fetch("/api/name-requests/pending", {
+      headers: { "X-User-UUID": currentUser.uuid },
+    });
+    if (!response.ok) return;
+    const requests = await response.json();
+    for (const request of requests) {
+      const result = await Swal.fire({
+        title: `${request.requesterUsername} wants to know your first name`,
+        input: "text",
+        inputLabel: "First name",
+        inputPlaceholder: "Enter your first name",
+        inputValidator: (value) => (!value.trim() ? "Please enter your first name" : undefined),
+        showCancelButton: true,
+        confirmButtonText: "Send",
+        cancelButtonText: "Not now",
+      });
+      if (!result.isConfirmed) continue;
+
+      const answerResponse = await fetch(`/api/name-requests/${request.id}/respond`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-User-UUID": currentUser.uuid },
+        body: JSON.stringify({ firstName: result.value }),
+      });
+      if (!answerResponse.ok) {
+        const data = await answerResponse.json();
+        throw new Error(data.error || "Could not send your name");
+      }
+      const { message } = await answerResponse.json();
+      socket.emit("send_message", {
+        chatId: request.chatId,
+        content: message.content,
+        senderUuid: currentUser.uuid,
+        senderUsername: currentUser.username,
+      });
+      if (isSameChatId(currentChatId, request.chatId)) {
+        appendMessage(message);
+      }
+    }
+  } catch (error) {
+    console.error("Error handling pending name request:", error);
   }
 }
 
