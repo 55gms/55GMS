@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Calculate ideal tab width
       const idealWidth = Math.max(
         60,
-        Math.min(200, availableSpace / tabs.length)
+        Math.min(200, availableSpace / tabs.length),
       );
 
       // Apply the calculated width to all tabs
@@ -44,11 +44,11 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const domain = new URL(url).origin;
       return `https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${encodeURIComponent(
-        domain
+        domain,
       )}`;
     } catch {
       return `https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${encodeURIComponent(
-        url
+        url,
       )}`;
     }
   }
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Create tab with favicon and title elements like PeteZah browser
     tab.innerHTML = `
       <img class="tab-favicon" src="${getFaviconUrl(
-        url
+        url,
       )}" alt="" style="width: 16px; height: 16px; margin-right: 8px;">
       <span class="tab-title">New Tab</span> 
       <i class="fa-solid fa-x close" style="margin-left: auto; cursor: pointer;"></i>
@@ -288,8 +288,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (frame && frame.requestFullscreen) frame.requestFullscreen();
   });
 
-  prxInspect.addEventListener("click", () => {
+  prxInspect.addEventListener("click", async () => {
     if (devTools === false) {
+      try {
+        await loadEruda();
+      } catch (error) {
+        console.error("Failed to load devtools:", error);
+        return;
+      }
       eruda.init();
       eruda.show();
       devTools = true;
@@ -334,7 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     try {
       const res = await fetch(
-        `/api/autocomplete?q=${encodeURIComponent(query)}`
+        `/api/autocomplete?q=${encodeURIComponent(query)}`,
       );
       const suggestions = await res.json();
       autocompleteBox.innerHTML = "";
@@ -417,3 +423,20 @@ window.addEventListener("resize", () => {
     navigator.keyboard.lock(["Escape"]);
   }
 });
+
+// Eruda is ~500KB, so only download it the first time devtools are opened.
+let erudaPromise;
+function loadEruda() {
+  if (window.eruda) return Promise.resolve();
+  erudaPromise ||= new Promise((resolve, reject) => {
+    const erudaScript = document.createElement("script");
+    erudaScript.src = "https://cdn.jsdelivr.net/npm/eruda";
+    erudaScript.onload = resolve;
+    erudaScript.onerror = () => {
+      erudaPromise = null;
+      reject(new Error("eruda failed to load"));
+    };
+    document.head.appendChild(erudaScript);
+  });
+  return erudaPromise;
+}

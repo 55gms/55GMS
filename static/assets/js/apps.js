@@ -1,4 +1,4 @@
-window.addEventListener("load", async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const gameContainer = document.getElementById("game-container");
 
   try {
@@ -38,11 +38,12 @@ function createAppCard(app) {
   });
 
   const image = document.createElement("img");
-  image.src = app.image;
   image.alt = "";
   image.width = 175;
   image.height = 175;
-  image.loading = "eager";
+  image.loading = "lazy";
+  image.decoding = "async";
+  image.src = app.image;
 
   const label = document.createElement("p");
   label.className = "text";

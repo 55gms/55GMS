@@ -1,11 +1,9 @@
-let loadedImages = 0;
-let failedImages = 0;
+// Thumbnails above the fold load immediately; the rest load as they scroll in.
+const EAGER_THUMBNAILS = 24;
 let loadingFadeTimer;
 let loadingHideTimer;
-let imageLoadTimeout;
-const pendingImageSettlers = new Set();
 
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("retry-games")?.addEventListener("click", loadGames);
   loadGames();
 });
@@ -20,10 +18,6 @@ async function loadGames() {
 
   clearTimeout(loadingFadeTimer);
   clearTimeout(loadingHideTimer);
-  clearTimeout(imageLoadTimeout);
-  pendingImageSettlers.clear();
-  loadedImages = 0;
-  failedImages = 0;
   gameContainer.replaceChildren();
   loadingContainer.style.display = "flex";
   loadingContainer.style.opacity = "1";
@@ -43,28 +37,22 @@ async function loadGames() {
     games.sort((a, b) => a.name.localeCompare(b.name));
 
     const cards = games.map(createGameCard).filter(Boolean);
-    const totalImages = cards.length;
     const fragment = document.createDocumentFragment();
 
-    loadingText.textContent = `Loading ${totalImages} games…`;
+    progressBar.style.width = "100%";
+    progressBar.setAttribute("aria-valuenow", "100");
+    progressPercentage.textContent = "100%";
 
-    cards.forEach(({ card, image, imageUrl }) => {
-      const settleImage = (failed) => {
-        if (!pendingImageSettlers.delete(settleImage)) return;
-        if (failed) card.classList.add("game-image-error");
-        handleImageSettled(totalImages, failed);
-      };
-
-      pendingImageSettlers.add(settleImage);
-      image.addEventListener("load", () => settleImage(false), { once: true });
-      image.addEventListener("error", () => settleImage(true), { once: true });
+    cards.forEach(({ card, image, imageUrl }, index) => {
+      if (index >= EAGER_THUMBNAILS) image.loading = "lazy";
+      image.addEventListener(
+        "error",
+        () => card.classList.add("game-image-error"),
+        { once: true },
+      );
       image.src = imageUrl;
       fragment.appendChild(card);
     });
-
-    imageLoadTimeout = setTimeout(() => {
-      [...pendingImageSettlers].forEach((settleImage) => settleImage(true));
-    }, 20000);
 
     gameContainer.appendChild(fragment);
 
@@ -73,9 +61,7 @@ async function loadGames() {
       searchbar.placeholder = `Click here or type to search through our ${games.length} games!`;
     }
 
-    if (totalImages === 0) {
-      finishLoading();
-    }
+    finishLoading(cards.length);
   } catch (error) {
     loadingText.textContent =
       "Unable to load games. Check your connection and try again.";
@@ -124,7 +110,7 @@ function createGameCard(game) {
   image.alt = "";
   image.width = 175;
   image.height = 175;
-  image.loading = "eager";
+  image.decoding = "async";
 
   const label = document.createElement("p");
   label.className = "text";
@@ -136,39 +122,16 @@ function createGameCard(game) {
   return { card, image, imageUrl: game.image };
 }
 
-function handleImageSettled(totalImages, failed) {
-  loadedImages++;
-  if (failed) failedImages++;
-
-  const percentage = Math.round((loadedImages / totalImages) * 100);
-  const progressBar = document.getElementById("progress-bar");
-  const progressPercentage = document.getElementById("progress-percentage");
-  const loadingText = document.getElementById("loading-text");
-
-  progressBar.style.width = `${percentage}%`;
-  progressBar.setAttribute("aria-valuenow", String(percentage));
-  progressPercentage.textContent = `${percentage}%`;
-  loadingText.textContent = `Loading games… (${loadedImages}/${totalImages})`;
-
-  if (loadedImages >= totalImages) {
-    finishLoading();
-  }
-}
-
-function finishLoading() {
+function finishLoading(totalGames) {
   const loadingContainer = document.getElementById("loading-container");
   const loadingText = document.getElementById("loading-text");
 
-  clearTimeout(imageLoadTimeout);
-
-  loadingText.textContent = failedImages
-    ? `${failedImages} thumbnails unavailable. Games are ready.`
-    : "All games loaded!";
+  loadingText.textContent = `${totalGames} games ready!`;
 
   loadingFadeTimer = setTimeout(() => {
     loadingContainer.style.opacity = "0";
     loadingHideTimer = setTimeout(() => {
       loadingContainer.style.display = "none";
     }, 500);
-  }, 800);
+  }, 300);
 }
