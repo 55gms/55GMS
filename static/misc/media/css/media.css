@@ -1,15 +1,84 @@
-body { text-align: center; }
-#media-search { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; margin: 24px auto; }
-#bigDiv { max-width: 1200px; margin: 32px auto; }
-#bigDiv h2 { text-align: left; margin: 32px 0 16px; font-size: 1.3rem; }
-#game-container, .search-results-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 20px; }
-.card { display: block; width: 100%; min-width: 0; color: var(--site-text); border-radius: 10px; }
-.card:hover { color: var(--site-link-hover); }
-.card img { display: block; width: 100%; height: auto; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 10px; background: var(--site-surface); }
-.item-name { margin: 10px 0 4px; text-align: left; font-size: 0.95rem; font-weight: 500; overflow-wrap: anywhere; }
-.item-meta { margin: 0; color: var(--site-muted); text-align: left; font-size: 0.8rem; font-variant-numeric: tabular-nums; }
-.scroll-container { overflow-x: auto; overscroll-behavior-x: contain; padding: 4px 4px 16px; }
-#movie-container, #tv-container { display: flex; gap: 20px; }
-#movie-container .card, #tv-container .card { flex: 0 0 150px; }
-.attribution { margin: 32px 0; color: var(--site-muted); font-size: 0.85rem; }
-.attribution img { width: 145px; height: 20px; vertical-align: middle; margin-left: 8px; }
+body {
+  text-align: center;
+}
+#media-search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 24px auto;
+}
+#bigDiv {
+  max-width: 1200px;
+  margin: 32px auto;
+}
+#bigDiv h2 {
+  text-align: left;
+  margin: 32px 0 16px;
+  font-size: 1.3rem;
+}
+#game-container,
+.search-results-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 20px;
+}
+.card {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  color: var(--site-text);
+  border-radius: 10px;
+}
+.card:hover {
+  color: var(--site-link-hover);
+}
+.card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 10px;
+  background: var(--site-surface);
+}
+.item-name {
+  margin: 10px 0 4px;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.item-meta {
+  margin: 0;
+  color: var(--site-muted);
+  text-align: left;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+.scroll-container {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding: 4px 4px 16px;
+}
+#movie-container,
+#tv-container {
+  display: flex;
+  gap: 20px;
+}
+#movie-container .card,
+#tv-container .card {
+  flex: 0 0 150px;
+}
+.attribution {
+  margin: 32px 0;
+  color: var(--site-muted);
+  font-size: 0.85rem;
+}
+.attribution img {
+  width: 145px;
+  height: 20px;
+  vertical-align: middle;
+  margin-left: 8px;
+}

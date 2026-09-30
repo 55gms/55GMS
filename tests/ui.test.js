@@ -36,6 +36,11 @@ const otherPages = [
   "static/misc/play/index.html",
   "static/misc/media/movie.html",
   "static/misc/media/tv.html",
+  "static/misc/misc/credits.html",
+  "static/misc/misc/changelog.html",
+  "static/misc/misc/downloads/index.html",
+  "static/misc/misc/packs/index.html",
+  "static/misc/misc/frame.html",
 ];
 
 test("every primary page and catalog player has labelled controls, unique IDs, and landmarks", () => {

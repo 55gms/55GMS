@@ -8,25 +8,45 @@ async function checkTmdbAccess() {
   if (tmdbAccessPromise) return tmdbAccessPromise;
   try {
     const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
-    if (cached && typeof cached.value === "boolean" && Date.now() - cached.timestamp < CACHE_DURATION) {
+    if (
+      cached &&
+      typeof cached.value === "boolean" &&
+      Date.now() - cached.timestamp < CACHE_DURATION
+    ) {
       tmdbAccessible = cached.value;
       return tmdbAccessible;
     }
-  } catch { /* Ignore damaged cache entries. */ }
+  } catch {
+    /* Ignore damaged cache entries. */
+  }
   tmdbAccessPromise = (async () => {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 1500);
     try {
       const responses = await Promise.all([
-        fetch("https://api.themoviedb.org/3/configuration?api_key=9a2954cb0084e80efa20b3729db69067", { method: "HEAD", signal: controller.signal }),
-        fetch("https://image.tmdb.org/t/p/w92/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg", { method: "HEAD", signal: controller.signal }),
+        fetch(
+          "https://api.themoviedb.org/3/configuration?api_key=9a2954cb0084e80efa20b3729db69067",
+          { method: "HEAD", signal: controller.signal },
+        ),
+        fetch(
+          "https://image.tmdb.org/t/p/w92/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
+          { method: "HEAD", signal: controller.signal },
+        ),
       ]);
       tmdbAccessible = responses.every((response) => response.ok);
-    } catch { tmdbAccessible = false; }
-    finally { clearTimeout(timeoutId); }
+    } catch {
+      tmdbAccessible = false;
+    } finally {
+      clearTimeout(timeoutId);
+    }
     try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ value: tmdbAccessible, timestamp: Date.now() }));
-    } catch { /* Browsing still works when storage is unavailable. */ }
+      localStorage.setItem(
+        CACHE_KEY,
+        JSON.stringify({ value: tmdbAccessible, timestamp: Date.now() }),
+      );
+    } catch {
+      /* Browsing still works when storage is unavailable. */
+    }
     return tmdbAccessible;
   })();
   return tmdbAccessPromise;
@@ -45,8 +65,10 @@ async function displayMediaSection(containerId, path) {
     const data = await response.json();
     if (!container.isConnected) return;
     container.replaceChildren();
-    for (const movie of data.results || []) createAndDisplayCard(movie, container, !accessible);
-    if (!container.children.length) container.textContent = "No titles available right now.";
+    for (const movie of data.results || [])
+      createAndDisplayCard(movie, container, !accessible);
+    if (!container.children.length)
+      container.textContent = "No titles available right now.";
   } catch (error) {
     console.error("Media loading failed:", error);
     if (!container.isConnected) return;
@@ -55,9 +77,13 @@ async function displayMediaSection(containerId, path) {
     retry.type = "button";
     retry.className = "gs";
     retry.textContent = "Try again";
-    retry.addEventListener("click", () => displayMediaSection(containerId, path));
+    retry.addEventListener("click", () =>
+      displayMediaSection(containerId, path),
+    );
     container.appendChild(retry);
-  } finally { container.setAttribute("aria-busy", "false"); }
+  } finally {
+    container.setAttribute("aria-busy", "false");
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {

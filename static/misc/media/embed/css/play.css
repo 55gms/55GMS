@@ -1,3 +1,25 @@
-body { margin: 0; min-height: 100dvh; display: grid; place-items: center; background: #0b1220; color: #e6edf7; font-family: system-ui, sans-serif; }
-.playbutton { width: 100px; height: 100px; display: grid; place-items: center; font-size: 2rem; cursor: pointer; border-radius: 50%; border: 1px solid #5d7597; background: #1a314f; color: #e6edf7; transition: background-color 150ms ease; }
-.playbutton:hover { background: #24466f; }
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  background: #0b1220;
+  color: #e6edf7;
+  font-family: system-ui, sans-serif;
+}
+.playbutton {
+  width: 100px;
+  height: 100px;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid #5d7597;
+  background: #1a314f;
+  color: #e6edf7;
+  transition: background-color 150ms ease;
+}
+.playbutton:hover {
+  background: #24466f;
+}

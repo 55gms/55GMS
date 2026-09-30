@@ -107,7 +107,7 @@
                 id="title"
                 autocomplete="off"
                 placeholder="Google"
-                onkeyup="setTitle(this.value)"
+                oninput="setTitle(this.value)"
                 name="title"
               />
             </div>
@@ -120,7 +120,7 @@
                 autocomplete="off"
                 name="icon"
                 placeholder="/img/favicon.ico"
-                onkeyup="setFavicon(this.value.trim())"
+                oninput="setFavicon(this.value.trim())"
               />
             </div>
           </div>
@@ -169,7 +169,7 @@
             id="key"
             autocomplete="off"
             placeholder="`"
-            onkeyup="setPanicKey()"
+            oninput="setPanicKey()"
             name="key"
           />
           <label for="link">Exit URL</label>
@@ -180,7 +180,7 @@
             autocomplete="off"
             name="link"
             placeholder="https://google.com/"
-            onkeyup="setPanicLink()"
+            oninput="setPanicLink()"
           />
         </article>
 

@@ -39,7 +39,7 @@ textarea {
 }
 
 button:disabled {
-  cursor: wait;
+  cursor: not-allowed;
   opacity: 0.65;
 }
 
@@ -243,12 +243,19 @@ input.searchbar:focus {
   border-radius: 999px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1500px) {
   #adleft,
   #adright {
     display: none;
   }
+}
 
+.adcenter {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+@media (max-width: 700px) {
   main {
     padding-inline: 16px;
   }
@@ -308,4 +315,23 @@ body.chat-page {
   .chat-page > main {
     padding: 0 12px 12px;
   }
+}
+
+.tool-page {
+  max-width: 1000px;
+  margin: 24px auto;
+}
+.tool-page a:not(.game-link) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.tool-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+.tool-links .gs {
+  min-height: 44px;
+  margin: 0;
 }

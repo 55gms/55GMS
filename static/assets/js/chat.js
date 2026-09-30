@@ -285,7 +285,7 @@ function setupEventListeners() {
       !menuBtn.contains(e.target) &&
       !chatMenu.contains(e.target)
     ) {
-      chatMenu.style.display = "none";
+      closeChatMenu();
     }
   });
 }
@@ -1713,7 +1713,7 @@ async function handleAddFriend() {
         timer: 2000,
         showConfirmButton: false,
       });
-      document.getElementById("chatMenuDropdown").style.display = "none";
+      closeChatMenu();
     } else {
       throw new Error(data.error);
     }
@@ -1756,7 +1756,7 @@ async function handleRemoveFriend() {
     });
   }
 
-  document.getElementById("chatMenuDropdown").style.display = "none";
+  closeChatMenu();
 }
 
 // Handle leave group
@@ -1821,7 +1821,7 @@ async function handleLeaveGroup() {
     }
   }
 
-  document.getElementById("chatMenuDropdown").style.display = "none";
+  closeChatMenu();
 }
 
 // Handle block user
@@ -1891,7 +1891,7 @@ async function handleBlockUser() {
     }
   }
 
-  document.getElementById("chatMenuDropdown").style.display = "none";
+  closeChatMenu();
 }
 
 // Handle unblock user
@@ -1961,7 +1961,7 @@ async function handleUnblockUser() {
     }
   }
 
-  document.getElementById("chatMenuDropdown").style.display = "none";
+  closeChatMenu();
 }
 
 // Load blocked users
@@ -2128,7 +2128,7 @@ async function handleViewMembers() {
     });
   }
 
-  document.getElementById("chatMenuDropdown").style.display = "none";
+  closeChatMenu();
 }
 
 // Display group members in the modal
@@ -2269,3 +2269,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+function closeChatMenu() {
+  document.getElementById("chatMenuDropdown").style.display = "none";
+  document.getElementById("chatMenuBtn").setAttribute("aria-expanded", "false");
+}

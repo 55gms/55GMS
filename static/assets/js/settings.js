@@ -223,11 +223,13 @@ document.addEventListener("DOMContentLoaded", function () {
 function setPanicKey() {
   var key = document.getElementById("key").value;
   localStorage.setItem("panicKey", key);
+  window.panicKey = key || "`";
 }
 
 function setPanicLink() {
   var link = document.getElementById("link").value;
   localStorage.setItem("PanicLink", link);
+  window.panicLink = link || "https://google.com";
 }
 
 function cloak() {
@@ -429,12 +431,18 @@ function convertDate(date_str) {
 }
 
 fetch("https://api.github.com/repos/55gms/55gms/commits")
-  .then((response) => response.json())
+  .then((response) => {
+    if (!response.ok) throw new Error("Update check failed");
+    return response.json();
+  })
   .then((data) => {
-    var unformatted = new Date(data[0].commit.author.date)
-      .toISOString()
-      .split("T")[0];
-    var lastCommitDate = convertDate(unformatted);
-    document.querySelector("#updated").textContent =
-      `Last Updated: ${lastCommitDate}`;
+    const date = new Date(data[0].commit.author.date);
+    document.getElementById("updated").textContent = new Intl.DateTimeFormat(
+      undefined,
+      { dateStyle: "medium" },
+    ).format(date);
+  })
+  .catch(() => {
+    document.getElementById("updated").textContent =
+      "Unavailable. Try again later.";
   });
