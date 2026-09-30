@@ -99,38 +99,20 @@
 }
 
 .profile-avatar {
-  position: relative;
   flex: none;
   display: grid;
   place-items: center;
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: radial-gradient(
-    120% 120% at 20% 10%,
-    var(--p-accent-hover),
-    var(--p-accent) 55%,
-    color-mix(in srgb, var(--p-accent) 60%, #000) 100%
-  );
-  color: var(--p-accent-text);
+  border: 1px solid var(--p-border);
+  background: var(--p-inset);
+  color: var(--p-text);
   font-size: 1.75rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--p-text) 12%, transparent),
-    0 0 0 4px color-mix(in srgb, var(--p-accent) 18%, transparent);
-  transition:
-    transform var(--p-normal) var(--p-ease-spring),
-    box-shadow var(--p-normal) ease;
   user-select: none;
-}
-
-.profile-avatar:hover {
-  transform: scale(1.04) rotate(-2deg);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--p-text) 18%, transparent),
-    0 0 0 6px color-mix(in srgb, var(--p-accent) 24%, transparent);
 }
 
 .profile-identity {
@@ -176,7 +158,6 @@
   height: 8px;
   border-radius: 50%;
   background: var(--p-success);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--p-success) 22%, transparent);
 }
 
 /* ---------- Pills / badges ---------- */
@@ -642,7 +623,6 @@
     animation: p-spin 1.4s linear infinite !important;
   }
 
-  .profile-avatar:hover,
   .p-btn:not(:disabled):hover,
   .p-btn:not(:disabled):active,
   .profile-row:hover .profile-row-icon {
