@@ -11,6 +11,7 @@ import cors from "cors";
 import "dotenv/config";
 import { Op } from "sequelize";
 import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
+import { createCompression, staticOptions } from "./utils/httpPerformance.js";
 
 const require = createRequire(import.meta.url);
 const { epoxyPath } = require("@mercuryworkshop/epoxy-transport");
@@ -38,9 +39,10 @@ try {
   const __dirname = dirname(__filename);
 
   const app = express();
-  app.use("/epoxy/", express.static(epoxyPath));
-  app.use("/baremux/", express.static(baremuxPath));
-  app.use("/scram/", express.static(scramjetPath));
+  app.use(createCompression());
+  app.use("/epoxy/", express.static(epoxyPath, staticOptions));
+  app.use("/baremux/", express.static(baremuxPath, staticOptions));
+  app.use("/scram/", express.static(scramjetPath, staticOptions));
   const server = createServer(app);
 
   const io = new SocketIO({
@@ -357,7 +359,7 @@ try {
     }
   }, 60000).unref?.();
 
-  app.use(express.static(path.join(__dirname, "static")));
+  app.use(express.static(path.join(__dirname, "static"), staticOptions));
   app.use((req, res, next) => {
     if (req.method === "GET" && !path.extname(req.url)) {
       const filePath = path.join(__dirname, "static", req.url + ".html");
