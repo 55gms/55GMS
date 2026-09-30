@@ -161,7 +161,8 @@ try {
         if (joinChatRooms) {
           const userChats = await ChatMember.findAll({
             where: { userUuid: uuid },
-            include: [{ model: Chat, as: "chat" }],
+            attributes: ["chatId"],
+            raw: true,
           });
 
           userChats.forEach((chatMember) => {
@@ -216,39 +217,41 @@ try {
           isSystem: isSystem || false,
         });
 
-        const chatMembers = await ChatMember.findAll({
-          where: { chatId },
-        });
+        const [chatMembers] = await Promise.all([
+          ChatMember.findAll({
+            where: { chatId },
+            attributes: ["userUuid"],
+            raw: true,
+          }),
+          Chat.update({ lastActivity: new Date() }, { where: { id: chatId } }),
+        ]);
 
-        for (const member of chatMembers) {
-          if (member.userUuid !== senderUuid) {
-            const userSockets = await io
-              .in(`user_${member.userUuid}`)
-              .fetchSockets();
+        await Promise.all(
+          chatMembers
+            .filter((member) => member.userUuid !== senderUuid)
+            .map(async (member) => {
+              const userSockets = await io
+                .in(`user_${member.userUuid}`)
+                .fetchSockets();
 
-            const isCurrentlyViewing = userSockets.some(
-              (userSocket) =>
-                String(userSocket.data.activeChat) === String(chatId),
-            );
+              const isCurrentlyViewing = userSockets.some(
+                (userSocket) =>
+                  String(userSocket.data.activeChat) === String(chatId),
+              );
 
-            if (!isCurrentlyViewing) {
-              socket
-                .to(`user_${member.userUuid}`)
-                .emit("new_message_notification", {
-                  chatId,
-                  content,
-                  senderUuid,
-                  senderUsername: finalSenderUsername,
-                  timestamp: new Date(),
-                  isSystem: isSystem || false,
-                });
-            }
-          }
-        }
-
-        await Chat.update(
-          { lastActivity: new Date() },
-          { where: { id: chatId } },
+              if (!isCurrentlyViewing) {
+                socket
+                  .to(`user_${member.userUuid}`)
+                  .emit("new_message_notification", {
+                    chatId,
+                    content,
+                    senderUuid,
+                    senderUsername: finalSenderUsername,
+                    timestamp: new Date(),
+                    isSystem: isSystem || false,
+                  });
+              }
+            }),
         );
       } catch (error) {
         console.error("Error handling message:", error);
@@ -335,19 +338,18 @@ try {
       // 1. Clean up stale users in database
       const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
 
-      const staleUsers = await UserStatus.findAll({
-        where: {
-          isOnline: true,
-          lastSeen: { [Op.lt]: thirtyMinutesAgo },
+      const [, staleUsers] = await UserStatus.update(
+        { isOnline: false, socketId: null },
+        {
+          where: {
+            isOnline: true,
+            lastSeen: { [Op.lt]: thirtyMinutesAgo },
+          },
+          returning: true,
         },
-      });
+      );
 
       for (const user of staleUsers) {
-        await user.update({
-          isOnline: false,
-          socketId: null,
-        });
-
         io.emit("user_status_change", {
           userUuid: user.userUuid,
           isOnline: false,

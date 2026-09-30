@@ -48,8 +48,8 @@ async function initializeChat() {
 
   // Periodically check for new friend requests to update the notification badge
   setInterval(() => {
-    loadFriendRequests();
-  }, 30000); // Check every 30 seconds
+    if (!document.hidden) loadFriendRequests();
+  }, 30000); // Check every 30 seconds while the tab is visible
 
   // Update timestamps every 30 seconds
   setInterval(() => {

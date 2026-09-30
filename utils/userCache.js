@@ -15,13 +15,23 @@ export class UserCache {
     return `user:${uuid}`;
   }
 
+  isFresh(entry) {
+    return Boolean(entry) && Date.now() - entry.timestamp < this.cacheTimeout;
+  }
+
   async getCacheEntry(uuid) {
+    // A fresh in-process entry avoids a Redis round trip on hot paths.
+    const memoryCached = this.cache.get(uuid);
+    if (this.isFresh(memoryCached)) {
+      return memoryCached;
+    }
+
     const redisCached = await getJsonCache(this.getCacheKey(uuid));
     if (redisCached) {
       return { data: redisCached, timestamp: Date.now() };
     }
 
-    return this.cache.get(uuid);
+    return memoryCached;
   }
 
   async setCacheEntry(uuid, data) {
@@ -43,7 +53,7 @@ export class UserCache {
     const cached = await this.getCacheEntry(uuid);
 
     // Check if we have valid cached data
-    if (cached && Date.now() - cached.timestamp < this.cacheTimeout) {
+    if (this.isFresh(cached)) {
       return cached.data;
     }
 

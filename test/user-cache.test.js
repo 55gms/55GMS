@@ -53,3 +53,21 @@ test("getUserByUuid returns stale cached data when refresh fails", async () => {
 
   assert.equal(result.username, "stale");
 });
+
+test("getUserByUuid serves fresh in-memory entries without refetching", async () => {
+  delete process.env.REDIS_URL;
+
+  let requestCount = 0;
+  const cache = new UserCache({
+    async get() {
+      requestCount += 1;
+      return { data: { uuid: "user-3", username: "fresh" } };
+    },
+  });
+
+  await cache.getUserByUuid("user-3");
+  const result = await cache.getUserByUuid("user-3");
+
+  assert.equal(result.username, "fresh");
+  assert.equal(requestCount, 1);
+});

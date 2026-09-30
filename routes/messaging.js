@@ -414,22 +414,25 @@ router.post("/chats/group", authenticateUser, async (req, res) => {
     ];
 
     // Add other members, but prevent adding self
-    for (const username of members) {
-      try {
-        const userResponse = await getUserByUsername(username);
-        // Prevent adding yourself to the group
-        if (userResponse.uuid !== req.userUuid) {
-          chatMembers.push({
-            chatId: chat.id,
-            userUuid: userResponse.uuid,
-            role: "member",
-          });
-        } else {
-          console.log(`Skipping self-addition attempt for user ${username}`);
+    const resolvedMembers = await Promise.all(
+      members.map(async (username) => {
+        try {
+          return await getUserByUsername(username);
+        } catch (error) {
+          console.error(`User ${username} not found, skipping`);
+          return null;
         }
-      } catch (error) {
-        console.error(`User ${username} not found, skipping`);
-      }
+      }),
+    );
+    const addedUuids = new Set([req.userUuid]);
+    for (const userResponse of resolvedMembers) {
+      if (!userResponse || addedUuids.has(userResponse.uuid)) continue;
+      addedUuids.add(userResponse.uuid);
+      chatMembers.push({
+        chatId: chat.id,
+        userUuid: userResponse.uuid,
+        role: "member",
+      });
     }
 
     await ChatMember.bulkCreate(chatMembers);
@@ -518,35 +521,25 @@ router.get("/friends", authenticateUser, async (req, res) => {
       },
     });
 
-    const friendsWithUsernames = await Promise.all(
-      friends.map(async (friend) => {
-        const friendUuid =
-          friend.requesterUuid === req.userUuid
-            ? friend.addresseeUuid
-            : friend.requesterUuid;
-
-        try {
-          const userResponse = await getUsernameByUuid(friendUuid);
-          const status = await UserStatus.findOne({
-            where: { userUuid: friendUuid },
-          });
-
-          return {
-            uuid: friendUuid,
-            username: userResponse.username,
-            isOnline: status?.isOnline || false,
-            lastSeen: status?.lastSeen,
-          };
-        } catch (error) {
-          return {
-            uuid: friendUuid,
-            username: "Unknown User",
-            isOnline: false,
-            lastSeen: null,
-          };
-        }
-      }),
+    const friendUuids = friends.map((friend) =>
+      friend.requesterUuid === req.userUuid
+        ? friend.addresseeUuid
+        : friend.requesterUuid,
     );
+    const [userMap, statusMap] = await Promise.all([
+      getUsersByUuidMap(friendUuids),
+      getStatusesByUuidMap(friendUuids),
+    ]);
+
+    const friendsWithUsernames = friendUuids.map((friendUuid) => {
+      const status = statusMap.get(friendUuid);
+      return {
+        uuid: friendUuid,
+        username: (userMap.get(friendUuid) || UNKNOWN_USER).username,
+        isOnline: status?.isOnline || false,
+        lastSeen: status?.lastSeen ?? null,
+      };
+    });
 
     res.json(friendsWithUsernames);
   } catch (error) {
