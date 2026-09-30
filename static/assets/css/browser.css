@@ -449,7 +449,7 @@ button {
 
 .ntp-shortcuts {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   gap: 8px;
   width: 100%;
 }
@@ -459,7 +459,7 @@ button {
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  padding: 12px 6px 10px;
+  padding: 8px 8px 10px;
   border: 1px solid transparent;
   border-radius: var(--radius);
   background: transparent;
@@ -480,9 +480,9 @@ button {
 }
 
 .ntp-shortcut img {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
   object-fit: cover;
   background: var(--surface);
 }
