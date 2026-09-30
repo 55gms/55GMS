@@ -1,635 +1,717 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scramjet Embed</title>
+    <script src="/assets/js/script.js?v=16"></script>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scramjet Embed</title>
-  <script src="/assets/js/script.js?v=16"></script>
+    <!-- Scramjet/BareMux -->
+    <script src="/baremux/index.js"></script>
+    <script src="/scram/scramjet.all.js"></script>
+    <script>
+      let wispurl =
+        (location.protocol === "https:" ? "wss://" : "ws://") +
+        location.host +
+        "/wisp/";
+    </script>
 
-  <!-- Scramjet/BareMux -->
-  <script src="/baremux/index.js"></script>
-  <script src="/scram/scramjet.all.js"></script>
-  <script>
-    let wispurl = (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/";
-  </script>
-
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #0a0a0a;
-      --surface: #111111;
-      --border: #262626;
-      --text: #ededed;
-      --text-2: #a1a1a1;
-      --accent: #3b82f6;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      overflow: hidden;
-    }
-
-    #iframe-container {
-      position: fixed;
-      inset: 0;
-    }
-
-    #iframe-container iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display: block;
-      background: #fff;
-    }
-
-    /* First-connect state: only visible while the transport boots. */
-    .status {
-      position: fixed;
-      inset: 0;
-      z-index: 2;
-      display: grid;
-      place-items: center;
-      background: var(--bg);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.2s ease, visibility 0.2s ease;
-    }
-
-    .status.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .status-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      max-width: 360px;
-      padding: 0 24px;
-      text-align: center;
-    }
-
-    .status-title {
-      margin: 0;
-      font-size: 15px;
-      font-weight: 500;
-    }
-
-    .status-text {
-      margin: 0;
-      font-size: 13px;
-      line-height: 1.5;
-      color: var(--text-2);
-    }
-
-    .spinner {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      border: 2px solid var(--border);
-      border-top-color: var(--text);
-      animation: spin 0.8s linear infinite;
-    }
-
-    .status-icon {
-      display: none;
-      width: 36px;
-      height: 36px;
-      place-items: center;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: #f5a524;
-    }
-
-    .status.error .spinner {
-      display: none;
-    }
-
-    .status.error .status-icon {
-      display: grid;
-    }
-
-    .status-btn {
-      display: none;
-      margin-top: 4px;
-      height: 32px;
-      padding: 0 14px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--text);
-      color: var(--bg);
-      font: inherit;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-    }
-
-    .status.error .status-btn {
-      display: inline-block;
-    }
-
-    .status-btn:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .spinner {
-        animation-duration: 2s;
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0a0a0a;
+        --surface: #111111;
+        --border: #262626;
+        --text: #ededed;
+        --text-2: #a1a1a1;
+        --accent: #3b82f6;
       }
 
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          "Geist",
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        overflow: hidden;
+      }
+
+      #iframe-container {
+        position: fixed;
+        inset: 0;
+      }
+
+      #iframe-container iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+        background: #fff;
+      }
+
+      /* First-connect state: only visible while the transport boots. */
       .status {
-        transition: none;
+        position: fixed;
+        inset: 0;
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        background: var(--bg);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.2s ease,
+          visibility 0.2s ease;
       }
-    }
-  </style>
-</head>
 
-<body>
-  <div id="status" class="status" role="status" aria-live="polite">
-    <div class="status-card">
-      <div class="spinner" aria-hidden="true"></div>
-      <div class="status-icon" aria-hidden="true">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
-          <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
-          <path d="M12 9v4" />
-          <path d="M12 17h.01" />
-        </svg>
-      </div>
-      <p id="status-title" class="status-title">Connecting</p>
-      <p id="status-text" class="status-text">Starting a secure connection…</p>
-      <button id="status-retry" class="status-btn" type="button">Try again</button>
-    </div>
-  </div>
+      .status.visible {
+        opacity: 1;
+        visibility: visible;
+      }
 
-  <div id="iframe-container"></div>
+      .status-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        max-width: 360px;
+        padding: 0 24px;
+        text-align: center;
+      }
 
-  <script>
-    // ---------------- BRIDGE ----------------
-    // Events go up to the browser shell (proxy.html) as { type: "browser:*" }.
-    // Commands come down as { type: "browser:command", command, url }.
-    const inShell = window.parent && window.parent !== window;
+      .status-title {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 500;
+      }
 
-    function emit(type, detail = {}) {
-      if (!inShell) return;
-      window.parent.postMessage({ type, ...detail }, location.origin);
-    }
+      .status-text {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--text-2);
+      }
 
-    const statusEl = document.getElementById("status");
-    const statusTitle = document.getElementById("status-title");
-    const statusText = document.getElementById("status-text");
+      .spinner {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid var(--border);
+        border-top-color: var(--text);
+        animation: spin 0.8s linear infinite;
+      }
 
-    function showStatus(title, text, isError = false) {
-      statusTitle.textContent = title;
-      statusText.textContent = text;
-      statusEl.classList.toggle("error", isError);
-      statusEl.classList.add("visible");
-    }
+      .status-icon {
+        display: none;
+        width: 36px;
+        height: 36px;
+        place-items: center;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: #f5a524;
+      }
 
-    function hideStatus() {
-      statusEl.classList.remove("visible", "error");
-    }
+      .status.error .spinner {
+        display: none;
+      }
 
-    document.getElementById("status-retry").addEventListener("click", () => location.reload());
+      .status.error .status-icon {
+        display: grid;
+      }
 
-    // ---------------- SCRAMJET / BAREMUX ----------------
-    const { ScramjetController } = $scramjetLoadController();
-    const scramjet = new ScramjetController({
-      files: {
-        wasm: "/scram/scramjet.wasm.wasm",
-        all: "/scram/scramjet.all.js",
-        sync: "/scram/scramjet.sync.js"
-      },
-    });
+      .status-btn {
+        display: none;
+        margin-top: 4px;
+        height: 32px;
+        padding: 0 14px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: var(--text);
+        color: var(--bg);
+        font: inherit;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+      }
 
-    const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
+      .status.error .status-btn {
+        display: inline-block;
+      }
 
-    function $store(defaultSettings, options = {}) {
-      const { ident = "settings", backing = "localstorage", autosave = "auto" } = options;
-      const storageKey = ident;
+      .status-btn:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
 
-      let settings = { ...defaultSettings };
-      if (backing === "localstorage") {
-        try {
-          const stored = localStorage.getItem(storageKey);
-          if (stored) {
-            settings = { ...defaultSettings, ...JSON.parse(stored) };
-          }
-        } catch (e) {
-          console.warn("Failed to load settings from localStorage:", e);
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
         }
       }
 
-      function save() {
+      @media (prefers-reduced-motion: reduce) {
+        .spinner {
+          animation-duration: 2s;
+        }
+
+        .status {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="status" class="status" role="status" aria-live="polite">
+      <div class="status-card">
+        <div class="spinner" aria-hidden="true"></div>
+        <div class="status-icon" aria-hidden="true">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
+            />
+            <path d="M12 9v4" />
+            <path d="M12 17h.01" />
+          </svg>
+        </div>
+        <p id="status-title" class="status-title">Connecting</p>
+        <p id="status-text" class="status-text">
+          Starting a secure connection…
+        </p>
+        <button id="status-retry" class="status-btn" type="button">
+          Try again
+        </button>
+      </div>
+    </div>
+
+    <div id="iframe-container"></div>
+
+    <script>
+      // ---------------- BRIDGE ----------------
+      // Events go up to the browser shell (proxy.html) as { type: "browser:*" }.
+      // Commands come down as { type: "browser:command", command, url }.
+      const inShell = window.parent && window.parent !== window;
+
+      function emit(type, detail = {}) {
+        if (!inShell) return;
+        window.parent.postMessage({ type, ...detail }, location.origin);
+      }
+
+      const statusEl = document.getElementById("status");
+      const statusTitle = document.getElementById("status-title");
+      const statusText = document.getElementById("status-text");
+
+      function showStatus(title, text, isError = false) {
+        statusTitle.textContent = title;
+        statusText.textContent = text;
+        statusEl.classList.toggle("error", isError);
+        statusEl.classList.add("visible");
+      }
+
+      function hideStatus() {
+        statusEl.classList.remove("visible", "error");
+      }
+
+      document
+        .getElementById("status-retry")
+        .addEventListener("click", () => location.reload());
+
+      // ---------------- SCRAMJET / BAREMUX ----------------
+      const { ScramjetController } = $scramjetLoadController();
+      const scramjet = new ScramjetController({
+        files: {
+          wasm: "/scram/scramjet.wasm.wasm",
+          all: "/scram/scramjet.all.js",
+          sync: "/scram/scramjet.sync.js",
+        },
+      });
+
+      const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
+
+      function $store(defaultSettings, options = {}) {
+        const {
+          ident = "settings",
+          backing = "localstorage",
+          autosave = "auto",
+        } = options;
+        const storageKey = ident;
+
+        let settings = { ...defaultSettings };
         if (backing === "localstorage") {
           try {
-            localStorage.setItem(storageKey, JSON.stringify(settings));
+            const stored = localStorage.getItem(storageKey);
+            if (stored) {
+              settings = { ...defaultSettings, ...JSON.parse(stored) };
+            }
           } catch (e) {
-            console.warn("Failed to save settings to localStorage:", e);
+            console.warn("Failed to load settings from localStorage:", e);
           }
         }
-      }
-      return new Proxy(settings, {
-        set(target, property, value) {
-          target[property] = value;
-          if (autosave === "auto") {
-            save();
+
+        function save() {
+          if (backing === "localstorage") {
+            try {
+              localStorage.setItem(storageKey, JSON.stringify(settings));
+            } catch (e) {
+              console.warn("Failed to save settings to localStorage:", e);
+            }
           }
-          return true;
+        }
+        return new Proxy(settings, {
+          set(target, property, value) {
+            target[property] = value;
+            if (autosave === "auto") {
+              save();
+            }
+            return true;
+          },
+          get(target, property) {
+            if (property === "save") {
+              return save;
+            }
+            return target[property];
+          },
+        });
+      }
+
+      const store = $store(
+        {
+          wispurl:
+            wispurl ||
+            (location.protocol === "https:" ? "wss" : "ws") +
+              "://" +
+              location.host +
+              "/wisp/",
+          proxy: "",
+          transport: "/epoxy/index.mjs",
         },
-        get(target, property) {
-          if (property === "save") {
-            return save;
+        { ident: "settings", backing: "localstorage", autosave: "auto" },
+      );
+      self.store = store;
+
+      async function waitForTransport() {
+        const maxAttempts = 10;
+        let lastError;
+
+        for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+          try {
+            await connection.setTransport("/epoxy/index.mjs", [
+              { wisp: store.wispurl },
+            ]);
+            return;
+          } catch (e) {
+            lastError = e;
+            console.warn(
+              `Transport init failed (attempt ${attempt} of ${maxAttempts})`,
+              e,
+            );
+            if (attempt === 3) {
+              showStatus(
+                "Still connecting",
+                "The proxy server is slow to respond. Hang tight…",
+              );
+            }
+            await new Promise((res) => setTimeout(res, 800 * attempt));
           }
-          return target[property];
         }
-      });
-    }
+        throw lastError || new Error("Transport failed to initialize");
+      }
 
-    const store = $store(
-      {
-        wispurl:
-          wispurl ||
-          (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/",
-        proxy: "",
-        transport: "/epoxy/index.mjs",
-      },
-      { ident: "settings", backing: "localstorage", autosave: "auto" }
-    );
-    self.store = store;
-
-    async function waitForTransport() {
-      const maxAttempts = 10;
-      let lastError;
-
-      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      // A service worker that never activates (e.g. private mode) must not hang the tab.
+      async function registerServiceWorker() {
         try {
-          await connection.setTransport("/epoxy/index.mjs", [{ wisp: store.wispurl }]);
-          return;
+          await navigator.serviceWorker.register("/sw.js");
+          await Promise.race([
+            navigator.serviceWorker.ready,
+            new Promise((res) => setTimeout(res, 5000)),
+          ]);
         } catch (e) {
-          lastError = e;
-          console.warn(`Transport init failed (attempt ${attempt} of ${maxAttempts})`, e);
-          if (attempt === 3) {
-            showStatus("Still connecting", "The proxy server is slow to respond. Hang tight…");
-          }
-          await new Promise((res) => setTimeout(res, 800 * attempt));
+          console.warn("Service worker registration failed:", e);
         }
       }
-      throw lastError || new Error("Transport failed to initialize");
-    }
 
-    // A service worker that never activates (e.g. private mode) must not hang the tab.
-    async function registerServiceWorker() {
-      try {
-        await navigator.serviceWorker.register("/sw.js");
-        await Promise.race([
-          navigator.serviceWorker.ready,
-          new Promise((res) => setTimeout(res, 5000)),
-        ]);
-      } catch (e) {
-        console.warn("Service worker registration failed:", e);
+      // Only show the connecting screen if booting is actually slow.
+      const bootStatusTimer = setTimeout(
+        () => showStatus("Connecting", "Starting a secure connection…"),
+        350,
+      );
+
+      const ready = (async () => {
+        await scramjet.init();
+        await registerServiceWorker();
+        await waitForTransport();
+      })();
+
+      ready.then(
+        () => {
+          clearTimeout(bootStatusTimer);
+          hideStatus();
+          emit("browser:ready");
+        },
+        (err) => {
+          clearTimeout(bootStatusTimer);
+          console.error("Proxy failed to start:", err);
+          showStatus(
+            "Couldn't connect to the proxy",
+            "The proxy transport failed to start. Check your connection and try again.",
+            true,
+          );
+          emit("browser:error", {
+            kind: "transport",
+            message: "The proxy transport failed to start.",
+          });
+          emit("browser:loaded", { url: currentUrl });
+        },
+      );
+
+      // ---------------- FRAME + NAVIGATION ----------------
+      let frame = null;
+      let currentUrl = "";
+      let loadTimer = null;
+
+      // Per-tab history. The iframe's own history is joint session history
+      // shared with every other tab, so history.back() could navigate a
+      // different tab; we track entries here and navigate explicitly instead.
+      let entries = [];
+      let index = -1;
+      let pendingHistoryMove = null;
+
+      function emitHistory() {
+        emit("browser:history", {
+          canGoBack: index > 0,
+          canGoForward: index < entries.length - 1,
+        });
       }
-    }
 
-    // Only show the connecting screen if booting is actually slow.
-    const bootStatusTimer = setTimeout(
-      () => showStatus("Connecting", "Starting a secure connection…"),
-      350,
-    );
+      function recordUrl(url) {
+        if (pendingHistoryMove !== null) {
+          index = pendingHistoryMove;
+          entries[index] = url; // a redirect may land somewhere slightly different
+          pendingHistoryMove = null;
+        } else if (url !== entries[index]) {
+          entries = entries.slice(0, index + 1);
+          entries.push(url);
+          index = entries.length - 1;
+        }
+        emitHistory();
+      }
 
-    const ready = (async () => {
-      await scramjet.init();
-      await registerServiceWorker();
-      await waitForTransport();
-    })();
+      function startLoading(url) {
+        emit("browser:loading", { url });
+        clearTimeout(loadTimer);
+        loadTimer = setTimeout(() => {
+          emit("browser:error", {
+            kind: "timeout",
+            message: "This page is taking longer than usual to load.",
+          });
+        }, 30000);
+      }
 
-    ready.then(
-      () => {
-        clearTimeout(bootStatusTimer);
-        hideStatus();
-        emit("browser:ready");
-      },
-      (err) => {
-        clearTimeout(bootStatusTimer);
-        console.error("Proxy failed to start:", err);
-        showStatus(
-          "Couldn't connect to the proxy",
-          "The proxy transport failed to start. Check your connection and try again.",
+      function frameDocument() {
+        try {
+          return frame.frame.contentDocument;
+        } catch {
+          return null;
+        }
+      }
+
+      function readTitle() {
+        const doc = frameDocument();
+        let title = "";
+        try {
+          title = (doc && doc.title) || "";
+        } catch {}
+        if (!title) {
+          try {
+            title = new URL(currentUrl).hostname;
+          } catch {}
+        }
+        return title.trim();
+      }
+
+      function toProxiedAsset(href) {
+        if (!href) return "";
+        if (href.startsWith("data:") || href.startsWith(location.origin))
+          return href;
+        try {
+          return scramjet.encodeUrl(new URL(href, currentUrl).href);
+        } catch {
+          return "";
+        }
+      }
+
+      function readFavicon() {
+        const doc = frameDocument();
+        if (!doc) return "";
+        try {
+          const link = doc.querySelector(
+            'link[rel~="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]',
+          );
+          return toProxiedAsset(link && link.href);
+        } catch {
+          return "";
+        }
+      }
+
+      let lastTitle = "";
+      let lastFavicon = "";
+      let observer = null;
+      let observedDoc = null;
+
+      function syncMeta() {
+        const title = readTitle();
+        if (title && title !== lastTitle) {
+          lastTitle = title;
+          emit("browser:titlechange", { title });
+        }
+        const favicon = readFavicon();
+        if (favicon !== lastFavicon) {
+          lastFavicon = favicon;
+          emit("browser:faviconchange", { favicon });
+        }
+      }
+
+      function observeDocument() {
+        const doc = frameDocument();
+        if (!doc || doc === observedDoc || !doc.documentElement) return;
+        observedDoc = doc;
+        if (observer) observer.disconnect();
+        observer = new MutationObserver(syncMeta);
+        try {
+          observer.observe(doc.head || doc.documentElement, {
+            subtree: true,
+            childList: true,
+            characterData: true,
+            attributes: true,
+            attributeFilter: ["href", "rel"],
+          });
+        } catch {}
+      }
+
+      // Browser shortcuts pressed while the proxied page has focus are
+      // forwarded to the shell so they behave the same everywhere.
+      const SHORTCUT_KEYS = new Set([
+        "l",
+        "t",
+        "w",
+        "r",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "tab",
+      ]);
+
+      function bindPageKeys() {
+        let win;
+        try {
+          win = frame.frame.contentWindow;
+        } catch {
+          return;
+        }
+        if (!win || win.__browserKeysBound) return;
+        win.__browserKeysBound = true;
+        win.addEventListener(
+          "keydown",
+          (e) => {
+            const key = e.key.toLowerCase();
+            const mod = e.ctrlKey || e.metaKey;
+            if (!mod || !SHORTCUT_KEYS.has(key)) return;
+            e.preventDefault();
+            emit("browser:shortcut", {
+              key: e.key,
+              ctrlKey: e.ctrlKey,
+              metaKey: e.metaKey,
+              shiftKey: e.shiftKey,
+              altKey: e.altKey,
+            });
+          },
           true,
         );
-        emit("browser:error", { kind: "transport", message: "The proxy transport failed to start." });
-        emit("browser:loaded", { url: currentUrl });
-      },
-    );
-
-    // ---------------- FRAME + NAVIGATION ----------------
-    let frame = null;
-    let currentUrl = "";
-    let loadTimer = null;
-
-    // Per-tab history. The iframe's own history is joint session history
-    // shared with every other tab, so history.back() could navigate a
-    // different tab; we track entries here and navigate explicitly instead.
-    let entries = [];
-    let index = -1;
-    let pendingHistoryMove = null;
-
-    function emitHistory() {
-      emit("browser:history", {
-        canGoBack: index > 0,
-        canGoForward: index < entries.length - 1,
-      });
-    }
-
-    function recordUrl(url) {
-      if (pendingHistoryMove !== null) {
-        index = pendingHistoryMove;
-        entries[index] = url; // a redirect may land somewhere slightly different
-        pendingHistoryMove = null;
-      } else if (url !== entries[index]) {
-        entries = entries.slice(0, index + 1);
-        entries.push(url);
-        index = entries.length - 1;
+        win.addEventListener("pagehide", () => startLoading(currentUrl));
       }
-      emitHistory();
-    }
 
-    function startLoading(url) {
-      emit("browser:loading", { url });
-      clearTimeout(loadTimer);
-      loadTimer = setTimeout(() => {
-        emit("browser:error", { kind: "timeout", message: "This page is taking longer than usual to load." });
-      }, 30000);
-    }
-
-    function frameDocument() {
-      try {
-        return frame.frame.contentDocument;
-      } catch {
-        return null;
-      }
-    }
-
-    function readTitle() {
-      const doc = frameDocument();
-      let title = "";
-      try {
-        title = (doc && doc.title) || "";
-      } catch { }
-      if (!title) {
-        try {
-          title = new URL(currentUrl).hostname;
-        } catch { }
-      }
-      return title.trim();
-    }
-
-    function toProxiedAsset(href) {
-      if (!href) return "";
-      if (href.startsWith("data:") || href.startsWith(location.origin)) return href;
-      try {
-        return scramjet.encodeUrl(new URL(href, currentUrl).href);
-      } catch {
-        return "";
-      }
-    }
-
-    function readFavicon() {
-      const doc = frameDocument();
-      if (!doc) return "";
-      try {
-        const link = doc.querySelector(
-          'link[rel~="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]',
+      function mountFrame() {
+        const container = document.getElementById("iframe-container");
+        container.innerHTML = "";
+        frame = scramjet.createFrame();
+        frame.frame.setAttribute("allowfullscreen", "");
+        frame.frame.setAttribute(
+          "allow",
+          "fullscreen; autoplay; clipboard-read; clipboard-write; encrypted-media; picture-in-picture",
         );
-        return toProxiedAsset(link && link.href);
-      } catch {
-        return "";
-      }
-    }
+        container.appendChild(frame.frame);
 
-    let lastTitle = "";
-    let lastFavicon = "";
-    let observer = null;
-    let observedDoc = null;
-
-    function syncMeta() {
-      const title = readTitle();
-      if (title && title !== lastTitle) {
-        lastTitle = title;
-        emit("browser:titlechange", { title });
-      }
-      const favicon = readFavicon();
-      if (favicon !== lastFavicon) {
-        lastFavicon = favicon;
-        emit("browser:faviconchange", { favicon });
-      }
-    }
-
-    function observeDocument() {
-      const doc = frameDocument();
-      if (!doc || doc === observedDoc || !doc.documentElement) return;
-      observedDoc = doc;
-      if (observer) observer.disconnect();
-      observer = new MutationObserver(syncMeta);
-      try {
-        observer.observe(doc.head || doc.documentElement, {
-          subtree: true,
-          childList: true,
-          characterData: true,
-          attributes: true,
-          attributeFilter: ["href", "rel"],
+        frame.addEventListener("urlchange", (e) => {
+          if (!e.url) return;
+          currentUrl = e.url;
+          recordUrl(e.url);
+          emit("browser:urlchange", { url: e.url });
+          observeDocument();
+          syncMeta();
         });
-      } catch { }
-    }
 
-    // Browser shortcuts pressed while the proxied page has focus are
-    // forwarded to the shell so they behave the same everywhere.
-    const SHORTCUT_KEYS = new Set(["l", "t", "w", "r", "1", "2", "3", "4", "5", "6", "7", "8", "9", "tab"]);
+        frame.addEventListener("navigate", (e) => {
+          if (e.url) startLoading(e.url);
+        });
 
-    function bindPageKeys() {
-      let win;
-      try {
-        win = frame.frame.contentWindow;
-      } catch {
-        return;
-      }
-      if (!win || win.__browserKeysBound) return;
-      win.__browserKeysBound = true;
-      win.addEventListener(
-        "keydown",
-        (e) => {
-          const key = e.key.toLowerCase();
-          const mod = e.ctrlKey || e.metaKey;
-          if (!mod || !SHORTCUT_KEYS.has(key)) return;
-          e.preventDefault();
-          emit("browser:shortcut", {
-            key: e.key,
-            ctrlKey: e.ctrlKey,
-            metaKey: e.metaKey,
-            shiftKey: e.shiftKey,
-            altKey: e.altKey,
+        frame.frame.addEventListener("load", () => {
+          clearTimeout(loadTimer);
+          observeDocument();
+          bindPageKeys();
+          syncMeta();
+          emit("browser:loaded", {
+            url: currentUrl,
+            title: lastTitle,
+            favicon: lastFavicon,
           });
-        },
-        true,
-      );
-      win.addEventListener("pagehide", () => startLoading(currentUrl));
-    }
+        });
+      }
 
-    function mountFrame() {
-      const container = document.getElementById("iframe-container");
-      container.innerHTML = "";
-      frame = scramjet.createFrame();
-      frame.frame.setAttribute("allowfullscreen", "");
-      frame.frame.setAttribute("allow", "fullscreen; autoplay; clipboard-read; clipboard-write; encrypted-media; picture-in-picture");
-      container.appendChild(frame.frame);
+      async function navigate(url, { historyMove = null } = {}) {
+        if (!url) return;
+        startLoading(url);
+        try {
+          await ready;
+        } catch {
+          return;
+        }
+        if (!frame) mountFrame();
+        // The shell clears a tab's title/favicon on navigation, so always re-report them.
+        lastTitle = "";
+        lastFavicon = "";
+        pendingHistoryMove = historyMove;
+        currentUrl = url;
+        frame.go(url);
+      }
 
-      frame.addEventListener("urlchange", (e) => {
-        if (!e.url) return;
-        currentUrl = e.url;
-        recordUrl(e.url);
-        emit("browser:urlchange", { url: e.url });
-        observeDocument();
-        syncMeta();
-      });
+      function goBack() {
+        if (index > 0) navigate(entries[index - 1], { historyMove: index - 1 });
+      }
 
-      frame.addEventListener("navigate", (e) => {
-        if (e.url) startLoading(e.url);
-      });
+      function goForward() {
+        if (index < entries.length - 1)
+          navigate(entries[index + 1], { historyMove: index + 1 });
+      }
 
-      frame.frame.addEventListener("load", () => {
+      function reload() {
+        if (!frame) return;
+        startLoading(currentUrl);
+        try {
+          frame.reload();
+        } catch {
+          frame.go(currentUrl);
+        }
+      }
+
+      function stop() {
         clearTimeout(loadTimer);
-        observeDocument();
-        bindPageKeys();
-        syncMeta();
-        emit("browser:loaded", { url: currentUrl, title: lastTitle, favicon: lastFavicon });
+        try {
+          frame.frame.contentWindow.stop();
+        } catch {}
+        emit("browser:loaded", {
+          url: currentUrl,
+          title: lastTitle,
+          favicon: lastFavicon,
+        });
+      }
+
+      // Eruda is ~500KB, so it's only fetched (through the proxy) when requested.
+      function toggleDevtools() {
+        let win;
+        try {
+          win = frame.frame.contentWindow;
+        } catch {
+          return;
+        }
+        if (!win) return;
+        if (win.eruda && win.__erudaActive) {
+          win.eruda.destroy();
+          win.__erudaActive = false;
+          return;
+        }
+        const start = () => {
+          win.eruda.init();
+          win.eruda.show();
+          win.__erudaActive = true;
+        };
+        if (win.eruda) return start();
+        const script = win.document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/eruda";
+        script.onload = start;
+        script.onerror = () =>
+          emit("browser:error", {
+            kind: "devtools",
+            message: "Developer tools couldn't be loaded on this page.",
+          });
+        win.document.head.appendChild(script);
+      }
+
+      window.addEventListener("message", (event) => {
+        if (event.source !== window.parent || event.origin !== location.origin)
+          return;
+        const data = event.data;
+        if (!data || data.type !== "browser:command") return;
+        switch (data.command) {
+          case "go":
+            navigate(data.url);
+            break;
+          case "back":
+            goBack();
+            break;
+          case "forward":
+            goForward();
+            break;
+          case "reload":
+            reload();
+            break;
+          case "stop":
+            stop();
+            break;
+          case "devtools":
+            toggleDevtools();
+            break;
+        }
       });
-    }
 
-    async function navigate(url, { historyMove = null } = {}) {
-      if (!url) return;
-      startLoading(url);
-      try {
-        await ready;
-      } catch {
-        return;
+      function urlFromHash() {
+        const raw = window.location.hash.substring(1);
+        if (!raw) return "https://start.duckduckgo.com/";
+        return /^https?:\/\//i.test(raw) ? raw : "https://" + raw;
       }
-      if (!frame) mountFrame();
-      pendingHistoryMove = historyMove;
-      currentUrl = url;
-      frame.go(url);
-    }
 
-    function goBack() {
-      if (index > 0) navigate(entries[index - 1], { historyMove: index - 1 });
-    }
-
-    function goForward() {
-      if (index < entries.length - 1) navigate(entries[index + 1], { historyMove: index + 1 });
-    }
-
-    function reload() {
-      if (!frame) return;
-      startLoading(currentUrl);
-      try {
-        frame.reload();
-      } catch {
-        frame.go(currentUrl);
-      }
-    }
-
-    function stop() {
-      clearTimeout(loadTimer);
-      try {
-        frame.frame.contentWindow.stop();
-      } catch { }
-      emit("browser:loaded", { url: currentUrl, title: lastTitle, favicon: lastFavicon });
-    }
-
-    // Eruda is ~500KB, so it's only fetched (through the proxy) when requested.
-    function toggleDevtools() {
-      let win;
-      try {
-        win = frame.frame.contentWindow;
-      } catch {
-        return;
-      }
-      if (!win) return;
-      if (win.eruda && win.__erudaActive) {
-        win.eruda.destroy();
-        win.__erudaActive = false;
-        return;
-      }
-      const start = () => {
-        win.eruda.init();
-        win.eruda.show();
-        win.__erudaActive = true;
-      };
-      if (win.eruda) return start();
-      const script = win.document.createElement("script");
-      script.src = "https://cdn.jsdelivr.net/npm/eruda";
-      script.onload = start;
-      script.onerror = () =>
-        emit("browser:error", { kind: "devtools", message: "Developer tools couldn't be loaded on this page." });
-      win.document.head.appendChild(script);
-    }
-
-    window.addEventListener("message", (event) => {
-      if (event.source !== window.parent || event.origin !== location.origin) return;
-      const data = event.data;
-      if (!data || data.type !== "browser:command") return;
-      switch (data.command) {
-        case "go":
-          navigate(data.url);
-          break;
-        case "back":
-          goBack();
-          break;
-        case "forward":
-          goForward();
-          break;
-        case "reload":
-          reload();
-          break;
-        case "stop":
-          stop();
-          break;
-        case "devtools":
-          toggleDevtools();
-          break;
-      }
-    });
-
-    function urlFromHash() {
-      const raw = window.location.hash.substring(1);
-      if (!raw) return "https://start.duckduckgo.com/";
-      return /^https?:\/\//i.test(raw) ? raw : "https://" + raw;
-    }
-
-    window.addEventListener("hashchange", () => navigate(urlFromHash()));
-    navigate(urlFromHash());
-  </script>
-</body>
-
+      window.addEventListener("hashchange", () => navigate(urlFromHash()));
+      navigate(urlFromHash());
+    </script>
+  </body>
 </html>

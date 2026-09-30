@@ -1,55 +1,378 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="notranslate" translate="no">
+  <head>
+    <title>Google</title>
+    <meta charset="utf-8" />
+    <meta
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+      name="viewport"
+    />
+    <meta http-equiv="Cache-control" content="public" />
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link href="/assets/css/browser.css?v=1" rel="stylesheet" />
+    <script src="/assets/js/script.js?v=16"></script>
+    <script src="/assets/js/easteregg.min.js" async></script>
+    <script src="/assets/js/browser.js?v=1" defer></script>
+  </head>
 
-<head>
-  <title>Google</title>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <script src="/assets/js/script.js?v=16"></script>
+  <body>
+    <div class="browser" id="browser">
+      <!-- Tab strip -->
+      <header class="tabstrip">
+        <div class="tabs-scroller" id="tabs-scroller">
+          <div class="tabs" id="tabs" role="tablist" aria-label="Tabs"></div>
+        </div>
+        <button
+          class="icon-btn new-tab-btn"
+          id="new-tab"
+          type="button"
+          aria-label="New tab"
+          title="New tab (Ctrl+T)"
+        >
+          <svg class="icon" aria-hidden="true"><use href="#i-plus" /></svg>
+        </button>
+      </header>
 
-  <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-  <script src="/assets/js/frame.js?v=8"></script>
-  <script src="/assets/js/font.js" defer></script>
-  <script src="/assets/js/easteregg.min.js" async></script>
-  <meta charset="utf-8" />
-  <meta http-equiv="Cache-control" content="public" />
-  <link href="/assets/css/science.css?v=2" rel="stylesheet" />
-  <script src="/assets/sj/hiring.js?v=1" defer></script>
-  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css" />
-</head>
+      <!-- Web content -->
+      <main class="viewport" id="viewport">
+        <div class="progress" id="progress" aria-hidden="true"></div>
+        <div class="frames" id="frames"></div>
 
-<body style="overflow: hidden">
+        <section class="ntp" id="ntp" aria-label="New tab" hidden>
+          <div class="ntp-inner">
+            <h1 class="ntp-title">55GMS</h1>
+            <p class="ntp-subtitle">Search the web or enter an address</p>
+            <nav
+              class="ntp-shortcuts"
+              id="ntp-shortcuts"
+              aria-label="Shortcuts"
+            ></nav>
+          </div>
+        </section>
 
-  <div id="tab-bar">
-    <div id="tabs">
-      <button id="new-tab" class="btn"><i class="fa-solid fa-plus"></i></button>
+        <div class="page-banner" id="page-banner" role="alert" hidden>
+          <svg class="icon" aria-hidden="true"><use href="#i-alert" /></svg>
+          <span class="page-banner-text" id="page-banner-text"></span>
+          <div class="page-banner-actions">
+            <button class="text-btn" id="page-banner-retry" type="button">
+              Reload
+            </button>
+            <button
+              class="icon-btn icon-btn-sm"
+              id="page-banner-dismiss"
+              type="button"
+              aria-label="Dismiss"
+            >
+              <svg class="icon" aria-hidden="true"><use href="#i-x" /></svg>
+            </button>
+          </div>
+        </div>
+
+        <button
+          class="dock-handle"
+          id="dock-expand"
+          type="button"
+          aria-label="Expand toolbar"
+          title="Show toolbar"
+        >
+          <svg class="icon" aria-hidden="true">
+            <use href="#i-chevron-up" />
+          </svg>
+        </button>
+      </main>
+
+      <!-- Bottom dock -->
+      <div class="dock-wrap" id="dock-wrap">
+        <div class="dock-clip">
+          <footer class="dock" id="dock">
+            <div class="dock-left">
+              <button
+                class="icon-btn"
+                id="btn-home"
+                type="button"
+                aria-label="Home"
+                title="55GMS home"
+              >
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-home" />
+                </svg>
+              </button>
+            </div>
+
+            <div class="omnibox" id="omnibox">
+              <form
+                class="omnibox-field"
+                id="omnibox-form"
+                role="search"
+                autocomplete="off"
+              >
+                <span class="omnibox-icon" id="omnibox-icon" aria-hidden="true">
+                  <svg class="icon"><use href="#i-search" /></svg>
+                </span>
+                <input
+                  class="omnibox-input"
+                  id="omnibox-input"
+                  type="text"
+                  inputmode="url"
+                  spellcheck="false"
+                  autocapitalize="off"
+                  autocorrect="off"
+                  placeholder="Search or enter address"
+                  aria-label="Address and search bar"
+                  role="combobox"
+                  aria-autocomplete="list"
+                  aria-expanded="false"
+                  aria-controls="suggestions"
+                />
+              </form>
+              <ul
+                class="suggestions"
+                id="suggestions"
+                role="listbox"
+                aria-label="Suggestions"
+                hidden
+              ></ul>
+            </div>
+
+            <div class="dock-right">
+              <button
+                class="icon-btn"
+                id="btn-back"
+                type="button"
+                aria-label="Back"
+                title="Back"
+                disabled
+              >
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow-left" />
+                </svg>
+              </button>
+              <button
+                class="icon-btn hide-narrow"
+                id="btn-forward"
+                type="button"
+                aria-label="Forward"
+                title="Forward"
+                disabled
+              >
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow-right" />
+                </svg>
+              </button>
+              <button
+                class="icon-btn"
+                id="btn-reload"
+                type="button"
+                aria-label="Reload"
+                title="Reload (Ctrl+R)"
+              >
+                <svg class="icon icon-reload" aria-hidden="true">
+                  <use href="#i-rotate" />
+                </svg>
+                <svg class="icon icon-stop" aria-hidden="true">
+                  <use href="#i-x" />
+                </svg>
+              </button>
+              <div class="menu-anchor">
+                <button
+                  class="icon-btn"
+                  id="btn-menu"
+                  type="button"
+                  aria-label="More options"
+                  title="More"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-controls="menu"
+                >
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-more" />
+                  </svg>
+                </button>
+                <div
+                  class="menu"
+                  id="menu"
+                  role="menu"
+                  aria-label="More options"
+                  hidden
+                >
+                  <button
+                    class="menu-item"
+                    role="menuitem"
+                    data-action="new-tab"
+                    type="button"
+                  >
+                    <svg class="icon" aria-hidden="true">
+                      <use href="#i-plus" />
+                    </svg>
+                    <span>New tab</span><kbd data-kbd="T"></kbd>
+                  </button>
+                  <button
+                    class="menu-item"
+                    role="menuitem"
+                    data-action="restore-tab"
+                    type="button"
+                  >
+                    <svg class="icon" aria-hidden="true">
+                      <use href="#i-history" />
+                    </svg>
+                    <span>Reopen closed tab</span><kbd data-kbd="⇧T"></kbd>
+                  </button>
+                  <button
+                    class="menu-item show-narrow"
+                    role="menuitem"
+                    data-action="forward"
+                    type="button"
+                  >
+                    <svg class="icon" aria-hidden="true">
+                      <use href="#i-arrow-right" />
+                    </svg>
+                    <span>Forward</span>
+                  </button>
+                  <button
+                    class="menu-item"
+                    role="menuitem"
+                    data-action="copy-link"
+                    type="button"
+                  >
+                    <svg class="icon" aria-hidden="true">
+                      <use href="#i-link" />
+                    </svg>
+                    <span>Copy link</span>
+                  </button>
+                  <div class="menu-sep" role="separator"></div>
+                  <button
+                    class="menu-item"
+                    role="menuitem"
+                    data-action="fullscreen"
+                    type="button"
+                  >
+                    <svg class="icon" aria-hidden="true">
+                      <use href="#i-maximize" />
+                    </svg>
+                    <span>Fullscreen page</span>
+                  </button>
+                  <button
+                    class="menu-item"
+                    role="menuitem"
+                    data-action="devtools"
+                    type="button"
+                  >
+                    <svg class="icon" aria-hidden="true">
+                      <use href="#i-code" />
+                    </svg>
+                    <span>Developer tools</span>
+                  </button>
+                </div>
+              </div>
+              <button
+                class="icon-btn"
+                id="dock-collapse"
+                type="button"
+                aria-label="Collapse toolbar"
+                title="Hide toolbar"
+              >
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-chevron-down" />
+                </svg>
+              </button>
+            </div>
+          </footer>
+        </div>
+      </div>
+
+      <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
     </div>
-  </div>
 
-
-  <div class="proxy-container">
-    <nav class="navbar-proxy">
-      <div class="navbar-left">
-        <a id="prx-bck" class="navbar-link pro"><i class="fa-solid fa-arrow-left"></i></a>
-        <a id="prx-fwd" class="navbar-link pro"><i class="fa-solid fa-arrow-right"></i></a>
-        <a id="prx-refresh" class="navbar-link pro"><i class="fa-solid fa-rotate-right"></i></a>
-      </div>
-
-      <input type="text" id="proxy-address" placeholder="Search Google or Enter an URL" class="search navbar-input"
-        autocomplete="off" />
-
-      <div class="navbar-right">
-        <a id="prx-home" class="navbar-link pro"><i class="fa-solid fa-house"></i></a>
-        <a id="prx-fullscreen" class="navbar-link pro"><i class="fa-solid fa-expand"></i></a>
-        <a id="prx-inspect" class="navbar-link pro"><i class="fa-solid fa-code"></i></a>
-      </div>
-    </nav>
-  </div>
-  <div id="autocomplete" class="autocomplete"></div>
-
-  <div class="loader"></div>
-
-  <div id="frames"></div>
-
-</body>
-
+    <!-- Icon sprite (Lucide) -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs>
+        <symbol id="i-home" viewBox="0 0 24 24">
+          <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+          <path
+            d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+          />
+        </symbol>
+        <symbol id="i-arrow-left" viewBox="0 0 24 24">
+          <path d="m12 19-7-7 7-7" />
+          <path d="M19 12H5" />
+        </symbol>
+        <symbol id="i-arrow-right" viewBox="0 0 24 24">
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        </symbol>
+        <symbol id="i-rotate" viewBox="0 0 24 24">
+          <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
+          <path d="M21 3v5h-5" />
+        </symbol>
+        <symbol id="i-x" viewBox="0 0 24 24">
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </symbol>
+        <symbol id="i-more" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="1" />
+          <circle cx="19" cy="12" r="1" />
+          <circle cx="5" cy="12" r="1" />
+        </symbol>
+        <symbol id="i-chevron-down" viewBox="0 0 24 24">
+          <path d="m6 9 6 6 6-6" />
+        </symbol>
+        <symbol id="i-chevron-up" viewBox="0 0 24 24">
+          <path d="m18 15-6-6-6 6" />
+        </symbol>
+        <symbol id="i-plus" viewBox="0 0 24 24">
+          <path d="M5 12h14" />
+          <path d="M12 5v14" />
+        </symbol>
+        <symbol id="i-search" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.3-4.3" />
+        </symbol>
+        <symbol id="i-lock" viewBox="0 0 24 24">
+          <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </symbol>
+        <symbol id="i-globe" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+          <path d="M2 12h20" />
+        </symbol>
+        <symbol id="i-history" viewBox="0 0 24 24">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+          <path d="M3 3v5h5" />
+          <path d="M12 7v5l4 2" />
+        </symbol>
+        <symbol id="i-link" viewBox="0 0 24 24">
+          <path
+            d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"
+          />
+          <path
+            d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
+          />
+        </symbol>
+        <symbol id="i-maximize" viewBox="0 0 24 24">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3" />
+          <path d="M21 8V5a2 2 0 0 0-2-2h-3" />
+          <path d="M3 16v3a2 2 0 0 0 2 2h3" />
+          <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+        </symbol>
+        <symbol id="i-code" viewBox="0 0 24 24">
+          <path d="m16 18 6-6-6-6" />
+          <path d="m8 6-6 6 6 6" />
+        </symbol>
+        <symbol id="i-alert" viewBox="0 0 24 24">
+          <path
+            d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
+          />
+          <path d="M12 9v4" />
+          <path d="M12 17h.01" />
+        </symbol>
+      </defs>
+    </svg>
+  </body>
 </html>
