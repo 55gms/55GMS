@@ -172,24 +172,24 @@ function setupEventListeners() {
 
   // Modal handlers
   document.getElementById("newChatBtn").addEventListener("click", () => {
-    document.getElementById("newChatModal").style.display = "flex";
+    openChatDialog("newChatModal");
     updateMemberCounter(); // Initialize counter when modal opens
   });
 
   document.getElementById("friendsBtn").addEventListener("click", () => {
-    document.getElementById("friendsModal").style.display = "flex";
+    openChatDialog("friendsModal");
     loadFriends();
     loadFriendRequests();
   });
 
   document.getElementById("startChatBtn").addEventListener("click", () => {
-    document.getElementById("newChatModal").style.display = "flex";
+    openChatDialog("newChatModal");
     updateMemberCounter(); // Initialize counter when modal opens
   });
 
   // Close modals
   document.getElementById("closeNewChatModal").addEventListener("click", () => {
-    document.getElementById("newChatModal").style.display = "none";
+    closeChatDialog("newChatModal");
     // Reset form when closing
     document.getElementById("groupName").value = "";
     document.getElementById("membersList").innerHTML = "";
@@ -197,13 +197,13 @@ function setupEventListeners() {
   });
 
   document.getElementById("closeFriendsModal").addEventListener("click", () => {
-    document.getElementById("friendsModal").style.display = "none";
+    closeChatDialog("friendsModal");
   });
 
   document
     .getElementById("closeGroupMembersModal")
     .addEventListener("click", () => {
-      document.getElementById("groupMembersModal").style.display = "none";
+      closeChatDialog("groupMembersModal");
     });
 
   // Tab switching
@@ -267,7 +267,7 @@ function setupEventListeners() {
     const modals = document.querySelectorAll(".modal");
     modals.forEach((modal) => {
       if (e.target === modal) {
-        modal.style.display = "none";
+        closeChatDialog(modal.id);
         // Reset new chat modal form when closing
         if (modal.id === "newChatModal") {
           document.getElementById("groupName").value = "";
@@ -295,20 +295,22 @@ function setupTabSwitching() {
   document.querySelectorAll(".tab-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const tabContainer =
-        e.target.closest(".modal-body") ||
-        e.target.closest(".friends-tabs").parentElement;
-      const tabName = e.target.dataset.tab;
+        e.currentTarget.closest(".modal-body") ||
+        e.currentTarget.closest(".friends-tabs").parentElement;
+      const tabName = e.currentTarget.dataset.tab;
 
       // Remove active class from all tabs and panels in this container
-      tabContainer
-        .querySelectorAll(".tab-btn")
-        .forEach((b) => b.classList.remove("active"));
+      tabContainer.querySelectorAll(".tab-btn").forEach((b) => {
+        b.classList.remove("active");
+        b.setAttribute("aria-pressed", "false");
+      });
       tabContainer
         .querySelectorAll(".tab-panel")
         .forEach((p) => p.classList.remove("active"));
 
       // Add active class to clicked tab and corresponding panel
-      e.target.classList.add("active");
+      e.currentTarget.classList.add("active");
+      e.currentTarget.setAttribute("aria-pressed", "true");
       tabContainer.querySelector(`#${tabName}Tab`).classList.add("active");
     });
   });
@@ -438,12 +440,12 @@ function renderChatList() {
       const isActive = isSameChatId(chat.id, currentChatId);
 
       return `
-            <div class="chat-item ${isActive ? "active" : ""}" data-chat-id="${
+            <a class="chat-item ${isActive ? "active" : ""}" href="/chat/${encodeURIComponent(chat.id)}" data-chat-id="${
               chat.id
-            }" onclick="selectChat('${chat.id}')">
+            }">
                 <div class="chat-avatar">
                     <div class="avatar-circle">
-                        ${chat.name.charAt(0).toUpperCase()}
+                        ${escapeHtml(chat.name.charAt(0).toUpperCase())}
                     </div>
                     ${
                       chat.type === "direct"
@@ -454,8 +456,8 @@ function renderChatList() {
                     }
                 </div>
                 <div class="chat-item-content">
-                    <div class="chat-item-name">${chat.name}</div>
-                    <div class="chat-item-preview">${preview}</div>
+                    <div class="chat-item-name">${escapeHtml(chat.name)}</div>
+                    <div class="chat-item-preview">${escapeHtml(preview)}</div>
                 </div>
                 <div class="chat-item-meta">
                     ${
@@ -473,7 +475,7 @@ function renderChatList() {
                         : ""
                     }
                 </div>
-            </div>
+            </a>
         `;
     })
     .join("");
@@ -900,7 +902,7 @@ async function createDirectChat() {
     const data = await response.json();
 
     if (response.ok) {
-      document.getElementById("newChatModal").style.display = "none";
+      closeChatDialog("newChatModal");
       document.getElementById("directUsername").value = "";
 
       // Reload chats and select the new one
@@ -978,7 +980,7 @@ async function createGroupChat() {
     const data = await response.json();
 
     if (response.ok) {
-      document.getElementById("newChatModal").style.display = "none";
+      closeChatDialog("newChatModal");
       document.getElementById("groupName").value = "";
       document.getElementById("membersList").innerHTML = "";
       updateMemberCounter(); // Reset counter
@@ -1050,8 +1052,8 @@ function addMemberToGroup() {
   memberTag.className = "member-tag";
   memberTag.dataset.username = username;
   memberTag.innerHTML = `
-        ${username}
-        <span class="remove" onclick="removeMemberFromGroup(this)">×</span>
+        ${escapeHtml(username)}
+        <button type="button" class="remove" aria-label="Remove ${escapeHtml(username)}" onclick="removeMemberFromGroup(this)">×</button>
     `;
 
   membersList.appendChild(memberTag);
@@ -1152,7 +1154,7 @@ function renderFriendsList() {
 
 // Start chat with friend
 async function startChatWithFriend(username) {
-  document.getElementById("friendsModal").style.display = "none";
+  closeChatDialog("friendsModal");
 
   try {
     const response = await fetch("/api/chats/direct", {
@@ -1496,7 +1498,10 @@ function showNotification(title, message, onClick) {
   }
 
   // Show in-page notification only (browser notifications removed)
-  const notificationElement = document.createElement("div");
+  const notificationElement = document.createElement(
+    onClick ? "button" : "div",
+  );
+  if (onClick) notificationElement.type = "button";
   notificationElement.className = "notification";
   notificationElement.innerHTML = `
         <div class="notification-header">
@@ -1606,6 +1611,9 @@ function toggleChatMenu(e) {
   e.stopPropagation();
   const dropdown = document.getElementById("chatMenuDropdown");
   dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
+  document
+    .getElementById("chatMenuBtn")
+    .setAttribute("aria-expanded", String(dropdown.style.display !== "none"));
 
   // Update friend options based on current chat
   updateChatMenuOptions();
@@ -2107,7 +2115,7 @@ async function handleViewMembers() {
 
     if (data.success) {
       displayGroupMembers(data.members);
-      document.getElementById("groupMembersModal").style.display = "block";
+      openChatDialog("groupMembersModal");
     } else {
       throw new Error(data.error || "Failed to fetch group members");
     }
@@ -2211,3 +2219,53 @@ function formatTime(timestamp) {
     return date.toLocaleDateString();
   }
 }
+
+function openChatDialog(id) {
+  const modal = document.getElementById(id);
+  modal.style.display = "flex";
+  window.siteDialog.activate(modal, () => closeChatDialog(id));
+}
+
+function closeChatDialog(id) {
+  const modal = document.getElementById(id);
+  modal.style.display = "none";
+  window.siteDialog.deactivate(modal);
+  if (id === "newChatModal") {
+    document.getElementById("groupName").value = "";
+    document.getElementById("membersList").replaceChildren();
+    updateMemberCounter();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".tab-btn").forEach((button) => {
+    button.setAttribute(
+      "aria-pressed",
+      String(button.classList.contains("active")),
+    );
+    button.setAttribute("aria-controls", `${button.dataset.tab}Tab`);
+  });
+  document.getElementById("chatList").addEventListener("click", (event) => {
+    const link = event.target.closest("a[data-chat-id]");
+    if (
+      !link ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.shiftKey ||
+      event.altKey ||
+      event.button !== 0
+    )
+      return;
+    event.preventDefault();
+    selectChat(link.dataset.chatId);
+  });
+  document.addEventListener("keydown", (event) => {
+    const menu = document.getElementById("chatMenuDropdown");
+    if (event.key === "Escape" && menu.style.display !== "none") {
+      menu.style.display = "none";
+      const button = document.getElementById("chatMenuBtn");
+      button.setAttribute("aria-expanded", "false");
+      button.focus();
+    }
+  });
+});

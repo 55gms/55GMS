@@ -1,80 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+    <script src="/assets/js/font.js" defer></script>
+    <meta name="google" content="notranslate" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=6" />
+    <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/misc/media/css/media.css?v=2"
+    />
+    <title>Google</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Rednotsus" />
+    <meta http-equiv="Cache-control" content="public" />
+    <meta charset="utf-8" />
+    <script src="/assets/js/script.js?v=17"></script>
 
-<head>
-  <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
-  <script src="/assets/js/font.js" defer></script>
-  <meta name="google" content="notranslate" />
-  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=5" />
-  <link rel="stylesheet" href="/assets/css/nav.css?v=6" />
-  <link rel="stylesheet" type="text/css" href="/misc/media/css/media.css?v=1" />
-  <title>Google</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="author" content="Rednotsus" />
-  <meta http-equiv="Cache-control" content="public">
-  <meta charset="utf-8">
-  </script>
-  <script src="/assets/js/script.js?v=16"></script>
+    <script src="/misc/media/js/homepage.js?v=3"></script>
+    <script src="/misc/media/js/search.js?v=3"></script>
+    <script src="/assets/js/easteregg.min.js" async></script>
+    <meta name="theme-color" content="#0b1220" />
 
-  <script src="/misc/media/js/homepage.js?v=2"></script>
-  <script src="/misc/media/js/search.js?v=2"></script>
-  <script src="/assets/js/easteregg.min.js" async></script>
-</head>
+    <link rel="stylesheet" href="/assets/css/ui.css?v=1" />
+    <script src="/assets/js/ui.js?v=1" defer></script>
+  </head>
 
-<body>
-  <nav>
-    <div class="navbar">
-      <a id="nav-title" href="/">Reds Exploit Corner</a>
-      <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
-      <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
-      <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
-      <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
-      <a href="/chat"><i class="fa-solid fa-comments">&nbsp;</i></a>
-      <a href="/profile"><i class="fa-solid fa-user"></i></a>
-    </div>
-  </nav>
-  <br>
-  <h1>Movies/TV</h1>
-  <input tag="searchbar" placeholder="Enter the Movie/TV Name and press Enter!" class="form__input" autocomplete="off">
-  <h5 id="cooldownNotice" style="display: none;">Hold on! You're on cooldown.</h5><br><br>
-  <br>
-  <div id="bigDiv">
-    <h3 class="title">Trending</h3>
-    <div id="game-container">
-      <p id="text"></p>
-    </div>
-    <br>
-    <div class="title-container">
-      <h3 class="title">Latest Movies &nbsp;&nbsp;
-      </h3>
-    </div>
-    <div class="scroll-container-wrapper">
-      <div class="scroll-container" id="movie-scroll-container">
-        <div id="movie-container">
-          <p id="text"></p>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <nav aria-label="Main navigation">
+      <div class="navbar">
+        <a id="nav-title" href="/">Reds Exploit Corner</a>
+        <a href="/g"
+          ><i aria-hidden="true" class="fa-solid fa-gamepad">&nbsp;</i>Games</a
+        >
+        <a href="/a"
+          ><i aria-hidden="true" class="fa-solid fa-box-archive">&nbsp;</i
+          >Apps</a
+        >
+        <a href="/-" aria-current="page"
+          ><i aria-hidden="true" class="fa-solid fa-tv">&nbsp;</i>Media</a
+        >
+        <a href="/s"
+          ><i aria-hidden="true" class="fa-solid fa-gears">&nbsp;</i>Settings</a
+        >
+        <a href="/chat" aria-label="Chat" title="Chat"
+          ><i aria-hidden="true" class="fa-solid fa-comments">&nbsp;</i></a
+        >
+        <a href="/profile" aria-label="Profile" title="Profile"
+          ><i aria-hidden="true" class="fa-solid fa-user"></i
+        ></a>
+      </div>
+    </nav>
+    <main id="main-content" tabindex="-1">
+      <br />
+      <header class="page-header">
+        <h1>Movies &amp; TV</h1>
+        <p>Find a title or explore what’s trending.</p>
+      </header>
+      <form id="media-search" role="search">
+        <input
+          id="media-query"
+          type="search"
+          name="q"
+          aria-label="Search movies and TV"
+          placeholder="Search movies and TV…"
+          class="form__input"
+          autocomplete="off"
+        />
+        <button type="submit" class="gs">Search</button>
+      </form>
+      <p id="media-search-status" role="status" aria-live="polite"></p>
+      <div id="bigDiv">
+        <h2 class="title">Trending</h2>
+        <div id="game-container"></div>
+        <br />
+        <div class="title-container">
+          <h2 class="title">Latest Movies &nbsp;&nbsp;</h2>
+        </div>
+        <div class="scroll-container-wrapper">
+          <div
+            class="scroll-container"
+            id="movie-scroll-container"
+            tabindex="0"
+            role="region"
+            aria-label="Latest movies; scroll to browse"
+          >
+            <div id="movie-container"></div>
+          </div>
+        </div>
+        <br />
+        <div class="title-container">
+          <h2 class="title">Latest TV Shows</h2>
+        </div>
+        <div class="scroll-container-wrapper">
+          <div
+            class="scroll-container"
+            id="tv-scroll-container"
+            tabindex="0"
+            role="region"
+            aria-label="Latest TV shows; scroll to browse"
+          >
+            <div id="tv-container"></div>
+          </div>
         </div>
       </div>
-    </div>
-    <br>
-    <div class="title-container">
-      <h3 class="title">Latest TV Shows
-      </h3>
-    </div>
-    <div class="scroll-container-wrapper">
-      <div class="scroll-container" id="tv-scroll-container">
-        <div id="tv-container">
-          <p id="text"></p>
-        </div>
+
+      <div class="attribution">
+        Images and Titles provided by
+        <a href="https://www.themoviedb.org/"
+          ><img
+            src="/img/tmdb.svg"
+            alt="TMDB Logo"
+            width="145"
+            height="20"
+            style="height: 20px; vertical-align: middle"
+        /></a>
       </div>
-    </div>
-  </div>
-
-  <div class="attribution">
-    Images and Titles provided by
-    <a href="https://www.themoviedb.org/"><img src="/img/tmdb.svg" alt="TMDB Logo"
-        style="height: 20px; vertical-align: middle;"></a>
-  </div>
-  <script src="https://cdn.jsdelivr.net/gh/docklib/partners@master/partner-7a44b4ab.js?v=1"></script>
-</body>
-
+      <script src="https://cdn.jsdelivr.net/gh/docklib/partners@master/partner-7a44b4ab.js?v=1"></script>
+    </main>
+  </body>
 </html>

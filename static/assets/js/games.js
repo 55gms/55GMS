@@ -58,9 +58,10 @@ async function loadGames() {
 
     const searchbar = document.querySelector(".searchbar");
     if (searchbar) {
-      searchbar.placeholder = `Click here or type to search through our ${games.length} games!`;
+      searchbar.placeholder = `Search ${games.length} games…`;
     }
 
+    search();
     finishLoading(cards.length);
   } catch (error) {
     loadingText.textContent =

@@ -11,85 +11,71 @@
 }
 
 #sub {
-  font-size: 17px;
-  color: var(--site-muted, #b5cae0);
-  margin-bottom: 2px;
-  font-family: "Roboto", serif;
+  display: block;
+  width: min(100% - 32px, 720px);
+  margin: 8px auto 24px;
+  min-height: 44px;
+  padding: 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--site-muted);
+  font: inherit;
   text-align: center;
   cursor: pointer;
 }
-
-.form__input {
-  padding: 1.2vw;
-  width: 50%;
-  border-radius: 5px;
-  background: var(--site-input-bg, #2a3a5b);
-  text-align: center;
-  font-size: 24px;
-  border: none;
-  outline: none;
-  color: white;
-  transition: 0.2s;
-  margin: 0;
-}
-
-.form__input::placeholder {
-  color: #aaa;
-  text-align: center;
-}
-
-.form__input:hover {
-  background: var(--site-search-hover-bg, #3a4a7b);
-  transition: 0.2s;
-}
-
-.shortcut {
-  width: 170px;
-  height: 90px;
-  border-radius: var(--site-radius-md, 14px);
-  margin-top: 10px;
-  transition: 0.2s;
+#sub:hover {
+  color: var(--site-text);
+  background: var(--site-surface);
 }
 
 .quicklinks {
-  display: inline-block;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  width: min(100% - 32px, 940px);
+  margin: 32px auto;
 }
-
 .quicklink {
-  margin-right: 10px;
+  display: block;
+  padding: 0;
+  border: 1px solid var(--site-border);
+  border-radius: var(--site-radius-md);
+  background: var(--site-surface);
   cursor: pointer;
+  overflow: hidden;
+  transition: border-color 150ms ease;
 }
-
-.shortcut:hover {
-  transform: scale(1.1);
-  transition: 0.2s;
+.quicklink:hover {
+  border-color: var(--site-link);
 }
-
+.shortcut {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 17 / 9;
+  object-fit: cover;
+}
 .info {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  margin: 10px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 24px 16px;
 }
-
 .infobtn {
-  background-color: var(--site-surface, #7a8fab);
-  color: var(--site-text, white);
-  border: none;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 20px;
-  border-radius: var(--site-radius-sm, 10px);
-  transition: all 0.15s ease;
+  display: grid;
+  place-items: center;
+  min-width: 48px;
+  min-height: 48px;
+  border-radius: var(--site-radius-sm);
+  background: var(--site-surface);
+  color: var(--site-text);
 }
-
 .infobtn:hover {
-  scale: 1.05;
-  color: var(--site-muted, #b5cae0);
+  background: var(--site-button-hover);
+  color: var(--site-text);
+}
+#titles {
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  margin: 32px 16px 8px;
 }

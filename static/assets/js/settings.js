@@ -12,17 +12,22 @@ var siteThemes = {
 
 function getSafeTheme(theme) {
   if (theme === "classic") return "legacy";
-  return siteThemes[theme] ? theme : "legacy";
+  return siteThemes[theme] ? theme : "blue";
 }
 
 function setSiteTheme(theme) {
   var safeTheme = getSafeTheme(theme);
   document.documentElement.dataset.theme = safeTheme;
   localStorage.setItem("siteTheme", safeTheme);
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta)
+    meta.content = getComputedStyle(document.documentElement)
+      .getPropertyValue("--site-bg")
+      .trim();
 }
 
 (function applySavedTheme() {
-  var savedTheme = localStorage.getItem("siteTheme") || "legacy";
+  var savedTheme = localStorage.getItem("siteTheme") || "blue";
   document.documentElement.dataset.theme = getSafeTheme(savedTheme);
 })();
 
@@ -349,6 +354,7 @@ function showImportConfirm(file) {
   if (modal) {
     modal.classList.add("settings-modal-open");
     modal.setAttribute("aria-hidden", "false");
+    window.siteDialog.activate(modal, closeImportConfirm);
   }
 
   if (confirmButton) {
@@ -368,6 +374,7 @@ function closeImportConfirm() {
 
   if (modal) {
     modal.classList.remove("settings-modal-open");
+    window.siteDialog.deactivate(modal);
     modal.setAttribute("aria-hidden", "true");
   }
 }

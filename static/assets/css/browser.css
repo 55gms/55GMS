@@ -3,16 +3,16 @@
 :root {
   color-scheme: dark;
 
-  --bg: #0a0a0a;
-  --chrome: #111111;
-  --surface: #1a1a1a;
-  --surface-hover: #202020;
-  --surface-active: #262626;
-  --border: #262626;
-  --border-strong: #363636;
-  --text: #ededed;
-  --text-2: #a1a1a1;
-  --text-3: #6f6f6f;
+  --bg: #0b1220;
+  --chrome: #0f1a2b;
+  --surface: #111d2f;
+  --surface-hover: #1a314f;
+  --surface-active: #24466f;
+  --border: #223452;
+  --border-strong: #526a8c;
+  --text: #e6edf7;
+  --text-2: #a7b8cf;
+  --text-3: #a7b8cf;
   --accent: #3b82f6;
   --warning: #f5a524;
   --shadow-pop: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border);

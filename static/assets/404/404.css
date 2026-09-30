@@ -1,31 +1,18 @@
 body {
-  font-family: "Roboto", serif;
-  margin: 0;
-  padding: 0;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   text-align: center;
 }
-
 .mainContent {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  max-width: 620px;
+  margin: clamp(32px, 10vh, 100px) auto;
+  padding: 24px;
 }
-
 .a404 {
-  font-size: 100px;
-  font-weight: bold;
-  color: #d3d2d2;
-  margin-bottom: 0;
+  font-size: clamp(4rem, 15vw, 7rem);
+  color: var(--site-link);
+  margin: 0;
 }
 .subheading {
-  font-size: 30px;
-  color: #d3d2d2;
-}
-
-.gs:hover {
-  color: #d3d2d2;
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  color: var(--site-muted);
+  margin: 12px 0 24px;
 }

@@ -16,12 +16,17 @@
       rel="stylesheet"
     />
     <link href="/assets/css/browser.css?v=1" rel="stylesheet" />
-    <script src="/assets/js/script.js?v=16"></script>
+    <script src="/assets/js/script.js?v=17"></script>
     <script src="/assets/js/easteregg.min.js" async></script>
     <script src="/assets/js/browser.js?v=1" defer></script>
+    <meta name="theme-color" content="#0b1220" />
+
+    <link rel="stylesheet" href="/assets/css/ui.css?v=1" />
+    <script src="/assets/js/ui.js?v=1" defer></script>
   </head>
 
   <body>
+    <a class="skip-link" href="#viewport">Skip to content</a>
     <div class="browser" id="browser">
       <!-- Tab strip -->
       <header class="tabstrip">
@@ -40,7 +45,7 @@
       </header>
 
       <!-- Web content -->
-      <main class="viewport" id="viewport">
+      <main class="viewport" id="viewport" tabindex="-1">
         <div class="progress" id="progress" aria-hidden="true"></div>
         <div class="frames" id="frames"></div>
 
@@ -118,6 +123,7 @@
                 <input
                   class="omnibox-input"
                   id="omnibox-input"
+                  name="q"
                   type="text"
                   inputmode="url"
                   spellcheck="false"

@@ -42,7 +42,8 @@ h6 {
   border-radius: var(--site-radius-sm, 10px);
   overflow: hidden;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-  border: 1px solid color-mix(in srgb, var(--site-surface, #7a8fab) 60%, transparent);
+  border: 1px solid
+    color-mix(in srgb, var(--site-surface, #7a8fab) 60%, transparent);
 }
 
 .progress-bar {
@@ -173,11 +174,16 @@ h6 {
   font-size: var(--site-search-font-size, 1.3rem);
   font-style: italic;
   border: 2px solid
-    var(--site-search-border-color, var(--site-control-border-hover, rgba(255, 255, 255, 0.34)));
+    var(
+      --site-search-border-color,
+      var(--site-control-border-hover, rgba(255, 255, 255, 0.34))
+    );
   outline: none;
   color: var(--site-input-text, #faf9f6);
   margin: 0px 0px 20px 0px;
-  transition: all 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
   box-shadow: 0 4px 12px var(--site-shadow, rgba(0, 0, 0, 0.3));
 }
 
@@ -191,17 +197,29 @@ h6 {
 
 .searchbar:hover {
   background-color: var(--site-search-hover-bg, var(--site-input-bg, #101d31));
-  border-color: var(--site-search-border-color, var(--site-control-border-hover, rgba(255, 255, 255, 0.34)));
-  box-shadow: var(--site-search-glow-shadow, 0 0 0 3px var(--site-control-ring, rgba(255, 255, 255, 0.18)));
+  border-color: var(
+    --site-search-border-color,
+    var(--site-control-border-hover, rgba(255, 255, 255, 0.34))
+  );
+  box-shadow: var(
+    --site-search-glow-shadow,
+    0 0 0 3px var(--site-control-ring, rgba(255, 255, 255, 0.18))
+  );
   cursor: text;
 }
 
 .searchbar:focus {
   outline: none;
   background-color: var(--site-search-hover-bg, var(--site-input-bg, #101d31));
-  border-color: var(--site-search-border-color, var(--site-control-border-hover, rgba(255, 255, 255, 0.38)));
+  border-color: var(
+    --site-search-border-color,
+    var(--site-control-border-hover, rgba(255, 255, 255, 0.38))
+  );
   transform: scale(1.04);
-  box-shadow: var(--site-search-glow-shadow, 0 0 0 4px var(--site-control-ring, rgba(255, 255, 255, 0.22)));
+  box-shadow: var(
+    --site-search-glow-shadow,
+    0 0 0 4px var(--site-control-ring, rgba(255, 255, 255, 0.22))
+  );
   cursor: text;
 }
 
@@ -230,7 +248,7 @@ h6 {
   width: 175px;
   height: 175px;
   border-radius: var(--site-radius-md, 14px);
-  transition: all 0.35s ease;
+  transition: transform 0.35s ease;
 }
 .game:hover img,
 .game:focus-within img {
@@ -250,7 +268,9 @@ h6 {
   color: white;
   font-size: 0.75rem;
   opacity: 0;
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
   animation: slide-out 0.35s ease forwards;
 }
 .game:hover .text,
@@ -324,35 +344,59 @@ h6 {
   }
 }
 
-.searchbar {
-  box-sizing: border-box;
-  padding: 1.2vw;
-  width: 50%;
-  border-radius: 5px;
-  background: var(--site-input-bg, #2a3a5b);
-  text-align: center;
-  font-family: "Roboto", serif;
-  font-size: 24px;
-  font-style: normal;
-  border: none;
-  outline: none;
-  color: white;
-  transition: 0.2s;
-  margin: 0 0 20px;
-  box-shadow: none;
-  transform: none;
+/* Always show names, including on touchscreens and failed thumbnails. */
+#game-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+  max-width: 1200px;
+  margin: 24px auto;
+  text-align: left;
 }
-
-.searchbar::placeholder {
-  color: #aaa;
-  text-align: center;
+.game {
+  margin: 0;
+  min-width: 0;
+}
+.game-link {
+  width: 100%;
+  background: var(--site-surface);
+  overflow: hidden;
+  border: 1px solid var(--site-border);
+}
+.game img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 0;
+}
+.game .text,
+.game:hover .text,
+.game:focus-within .text {
+  position: static;
+  width: 100%;
+  padding: 12px;
+  min-height: 48px;
+  margin: 0;
+  color: var(--site-text);
+  background: var(--site-surface);
+  font-size: 0.9rem;
   opacity: 1;
-}
-
-.searchbar:hover,
-.searchbar:focus {
-  background: var(--site-search-hover-bg, #3a4a7b);
-  border: none;
-  box-shadow: none;
   transform: none;
+  animation: none;
+  overflow-wrap: anywhere;
+}
+.game:hover img,
+.game:focus-within img {
+  transform: none;
+  filter: none;
+}
+.game-link:hover {
+  border-color: var(--site-link);
+}
+@media (prefers-reduced-motion: reduce) {
+  .progress-bar::before {
+    animation: none;
+  }
 }

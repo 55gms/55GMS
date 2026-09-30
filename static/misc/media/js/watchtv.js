@@ -24,6 +24,7 @@ async function getTVShowData() {
     populateSeasonSelector(filteredSeasons, season, episode);
   } catch (error) {
     console.error("Error fetching TV show data:", error);
+    document.getElementById("episodeList").textContent = "Could not load seasons. Reload to try again.";
   }
 }
 
@@ -38,10 +39,16 @@ function populateSeasonSelector(seasons, currentSeason, currentEpisode) {
     seasonSelector.appendChild(option);
   });
 
+  seasonSelector.value = String(currentSeason || seasons[0]?.season_number || "");
+
   seasonSelector.addEventListener("change", () => {
     const seasonNumber = seasonSelector.value;
     document.getElementById("iframe").src = `embed/tv.html?id=${ID}&s=${seasonNumber}&e=1`;
-    getEpisodes(seasonNumber, currentEpisode);
+    getEpisodes(seasonNumber, 1);
+    const url = new URL(location.href);
+    url.searchParams.set("s", seasonNumber);
+    url.searchParams.set("e", "1");
+    history.replaceState(null, "", url);
   });
 
   if (seasons.length > 0) {
@@ -59,6 +66,7 @@ async function getEpisodes(seasonNumber, currentEpisode) {
     displayEpisodes(season.episodes, ID, seasonNumber, currentEpisode);
   } catch (error) {
     console.error("Error fetching season data:", error);
+    document.getElementById("episodeList").textContent = "Could not load episodes. Select a season to try again.";
   }
 }
 
@@ -67,16 +75,15 @@ function displayEpisodes(episodes, tmdbId, seasonNumber, currentEpisode) {
   episodeList.innerHTML = "";
 
   episodes.forEach((episode) => {
-    const episodeItem = document.createElement("div");
+    const episodeItem = document.createElement("a");
     episodeItem.classList.add("episode-item");
     episodeItem.textContent = `Episode ${episode.episode_number}: ${episode.name}`;
 
-    episodeItem.addEventListener("click", () => {
-      location.href = `tv.html?id=${tmdbId}&s=${seasonNumber}&e=${episode.episode_number}`;
-    });
+    episodeItem.href = `tv.html?id=${tmdbId}&s=${seasonNumber}&e=${episode.episode_number}`;
 
     if (episode.episode_number == currentEpisode) {
       episodeItem.classList.add("active");
+      episodeItem.setAttribute("aria-current", "true");
     }
 
     episodeList.appendChild(episodeItem);
