@@ -106,29 +106,83 @@
 
 @media only screen and (max-width: 860px) {
   .navbar {
-    justify-content: flex-start;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 6px;
     min-height: auto;
-    padding: 10px;
+    margin: 10px 12px;
+    padding: 8px;
   }
 
-  .navbar a:first-child,
+  /* Row 1: title, with chat/profile pinned to the right */
+  .navbar a:first-child {
+    position: static;
+    grid-column: 1 / -1;
+    max-width: none;
+    margin-right: 96px;
+    padding: 0 8px;
+    font-size: 18px;
+    line-height: 42px;
+  }
+
+  .navbar a:first-child:hover {
+    transform: none;
+  }
+
   .navbar a:nth-last-child(2),
   .navbar a:last-child {
-    position: static;
-    width: auto;
-    height: auto;
-    max-width: none;
-    padding: 10px 12px;
+    top: 8px;
+    width: 42px;
+    height: 42px;
+    font-size: 17px;
   }
 
-  .navbar a:first-child {
-    flex-basis: 100%;
-    font-size: 19px;
+  .navbar a:nth-last-child(2) {
+    right: 54px;
   }
 
-  .navbar a:not(:first-child) {
-    font-size: 13px;
+  .navbar a:last-child {
+    right: 8px;
+  }
+
+  /* Row 2: evenly spaced tabs, icon over label */
+  .navbar a:not(:first-child):not(:nth-last-child(-n + 2)) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 0;
+    padding: 8px 4px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-align: center;
+    white-space: nowrap;
+    background: color-mix(in srgb, var(--site-text, #fff) 6%, transparent);
+  }
+
+  .navbar a:not(:first-child):not(:nth-last-child(-n + 2)) i {
+    /* clip the &nbsp; inside the icon so the glyph centers */
+    width: 1.25em;
+    overflow: hidden;
+    font-size: 17px;
+    white-space: nowrap;
+  }
+
+  .navbar a:nth-last-child(2) i {
+    width: 1.25em;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .navbar a:not(:first-child):hover {
+    transform: none;
+  }
+}
+
+@media only screen and (max-width: 340px) {
+  .navbar a:not(:first-child):not(:nth-last-child(-n + 2)) {
+    font-size: 10px;
+    letter-spacing: 0;
   }
 }
