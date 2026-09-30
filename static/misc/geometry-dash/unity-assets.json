@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "Build/GeometryDashLite.data.unityweb",
+      "size": 25106751,
+      "type": "application/octet-stream",
+      "sha256": "e5ab417f682d7d4073f717fbeb83c1ffac2109b1a9dcd7ea87a7fa215bb49ab2",
+      "parts": [
+        {
+          "path": "Build/GeometryDashLite.data.unityweb.part1",
+          "size": 10000000
+        },
+        {
+          "path": "Build/GeometryDashLite.data.unityweb.part2",
+          "size": 10000000
+        },
+        {
+          "path": "Build/GeometryDashLite.data.unityweb.part3",
+          "size": 5106751
+        }
+      ]
+    },
+    {
+      "path": "Build/GeometryDashLite.wasm.code.unityweb",
+      "size": 5785630,
+      "type": "application/wasm",
+      "sha256": "e6936464d1207d7cbec36fc89a5feb7311a4d2f1574b66766676f91fb6e15301"
+    },
+    {
+      "path": "Build/GeometryDashLite.wasm.framework.unityweb",
+      "size": 88060,
+      "type": "application/javascript",
+      "sha256": "b16272b21e1189892d22363b7cebd2c1d480c47c5f71b1ed15a7209715a48567"
+    }
+  ]
+}

@@ -1,11 +1,21 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css">
+    <script type="module" src="/assets/js/unity-cdn-loader.js"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/kiwiclicker/">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
     <title>Kiwi Clicker</title>
-    <script>
+
+
+<body>
+    <div id="unity-cdn-loading" role="status" aria-live="polite">LOADING...</div>
+
+
+    <template id="unity-game-scripts">
+<script>
         window.config = {
             loader: 'unity-2020',
             debug: false,
@@ -29,9 +39,8 @@
             "metadata": { "poki_template_version": 1, "background_color": "#231F20", "code_filename": "KiwiCurrent.wasm", "company_name": "Beanut Butter", "data_filename": "KiwiCurrent.data", "development_player": "false", "framework_filename": "KiwiCurrent.framework.js", "height": "720", "loader_filename": "KiwiCurrent.loader.js", "product_name": "Kiwi Clicker", "product_version": "1.0", "splash_screen_style": "Dark", "total_memory": "33554432", "unity_version": "2020.3.29f1", "use_data_caching": "false", "use_threads": "false", "use_wasm": "true", "use_webgl_1_0": "true", "use_webgl_2_0": "true", "width": "1280" }
         };
     </script>
-
-<body>
-    <script src="master-loader.js"></script>
+<script src="master-loader.js"></script>
+    </template>
 </body>
 
 </html>

@@ -3,12 +3,15 @@
 <html lang="en-us">
 
 <head>
+    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css">
+    <script type="module" src="/assets/js/unity-cdn-loader.js"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/flickgoal/">
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="./style.css" />
     <!-- Yandex Games SDK -->
-    <script src="yandex-sdk.js?lol"></script>
+
 
     <style>
         /* Убираем выделение по нажатию клавиш */
@@ -38,6 +41,7 @@
 </head>
 
 <body class="dark">
+    <div id="unity-cdn-loading" role="status" aria-live="polite">LOADING...</div>
     <div id="unity-container" class="unity-desktop">
         <canvas id="unity-canvas" tabindex="-1"></canvas>
     </div>
@@ -51,7 +55,11 @@
         </div>
     </div>
     <!-- Additional body modules -->
-    <script>
+
+
+    <template id="unity-game-scripts">
+<script src="yandex-sdk.js?lol"></script>
+<script>
         const hideFullScreenButton = "";
         const buildUrl = "Build";
         const loaderUrl = buildUrl + "/FlickGoal.loader.js";
@@ -788,6 +796,7 @@
 
         document.body.appendChild(script);
     </script>
+    </template>
 </body>
 
 </html>

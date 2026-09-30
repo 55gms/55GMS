@@ -2,15 +2,12 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css">
+    <script type="module" src="/assets/js/unity-cdn-loader.js"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/superhot/">
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-N0LG27M8L8"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
 
-    gtag('config', 'G-N0LG27M8L8');
-  </script>
+
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,9 +18,24 @@
 </head>
 
 <body style="margin: 0">
+    <div id="unity-cdn-loading" role="status" aria-live="polite">LOADING...</div>
   <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"
     style="width: 100%; height: 100%"></canvas>
-  <script type="text/javascript">
+
+
+
+
+
+    <template id="unity-game-scripts">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N0LG27M8L8"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-N0LG27M8L8');
+  </script>
+<script type="text/javascript">
     var Module = {
       TOTAL_MEMORY: 268435456,
       errorhandler: null, // arguments: err, url, line. This function must return 'true' if the error is handled, otherwise 'false'
@@ -33,9 +45,9 @@
       memUrl: "webgl.memgz",
     };
   </script>
-  <script src="UnityLoader.js"></script>
-  <script src="/assets/js/script.js?v=14"></script>
-
+<script src="UnityLoader.js"></script>
+<script src="/assets/js/script.js?v=14"></script>
+    </template>
 </body>
 
 </html>

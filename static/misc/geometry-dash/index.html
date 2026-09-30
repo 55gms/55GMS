@@ -2,6 +2,9 @@
 <html lang="en-US">
 
 <head>
+    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css">
+    <script type="module" src="/assets/js/unity-cdn-loader.js"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/geometry-dash/">
     <title>Geometry Dash Lite</title>
 
     <meta name="description"
@@ -17,6 +20,7 @@
 <meta name="cf-2fa-verify" content="GpoihhhSRQknehLQkEtXM">
 
 <body>
+    <div id="unity-cdn-loading" role="status" aria-live="polite">LOADING...</div>
     <style>
         html {
             box-sizing: border-box;
@@ -174,8 +178,15 @@
                 <div class="posbox"><img class="box_process" src="image/process_bar_front.png"></div>
             </div>
         </div>
-        <script src="Build/UnityLoader.js"></script>
-        <script>
+
+
+
+
+
+
+    <template id="unity-game-scripts">
+<script src="Build/UnityLoader.js"></script>
+<script>
             var gameInstance = UnityLoader.instantiate("gameContainer", "Build/GeometryDashLite.json", {
                 onProgress: UnityProgress
             });
@@ -199,7 +210,7 @@
                 }
             }
         </script>
-        <script>
+<script>
             document.addEventListener('DOMContentLoaded', function () {
                 let buttondiv = document.getElementsByTagName('button');
                 for (let i = 0; i < buttondiv.length; i++) {
@@ -217,8 +228,8 @@
                 }, 1000);
             });
         </script>
-        <script src="themes/geometrydashlite.io/rs/js/jquery-3.4.1.min.js"></script>
-        <script>
+<script src="themes/geometrydashlite.io/rs/js/jquery-3.4.1.min.js"></script>
+<script>
             function ToggleInfo() {
                 if ($('button.hide-main-panel').children('i')[0].textContent != 'Info') {
                     $("div.main-panel").css('width', '0px');
@@ -253,6 +264,7 @@
                 ToggleInfo();
             });
         </script>
+    </template>
 </body>
 
 </html>

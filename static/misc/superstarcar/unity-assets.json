@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "Build/Build.data.unityweb",
+      "size": 60579401,
+      "type": "application/octet-stream",
+      "sha256": "66b70ae5aa1f697a68a0684ca80e985f8c657ac65ec3bb43a91478011da79d54",
+      "parts": [
+        {
+          "path": "Build/Build.data.unityweb.part1",
+          "size": 10000000
+        },
+        {
+          "path": "Build/Build.data.unityweb.part2",
+          "size": 10000000
+        },
+        {
+          "path": "Build/Build.data.unityweb.part3",
+          "size": 10000000
+        },
+        {
+          "path": "Build/Build.data.unityweb.part4",
+          "size": 10000000
+        },
+        {
+          "path": "Build/Build.data.unityweb.part5",
+          "size": 10000000
+        },
+        {
+          "path": "Build/Build.data.unityweb.part6",
+          "size": 10000000
+        },
+        {
+          "path": "Build/Build.data.unityweb.part7",
+          "size": 579401
+        }
+      ]
+    },
+    {
+      "path": "Build/Build.wasm.code.unityweb",
+      "size": 19370118,
+      "type": "application/wasm",
+      "sha256": "9dced0c70193cd0e1696a7fe9e6e54fb78018b1063eadfd6622a4cdead7788d5"
+    },
+    {
+      "path": "Build/Build.wasm.framework.unityweb",
+      "size": 483106,
+      "type": "application/javascript",
+      "sha256": "0a3e02bd548bd2383e5e12c99ad5fc3edb1c5f8c39352dc9603c9a432e8a3b7f"
+    }
+  ]
+}

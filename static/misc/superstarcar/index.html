@@ -2,13 +2,24 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css">
+    <script type="module" src="/assets/js/unity-cdn-loader.js"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/superstarcar/">
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Super Star Car - Poki</title>
 	<meta name="robots" content="noindex,nofollow" />
 
 
-	<script>
+
+</head>
+
+<body>
+    <div id="unity-cdn-loading" role="status" aria-live="polite">LOADING...</div>
+
+
+    <template id="unity-game-scripts">
+<script>
 		window.config = {
 			loader: 'unity',
 			debug: false,
@@ -30,10 +41,8 @@
 			},
 		};
 	</script>
-</head>
-
-<body>
-	<script src="./master-loader.js"></script>
+<script src="./master-loader.js"></script>
+    </template>
 </body>
 
 </html>

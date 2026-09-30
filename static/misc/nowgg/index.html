@@ -2,16 +2,96 @@
 <html lang="en-us">
 
 <head>
+    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css">
+    <script type="module" src="/assets/js/unity-cdn-loader.js"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/nowgg/">
 
 	<meta charset="utf-8" />
 	<title>1v1.LOL</title>
-	<script src="/assets/js/script.js?v=14"></script>
-	<script src="js/googleAnalytics.js"></script>
-	<script src="lib/jquery.min.js"></script>
-	<script src="js/IronSourceRV.js"></script>
-	<script src="js/mobileRedirect.js"></script>
-	<script src="js/fullscreen.js"></script>
-	<script>
+
+
+
+
+
+
+
+	<link rel="icon" type="image/png" href="favicon.png?v2" />
+	<meta property="og:title" content="1v1.LOL" />
+	<meta property="og:type" content="website" />
+	<meta property="og:description"
+		content="Discover 1v1, the online building simulator & third person shooting game. Battle royale, build fight, box fight, zone wars and more game modes to enjoy!" />
+	<link rel="stylesheet" href="css/style.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+	<meta name="description"
+		content="Discover 1v1, the online building simulator & third person shooting game. Battle royale, build fight, box fight, zone wars and more game modes to enjoy!" />
+	<meta name="keywords" content="just,build,simulator,practice,free,online,battle,royale" />
+
+
+	<!-- ZONETAG - PLACE INTO HEAD SECTION OR RUN CODE AT STARTUP -->
+
+	<!-- MIDROLL/INTERSTITIAL VIDEO API -->
+
+</head>
+
+<body>
+    <div id="unity-cdn-loading" role="status" aria-live="polite">LOADING...</div>
+	<div class="ads">
+		<div class="ad-smallscreen">
+			<div class="ad ad-rectangle-bottom"></div>
+		</div>
+		<div class="ad ad-rectangle-upper" id="adRectangleUpper">
+			<!-- 300X250B PLACEMENT TAG - PLACE INTO BODY (ZONE TAG REQUIRED) -->
+
+		</div>
+		<div class="ad-largescreen">
+			<div class="ad ad-leaderboard-bottom">
+				<!-- 300X600B PLACEMENT TAG - PLACE INTO BODY (ZONE TAG REQUIRED) -->
+
+			</div>
+		</div>
+	</div>
+
+	<!-- <div id="interAdsContainer" style="display: none;"></div> -->
+	<div id="gameContainer"></div>
+	<div id="loader">
+		<img class="logo" src="logo.png" />
+		<div class="spinner"></div>
+		<div class="progress">
+			<div class="full"></div>
+		</div>
+	</div>
+
+
+
+
+	<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+
+
+	<!-- Add Firebase products that you want to use -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <template id="unity-game-scripts">
+<script src="/assets/js/script.js?v=14"></script>
+<script src="lib/jquery.min.js"></script>
+<script src="js/IronSourceRV.js"></script>
+<script src="js/mobileRedirect.js"></script>
+<script src="js/fullscreen.js"></script>
+<script>
 		var gameLoaded = false;
 		window.addEventListener("beforeunload", function (e) {
 			if (adsVisible || !gameLoaded || !lockedOccured) return null;
@@ -23,20 +103,8 @@
 			console.log(e);
 		};
 	</script>
-	<link rel="icon" type="image/png" href="favicon.png?v2" />
-	<meta property="og:title" content="1v1.LOL" />
-	<meta property="og:type" content="website" />
-	<meta property="og:description"
-		content="Discover 1v1, the online building simulator & third person shooting game. Battle royale, build fight, box fight, zone wars and more game modes to enjoy!" />
-	<link rel="stylesheet" href="css/style.css" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-	<meta name="description"
-		content="Discover 1v1, the online building simulator & third person shooting game. Battle royale, build fight, box fight, zone wars and more game modes to enjoy!" />
-	<meta name="keywords" content="just,build,simulator,practice,free,online,battle,royale" />
-	<script type="text/javascript" src="js/sdkloader/ima3.js"></script>
-
-	<!-- ZONETAG - PLACE INTO HEAD SECTION OR RUN CODE AT STARTUP -->
-	<script>
+<script type="text/javascript" src="js/sdkloader/ima3.js"></script>
+<script>
 		(function (zonefile) {
 			var y = window.location.href
 				.split("#")[0]
@@ -89,64 +157,9 @@
 				},
 			});
 	</script>
-	<!-- MIDROLL/INTERSTITIAL VIDEO API -->
-	<script src="js/cpmstar.js"></script>
-</head>
-
-<body>
-	<div class="ads">
-		<div class="ad-smallscreen">
-			<div class="ad ad-rectangle-bottom"></div>
-		</div>
-		<div class="ad ad-rectangle-upper" id="adRectangleUpper">
-			<!-- 300X250B PLACEMENT TAG - PLACE INTO BODY (ZONE TAG REQUIRED) -->
-			<script>
-				(function (w, pid) {
-					var r = function (c, m) {
-						c = c.split("").reduce(function (a, b) {
-							return ((a << 5) - a + b.charCodeAt(0)) >>> m;
-						}, 0);
-						return (10 + ((c * 7) % 26)).toString(36) + c.toString(36);
-					},
-						y = r(w.location.href.split("#")[0], 1),
-						c = r(w.location.href.split("#")[0] + pid, 0);
-					w.document.write('<div style="width:300px;height:250px" class="' + c + '"></div>');
-				})(window, 83023);
-			</script>
-		</div>
-		<div class="ad-largescreen">
-			<div class="ad ad-leaderboard-bottom">
-				<!-- 300X600B PLACEMENT TAG - PLACE INTO BODY (ZONE TAG REQUIRED) -->
-				<script>
-					(function (w, pid) {
-						var r = function (c, m) {
-							c = c.split("").reduce(function (a, b) {
-								return ((a << 5) - a + b.charCodeAt(0)) >>> m;
-							}, 0);
-							return (10 + ((c * 7) % 26)).toString(36) + c.toString(36);
-						},
-							y = r(w.location.href.split("#")[0], 1),
-							c = r(w.location.href.split("#")[0] + pid, 0);
-						w.document.write('<div style="width:300px;height:600px" class="' + c + '"></div>');
-					})(window, 85420);
-				</script>
-			</div>
-		</div>
-	</div>
-
-	<!-- <div id="interAdsContainer" style="display: none;"></div> -->
-	<div id="gameContainer"></div>
-	<div id="loader">
-		<img class="logo" src="logo.png" />
-		<div class="spinner"></div>
-		<div class="progress">
-			<div class="full"></div>
-		</div>
-	</div>
-
-	<script id="unity-loader" src="UnityLoader.js"></script>
-	<!--<script src="Build/UnityLoader.js"></script>-->
-	<script>
+<script src="js/cpmstar.js"></script>
+<script id="unity-loader" src="UnityLoader.js"></script>
+<script>
 		// var gameJsonUrl = ;
 		var hostname = window.location.hostname;
 		if (hostname.indexOf("dev1v1") >= 0 || hostname.indexOf("dev.1v1") >= 0 || hostname.indexOf("test1v1") >= 0 || hostname.indexOf("test.1v1") >= 0) {
@@ -307,20 +320,15 @@
 			adsVisible = false;
 		}
 	</script>
-	<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-	<script src="firebase/firebase-app.js"></script>
-
-	<!-- Add Firebase products that you want to use -->
-	<script src="firebase/firebase-analytics.js"></script>
-	<script src="firebase/firebase-auth.js"></script>
-	<script src="firebase/firebase-firestore.js"></script>
-	<script src="firebase/firebase-remote-config.js"></script>
-
-	<script src="js/firebase.js?v=147"></script>
-	<script src="js/login.js?v=147"></script>
-	<script src="js/firebase-config.js?v=147"></script>
-
-	<script>
+<script src="firebase/firebase-app.js"></script>
+<script src="firebase/firebase-analytics.js"></script>
+<script src="firebase/firebase-auth.js"></script>
+<script src="firebase/firebase-firestore.js"></script>
+<script src="firebase/firebase-remote-config.js"></script>
+<script src="js/firebase.js?v=147"></script>
+<script src="js/login.js?v=147"></script>
+<script src="js/firebase-config.js?v=147"></script>
+<script>
 		var hostname = window.location.hostname;
 		if (hostname.indexOf("dev1v1") >= 0 || hostname.indexOf("dev.1v1") >= 0 || hostname.indexOf("test1v1") >= 0 || hostname.indexOf("test.1v1") >= 0 || hostname.indexOf("localhost") >= 0) {
 			initializeFireBaseDev();
@@ -330,12 +338,11 @@
 
 		initRemoteConfig();
 	</script>
-
-	<script src="js/windowResize.js"></script>
-	<script src="js/adblockManager.js"></script>
-	<script src="js/macUserAgent.js"></script>
-	<script src="js/visibilityChangeListener.js"></script>
-	<script>
+<script src="js/windowResize.js"></script>
+<script src="js/adblockManager.js"></script>
+<script src="js/macUserAgent.js"></script>
+<script src="js/visibilityChangeListener.js"></script>
+<script>
 		function onUnityReady() {
 			checkAdBlock();
 			sendConfig();
@@ -343,6 +350,7 @@
 
 		fixMacUserAgent();
 	</script>
+    </template>
 </body>
 
 </html>

@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "Build/WebGL.data.unityweb",
+      "size": 49167945,
+      "type": "application/octet-stream",
+      "sha256": "0e05e29f480ac11291d4bfc4c2da499ba55cb2f4d94a2a13d5732b038b7211a0",
+      "parts": [
+        {
+          "path": "Build/WebGL.data.unityweb.part1",
+          "size": 10000000
+        },
+        {
+          "path": "Build/WebGL.data.unityweb.part2",
+          "size": 10000000
+        },
+        {
+          "path": "Build/WebGL.data.unityweb.part3",
+          "size": 10000000
+        },
+        {
+          "path": "Build/WebGL.data.unityweb.part4",
+          "size": 10000000
+        },
+        {
+          "path": "Build/WebGL.data.unityweb.part5",
+          "size": 9167945
+        }
+      ]
+    },
+    {
+      "path": "Build/WebGL.wasm.code.unityweb",
+      "size": 5302672,
+      "type": "application/wasm",
+      "sha256": "9ef2af24c0b1ba98b49ed2250e8b457d9dff0a4cea68bab73b06cf7db1757010"
+    },
+    {
+      "path": "Build/WebGL.wasm.framework.unityweb",
+      "size": 93095,
+      "type": "application/javascript",
+      "sha256": "6a6b9da415031ed17deb0e2a6dc42e12060d7a97bfa9404bf361c7bb7a3251b0"
+    }
+  ]
+}
