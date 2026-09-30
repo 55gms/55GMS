@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "Build/FlickGoal.data",
+      "size": 39844187,
+      "type": "application/octet-stream",
+      "sha256": "3570ed08b3f7c8f6291d42a98790d8c37bccbf051218c1fa9efe3e2b0b99b9c0",
+      "parts": [
+        {
+          "path": "Build/FlickGoal.data.part1",
+          "size": 10000000
+        },
+        {
+          "path": "Build/FlickGoal.data.part2",
+          "size": 10000000
+        },
+        {
+          "path": "Build/FlickGoal.data.part3",
+          "size": 10000000
+        },
+        {
+          "path": "Build/FlickGoal.data.part4",
+          "size": 9844187
+        }
+      ]
+    },
+    {
+      "path": "Build/FlickGoal.framework.js",
+      "size": 677231,
+      "type": "application/javascript",
+      "sha256": "ef3218ed07f0b00544130bcf29b028e13522a51fda4257ae0e0bb86414c4c03d"
+    },
+    {
+      "path": "Build/FlickGoal.wasm",
+      "size": 41735846,
+      "type": "application/wasm",
+      "sha256": "9c2ce3d5671b9a336724e27b5ed1dba74e8abdd513bae7f4910973420b08d2e1",
+      "parts": [
+        {
+          "path": "Build/FlickGoal.wasm.part1",
+          "size": 10000000
+        },
+        {
+          "path": "Build/FlickGoal.wasm.part2",
+          "size": 10000000
+        },
+        {
+          "path": "Build/FlickGoal.wasm.part3",
+          "size": 10000000
+        },
+        {
+          "path": "Build/FlickGoal.wasm.part4",
+          "size": 10000000
+        },
+        {
+          "path": "Build/FlickGoal.wasm.part5",
+          "size": 1735846
+        }
+      ]
+    }
+  ]
+}

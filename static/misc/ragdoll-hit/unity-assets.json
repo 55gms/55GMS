@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "Build/3276aa7c11496bcc48eb6908f112f0c3.js.unityweb",
+      "size": 365286,
+      "type": "application/octet-stream",
+      "sha256": "f03903333be45fb5d00f8be063984ea484f340f32f4e0b2bb71497aff72a6e21"
+    },
+    {
+      "path": "Build/959bf1c60308f1c34bf072f43c3c17d4.data.unityweb",
+      "size": 13459814,
+      "type": "application/octet-stream",
+      "sha256": "14b1c71965daef879f425661f92e2caf4b10cce1841501605bbd66827215cfbb"
+    },
+    {
+      "path": "Build/f23c0f3f40a28f1adce731399dde22aa.wasm.unityweb",
+      "size": 25480332,
+      "type": "application/wasm",
+      "sha256": "8338ea05e4a9b8d0684049ad816203d72b04f0c064733aa110be89a142a4c00d",
+      "parts": [
+        {
+          "path": "Build/f23c0f3f40a28f1adce731399dde22aa.wasm.unityweb.part1",
+          "size": 10000000
+        },
+        {
+          "path": "Build/f23c0f3f40a28f1adce731399dde22aa.wasm.unityweb.part2",
+          "size": 10000000
+        },
+        {
+          "path": "Build/f23c0f3f40a28f1adce731399dde22aa.wasm.unityweb.part3",
+          "size": 5480332
+        }
+      ]
+    }
+  ]
+}

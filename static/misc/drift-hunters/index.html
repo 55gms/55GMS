@@ -2,6 +2,9 @@
 <html lang="en-us">
 
 <head>
+    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css">
+    <script type="module" src="/assets/js/unity-cdn-loader.js"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/drift-hunters/">
   <title>Drift Hunters</title>
 
 
@@ -119,10 +122,12 @@
 </head>
 
 <body style="margin: 0 auto; overflow: hidden">
+    <div id="unity-cdn-loading" role="status" aria-live="polite">LOADING...</div>
   <div class="webgl-content">
     <div id="gameContainer" style="width: 100%; height: 100%; margin: 0"></div>
   </div>
-</body>
+
+    <template id="unity-game-scripts">
 <script src="UnityLoader2019.js"></script>
 <script>
   var gameInstance = UnityLoader.instantiate("gameContainer", "dh.json");
@@ -133,5 +138,9 @@
     }
   }
 </script>
+    </template>
+</body>
+
+
 
 </html>

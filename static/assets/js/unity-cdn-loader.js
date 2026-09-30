@@ -13,6 +13,7 @@ const objectURLs = [];
 let total = 0;
 let finished = false;
 let failed = false;
+let bootComplete = false;
 
 function fail(error) {
   if (finished) return;
@@ -34,7 +35,7 @@ function ready() {
   if (failed || finished) return;
   finished = true;
   overlay.hidden = true;
-  cleanupEvents();
+  if (bootComplete) startupEvents.cleanup();
 }
 
 // These games originally installed load handlers during HTML parsing. Their
@@ -42,6 +43,7 @@ function ready() {
 function replayLateEvents() {
   const windowAdd = window.addEventListener;
   const documentAdd = document.addEventListener;
+  const pendingLoad = [];
   function register(target, original, eventName, hasFired) {
     target.addEventListener = function (type, callback, options) {
       if (type !== eventName || !callback) {
@@ -49,13 +51,17 @@ function replayLateEvents() {
       }
       let called = false;
       const invoke = (event) => {
+        if (target === window && !bootComplete) return;
         if (called || options?.signal?.aborted) return;
         called = true;
         if (typeof callback === "function") callback.call(target, event);
         else callback.handleEvent(event);
       };
       original.call(this, type, invoke, options);
-      if (hasFired()) setTimeout(() => invoke(new Event(type)), 0);
+      if (target === window && !bootComplete)
+        pendingLoad.push(() => invoke(new Event(type)));
+      else if (target === window || hasFired())
+        setTimeout(() => invoke(new Event(type)), 0);
     };
   }
   register(window, windowAdd, "load", () => document.readyState === "complete");
@@ -68,6 +74,7 @@ function replayLateEvents() {
   let onload = window.onload;
   let invoked = null;
   const invokeOnload = () => {
+    if (!bootComplete) return;
     if (onload && invoked !== onload) {
       invoked = onload;
       onload.call(window, new Event("load"));
@@ -78,20 +85,38 @@ function replayLateEvents() {
     get: () => onload,
     set(callback) {
       onload = callback;
-      if (document.readyState === "complete") setTimeout(invokeOnload, 0);
+      if (bootComplete) setTimeout(invokeOnload, 0);
     },
   });
   windowAdd.call(window, "load", invokeOnload);
-  return () => {
-    window.addEventListener = windowAdd;
-    document.addEventListener = documentAdd;
-    delete window.onload;
-    window.onload = onload;
-    window.removeEventListener("load", invokeOnload);
+  return {
+    flush() {
+      bootComplete = true;
+      pendingLoad.forEach((invoke) => invoke());
+      invokeOnload();
+      if (finished) this.cleanup();
+    },
+    cleanup() {
+      window.addEventListener = windowAdd;
+      document.addEventListener = documentAdd;
+      delete window.onload;
+      window.onload = invoked === onload ? null : onload;
+      window.removeEventListener("load", invokeOnload);
+    },
   };
 }
 
-const cleanupEvents = replayLateEvents();
+const startupEvents = replayLateEvents();
+
+// A CDN base also changes root-relative URLs. Keep site-wide resources on the
+// app origin while game-relative resources continue to resolve against the CDN.
+for (const element of document.querySelectorAll("link[href], img[src]")) {
+  const attribute = element.tagName === "LINK" ? "href" : "src";
+  const value = element.getAttribute(attribute);
+  if (value.startsWith("/") && !value.startsWith("//")) {
+    element.setAttribute(attribute, new URL(value, location.origin).href);
+  }
+}
 
 function watchGlobal(name, wrap) {
   let value = window[name];
@@ -174,6 +199,10 @@ async function runGameScripts() {
     for (const attribute of original.attributes) {
       script.setAttribute(attribute.name, attribute.value);
     }
+    const source = original.getAttribute("src");
+    if (source?.startsWith("/") && !source.startsWith("//")) {
+      script.src = new URL(source, location.origin).href;
+    }
     script.textContent = original.textContent;
     if (!original.hasAttribute("src")) {
       document.body.appendChild(script);
@@ -218,6 +247,8 @@ try {
   window.fetch = async function (input, options) {
     const result = await routedFetch.call(this, input, options);
     const file = files.get(assetKey(input, base));
+    if (file && !result.ok)
+      fail(new Error(`${file.path}: HTTP ${result.status}`));
     if (
       !file ||
       file.parts ||
@@ -263,10 +294,19 @@ try {
         () => fail(new Error(`Failed to load ${file.path}`)),
         { once: true },
       );
+      this.addEventListener(
+        "load",
+        () => {
+          if (this.status >= 400)
+            fail(new Error(`${file.path}: HTTP ${this.status}`));
+        },
+        { once: true },
+      );
     }
     return open.call(this, method, url, ...rest);
   };
   await runGameScripts();
+  startupEvents.flush();
 } catch (error) {
   fail(error);
 }

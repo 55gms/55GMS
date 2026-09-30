@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "Build/1e1205ddd913941ee03ba9e2184e5318.data",
+      "size": 31834445,
+      "type": "application/octet-stream",
+      "sha256": "0c80be93aa8d802469b2e08ddd73af9de43c5c29688ad4c9ddb430e12cd42aef",
+      "parts": [
+        {
+          "path": "Build/1e1205ddd913941ee03ba9e2184e5318.data.part1",
+          "size": 10000000
+        },
+        {
+          "path": "Build/1e1205ddd913941ee03ba9e2184e5318.data.part2",
+          "size": 10000000
+        },
+        {
+          "path": "Build/1e1205ddd913941ee03ba9e2184e5318.data.part3",
+          "size": 10000000
+        },
+        {
+          "path": "Build/1e1205ddd913941ee03ba9e2184e5318.data.part4",
+          "size": 1834445
+        }
+      ]
+    },
+    {
+      "path": "Build/94456554906d4faa25c8323b67abe9b2.framework.js",
+      "size": 368524,
+      "type": "application/javascript",
+      "sha256": "97c592fd8b927e7ef3e3736400c3c48ee714763a2879f6ce400ce7429eda552f"
+    },
+    {
+      "path": "Build/95c35c14f99c257b8362061616967b38.wasm",
+      "size": 39407669,
+      "type": "application/wasm",
+      "sha256": "c94e1cbb5515c2b995830766115ba2f0b3087475514827d6bb0dc17c22453fdc",
+      "parts": [
+        {
+          "path": "Build/95c35c14f99c257b8362061616967b38.wasm.part1",
+          "size": 10000000
+        },
+        {
+          "path": "Build/95c35c14f99c257b8362061616967b38.wasm.part2",
+          "size": 10000000
+        },
+        {
+          "path": "Build/95c35c14f99c257b8362061616967b38.wasm.part3",
+          "size": 10000000
+        },
+        {
+          "path": "Build/95c35c14f99c257b8362061616967b38.wasm.part4",
+          "size": 9407669
+        }
+      ]
+    }
+  ]
+}

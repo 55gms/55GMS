@@ -2,19 +2,32 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css">
+    <script type="module" src="/assets/js/unity-cdn-loader.js"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/gladihoppers/">
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-N0LG27M8L8"></script>
-  <script>
+
+
+
+
+  <title>Gladihoppers</title>
+</head>
+
+
+<body>
+    <div id="unity-cdn-loading" role="status" aria-live="polite">LOADING...</div>
+
+
+    <template id="unity-game-scripts">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N0LG27M8L8"></script>
+<script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'G-N0LG27M8L8');
   </script>
-  <script src="/assets/js/script.js?v=14"></script>
-
-  <title>Gladihoppers</title>
-</head>
+<script src="/assets/js/script.js?v=14"></script>
 <script>
   window.config = {
     loader: 'unity',
@@ -37,9 +50,8 @@
     },
   };
 </script>
-
-<body>
-  <script src="master-loader.js"></script>
+<script src="master-loader.js"></script>
+    </template>
 </body>
 
 </html>

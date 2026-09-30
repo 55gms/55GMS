@@ -72,6 +72,59 @@ test("unsplit assets stay on the CDN without prefetching", async () => {
   );
 });
 
+test("frameworks served with binary CDN MIME types become executable JavaScript blobs", async () => {
+  const code = "window.unityFramework = () => {};";
+  const file = {
+    path: "Build/framework.js.br",
+    size: code.length,
+    type: "application/javascript",
+  };
+  const result = await prepareAssets(
+    { files: [file] },
+    base,
+    () => {},
+    async () =>
+      new Response(code, {
+        headers: { "content-type": "application/octet-stream" },
+      }),
+  );
+  try {
+    const response = await fetch(result.routes.get(assetKey(file.path, base)));
+    assert.equal(
+      response.headers.get("content-type"),
+      "application/javascript",
+    );
+    assert.equal(await response.text(), code);
+    class Script {}
+    let source;
+    Object.defineProperty(Script.prototype, "src", {
+      configurable: true,
+      get() {
+        return source;
+      },
+      set(value) {
+        source = value;
+      },
+    });
+    class XHR {
+      open() {}
+    }
+    const restore = installAssetRoutes(result.routes, base, {
+      fetch,
+      XMLHttpRequest: XHR,
+      HTMLScriptElement: Script,
+    });
+    const script = new Script();
+    script.src = file.path;
+    assert.equal(script.src, result.routes.get(assetKey(file.path, base)));
+    restore();
+    script.src = file.path;
+    assert.equal(script.src, file.path);
+  } finally {
+    result.blobs.forEach(URL.revokeObjectURL);
+  }
+});
+
 test("missing, truncated and oversized chunks stop startup", async () => {
   const part = { path: "game.part1", size: 3 };
   for (const response of [
@@ -151,4 +204,26 @@ test("fetch and XHR receive merged bytes while engines retain filename suffixes"
   restore();
   assert.equal(environment.fetch, originalFetch);
   assert.equal(XHR.prototype.open, originalOpen);
+});
+
+test("root-relative site assets stay on the app origin under a CDN base", async () => {
+  const calls = [];
+  class XHR {
+    open(...args) {
+      calls.push(args);
+    }
+  }
+  const environment = {
+    location: { origin: "https://55gms.com" },
+    fetch: async (input) => {
+      calls.push(input);
+      return new Response("ok");
+    },
+    XMLHttpRequest: XHR,
+  };
+  installAssetRoutes(new Map(), base, environment);
+  await environment.fetch("/assets/json/ads.json");
+  new XHR().open("GET", "/api/user");
+  assert.equal(calls[0], "https://55gms.com/assets/json/ads.json");
+  assert.deepEqual(calls[1], ["GET", "https://55gms.com/api/user"]);
 });

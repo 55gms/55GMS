@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "webgl.datagz",
+      "size": 20243444,
+      "type": "application/octet-stream",
+      "sha256": "53b3ae28b810f30c37fbb70912337960cc0978c841e735805a55f708c9ec9ff8",
+      "parts": [
+        {
+          "path": "webgl.datagz.part1",
+          "size": 10000000
+        },
+        {
+          "path": "webgl.datagz.part2",
+          "size": 10000000
+        },
+        {
+          "path": "webgl.datagz.part3",
+          "size": 243444
+        }
+      ]
+    },
+    {
+      "path": "webgl.jsgz",
+      "size": 23442714,
+      "type": "application/javascript",
+      "sha256": "17bd81a460079653f004e707885e8558e7d8f458fb2947dae7190b9e060eed9d",
+      "parts": [
+        {
+          "path": "webgl.jsgz.part1",
+          "size": 10000000
+        },
+        {
+          "path": "webgl.jsgz.part2",
+          "size": 10000000
+        },
+        {
+          "path": "webgl.jsgz.part3",
+          "size": 3442714
+        }
+      ]
+    },
+    {
+      "path": "webgl.memgz",
+      "size": 1690796,
+      "type": "application/octet-stream",
+      "sha256": "c6bf68ecf057b92665bb13446748f7d19c33c133b4d01c2eeeed25ddd212f080"
+    }
+  ]
+}
