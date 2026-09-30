@@ -1,5 +1,5 @@
-// Thumbnails above the fold load immediately; the rest load as they scroll in.
-const EAGER_THUMBNAILS = 24;
+// Thumbnails above the fold get high fetch priority; all thumbnails load eagerly.
+const PRIORITY_THUMBNAILS = 24;
 let loadingFadeTimer;
 let loadingHideTimer;
 
@@ -44,7 +44,7 @@ async function loadGames() {
     progressPercentage.textContent = "100%";
 
     cards.forEach(({ card, image, imageUrl }, index) => {
-      if (index >= EAGER_THUMBNAILS) image.loading = "lazy";
+      if (index < PRIORITY_THUMBNAILS) image.fetchPriority = "high";
       image.addEventListener(
         "error",
         () => card.classList.add("game-image-error"),
@@ -110,7 +110,7 @@ function createGameCard(game) {
   image.alt = "";
   image.width = 175;
   image.height = 175;
-  image.decoding = "async";
+  image.loading = "eager";
 
   const label = document.createElement("p");
   label.className = "text";

@@ -1161,7 +1161,7 @@
       const link = document.createElement("a");
       link.className = "ntp-shortcut";
       link.href = "#";
-      link.innerHTML = `<img alt="" loading="lazy" decoding="async" /><span></span>`;
+      link.innerHTML = `<img alt="" loading="eager" /><span></span>`;
       link.querySelector("img").src = img;
       link.querySelector("span").textContent = title;
       link.addEventListener("click", (e) => {

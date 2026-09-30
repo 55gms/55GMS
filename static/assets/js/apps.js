@@ -41,8 +41,7 @@ function createAppCard(app) {
   image.alt = "";
   image.width = 175;
   image.height = 175;
-  image.loading = "lazy";
-  image.decoding = "async";
+  image.loading = "eager";
   image.src = app.image;
 
   const label = document.createElement("p");
