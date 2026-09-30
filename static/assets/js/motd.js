@@ -1,9 +1,6 @@
-document.addEventListener("DOMContentLoaded", (event) => {
+window.addEventListener("load", (event) => {
   fetch("/assets/json/motd.json")
-    .then((response) => {
-      if (!response.ok) throw new Error("Daily updates unavailable");
-      return response.json();
-    })
+    .then((response) => response.json())
     .then((data) => {
       // Alert user if there is unread messages
       ["motd", "qotd"].forEach((type) => {
@@ -12,7 +9,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
         // Change color to red if the message has not been viewed
         if (localStorage.getItem(`${type}-viewed`) != "true") {
-          document.getElementById(type).classList.add("notice-unread");
+          document.getElementById(type).style.color = "#fc8585";
+          document.getElementById(type).classList.add("pulse");
         }
       });
 
@@ -26,14 +24,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }).then((response) => {
           localStorage.setItem(`${type}-last-body`, body);
           localStorage.setItem(`${type}-viewed`, "true");
-          document.getElementById(type).classList.remove("notice-unread");
+          document.getElementById(type).style.color = "#f8f4f4";
+          document.getElementById(type).classList.remove("pulse");
         });
       };
-
-      document.getElementById("notice-status").textContent = "";
-      ["motd", "qotd"].forEach((id) => {
-        document.getElementById(id).disabled = false;
-      });
 
       // Set onclick events for motd and qotd
       document.getElementById("motd").onclick = () =>
@@ -57,20 +51,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
       const displayError = () => {
         Swal.fire({
           icon: "error",
-          title: "Daily updates unavailable",
-          text: "Check your connection and reload the page to try again.",
+          title: "uh oh",
+          html: "well oh no, prob error occurred while fetching or parsing data",
+          footer: `<i style='font-size: 11px;'>${error}</i>`,
         });
       };
-      document.getElementById("notice-status").textContent = "";
-      ["motd", "qotd"].forEach((id) => {
-        document.getElementById(id).disabled = false;
-      });
-
-      document.getElementById("notice-status").textContent =
-        "Could not load daily updates. Reload to try again.";
-      ["motd", "qotd"].forEach((id) => {
-        document.getElementById(id).disabled = false;
-      });
       // Set onclick events for motd and qotd to display the error message
       document.getElementById("motd").onclick = displayError;
       document.getElementById("qotd").onclick = displayError;

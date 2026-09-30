@@ -1,270 +1,193 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Google</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Cache-control" content="public" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=6" />
-    <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
-    <script src="/assets/js/settings.js?v=7"></script>
-    <link rel="stylesheet" href="/assets/css/settings.css?v=6" />
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
-    <script src="/assets/js/font.js" defer></script>
-    <script src="/assets/js/easteregg.min.js" async></script>
-    <script src="/assets/js/script.js?v=17"></script>
-    <meta name="theme-color" content="#0b1220" />
 
-    <link rel="stylesheet" href="/assets/css/ui.css?v=1" />
-    <script src="/assets/js/ui.js?v=1" defer></script>
-  </head>
+<head>
+  <title>Google</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-control" content="public">
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=5" />
+  <link rel="stylesheet" href="/assets/css/nav.css?v=6" />
+  <script src="/assets/js/settings.js?v=6"></script>
+  <link rel="stylesheet" href="/assets/css/settings.css?v=6" />
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+  <script src="/assets/js/font.js" defer></script>
+  <script src="/assets/js/easteregg.min.js" async></script>
+  <script src="/assets/js/script.js?v=16"></script>
+</head>
 
-  <body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <nav aria-label="Main navigation">
-      <div class="navbar">
-        <a class="title" href="/">Reds Exploit Corner</a>
-        <a href="/g"
-          ><i aria-hidden="true" class="fa-solid fa-gamepad">&nbsp;</i>Games</a
-        >
-        <a href="/a"
-          ><i aria-hidden="true" class="fa-solid fa-box-archive">&nbsp;</i
-          >Apps</a
-        >
-        <a href="/-"
-          ><i aria-hidden="true" class="fa-solid fa-tv">&nbsp;</i>Media</a
-        >
-        <a href="/s" aria-current="page"
-          ><i aria-hidden="true" class="fa-solid fa-gears">&nbsp;</i>Settings</a
-        >
-        <a href="/chat" aria-label="Chat"
-          ><i aria-hidden="true" class="fa-solid fa-comments">&nbsp;</i></a
-        >
-        <a href="/profile" aria-label="Profile"
-          ><i aria-hidden="true" class="fa-solid fa-user"></i
-        ></a>
+<body>
+  <nav>
+    <div class="navbar">
+      <a class="title" href="/">Reds Exploit Corner</a>
+      <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
+      <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
+      <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
+      <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
+      <a href="/chat" aria-label="Chat"><i class="fa-solid fa-comments">&nbsp;</i></a>
+      <a href="/profile" aria-label="Profile"><i class="fa-solid fa-user"></i></a>
+    </div>
+  </nav>
+
+  <main class="settings-page">
+    <header class="settings-header">
+      <p class="settings-kicker">Site controls</p>
+      <h1>Settings</h1>
+      <p>Adjust privacy, appearance, and saved browser data.</p>
+    </header>
+
+    <section class="settings-grid" aria-label="Settings controls">
+      <article class="settings-card">
+        <div class="settings-card-header">
+          <i class="fa-solid fa-palette" aria-hidden="true"></i>
+          <div>
+            <h2>Theme</h2>
+            <p>Choose the site colors.</p>
+          </div>
+        </div>
+        <label for="siteTheme">Theme</label>
+        <select name="Site Theme" id="siteTheme" title="Site Theme">
+          <option value="legacy">Legacy</option>
+          <option value="blue">Blue</option>
+          <option value="midnight">Midnight</option>
+          <option value="forest">Forest</option>
+          <option value="sunset">Sunset</option>
+          <option value="contrast">High Contrast</option>
+        </select>
+      </article>
+
+      <article class="settings-card settings-card-wide">
+        <div class="settings-card-header">
+          <i class="fa-solid fa-user-secret" aria-hidden="true"></i>
+          <div>
+            <h2>Tab cloak</h2>
+            <p>Change the tab title and icon.</p>
+          </div>
+        </div>
+        <label for="premadecloaks">Preset</label>
+        <select name="Readymade Cloaks" id="premadecloaks" title="Cloaks">
+          <option value="bsite">BilliBilli</option>
+          <option value="calendar">Google Calendar</option>
+          <option value="canvas">Canvas</option>
+          <option value="deltamath">Deltamath</option>
+          <option value="ed">Edpuzzle</option>
+          <option value="classroom">Google Classroom</option>
+          <option value="drive">Google Drive</option>
+          <option value="gmail">Gmail</option>
+          <option value="itchio">Itch.io</option>
+          <option value="khan">Khan Academy</option>
+          <option value="meets">Google Meet</option>
+          <option value="search" selected>Google Search</option>
+          <option value="wikipedia">Wikipedia</option>
+          <option value="zoom">Zoom</option>
+        </select>
+        <div class="settings-two-column">
+          <div>
+            <label for="title">Custom title</label>
+            <input class="tab-cloaker-form" type="text" id="title" placeholder="Google" onkeyup="setTitle(this.value)"
+              name="title">
+          </div>
+          <div>
+            <label for="icon">Custom icon URL</label>
+            <input class="tab-cloaker-form" type="text" id="icon" name="icon" placeholder="/img/favicon.ico"
+              onkeyup="setFavicon(this.value.trim())">
+          </div>
+        </div>
+        <div class="settings-actions">
+          <button class="tab-cloak" onclick="setCloak();">Apply preset</button>
+          <button class="tab-cloak tab-cloak-secondary" onclick="resetTab();">Reset cloak</button>
+        </div>
+      </article>
+
+      <article class="settings-card">
+        <div class="settings-card-header">
+          <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+          <div>
+            <h2>About:blank</h2>
+            <p>Open the site in a hidden tab.</p>
+          </div>
+        </div>
+        <div class="settings-toggle-row">
+          <span>Enable popup mode</span>
+          <label class="switch">
+            <input type="checkbox" id="toggle">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <button onclick="cloak()" class="tab-cloak">Open popup</button>
+      </article>
+
+      <article class="settings-card">
+        <div class="settings-card-header">
+          <i class="fa-solid fa-keyboard" aria-hidden="true"></i>
+          <div>
+            <h2>Panic key</h2>
+            <p>Set a quick exit key and destination.</p>
+          </div>
+        </div>
+        <label for="key">Key</label>
+        <input class="tab-cloaker-form" type="text" id="key" placeholder="`" onkeyup="setPanicKey()" name="key">
+        <label for="link">Exit URL</label>
+        <input class="tab-cloaker-form" type="text" id="link" name="link" placeholder="https://google.com/"
+          onkeyup="setPanicLink()">
+      </article>
+
+      <article class="settings-card settings-card-compact">
+        <div class="settings-card-header">
+          <i class="fa-solid fa-database" aria-hidden="true"></i>
+          <div>
+            <h2>Save data</h2>
+            <p>Import or export browser settings.</p>
+          </div>
+        </div>
+        <input type="file" id="uploadSave" class="uploadBox uploadBox-hidden" accept=".gmsconfig">
+        <div class="settings-actions">
+          <button class="tab-cloak" onclick="openSaveImportPicker();">Import data</button>
+          <button class="tab-cloak tab-cloak-secondary" onclick="saveSave();">Export data</button>
+        </div>
+      </article>
+
+      <article class="settings-card">
+        <div class="settings-card-header">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <div>
+            <h2>Site info</h2>
+            <p>Version and support details.</p>
+          </div>
+        </div>
+        <dl class="settings-info-list">
+          <div>
+            <dt>Updated</dt>
+            <dd id="updated">Checking...</dd>
+          </div>
+          <div>
+            <dt>Version</dt>
+            <dd>3.1.0</dd>
+          </div>
+          <div>
+            <dt>Support</dt>
+            <dd><a href="https://discord.gg/vV7mkcPhMy">Discord</a></dd>
+          </div>
+        </dl>
+      </article>
+    </section>
+  </main>
+
+  <div class="settings-modal" id="importConfirmModal" aria-hidden="true">
+    <div class="settings-modal-backdrop" data-import-cancel></div>
+    <div class="settings-modal-panel" role="dialog" aria-modal="true" aria-labelledby="importConfirmTitle">
+      <div class="settings-modal-icon">
+        <i class="fa-solid fa-file-import" aria-hidden="true"></i>
       </div>
-    </nav>
-
-    <main id="main-content" tabindex="-1" class="settings-page">
-      <header class="settings-header">
-        <p class="settings-kicker">Site controls</p>
-        <h1>Settings</h1>
-        <p>Adjust privacy, appearance, and saved browser data.</p>
-      </header>
-
-      <section class="settings-grid" aria-label="Settings controls">
-        <article class="settings-card">
-          <div class="settings-card-header">
-            <i class="fa-solid fa-palette" aria-hidden="true"></i>
-            <div>
-              <h2>Theme</h2>
-              <p>Choose the site colors.</p>
-            </div>
-          </div>
-          <label for="siteTheme">Theme</label>
-          <select name="Site Theme" id="siteTheme" title="Site Theme">
-            <option value="legacy">Legacy</option>
-            <option value="blue">Blue</option>
-            <option value="midnight">Midnight</option>
-            <option value="forest">Forest</option>
-            <option value="sunset">Sunset</option>
-            <option value="contrast">High Contrast</option>
-          </select>
-        </article>
-
-        <article class="settings-card settings-card-wide">
-          <div class="settings-card-header">
-            <i class="fa-solid fa-user-secret" aria-hidden="true"></i>
-            <div>
-              <h2>Tab cloak</h2>
-              <p>Change the tab title and icon.</p>
-            </div>
-          </div>
-          <label for="premadecloaks">Preset</label>
-          <select name="Readymade Cloaks" id="premadecloaks" title="Cloaks">
-            <option value="bsite">BilliBilli</option>
-            <option value="calendar">Google Calendar</option>
-            <option value="canvas">Canvas</option>
-            <option value="deltamath">Deltamath</option>
-            <option value="ed">Edpuzzle</option>
-            <option value="classroom">Google Classroom</option>
-            <option value="drive">Google Drive</option>
-            <option value="gmail">Gmail</option>
-            <option value="itchio">Itch.io</option>
-            <option value="khan">Khan Academy</option>
-            <option value="meets">Google Meet</option>
-            <option value="search" selected>Google Search</option>
-            <option value="wikipedia">Wikipedia</option>
-            <option value="zoom">Zoom</option>
-          </select>
-          <div class="settings-two-column">
-            <div>
-              <label for="title">Custom title</label>
-              <input
-                class="tab-cloaker-form"
-                type="text"
-                id="title"
-                autocomplete="off"
-                placeholder="Google"
-                oninput="setTitle(this.value)"
-                name="title"
-              />
-            </div>
-            <div>
-              <label for="icon">Custom icon URL</label>
-              <input
-                class="tab-cloaker-form"
-                type="text"
-                id="icon"
-                autocomplete="off"
-                name="icon"
-                placeholder="/img/favicon.ico"
-                oninput="setFavicon(this.value.trim())"
-              />
-            </div>
-          </div>
-          <div class="settings-actions">
-            <button class="tab-cloak" onclick="setCloak()">Apply preset</button>
-            <button class="tab-cloak tab-cloak-secondary" onclick="resetTab()">
-              Reset cloak
-            </button>
-          </div>
-        </article>
-
-        <article class="settings-card">
-          <div class="settings-card-header">
-            <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
-            <div>
-              <h2>About:blank</h2>
-              <p>Open the site in a hidden tab.</p>
-            </div>
-          </div>
-          <div class="settings-toggle-row">
-            <label for="toggle">Enable popup mode</label>
-            <label class="switch">
-              <input
-                type="checkbox"
-                id="toggle"
-                aria-label="Enable popup mode"
-              />
-              <span class="slider round"></span>
-            </label>
-          </div>
-          <button onclick="cloak()" class="tab-cloak">Open popup</button>
-        </article>
-
-        <article class="settings-card">
-          <div class="settings-card-header">
-            <i class="fa-solid fa-keyboard" aria-hidden="true"></i>
-            <div>
-              <h2>Panic key</h2>
-              <p>Set a quick exit key and destination.</p>
-            </div>
-          </div>
-          <label for="key">Key</label>
-          <input
-            class="tab-cloaker-form"
-            type="text"
-            id="key"
-            autocomplete="off"
-            placeholder="`"
-            oninput="setPanicKey()"
-            name="key"
-          />
-          <label for="link">Exit URL</label>
-          <input
-            class="tab-cloaker-form"
-            type="text"
-            id="link"
-            autocomplete="off"
-            name="link"
-            placeholder="https://google.com/"
-            oninput="setPanicLink()"
-          />
-        </article>
-
-        <article class="settings-card settings-card-compact">
-          <div class="settings-card-header">
-            <i class="fa-solid fa-database" aria-hidden="true"></i>
-            <div>
-              <h2>Save data</h2>
-              <p>Import or export browser settings.</p>
-            </div>
-          </div>
-          <input
-            type="file"
-            id="uploadSave"
-            aria-label="Import saved settings"
-            class="uploadBox uploadBox-hidden"
-            accept=".gmsconfig"
-          />
-          <div class="settings-actions">
-            <button class="tab-cloak" onclick="openSaveImportPicker()">
-              Import data
-            </button>
-            <button class="tab-cloak tab-cloak-secondary" onclick="saveSave()">
-              Export data
-            </button>
-          </div>
-        </article>
-
-        <article class="settings-card">
-          <div class="settings-card-header">
-            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-            <div>
-              <h2>Site info</h2>
-              <p>Version and support details.</p>
-            </div>
-          </div>
-          <dl class="settings-info-list">
-            <div>
-              <dt>Updated</dt>
-              <dd id="updated">Checking…</dd>
-            </div>
-            <div>
-              <dt>Version</dt>
-              <dd>3.1.0</dd>
-            </div>
-            <div>
-              <dt>Support</dt>
-              <dd><a href="https://discord.gg/vV7mkcPhMy">Discord</a></dd>
-            </div>
-          </dl>
-        </article>
-      </section>
-    </main>
-
-    <div class="settings-modal" id="importConfirmModal" aria-hidden="true">
-      <div class="settings-modal-backdrop" data-import-cancel></div>
-      <div
-        class="settings-modal-panel"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="importConfirmTitle"
-      >
-        <div class="settings-modal-icon">
-          <i class="fa-solid fa-file-import" aria-hidden="true"></i>
-        </div>
-        <h2 id="importConfirmTitle">Are you sure you want to import?</h2>
-        <p id="importConfirmFile">
-          This will replace matching saved browser settings.
-        </p>
-        <div class="settings-modal-actions">
-          <button class="tab-cloak" id="confirmImportSave" type="button">
-            Yes, import
-          </button>
-          <button
-            class="tab-cloak tab-cloak-secondary"
-            id="cancelImportSave"
-            type="button"
-          >
-            Cancel
-          </button>
-        </div>
+      <h2 id="importConfirmTitle">Are you sure you want to import?</h2>
+      <p id="importConfirmFile">This will replace matching saved browser settings.</p>
+      <div class="settings-modal-actions">
+        <button class="tab-cloak" id="confirmImportSave" type="button">Yes, import</button>
+        <button class="tab-cloak tab-cloak-secondary" id="cancelImportSave" type="button">Cancel</button>
       </div>
     </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/gh/docklib/partners@master/partner-7a44b4ab.js?v=1"></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/gh/docklib/partners@master/partner-7a44b4ab.js?v=1"></script>
+</body>
+
 </html>

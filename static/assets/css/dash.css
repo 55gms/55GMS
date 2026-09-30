@@ -1,68 +1,59 @@
-.dashboard {
-  max-width: 1000px;
-  margin: 32px auto 64px;
-}
-.dashboard-notices {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-  margin: 24px 0;
-}
-.dashboard-notices .gs {
-  margin: 0;
-  min-height: 48px;
-}
-.dashboard-links {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  margin: 32px 0;
-}
-.dashboard-link {
-  padding: 24px;
-  border: 1px solid var(--site-border);
-  border-radius: var(--site-radius-md);
-  background: var(--site-surface);
-  color: var(--site-text);
-}
-.dashboard-link:hover {
-  border-color: var(--site-link);
-  background: var(--site-button);
-  color: var(--site-text);
-}
-.dashboard-link h2 {
-  margin: 0 0 8px;
-  font-size: 1.3rem;
-}
-.dashboard-link p {
-  margin: 0;
-  color: var(--site-muted);
-}
-.dashboard-footer {
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+#btnn {
+  font-family: "Roboto", serif;
+  cursor: pointer;
+  background-color: var(--site-accent, #fc8585);
+  border: none;
+  color: var(--site-accent-text, rgb(248, 244, 244));
+  padding: 15px 20px;
+  margin: 3px 6px 3px 6px;
   text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: var(--site-radius-sm, 10px);
+  transition: all 0.1s ease;
+  transform: scale(1);
 }
-.dashboard-footer a {
-  text-decoration: underline;
-  text-underline-offset: 3px;
+#btnn:hover {
+  transform: scale(1.1);
 }
-.notice-unread::after {
-  content: " · New";
-  color: var(--site-link-hover);
+#btnn:active {
+  transform: scale(0.9);
 }
 
-button.dashboard-link {
-  text-align: left;
-  font: inherit;
+.btnn {
+  font-family: "Roboto", serif;
   cursor: pointer;
+  background-color: var(--site-accent, #fc8585);
+  border: none;
+  color: var(--site-accent-text, rgb(248, 244, 244));
+  padding: 15px 20px;
+  margin: 3px 6px 3px 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: var(--site-radius-sm, 10px);
+  transition: all 0.1s ease;
+  transform: scale(1);
 }
-.dashboard-link-title {
-  display: block;
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 8px;
+.btnn:hover {
+  transform: scale(1.1);
 }
-.dashboard-link-description {
-  display: block;
-  color: var(--site-muted);
+.btnn:active {
+  transform: scale(0.9);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+.pulse {
+  animation: pulse 0.5s infinite alternate; /* Change '1s' to adjust the speed of the pulse */
 }

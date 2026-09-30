@@ -1,474 +1,281 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
     <script src="/assets/js/font.js" defer></script>
     <meta name="google" content="notranslate" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=6" />
-    <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=5" />
+    <link rel="stylesheet" href="/assets/css/nav.css?v=6" />
     <link rel="stylesheet" href="/assets/css/chat.css?v=6" />
     <title>Google</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Rednotsus" />
-    <meta http-equiv="Cache-control" content="public" />
-    <meta charset="utf-8" />
+    <meta http-equiv="Cache-control" content="public">
+    <meta charset="utf-8">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/assets/js/script.js?v=17"></script>
+    <script src="/assets/js/script.js?v=16"></script>
     <script src="/assets/js/easteregg.min.js" async></script>
-    <meta name="theme-color" content="#0b1220" />
+</head>
 
-    <link rel="stylesheet" href="/assets/css/ui.css?v=1" />
-    <script src="/assets/js/ui.js?v=1" defer></script>
-  </head>
-
-  <body class="chat-page">
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <nav aria-label="Main navigation">
-      <div class="navbar">
-        <a id="nav-title" href="/">Reds Exploit Corner</a>
-        <a href="/g"
-          ><i aria-hidden="true" class="fa-solid fa-gamepad">&nbsp;</i>Games</a
-        >
-        <a href="/a"
-          ><i aria-hidden="true" class="fa-solid fa-box-archive">&nbsp;</i
-          >Apps</a
-        >
-        <a href="/-"
-          ><i aria-hidden="true" class="fa-solid fa-tv">&nbsp;</i>Media</a
-        >
-        <a href="/s"
-          ><i aria-hidden="true" class="fa-solid fa-gears">&nbsp;</i>Settings</a
-        >
-        <a href="/chat" aria-current="page" aria-label="Chat" title="Chat"
-          ><i aria-hidden="true" class="fa-solid fa-comments">&nbsp;</i></a
-        >
-        <a href="/profile" aria-label="Profile" title="Profile"
-          ><i aria-hidden="true" class="fa-solid fa-user"></i
-        ></a>
-      </div>
+<body class="chat-page">
+    <nav>
+        <div class="navbar">
+            <a id="nav-title" href="/">Reds Exploit Corner</a>
+            <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
+            <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
+            <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
+            <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
+            <a href="/chat"><i class="fa-solid fa-comments">&nbsp;</i></a>
+            <a href="/profile"><i class="fa-solid fa-user"></i></a>
+        </div>
     </nav>
-    <main id="main-content" tabindex="-1">
-      <div class="chat-container">
+
+    <div class="chat-container">
         <!-- Sidebar -->
         <div class="chat-sidebar">
-          <div class="chat-header">
-            <h1>Messages</h1>
-            <div class="chat-actions">
-              <button
-                id="newChatBtn"
-                aria-label="New chat"
-                type="button"
-                class="action-btn"
-                title="New Chat"
-              >
-                <i aria-hidden="true" class="fa-solid fa-plus"></i>
-              </button>
-              <button
-                id="friendsBtn"
-                aria-label="Friends and requests"
-                type="button"
-                class="action-btn"
-                title="Friends"
-              >
-                <i aria-hidden="true" class="fa-solid fa-users"></i>
-                <span
-                  id="friendsNotificationBadge"
-                  class="friends-notification-badge"
-                  style="display: none"
-                ></span>
-              </button>
+            <div class="chat-header">
+                <h2>Messages</h2>
+                <div class="chat-actions">
+                    <button id="newChatBtn" class="action-btn" title="New Chat">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <button id="friendsBtn" class="action-btn" title="Friends">
+                        <i class="fa-solid fa-users"></i>
+                        <span id="friendsNotificationBadge" class="friends-notification-badge"
+                            style="display: none;"></span>
+                    </button>
+                </div>
             </div>
-          </div>
 
-          <div class="chat-search">
-            <input
-              type="text"
-              id="chatSearch"
-              name="chatSearch"
-              aria-label="Search conversations"
-              placeholder="Search conversations…"
-              autocomplete="off"
-            />
-          </div>
-
-          <div class="chat-list" id="chatList"></div>
-
-          <div class="user-info-bar">
-            <div class="user-info">
-              <div class="user-avatar">
-                <span id="userInitials"></span>
-              </div>
-              <div class="user-details">
-                <span id="userDisplayName"></span>
-                <span class="user-status">Online</span>
-              </div>
+            <div class="chat-search">
+                <input type="text" id="chatSearch" placeholder="Search conversations..." autocomplete="off" />
             </div>
-            <button
-              id="copyUsernameBtn"
-              aria-label="Copy username"
-              type="button"
-              class="copy-btn"
-              title="Copy Username"
-            >
-              <i aria-hidden="true" class="fa-solid fa-copy"></i>
-            </button>
-          </div>
+
+            <div class="chat-list" id="chatList">
+
+            </div>
+
+            <div class="user-info-bar">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <span id="userInitials"></span>
+                    </div>
+                    <div class="user-details">
+                        <span id="userDisplayName"></span>
+                        <span class="user-status">Online</span>
+                    </div>
+                </div>
+                <button id="copyUsernameBtn" class="copy-btn" title="Copy Username">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+            </div>
         </div>
 
         <!-- Main Chat Area -->
         <div class="chat-main">
-          <div class="chat-welcome" id="chatWelcome">
-            <div class="welcome-content">
-              <i
-                aria-hidden="true"
-                class="fa-solid fa-comments welcome-icon"
-              ></i>
-              <h2>Welcome to Chat!</h2>
-              <p>
-                Select a conversation to start messaging, or create a new chat.
-              </p>
-              <button id="startChatBtn" class="gs">Start New Chat</button>
-            </div>
-          </div>
-
-          <div class="chat-content" id="chatContent" style="display: none">
-            <div class="chat-info" id="chatInfo">
-              <button
-                class="mobile-chat-back"
-                id="mobileChatBackBtn"
-                type="button"
-                aria-label="Back to conversations"
-              >
-                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-              </button>
-              <div class="chat-avatar">
-                <div class="avatar-circle">
-                  <span id="chatInitials"></span>
+            <div class="chat-welcome" id="chatWelcome">
+                <div class="welcome-content">
+                    <i class="fa-solid fa-comments welcome-icon"></i>
+                    <h2>Welcome to Chat!</h2>
+                    <p>Select a conversation to start messaging, or create a new chat.</p>
+                    <button id="startChatBtn" class="gs">Start New Chat</button>
                 </div>
-                <div class="online-indicator" id="onlineIndicator"></div>
-              </div>
-              <div class="chat-details">
-                <h3 id="chatName"></h3>
-                <span id="chatStatus"></span>
-              </div>
-              <div class="chat-menu">
-                <button
-                  class="menu-btn"
-                  id="chatMenuBtn"
-                  aria-expanded="false"
-                  aria-controls="chatMenuDropdown"
-                  aria-label="Conversation options"
-                  type="button"
-                >
-                  <i
-                    aria-hidden="true"
-                    class="fa-solid fa-ellipsis-vertical"
-                  ></i>
+            </div>
+
+            <div class="chat-content" id="chatContent" style="display: none;">
+                <div class="chat-info" id="chatInfo">
+                    <button class="mobile-chat-back" id="mobileChatBackBtn" type="button"
+                        aria-label="Back to conversations">
+                        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                    </button>
+                    <div class="chat-avatar">
+                        <div class="avatar-circle">
+                            <span id="chatInitials"></span>
+                        </div>
+                        <div class="online-indicator" id="onlineIndicator"></div>
+                    </div>
+                    <div class="chat-details">
+                        <h3 id="chatName"></h3>
+                        <span id="chatStatus"></span>
+                    </div>
+                    <div class="chat-menu">
+                        <button class="menu-btn" id="chatMenuBtn">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+                        <div class="chat-menu-dropdown" id="chatMenuDropdown" style="display: none;">
+                            <button id="addFriendOption" class="menu-option">
+                                <i class="fa-solid fa-user-plus"></i> Add Friend
+                            </button>
+                            <button id="removeFriendOption" class="menu-option" style="display: none;">
+                                <i class="fa-solid fa-user-minus"></i> Remove Friend
+                            </button>
+                            <button id="blockUserOption" class="menu-option" style="display: none;">
+                                <i class="fa-solid fa-ban"></i> Block User
+                            </button>
+                            <button id="unblockUserOption" class="menu-option" style="display: none;">
+                                <i class="fa-solid fa-unlock"></i> Unblock User
+                            </button>
+                            <button id="leaveGroupOption" class="menu-option" style="display: none;">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i> Leave Group
+                            </button>
+                            <button id="viewMembersOption" class="menu-option" style="display: none;">
+                                <i class="fa-solid fa-users"></i> View Members
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="messages-container" id="messagesContainer">
+                    <div class="messages" id="messages">
+                        <!-- Messages will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                    <span id="typingText"></span>
+                </div>
+
+                <div class="message-input-container">
+                    <div class="message-input">
+                        <input type="text" id="messageInput" placeholder="Type a message..." maxlength="1000"
+                            autocomplete="off" />
+                        <button id="sendBtn" class="send-btn">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="character-counter">
+                        <span id="charCount">0</span>/1000
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Friend Requests Modal -->
+    <div id="friendsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Friends & Requests</h3>
+                <button class="modal-close" id="closeFriendsModal">
+                    <i class="fa-solid fa-times"></i>
                 </button>
-                <div
-                  class="chat-menu-dropdown"
-                  id="chatMenuDropdown"
-                  style="display: none"
-                >
-                  <button id="addFriendOption" class="menu-option">
-                    <i aria-hidden="true" class="fa-solid fa-user-plus"></i> Add
-                    Friend
-                  </button>
-                  <button
-                    id="removeFriendOption"
-                    class="menu-option"
-                    style="display: none"
-                  >
-                    <i aria-hidden="true" class="fa-solid fa-user-minus"></i>
-                    Remove Friend
-                  </button>
-                  <button
-                    id="blockUserOption"
-                    class="menu-option"
-                    style="display: none"
-                  >
-                    <i aria-hidden="true" class="fa-solid fa-ban"></i> Block
-                    User
-                  </button>
-                  <button
-                    id="unblockUserOption"
-                    class="menu-option"
-                    style="display: none"
-                  >
-                    <i aria-hidden="true" class="fa-solid fa-unlock"></i>
-                    Unblock User
-                  </button>
-                  <button
-                    id="leaveGroupOption"
-                    class="menu-option"
-                    style="display: none"
-                  >
-                    <i
-                      aria-hidden="true"
-                      class="fa-solid fa-arrow-right-from-bracket"
-                    ></i>
-                    Leave Group
-                  </button>
-                  <button
-                    id="viewMembersOption"
-                    class="menu-option"
-                    style="display: none"
-                  >
-                    <i aria-hidden="true" class="fa-solid fa-users"></i> View
-                    Members
-                  </button>
+            </div>
+            <div class="modal-body">
+                <div class="friends-tabs">
+                    <button class="tab-btn active" data-tab="friends">Friends</button>
+                    <button class="tab-btn" data-tab="requests">Requests <span id="requestCount"
+                            class="badge"></span></button>
+                    <button class="tab-btn" data-tab="blocked">Blocked</button>
+                    <button class="tab-btn" data-tab="add">Add Friend</button>
                 </div>
-              </div>
-            </div>
 
-            <div class="messages-container" id="messagesContainer">
-              <div
-                class="messages"
-                id="messages"
-                role="log"
-                aria-label="Conversation messages"
-                aria-live="polite"
-                aria-relevant="additions"
-              >
-                <!-- Messages will be loaded here -->
-              </div>
-            </div>
+                <div class="tab-content">
+                    <div id="friendsTab" class="tab-panel active">
+                        <div id="friendsList"></div>
+                    </div>
 
-            <div
-              class="typing-indicator"
-              id="typingIndicator"
-              role="status"
-              aria-live="polite"
-              style="display: none"
-            >
-              <span id="typingText"></span>
-            </div>
+                    <div id="requestsTab" class="tab-panel">
+                        <div id="friendRequests"></div>
+                    </div>
 
-            <div class="message-input-container">
-              <div class="message-input">
-                <input
-                  type="text"
-                  id="messageInput"
-                  name="messageInput"
-                  aria-label="Message"
-                  placeholder="Type a message…"
-                  maxlength="1000"
-                  autocomplete="off"
-                />
-                <button
-                  id="sendBtn"
-                  aria-label="Send message"
-                  type="button"
-                  class="send-btn"
-                >
-                  <i aria-hidden="true" class="fa-solid fa-paper-plane"></i>
+                    <div id="blockedTab" class="tab-panel">
+                        <div id="blockedUsersList"></div>
+                    </div>
+
+                    <div id="addTab" class="tab-panel">
+                        <div class="add-friend-form">
+                            <input type="text" id="friendUsername" placeholder="Enter username..." class="friendRequest"
+                                autocomplete="off" />
+                            <button id="addFriendBtn" class="gs">Send Request</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Chat Modal -->
+    <div id="newChatModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>New Chat</h3>
+                <button class="modal-close" id="closeNewChatModal">
+                    <i class="fa-solid fa-times"></i>
                 </button>
-              </div>
-              <div class="character-counter">
-                <span id="charCount">0</span>/1000
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
+            <div class="modal-body">
+                <div class="chat-type-tabs">
+                    <button class="tab-btn active" data-tab="direct">Direct Message</button>
+                    <button class="tab-btn" data-tab="group">Group Chat</button>
+                </div>
 
-      <!-- Friend Requests Modal -->
-      <div
-        id="friendsModal"
-        class="modal"
-        style="display: none"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="friendsDialogTitle"
-      >
+                <div class="tab-content">
+                    <div id="directTab" class="tab-panel active">
+                        <div class="form-group">
+                            <label>Username:</label>
+                            <input type="text" id="directUsername" placeholder="Enter username..." autocomplete="off" />
+                        </div>
+                        <button id="createDirectBtn" class="gs">Start Chat</button>
+                    </div>
+
+                    <div id="groupTab" class="tab-panel">
+                        <div class="form-group">
+                            <label>Group Name:</label>
+                            <input type="text" id="groupName" placeholder="Enter group name..." autocomplete="off" />
+                        </div>
+                        <div class="form-group">
+                            <label>Add Members: <span id="memberCount">(0/9)</span></label>
+                            <div id="membersList"></div>
+                            <input type="text" id="addMemberInput" placeholder="Enter username and press Enter..."
+                                autocomplete="off" />
+                            <div class="field-hint">
+                                Maximum 10 people total (including yourself)
+                            </div>
+                        </div>
+                        <button id="createGroupBtn" class="gs">Create Group</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Group Members Modal -->
+    <div id="groupMembersModal" class="modal" style="display: none;">
         <div class="modal-content">
-          <div class="modal-header">
-            <h2 id="friendsDialogTitle">Friends &amp; Requests</h2>
-            <button
-              class="modal-close"
-              id="closeFriendsModal"
-              aria-label="Close friends dialog"
-              type="button"
-            >
-              <i aria-hidden="true" class="fa-solid fa-times"></i>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="friends-tabs">
-              <button class="tab-btn active" data-tab="friends">Friends</button>
-              <button class="tab-btn" data-tab="requests">
-                Requests <span id="requestCount" class="badge"></span>
-              </button>
-              <button class="tab-btn" data-tab="blocked">Blocked</button>
-              <button class="tab-btn" data-tab="add">Add Friend</button>
+            <div class="modal-header">
+                <h3 id="groupMembersTitle">Group Members</h3>
+                <button class="modal-close" id="closeGroupMembersModal">
+                    <i class="fa-solid fa-times"></i>
+                </button>
             </div>
-
-            <div class="tab-content">
-              <div id="friendsTab" class="tab-panel active">
-                <div id="friendsList"></div>
-              </div>
-
-              <div id="requestsTab" class="tab-panel">
-                <div id="friendRequests"></div>
-              </div>
-
-              <div id="blockedTab" class="tab-panel">
-                <div id="blockedUsersList"></div>
-              </div>
-
-              <div id="addTab" class="tab-panel">
-                <div class="add-friend-form">
-                  <input
-                    type="text"
-                    id="friendUsername"
-                    name="friendUsername"
-                    aria-label="Friend username"
-                    placeholder="Enter username…"
-                    class="friendRequest"
-                    autocomplete="off"
-                  />
-                  <button id="addFriendBtn" class="gs">Send Request</button>
+            <div class="modal-body">
+                <div id="groupMembersList">
+                    <!-- Group members will be loaded here -->
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 
-      <!-- New Chat Modal -->
-      <div
-        id="newChatModal"
-        class="modal"
-        style="display: none"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="newChatDialogTitle"
-      >
-        <div class="modal-content">
-          <div class="modal-header">
-            <h2 id="newChatDialogTitle">New Chat</h2>
-            <button
-              class="modal-close"
-              id="closeNewChatModal"
-              aria-label="Close new chat dialog"
-              type="button"
-            >
-              <i aria-hidden="true" class="fa-solid fa-times"></i>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="chat-type-tabs">
-              <button class="tab-btn active" data-tab="direct">
-                Direct Message
-              </button>
-              <button class="tab-btn" data-tab="group">Group Chat</button>
-            </div>
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="notification-container"></div>
 
-            <div class="tab-content">
-              <div id="directTab" class="tab-panel active">
-                <div class="form-group">
-                  <label for="directUsername">Username:</label>
-                  <input
-                    type="text"
-                    id="directUsername"
-                    name="directUsername"
-                    aria-label="Username"
-                    placeholder="Enter username…"
-                    autocomplete="off"
-                  />
-                </div>
-                <button id="createDirectBtn" class="gs">Start Chat</button>
-              </div>
-
-              <div id="groupTab" class="tab-panel">
-                <div class="form-group">
-                  <label for="groupName">Group Name:</label>
-                  <input
-                    type="text"
-                    id="groupName"
-                    name="groupName"
-                    aria-label="Group name"
-                    placeholder="Enter group name…"
-                    autocomplete="off"
-                  />
-                </div>
-                <div class="form-group">
-                  <label
-                    >Add Members: <span id="memberCount">(0/9)</span></label
-                  >
-                  <div id="membersList"></div>
-                  <input
-                    type="text"
-                    id="addMemberInput"
-                    name="addMemberInput"
-                    aria-label="Add member username"
-                    placeholder="Enter username and press Enter…"
-                    autocomplete="off"
-                  />
-                  <div class="field-hint">
-                    Maximum 10 people total (including yourself)
-                  </div>
-                </div>
-                <button id="createGroupBtn" class="gs">Create Group</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Group Members Modal -->
-      <div
-        id="groupMembersModal"
-        class="modal"
-        style="display: none"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="groupMembersTitle"
-      >
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 id="groupMembersTitle">Group Members</h3>
-            <button
-              class="modal-close"
-              id="closeGroupMembersModal"
-              aria-label="Close group members dialog"
-              type="button"
-            >
-              <i aria-hidden="true" class="fa-solid fa-times"></i>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div id="groupMembersList">
-              <!-- Group members will be loaded here -->
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Notification Container -->
-      <div
-        id="notificationContainer"
-        role="status"
-        aria-live="polite"
-        class="notification-container"
-      ></div>
-
-      <script src="/assets/js/chat.js?v=5"></script>
-      <script>
+    <script src="/assets/js/chat.js?v=4"></script>
+    <script>
         // Check authentication
-        const uuid = localStorage.getItem("uuid");
-        const username = localStorage.getItem("username");
+        const uuid = localStorage.getItem('uuid');
+        const username = localStorage.getItem('username');
 
         if (!uuid || !username) {
-          window.location.href = "/login";
+            window.location.href = '/login';
         }
 
         // Initialize chat system
-        document.addEventListener("DOMContentLoaded", () => {
-          initializeChat();
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeChat();
         });
-      </script>
-    </main>
-  </body>
+    </script>
+</body>
+
 </html>

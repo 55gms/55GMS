@@ -660,11 +660,7 @@ input:focus-visible {
 .system-message {
   display: inline-block;
   color: var(--chat-muted) !important;
-  background: color-mix(
-    in srgb,
-    var(--chat-surface) 72%,
-    transparent
-  ) !important;
+  background: color-mix(in srgb, var(--chat-surface) 72%, transparent) !important;
   border: 1px dashed var(--chat-border) !important;
   border-radius: var(--site-radius-sm) !important;
   box-shadow: none !important;
@@ -1316,9 +1312,7 @@ select {
   border: none;
   outline: none;
   color: white;
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease;
+  transition: 0.2s;
   box-shadow: none;
 }
 

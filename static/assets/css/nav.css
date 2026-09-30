@@ -1,102 +1,188 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
 .navbar {
+  position: relative;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin: 15px 20px;
-  padding: 10px;
+  justify-content: center;
+  gap: 4px;
   min-height: 66px;
-  color: var(--site-text);
-  background: var(--site-surface-2);
-  border: 1px solid var(--site-border);
-  border-radius: var(--site-radius-md);
-  box-shadow: 0 10px 28px var(--site-shadow);
+  margin: 15px 20px;
+  padding: 10px 128px;
+  overflow: hidden;
+  color: var(--site-text, #fff);
+  background: var(--site-surface-2, #5e7594);
+  border: 1px solid var(--site-border, #353d49);
+  border-radius: var(--site-radius-md, 14px);
+  box-shadow:
+    0 10px 28px var(--site-shadow, rgba(0, 0, 0, 0.24)),
+    inset 0 1px 0 color-mix(in srgb, var(--site-text, #fff) 12%, transparent);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  z-index: 100;
 }
 
 .navbar a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-height: 44px;
-  padding: 10px 14px;
-  border-radius: var(--site-radius-sm);
-  color: var(--site-text);
+  color: var(--site-text, #fff);
+  font-family: "Roboto", serif;
+  text-decoration: none;
+}
+
+.navbar a:not(:first-child) {
+  padding: 10px 13px;
+  border-radius: var(--site-radius-sm, 10px);
   font-size: 14px;
-  font-weight: 500;
-  white-space: nowrap;
+  font-weight: 700;
+  text-transform: uppercase;
   transition:
-    background-color 150ms ease,
-    color 150ms ease;
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.navbar a:not(:first-child):hover {
+  color: var(--site-accent-text, #484c51);
+  background: var(--site-accent-hover, #e7928f);
+  transform: scale(1.05);
 }
 
 .navbar a:first-child {
-  justify-content: flex-start;
-  flex: 1;
-  min-width: 0;
+  position: absolute;
+  left: 10px;
+  max-width: min(24vw, 320px);
+  padding: 10px 14px;
+  overflow: hidden;
+  border-radius: var(--site-radius-sm, 10px);
   font-size: 20px;
   font-weight: 700;
+  text-overflow: ellipsis;
+  transform-origin: left center;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+  white-space: nowrap;
 }
 
-.navbar a:hover,
-.navbar a[aria-current="page"] {
-  background: var(--site-button-hover);
-  color: var(--site-text);
+.navbar a:first-child:hover {
+  color: var(--site-accent-text, #484c51);
+  background: var(--site-accent-hover, #e7928f);
+  transform: translateX(10px) scale(1.1);
 }
 
-.navbar a[aria-current="page"] {
-  box-shadow: inset 0 -3px var(--site-accent);
+@media (prefers-reduced-motion: reduce) {
+  .navbar a:first-child,
+  .navbar a:not(:first-child) {
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+  }
+
+  .navbar a:first-child:hover,
+  .navbar a:not(:first-child):hover {
+    transform: none;
+  }
 }
 
-.navbar a:nth-last-child(-n + 2) {
-  width: 44px;
-  padding: 10px;
-  flex: none;
+.navbar a:nth-last-child(2),
+.navbar a:last-child {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  padding: 0;
+  place-items: center;
 }
 
-@media (max-width: 1000px) {
+.navbar a:nth-last-child(2) {
+  right: 58px;
+}
+
+.navbar a:last-child {
+  right: 10px;
+}
+
+@media only screen and (max-width: 860px) {
   .navbar {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    position: relative;
+    gap: 6px;
+    min-height: auto;
     margin: 10px 12px;
     padding: 8px;
   }
 
+  /* Row 1: title, with chat/profile pinned to the right */
   .navbar a:first-child {
+    position: static;
     grid-column: 1 / -1;
+    max-width: none;
     margin-right: 96px;
-    overflow: hidden;
-    display: block;
-    text-overflow: ellipsis;
-    font-size: clamp(14px, 4vw, 18px);
-    line-height: 44px;
     padding: 0 8px;
+    font-size: 18px;
+    line-height: 42px;
   }
 
-  .navbar a:nth-last-child(2) {
-    grid-row: 1;
+  .navbar a:first-child:hover {
+    transform: none;
   }
+
+  .navbar a:nth-last-child(2),
   .navbar a:last-child {
-    grid-row: 1;
-  }
-
-  .navbar a:not(:first-child):not(:nth-last-child(-n + 2)) {
-    grid-row: 2;
-    flex-direction: column;
-    min-width: 0;
-    padding: 8px 4px;
-    font-size: 12px;
-    white-space: normal;
-  }
-
-  .navbar a:nth-last-child(-n + 2) {
-    position: absolute;
     top: 8px;
+    width: 42px;
+    height: 42px;
+    font-size: 17px;
   }
+
   .navbar a:nth-last-child(2) {
-    right: 56px;
+    right: 54px;
   }
+
   .navbar a:last-child {
     right: 8px;
+  }
+
+  /* Row 2: evenly spaced tabs, icon over label */
+  .navbar a:not(:first-child):not(:nth-last-child(-n + 2)) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 0;
+    padding: 8px 4px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-align: center;
+    white-space: nowrap;
+    background: color-mix(in srgb, var(--site-text, #fff) 6%, transparent);
+  }
+
+  .navbar a:not(:first-child):not(:nth-last-child(-n + 2)) i {
+    /* clip the &nbsp; inside the icon so the glyph centers */
+    width: 1.25em;
+    overflow: hidden;
+    font-size: 17px;
+    white-space: nowrap;
+  }
+
+  .navbar a:nth-last-child(2) i {
+    width: 1.25em;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .navbar a:not(:first-child):hover {
+    transform: none;
+  }
+}
+
+@media only screen and (max-width: 340px) {
+  .navbar a:not(:first-child):not(:nth-last-child(-n + 2)) {
+    font-size: 10px;
+    letter-spacing: 0;
   }
 }

@@ -15,13 +15,13 @@ function script(text) {
     "sunset",
     "contrast",
   ]);
-  const savedTheme = localStorage.getItem("siteTheme") || "blue";
+  const savedTheme = localStorage.getItem("siteTheme") || "legacy";
   const theme =
     savedTheme === "classic"
       ? "legacy"
       : allowedThemes.has(savedTheme)
         ? savedTheme
-        : "blue";
+        : "legacy";
   document.documentElement.dataset.theme = theme;
 })();
 
@@ -92,11 +92,7 @@ var panicKey = localStorage.getItem("panicKey") || "`";
 var panicLink = localStorage.getItem("PanicLink") || "https://google.com";
 
 document.addEventListener("keydown", function (e) {
-  if (
-    e.key === panicKey &&
-    !e.isComposing &&
-    !e.target.closest('input, textarea, select, [contenteditable="true"]')
-  ) {
+  if (e.key === panicKey) {
     window.top.location.href = panicLink;
   }
 });
@@ -145,11 +141,3 @@ function formatTime(date) {
     hour12: true,
   });
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  const meta = document.querySelector('meta[name="theme-color"]');
-  const color = getComputedStyle(document.documentElement)
-    .getPropertyValue("--site-bg")
-    .trim();
-  if (meta && color) meta.content = color;
-});

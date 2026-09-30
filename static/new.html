@@ -1,94 +1,85 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lunaar Search</title>
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
     <script src="/assets/js/font.js" defer></script>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-      body {
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background: #0b1220;
-        color: white;
-        min-height: 100dvh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-      .search-container {
-        text-align: center;
-        max-width: 600px;
-        width: 100%;
-        padding: 0 20px;
-      }
+        .search-container {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            padding: 0 20px;
+        }
 
-      .search-icon {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto 40px;
-        background: #1a314f;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-      }
 
-      .search {
-        font-size: 40px;
-        color: white;
-      }
+        .search-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 40px;
+            background: #666;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
 
-      .main-title {
-        font-size: 48px;
-        font-weight: 600;
-        margin-bottom: 16px;
-      }
+        .search {
+            font-size: 40px;
+            color: white;
+        }
 
-      .subtitle {
-        font-size: 18px;
-        color: #ccc;
-        margin-bottom: 40px;
-      }
-
-      @media (max-width: 768px) {
         .main-title {
-          font-size: 36px;
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 16px;
         }
 
         .subtitle {
-          font-size: 16px;
+            font-size: 18px;
+            color: #ccc;
+            margin-bottom: 40px;
         }
-      }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+        }
     </style>
-    <meta name="theme-color" content="#0b1220" />
+</head>
 
-    <link rel="stylesheet" href="/assets/css/ui.css?v=1" />
-    <script src="/assets/js/ui.js?v=1" defer></script>
-  </head>
-
-  <body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <main id="main-content" tabindex="-1">
-      <div class="search-container">
-        <div class="search-icon">
-          <i aria-hidden="true" class="fa-solid fa-magnifying-glass search"></i>
-        </div>
+<body>
+    <div class="search-container">
+        <div class="search-icon"><i class="fa-solid fa-magnifying-glass search"></i></div>
         <h1 class="main-title">Welcome to 55GMS!</h1>
-        <p class="subtitle">
-          Use the address bar below to search the web or open a website.
-        </p>
-      </div>
-    </main>
-  </body>
+        <p class="subtitle">search through the search bar</p>
+    </div>
+</body>
+
 </html>

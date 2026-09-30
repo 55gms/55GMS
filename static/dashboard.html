@@ -1,124 +1,64 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Google</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Cache-control" content="public" />
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=6" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/dash.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="/assets/js/motd.js?v=3"></script>
-    <script src="/assets/sj/hiring.js?v=1" defer></script>
-    <script src="/assets/js/script.js?v=17"></script>
 
-    <script src="/assets/js/easteregg.min.js" async></script>
-    <script src="/assets/js/font.js" defer></script>
-    <meta name="theme-color" content="#0b1220" />
+<head>
+  <title>Google</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-control" content="public" />
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=5" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/dash.css?v=2" />
+  <link rel="stylesheet" href="/assets/css/nav.css?v=6" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="/assets/js/motd.js?betav2"></script>
+  <script src="/assets/js/script.js?v=16"></script>
 
-    <link rel="stylesheet" href="/assets/css/ui.css?v=1" />
-    <script src="/assets/js/ui.js?v=1" defer></script>
-  </head>
+  <script src="/assets/js/easteregg.min.js" async></script>
+  <script src="/assets/js/font.js" defer></script>
+</head>
 
-  <body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <nav aria-label="Main navigation">
-      <div class="navbar">
-        <a id="nav-title" href="/">Reds Exploit Corner</a>
-        <a href="/g"
-          ><i aria-hidden="true" class="fa-solid fa-gamepad">&nbsp;</i>Games</a
-        >
-        <a href="/a"
-          ><i aria-hidden="true" class="fa-solid fa-box-archive">&nbsp;</i
-          >Apps</a
-        >
-        <a href="/-"
-          ><i aria-hidden="true" class="fa-solid fa-tv">&nbsp;</i>Media</a
-        >
-        <a href="/s"
-          ><i aria-hidden="true" class="fa-solid fa-gears">&nbsp;</i>Settings</a
-        >
-        <a href="/chat" aria-label="Chat" title="Chat"
-          ><i aria-hidden="true" class="fa-solid fa-comments">&nbsp;</i></a
-        >
-        <a href="/profile" aria-label="Profile" title="Profile"
-          ><i aria-hidden="true" class="fa-solid fa-user"></i
-        ></a>
-      </div>
-    </nav>
-    <main id="main-content" tabindex="-1" class="dashboard">
-      <header class="page-header">
-        <h1>Dashboard</h1>
-        <p>Your games, tools, and daily updates.</p>
-      </header>
-      <div class="dashboard-notices">
-        <button class="gs" id="motd" type="button" disabled>
-          Message of the day
-        </button>
-        <button class="gs" id="qotd" type="button" disabled>
-          Quote of the day
-        </button>
-      </div>
-      <p
-        id="notice-status"
-        class="search-status"
-        role="status"
-        aria-live="polite"
-        style="text-align: center"
-      >
-        Loading daily updates…
-      </p>
-      <div class="dashboard-links">
-        <a class="dashboard-link" href="/g"
-          ><h2>Games</h2>
-          <p>Browse the full game library.</p></a
-        >
-        <a class="dashboard-link" href="/a"
-          ><h2>Apps</h2>
-          <p>Open tools and web apps.</p></a
-        >
-        <a class="dashboard-link" href="/-"
-          ><h2>Movies &amp; TV</h2>
-          <p>Search titles and browse trending picks.</p></a
-        >
-        <a class="dashboard-link" href="/s"
-          ><h2>Settings</h2>
-          <p>Manage appearance, privacy, and data.</p></a
-        >
-        <a class="dashboard-link" href="/misc/index.html"
-          ><h2>Miscellaneous</h2>
-          <p>Find calculators, downloads, and more.</p></a
-        >
-        <a class="dashboard-link" href="/chat"
-          ><h2>Chat</h2>
-          <p>Catch up with friends.</p></a
-        >
-        <button
-          type="button"
-          class="dashboard-link"
-          onclick="
-            hire(
-              'https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&amp;ia=chat&amp;duckai=1',
-            )
-          "
-        >
-          <span class="dashboard-link-title">AI chat</span
-          ><span class="dashboard-link-description"
-            >Open a web AI assistant.</span
-          >
-        </button>
-      </div>
-      <p class="dashboard-footer">
-        <a
-          href="https://docs.google.com/forms/d/e/1FAIpQLSfR3BM3EW6AwUs85eLVl7cUOMpuwHs7EzMdnKmPuFdrbnfjbg/viewform"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Suggest a message or quote
-          <span class="sr-only">(opens in a new tab)</span></a
-        >
-      </p>
-    </main>
-  </body>
+<body>
+  <nav>
+    <div class="navbar">
+      <a id="nav-title" href="/">Reds Exploit Corner</a>
+      <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
+      <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
+      <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
+      <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
+      <a href="/chat"><i class="fa-solid fa-comments">&nbsp;</i></a>
+      <a href="/profile"><i class="fa-solid fa-user"></i></a>
+    </div>
+  </nav>
+  <br /><br />
+  <div style="text-align: center">
+    <h1 id="title">Reds Dashboard</h1>
+    <br /><br />
+    <button class="gs" id="motd"
+      onclick="Swal.fire({icon: 'warning', title: 'Message Of The Day', html: '<b>Loading...</b>', footer: `<i style='font-size: 11px;'>Blud have patience</i>`, timer: 2000, timerProgressBar: true});">
+      Message of the Day
+    </button>
+    <button class="gs" id="qotd"
+      onclick="Swal.fire({icon: 'warning', title: 'Quote Of The Day', html: '<b>Loading...</b>', footer: `<i style='font-size: 11px;'>Blud have patience</i>`, timer: 2000, timerProgressBar: true});">
+      Quote of the Day
+    </button>
+
+    <br /><br />
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfR3BM3EW6AwUs85eLVl7cUOMpuwHs7EzMdnKmPuFdrbnfjbg/viewform"
+      target="_blank" rel="noopener noreferrer">
+      <button id="gs">Message of the Day and Quote of the Day Ideas</button>
+    </a>
+
+    <br /><br /><br />
+    <a href="g"><button class="btnn"><b>Games</b></button></a>
+    <a href="a"><button class="btnn"><b>Apps</b></button></a>
+    <a href="-"><button class="btnn"><b>Media</b></button></a><br /><br />
+    <a href="e"><button class="btnn"><b>AI</b></button></a><br /><br /><br />
+    <a href="s"><button class="btnn">Settings</button></a>
+    <a href="/misc/index.html"><button class="btnn">Random Stuff</button></a><br />
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/gh/docklib/partners@master/partner-7a44b4ab.js?v=1"></script>
+</body>
+
 </html>

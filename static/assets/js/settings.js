@@ -12,22 +12,17 @@ var siteThemes = {
 
 function getSafeTheme(theme) {
   if (theme === "classic") return "legacy";
-  return siteThemes[theme] ? theme : "blue";
+  return siteThemes[theme] ? theme : "legacy";
 }
 
 function setSiteTheme(theme) {
   var safeTheme = getSafeTheme(theme);
   document.documentElement.dataset.theme = safeTheme;
   localStorage.setItem("siteTheme", safeTheme);
-  const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta)
-    meta.content = getComputedStyle(document.documentElement)
-      .getPropertyValue("--site-bg")
-      .trim();
 }
 
 (function applySavedTheme() {
-  var savedTheme = localStorage.getItem("siteTheme") || "blue";
+  var savedTheme = localStorage.getItem("siteTheme") || "legacy";
   document.documentElement.dataset.theme = getSafeTheme(savedTheme);
 })();
 
@@ -223,13 +218,11 @@ document.addEventListener("DOMContentLoaded", function () {
 function setPanicKey() {
   var key = document.getElementById("key").value;
   localStorage.setItem("panicKey", key);
-  window.panicKey = key || "`";
 }
 
 function setPanicLink() {
   var link = document.getElementById("link").value;
   localStorage.setItem("PanicLink", link);
-  window.panicLink = link || "https://google.com";
 }
 
 function cloak() {
@@ -356,7 +349,6 @@ function showImportConfirm(file) {
   if (modal) {
     modal.classList.add("settings-modal-open");
     modal.setAttribute("aria-hidden", "false");
-    window.siteDialog.activate(modal, closeImportConfirm);
   }
 
   if (confirmButton) {
@@ -376,7 +368,6 @@ function closeImportConfirm() {
 
   if (modal) {
     modal.classList.remove("settings-modal-open");
-    window.siteDialog.deactivate(modal);
     modal.setAttribute("aria-hidden", "true");
   }
 }
@@ -431,18 +422,12 @@ function convertDate(date_str) {
 }
 
 fetch("https://api.github.com/repos/55gms/55gms/commits")
-  .then((response) => {
-    if (!response.ok) throw new Error("Update check failed");
-    return response.json();
-  })
+  .then((response) => response.json())
   .then((data) => {
-    const date = new Date(data[0].commit.author.date);
-    document.getElementById("updated").textContent = new Intl.DateTimeFormat(
-      undefined,
-      { dateStyle: "medium" },
-    ).format(date);
-  })
-  .catch(() => {
-    document.getElementById("updated").textContent =
-      "Unavailable. Try again later.";
+    var unformatted = new Date(data[0].commit.author.date)
+      .toISOString()
+      .split("T")[0];
+    var lastCommitDate = convertDate(unformatted);
+    document.querySelector("#updated").textContent =
+      `Last Updated: ${lastCommitDate}`;
   });

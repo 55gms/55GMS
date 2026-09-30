@@ -3,15 +3,15 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((response) => response.json())
     .then((data) => {
       const randomQuote = data[Math.floor(Math.random() * data.length)];
-      document.getElementById("sub").textContent = randomQuote;
+      document.getElementById("sub").innerHTML = randomQuote;
 
       document.getElementById("sub").addEventListener("click", function () {
         const randomQuote = data[Math.floor(Math.random() * data.length)];
-        document.getElementById("sub").textContent = randomQuote;
+        document.getElementById("sub").innerHTML = randomQuote;
       });
     })
     .catch((error) => {
-      document.getElementById("sub").textContent =
-        "Browse games, apps, and more.";
+      document.getElementById("sub").innerHTML =
+        "idk what happened something broke";
     });
 });
