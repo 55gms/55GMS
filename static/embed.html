@@ -2,610 +2,634 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scramjet Embed</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scramjet Embed</title>
   <script src="/assets/js/script.js?v=16"></script>
 
-    <!-- Fonts (keep Inter as your base UI font) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet" />
+  <!-- Scramjet/BareMux -->
+  <script src="/baremux/index.js"></script>
+  <script src="/scram/scramjet.all.js"></script>
+  <script>
+    let wispurl = (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/";
+  </script>
 
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --border: #262626;
+      --text: #ededed;
+      --text-2: #a1a1a1;
+      --accent: #3b82f6;
+    }
 
-    <!-- Scramjet/BareMux -->
-    <script src="/baremux/index.js"></script>
-    <script src="/scram/scramjet.all.js"></script>
-    <script>
-        let wispurl = (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/";
-    </script>
+    * {
+      box-sizing: border-box;
+    }
 
-    <style>
-        :root {
-            /* Theme derived from #5e7594 (muted blue-gray) */
-            --bg-0: #0f141a;
-            /* deep base */
-            --bg-1: #1a2230;
-            --bg-2: #223044;
-            --bg-accent-wash: rgba(94, 117, 148, 0.18);
-            /* #5e7594 wash */
-            --fg: #e9f2ff;
-            --muted: #cfe0ff;
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
 
-            /* Accents tuned to complement #5e7594: cool teal & ice-blue */
-            --accent: #a7ffda;
-            /* mint-teal pop */
-            --accent-2: #7bd8ff;
-            /* ice-blue */
-            --bar-bg: rgba(255, 255, 255, 0.12);
-            --bar-glow: 0 0 24px rgba(123, 216, 255, 0.45), 0 0 40px rgba(167, 255, 218, 0.25);
-        }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      overflow: hidden;
+    }
 
-        * {
-            box-sizing: border-box;
-        }
+    #iframe-container {
+      position: fixed;
+      inset: 0;
+    }
 
-        html,
-        body {
-            height: 100%;
-        }
+    #iframe-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      background: #fff;
+    }
 
-        body {
-            margin: 0;
-            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-            color: var(--fg);
-            background:
-                radial-gradient(1200px 700px at 75% 120%, rgba(167, 255, 218, 0.05), transparent 50%),
-                radial-gradient(900px 600px at 10% -10%, rgba(123, 216, 255, 0.06), transparent 50%),
-                linear-gradient(180deg, var(--bg-0), var(--bg-1) 55%, var(--bg-2));
-            overflow: hidden;
-        }
+    /* First-connect state: only visible while the transport boots. */
+    .status {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      background: var(--bg);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
 
-        /* --- New loader --- */
-        #fadeout {
-            transition: opacity .35s ease;
-        }
+    .status.visible {
+      opacity: 1;
+      visibility: visible;
+    }
 
-        #fadeout.hidden {
-            opacity: 0;
-        }
+    .status-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      max-width: 360px;
+      padding: 0 24px;
+      text-align: center;
+    }
 
-        #preloader {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            display: grid;
-            place-items: center;
-            background: linear-gradient(180deg, rgba(0, 0, 0, .0), rgba(0, 0, 0, .18));
-            transition: opacity .35s ease, visibility .35s ease;
-        }
+    .status-title {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 500;
+    }
 
-        #preloader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
+    .status-text {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-2);
+    }
 
-        .speedlines {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-            opacity: .40;
-            mix-blend-mode: screen;
-            -webkit-mask-image: linear-gradient(#0000, #000 20% 80%, #0000);
-            mask-image: linear-gradient(#0000, #000 20% 80%, #0000);
-        }
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      border-top-color: var(--text);
+      animation: spin 0.8s linear infinite;
+    }
 
-        .speedlines::before,
-        .speedlines::after {
-            content: "";
-            position: absolute;
-            inset: -20% -40%;
-            background:
-                repeating-linear-gradient(110deg, rgba(123, 216, 255, .10) 0 6px, transparent 6px 28px),
-                repeating-linear-gradient(290deg, rgba(167, 255, 218, .10) 0 4px, transparent 4px 22px);
-            filter: blur(1.2px);
-            animation: streak 1.05s linear infinite;
-        }
+    .status-icon {
+      display: none;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: #f5a524;
+    }
 
-        .speedlines::after {
-            animation-duration: .82s;
-            opacity: .75;
-        }
+    .status.error .spinner {
+      display: none;
+    }
 
-        @keyframes streak {
-            from {
-                transform: translate3d(-6%, -4%, 0)
-            }
+    .status.error .status-icon {
+      display: grid;
+    }
 
-            to {
-                transform: translate3d(6%, 4%, 0)
-            }
-        }
+    .status-btn {
+      display: none;
+      margin-top: 4px;
+      height: 32px;
+      padding: 0 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--text);
+      color: var(--bg);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
 
-        .panel {
-            width: min(780px, calc(100vw - 32px));
-            padding: 28px 28px 22px;
-            border-radius: 22px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 80px rgba(0, 0, 0, .6), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-            position: relative;
-            backdrop-filter: blur(6px);
-        }
+    .status.error .status-btn {
+      display: inline-block;
+    }
 
-        .title {
-            margin: 0 0 6px;
-            font-weight: 800;
-            letter-spacing: .3px;
-            color: #fff;
-            font-size: clamp(18px, 2.3vw, 22px);
-            text-shadow: 0 0 12px rgba(123, 216, 255, .20);
-        }
+    .status-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
 
-        .subtitle {
-            margin: 0 0 18px;
-            color: var(--muted);
-            opacity: .95;
-            font-size: 14px;
-            line-height: 1.45;
-        }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
-        .bar {
-            position: relative;
-            height: 10px;
-            border-radius: 10px;
-            background: var(--bar-bg);
-            overflow: hidden;
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-        }
+    @media (prefers-reduced-motion: reduce) {
+      .spinner {
+        animation-duration: 2s;
+      }
 
-        .bar .fill {
-            position: absolute;
-            inset: 0 auto 0 0;
-            width: 0%;
-            border-radius: inherit;
-            background: linear-gradient(90deg, var(--accent), var(--accent-2));
-            box-shadow: var(--bar-glow);
-            transition: width .16s cubic-bezier(.22, .61, .36, 1);
-        }
-
-        .bar::after {
-            content: "";
-            position: absolute;
-            top: -60%;
-            bottom: -60%;
-            left: -20%;
-            width: 25%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .55), transparent);
-            transform: skewX(-18deg);
-            animation: sweep 1s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes sweep {
-            from {
-                left: -30%
-            }
-
-            to {
-                left: 120%
-            }
-        }
-
-        .telemetry {
-            margin-top: 12px;
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            align-items: center;
-            font-size: 12px;
-            color: #dcf7ff;
-            opacity: .9
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 999px;
-            background: var(--accent-2);
-            box-shadow: 0 0 12px rgba(123, 216, 255, .7);
-        }
-
-        .mono {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        }
-
-        .log {
-            margin-top: 16px;
-            height: 110px;
-            overflow: hidden;
-            border-radius: 12px;
-            border: 1px dashed rgba(255, 255, 255, .12);
-            background: rgba(0, 0, 0, .28);
-            padding: 10px 12px 8px;
-            font-size: 12px;
-            line-height: 1.45;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New";
-            color: #eafffb;
-            -webkit-mask-image: linear-gradient(#000, #000 70%, #0000);
-            mask-image: linear-gradient(#000, #000 70%, #0000);
-        }
-
-        .log .line {
-            white-space: nowrap;
-            opacity: .9
-        }
-
-        .line .key {
-            color: #c9e9ff
-        }
-
-        .line .val {
-            color: #ffffff
-        }
-
-        .line .ok {
-            color: var(--accent)
-        }
-
-        .hint {
-            margin-top: 14px;
-            color: #bfe5ff;
-            opacity: .85;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .kbd {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New";
-            padding: 2px 6px;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, .25);
-            background: rgba(255, 255, 255, .06);
-        }
-
-        /* App container (hidden until ready) */
-        #iframe-container {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            display: none;
-            z-index: 1;
-        }
-
-        #iframe-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: #fff;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Accessibility */
-        @media (prefers-reduced-motion: reduce) {
-
-            .speedlines,
-            .bar::after {
-                animation: none;
-            }
-
-            .fill {
-                transition-duration: .001s;
-            }
-        }
-    </style>
+      .status {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <!-- Loader wrapper kept as #fadeout for compatibility -->
-    <div id="fadeout">
-        <div id="preloader" role="status" aria-live="polite" aria-label="Loading">
-            <div class="speedlines" aria-hidden="true"></div>
-
-            <div class="panel">
-                <h1 id="theh1" class="title">Deploying Proxy</h1>
-                <p id="thep" class="subtitle">This might take a bit</p>
-
-                <div class="bar" aria-hidden="true">
-                    <div class="fill" id="fill"></div>
-                </div>
-
-                <div class="telemetry">
-                    <span class="dot" aria-hidden="true"></span>
-                    <span class="mono" id="telemetry">0.0 MB/s • 0 ops/s • RTT ~ 0 ms</span>
-                </div>
-
-                <div class="log mono" id="log" aria-label="Loader activity stream"></div>
-
-                <div class="hint">
-                    Tip: press <span class="kbd">esc</span> to skip loading when possible.
-                </div>
-            </div>
-        </div>
+  <div id="status" class="status" role="status" aria-live="polite">
+    <div class="status-card">
+      <div class="spinner" aria-hidden="true"></div>
+      <div class="status-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+          <path d="M12 9v4" />
+          <path d="M12 17h.01" />
+        </svg>
+      </div>
+      <p id="status-title" class="status-title">Connecting</p>
+      <p id="status-text" class="status-text">Starting a secure connection…</p>
+      <button id="status-retry" class="status-btn" type="button">Try again</button>
     </div>
+  </div>
 
-    <!-- Your app container -->
-    <div id="iframe-container"></div>
+  <div id="iframe-container"></div>
 
-    <script>
-        // --------------- FAST-FEEL LOADER ---------------
-        const fill = document.getElementById('fill');
-        const logEl = document.getElementById('log');
-        const telem = document.getElementById('telemetry');
-        const h1 = document.getElementById('theh1');
-        const p = document.getElementById('thep');
-        const preloader = document.getElementById('preloader');
+  <script>
+    // ---------------- BRIDGE ----------------
+    // Events go up to the browser shell (proxy.html) as { type: "browser:*" }.
+    // Commands come down as { type: "browser:command", command, url }.
+    const inShell = window.parent && window.parent !== window;
 
-        const statuses = [
-            "This might take a bit",
-            "Downloading assets",
-            "Negotiating TLS & ALPN",
-            "Priming DNS cache",
-            "Compiling WASM shims",
-            "Optimizing routes",
-            "Initializing workers",
-            "Establishing secure channels",
-            "Bootstrapping runtime",
-            "Verifying integrity checks",
-            "Routing via nearest edge",
-            "Starting proxy"
-        ];
+    function emit(type, detail = {}) {
+      if (!inShell) return;
+      window.parent.postMessage({ type, ...detail }, location.origin);
+    }
 
-        let progress = 0;
-        let t0 = performance.now();
-        function rand(min, max) { return Math.random() * (max - min) + min }
-        function fmt(n) { return n.toFixed(1) }
-        function tickTelemetry() {
-            const mbps = fmt(rand(32, 110));
-            const ops = fmt(rand(1.6, 6.8));
-            const rtt = Math.round(rand(12, 44));
-            telem.textContent = `${mbps} MB/s • ${ops}k ops/s • RTT ~ ${rtt} ms`;
+    const statusEl = document.getElementById("status");
+    const statusTitle = document.getElementById("status-title");
+    const statusText = document.getElementById("status-text");
+
+    function showStatus(title, text, isError = false) {
+      statusTitle.textContent = title;
+      statusText.textContent = text;
+      statusEl.classList.toggle("error", isError);
+      statusEl.classList.add("visible");
+    }
+
+    function hideStatus() {
+      statusEl.classList.remove("visible", "error");
+    }
+
+    document.getElementById("status-retry").addEventListener("click", () => location.reload());
+
+    // ---------------- SCRAMJET / BAREMUX ----------------
+    const { ScramjetController } = $scramjetLoadController();
+    const scramjet = new ScramjetController({
+      files: {
+        wasm: "/scram/scramjet.wasm.wasm",
+        all: "/scram/scramjet.all.js",
+        sync: "/scram/scramjet.sync.js"
+      },
+    });
+
+    const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
+
+    function $store(defaultSettings, options = {}) {
+      const { ident = "settings", backing = "localstorage", autosave = "auto" } = options;
+      const storageKey = ident;
+
+      let settings = { ...defaultSettings };
+      if (backing === "localstorage") {
+        try {
+          const stored = localStorage.getItem(storageKey);
+          if (stored) {
+            settings = { ...defaultSettings, ...JSON.parse(stored) };
+          }
+        } catch (e) {
+          console.warn("Failed to load settings from localStorage:", e);
         }
-        const log = [];
-        function pushLine(text, ok = false) {
-            const ts = new Date().toISOString().split('T')[1].split('Z')[0];
-            log.push(`<span class="line"><span class="key">[${ts}]</span> <span class="val">${text}</span> ${ok ? '<span class="ok">✔</span>' : ''}</span>`);
-            if (log.length > 7) log.shift();
-            logEl.innerHTML = log.join("<br/>");
-            logEl.scrollTop = logEl.scrollHeight;
+      }
+
+      function save() {
+        if (backing === "localstorage") {
+          try {
+            localStorage.setItem(storageKey, JSON.stringify(settings));
+          } catch (e) {
+            console.warn("Failed to save settings to localStorage:", e);
+          }
         }
-        let statusIdx = 0;
-        function cycleStatus() {
-            if (statusIdx < statuses.length) {
-                thep.textContent = statuses[statusIdx] + "…";
-                statusIdx++;
-            }
+      }
+      return new Proxy(settings, {
+        set(target, property, value) {
+          target[property] = value;
+          if (autosave === "auto") {
+            save();
+          }
+          return true;
+        },
+        get(target, property) {
+          if (property === "save") {
+            return save;
+          }
+          return target[property];
         }
-        pushLine("initializing runtime");
-        pushLine("warming caches");
-        pushLine("opening secure channels");
+      });
+    }
 
-        const stepTimer = setInterval(() => {
-            const dt = performance.now() - t0;
-            const target = Math.min(96, 100 * (1 - Math.exp(-dt / 900)));
-            const burst = Math.random() < 0.25 ? rand(0.8, 2.4) : rand(0.2, 0.6);
-            progress = Math.min(96, Math.max(progress, target + burst - 1));
-            fill.style.width = progress.toFixed(2) + "%";
+    const store = $store(
+      {
+        wispurl:
+          wispurl ||
+          (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/",
+        proxy: "",
+        transport: "/epoxy/index.mjs",
+      },
+      { ident: "settings", backing: "localstorage", autosave: "auto" }
+    );
+    self.store = store;
 
-            tickTelemetry();
-            if (Math.random() < 0.5) cycleStatus();
-            if (Math.random() < 0.6) pushLine(`stage/${statusIdx || 1} ok`, true);
-        }, 110);
+    async function waitForTransport() {
+      const maxAttempts = 10;
+      let lastError;
 
-        function finishAndHide() {
-            let w = progress;
-            const fin = setInterval(() => {
-                w += Math.max(0.6, (100 - w) * 0.22);
-                fill.style.width = Math.min(100, w).toFixed(2) + "%";
-                if (w >= 99.6) {
-                    clearInterval(fin);
-                    clearInterval(stepTimer);
-                    pushLine("handoff to application", true);
-                    preloader.classList.add('hidden');
-                    document.getElementById('iframe-container').style.display = 'block';
-                    document.dispatchEvent(new CustomEvent('app:preloader:done'));
-                }
-            }, 40);
+      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        try {
+          await connection.setTransport("/epoxy/index.mjs", [{ wisp: store.wispurl }]);
+          return;
+        } catch (e) {
+          lastError = e;
+          console.warn(`Transport init failed (attempt ${attempt} of ${maxAttempts})`, e);
+          if (attempt === 3) {
+            showStatus("Still connecting", "The proxy server is slow to respond. Hang tight…");
+          }
+          await new Promise((res) => setTimeout(res, 800 * attempt));
         }
+      }
+      throw lastError || new Error("Transport failed to initialize");
+    }
 
-        // Allow skipping when mostly loaded
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && progress > 70) finishAndHide();
-        });
+    // A service worker that never activates (e.g. private mode) must not hang the tab.
+    async function registerServiceWorker() {
+      try {
+        await navigator.serviceWorker.register("/sw.js");
+        await Promise.race([
+          navigator.serviceWorker.ready,
+          new Promise((res) => setTimeout(res, 5000)),
+        ]);
+      } catch (e) {
+        console.warn("Service worker registration failed:", e);
+      }
+    }
 
-        // Old helper compatibility (as requested)
-        window.lowtaperfade = function () {
-            document.getElementById('fadeout').style = "opacity: 0;";
-        }
-        window.highslipperybuzz = function () {
-            document.getElementById('fadeout').style = "opacity: 1;";
-            document.getElementById('theh1').innerText = "This is taking a while…";
-            document.getElementById('thep').innerText = "Server could be overloaded, or the target is slow.";
-        }
+    // Only show the connecting screen if booting is actually slow.
+    const bootStatusTimer = setTimeout(
+      () => showStatus("Connecting", "Starting a secure connection…"),
+      350,
+    );
 
-        // Explicit hook to hide loader programmatically
-        window.preloaderDone = function () {
-            finishAndHide();
-        }
-        // ------------------------------------------------
+    const ready = (async () => {
+      await scramjet.init();
+      await registerServiceWorker();
+      await waitForTransport();
+    })();
 
-        // ---------------- SCRAMJET / BAREMUX ----------------
-        const { ScramjetController } = $scramjetLoadController();
-        const scramjet = new ScramjetController({
-            files: {
-                wasm: "/scram/scramjet.wasm.wasm",
-                all: "/scram/scramjet.all.js",
-                sync: "/scram/scramjet.sync.js"
-            },
-        });
-
-        scramjet.init();
-        navigator.serviceWorker.register("/sw.js").catch(() => { });
-
-        const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
-
-
-        function $store(defaultSettings, options = {}) {
-            const { ident = 'settings', backing = 'localstorage', autosave = 'auto' } = options;
-            const storageKey = ident;
-
-            let settings = { ...defaultSettings };
-            if (backing === 'localstorage') {
-                try {
-                    const stored = localStorage.getItem(storageKey);
-                    if (stored) {
-                        settings = { ...defaultSettings, ...JSON.parse(stored) };
-                    }
-                } catch (e) {
-                    console.warn('Failed to load settings from localStorage:', e);
-                }
-            }
-
-            function save() {
-                if (backing === 'localstorage') {
-                    try {
-                        localStorage.setItem(storageKey, JSON.stringify(settings));
-                    } catch (e) {
-                        console.warn('Failed to save settings to localStorage:', e);
-                    }
-                }
-            }
-            return new Proxy(settings, {
-                set(target, property, value) {
-                    target[property] = value;
-                    if (autosave === 'auto') {
-                        save();
-                    }
-                    return true;
-                },
-                get(target, property) {
-                    if (property === 'save') {
-                        return save;
-                    }
-                    return target[property];
-                }
-            });
-        }
-
-        const store = $store(
-            {
-                wispurl:
-                    wispurl ||
-                    (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/",
-                proxy: "",
-                transport: "/epoxy/index.mjs",
-            },
-            { ident: "settings", backing: "localstorage", autosave: "auto" }
+    ready.then(
+      () => {
+        clearTimeout(bootStatusTimer);
+        hideStatus();
+        emit("browser:ready");
+      },
+      (err) => {
+        clearTimeout(bootStatusTimer);
+        console.error("Proxy failed to start:", err);
+        showStatus(
+          "Couldn't connect to the proxy",
+          "The proxy transport failed to start. Check your connection and try again.",
+          true,
         );
-        self.store = store;
+        emit("browser:error", { kind: "transport", message: "The proxy transport failed to start." });
+        emit("browser:loaded", { url: currentUrl });
+      },
+    );
 
-        async function waitForTransport() {
-            let attempts = 0;
-            const maxAttempts = 10;
+    // ---------------- FRAME + NAVIGATION ----------------
+    let frame = null;
+    let currentUrl = "";
+    let loadTimer = null;
 
-            while (attempts < maxAttempts) {
-                try {
-                    await connection.setTransport("/epoxy/index.mjs", [{ wisp: store.wispurl }]);
-                    return;
-                } catch (e) {
-                    attempts++;
-                    pushLine(`Transport init failed (attempt ${attempts} of ${maxAttempts})`);
-                    await new Promise(res => setTimeout(res, 800 * attempts));
-                }
-            }
-        }
+    // Per-tab history. The iframe's own history is joint session history
+    // shared with every other tab, so history.back() could navigate a
+    // different tab; we track entries here and navigate explicitly instead.
+    let entries = [];
+    let index = -1;
+    let pendingHistoryMove = null;
 
-        function mountFrameAndGo(url) {
-            const container = document.getElementById("iframe-container");
-            container.innerHTML = ""; // clear previous
-            const frame = scramjet.createFrame();
-            container.appendChild(frame.frame);
+    function emitHistory() {
+      emit("browser:history", {
+        canGoBack: index > 0,
+        canGoForward: index < entries.length - 1,
+      });
+    }
 
-            // Set up URL change detection similar to PeteZah browser
-            frame.addEventListener("urlchange", (e) => {
-                if (!e.url) return;
+    function recordUrl(url) {
+      if (pendingHistoryMove !== null) {
+        index = pendingHistoryMove;
+        entries[index] = url; // a redirect may land somewhere slightly different
+        pendingHistoryMove = null;
+      } else if (url !== entries[index]) {
+        entries = entries.slice(0, index + 1);
+        entries.push(url);
+        index = entries.length - 1;
+      }
+      emitHistory();
+    }
 
-                console.log("URL change detected:", e.url);
+    function startLoading(url) {
+      emit("browser:loading", { url });
+      clearTimeout(loadTimer);
+      loadTimer = setTimeout(() => {
+        emit("browser:error", { kind: "timeout", message: "This page is taking longer than usual to load." });
+      }, 30000);
+    }
 
-                // Get page title from iframe content
-                let title = "Loading...";
-                try {
-                    const iframeDoc = frame.frame.contentDocument || frame.frame.contentWindow.document;
-                    title = iframeDoc.title || new URL(e.url).hostname || "Untitled";
-                } catch (err) {
-                    title = new URL(e.url).hostname || "Untitled";
-                }
+    function frameDocument() {
+      try {
+        return frame.frame.contentDocument;
+      } catch {
+        return null;
+      }
+    }
 
-                // Send URL and title change to parent window
-                if (window.parent && window.parent !== window) {
-                    window.parent.postMessage({
-                        type: 'urlchange',
-                        url: e.url,
-                        title: title,
-                        frameId: window.frameElement?.id
-                    }, '*');
-                }
-            });
+    function readTitle() {
+      const doc = frameDocument();
+      let title = "";
+      try {
+        title = (doc && doc.title) || "";
+      } catch { }
+      if (!title) {
+        try {
+          title = new URL(currentUrl).hostname;
+        } catch { }
+      }
+      return title.trim();
+    }
 
-            frame.frame.onload = () => {
-                // Frame loaded, but loader already hidden when loading started
+    function toProxiedAsset(href) {
+      if (!href) return "";
+      if (href.startsWith("data:") || href.startsWith(location.origin)) return href;
+      try {
+        return scramjet.encodeUrl(new URL(href, currentUrl).href);
+      } catch {
+        return "";
+      }
+    }
 
-                // Send initial load event
-                if (window.parent && window.parent !== window) {
-                    try {
-                        const iframeDoc = frame.frame.contentDocument || frame.frame.contentWindow.document;
-                        const title = iframeDoc.title || new URL(url).hostname || "Untitled";
-                        window.parent.postMessage({
-                            type: 'frameload',
-                            url: url,
-                            title: title,
-                            frameId: window.frameElement?.id
-                        }, '*');
-                    } catch (err) {
-                        // Cross-origin restrictions
-                        window.parent.postMessage({
-                            type: 'frameload',
-                            url: url,
-                            title: new URL(url).hostname || "Untitled",
-                            frameId: window.frameElement?.id
-                        }, '*');
-                    }
-                }
-            };
+    function readFavicon() {
+      const doc = frameDocument();
+      if (!doc) return "";
+      try {
+        const link = doc.querySelector(
+          'link[rel~="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]',
+        );
+        return toProxiedAsset(link && link.href);
+      } catch {
+        return "";
+      }
+    }
 
-            // Hide loader when navigation starts (not when it finishes)
-            window.preloaderDone();
-            frame.go(url);
-        }
+    let lastTitle = "";
+    let lastFavicon = "";
+    let observer = null;
+    let observedDoc = null;
 
-        async function loadFromHash() {
-            // Show loader while switching
-            document.getElementById('iframe-container').style.display = 'none';
-            document.getElementById('fadeout').classList.remove('hidden');
-            document.getElementById('preloader').classList.remove('hidden');
+    function syncMeta() {
+      const title = readTitle();
+      if (title && title !== lastTitle) {
+        lastTitle = title;
+        emit("browser:titlechange", { title });
+      }
+      const favicon = readFavicon();
+      if (favicon !== lastFavicon) {
+        lastFavicon = favicon;
+        emit("browser:faviconchange", { favicon });
+      }
+    }
 
-            // Reset loader headline/desc for a new navigation cycle
-            h1.textContent = "Deploying proxy…";
-            p.textContent = "Optimizing routes, warming caches, and negotiating TLS.";
-            progress = 0; fill.style.width = "0%";
+    function observeDocument() {
+      const doc = frameDocument();
+      if (!doc || doc === observedDoc || !doc.documentElement) return;
+      observedDoc = doc;
+      if (observer) observer.disconnect();
+      observer = new MutationObserver(syncMeta);
+      try {
+        observer.observe(doc.head || doc.documentElement, {
+          subtree: true,
+          childList: true,
+          characterData: true,
+          attributes: true,
+          attributeFilter: ["href", "rel"],
+        });
+      } catch { }
+    }
 
-            const raw = window.location.hash.substring(1);
-            let url = raw ? raw : "https://start.duckduckgo.com/";
-            if (!/^https?:\/\//i.test(url) && raw) url = "https://" + raw;
+    // Browser shortcuts pressed while the proxied page has focus are
+    // forwarded to the shell so they behave the same everywhere.
+    const SHORTCUT_KEYS = new Set(["l", "t", "w", "r", "1", "2", "3", "4", "5", "6", "7", "8", "9", "tab"]);
 
-            await waitForTransport();
-            mountFrameAndGo(url);
-        }
+    function bindPageKeys() {
+      let win;
+      try {
+        win = frame.frame.contentWindow;
+      } catch {
+        return;
+      }
+      if (!win || win.__browserKeysBound) return;
+      win.__browserKeysBound = true;
+      win.addEventListener(
+        "keydown",
+        (e) => {
+          const key = e.key.toLowerCase();
+          const mod = e.ctrlKey || e.metaKey;
+          if (!mod || !SHORTCUT_KEYS.has(key)) return;
+          e.preventDefault();
+          emit("browser:shortcut", {
+            key: e.key,
+            ctrlKey: e.ctrlKey,
+            metaKey: e.metaKey,
+            shiftKey: e.shiftKey,
+            altKey: e.altKey,
+          });
+        },
+        true,
+      );
+      win.addEventListener("pagehide", () => startLoading(currentUrl));
+    }
 
-        window.addEventListener("hashchange", loadFromHash);
-        window.addEventListener("load", loadFromHash);
-        // ----------------------------------------------------
-    </script>
+    function mountFrame() {
+      const container = document.getElementById("iframe-container");
+      container.innerHTML = "";
+      frame = scramjet.createFrame();
+      frame.frame.setAttribute("allowfullscreen", "");
+      frame.frame.setAttribute("allow", "fullscreen; autoplay; clipboard-read; clipboard-write; encrypted-media; picture-in-picture");
+      container.appendChild(frame.frame);
+
+      frame.addEventListener("urlchange", (e) => {
+        if (!e.url) return;
+        currentUrl = e.url;
+        recordUrl(e.url);
+        emit("browser:urlchange", { url: e.url });
+        observeDocument();
+        syncMeta();
+      });
+
+      frame.addEventListener("navigate", (e) => {
+        if (e.url) startLoading(e.url);
+      });
+
+      frame.frame.addEventListener("load", () => {
+        clearTimeout(loadTimer);
+        observeDocument();
+        bindPageKeys();
+        syncMeta();
+        emit("browser:loaded", { url: currentUrl, title: lastTitle, favicon: lastFavicon });
+      });
+    }
+
+    async function navigate(url, { historyMove = null } = {}) {
+      if (!url) return;
+      startLoading(url);
+      try {
+        await ready;
+      } catch {
+        return;
+      }
+      if (!frame) mountFrame();
+      pendingHistoryMove = historyMove;
+      currentUrl = url;
+      frame.go(url);
+    }
+
+    function goBack() {
+      if (index > 0) navigate(entries[index - 1], { historyMove: index - 1 });
+    }
+
+    function goForward() {
+      if (index < entries.length - 1) navigate(entries[index + 1], { historyMove: index + 1 });
+    }
+
+    function reload() {
+      if (!frame) return;
+      startLoading(currentUrl);
+      try {
+        frame.reload();
+      } catch {
+        frame.go(currentUrl);
+      }
+    }
+
+    function stop() {
+      clearTimeout(loadTimer);
+      try {
+        frame.frame.contentWindow.stop();
+      } catch { }
+      emit("browser:loaded", { url: currentUrl, title: lastTitle, favicon: lastFavicon });
+    }
+
+    // Eruda is ~500KB, so it's only fetched (through the proxy) when requested.
+    function toggleDevtools() {
+      let win;
+      try {
+        win = frame.frame.contentWindow;
+      } catch {
+        return;
+      }
+      if (!win) return;
+      if (win.eruda && win.__erudaActive) {
+        win.eruda.destroy();
+        win.__erudaActive = false;
+        return;
+      }
+      const start = () => {
+        win.eruda.init();
+        win.eruda.show();
+        win.__erudaActive = true;
+      };
+      if (win.eruda) return start();
+      const script = win.document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/npm/eruda";
+      script.onload = start;
+      script.onerror = () =>
+        emit("browser:error", { kind: "devtools", message: "Developer tools couldn't be loaded on this page." });
+      win.document.head.appendChild(script);
+    }
+
+    window.addEventListener("message", (event) => {
+      if (event.source !== window.parent || event.origin !== location.origin) return;
+      const data = event.data;
+      if (!data || data.type !== "browser:command") return;
+      switch (data.command) {
+        case "go":
+          navigate(data.url);
+          break;
+        case "back":
+          goBack();
+          break;
+        case "forward":
+          goForward();
+          break;
+        case "reload":
+          reload();
+          break;
+        case "stop":
+          stop();
+          break;
+        case "devtools":
+          toggleDevtools();
+          break;
+      }
+    });
+
+    function urlFromHash() {
+      const raw = window.location.hash.substring(1);
+      if (!raw) return "https://start.duckduckgo.com/";
+      return /^https?:\/\//i.test(raw) ? raw : "https://" + raw;
+    }
+
+    window.addEventListener("hashchange", () => navigate(urlFromHash()));
+    navigate(urlFromHash());
+  </script>
 </body>
 
 </html>
