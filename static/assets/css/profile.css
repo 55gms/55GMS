@@ -3,23 +3,23 @@
 .profile {
   --p-surface: color-mix(
     in srgb,
-    var(--site-surface-3, #4a5f7a) 55%,
-    rgba(0, 0, 0, 0.5)
+    var(--site-surface-2, #5e7594) 70%,
+    rgba(0, 0, 0, 0.34)
   );
   --p-surface-hover: color-mix(
     in srgb,
-    var(--site-surface-3, #4a5f7a) 48%,
-    rgba(0, 0, 0, 0.56)
+    var(--site-surface-2, #5e7594) 76%,
+    rgba(0, 0, 0, 0.3)
   );
   --p-inset: color-mix(
     in srgb,
-    var(--site-surface-3, #4a5f7a) 40%,
-    rgba(0, 0, 0, 0.62)
+    var(--site-surface-2, #5e7594) 58%,
+    rgba(0, 0, 0, 0.42)
   );
   --p-border: color-mix(
     in srgb,
-    var(--site-muted, #b5cae0) 40%,
-    var(--site-border, #353d49)
+    var(--site-border, #353d49) 70%,
+    var(--site-muted, #b5cae0)
   );
   --p-border-strong: color-mix(
     in srgb,
@@ -525,7 +525,7 @@
   padding: 12px 14px;
   border: 1px solid var(--p-border);
   border-radius: var(--p-radius);
-  background: color-mix(in srgb, var(--site-surface-3, #4a5f7a) 88%, #000);
+  background: color-mix(in srgb, var(--site-surface-2, #5e7594) 88%, #000);
   color: var(--p-text);
   font-size: 0.875rem;
   line-height: 1.45;
