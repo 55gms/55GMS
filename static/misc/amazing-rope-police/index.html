@@ -2,11 +2,14 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css">
+    <script type="module" src="/assets/js/unity-cdn-loader.js"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/amazing-rope-police/">
   <title>Amazing Strange Rope Police</title>
   <link rel="stylesheet" href="crazygames-gameframe-v1.bundle.css" />
-  <script src="crazygames-gameframe-v1.bundle.js"></script>
-  <script src="/assets/js/script.js?v=14"></script>
-  <script src="sdk.js"></script>
+
+
+
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Language" content="en_US" />
@@ -26,7 +29,14 @@
 </head>
 
 <body>
-  <script type="text/javascript">
+    <div id="unity-cdn-loading" role="status" aria-live="polite">LOADING...</div>
+
+
+    <template id="unity-game-scripts">
+<script src="crazygames-gameframe-v1.bundle.js"></script>
+<script src="/assets/js/script.js?v=14"></script>
+<script src="sdk.js"></script>
+<script type="text/javascript">
     var options = {
       author: "HGames-ArtWorks",
       thumbnail: decodeURIComponent(
@@ -60,6 +70,7 @@
     };
     Crazygames.load(options);
   </script>
+    </template>
 </body>
 
 </html>

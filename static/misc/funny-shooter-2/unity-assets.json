@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "Build/FunnyShooter2_Poki.data.unityweb",
+      "size": 42274254,
+      "type": "application/octet-stream",
+      "sha256": "92b3c97e031dc643cdd878f901c387ec30e6ae499afeaad5a6c110ce662f4429",
+      "parts": [
+        {
+          "path": "Build/FunnyShooter2_Poki.data.unityweb.part1",
+          "size": 10000000
+        },
+        {
+          "path": "Build/FunnyShooter2_Poki.data.unityweb.part2",
+          "size": 10000000
+        },
+        {
+          "path": "Build/FunnyShooter2_Poki.data.unityweb.part3",
+          "size": 10000000
+        },
+        {
+          "path": "Build/FunnyShooter2_Poki.data.unityweb.part4",
+          "size": 10000000
+        },
+        {
+          "path": "Build/FunnyShooter2_Poki.data.unityweb.part5",
+          "size": 2274254
+        }
+      ]
+    },
+    {
+      "path": "Build/FunnyShooter2_Poki.framework.js.unityweb",
+      "size": 512419,
+      "type": "application/javascript",
+      "sha256": "a043b92b0a05a15ee149f30323a010fc29ed63f444446d4f017470da97274862"
+    },
+    {
+      "path": "Build/FunnyShooter2_Poki.wasm.unityweb",
+      "size": 23044307,
+      "type": "application/wasm",
+      "sha256": "82cb6bb11f5085cf531260a6e704b77ed9a8f276105bbee140c643e0e9e85bf4",
+      "parts": [
+        {
+          "path": "Build/FunnyShooter2_Poki.wasm.unityweb.part1",
+          "size": 10000000
+        },
+        {
+          "path": "Build/FunnyShooter2_Poki.wasm.unityweb.part2",
+          "size": 10000000
+        },
+        {
+          "path": "Build/FunnyShooter2_Poki.wasm.unityweb.part3",
+          "size": 3044307
+        }
+      ]
+    }
+  ]
+}

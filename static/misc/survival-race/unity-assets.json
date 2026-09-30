@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "Build/yandexBrotli.data.unityweb",
+      "size": 8957084,
+      "type": "application/octet-stream",
+      "sha256": "d5d88eedd46d2275f6022ab014ab13c7572828e7df2f98e31025c852b76e4b95"
+    },
+    {
+      "path": "Build/yandexBrotli.framework.js.unityweb",
+      "size": 729092,
+      "type": "application/javascript",
+      "sha256": "33c219553720afe5803725326f9ae79aede9b1707c99cb0eccd19b4f28eab319"
+    },
+    {
+      "path": "Build/yandexBrotli.wasm.unityweb",
+      "size": 27172855,
+      "type": "application/wasm",
+      "sha256": "f3a7118872f9db6bb1fb9fc7823a9e609d5826c2ccd89db659ec6f7ff25b2ed5",
+      "parts": [
+        {
+          "path": "Build/yandexBrotli.wasm.unityweb.part1",
+          "size": 10000000
+        },
+        {
+          "path": "Build/yandexBrotli.wasm.unityweb.part2",
+          "size": 10000000
+        },
+        {
+          "path": "Build/yandexBrotli.wasm.unityweb.part3",
+          "size": 7172855
+        }
+      ]
+    }
+  ]
+}

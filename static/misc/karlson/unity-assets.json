@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "Build/tyj.data.unityweb",
+      "size": 19576517,
+      "type": "application/octet-stream",
+      "sha256": "1154757dd72554a3918afeae492eebba6a9318067371cbd069aa060a66f569be"
+    },
+    {
+      "path": "Build/tyj.wasm.code.unityweb.zip",
+      "size": 7742760,
+      "type": "application/javascript",
+      "sha256": "5f64e8c7407cb8f013ae4a9edb5086f5bd48cd7419177565221a137c5a2bea88"
+    },
+    {
+      "path": "Build/tyj.wasm.framework.js",
+      "size": 793052,
+      "type": "application/javascript",
+      "sha256": "a5155ecb15e5074f76e2370994c620b63eede574bbb06b913e148f5cbdd8f311"
+    }
+  ]
+}

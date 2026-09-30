@@ -2,15 +2,27 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css">
+    <script type="module" src="/assets/js/unity-cdn-loader.js"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/madstunt-cars/">
   <title>Madalin Stunt Cars 3</title>
 </head>
 <link rel="icon" type="image/x-icon" href="img/index.jpg" />
 <link rel="stylesheet" href="TemplateData/style.css" />
-<script src="TemplateData/UnityProgress.js"></script>
-<script src="js/unityloader35.js"></script>
+
+
 
 <body>
-  <script>
+    <div id="unity-cdn-loading" role="status" aria-live="polite">LOADING...</div>
+
+  <div class="webgl-content">
+    <div id="gameContainer" style="width: 100vw; height: 100vh;"></div>
+  </div>
+
+    <template id="unity-game-scripts">
+<script src="TemplateData/UnityProgress.js"></script>
+<script src="js/unityloader35.js"></script>
+<script>
     var gameInstance = UnityLoader.instantiate("gameContainer", "game.json", {
       onProgress: UnityProgress,
       Module: {
@@ -20,9 +32,7 @@
       },
     });
   </script>
-  <div class="webgl-content">
-    <div id="gameContainer" style="width: 100vw; height: 100vh;"></div>
-  </div>
+    </template>
 </body>
 
 </html>

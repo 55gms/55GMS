@@ -2,6 +2,9 @@
 <html lang="en-us">
 
 <head>
+    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css">
+    <script type="module" src="/assets/js/unity-cdn-loader.js"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/survival-race/">
     <meta charset="utf-8">
     <meta name="robots" content="noindex, nofollow">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -43,10 +46,17 @@
 </head>
 
 <body>
+    <div id="unity-cdn-loading" role="status" aria-live="polite">LOADING...</div>
     <div id="gameContainer">
         <canvas id="unity-canvas" data-pixel-art=""></canvas>
-        <script src="Build/yandexBrotli.loader.js"></script>
-        <script>
+
+
+    </div>
+
+
+    <template id="unity-game-scripts">
+<script src="Build/yandexBrotli.loader.js"></script>
+<script>
             let myGameInstance = null;
             let ysdk = null;
             let player = null;
@@ -185,12 +195,12 @@
             window.addEventListener('resize', onResize);
             onResize();
         </script>
-    </div>
-    <script defer
+<script defer
         src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
         integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
         data-cf-beacon='{"rayId":"8de925b12e220c0f","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2024.10.4","token":"c843b8c381814d58b40d4597a1bf7962"}'
         crossorigin="anonymous"></script>
+    </template>
 </body>
 
 </html>

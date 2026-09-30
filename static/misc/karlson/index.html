@@ -2,10 +2,13 @@
 <html lang="en-us">
 
 <head>
+    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css">
+    <script type="module" src="/assets/js/unity-cdn-loader.js"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/karlson/">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Karlson</title>
-    <script src="Build/UnityLoader.js"></script>
+
 
 
     <style>
@@ -78,8 +81,19 @@
             }
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-    <script>
+
+
+</head>
+
+<body>
+    <div id="unity-cdn-loading" role="status" aria-live="polite">LOADING...</div>
+    <div id="loading-text">LOADING...</div>
+    <div id="unityContainer"></div>
+
+    <template id="unity-game-scripts">
+<script src="Build/UnityLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script>
         let totalBytes = 0;
         let loadedBytes = 0;
 
@@ -207,11 +221,7 @@
 
         window.addEventListener("load", startUnity);
     </script>
-</head>
-
-<body>
-    <div id="loading-text">LOADING...</div>
-    <div id="unityContainer"></div>
+    </template>
 </body>
 
 </html>

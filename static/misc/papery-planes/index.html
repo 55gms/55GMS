@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 
 <head>
+    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css">
+    <script type="module" src="/assets/js/unity-cdn-loader.js"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/papery-planes/">
   <meta charset="utf-8" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="icon" type="image/x-icon" href="thumb.png" />
   <title>Papery Planes</title>
 
 
-  <script>
+
+</head>
+
+<body>
+    <div id="unity-cdn-loading" role="status" aria-live="polite">LOADING...</div>
+
+
+
+
+    <template id="unity-game-scripts">
+<script>
     window.config = {
       loader: "unity",
       debug: false,
@@ -32,10 +45,7 @@
       },
     };
   </script>
-</head>
-
-<body>
-  <script src="master-loader.js"></script>
-  <script src="/assets/js/script.js?v=14"></script>
-
+<script src="master-loader.js"></script>
+<script src="/assets/js/script.js?v=14"></script>
+    </template>
 </body>

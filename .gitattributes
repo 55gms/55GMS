@@ -1,0 +1,2 @@
+# Unity payload parts must retain their bytes even when a part resembles text.
+static/misc/**/*.part[0-9]* binary

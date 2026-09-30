@@ -1,0 +1,25 @@
+html,
+body {
+  background: #000 !important;
+}
+
+#unity-cdn-loading {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 24px;
+  box-sizing: border-box;
+  background: #000;
+  color: #fff;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-size: clamp(18px, 4vw, 48px);
+  line-height: 1.4;
+  text-align: center;
+}
+
+#unity-cdn-loading[hidden] {
+  display: none;
+}
