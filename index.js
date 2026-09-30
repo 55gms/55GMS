@@ -409,7 +409,11 @@ try {
 
   server.removeAllListeners("upgrade");
 
+  const upgradedSockets = new Set();
+
   server.on("upgrade", (req, socket, head) => {
+    upgradedSockets.add(socket);
+    socket.once("close", () => upgradedSockets.delete(socket));
     if (req.url.startsWith("/wisp/")) {
       wisp.routeRequest(req, socket, head);
     } else {
@@ -423,19 +427,38 @@ try {
     console.log(`------------------------------------\n`);
   });
 
+  let shuttingDown = false;
+
   function shutdown(signal) {
+    if (shuttingDown) {
+      console.log("  Forcing exit.");
+      process.exit(1);
+    }
+    shuttingDown = true;
+
     console.log("-----------------------------------------------");
     console.log(`  Shutting Down (Signal: ${signal})  `);
     console.log("-----------------------------------------------\n");
+
+    // Don't hang forever if something refuses to close.
+    setTimeout(() => {
+      console.error("  Shutdown timed out, forcing exit.");
+      process.exit(1);
+    }, 5000).unref();
+
     server.close(async () => {
       console.log("  55GMS has shut down.");
-      io.close();
       await Promise.allSettled([
         redisPubClient?.quit(),
         redisSubClient?.quit(),
       ]);
       process.exit(0);
     });
+
+    // server.close() waits for open connections; end them so it can finish.
+    io.close();
+    for (const socket of upgradedSockets) socket.destroy();
+    server.closeAllConnections();
   }
 
   process.on("SIGTERM", () => shutdown("SIGTERM"));
