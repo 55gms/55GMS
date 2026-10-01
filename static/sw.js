@@ -1,16 +1,9 @@
-importScripts("/scram/scramjet.all.js");
+importScripts("/controller/controller.sw.js?v=0.0.14");
 
-const { ScramjetServiceWorker } = $scramjetLoadWorker();
-const scramjet = new ScramjetServiceWorker();
-
-async function handleRequest(event) {
-  await scramjet.loadConfig();
-  if (scramjet.route(event)) {
-    return scramjet.fetch(event);
-  }
-  return fetch(event.request);
-}
-
+// The controller owns RPC, activation, client claiming and worker recovery.
+// Leave local requests to the browser instead of intercepting every asset.
 self.addEventListener("fetch", (event) => {
-  event.respondWith(handleRequest(event));
+  if ($scramjetController.shouldRoute(event)) {
+    event.respondWith($scramjetController.route(event));
+  }
 });

@@ -234,8 +234,6 @@ const embedScript = [...embed.matchAll(/<script>([\s\S]*?)<\/script>/g)]
 
 function proxyPage() {
   const init = deferred();
-  const transport = deferred();
-  const registered = [];
   const destinations = [];
   const handlers = {};
   const elements = new Map();
@@ -247,13 +245,17 @@ function proxyPage() {
     appendChild() {},
   });
   const frame = {
-    frame: { setAttribute() {}, addEventListener() {}, contentDocument: null },
+    element: {
+      setAttribute() {},
+      addEventListener() {},
+      contentDocument: null,
+    },
+    hooks: { init: { post: {} }, error: { request: {} } },
     addEventListener() {},
     go(url) {
       destinations.push(url);
     },
   };
-  let transportStarted = false;
   const timers = new Map();
   let nextTimer = 0;
   const context = vm.createContext({
@@ -266,15 +268,6 @@ function proxyPage() {
       protocol: "https:",
       host: "55gms.test",
       hash: "#https://example.com/",
-    },
-    navigator: {
-      serviceWorker: {
-        register(url) {
-          registered.push(url);
-          return Promise.resolve({});
-        },
-        ready: Promise.resolve(),
-      },
     },
     localStorage: {
       getItem() {
@@ -299,24 +292,18 @@ function proxyPage() {
     clearTimeout(id) {
       timers.delete(id);
     },
-    $scramjetLoadController: () => ({
-      ScramjetController: class {
-        init() {
-          return init.promise;
-        }
-        createFrame() {
-          return frame;
-        }
+    proxyRuntime: {
+      createController() {
+        return init.promise.then(() => ({
+          createFrame() {
+            return frame;
+          },
+        }));
       },
-    }),
-    BareMux: {
-      BareMuxConnection: class {
-        setTransport() {
-          transportStarted = true;
-          return transport.promise;
-        }
-      },
+      AssetCachePlugin: class {},
     },
+    $scramjet: { Tap: { tap() {} } },
+    $scramjetUtils: { UrlWatcherPlugin: class {} },
   });
   context.window = context;
   context.self = context;
@@ -325,27 +312,20 @@ function proxyPage() {
   return {
     context,
     init,
-    transport,
-    registered,
     destinations,
     timers,
     handlers,
-    transportStarted,
   };
 }
 
-test("proxy boots transport alongside config but registers worker only after config is saved", async () => {
+test("proxy navigation waits for the new controller handshake", async () => {
   const page = proxyPage();
-  assert.equal(page.transportStarted, true);
-  assert.equal(page.registered.length, 0);
-  page.transport.resolve();
   await tick();
   assert.equal(page.destinations.length, 0);
   page.init.resolve();
   await tick();
-  assert.deepEqual(page.registered, ["/sw.js"]);
   assert.deepEqual(page.destinations, ["https://example.com/"]);
-  assert.equal(page.timers.size, 1); // Only the page-load deadline remains.
+  assert.equal(page.timers.size, 1);
 });
 
 test("latest episode wins if navigation changes before proxy startup completes", async () => {
@@ -354,7 +334,6 @@ test("latest episode wins if navigation changes before proxy startup completes",
     "#https://cinemaos.tech/player/1399/1/2?title=false";
   page.handlers.hashchange();
   page.init.resolve();
-  page.transport.resolve();
   await tick();
   assert.deepEqual(page.destinations, [
     "https://cinemaos.tech/player/1399/1/2?title=false",

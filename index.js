@@ -6,17 +6,13 @@ import { createClient } from "redis";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import { createRequire } from "module";
 import cors from "cors";
 import "dotenv/config";
 import { Op } from "sequelize";
 import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
 import { createCompression, staticOptions } from "./utils/httpPerformance.js";
 
-const require = createRequire(import.meta.url);
-const { epoxyPath } = require("@mercuryworkshop/epoxy-transport");
-const { baremuxPath } = require("@mercuryworkshop/bare-mux/node");
-import { scramjetPath } from "@mercuryworkshop/scramjet/path";
+import { mountProxyAssets } from "./utils/proxyAssets.js";
 
 logging.set_level(logging.ERROR);
 
@@ -40,9 +36,7 @@ try {
 
   const app = express();
   app.use(createCompression());
-  app.use("/epoxy/", express.static(epoxyPath, staticOptions));
-  app.use("/baremux/", express.static(baremuxPath, staticOptions));
-  app.use("/scram/", express.static(scramjetPath, staticOptions));
+  mountProxyAssets(app);
   const server = createServer(app);
 
   const io = new SocketIO({

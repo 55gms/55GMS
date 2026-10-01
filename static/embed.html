@@ -6,9 +6,12 @@
     <title>Scramjet Embed</title>
     <script src="/assets/js/script.js?v=16"></script>
 
-    <!-- Scramjet/BareMux -->
-    <script src="/baremux/index.js"></script>
-    <script src="/scram/scramjet.all.js"></script>
+    <!-- Versioned, compatible controller/core/transport bundles. -->
+    <script src="/scram/scramjet.js?v=2.0.67-alpha.2"></script>
+    <script src="/controller/controller.api.js?v=0.0.14"></script>
+    <script src="/scramjet-utils/scramjet-utils.js?v=0.0.3"></script>
+    <script src="/epoxy/index.js?v=3.0.1"></script>
+    <script src="/assets/js/proxy-runtime.js?v=2"></script>
     <script>
       let wispurl =
         (location.protocol === "https:" ? "wss://" : "ws://") +
@@ -241,17 +244,8 @@
         .getElementById("status-retry")
         .addEventListener("click", () => location.reload());
 
-      // ---------------- SCRAMJET / BAREMUX ----------------
-      const { ScramjetController } = $scramjetLoadController();
-      const scramjet = new ScramjetController({
-        files: {
-          wasm: "/scram/scramjet.wasm.wasm",
-          all: "/scram/scramjet.all.js",
-          sync: "/scram/scramjet.sync.js",
-        },
-      });
-
-      const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
+      // ---------------- SCRAMJET CONTROLLER / TRANSPORT ----------------
+      let scramjet;
 
       function $store(defaultSettings, options = {}) {
         const {
@@ -314,67 +308,17 @@
       );
       self.store = store;
 
-      async function waitForTransport() {
-        const maxAttempts = 10;
-        let lastError;
-
-        for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-          try {
-            await connection.setTransport("/epoxy/index.mjs", [
-              { wisp: store.wispurl },
-            ]);
-            return;
-          } catch (e) {
-            lastError = e;
-            console.warn(
-              `Transport init failed (attempt ${attempt} of ${maxAttempts})`,
-              e,
-            );
-            if (attempt === 3) {
-              showStatus(
-                "Still connecting",
-                "The proxy server is slow to respond. Hang tight…",
-              );
-            }
-            await new Promise((res) => setTimeout(res, 800 * attempt));
-          }
-        }
-        throw lastError || new Error("Transport failed to initialize");
-      }
-
-      // A service worker that never activates (e.g. private mode) must not hang the tab.
-      async function registerServiceWorker() {
-        await navigator.serviceWorker.register("/sw.js");
-        let timer;
-        try {
-          await Promise.race([
-            navigator.serviceWorker.ready,
-            new Promise((resolve, reject) => {
-              timer = setTimeout(
-                () =>
-                  reject(new Error("Proxy service worker did not activate")),
-                10000,
-              );
-            }),
-          ]);
-        } finally {
-          clearTimeout(timer);
-        }
-      }
-
       // Only show the connecting screen if booting is actually slow.
       const bootStatusTimer = setTimeout(
         () => showStatus("Connecting", "Starting a secure connection…"),
         350,
       );
 
-      const ready = (async () => {
-        await Promise.all([
-          // Initialize the config DB before starting a fresh service worker.
-          scramjet.init().then(registerServiceWorker),
-          waitForTransport(),
-        ]);
-      })();
+      const ready = proxyRuntime
+        .createController(store.wispurl)
+        .then((controller) => {
+          scramjet = controller;
+        });
 
       ready.then(
         () => {
@@ -444,7 +388,7 @@
 
       function frameDocument() {
         try {
-          return frame.frame.contentDocument;
+          return frame.element.contentDocument;
         } catch {
           return null;
         }
@@ -469,7 +413,14 @@
         if (href.startsWith("data:") || href.startsWith(location.origin))
           return href;
         try {
-          return scramjet.encodeUrl(new URL(href, currentUrl).href);
+          return $scramjet.rewriteUrl(
+            new URL(href, currentUrl).href,
+            frame.context,
+            {
+              origin: new URL(currentUrl),
+              base: new URL(currentUrl),
+            },
+          );
         } catch {
           return "";
         }
@@ -545,7 +496,7 @@
       function bindPageKeys() {
         let win;
         try {
-          win = frame.frame.contentWindow;
+          win = frame.element.contentWindow;
         } catch {
           return;
         }
@@ -574,28 +525,49 @@
       function mountFrame() {
         const container = document.getElementById("iframe-container");
         container.innerHTML = "";
-        frame = scramjet.createFrame();
-        frame.frame.setAttribute("allowfullscreen", "");
-        frame.frame.setAttribute(
+        frame = scramjet.createFrame(undefined, {
+          plugins: [
+            new proxyRuntime.AssetCachePlugin(),
+            new $scramjetUtils.UrlWatcherPlugin((url) => {
+              if (!url) return;
+              currentUrl = url;
+              recordUrl(url);
+              emit("browser:urlchange", { url });
+              observeDocument();
+              syncMeta();
+            }),
+          ],
+        });
+        frame.element.setAttribute("allowfullscreen", "");
+        frame.element.setAttribute(
           "allow",
           "fullscreen; autoplay; clipboard-read; clipboard-write; encrypted-media; picture-in-picture",
         );
-        container.appendChild(frame.frame);
+        container.appendChild(frame.element);
 
-        frame.addEventListener("urlchange", (e) => {
-          if (!e.url) return;
-          currentUrl = e.url;
-          recordUrl(e.url);
-          emit("browser:urlchange", { url: e.url });
+        $scramjet.Tap.tap(frame.hooks.init.post, (context) => {
+          if (!context.isTopLevel) return;
           observeDocument();
+          bindPageKeys();
           syncMeta();
         });
+        $scramjet.Tap.tap(
+          frame.hooks.error.request,
+          ({ error, rawrequest }) => {
+            if (rawrequest.rawUrl !== frame.element.src) return;
+            clearTimeout(loadTimer);
+            emit("browser:error", {
+              kind: "request",
+              message:
+                error instanceof Error
+                  ? error.message
+                  : "The page could not be loaded.",
+            });
+            emit("browser:loaded", { url: currentUrl });
+          },
+        );
 
-        frame.addEventListener("navigate", (e) => {
-          if (e.url) startLoading(e.url);
-        });
-
-        frame.frame.addEventListener("load", () => {
+        frame.element.addEventListener("load", () => {
           clearTimeout(loadTimer);
           observeDocument();
           bindPageKeys();
@@ -649,7 +621,7 @@
       function stop() {
         clearTimeout(loadTimer);
         try {
-          frame.frame.contentWindow.stop();
+          frame.element.contentWindow.stop();
         } catch {}
         emit("browser:loaded", {
           url: currentUrl,
@@ -662,7 +634,7 @@
       function toggleDevtools() {
         let win;
         try {
-          win = frame.frame.contentWindow;
+          win = frame.element.contentWindow;
         } catch {
           return;
         }
