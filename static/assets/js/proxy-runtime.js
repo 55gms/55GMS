@@ -101,6 +101,30 @@ window.proxyRuntime = (() => {
     }
   }
 
+  function stripLinkIntegrity(header) {
+    // Skip URLs and other quoted parameters while removing preload hashes.
+    return header.replace(
+      /<[^>]*>|"(?:\\.|[^"\\])*"|;\s*integrity(?:\s*=\s*(?:"(?:\\.|[^"\\])*"|[^;,\s]+))?(?=\s*(?:;|,|$))/gi,
+      (part) => (part.startsWith(";") ? "" : part),
+    );
+  }
+
+  class ResourceIntegrityPlugin extends $scramjetController.ManagedPlugin {
+    constructor() {
+      super("proxy-resource-integrity", []);
+    }
+
+    install(frame) {
+      super.install(frame);
+      this.tap(frame.hooks.fetch.response, (context, { response }) => {
+        const link = response.headers.get("link");
+        // CSS and scripts change during rewriting, so upstream preload hashes
+        // no longer match. Scramjet already clears integrity on HTML elements.
+        if (link) response.headers.set("link", stripLinkIntegrity(link));
+      });
+    }
+  }
+
   async function createController(wispUrl) {
     const transport = new EpoxyTransport.default({
       wisp: wispUrl,
@@ -127,5 +151,11 @@ window.proxyRuntime = (() => {
     return controller;
   }
 
-  return { createController, AssetCachePlugin, canCacheAsset, WORKER_URL };
+  return {
+    createController,
+    AssetCachePlugin,
+    ResourceIntegrityPlugin,
+    canCacheAsset,
+    WORKER_URL,
+  };
 })();

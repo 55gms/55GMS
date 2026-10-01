@@ -11,7 +11,7 @@
     <script src="/controller/controller.api.js?v=0.0.14"></script>
     <script src="/scramjet-utils/scramjet-utils.js?v=0.0.3"></script>
     <script src="/epoxy/index.js?v=3.0.1"></script>
-    <script src="/assets/js/proxy-runtime.js?v=2"></script>
+    <script src="/assets/js/proxy-runtime.js?v=3"></script>
     <script>
       let wispurl =
         (location.protocol === "https:" ? "wss://" : "ws://") +
@@ -527,6 +527,7 @@
         container.innerHTML = "";
         frame = scramjet.createFrame(undefined, {
           plugins: [
+            new proxyRuntime.ResourceIntegrityPlugin(),
             new proxyRuntime.AssetCachePlugin(),
             new $scramjetUtils.UrlWatcherPlugin((url) => {
               if (!url) return;
