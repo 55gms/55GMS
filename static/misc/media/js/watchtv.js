@@ -1,88 +1,106 @@
+"use strict";
+
+let episodeRequest = 0;
+let currentSeason = "1";
+let currentEpisode = "1";
+let showId;
+
+function readSelection() {
+  const params = new URLSearchParams(window.location.search);
+  currentSeason = mediaPlayer.positiveInteger(params.get("s"), "1");
+  currentEpisode = mediaPlayer.positiveInteger(params.get("e"), "1");
+}
+
+function selectEpisode(season, episode, updateHistory = true) {
+  currentSeason = String(season);
+  currentEpisode = String(episode);
+  if (updateHistory) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("s", currentSeason);
+    url.searchParams.set("e", currentEpisode);
+    history.pushState(null, "", url);
+  }
+  mediaPlayer.load(showId, currentSeason, currentEpisode);
+  document.getElementById("seasonSelector").value = currentSeason;
+  for (const item of document.querySelectorAll(".episode-item")) {
+    item.classList.toggle("active", item.dataset.episode === currentEpisode);
+  }
+}
+
 async function getTVShowData() {
-  const ID = new URLSearchParams(window.location.search).get("id");
-  if (!ID) {
+  showId = mediaPlayer.positiveInteger(
+    new URLSearchParams(window.location.search).get("id"),
+  );
+  if (!showId) {
     window.location.href = "/";
     return;
   }
-  const season = new URLSearchParams(window.location.search).get("s");
-  const episode = new URLSearchParams(window.location.search).get("e");
-  if (season && episode) {
-    const iframe = document.getElementById("iframe");
-    iframe.src = `embed/tv.html?id=${ID}&s=${season}&e=${episode}`;
-  } else {
-    location.href = `tv.html?id=${ID}&s=1&e=1`;
-  }
-
-  const url = `https://api.themoviedb.org/3/tv/${ID}?api_key=9a2954cb0084e80efa20b3729db69067&language=en-US`;
+  readSelection();
+  selectEpisode(currentSeason, currentEpisode, false);
+  // Neither the player nor episode list depends on the show-details request.
+  getEpisodes(currentSeason);
   try {
-    const response = await fetch(url);
-    const show = await response.json();
-
-    const filteredSeasons = show.seasons.filter(
-      (season) => season.name !== "Specials"
+    const show = await mediaPlayer.metadata(`tv/${showId}`);
+    populateSeasonSelector(
+      show.seasons.filter((season) => season.season_number > 0),
     );
-    populateSeasonSelector(filteredSeasons, season, episode);
   } catch (error) {
     console.error("Error fetching TV show data:", error);
   }
 }
 
-function populateSeasonSelector(seasons, currentSeason, currentEpisode) {
-  const seasonSelector = document.getElementById("seasonSelector");
-  const ID = new URLSearchParams(window.location.search).get("id");
-  seasonSelector.innerHTML = "";
-  seasons.forEach((season) => {
+function populateSeasonSelector(seasons) {
+  const selector = document.getElementById("seasonSelector");
+  selector.innerHTML = "";
+  for (const season of seasons) {
     const option = document.createElement("option");
     option.value = season.season_number;
     option.textContent = season.name;
-    seasonSelector.appendChild(option);
-  });
-
-  seasonSelector.addEventListener("change", () => {
-    const seasonNumber = seasonSelector.value;
-    document.getElementById("iframe").src = `embed/tv.html?id=${ID}&s=${seasonNumber}&e=1`;
-    getEpisodes(seasonNumber, currentEpisode);
-  });
-
-  if (seasons.length > 0) {
-    getEpisodes(currentSeason || seasons[0].season_number, currentEpisode);
+    selector.appendChild(option);
   }
+  selector.value = currentSeason;
+  selector.addEventListener("change", () => {
+    selectEpisode(selector.value, "1");
+    getEpisodes(currentSeason);
+  });
 }
 
-async function getEpisodes(seasonNumber, currentEpisode) {
-  const ID = new URLSearchParams(window.location.search).get("id");
-  const url = `https://api.themoviedb.org/3/tv/${ID}/season/${seasonNumber}?api_key=9a2954cb0084e80efa20b3729db69067&language=en-US`;
-
+async function getEpisodes(seasonNumber) {
+  const request = ++episodeRequest;
+  document.getElementById("episodeList").innerHTML = "";
   try {
-    const response = await fetch(url);
-    const season = await response.json();
-    displayEpisodes(season.episodes, ID, seasonNumber, currentEpisode);
+    const season = await mediaPlayer.metadata(
+      `tv/${showId}/season/${seasonNumber}`,
+    );
+    // A previous season can finish after a newer selection.
+    if (request !== episodeRequest) return;
+    displayEpisodes(season.episodes, seasonNumber);
   } catch (error) {
     console.error("Error fetching season data:", error);
   }
 }
 
-function displayEpisodes(episodes, tmdbId, seasonNumber, currentEpisode) {
-  const episodeList = document.getElementById("episodeList");
-  episodeList.innerHTML = "";
-
-  episodes.forEach((episode) => {
-    const episodeItem = document.createElement("div");
-    episodeItem.classList.add("episode-item");
-    episodeItem.textContent = `Episode ${episode.episode_number}: ${episode.name}`;
-
-    episodeItem.addEventListener("click", () => {
-      location.href = `tv.html?id=${tmdbId}&s=${seasonNumber}&e=${episode.episode_number}`;
-    });
-
-    if (episode.episode_number == currentEpisode) {
-      episodeItem.classList.add("active");
-    }
-
-    episodeList.appendChild(episodeItem);
-  });
+function displayEpisodes(episodes, seasonNumber) {
+  const list = document.getElementById("episodeList");
+  list.innerHTML = "";
+  for (const episode of episodes) {
+    const item = document.createElement("div");
+    item.classList.add("episode-item");
+    item.dataset.episode = String(episode.episode_number);
+    item.textContent = `Episode ${episode.episode_number}: ${episode.name}`;
+    item.addEventListener("click", () =>
+      selectEpisode(seasonNumber, episode.episode_number),
+    );
+    item.classList.toggle("active", item.dataset.episode === currentEpisode);
+    list.appendChild(item);
+  }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  getTVShowData();
+window.addEventListener("popstate", () => {
+  const previousSeason = currentSeason;
+  readSelection();
+  selectEpisode(currentSeason, currentEpisode, false);
+  if (previousSeason !== currentSeason) getEpisodes(currentSeason);
 });
+
+document.addEventListener("DOMContentLoaded", getTVShowData);
