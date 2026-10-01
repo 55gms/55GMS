@@ -11,7 +11,7 @@
     <script src="/controller/controller.api.js?v=0.0.14"></script>
     <script src="/scramjet-utils/scramjet-utils.js?v=0.0.3"></script>
     <script src="/epoxy/index.js?v=3.0.1"></script>
-    <script src="/assets/js/proxy-runtime.js?v=3"></script>
+    <script src="/assets/js/proxy-runtime.js?v=4"></script>
     <script>
       let wispurl =
         (location.protocol === "https:" ? "wss://" : "ws://") +
@@ -246,6 +246,9 @@
 
       // ---------------- SCRAMJET CONTROLLER / TRANSPORT ----------------
       let scramjet;
+      const newTabPlugin = new proxyRuntime.NewTabPlugin((type, detail) =>
+        emit("browser:" + type, detail),
+      );
 
       function $store(defaultSettings, options = {}) {
         const {
@@ -529,6 +532,7 @@
           plugins: [
             new proxyRuntime.ResourceIntegrityPlugin(),
             new proxyRuntime.AssetCachePlugin(),
+            ...(inShell ? [newTabPlugin] : []),
             new $scramjetUtils.UrlWatcherPlugin((url) => {
               if (!url) return;
               currentUrl = url;
@@ -685,6 +689,9 @@
             break;
           case "devtools":
             toggleDevtools();
+            break;
+          case "popupclosed":
+            newTabPlugin.popupClosed(data.popupId);
             break;
         }
       });

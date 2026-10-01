@@ -125,6 +125,164 @@ window.proxyRuntime = (() => {
     }
   }
 
+  class NewTabPlugin extends $scramjetController.ManagedPlugin {
+    constructor(notify) {
+      super("proxy-new-tabs", []);
+      this.notify = notify;
+      this.popups = new Map();
+      this.namedPopups = new Map();
+      this.popupNamespace = crypto.randomUUID();
+      this.nextPopupId = 0;
+    }
+
+    popupClosed(id) {
+      const popup = this.popups.get(id);
+      if (popup) popup.closed = true;
+      this.popups.delete(id);
+      for (const [name, handle] of this.namedPopups) {
+        if (handle === popup) this.namedPopups.delete(name);
+      }
+    }
+
+    install(frame) {
+      super.install(frame);
+      this.tap(frame.hooks.init.post, ({ window: win, client }) => {
+        const resolve = (value, base = win.document.baseURI) => {
+          try {
+            let url = new URL(String(value), base);
+            if (url.href.startsWith(client.context.prefix.href))
+              url = new URL(client.unrewriteUrl(url.href));
+            return /^https?:$/.test(url.protocol) ? url.href : null;
+          } catch {
+            return null;
+          }
+        };
+
+        // Install in every proxied document, including nested page iframes.
+        client.Proxy("window.open", {
+          apply: (ctx) => {
+            const target = String(ctx.args[1] ?? "_blank");
+            if (
+              ["_self", "_parent", "_top", "_unfencedTop"].includes(
+                target.toLowerCase(),
+              ) ||
+              (target &&
+                target.toLowerCase() !== "_blank" &&
+                win.frames[target])
+            )
+              return;
+
+            const raw = ctx.args[0] === undefined ? "" : String(ctx.args[0]);
+            const blank = raw === "" || raw === "about:blank";
+            const url = blank ? "" : resolve(raw);
+            if (url === null) return ctx.return(null);
+
+            const named = target && target.toLowerCase() !== "_blank";
+            const features = String(ctx.args[2] ?? "");
+            const noOpener =
+              /(?:^|,)\s*(?:noopener|noreferrer)(?:\s*=\s*(?:1|yes|true))?\s*(?:,|$)/i.test(
+                features,
+              );
+            let popup = named ? this.namedPopups.get(target) : null;
+            if (popup && !popup.closed) {
+              if (!blank) popup.location.href = url;
+              popup.focus();
+              return ctx.return(noOpener ? null : popup);
+            }
+
+            const popupId = `${this.popupNamespace}:${++this.nextPopupId}`;
+            let href = url || "about:blank";
+            const openerBase = win.document.baseURI;
+            const go = (value) => {
+              if (popup.closed) return;
+              const next = resolve(
+                value,
+                href === "about:blank" ? openerBase : href,
+              );
+              if (!next) return;
+              href = next;
+              this.notify("popupnavigate", { popupId, url: next });
+            };
+            const popupLocation = {
+              get href() {
+                return href;
+              },
+              set href(value) {
+                go(value);
+              },
+              assign: go,
+              replace: go,
+              toString: () => href,
+            };
+            // Support the common open-blank-then-set-location pattern without
+            // spawning a native popup. This is a tab handle, not a full Window.
+            popup = {
+              closed: false,
+              get location() {
+                return popupLocation;
+              },
+              set location(value) {
+                go(value);
+              },
+              focus: () => {
+                if (!popup.closed) this.notify("popupfocus", { popupId });
+              },
+              close: () => {
+                if (popup.closed) return;
+                this.popupClosed(popupId);
+                this.notify("popupclose", { popupId });
+              },
+            };
+            this.popups.set(popupId, popup);
+            if (named) this.namedPopups.set(target, popup);
+            this.notify("newtab", { popupId, url });
+            ctx.return(noOpener ? null : popup);
+          },
+        });
+
+        const openLink = (event) => {
+          if (event.defaultPrevented) return;
+          const middle = event.type === "auxclick" && event.button === 1;
+          if (!middle && (event.type !== "click" || event.button !== 0)) return;
+          const anchor = event
+            .composedPath()
+            .find((node) => node?.matches?.("a[href], area[href]"));
+          if (!anchor || anchor.hasAttribute("download")) return;
+          const target =
+            anchor.getAttribute("target") ??
+            win.document.querySelector("base[target]")?.getAttribute("target");
+          if (
+            !middle &&
+            !event.ctrlKey &&
+            !event.metaKey &&
+            target?.toLowerCase() !== "_blank"
+          )
+            return;
+          const url = resolve(anchor.href);
+          if (!url) return;
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          this.notify("newtab", {
+            url,
+            activate: !(
+              (middle || event.ctrlKey || event.metaKey) &&
+              !event.shiftKey
+            ),
+          });
+        };
+        // Native capture listeners also cover links inserted after page load.
+        for (const type of ["click", "auxclick"])
+          client.natives.call(
+            "EventTarget.prototype.addEventListener",
+            win.document,
+            type,
+            openLink,
+            true,
+          );
+      });
+    }
+  }
+
   async function createController(wispUrl) {
     const transport = new EpoxyTransport.default({
       wisp: wispUrl,
@@ -155,6 +313,7 @@ window.proxyRuntime = (() => {
     createController,
     AssetCachePlugin,
     ResourceIntegrityPlugin,
+    NewTabPlugin,
     canCacheAsset,
     WORKER_URL,
   };

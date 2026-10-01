@@ -440,6 +440,10 @@
     const index = tabs.findIndex((t) => t.id === id);
     if (index === -1) return;
     const [tab] = tabs.splice(index, 1);
+    if (tab.openerId) {
+      const opener = getTab(tab.openerId);
+      if (opener) sendCommand(opener, "popupclosed", { popupId: tab.popupId });
+    }
 
     if (tab.url) {
       closedTabs.push({
@@ -538,6 +542,43 @@
     if (!tab) return;
 
     switch (data.type) {
+      case "browser:newtab": {
+        if (typeof data.url !== "string") return;
+        const result = data.url === "" ? { url: "" } : resolveInput(data.url);
+        if (result.error) return;
+        if (data.popupId !== undefined && typeof data.popupId !== "string")
+          return;
+        const opened = createTab({
+          url: result.url,
+          activate: data.activate !== false,
+        });
+        if (data.popupId) {
+          opened.openerId = tab.id;
+          opened.popupId = data.popupId;
+        }
+        ensureFrame(opened);
+        return;
+      }
+      case "browser:popupnavigate":
+      case "browser:popupfocus":
+      case "browser:popupclose": {
+        if (typeof data.popupId !== "string") return;
+        const popup = tabs.find(
+          (candidate) =>
+            candidate.openerId === tab.id && candidate.popupId === data.popupId,
+        );
+        if (!popup) return;
+        if (data.type === "browser:popupnavigate") {
+          if (typeof data.url !== "string") return;
+          const result = resolveInput(data.url);
+          if (!result.error) navigate(popup, result.url);
+        } else if (data.type === "browser:popupfocus") {
+          activateTab(popup.id);
+        } else {
+          closeTab(popup.id);
+        }
+        return;
+      }
       case "browser:ready":
         tab.ready = true;
         break;

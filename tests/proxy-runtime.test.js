@@ -58,6 +58,7 @@ function runtime(registration) {
       },
     },
     $scramjetController: {
+      ManagedPlugin: class {},
       Controller: class {
         constructor(options) {
           controllerOptions = options;
@@ -227,6 +228,258 @@ async function realBundles() {
   vm.runInContext(runtimeSource, context);
   return context;
 }
+
+async function newTabPage() {
+  const context = await realBundles();
+  const events = [];
+  const handlers = {};
+  const hooks = context.$scramjet.Tap.create();
+  const plugin = new context.proxyRuntime.NewTabPlugin((type, detail) => {
+    events.push({ type, ...detail });
+  });
+  plugin.install({ hooks: { init: hooks } });
+  const win = {
+    frames: { existingFrame: {} },
+    document: {
+      baseURI: "https://example.com/base/",
+      querySelector: () => null,
+    },
+  };
+  let openHandler;
+  const prefix = "https://55gms.test/~/sj/test/frame/";
+  const client = {
+    context: { prefix: new URL(prefix) },
+    unrewriteUrl: (url) => decodeURIComponent(url.slice(prefix.length)),
+    Proxy(name, handler) {
+      assert.equal(name, "window.open");
+      openHandler = handler;
+    },
+    natives: {
+      call(name, target, type, handler, capture) {
+        assert.equal(name, "EventTarget.prototype.addEventListener");
+        assert.equal(target, win.document);
+        assert.equal(capture, true);
+        handlers[type] = handler;
+      },
+    },
+  };
+  // Exercise the real pinned controller's hook dispatch for a nested document.
+  context.$scramjet.Tap.dispatch(
+    hooks.post,
+    {
+      window: win,
+      client,
+      isTopLevel: false,
+    },
+    {},
+  );
+  return {
+    plugin,
+    events,
+    win,
+    prefix,
+    open(...args) {
+      let result = "native";
+      openHandler.apply({
+        args,
+        return: (value) => {
+          result = value;
+        },
+      });
+      return result;
+    },
+    click({
+      type = "click",
+      target = "",
+      href = "https://example.com/next",
+      download = false,
+      ...options
+    } = {}) {
+      const anchor = {
+        href,
+        matches: () => true,
+        hasAttribute: () => download,
+        getAttribute: () => target,
+      };
+      const event = {
+        type,
+        button: type === "auxclick" ? 1 : 0,
+        defaultPrevented: false,
+        composedPath: () => [{}, anchor],
+        preventDefault() {
+          this.defaultPrevented = true;
+        },
+        stopImmediatePropagation() {},
+        ...options,
+      };
+      handlers[type](event);
+      return event;
+    },
+  };
+}
+
+test("window.open creates internal tabs with decoded URLs and preserves existing frame targets", async () => {
+  const page = await newTabPage();
+  const popup = page.open("../next", "_blank");
+  assert.equal(popup.location.href, "https://example.com/next");
+  assert.equal(page.events[0].type, "newtab");
+  assert.equal(page.events[0].url, "https://example.com/next");
+  page.open(page.prefix + encodeURIComponent("https://other.example/path"));
+  assert.equal(page.events[1].url, "https://other.example/path");
+  for (const target of ["_self", "_parent", "_top", "existingFrame"])
+    assert.equal(page.open("/same", target), "native");
+  assert.equal(page.open("javascript:alert(1)"), null);
+  assert.equal(page.events.length, 2);
+});
+
+test("blank popups redirect the same internal tab and named popups are reused", async () => {
+  const page = await newTabPage();
+  const popup = page.open("", "login");
+  const id = page.events[0].popupId;
+  assert.equal(page.events[0].url, "");
+  popup.location = "/login";
+  popup.location.replace("step2");
+  popup.location.href = "https://example.com/done";
+  assert.equal(
+    page.events.filter((event) => event.type === "newtab").length,
+    1,
+  );
+  assert.deepEqual(
+    page.events.slice(1).map((event) => [event.popupId, event.url]),
+    [
+      [id, "https://example.com/login"],
+      [id, "https://example.com/step2"],
+      [id, "https://example.com/done"],
+    ],
+  );
+  assert.equal(page.open("/again", "login"), popup);
+  assert.equal(page.events.at(-1).type, "popupfocus");
+  popup.close();
+  assert.equal(popup.closed, true);
+  assert.equal(page.events.at(-1).type, "popupclose");
+  const reopened = page.open("/new", "login");
+  assert.notEqual(reopened, popup);
+  page.plugin.popupClosed(page.events.at(-1).popupId);
+  assert.equal(reopened.closed, true);
+  assert.equal(page.open("/private", "_blank", "noopener"), null);
+  assert.equal(page.events.at(-1).type, "newtab");
+});
+
+test("only new-tab link gestures are intercepted, including links added after load", async () => {
+  const page = await newTabPage();
+  assert.equal(page.click().defaultPrevented, false);
+  assert.equal(page.events.length, 0);
+  assert.equal(page.click({ target: "_blank" }).defaultPrevented, true);
+  assert.equal(page.events.at(-1).activate, true);
+  assert.equal(page.click({ ctrlKey: true }).defaultPrevented, true);
+  assert.equal(page.events.at(-1).activate, false);
+  assert.equal(page.click({ type: "auxclick" }).defaultPrevented, true);
+  assert.equal(page.events.at(-1).activate, false);
+  page.click({ metaKey: true, shiftKey: true });
+  assert.equal(page.events.at(-1).activate, true);
+  const count = page.events.length;
+  for (const options of [
+    { download: true, target: "_blank" },
+    { defaultPrevented: true, target: "_blank" },
+    { href: "mailto:hi@example.com", target: "_blank" },
+    { button: 2, target: "_blank" },
+  ])
+    page.click(options);
+  assert.equal(page.events.length, count);
+});
+
+test("shell creates, navigates and closes popup tabs only for the matching embed", async () => {
+  const source = await readFile(
+    new URL("../static/assets/js/browser.js", import.meta.url),
+    "utf8",
+  );
+  const opener = { id: "source", iframe: { contentWindow: {} } };
+  const tabs = [opener];
+  const calls = [];
+  const context = vm.createContext({
+    URL,
+    location: { origin: "https://55gms.test" },
+    tabs,
+    SEARCH_URL: "https://duckduckgo.com/?q=",
+    createTab(options) {
+      calls.push(["create", options.url, options.activate]);
+      const tab = { id: String(tabs.length), ...options };
+      tabs.push(tab);
+      return tab;
+    },
+    ensureFrame(tab) {
+      calls.push(["frame", tab.id]);
+    },
+    navigate(tab, url) {
+      tab.url = url;
+      calls.push(["navigate", tab.id, url]);
+    },
+    activateTab(id) {
+      calls.push(["focus", id]);
+    },
+    closeTab(id) {
+      calls.push(["close", id]);
+    },
+  });
+  vm.runInContext(
+    source.slice(
+      source.indexOf("  const IPV4"),
+      source.indexOf("  function hostnameOf"),
+    ) +
+      source.slice(
+        source.indexOf("  function tabFromSource"),
+        source.indexOf(
+          '  window.addEventListener("message", handleBridgeMessage)',
+        ),
+      ),
+    context,
+  );
+  const dispatch = (
+    type,
+    detail = {},
+    source = opener.iframe.contentWindow,
+    origin = "https://55gms.test",
+  ) =>
+    context.handleBridgeMessage({
+      source,
+      origin,
+      data: { type: "browser:" + type, ...detail },
+    });
+  dispatch("newtab", { url: "", popupId: "1" });
+  assert.equal(tabs.length, 2);
+  assert.equal(tabs[1].openerId, "source");
+  dispatch("popupnavigate", {
+    popupId: "1",
+    url: "https://example.com/redirect",
+  });
+  assert.equal(tabs[1].url, "https://example.com/redirect");
+  assert.equal(tabs.length, 2);
+  dispatch("popupfocus", { popupId: "1" });
+  assert.deepEqual(calls.at(-1), ["focus", "1"]);
+  dispatch("popupclose", { popupId: "1" });
+  assert.deepEqual(calls.at(-1), ["close", "1"]);
+  const count = calls.length;
+  dispatch("newtab", { url: "javascript:alert(1)" });
+  dispatch("newtab", { url: {} });
+  dispatch("newtab", { url: "https://example.com" }, {});
+  dispatch(
+    "newtab",
+    { url: "https://example.com" },
+    opener.iframe.contentWindow,
+    "https://attacker.example",
+  );
+  dispatch("popupclose", { popupId: "wrong" });
+  assert.equal(calls.length, count);
+  dispatch("newtab", {
+    url: "https://example.com/background",
+    activate: false,
+  });
+  assert.deepEqual(calls.at(-2), [
+    "create",
+    "https://example.com/background",
+    false,
+  ]);
+});
 
 function assetRequest(context, url, headers = {}) {
   return {
