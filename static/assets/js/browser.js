@@ -229,7 +229,7 @@
     node.tabIndex = -1;
     node.innerHTML = `
       <span class="tab-icon">
-        <img class="tab-favicon" alt="" draggable="false" />
+        <img loading="eager" class="tab-favicon" alt="" draggable="false" />
         <svg class="icon tab-fallback" aria-hidden="true"><use href="#i-globe" /></svg>
         <span class="tab-spinner" aria-hidden="true"></span>
       </span>

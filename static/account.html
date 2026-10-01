@@ -439,7 +439,7 @@
           .then((data) => {
             if (data.premium === 1) {
               document.getElementById("badges").innerHTML =
-                '<span class="profile-pill"><img src="/img/premium.webp" alt="">Premium</span>';
+                '<span class="profile-pill"><img loading="eager" src="/img/premium.webp" alt="">Premium</span>';
               localStorage.setItem("premium", 1);
             }
           })

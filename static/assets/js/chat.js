@@ -2137,7 +2137,7 @@ function displayGroupMembers(members) {
 
     memberElement.innerHTML = `
       <div class="member-avatar">
-        <img src="${member.avatar}" alt="${member.username}" />
+        <img loading="eager" src="${member.avatar}" alt="${member.username}" />
         <span class="status-indicator ${statusClass}"></span>
       </div>
       <div class="member-info">
