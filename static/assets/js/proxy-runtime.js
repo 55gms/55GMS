@@ -4,6 +4,7 @@ window.proxyRuntime = (() => {
   const CORE_VERSION = "2.0.67-alpha.2";
   const CONTROLLER_VERSION = "0.0.14";
   const WORKER_URL = `/sw.js?v=${CORE_VERSION}-${CONTROLLER_VERSION}`;
+  const PREFIX = "/~/sj/";
 
   async function withTimeout(promise, message, ms = 15000) {
     let timer;
@@ -19,13 +20,27 @@ window.proxyRuntime = (() => {
     }
   }
 
+  // Earlier stacks registered their worker at "/". A replacement in that
+  // scope cannot activate until the old worker goes idle, which stalled
+  // startup on returning browsers, so it is retired without being waited on.
+  async function retireRootWorker() {
+    try {
+      const root = await navigator.serviceWorker.getRegistration("/");
+      if (root && new URL(root.scope).pathname === "/") await root.unregister();
+    } catch (err) {
+      console.warn("Could not retire the old proxy service worker:", err);
+    }
+  }
+
   async function registerWorker() {
     if (!navigator.serviceWorker) {
       throw new Error("The proxy needs service worker support and HTTPS.");
     }
+    retireRootWorker();
+    // Scoped to the proxy prefix: only proxied frames are its clients.
     const registration = await withTimeout(
       navigator.serviceWorker.register(WORKER_URL, {
-        scope: "/",
+        scope: PREFIX,
         updateViaCache: "none",
       }),
       "The proxy service worker could not be registered.",
@@ -296,7 +311,7 @@ window.proxyRuntime = (() => {
       serviceworker,
       transport,
       config: {
-        prefix: "/~/sj/",
+        prefix: PREFIX,
         scramjetPath: `/scram/scramjet.js?v=${CORE_VERSION}`,
         wasmPath: `/scram/scramjet.wasm?v=${CORE_VERSION}`,
         injectPath: `/controller/controller.inject.js?v=${CONTROLLER_VERSION}`,

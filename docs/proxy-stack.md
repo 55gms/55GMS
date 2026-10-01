@@ -1,6 +1,8 @@
 # Proxy stack
 
-The browser shell and movie/TV players share `static/embed.html`. Each embed owns a Scramjet controller and an Epoxy transport. The root service worker routes each controller's frame prefix back to that controller over RPC; local site requests use the browser's normal fetch path.
+The browser shell and movie/TV players share `static/embed.html`. Each embed owns a Scramjet controller and an Epoxy transport. The service worker (`/sw.js`, registered with scope `/~/sj/`) routes each controller's frame prefix back to that controller over RPC; site pages are outside its scope and use the browser's normal fetch path.
+
+The worker is deliberately not registered at `/`. Browsers that used an earlier stack still have that stack's worker there, and a replacement in the same scope cannot activate until the old worker has no requests in flight, which made startup time out on returning machines. `proxy-runtime.js` unregisters any root-scope registration in the background without waiting on it. Because embed pages are not clients of the scoped worker, `static/sw.js` sends the controller restart notice to uncontrolled windows itself.
 
 The compatible package versions are pinned in `package.json` and `package-lock.json`:
 

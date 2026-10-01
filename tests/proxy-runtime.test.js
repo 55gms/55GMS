@@ -21,7 +21,7 @@ function deferred() {
   return { promise, resolve };
 }
 
-function runtime(registration) {
+function runtime(registration, rootRegistration) {
   const calls = [];
   const transport = deferred();
   const handshake = deferred();
@@ -30,6 +30,8 @@ function runtime(registration) {
   let controllerOptions;
   const context = vm.createContext({
     Headers,
+    URL,
+    console,
     setTimeout(callback) {
       const id = ++nextTimer;
       timers.set(id, callback);
@@ -43,6 +45,10 @@ function runtime(registration) {
         register(url, options) {
           calls.push({ url, options });
           return registration;
+        },
+        getRegistration(url) {
+          calls.push({ lookup: url });
+          return rootRegistration;
         },
       },
     },
@@ -115,7 +121,7 @@ test("worker registration and Epoxy init overlap; frame waits for controller han
     });
   assert.equal(page.calls.includes("init"), true);
   const registration = page.calls.find((call) => call.url);
-  assert.equal(registration.options.scope, "/");
+  assert.equal(registration.options.scope, "/~/sj/");
   assert.equal(registration.options.updateViaCache, "none");
   assert.match(registration.url, /v=2\.0\.67-alpha\.2-0\.0\.14/);
   await tick();
@@ -151,6 +157,69 @@ test("upgrade uses the new worker, not an active worker from the legacy stack", 
   assert.equal(installing.listeners, 0);
   page.handshake.resolve();
   await ready;
+});
+
+test("startup never waits on a root-scope worker left by an earlier stack", async () => {
+  // Returning browsers still have the legacy worker at "/". The proxy worker
+  // lives in its own scope, so it activates without that worker going idle.
+  const unregistered = deferred();
+  let unregisterCalls = 0;
+  const legacy = {
+    scope: "https://55gms.test/",
+    active: worker(),
+    unregister() {
+      unregisterCalls++;
+      return unregistered.promise; // never settles during startup
+    },
+  };
+  const active = worker();
+  const page = runtime(
+    Promise.resolve({ scope: "https://55gms.test/~/sj/", active }),
+    Promise.resolve(legacy),
+  );
+  const ready = page.context.proxyRuntime.createController(
+    "wss://55gms.test/wisp/",
+  );
+  page.transport.resolve();
+  await tick();
+  assert.equal(page.controllerOptions.serviceworker, active);
+  assert.deepEqual(
+    page.calls.filter((call) => call.lookup),
+    [{ lookup: "/" }],
+  );
+  assert.equal(unregisterCalls, 1);
+  page.handshake.resolve();
+  await ready;
+});
+
+test("retiring the root worker skips other scopes and tolerates failures", async () => {
+  let unregisterCalls = 0;
+  const scoped = {
+    scope: "https://55gms.test/~/sj/",
+    unregister() {
+      unregisterCalls++;
+    },
+  };
+  for (const root of [
+    () => Promise.resolve(scoped),
+    () => Promise.resolve(undefined),
+    () => Promise.reject(new Error("blocked")),
+    () =>
+      Promise.resolve({
+        scope: "https://55gms.test/",
+        unregister: () => Promise.reject(new Error("blocked")),
+      }),
+  ]) {
+    const page = runtime(Promise.resolve({ active: worker() }), root());
+    const ready = page.context.proxyRuntime.createController(
+      "wss://55gms.test/wisp/",
+    );
+    page.transport.resolve();
+    await tick();
+    page.handshake.resolve();
+    await ready;
+  }
+  assert.equal(unregisterCalls, 0);
 });
 
 test("failed worker installation rejects startup and removes its listener", async () => {
@@ -600,6 +669,7 @@ test("new worker routes proxied requests and leaves site assets alone", async ()
     importScripts(url) {
       assert.equal(url, "/controller/controller.sw.js?v=0.0.14");
     },
+    setTimeout() {},
     addEventListener(type, callback) {
       handlers[type] = callback;
     },
@@ -631,6 +701,51 @@ test("new worker routes proxied requests and leaves site assets alone", async ()
     },
   });
   assert.equal(routed.length, 1);
+});
+
+test("restarted worker tells the uncontrolled embed pages to reconnect", async () => {
+  const sent = [];
+  const client = (url) => ({
+    url,
+    postMessage(message) {
+      sent.push({ url, message });
+    },
+  });
+  let query;
+  let revive;
+  const context = vm.createContext({
+    URL,
+    importScripts() {},
+    addEventListener() {},
+    setTimeout(callback) {
+      revive = callback;
+    },
+    registration: { scope: "https://55gms.test/~/sj/" },
+    clients: {
+      async matchAll(options) {
+        query = options;
+        return [
+          client("https://55gms.test/embed.html#https://example.com/"),
+          client("https://55gms.test/~/sj/tab/frame/https://example.com/"),
+        ];
+      },
+    },
+  });
+  context.self = context;
+  vm.runInContext(
+    await readFile(new URL("../static/sw.js", import.meta.url), "utf8"),
+    context,
+  );
+  await revive();
+  assert.equal(query.includeUncontrolled, true);
+  assert.equal(query.type, "window");
+  // Controlled proxied frames already get the controller bundle's own notice.
+  assert.deepEqual(JSON.parse(JSON.stringify(sent)), [
+    {
+      url: "https://55gms.test/embed.html#https://example.com/",
+      message: { $controller$swrevive: {} },
+    },
+  ]);
 });
 
 test("server exposes every new core/controller/transport asset used by the browser", async () => {

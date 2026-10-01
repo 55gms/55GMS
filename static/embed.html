@@ -11,7 +11,7 @@
     <script src="/controller/controller.api.js?v=0.0.14"></script>
     <script src="/scramjet-utils/scramjet-utils.js?v=0.0.3"></script>
     <script src="/epoxy/index.js?v=3.0.1"></script>
-    <script src="/assets/js/proxy-runtime.js?v=4"></script>
+    <script src="/assets/js/proxy-runtime.js?v=5"></script>
     <script>
       let wispurl =
         (location.protocol === "https:" ? "wss://" : "ws://") +
@@ -332,9 +332,14 @@
         (err) => {
           clearTimeout(bootStatusTimer);
           console.error("Proxy failed to start:", err);
+          // Name the stage that failed so reports can be diagnosed.
+          const reason =
+            err instanceof Error && err.message
+              ? err.message
+              : "The proxy transport failed to start.";
           showStatus(
             "Couldn't connect to the proxy",
-            "The proxy transport failed to start. Check your connection and try again.",
+            reason + " Check your connection and try again.",
             true,
           );
           emit("browser:error", {
