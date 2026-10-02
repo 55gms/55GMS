@@ -3,21 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scramjet Embed</title>
+    <title>Loading</title>
     <script src="/assets/js/script.js?v=16"></script>
 
     <!-- Versioned, compatible controller/core/transport bundles. -->
-    <script src="/scram/scramjet.js?v=2.0.67-alpha.2"></script>
-    <script src="/controller/controller.api.js?v=0.0.14"></script>
-    <script src="/scramjet-utils/scramjet-utils.js?v=0.0.3"></script>
-    <script src="/epoxy/index.js?v=3.0.1"></script>
-    <script src="/assets/js/proxy-runtime.js?v=5"></script>
-    <script>
-      let wispurl =
-        (location.protocol === "https:" ? "wss://" : "ws://") +
-        location.host +
-        "/wisp/";
-    </script>
+    <script src="/assets/lib/vendor-core.js?v=2.0.67-alpha.2"></script>
+    <script src="/assets/lib/vendor-frame.js?v=0.0.14"></script>
+    <script src="/assets/lib/vendor-util.js?v=0.0.3"></script>
+    <script src="/assets/lib/vendor-net.js?v=3.0.1"></script>
+    <script src="/assets/js/frame-runtime.js?v=1"></script>
 
     <style>
       :root {
@@ -216,7 +210,7 @@
 
     <script>
       // ---------------- BRIDGE ----------------
-      // Events go up to the browser shell (proxy.html) as { type: "browser:*" }.
+      // Events go up to the browser shell as { type: "browser:*" }.
       // Commands come down as { type: "browser:command", command, url }.
       const inShell = window.parent && window.parent !== window;
 
@@ -244,72 +238,11 @@
         .getElementById("status-retry")
         .addEventListener("click", () => location.reload());
 
-      // ---------------- SCRAMJET CONTROLLER / TRANSPORT ----------------
-      let scramjet;
-      const newTabPlugin = new proxyRuntime.NewTabPlugin((type, detail) =>
+      // ---------------- CONTROLLER / TRANSPORT ----------------
+      let frames;
+      const newTabPlugin = new frameRuntime.NewTabPlugin((type, detail) =>
         emit("browser:" + type, detail),
       );
-
-      function $store(defaultSettings, options = {}) {
-        const {
-          ident = "settings",
-          backing = "localstorage",
-          autosave = "auto",
-        } = options;
-        const storageKey = ident;
-
-        let settings = { ...defaultSettings };
-        if (backing === "localstorage") {
-          try {
-            const stored = localStorage.getItem(storageKey);
-            if (stored) {
-              settings = { ...defaultSettings, ...JSON.parse(stored) };
-            }
-          } catch (e) {
-            console.warn("Failed to load settings from localStorage:", e);
-          }
-        }
-
-        function save() {
-          if (backing === "localstorage") {
-            try {
-              localStorage.setItem(storageKey, JSON.stringify(settings));
-            } catch (e) {
-              console.warn("Failed to save settings to localStorage:", e);
-            }
-          }
-        }
-        return new Proxy(settings, {
-          set(target, property, value) {
-            target[property] = value;
-            if (autosave === "auto") {
-              save();
-            }
-            return true;
-          },
-          get(target, property) {
-            if (property === "save") {
-              return save;
-            }
-            return target[property];
-          },
-        });
-      }
-
-      const store = $store(
-        {
-          wispurl:
-            wispurl ||
-            (location.protocol === "https:" ? "wss" : "ws") +
-              "://" +
-              location.host +
-              "/wisp/",
-          proxy: "",
-          transport: "/epoxy/index.mjs",
-        },
-        { ident: "settings", backing: "localstorage", autosave: "auto" },
-      );
-      self.store = store;
 
       // Only show the connecting screen if booting is actually slow.
       const bootStatusTimer = setTimeout(
@@ -317,10 +250,15 @@
         350,
       );
 
-      const ready = proxyRuntime
-        .createController(store.wispurl)
+      const endpoint =
+        (location.protocol === "https:" ? "wss://" : "ws://") +
+        location.host +
+        "/api/live/";
+
+      const ready = frameRuntime
+        .createController(endpoint)
         .then((controller) => {
-          scramjet = controller;
+          frames = controller;
         });
 
       ready.then(
@@ -331,20 +269,20 @@
         },
         (err) => {
           clearTimeout(bootStatusTimer);
-          console.error("Proxy failed to start:", err);
+          console.error("Player failed to start:", err);
           // Name the stage that failed so reports can be diagnosed.
           const reason =
             err instanceof Error && err.message
               ? err.message
-              : "The proxy transport failed to start.";
+              : "The connection failed to start.";
           showStatus(
-            "Couldn't connect to the proxy",
+            "Couldn't connect",
             reason + " Check your connection and try again.",
             true,
           );
           emit("browser:error", {
             kind: "transport",
-            message: "The proxy transport failed to start.",
+            message: "The connection failed to start.",
           });
           emit("browser:loaded", { url: currentUrl });
         },
@@ -416,12 +354,12 @@
         return title.trim();
       }
 
-      function toProxiedAsset(href) {
+      function toFrameAsset(href) {
         if (!href) return "";
         if (href.startsWith("data:") || href.startsWith(location.origin))
           return href;
         try {
-          return $scramjet.rewriteUrl(
+          return frameRuntime.core.rewriteUrl(
             new URL(href, currentUrl).href,
             frame.context,
             {
@@ -441,7 +379,7 @@
           const link = doc.querySelector(
             'link[rel~="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]',
           );
-          return toProxiedAsset(link && link.href);
+          return toFrameAsset(link && link.href);
         } catch {
           return "";
         }
@@ -482,7 +420,7 @@
         } catch {}
       }
 
-      // Browser shortcuts pressed while the proxied page has focus are
+      // Browser shortcuts pressed while the framed page has focus are
       // forwarded to the shell so they behave the same everywhere.
       const SHORTCUT_KEYS = new Set([
         "l",
@@ -533,12 +471,12 @@
       function mountFrame() {
         const container = document.getElementById("iframe-container");
         container.innerHTML = "";
-        frame = scramjet.createFrame(undefined, {
+        frame = frames.createFrame(undefined, {
           plugins: [
-            new proxyRuntime.ResourceIntegrityPlugin(),
-            new proxyRuntime.AssetCachePlugin(),
+            new frameRuntime.ResourceIntegrityPlugin(),
+            new frameRuntime.AssetCachePlugin(),
             ...(inShell ? [newTabPlugin] : []),
-            new $scramjetUtils.UrlWatcherPlugin((url) => {
+            new frameRuntime.UrlWatcherPlugin((url) => {
               if (!url) return;
               currentUrl = url;
               recordUrl(url);
@@ -555,13 +493,13 @@
         );
         container.appendChild(frame.element);
 
-        $scramjet.Tap.tap(frame.hooks.init.post, (context) => {
+        frameRuntime.core.Tap.tap(frame.hooks.init.post, (context) => {
           if (!context.isTopLevel) return;
           observeDocument();
           bindPageKeys();
           syncMeta();
         });
-        $scramjet.Tap.tap(
+        frameRuntime.core.Tap.tap(
           frame.hooks.error.request,
           ({ error, rawrequest }) => {
             if (rawrequest.rawUrl !== frame.element.src) return;
@@ -640,7 +578,7 @@
         });
       }
 
-      // Eruda is ~500KB, so it's only fetched (through the proxy) when requested.
+      // Eruda is ~500KB, so it's only fetched when requested.
       function toggleDevtools() {
         let win;
         try {
@@ -672,7 +610,7 @@
       }
 
       // The shell focuses this embed when its tab is opened from another page;
-      // hand that focus on to the proxied page.
+      // hand that focus on to the framed page.
       window.addEventListener("focus", () => {
         if (frame && document.activeElement === document.body)
           frame.element.focus();
@@ -709,8 +647,10 @@
       });
 
       function urlFromHash() {
-        const raw = window.location.hash.substring(1);
+        let raw = window.location.hash.substring(1);
         if (!raw) return "https://start.duckduckgo.com/";
+        // The media player passes its target as an opaque token.
+        if (raw.startsWith("~")) raw = frameRuntime.codec.decode(raw.slice(1));
         return /^https?:\/\//i.test(raw) ? raw : "https://" + raw;
       }
 

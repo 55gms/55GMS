@@ -14,9 +14,10 @@ for (const file of [
 }
 globalThis.window = globalThis;
 globalThis.$scramjetUtils = { HttpCachePlugin: class {} };
+globalThis.EpoxyTransport = { default: class {} };
 vm.runInThisContext(
   readFileSync(
-    new URL("../static/assets/js/proxy-runtime.js", import.meta.url),
+    new URL("../static/assets/js/frame-runtime.js", import.meta.url),
     "utf8",
   ),
 );
@@ -66,7 +67,7 @@ function createHandler(link) {
     clientId: "test",
   };
   const install = () =>
-    new proxyRuntime.ResourceIntegrityPlugin().install({
+    new frameRuntime.ResourceIntegrityPlugin().install({
       fetchHandler: handler,
       hooks: { fetch: handler.hooks.fetch },
     });

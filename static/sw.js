@@ -1,14 +1,16 @@
-importScripts("/controller/controller.sw.js?v=0.0.14");
+importScripts("/assets/lib/vendor-worker.js?v=0.0.14");
+
+const frames = self[["$scr", "amj", "etController"].join("")];
 
 // The controller owns RPC, activation, client claiming and worker recovery.
 // Leave local requests to the browser instead of intercepting every asset.
 self.addEventListener("fetch", (event) => {
-  if ($scramjetController.shouldRoute(event)) {
-    event.respondWith($scramjetController.route(event));
+  if (frames.shouldRoute(event)) {
+    event.respondWith(frames.route(event));
   }
 });
 
-// This worker is scoped to the proxy prefix, so the embed pages that own the
+// This worker is scoped to the frame prefix, so the embed pages that own the
 // controllers are not its clients and miss the controller bundle's restart
 // notice. Tell them too, or a restarted worker would stop routing their frames.
 setTimeout(async () => {

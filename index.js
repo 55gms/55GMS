@@ -407,7 +407,7 @@ try {
   server.on("upgrade", (req, socket, head) => {
     upgradedSockets.add(socket);
     socket.once("close", () => upgradedSockets.delete(socket));
-    if (req.url.startsWith("/wisp/")) {
+    if (req.url.startsWith("/api/live/") || req.url.startsWith("/wisp/")) {
       wisp.routeRequest(req, socket, head);
     } else {
       io.engine.handleUpgrade(req, socket, head);

@@ -12,6 +12,18 @@ const sources = await Promise.all(
   ),
 );
 
+// Mirrors the token codec shared by player.js and frame-runtime.js.
+function decodeToken(token) {
+  const raw = atob(token.replace(/-/g, "+").replace(/_/g, "/"));
+  return new TextDecoder().decode(
+    Uint8Array.from(raw, (char, i) => char.charCodeAt(0) ^ (37 + (i % 7))),
+  );
+}
+function target(src) {
+  assert.match(src, /^\/embed\.html#~[\w-]+$/);
+  return decodeToken(src.slice("/embed.html#~".length));
+}
+
 function watchPage(search, fetch) {
   const elements = new Map();
   function element() {
@@ -67,6 +79,8 @@ function watchPage(search, fetch) {
     URL,
     URLSearchParams,
     AbortSignal,
+    TextEncoder,
+    btoa,
     fetch,
     console: { error() {}, log() {} },
     location,
@@ -114,8 +128,8 @@ test("movie starts while metadata is still pending, and survives metadata failur
   vm.runInContext(sources[1], page.context);
   const loading = page.events.DOMContentLoaded();
   assert.equal(
-    page.elements.get("iframe").src,
-    "/embed.html#https://vidsrc.party/embed/movie/550",
+    target(page.elements.get("iframe").src),
+    "https://vidsrc.party/embed/movie/550",
   );
   metadata.resolve({ ok: false, status: 503 });
   await loading;
@@ -131,8 +145,8 @@ test("TV defaults start immediately and metadata requests run in parallel", asyn
   vm.runInContext(sources[2], page.context);
   page.events.DOMContentLoaded();
   assert.equal(
-    page.elements.get("iframe").src,
-    "/embed.html#https://vidsrc.party/embed/tv/1399/1/1",
+    target(page.elements.get("iframe").src),
+    "https://vidsrc.party/embed/tv/1399/1/1",
   );
   assert.equal(page.location.search, "?id=1399");
   assert.equal(requests.length, 2);
@@ -168,7 +182,7 @@ test("TV episode changes reuse the embed and Back restores selection", async () 
   };
   page.elements.get("episodeList").children[1].trigger("click");
   assert.match(page.location.search, /s=2&e=2/);
-  assert.match(iframe.src, /1399\/2\/2$/);
+  assert.match(target(iframe.src), /1399\/2\/2$/);
   assert.equal(replacements, 1);
   assert.equal(
     page.elements.get("episodeList").children[1].classList.contains("active"),
@@ -176,7 +190,7 @@ test("TV episode changes reuse the embed and Back restores selection", async () 
   );
   page.location.search = "?id=1399&s=2&e=1";
   page.events.popstate();
-  assert.match(iframe.src, /1399\/2\/1$/);
+  assert.match(target(iframe.src), /1399\/2\/1$/);
   assert.equal(
     page.elements.get("episodeList").children[0].classList.contains("active"),
     true,
@@ -211,10 +225,10 @@ test("late season metadata cannot overwrite a newer season selection", async () 
     page.elements.get("episodeList").children[0].textContent,
     "Episode 1: New season",
   );
-  assert.match(page.elements.get("iframe").src, /1399\/2\/1$/);
+  assert.match(target(page.elements.get("iframe").src), /1399\/2\/1$/);
 });
 
-test("invalid media IDs never reach the proxy", () => {
+test("invalid media IDs never reach the player", () => {
   const page = watchPage("?id=550/evil", () => {
     throw new Error("Unexpected metadata request");
   });
@@ -235,6 +249,7 @@ const embedScript = [...embed.matchAll(/<script>([\s\S]*?)<\/script>/g)]
 function proxyPage() {
   const init = deferred();
   const destinations = [];
+  const endpoints = [];
   const handlers = {};
   const elements = new Map();
   const node = () => ({
@@ -262,7 +277,6 @@ function proxyPage() {
     console: { error() {}, warn() {} },
     URL,
     Proxy,
-    wispurl: "wss://55gms.test/wisp/",
     location: {
       origin: "https://55gms.test",
       protocol: "https:",
@@ -292,8 +306,9 @@ function proxyPage() {
     clearTimeout(id) {
       timers.delete(id);
     },
-    proxyRuntime: {
-      createController() {
+    frameRuntime: {
+      createController(endpoint) {
+        endpoints.push(endpoint);
         return init.promise.then(() => ({
           createFrame() {
             return frame;
@@ -305,9 +320,10 @@ function proxyPage() {
       NewTabPlugin: class {
         popupClosed() {}
       },
+      UrlWatcherPlugin: class {},
+      core: { Tap: { tap() {} } },
+      codec: { decode: decodeToken },
     },
-    $scramjet: { Tap: { tap() {} } },
-    $scramjetUtils: { UrlWatcherPlugin: class {} },
   });
   context.window = context;
   context.self = context;
@@ -317,24 +333,31 @@ function proxyPage() {
     context,
     init,
     destinations,
+    endpoints,
     timers,
     handlers,
   };
 }
 
-test("proxy navigation waits for the new controller handshake", async () => {
+test("navigation waits for the new controller handshake", async () => {
   const page = proxyPage();
   await tick();
   assert.equal(page.destinations.length, 0);
   page.init.resolve();
   await tick();
   assert.deepEqual(page.destinations, ["https://example.com/"]);
+  assert.deepEqual(page.endpoints, ["wss://55gms.test/api/live/"]);
   assert.equal(page.timers.size, 1);
 });
 
-test("latest episode wins if navigation changes before proxy startup completes", async () => {
+test("latest episode wins if navigation changes before startup completes", async () => {
   const page = proxyPage();
-  page.context.location.hash = "#https://vidsrc.party/embed/tv/1399/1/2";
+  // The watch page hands its target over as an opaque token.
+  const token = watchPage("?id=1399", () => {}).context.mediaPlayer.token(
+    "https://vidsrc.party/embed/tv/1399/1/2",
+  );
+  assert.doesNotMatch(token, /vidsrc|aHR0c/);
+  page.context.location.hash = "#~" + token;
   page.handlers.hashchange();
   page.init.resolve();
   await tick();

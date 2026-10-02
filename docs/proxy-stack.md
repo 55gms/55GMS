@@ -1,8 +1,8 @@
 # Proxy stack
 
-The browser shell and movie/TV players share `static/embed.html`. Each embed owns a Scramjet controller and an Epoxy transport. The service worker (`/sw.js`, registered with scope `/~/sj/`) routes each controller's frame prefix back to that controller over RPC; site pages are outside its scope and use the browser's normal fetch path.
+The browser shell and movie/TV players share `static/embed.html`. Each embed owns a Scramjet controller and an Epoxy transport. The service worker (`/sw.js`, registered with scope `/stream/`) routes each controller's frame prefix back to that controller over RPC; site pages are outside its scope and use the browser's normal fetch path.
 
-The worker is deliberately not registered at `/`. Browsers that used an earlier stack still have that stack's worker there, and a replacement in the same scope cannot activate until the old worker has no requests in flight, which made startup time out on returning machines. `proxy-runtime.js` unregisters any root-scope registration in the background without waiting on it. Because embed pages are not clients of the scoped worker, `static/sw.js` sends the controller restart notice to uncontrolled windows itself.
+The worker is deliberately not registered at `/`. Browsers that used an earlier stack still have that stack's worker there (or at the previous `/~/sj/` scope), and a replacement in the same scope cannot activate until the old worker has no requests in flight, which made startup time out on returning machines. `frame-runtime.js` unregisters those old registrations in the background without waiting on them. Because embed pages are not clients of the scoped worker, `static/sw.js` sends the controller restart notice to uncontrolled windows itself.
 
 The compatible package versions are pinned in `package.json` and `package-lock.json`:
 
@@ -14,21 +14,27 @@ The compatible package versions are pinned in `package.json` and `package-lock.j
 | `@mercuryworkshop/epoxy-transport`     | `3.0.1`          |
 | `@mercuryworkshop/wisp-js`             | `0.5.0`          |
 
-`proxy-transports` replaces BareMux through the controller/core dependencies. Epoxy uses Wisp protocol version 2 at the existing `/wisp/` endpoint. Saved Wisp endpoint settings still apply.
+`proxy-transports` replaces BareMux through the controller/core dependencies. Epoxy uses Wisp protocol version 2. The site connects to `/api/live/`; the server still accepts `/wisp/` for external clients. The embed no longer reads a saved endpoint from `localStorage`.
 
-`utils/proxyAssets.js` serves the package distributions under `/scram`, `/controller`, `/scramjet-utils`, and `/epoxy`. Core, WASM, API, injection, worker, transport, and helper URLs include their versions so an upgrade does not mix cached generations. `static/assets/js/proxy-runtime.js` waits for the new service worker to activate and for the controller handshake before navigating. Registration and transport initialization run concurrently, with bounded startup deadlines.
+`utils/proxyAssets.js` serves exactly seven bundle files under neutral names in `/assets/lib/` (`vendor-core.js`, `vendor-core.wasm`, `vendor-frame.js`, `vendor-page.js`, `vendor-worker.js`, `vendor-util.js`, `vendor-net.js`); the package directories themselves are not mounted. Core, WASM, API, injection, worker, transport, and helper URLs include their versions so an upgrade does not mix cached generations. `static/assets/js/frame-runtime.js` waits for the new service worker to activate and for the controller handshake before navigating. Registration and transport initialization run concurrently, with bounded startup deadlines.
 
 The HTTP cache plugin stores upstream bytes for scripts, styles, fonts, images, and WASM, respecting upstream cache directives. A policy wrapper excludes media streams, range requests, API responses, mismatched content types, and responses declaring more than 8 MiB. Cached upstream bytes are rewritten again for the requesting frame's prefix.
 
 When publishing a new proxy generation, reload existing proxy/media tabs. The new controller uses its own cookie store; legacy proxied site sessions may require signing in again. The site's own login is unaffected. Do not delete the legacy IndexedDB store as part of this upgrade.
 
+## Neutral naming
+
+Nothing the browser requests or renders for the player names the libraries. Served site files (`embed.html`, `sw.js`, `frame-runtime.js`, the media pages) look the bundles' globals up by assembled name and expose them as `frameRuntime.core` and friends. Frame URLs are `/stream/<controller>/<frame>/<token>`, where the token is the controller codec's XOR + base64url encoding of the destination; the watch pages pass the same token to the embed as `/embed.html#~<token>` (`mediaPlayer.token` in `player.js` must stay in sync with the codec). The browser shell still passes a plain URL in the hash, which the embed also accepts.
+
+Limits: the bundle bodies still contain their own names, and the core appends plain-text query metadata such as `$io=<origin>` to frame subresource URLs. Those requests are answered by the service worker and never reach the network.
+
 Run the targeted checks without a browser:
 
 ```sh
-node --test tests/media-player.test.js tests/proxy-runtime.test.js
+node --test tests/media-player.test.js tests/proxy-runtime.test.js test/proxy-integrity.test.js
 node --check index.js
 node --check static/sw.js
-node --check static/assets/js/proxy-runtime.js
+node --check static/assets/js/frame-runtime.js
 ```
 
 The tests exercise real installed bundles, HTTP asset routes, cache behavior, worker upgrade/failure paths, and the browser-shell/media navigation bridge. They do not prove third-party movie or TV playback.

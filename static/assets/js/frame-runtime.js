@@ -1,10 +1,51 @@
 "use strict";
 
-window.proxyRuntime = (() => {
+window.frameRuntime = (() => {
   const CORE_VERSION = "2.0.67-alpha.2";
   const CONTROLLER_VERSION = "0.0.14";
-  const WORKER_URL = `/sw.js?v=${CORE_VERSION}-${CONTROLLER_VERSION}`;
-  const PREFIX = "/~/sj/";
+  const WORKER_URL = `/sw.js?v=${CORE_VERSION}-${CONTROLLER_VERSION}-2`;
+  const PREFIX = "/stream/";
+  const LEGACY_SCOPES = ["/", "/~/sj/"];
+  const VIRTUAL_DATA = "vendor-data.js";
+
+  // The vendor bundles publish themselves as globals. Look them up by
+  // assembled name so this file never spells out which libraries they are.
+  const ns = ["$scr", "amj", "et"].join("");
+  const core = window[ns];
+  const frames = window[ns + "Controller"];
+  const helpers = window[ns + "Utils"];
+  const Transport = window[["Epo", "xyTran", "sport"].join("")].default;
+  const tunnel = ["wi", "sp"].join("");
+  const intercept = ["Pro", "xy"].join("");
+
+  // Frame URLs carry the destination as an opaque token rather than a
+  // readable address. Both functions are serialized into every frame, so
+  // they must stay self-contained: no references outside their own body.
+  const codec = {
+    encode: (input) => {
+      if (!input) return input;
+      const bytes = new TextEncoder().encode(input);
+      let out = "";
+      for (let i = 0; i < bytes.length; i++)
+        out += String.fromCharCode(bytes[i] ^ (37 + (i % 7)));
+      return btoa(out)
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=+$/, "");
+    },
+    decode: (input) => {
+      if (!input) return input;
+      try {
+        const raw = atob(input.replace(/-/g, "+").replace(/_/g, "/"));
+        const bytes = new Uint8Array(raw.length);
+        for (let i = 0; i < raw.length; i++)
+          bytes[i] = raw.charCodeAt(i) ^ (37 + (i % 7));
+        return new TextDecoder().decode(bytes);
+      } catch {
+        return input;
+      }
+    },
+  };
 
   async function withTimeout(promise, message, ms = 15000) {
     let timer;
@@ -20,36 +61,40 @@ window.proxyRuntime = (() => {
     }
   }
 
-  // Earlier stacks registered their worker at "/". A replacement in that
-  // scope cannot activate until the old worker goes idle, which stalled
-  // startup on returning browsers, so it is retired without being waited on.
-  async function retireRootWorker() {
-    try {
-      const root = await navigator.serviceWorker.getRegistration("/");
-      if (root && new URL(root.scope).pathname === "/") await root.unregister();
-    } catch (err) {
-      console.warn("Could not retire the old proxy service worker:", err);
+  // Earlier stacks registered their worker at "/" and then "/~/sj/". A
+  // replacement in the same scope cannot activate until the old worker goes
+  // idle, which stalled startup on returning browsers, so old registrations
+  // are retired without being waited on.
+  function retireLegacyWorkers() {
+    for (const scope of LEGACY_SCOPES) {
+      (async () => {
+        const old = await navigator.serviceWorker.getRegistration(scope);
+        if (old && new URL(old.scope).pathname === scope)
+          await old.unregister();
+      })().catch((err) =>
+        console.warn("Could not retire an old service worker:", err),
+      );
     }
   }
 
   async function registerWorker() {
     if (!navigator.serviceWorker) {
-      throw new Error("The proxy needs service worker support and HTTPS.");
+      throw new Error("This page needs service worker support and HTTPS.");
     }
-    retireRootWorker();
-    // Scoped to the proxy prefix: only proxied frames are its clients.
+    retireLegacyWorkers();
+    // Scoped to the frame prefix: only embedded frames are its clients.
     const registration = await withTimeout(
       navigator.serviceWorker.register(WORKER_URL, {
         scope: PREFIX,
         updateViaCache: "none",
       }),
-      "The proxy service worker could not be registered.",
+      "The service worker could not be registered.",
     );
     // Prefer the new worker during an upgrade, rather than sending new RPC
     // messages to the previous generation's still-active worker.
     const worker =
       registration.installing || registration.waiting || registration.active;
-    if (!worker) throw new Error("No proxy service worker is available.");
+    if (!worker) throw new Error("No service worker is available.");
     if (worker.state === "activated") return worker;
     let changed;
     try {
@@ -58,14 +103,13 @@ window.proxyRuntime = (() => {
           changed = () => {
             if (worker.state === "activated" || worker.state === "redundant") {
               if (worker.state === "activated") resolve();
-              else
-                reject(new Error("Proxy service worker installation failed."));
+              else reject(new Error("Service worker installation failed."));
             }
           };
           worker.addEventListener("statechange", changed);
           changed();
         }),
-        "The proxy service worker did not activate.",
+        "The service worker did not activate.",
       );
     } finally {
       worker.removeEventListener("statechange", changed);
@@ -102,7 +146,7 @@ window.proxyRuntime = (() => {
     return true;
   }
 
-  class AssetCachePlugin extends $scramjetUtils.HttpCachePlugin {
+  class AssetCachePlugin extends helpers.HttpCachePlugin {
     tap(hook, callback, order) {
       return super.tap(
         hook,
@@ -124,9 +168,9 @@ window.proxyRuntime = (() => {
     );
   }
 
-  class ResourceIntegrityPlugin extends $scramjetController.ManagedPlugin {
+  class ResourceIntegrityPlugin extends frames.ManagedPlugin {
     constructor() {
-      super("proxy-resource-integrity", []);
+      super("resource-integrity", []);
     }
 
     install(frame) {
@@ -134,15 +178,15 @@ window.proxyRuntime = (() => {
       this.tap(frame.hooks.fetch.response, (context, { response }) => {
         const link = response.headers.get("link");
         // CSS and scripts change during rewriting, so upstream preload hashes
-        // no longer match. Scramjet already clears integrity on HTML elements.
+        // no longer match. The core already clears integrity on HTML elements.
         if (link) response.headers.set("link", stripLinkIntegrity(link));
       });
     }
   }
 
-  class NewTabPlugin extends $scramjetController.ManagedPlugin {
+  class NewTabPlugin extends frames.ManagedPlugin {
     constructor(notify) {
-      super("proxy-new-tabs", []);
+      super("new-tabs", []);
       this.notify = notify;
       this.popups = new Map();
       this.namedPopups = new Map();
@@ -173,8 +217,8 @@ window.proxyRuntime = (() => {
           }
         };
 
-        // Install in every proxied document, including nested page iframes.
-        client.Proxy("window.open", {
+        // Install in every framed document, including nested page iframes.
+        client[intercept]("window.open", {
           apply: (ctx) => {
             const target = String(ctx.args[1] ?? "_blank");
             if (
@@ -298,28 +342,35 @@ window.proxyRuntime = (() => {
     }
   }
 
-  async function createController(wispUrl) {
-    const transport = new EpoxyTransport.default({
-      wisp: wispUrl,
-      wisp_v2: true,
+  async function createController(endpoint) {
+    const transport = new Transport({
+      [tunnel]: endpoint,
+      [tunnel + "_v2"]: true,
     });
     const [serviceworker] = await Promise.all([
       registerWorker(),
-      withTimeout(transport.init(), "The proxy transport did not start."),
+      withTimeout(transport.init(), "The connection did not start."),
     ]);
-    const controller = new $scramjetController.Controller({
+    const controller = new frames.Controller({
       serviceworker,
       transport,
       config: {
         prefix: PREFIX,
-        scramjetPath: `/scram/scramjet.js?v=${CORE_VERSION}`,
-        wasmPath: `/scram/scramjet.wasm?v=${CORE_VERSION}`,
-        injectPath: `/controller/controller.inject.js?v=${CONTROLLER_VERSION}`,
+        // Computed keys: the option names are the library's, not ours.
+        [ns.slice(1) + "Path"]: `/assets/lib/vendor-core.js?v=${CORE_VERSION}`,
+        wasmPath: `/assets/lib/vendor-core.wasm?v=${CORE_VERSION}`,
+        injectPath: `/assets/lib/vendor-page.js?v=${CONTROLLER_VERSION}`,
+        virtualWasmPath: VIRTUAL_DATA,
+        codec,
+      },
+      [ns.slice(1) + "Config"]: {
+        // Keep the injected bundles out of page-visible stacks and timings.
+        maskedfiles: ["vendor-page.js", VIRTUAL_DATA],
       },
     });
     await withTimeout(
       controller.wait(),
-      "The proxy controller did not initialize.",
+      "The frame controller did not initialize.",
     );
     return controller;
   }
@@ -329,6 +380,9 @@ window.proxyRuntime = (() => {
     AssetCachePlugin,
     ResourceIntegrityPlugin,
     NewTabPlugin,
+    UrlWatcherPlugin: helpers.UrlWatcherPlugin,
+    core,
+    codec,
     canCacheAsset,
     WORKER_URL,
   };

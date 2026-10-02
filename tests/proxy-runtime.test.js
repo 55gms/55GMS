@@ -5,11 +5,11 @@ import { dirname, join } from "node:path";
 import vm from "node:vm";
 import test from "node:test";
 import express from "express";
-import { mountProxyAssets, proxyAssetPaths } from "../utils/proxyAssets.js";
+import { mountProxyAssets, proxyAssetFiles } from "../utils/proxyAssets.js";
 
 const require = createRequire(import.meta.url);
 const runtimeSource = await readFile(
-  new URL("../static/assets/js/proxy-runtime.js", import.meta.url),
+  new URL("../static/assets/js/frame-runtime.js", import.meta.url),
   "utf8",
 );
 const tick = () => new Promise((resolve) => setImmediate(resolve));
@@ -114,14 +114,14 @@ test("worker registration and Epoxy init overlap; frame waits for controller han
   const active = worker();
   const page = runtime(Promise.resolve({ active }));
   let completed = false;
-  const ready = page.context.proxyRuntime
+  const ready = page.context.frameRuntime
     .createController("wss://55gms.test/wisp/")
     .then(() => {
       completed = true;
     });
   assert.equal(page.calls.includes("init"), true);
   const registration = page.calls.find((call) => call.url);
-  assert.equal(registration.options.scope, "/~/sj/");
+  assert.equal(registration.options.scope, "/stream/");
   assert.equal(registration.options.updateViaCache, "none");
   assert.match(registration.url, /v=2\.0\.67-alpha\.2-0\.0\.14/);
   await tick();
@@ -144,7 +144,7 @@ test("upgrade uses the new worker, not an active worker from the legacy stack", 
   const oldWorker = worker();
   const installing = worker("installing");
   const page = runtime(Promise.resolve({ active: oldWorker, installing }));
-  const ready = page.context.proxyRuntime.createController(
+  const ready = page.context.frameRuntime.createController(
     "wss://55gms.test/wisp/",
   );
   page.transport.resolve();
@@ -174,10 +174,10 @@ test("startup never waits on a root-scope worker left by an earlier stack", asyn
   };
   const active = worker();
   const page = runtime(
-    Promise.resolve({ scope: "https://55gms.test/~/sj/", active }),
+    Promise.resolve({ scope: "https://55gms.test/stream/", active }),
     Promise.resolve(legacy),
   );
-  const ready = page.context.proxyRuntime.createController(
+  const ready = page.context.frameRuntime.createController(
     "wss://55gms.test/wisp/",
   );
   page.transport.resolve();
@@ -185,7 +185,7 @@ test("startup never waits on a root-scope worker left by an earlier stack", asyn
   assert.equal(page.controllerOptions.serviceworker, active);
   assert.deepEqual(
     page.calls.filter((call) => call.lookup),
-    [{ lookup: "/" }],
+    [{ lookup: "/" }, { lookup: "/~/sj/" }],
   );
   assert.equal(unregisterCalls, 1);
   page.handshake.resolve();
@@ -195,7 +195,7 @@ test("startup never waits on a root-scope worker left by an earlier stack", asyn
 test("retiring the root worker skips other scopes and tolerates failures", async () => {
   let unregisterCalls = 0;
   const scoped = {
-    scope: "https://55gms.test/~/sj/",
+    scope: "https://55gms.test/stream/",
     unregister() {
       unregisterCalls++;
     },
@@ -211,7 +211,7 @@ test("retiring the root worker skips other scopes and tolerates failures", async
       }),
   ]) {
     const page = runtime(Promise.resolve({ active: worker() }), root());
-    const ready = page.context.proxyRuntime.createController(
+    const ready = page.context.frameRuntime.createController(
       "wss://55gms.test/wisp/",
     );
     page.transport.resolve();
@@ -225,7 +225,7 @@ test("retiring the root worker skips other scopes and tolerates failures", async
 test("failed worker installation rejects startup and removes its listener", async () => {
   const installing = worker("installing");
   const page = runtime(Promise.resolve({ installing }));
-  const ready = page.context.proxyRuntime.createController(
+  const ready = page.context.frameRuntime.createController(
     "wss://55gms.test/wisp/",
   );
   page.transport.resolve();
@@ -240,7 +240,7 @@ test("failed worker installation rejects startup and removes its listener", asyn
 test("worker activation timeout releases listeners instead of hanging startup", async () => {
   const installing = worker("installing");
   const page = runtime(Promise.resolve({ installing }));
-  const ready = page.context.proxyRuntime.createController(
+  const ready = page.context.frameRuntime.createController(
     "wss://55gms.test/wisp/",
   );
   page.transport.resolve();
@@ -281,29 +281,96 @@ async function realBundles() {
     navigator: { userAgent: "55GMS proxy runtime test" },
   });
   context.self = context;
-  for (const [route, file] of [
-    ["/scram", "scramjet.js"],
-    ["/controller", "controller.api.js"],
-    ["/scramjet-utils", "scramjet-utils.js"],
-    ["/epoxy", "index.js"],
-  ]) {
-    vm.runInContext(
-      await readFile(join(proxyAssetPaths[route], file), "utf8"),
-      context,
-      { filename: file },
-    );
+  for (const name of ["core", "frame", "util", "net"]) {
+    const file = proxyAssetFiles[`/assets/lib/vendor-${name}.js`];
+    vm.runInContext(await readFile(file, "utf8"), context, { filename: file });
   }
   context.window = context;
   vm.runInContext(runtimeSource, context);
   return context;
 }
 
+test("frame URLs use neutral asset paths and an opaque, reversible target token", async () => {
+  const context = await realBundles();
+  const { codec } = context.frameRuntime;
+  for (const url of [
+    "https://vidsrc.party/embed/tv/1399/1/2?a=b&c=d#frag",
+    "https://example.com/päth/✓",
+    "x",
+  ]) {
+    const token = codec.encode(url);
+    assert.match(token, /^[\w-]+$/);
+    assert.doesNotMatch(token, /^aHR0c/);
+    assert.equal(codec.decode(token), url);
+  }
+  assert.equal(codec.encode(""), "");
+  assert.equal(codec.decode("%%%"), "%%%");
+  // The controller serializes both functions into each frame.
+  for (const fn of [codec.encode, codec.decode]) {
+    const copy = vm.runInNewContext(`(${fn.toString()})`, {
+      TextEncoder,
+      TextDecoder,
+      Uint8Array,
+      btoa,
+      atob,
+    });
+    assert.equal(
+      copy(fn("https://example.com/")),
+      fn(fn("https://example.com/")),
+    );
+  }
+
+  const page = runtime(Promise.resolve({ active: worker() }));
+  const ready = page.context.frameRuntime.createController(
+    "wss://55gms.test/api/live/",
+  );
+  page.transport.resolve();
+  await tick();
+  page.handshake.resolve();
+  await ready;
+  const { config, scramjetConfig } = page.controllerOptions;
+  assert.equal(config.prefix, "/stream/");
+  assert.equal(typeof config.codec.encode, "function");
+  const paths = [
+    config.scramjetPath,
+    config.wasmPath,
+    config.injectPath,
+    config.virtualWasmPath,
+  ];
+  assert.equal(paths.every(Boolean), true);
+  for (const path of [...paths, ...scramjetConfig.maskedfiles])
+    assert.doesNotMatch(path, /scram|controller|epoxy|inject|sj/i);
+  assert.deepEqual(
+    JSON.parse(JSON.stringify(page.calls.find((call) => call.transport))),
+    { transport: { wisp: "wss://55gms.test/api/live/", wisp_v2: true } },
+  );
+
+  // The real core builds frame URLs through the codec: no readable target.
+  const rewritten = context.frameRuntime.core.rewriteUrl(
+    "https://vidsrc.party/embed/movie/550",
+    {
+      config: context.frameRuntime.core.defaultConfig,
+      prefix: new URL("https://55gms.test/stream/tab/frame/"),
+      interface: { codecEncode: codec.encode, codecDecode: codec.decode },
+    },
+    {
+      origin: new URL("https://vidsrc.party/"),
+      base: new URL("https://vidsrc.party/"),
+    },
+  );
+  // The core still appends its own query metadata (initiator origin) after
+  // the path; only the path is under the codec's control.
+  const { pathname } = new URL(rewritten);
+  assert.match(pathname, /^\/stream\/tab\/frame\/[\w-]+$/);
+  assert.doesNotMatch(pathname, /vidsrc|https%3A|aHR0c/i);
+});
+
 async function newTabPage() {
   const context = await realBundles();
   const events = [];
   const handlers = {};
   const hooks = context.$scramjet.Tap.create();
-  const plugin = new context.proxyRuntime.NewTabPlugin((type, detail) => {
+  const plugin = new context.frameRuntime.NewTabPlugin((type, detail) => {
     events.push({ type, ...detail });
   });
   plugin.install({ hooks: { init: hooks } });
@@ -594,7 +661,7 @@ test("actual pinned bundles agree on versions and reuse untouched cached asset b
     }),
   };
   const hooks = context.$scramjet.Tap.create();
-  const plugin = new context.proxyRuntime.AssetCachePlugin();
+  const plugin = new context.frameRuntime.AssetCachePlugin();
   plugin.install({ fetchHandler: { hooks: { fetch: hooks } } });
   const first = assetRequest(context, "https://cdn.example.com/player.js");
   const bare = context.$scramjet.BareResponse.fromNativeResponse(
@@ -626,7 +693,7 @@ test("actual cache plugin passes streams, range requests, API data and oversized
     },
   };
   const hooks = context.$scramjet.Tap.create();
-  new context.proxyRuntime.AssetCachePlugin().install({
+  new context.frameRuntime.AssetCachePlugin().install({
     fetchHandler: { hooks: { fetch: hooks } },
   });
   for (const [url, destination, headers, type, length] of [
@@ -676,7 +743,7 @@ test("new worker routes proxied requests and leaves site assets alone", async ()
   const routed = [];
   const context = vm.createContext({
     importScripts(url) {
-      assert.equal(url, "/controller/controller.sw.js?v=0.0.14");
+      assert.equal(url, "/assets/lib/vendor-worker.js?v=0.0.14");
     },
     setTimeout() {},
     addEventListener(type, callback) {
@@ -684,7 +751,7 @@ test("new worker routes proxied requests and leaves site assets alone", async ()
     },
     $scramjetController: {
       shouldRoute(event) {
-        return event.request.url.includes("/~/sj/");
+        return event.request.url.includes("/stream/");
       },
       route(event) {
         routed.push(event.request.url);
@@ -704,7 +771,7 @@ test("new worker routes proxied requests and leaves site assets alone", async ()
     },
   });
   handlers.fetch({
-    request: { url: "https://55gms.test/~/sj/tab/frame/target" },
+    request: { url: "https://55gms.test/stream/tab/frame/target" },
     respondWith(value) {
       assert.equal(value, "proxied");
     },
@@ -729,13 +796,13 @@ test("restarted worker tells the uncontrolled embed pages to reconnect", async (
     setTimeout(callback) {
       revive = callback;
     },
-    registration: { scope: "https://55gms.test/~/sj/" },
+    registration: { scope: "https://55gms.test/stream/" },
     clients: {
       async matchAll(options) {
         query = options;
         return [
           client("https://55gms.test/embed.html#https://example.com/"),
-          client("https://55gms.test/~/sj/tab/frame/https://example.com/"),
+          client("https://55gms.test/stream/tab/frame/token"),
         ];
       },
     },
@@ -763,15 +830,7 @@ test("server exposes every new core/controller/transport asset used by the brows
   const server = app.listen(0, "127.0.0.1");
   await new Promise((resolve) => server.once("listening", resolve));
   try {
-    for (const file of [
-      "/scram/scramjet.js",
-      "/scram/scramjet.wasm",
-      "/controller/controller.api.js",
-      "/controller/controller.inject.js",
-      "/controller/controller.sw.js",
-      "/scramjet-utils/scramjet-utils.js",
-      "/epoxy/index.js",
-    ]) {
+    for (const file of Object.keys(proxyAssetFiles)) {
       const response = await fetch(
         `http://127.0.0.1:${server.address().port}${file}?v=current`,
       );
@@ -786,6 +845,18 @@ test("server exposes every new core/controller/transport asset used by the brows
       `http://127.0.0.1:${server.address().port}/baremux/index.js`,
     );
     assert.equal(response.status, 404);
+    // Package-named paths and unlisted package files are not reachable.
+    for (const file of [
+      "/scram/scramjet.js",
+      "/controller/controller.api.js",
+      "/epoxy/index.js",
+      "/assets/lib/scramjet.js.map",
+    ]) {
+      const old = await fetch(
+        `http://127.0.0.1:${server.address().port}${file}`,
+      );
+      assert.equal(old.status, 404, file);
+    }
   } finally {
     server.closeAllConnections();
     await new Promise((resolve) => server.close(resolve));

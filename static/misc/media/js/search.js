@@ -1,12 +1,12 @@
 
 
-function createAndDisplayCard(movie, container, useProxy = false) {
+function createAndDisplayCard(movie, container, viaServer = false) {
   let poster;
   if (movie.poster_path === null || !movie.poster_path) {
     return;
   } else {
     let posterUrl = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
-    if (useProxy) {
+    if (viaServer) {
       poster = "/api/music/url=" + encodeURIComponent(posterUrl);
     } else {
       poster = posterUrl;
