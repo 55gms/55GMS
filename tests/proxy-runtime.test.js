@@ -640,6 +640,40 @@ test("shell creates, navigates and closes popup tabs only for the matching embed
   assert.deepEqual(calls.at(-1), ["focusFrame", "3"]);
 });
 
+test("shell restores saved tabs on a reload but not after the page was closed", async () => {
+  const source = await readFile(
+    new URL("../static/assets/js/browser.js", import.meta.url),
+    "utf8",
+  );
+  const saved = JSON.stringify({
+    active: 0,
+    tabs: [{ url: "https://example.com/", title: "Example", favicon: "" }],
+    closed: [],
+  });
+  const loadSession = (navigationType) => {
+    const context = vm.createContext({
+      STORAGE_KEY: "55gms:browser",
+      sessionStorage: { getItem: () => saved },
+      performance: {
+        getEntriesByType: () =>
+          navigationType ? [{ type: navigationType }] : [],
+      },
+    });
+    vm.runInContext(
+      source.slice(
+        source.indexOf("  function loadSession"),
+        source.indexOf("  // ====", source.indexOf("  function loadSession")),
+      ),
+      context,
+    );
+    return context.loadSession();
+  };
+  assert.equal(loadSession("reload").tabs[0].url, "https://example.com/");
+  assert.equal(loadSession("navigate"), null);
+  assert.equal(loadSession("back_forward"), null);
+  assert.equal(loadSession(null), null);
+});
+
 function assetRequest(context, url, headers = {}) {
   return {
     request: {

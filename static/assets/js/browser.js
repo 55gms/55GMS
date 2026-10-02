@@ -206,8 +206,12 @@
     });
   }
 
+  // Tabs only survive a reload. Leaving the page closes them, so coming back
+  // (or being handed a URL by another page) starts with a clean strip.
   function loadSession() {
     try {
+      const [entry] = performance.getEntriesByType("navigation");
+      if (!entry || entry.type !== "reload") return null;
       const data = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || "null");
       if (!data || !Array.isArray(data.tabs)) return null;
       return data;
