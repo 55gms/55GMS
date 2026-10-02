@@ -10,7 +10,7 @@
 import "dotenv/config";
 import fs from "node:fs";
 import path from "node:path";
-import readline from "node:readline";
+import { readNdjsonLines } from "./lib/ndjson.js";
 
 const API_ROOT =
   process.env.CF_API_ROOT || "https://api.cloudflare.com/client/v4";
@@ -140,12 +140,7 @@ async function readExportedKeys(file) {
   const exported = new Set();
   if (!fs.existsSync(file)) return exported;
 
-  const lines = readline.createInterface({
-    input: fs.createReadStream(file, "utf8"),
-    crlfDelay: Infinity,
-  });
-  for await (const line of lines) {
-    if (!line) continue;
+  for await (const line of readNdjsonLines(file)) {
     try {
       exported.add(JSON.parse(line).uuid);
     } catch {

@@ -10,7 +10,6 @@
 import "dotenv/config";
 import fs from "node:fs";
 import path from "node:path";
-import readline from "node:readline";
 import { sequelize, User, UserSave } from "../models/index.js";
 import { wrapLegacyHash } from "../utils/passwordHash.js";
 import {
@@ -18,6 +17,7 @@ import {
   parseUsersExport,
   planUserImport,
 } from "./lib/d1Export.js";
+import { readNdjsonLines } from "./lib/ndjson.js";
 
 const USER_BATCH_SIZE = 200;
 const MAX_LISTED = 20;
@@ -115,13 +115,7 @@ async function importSaves(userUuids) {
     return null;
   }
 
-  const lines = readline.createInterface({
-    input: fs.createReadStream(savesFile, "utf8"),
-    crlfDelay: Infinity,
-  });
-
-  for await (const line of lines) {
-    if (!line) continue;
+  for await (const line of readNdjsonLines(savesFile)) {
     const { uuid, saveData } = JSON.parse(line);
     report.total += 1;
     report.bytes += Buffer.byteLength(saveData);
