@@ -4,7 +4,7 @@
 window.LoaderUI = (() => {
   // .js/.css/images are cached for a day. After changing any loader asset run
   // `node scripts/bump-loader-version.js` to refresh this and every ?v= tag.
-  const VERSION = "4qepfhy20n";
+  const VERSION = "4zff9z1s3v";
   const asset = (path) => new URL(`${path}?v=${VERSION}`, location.origin).href;
   const STATUS = {
     loading: "Loading game",
@@ -102,6 +102,12 @@ window.LoaderUI = (() => {
 
     // Bytes downloaded so far, expected total, and whether every file is in.
     function set(loaded, total, done) {
+      if (!done && !(total > 0) && loaded > 0) {
+        // Sizes are unknown: report what has arrived without guessing a total.
+        paint("downloading", 0, `${(loaded / 1048576).toFixed(2)} MB`);
+        percent.textContent = "";
+        return;
+      }
       const value = done ? 1 : clamp(total > 0 ? loaded / total : 0);
       const shownMb = displayMb || total / 1048576;
       paint(
@@ -119,9 +125,9 @@ window.LoaderUI = (() => {
     }
 
     // Work is under way but nothing measurable has been reported.
-    function busy() {
+    function busy(text = STATUS.loading) {
       overlay.dataset.state = "loading";
-      status.textContent = STATUS.loading;
+      if (status.textContent !== text) status.textContent = text;
       fill.style.width = "";
       track.removeAttribute("aria-valuenow");
     }

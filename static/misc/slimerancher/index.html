@@ -7,8 +7,8 @@ i just edited it a bit to make it better for gn-math
 <html lang="en-us">
 
 <head>
-    <script src="/assets/js/loader-ui.js?v=4qepfhy20n"></script>
-    <script src="/assets/js/unity-loading.js?v=4qepfhy20n" data-title="Slime Rancher"></script>
+    <script src="/assets/js/loader-ui.js?v=4zff9z1s3v"></script>
+    <script src="/assets/js/game-loader.js?v=4zff9z1s3v" data-title="Slime Rancher"></script>
     <base href="https://cdn.jsdelivr.net/gh/web-ports/slime-ranchers@main/">
     <meta charset="utf-8">
     <title>Slime Rancher Decompiled v0.2.1</title>
@@ -27,9 +27,6 @@ i just edited it a bit to make it better for gn-math
             <img class="bg" src="TemplateData/loading_bg.png"
                 style="width: 100%; height: 100%; padding: 0px; margin: 0px; border: 0px; position: absolute;">
         </div>
-        <div id="loading-text"
-            style="-webkit-text-stroke-width: 2px; -webkit-text-stroke-color: black; color: white; font-size: 48px; font-family: cursive; text-align: center; margin-top: 20px;">
-            LOADING...</div>
         <div id="gameContainer" style="width: 960px; height: 600px"></div>
     </div>
     <script src="TemplateData/responsive.js"></script>
@@ -52,46 +49,6 @@ i just edited it a bit to make it better for gn-math
         return xhr;
     }
     window.XMLHttpRequest = xhrfunc;
-
-    var loadingText = document.querySelector("#loading-text");
-
-    let loadedBytes = 0;
-
-    async function fetchWithProgress(url) {
-        const response = await fetch(url);
-        const reader = response.body.getReader();
-        let chunks = [];
-        let received = 0;
-
-        while (true) {
-            const {
-                done,
-                value
-            } = await reader.read();
-            if (done) break;
-            received += value.length;
-            loadedBytes += value.length;
-            chunks.push(value);
-
-            let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
-            let mbTotal = '92.01';
-            loadingText.innerHTML = `LOADING... ${mbDone} MB / ${mbTotal} MB`;
-        }
-
-        let fullBuffer = new Uint8Array(received);
-        let offset = 0;
-        for (let chunk of chunks) {
-            fullBuffer.set(chunk, offset);
-            offset += chunk.length;
-        }
-        return fullBuffer.buffer;
-    }
-
-    async function mergeFiles(fileParts) {
-        const buffers = await Promise.all(fileParts.map(part => fetchWithProgress(part)));
-        const mergedBlob = new Blob(buffers);
-        return URL.createObjectURL(mergedBlob);
-    }
 
     function getParts(file, start, end) {
         let parts = [];
@@ -120,11 +77,11 @@ i just edited it a bit to make it better for gn-math
             ...getParts("Build/slimeBUILDS.data", 1, 4),
             ...getParts("Build/slimeBUILDS.wasm", 1, 2)
         ];
-
+        GameLoader.expect(92.01 * 1048576);
 
         const [dataUrl, wasmUrl] = await Promise.all([
-            mergeFiles(getParts("Build/slimeBUILDS.data", 1, 4)),
-            mergeFiles(getParts("Build/slimeBUILDS.wasm", 1, 2))
+            GameLoader.merge(getParts("Build/slimeBUILDS.data", 1, 4)),
+            GameLoader.merge(getParts("Build/slimeBUILDS.wasm", 1, 2))
         ]);
         window.dataUrll = dataUrl;
         window.wasmUrll = wasmUrl;
@@ -154,11 +111,11 @@ i just edited it a bit to make it better for gn-math
             Module: {
                 onRuntimeInitialized: function () {
                     resizeUnityContainer();
-                    document.querySelector("#loading-text").remove();
+                    GameLoader.finish();
                 },
             },
         });
-    })();
+    })().catch(GameLoader.fail);
 </script>
 
 </html>

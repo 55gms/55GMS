@@ -2,8 +2,8 @@
 <html lang="en-us">
 
 <head>
-    <script src="/assets/js/loader-ui.js?v=4qepfhy20n"></script>
-    <script src="/assets/js/unity-loading.js?v=4qepfhy20n" data-title="Hollow Night"></script>
+    <script src="/assets/js/loader-ui.js?v=4zff9z1s3v"></script>
+    <script src="/assets/js/game-loader.js?v=4zff9z1s3v" data-title="Hollow Night"></script>
     <base href="https://cdn.jsdelivr.net/gh/web-ports/hollow-knight@latest/">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -31,9 +31,6 @@
 </head>
 
 <body>
-    <div id="loading-text"
-        style="color: white; font-size: 48px; font-family: cursive; text-align: center; margin-top: 20px;"> LOADING...
-    </div>
     <div hidden id="unity-container" class="unity-desktop">
         <canvas id="unity-canvas"></canvas>
         <div id="unity-loading-bar">
@@ -45,51 +42,6 @@
         <div id="unity-mobile-warning"> WebGL builds are not supported on mobile devices. </div>
     </div>
     <script>
-        var loadingText = document.querySelector("#loading-text");
-        let totalBytes = 0;
-        let loadedBytes = 0;
-        async function getSize(url) {
-            try {
-                const res = await fetch(url, {
-                    method: "HEAD"
-                });
-                return parseInt(res.headers.get("Content-Length") || "0", 10);
-            } catch {
-                return 0;
-            }
-        }
-        async function fetchWithProgress(url) {
-            const response = await fetch(url);
-            const reader = response.body.getReader();
-            let chunks = [];
-            let received = 0;
-            while (true) {
-                const {
-                    done,
-                    value
-                } = await reader.read();
-                if (done) break;
-                received += value.length;
-                loadedBytes += value.length;
-                chunks.push(value);
-                let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
-                let mbTotal = '860.36';
-                loadingText.textContent = `LOADING... ${mbDone} MB / ${mbTotal} MB`;
-            }
-            let fullBuffer = new Uint8Array(received);
-            let offset = 0;
-            for (let chunk of chunks) {
-                fullBuffer.set(chunk, offset);
-                offset += chunk.length;
-            }
-            return fullBuffer.buffer;
-        }
-        async function mergeFiles(fileParts) {
-            const buffers = await Promise.all(fileParts.map(part => fetchWithProgress(part)));
-            const mergedBlob = new Blob(buffers);
-            return URL.createObjectURL(mergedBlob);
-        }
-
         function getParts(file, start, end) {
             let parts = [];
             for (let i = start; i <= end; i++) {
@@ -99,11 +51,10 @@
         }
         (async () => {
             const allParts = [...getParts("Build/hk.data", 1, 42), ...getParts("Build/hk.wasm", 1, 2),];
-            const sizes = await Promise.all(allParts.map(getSize));
-            totalBytes = sizes.reduce((a, b) => a + b, 0);
+            GameLoader.expect(860.36 * 1048576);
             const [dataUrl, wasmurl] = await Promise.all([
-                mergeFiles(getParts("Build/hk.data", 1, 42)),
-                mergeFiles(getParts("Build/hk.wasm", 1, 2)),
+                GameLoader.merge(getParts("Build/hk.data", 1, 42)),
+                GameLoader.merge(getParts("Build/hk.wasm", 1, 2)),
             ]);
             var buildUrl = "Build";
             var loaderUrl = buildUrl + "/hk.loader.js";
@@ -156,15 +107,13 @@
                 createUnityInstance(canvas, config, (progress) => {
                     progressBarFull.style.width = 100 * progress + "%";
                 }).then((unityInstance) => {
-                    loadingText.remove();
+                    GameLoader.finish();
                     loadingBar.style.display = "none";
                     canvas.style.display = "block";
-                }).catch((message) => {
-                    alert(message);
-                });
+                }).catch(GameLoader.fail);
             };
             document.body.appendChild(script);
-        })();
+        })().catch(GameLoader.fail);
     </script>
 </body>
 

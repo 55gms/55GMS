@@ -2,8 +2,8 @@
 <html lang="en-us">
 
 <head>
-    <script src="/assets/js/loader-ui.js?v=4qepfhy20n"></script>
-    <script src="/assets/js/unity-loading.js?v=4qepfhy20n" data-title="Escape Road 2"></script>
+    <script src="/assets/js/loader-ui.js?v=4zff9z1s3v"></script>
+    <script src="/assets/js/unity-loading.js?v=4zff9z1s3v" data-title="Escape Road 2"></script>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity Web Player | Escape Road 2</title>
@@ -178,68 +178,17 @@
             }
         }
 
-        #loading-text {
-            color: #f0f0f0 !important;
-            background: transparent !important;
-            -webkit-text-fill-color: initial !important;
-            font-size: 48px;
-            font-family: cursive;
-            text-align: center;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1000;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            white-space: nowrap;
-        }
-
-        /* Loading animation */
-        @keyframes pulse {
-            0% {
-                opacity: 0.6;
-            }
-
-            50% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0.6;
-            }
-        }
-
-        #loading-text {
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            #loading-text {
-                font-size: 24px;
-                padding: 0 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            #loading-text {
-                font-size: 18px;
-                padding: 0 10px;
-            }
-        }
     </style>
 </head>
 
 <body>
     <div id="unity-container">
         <canvas id="unity-canvas" width="960" height="540" tabindex="-1"></canvas>
-        <div id="loading-text">LOADING...</div>
         <div id="unity-warning"> </div>
     </div>
     <script>
         var container = document.querySelector("#unity-container");
         var canvas = document.querySelector("#unity-canvas");
-        var loadingText = document.querySelector("#loading-text");
         var warningBanner = document.querySelector("#unity-warning");
 
         // Shows a temporary message banner/ribbon for a few seconds, or
@@ -278,16 +227,10 @@
         }
 
 
-        loadingText.style.display = "block";
-
         var script = document.createElement("script");
         script.src = loaderUrl;
         script.onload = () => {
-            createUnityInstance(canvas, config, (progress) => {
-                loadingText.textContent = `LOADING... ${Math.round(progress * 100)}%`;
-            }).then((unityInstance) => {
-                loadingText.style.display = "none";
-            }).catch((message) => {
+            createUnityInstance(canvas, config).catch((message) => {
             });
         };
         document.body.appendChild(script);

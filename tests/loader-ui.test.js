@@ -173,3 +173,83 @@ test("every page names the current loader version", async () => {
   }
   assert.ok(pages >= 77);
 });
+
+test("GameLoader builds its own overlay and measures unlisted ports", async () => {
+  const window = page("", "Bendy");
+  const chunk = new Uint8Array(1048576);
+  window.fetch = async (url, options) => {
+    if (options?.method === "HEAD")
+      return { ok: true, headers: { get: () => "2097152" } };
+    let left = 2;
+    return {
+      ok: true,
+      body: {
+        getReader: () => ({
+          read: async () =>
+            left-- > 0 ? { done: false, value: chunk } : { done: true },
+        }),
+      },
+    };
+  };
+  window.Blob = Blob;
+  window.URL.createObjectURL = () => "blob:test";
+  window.eval(gameLoader);
+  const overlay = window.document.getElementById("game-loading");
+  assert.ok(overlay);
+  await window.GameLoader.measure(["a.part1", "a.part2"]);
+  assert.equal(text(window, "amount"), "0.00 MB / 4.00 MB");
+  await window.GameLoader.merge(["a.part1", "a.part2"]);
+  assert.equal(overlay.dataset.state, "starting");
+  window.GameLoader.status("Extracting assets (3/9)");
+  assert.equal(text(window, "status"), "Extracting assets (3/9)");
+  assert.equal(overlay.dataset.state, "loading");
+});
+
+test("GameLoader honours a fixed total and reports unknown sizes plainly", async () => {
+  const chunk = new Uint8Array(1048576);
+  const load = (window) => {
+    let release;
+    window.fetch = async () => ({
+      ok: true,
+      body: {
+        getReader: () => {
+          let sent = false;
+          return {
+            read: async () => {
+              if (!sent) return ((sent = true), { done: false, value: chunk });
+              await new Promise((resolve) => (release = resolve));
+              return { done: true };
+            },
+          };
+        },
+      },
+    });
+    window.Blob = Blob;
+    window.URL.createObjectURL = () => "blob:test";
+    window.eval(gameLoader);
+    const merged = window.GameLoader.merge(["a.part1"]);
+    return { merged, finish: () => release() };
+  };
+  const tick = () => new Promise((resolve) => setTimeout(resolve));
+
+  const unknown = page("", "Raft");
+  const first = load(unknown);
+  await tick();
+  assert.equal(text(unknown, "amount"), "1.00 MB");
+  assert.equal(text(unknown, "percent"), "");
+  first.finish();
+  await first.merged;
+
+  const fixed = page("", "Cuphead");
+  const second = load(fixed);
+  fixed.GameLoader.expect(4 * 1048576);
+  await tick();
+  assert.equal(text(fixed, "amount"), "1.00 MB / 4.00 MB");
+  assert.equal(text(fixed, "percent"), "25%");
+  second.finish();
+  await second.merged;
+  assert.equal(
+    fixed.document.getElementById("game-loading").dataset.state,
+    "starting",
+  );
+});

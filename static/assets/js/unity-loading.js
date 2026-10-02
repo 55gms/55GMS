@@ -6,6 +6,9 @@
   const overlay = document.createElement("div");
   overlay.id = "unity-loading";
   const title = document.currentScript?.dataset.title;
+  // data-preloads: the page downloads files itself before it starts Unity, so
+  // the screen must stay up through that wait instead of being released.
+  const preloads = document.currentScript?.dataset.preloads !== undefined;
   if (title) overlay.dataset.title = title;
   document.documentElement.appendChild(overlay);
   const ui = LoaderUI.mount(overlay);
@@ -119,9 +122,10 @@
 
   // Never trap a page whose startup these hooks did not see, such as a game
   // that waits for a click. The screen comes back if Unity starts later.
-  window.addEventListener("load", () =>
-    setTimeout(() => {
-      if (!started) overlay.hidden = true;
-    }, 1500),
-  );
+  if (!preloads)
+    window.addEventListener("load", () =>
+      setTimeout(() => {
+        if (!started) overlay.hidden = true;
+      }, 1500),
+    );
 })();

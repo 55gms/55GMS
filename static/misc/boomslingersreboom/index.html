@@ -5,14 +5,12 @@
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <script src="/assets/js/loader-ui.js?v=4qepfhy20n"></script>
-  <script src="/assets/js/unity-loading.js?v=4qepfhy20n" data-title="Boom Slingers Reboom"></script>
+  <script src="/assets/js/loader-ui.js?v=4zff9z1s3v"></script>
+  <script src="/assets/js/game-loader.js?v=4zff9z1s3v" data-title="Boom Slingers Reboom"></script>
   <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@master/static/misc/boomslingersreboom/">
 </head>
 
 <body style="margin:0;padding:0" class="noselect">
-  <div id="loading-text"
-    style="color: black; font-size: 48px; font-family: cursive; text-align: center; margin-top: 20px;">LOADING...</div>
   <canvas id="unity-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;outline:none"></canvas>
 
   <script>
@@ -20,7 +18,7 @@
   </script>
 
   <script>
-    async function mergeParts(baseUrl) {
+    async function findParts(baseUrl) {
       const parts = [];
       for (let i = 1; i <= 99; i++) {
         const testUrl = baseUrl + ".part" + i;
@@ -30,41 +28,18 @@
           parts.push(testUrl);
         } catch { break; }
       }
-      if (parts.length === 0) return baseUrl;
-
-      const buffers = await Promise.all(parts.map(async (u) => {
-        const r = await fetch(u);
-        if (!r.ok) throw new Error("Failed part " + u);
-        return new Uint8Array(await r.arrayBuffer());
-      }));
-
-      const total = buffers.reduce((a, b) => a + b.length, 0);
-      const merged = new Uint8Array(total);
-      let offset = 0;
-      for (const b of buffers) { merged.set(b, offset); offset += b.length; }
-
-      return URL.createObjectURL(new Blob([merged]));
+      return parts;
     }
 
     async function preMergeAll() {
       const map = {};
-      const files = Object.entries(SPLIT_MAP);
-      const total = files.length;
-      let done = 0;
-
-      const loadingText = document.getElementById("loading-text");
-
-      for (const [file, _] of files) {
-        const merged = await mergeParts("Build/" + file);
-        map[file] = merged;
-        done++;
-        const percent = Math.floor((done / total) * 100);
-        loadingText.innerText = `LOADING... ${percent}%`;
-        console.log("Premerged:", file, "→", merged);
-      }
-
-      loadingText.style.display = "none";
-
+      const files = Object.keys(SPLIT_MAP);
+      const found = await Promise.all(files.map((file) => findParts("Build/" + file)));
+      await GameLoader.measure(found.flat());
+      await Promise.all(files.map(async (file, index) => {
+        // Files that were never split are fetched by Unity from their own URL.
+        map[file] = found[index].length ? await GameLoader.merge(found[index]) : "Build/" + file;
+      }));
       return map;
     }
 
@@ -116,10 +91,11 @@
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => { }).then((unityInstance) => {
           window.gameInstance = unityInstance;
-        }).catch((message) => alert(message));
+          GameLoader.finish();
+        }).catch(GameLoader.fail);
       };
       document.body.appendChild(script);
-    })();
+    })().catch(GameLoader.fail);
   </script>
 
   <script>
