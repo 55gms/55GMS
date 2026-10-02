@@ -115,7 +115,7 @@ test("movie starts while metadata is still pending, and survives metadata failur
   const loading = page.events.DOMContentLoaded();
   assert.equal(
     page.elements.get("iframe").src,
-    "/embed.html#https://cinemaos.tech/player/550?title=false",
+    "/embed.html#https://vidsrc.party/embed/movie/550",
   );
   metadata.resolve({ ok: false, status: 503 });
   await loading;
@@ -132,7 +132,7 @@ test("TV defaults start immediately and metadata requests run in parallel", asyn
   page.events.DOMContentLoaded();
   assert.equal(
     page.elements.get("iframe").src,
-    "/embed.html#https://cinemaos.tech/player/1399/1/1?title=false",
+    "/embed.html#https://vidsrc.party/embed/tv/1399/1/1",
   );
   assert.equal(page.location.search, "?id=1399");
   assert.equal(requests.length, 2);
@@ -330,12 +330,11 @@ test("proxy navigation waits for the new controller handshake", async () => {
 
 test("latest episode wins if navigation changes before proxy startup completes", async () => {
   const page = proxyPage();
-  page.context.location.hash =
-    "#https://cinemaos.tech/player/1399/1/2?title=false";
+  page.context.location.hash = "#https://vidsrc.party/embed/tv/1399/1/2";
   page.handlers.hashchange();
   page.init.resolve();
   await tick();
   assert.deepEqual(page.destinations, [
-    "https://cinemaos.tech/player/1399/1/2?title=false",
+    "https://vidsrc.party/embed/tv/1399/1/2",
   ]);
 });

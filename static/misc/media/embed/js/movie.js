@@ -4,7 +4,7 @@ async function getMovie() {
     window.location.href = "/";
     return;
   }
-  url = `/embed.html#https://cinemaos.tech/player/${ID}?title=false`;
+  url = `/embed.html#https://vidsrc.party/embed/movie/${ID}`;
   location.href = url;
 }
 

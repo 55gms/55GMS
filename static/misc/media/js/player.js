@@ -6,12 +6,14 @@ window.mediaPlayer = {
   },
 
   load(id, season, episode) {
-    const path = season ? `${id}/${season}/${episode}` : id;
+    const path = season
+      ? `tv/${id}/${season}/${episode}`
+      : `movie/${id}`;
     const iframe = document.getElementById("iframe");
     iframe.allow = "fullscreen; autoplay; encrypted-media; picture-in-picture";
     // Only the hash changes between episodes, keeping Scramjet and its
     // transport alive instead of rebuilding the entire watch screen.
-    const url = `/embed.html#https://cinemaos.tech/player/${path}?title=false`;
+    const url = `/embed.html#https://vidsrc.party/embed/${path}`;
     if (iframe.dataset.playerMounted) {
       // Replace the child entry so Back/Forward follows the watch-page URL.
       iframe.contentWindow.location.replace(url);
