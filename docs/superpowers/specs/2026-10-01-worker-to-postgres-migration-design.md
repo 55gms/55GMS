@@ -28,15 +28,15 @@ Success means:
 
 The Worker is called only from this server, in seven places:
 
-| Worker endpoint                      | Caller                                |
-| ------------------------------------ | ------------------------------------- |
-| `POST /api/signup`                   | `routes/auth.js` `/signUp`            |
-| `POST /api/login`                    | `routes/auth.js` `/login`             |
-| `POST /api/users/premium`            | `routes/users.js` `/checkPremium`     |
-| `POST /api/users/uploadSave`         | `routes/users.js` `/uploadSave`       |
-| `POST /api/users/readSave`           | `routes/users.js` `/readSave`         |
-| `GET /api/user/:uuid`                | `utils/userCache.js` `getUserByUuid`  |
-| `GET /api/user/by-username/:username`| `utils/userCache.js` `getUserByUsername` |
+| Worker endpoint                       | Caller                                   |
+| ------------------------------------- | ---------------------------------------- |
+| `POST /api/signup`                    | `routes/auth.js` `/signUp`               |
+| `POST /api/login`                     | `routes/auth.js` `/login`                |
+| `POST /api/users/premium`             | `routes/users.js` `/checkPremium`        |
+| `POST /api/users/uploadSave`          | `routes/users.js` `/uploadSave`          |
+| `POST /api/users/readSave`            | `routes/users.js` `/readSave`            |
+| `GET /api/user/:uuid`                 | `utils/userCache.js` `getUserByUuid`     |
+| `GET /api/user/by-username/:username` | `utils/userCache.js` `getUserByUsername` |
 
 Worker data:
 
@@ -52,25 +52,25 @@ Two Sequelize models in `models/`, registered in `models/index.js` so
 
 `User` → table `users`
 
-| Column       | Type           | Notes                               |
-| ------------ | -------------- | ----------------------------------- |
-| `uuid`       | UUID           | primary key, same value as in D1    |
-| `username`   | VARCHAR(16)    | unique, case-sensitive (as in D1)   |
-| `password`   | VARCHAR(60)    | bcrypt hash, see below              |
-| `premium`    | BOOLEAN        | default false                       |
-| `createdAt`  | timestamp      | import time for migrated rows       |
-| `updatedAt`  | timestamp      |                                     |
+| Column      | Type        | Notes                             |
+| ----------- | ----------- | --------------------------------- |
+| `uuid`      | UUID        | primary key, same value as in D1  |
+| `username`  | VARCHAR(16) | unique, case-sensitive (as in D1) |
+| `password`  | VARCHAR(60) | bcrypt hash, see below            |
+| `premium`   | BOOLEAN     | default false                     |
+| `createdAt` | timestamp   | import time for migrated rows     |
+| `updatedAt` | timestamp   |                                   |
 
 If the D1 export contains usernames longer than 16 characters, the column is
 widened to fit the longest one; the 16-character limit stays a signup rule.
 
 `UserSave` → table `user_saves`
 
-| Column      | Type      | Notes                                         |
-| ----------- | --------- | --------------------------------------------- |
-| `uuid`      | TEXT      | primary key; no foreign key to `users`        |
-| `saveData`  | TEXT      | the JSON string exactly as stored in KV       |
-| `updatedAt` | timestamp |                                               |
+| Column      | Type      | Notes                                   |
+| ----------- | --------- | --------------------------------------- |
+| `uuid`      | TEXT      | primary key; no foreign key to `users`  |
+| `saveData`  | TEXT      | the JSON string exactly as stored in KV |
+| `updatedAt` | timestamp |                                         |
 
 No foreign key, because the Worker accepts saves for any uuid and those rows
 must import. `saveData` is TEXT rather than JSONB so a 25 MB save is stored
@@ -96,15 +96,15 @@ the rehearsal run, not during the freeze (see Cutover).
 
 New `services/users.js` — the only module that touches the two models:
 
-| Function                              | Returns                                      |
-| ------------------------------------- | -------------------------------------------- |
-| `createUser({ username, password })`  | `{ uuid, username, premium }`                |
+| Function                              | Returns                                                |
+| ------------------------------------- | ------------------------------------------------------ |
+| `createUser({ username, password })`  | `{ uuid, username, premium }`                          |
 | `verifyLogin({ username, password })` | `{ uuid, username, premium, success: true }` or `null` |
-| `getUserByUuid(uuid)`                 | `{ uuid, username, premium }` or `null`      |
-| `getUserByUsername(username)`         | `{ uuid, username, premium }` or `null`      |
-| `isPremium(uuid)`                     | `{ premium }` or `null`                      |
-| `writeSave(uuid, saveData)`           | `{ success: true, uuid }`                    |
-| `readSave(uuid)`                      | the stored JSON string or `null`             |
+| `getUserByUuid(uuid)`                 | `{ uuid, username, premium }` or `null`                |
+| `getUserByUsername(username)`         | `{ uuid, username, premium }` or `null`                |
+| `isPremium(uuid)`                     | `{ premium }` or `null`                                |
+| `writeSave(uuid, saveData)`           | `{ success: true, uuid }`                              |
+| `readSave(uuid)`                      | the stored JSON string or `null`                       |
 
 New `utils/passwordHash.js` — `hashPassword(plain)`,
 `verifyPassword(plain, stored)`, `wrapLegacyHash(sha256hex)`.
@@ -112,13 +112,13 @@ New `utils/passwordHash.js` — `hashPassword(plain)`,
 `routes/auth.js`, `routes/users.js`, `utils/userCache.js` call the service in
 place of axios. Their HTTP behaviour does not change:
 
-| Route           | Success                               | Failure (unchanged from today)            |
-| --------------- | ------------------------------------- | ----------------------------------------- |
-| `/signUp`       | 200 `{ uuid, username, premium }`     | 400 validation; 500 generic error for a taken or over-long username |
-| `/login`        | 200 `{ uuid, username, premium, success }` | 500 `{ error: "Invalid Email or password" }` |
-| `/checkPremium` | 200 `{ premium }`                     | 500 when the user does not exist          |
-| `/uploadSave`   | 200 `{ success: true, uuid }`         | 400 missing data; 500 on error            |
-| `/readSave`     | 200 the save JSON                     | 500 when no save exists                   |
+| Route           | Success                                    | Failure (unchanged from today)                                      |
+| --------------- | ------------------------------------------ | ------------------------------------------------------------------- |
+| `/signUp`       | 200 `{ uuid, username, premium }`          | 400 validation; 500 generic error for a taken or over-long username |
+| `/login`        | 200 `{ uuid, username, premium, success }` | 500 `{ error: "Invalid Email or password" }`                        |
+| `/checkPremium` | 200 `{ premium }`                          | 500 when the user does not exist                                    |
+| `/uploadSave`   | 200 `{ success: true, uuid }`              | 400 missing data; 500 on error                                      |
+| `/readSave`     | 200 the save JSON                          | 500 when no save exists                                             |
 
 `/readSave` sends the stored string directly with
 `Content-Type: application/json` and does not parse it.
