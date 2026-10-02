@@ -1873,19 +1873,35 @@ async function handleFriendRequest(requestId, action) {
             if (chatResponse.ok) {
               const chatData = await chatResponse.json();
 
+              const content = "I've accepted your friend request!";
+
               // Send automatic message
-              await fetch("/api/messages", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  "X-User-UUID": currentUser.uuid,
+              const messageResponse = await fetch(
+                `/api/chats/${chatData.chatId}/messages`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "X-User-UUID": currentUser.uuid,
+                  },
+                  body: JSON.stringify({ content }),
                 },
-                body: JSON.stringify({
+              );
+
+              if (messageResponse.ok) {
+                // Emit message via socket for real-time delivery
+                socket.emit("send_message", {
                   chatId: chatData.chatId,
-                  content: "I've accepted your friend request!",
+                  content,
                   senderUuid: currentUser.uuid,
-                }),
-              });
+                  senderUsername: currentUser.username,
+                });
+              } else {
+                console.error(
+                  "Error sending acceptance message:",
+                  messageResponse.status,
+                );
+              }
 
               // Reload chats to show the new conversation
               await loadChats();
