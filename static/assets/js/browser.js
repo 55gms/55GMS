@@ -525,6 +525,11 @@
     return true;
   }
 
+  function focusFrame(tab) {
+    if (tab.iframe) tab.iframe.focus();
+    else if (document.activeElement) document.activeElement.blur();
+  }
+
   function tabFromSource(source) {
     return tabs.find((t) => t.iframe && t.iframe.contentWindow === source);
   }
@@ -557,6 +562,8 @@
           opened.popupId = data.popupId;
         }
         ensureFrame(opened);
+        // Keyboard focus would otherwise stay in the now-hidden opener.
+        if (opened.id === activeId) focusFrame(opened);
         return;
       }
       case "browser:popupnavigate":
@@ -574,6 +581,7 @@
           if (!result.error) navigate(popup, result.url);
         } else if (data.type === "browser:popupfocus") {
           activateTab(popup.id);
+          focusFrame(popup);
         } else {
           closeTab(popup.id);
         }

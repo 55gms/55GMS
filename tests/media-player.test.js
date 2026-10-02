@@ -301,6 +301,10 @@ function proxyPage() {
         }));
       },
       AssetCachePlugin: class {},
+      ResourceIntegrityPlugin: class {},
+      NewTabPlugin: class {
+        popupClosed() {}
+      },
     },
     $scramjet: { Tap: { tap() {} } },
     $scramjetUtils: { UrlWatcherPlugin: class {} },
