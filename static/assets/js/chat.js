@@ -396,6 +396,9 @@ function handleActionClick(e) {
     case "unblock":
       unblockUser(username);
       break;
+    case "remove-friend":
+      removeFriend(username);
+      break;
     case "add-member":
       addMemberToGroup(username);
       break;
@@ -1675,6 +1678,9 @@ function renderFriendsList() {
                 <button class="btn btn-sm" type="button" data-action="start-chat" data-username="${escapeHtml(friend.username)}">
                     Message
                 </button>
+                <button class="icon-btn btn-sm" type="button" data-action="remove-friend" data-username="${escapeHtml(friend.username)}" title="Remove friend" aria-label="Remove ${escapeHtml(friend.username)} from friends">
+                    ${icon("user-minus")}
+                </button>
             </div>
         </div>
     `,
@@ -2395,6 +2401,49 @@ async function handleAddFriend() {
   }
 }
 
+// Remove a friend after confirming, then refresh everything that shows them
+async function removeFriend(username) {
+  const result = await ChatSwal.fire({
+    title: "Remove Friend",
+    text: `Are you sure you want to remove ${username} from your friends?`,
+    icon: "warning",
+    showCancelButton: true,
+    ...getAlertButtonColors("danger"),
+    confirmButtonText: "Yes, remove",
+  });
+
+  if (!result.isConfirmed) return;
+
+  try {
+    const response = await fetch("/api/friends/remove", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-User-UUID": currentUser.uuid,
+      },
+      body: JSON.stringify({ username }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      friends = friends.filter((friend) => friend.username !== username);
+      renderFriendsList();
+      renderChatMenuOptions();
+      showToast("Friend removed", "success");
+    } else {
+      throw new Error(data.error || "Failed to remove friend");
+    }
+  } catch (error) {
+    console.error("Error removing friend:", error);
+    ChatSwal.fire({
+      icon: "error",
+      title: "Error",
+      text: error.message || "Failed to remove friend",
+    });
+  }
+}
+
 // Handle remove friend
 async function handleRemoveFriend() {
   if (!currentChatId) return;
@@ -2406,26 +2455,7 @@ async function handleRemoveFriend() {
   if (!otherUser) return;
 
   closeChatMenu();
-
-  const result = await ChatSwal.fire({
-    title: "Remove Friend",
-    text: `Are you sure you want to remove ${otherUser.username} from your friends?`,
-    icon: "warning",
-    showCancelButton: true,
-    ...getAlertButtonColors("danger"),
-    confirmButtonText: "Yes, remove",
-  });
-
-  if (result.isConfirmed) {
-    // Find the friendship and remove it
-    // This would require a new API endpoint for removing friends
-    // For now, show a message that this feature is coming soon
-    ChatSwal.fire({
-      icon: "info",
-      title: "Coming Soon",
-      text: "Friend removal feature is coming soon!",
-    });
-  }
+  await removeFriend(otherUser.username);
 }
 
 // Handle leave group

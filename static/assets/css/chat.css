@@ -420,6 +420,11 @@ body.chat-page {
   font-size: 12px;
 }
 
+.icon-btn.btn-sm {
+  width: 28px;
+  padding: 0;
+}
+
 .icon-btn {
   position: relative;
   width: var(--chat-control-h);
@@ -2099,6 +2104,10 @@ body.chat-page {
 
   .btn-sm {
     height: 32px;
+  }
+
+  .icon-btn.btn-sm {
+    width: 32px;
   }
 
   .notification-container {

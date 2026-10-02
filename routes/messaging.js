@@ -650,6 +650,36 @@ router.put("/friends/:friendId", authenticateUser, async (req, res) => {
   }
 });
 
+// Remove a friend
+router.post("/friends/remove", authenticateUser, async (req, res) => {
+  try {
+    const { username } = req.body;
+
+    if (!username) {
+      return res.status(400).json({ error: "Username is required" });
+    }
+
+    // Get the other user's UUID
+    let otherUserUuid;
+    try {
+      const userResponse = await getUserByUsername(username);
+      otherUserUuid = userResponse.uuid;
+    } catch (error) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const removed = await removeFriendship(req.userUuid, otherUserUuid);
+    if (!removed) {
+      return res.status(404).json({ error: "Friendship not found" });
+    }
+
+    res.status(200).json({ message: "Friend removed" });
+  } catch (error) {
+    console.error("Error removing friend:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 // Block a user
 router.post("/friends/block", authenticateUser, async (req, res) => {
   try {
@@ -842,6 +872,30 @@ router.get("/friends/requests", authenticateUser, async (req, res) => {
 });
 
 // Helper functions
+
+// Deletes the accepted friendship between two users, whichever of them sent
+// the original request. Pending requests and blocks are left alone.
+export async function removeFriendship(
+  userUuid,
+  otherUserUuid,
+  FriendModel = Friend,
+) {
+  const friendship = await FriendModel.findOne({
+    where: {
+      status: "accepted",
+      [Op.or]: [
+        { requesterUuid: userUuid, addresseeUuid: otherUserUuid },
+        { requesterUuid: otherUserUuid, addresseeUuid: userUuid },
+      ],
+    },
+  });
+
+  if (!friendship) return false;
+
+  await friendship.destroy();
+  return true;
+}
+
 function dedupe(values) {
   return [...new Set(values.filter(Boolean))];
 }
