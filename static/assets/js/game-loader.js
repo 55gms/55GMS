@@ -30,11 +30,13 @@ window.GameLoader = (() => {
       ? 1
       : Math.min(Math.max(total > 0 ? loaded / total : 0, 0), 1);
     const shownMb = displayMb || total / 1048576;
-    const status = done
-      ? "Starting game"
-      : loaded > 0
-        ? "Downloading game files"
-        : "Preparing download";
+    const state = done ? "starting" : loaded > 0 ? "downloading" : "preparing";
+    const status = {
+      preparing: "Preparing download",
+      downloading: "Downloading game files",
+      starting: "Starting game",
+    }[state];
+    overlay.dataset.state = state;
     // Only touch the live region when the state changes, not on every chunk.
     if (text.textContent !== status) text.textContent = status;
     const whole = Math.floor(ratio * 100);
