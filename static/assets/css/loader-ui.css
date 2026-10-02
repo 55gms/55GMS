@@ -1,5 +1,13 @@
 /* Geist-style loading screen built by loader-ui.js. The id selectors outrank
    the overlay rules in game-loader.css and unity-cdn-loader.css. */
+
+/* Shield the screen from the game page's own element styles. Keep this first:
+   every rule below has to be able to override it. */
+.loader-ui :where(*) {
+  all: revert;
+  box-sizing: border-box;
+}
+
 .loader-ui {
   --loader-accent: #fc8585;
   --loader-ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -26,7 +34,7 @@
   --loader-accent: #ffff00;
 }
 
-.loader-ui:is(#game-loading, #unity-cdn-loading) {
+.loader-ui:is(#game-loading, #unity-cdn-loading, #unity-loading) {
   position: fixed;
   inset: 0;
   z-index: 2147483647;
@@ -55,7 +63,7 @@
 }
 
 /* Fade out instead of vanishing when the loader hides the overlay. */
-.loader-ui:is(#game-loading, #unity-cdn-loading)[hidden] {
+.loader-ui:is(#game-loading, #unity-cdn-loading, #unity-loading)[hidden] {
   display: flex;
   visibility: hidden;
   opacity: 0;
@@ -188,6 +196,21 @@
   animation: loader-sheen 1600ms ease-in-out infinite;
 }
 
+/* Indeterminate: a segment slides along the track until progress is known. */
+.loader-ui[data-state="loading"] .loader-fill {
+  width: 35%;
+  transition: none;
+  animation: loader-slide 1400ms ease-in-out infinite;
+}
+
+.loader-ui[data-state="loading"] .loader-fill::after {
+  display: none;
+}
+
+.loader-ui[data-state="loading"] .loader-meta {
+  visibility: hidden;
+}
+
 .loader-meta {
   display: flex;
   justify-content: space-between;
@@ -285,6 +308,16 @@
   }
 }
 
+@keyframes loader-slide {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(286%);
+  }
+}
+
 @keyframes loader-sheen {
   to {
     transform: translateX(100%);
@@ -313,7 +346,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .loader-ui:is(#game-loading, #unity-cdn-loading),
+  .loader-ui:is(#game-loading, #unity-cdn-loading, #unity-loading),
   .loader-fill,
   .loader-reload {
     transition: none;
@@ -328,5 +361,11 @@
   .loader-fill::after,
   .loader-spinner {
     display: none;
+  }
+
+  .loader-ui[data-state="loading"] .loader-fill {
+    width: 100%;
+    opacity: 0.4;
+    animation: none;
   }
 }

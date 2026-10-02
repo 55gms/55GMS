@@ -52,6 +52,9 @@ const Message = sequelize.define(
       {
         fields: ["senderUuid"],
       },
+      {
+        fields: ["createdAt"],
+      },
     ],
   },
 );

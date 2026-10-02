@@ -40,19 +40,19 @@ for (const folder of folders) {
     );
     assert.ok(page.includes('id="unity-cdn-loading"'));
     assert.ok(page.includes('id="unity-game-scripts"'));
-    assert.ok(page.includes('src="/assets/js/unity-cdn-loader.js"'));
-    assert.ok(
-      page.indexOf('src="/assets/js/unity-cdn-loader.js"') <
-        page.indexOf("<base "),
+    // Loader assets carry a cache-busting ?v= tag (see loader-ui.test.js).
+    const script = page.search(
+      /src="\/assets\/js\/unity-cdn-loader\.js\?v=\w+"/,
     );
-    assert.ok(
-      page.indexOf('href="/assets/css/unity-cdn-loader.css"') <
-        page.indexOf("<base "),
+    const style = page.search(
+      /href="\/assets\/css\/unity-cdn-loader\.css\?v=\w+"/,
     );
+    assert.ok(script >= 0 && script < page.indexOf("<base "));
+    assert.ok(style >= 0 && style < page.indexOf("<base "));
     assert.equal(
       (
         page.match(
-          /<script type="module" src="\/assets\/js\/unity-cdn-loader.js"/g,
+          /<script type="module" src="\/assets\/js\/unity-cdn-loader\.js\?v=\w+"/g,
         ) || []
       ).length,
       1,
@@ -72,6 +72,13 @@ for (const folder of folders) {
         { input: script, encoding: "utf8" },
       );
       assert.equal(result.status, 0, result.stderr);
+    }
+    // Startup waits for every non-async script, so one a tracker blocker or
+    // school filter refuses would leave the error screen over a running game.
+    for (const [, attributes] of page.matchAll(/<script\b([^>]*)>/gi)) {
+      const source = attributes.match(/\bsrc="(https?:)?\/\/([^/"]+)/i)?.[2];
+      if (!source || /\basync\b/.test(attributes)) continue;
+      assert.equal(source, "cdn.jsdelivr.net", `Blocking script: ${source}`);
     }
     if (folder === "bikeobby") {
       const policy = page.match(

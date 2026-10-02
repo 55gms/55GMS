@@ -4,6 +4,8 @@
 <head>
   <title>Flippy Fish</title>
   <script src="/assets/js/script.js?v=14"></script>
+  <script src="/assets/js/loader-ui.js?v=2gbj7kgu2q"></script>
+  <script src="/assets/js/unity-loading.js?v=2gbj7kgu2q" data-title="Flippy Fish"></script>
   <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@master/static/misc/flippyfish/">
 
   <meta charset="utf-8" />
@@ -20,15 +22,15 @@
   </script>
 </head>
 
-<body>
-  <div class="webgl-content">
-    <div id="unityContainer" style="width: 960px; height: 600px"></div>
-    <div class="footer">
-      <div class="webgl-logo"></div>
-      <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
-      <div class="title">Flippy Fish</div>
-    </div>
-  </div>
+<body style="margin: 0; overflow: hidden; background: #000">
+  <div id="unityContainer" style="
+        width: min(100vw, 160vh);
+        height: min(100vh, 62.5vw);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      "></div>
 </body>
 
 </html>

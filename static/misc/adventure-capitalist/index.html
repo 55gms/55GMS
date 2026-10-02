@@ -7,12 +7,36 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Adventure Capitalist</title>
     <link rel="stylesheet" href="TemplateData/style.css">
+    <style>
+        /* The template pins the canvas at 1024x640. Scale it to the largest
+           8:5 box that fits the frame so it also follows fullscreen. */
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        canvas#canvas {
+            width: min(100vw, 160vh);
+            height: min(100vh, 62.5vw);
+            margin: 0;
+        }
+    </style>
     <script src="TemplateData/UnityProgress.js"></script>
+    <script src="/assets/js/loader-ui.js?v=2gbj7kgu2q"></script>
+    <script src="/assets/js/unity-loading.js?v=2gbj7kgu2q" data-title="Adventure Capitalist"></script>
     <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@master/static/misc/adventure-capitalist/">
 </head>
 
 <body class="template">
-    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" height="100%" width="100%"></canvas>
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" width="1024" height="640"></canvas>
     <div id="loadingBox">
         <div id="bgBar"></div>
         <div id="progressBar"></div>

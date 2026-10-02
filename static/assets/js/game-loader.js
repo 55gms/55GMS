@@ -1,19 +1,64 @@
-// Shared download indicator for imported Unity ports. Sizes describe CDN bytes,
-// before Unity's own decompression, and include all initial split-file downloads.
+// Shared downloader and progress indicator for imported Unity ports. Sizes
+// describe CDN bytes, before Unity's own decompression, and include all initial
+// split-file downloads. Loaded from <head>, it creates its own overlay.
 window.GameLoader = (() => {
-  const overlay = document.getElementById("game-loading");
+  const overlay = document.getElementById("game-loading") ?? createOverlay();
   const ui = LoaderUI.mount(overlay);
   const sizes = new Map();
   const downloads = new Map();
   const objectUrls = [];
   let loaded = 0;
   let completed = 0;
+  let expected = 0;
   let failed = false;
+
+  function createOverlay() {
+    const element = document.createElement("div");
+    element.id = "game-loading";
+    const title = document.currentScript?.dataset.title;
+    if (title) element.dataset.title = title;
+    document.documentElement.appendChild(element);
+    return element;
+  }
 
   function render() {
     if (failed) return;
-    const total = [...sizes.values()].reduce((sum, size) => sum + size, 0);
-    ui.set(loaded, total, sizes.size > 0 && completed === sizes.size);
+    const pending = [...downloads.keys()].some((url) => !sizes.has(url));
+    const total =
+      expected ||
+      (pending ? 0 : [...sizes.values()].reduce((sum, size) => sum + size, 0));
+    const done =
+      sizes.size > 0 &&
+      completed === sizes.size &&
+      completed === downloads.size;
+    ui.set(loaded, total, done);
+  }
+
+  // Fixed total for ports that know their download size but not each file's.
+  function expect(bytes) {
+    expected = bytes;
+    render();
+  }
+
+  // Asks the CDN for sizes when a port ships no manifest. Files that do not
+  // answer are simply left out until they finish downloading.
+  async function measure(paths) {
+    await Promise.all(
+      paths.map(async (path) => {
+        const url = new URL(path, document.baseURI).href;
+        try {
+          const response = await fetch(url, { method: "HEAD" });
+          const size = Number(response.headers.get("Content-Length"));
+          if (response.ok && size > 0 && !sizes.has(url)) sizes.set(url, size);
+        } catch {}
+      }),
+    );
+    render();
+  }
+
+  // Names a step that is not a download, such as unpacking an archive.
+  function status(text) {
+    if (!failed) ui.busy(text);
   }
 
   function prepare(files) {
@@ -86,5 +131,16 @@ window.GameLoader = (() => {
   window.addEventListener("pagehide", () => {
     for (const url of objectUrls) URL.revokeObjectURL(url);
   });
-  return { prepare, download, objectUrl, merge, script, finish, fail };
+  return {
+    prepare,
+    expect,
+    measure,
+    status,
+    download,
+    objectUrl,
+    merge,
+    script,
+    finish,
+    fail,
+  };
 })();

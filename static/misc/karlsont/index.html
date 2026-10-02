@@ -7,10 +7,12 @@
     <title>Google</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <script src="/assets/js/loader-ui.js?v=2gbj7kgu2q"></script>
+    <script src="/assets/js/unity-loading.js?v=2gbj7kgu2q" data-title="KARLSON&#x27;T"></script>
     <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@master/static/misc/karlsont/">
 </head>
 
-<body>
+<body style="margin: 0; overflow: hidden; background: #231F20">
     <div id="unity-container" class="unity-desktop">
         <canvas id="unity-canvas"></canvas>
         <div id="unity-loading-bar">
@@ -64,7 +66,8 @@
             unityShowBanner('WebGL builds are not supported on mobile devices.');
         } else {
             canvas.style.width = "100vw";
-            canvas.style.height = "99.5vh";
+            canvas.style.height = "100vh";
+            canvas.style.display = "block";
         }
         loadingBar.style.display = "block";
 

@@ -2,6 +2,8 @@
 <html lang="en-us">
 
 <head>
+    <script src="/assets/js/loader-ui.js?v=2gbj7kgu2q"></script>
+    <script src="/assets/js/game-loader.js?v=2gbj7kgu2q" data-title="Bendy"></script>
     <base href="https://cdn.jsdelivr.net/gh/kfm5/55gms-web-port-archive@main/bendy/">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -37,20 +39,6 @@
             height: 100%;
         }
 
-        #loading-text {
-            color: white;
-            font-size: 48px;
-            font-family: cursive;
-            text-align: center;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1000;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            white-space: nowrap;
-        }
-
         .footer {
             position: absolute;
             bottom: 0;
@@ -69,98 +57,10 @@
             background: url('TemplateData/fullscreen.png') no-repeat center;
         }
 
-        /* Loading animation */
-        @keyframes pulse {
-            0% {
-                opacity: 0.6;
-            }
-
-            50% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0.6;
-            }
-        }
-
-        #loading-text {
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            #loading-text {
-                font-size: 24px;
-                padding: 0 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            #loading-text {
-                font-size: 18px;
-                padding: 0 10px;
-            }
-        }
     </style>
     <script src="TemplateData/UnityProgress.js"></script>
     <script src="Build/UnityLoader.js"></script>
     <script>
-        let totalBytes = 0;
-        let loadedBytes = 0;
-
-        async function getSize(url) {
-            try {
-                const res = await fetch(url, {
-                    method: "HEAD"
-                });
-                return parseInt(res.headers.get("Content-Length") || "0", 10);
-            } catch {
-                return 0;
-            }
-        }
-
-        async function fetchWithProgress(url) {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`Failed to load ${url}: ${response.status}`);
-            }
-            const reader = response.body.getReader();
-            let chunks = [];
-            let received = 0;
-
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-
-                received += value.length;
-                loadedBytes += value.length;
-                chunks.push(value);
-
-                let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
-                let mbTotal = (totalBytes / (1024 * 1024)).toFixed(2);
-
-                const loadingText = document.querySelector("#loading-text");
-                if (loadingText) {
-                    loadingText.textContent = `LOADING... ${mbDone} MB / ${mbTotal} MB`;
-                }
-            }
-
-            let fullBuffer = new Uint8Array(received);
-            let offset = 0;
-            for (let chunk of chunks) {
-                fullBuffer.set(chunk, offset);
-                offset += chunk.length;
-            }
-            return fullBuffer.buffer;
-        }
-
-        async function mergeFiles(fileParts, type = "application/octet-stream") {
-            const buffers = await Promise.all(fileParts.map(part => fetchWithProgress(part)));
-            const mergedBlob = new Blob(buffers, { type });
-            return URL.createObjectURL(mergedBlob);
-        }
-
         function getParts(file, start, end) {
             let parts = [];
             for (let i = start; i <= end; i++) {
@@ -187,7 +87,7 @@
         async function resolveBuildFile(file, maxParts, type) {
             const parts = await findParts(file, maxParts);
             if (parts.length > 0) {
-                return mergeFiles(parts, type);
+                return GameLoader.merge(parts, type);
             }
 
             const response = await fetch(file, { method: "HEAD" });
@@ -209,22 +109,15 @@
             const wasmFrameworkParts = await findParts("Build/BATIM.wasm.framework.unityweb");
             const allParts = [...dataParts, ...wasmCodeParts, ...wasmFrameworkParts];
 
-            const sizes = await Promise.all(allParts.map(getSize));
-            totalBytes = sizes.reduce((a, b) => a + b, 0);
-
-            let mbTotal = (totalBytes / (1024 * 1024)).toFixed(2);
-            const loadingText = document.querySelector("#loading-text");
-            if (loadingText) {
-                loadingText.textContent = `LOADING... 0.00 MB / ${mbTotal} MB`;
-            }
+            await GameLoader.measure(allParts);
 
             const [dataUrl, wasmCodeUrl, wasmFrameworkUrl] = await Promise.all([
-                mergeFiles(dataParts),
+                GameLoader.merge(dataParts),
                 wasmCodeParts.length > 0
-                    ? mergeFiles(wasmCodeParts, "application/wasm")
+                    ? GameLoader.merge(wasmCodeParts, "application/wasm")
                     : resolveBuildFile("Build/BATIM.wasm.code.unityweb", 16, "application/wasm"),
                 wasmFrameworkParts.length > 0
-                    ? mergeFiles(wasmFrameworkParts, "application/javascript")
+                    ? GameLoader.merge(wasmFrameworkParts, "application/javascript")
                     : resolveBuildFile("Build/BATIM.wasm.framework.unityweb", 16, "application/javascript")
             ]);
 
@@ -259,20 +152,16 @@
                 Module: {
                     onRuntimeInitialized: function () {
                         resizeUnityContainer();
-                        const finalLoadingText = document.querySelector("#loading-text");
-                        if (finalLoadingText) {
-                            finalLoadingText.remove();
-                        }
+                        GameLoader.finish();
                     }
                 }
             });
-        })();
+        })().catch(GameLoader.fail);
     </script>
 </head>
 
 <body>
     <div class="webgl-content">
-        <div id="loading-text">LOADING...</div>
         <div id="unityContainer"></div>
     </div>
 </body>

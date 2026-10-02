@@ -21,9 +21,15 @@ let ui = null;
 function loadUI() {
   return new Promise((resolve) => {
     const script = document.createElement("script");
-    script.src = new URL("/assets/js/loader-ui.js?v=3", location.origin).href;
+    script.src = new URL(
+      "/assets/js/loader-ui.js?v=2gbj7kgu2q",
+      location.origin,
+    ).href;
     script.onload = () => resolve(window.LoaderUI.mount(overlay));
-    script.onerror = () => resolve(null);
+    script.onerror = () => {
+      overlay.classList.add("loader-fallback");
+      resolve(null);
+    };
     document.head.appendChild(script);
   });
 }

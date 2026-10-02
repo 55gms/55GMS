@@ -29,6 +29,7 @@ import userRoutes from "./routes/users.js";
 import messagingRoutes from "./routes/messaging.js";
 import searchRoutes from "./routes/search.js";
 import proxyRoutes from "./routes/music.js";
+import { startMessageRetention } from "./services/messageRetention.js";
 
 try {
   const __filename = fileURLToPath(import.meta.url);
@@ -211,14 +212,12 @@ try {
           isSystem: isSystem || false,
         });
 
-        const [chatMembers] = await Promise.all([
-          ChatMember.findAll({
-            where: { chatId },
-            attributes: ["userUuid"],
-            raw: true,
-          }),
-          Chat.update({ lastActivity: new Date() }, { where: { id: chatId } }),
-        ]);
+        // lastActivity is already updated by the REST call that stored the message
+        const chatMembers = await ChatMember.findAll({
+          where: { chatId },
+          attributes: ["userUuid"],
+          raw: true,
+        });
 
         await Promise.all(
           chatMembers
@@ -460,6 +459,7 @@ try {
 
   Promise.all([initDatabase(), configureSocketAdapter()])
     .then(() => {
+      startMessageRetention();
       server.listen({
         port: process.env.PORT || 8080,
       });

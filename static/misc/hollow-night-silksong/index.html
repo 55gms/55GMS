@@ -1,6 +1,8 @@
 <html lang="en-us">
 
 <head>
+    <script src="/assets/js/loader-ui.js?v=2gbj7kgu2q"></script>
+    <script src="/assets/js/game-loader.js?v=2gbj7kgu2q" data-title="Hollow Night Silksong"></script>
     <base href="https://cdn.jsdelivr.net/gh/web-ports/hollow-knight-silksong@master/">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -55,9 +57,6 @@
 </head>
 
 <body>
-    <div id="loading-text"
-        style="color: white; font-size: 48px; font-family: cursive; text-align: center; margin-top: 20px;"> LOADING...
-    </div>
     <div id="unity-container">
         <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
         <div id="unity-loading-bar">
@@ -71,7 +70,6 @@
     <script src="jszip.js"></script>
 
     <script>
-        const loadingText = document.querySelector("#loading-text");
         const CACHE_NAME = "hksilksongcache-v2"; // bump version if needed
 
         /* ================= FETCH OVERRIDE ================= */
@@ -117,7 +115,7 @@
                 throw new Error("ZIP is missing");
             }
 
-            loadingText.textContent = "EXTRACTING ASSETS...";
+            GameLoader.status("Extracting assets");
 
             const zip = await JSZip.loadAsync(zipBlob);
             const files = Object.values(zip.files).filter(f => !f.dir);
@@ -140,8 +138,7 @@
                     }
 
                     processed++;
-                    loadingText.textContent =
-                        `EXTRACTING ASSETS... (${processed}/${total})`;
+                    GameLoader.status(`Extracting assets (${processed}/${total})`);
                 }));
 
                 await new Promise(r => setTimeout(r, 0));
@@ -153,55 +150,10 @@
             console.log("Cache complete");
         }
 
-        /* ================= DOWNLOAD ================= */
-        let loadedBytes = 0;
-
-        async function fetchWithProgress(url) {
-            const response = await originalFetch(url);
-
-            if (!response.ok) {
-                throw new Error("Failed to fetch: " + url);
-            }
-
-            const reader = response.body.getReader();
-            let chunks = [];
-            let received = 0;
-
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-
-                received += value.length;
-                loadedBytes += value.length;
-                chunks.push(value);
-
-                let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
-                let mbTotal = '1986.64';
-
-                loadingText.textContent =
-                    `DOWNLOADING ASSETS... (${mbDone} MB / ${mbTotal} MB)`;
-            }
-
-            let fullBuffer = new Uint8Array(received);
-            let offset = 0;
-
-            for (let chunk of chunks) {
-                fullBuffer.set(chunk, offset);
-                offset += chunk.length;
-            }
-
-            return fullBuffer.buffer;
-        }
-
         /* ================= MERGE ================= */
         async function mergeFiles(parts) {
-            console.log("Downloading parts:", parts.length);
-
-            const buffers = await Promise.all(
-                parts.map(part => fetchWithProgress(part))
-            );
-
-            return new Blob(buffers);
+            GameLoader.expect(1986.64 * 1048576);
+            return new Blob(await Promise.all(parts.map(GameLoader.download)));
         }
 
         /* ================= UTIL ================= */
@@ -218,15 +170,14 @@
             try {
                 await cleanupOldCaches();
                 if (!(await isCached())) {
-                    loadingText.textContent = "DOWNLOADING ASSETS...";
-
                     const webglzip = await mergeFiles(
                         getParts("StreamingAssets/aa/WebGL.zip", 1, 100)
                     );
 
                     await unzipAndStore(webglzip);
+                    GameLoader.status("Starting game");
                 } else {
-                    loadingText.textContent = "LOADING FROM CACHE...";
+                    GameLoader.status("Loading from cache");
                 }
 
                 /* ================= UNITY START ================= */
@@ -284,16 +235,15 @@
                     })
                         .then(() => {
                             loadingBar.remove();
-                            loadingText.remove();
+                            GameLoader.finish();
                         })
-                        .catch(alert);
+                        .catch(GameLoader.fail);
                 };
 
                 document.body.appendChild(script);
 
             } catch (err) {
-                console.error(err);
-                loadingText.textContent = "ERROR: " + err.message;
+                GameLoader.fail(err);
             }
         })();
     </script>

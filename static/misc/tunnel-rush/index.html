@@ -4,8 +4,27 @@
   <meta charset="utf-8" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Tunnel Rush</title>
+  <script src="/assets/js/loader-ui.js?v=2gbj7kgu2q"></script>
+  <script src="/assets/js/unity-loading.js?v=2gbj7kgu2q" data-title="Tunnel Rush"></script>
   <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@master/static/misc/tunnel-rush/">
   <link rel="stylesheet" href="style/style.css" />
+  <style>
+    html,
+    body,
+    .webgl-content,
+    #gameContainer {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    /* The site loading screen replaces Unity's own splash logo and bar. */
+    .webgl-content .logo,
+    .webgl-content .progress {
+      display: none;
+    }
+  </style>
   <script src="UnityLoader.js"></script>
   <script src="UnityProgress.js"></script>
   <link rel="icon" href="img/tunnel.jpg" />
@@ -26,12 +45,7 @@
 </head>
 
 <div class="webgl-content">
-  <div id="gameContainer" style="width: 100%; height: 95%; margin: auto"></div>
-  <div class="footer">
-    <div class="webgl-logo"></div>
-    <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
-    <div class="title">Tunnel Rush</div>
-  </div>
+  <div id="gameContainer"></div>
 </div>
 <script src="/assets/js/script.js?v=14"></script>
 

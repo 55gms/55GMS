@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css">
-    <script type="module" src="/assets/js/unity-cdn-loader.js"></script>
+    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css?v=2gbj7kgu2q">
+    <script type="module" src="/assets/js/unity-cdn-loader.js?v=2gbj7kgu2q"></script>
     <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/superhot/">
   <!-- Google tag (gtag.js) -->
 
@@ -15,10 +15,22 @@
   <link rel="icon" href="hot.jpg" />
   <title>SUPERHOT</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #canvas {
+      display: block;
+    }
+  </style>
 </head>
 
-<body style="margin: 0">
-    <div id="unity-cdn-loading" role="status" aria-live="polite">LOADING...</div>
+<body>
+    <div id="unity-cdn-loading" data-title="Superhot" role="status" aria-live="polite">LOADING...</div>
   <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"
     style="width: 100%; height: 100%"></canvas>
 

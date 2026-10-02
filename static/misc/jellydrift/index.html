@@ -2,12 +2,15 @@
 <html lang="en-us">
 
 <head>
-    <base href="https://cdn.jsdelivr.net/gh/genizy/web-port@main/jelly-drift/">
+    <script src="/assets/js/loader-ui.js?v=2gbj7kgu2q"></script>
+    <script src="/assets/js/game-loader.js?v=2gbj7kgu2q" data-title="Jelly Drift"></script>
+    <!-- jsDelivr blocks this repo; GitHub serves it, but only as plain text,
+         so the Unity scripts are fetched and run from blobs. -->
+    <base href="https://raw.githubusercontent.com/genizy/web-port/main/jelly-drift/">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Jelly Drift</title>
 
-    <script src="Build/UnityLoader.js"></script>
     <style>
         * {
             margin: 0;
@@ -30,39 +33,11 @@
         }
     </style>
     <script>
-        let max = 0;
-        let done = 0;
-        function mergeFiles(fileParts) {
-            return new Promise((resolve, reject) => {
-                let buffers = [];
-
-                function fetchPart(index) {
-                    if (index >= fileParts.length) {
-                        let mergedBlob = new Blob(buffers);
-                        let mergedFileUrl = URL.createObjectURL(mergedBlob);
-                        resolve(mergedFileUrl);
-                        return;
-                    }
-                    fetch(fileParts[index])
-                        .then((response) => response.arrayBuffer())
-                        .then((data) => {
-                            buffers.push(data);
-                            done = done + 1;
-                            document.querySelector("#loading-text").textContent = `LOADING... (${done}/${max})`;
-                            fetchPart(index + 1);
-                        })
-                        .catch(reject);
-                }
-                fetchPart(0);
-            });
-        }
-
         function getParts(file, start, end) {
             let parts = [];
             for (let i = start; i <= end; i++) {
                 parts.push(file + ".part" + i);
             }
-            max = max + end;
             return parts;
         }
 
@@ -71,10 +46,17 @@
             container.style.width = window.innerWidth + "px";
             container.style.height = window.innerHeight + "px";
         }
-        Promise.all([
-            mergeFiles(getParts("Build/jellydrift.data.unityweb", 1, 3)),
-            mergeFiles(getParts("Build/jellydrift.wasm.code.unityweb", 1, 2)),
-        ]).then(([dataUrl, wasmurl]) => {
+        const loaderParts = [
+            getParts("Build/jellydrift.data.unityweb", 1, 3),
+            getParts("Build/jellydrift.wasm.code.unityweb", 1, 2),
+            ["Build/jellydrift.wasm.framework.js"],
+            ["Build/UnityLoader.js"],
+        ];
+        GameLoader.measure(loaderParts.flat())
+            .then(() => Promise.all(loaderParts.map((parts, index) =>
+                GameLoader.merge(parts, index > 1 ? "application/javascript" : undefined))))
+            .then(async ([dataUrl, wasmurl, frameworkUrl, unityLoaderUrl]) => {
+            await GameLoader.script(unityLoaderUrl);
             window.dataUrll = dataUrl;
             window.wasmurll = wasmurl;
             var json = {
@@ -83,7 +65,7 @@
                 "productVersion": "0.4",
                 "dataUrl": dataUrl,
                 "wasmCodeUrl": wasmurl,
-                "wasmFrameworkUrl": "jellydrift.wasm.framework.js",
+                "wasmFrameworkUrl": frameworkUrl,
                 "graphicsAPI": ["WebGL 2.0"],
                 "webglContextAttributes": { "preserveDrawingBuffer": false },
                 "splashScreenStyle": "Dark",
@@ -102,25 +84,16 @@
                 Module: {
                     onRuntimeInitialized: function () {
                         resizeUnityContainer();
-                        document.querySelector("#loading-text").remove();
+                        GameLoader.finish();
                     },
                 },
             });
-        });
+        }).catch(GameLoader.fail);
     </script>
 </head>
 
 <body>
     <div class="webgl-content">
-        <div id="loading-text" style="
-					color: white;
-					font-size: 48px;
-					font-family: cursive;
-					text-align: center;
-					margin-top: 20px;
-				">
-            LOADING...
-        </div>
         <div id="unityContainer" style="width: 960px; height: 600px"></div>
     </div>
 </body>

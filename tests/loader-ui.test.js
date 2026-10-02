@@ -1,11 +1,13 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 import { JSDOM } from "jsdom";
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 const ui = await read("static/assets/js/loader-ui.js");
 const gameLoader = await read("static/assets/js/game-loader.js");
+const unityLoading = await read("static/assets/js/unity-loading.js");
+const version = ui.match(/const VERSION = "(\w+)"/)[1];
 
 function page(overlay, title = "Unity WebGL Player | Karlson") {
   const dom = new JSDOM(
@@ -32,11 +34,11 @@ test("loader UI mounts with branding, theme and a cleaned title", () => {
   assert.equal(overlay.hasAttribute("role"), false);
   assert.equal(
     window.document.querySelector(".loader-logo").src,
-    "https://55gms.test/img/55gms.png?v=3",
+    `https://55gms.test/img/55gms.png?v=${version}`,
   );
   assert.equal(
     window.document.querySelector("link[rel=stylesheet]").href,
-    "https://55gms.test/assets/css/loader-ui.css?v=3",
+    `https://55gms.test/assets/css/loader-ui.css?v=${version}`,
   );
 });
 
@@ -91,4 +93,188 @@ test("GameLoader drives the UI through download, start and finish", async () => 
   assert.equal(text(window, "percent"), "100%");
   window.GameLoader.finish();
   assert.equal(overlay.hidden, true);
+});
+
+test("unity-loading follows createUnityInstance from progress to ready", async () => {
+  const window = page("", "Cuphead");
+  window.eval(unityLoading);
+  const overlay = window.document.getElementById("unity-loading");
+  assert.equal(overlay.dataset.state, "loading");
+  let finish;
+  let seen = 0;
+  window.createUnityInstance = (canvas, config, onProgress) => {
+    onProgress(0.45);
+    return new Promise((resolve) => (finish = resolve));
+  };
+  const result = window.createUnityInstance(
+    null,
+    {},
+    (amount) => (seen = amount),
+  );
+  assert.equal(seen, 0.45);
+  assert.equal(overlay.dataset.state, "downloading");
+  assert.equal(text(window, "percent"), "50%");
+  assert.equal(overlay.hidden, false);
+  finish("instance");
+  assert.equal(await result, "instance");
+  await new Promise((resolve) => setTimeout(resolve));
+  assert.equal(overlay.hidden, true);
+});
+
+test("unity-loading follows UnityLoader.instantiate and shows failures", async () => {
+  const window = page("", "Slope");
+  window.eval(unityLoading);
+  const overlay = window.document.getElementById("unity-loading");
+  let report;
+  window.UnityLoader = {
+    instantiate: (container, url, options) => (report = options.onProgress),
+  };
+  window.UnityLoader.instantiate("gameContainer", "build.json");
+  report({}, 0.9);
+  assert.equal(overlay.dataset.state, "starting");
+  assert.equal(text(window, "percent"), "100%");
+  report({}, 1);
+  assert.equal(overlay.hidden, true);
+
+  const broken = page("", "Raft");
+  broken.eval(unityLoading);
+  broken.createUnityInstance = () => Promise.reject(new Error("no wasm"));
+  broken.createUnityInstance().catch(() => {});
+  await new Promise((resolve) => setTimeout(resolve));
+  assert.equal(
+    broken.document.getElementById("unity-loading").dataset.state,
+    "error",
+  );
+});
+
+test("unity-loading hooks a UnityLoader the page declared before it", () => {
+  const window = page("", "A Dance of Fire And Ice");
+  let report;
+  // A top-level `var UnityLoader` in an earlier script cannot be redefined.
+  Object.defineProperty(window, "UnityLoader", {
+    writable: true,
+    enumerable: true,
+    configurable: false,
+    value: {
+      instantiate: (container, url, options) => (report = options.onProgress),
+    },
+  });
+  window.eval(unityLoading);
+  const overlay = window.document.getElementById("unity-loading");
+  window.UnityLoader.instantiate("gameContainer", "build.json");
+  report({}, 0.45);
+  assert.equal(overlay.dataset.state, "downloading");
+  report({}, 1);
+  assert.equal(overlay.hidden, true);
+});
+
+test("unity-loading releases pages whose startup it never saw", async () => {
+  const window = page("", "Solar Smash");
+  window.eval(unityLoading);
+  const overlay = window.document.getElementById("unity-loading");
+  window.dispatchEvent(new window.Event("load"));
+  await new Promise((resolve) => setTimeout(resolve, 1600));
+  assert.equal(overlay.hidden, true);
+});
+
+test("every page names the current loader version", async () => {
+  const misc = new URL("../static/misc/", import.meta.url);
+  const tag =
+    /\/assets\/(?:js|css)\/(?:loader-ui|game-loader|unity-cdn-loader|unity-loading)\.(?:js|css)(\?v=(\w+))?"/g;
+  let pages = 0;
+  for (const folder of await readdir(misc)) {
+    const html = await readFile(
+      new URL(`${folder}/index.html`, misc),
+      "utf8",
+    ).catch(() => "");
+    const tags = [...html.matchAll(tag)];
+    if (tags.length) pages += 1;
+    // The page <title> can be replaced by the tab cloak (e.g. "Dashboard"),
+    // so every loading screen needs its game name spelled out.
+    if (tags.length)
+      assert.match(html, /data-title="[^"]+"/, `${folder}: no data-title`);
+    for (const [url, , found] of tags)
+      assert.equal(found, version, `${folder}: stale tag on ${url}`);
+  }
+  assert.ok(pages >= 77);
+});
+
+test("GameLoader builds its own overlay and measures unlisted ports", async () => {
+  const window = page("", "Bendy");
+  const chunk = new Uint8Array(1048576);
+  window.fetch = async (url, options) => {
+    if (options?.method === "HEAD")
+      return { ok: true, headers: { get: () => "2097152" } };
+    let left = 2;
+    return {
+      ok: true,
+      body: {
+        getReader: () => ({
+          read: async () =>
+            left-- > 0 ? { done: false, value: chunk } : { done: true },
+        }),
+      },
+    };
+  };
+  window.Blob = Blob;
+  window.URL.createObjectURL = () => "blob:test";
+  window.eval(gameLoader);
+  const overlay = window.document.getElementById("game-loading");
+  assert.ok(overlay);
+  await window.GameLoader.measure(["a.part1", "a.part2"]);
+  assert.equal(text(window, "amount"), "0.00 MB / 4.00 MB");
+  await window.GameLoader.merge(["a.part1", "a.part2"]);
+  assert.equal(overlay.dataset.state, "starting");
+  window.GameLoader.status("Extracting assets (3/9)");
+  assert.equal(text(window, "status"), "Extracting assets (3/9)");
+  assert.equal(overlay.dataset.state, "loading");
+});
+
+test("GameLoader honours a fixed total and reports unknown sizes plainly", async () => {
+  const chunk = new Uint8Array(1048576);
+  const load = (window) => {
+    let release;
+    window.fetch = async () => ({
+      ok: true,
+      body: {
+        getReader: () => {
+          let sent = false;
+          return {
+            read: async () => {
+              if (!sent) return ((sent = true), { done: false, value: chunk });
+              await new Promise((resolve) => (release = resolve));
+              return { done: true };
+            },
+          };
+        },
+      },
+    });
+    window.Blob = Blob;
+    window.URL.createObjectURL = () => "blob:test";
+    window.eval(gameLoader);
+    const merged = window.GameLoader.merge(["a.part1"]);
+    return { merged, finish: () => release() };
+  };
+  const tick = () => new Promise((resolve) => setTimeout(resolve));
+
+  const unknown = page("", "Raft");
+  const first = load(unknown);
+  await tick();
+  assert.equal(text(unknown, "amount"), "1.00 MB");
+  assert.equal(text(unknown, "percent"), "");
+  first.finish();
+  await first.merged;
+
+  const fixed = page("", "Cuphead");
+  const second = load(fixed);
+  fixed.GameLoader.expect(4 * 1048576);
+  await tick();
+  assert.equal(text(fixed, "amount"), "1.00 MB / 4.00 MB");
+  assert.equal(text(fixed, "percent"), "25%");
+  second.finish();
+  await second.merged;
+  assert.equal(
+    fixed.document.getElementById("game-loading").dataset.state,
+    "starting",
+  );
 });

@@ -1,11 +1,14 @@
 <html lang="en-us">
 
 <head>
-    <base href="https://cdn.jsdelivr.net/gh/genizy/google-class@main/brawl-3d/">
+    <script src="/assets/js/loader-ui.js?v=2gbj7kgu2q"></script>
+    <script src="/assets/js/game-loader.js?v=2gbj7kgu2q" data-title="Brawl Simulator 3D"></script>
+    <!-- jsDelivr blocks this repo; GitHub serves it, but only as plain text,
+         so scripts are fetched and run from blobs and the styles are inline. -->
+    <base href="https://raw.githubusercontent.com/genizy/google-class/main/brawl-3d/">
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <link rel="stylesheet" href="style.css" />
     <style>
         canvas:focus {
             outline: none;
@@ -28,61 +31,38 @@
             background-color: rgb(65, 65, 65);
         }
 
-        #loading-text {
-            color: #f0f0f0 !important;
-            background: transparent !important;
-            -webkit-text-fill-color: initial !important;
-            font-size: 48px;
-            font-family: cursive;
-            text-align: center;
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        #unity-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        #unity-canvas {
+            width: 100%;
+            height: 100%;
+            background: #000000;
+        }
+
+        #loading-cover {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1000;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            white-space: nowrap;
+            inset: 0;
         }
 
-        /* Loading animation */
-        @keyframes pulse {
-            0% {
-                opacity: 0.6;
-            }
-
-            50% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0.6;
-            }
-        }
-
-        #loading-text {
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            #loading-text {
-                font-size: 24px;
-                padding: 0 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            #loading-text {
-                font-size: 18px;
-                padding: 0 10px;
-            }
-        }
     </style>
     <!-- Additional head modules -->
 </head>
 
 <body class="dark">
-    <div id="loading-text">LOADING...</div>
     <div id="unity-container" class="unity-desktop">
         <canvas id="unity-canvas" tabindex="-1"></canvas>
     </div>
@@ -97,50 +77,7 @@
     </div>
     <!-- Additional body modules -->
     <script>
-        var loadingText = document.querySelector("#loading-text");
         const chunkBaseUrl = "https://raw.githubusercontent.com/genizy/google-class/main/brawl-3d/";
-        let totalBytes = 0;
-        let loadedBytes = 0;
-
-        async function fetchWithProgress(url) {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`Failed to load ${url}: ${response.status} ${response.statusText}`);
-            }
-
-            const reader = response.body.getReader();
-            let chunks = [];
-            let received = 0;
-            while (true) {
-                const {
-                    done,
-                    value
-                } = await reader.read();
-                if (done) break;
-                received += value.length;
-                loadedBytes += value.length;
-                chunks.push(value);
-                let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
-                let mbTotal = '101.82';
-                loadingText.textContent = `LOADING... ${mbDone} MB / ${mbTotal} MB`;
-            }
-            let fullBuffer = new Uint8Array(received);
-            let offset = 0;
-            for (let chunk of chunks) {
-                fullBuffer.set(chunk, offset);
-                offset += chunk.length;
-            }
-            return fullBuffer.buffer;
-        }
-
-        async function mergeFiles(fileParts, cacheKey) {
-            const buffers = await Promise.all(
-                fileParts.map(part => fetchWithProgress(part))
-            );
-            const mergedBlob = new Blob(buffers);
-            return URL.createObjectURL(mergedBlob);
-        }
-
         function getParts(file, start, end) {
             let parts = [];
             for (let i = start; i <= end; i++) {
@@ -149,18 +86,19 @@
             return parts;
         }
         (async () => {
-            const [wasmUrl, dataUrl] = await Promise.all([
-                mergeFiles(getParts("Build/brawl.wasm", 1, 4), "brawl.wasm"),
-                mergeFiles(getParts("Build/brawl.data", 1, 2), "brawl.data"),
+            GameLoader.expect(101.82 * 1048576);
+            const [wasmUrl, dataUrl, frameworkUrl, loaderUrl] = await Promise.all([
+                GameLoader.merge(getParts("Build/brawl.wasm", 1, 4)),
+                GameLoader.merge(getParts("Build/brawl.data", 1, 2)),
+                GameLoader.merge(["Build/brawl.framework.js"], "application/javascript"),
+                GameLoader.merge(["Build/brawl.loader.js"], "application/javascript"),
             ]);
             const hideFullScreenButton = "";
-            const buildUrl = "Build";
-            const loaderUrl = buildUrl + "/brawl.loader.js";
             const config = {
                 dataUrl: dataUrl,
-                frameworkUrl: buildUrl + "/brawl.framework.js",
+                frameworkUrl: frameworkUrl,
                 codeUrl: wasmUrl,
-                streamingAssetsUrl: "StreamingAssets",
+                streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
                 companyName: "Fire Games",
                 productName: "Brawl 2018",
                 productVersion: "1.07"
@@ -287,6 +225,7 @@
 
             const script = document.createElement("script");
             script.src = loaderUrl;
+            script.onerror = () => GameLoader.fail(new Error("Failed to load the Unity loader"));
             script.onload = () => {
                 StartUnityInstance = function () {
                     createUnityInstance(canvas, config, (progress) => {
@@ -296,12 +235,11 @@
                         progressBarFull.style.width = `${100 * adjustedProgress}%`;
                     }).then((unityInstance) => {
                         ygGameInstance = unityInstance;
+                        GameLoader.finish();
                         loadingCover.style.background = "";
                         loadingCover.style.display = "none";
                         // Fill Background [Build Modify]
-                    }).catch((message) => {
-                        console.error(message);
-                    });
+                    }).catch(GameLoader.fail);
                 };
 
                 InstallBlurFocusBlocker();
@@ -421,7 +359,7 @@
             }
 
             window.InitGame = function () {
-                loadingText.remove();
+                GameLoader.finish();
                 initGame = true;
 
                 ygGameInstance.SendMessage(
@@ -453,7 +391,7 @@
                         payingStatus: "unknown",
                     }),
                 );
-                ygGameInstance.SendMessage("YG2Instance", "SetLoadSaves", "no data");
+                ygGameInstance.SendMessage("YG2Instance", "SetLoadSaves", cloudSaves);
                 ygGameInstance.SendMessage("YG2Instance", "InitSDKComplete");
 
                 setTimeout(function () {
@@ -464,17 +402,24 @@
             // Additional script modules
             LogStyledMessage('[PluginYG2 v2.008] [Build: 40] [Platform: YandexGames]');
 
-            window.cloudSaves = NO_DATA;
+            // There is no Yandex account here, so the "cloud" save lives in
+            // this browser, in the shape the Yandex player API returns it.
+            const SAVE_KEY = "brawl-3d-saves";
+
+            function readSaves() {
+                try {
+                    return localStorage.getItem(SAVE_KEY) || NO_DATA;
+                } catch (e) {
+                    return NO_DATA;
+                }
+            }
+
+            window.cloudSaves = readSaves();
 
             window.SaveCloud = function (jsonData, flush) {
-                if (player == null) {
-                    console.error('CRASH Save Cloud: ', 'Didnt have time to load');
-                    return;
-                }
                 try {
-                    player.setData({
-                        saves: [jsonData],
-                    }, flush);
+                    cloudSaves = JSON.stringify([jsonData]);
+                    localStorage.setItem(SAVE_KEY, cloudSaves);
                 } catch (e) {
                     console.error('CRASH Save Cloud: ', e.message);
                 }
@@ -483,7 +428,7 @@
             window.LoadCloud = function () {
                 return new Promise((resolve) => {
                     if (ysdk == null) {
-                        Final(window.NO_DATA);
+                        Final(readSaves());
                         return;
                     }
                     try {
@@ -1136,7 +1081,7 @@
             }
 
             document.body.appendChild(script);
-        })();
+        })().catch(GameLoader.fail);
     </script>
 </body>
 
