@@ -58,9 +58,12 @@
     return originalOpen.call(this, method, url, ...rest);
   };
   const config = await (await fetch("Build/jsab.json")).json();
-  Object.assign(config, { dataUrl, wasmCodeUrl: codeUrl, wasmFrameworkUrl: frameworkUrl,
-    streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href });
+  Object.assign(config, { dataUrl, wasmCodeUrl: codeUrl, wasmFrameworkUrl: frameworkUrl });
+  // Unity 2019's framework calls Module.streamingAssetsUrl(), so it must be a
+  // function; the default would resolve against the blob: config URL.
+  const streamingAssetsUrl = new URL("StreamingAssets", document.baseURI).href;
   UnityLoader.instantiate("unityContainer", loader.objectUrl(new Blob([JSON.stringify(config)], { type: "application/json" })), {
     onProgress(instance, progress) { if (progress === 1) loader.finish(); },
+    Module: { streamingAssetsUrl: () => streamingAssetsUrl },
   });
 })().catch(GameLoader.fail);
