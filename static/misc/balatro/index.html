@@ -125,6 +125,18 @@
     var applicationLoad = function (e) {
       Love(Module);
     }
+
+    // The engine only writes saves to IndexedDB from its beforeunload
+    // handler, which browsers cut short, most of all inside a frame. Run that
+    // handler while the page is still alive so progress is already stored.
+    function persistSaves() {
+      window.dispatchEvent(new Event("beforeunload"));
+    }
+    setInterval(persistSaves, 15000);
+    window.addEventListener("pagehide", persistSaves);
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) persistSaves();
+    });
   </script>
   <script type="text/javascript" src="game.js?v=d7e34743-2fea-4de6-8a0e-1103b5fcf07f"></script>
   <script async type="text/javascript" src="love.js" onload="applicationLoad(this)"></script>
