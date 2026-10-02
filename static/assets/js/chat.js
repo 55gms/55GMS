@@ -647,9 +647,10 @@ function getAvatarHue(name) {
   const text = String(name ?? "");
   let hash = 0;
   for (let i = 0; i < text.length; i++) {
-    hash = (hash * 31 + text.charCodeAt(i)) % 360;
+    hash = (Math.imul(hash, 31) + text.charCodeAt(i)) >>> 0;
   }
-  return hash;
+  // Scramble so similar names (user1, user2) land on distant hues
+  return (Math.imul(hash, 2654435761) >>> 0) % 360;
 }
 
 function avatarHtml(name, { isGroup = false, isOnline = null, image } = {}) {
@@ -2002,7 +2003,8 @@ function filterChats() {
     const preview = item
       .querySelector(".chat-item-preview")
       .textContent.toLowerCase();
-    const isMatch = chatName.includes(searchTerm) || preview.includes(searchTerm);
+    const isMatch =
+      chatName.includes(searchTerm) || preview.includes(searchTerm);
 
     item.hidden = !isMatch;
     if (isMatch) visibleCount++;
@@ -2299,7 +2301,9 @@ function setChatMenuOptions(visibleOptionIds) {
   const dangerIds = ["blockUserOption", "leaveGroupOption"];
   const hasDanger = visibleOptionIds.some((id) => dangerIds.includes(id));
   const hasRegular = visibleOptionIds.some((id) => !dangerIds.includes(id));
-  document.getElementById("chatMenuDivider").hidden = !(hasDanger && hasRegular);
+  document.getElementById("chatMenuDivider").hidden = !(
+    hasDanger && hasRegular
+  );
 }
 
 function renderChatMenuOptions() {

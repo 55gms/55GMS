@@ -128,7 +128,11 @@
     var(--site-text)
   );
   --chat-placeholder: color-mix(in srgb, var(--site-muted) 86%, transparent);
-  --chat-input-bg: color-mix(in srgb, var(--site-surface-3) 86%, var(--site-bg));
+  --chat-input-bg: color-mix(
+    in srgb,
+    var(--site-surface-3) 86%,
+    var(--site-bg)
+  );
   --chat-popover-bg: color-mix(
     in srgb,
     var(--site-surface-3) 88%,
@@ -1489,18 +1493,20 @@ body.chat-page {
   display: flex;
   align-items: baseline;
   gap: 8px;
+  min-width: 0;
   margin: 0;
-  overflow: hidden;
   font-size: 15px;
   font-weight: 600;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .modal-header h3 small {
+  min-width: 0;
+  overflow: hidden;
   color: var(--chat-secondary-text);
   font-size: 12px;
   font-weight: 400;
+  text-overflow: ellipsis;
 }
 
 .modal-body {

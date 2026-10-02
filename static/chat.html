@@ -5,11 +5,15 @@
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
     <script src="/assets/js/font.js" defer></script>
     <meta name="google" content="notranslate" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" />
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=5" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=6" />
-    <link rel="stylesheet" href="/assets/css/chat.css?v=6" />
+    <link rel="stylesheet" href="/assets/css/chat.css?v=7" />
     <title>Google</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="author" content="Rednotsus" />
     <meta http-equiv="Cache-control" content="public">
     <meta charset="utf-8">
@@ -20,6 +24,70 @@
 </head>
 
 <body class="chat-page">
+    <!-- Icon sprite: referenced with <svg class="icon"><use href="#i-name" /></svg> -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon-sprite" aria-hidden="true" focusable="false">
+        <symbol id="i-plus" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5v14" />
+        </symbol>
+        <symbol id="i-search" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" />
+        </symbol>
+        <symbol id="i-x" viewBox="0 0 24 24">
+            <path d="M18 6 6 18M6 6l12 12" />
+        </symbol>
+        <symbol id="i-arrow-left" viewBox="0 0 24 24">
+            <path d="m12 19-7-7 7-7M19 12H5" />
+        </symbol>
+        <symbol id="i-arrow-up" viewBox="0 0 24 24">
+            <path d="m5 12 7-7 7 7M12 19V5" />
+        </symbol>
+        <symbol id="i-arrow-down" viewBox="0 0 24 24">
+            <path d="M12 5v14M19 12l-7 7-7-7" />
+        </symbol>
+        <symbol id="i-more" viewBox="0 0 24 24">
+            <circle cx="5" cy="12" r="1" />
+            <circle cx="12" cy="12" r="1" />
+            <circle cx="19" cy="12" r="1" />
+        </symbol>
+        <symbol id="i-users" viewBox="0 0 24 24">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+        </symbol>
+        <symbol id="i-user-plus" viewBox="0 0 24 24">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M19 8v6M22 11h-6" />
+        </symbol>
+        <symbol id="i-user-minus" viewBox="0 0 24 24">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M22 11h-6" />
+        </symbol>
+        <symbol id="i-ban" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+            <path d="m4.9 4.9 14.2 14.2" />
+        </symbol>
+        <symbol id="i-unlock" viewBox="0 0 24 24">
+            <rect x="3" y="11" width="18" height="11" rx="2" />
+            <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+        </symbol>
+        <symbol id="i-log-out" viewBox="0 0 24 24">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
+        </symbol>
+        <symbol id="i-copy" viewBox="0 0 24 24">
+            <rect x="8" y="8" width="14" height="14" rx="2" />
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+        </symbol>
+        <symbol id="i-check" viewBox="0 0 24 24">
+            <path d="M20 6 9 17l-5-5" />
+        </symbol>
+        <symbol id="i-message" viewBox="0 0 24 24">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        </symbol>
+    </svg>
+
     <nav>
         <div class="navbar">
             <a id="nav-title" href="/">Reds Exploit Corner</a>
@@ -27,71 +95,104 @@
             <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
             <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
             <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
-            <a href="/chat"><i class="fa-solid fa-comments">&nbsp;</i></a>
-            <a href="/profile"><i class="fa-solid fa-user"></i></a>
+            <a href="/chat" aria-label="Chat"><i class="fa-solid fa-comments">&nbsp;</i></a>
+            <a href="/profile" aria-label="Profile"><i class="fa-solid fa-user"></i></a>
         </div>
     </nav>
 
     <div class="chat-container">
         <!-- Sidebar -->
-        <div class="chat-sidebar">
+        <aside class="chat-sidebar" aria-label="Conversations">
             <div class="chat-header">
                 <h2>Messages</h2>
                 <div class="chat-actions">
-                    <button id="newChatBtn" class="action-btn" title="New Chat">
-                        <i class="fa-solid fa-plus"></i>
+                    <button id="friendsBtn" class="icon-btn action-btn" type="button" title="Friends"
+                        aria-label="Friends">
+                        <svg class="icon" aria-hidden="true">
+                            <use href="#i-users" />
+                        </svg>
+                        <span id="friendsNotificationBadge" class="friends-notification-badge" hidden></span>
                     </button>
-                    <button id="friendsBtn" class="action-btn" title="Friends">
-                        <i class="fa-solid fa-users"></i>
-                        <span id="friendsNotificationBadge" class="friends-notification-badge"
-                            style="display: none;"></span>
+                    <button id="newChatBtn" class="icon-btn action-btn" type="button" title="New conversation"
+                        aria-label="New conversation">
+                        <svg class="icon" aria-hidden="true">
+                            <use href="#i-plus" />
+                        </svg>
                     </button>
                 </div>
             </div>
 
             <div class="chat-search">
-                <input type="text" id="chatSearch" placeholder="Search conversations..." autocomplete="off" />
+                <svg class="icon" aria-hidden="true">
+                    <use href="#i-search" />
+                </svg>
+                <input type="text" id="chatSearch" placeholder="Search conversations"
+                    aria-label="Search conversations" autocomplete="off" spellcheck="false" />
             </div>
 
-            <div class="chat-list" id="chatList">
-
+            <div class="chat-list" id="chatList" aria-label="Conversation list" aria-busy="true">
+                <div class="chat-skeleton" aria-hidden="true">
+                    <span class="skeleton skeleton-avatar"></span>
+                    <span class="skeleton-lines"><span class="skeleton"></span><span class="skeleton"></span></span>
+                </div>
+                <div class="chat-skeleton" aria-hidden="true">
+                    <span class="skeleton skeleton-avatar"></span>
+                    <span class="skeleton-lines"><span class="skeleton"></span><span class="skeleton"></span></span>
+                </div>
+                <div class="chat-skeleton" aria-hidden="true">
+                    <span class="skeleton skeleton-avatar"></span>
+                    <span class="skeleton-lines"><span class="skeleton"></span><span class="skeleton"></span></span>
+                </div>
+                <div class="chat-skeleton" aria-hidden="true">
+                    <span class="skeleton skeleton-avatar"></span>
+                    <span class="skeleton-lines"><span class="skeleton"></span><span class="skeleton"></span></span>
+                </div>
             </div>
 
             <div class="user-info-bar">
                 <div class="user-info">
-                    <div class="user-avatar">
+                    <div class="user-avatar avatar-circle">
                         <span id="userInitials"></span>
                     </div>
                     <div class="user-details">
                         <span id="userDisplayName"></span>
-                        <span class="user-status">Online</span>
+                        <span class="user-status" id="userStatus">Online</span>
                     </div>
                 </div>
-                <button id="copyUsernameBtn" class="copy-btn" title="Copy Username">
-                    <i class="fa-solid fa-copy"></i>
+                <button id="copyUsernameBtn" class="icon-btn copy-btn" type="button" title="Copy username"
+                    aria-label="Copy username">
+                    <svg class="icon" aria-hidden="true">
+                        <use href="#i-copy" />
+                    </svg>
                 </button>
             </div>
-        </div>
+        </aside>
 
         <!-- Main Chat Area -->
         <div class="chat-main">
             <div class="chat-welcome" id="chatWelcome">
                 <div class="welcome-content">
-                    <i class="fa-solid fa-comments welcome-icon"></i>
-                    <h2>Welcome to Chat!</h2>
-                    <p>Select a conversation to start messaging, or create a new chat.</p>
-                    <button id="startChatBtn" class="gs">Start New Chat</button>
+                    <span class="welcome-icon">
+                        <svg class="icon" aria-hidden="true">
+                            <use href="#i-message" />
+                        </svg>
+                    </span>
+                    <h2>Your messages</h2>
+                    <p>Choose a conversation or start a new one.</p>
+                    <button id="startChatBtn" class="btn btn-primary" type="button">New message</button>
                 </div>
             </div>
 
-            <div class="chat-content" id="chatContent" style="display: none;">
-                <div class="chat-info" id="chatInfo">
-                    <button class="mobile-chat-back" id="mobileChatBackBtn" type="button"
+            <section class="chat-content" id="chatContent" style="display: none;" aria-label="Conversation">
+                <header class="chat-info" id="chatInfo">
+                    <button class="icon-btn mobile-chat-back" id="mobileChatBackBtn" type="button"
                         aria-label="Back to conversations">
-                        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                        <svg class="icon" aria-hidden="true">
+                            <use href="#i-arrow-left" />
+                        </svg>
                     </button>
                     <div class="chat-avatar">
-                        <div class="avatar-circle">
+                        <div class="avatar-circle" id="chatAvatar">
                             <span id="chatInitials"></span>
                         </div>
                         <div class="online-indicator" id="onlineIndicator"></div>
@@ -101,140 +202,199 @@
                         <span id="chatStatus"></span>
                     </div>
                     <div class="chat-menu">
-                        <button class="menu-btn" id="chatMenuBtn">
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        <button class="icon-btn menu-btn" id="chatMenuBtn" type="button"
+                            aria-label="Conversation options" aria-haspopup="menu" aria-expanded="false"
+                            aria-controls="chatMenuDropdown">
+                            <svg class="icon" aria-hidden="true">
+                                <use href="#i-more" />
+                            </svg>
                         </button>
-                        <div class="chat-menu-dropdown" id="chatMenuDropdown" style="display: none;">
-                            <button id="addFriendOption" class="menu-option">
-                                <i class="fa-solid fa-user-plus"></i> Add Friend
+                        <div class="chat-menu-dropdown" id="chatMenuDropdown" role="menu"
+                            aria-labelledby="chatMenuBtn" style="display: none;">
+                            <button id="addFriendOption" class="menu-option" type="button" role="menuitem">
+                                <svg class="icon" aria-hidden="true">
+                                    <use href="#i-user-plus" />
+                                </svg>
+                                Add friend
                             </button>
-                            <button id="removeFriendOption" class="menu-option" style="display: none;">
-                                <i class="fa-solid fa-user-minus"></i> Remove Friend
+                            <button id="removeFriendOption" class="menu-option" type="button" role="menuitem" hidden>
+                                <svg class="icon" aria-hidden="true">
+                                    <use href="#i-user-minus" />
+                                </svg>
+                                Remove friend
                             </button>
-                            <button id="blockUserOption" class="menu-option" style="display: none;">
-                                <i class="fa-solid fa-ban"></i> Block User
+                            <button id="viewMembersOption" class="menu-option" type="button" role="menuitem" hidden>
+                                <svg class="icon" aria-hidden="true">
+                                    <use href="#i-users" />
+                                </svg>
+                                View members
                             </button>
-                            <button id="unblockUserOption" class="menu-option" style="display: none;">
-                                <i class="fa-solid fa-unlock"></i> Unblock User
+                            <button id="unblockUserOption" class="menu-option" type="button" role="menuitem" hidden>
+                                <svg class="icon" aria-hidden="true">
+                                    <use href="#i-unlock" />
+                                </svg>
+                                Unblock user
                             </button>
-                            <button id="leaveGroupOption" class="menu-option" style="display: none;">
-                                <i class="fa-solid fa-arrow-right-from-bracket"></i> Leave Group
+                            <div class="menu-divider" id="chatMenuDivider" role="separator" hidden></div>
+                            <button id="blockUserOption" class="menu-option danger" type="button" role="menuitem"
+                                hidden>
+                                <svg class="icon" aria-hidden="true">
+                                    <use href="#i-ban" />
+                                </svg>
+                                Block user
                             </button>
-                            <button id="viewMembersOption" class="menu-option" style="display: none;">
-                                <i class="fa-solid fa-users"></i> View Members
+                            <button id="leaveGroupOption" class="menu-option danger" type="button" role="menuitem"
+                                hidden>
+                                <svg class="icon" aria-hidden="true">
+                                    <use href="#i-log-out" />
+                                </svg>
+                                Leave group
                             </button>
                         </div>
                     </div>
-                </div>
+                </header>
 
                 <div class="messages-container" id="messagesContainer">
-                    <div class="messages" id="messages">
+                    <div class="messages" id="messages" role="log" aria-live="polite">
                         <!-- Messages will be loaded here -->
                     </div>
                 </div>
 
-                <div class="typing-indicator" id="typingIndicator" style="display: none;">
-                    <span id="typingText"></span>
-                </div>
-
                 <div class="message-input-container">
+                    <button class="jump-to-latest" id="jumpToLatestBtn" type="button" hidden>
+                        <svg class="icon" aria-hidden="true">
+                            <use href="#i-arrow-down" />
+                        </svg>
+                        <span id="jumpToLatestLabel">Latest</span>
+                    </button>
+                    <div class="typing-indicator" id="typingIndicator" aria-live="polite">
+                        <span class="typing-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                        <span id="typingText"></span>
+                    </div>
                     <div class="message-input">
-                        <input type="text" id="messageInput" placeholder="Type a message..." maxlength="1000"
-                            autocomplete="off" />
-                        <button id="sendBtn" class="send-btn">
-                            <i class="fa-solid fa-paper-plane"></i>
+                        <textarea id="messageInput" rows="1" placeholder="Message" aria-label="Message"
+                            maxlength="2000" autocomplete="off"></textarea>
+                        <div class="character-counter" id="characterCounter" hidden>
+                            <span id="charCount">2000</span>
+                        </div>
+                        <button id="sendBtn" class="send-btn" type="button" aria-label="Send message" title="Send"
+                            disabled>
+                            <svg class="icon" aria-hidden="true">
+                                <use href="#i-arrow-up" />
+                            </svg>
                         </button>
                     </div>
-                    <div class="character-counter">
-                        <span id="charCount">0</span>/1000
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Friends Modal -->
+    <div id="friendsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="friendsModalTitle"
+        style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="friendsModalTitle">Friends</h3>
+                <button class="icon-btn modal-close" id="closeFriendsModal" type="button" aria-label="Close">
+                    <svg class="icon" aria-hidden="true">
+                        <use href="#i-x" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="add-friend-form" id="addFriendForm" autocomplete="off">
+                    <label class="sr-only" for="friendUsername">Add a friend by username</label>
+                    <input type="text" id="friendUsername" class="field friendRequest"
+                        placeholder="Add a friend by username" autocomplete="off" spellcheck="false" />
+                    <button id="addFriendBtn" class="btn btn-primary" type="submit">Add friend</button>
+                </form>
+
+                <div class="friends-tabs" role="tablist" aria-label="Friends">
+                    <button class="tab-btn active" type="button" role="tab" aria-selected="true"
+                        data-tab="friends">Friends <span id="friendCount" class="tab-count" hidden></span></button>
+                    <button class="tab-btn" type="button" role="tab" aria-selected="false"
+                        data-tab="requests">Requests <span id="requestCount" class="badge" hidden></span></button>
+                    <button class="tab-btn" type="button" role="tab" aria-selected="false"
+                        data-tab="blocked">Blocked</button>
+                </div>
+
+                <div class="tab-content">
+                    <div id="friendsTab" class="tab-panel active" role="tabpanel">
+                        <div id="friendsList" class="row-list"></div>
+                    </div>
+
+                    <div id="requestsTab" class="tab-panel" role="tabpanel">
+                        <div id="friendRequests" class="row-list"></div>
+                    </div>
+
+                    <div id="blockedTab" class="tab-panel" role="tabpanel">
+                        <div id="blockedUsersList" class="row-list"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Friend Requests Modal -->
-    <div id="friendsModal" class="modal" style="display: none;">
+    <!-- New Conversation Modal -->
+    <div id="newChatModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="newChatModalTitle"
+        style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Friends & Requests</h3>
-                <button class="modal-close" id="closeFriendsModal">
-                    <i class="fa-solid fa-times"></i>
+                <h3 id="newChatModalTitle">New conversation</h3>
+                <button class="icon-btn modal-close" id="closeNewChatModal" type="button" aria-label="Close">
+                    <svg class="icon" aria-hidden="true">
+                        <use href="#i-x" />
+                    </svg>
                 </button>
             </div>
             <div class="modal-body">
-                <div class="friends-tabs">
-                    <button class="tab-btn active" data-tab="friends">Friends</button>
-                    <button class="tab-btn" data-tab="requests">Requests <span id="requestCount"
-                            class="badge"></span></button>
-                    <button class="tab-btn" data-tab="blocked">Blocked</button>
-                    <button class="tab-btn" data-tab="add">Add Friend</button>
+                <div class="chat-type-tabs" role="tablist" aria-label="Conversation type">
+                    <button class="tab-btn active" type="button" role="tab" aria-selected="true"
+                        data-tab="direct">Message</button>
+                    <button class="tab-btn" type="button" role="tab" aria-selected="false"
+                        data-tab="group">Group</button>
                 </div>
 
                 <div class="tab-content">
-                    <div id="friendsTab" class="tab-panel active">
-                        <div id="friendsList"></div>
-                    </div>
-
-                    <div id="requestsTab" class="tab-panel">
-                        <div id="friendRequests"></div>
-                    </div>
-
-                    <div id="blockedTab" class="tab-panel">
-                        <div id="blockedUsersList"></div>
-                    </div>
-
-                    <div id="addTab" class="tab-panel">
-                        <div class="add-friend-form">
-                            <input type="text" id="friendUsername" placeholder="Enter username..." class="friendRequest"
-                                autocomplete="off" />
-                            <button id="addFriendBtn" class="gs">Send Request</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- New Chat Modal -->
-    <div id="newChatModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>New Chat</h3>
-                <button class="modal-close" id="closeNewChatModal">
-                    <i class="fa-solid fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="chat-type-tabs">
-                    <button class="tab-btn active" data-tab="direct">Direct Message</button>
-                    <button class="tab-btn" data-tab="group">Group Chat</button>
-                </div>
-
-                <div class="tab-content">
-                    <div id="directTab" class="tab-panel active">
-                        <div class="form-group">
-                            <label>Username:</label>
-                            <input type="text" id="directUsername" placeholder="Enter username..." autocomplete="off" />
-                        </div>
-                        <button id="createDirectBtn" class="gs">Start Chat</button>
-                    </div>
-
-                    <div id="groupTab" class="tab-panel">
-                        <div class="form-group">
-                            <label>Group Name:</label>
-                            <input type="text" id="groupName" placeholder="Enter group name..." autocomplete="off" />
-                        </div>
-                        <div class="form-group">
-                            <label>Add Members: <span id="memberCount">(0/9)</span></label>
-                            <div id="membersList"></div>
-                            <input type="text" id="addMemberInput" placeholder="Enter username and press Enter..."
-                                autocomplete="off" />
-                            <div class="field-hint">
-                                Maximum 10 people total (including yourself)
+                    <div id="directTab" class="tab-panel active" role="tabpanel">
+                        <form id="directChatForm" autocomplete="off">
+                            <div class="form-group">
+                                <label for="directUsername">Username</label>
+                                <div class="field-row">
+                                    <input type="text" id="directUsername" class="field"
+                                        placeholder="Enter a username" autocomplete="off" spellcheck="false" />
+                                    <button id="createDirectBtn" class="btn btn-primary" type="submit">Start
+                                        chat</button>
+                                </div>
                             </div>
-                        </div>
-                        <button id="createGroupBtn" class="gs">Create Group</button>
+                        </form>
+                        <div id="directFriendPicker" class="picker"></div>
+                    </div>
+
+                    <div id="groupTab" class="tab-panel" role="tabpanel">
+                        <form id="groupChatForm" autocomplete="off">
+                            <div class="form-group">
+                                <label for="groupName">Group name</label>
+                                <input type="text" id="groupName" class="field" placeholder="Name this group"
+                                    autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label for="addMemberInput">Members <span id="memberCount">1 / 10</span></label>
+                                <div class="token-field" id="memberField">
+                                    <div id="membersList"></div>
+                                    <input type="text" id="addMemberInput" placeholder="Add by username"
+                                        autocomplete="off" spellcheck="false" />
+                                </div>
+                                <div class="field-hint">
+                                    Press Enter to add. Up to 10 people, including you.
+                                </div>
+                                <div id="memberSuggestions" class="suggestions"></div>
+                            </div>
+                            <div class="modal-actions">
+                                <button id="createGroupBtn" class="btn btn-primary" type="submit">Create
+                                    group</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -242,16 +402,19 @@
     </div>
 
     <!-- Group Members Modal -->
-    <div id="groupMembersModal" class="modal" style="display: none;">
+    <div id="groupMembersModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="groupMembersTitle"
+        style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="groupMembersTitle">Group Members</h3>
-                <button class="modal-close" id="closeGroupMembersModal">
-                    <i class="fa-solid fa-times"></i>
+                <h3 id="groupMembersTitle">Members</h3>
+                <button class="icon-btn modal-close" id="closeGroupMembersModal" type="button" aria-label="Close">
+                    <svg class="icon" aria-hidden="true">
+                        <use href="#i-x" />
+                    </svg>
                 </button>
             </div>
             <div class="modal-body">
-                <div id="groupMembersList">
+                <div id="groupMembersList" class="row-list">
                     <!-- Group members will be loaded here -->
                 </div>
             </div>
@@ -259,9 +422,9 @@
     </div>
 
     <!-- Notification Container -->
-    <div id="notificationContainer" class="notification-container"></div>
+    <div id="notificationContainer" class="notification-container" aria-live="polite"></div>
 
-    <script src="/assets/js/chat.js?v=5"></script>
+    <script src="/assets/js/chat.js?v=6"></script>
     <script>
         // Check authentication
         const uuid = localStorage.getItem('uuid');
