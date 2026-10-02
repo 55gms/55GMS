@@ -182,7 +182,13 @@ body.chat-page {
   flex-direction: column;
   overflow: hidden;
   color: var(--chat-text);
-  background: var(--chat-bg);
+  /* background-color only: keeps the themed grid from style.css behind the nav */
+  background-color: var(--chat-bg);
+}
+
+.chat-container,
+.modal,
+.notification-container {
   font-family: var(--chat-font);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -230,7 +236,7 @@ body.chat-page {
   stroke-linejoin: round;
 }
 
-.chat-page :focus-visible {
+.chat-page :focus-visible:not(.navbar *) {
   outline: none;
   box-shadow:
     0 0 0 2px var(--chat-bg),
@@ -266,43 +272,11 @@ body.chat-page {
 }
 
 /* ==========================================================================
-   Site navigation, docked flush so the chat reads as one app surface
+   Site navigation: left exactly as nav.css styles it on every other page
    ========================================================================== */
 
 .chat-page nav {
   flex: none;
-}
-
-.chat-page .navbar {
-  min-height: 52px;
-  margin: 0;
-  padding-block: 6px;
-  background: var(--chat-sidebar-bg);
-  border-width: 0 0 1px;
-  border-color: var(--chat-line);
-  border-radius: 0;
-  box-shadow: none;
-}
-
-.chat-page .navbar a {
-  font-family: var(--chat-font);
-}
-
-.chat-page .navbar a:not(:first-child) {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-}
-
-.chat-page .navbar a:first-child {
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.chat-page .navbar a:nth-last-child(2),
-.chat-page .navbar a:last-child {
-  width: 36px;
-  height: 36px;
 }
 
 /* ==========================================================================
@@ -313,6 +287,7 @@ body.chat-page {
   display: flex;
   flex: 1;
   min-height: 0;
+  border-top: 1px solid var(--chat-line);
   color: var(--chat-text);
   font-size: 14px;
   line-height: 1.4;
@@ -1899,7 +1874,7 @@ body.chat-page {
 
 .notification-container {
   position: fixed;
-  top: 64px;
+  top: 104px;
   right: 16px;
   z-index: 2000;
   display: flex;
