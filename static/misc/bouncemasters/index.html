@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <base
+      href="https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/bouncemasters/"
+    />
+    <title>Bouncemasters</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="MobileOptimized" content="960" />
+    <meta
+      name="viewport"
+      content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <meta charset="utf-8" />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="style/index.css"
+      nonce="KA1eZH6AAF8sVJT2PFen-g"
+    />
+
+    <script>
+      window.addEventListener("load", () => {
+        const gameScript = document.createElement("script");
+        gameScript.src = window.location.origin + "/misc/bouncemasters/game.js";
+        gameScript.onload = () => window.runGame();
+        document.head.appendChild(gameScript);
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="game"></div>
+  </body>
+</html>
