@@ -5,14 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>60 Seconds! Reatomized</title>
     <link rel="stylesheet" href="/assets/css/game-loader.css">
+    <link rel="stylesheet" href="/misc/60-seconds-reatomized/loader.css">
     <script defer src="/assets/js/game-loader.js"></script>
     <script defer src="/misc/60-seconds-reatomized/load.js"></script>
     <base href="https://cdn.jsdelivr.net/gh/usheje883-maker/60-Seconds-Webport@main/">
   </head>
   <body>
     <div id="unity-container"><canvas id="unity-canvas" tabindex="-1"></canvas></div>
-    <div id="game-loading" role="status" aria-live="polite" aria-atomic="true">
-      <span id="game-loading-text">LOADING...</span>
+    <div id="game-loading" data-total-mb="133.35">
+      <div class="loader">
+        <h1 class="loader-title">60 Seconds! Reatomized</h1>
+        <div role="status" aria-live="polite" aria-atomic="true">
+          <p id="game-loading-text" class="loader-status">Preparing download</p>
+          <p class="loader-detail">
+            A required game file could not be downloaded.<br>
+            Reload the page to try again.
+          </p>
+        </div>
+        <div class="loader-progress">
+          <div
+            class="loader-track"
+            role="progressbar"
+            aria-label="Download progress"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+          >
+            <div id="game-loading-bar" class="loader-fill"></div>
+          </div>
+          <div class="loader-meta" aria-hidden="true">
+            <span id="game-loading-amount">0.00 MB / 133.35 MB</span>
+            <span id="game-loading-percent">0%</span>
+          </div>
+        </div>
+        <button id="game-loading-reload" class="loader-reload" type="button">
+          Reload
+        </button>
+      </div>
     </div>
   </body>
 </html>

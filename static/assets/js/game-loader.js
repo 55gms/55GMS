@@ -3,17 +3,46 @@
 window.GameLoader = (() => {
   const overlay = document.getElementById("game-loading");
   const text = document.getElementById("game-loading-text");
+  // Optional progress UI. Pages that only provide #game-loading-text keep the
+  // plain "LOADING..." line; data-total-mb sets the size shown to the user.
+  const bar = document.getElementById("game-loading-bar");
+  const amount = document.getElementById("game-loading-amount");
+  const percent = document.getElementById("game-loading-percent");
+  const displayMb = Number(overlay.dataset.totalMb) || 0;
   const sizes = new Map();
   const downloads = new Map();
   const objectUrls = [];
   let loaded = 0;
+  let completed = 0;
   let failed = false;
 
   function render() {
     if (failed) return;
     const total = [...sizes.values()].reduce((sum, size) => sum + size, 0);
+    if (bar) return renderProgress(total);
     const mb = (bytes) => (bytes / 1048576).toFixed(2);
     text.textContent = `LOADING... ${mb(loaded)} MB / ${mb(total)} MB`;
+  }
+
+  function renderProgress(total) {
+    const done = sizes.size > 0 && completed === sizes.size;
+    const ratio = done
+      ? 1
+      : Math.min(Math.max(total > 0 ? loaded / total : 0, 0), 1);
+    const shownMb = displayMb || total / 1048576;
+    const status = done
+      ? "Starting game"
+      : loaded > 0
+        ? "Downloading game files"
+        : "Preparing download";
+    // Only touch the live region when the state changes, not on every chunk.
+    if (text.textContent !== status) text.textContent = status;
+    const whole = Math.floor(ratio * 100);
+    bar.style.width = `${ratio * 100}%`;
+    bar.parentElement.setAttribute("aria-valuenow", whole);
+    if (amount)
+      amount.textContent = `${(ratio * shownMb).toFixed(2)} MB / ${shownMb.toFixed(2)} MB`;
+    if (percent) percent.textContent = `${whole}%`;
   }
 
   function prepare(files) {
@@ -42,6 +71,7 @@ window.GameLoader = (() => {
         render();
       }
       sizes.set(url, received);
+      completed += 1;
       render();
       return new Blob(chunks);
     })();
@@ -79,10 +109,16 @@ window.GameLoader = (() => {
     failed = true;
     overlay.hidden = false;
     text.style.animation = "none";
-    text.textContent = "Unable to load the game. Please reload to try again.";
+    overlay.dataset.state = "error";
+    text.textContent = bar
+      ? "Unable to load game"
+      : "Unable to load the game. Please reload to try again.";
     console.error(error);
   }
 
+  document
+    .getElementById("game-loading-reload")
+    ?.addEventListener("click", () => location.reload());
   window.addEventListener("pagehide", () => {
     for (const url of objectUrls) URL.revokeObjectURL(url);
   });

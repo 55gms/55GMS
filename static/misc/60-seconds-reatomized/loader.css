@@ -1,0 +1,139 @@
+/* Geist-style loading screen, scoped to this page. Layered over the shared
+   game-loader.css, which other Unity ports keep using unchanged. */
+#game-loading {
+  background: #0a0a0a;
+  color: #ededed;
+  font:
+    400 14px/20px Geist,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Inter,
+    sans-serif;
+  text-align: left;
+  text-shadow: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.loader {
+  width: min(440px, calc(100vw - 48px));
+}
+
+.loader-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.loader-status,
+.loader-detail {
+  margin: 2px 0 0;
+  color: #a1a1a1;
+}
+
+#game-loading-text {
+  animation: none;
+}
+
+.loader-progress {
+  margin-top: 24px;
+}
+
+.loader-track {
+  height: 2px;
+  overflow: hidden;
+  border-radius: 1px;
+  background: #262626;
+}
+
+.loader-fill {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: #ededed;
+  transition: width 120ms linear;
+}
+
+.loader-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 12px;
+  color: #a1a1a1;
+  font:
+    400 12px/16px "Geist Mono",
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.loader-detail,
+.loader-reload {
+  display: none;
+}
+
+#game-loading[data-state="error"] .loader-progress {
+  display: none;
+}
+
+#game-loading[data-state="error"] .loader-status {
+  margin-top: 16px;
+  color: #ededed;
+}
+
+#game-loading[data-state="error"] .loader-detail {
+  display: block;
+  margin-top: 4px;
+}
+
+#game-loading[data-state="error"] .loader-reload {
+  display: inline-flex;
+}
+
+.loader-reload {
+  align-items: center;
+  height: 32px;
+  margin-top: 20px;
+  padding: 0 12px;
+  border: 1px solid #2e2e2e;
+  border-radius: 6px;
+  background: #0a0a0a;
+  color: #ededed;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.loader-reload:hover {
+  border-color: #454545;
+  background: #1a1a1a;
+}
+
+.loader-reload:active {
+  background: #1f1f1f;
+}
+
+.loader-reload:focus-visible {
+  outline: 2px solid #52a8ff;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-fill,
+  .loader-reload {
+    transition: none;
+  }
+}
