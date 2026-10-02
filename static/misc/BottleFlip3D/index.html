@@ -93,6 +93,13 @@
       padding-left: 5px;
     }
   </style>
+  <script>
+    // The game links out to its publisher's sites on click (logo, "more
+    // games"). Keep players on this page: nothing here may open a window.
+    window.open = function () {
+      return null;
+    };
+  </script>
   <script src="Build/UnityLoader.js"></script>
   <script type="text/javascript">
     function UnityProgress(gameInstance, progress) {
@@ -147,23 +154,7 @@
   <script src="patch/js/null.js?www.cargames.com/ShowGames.js"></script>
 
   <script type="text/javascript">
-    function openWindow(Screen, Button, NameId, website) {
-      document.onmouseup = function () {
-        switch (website.trim().toLowerCase()) {
-          case "bestgames":
-            GameId = GetGameIdByNameId(NameId, gamesBest);
-            linkBest("Bottle Flip 3D", Screen, Button, GameId);
-            break;
-          case "cargames":
-            GameId = GetGameIdByNameId(NameId, gamesCar);
-            linkCar("Bottle Flip 3D", Screen, Button, GameId);
-            break;
-          default:
-            console.log(website + " is error");
-        }
-        document.onmouseup = null;
-      };
-    }
+    function openWindow() {}
     //éæºä¸ä¸ªnameId
     function GetNameIdByRandom(len, website) {
       var gamesArr;
@@ -204,13 +195,7 @@
       return "";
     }
     //ç´æ¥æ ¹æ®ç½åæå¼ç½é¡µ
-    function openWindowByUrl(Url) {
-      var url = encodeURI(Url);
-      document.onmouseup = function () {
-        window.xopen(url);
-        document.onmouseup = null;
-      };
-    }
+    function openWindowByUrl() {}
   </script>
 </head>
 
