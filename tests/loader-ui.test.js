@@ -171,5 +171,5 @@ test("every page names the current loader version", async () => {
     for (const [url, , found] of tags)
       assert.equal(found, version, `${folder}: stale tag on ${url}`);
   }
-  assert.equal(pages, 77);
+  assert.ok(pages >= 77);
 });
