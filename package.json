@@ -17,6 +17,7 @@
     "@mercuryworkshop/wisp-js": "0.5.0",
     "@socket.io/redis-adapter": "^8.3.0",
     "axios": "^1.20.0",
+    "bcryptjs": "^3.0.3",
     "compression": "^1.8.2",
     "cors": "^2.8.5",
     "dompurify": "^3.4.13",
