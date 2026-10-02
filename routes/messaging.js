@@ -3,6 +3,7 @@ import { Op } from "sequelize";
 import DOMPurify from "isomorphic-dompurify";
 import userCache from "../utils/userCache.js";
 import blockingCache from "../utils/blockingCache.js";
+import { trimChatMessages } from "../services/messageRetention.js";
 import {
   Chat,
   Message,
@@ -30,34 +31,38 @@ router.get("/chats/:chatId/members", authenticateUser, async (req, res) => {
     const chatId = req.params.chatId;
     const userUuid = req.userUuid;
 
-    // First verify the user is a member of this chat
-    const userMembership = await ChatMember.findOne({
-      where: {
-        chatId: chatId,
-        userUuid: userUuid,
-      },
-    });
+    // Verify the user is a member, make sure it's a group chat, and load the
+    // member list in one round of queries
+    const [userMembership, chat, members] = await Promise.all([
+      ChatMember.findOne({
+        where: {
+          chatId: chatId,
+          userUuid: userUuid,
+        },
+        attributes: ["id"],
+        raw: true,
+      }),
+      Chat.findByPk(chatId, { attributes: ["id", "type"], raw: true }),
+      ChatMember.findAll({
+        where: { chatId: chatId },
+        attributes: ["userUuid", "role", "createdAt"],
+        order: [
+          ["role", "ASC"],
+          ["createdAt", "ASC"],
+        ], // Admin first, then by join order
+        raw: true,
+      }),
+    ]);
 
     if (!userMembership) {
       return res.status(403).json({ error: "Not a member of this chat" });
     }
 
-    // Get the chat to make sure it's a group chat
-    const chat = await Chat.findByPk(chatId);
     if (!chat || chat.type !== "group") {
       return res
         .status(400)
         .json({ error: "Chat not found or not a group chat" });
     }
-
-    // Get all members of the chat
-    const members = await ChatMember.findAll({
-      where: { chatId: chatId },
-      order: [
-        ["role", "ASC"],
-        ["createdAt", "ASC"],
-      ], // Admin first, then by join order
-    });
 
     const memberUuids = members.map((member) => member.userUuid);
     const [userMap, statusMap] = await Promise.all([
@@ -112,6 +117,7 @@ router.get("/user-chats", authenticateUser, async (req, res) => {
             {
               model: ChatMember,
               as: "members",
+              attributes: ["userUuid"],
             },
           ],
         },
@@ -154,6 +160,8 @@ router.get("/chats/:chatId/messages", authenticateUser, async (req, res) => {
     // Check if user is member of the chat
     const membership = await ChatMember.findOne({
       where: { chatId, userUuid: req.userUuid },
+      attributes: ["id"],
+      raw: true,
     });
 
     if (!membership) {
@@ -167,6 +175,7 @@ router.get("/chats/:chatId/messages", authenticateUser, async (req, res) => {
       order: [["createdAt", "DESC"]],
       limit: parseInt(limit),
       offset: offset,
+      raw: true,
     });
 
     const messagesWithUsernames = await addSenderUsernamesToMessages(messages);
@@ -208,10 +217,22 @@ router.post("/chats/:chatId/messages", authenticateUser, async (req, res) => {
     // Sanitize content
     const sanitizedContent = DOMPurify.sanitize(content.trim());
 
-    // Check if user is member of the chat
-    const membership = await ChatMember.findOne({
-      where: { chatId, userUuid: req.userUuid },
-    });
+    // Membership, chat type and sender name don't depend on each other
+    const [membership, chat, senderUsername] = await Promise.all([
+      ChatMember.findOne({
+        where: { chatId, userUuid: req.userUuid },
+        attributes: ["id"],
+        raw: true,
+      }),
+      Chat.findByPk(chatId, { attributes: ["id", "type"], raw: true }),
+      getUsernameByUuid(req.userUuid).then(
+        (user) => user.username,
+        (error) => {
+          console.error("Error fetching sender username:", error);
+          return "Unknown User";
+        },
+      ),
+    ]);
 
     if (!membership) {
       return res
@@ -220,7 +241,6 @@ router.post("/chats/:chatId/messages", authenticateUser, async (req, res) => {
     }
 
     // Check if this is a direct chat and if the user is blocked
-    const chat = await Chat.findByPk(chatId);
     if (chat && chat.type === "direct") {
       // Find other chat member
       const otherMember = await ChatMember.findOne({
@@ -228,6 +248,8 @@ router.post("/chats/:chatId/messages", authenticateUser, async (req, res) => {
           chatId,
           userUuid: { [Op.ne]: req.userUuid },
         },
+        attributes: ["userUuid"],
+        raw: true,
       });
 
       if (otherMember) {
@@ -255,41 +277,17 @@ router.post("/chats/:chatId/messages", authenticateUser, async (req, res) => {
       }
     }
 
-    // Enforce max 200 messages per chat: delete oldest if at limit
-    const messageCount = await Message.count({ where: { chatId } });
-    if (messageCount >= 200) {
-      // Find the oldest message(s) to delete
-      const oldestMessages = await Message.findAll({
-        where: { chatId },
-        order: [["createdAt", "ASC"]],
-        limit: messageCount - 199, // delete enough to make room for 200
-      });
-      const idsToDelete = oldestMessages.map((msg) => msg.id);
-      if (idsToDelete.length > 0) {
-        await Message.destroy({ where: { id: idsToDelete } });
-      }
-    }
-
-    // Get sender username
-    let senderUsername = "Unknown User";
-    try {
-      const userResponse = await getUsernameByUuid(req.userUuid);
-      senderUsername = userResponse.username;
-    } catch (error) {
-      console.error("Error fetching sender username:", error);
-    }
-
-    // Create message
-    const message = await Message.create({
-      chatId,
-      senderUuid: req.userUuid,
-      senderUsername,
-      content: sanitizedContent,
-      isSystem: isSystem || false,
-    });
-
-    // Update chat's last activity
-    await Chat.update({ lastActivity: new Date() }, { where: { id: chatId } });
+    // Create message and update chat's last activity
+    const [message] = await Promise.all([
+      Message.create({
+        chatId,
+        senderUuid: req.userUuid,
+        senderUsername,
+        content: sanitizedContent,
+        isSystem: isSystem || false,
+      }),
+      Chat.update({ lastActivity: new Date() }, { where: { id: chatId } }),
+    ]);
 
     const messageWithUsername = {
       ...message.toJSON(),
@@ -297,6 +295,11 @@ router.post("/chats/:chatId/messages", authenticateUser, async (req, res) => {
     };
 
     res.status(201).json(messageWithUsername);
+
+    // Enforce max 200 messages per chat. The sender doesn't need to wait on it.
+    void trimChatMessages(chatId).catch((error) => {
+      console.error("Error trimming old chat messages:", error);
+    });
   } catch (error) {
     console.error("Error sending message:", error);
     res.status(500).json({ error: "Internal server error" });

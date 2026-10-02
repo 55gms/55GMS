@@ -212,14 +212,12 @@ try {
           isSystem: isSystem || false,
         });
 
-        const [chatMembers] = await Promise.all([
-          ChatMember.findAll({
-            where: { chatId },
-            attributes: ["userUuid"],
-            raw: true,
-          }),
-          Chat.update({ lastActivity: new Date() }, { where: { id: chatId } }),
-        ]);
+        // lastActivity is already updated by the REST call that stored the message
+        const chatMembers = await ChatMember.findAll({
+          where: { chatId },
+          attributes: ["userUuid"],
+          raw: true,
+        });
 
         await Promise.all(
           chatMembers
