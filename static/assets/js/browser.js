@@ -141,18 +141,6 @@
     }
   }
 
-  function fallbackFavicon(url) {
-    try {
-      const origin = new URL(url).origin;
-      return (
-        "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&size=32&url=" +
-        encodeURIComponent(origin)
-      );
-    } catch {
-      return "";
-    }
-  }
-
   // ======================================================================
   // State
   // ======================================================================
@@ -247,7 +235,7 @@
       { once: true },
     );
 
-    // Page favicon failed -> try the favicon service -> fall back to a globe.
+    // Page favicon failed -> fall back to a globe.
     node.querySelector(".tab-favicon").addEventListener("error", (e) => {
       if (e.currentTarget.dataset.src)
         tab.failedIcons.add(e.currentTarget.dataset.src);
@@ -304,8 +292,7 @@
 
   function pickFavicon(tab) {
     if (!tab.url) return NEW_TAB_ICON;
-    const candidates = [tab.favicon, fallbackFavicon(tab.url)].filter(Boolean);
-    return candidates.find((url) => !tab.failedIcons.has(url)) || "";
+    return tab.favicon && !tab.failedIcons.has(tab.favicon) ? tab.favicon : "";
   }
 
   function onTabKeydown(e) {

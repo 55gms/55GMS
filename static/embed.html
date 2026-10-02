@@ -379,14 +379,57 @@
           const link = doc.querySelector(
             'link[rel~="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]',
           );
-          return toFrameAsset(link && link.href);
+          // Sites without a declared icon usually still serve /favicon.ico.
+          return toFrameAsset(
+            link ? link.href : new URL("/favicon.ico", currentUrl).href,
+          );
         } catch {
           return "";
         }
       }
 
+      // The shell sits outside the worker's scope and can't load frame assets,
+      // so the icon is fetched through the page frame and handed over as pixels.
+      const setImageSrc = Object.getOwnPropertyDescriptor(
+        HTMLImageElement.prototype,
+        "src",
+      ).set;
+      let faviconRequest = 0;
+
+      function reportFavicon(request, favicon) {
+        if (request !== faviconRequest) return;
+        faviconData = favicon;
+        emit("browser:faviconchange", { favicon });
+      }
+
+      function loadFavicon(src) {
+        const request = ++faviconRequest;
+        const doc = frameDocument();
+        if (!src || !doc || src.startsWith("data:"))
+          return reportFavicon(request, src);
+        try {
+          const img = doc.createElement("img");
+          img.addEventListener("load", () => {
+            try {
+              const canvas = document.createElement("canvas");
+              canvas.width = canvas.height = 32;
+              canvas.getContext("2d").drawImage(img, 0, 0, 32, 32);
+              reportFavicon(request, canvas.toDataURL("image/png"));
+            } catch {
+              reportFavicon(request, "");
+            }
+          });
+          img.addEventListener("error", () => reportFavicon(request, ""));
+          // The embed's own setter: src is already a frame URL.
+          setImageSrc.call(img, src);
+        } catch {
+          reportFavicon(request, "");
+        }
+      }
+
       let lastTitle = "";
       let lastFavicon = "";
+      let faviconData = "";
       let observer = null;
       let observedDoc = null;
 
@@ -399,7 +442,7 @@
         const favicon = readFavicon();
         if (favicon !== lastFavicon) {
           lastFavicon = favicon;
-          emit("browser:faviconchange", { favicon });
+          loadFavicon(favicon);
         }
       }
 
@@ -523,7 +566,7 @@
           emit("browser:loaded", {
             url: currentUrl,
             title: lastTitle,
-            favicon: lastFavicon,
+            favicon: faviconData,
           });
         });
       }
@@ -542,6 +585,8 @@
         // The shell clears a tab's title/favicon on navigation, so always re-report them.
         lastTitle = "";
         lastFavicon = "";
+        faviconData = "";
+        faviconRequest++;
         pendingHistoryMove = historyMove;
         currentUrl = url;
         frame.go(url);
@@ -574,7 +619,7 @@
         emit("browser:loaded", {
           url: currentUrl,
           title: lastTitle,
-          favicon: lastFavicon,
+          favicon: faviconData,
         });
       }
 
