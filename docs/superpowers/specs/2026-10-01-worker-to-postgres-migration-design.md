@@ -54,15 +54,17 @@ Two Sequelize models in `models/`, registered in `models/index.js` so
 
 | Column      | Type        | Notes                             |
 | ----------- | ----------- | --------------------------------- |
-| `uuid`      | UUID        | primary key, same value as in D1  |
-| `username`  | VARCHAR(16) | unique, case-sensitive (as in D1) |
+| `uuid`      | VARCHAR     | primary key, same value as in D1  |
+| `username`  | VARCHAR     | unique, case-sensitive (as in D1) |
 | `password`  | VARCHAR(60) | bcrypt hash, see below            |
 | `premium`   | BOOLEAN     | default false                     |
 | `createdAt` | timestamp   | import time for migrated rows     |
 | `updatedAt` | timestamp   |                                   |
 
-If the D1 export contains usernames longer than 16 characters, the column is
-widened to fit the longest one; the 16-character limit stays a signup rule.
+`uuid` is a string column like every other uuid in the chat tables, so a
+malformed uuid from a client is a miss rather than a database error. The
+16-character username limit is a signup rule, not a column limit, so any
+longer names already in D1 still import.
 
 `UserSave` → table `user_saves`
 
@@ -89,12 +91,19 @@ Stored value: `bcrypt(sha256hex(password))`, cost 10, using `bcryptjs`.
   There is one scheme and no per-row flag.
 - The SHA-256 hex is 64 bytes, under bcrypt's 72-byte input limit.
 
-Wrapping 37,349 hashes with `bcryptjs` takes roughly an hour. That happens in
+Wrapping 37,349 hashes with `bcryptjs` takes roughly 35 minutes (about 54 ms
+each, measured). That happens in
 the rehearsal run, not during the freeze (see Cutover).
 
 ## Code changes
 
-New `services/users.js` — the only module that touches the two models:
+`services/accounts.js` exposes the interface below and picks a backend from
+`ACCOUNT_BACKEND`: `postgres` uses `services/postgresAccounts.js` (the only
+module that touches the two models); anything else uses
+`services/workerAccounts.js`, the existing Worker calls behind the same
+interface. The switch exists so this code can sit on `main` and be deployed
+before the data has moved; `workerAccounts.js` and the switch are deleted in
+the cleanup step.
 
 | Function                              | Returns                                                |
 | ------------------------------------- | ------------------------------------------------------ |
@@ -180,25 +189,25 @@ hashes and user saves. The directory is deleted after the migration.
 
 ## Cutover
 
-1. Ship models, service, password helper, both scripts and the freeze flag.
-   Routes still call the Worker. Run `node setup-db.js`.
+1. Deploy the code with `ACCOUNT_BACKEND` unset, so accounts still come from
+   the Worker. Run `node setup-db.js` to create the two tables.
 2. Rehearsal, no freeze: export, import, read the report. This does the slow
    bcrypt work and shows how long the KV export takes.
 3. Spot-check: for a handful of real accounts, compare `/api/user/:uuid` from
    the Worker with the Postgres row, and compare one save byte for byte.
 4. Off-peak: set `ACCOUNT_WRITES_FROZEN=true`.
-5. Export and import again. Only users created since the rehearsal need
+5. Export and import again, running the KV export with `--fresh`. Only users created since the rehearsal need
    hashing. Saves are re-fetched in full, because KV does not record when a
    value changed.
 6. Check the report: user count equals the D1 row count, save count equals
    the KV key count.
-7. Deploy the commit that switches the routes and `UserCache` to the service.
+7. Set `ACCOUNT_BACKEND=postgres` and restart.
 8. Unset the freeze flag. Log in with a real account and load its save.
 9. After two weeks with no problems: delete the Worker, D1 database and KV
-   namespace, remove `workerAUTH` from the environment and from `EXAMPLE.env`,
+   namespace, delete `services/workerAccounts.js` and the backend switch, remove `workerAUTH` from the environment and from `EXAMPLE.env`,
    `CLAUDE.md`, `AGENTS.md` and `CHAT_SETUP.md`, and delete `migration-data/`.
 
-Rollback before step 9: revert the route-switch commit. Accounts and saves
+Rollback before step 9: unset `ACCOUNT_BACKEND` and restart. Accounts and saves
 created after step 8 exist only in Postgres and would be lost to users until
 the switch is redone, so rollback is for a serious fault only.
 

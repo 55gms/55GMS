@@ -34,21 +34,22 @@ A running PostgreSQL instance is required. Run `node setup-db.js` after configur
 
 ### Backend layout
 
-| Path                     | Purpose                                                                              |
-| ------------------------ | ------------------------------------------------------------------------------------ |
-| `index.js`               | Server entry point — Express routes, Socket.IO events, static file serving           |
-| `config/database.js`     | Sequelize PostgreSQL connection (pool: max 10)                                       |
-| `models/`                | Sequelize ORM models: `Chat`, `Message`, `ChatMember`, `Friend`, `UserStatus`        |
-| `routes/auth.js`         | Login/signup, delegates to external API at `https://db.55gms.com/api/` with hcaptcha |
-| `routes/users.js`        | Premium checks, per-user save-data upload/download                                   |
-| `routes/messaging.js`    | Full chat REST API (~962 lines)                                                      |
-| `routes/music.js`        | Proxy routes for music/media                                                         |
-| `utils/userCache.js`     | In-memory user data cache                                                            |
-| `utils/blockingCache.js` | In-memory blocked-user cache                                                         |
+| Path                     | Purpose                                                                                           |
+| ------------------------ | ------------------------------------------------------------------------------------------------- |
+| `index.js`               | Server entry point — Express routes, Socket.IO events, static file serving                        |
+| `config/database.js`     | Sequelize PostgreSQL connection (pool: max 10)                                                    |
+| `models/`                | Sequelize ORM models: `Chat`, `Message`, `ChatMember`, `Friend`, `UserStatus`, `User`, `UserSave` |
+| `routes/auth.js`         | Login/signup with hcaptcha, via `services/accounts.js`                                            |
+| `routes/users.js`        | Premium checks, per-user save-data upload/download                                                |
+| `services/accounts.js`   | Account/save store; `ACCOUNT_BACKEND` picks the Worker (default) or local Postgres                |
+| `routes/messaging.js`    | Full chat REST API (~962 lines)                                                                   |
+| `routes/music.js`        | Proxy routes for music/media                                                                      |
+| `utils/userCache.js`     | In-memory user data cache                                                                         |
+| `utils/blockingCache.js` | In-memory blocked-user cache                                                                      |
 
 ### Authentication flow
 
-User identity is managed by an external worker API (`https://db.55gms.com/api/`). The local server stores no passwords — it validates a `workerAUTH` token on each request. UUIDs identify users.
+Accounts and saves go through `services/accounts.js`. By default it calls an external worker API (`https://db.55gms.com/api/`) authenticated with the `workerAUTH` token; with `ACCOUNT_BACKEND=postgres` it uses the local `users` and `user_saves` tables (passwords stored as bcrypt over SHA-256). UUIDs identify users. The migration plan is in `docs/superpowers/specs/2026-10-01-worker-to-postgres-migration-design.md`.
 
 ### Real-time (Socket.IO)
 
