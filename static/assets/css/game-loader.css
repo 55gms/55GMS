@@ -52,23 +52,3 @@ canvas {
 #game-loading[hidden] {
   display: none;
 }
-
-#game-loading-text {
-  animation: game-loader-pulse 2s ease-in-out infinite;
-}
-
-@keyframes game-loader-pulse {
-  0%,
-  100% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #game-loading-text {
-    animation: none;
-  }
-}

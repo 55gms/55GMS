@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>War The Knights</title>
     <link rel="stylesheet" href="/assets/css/game-loader.css">
-    <script defer src="/assets/js/game-loader.js"></script>
+    <!-- Cached for a day: bump ?v= whenever these two files change. -->
+    <script defer src="/assets/js/loader-ui.js?v=3"></script>
+    <script defer src="/assets/js/game-loader.js?v=3"></script>
     <script defer src="/misc/war-the-knights/load.js"></script>
     <base href="https://cdn.jsdelivr.net/gh/Sharon-Eva/home@0e6a3e7b393557c56f318855343173b63eac8c21/publ/js/">
   </head>
   <body>
     <div id="unity-container"><canvas id="unity-canvas" tabindex="-1"></canvas></div>
-    <div id="game-loading" role="status" aria-live="polite" aria-atomic="true">
-      <span id="game-loading-text">LOADING...</span>
-    </div>
+    <div id="game-loading"></div>
   </body>
 </html>

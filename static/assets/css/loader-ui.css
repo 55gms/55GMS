@@ -1,32 +1,41 @@
-/* Geist-style loading screen, scoped to this page. Layered over the shared
-   game-loader.css, which other Unity ports keep using unchanged. */
-:root {
+/* Geist-style loading screen built by loader-ui.js. The id selectors outrank
+   the overlay rules in game-loader.css and unity-cdn-loader.css. */
+.loader-ui {
   --loader-accent: #fc8585;
   --loader-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Accents mirror --site-accent in /assets/css/style.css. */
-:root[data-theme="blue"] {
+.loader-ui[data-theme="blue"] {
   --loader-accent: #3b82f6;
 }
 
-:root[data-theme="midnight"] {
+.loader-ui[data-theme="midnight"] {
   --loader-accent: #7dd3fc;
 }
 
-:root[data-theme="forest"] {
+.loader-ui[data-theme="forest"] {
   --loader-accent: #e4b363;
 }
 
-:root[data-theme="sunset"] {
+.loader-ui[data-theme="sunset"] {
   --loader-accent: #ffb86b;
 }
 
-:root[data-theme="contrast"] {
+.loader-ui[data-theme="contrast"] {
   --loader-accent: #ffff00;
 }
 
-#game-loading {
+.loader-ui:is(#game-loading, #unity-cdn-loading) {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 24px;
   background: #0a0a0a;
   color: #ededed;
   font:
@@ -45,8 +54,8 @@
     visibility 0s linear 320ms;
 }
 
-/* Fade out instead of vanishing when GameLoader.finish() hides the overlay. */
-#game-loading[hidden] {
+/* Fade out instead of vanishing when the loader hides the overlay. */
+.loader-ui:is(#game-loading, #unity-cdn-loading)[hidden] {
   display: flex;
   visibility: hidden;
   opacity: 0;
@@ -76,7 +85,7 @@
 .loader-brand {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   margin: 0 0 20px;
   color: #ededed;
   font-size: 13px;
@@ -84,17 +93,10 @@
   line-height: 20px;
 }
 
-.loader-mark {
-  display: grid;
-  place-items: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 5px;
-  background: var(--loader-accent);
-  color: #0a0a0a;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+.loader-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
 }
 
 .loader-slash {
@@ -141,16 +143,12 @@
   color: #a1a1a1;
 }
 
-#game-loading-text {
-  animation: none;
-}
-
 /* A distinct animation name per state replays the swap on each change. */
-#game-loading[data-state="downloading"] #game-loading-text {
+.loader-ui[data-state="downloading"] .loader-status {
   animation: loader-swap-a 280ms var(--loader-ease) both;
 }
 
-#game-loading[data-state="starting"] #game-loading-text {
+.loader-ui[data-state="starting"] .loader-status {
   animation: loader-swap-b 280ms var(--loader-ease) both;
 }
 
@@ -207,7 +205,7 @@
   white-space: nowrap;
 }
 
-#game-loading-percent {
+.loader-percent {
   color: #ededed;
 }
 
@@ -216,27 +214,27 @@
   display: none;
 }
 
-#game-loading[data-state="error"] .loader-progress,
-#game-loading[data-state="error"] .loader-spinner {
+.loader-ui[data-state="error"] .loader-progress,
+.loader-ui[data-state="error"] .loader-spinner {
   display: none;
 }
 
-#game-loading[data-state="error"] .loader-live {
+.loader-ui[data-state="error"] .loader-live {
   display: block;
   margin-top: 20px;
 }
 
-#game-loading[data-state="error"] .loader-status {
+.loader-ui[data-state="error"] .loader-status {
   color: #ff6166;
   font-weight: 500;
 }
 
-#game-loading[data-state="error"] .loader-detail {
+.loader-ui[data-state="error"] .loader-detail {
   display: block;
   margin-top: 4px;
 }
 
-#game-loading[data-state="error"] .loader-reload {
+.loader-ui[data-state="error"] .loader-reload {
   display: inline-flex;
 }
 
@@ -315,14 +313,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #game-loading,
+  .loader-ui:is(#game-loading, #unity-cdn-loading),
   .loader-fill,
   .loader-reload {
     transition: none;
   }
 
   .loader > *,
-  #game-loading #game-loading-text,
+  .loader-ui[data-state] .loader-status,
   .loader-fill::after {
     animation: none;
   }

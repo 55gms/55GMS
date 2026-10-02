@@ -1,10 +1,4 @@
 // Adapted from GN-Math 858; upstream analytics and ad injection omitted.
-// Match the loading screen accent to the site theme chosen in settings.
-try {
-  document.documentElement.dataset.theme =
-    localStorage.getItem("siteTheme") || "legacy";
-} catch {}
-
 (async () => {
   const loader = GameLoader;
   loader.prepare([

@@ -14,12 +14,28 @@ let total = 0;
 let finished = false;
 let failed = false;
 let bootComplete = false;
+let ui = null;
+
+// The loading screen is a classic script shared with game-loader.js. If it
+// cannot be loaded the plain text overlay below still works.
+function loadUI() {
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = new URL("/assets/js/loader-ui.js?v=3", location.origin).href;
+    script.onload = () => resolve(window.LoaderUI.mount(overlay));
+    script.onerror = () => resolve(null);
+    document.head.appendChild(script);
+  });
+}
 
 function fail(error) {
   if (finished) return;
   failed = true;
-  overlay.textContent = "Unable to load the game. Reload to retry.";
-  overlay.setAttribute("role", "alert");
+  if (ui) ui.fail();
+  else {
+    overlay.textContent = "Unable to load the game. Reload to retry.";
+    overlay.setAttribute("role", "alert");
+  }
   console.error("Unity CDN loader:", error);
 }
 
@@ -27,6 +43,7 @@ function progress(path, bytes) {
   if (finished || failed) return;
   downloaded.set(path, bytes);
   const loaded = [...downloaded.values()].reduce((sum, size) => sum + size, 0);
+  if (ui) return ui.set(loaded, total, total > 0 && loaded >= total);
   const mb = (size) => (size / 1_000_000).toFixed(1);
   overlay.textContent = `LOADING... ${mb(loaded)} MB / ${mb(total)} MB`;
 }
@@ -220,6 +237,7 @@ async function runGameScripts() {
 }
 
 try {
+  ui = await loadUI();
   const response = await originalFetch(new URL("unity-assets.json", base));
   if (!response.ok) throw new Error(`Asset manifest: HTTP ${response.status}`);
   const manifest = await response.json();
