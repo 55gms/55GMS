@@ -1,89 +1,90 @@
 import express from "express";
 import axios from "axios";
-const router = express.Router();
+import defaultAccounts, {
+  ACCOUNT_WRITES_FROZEN_ERROR,
+  areAccountWritesFrozen,
+} from "../services/accounts.js";
 
-router.post("/signUp", async (req, res) => {
-  let { password, username, premium = false, captchaResponse } = req.body;
+async function verifyHcaptcha(captchaResponse) {
+  const captchaVerifyResponse = await axios.post(
+    "https://hcaptcha.com/siteverify",
+    new URLSearchParams({
+      secret: process.env.hcaptchaSecret,
+      response: captchaResponse,
+    }),
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    },
+  );
 
-  if (!password || !username || !captchaResponse) {
-    return res.status(400).json({ error: "Not enough arguments" });
+  if (!captchaVerifyResponse.data.success) {
+    console.log(captchaVerifyResponse.data["error-codes"]);
+    return false;
   }
-  if (password.length < 6) {
-    return res.status(400).json({ error: "Password too short" });
-  }
-  if (username.length < 3) {
-    return res.status(400).json({ error: "Username too short" });
-  }
+  return true;
+}
 
-  try {
-    const captchaVerifyResponse = await axios.post(
-      "https://hcaptcha.com/siteverify",
-      new URLSearchParams({
-        secret: process.env.hcaptchaSecret,
-        response: captchaResponse,
-      }),
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      }
-    );
+export function createAuthRouter({
+  accounts = defaultAccounts,
+  verifyCaptcha = verifyHcaptcha,
+} = {}) {
+  const router = express.Router();
 
-    if (!captchaVerifyResponse.data.success) {
-      console.log(captchaVerifyResponse.data["error-codes"]);
-      return res.status(400).json({ error: "Invalid CAPTCHA" });
+  router.post("/signUp", async (req, res) => {
+    // premium is never taken from the client
+    let { password, username, captchaResponse } = req.body;
+
+    if (!password || !username || !captchaResponse) {
+      return res.status(400).json({ error: "Not enough arguments" });
+    }
+    if (password.length < 6) {
+      return res.status(400).json({ error: "Password too short" });
+    }
+    if (username.length < 3) {
+      return res.status(400).json({ error: "Username too short" });
+    }
+    if (areAccountWritesFrozen()) {
+      return res.status(503).json({ error: ACCOUNT_WRITES_FROZEN_ERROR });
     }
 
-    const response = await axios.post(
-      "https://db.55gms.com/api/signup",
-      {
-        username,
-        password,
-        premium,
-      },
-      {
-        headers: {
-          Authorization: process.env.workerAUTH,
-          "Content-Type": "application/json",
-        },
+    try {
+      if (!(await verifyCaptcha(captchaResponse))) {
+        return res.status(400).json({ error: "Invalid CAPTCHA" });
       }
-    );
 
-    res.status(200).json(response.data);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "An error occurred while processing your request." });
-    console.log(error);
-  }
-});
+      const user = await accounts.createUser({ username, password });
 
-router.post("/login", async (req, res) => {
-  let { username, password } = req.body;
+      res.status(200).json(user);
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "An error occurred while processing your request." });
+      console.log(error);
+    }
+  });
 
-  if (!username || !password) {
-    return res.status(400).json({ error: "Not enough arguments" });
-  }
+  router.post("/login", async (req, res) => {
+    let { username, password } = req.body;
 
-  try {
-    const response = await axios.post(
-      "https://db.55gms.com/api/login",
-      {
-        username,
-        password,
-      },
-      {
-        headers: {
-          Authorization: process.env.workerAUTH,
-          "Content-Type": "application/json",
-        },
+    if (!username || !password) {
+      return res.status(400).json({ error: "Not enough arguments" });
+    }
+
+    try {
+      const user = await accounts.verifyLogin({ username, password });
+      if (!user) {
+        return res.status(500).json({ error: "Invalid Email or password" });
       }
-    );
 
-    res.status(200).json(response.data);
-  } catch (error) {
-    res.status(500).json({ error: "Invalid Email or password" });
-  }
-});
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(500).json({ error: "Invalid Email or password" });
+    }
+  });
 
-export default router;
+  return router;
+}
+
+export default createAuthRouter();

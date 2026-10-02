@@ -1,88 +1,74 @@
 import express from "express";
-import axios from "axios";
-const router = express.Router();
+import defaultAccounts, {
+  ACCOUNT_WRITES_FROZEN_ERROR,
+  areAccountWritesFrozen,
+} from "../services/accounts.js";
 
-router.post("/checkPremium", async (req, res) => {
-  let { uuid } = req.body;
+export function createUsersRouter({ accounts = defaultAccounts } = {}) {
+  const router = express.Router();
 
-  if (!uuid) {
-    return res.status(400).json({ error: "Not enough arguments" });
-  }
+  router.post("/checkPremium", async (req, res) => {
+    let { uuid } = req.body;
 
-  try {
-    const response = await axios.post(
-      "https://db.55gms.com/api/users/premium",
-      {
-        uuid,
-      },
-      {
-        headers: {
-          Authorization: process.env.workerAUTH,
-          "Content-Type": "application/json",
-        },
+    if (!uuid) {
+      return res.status(400).json({ error: "Not enough arguments" });
+    }
+
+    try {
+      const result = await accounts.isPremium(uuid);
+      if (!result) {
+        return res.status(500).json({ error: "User not found" });
       }
-    );
 
-    res.status(200).json(response.data);
-  } catch (error) {
-    res.status(500).json({ error: error });
-  }
-});
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ error: error });
+    }
+  });
 
-router.post("/uploadSave", async (req, res) => {
-  let saveData = req.body;
-  let uuid = req.headers["uuid"];
+  router.post("/uploadSave", async (req, res) => {
+    let saveData = req.body;
+    let uuid = req.headers["uuid"];
 
-  if (!saveData || !uuid) {
-    return res.status(400).json({ error: "Not enough arguments" });
-  }
+    if (!saveData || !uuid) {
+      return res.status(400).json({ error: "Not enough arguments" });
+    }
+    if (areAccountWritesFrozen()) {
+      return res.status(503).json({ error: ACCOUNT_WRITES_FROZEN_ERROR });
+    }
 
-  try {
-    const response = await axios.post(
-      "https://db.55gms.com/api/users/uploadSave",
-      {
-        uuid,
-        saveData,
-      },
-      {
-        headers: {
-          Authorization: process.env.workerAUTH,
-          "Content-Type": "application/json",
-        },
+    try {
+      const result = await accounts.writeSave(uuid, saveData);
+
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ error: error });
+    }
+  });
+
+  router.post("/readSave", async (req, res) => {
+    let { uuid } = req.body;
+
+    if (!uuid) {
+      return res.status(400).json({ error: "Not enough arguments" });
+    }
+
+    try {
+      const saveJson = await accounts.readSave(uuid);
+      if (saveJson === null || saveJson === undefined) {
+        return res
+          .status(500)
+          .json({ error: "No data found for the provided UUID" });
       }
-    );
 
-    res.status(200).json(response.data);
-  } catch (error) {
-    res.status(500).json({ error: error });
-  }
-});
+      // Already a JSON string; send it without parsing (saves can be 25 MB).
+      res.status(200).type("application/json").send(saveJson);
+    } catch (error) {
+      res.status(500).json({ error: error });
+    }
+  });
 
-router.post("/readSave", async (req, res) => {
-  let { uuid } = req.body;
+  return router;
+}
 
-  if (!uuid) {
-    return res.status(400).json({ error: "Not enough arguments" });
-  }
-
-  try {
-    const response = await axios.post(
-      "https://db.55gms.com/api/users/readSave",
-      {
-        uuid: uuid,
-      },
-      {
-        headers: {
-          Authorization: process.env.workerAUTH,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    res.status(200).json(response.data);
-  } catch (error) {
-    res.status(500).json({ error: error });
-  }
-});
-
-export default router;
+export default createUsersRouter();

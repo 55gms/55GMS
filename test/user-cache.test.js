@@ -11,7 +11,7 @@ test("getUserByUuid shares simultaneous pending lookups for one uuid", async () 
     resolveLookup = resolve;
   });
   const cache = new UserCache({
-    async get() {
+    async getUserByUuid() {
       requestCount += 1;
       return lookupResponse;
     },
@@ -26,7 +26,7 @@ test("getUserByUuid shares simultaneous pending lookups for one uuid", async () 
   await new Promise((resolve) => setImmediate(resolve));
   assert.equal(requestCount, 1);
 
-  resolveLookup({ data: { uuid: "user-1", username: "alpha" } });
+  resolveLookup({ uuid: "user-1", username: "alpha" });
 
   const results = await Promise.all(lookups);
   assert.deepEqual(
@@ -39,7 +39,7 @@ test("getUserByUuid returns stale cached data when refresh fails", async () => {
   delete process.env.REDIS_URL;
 
   const cache = new UserCache({
-    async get() {
+    async getUserByUuid() {
       throw new Error("network unavailable");
     },
   });
@@ -59,9 +59,9 @@ test("getUserByUuid serves fresh in-memory entries without refetching", async ()
 
   let requestCount = 0;
   const cache = new UserCache({
-    async get() {
+    async getUserByUuid() {
       requestCount += 1;
-      return { data: { uuid: "user-3", username: "fresh" } };
+      return { uuid: "user-3", username: "fresh" };
     },
   });
 
@@ -70,4 +70,39 @@ test("getUserByUuid serves fresh in-memory entries without refetching", async ()
 
   assert.equal(result.username, "fresh");
   assert.equal(requestCount, 1);
+});
+
+test("getUserByUuid rejects when the account store has no such user", async () => {
+  delete process.env.REDIS_URL;
+
+  const cache = new UserCache({
+    async getUserByUuid() {
+      return null;
+    },
+  });
+
+  await assert.rejects(cache.getUserByUuid("missing"), /User not found/);
+});
+
+test("getUserByUsername caches the user by uuid", async () => {
+  delete process.env.REDIS_URL;
+
+  let uuidLookups = 0;
+  const cache = new UserCache({
+    async getUserByUsername(username) {
+      return username === "alpha" ? { uuid: "user-4", username } : null;
+    },
+    async getUserByUuid() {
+      uuidLookups += 1;
+      return null;
+    },
+  });
+
+  const user = await cache.getUserByUsername("alpha");
+  const cached = await cache.getUserByUuid("user-4");
+
+  assert.equal(user.uuid, "user-4");
+  assert.equal(cached.username, "alpha");
+  assert.equal(uuidLookups, 0);
+  await assert.rejects(cache.getUserByUsername("nobody"), /User not found/);
 });

@@ -1,11 +1,11 @@
-import axios from "axios";
+import defaultAccounts from "../services/accounts.js";
 import { deleteCacheKeys, getJsonCache, setJsonCache } from "./redisCache.js";
 
 export class UserCache {
-  constructor(httpClient = axios) {
+  constructor(accounts = defaultAccounts) {
     this.cache = new Map();
     this.inFlightByUuid = new Map();
-    this.httpClient = httpClient;
+    this.accounts = accounts;
     this.cacheTimeout = 5 * 60 * 1000;
     this.cacheTtlSeconds = Math.floor(this.cacheTimeout / 1000);
     this.maxEntries = 1000;
@@ -74,19 +74,14 @@ export class UserCache {
 
   async fetchAndCacheUserByUuid(uuid, cached) {
     try {
-      // Fetch from external API
-      const response = await this.httpClient.get(
-        `https://db.55gms.com/api/user/${uuid}`,
-        {
-          headers: {
-            Authorization: process.env.workerAUTH,
-          },
-        },
-      );
+      const user = await this.accounts.getUserByUuid(uuid);
+      if (!user) {
+        throw new Error("User not found");
+      }
 
-      await this.setCacheEntry(uuid, response.data);
+      await this.setCacheEntry(uuid, user);
 
-      return response.data;
+      return user;
     } catch (error) {
       // If we have stale cached data, return it as fallback
       if (cached) {
@@ -98,26 +93,24 @@ export class UserCache {
 
   async getUserByUsername(username) {
     // For username lookups, we could implement a reverse cache
-    // but for now, just make the API call
+    // but for now, just ask the account store
+    let user;
     try {
-      const response = await axios.get(
-        `https://db.55gms.com/api/user/by-username/${username}`,
-        {
-          headers: {
-            Authorization: process.env.workerAUTH,
-          },
-        },
-      );
-
-      // Cache by UUID for future UUID lookups
-      if (response.data.uuid) {
-        await this.setCacheEntry(response.data.uuid, response.data);
-      }
-
-      return response.data;
+      user = await this.accounts.getUserByUsername(username);
     } catch (error) {
       throw new Error("User not found");
     }
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Cache by UUID for future UUID lookups
+    if (user.uuid) {
+      await this.setCacheEntry(user.uuid, user);
+    }
+
+    return user;
   }
 
   async getUserInfo(uuid) {
