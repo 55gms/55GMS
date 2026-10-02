@@ -98,34 +98,60 @@ async function listAllKeys() {
   return keys;
 }
 
-// Returns a Map of key -> raw value for whatever the bulk endpoint gives us.
-// Anything missing (or a failed call) is fetched one key at a time instead.
-async function bulkGet(keys) {
-  const values = new Map();
+const stats = { bulkOk: 0, bulkFailed: 0, singleReads: 0 };
 
+// Returns a Map of key -> raw value from the bulk endpoint, or null when the
+// call fails (the response is capped at about 25 MB, so a batch of large
+// saves is rejected as a whole).
+async function bulkGet(keys) {
   try {
     const response = await cloudflareFetch(`${namespaceUrl}/bulk/get`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ keys, type: "text" }),
     });
-    if (!response.ok) return values;
-
-    const body = await response.json();
+    const body = response.ok ? await response.json() : null;
     const found = body?.result?.values;
-    if (!body.success || !found || typeof found !== "object") return values;
+    if (!body?.success || !found || typeof found !== "object") {
+      stats.bulkFailed += 1;
+      return null;
+    }
 
+    stats.bulkOk += 1;
+    const values = new Map();
     for (const key of keys) {
       if (typeof found[key] === "string") values.set(key, found[key]);
     }
+    return values;
   } catch (error) {
-    console.warn(`Bulk get failed, falling back to single reads: ${error}`);
+    stats.bulkFailed += 1;
+    return null;
+  }
+}
+
+// Fetches a batch in as few requests as possible: a rejected bulk call is
+// retried as two halves, and keys a bulk call leaves out are read singly.
+async function fetchValues(keys) {
+  if (keys.length === 1) {
+    return new Map([[keys[0], await getOne(keys[0])]]);
   }
 
-  return values;
+  const found = await bulkGet(keys);
+  if (!found) {
+    const middle = Math.ceil(keys.length / 2);
+    const left = await fetchValues(keys.slice(0, middle));
+    const right = await fetchValues(keys.slice(middle));
+    return new Map([...left, ...right]);
+  }
+
+  for (const key of keys) {
+    if (!found.has(key)) found.set(key, await getOne(key));
+  }
+  return found;
 }
 
 async function getOne(key) {
+  stats.singleReads += 1;
   const response = await cloudflareFetch(
     `${namespaceUrl}/values/${encodeURIComponent(key)}`,
   );
@@ -171,10 +197,10 @@ async function main() {
   try {
     for (let start = 0; start < pending.length; start += BULK_GET_SIZE) {
       const batch = pending.slice(start, start + BULK_GET_SIZE);
-      const values = await bulkGet(batch);
+      const values = await fetchValues(batch);
 
       for (const key of batch) {
-        const value = values.has(key) ? values.get(key) : await getOne(key);
+        const value = values.get(key);
         if (value === null) {
           missing += 1;
           continue;
@@ -187,7 +213,7 @@ async function main() {
       }
 
       console.log(
-        `Fetched ${Math.min(start + BULK_GET_SIZE, pending.length)}/${pending.length}`,
+        `Fetched ${Math.min(start + BULK_GET_SIZE, pending.length)}/${pending.length} (bulk ok ${stats.bulkOk}, bulk rejected ${stats.bulkFailed}, single reads ${stats.singleReads})`,
       );
     }
   } finally {
