@@ -39,6 +39,14 @@
 
   function watchGlobal(name, wrap) {
     let value = window[name];
+    // A global an earlier script declared (`var UnityLoader`) cannot be
+    // redefined. It is already set, so wrap it where it stands.
+    if (Object.getOwnPropertyDescriptor(window, name)?.configurable === false) {
+      try {
+        window[name] = wrap(value);
+      } catch {}
+      return;
+    }
     Object.defineProperty(window, name, {
       configurable: true,
       enumerable: true,

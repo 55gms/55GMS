@@ -22,7 +22,7 @@ function loadUI() {
   return new Promise((resolve) => {
     const script = document.createElement("script");
     script.src = new URL(
-      "/assets/js/loader-ui.js?v=4zff9z1s3v",
+      "/assets/js/loader-ui.js?v=2y7ywyrajo",
       location.origin,
     ).href;
     script.onload = () => resolve(window.LoaderUI.mount(overlay));

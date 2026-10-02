@@ -147,6 +147,27 @@ test("unity-loading follows UnityLoader.instantiate and shows failures", async (
   );
 });
 
+test("unity-loading hooks a UnityLoader the page declared before it", () => {
+  const window = page("", "A Dance of Fire And Ice");
+  let report;
+  // A top-level `var UnityLoader` in an earlier script cannot be redefined.
+  Object.defineProperty(window, "UnityLoader", {
+    writable: true,
+    enumerable: true,
+    configurable: false,
+    value: {
+      instantiate: (container, url, options) => (report = options.onProgress),
+    },
+  });
+  window.eval(unityLoading);
+  const overlay = window.document.getElementById("unity-loading");
+  window.UnityLoader.instantiate("gameContainer", "build.json");
+  report({}, 0.45);
+  assert.equal(overlay.dataset.state, "downloading");
+  report({}, 1);
+  assert.equal(overlay.hidden, true);
+});
+
 test("unity-loading releases pages whose startup it never saw", async () => {
   const window = page("", "Solar Smash");
   window.eval(unityLoading);
