@@ -1,12 +1,13 @@
-// Shared Geist-style loading screen for the Unity loaders (game-loader.js and
-// unity-cdn-loader.js). Game pages point <base> at a CDN, so site assets are
+// Shared Geist-style loading screen for the Unity loaders (game-loader.js,
+// unity-cdn-loader.js and unity-loading.js). Game pages point <base> at a CDN, so site assets are
 // resolved against the app origin.
 window.LoaderUI = (() => {
-  // .js/.css/images are cached for a day: bump this, and the ?v= on every
-  // reference to this file, whenever the loading screen changes.
-  const VERSION = "3";
+  // .js/.css/images are cached for a day. After changing any loader asset run
+  // `node scripts/bump-loader-version.js` to refresh this and every ?v= tag.
+  const VERSION = "4qepfhy20n";
   const asset = (path) => new URL(`${path}?v=${VERSION}`, location.origin).href;
   const STATUS = {
+    loading: "Loading game",
     preparing: "Preparing download",
     downloading: "Downloading game files",
     starting: "Starting game",
@@ -69,7 +70,11 @@ window.LoaderUI = (() => {
     const amount = find("amount");
     const percent = find("percent");
     const displayMb = Number(overlay.dataset.totalMb) || 0;
-    find("title").textContent = gameTitle(overlay);
+    const setTitle = () => (find("title").textContent = gameTitle(overlay));
+    setTitle();
+    // Mounted from <head>, the page's <title> may not be parsed yet.
+    if (document.readyState === "loading")
+      document.addEventListener("DOMContentLoaded", setTitle, { once: true });
     find("logo").src = asset("/img/55gms.png");
     find("reload").addEventListener("click", () => location.reload());
 
@@ -81,26 +86,44 @@ window.LoaderUI = (() => {
     link.onload = link.onerror = () => (content.hidden = false);
     document.head.appendChild(link);
 
-    // Bytes downloaded so far, expected total, and whether every file is in.
-    function set(loaded, total, done) {
-      const ratio = done
-        ? 1
-        : Math.min(Math.max(total > 0 ? loaded / total : 0, 0), 1);
-      const shownMb = displayMb || total / 1048576;
-      const state = done
-        ? "starting"
-        : loaded > 0
-          ? "downloading"
-          : "preparing";
-      const whole = Math.floor(ratio * 100);
+    function paint(state, value, sizes = "") {
+      const whole = Math.floor(value * 100);
       overlay.dataset.state = state;
       // Only touch the live region when the state changes, not on every chunk.
       if (status.textContent !== STATUS[state])
         status.textContent = STATUS[state];
-      fill.style.width = `${ratio * 100}%`;
+      fill.style.width = `${value * 100}%`;
       track.setAttribute("aria-valuenow", whole);
-      amount.textContent = `${(ratio * shownMb).toFixed(2)} MB / ${shownMb.toFixed(2)} MB`;
+      amount.textContent = sizes;
       percent.textContent = `${whole}%`;
+    }
+
+    const clamp = (value) => Math.min(Math.max(value || 0, 0), 1);
+
+    // Bytes downloaded so far, expected total, and whether every file is in.
+    function set(loaded, total, done) {
+      const value = done ? 1 : clamp(total > 0 ? loaded / total : 0);
+      const shownMb = displayMb || total / 1048576;
+      paint(
+        done ? "starting" : loaded > 0 ? "downloading" : "preparing",
+        value,
+        `${(value * shownMb).toFixed(2)} MB / ${shownMb.toFixed(2)} MB`,
+      );
+    }
+
+    // Download progress as a 0-1 fraction, for loaders that know no sizes.
+    function ratio(value, done) {
+      if (done) paint("starting", 1);
+      else if (value > 0) paint("downloading", clamp(value));
+      else busy();
+    }
+
+    // Work is under way but nothing measurable has been reported.
+    function busy() {
+      overlay.dataset.state = "loading";
+      status.textContent = STATUS.loading;
+      fill.style.width = "";
+      track.removeAttribute("aria-valuenow");
     }
 
     function fail() {
@@ -109,7 +132,7 @@ window.LoaderUI = (() => {
     }
 
     set(0, 0, false);
-    return { set, fail };
+    return { set, ratio, busy, fail };
   }
 
   return { mount };
