@@ -5,7 +5,7 @@ function hire(url) {
     url = "https://" + url;
   else if (
     /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
-      url
+      url,
     )
   )
     url = "http://" + url;
@@ -22,7 +22,7 @@ function isUrl(str = "") {
       "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
       "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
       "(\\#[-a-z\\d_]*)?$",
-    "i"
+    "i",
   ); // fragment locator
   return !!pattern.test(str);
 }
