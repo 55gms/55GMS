@@ -168,6 +168,10 @@ test("every page names the current loader version", async () => {
     ).catch(() => "");
     const tags = [...html.matchAll(tag)];
     if (tags.length) pages += 1;
+    // The page <title> can be replaced by the tab cloak (e.g. "Dashboard"),
+    // so every loading screen needs its game name spelled out.
+    if (tags.length)
+      assert.match(html, /data-title="[^"]+"/, `${folder}: no data-title`);
     for (const [url, , found] of tags)
       assert.equal(found, version, `${folder}: stale tag on ${url}`);
   }
