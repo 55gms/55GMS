@@ -45,6 +45,9 @@
     productName: "Clover Pit",
     productVersion: "1.0",
     devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
+    // Write saves to IndexedDB as the game changes them; without this they
+    // stay in memory and are gone on reload.
+    autoSyncPersistentDataPath: true,
     showBanner(message, type) {
       if (type === "error") loader.fail(new Error(message));
       else console.warn(message);
