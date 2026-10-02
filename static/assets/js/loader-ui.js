@@ -1,10 +1,10 @@
-// Shared Geist-style loading screen for the Unity loaders (game-loader.js,
-// unity-cdn-loader.js and unity-loading.js). Game pages point <base> at a CDN, so site assets are
+// Shared Geist-style loading screen for the Unity loaders (game-loader.js and
+// unity-cdn-loader.js). Game pages point <base> at a CDN, so site assets are
 // resolved against the app origin.
 window.LoaderUI = (() => {
   // .js/.css/images are cached for a day. After changing any loader asset run
   // `node scripts/bump-loader-version.js` to refresh this and every ?v= tag.
-  const VERSION = "2gbj7kgu2q";
+  const VERSION = "2l3h38en32";
   const asset = (path) => new URL(`${path}?v=${VERSION}`, location.origin).href;
   const STATUS = {
     loading: "Loading game",

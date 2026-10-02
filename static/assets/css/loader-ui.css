@@ -34,7 +34,7 @@
   --loader-accent: #ffff00;
 }
 
-.loader-ui:is(#game-loading, #unity-cdn-loading, #unity-loading) {
+.loader-ui:is(#game-loading, #unity-cdn-loading) {
   position: fixed;
   inset: 0;
   z-index: 2147483647;
@@ -63,7 +63,7 @@
 }
 
 /* Fade out instead of vanishing when the loader hides the overlay. */
-.loader-ui:is(#game-loading, #unity-cdn-loading, #unity-loading)[hidden] {
+.loader-ui:is(#game-loading, #unity-cdn-loading)[hidden] {
   display: flex;
   visibility: hidden;
   opacity: 0;
@@ -346,7 +346,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .loader-ui:is(#game-loading, #unity-cdn-loading, #unity-loading),
+  .loader-ui:is(#game-loading, #unity-cdn-loading),
   .loader-fill,
   .loader-reload {
     transition: none;

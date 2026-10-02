@@ -2,8 +2,15 @@
 <html>
 
 <head>
-    <script src="/assets/js/loader-ui.js?v=2gbj7kgu2q"></script>
-    <script src="/assets/js/unity-loading.js?v=2gbj7kgu2q" data-title="Bouncy Basketball"></script>
+    <script src="/assets/js/loader-ui.js?v=2l3h38en32"></script>
+    <script src="/assets/js/game-loader.js?v=2l3h38en32" data-title="Bouncy Basketball"></script>
+    <script>
+      GameLoader.unity([
+        ["BouncyBasketball.data.unityweb", 9911544],
+        ["BouncyBasketball.wasm.code.unityweb", 13973189],
+        ["BouncyBasketball.wasm.framework.unityweb", 445508],
+      ]);
+    </script>
     <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@master/static/misc/bouncybasketball/">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">

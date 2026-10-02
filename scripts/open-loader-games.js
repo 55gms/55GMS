@@ -53,7 +53,7 @@ for (const game of catalog) {
     if (frame && !pages.has(frame[1])) pages.set(frame[1], game.url);
   }
 }
-const LOADERS = ["game-loader", "unity-cdn-loader", "unity-loading"];
+const LOADERS = ["game-loader", "unity-cdn-loader"];
 const games = [];
 for (const folder of fs.readdirSync(misc).sort()) {
   const file = path.join(misc, folder, "index.html");

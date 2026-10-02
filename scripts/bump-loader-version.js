@@ -17,14 +17,13 @@ const ASSETS = [
   "static/assets/js/game-loader.js",
   "static/assets/js/unity-cdn-loader.js",
   "static/assets/js/unity-cdn-assets.js",
-  "static/assets/js/unity-loading.js",
   "static/assets/css/loader-ui.css",
   "static/assets/css/game-loader.css",
   "static/assets/css/unity-cdn-loader.css",
   "static/img/55gms.png",
 ];
 const TAGGED =
-  /(\/assets\/(?:js|css)\/(?:loader-ui|game-loader|unity-cdn-loader|unity-loading)\.(?:js|css))(?:\?v=\w+)?(?=["'])/g;
+  /(\/assets\/(?:js|css)\/(?:loader-ui|game-loader|unity-cdn-loader)\.(?:js|css))(?:\?v=\w+)?(?=["'])/g;
 const CONSTANT = /(const VERSION = ")\w+(")/;
 
 const read = (file) => fs.readFileSync(path.join(root, file));

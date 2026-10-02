@@ -1,12 +1,11 @@
 import assert from "node:assert/strict";
-import { readdir, readFile } from "node:fs/promises";
+import { readdir, readFile, stat } from "node:fs/promises";
 import test from "node:test";
 import { JSDOM } from "jsdom";
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 const ui = await read("static/assets/js/loader-ui.js");
 const gameLoader = await read("static/assets/js/game-loader.js");
-const unityLoading = await read("static/assets/js/unity-loading.js");
 const version = ui.match(/const VERSION = "(\w+)"/)[1];
 
 function page(overlay, title = "Unity WebGL Player | Karlson") {
@@ -95,11 +94,18 @@ test("GameLoader drives the UI through download, start and finish", async () => 
   assert.equal(overlay.hidden, true);
 });
 
-test("unity-loading follows createUnityInstance from progress to ready", async () => {
-  const window = page("", "Cuphead");
-  window.eval(unityLoading);
-  const overlay = window.document.getElementById("unity-loading");
-  assert.equal(overlay.dataset.state, "loading");
+// A Unity page as it stands once game-loader.js has run GameLoader.unity().
+function unityPage(title, files = [], before = () => {}) {
+  const window = page("", title);
+  before(window);
+  window.eval(gameLoader);
+  window.GameLoader.unity(files);
+  return { window, overlay: window.document.getElementById("game-loading") };
+}
+
+test("GameLoader.unity follows createUnityInstance from progress to ready", async () => {
+  const { window, overlay } = unityPage("Cuphead");
+  assert.equal(overlay.dataset.state, "preparing");
   let finish;
   let seen = 0;
   window.createUnityInstance = (canvas, config, onProgress) => {
@@ -112,6 +118,7 @@ test("unity-loading follows createUnityInstance from progress to ready", async (
     (amount) => (seen = amount),
   );
   assert.equal(seen, 0.45);
+  // Nothing was counted, so Unity's own fraction drives the bar.
   assert.equal(overlay.dataset.state, "downloading");
   assert.equal(text(window, "percent"), "50%");
   assert.equal(overlay.hidden, false);
@@ -121,10 +128,8 @@ test("unity-loading follows createUnityInstance from progress to ready", async (
   assert.equal(overlay.hidden, true);
 });
 
-test("unity-loading follows UnityLoader.instantiate and shows failures", async () => {
-  const window = page("", "Slope");
-  window.eval(unityLoading);
-  const overlay = window.document.getElementById("unity-loading");
+test("GameLoader.unity follows UnityLoader.instantiate and shows failures", async () => {
+  const { window, overlay } = unityPage("Slope");
   let report;
   window.UnityLoader = {
     instantiate: (container, url, options) => (report = options.onProgress),
@@ -136,31 +141,32 @@ test("unity-loading follows UnityLoader.instantiate and shows failures", async (
   report({}, 1);
   assert.equal(overlay.hidden, true);
 
-  const broken = page("", "Raft");
-  broken.eval(unityLoading);
-  broken.createUnityInstance = () => Promise.reject(new Error("no wasm"));
-  broken.createUnityInstance().catch(() => {});
+  const broken = unityPage("Raft");
+  broken.window.console.error = () => {};
+  broken.window.createUnityInstance = () =>
+    Promise.reject(new Error("no wasm"));
+  broken.window.createUnityInstance().catch(() => {});
   await new Promise((resolve) => setTimeout(resolve));
-  assert.equal(
-    broken.document.getElementById("unity-loading").dataset.state,
-    "error",
-  );
+  assert.equal(broken.overlay.dataset.state, "error");
 });
 
-test("unity-loading hooks a UnityLoader the page declared before it", () => {
-  const window = page("", "A Dance of Fire And Ice");
+test("GameLoader.unity hooks a UnityLoader the page declared before it", () => {
   let report;
   // A top-level `var UnityLoader` in an earlier script cannot be redefined.
-  Object.defineProperty(window, "UnityLoader", {
-    writable: true,
-    enumerable: true,
-    configurable: false,
-    value: {
-      instantiate: (container, url, options) => (report = options.onProgress),
-    },
-  });
-  window.eval(unityLoading);
-  const overlay = window.document.getElementById("unity-loading");
+  const { window, overlay } = unityPage(
+    "A Dance of Fire And Ice",
+    [],
+    (window) =>
+      Object.defineProperty(window, "UnityLoader", {
+        writable: true,
+        enumerable: true,
+        configurable: false,
+        value: {
+          instantiate: (container, url, options) =>
+            (report = options.onProgress),
+        },
+      }),
+  );
   window.UnityLoader.instantiate("gameContainer", "build.json");
   report({}, 0.45);
   assert.equal(overlay.dataset.state, "downloading");
@@ -168,19 +174,95 @@ test("unity-loading hooks a UnityLoader the page declared before it", () => {
   assert.equal(overlay.hidden, true);
 });
 
-test("unity-loading releases pages whose startup it never saw", async () => {
-  const window = page("", "Solar Smash");
-  window.eval(unityLoading);
-  const overlay = window.document.getElementById("unity-loading");
+test("GameLoader.unity releases pages whose startup it never saw", async () => {
+  const { window, overlay } = unityPage("Solar Smash");
   window.dispatchEvent(new window.Event("load"));
   await new Promise((resolve) => setTimeout(resolve, 1600));
   assert.equal(overlay.hidden, true);
 });
 
+test("GameLoader.unity counts the bytes Unity downloads itself", async () => {
+  const chunk = new Uint8Array(1048576);
+  const requested = [];
+  const { window, overlay } = unityPage(
+    "Karlson",
+    [
+      ["Build/game.data.unityweb", 3145728],
+      ["Build/game.wasm.unityweb", 1048576],
+    ],
+    (window) => {
+      window.ReadableStream = ReadableStream;
+      window.Response = Response;
+      window.fetch = async (url, options) => {
+        requested.push(options?.method ?? "GET");
+        return new Response(new Blob([chunk, chunk, chunk]).stream());
+      };
+    },
+  );
+  assert.equal(text(window, "amount"), "0.00 MB / 4.00 MB");
+
+  // Paths resolve against the <base>, whatever form the engine asks in.
+  const data = "https://cdn.example/game/Build/game.data.unityweb?v=2";
+  await window.fetch(data, { method: "HEAD" });
+  assert.equal(text(window, "amount"), "0.00 MB / 4.00 MB");
+  const response = await window.fetch(data);
+  assert.equal((await response.arrayBuffer()).byteLength, 3145728);
+  assert.equal(text(window, "amount"), "3.00 MB / 4.00 MB");
+  assert.equal(text(window, "percent"), "75%");
+  await (await window.fetch("Build/other.bundle")).arrayBuffer();
+  assert.equal(text(window, "amount"), "3.00 MB / 4.00 MB");
+  assert.deepEqual(requested, ["HEAD", "GET", "GET"]);
+
+  const xhr = new window.XMLHttpRequest();
+  xhr.open("GET", "Build/game.wasm.unityweb");
+  const progress = (loaded) =>
+    xhr.dispatchEvent(new window.ProgressEvent("progress", { loaded }));
+  progress(524288);
+  assert.equal(text(window, "amount"), "3.50 MB / 4.00 MB");
+  progress(1048576);
+  assert.equal(text(window, "amount"), "4.00 MB / 4.00 MB");
+  assert.equal(overlay.dataset.state, "downloading");
+
+  let report;
+  window.UnityLoader = {
+    instantiate: (container, url, options) => (report = options.onProgress),
+  };
+  window.UnityLoader.instantiate("gameContainer", "build.json");
+  report({}, 0.5);
+  assert.equal(text(window, "amount"), "4.00 MB / 4.00 MB");
+  report({}, 0.9);
+  assert.equal(overlay.dataset.state, "starting");
+});
+
+test("Unity pages list the real sizes of the files in their folder", async () => {
+  const misc = new URL("../static/misc/", import.meta.url);
+  let pages = 0;
+  for (const folder of await readdir(misc)) {
+    const html = await readFile(
+      new URL(`${folder}/index.html`, misc),
+      "utf8",
+    ).catch(() => "");
+    const call = html.match(
+      /GameLoader\.unity\(\[([^]*?)\](?:, \{[^}]*\})?\);/,
+    );
+    if (!call) continue;
+    pages += 1;
+    const base = html.match(/<base\s+href="([^"]+)"/)?.[1] ?? "";
+    for (const [, path, size] of call[1].matchAll(/\["([^"]+)", (\d+)\]/g)) {
+      // Files on other hosts cannot be checked from here.
+      if (path.includes("://") || !base.includes(`/static/misc/${folder}/`))
+        continue;
+      const file = await stat(new URL(`${folder}/${path}`, misc));
+      assert.equal(Number(size), file.size, `${folder}: ${path}`);
+    }
+  }
+  assert.equal(pages, 35);
+});
+
 test("every page names the current loader version", async () => {
   const misc = new URL("../static/misc/", import.meta.url);
   const tag =
-    /\/assets\/(?:js|css)\/(?:loader-ui|game-loader|unity-cdn-loader|unity-loading)\.(?:js|css)(\?v=(\w+))?"/g;
+    /\/assets\/(?:js|css)\/(?:loader-ui|game-loader|unity-cdn-loader)\.(?:js|css)(\?v=(\w+))?"/g;
   let pages = 0;
   for (const folder of await readdir(misc)) {
     const html = await readFile(
