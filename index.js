@@ -372,7 +372,7 @@ try {
     { path: "/a", file: "apps.html" },
     { path: "/g", file: "games.html" },
     { path: "/s", file: "settings.html" },
-    { path: "/!", file: "proxy.html" },
+    { path: "/!", file: "browser.html" },
     { path: "/", file: "index.html" },
     { path: "/d", file: "dashboard.html" },
     { path: "/-", file: "media.html" },

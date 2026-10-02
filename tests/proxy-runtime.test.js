@@ -320,6 +320,20 @@ test("frame URLs use neutral asset paths and an opaque, reversible target token"
     );
   }
 
+  // The browser shell and watch pages build the embed hash with their own
+  // copies of the encoder; both must decode through the runtime codec.
+  const shell = await readFile(
+    new URL("../static/assets/js/browser.js", import.meta.url),
+    "utf8",
+  );
+  const frameHash = vm.runInNewContext(
+    `(${shell.slice(shell.indexOf("function frameHash"), shell.indexOf("  function ensureFrame"))})`,
+    { TextEncoder, btoa },
+  );
+  const hash = frameHash("https://example.com/a?b=c");
+  assert.match(hash, /^~[\w-]+$/);
+  assert.equal(codec.decode(hash.slice(1)), "https://example.com/a?b=c");
+
   const page = runtime(Promise.resolve({ active: worker() }));
   const ready = page.context.frameRuntime.createController(
     "wss://55gms.test/api/live/",

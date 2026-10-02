@@ -1,7 +1,7 @@
 // 55GMS browser shell.
 //
 // Each tab owns an outer iframe pointing at /embed.html, which hosts the
-// Scramjet frame for that tab. The shell talks to embed.html over a
+// page frame for that tab. The shell talks to embed.html over a
 // postMessage bridge:
 //   shell -> embed: { type: "browser:command", command, url }
 //   embed -> shell: { type: "browser:<event>", ... }  (see handleBridgeMessage)
@@ -166,7 +166,7 @@
   /**
    * @typedef {Object} Tab
    * @property {string} id
-   * @property {string} url        Real (unproxied) URL, "" for the new-tab page
+   * @property {string} url        Real page URL, "" for the new-tab page
    * @property {string} title
    * @property {string} favicon
    * @property {boolean} loading
@@ -395,6 +395,18 @@
     return tab;
   }
 
+  // The embed takes its target as an opaque token, so the address never
+  // appears in the frame's own URL. Must match /assets/js/frame-runtime.js.
+  function frameHash(url) {
+    const bytes = new TextEncoder().encode(url);
+    let out = "";
+    for (let i = 0; i < bytes.length; i++)
+      out += String.fromCharCode(bytes[i] ^ (37 + (i % 7)));
+    return (
+      "~" + btoa(out).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "")
+    );
+  }
+
   function ensureFrame(tab) {
     if (tab.iframe || !tab.url) return;
     const iframe = document.createElement("iframe");
@@ -405,7 +417,7 @@
       "allow",
       "fullscreen; autoplay; clipboard-read; clipboard-write; encrypted-media; picture-in-picture",
     );
-    iframe.src = "/embed.html#" + tab.url;
+    iframe.src = "/embed.html#" + frameHash(tab.url);
     tab.iframe = iframe;
     tab.ready = false;
     tab.loading = true;
@@ -508,7 +520,7 @@
       ensureFrame(tab);
     } else if (!sendCommand(tab, "go", { url })) {
       // Embed is still booting: a hash change is picked up by its hashchange listener.
-      tab.iframe.contentWindow.location.hash = url;
+      tab.iframe.contentWindow.location.hash = frameHash(url);
     }
     renderTab(tab);
     if (tab.id === activeId) syncChrome();
