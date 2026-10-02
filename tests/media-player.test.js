@@ -168,7 +168,7 @@ test("TV episode changes reuse the embed and Back restores selection", async () 
   };
   page.elements.get("episodeList").children[1].trigger("click");
   assert.match(page.location.search, /s=2&e=2/);
-  assert.match(iframe.src, /1399\/2\/2\?title=false$/);
+  assert.match(iframe.src, /1399\/2\/2$/);
   assert.equal(replacements, 1);
   assert.equal(
     page.elements.get("episodeList").children[1].classList.contains("active"),
@@ -176,7 +176,7 @@ test("TV episode changes reuse the embed and Back restores selection", async () 
   );
   page.location.search = "?id=1399&s=2&e=1";
   page.events.popstate();
-  assert.match(iframe.src, /1399\/2\/1\?title=false$/);
+  assert.match(iframe.src, /1399\/2\/1$/);
   assert.equal(
     page.elements.get("episodeList").children[0].classList.contains("active"),
     true,
@@ -211,7 +211,7 @@ test("late season metadata cannot overwrite a newer season selection", async () 
     page.elements.get("episodeList").children[0].textContent,
     "Episode 1: New season",
   );
-  assert.match(page.elements.get("iframe").src, /1399\/2\/1\?title=false$/);
+  assert.match(page.elements.get("iframe").src, /1399\/2\/1$/);
 });
 
 test("invalid media IDs never reach the proxy", () => {
