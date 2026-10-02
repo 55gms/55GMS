@@ -11,7 +11,7 @@ function hire(url) {
     url = "http://" + url;
 
   sessionStorage.setItem("encodedUrl", url);
-  location.href = "!";
+  location.href = "/b";
 }
 
 function isUrl(str = "") {

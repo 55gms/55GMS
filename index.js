@@ -372,7 +372,7 @@ try {
     { path: "/a", file: "apps.html" },
     { path: "/g", file: "games.html" },
     { path: "/s", file: "settings.html" },
-    { path: "/!", file: "browser.html" },
+    { path: "/b", file: "browser.html" },
     { path: "/", file: "index.html" },
     { path: "/d", file: "dashboard.html" },
     { path: "/-", file: "media.html" },
@@ -384,6 +384,9 @@ try {
     { path: "/c", file: "chat.html" },
     { path: "/chat", file: "chat.html" },
   ];
+
+  // Old address of the browser page; keep existing bookmarks working.
+  app.get("/!", (req, res) => res.redirect("/b"));
 
   routes.forEach((route) => {
     app.get(route.path, (req, res) => {

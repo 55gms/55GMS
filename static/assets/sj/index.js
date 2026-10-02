@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       url = "http://" + url;
 
     sessionStorage.setItem("encodedUrl", url);
-    location.href = "!";
+    location.href = "/b";
   });
 });
 
