@@ -200,10 +200,16 @@
         function unityShowBanner(msg, type) {
         }
 
-        var loaderUrl = "https://cdn.jsdelivr.net/gh/genizy/google-class@main/escaperoad2/random3.js";
+        // jsDelivr blocks this repo. GitHub serves it, but only as plain text,
+        // so the two scripts are fetched and run from blobs.
+        var repoUrl = "https://raw.githubusercontent.com/genizy/google-class/";
+        async function scriptBlob(path) {
+            const response = await fetch(repoUrl + path);
+            if (!response.ok) throw new Error(`Failed to load ${path}: ${response.status}`);
+            return URL.createObjectURL(new Blob([await response.blob()], { type: "text/javascript" }));
+        }
         const config = {
             dataUrl: "https://cdn.jsdelivr.net/gh/lonya-k/aws@8e4931429a9c08b542c8def752b11a412dfef6b2/eks_cicd/csrd.js",
-            frameworkUrl: "https://cdn.jsdelivr.net/gh/genizy/google-class@3b96af8847aa44f44774e663a9e99b9ca235da7f/escaperoad2/random1.js",
             codeUrl: "https://cdn.jsdelivr.net/gh/lonya-k/aws@8e4931429a9c08b542c8def752b11a412dfef6b2/eks_cicd/csrw.js",
             streamingAssetsUrl: "https://cdn.jsdelivr.net/gh/lonya-k/aws@193add90970804b994d7c2cb1159bf825810a8be/eks_cicd",
             companyName: "1games.io",
@@ -227,13 +233,18 @@
         }
 
 
-        var script = document.createElement("script");
-        script.src = loaderUrl;
-        script.onload = () => {
-            createUnityInstance(canvas, config).catch((message) => {
-            });
-        };
-        document.body.appendChild(script);
+        Promise.all([
+            scriptBlob("main/escaperoad2/random3.js"),
+            scriptBlob("3b96af8847aa44f44774e663a9e99b9ca235da7f/escaperoad2/random1.js"),
+        ]).then(([loaderUrl, frameworkUrl]) => {
+            config.frameworkUrl = frameworkUrl;
+            var script = document.createElement("script");
+            script.src = loaderUrl;
+            script.onload = () => {
+                createUnityInstance(canvas, config).catch(console.error);
+            };
+            document.body.appendChild(script);
+        }).catch(console.error);
     </script>
 </body>
 
