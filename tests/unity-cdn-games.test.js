@@ -73,6 +73,13 @@ for (const folder of folders) {
       );
       assert.equal(result.status, 0, result.stderr);
     }
+    // Startup waits for every non-async script, so one a tracker blocker or
+    // school filter refuses would leave the error screen over a running game.
+    for (const [, attributes] of page.matchAll(/<script\b([^>]*)>/gi)) {
+      const source = attributes.match(/\bsrc="(https?:)?\/\/([^/"]+)/i)?.[2];
+      if (!source || /\basync\b/.test(attributes)) continue;
+      assert.equal(source, "cdn.jsdelivr.net", `Blocking script: ${source}`);
+    }
     if (folder === "bikeobby") {
       const policy = page.match(
         /http-equiv="Content-Security-Policy"\s+content="([^"]+)"/i,
