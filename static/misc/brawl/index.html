@@ -391,7 +391,7 @@
                         payingStatus: "unknown",
                     }),
                 );
-                ygGameInstance.SendMessage("YG2Instance", "SetLoadSaves", "no data");
+                ygGameInstance.SendMessage("YG2Instance", "SetLoadSaves", cloudSaves);
                 ygGameInstance.SendMessage("YG2Instance", "InitSDKComplete");
 
                 setTimeout(function () {
@@ -402,17 +402,24 @@
             // Additional script modules
             LogStyledMessage('[PluginYG2 v2.008] [Build: 40] [Platform: YandexGames]');
 
-            window.cloudSaves = NO_DATA;
+            // There is no Yandex account here, so the "cloud" save lives in
+            // this browser, in the shape the Yandex player API returns it.
+            const SAVE_KEY = "brawl-3d-saves";
+
+            function readSaves() {
+                try {
+                    return localStorage.getItem(SAVE_KEY) || NO_DATA;
+                } catch (e) {
+                    return NO_DATA;
+                }
+            }
+
+            window.cloudSaves = readSaves();
 
             window.SaveCloud = function (jsonData, flush) {
-                if (player == null) {
-                    console.error('CRASH Save Cloud: ', 'Didnt have time to load');
-                    return;
-                }
                 try {
-                    player.setData({
-                        saves: [jsonData],
-                    }, flush);
+                    cloudSaves = JSON.stringify([jsonData]);
+                    localStorage.setItem(SAVE_KEY, cloudSaves);
                 } catch (e) {
                     console.error('CRASH Save Cloud: ', e.message);
                 }
@@ -421,7 +428,7 @@
             window.LoadCloud = function () {
                 return new Promise((resolve) => {
                     if (ysdk == null) {
-                        Final(window.NO_DATA);
+                        Final(readSaves());
                         return;
                     }
                     try {
