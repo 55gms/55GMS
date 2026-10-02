@@ -4,7 +4,9 @@
 <head>
     <script src="/assets/js/loader-ui.js?v=2gbj7kgu2q"></script>
     <script src="/assets/js/game-loader.js?v=2gbj7kgu2q" data-title="Getting Over It"></script>
-    <base href="https://cdn.jsdelivr.net/gh/genizy/web-port@main/getting-over-it/">
+    <!-- jsDelivr blocks this repo; GitHub serves it, but only as plain text,
+         so the Unity scripts are fetched and run from blobs. -->
+    <base href="https://raw.githubusercontent.com/genizy/web-port/main/getting-over-it/">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Getting Over It</title>
@@ -83,9 +85,11 @@
             const wasmParts = getParts("Build/GettingOverIt.wasm", 2);
             const allParts = [...dataParts, ...wasmParts];
             GameLoader.expect(691732588);
-            const [dataUrl, wasmUrl] = await Promise.all([
+            const [dataUrl, wasmUrl, frameworkUrl, loaderUrl] = await Promise.all([
                 GameLoader.merge(dataParts),
-                GameLoader.merge(wasmParts)
+                GameLoader.merge(wasmParts),
+                GameLoader.merge(["Build/GettingOverIt.framework.js"], "application/javascript"),
+                GameLoader.merge(["Build/GettingOverIt.loader.js"], "application/javascript"),
             ]);
             var container = document.querySelector("#unity-container");
             var canvas = document.querySelector("#unity-canvas");
@@ -97,13 +101,11 @@
 
             }
 
-            var buildUrl = "Build";
-            var loaderUrl = buildUrl + "/GettingOverIt.loader.js";
             var config = {
                 dataUrl: dataUrl,
-                frameworkUrl: buildUrl + "/GettingOverIt.framework.js",
+                frameworkUrl: frameworkUrl,
                 codeUrl: wasmUrl,
-                streamingAssetsUrl: "StreamingAssets",
+                streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
                 companyName: "Bennett Foddy",
                 productName: "Getting Over It",
                 productVersion: "1.7",
@@ -137,6 +139,7 @@
 
             var script = document.createElement("script");
             script.src = loaderUrl;
+            script.onerror = () => GameLoader.fail(new Error("Failed to load the Unity loader"));
             script.onload = () => {
                 createUnityInstance(canvas, config, (progress) => {
                     progressBarFull.style.width = 100 * progress + "%";
