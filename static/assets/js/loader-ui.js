@@ -4,7 +4,7 @@
 window.LoaderUI = (() => {
   // .js/.css/images are cached for a day. After changing any loader asset run
   // `node scripts/bump-loader-version.js` to refresh this and every ?v= tag.
-  const VERSION = "2y7ywyrajo";
+  const VERSION = "2gbj7kgu2q";
   const asset = (path) => new URL(`${path}?v=${VERSION}`, location.origin).href;
   const STATUS = {
     loading: "Loading game",
