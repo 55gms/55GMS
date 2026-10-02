@@ -671,6 +671,13 @@
         win.document.head.appendChild(script);
       }
 
+      // The shell focuses this embed when its tab is opened from another page;
+      // hand that focus on to the proxied page.
+      window.addEventListener("focus", () => {
+        if (frame && document.activeElement === document.body)
+          frame.element.focus();
+      });
+
       window.addEventListener("message", (event) => {
         if (event.source !== window.parent || event.origin !== location.origin)
           return;

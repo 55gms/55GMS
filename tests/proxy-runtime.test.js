@@ -478,6 +478,11 @@ test("shell creates, navigates and closes popup tabs only for the matching embed
     },
     ensureFrame(tab) {
       calls.push(["frame", tab.id]);
+      if (tab.url)
+        tab.iframe = { focus: () => calls.push(["focusFrame", tab.id]) };
+    },
+    document: {
+      activeElement: { blur: () => calls.push(["blur"]) },
     },
     navigate(tab, url) {
       tab.url = url;
@@ -516,6 +521,7 @@ test("shell creates, navigates and closes popup tabs only for the matching embed
     });
   dispatch("newtab", { url: "", popupId: "1" });
   assert.equal(tabs.length, 2);
+  assert.deepEqual(calls.at(-1), ["blur"]);
   assert.equal(tabs[1].openerId, "source");
   dispatch("popupnavigate", {
     popupId: "1",
@@ -524,7 +530,7 @@ test("shell creates, navigates and closes popup tabs only for the matching embed
   assert.equal(tabs[1].url, "https://example.com/redirect");
   assert.equal(tabs.length, 2);
   dispatch("popupfocus", { popupId: "1" });
-  assert.deepEqual(calls.at(-1), ["focus", "1"]);
+  assert.deepEqual(calls.slice(-2), [["focus", "1"], ["blur"]]);
   dispatch("popupclose", { popupId: "1" });
   assert.deepEqual(calls.at(-1), ["close", "1"]);
   const count = calls.length;
@@ -548,6 +554,9 @@ test("shell creates, navigates and closes popup tabs only for the matching embed
     "https://example.com/background",
     false,
   ]);
+  assert.deepEqual(calls.at(-1), ["frame", "2"]);
+  dispatch("newtab", { url: "https://example.com/foreground" });
+  assert.deepEqual(calls.at(-1), ["focusFrame", "3"]);
 });
 
 function assetRequest(context, url, headers = {}) {

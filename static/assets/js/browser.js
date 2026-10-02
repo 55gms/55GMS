@@ -525,13 +525,13 @@
     return true;
   }
 
+  function tabFromSource(source) {
+    return tabs.find((t) => t.iframe && t.iframe.contentWindow === source);
+  }
+
   function focusFrame(tab) {
     if (tab.iframe) tab.iframe.focus();
     else if (document.activeElement) document.activeElement.blur();
-  }
-
-  function tabFromSource(source) {
-    return tabs.find((t) => t.iframe && t.iframe.contentWindow === source);
   }
 
   function handleBridgeMessage(event) {
@@ -563,7 +563,7 @@
         }
         ensureFrame(opened);
         // Keyboard focus would otherwise stay in the now-hidden opener.
-        if (opened.id === activeId) focusFrame(opened);
+        if (data.activate !== false) focusFrame(opened);
         return;
       }
       case "browser:popupnavigate":
