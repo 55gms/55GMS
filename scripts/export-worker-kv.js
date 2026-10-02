@@ -150,16 +150,25 @@ async function fetchValues(keys) {
   return found;
 }
 
+const NOT_FOUND_ATTEMPTS = 3;
+
+// A listed key can 404 briefly on a single read (seen in practice), so a
+// 404 is retried before the key is treated as gone.
 async function getOne(key) {
   stats.singleReads += 1;
-  const response = await cloudflareFetch(
-    `${namespaceUrl}/values/${encodeURIComponent(key)}`,
-  );
-  if (response.status === 404) return null;
-  if (!response.ok) {
-    throw new Error(`Reading KV key ${key} failed: ${response.status}`);
+
+  for (let attempt = 1; attempt <= NOT_FOUND_ATTEMPTS; attempt += 1) {
+    const response = await cloudflareFetch(
+      `${namespaceUrl}/values/${encodeURIComponent(key)}`,
+    );
+    if (response.ok) return response.text();
+    if (response.status !== 404) {
+      throw new Error(`Reading KV key ${key} failed: ${response.status}`);
+    }
+    if (attempt < NOT_FOUND_ATTEMPTS) await sleep(2000 * attempt);
   }
-  return response.text();
+
+  return null;
 }
 
 async function readExportedKeys(file) {
@@ -191,7 +200,7 @@ async function main() {
 
   const out = fs.openSync(outFile, "a");
   let written = 0;
-  let missing = 0;
+  const missing = [];
   let bytes = 0;
 
   try {
@@ -202,7 +211,7 @@ async function main() {
       for (const key of batch) {
         const value = values.get(key);
         if (value === null) {
-          missing += 1;
+          missing.push(key);
           continue;
         }
 
@@ -224,7 +233,11 @@ async function main() {
   console.log(`  keys in KV:            ${allKeys.length}`);
   console.log(`  already in the file:   ${alreadyExported.size}`);
   console.log(`  written this run:      ${written}`);
-  console.log(`  deleted before fetch:  ${missing}`);
+  console.log(`  listed but not found:  ${missing.length}`);
+  if (missing.length) {
+    console.log(`    ${missing.join("\n    ")}`);
+    console.log("  Run again (without --fresh) to retry those keys.");
+  }
   console.log(`  bytes written:         ${bytes}`);
   console.log(`  output:                ${outFile}`);
 }
