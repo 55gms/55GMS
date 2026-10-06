@@ -69,16 +69,35 @@ All frontend code is static files under `static/`:
 - `static/*.html` — page templates (no templating engine; plain HTML)
 - `static/assets/js/` — client-side JS (chat, auth, games UI)
 - `static/assets/json/` — game/app catalog data
-- `static/assets/cloaks/` — Mercury Workshop proxy-cloaking libraries
+- `static/assets/cloaks/` — tab-cloak favicons (Canvas, Gmail, Google Drive, etc.)
+- `static/assets/sj/` — small proxy helper scripts (URL handling, service-worker registration)
 - `static/misc/` — 200+ self-contained embedded game directories
 
 ### Proxy infrastructure
 
-The site uses Mercury Workshop libraries for browser-based proxying:
+The site uses Mercury Workshop libraries for browser-based proxying, pinned in `package.json`:
 
-- `@mercuryworkshop/bare-mux`, `wisp-js`, `epoxy-transport`, `scramjet`
+- `@mercuryworkshop/scramjet`, `scramjet-controller`, `scramjet-utils`, `epoxy-transport`, `wisp-js`
 
-These are served from `static/assets/sj/` and `static/assets/cloaks/`.
+The bundles are not copied into `static/`. `utils/proxyAssets.js` serves seven files straight from `node_modules` under neutral names in `/assets/lib/`, mounted by `mountProxyAssets(app)` in `index.js` ahead of the static middleware:
+
+| URL                            | Source (`node_modules/@mercuryworkshop/`)       |
+| ------------------------------ | ----------------------------------------------- |
+| `/assets/lib/vendor-core.js`   | `scramjet/dist/scramjet.js`                     |
+| `/assets/lib/vendor-core.wasm` | `scramjet/dist/scramjet.wasm`                   |
+| `/assets/lib/vendor-frame.js`  | `scramjet-controller/dist/controller.api.js`    |
+| `/assets/lib/vendor-page.js`   | `scramjet-controller/dist/controller.inject.js` |
+| `/assets/lib/vendor-worker.js` | `scramjet-controller/dist/controller.sw.js`     |
+| `/assets/lib/vendor-util.js`   | `scramjet-utils` (`scramjet-utils.js`)          |
+| `/assets/lib/vendor-net.js`    | `epoxy-transport/dist/index.js`                 |
+
+The rest of the stack:
+
+- `static/embed.html` — the proxy page shared by the browser shell and media players; loads the bundles and `static/assets/js/frame-runtime.js`
+- `static/sw.js` — service worker served at `/sw.js`, registered with scope `/stream/` (the proxied-URL prefix)
+- Wisp transport — websocket upgrades on `/api/live/` (used by the site) or `/wisp/` (external clients) are routed to the wisp-js server in `index.js`
+
+See `docs/proxy-stack.md` for versions, caching, the neutral-naming rules, and upgrade notes.
 
 ## Deployment
 
