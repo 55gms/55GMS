@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="/assets/js/loader-ui.js?v=4pgt4ltcze"></script>
+<script src="/assets/js/game-loader.js?v=4pgt4ltcze" data-title="Stunt Car Extreme"></script>
+<script>
+  GameLoader.unity([
+    ["Build/Builds.loader.js",20672],
+    ["Build/56d7dbf5d6f17b9486f2581be202a4a7.js",402652],
+    ["Build/74682f744554efcc89b86fcd48f121e7.data",12542102],
+  ]);
+  GameLoader.expect(52206730);
+</script>
+<script src="/assets/js/game-parts.js?v=1"></script>
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/stunt-car-extreme/">
+<script>
+  GameParts.serve({
+    "Build/9ec0c60700ece028945514dc7e8b7d63.wasm": ["Build/9ec0c60700ece028945514dc7e8b7d63.wasm.part1","Build/9ec0c60700ece028945514dc7e8b7d63.wasm.part2","Build/9ec0c60700ece028945514dc7e8b7d63.wasm.part3","Build/9ec0c60700ece028945514dc7e8b7d63.wasm.part4"],
+  });
+</script>
+
     <script>
         const GAME_VERSION = "1.0.0";
         const storageKey = "stunt-car-extreme-version";
