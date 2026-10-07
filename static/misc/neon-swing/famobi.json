@@ -1,0 +1,46 @@
+{
+	"features": {
+		"external_mute": 0,
+		"external_pause": 0,
+		"forced_mode": 0,
+		"rewarded": 1
+	},
+	"game_info": {
+		"client_version": "1.0",
+		"api_version": "2.1",
+		"forced_mode": {
+			"state": {
+			  "difficulty_level": {
+                    "description": "Players are chased by a spike on the left. It's speed increases as players score is increases. You can set this variable to increase the speed without chaning the score. Calculated by score/100 so if player's score is 2000 the spike speed level will be around 20. The speed of the spike gradually increases from the start.",
+                    "type": "number" 
+					}
+			},
+			"override": {
+				"hide_ui": {
+					"score": {
+						"description": "Text of the score."
+						}
+						}
+		},
+		"track_stats": {
+			"bonus": "Players get 10 bonus points when they hit a yellow platform. If they hit fast enough, they can earn up to 5x as a combo."
+			}
+		
+	}},
+	"preview": {
+		"features": {
+				"external_mute": 0,
+				"external_pause": 0,
+				"forced_mode": 0,
+				"rewarded": 1
+		},
+		"forced_mode": {
+			"state": {
+				"difficulty_level": 0
+			},
+			"override": {
+				"hide_ui": [""]
+			}
+		}
+	}
+}
