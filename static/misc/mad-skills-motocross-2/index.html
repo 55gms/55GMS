@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui, shrink-to-fit=no">
+  <meta name="apple-mobile-web-app-capable" content="yes"> <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>MSM2 0.64.0</title>
+  <style type="text/css">
+	/* Disable user selection to avoid strange bug in Chrome on Windows:
+	* Selecting a text outside the canvas, then clicking+draging would
+	* drag the selected text but block mouse down/up events to the engine.
+	*/
+	body {
+	
+		position: fixed; /* Prevent overscroll */
+	
+		margin:0;
+		padding:0;
+	}
+
+	.canvas-app-container {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.canvas-app-container:-webkit-full-screen {
+		/* Auto width and height in Safari/Chrome fullscreen. */
+		width: auto;
+		height: auto;
+	}
+
+	#canvas {
+		outline: none;
+		border: 0;
+		width: 100%;
+		vertical-align: bottom;
+	}
+
+	#canvas-container {
+		position: relative;
+	}
+
+	canvas:focus, canvas:active {
+		outline: none;
+		border: 0;
+		ie-dummy: expression(this.hideFocus=true);
+		-moz-outline-style: none;
+	}
+
+	body, div {
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+		.canvas-app-progress {
+		position: absolute;
+		background-color: #d1dbeb;
+		height: 8px;
+		margin-top: -8px;
+		width: 100%;
+	}
+
+	.canvas-app-progress-bar {
+		font-size: 12px;
+		height: 8px;
+		color: rgb(255, 255, 255);
+		background-color: #1a72eb;
+		text-align: center;
+		line-height: 20px;
+		transition: transform 1s ease;
+		transform-origin: left;
+		transform: scaleX(1.0);
+	}
+	.link, .button {
+		font-family: sans-serif;
+		font-size: 14px;
+		font-weight: normal;
+		font-style: normal;
+		font-stretch: normal;
+		line-height: normal;
+		letter-spacing: 0px;
+		padding-top: 12px;
+	}
+
+	.buttons-background {
+		background-color: #ffffff;
+		width: 100%;
+		height: 42px;
+	}
+
+	body {
+		background-color: #ffffff;
+	}
+
+	.canvas-app-container {
+		background: rgba(250,252,255,1);
+		background: -moz-linear-gradient(-45deg, rgba(250,252,255,1) 0%, rgba(250,252,255,1) 50%, rgba(245,249,255,1) 50%, rgba(245,249,255,1) 100%);
+		background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(250,252,255,1)), color-stop(50%, rgba(250,252,255,1)), color-stop(50%, rgba(245,249,255,1)), color-stop(100%, rgba(245,249,255,1)));
+		background: -webkit-linear-gradient(-45deg, rgba(250,252,255,1) 0%, rgba(250,252,255,1) 50%, rgba(245,249,255,1) 50%, rgba(245,249,255,1) 100%);
+		background: -o-linear-gradient(-45deg, rgba(250,252,255,1) 0%, rgba(250,252,255,1) 50%, rgba(245,249,255,1) 50%, rgba(245,249,255,1) 100%);
+		background: -ms-linear-gradient(-45deg, rgba(250,252,255,1) 0%, rgba(250,252,255,1) 50%, rgba(245,249,255,1) 50%, rgba(245,249,255,1) 100%);
+		background: linear-gradient(135deg, rgba(250,252,255,1) 0%, rgba(250,252,255,1) 50%, rgba(245,249,255,1) 50%, rgba(245,249,255,1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafcff', endColorstr='#f5f9ff', GradientType=1 );
+	}
+	.motorcycle-preloader {
+		position: absolute;
+		top: 40%;
+		left: 50%;
+		transform: translate(-50%, -50%) scale(1.5) rotate(-10deg);
+		display: flex;
+		align-items: center;
+	}
+
+	#motorcycle-body {
+		width: 150px; /* Adjust as needed */
+			position: relative;
+			z-index: 2;
+	}
+
+	.motorcycle-wheel {
+		width: 50px; /* Adjust as needed */
+		position: absolute;
+		z-index: 1;
+	}
+
+	#wheel-front {
+		bottom: -12px; /* Adjust to align with the body */
+		left: 110px; /* Adjust positioning relative to the body */
+	}
+
+	#wheel-back {
+		bottom: -20px; /* Adjust to align with the body */
+		left: 0px; /* Adjust positioning relative to the body */
+	}
+
+	/* Keyframe animation for rotating wheels */
+	@keyframes rotate-wheel {
+		0% { transform: rotate(0deg); }
+		100% { transform: rotate(359deg); }
+	}
+
+	.motorcycle-wheel {
+		animation: rotate-wheel 0.6s linear infinite; /* Adjust duration for speed */
+	}
+
+	.canvas-app-canvas {
+		background-repeat:no-repeat;
+		background-position: center center;
+	}
+	</style>
+  <style>
+        .loader,
+        .loader:after {
+            border-radius: 50%;
+            width: 1vh;
+            height: 1vh;
+        }
+
+        .loader {
+            font-size: 2.5vh; /* Loader size */
+            text-indent: -9999em;
+            
+                border-top: 1.1em solid rgba(0, 100, 0, 0.2);
+                border-right: 1.1em solid rgba(0, 100, 0, 0.2);
+                border-bottom: 1.1em solid rgba(0, 100, 0, 0.2);
+            
+            
+            
+                border-left: 1.1em solid rgba(0, 100, 0, 1);
+            
+            
+            -webkit-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-animation: load8 1.1s infinite linear;
+            animation: load8 1.1s infinite linear;
+        }
+
+        @-webkit-keyframes load8 {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes load8 {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader_main {
+            position: absolute;
+            right: 4%;
+        }
+
+        .center_text {
+            
+                color: rgba(0, 100, 0, 1);
+            
+            
+            min-width: 7em;
+            border-radius: 50%;
+            
+                background-color: rgba(255, 255, 255, 1);
+            
+            
+            text-align: center;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 3.5vh;
+            font-weight: bold;
+            font-variant-numeric: tabular-nums lining-nums;
+        }
+
+        .progress {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            bottom: 8px;
+            position: absolute;
+            width: 100%;
+            height: 7%;
+        }
+
+        .min_text {
+            
+                color: rgba(0, 100, 0, 1);
+            
+            
+            text-align: center;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 2vh;
+            font-weight: bold;
+            font-variant-numeric: tabular-nums lining-nums;
+            border-radius: 50%;
+            margin-bottom: 10%;
+        }
+
+        .progress_min {
+            position: absolute;
+            width: 7%;
+            min-width: 50px;
+            right: 3%;
+            bottom: 8px;
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .canvas-app-canvas {
+            
+                background-color: rgba(255, 255, 255, 1);
+            
+            
+		        background-size: 80%;
+            
+        }
+
+        
+        .canvas-app-progress-bar {
+            background-color: rgba(0, 100, 0, 1);
+	    }
+        
+
+        
+        .canvas-app-progress {
+            background-color: rgba(0, 100, 0, 0.2);
+	    }
+        
+    </style>
+  <script>
+        (function (d) {
+
+            if (!window.Loader) {
+                window.Loader = {};
+            }
+            var Loader = window.Loader
+            Loader.percents = 0;
+            Loader.progressDiv = null;
+            Loader.progressMinDiv = null;
+            Loader.progressText = null;
+            Loader.canvasContainer = null;
+            Loader.centerText = null;
+            Loader.gameLoaded = false;
+
+            function create_div(className, parent) {
+                var div = document.createElement('div');
+                div.className = className;
+                if (parent) {
+                    parent.appendChild(div);
+                }
+                return div;
+            }
+
+            function onDomLoaded() {
+                Loader.canvasContainer = document.getElementById('canvas-container');
+                Loader.progressDiv = create_div("progress", Loader.canvasContainer);
+                Loader.centerText = create_div("center_text", Loader.progressDiv);
+                Loader.centerText.innerHTML = "0%";
+                create_div("loader loader_main", Loader.progressDiv);
+
+                Progress.addListener(function (percentage, text) {
+                    if (!Loader.gameLoaded) {
+                        if (!isNaN(percentage) && percentage > Loader.percents) {
+                            if (percentage > 100) {
+                                percentage = 100;
+                            }
+                            Loader.percents = percentage
+                        }
+                        if (Progress.bar) {
+                            Progress.bar.style.width = Loader.percents + "%";
+                        }
+                        if (Loader.centerText) {
+                            Loader.centerText.innerHTML = Loader.percents.toFixed(2) + "%";
+                        }
+                        if (Loader.percents >= 100) {
+                            Loader.gameLoaded = true;
+                            Loader.progressDiv.remove();
+                            Loader.progressDiv = null;
+                            Loader.centerText = null;
+                        }
+                    }
+                });
+            }
+
+            Loader.show = function () {
+                if (!Loader.progressMinDiv) {
+                    Loader.progressMinDiv = create_div("progress_min", Loader.canvasContainer);
+                    create_div("loader", Loader.progressMinDiv);
+                }
+                if (!Loader.progressText) {
+                    Loader.progressText = create_div("min_text", Loader.progressMinDiv);
+                    Loader.setProgress(0);
+                }
+            }
+
+            Loader.hide = function () {
+                if (Loader.progressMinDiv) {
+                    Loader.progressMinDiv.remove();
+                    Loader.progressMinDiv = null;
+                    Loader.progressText = null;
+                }
+            }
+
+            Loader.setText = function (value) {
+                if (Loader.progressText) {
+                    Loader.progressText.innerHTML = value;
+                }
+            }
+
+            Loader.setProgress = function (value) {
+                if (Loader.progressText) {
+                    Loader.progressText.innerHTML = "Loading\n" + value + "%";
+                }
+            }
+
+            if (document.readyState == 'loading') {
+                document.addEventListener('DOMContentLoaded', onDomLoaded);
+            } else {
+                onDomLoaded();
+            }
+
+        })(document);
+    </script>
+  <script defer src="poki-sdk.js" onload="poki_sdk_loaded()"></script>
+ </head>
+ <body>
+  <div id="app-container" class="canvas-app-container">
+   <div id="running-from-file-warning" style="display: none; margin: 3em;">
+    <h1>Running from local file ⚠️</h1>
+    <p>It seems like you have opened this file by double-clicking on it. In order to test your build in a browser <b>you need to load this file from a web server</b>. You can either upload this file and the rest of the files from a Defold HTML5 bundle to a web hosting service OR host them using a local web server on your home network.</p>
+    <p><a href="https://defold.com/manuals/html5/#testing-html5-build" target="_blank">Learn more about running a local web server in the Defold HTML5 manual</a>.</p>
+   </div>
+   <div id="webgl-not-supported" style="display: none; margin: 3em;">
+    <h1>WebGL not supported ⚠️</h1>
+    <p>WebGL is not supported by your browser - visit <a href="https://get.webgl.org/">https://get.webgl.org/</a> to learn more.</p>
+   </div>
+   <div id="canvas-container" class="canvas-app-canvas-container">
+    <canvas id="canvas" class="canvas-app-canvas" tabindex="1" width="1920" height="1080"></canvas>
+    <div id="preloader" class="motorcycle-preloader"><img id="motorcycle-body" src="body.png" alt="Motorcycle Body"> <img id="wheel-front" class="motorcycle-wheel" src="wheel.png" alt="Front Wheel"> <img id="wheel-back" class="motorcycle-wheel" src="wheel.png" alt="Back Wheel">
+    </div>
+   </div>
+   <div class="buttons-background">
+   </div>
+  </div> <!-- -->
+  <script id="engine-loader" type="text/javascript" src="dmloader.js"></script>
+  <script id="engine-setup" type="text/javascript">
+		var isLoadFinished_bike = false;
+		Progress.addListener(function(percentage){
+			if (percentage == 100 && !isLoadFinished_bike) {
+				document.querySelector('.motorcycle-preloader').remove();
+				isLoadFinished_bike = true;
+			}
+		});
+	</script>
+  <script id="engine-start" type="text/javascript">
+		var runningFromFileWarning = document.getElementById("running-from-file-warning");
+		if (window.location.href.startsWith("file://")) {
+			runningFromFileWarning.style.display = "block";
+		}
+		else {
+			EngineLoader.load("canvas", "MSM2");
+			runningFromFileWarning.parentNode.removeChild(runningFromFileWarning);
+		}
+	</script>
+  <script id="poki-sdk-setup" type="text/javascript">
+		var isWasmLoaded = false;
+		var isPokiSDKInited = false;
+		var runFunc = function() {
+			if (isPokiSDKInited && isWasmLoaded) {
+				Module.runApp("canvas");
+			}
+		}
+		Module['onRuntimeInitialized'] = function() {
+			isWasmLoaded = true;
+			runFunc();
+		};
+		function poki_sdk_loaded() {
+			var data = {};
+			var isLoadFinished = false;
+			Progress.addListener(function(percentage){
+				data.percentageDone = percentage / 100;
+				if (!isLoadFinished)
+					PokiSDK.gameLoadingProgress(data);
+				if (percentage == 100 && !isLoadFinished) {
+					PokiSDK.gameLoadingFinished();
+					isLoadFinished = true;
+				}
+			});
+			PokiSDK.init().then(()=>{
+					isPokiSDKInited = true;
+					runFunc();
+				}, ()=>{
+					isPokiSDKInited = true;
+					runFunc();
+				});
+		}
+	</script>
+ </body>
+</html>
