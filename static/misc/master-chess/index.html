@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html>
     <head>
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/master-chess/">
+<script>
+  // Images load from the CDN, so they need CORS before the game can use them in WebGL or read their pixels.
+  (() => {
+    const src = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      ...src,
+      set(value) {
+        if (this.crossOrigin === null && !/^(data|blob):/.test(value)) this.crossOrigin = "anonymous";
+        src.set.call(this, value);
+      },
+    });
+  })();
+</script>
+
         <title></title>
         <link rel="stylesheet" href="css/reset.css" type="text/css">
         <link rel="stylesheet" href="css/main.css" type="text/css">
