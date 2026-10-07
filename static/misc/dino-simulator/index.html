@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/dino-simulator/">
+<script>
+  // Images load from the CDN, so they need CORS before the game can use them in WebGL or read their pixels.
+  (() => {
+    const src = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      ...src,
+      set(value) {
+        if (this.crossOrigin === null && !/^(data|blob):/.test(value)) this.crossOrigin = "anonymous";
+        src.set.call(this, value);
+      },
+    });
+  })();
+</script>
+
 		<meta name="build-version" content="103.0">
 		<script>window.__PACK='pack_a'</script>
 		<meta charset="utf-8">
@@ -142,8 +157,8 @@ html, body {
 			}
 
 			const host = location.hostname
-			const isDev = host.includes('storygiantgames.com') ||
-				['localhost', '127.0.0.1', '::1', ''].includes(host)
+			// Never a dev host here: the cache-busting redirect would leave the CDN base.
+			const isDev = false
 			const params = new URLSearchParams(location.search)
 
 			if (isDev && !params.has('nocache')) {
