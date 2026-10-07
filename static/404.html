@@ -37,7 +37,15 @@
       <a href="/" class="gs">Go Home</a>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/gh/docklib/partners@master/partner-7a44b4ab.js?v=1"></script>
+  <script>
+    // Premium accounts skip the partner banners (same check as script.js).
+    if (!["true", "1"].includes(localStorage.getItem("premium"))) {
+      const partnerScript = document.createElement("script");
+      partnerScript.src =
+        "https://cdn.jsdelivr.net/gh/docklib/partners@master/partner-7a44b4ab.js?v=1";
+      document.body.append(partnerScript);
+    }
+  </script>
 </body>
 
 </html>
