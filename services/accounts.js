@@ -6,6 +6,8 @@ const METHODS = [
   "getUserByUuid",
   "getUserByUsername",
   "isPremium",
+  "searchUsers",
+  "setPremium",
   "writeSave",
   "readSave",
 ];

@@ -1,8 +1,10 @@
 import { randomUUID } from "node:crypto";
+import { Op } from "sequelize";
 import * as defaultPasswords from "../utils/passwordHash.js";
 
 const USERNAME_MIN_LENGTH = 3;
 const USERNAME_MAX_LENGTH = 16;
+const SEARCH_LIMIT = 20;
 
 function toPublicUser(user) {
   return {
@@ -72,6 +74,26 @@ export function createPostgresAccounts({
         attributes: ["uuid", "premium"],
       });
       return user ? { premium: Boolean(user.premium) } : null;
+    },
+
+    // Case-insensitive username prefix search for the admin screen.
+    async searchUsers(query) {
+      const prefix = String(query).replace(/[\\%_]/g, "\\$&");
+      const users = await User.findAll({
+        where: { username: { [Op.iLike]: `${prefix}%` } },
+        attributes: ["uuid", "username", "premium"],
+        order: [["username", "ASC"]],
+        limit: SEARCH_LIMIT,
+      });
+      return users.map(toPublicUser);
+    },
+
+    async setPremium(uuid, premium) {
+      const user = await User.findByPk(String(uuid));
+      if (!user) return null;
+
+      await user.update({ premium: Boolean(premium) });
+      return toPublicUser(user);
     },
 
     async writeSave(uuid, saveData) {

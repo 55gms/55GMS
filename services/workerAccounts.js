@@ -78,6 +78,15 @@ export function createWorkerAccounts({ httpClient = axios } = {}) {
       }
     },
 
+    // Premium management only exists on the Postgres backend.
+    async searchUsers() {
+      throw new Error("searchUsers requires ACCOUNT_BACKEND=postgres");
+    },
+
+    async setPremium() {
+      throw new Error("setPremium requires ACCOUNT_BACKEND=postgres");
+    },
+
     async writeSave(uuid, saveData) {
       const response = await httpClient.post(
         `${WORKER_API}/users/uploadSave`,

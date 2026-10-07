@@ -26,6 +26,7 @@ import {
 
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
+import adminRoutes from "./routes/admin.js";
 import messagingRoutes from "./routes/messaging.js";
 import searchRoutes from "./routes/search.js";
 import proxyRoutes from "./routes/music.js";
@@ -121,6 +122,7 @@ try {
 
   app.use("/api", authRoutes);
   app.use("/api", userRoutes);
+  app.use("/api", adminRoutes);
   app.use("/api", messagingRoutes);
   app.use("/api", searchRoutes);
   app.use("/api/music", proxyRoutes);
@@ -378,6 +380,7 @@ try {
     { path: "/-", file: "media.html" },
     { path: "/m", file: "media.html" },
     { path: "/profile", file: "account.html" },
+    { path: "/admin", file: "admin.html" },
     { path: "/login", file: "login.html" },
     { path: "/signup", file: "signup.html" },
     { path: "/l", file: "/assets/404/loading.html" },
