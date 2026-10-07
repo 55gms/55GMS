@@ -1,192 +1,161 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
     <script src="/assets/js/font.js" defer></script>
     <meta name="google" content="notranslate" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap"
+    />
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=7" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
+    <link rel="stylesheet" href="/assets/css/auth.css?v=1" />
     <title>Google</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Rednotsus" />
-    <meta http-equiv="Cache-control" content="public">
-    <meta charset="utf-8">
-    <meta name="description" content="55GMS - Reds Exploit Corner - Join the discord for links!" />
+    <meta http-equiv="Cache-control" content="public" />
+    <meta
+      name="description"
+      content="55GMS - Reds Exploit Corner - Join the discord for links!"
+    />
 
     <script src="/assets/js/script.js?v=16"></script>
-
     <script src="/assets/js/easteregg.min.js" async></script>
-    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-<style>
-    @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+  </head>
 
-    .form__input {
-        padding: 1.2vw;
-        width: 50%;
-        border-radius: 5px;
-        background: var(--site-input-bg, #2a3a5b);
-        text-align: center;
-        font-size: 24px;
-        border: none;
-        outline: none;
-        color: white;
-        transition: 0.2s;
-        margin: 0;
-    }
-
-    .form__input::placeholder {
-        color: #aaa;
-        text-align: center;
-    }
-
-    .form__input:hover {
-        background: var(--site-search-hover-bg, #3a4a7b);
-        transition: 0.2s;
-    }
-
-    .form__input:focus {
-        outline: none;
-        background: var(--site-search-hover-bg, #3a4a7b);
-        transition: 0.2s;
-    }
-</style>
-<script>
-    async function signup() {
-        const signupButton = document.getElementById("signupButton");
-        const signupLoader = document.getElementById("signupLoader");
-
-        // Disable the button and show the loader
-        signupButton.disabled = true;
-        signupLoader.style.display = "inline-block";
-
-        var password = document.getElementById("password").value;
-        var user = document.getElementById("user").value;
-        var hcaptcha = document.querySelector('[name="h-captcha-response"]').value;
-        if (password == "" || user == "") {
-            Swal.fire({
-                icon: "error",
-                text: "Please fill in all the fields",
-            });
-            signupButton.disabled = false;
-            signupLoader.style.display = "none";
-            return;
-        } else if (hcaptcha == "") {
-            Swal.fire({
-                icon: "error",
-                text: "Please complete the captcha",
-            });
-            signupButton.disabled = false;
-            signupLoader.style.display = "none";
-            return;
-        }
-        if (password.length < 6) {
-            Swal.fire({
-                icon: "error",
-                text: "Password must be at least 6 characters",
-            });
-            signupButton.disabled = false;
-            signupLoader.style.display = "none";
-            return;
-        }
-        if (user.length < 3) {
-            Swal.fire({
-                icon: "error",
-                text: "Username must be at least 3 characters",
-            });
-            signupButton.disabled = false;
-            signupLoader.style.display = "none";
-            return;
-        }
-        if (user.length > 16) {
-            Swal.fire({
-                icon: "error",
-                text: "Username must be at most 16 characters",
-            });
-            signupButton.disabled = false;
-            signupLoader.style.display = "none";
-            return;
-        }
-        try {
-            let response = await fetch("/api/signup", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    password: password,
-                    username: user,
-                    captchaResponse: hcaptcha,
-                }),
-            })
-            if (response.status == 200) {
-                Swal.fire({
-                    icon: "success",
-                    text: "Account created successfully",
-                    confirmButtonText: "Login",
-                }).then(() => {
-                    window.location.href = "/login";
-                });
-
-            } else {
-                if (response.status == 400) {
-                    Swal.fire({
-                        icon: "error",
-                        text: "Invalid captcha",
-                    });
-                    signupButton.disabled = false;
-                    signupLoader.style.display = "none";
-                    return;
-                }
-                Swal.fire({
-                    icon: "error",
-                    text: "Someone already has that username.",
-                });
-                signupButton.disabled = false;
-                signupLoader.style.display = "none";
-            }
-        } catch (e) {
-            Swal.fire({
-                icon: "error",
-                text: `An error occurred: ${e.message}`,
-            });
-            signupButton.disabled = false;
-            signupLoader.style.display = "none";
-            return;
-        }
-    }
-</script>
-
-<body>
+  <body>
     <nav>
-        <div class="navbar">
-            <a id="nav-title" href="/">Reds Exploit Corner</a>
-            <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
-            <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
-            <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
-            <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
-            <a href="/chat"><i class="fa-solid fa-comments">&nbsp;</i></a>
-            <a href="/profile"><i class="fa-solid fa-user"></i></a>
-        </div>
+      <div class="navbar">
+        <a id="nav-title" href="/">Reds Exploit Corner</a>
+        <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
+        <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
+        <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
+        <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
+        <a href="/chat"><i class="fa-solid fa-comments">&nbsp;</i></a>
+        <a href="/profile"><i class="fa-solid fa-user"></i></a>
+      </div>
     </nav>
-    <div style="text-align: center">
-        <br />
-        <h1>Register a new account</h1>
-        <br><br>
-        <input type="text" id="user" class='form__input' name="User" autocomplete="off" placeholder="Username">
-        <br><br>
-        <input type="password" id="password" class='form__input' name="password" autocomplete="off"
-            placeholder="Password">
-        <br><br>
-        <div class="h-captcha" data-sitekey="b53ebcec-4dfc-4536-b52e-a3bcbc1269e8"></div><br>
-        <button id="signupButton" onclick="signup()" class="gs">Sign Up</button>
-        <img loading="eager" id="signupLoader" src="/assets/404/loading.gif" style="width: 20px; height: 20px; display: none;">
-        <br>
-        <p>Already have an account? <a class='signupbutton' href="/login">Log in</a></p>
-    </div>
-    <script src="https://cdn.jsdelivr.net/gh/docklib/partners@master/partner-7a44b4ab.js?v=1"></script>
-</body>
 
+    <main class="auth">
+      <header class="auth-header">
+        <div class="auth-avatar" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="8" r="4" />
+            <path d="M4 20c0-3.6 3.6-6 8-6s8 2.4 8 6" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="auth-title">Create your account</h1>
+          <p class="auth-subtitle">
+            Keep your saves in the cloud and chat with friends.
+          </p>
+        </div>
+      </header>
+
+      <form class="auth-card" data-auth="signup" novalidate>
+        <div class="auth-field">
+          <label class="auth-label" for="username">Username</label>
+          <input
+            class="auth-input"
+            type="text"
+            id="username"
+            name="username"
+            autocomplete="username"
+            autocapitalize="none"
+            spellcheck="false"
+            maxlength="16"
+            aria-describedby="username-hint"
+            autofocus
+          />
+          <p class="auth-hint" id="username-hint">3 to 16 characters.</p>
+        </div>
+
+        <div class="auth-field">
+          <label class="auth-label" for="password">Password</label>
+          <div class="auth-control">
+            <input
+              class="auth-input"
+              type="password"
+              id="password"
+              name="password"
+              autocomplete="new-password"
+              aria-describedby="password-hint"
+            />
+            <button
+              class="auth-toggle"
+              type="button"
+              aria-label="Show password"
+              aria-pressed="false"
+            >
+              <svg
+                class="auth-eye"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <svg
+                class="auth-eye-off"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path
+                  d="M10.6 5.1A9.8 9.8 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3 3.9"
+                />
+                <path
+                  d="M6.5 6.6A17 17 0 0 0 2 12s3.6 7 10 7a9.6 9.6 0 0 0 5.4-1.6"
+                />
+                <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
+                <path d="m3 3 18 18" />
+              </svg>
+            </button>
+          </div>
+          <p class="auth-hint" id="password-hint">At least 6 characters.</p>
+        </div>
+
+        <div class="auth-captcha" id="captcha"></div>
+
+        <p class="auth-message" role="alert" hidden></p>
+
+        <button class="auth-submit" type="submit">
+          <span class="auth-submit-label">Create account</span>
+          <span class="auth-spinner" aria-hidden="true"></span>
+        </button>
+      </form>
+
+      <p class="auth-switch">
+        Already have an account? <a href="/login">Log in</a>
+      </p>
+    </main>
+
+    <script src="/assets/js/auth.js?v=1"></script>
+    <script
+      src="https://js.hcaptcha.com/1/api.js?render=explicit&onload=authCaptchaReady"
+      async
+      defer
+    ></script>
+    <script src="https://cdn.jsdelivr.net/gh/docklib/partners@master/partner-7a44b4ab.js?v=1"></script>
+  </body>
 </html>
