@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Aquapark.io</title>
+	<script>
+	window.config = {
+		loader: 'unity-2020',
+		debug: false,
+		maxRatio: 24 / 9,
+		minRatio: 9 / 24,
+
+		title: 'Aquapark.io',
+		thumbnail: 'thumbnail.png',
+		numScreenshots:  4 ,
+
+		unityVersion: '6000.2.10f1',
+		unityWebglBuildUrl: '',
+
+		fileSize:  51 ,
+		cachedDecompressedFileSizes: {
+			'AquaparkIo.loader.js':  26693 ,
+			'AquaparkIo.framework.js':  378369 ,
+			'AquaparkIo.wasm':  27291669 ,
+			'AquaparkIo.data':  25831733 ,
+		},
+		"metadata": {"poki_template_version":1,"background_color":"#FFFFFF","background_filename":"WebGL.jpg","code_filename":"AquaparkIo.wasm","company_name":"Cassette","data_filename":"AquaparkIo.data","development_player":"false","framework_filename":"AquaparkIo.framework.js","height":"600","loader_filename":"AquaparkIo.loader.js","product_name":"Aquapark.io","product_version":"6.14.0","splash_screen_style":"Dark","unity_version":"6000.2.10f1","use_data_caching":"true","use_threads":"false","use_wasm":"true","use_webgl_1_0":"false","use_webgl_2_0":"true","width":"960","decompression_fallback":"Disabled"}
+	};
+	</script>
+	<script>
+	// Poki user-API bridge for Unity (2026-10-05, Aquapark.io).
+	// The build's boot (ABTestLoader) waits for getUser/getToken replies before it loads anything.
+	// /scripts/sdk.js?v=22 defines window.getUser/getToken/login but never learns the Unity bridge
+	// object's name (its pokiBridgeObjectName is never assigned), so those replies were dropped and
+	// the game sat on its splash screen forever. This captures the name from initPokiBridge (defined
+	// later by /scripts/unity-2020.js) and answers the way Poki's own loader does for a logged-out
+	// player: getUser -> "{}", getToken -> rejected, login -> rejected.
+	(function () {
+		var bridge = null, initFn = null;
+		function send(m, a) {
+			try {
+				if (!window.unityGame || !bridge) return;
+				if (a === undefined) window.unityGame.SendMessage(bridge, m); else window.unityGame.SendMessage(bridge, m, a);
+			} catch (e) {}
+		}
+		function settle(fn, ok, fail) {
+			try { Promise.resolve(fn()).then(ok, fail); } catch (e) { fail(); }
+		}
+		var mine = {
+			getUser: function () { settle(function () { return window.PokiSDK && PokiSDK.getUser(); }, function (u) { send("getUserResolved", JSON.stringify(u || {})); }, function () { send("getUserRejected"); }); },
+			getToken: function () { settle(function () { return window.PokiSDK && PokiSDK.getToken(); }, function (t) { if (t) send("getTokenResolved", t); else send("getTokenRejected"); }, function () { send("getTokenRejected"); }); },
+			login: function () { send("loginRejected"); }
+		};
+		try {
+			Object.defineProperty(window, "initPokiBridge", { configurable: true,
+				get: function () { return initFn && function (n) { bridge = n; return initFn.apply(this, arguments); }; },
+				set: function (f) { initFn = f; } });
+			Object.keys(mine).forEach(function (k) {
+				Object.defineProperty(window, k, { configurable: true, get: function () { return mine[k]; }, set: function () {} });
+			});
+		} catch (e) {}
+	})();
+	</script>
+<!-- will be copied to the resulting head //-->
+</head>
+<body>
+	<script src="poki/master-loader.js"></script>
+<!-- will be copied to the resulting body //-->
+<!-- will also be copied to the resulting body //-->
+</body>
+</html>
