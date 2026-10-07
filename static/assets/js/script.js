@@ -70,23 +70,74 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-fetch("/assets/json/ads.json")
-  .then((response) => response.json())
-  .then((data) => {
-    if (data.domains.includes(window.location.hostname)) {
-      const adscipterz92 = document.createElement("script");
-      adscipterz92.setAttribute("async", "");
-      adscipterz92.setAttribute(
-        "src",
-        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317",
-      );
-      adscipterz92.setAttribute("crossorigin", "anonymous");
-      document.head.append(adscipterz92);
-      script("Injected script 3/3 (Adsense)");
-    } else {
-      console.log("Skipping Adsense Injection for this domain.");
-    }
+// ====================================
+// ADS (skipped for premium accounts)
+// ====================================
+// The flag is "true" from login or "1" from the account page.
+function hasPremium() {
+  const premium = localStorage.getItem("premium");
+  return premium === "true" || premium === "1";
+}
+
+function whenDomReady(callback) {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", callback);
+  } else {
+    callback();
+  }
+}
+
+if (hasPremium()) {
+  // Game pages ship their banner slots in the markup, so hide them here.
+  const hideAds = document.createElement("style");
+  hideAds.textContent =
+    "#adleft, #adright, .bottom-addisplay, .addisplay { display: none !important; }";
+  document.head.append(hideAds);
+  script("Premium account, skipping ads");
+} else {
+  whenDomReady(() => {
+    const partnerScript = document.createElement("script");
+    partnerScript.src =
+      "https://cdn.jsdelivr.net/gh/docklib/partners@master/partner-7a44b4ab.js?v=1";
+    document.body.append(partnerScript);
   });
+
+  fetch("/assets/json/ads.json")
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.domains.includes(window.location.hostname)) {
+        const adscipterz92 = document.createElement("script");
+        adscipterz92.setAttribute("async", "");
+        adscipterz92.setAttribute(
+          "src",
+          "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317",
+        );
+        adscipterz92.setAttribute("crossorigin", "anonymous");
+        document.head.append(adscipterz92);
+        script("Injected script 3/3 (Adsense)");
+      } else {
+        console.log("Skipping Adsense Injection for this domain.");
+      }
+    });
+}
+
+// Keep the stored flag in step with the server, so a grant or revoke from
+// /admin applies on the next page load.
+(function refreshPremium() {
+  const uuid = localStorage.getItem("uuid");
+  if (!uuid) return;
+
+  fetch("/api/checkPremium", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ uuid }),
+  })
+    .then((response) => (response.ok ? response.json() : null))
+    .then((data) => {
+      if (data) localStorage.setItem("premium", Boolean(data.premium));
+    })
+    .catch(() => {});
+})();
 
 var panicKey = localStorage.getItem("panicKey") || "`";
 var panicLink = localStorage.getItem("PanicLink") || "https://google.com";
