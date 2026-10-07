@@ -11,6 +11,11 @@
   <!-- Load custom style sheet -->
   <link rel="stylesheet" type="text/css" href="theme/love.css">
   <script src="/assets/js/script.js?v=14"></script>
+  <script src="/assets/js/loader-ui.js?v=2n447hnf39"></script>
+  <script src="/assets/js/game-loader.js?v=2n447hnf39" data-title="Balatro"></script>
+  <script>
+    GameLoader.track(["love.wasm", "game.data"], 15363239);
+  </script>
   <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@master/static/misc/balatro/">
   <script src="consolewrapper.js"></script>
 </head>
@@ -103,8 +108,10 @@
         } else if (Module.remainingDependencies === 0) {
           document.getElementById('loadingCanvas').style.display = 'none';
           document.getElementById('canvas').style.visibility = 'visible';
+          GameLoader.finish();
         }
       },
+      onAbort: GameLoader.fail,
       totalDependencies: 0,
       remainingDependencies: 0,
       monitorRunDependencies: function (left) {

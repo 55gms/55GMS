@@ -2,6 +2,21 @@
 <html lang="en">
 
 <head>
+    <script src="/assets/js/loader-ui.js?v=2n447hnf39"></script>
+    <script src="/assets/js/game-loader.js?v=2n447hnf39" data-title="Buckshot Roulette"></script>
+    <script>
+        {
+            const parts = (file, count) =>
+                Array.from({ length: count }, (_, i) => `${file}.part${i + 1}`);
+            GameLoader.track(
+                [
+                    ...parts("buckshot-roulette.pck", 17),
+                    ...parts("buckshot-roulette.wasm", 3),
+                ],
+                388150053,
+            );
+        }
+    </script>
     <base href="https://cdn.jsdelivr.net/gh/kfm5/55gms-web-port-archive@main/buckshot-roulette/">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
@@ -78,6 +93,7 @@
             }
 
             function displayFailureNotice(err) {
+                GameLoader.fail(err);
                 console.error(err);
                 if (err instanceof Error) {
                     setStatusNotice(err.message);
@@ -137,6 +153,7 @@
                     },
                 }).then(() => {
                     setStatusMode('hidden');
+                    GameLoader.finish();
                 }, displayFailureNotice);
             }
         };

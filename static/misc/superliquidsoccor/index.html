@@ -6,6 +6,11 @@
 	<meta charset='utf-8' />
 	<meta name='viewport' content='width=device-width, user-scalable=no' />
 	<title>Super Liquid Soccer</title>
+	<script src="/assets/js/loader-ui.js?v=2n447hnf39"></script>
+	<script src="/assets/js/game-loader.js?v=2n447hnf39" data-title="Super Liquid Soccer"></script>
+	<script>
+		GameLoader.track(["index.pck", "index.wasm"], 27878343);
+	</script>
 	<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@master/static/misc/superliquidsoccor/">
 	<style type='text/css'>
 		body {
@@ -259,6 +264,7 @@
 			};
 
 			function displayFailureNotice(err) {
+				GameLoader.fail(err);
 				var msg = err.message || err;
 				console.error(msg);
 				setStatusNotice(msg);
@@ -288,6 +294,7 @@
 					},
 				}).then(() => {
 					setStatusMode('hidden');
+					GameLoader.finish();
 					initializing = false;
 					PokiSDK.gameLoadingFinished();
 				}, displayFailureNotice);

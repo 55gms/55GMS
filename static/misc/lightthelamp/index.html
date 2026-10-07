@@ -5,6 +5,11 @@
 	<meta charset='utf-8' />
 	<meta name='viewport' content='width=device-width, user-scalable=no' />
 	<title>Light The Lamp</title>
+	<script src="/assets/js/loader-ui.js?v=2n447hnf39"></script>
+	<script src="/assets/js/game-loader.js?v=2n447hnf39" data-title="Light The Lamp"></script>
+	<script>
+		GameLoader.track(["index.pck", "index.wasm"], 14833427);
+	</script>
 	<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@master/static/misc/lightthelamp/">
 	<style type='text/css'>
 		body {
@@ -255,6 +260,7 @@
 			};
 
 			function displayFailureNotice(err) {
+				GameLoader.fail(err);
 				var msg = err.message || err;
 				console.error(msg);
 				setStatusNotice(msg);
@@ -285,6 +291,7 @@
 					},
 				}).then(() => {
 					setStatusMode('hidden');
+					GameLoader.finish();
 					initializing = false;
 					PokiSDK.gameLoadingFinished();
 					document.getElementById("loading_text").remove()

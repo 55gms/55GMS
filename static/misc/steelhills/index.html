@@ -9,6 +9,21 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Hills of Steel 1.0</title>
+    <script src="/assets/js/loader-ui.js?v=2n447hnf39"></script>
+    <script src="/assets/js/game-loader.js?v=2n447hnf39" data-title="Steel Hills"></script>
+    <script>
+        GameLoader.track(
+            [
+                "HillsofSteel.wasm",
+                "archive/game0.arcd",
+                "archive/game0.arci",
+                "archive/game0.dmanifest",
+                "archive/game0.projectc",
+                "archive/game0.public.der",
+            ],
+            3561942,
+        );
+    </script>
     <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@master/static/misc/steelhills/">
     <style type="text/css">
         /* Disable user selection to avoid strange bug in Chrome on Windows:
@@ -234,6 +249,13 @@
         window.addEventListener('focus', resize_game_canvas, false);
     </script>
     <script id="engine-start" type="text/javascript">
+        // The engine removes its progress bar as it starts the game.
+        ProgressView.removeProgress = (function (removeProgress) {
+            return function () {
+                removeProgress.apply(this, arguments);
+                GameLoader.finish();
+            };
+        })(ProgressView.removeProgress);
         var runningFromFileWarning = document.getElementById("running-from-file-warning");
         if (window.location.href.startsWith("file://")) {
             runningFromFileWarning.style.display = "block";

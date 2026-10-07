@@ -2,6 +2,21 @@
 <html xmlns='http://www.w3.org/1999/xhtml' lang='' xml:lang=''>
 
 <head>
+    <script src="/assets/js/loader-ui.js?v=2n447hnf39"></script>
+    <script src="/assets/js/game-loader.js?v=2n447hnf39" data-title="Brotato"></script>
+    <script>
+        {
+            const parts = (file, count) =>
+                Array.from({ length: count }, (_, i) => `${file}.part${i + 1}`);
+            GameLoader.track(
+                [
+                    ...parts(location.origin + "/misc/brotato/index.pck", 7),
+                    ...parts(location.origin + "/misc/brotato/index.wasm", 2),
+                ],
+                163988341,
+            );
+        }
+    </script>
     <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@master/static/misc/brotato/">
     <script src="/assets/js/script.js?v=14"></script>
     <meta charset='utf-8' />
@@ -309,6 +324,7 @@
                 };
 
                 function displayFailureNotice(err) {
+                    GameLoader.fail(err);
                     var msg = err.message || err;
                     console.error(msg);
                     setStatusNotice(msg);
@@ -337,6 +353,7 @@
                         },
                     }).then(() => {
                         setStatusMode('hidden');
+                        GameLoader.finish();
                         initializing = false;
                         window.hideLoadingOverlay();
                     }, displayFailureNotice);

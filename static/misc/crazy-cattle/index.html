@@ -101,6 +101,11 @@
 	<link rel="apple-touch-icon" href="CrazyCattle3D.apple-touch-icon.png" />
 	<link rel="manifest" href="CrazyCattle3D.manifest.json">
 
+	<script src="/assets/js/loader-ui.js?v=2n447hnf39"></script>
+	<script src="/assets/js/game-loader.js?v=2n447hnf39" data-title="Crazy Cattle 3D"></script>
+	<script>
+		GameLoader.track(["CrazyCattle3D.pck", "CrazyCattle3D.wasm"], 70201894);
+	</script>
 </head>
 
 <body>
@@ -159,6 +164,7 @@
 			}
 
 			function displayFailureNotice(err) {
+				GameLoader.fail(err);
 				console.error(err);
 				if (err instanceof Error) {
 					setStatusNotice(err.message);
@@ -220,6 +226,7 @@
 					},
 				}).then(() => {
 					setStatusMode('hidden');
+					GameLoader.finish();
 				}, displayFailureNotice);
 			}
 		}());

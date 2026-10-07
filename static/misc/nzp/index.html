@@ -39,6 +39,18 @@
             margin: 0;
         }
     </style>
+    <script src="/assets/js/loader-ui.js?v=2n447hnf39"></script>
+    <script src="/assets/js/game-loader.js?v=2n447hnf39" data-title="Nazi Zombies: Portable"></script>
+    <script>
+        GameLoader.track(
+            [
+                "ftewebgl.wasm",
+                "nzp/game.pk3",
+                "nzp/progs.pk3",
+            ],
+            57521013,
+        );
+    </script>
 </head>
 
 <body ondrop="gotdrop(event);" ondragover="event.preventDefault()">
@@ -94,7 +106,8 @@
                     if (Module["sched"] === undefined) { //our main function failed to set up the main loop. ie: main didn't get called. panic.
                         alert("Unable to initialise. You may need to restart your browser. If you get this often and inconsistently, consider using a 64bit browser instead.");
                         Module.setStatus("Initialisation Failure");
-                    }
+                        GameLoader.fail(new Error("Initialisation Failure"));
+                    } else GameLoader.finish();
                 }
             ],
         };

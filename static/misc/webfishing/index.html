@@ -2,6 +2,21 @@
 <html xmlns='http://www.w3.org/1999/xhtml' lang='' xml:lang=''>
 
 <head>
+    <script src="/assets/js/loader-ui.js?v=2n447hnf39"></script>
+    <script src="/assets/js/game-loader.js?v=2n447hnf39" data-title="Webfishing"></script>
+    <script>
+        {
+            const parts = (file, count) =>
+                Array.from({ length: count }, (_, i) => `${file}.part${i + 1}`);
+            GameLoader.track(
+                [
+                    ...parts("webfishing.pck", 3),
+                    "webfishing.wasm",
+                ],
+                63808759,
+            );
+        }
+    </script>
     <base href="https://cdn.jsdelivr.net/gh/kfm5/55gms-web-port-archive@main/web-fishing/">
     <meta charset='utf-8' />
     <meta name='viewport' content='width=device-width, user-scalable=no' />
@@ -237,6 +252,7 @@
             };
 
             function displayFailureNotice(err) {
+                GameLoader.fail(err);
                 var msg = err.message || err;
                 console.error(msg);
                 setStatusNotice(msg);
@@ -265,6 +281,7 @@
                     },
                 }).then(() => {
                     setStatusMode('hidden');
+                    GameLoader.finish();
                     initializing = false;
                 }, displayFailureNotice);
             }
