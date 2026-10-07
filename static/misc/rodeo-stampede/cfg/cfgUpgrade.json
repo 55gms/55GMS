@@ -1,0 +1,1004 @@
+{
+    "Buffalo": {
+        "price": [
+            30,
+            40,
+            100,
+            150,
+            250,
+            350,
+            450,
+            550,
+            650,
+            3000
+        ],
+        "level": [
+            {
+                "key": 16,
+                "value": 2
+            },
+            {
+                "key": 1,
+                "value": 2
+            },
+            {
+                "key": 4,
+                "value": 1
+            },
+            {
+                "key": 15,
+                "value": 1.5
+            },
+            {
+                "key": 10,
+                "value": 1
+            },
+            {
+                "key": 1,
+                "value": 1
+            },
+            {
+                "key": 5,
+                "value": 1
+            },
+            {
+                "key": 2,
+                "value": 2
+            },
+            {
+                "key": 25,
+                "value": 1
+            }
+        ],
+        "info": [
+            "",
+            "While you are in the air, buffalo move towards your lasso",
+            "Ride for an extra 2s before a buffalo gets angry",
+            "Landing on a buffalo makes it charge forward, smashing anything in the way",
+            "Gain 50% more ticket money from buffalo",
+            "Landing charges on buffalo are 2x longer",
+            "Ride for an extra 1s before a buffalo gets angry",
+            "Get bonus coins while bucking on buffalo",
+            "2x more rare buffalo in the stampede",
+            "Add a new rare Buffalo to the stampede"
+        ]
+    },
+    "Zebra": {
+        "price": [
+            30,
+            40,
+            100,
+            150,
+            250,
+            350,
+            450,
+            550,
+            650,
+            4500
+        ],
+        "level": [
+            {
+                "key": 1,
+                "value": 2
+            },
+            {
+                "key": 17,
+                "value": 2
+            },
+            {
+                "key": 8,
+                "value": 1
+            },
+            {
+                "key": 15,
+                "value": 1.5
+            },
+            {
+                "key": 9,
+                "value": 0.8
+            },
+            {
+                "key": 16,
+                "value": 2
+            },
+            {
+                "key": 5,
+                "value": 1
+            },
+            {
+                "key": 2,
+                "value": 2
+            },
+            {
+                "key": 25,
+                "value": 1
+            }
+        ],
+        "info": [
+            "",
+            "Ride for an extra 2s before a zebra gets angry",
+            "Bucks from a zebra push other animals away",
+            "Landing on a zebra doesn't reduce your lasso size",
+            "Gain 50% more ticket money from zebras",
+            "Angry zebras buck less violently",
+            "While you are in the air, zebras move towards your lasso",
+            "Get bonus coins while bucking on zebras",
+            "2x more rare zebras in the stampede",
+            "Add a new rare Zebra to the stampede"
+        ]
+    },
+    "Elephant": {
+        "price": [
+            60,
+            100,
+            200,
+            300,
+            450,
+            600,
+            800,
+            1100,
+            1600,
+            12000
+        ],
+        "level": [
+            {
+                "key": 0,
+                "value": 1
+            },
+            {
+                "key": 1,
+                "value": 1
+            },
+            {
+                "key": 3,
+                "value": 1
+            },
+            {
+                "key": 15,
+                "value": 1.5
+            },
+            {
+                "key": 4,
+                "value": 1
+            },
+            {
+                "key": 1,
+                "value": 1
+            },
+            {
+                "key": 5,
+                "value": 2
+            },
+            {
+                "key": 2,
+                "value": 2
+            },
+            {
+                "key": 25,
+                "value": 1
+            }
+        ],
+        "info": [
+            "",
+            "2x more elephants in the stampede",
+            "Ride for an extra 1s before an elephant gets angry",
+            "Allows elephants to smash through rocks",
+            "Gain 50% more ticket money from elephants",
+            "Allows elephants to smash other elephants",
+            "Ride for an extra 1s before an elephant gets angry",
+            "Get bonus coins by smashing obstacles on elephants",
+            "2x more rare elephants in the stampede",
+            "Add a new rare Elephant to the stampede"
+        ]
+    },
+    "Ostrich": {
+        "price": [
+            40,
+            80,
+            150,
+            200,
+            300,
+            450,
+            600,
+            750,
+            900,
+            6000
+        ],
+        "level": [
+            {
+                "key": 0,
+                "value": 2
+            },
+            {
+                "key": 1,
+                "value": 2
+            },
+            {
+                "key": 14,
+                "value": 3
+            },
+            {
+                "key": 15,
+                "value": 1.5
+            },
+            {
+                "key": 4,
+                "value": 1
+            },
+            {
+                "key": 7,
+                "value": 0.2
+            },
+            {
+                "key": 5,
+                "value": 1
+            },
+            {
+                "key": 2,
+                "value": 2
+            },
+            {
+                "key": 25,
+                "value": 1
+            }
+        ],
+        "info": [
+            "",
+            "3x more ostriches in the stampede",
+            "Ride for an extra 2s before an ostrich gets angry",
+            "While riding an ostrich, crates are worth 3x more",
+            "Gain 50% more ticket money from ostriches",
+            "At high speeds ostriches will throw you clear if you crash",
+            "Jump further from ostriches",
+            "Get bonus coins while travelling at top speed on ostriches",
+            "2x more rare ostriches in the stampede",
+            "Add a new rare Ostrich to the stampede"
+        ]
+    },
+    "Giraffe": {
+        "price": [
+            100,
+            150,
+            250,
+            350,
+            450,
+            600,
+            750,
+            900,
+            1050,
+            7500
+        ],
+        "level": [
+            {
+                "key": 0,
+                "value": 2
+            },
+            {
+                "key": 6,
+                "value": 0.2
+            },
+            {
+                "key": 4,
+                "value": 1
+            },
+            {
+                "key": 15,
+                "value": 1.5
+            },
+            {
+                "key": 7,
+                "value": 0.3
+            },
+            {
+                "key": 6,
+                "value": 0.2
+            },
+            {
+                "key": 5,
+                "value": 1
+            },
+            {
+                "key": 2,
+                "value": 2
+            },
+            {
+                "key": 25,
+                "value": 1
+            }
+        ],
+        "info": [
+            "",
+            "3x more giraffes in the stampede",
+            "Jumping from a giraffe temporarily increases lasso size by 20%",
+            "Giraffe will stumble and recover from minor crashes",
+            "Gain 50% more ticket money from giraffes",
+            "Jump further from giraffes",
+            "Jumping from a giraffe temporarily increases lasso size by 20%",
+            "Get bonus coins for longer jumps from giraffes",
+            "2x more rare giraffes in the stampede",
+            "Add a new rare Giraffe to the stampede"
+        ]
+    },
+    "Vulture": {
+        "price": [
+            100,
+            250,
+            350,
+            500,
+            650,
+            800,
+            950,
+            1100,
+            1250,
+            9000
+        ],
+        "level": [
+            {
+                "key": 0,
+                "value": 1
+            },
+            {
+                "key": 11,
+                "value": 1
+            },
+            {
+                "key": 14,
+                "value": 5
+            },
+            {
+                "key": 15,
+                "value": 1.5
+            },
+            {
+                "key": 4,
+                "value": 1
+            },
+            {
+                "key": 1,
+                "value": 2
+            },
+            {
+                "key": 5,
+                "value": 1
+            },
+            {
+                "key": 2,
+                "value": 2
+            },
+            {
+                "key": 25,
+                "value": 1
+            }
+        ],
+        "info": [
+            "",
+            "2x more vultures in the stampede",
+            "Wild vultures will perch on lower rocks",
+            "While riding a vulture, crates are worth 5x more",
+            "Gain 50% more ticket money from vultures",
+            "Vulture swoops takes longer to reach max speed",
+            "Ride for an extra 2s before a vulture gets angry",
+            "Get bonus coins for swooping on vultures",
+            "2x more rare vultures in the stampede",
+            "Add a new rare Vulture to the stampede"
+        ]
+    },
+    "Lion": {
+        "price": [
+            400,
+            500,
+            650,
+            800,
+            950,
+            1100,
+            1250,
+            1400,
+            1550,
+            10500
+        ],
+        "level": [
+            {
+                "key": 0,
+                "value": 2
+            },
+            {
+                "key": 1,
+                "value": 1.5
+            },
+            {
+                "key": 12,
+                "value": 1
+            },
+            {
+                "key": 15,
+                "value": 1.5
+            },
+            {
+                "key": 13,
+                "value": 1
+            },
+            {
+                "key": 1,
+                "value": 1
+            },
+            {
+                "key": 5,
+                "value": 1
+            },
+            {
+                "key": 2,
+                "value": 2
+            },
+            {
+                "key": 25,
+                "value": 1
+            }
+        ],
+        "info": [
+            "",
+            "3x more lions in the stampede",
+            "Eating animals keeps lions happy for longer",
+            "Allows lions to eat other lions",
+            "Gain 50% more ticket money from lions",
+            "Allows lions to eat anything",
+            "Eating animals keeps lions happy for longer",
+            "Get bonus coins for eating other animals on lions",
+            "2x more rare lions in the stampede",
+            "Add a new rare Lion to the stampede"
+        ]
+    },
+    "Boar": {
+        "price": [
+            300,
+            600,
+            750,
+            900,
+            1950,
+            2400,
+            2850,
+            3150,
+            4500,
+            22500
+        ],
+        "level": [
+            {
+                "key": 1,
+                "value": 2
+            },
+            {
+                "key": 19,
+                "value": 0.75
+            },
+            {
+                "key": 18,
+                "value": 0.6
+            },
+            {
+                "key": 15,
+                "value": 1.5
+            },
+            {
+                "key": 16,
+                "value": 2
+            },
+            {
+                "key": 1,
+                "value": 1
+            },
+            {
+                "key": 5,
+                "value": 1
+            },
+            {
+                "key": 2,
+                "value": 2
+            },
+            {
+                "key": 25,
+                "value": 1
+            }
+        ],
+        "info": [
+            "",
+            "Ride for an extra 2s before a boar gets angry",
+            "Ride faster through water on boars",
+            "Angry boars accelerate slower",
+            "Gain 50% more ticket money from boars",
+            "While you are in the air, boars move towards your lasso",
+            "Ride for an extra 1s before a boar gets angry",
+            "Get bonus coins while bucking on boars",
+            "2x more rare boars in the stampede",
+            "Add a new rare Boar to the stampede"
+        ]
+    },
+    "Gorilla": {
+        "price": [
+            400,
+            1200,
+            1500,
+            1800,
+            2250,
+            2550,
+            3000,
+            3450,
+            5400,
+            30000
+        ],
+        "level": [
+            {
+                "key": 0,
+                "value": 2
+            },
+            {
+                "key": 4,
+                "value": 1
+            },
+            {
+                "key": 24,
+                "value": 1
+            },
+            {
+                "key": 15,
+                "value": 1.5
+            },
+            {
+                "key": 1,
+                "value": 2
+            },
+            {
+                "key": 23,
+                "value": 0.75
+            },
+            {
+                "key": 5,
+                "value": 1
+            },
+            {
+                "key": 2,
+                "value": 2
+            },
+            {
+                "key": 25,
+                "value": 1
+            }
+        ],
+        "info": [
+            "",
+            "3x more gorillas in the stampede",
+            "Gorilla slams smash obstacles",
+            "Bigger slams",
+            "Gain 50% more ticket money from gorillas",
+            "Ride for an extra 2s before a gorrila gets angry",
+            "Bigger lasso on mid air jumps",
+            "Gorilla slams earn coins",
+            "2x more rare gorillas in the stampede",
+            "Add a new rare Gorilla to the stampede"
+        ]
+    },
+    "Alligator": {
+        "price": [
+            500,
+            1200,
+            1500,
+            1800,
+            2250,
+            2700,
+            3150,
+            3600,
+            5400,
+            36000
+        ],
+        "level": [
+            {
+                "key": 19,
+                "value": 1.5
+            },
+            {
+                "key": 12,
+                "value": 1
+            },
+            {
+                "key": 4,
+                "value": 8
+            },
+            {
+                "key": 15,
+                "value": 1.5
+            },
+            {
+                "key": 1,
+                "value": 1.5
+            },
+            {
+                "key": 13,
+                "value": 1
+            },
+            {
+                "key": 5,
+                "value": 1
+            },
+            {
+                "key": 2,
+                "value": 2
+            },
+            {
+                "key": 25,
+                "value": 1
+            }
+        ],
+        "info": [
+            "",
+            "Ride faster through water on alligators",
+            "Allows alligators to eat other alligators",
+            "When riding other animals, alligators will be slower to attack you",
+            "Gain 50% more ticket money from alligators",
+            "Eating animals keeps alligators happy for longer",
+            "Allows alligators to eat anything",
+            "Get bonus coins for eating other animals on alligators",
+            "2x more rare alligators in the stampede",
+            "Add a new rare Alligator to the stampede"
+        ]
+    },
+    "Hippo": {
+        "price": [
+            500,
+            900,
+            1100,
+            1400,
+            1700,
+            2000,
+            2300,
+            2600,
+            4000,
+            28000
+        ],
+        "level": [
+            {
+                "key": 0,
+                "value": 2
+            },
+            {
+                "key": 20,
+                "value": 1.3
+            },
+            {
+                "key": 21,
+                "value": 0.01
+            },
+            {
+                "key": 15,
+                "value": 1.5
+            },
+            {
+                "key": 4,
+                "value": 1
+            },
+            {
+                "key": 3,
+                "value": 2
+            },
+            {
+                "key": 5,
+                "value": 1
+            },
+            {
+                "key": 2,
+                "value": 2
+            },
+            {
+                "key": 25,
+                "value": 1
+            }
+        ],
+        "info": [
+            "",
+            "3x more hippos in the stampede",
+            "After leaving the water, hippos energy lasts 30% longer",
+            "Longer charges when a hippo has full energy",
+            "Gain 50% more ticket money from hippos",
+            "Starts with enough energy to charge",
+            "Charging hippos can now smash rocks",
+            "Get bonus coins while in the water on a hippo",
+            "2x more rare hippos in the stampede",
+            "Add a new rare Hippo to the stampede"
+        ]
+    },
+    "Rhino": {
+        "price": [
+            900,
+            1500,
+            2000,
+            2300,
+            2600,
+            2900,
+            3200,
+            3600,
+            4400,
+            42000
+        ],
+        "level": [
+            {
+                "key": 0,
+                "value": 1
+            },
+            {
+                "key": 4,
+                "value": 1
+            },
+            {
+                "key": 3,
+                "value": 2
+            },
+            {
+                "key": 15,
+                "value": 1.5
+            },
+            {
+                "key": 22,
+                "value": 0.1
+            },
+            {
+                "key": 1,
+                "value": 1
+            },
+            {
+                "key": 5,
+                "value": 1
+            },
+            {
+                "key": 2,
+                "value": 2
+            },
+            {
+                "key": 25,
+                "value": 1
+            }
+        ],
+        "info": [
+            "",
+            "2x more rhinos in the stampede",
+            "Smashing things will increase the speed of a rhino",
+            "Allows rhinos to smash through rocks",
+            "Gain 50% more ticket money from rhinos",
+            "Increased riding speed on rhinos",
+            "Ride for an extra 1s before a rhino gets angry",
+            "Get bonus coins by smashing obstacles on rhinos",
+            "2x more rare rhinos in the stampede",
+            "Add a new rare Rhino to the stampede"
+        ]
+    },
+    "Tiger": {
+        "price": [
+            1000,
+            2250,
+            2550,
+            3000,
+            3450,
+            3900,
+            4500,
+            5250,
+            6000,
+            49500
+        ],
+        "level": [
+            {
+                "key": 0,
+                "value": 2
+            },
+            {
+                "key": 4,
+                "value": 1.5
+            },
+            {
+                "key": 19,
+                "value": 0.6
+            },
+            {
+                "key": 15,
+                "value": 1.5
+            },
+            {
+                "key": 8,
+                "value": 1
+            },
+            {
+                "key": 1,
+                "value": 1
+            },
+            {
+                "key": 5,
+                "value": 1
+            },
+            {
+                "key": 2,
+                "value": 2
+            },
+            {
+                "key": 25,
+                "value": 1
+            }
+        ],
+        "info": [
+            "",
+            "3x more tigers in the stampede",
+            "Eating boars keeps a tiger happy for longer",
+            "Ride faster through water on tigers",
+            "Gain 50% more ticket money from tigers",
+            "Landing on a tiger doesn't reduce your lasso size",
+            "Eating animals keeps tigers happy for longer",
+            "Get bonus coins for eating other animals on tigers",
+            "2x more rare tigers in the stampede",
+            "Add a new rare tiger to the stampede"
+        ]
+    },
+    "Toucan": {
+        "price": [
+            1400,
+            3300,
+            3750,
+            4200,
+            4650,
+            5100,
+            5550,
+            6150,
+            6600,
+            57000
+        ],
+        "level": [
+            {
+                "key": 0,
+                "value": 2
+            },
+            {
+                "key": 1,
+                "value": 2
+            },
+            {
+                "key": 14,
+                "value": 5
+            },
+            {
+                "key": 15,
+                "value": 1.5
+            },
+            {
+                "key": 6,
+                "value": 0.3
+            },
+            {
+                "key": 1,
+                "value": 2
+            },
+            {
+                "key": 5,
+                "value": 1.66
+            },
+            {
+                "key": 2,
+                "value": 2
+            },
+            {
+                "key": 25,
+                "value": 1
+            }
+        ],
+        "info": [
+            "",
+            "3x more toucan in the stampede",
+            "Ride for an extra 2s before a toucan gets angry",
+            "While riding a toucan, crates are worth 5x more",
+            "Gain 50% more ticket money from toucan",
+            "Jumping from a toucan temporarily increases lasso size by 30%",
+            "Ride for an extra 2s before a toucan gets angry",
+            "Get bonus coins for swooping on toucan",
+            "2x more rare toucan in the stampede",
+            "Add a new rare Toucan to the stampede"
+        ]
+    },
+    "AnimalCuddler": {
+        "price": [],
+        "level": [
+            {
+                "key": 4,
+                "value": 1
+            },
+            {
+                "key": 25,
+                "value": 2
+            },
+            {
+                "key": 0,
+                "value": 1
+            },
+            {
+                "key": 1,
+                "value": 1.5
+            },
+            {
+                "key": 25,
+                "value": 3
+            },
+            {
+                "key": 8,
+                "value": 1
+            },
+            {
+                "key": 5,
+                "value": 1
+            },
+            {
+                "key": 2,
+                "value": 2
+            },
+            {
+                "key": 25,
+                "value": 4
+            }
+        ],
+        "info": [
+            "",
+            "pandas can bump into small animals to stay happy",
+            "Add two new rare pandas to the stampede",
+            "2x more pandas in the stampede",
+            "Ride for an extra 1.5s before a panda gets angry",
+            "Add two new rare pandas to the stampede",
+            "Landing on a panda doesn't reduce your lasso size",
+            "Get bonus coins by bumping into other animals on pandas",
+            "2x more rare pandas in the stampede",
+            "Add a new rare Panda to the stampede"
+        ]
+    },
+    "AnimalChineseDragon": {
+        "price": [],
+        "level": [
+            {
+                "key": 0,
+                "value": 1
+            },
+            {
+                "key": 25,
+                "value": 2
+            },
+            {
+                "key": 3,
+                "value": 1
+            },
+            {
+                "key": 5,
+                "value": 1
+            },
+            {
+                "key": 25,
+                "value": 3
+            },
+            {
+                "key": 1,
+                "value": 1.5
+            },
+            {
+                "key": 71,
+                "value": 0.1
+            },
+            {
+                "key": 2,
+                "value": 2
+            },
+            {
+                "key": 25,
+                "value": 4
+            }
+        ],
+        "info": [
+            "",
+            "2x more Chinese dragons in the stampede",
+            "Add two new rare Chinese dragons to the stampede",
+            "Allows Chinese dragons to smash through rocks",
+            "Get bonus coins by smashing obstacles on Chinese dragons",
+            "Add two new rare Chinese dragons to the stampede",
+            "Ride for an extra 1.5s before a Chinese dragon gets angry",
+            "Energy drains 10% slower in the Great Wall",
+            "2x more rare Chinese dragons in the stampede",
+            "Add a new rare Chinese Dragon to the stampede"
+        ]
+    }
+}

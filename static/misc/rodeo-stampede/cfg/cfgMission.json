@@ -1,0 +1,5062 @@
+[
+    {
+        "id": 0,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 1002,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服一只斑马",
+        "decEN": "Tame Zebra"
+    },
+    {
+        "id": 1,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1001,
+        "value": 4,
+        "area": 0,
+        "dec": "在一局游戏中骑乘野牛×4",
+        "decEN": "Ride 4 Buffalo in one run"
+    },
+    {
+        "id": 2,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1001,
+        "value": 6,
+        "area": 0,
+        "dec": "骑在野牛身上保持6秒",
+        "decEN": "Stay on Buffalo for 6 seconds"
+    },
+    {
+        "id": 3,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 102,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服丛林野牛",
+        "decEN": "Tame Forest Buffalo"
+    },
+    {
+        "id": 4,
+        "difficulty": 1,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 300,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏奔跑300米",
+        "decEN": "Ride 300m in the Savannah in one run"
+    },
+    {
+        "id": 5,
+        "difficulty": 0,
+        "type": "RIDE_STAY",
+        "target": 1002,
+        "value": 6,
+        "area": 0,
+        "dec": "骑在斑马身上保持6秒",
+        "decEN": "Stay on Zebra for 6 seconds"
+    },
+    {
+        "id": 6,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 1,
+        "value": 5,
+        "area": 0,
+        "dec": "在稀树草原中撞碎灌木丛×5",
+        "decEN": "Smash 5 shrubs in the Savannah"
+    },
+    {
+        "id": 7,
+        "difficulty": 2,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 800,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏奔跑800米",
+        "decEN": "Ride 800m in the Savannah in one run"
+    },
+    {
+        "id": 8,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1001,
+        "value": 5,
+        "area": 0,
+        "dec": "在一局游戏中骑乘野牛×5",
+        "decEN": "Ride 5 Buffalo in one run"
+    },
+    {
+        "id": 9,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1001,
+        "value": 8,
+        "area": 0,
+        "dec": "骑在野牛身上保持8秒",
+        "decEN": "Stay on Buffalo for 8 seconds"
+    },
+    {
+        "id": 10,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 1003,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服一只大象",
+        "decEN": "Tame Elephant"
+    },
+    {
+        "id": 11,
+        "difficulty": 0,
+        "type": "RIDE",
+        "target": 1003,
+        "value": 3,
+        "area": 0,
+        "dec": "乘大象×3",
+        "decEN": "Ride 3 Elephant"
+    },
+    {
+        "id": 12,
+        "difficulty": 2,
+        "type": "RIDE_SAME_CNT",
+        "target": 1001,
+        "value": 6,
+        "area": 0,
+        "dec": "连续骑乘野牛×6",
+        "decEN": "Ride 6 Buffalo in a row"
+    },
+    {
+        "id": 13,
+        "difficulty": 0,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 400,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏无换乘奔跑400米",
+        "decEN": "Travel 400m in the Savannah in one run without jumping"
+    },
+    {
+        "id": 14,
+        "difficulty": 2,
+        "type": "RIDE_SAME_CNT",
+        "target": 1002,
+        "value": 6,
+        "area": 0,
+        "dec": "连续骑乘斑马×6",
+        "decEN": "Ride 6 Zebra in a row"
+    },
+    {
+        "id": 15,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 1,
+        "value": 10,
+        "area": 0,
+        "dec": "在稀树草原中撞碎灌木丛×10",
+        "decEN": "Smash 10 shrubs in the Savannah"
+    },
+    {
+        "id": 16,
+        "difficulty": 1,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 1000,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏奔跑1000米",
+        "decEN": "Ride 1000m in the Savannah in one run"
+    },
+    {
+        "id": 17,
+        "difficulty": 2,
+        "type": "RIDE_SAME_CNT",
+        "target": 1001,
+        "value": 6,
+        "area": 0,
+        "dec": "连续骑乘野牛×6",
+        "decEN": "Ride 6 Buffalo in a row"
+    },
+    {
+        "id": 18,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1001,
+        "value": 6,
+        "area": 0,
+        "dec": "在一局游戏中骑乘野牛×6",
+        "decEN": "Ride 6 Buffalo in one run"
+    },
+    {
+        "id": 19,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1001,
+        "value": 9,
+        "area": 0,
+        "dec": "骑在野牛身上保持9秒",
+        "decEN": "Stay on Buffalo for 9 seconds"
+    },
+    {
+        "id": 20,
+        "difficulty": 2,
+        "type": "RIDE_SAME_CNT",
+        "target": 1003,
+        "value": 2,
+        "area": 0,
+        "dec": "连续骑乘大象×2",
+        "decEN": "Ride 2 Elephant in a row"
+    },
+    {
+        "id": 21,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 1004,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服一只鸵鸟",
+        "decEN": "Tame Ostrich"
+    },
+    {
+        "id": 22,
+        "difficulty": 1,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 800,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏无换乘奔跑800米",
+        "decEN": "Travel 800m in the Savannah in one run without jumping"
+    },
+    {
+        "id": 23,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1001,
+        "value": 6,
+        "area": 0,
+        "dec": "骑在野牛身上保持6秒",
+        "decEN": "Stay on Buffalo for 6 seconds"
+    },
+    {
+        "id": 24,
+        "difficulty": 1,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 1200,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏奔跑1200米",
+        "decEN": "Ride 1200m in the Savannah in one run"
+    },
+    {
+        "id": 25,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1001,
+        "value": 8,
+        "area": 0,
+        "dec": "在一局游戏中骑乘野牛×8",
+        "decEN": "Ride 8 Buffalo in one run"
+    },
+    {
+        "id": 26,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1001,
+        "value": 12,
+        "area": 0,
+        "dec": "骑在野牛身上保持12秒",
+        "decEN": "Stay on Buffalo for 12 seconds"
+    },
+    {
+        "id": 27,
+        "difficulty": 0,
+        "type": "RIDE_SAME_CNT",
+        "target": 1002,
+        "value": 3,
+        "area": 0,
+        "dec": "连续骑乘斑马×3",
+        "decEN": "Ride 3 Zebra in a row"
+    },
+    {
+        "id": 28,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1002,
+        "value": 6,
+        "area": 0,
+        "dec": "骑在斑马身上保持6秒",
+        "decEN": "Stay on Zebra for 6 seconds"
+    },
+    {
+        "id": 29,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 1005,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服一只长颈鹿",
+        "decEN": "Tame Giraffe"
+    },
+    {
+        "id": 30,
+        "difficulty": 1,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 1000,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏无换乘奔跑1000米",
+        "decEN": "Travel 1000m in the Savannah in one run without jumping"
+    },
+    {
+        "id": 31,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1004,
+        "value": 6,
+        "area": 0,
+        "dec": "骑在鸵鸟身上保持6秒",
+        "decEN": "Stay on Ostrich for 6 seconds"
+    },
+    {
+        "id": 32,
+        "difficulty": 2,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 1800,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏奔跑1800米",
+        "decEN": "Ride 1800m in the Savannah in one run"
+    },
+    {
+        "id": 33,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1001,
+        "value": 15,
+        "area": 0,
+        "dec": "在一局游戏中骑乘野牛×15",
+        "decEN": "Ride 15 Buffalo in one run"
+    },
+    {
+        "id": 34,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 1,
+        "value": 10,
+        "area": 0,
+        "dec": "在稀树草原中撞碎灌木丛×10",
+        "decEN": "Smash 10 shrubs in the Savannah"
+    },
+    {
+        "id": 35,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1001,
+        "value": 20,
+        "area": 0,
+        "dec": "骑在野牛身上保持20秒",
+        "decEN": "Stay on Buffalo for 20 seconds"
+    },
+    {
+        "id": 36,
+        "difficulty": 1,
+        "type": "RIDE_SAME_CNT",
+        "target": 1004,
+        "value": 2,
+        "area": 0,
+        "dec": "连续骑乘鸵鸟×2",
+        "decEN": "Ride 2 Ostrich in a row"
+    },
+    {
+        "id": 37,
+        "difficulty": 1,
+        "type": "RIDE_DIF_ONE_TIME",
+        "target": 0,
+        "value": 3,
+        "area": 0,
+        "dec": "在稀树草原连续骑乘3种不同的动物",
+        "decEN": "Ride 3 different animals in a row in the Savannah"
+    },
+    {
+        "id": 38,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1004,
+        "value": 10,
+        "area": 0,
+        "dec": "骑在鸵鸟身上保持10秒",
+        "decEN": "Stay on Ostrich for 10 seconds"
+    },
+    {
+        "id": 39,
+        "difficulty": 1,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 800,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏无换乘奔跑800米",
+        "decEN": "Travel 800m in the Savannah in one run without jumping"
+    },
+    {
+        "id": 40,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 1007,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服一只狮子",
+        "decEN": "Tame Lion"
+    },
+    {
+        "id": 41,
+        "difficulty": 1,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 1400,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏无换乘奔跑1400米",
+        "decEN": "Travel 1400m in the Savannah in one run without jumping"
+    },
+    {
+        "id": 42,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1001,
+        "value": 30,
+        "area": 0,
+        "dec": "在一局游戏中骑乘野牛×30",
+        "decEN": "Ride 30 Buffalo in one run"
+    },
+    {
+        "id": 43,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1002,
+        "value": 9,
+        "area": 0,
+        "dec": "骑在斑马身上保持9秒",
+        "decEN": "Stay on Zebra for 9 seconds"
+    },
+    {
+        "id": 44,
+        "difficulty": 1,
+        "type": "RIDE_SAME_CNT",
+        "target": 1004,
+        "value": 3,
+        "area": 0,
+        "dec": "连续骑乘鸵鸟×3",
+        "decEN": "Ride 3 Ostrich in a row"
+    },
+    {
+        "id": 45,
+        "difficulty": 2,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 2000,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏奔跑2000米",
+        "decEN": "Ride 2000m in the Savannah in one run"
+    },
+    {
+        "id": 46,
+        "difficulty": 0,
+        "type": "RIDE_CNT",
+        "target": 1005,
+        "value": 2,
+        "area": 0,
+        "dec": "在一局游戏中骑乘长颈鹿×2",
+        "decEN": "Ride 2 Giraffe in one run"
+    },
+    {
+        "id": 47,
+        "difficulty": 1,
+        "type": "RIDE_DIF_ONE_TIME",
+        "target": 0,
+        "value": 4,
+        "area": 0,
+        "dec": "在稀树草原连续骑乘4种不同的动物",
+        "decEN": "Ride 4 different animals in a row in the Savannah"
+    },
+    {
+        "id": 48,
+        "difficulty": 1,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 1000,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏无换乘奔跑1000米",
+        "decEN": "Travel 1000m in the Savannah in one run without jumping"
+    },
+    {
+        "id": 49,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1004,
+        "value": 5,
+        "area": 0,
+        "dec": "乘鸵鸟×5",
+        "decEN": "Ride 5 Ostrich"
+    },
+    {
+        "id": 50,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 1006,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服一只秃鹰",
+        "decEN": "Tame Vulture"
+    },
+    {
+        "id": 51,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1005,
+        "value": 6,
+        "area": 0,
+        "dec": "骑在长颈鹿身上保持6秒",
+        "decEN": "Stay on Giraffe for 6 seconds"
+    },
+    {
+        "id": 52,
+        "difficulty": 1,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 1500,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏无换乘奔跑1500米",
+        "decEN": "Travel 1500m in the Savannah in one run without jumping"
+    },
+    {
+        "id": 53,
+        "difficulty": 1,
+        "type": "RIDE_SAME_CNT",
+        "target": 1004,
+        "value": 2,
+        "area": 0,
+        "dec": "连续骑乘鸵鸟×2",
+        "decEN": "Ride 2 Ostrich in a row"
+    },
+    {
+        "id": 54,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 8,
+        "area": 0,
+        "dec": "在稀树草原中撞碎树木×8",
+        "decEN": "Smash 8 trees in the Savannah"
+    },
+    {
+        "id": 55,
+        "difficulty": 1,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 2800,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏奔跑2800米",
+        "decEN": "Ride 2800m in the Savannah in one run"
+    },
+    {
+        "id": 56,
+        "difficulty": 0,
+        "type": "RIDE_CNT",
+        "target": 1004,
+        "value": 2,
+        "area": 0,
+        "dec": "在一局游戏中骑乘鸵鸟×2",
+        "decEN": "Ride 2 Ostrich in one run"
+    },
+    {
+        "id": 57,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1002,
+        "value": 10,
+        "area": 0,
+        "dec": "骑在斑马身上保持10秒",
+        "decEN": "Stay on Zebra for 10 seconds"
+    },
+    {
+        "id": 58,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 8,
+        "area": 0,
+        "dec": "在稀树草原中撞碎树木×8",
+        "decEN": "Smash 8 trees in the Savannah"
+    },
+    {
+        "id": 59,
+        "difficulty": 1,
+        "type": "RIDE_SAME_CNT",
+        "target": 1002,
+        "value": 3,
+        "area": 0,
+        "dec": "连续骑乘斑马×3",
+        "decEN": "Ride 3 Zebra in a row"
+    },
+    {
+        "id": 60,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1005,
+        "value": 4,
+        "area": 0,
+        "dec": "在一局游戏中骑乘长颈鹿×4",
+        "decEN": "Ride 4 Giraffe in one run"
+    },
+    {
+        "id": 61,
+        "difficulty": 1,
+        "type": "RIDE_DIF_ONE_TIME",
+        "target": 0,
+        "value": 5,
+        "area": 0,
+        "dec": "在稀树草原连续骑乘5种不同的动物",
+        "decEN": "Ride 5 different animals in a row in the Savannah"
+    },
+    {
+        "id": 62,
+        "difficulty": 2,
+        "type": "RIDE_DIF_IN_ONE",
+        "target": 0,
+        "value": 4,
+        "area": 0,
+        "dec": "在稀树草原一局游戏内骑乘4种不同的动物",
+        "decEN": "Ride 4 different animals in one run in the Savannah"
+    },
+    {
+        "id": 63,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 10,
+        "area": 0,
+        "dec": "在稀树草原中撞碎树木×10",
+        "decEN": "Smash 10 trees in the Savannah"
+    },
+    {
+        "id": 64,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1002,
+        "value": 7,
+        "area": 0,
+        "dec": "乘斑马×7",
+        "decEN": "Ride 7 Zebra"
+    },
+    {
+        "id": 65,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 103,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服水牛",
+        "decEN": "Tame Water Buffalo"
+    },
+    {
+        "id": 66,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1004,
+        "value": 6,
+        "area": 0,
+        "dec": "骑在鸵鸟身上保持6秒",
+        "decEN": "Stay on Ostrich for 6 seconds"
+    },
+    {
+        "id": 67,
+        "difficulty": 0,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 500,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏无换乘奔跑500米",
+        "decEN": "Travel 500m in the Savannah in one run without jumping"
+    },
+    {
+        "id": 68,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1004,
+        "value": 5,
+        "area": 0,
+        "dec": "乘鸵鸟×5",
+        "decEN": "Ride 5 Ostrich"
+    },
+    {
+        "id": 69,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 20,
+        "area": 0,
+        "dec": "在稀树草原中撞碎树木×20",
+        "decEN": "Smash 20 trees in the Savannah"
+    },
+    {
+        "id": 70,
+        "difficulty": 2,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 3000,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏无换乘奔跑3000米",
+        "decEN": "Travel 3000m in the Savannah in one run without jumping"
+    },
+    {
+        "id": 71,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1002,
+        "value": 7,
+        "area": 0,
+        "dec": "乘斑马×7",
+        "decEN": "Ride 7 Zebra"
+    },
+    {
+        "id": 72,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1004,
+        "value": 4,
+        "area": 0,
+        "dec": "在一局游戏中骑乘鸵鸟×4",
+        "decEN": "Ride 4 Ostrich in one run"
+    },
+    {
+        "id": 73,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1002,
+        "value": 15,
+        "area": 0,
+        "dec": "骑在斑马身上保持15秒",
+        "decEN": "Stay on Zebra for 15 seconds"
+    },
+    {
+        "id": 74,
+        "difficulty": 1,
+        "type": "RIDE_SAME_CNT",
+        "target": 1002,
+        "value": 8,
+        "area": 0,
+        "dec": "连续骑乘斑马×8",
+        "decEN": "Ride 8 Zebra in a row"
+    },
+    {
+        "id": 75,
+        "difficulty": 0,
+        "type": "RIDE_CNT",
+        "target": 1003,
+        "value": 2,
+        "area": 0,
+        "dec": "在一局游戏中骑乘大象×2",
+        "decEN": "Ride 2 Elephant in one run"
+    },
+    {
+        "id": 76,
+        "difficulty": 1,
+        "type": "RIDE_DIF_ONE_TIME",
+        "target": 0,
+        "value": 3,
+        "area": 0,
+        "dec": "在稀树草原连续骑乘3种不同的动物",
+        "decEN": "Ride 3 different animals in a row in the Savannah"
+    },
+    {
+        "id": 77,
+        "difficulty": 2,
+        "type": "RIDE_DIF_IN_ONE",
+        "target": 0,
+        "value": 5,
+        "area": 0,
+        "dec": "在稀树草原一局游戏内骑乘5种不同的动物",
+        "decEN": "Ride 5 different animals in one run in the Savannah"
+    },
+    {
+        "id": 78,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 20,
+        "area": 0,
+        "dec": "在稀树草原中撞碎树木×20",
+        "decEN": "Smash 20 trees in the Savannah"
+    },
+    {
+        "id": 79,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1005,
+        "value": 5,
+        "area": 0,
+        "dec": "乘长颈鹿×5",
+        "decEN": "Ride 5 Giraffe"
+    },
+    {
+        "id": 80,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1002,
+        "value": 9,
+        "area": 0,
+        "dec": "骑在斑马身上保持9秒",
+        "decEN": "Stay on Zebra for 9 seconds"
+    },
+    {
+        "id": 81,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 104,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服美洲野牛",
+        "decEN": "Tame Bison"
+    },
+    {
+        "id": 82,
+        "difficulty": 1,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 1200,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏无换乘奔跑1200米",
+        "decEN": "Travel 1200m in the Savannah in one run without jumping"
+    },
+    {
+        "id": 83,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1005,
+        "value": 4,
+        "area": 0,
+        "dec": "在一局游戏中骑乘长颈鹿×4",
+        "decEN": "Ride 4 Giraffe in one run"
+    },
+    {
+        "id": 84,
+        "difficulty": 0,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 1100,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏奔跑1100米",
+        "decEN": "Ride 1100m in the Savannah in one run"
+    },
+    {
+        "id": 85,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1004,
+        "value": 6,
+        "area": 0,
+        "dec": "在一局游戏中骑乘鸵鸟×6",
+        "decEN": "Ride 6 Ostrich in one run"
+    },
+    {
+        "id": 86,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1004,
+        "value": 8,
+        "area": 0,
+        "dec": "骑在鸵鸟身上保持8秒",
+        "decEN": "Stay on Ostrich for 8 seconds"
+    },
+    {
+        "id": 87,
+        "difficulty": 0,
+        "type": "RIDE_SAME_CNT",
+        "target": 1005,
+        "value": 2,
+        "area": 0,
+        "dec": "连续骑乘长颈鹿×2",
+        "decEN": "Ride 2 Giraffe in a row"
+    },
+    {
+        "id": 88,
+        "difficulty": 1,
+        "type": "RIDE_SAME_CNT",
+        "target": 1002,
+        "value": 8,
+        "area": 0,
+        "dec": "连续骑乘斑马×8",
+        "decEN": "Ride 8 Zebra in a row"
+    },
+    {
+        "id": 89,
+        "difficulty": 0,
+        "type": "RIDE_CNT",
+        "target": 1003,
+        "value": 4,
+        "area": 0,
+        "dec": "在一局游戏中骑乘大象×4",
+        "decEN": "Ride 4 Elephant in one run"
+    },
+    {
+        "id": 90,
+        "difficulty": 0,
+        "type": "RIDE_DIF_ONE_TIME",
+        "target": 0,
+        "value": 4,
+        "area": 0,
+        "dec": "在稀树草原连续骑乘4种不同的动物",
+        "decEN": "Ride 4 different animals in a row in the Savannah"
+    },
+    {
+        "id": 91,
+        "difficulty": 1,
+        "type": "RIDE_DIF_IN_ONE",
+        "target": 0,
+        "value": 6,
+        "area": 0,
+        "dec": "在稀树草原一局游戏内骑乘6种不同的动物",
+        "decEN": "Ride 6 different animals in one run in the Savannah"
+    },
+    {
+        "id": 92,
+        "difficulty": 1,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 2800,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏奔跑2800米",
+        "decEN": "Ride 2800m in the Savannah in one run"
+    },
+    {
+        "id": 93,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 122,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服黄铜斑马",
+        "decEN": "Tame reverzebra"
+    },
+    {
+        "id": 94,
+        "difficulty": 2,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 1500,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏无换乘奔跑1500米",
+        "decEN": "Travel 1500m in the Savannah in one run without jumping"
+    },
+    {
+        "id": 95,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1004,
+        "value": 5,
+        "area": 0,
+        "dec": "乘鸵鸟×5",
+        "decEN": "Ride 5 Ostrich"
+    },
+    {
+        "id": 96,
+        "difficulty": 0,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 1300,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏奔跑1300米",
+        "decEN": "Ride 1300m in the Savannah in one run"
+    },
+    {
+        "id": 97,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1002,
+        "value": 4,
+        "area": 0,
+        "dec": "在一局游戏中骑乘斑马×4",
+        "decEN": "Ride 4 Zebra in one run"
+    },
+    {
+        "id": 98,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1004,
+        "value": 12,
+        "area": 0,
+        "dec": "骑在鸵鸟身上保持12秒",
+        "decEN": "Stay on Ostrich for 12 seconds"
+    },
+    {
+        "id": 99,
+        "difficulty": 0,
+        "type": "RIDE_SAME_CNT",
+        "target": 1005,
+        "value": 3,
+        "area": 0,
+        "dec": "连续骑乘长颈鹿×3",
+        "decEN": "Ride 3 Giraffe in a row"
+    },
+    {
+        "id": 100,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1006,
+        "value": 2,
+        "area": 0,
+        "dec": "在一局游戏中骑乘秃鹰×2",
+        "decEN": "Ride 2 Vulture in one run"
+    },
+    {
+        "id": 101,
+        "difficulty": 1,
+        "type": "RIDE_DIF_ONE_TIME",
+        "target": 0,
+        "value": 5,
+        "area": 0,
+        "dec": "在稀树草原连续骑乘5种不同的动物",
+        "decEN": "Ride 5 different animals in a row in the Savannah"
+    },
+    {
+        "id": 102,
+        "difficulty": 2,
+        "type": "RIDE_DIF_IN_ONE",
+        "target": 0,
+        "value": 4,
+        "area": 0,
+        "dec": "在稀树草原一局游戏内骑乘4种不同的动物",
+        "decEN": "Ride 4 different animals in one run in the Savannah"
+    },
+    {
+        "id": 103,
+        "difficulty": 1,
+        "type": "RIDE_SAME_CNT",
+        "target": 1002,
+        "value": 3,
+        "area": 0,
+        "dec": "连续骑乘斑马×3",
+        "decEN": "Ride 3 Zebra in a row"
+    },
+    {
+        "id": 104,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1005,
+        "value": 4,
+        "area": 0,
+        "dec": "在一局游戏中骑乘长颈鹿×4",
+        "decEN": "Ride 4 Giraffe in one run"
+    },
+    {
+        "id": 105,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 123,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服薄荷斑马",
+        "decEN": "Tame Candicorn"
+    },
+    {
+        "id": 106,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 8,
+        "area": 0,
+        "dec": "在稀树草原中撞碎树木×8",
+        "decEN": "Smash 8 trees in the Savannah"
+    },
+    {
+        "id": 107,
+        "difficulty": 2,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 2000,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏奔跑2000米",
+        "decEN": "Ride 2000m in the Savannah in one run"
+    },
+    {
+        "id": 108,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1002,
+        "value": 8,
+        "area": 0,
+        "dec": "在一局游戏中骑乘斑马×8",
+        "decEN": "Ride 8 Zebra in one run"
+    },
+    {
+        "id": 109,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1004,
+        "value": 17,
+        "area": 0,
+        "dec": "骑在鸵鸟身上保持17秒",
+        "decEN": "Stay on Ostrich for 17 seconds"
+    },
+    {
+        "id": 110,
+        "difficulty": 0,
+        "type": "RIDE_SAME_CNT",
+        "target": 1001,
+        "value": 12,
+        "area": 0,
+        "dec": "连续骑乘野牛×12",
+        "decEN": "Ride 12 Buffalo in a row"
+    },
+    {
+        "id": 111,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1006,
+        "value": 4,
+        "area": 0,
+        "dec": "在一局游戏中骑乘秃鹰×4",
+        "decEN": "Ride 4 Vulture in one run"
+    },
+    {
+        "id": 112,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1001,
+        "value": 8,
+        "area": 0,
+        "dec": "骑在野牛身上保持8秒",
+        "decEN": "Stay on Buffalo for 8 seconds"
+    },
+    {
+        "id": 113,
+        "difficulty": 1,
+        "type": "RIDE_DIF_IN_ONE",
+        "target": 0,
+        "value": 5,
+        "area": 0,
+        "dec": "在稀树草原一局游戏内骑乘5种不同的动物",
+        "decEN": "Ride 5 different animals in one run in the Savannah"
+    },
+    {
+        "id": 114,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1005,
+        "value": 6,
+        "area": 0,
+        "dec": "骑在长颈鹿身上保持6秒",
+        "decEN": "Stay on Giraffe for 6 seconds"
+    },
+    {
+        "id": 115,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1001,
+        "value": 40,
+        "area": 0,
+        "dec": "从野牛身上跳起经过40米后骑上其他动物",
+        "decEN": "Jump 40m from Buffalo and land it"
+    },
+    {
+        "id": 116,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 125,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服闷骚斑马",
+        "decEN": "Tame Punky Zeb"
+    },
+    {
+        "id": 117,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 0,
+        "value": 20,
+        "area": 0,
+        "dec": "在稀树草原中撞碎障碍物×20",
+        "decEN": "Smash 20 obstacles in the Savannah"
+    },
+    {
+        "id": 118,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 1,
+        "value": 20,
+        "area": 0,
+        "dec": "在稀树草原中撞碎灌木丛×20",
+        "decEN": "Smash 20 shrubs in the Savannah"
+    },
+    {
+        "id": 119,
+        "difficulty": 2,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 2500,
+        "area": 0,
+        "dec": "在稀树草原中单局游戏奔跑2500米",
+        "decEN": "Ride 2500m in the Savannah in one run"
+    },
+    {
+        "id": 120,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1002,
+        "value": 12,
+        "area": 0,
+        "dec": "在一局游戏中骑乘斑马×12",
+        "decEN": "Ride 12 Zebra in one run"
+    },
+    {
+        "id": 121,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1007,
+        "value": 6,
+        "area": 0,
+        "dec": "骑在狮子身上保持6秒",
+        "decEN": "Stay on Lion for 6 seconds"
+    },
+    {
+        "id": 122,
+        "difficulty": 0,
+        "type": "RIDE_SAME_CNT",
+        "target": 1003,
+        "value": 3,
+        "area": 0,
+        "dec": "连续骑乘大象×3",
+        "decEN": "Ride 3 Elephant in a row"
+    },
+    {
+        "id": 123,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1001,
+        "value": 15,
+        "area": 0,
+        "dec": "在一局游戏中骑乘野牛×15",
+        "decEN": "Ride 15 Buffalo in one run"
+    },
+    {
+        "id": 124,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1004,
+        "value": 12,
+        "area": 0,
+        "dec": "骑在鸵鸟身上保持12秒",
+        "decEN": "Stay on Ostrich for 12 seconds"
+    },
+    {
+        "id": 125,
+        "difficulty": 1,
+        "type": "RIDE_DIF_IN_ONE",
+        "target": 0,
+        "value": 6,
+        "area": 0,
+        "dec": "在稀树草原一局游戏内骑乘6种不同的动物",
+        "decEN": "Ride 6 different animals in one run in the Savannah"
+    },
+    {
+        "id": 126,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 20,
+        "area": 0,
+        "dec": "在稀树草原中撞碎树木×20",
+        "decEN": "Smash 20 trees in the Savannah"
+    },
+    {
+        "id": 127,
+        "difficulty": 2,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1001,
+        "value": 50,
+        "area": 0,
+        "dec": "从野牛身上跳起经过50米后骑上其他动物",
+        "decEN": "Jump 50m from Buffalo and land it"
+    },
+    {
+        "id": 128,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 142,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服猛犸象",
+        "decEN": "Tame mammoth"
+    },
+    {
+        "id": 129,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 1,
+        "value": 30,
+        "area": 0,
+        "dec": "在稀树草原中撞碎灌木丛×30",
+        "decEN": "Smash 30 shrubs in the Savannah"
+    },
+    {
+        "id": 130,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1007,
+        "value": 2,
+        "area": 0,
+        "dec": "在一局游戏中骑乘狮子×2",
+        "decEN": "Ride 2 Lion in one run"
+    },
+    {
+        "id": 131,
+        "difficulty": 0,
+        "type": "RIDE_STAY",
+        "target": 1007,
+        "value": 10,
+        "area": 0,
+        "dec": "骑在狮子身上保持10秒",
+        "decEN": "Stay on Lion for 10 seconds"
+    },
+    {
+        "id": 132,
+        "difficulty": 1,
+        "type": "RIDE_SAME_CNT",
+        "target": 1001,
+        "value": 10,
+        "area": 0,
+        "dec": "连续骑乘野牛×10",
+        "decEN": "Ride 10 Buffalo in a row"
+    },
+    {
+        "id": 133,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1004,
+        "value": 7,
+        "area": 0,
+        "dec": "在一局游戏中骑乘鸵鸟×7",
+        "decEN": "Ride 7 Ostrich in one run"
+    },
+    {
+        "id": 134,
+        "difficulty": 1,
+        "type": "CRASH_IN_ONE",
+        "target": 0,
+        "value": 8,
+        "area": 0,
+        "dec": "在稀树草原的一局游戏中撞碎障碍物×8",
+        "decEN": "Smash 8 obstacles in the Savannah in one run"
+    },
+    {
+        "id": 135,
+        "difficulty": 1,
+        "type": "RIDE_SAME_CNT",
+        "target": 1002,
+        "value": 4,
+        "area": 0,
+        "dec": "连续骑乘斑马×4",
+        "decEN": "Ride 4 Zebra in a row"
+    },
+    {
+        "id": 136,
+        "difficulty": 2,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1004,
+        "value": 50,
+        "area": 0,
+        "dec": "从鸵鸟身上跳起经过50米后骑上其他动物",
+        "decEN": "Jump 50m from Ostrich and land it"
+    },
+    {
+        "id": 137,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 143,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服象伯爵",
+        "decEN": "Tame the king"
+    },
+    {
+        "id": 138,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 3,
+        "value": 8,
+        "area": 0,
+        "dec": "在稀树草原中撞碎岩石×8",
+        "decEN": "Smash 8 rocks in the Savannah"
+    },
+    {
+        "id": 139,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1007,
+        "value": 4,
+        "area": 0,
+        "dec": "在一局游戏中骑乘狮子×4",
+        "decEN": "Ride 4 Lion in one run"
+    },
+    {
+        "id": 140,
+        "difficulty": 0,
+        "type": "RIDE_STAY",
+        "target": 1006,
+        "value": 6,
+        "area": 0,
+        "dec": "骑在秃鹰身上保持6秒",
+        "decEN": "Stay on Vulture for 6 seconds"
+    },
+    {
+        "id": 141,
+        "difficulty": 1,
+        "type": "RIDE_SAME_CNT",
+        "target": 1004,
+        "value": 2,
+        "area": 0,
+        "dec": "连续骑乘鸵鸟×2",
+        "decEN": "Ride 2 Ostrich in a row"
+    },
+    {
+        "id": 142,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1002,
+        "value": 8,
+        "area": 0,
+        "dec": "在一局游戏中骑乘斑马×8",
+        "decEN": "Ride 8 Zebra in one run"
+    },
+    {
+        "id": 143,
+        "difficulty": 2,
+        "type": "CRASH_IN_ONE",
+        "target": 0,
+        "value": 15,
+        "area": 0,
+        "dec": "在稀树草原的一局游戏中撞碎障碍物×15",
+        "decEN": "Smash 15 obstacles in the Savannah in one run"
+    },
+    {
+        "id": 144,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 10,
+        "area": 0,
+        "dec": "在稀树草原中撞碎树木×10",
+        "decEN": "Smash 10 trees in the Savannah"
+    },
+    {
+        "id": 145,
+        "difficulty": 2,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1004,
+        "value": 80,
+        "area": 0,
+        "dec": "从鸵鸟身上跳起经过80米后骑上其他动物",
+        "decEN": "Jump 80m from Ostrich and land it"
+    },
+    {
+        "id": 146,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 144,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服嬉皮象",
+        "decEN": "Tame Psychedelephant"
+    },
+    {
+        "id": 147,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 3,
+        "value": 20,
+        "area": 0,
+        "dec": "在稀树草原中撞碎岩石×20",
+        "decEN": "Smash 20 rocks in the Savannah"
+    },
+    {
+        "id": 148,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1006,
+        "value": 10,
+        "area": 0,
+        "dec": "骑在秃鹰身上保持10秒",
+        "decEN": "Stay on Vulture for 10 seconds"
+    },
+    {
+        "id": 149,
+        "difficulty": 1,
+        "type": "RIDE_SAME_CNT",
+        "target": 1006,
+        "value": 2,
+        "area": 0,
+        "dec": "连续骑乘秃鹰×2",
+        "decEN": "Ride 2 Vulture in a row"
+    },
+    {
+        "id": 150,
+        "difficulty": 0,
+        "type": "RIDE_CNT",
+        "target": 1005,
+        "value": 2,
+        "area": 0,
+        "dec": "在一局游戏中骑乘长颈鹿×2",
+        "decEN": "Ride 2 Giraffe in one run"
+    },
+    {
+        "id": 151,
+        "difficulty": 0,
+        "type": "CRASH_IN_ONE",
+        "target": 1,
+        "value": 4,
+        "area": 0,
+        "dec": "在稀树草原的一局游戏中撞碎灌木丛×4",
+        "decEN": "Smash 4 shrubs in the Savannah in one run"
+    },
+    {
+        "id": 152,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1007,
+        "value": 6,
+        "area": 0,
+        "dec": "骑在狮子身上保持6秒",
+        "decEN": "Stay on Lion for 6 seconds"
+    },
+    {
+        "id": 153,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1002,
+        "value": 40,
+        "area": 0,
+        "dec": "从斑马身上跳起经过40米后骑上其他动物",
+        "decEN": "Jump 40m from Zebra and land it"
+    },
+    {
+        "id": 154,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 162,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服傲气鸵鸟",
+        "decEN": "Tame Celebirdy"
+    },
+    {
+        "id": 155,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1006,
+        "value": 18,
+        "area": 0,
+        "dec": "骑在秃鹰身上保持18秒",
+        "decEN": "Stay on Vulture for 18 seconds"
+    },
+    {
+        "id": 156,
+        "difficulty": 2,
+        "type": "RIDE_SAME_CNT",
+        "target": 1006,
+        "value": 3,
+        "area": 0,
+        "dec": "连续骑乘秃鹰×3",
+        "decEN": "Ride 3 Vulture in a row"
+    },
+    {
+        "id": 157,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1007,
+        "value": 3,
+        "area": 0,
+        "dec": "在一局游戏中骑乘狮子×3",
+        "decEN": "Ride 3 Lion in one run"
+    },
+    {
+        "id": 158,
+        "difficulty": 1,
+        "type": "CRASH_IN_ONE",
+        "target": 1,
+        "value": 6,
+        "area": 0,
+        "dec": "在稀树草原的一局游戏中撞碎灌木丛×6",
+        "decEN": "Smash 6 shrubs in the Savannah in one run"
+    },
+    {
+        "id": 159,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 3,
+        "value": 10,
+        "area": 0,
+        "dec": "在稀树草原中撞碎岩石×10",
+        "decEN": "Smash 10 rocks in the Savannah"
+    },
+    {
+        "id": 160,
+        "difficulty": 2,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1007,
+        "value": 40,
+        "area": 0,
+        "dec": "从狮子身上跳起经过40米后骑上其他动物",
+        "decEN": "Jump 40m from Lion and land it"
+    },
+    {
+        "id": 161,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 163,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服鸵鸟乐手",
+        "decEN": "Tame Glam Rockstrich"
+    },
+    {
+        "id": 162,
+        "difficulty": 1,
+        "type": "RIDE_SAME_CNT",
+        "target": 1001,
+        "value": 20,
+        "area": 0,
+        "dec": "连续骑乘野牛×20",
+        "decEN": "Ride 20 Buffalo in a row"
+    },
+    {
+        "id": 163,
+        "difficulty": 0,
+        "type": "RIDE_CNT",
+        "target": 1003,
+        "value": 3,
+        "area": 0,
+        "dec": "在一局游戏中骑乘大象×3",
+        "decEN": "Ride 3 Elephant in one run"
+    },
+    {
+        "id": 164,
+        "difficulty": 1,
+        "type": "CRASH_IN_ONE",
+        "target": 1,
+        "value": 10,
+        "area": 0,
+        "dec": "在稀树草原的一局游戏中撞碎灌木丛×10",
+        "decEN": "Smash 10 shrubs in the Savannah in one run"
+    },
+    {
+        "id": 165,
+        "difficulty": 2,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1005,
+        "value": 70,
+        "area": 0,
+        "dec": "从长颈鹿身上跳起经过70米后骑上其他动物",
+        "decEN": "Jump 70m from Giraffe and land it"
+    },
+    {
+        "id": 166,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 164,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服骑士鸵鸟",
+        "decEN": "Tame Ostri Chevalier"
+    },
+    {
+        "id": 167,
+        "difficulty": 1,
+        "type": "RIDE_SAME_CNT",
+        "target": 1007,
+        "value": 2,
+        "area": 0,
+        "dec": "连续骑乘狮子×2",
+        "decEN": "Ride 2 Lion in a row"
+    },
+    {
+        "id": 168,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1006,
+        "value": 2,
+        "area": 0,
+        "dec": "在一局游戏中骑乘秃鹰×2",
+        "decEN": "Ride 2 Vulture in one run"
+    },
+    {
+        "id": 169,
+        "difficulty": 0,
+        "type": "CRASH_IN_ONE",
+        "target": 2,
+        "value": 4,
+        "area": 0,
+        "dec": "在稀树草原的一局游戏中撞碎树木×4",
+        "decEN": "Smash 4 trees in the Savannah in one run"
+    },
+    {
+        "id": 170,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1001,
+        "value": 14,
+        "area": 0,
+        "dec": "乘野牛×14",
+        "decEN": "Ride 14 Buffalo"
+    },
+    {
+        "id": 171,
+        "difficulty": 2,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1005,
+        "value": 90,
+        "area": 0,
+        "dec": "从长颈鹿身上跳起经过90米后骑上其他动物",
+        "decEN": "Jump 90m from Giraffe and land it"
+    },
+    {
+        "id": 172,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 182,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服燃煤长颈鹿",
+        "decEN": "Tame Girafferty"
+    },
+    {
+        "id": 173,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 0,
+        "value": 15,
+        "area": 0,
+        "dec": "在稀树草原中撞碎障碍物×15",
+        "decEN": "Smash 15 obstacles in the Savannah"
+    },
+    {
+        "id": 174,
+        "difficulty": 0,
+        "type": "RIDE_SAME_CNT",
+        "target": 1005,
+        "value": 2,
+        "area": 0,
+        "dec": "连续骑乘长颈鹿×2",
+        "decEN": "Ride 2 Giraffe in a row"
+    },
+    {
+        "id": 175,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1007,
+        "value": 4,
+        "area": 0,
+        "dec": "在一局游戏中骑乘狮子×4",
+        "decEN": "Ride 4 Lion in one run"
+    },
+    {
+        "id": 176,
+        "difficulty": 1,
+        "type": "CRASH_IN_ONE",
+        "target": 2,
+        "value": 8,
+        "area": 0,
+        "dec": "在稀树草原的一局游戏中撞碎树木×8",
+        "decEN": "Smash 8 trees in the Savannah in one run"
+    },
+    {
+        "id": 177,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1001,
+        "value": 30,
+        "area": 0,
+        "dec": "在一局游戏中骑乘野牛×30",
+        "decEN": "Ride 30 Buffalo in one run"
+    },
+    {
+        "id": 178,
+        "difficulty": 2,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1003,
+        "value": 70,
+        "area": 0,
+        "dec": "从大象身上跳起经过70米后骑上其他动物",
+        "decEN": "Jump 70m from Elephant and land it"
+    },
+    {
+        "id": 179,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 183,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服墨西哥卷饼鹿",
+        "decEN": "Tame Taco Jirafa"
+    },
+    {
+        "id": 180,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 0,
+        "value": 30,
+        "area": 0,
+        "dec": "在稀树草原中撞碎障碍物×30",
+        "decEN": "Smash 30 obstacles in the Savannah"
+    },
+    {
+        "id": 181,
+        "difficulty": 0,
+        "type": "RIDE_SAME_CNT",
+        "target": 1003,
+        "value": 2,
+        "area": 0,
+        "dec": "连续骑乘大象×2",
+        "decEN": "Ride 2 Elephant in a row"
+    },
+    {
+        "id": 182,
+        "difficulty": 0,
+        "type": "CRASH_IN_ONE",
+        "target": 3,
+        "value": 4,
+        "area": 0,
+        "dec": "在稀树草原的一局游戏中撞碎岩石×4",
+        "decEN": "Smash 4 rocks in the Savannah in one run"
+    },
+    {
+        "id": 183,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1001,
+        "value": 60,
+        "area": 0,
+        "dec": "乘野牛×60",
+        "decEN": "Ride 60 Buffalo"
+    },
+    {
+        "id": 184,
+        "difficulty": 2,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1006,
+        "value": 60,
+        "area": 0,
+        "dec": "从秃鹰身上跳起经过60米后骑上其他动物",
+        "decEN": "Jump 60m from Vulture and land it"
+    },
+    {
+        "id": 185,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 184,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服环球旅行者",
+        "decEN": "Tame Highballer"
+    },
+    {
+        "id": 186,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 1,
+        "value": 15,
+        "area": 0,
+        "dec": "在稀树草原中撞碎灌木丛×15",
+        "decEN": "Smash 15 shrubs in the Savannah"
+    },
+    {
+        "id": 187,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1001,
+        "value": 14,
+        "area": 0,
+        "dec": "乘野牛×14",
+        "decEN": "Ride 14 Buffalo"
+    },
+    {
+        "id": 188,
+        "difficulty": 2,
+        "type": "RIDE_SAME_CNT",
+        "target": 1007,
+        "value": 2,
+        "area": 0,
+        "dec": "连续骑乘狮子×2",
+        "decEN": "Ride 2 Lion in a row"
+    },
+    {
+        "id": 189,
+        "difficulty": 1,
+        "type": "CRASH_IN_ONE",
+        "target": 3,
+        "value": 10,
+        "area": 0,
+        "dec": "在稀树草原的一局游戏中撞碎岩石×10",
+        "decEN": "Smash 10 rocks in the Savannah in one run"
+    },
+    {
+        "id": 190,
+        "difficulty": 0,
+        "type": "RIDE",
+        "target": 1004,
+        "value": 5,
+        "area": 0,
+        "dec": "乘鸵鸟×5",
+        "decEN": "Ride 5 Ostrich"
+    },
+    {
+        "id": 191,
+        "difficulty": 2,
+        "type": "JUMP_LONG",
+        "target": 25,
+        "value": 10,
+        "area": 0,
+        "dec": "在稀树草原中完成10次25米跳跃",
+        "decEN": "Land 10 25m jumps in the Savannah"
+    },
+    {
+        "id": 192,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 202,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服埃及秃鹰",
+        "decEN": "Tame Egyptian Vulture"
+    },
+    {
+        "id": 193,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 1,
+        "value": 25,
+        "area": 0,
+        "dec": "在稀树草原中撞碎灌木丛×25",
+        "decEN": "Smash 25 shrubs in the Savannah"
+    },
+    {
+        "id": 194,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 0,
+        "value": 60,
+        "area": 0,
+        "dec": "在稀树草原中撞碎障碍物×60",
+        "decEN": "Smash 60 obstacles in the Savannah"
+    },
+    {
+        "id": 195,
+        "difficulty": 1,
+        "type": "RIDE_SAME_CNT",
+        "target": 1007,
+        "value": 3,
+        "area": 0,
+        "dec": "连续骑乘狮子×3",
+        "decEN": "Ride 3 Lion in a row"
+    },
+    {
+        "id": 196,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1004,
+        "value": 10,
+        "area": 0,
+        "dec": "乘鸵鸟×10",
+        "decEN": "Ride 10 Ostrich"
+    },
+    {
+        "id": 197,
+        "difficulty": 0,
+        "type": "JUMP_LONG",
+        "target": 40,
+        "value": 2,
+        "area": 0,
+        "dec": "在稀树草原中完成2次40米跳跃",
+        "decEN": "Land 2 40m jumps in the Savannah"
+    },
+    {
+        "id": 198,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1007,
+        "value": 4,
+        "area": 0,
+        "dec": "乘狮子×4",
+        "decEN": "Ride 4 Lion"
+    },
+    {
+        "id": 199,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 10,
+        "area": 0,
+        "dec": "在稀树草原中撞碎树木×10",
+        "decEN": "Smash 10 trees in the Savannah"
+    },
+    {
+        "id": 200,
+        "difficulty": 1,
+        "type": "RIDE_SAME_CNT",
+        "target": 1002,
+        "value": 5,
+        "area": 0,
+        "dec": "连续骑乘斑马×5",
+        "decEN": "Ride 5 Zebra in a row"
+    },
+    {
+        "id": 201,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1004,
+        "value": 15,
+        "area": 0,
+        "dec": "乘鸵鸟×15",
+        "decEN": "Ride 15 Ostrich"
+    },
+    {
+        "id": 202,
+        "difficulty": 2,
+        "type": "JUMP_LONG",
+        "target": 40,
+        "value": 8,
+        "area": 0,
+        "dec": "在稀树草原中完成8次40米跳跃",
+        "decEN": "Land 8 40m jumps in the Savannah"
+    },
+    {
+        "id": 203,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 204,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服资本鹰",
+        "decEN": "Tame Vulture Captialist"
+    },
+    {
+        "id": 204,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 25,
+        "area": 0,
+        "dec": "在稀树草原中撞碎树木×25",
+        "decEN": "Smash 25 trees in the Savannah"
+    },
+    {
+        "id": 205,
+        "difficulty": 0,
+        "type": "RIDE_SAME_CNT",
+        "target": 1005,
+        "value": 2,
+        "area": 0,
+        "dec": "连续骑乘长颈鹿×2",
+        "decEN": "Ride 2 Giraffe in a row"
+    },
+    {
+        "id": 206,
+        "difficulty": 0,
+        "type": "RIDE",
+        "target": 1002,
+        "value": 7,
+        "area": 0,
+        "dec": "乘斑马×7",
+        "decEN": "Ride 7 Zebra"
+    },
+    {
+        "id": 207,
+        "difficulty": 2,
+        "type": "JUMP_LONG",
+        "target": 40,
+        "value": 20,
+        "area": 0,
+        "dec": "在稀树草原中完成20次40米跳跃",
+        "decEN": "Land 20 40m jumps in the Savannah"
+    },
+    {
+        "id": 208,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 222,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服绿植狮",
+        "decEN": "Tame Dande Lion"
+    },
+    {
+        "id": 209,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 3,
+        "value": 10,
+        "area": 0,
+        "dec": "在稀树草原中撞碎岩石×10",
+        "decEN": "Smash 10 rocks in the Savannah"
+    },
+    {
+        "id": 210,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1001,
+        "value": 50,
+        "area": 0,
+        "dec": "乘野牛×50",
+        "decEN": "Ride 50 Buffalo"
+    },
+    {
+        "id": 211,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1006,
+        "value": 4,
+        "area": 0,
+        "dec": "乘秃鹰×4",
+        "decEN": "Ride 4 Vulture"
+    },
+    {
+        "id": 212,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 3,
+        "value": 25,
+        "area": 0,
+        "dec": "在稀树草原中撞碎岩石×25",
+        "decEN": "Smash 25 rocks in the Savannah"
+    },
+    {
+        "id": 213,
+        "difficulty": 1,
+        "type": "RIDE_SAME_CNT",
+        "target": 1004,
+        "value": 2,
+        "area": 0,
+        "dec": "连续骑乘鸵鸟×2",
+        "decEN": "Ride 2 Ostrich in a row"
+    },
+    {
+        "id": 214,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1002,
+        "value": 20,
+        "area": 0,
+        "dec": "乘斑马×20",
+        "decEN": "Ride 20 Zebra"
+    },
+    {
+        "id": 215,
+        "difficulty": 2,
+        "type": "JUMP_LONG",
+        "target": 80,
+        "value": 5,
+        "area": 0,
+        "dec": "在稀树草原中完成5次80米跳跃",
+        "decEN": "Land 5 80m jumps in the Savannah"
+    },
+    {
+        "id": 216,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 224,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服狮鹫",
+        "decEN": "Tame Gryphon"
+    },
+    {
+        "id": 217,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 0,
+        "value": 25,
+        "area": 0,
+        "dec": "在稀树草原中撞碎障碍物×25",
+        "decEN": "Smash 25 obstacles in the Savannah"
+    },
+    {
+        "id": 218,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 3,
+        "value": 10,
+        "area": 0,
+        "dec": "在稀树草原中撞碎岩石×10",
+        "decEN": "Smash 10 rocks in the Savannah"
+    },
+    {
+        "id": 219,
+        "difficulty": 0,
+        "type": "RIDE",
+        "target": 1003,
+        "value": 3,
+        "area": 0,
+        "dec": "乘大象×3",
+        "decEN": "Ride 3 Elephant"
+    },
+    {
+        "id": 220,
+        "difficulty": 2,
+        "type": "JUMP_LONG_IN_ONE",
+        "target": 25,
+        "value": 5,
+        "area": 0,
+        "dec": "在稀树草原中一局游戏完成5次25米跳跃",
+        "decEN": "Land 5 25m jumps in the Savannah in one run"
+    },
+    {
+        "id": 221,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 0,
+        "value": 50,
+        "area": 0,
+        "dec": "在稀树草原中撞碎障碍物×50",
+        "decEN": "Smash 50 obstacles in the Savannah"
+    },
+    {
+        "id": 222,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1001,
+        "value": 80,
+        "area": 0,
+        "dec": "乘野牛×80",
+        "decEN": "Ride 80 Buffalo"
+    },
+    {
+        "id": 223,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1003,
+        "value": 5,
+        "area": 0,
+        "dec": "乘大象×5",
+        "decEN": "Ride 5 Elephant"
+    },
+    {
+        "id": 224,
+        "difficulty": 1,
+        "type": "JUMP_LONG_IN_ONE",
+        "target": 40,
+        "value": 2,
+        "area": 0,
+        "dec": "在稀树草原中一局游戏完成2次40米跳跃",
+        "decEN": "Land 2 40m jumps in the Savannah in one run"
+    },
+    {
+        "id": 225,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 0,
+        "value": 60,
+        "area": 0,
+        "dec": "在稀树草原中撞碎障碍物×60",
+        "decEN": "Smash 60 obstacles in the Savannah"
+    },
+    {
+        "id": 226,
+        "difficulty": 0,
+        "type": "RIDE_SAME_CNT",
+        "target": 1005,
+        "value": 2,
+        "area": 0,
+        "dec": "连续骑乘长颈鹿×2",
+        "decEN": "Ride 2 Giraffe in a row"
+    },
+    {
+        "id": 227,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1003,
+        "value": 5,
+        "area": 0,
+        "dec": "乘大象×5",
+        "decEN": "Ride 5 Elephant"
+    },
+    {
+        "id": 228,
+        "difficulty": 1,
+        "type": "JUMP_LONG_IN_ONE",
+        "target": 40,
+        "value": 4,
+        "area": 0,
+        "dec": "在稀树草原中一局游戏完成4次40米跳跃",
+        "decEN": "Land 4 40m jumps in the Savannah in one run"
+    },
+    {
+        "id": 229,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1005,
+        "value": 5,
+        "area": 0,
+        "dec": "乘长颈鹿×5",
+        "decEN": "Ride 5 Giraffe"
+    },
+    {
+        "id": 230,
+        "difficulty": 2,
+        "type": "JUMP_LONG_IN_ONE",
+        "target": 40,
+        "value": 8,
+        "area": 0,
+        "dec": "在稀树草原中一局游戏完成8次40米跳跃",
+        "decEN": "Land 8 40m jumps in the Savannah in one run"
+    },
+    {
+        "id": 231,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1005,
+        "value": 10,
+        "area": 0,
+        "dec": "乘长颈鹿×10",
+        "decEN": "Ride 10 Giraffe"
+    },
+    {
+        "id": 232,
+        "difficulty": 2,
+        "type": "JUMP_LONG_IN_ONE",
+        "target": 50,
+        "value": 2,
+        "area": 0,
+        "dec": "在稀树草原中一局游戏完成2次50米跳跃",
+        "decEN": "Land 2 50m jumps in the Savannah in one run"
+    },
+    {
+        "id": 233,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1006,
+        "value": 2,
+        "area": 0,
+        "dec": "乘秃鹰×2",
+        "decEN": "Ride 2 Vulture"
+    },
+    {
+        "id": 234,
+        "difficulty": 2,
+        "type": "JUMP_LONG_IN_ONE",
+        "target": 80,
+        "value": 3,
+        "area": 0,
+        "dec": "在稀树草原中一局游戏完成3次80米跳跃",
+        "decEN": "Land 3 80m jumps in the Savannah in one run"
+    },
+    {
+        "id": 235,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1002,
+        "value": 15,
+        "area": 0,
+        "dec": "乘斑马×15",
+        "decEN": "Ride 15 Zebra"
+    },
+    {
+        "id": 236,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1007,
+        "value": 10,
+        "area": 0,
+        "dec": "乘狮子×10",
+        "decEN": "Ride 10 Lion"
+    },
+    {
+        "id": 237,
+        "difficulty": 1,
+        "type": "JUMP_LONG",
+        "target": 60,
+        "value": 2,
+        "area": 0,
+        "dec": "在稀树草原中完成2次60米跳跃",
+        "decEN": "Land 2 60m jumps in the Savannah"
+    },
+    {
+        "id": 238,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1006,
+        "value": 8,
+        "area": 0,
+        "dec": "乘秃鹰×8",
+        "decEN": "Ride 8 Vulture"
+    },
+    {
+        "id": 239,
+        "difficulty": 2,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1005,
+        "value": 70,
+        "area": 0,
+        "dec": "从长颈鹿身上跳起经过70米后骑上其他动物",
+        "decEN": "Jump 70m from Giraffe and land it"
+    },
+    {
+        "id": 240,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 203,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服偶像秃鹰",
+        "decEN": "Tame Viva Las Vulture"
+    },
+    {
+        "id": 241,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 223,
+        "value": 1,
+        "area": 0,
+        "dec": "驯服剑齿狮",
+        "decEN": "Tame Sabretooth Lion"
+    },
+    {
+        "id": 242,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 1008,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服野猪",
+        "decEN": "Tame Boar"
+    },
+    {
+        "id": 243,
+        "difficulty": 1,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 1100,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑1100米",
+        "decEN": "Ride 1100m in the Jungle in one run"
+    },
+    {
+        "id": 244,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1008,
+        "value": 9,
+        "area": 1,
+        "dec": "骑在野猪身上保持9秒",
+        "decEN": "Stay on Boar for 9 seconds"
+    },
+    {
+        "id": 245,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 1,
+        "value": 15,
+        "area": 1,
+        "dec": "在丛林中撞碎灌木丛×15",
+        "decEN": "Smash 15 shrubs in the Jungle"
+    },
+    {
+        "id": 246,
+        "difficulty": 1,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 1000,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑1000米",
+        "decEN": "Ride 1000m in the Jungle in one run"
+    },
+    {
+        "id": 247,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 1010,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服鳄鱼",
+        "decEN": "Tame Alligator"
+    },
+    {
+        "id": 248,
+        "difficulty": 1,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 1300,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑1300米",
+        "decEN": "Ride 1300m in the Jungle in one run"
+    },
+    {
+        "id": 249,
+        "difficulty": 0,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 400,
+        "area": 1,
+        "dec": "在丛林中单局游戏无换乘奔跑400米",
+        "decEN": "Travel 400m in the Jungle in one run without jumping"
+    },
+    {
+        "id": 250,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1010,
+        "value": 12,
+        "area": 1,
+        "dec": "骑在鳄鱼身上保持12秒",
+        "decEN": "Stay on Alligator for 12 seconds"
+    },
+    {
+        "id": 251,
+        "difficulty": 1,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 1200,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑1200米",
+        "decEN": "Ride 1200m in the Jungle in one run"
+    },
+    {
+        "id": 252,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 0,
+        "value": 60,
+        "area": 0,
+        "dec": "在稀树草原中撞碎障碍物×60",
+        "decEN": "Smash 60 obstacles in the Savannah"
+    },
+    {
+        "id": 253,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1008,
+        "value": 16,
+        "area": 1,
+        "dec": "在一局游戏中骑乘野猪×16",
+        "decEN": "Ride 16 Boar in one run"
+    },
+    {
+        "id": 254,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1007,
+        "value": 6,
+        "area": 0,
+        "dec": "骑在狮子身上保持6秒",
+        "decEN": "Stay on Lion for 6 seconds"
+    },
+    {
+        "id": 255,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 5,
+        "area": 1,
+        "dec": "在丛林中撞碎树木×5",
+        "decEN": "Smash 5 trees in the Jungle"
+    },
+    {
+        "id": 256,
+        "difficulty": 1,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 1500,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑1500米",
+        "decEN": "Ride 1500m in the Jungle in one run"
+    },
+    {
+        "id": 257,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 1009,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服大猩猩",
+        "decEN": "Tame Gorilla"
+    },
+    {
+        "id": 258,
+        "difficulty": 1,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 2000,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑2000米",
+        "decEN": "Ride 2000m in the Jungle in one run"
+    },
+    {
+        "id": 259,
+        "difficulty": 0,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 500,
+        "area": 1,
+        "dec": "在丛林中单局游戏无换乘奔跑500米",
+        "decEN": "Travel 500m in the Jungle in one run without jumping"
+    },
+    {
+        "id": 260,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1010,
+        "value": 10,
+        "area": 1,
+        "dec": "骑在鳄鱼身上保持10秒",
+        "decEN": "Stay on Alligator for 10 seconds"
+    },
+    {
+        "id": 261,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 1,
+        "value": 20,
+        "area": 1,
+        "dec": "在丛林中撞碎灌木丛×20",
+        "decEN": "Smash 20 shrubs in the Jungle"
+    },
+    {
+        "id": 262,
+        "difficulty": 1,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 1800,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑1800米",
+        "decEN": "Ride 1800m in the Jungle in one run"
+    },
+    {
+        "id": 263,
+        "difficulty": 2,
+        "type": "RUN",
+        "target": 0,
+        "value": 3000,
+        "area": 1,
+        "dec": "在丛林中奔跑3000米",
+        "decEN": "Travel 3000m in the Jungle"
+    },
+    {
+        "id": 264,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1008,
+        "value": 20,
+        "area": 1,
+        "dec": "在一局游戏中骑乘野猪×20",
+        "decEN": "Ride 20 Boar in one run"
+    },
+    {
+        "id": 265,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1009,
+        "value": 14,
+        "area": 1,
+        "dec": "骑在大猩猩身上保持14秒",
+        "decEN": "Stay on Gorilla for 14 seconds"
+    },
+    {
+        "id": 266,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 10,
+        "area": 1,
+        "dec": "在丛林中撞碎树木×10",
+        "decEN": "Smash 10 trees in the Jungle"
+    },
+    {
+        "id": 267,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 1,
+        "value": 15,
+        "area": 1,
+        "dec": "在丛林中撞碎灌木丛×15",
+        "decEN": "Smash 15 shrubs in the Jungle"
+    },
+    {
+        "id": 268,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 1012,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服犀牛",
+        "decEN": "Tame Rhino"
+    },
+    {
+        "id": 269,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1008,
+        "value": 17,
+        "area": 1,
+        "dec": "在一局游戏中骑乘野猪×17",
+        "decEN": "Ride 17 Boar in one run"
+    },
+    {
+        "id": 270,
+        "difficulty": 2,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 2500,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑2500米",
+        "decEN": "Ride 2500m in the Jungle in one run"
+    },
+    {
+        "id": 271,
+        "difficulty": 0,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 800,
+        "area": 1,
+        "dec": "在丛林中单局游戏无换乘奔跑800米",
+        "decEN": "Travel 800m in the Jungle in one run without jumping"
+    },
+    {
+        "id": 272,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1008,
+        "value": 15,
+        "area": 1,
+        "dec": "骑在野猪身上保持15秒",
+        "decEN": "Stay on Boar for 15 seconds"
+    },
+    {
+        "id": 273,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 1,
+        "value": 25,
+        "area": 1,
+        "dec": "在丛林中撞碎灌木丛×25",
+        "decEN": "Smash 25 shrubs in the Jungle"
+    },
+    {
+        "id": 274,
+        "difficulty": 1,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 2000,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑2000米",
+        "decEN": "Ride 2000m in the Jungle in one run"
+    },
+    {
+        "id": 275,
+        "difficulty": 1,
+        "type": "RUN",
+        "target": 0,
+        "value": 4000,
+        "area": 1,
+        "dec": "在丛林中奔跑4000米",
+        "decEN": "Travel 4000m in the Jungle"
+    },
+    {
+        "id": 276,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1008,
+        "value": 25,
+        "area": 1,
+        "dec": "在一局游戏中骑乘野猪×25",
+        "decEN": "Ride 25 Boar in one run"
+    },
+    {
+        "id": 277,
+        "difficulty": 0,
+        "type": "CRASH",
+        "target": 3,
+        "value": 13,
+        "area": 1,
+        "dec": "在丛林中撞碎岩石×13",
+        "decEN": "Smash 13 rocks in the Jungle"
+    },
+    {
+        "id": 278,
+        "difficulty": 0,
+        "type": "RIDE_DIF_ONE_TIME",
+        "target": 0,
+        "value": 3,
+        "area": 1,
+        "dec": "在丛林连续骑乘3种不同的动物",
+        "decEN": "Ride 3 different animals in a row in the Jungle"
+    },
+    {
+        "id": 279,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1009,
+        "value": 20,
+        "area": 1,
+        "dec": "乘大猩猩×20",
+        "decEN": "Ride 20 Gorilla"
+    },
+    {
+        "id": 280,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 15,
+        "area": 1,
+        "dec": "在丛林中撞碎树木×15",
+        "decEN": "Smash 15 trees in the Jungle"
+    },
+    {
+        "id": 281,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1009,
+        "value": 14,
+        "area": 1,
+        "dec": "骑在大猩猩身上保持14秒",
+        "decEN": "Stay on Gorilla for 14 seconds"
+    },
+    {
+        "id": 282,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 1011,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服河马",
+        "decEN": "Tame Hippo"
+    },
+    {
+        "id": 283,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1010,
+        "value": 6,
+        "area": 1,
+        "dec": "在一局游戏中骑乘鳄鱼×6",
+        "decEN": "Ride 6 Alligator in one run"
+    },
+    {
+        "id": 284,
+        "difficulty": 0,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 500,
+        "area": 1,
+        "dec": "在丛林中单局游戏无换乘奔跑500米",
+        "decEN": "Travel 500m in the Jungle in one run without jumping"
+    },
+    {
+        "id": 285,
+        "difficulty": 1,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 900,
+        "area": 1,
+        "dec": "在丛林中单局游戏无换乘奔跑900米",
+        "decEN": "Travel 900m in the Jungle in one run without jumping"
+    },
+    {
+        "id": 286,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1011,
+        "value": 16,
+        "area": 1,
+        "dec": "骑在河马身上保持16秒",
+        "decEN": "Stay on Hippo for 16 seconds"
+    },
+    {
+        "id": 287,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 5,
+        "area": 1,
+        "dec": "在丛林中撞碎树木×5",
+        "decEN": "Smash 5 trees in the Jungle"
+    },
+    {
+        "id": 288,
+        "difficulty": 2,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 2800,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑2800米",
+        "decEN": "Ride 2800m in the Jungle in one run"
+    },
+    {
+        "id": 289,
+        "difficulty": 2,
+        "type": "RUN",
+        "target": 0,
+        "value": 5000,
+        "area": 1,
+        "dec": "在丛林中奔跑5000米",
+        "decEN": "Travel 5000m in the Jungle"
+    },
+    {
+        "id": 290,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1010,
+        "value": 3,
+        "area": 1,
+        "dec": "在一局游戏中骑乘鳄鱼×3",
+        "decEN": "Ride 3 Alligator in one run"
+    },
+    {
+        "id": 291,
+        "difficulty": 0,
+        "type": "RIDE_STAY",
+        "target": 1010,
+        "value": 6,
+        "area": 1,
+        "dec": "骑在鳄鱼身上保持6秒",
+        "decEN": "Stay on Alligator for 6 seconds"
+    },
+    {
+        "id": 292,
+        "difficulty": 1,
+        "type": "RIDE_DIF_ONE_TIME",
+        "target": 0,
+        "value": 4,
+        "area": 1,
+        "dec": "在丛林连续骑乘4种不同的动物",
+        "decEN": "Ride 4 different animals in a row in the Jungle"
+    },
+    {
+        "id": 293,
+        "difficulty": 1,
+        "type": "RUN",
+        "target": 0,
+        "value": 3000,
+        "area": 1,
+        "dec": "在丛林中奔跑3000米",
+        "decEN": "Travel 3000m in the Jungle"
+    },
+    {
+        "id": 294,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 3,
+        "value": 5,
+        "area": 1,
+        "dec": "在丛林中撞碎岩石×5",
+        "decEN": "Smash 5 rocks in the Jungle"
+    },
+    {
+        "id": 295,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1009,
+        "value": 10,
+        "area": 1,
+        "dec": "在一局游戏中骑乘大猩猩×10",
+        "decEN": "Ride 10 Gorilla in one run"
+    },
+    {
+        "id": 296,
+        "difficulty": 2,
+        "type": "JUMP_LONG_IN_ONE",
+        "target": 35,
+        "value": 6,
+        "area": 1,
+        "dec": "在丛林中一局游戏完成6次35米跳跃",
+        "decEN": "Land 6 35m jumps in the Jungle in one run"
+    },
+    {
+        "id": 297,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 1014,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服巨嘴鸟",
+        "decEN": "Tame Toucan"
+    },
+    {
+        "id": 298,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1013,
+        "value": 3,
+        "area": 1,
+        "dec": "在一局游戏中骑乘老虎×3",
+        "decEN": "Ride 3 tiger in one run"
+    },
+    {
+        "id": 299,
+        "difficulty": 1,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 1000,
+        "area": 1,
+        "dec": "在丛林中单局游戏无换乘奔跑1000米",
+        "decEN": "Travel 1000m in the Jungle in one run without jumping"
+    },
+    {
+        "id": 300,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1014,
+        "value": 14,
+        "area": 1,
+        "dec": "骑在巨嘴鸟身上保持14秒",
+        "decEN": "Stay on Toucan for 14 seconds"
+    },
+    {
+        "id": 301,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 10,
+        "area": 1,
+        "dec": "在丛林中撞碎树木×10",
+        "decEN": "Smash 10 trees in the Jungle"
+    },
+    {
+        "id": 302,
+        "difficulty": 2,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 3000,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑3000米",
+        "decEN": "Ride 3000m in the Jungle in one run"
+    },
+    {
+        "id": 303,
+        "difficulty": 2,
+        "type": "RUN",
+        "target": 0,
+        "value": 6000,
+        "area": 1,
+        "dec": "在丛林中奔跑6000米",
+        "decEN": "Travel 6000m in the Jungle"
+    },
+    {
+        "id": 304,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1010,
+        "value": 5,
+        "area": 1,
+        "dec": "在一局游戏中骑乘鳄鱼×5",
+        "decEN": "Ride 5 Alligator in one run"
+    },
+    {
+        "id": 305,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 10,
+        "area": 1,
+        "dec": "在丛林中撞碎树木×10",
+        "decEN": "Smash 10 trees in the Jungle"
+    },
+    {
+        "id": 306,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1014,
+        "value": 2,
+        "area": 1,
+        "dec": "在一局游戏中骑乘巨嘴鸟×2",
+        "decEN": "Ride 2 Toucan in one run"
+    },
+    {
+        "id": 307,
+        "difficulty": 2,
+        "type": "RIDE_DIF_ONE_TIME",
+        "target": 0,
+        "value": 5,
+        "area": 1,
+        "dec": "在丛林连续骑乘5种不同的动物",
+        "decEN": "Ride 5 different animals in a row in the Jungle"
+    },
+    {
+        "id": 308,
+        "difficulty": 1,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 1100,
+        "area": 1,
+        "dec": "在丛林中单局游戏无换乘奔跑1100米",
+        "decEN": "Travel 1100m in the Jungle in one run without jumping"
+    },
+    {
+        "id": 309,
+        "difficulty": 1,
+        "type": "RUN",
+        "target": 0,
+        "value": 3000,
+        "area": 1,
+        "dec": "在丛林中奔跑3000米",
+        "decEN": "Travel 3000m in the Jungle"
+    },
+    {
+        "id": 310,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 3,
+        "value": 10,
+        "area": 1,
+        "dec": "在丛林中撞碎岩石×10",
+        "decEN": "Smash 10 rocks in the Jungle"
+    },
+    {
+        "id": 311,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1009,
+        "value": 14,
+        "area": 1,
+        "dec": "骑在大猩猩身上保持14秒",
+        "decEN": "Stay on Gorilla for 14 seconds"
+    },
+    {
+        "id": 312,
+        "difficulty": 2,
+        "type": "JUMP_LONG_IN_ONE",
+        "target": 35,
+        "value": 10,
+        "area": 1,
+        "dec": "在丛林中一局游戏完成10次35米跳跃",
+        "decEN": "Land 10 35m jumps in the Jungle in one run"
+    },
+    {
+        "id": 313,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1009,
+        "value": 9,
+        "area": 1,
+        "dec": "在一局游戏中骑乘大猩猩×9",
+        "decEN": "Ride 9 Gorilla in one run"
+    },
+    {
+        "id": 314,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1008,
+        "value": 21,
+        "area": 1,
+        "dec": "在一局游戏中骑乘野猪×21",
+        "decEN": "Ride 21 Boar in one run"
+    },
+    {
+        "id": 315,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 242,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服印第安野猪",
+        "decEN": "Tame Indian Boar"
+    },
+    {
+        "id": 316,
+        "difficulty": 0,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 500,
+        "area": 1,
+        "dec": "在丛林中单局游戏无换乘奔跑500米",
+        "decEN": "Travel 500m in the Jungle in one run without jumping"
+    },
+    {
+        "id": 317,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1013,
+        "value": 14,
+        "area": 1,
+        "dec": "骑在老虎身上保持14秒",
+        "decEN": "Stay on tiger for 14 seconds"
+    },
+    {
+        "id": 318,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 3,
+        "value": 5,
+        "area": 1,
+        "dec": "在丛林中撞碎岩石×5",
+        "decEN": "Smash 5 rocks in the Jungle"
+    },
+    {
+        "id": 319,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 2,
+        "value": 15,
+        "area": 1,
+        "dec": "在丛林中撞碎树木×15",
+        "decEN": "Smash 15 trees in the Jungle"
+    },
+    {
+        "id": 320,
+        "difficulty": 1,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 1300,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑1300米",
+        "decEN": "Ride 1300m in the Jungle in one run"
+    },
+    {
+        "id": 321,
+        "difficulty": 2,
+        "type": "RUN",
+        "target": 0,
+        "value": 10000,
+        "area": 1,
+        "dec": "在丛林中奔跑10000米",
+        "decEN": "Travel 10000m in the Jungle"
+    },
+    {
+        "id": 322,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1009,
+        "value": 6,
+        "area": 1,
+        "dec": "在一局游戏中骑乘大猩猩×6",
+        "decEN": "Ride 6 Gorilla in one run"
+    },
+    {
+        "id": 323,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1008,
+        "value": 19,
+        "area": 1,
+        "dec": "骑在野猪身上保持19秒",
+        "decEN": "Stay on Boar for 19 seconds"
+    },
+    {
+        "id": 324,
+        "difficulty": 1,
+        "type": "RIDE_DIF_ONE_TIME",
+        "target": 0,
+        "value": 4,
+        "area": 1,
+        "dec": "在丛林连续骑乘4种不同的动物",
+        "decEN": "Ride 4 different animals in a row in the Jungle"
+    },
+    {
+        "id": 325,
+        "difficulty": 0,
+        "type": "CRASH",
+        "target": 3,
+        "value": 13,
+        "area": 1,
+        "dec": "在丛林中撞碎岩石×13",
+        "decEN": "Smash 13 rocks in the Jungle"
+    },
+    {
+        "id": 326,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 1,
+        "value": 18,
+        "area": 1,
+        "dec": "在丛林中撞碎灌木丛×18",
+        "decEN": "Smash 18 shrubs in the Jungle"
+    },
+    {
+        "id": 327,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1011,
+        "value": 3,
+        "area": 1,
+        "dec": "在一局游戏中骑乘河马×3",
+        "decEN": "Ride 3 Hippo in one run"
+    },
+    {
+        "id": 328,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1008,
+        "value": 21,
+        "area": 1,
+        "dec": "在一局游戏中骑乘野猪×21",
+        "decEN": "Ride 21 Boar in one run"
+    },
+    {
+        "id": 329,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1008,
+        "value": 60,
+        "area": 1,
+        "dec": "乘野猪×60",
+        "decEN": "Ride 60 Boar"
+    },
+    {
+        "id": 330,
+        "difficulty": 1,
+        "type": "JUMP_LONG_IN_ONE",
+        "target": 50,
+        "value": 2,
+        "area": 1,
+        "dec": "在丛林中一局游戏完成2次50米跳跃",
+        "decEN": "Land 2 50m jumps in the Jungle in one run"
+    },
+    {
+        "id": 331,
+        "difficulty": 2,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1008,
+        "value": 50,
+        "area": 1,
+        "dec": "从野猪身上跳起经过50米后骑上其他动物",
+        "decEN": "Jump 50m from Boar and land it"
+    },
+    {
+        "id": 332,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 243,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服宅男猪",
+        "decEN": "Tame Boaring"
+    },
+    {
+        "id": 333,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1012,
+        "value": 4,
+        "area": 1,
+        "dec": "在一局游戏中骑乘犀牛×4",
+        "decEN": "Ride 4 Rhino in one run"
+    },
+    {
+        "id": 334,
+        "difficulty": 1,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 1000,
+        "area": 1,
+        "dec": "在丛林中单局游戏无换乘奔跑1000米",
+        "decEN": "Travel 1000m in the Jungle in one run without jumping"
+    },
+    {
+        "id": 335,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1013,
+        "value": 18,
+        "area": 1,
+        "dec": "骑在老虎身上保持18秒",
+        "decEN": "Stay on tiger for 18 seconds"
+    },
+    {
+        "id": 336,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 3,
+        "value": 10,
+        "area": 1,
+        "dec": "在丛林中撞碎岩石×10",
+        "decEN": "Smash 10 rocks in the Jungle"
+    },
+    {
+        "id": 337,
+        "difficulty": 1,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 2000,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑2000米",
+        "decEN": "Ride 2000m in the Jungle in one run"
+    },
+    {
+        "id": 338,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1009,
+        "value": 8,
+        "area": 1,
+        "dec": "在一局游戏中骑乘大猩猩×8",
+        "decEN": "Ride 8 Gorilla in one run"
+    },
+    {
+        "id": 339,
+        "difficulty": 0,
+        "type": "CRASH",
+        "target": 3,
+        "value": 13,
+        "area": 1,
+        "dec": "在丛林中撞碎岩石×13",
+        "decEN": "Smash 13 rocks in the Jungle"
+    },
+    {
+        "id": 340,
+        "difficulty": 1,
+        "type": "RIDE_DIF_ONE_TIME",
+        "target": 0,
+        "value": 5,
+        "area": 1,
+        "dec": "在丛林连续骑乘5种不同的动物",
+        "decEN": "Ride 5 different animals in a row in the Jungle"
+    },
+    {
+        "id": 341,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1009,
+        "value": 14,
+        "area": 1,
+        "dec": "骑在大猩猩身上保持14秒",
+        "decEN": "Stay on Gorilla for 14 seconds"
+    },
+    {
+        "id": 342,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1013,
+        "value": 6,
+        "area": 1,
+        "dec": "在一局游戏中骑乘老虎×6",
+        "decEN": "Ride 6 tiger in one run"
+    },
+    {
+        "id": 343,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 1,
+        "value": 23,
+        "area": 1,
+        "dec": "在丛林中撞碎灌木丛×23",
+        "decEN": "Smash 23 shrubs in the Jungle"
+    },
+    {
+        "id": 344,
+        "difficulty": 0,
+        "type": "RUN",
+        "target": 0,
+        "value": 2000,
+        "area": 1,
+        "dec": "在丛林中奔跑2000米",
+        "decEN": "Travel 2000m in the Jungle"
+    },
+    {
+        "id": 345,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1008,
+        "value": 70,
+        "area": 1,
+        "dec": "乘野猪×70",
+        "decEN": "Ride 70 Boar"
+    },
+    {
+        "id": 346,
+        "difficulty": 2,
+        "type": "JUMP_LONG_IN_ONE",
+        "target": 70,
+        "value": 2,
+        "area": 1,
+        "dec": "在丛林中一局游戏完成2次70米跳跃",
+        "decEN": "Land 2 70m jumps in the Jungle in one run"
+    },
+    {
+        "id": 347,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1011,
+        "value": 3,
+        "area": 1,
+        "dec": "在一局游戏中骑乘河马×3",
+        "decEN": "Ride 3 Hippo in one run"
+    },
+    {
+        "id": 348,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1008,
+        "value": 60,
+        "area": 1,
+        "dec": "从野猪身上跳起经过60米后骑上其他动物",
+        "decEN": "Jump 60m from Boar and land it"
+    },
+    {
+        "id": 349,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 244,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服哥布林猪",
+        "decEN": "Tame Borc"
+    },
+    {
+        "id": 350,
+        "difficulty": 1,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 1500,
+        "area": 1,
+        "dec": "在丛林中单局游戏无换乘奔跑1500米",
+        "decEN": "Travel 1500m in the Jungle in one run without jumping"
+    },
+    {
+        "id": 351,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1010,
+        "value": 16,
+        "area": 1,
+        "dec": "骑在鳄鱼身上保持16秒",
+        "decEN": "Stay on Alligator for 16 seconds"
+    },
+    {
+        "id": 352,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1008,
+        "value": 10,
+        "area": 1,
+        "dec": "在一局游戏中骑乘野猪×10",
+        "decEN": "Ride 10 Boar in one run"
+    },
+    {
+        "id": 353,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 3,
+        "value": 15,
+        "area": 1,
+        "dec": "在丛林中撞碎岩石×15",
+        "decEN": "Smash 15 rocks in the Jungle"
+    },
+    {
+        "id": 354,
+        "difficulty": 1,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 2500,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑2500米",
+        "decEN": "Ride 2500m in the Jungle in one run"
+    },
+    {
+        "id": 355,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1009,
+        "value": 10,
+        "area": 1,
+        "dec": "在一局游戏中骑乘大猩猩×10",
+        "decEN": "Ride 10 Gorilla in one run"
+    },
+    {
+        "id": 356,
+        "difficulty": 2,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 2500,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑2500米",
+        "decEN": "Ride 2500m in the Jungle in one run"
+    },
+    {
+        "id": 357,
+        "difficulty": 2,
+        "type": "RIDE_DIF_ONE_TIME",
+        "target": 0,
+        "value": 6,
+        "area": 1,
+        "dec": "在丛林连续骑乘6种不同的动物",
+        "decEN": "Ride 6 different animals in a row in the Jungle"
+    },
+    {
+        "id": 358,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1012,
+        "value": 4,
+        "area": 1,
+        "dec": "在一局游戏中骑乘犀牛×4",
+        "decEN": "Ride 4 Rhino in one run"
+    },
+    {
+        "id": 359,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1013,
+        "value": 6,
+        "area": 1,
+        "dec": "在一局游戏中骑乘老虎×6",
+        "decEN": "Ride 6 tiger in one run"
+    },
+    {
+        "id": 360,
+        "difficulty": 1,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 1500,
+        "area": 1,
+        "dec": "在丛林中单局游戏无换乘奔跑1500米",
+        "decEN": "Travel 1500m in the Jungle in one run without jumping"
+    },
+    {
+        "id": 361,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 1,
+        "value": 28,
+        "area": 1,
+        "dec": "在丛林中撞碎灌木丛×28",
+        "decEN": "Smash 28 shrubs in the Jungle"
+    },
+    {
+        "id": 362,
+        "difficulty": 1,
+        "type": "RIDE_DIF_ONE_TIME",
+        "target": 0,
+        "value": 4,
+        "area": 1,
+        "dec": "在丛林连续骑乘4种不同的动物",
+        "decEN": "Ride 4 different animals in a row in the Jungle"
+    },
+    {
+        "id": 363,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1010,
+        "value": 20,
+        "area": 1,
+        "dec": "乘鳄鱼×20",
+        "decEN": "Ride 20 Alligator"
+    },
+    {
+        "id": 364,
+        "difficulty": 2,
+        "type": "JUMP_LONG",
+        "target": 30,
+        "value": 30,
+        "area": 1,
+        "dec": "在丛林中完成30次30米跳跃",
+        "decEN": "Land 30 30m jumps in the Jungle"
+    },
+    {
+        "id": 365,
+        "difficulty": 2,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1008,
+        "value": 70,
+        "area": 1,
+        "dec": "从野猪身上跳起经过70米后骑上其他动物",
+        "decEN": "Jump 70m from Boar and land it"
+    },
+    {
+        "id": 366,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1008,
+        "value": 21,
+        "area": 1,
+        "dec": "在一局游戏中骑乘野猪×21",
+        "decEN": "Ride 21 Boar in one run"
+    },
+    {
+        "id": 367,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 282,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服青蛙鳄",
+        "decEN": "Tame Frogator"
+    },
+    {
+        "id": 368,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1011,
+        "value": 18,
+        "area": 1,
+        "dec": "骑在河马身上保持18秒",
+        "decEN": "Stay on Hippo for 18 seconds"
+    },
+    {
+        "id": 369,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 1,
+        "value": 18,
+        "area": 1,
+        "dec": "在丛林中撞碎灌木丛×18",
+        "decEN": "Smash 18 shrubs in the Jungle"
+    },
+    {
+        "id": 370,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1009,
+        "value": 10,
+        "area": 1,
+        "dec": "在一局游戏中骑乘大猩猩×10",
+        "decEN": "Ride 10 Gorilla in one run"
+    },
+    {
+        "id": 371,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 3,
+        "value": 10,
+        "area": 1,
+        "dec": "在丛林中撞碎岩石×10",
+        "decEN": "Smash 10 rocks in the Jungle"
+    },
+    {
+        "id": 372,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1013,
+        "value": 3,
+        "area": 1,
+        "dec": "在一局游戏中骑乘老虎×3",
+        "decEN": "Ride 3 tiger in one run"
+    },
+    {
+        "id": 373,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 1,
+        "value": 25,
+        "area": 1,
+        "dec": "在丛林中撞碎灌木丛×25",
+        "decEN": "Smash 25 shrubs in the Jungle"
+    },
+    {
+        "id": 374,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1012,
+        "value": 4,
+        "area": 1,
+        "dec": "在一局游戏中骑乘犀牛×4",
+        "decEN": "Ride 4 Rhino in one run"
+    },
+    {
+        "id": 375,
+        "difficulty": 1,
+        "type": "RIDE_DIF_ONE_TIME",
+        "target": 0,
+        "value": 6,
+        "area": 1,
+        "dec": "在丛林连续骑乘6种不同的动物",
+        "decEN": "Ride 6 different animals in a row in the Jungle"
+    },
+    {
+        "id": 376,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 8,
+        "area": 1,
+        "dec": "在丛林中撞碎树木×8",
+        "decEN": "Smash 8 trees in the Jungle"
+    },
+    {
+        "id": 377,
+        "difficulty": 1,
+        "type": "RIDE_DIF_ONE_TIME",
+        "target": 0,
+        "value": 4,
+        "area": 1,
+        "dec": "在丛林连续骑乘4种不同的动物",
+        "decEN": "Ride 4 different animals in a row in the Jungle"
+    },
+    {
+        "id": 378,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1010,
+        "value": 30,
+        "area": 1,
+        "dec": "乘鳄鱼×30",
+        "decEN": "Ride 30 Alligator"
+    },
+    {
+        "id": 379,
+        "difficulty": 2,
+        "type": "JUMP_LONG",
+        "target": 40,
+        "value": 10,
+        "area": 1,
+        "dec": "在丛林中完成10次40米跳跃",
+        "decEN": "Land 10 40m jumps in the Jungle"
+    },
+    {
+        "id": 380,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1008,
+        "value": 50,
+        "area": 1,
+        "dec": "从野猪身上跳起经过50米后骑上其他动物",
+        "decEN": "Jump 50m from Boar and land it"
+    },
+    {
+        "id": 381,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1009,
+        "value": 60,
+        "area": 1,
+        "dec": "从大猩猩身上跳起经过60米后骑上其他动物",
+        "decEN": "Jump 60m from Gorilla and land it"
+    },
+    {
+        "id": 382,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 283,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服潜水鳄",
+        "decEN": "Tame Snorkadile"
+    },
+    {
+        "id": 383,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1011,
+        "value": 25,
+        "area": 1,
+        "dec": "骑在河马身上保持25秒",
+        "decEN": "Stay on Hippo for 25 seconds"
+    },
+    {
+        "id": 384,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 1,
+        "value": 23,
+        "area": 1,
+        "dec": "在丛林中撞碎灌木丛×23",
+        "decEN": "Smash 23 shrubs in the Jungle"
+    },
+    {
+        "id": 385,
+        "difficulty": 0,
+        "type": "RIDE",
+        "target": 1010,
+        "value": 10,
+        "area": 1,
+        "dec": "乘鳄鱼×10",
+        "decEN": "Ride 10 Alligator"
+    },
+    {
+        "id": 386,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1010,
+        "value": 20,
+        "area": 1,
+        "dec": "骑在鳄鱼身上保持20秒",
+        "decEN": "Stay on Alligator for 20 seconds"
+    },
+    {
+        "id": 387,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1013,
+        "value": 5,
+        "area": 1,
+        "dec": "在一局游戏中骑乘老虎×5",
+        "decEN": "Ride 5 tiger in one run"
+    },
+    {
+        "id": 388,
+        "difficulty": 1,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 1500,
+        "area": 1,
+        "dec": "在丛林中单局游戏无换乘奔跑1500米",
+        "decEN": "Travel 1500m in the Jungle in one run without jumping"
+    },
+    {
+        "id": 389,
+        "difficulty": 0,
+        "type": "RIDE_DIF_IN_ONE",
+        "target": 0,
+        "value": 4,
+        "area": 1,
+        "dec": "在丛林一局游戏内骑乘4种不同的动物",
+        "decEN": "Ride 4 different animals in one run in the Jungle"
+    },
+    {
+        "id": 390,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 13,
+        "area": 1,
+        "dec": "在丛林中撞碎树木×13",
+        "decEN": "Smash 13 trees in the Jungle"
+    },
+    {
+        "id": 391,
+        "difficulty": 2,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 2500,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑2500米",
+        "decEN": "Ride 2500m in the Jungle in one run"
+    },
+    {
+        "id": 392,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1010,
+        "value": 40,
+        "area": 1,
+        "dec": "乘鳄鱼×40",
+        "decEN": "Ride 40 Alligator"
+    },
+    {
+        "id": 393,
+        "difficulty": 2,
+        "type": "JUMP_LONG",
+        "target": 40,
+        "value": 15,
+        "area": 1,
+        "dec": "在丛林中完成15次40米跳跃",
+        "decEN": "Land 15 40m jumps in the Jungle"
+    },
+    {
+        "id": 394,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1008,
+        "value": 60,
+        "area": 1,
+        "dec": "从野猪身上跳起经过60米后骑上其他动物",
+        "decEN": "Jump 60m from Boar and land it"
+    },
+    {
+        "id": 395,
+        "difficulty": 2,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1009,
+        "value": 70,
+        "area": 1,
+        "dec": "从大猩猩身上跳起经过70米后骑上其他动物",
+        "decEN": "Jump 70m from Gorilla and land it"
+    },
+    {
+        "id": 396,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 284,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服兔兔鳄",
+        "decEN": "Tame Bunny Gator"
+    },
+    {
+        "id": 397,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 3,
+        "value": 15,
+        "area": 1,
+        "dec": "在丛林中撞碎岩石×15",
+        "decEN": "Smash 15 rocks in the Jungle"
+    },
+    {
+        "id": 398,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 1,
+        "value": 28,
+        "area": 1,
+        "dec": "在丛林中撞碎灌木丛×28",
+        "decEN": "Smash 28 shrubs in the Jungle"
+    },
+    {
+        "id": 399,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1009,
+        "value": 20,
+        "area": 1,
+        "dec": "乘大猩猩×20",
+        "decEN": "Ride 20 Gorilla"
+    },
+    {
+        "id": 400,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1013,
+        "value": 6,
+        "area": 1,
+        "dec": "在一局游戏中骑乘老虎×6",
+        "decEN": "Ride 6 tiger in one run"
+    },
+    {
+        "id": 401,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1009,
+        "value": 10,
+        "area": 1,
+        "dec": "在一局游戏中骑乘大猩猩×10",
+        "decEN": "Ride 10 Gorilla in one run"
+    },
+    {
+        "id": 402,
+        "difficulty": 0,
+        "type": "RIDE_DIF_IN_ONE",
+        "target": 0,
+        "value": 5,
+        "area": 1,
+        "dec": "在丛林一局游戏内骑乘5种不同的动物",
+        "decEN": "Ride 5 different animals in one run in the Jungle"
+    },
+    {
+        "id": 403,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 2,
+        "value": 18,
+        "area": 1,
+        "dec": "在丛林中撞碎树木×18",
+        "decEN": "Smash 18 trees in the Jungle"
+    },
+    {
+        "id": 404,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1010,
+        "value": 20,
+        "area": 1,
+        "dec": "乘鳄鱼×20",
+        "decEN": "Ride 20 Alligator"
+    },
+    {
+        "id": 405,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1009,
+        "value": 20,
+        "area": 1,
+        "dec": "乘大猩猩×20",
+        "decEN": "Ride 20 Gorilla"
+    },
+    {
+        "id": 406,
+        "difficulty": 1,
+        "type": "JUMP_LONG",
+        "target": 40,
+        "value": 20,
+        "area": 1,
+        "dec": "在丛林中完成20次40米跳跃",
+        "decEN": "Land 20 40m jumps in the Jungle"
+    },
+    {
+        "id": 407,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1008,
+        "value": 70,
+        "area": 1,
+        "dec": "从野猪身上跳起经过70米后骑上其他动物",
+        "decEN": "Jump 70m from Boar and land it"
+    },
+    {
+        "id": 408,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1011,
+        "value": 50,
+        "area": 1,
+        "dec": "从河马身上跳起经过50米后骑上其他动物",
+        "decEN": "Jump 50m from Hippo and land it"
+    },
+    {
+        "id": 409,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 262,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服猩泰山",
+        "decEN": "Tame Mountain Gorilla"
+    },
+    {
+        "id": 410,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1014,
+        "value": 17,
+        "area": 1,
+        "dec": "骑在巨嘴鸟身上保持17秒",
+        "decEN": "Stay on Toucan for 17 seconds"
+    },
+    {
+        "id": 411,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 2,
+        "value": 8,
+        "area": 1,
+        "dec": "在丛林中撞碎树木×8",
+        "decEN": "Smash 8 trees in the Jungle"
+    },
+    {
+        "id": 412,
+        "difficulty": 0,
+        "type": "RIDE",
+        "target": 1013,
+        "value": 5,
+        "area": 1,
+        "dec": "乘老虎×5",
+        "decEN": "Ride 5 tiger"
+    },
+    {
+        "id": 413,
+        "difficulty": 1,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 1500,
+        "area": 1,
+        "dec": "在丛林中单局游戏无换乘奔跑1500米",
+        "decEN": "Travel 1500m in the Jungle in one run without jumping"
+    },
+    {
+        "id": 414,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1011,
+        "value": 3,
+        "area": 1,
+        "dec": "在一局游戏中骑乘河马×3",
+        "decEN": "Ride 3 Hippo in one run"
+    },
+    {
+        "id": 415,
+        "difficulty": 2,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 2500,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑2500米",
+        "decEN": "Ride 2500m in the Jungle in one run"
+    },
+    {
+        "id": 416,
+        "difficulty": 2,
+        "type": "RIDE_DIF_IN_ONE",
+        "target": 0,
+        "value": 6,
+        "area": 1,
+        "dec": "在丛林一局游戏内骑乘6种不同的动物",
+        "decEN": "Ride 6 different animals in one run in the Jungle"
+    },
+    {
+        "id": 417,
+        "difficulty": 0,
+        "type": "CRASH",
+        "target": 3,
+        "value": 8,
+        "area": 1,
+        "dec": "在丛林中撞碎岩石×8",
+        "decEN": "Smash 8 rocks in the Jungle"
+    },
+    {
+        "id": 418,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1009,
+        "value": 30,
+        "area": 1,
+        "dec": "乘大猩猩×30",
+        "decEN": "Ride 30 Gorilla"
+    },
+    {
+        "id": 419,
+        "difficulty": 1,
+        "type": "JUMP_LONG",
+        "target": 50,
+        "value": 2,
+        "area": 1,
+        "dec": "在丛林中完成2次50米跳跃",
+        "decEN": "Land 2 50m jumps in the Jungle"
+    },
+    {
+        "id": 420,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1009,
+        "value": 60,
+        "area": 1,
+        "dec": "从大猩猩身上跳起经过60米后骑上其他动物",
+        "decEN": "Jump 60m from Gorilla and land it"
+    },
+    {
+        "id": 421,
+        "difficulty": 2,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1014,
+        "value": 70,
+        "area": 1,
+        "dec": "从巨嘴鸟身上跳起经过70米后骑上其他动物",
+        "decEN": "Jump 70m from Toucan and land it"
+    },
+    {
+        "id": 422,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 263,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服猩猩四分卫",
+        "decEN": "Tame Quarterback Gorilla"
+    },
+    {
+        "id": 423,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1014,
+        "value": 20,
+        "area": 1,
+        "dec": "骑在巨嘴鸟身上保持20秒",
+        "decEN": "Stay on Toucan for 20 seconds"
+    },
+    {
+        "id": 424,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 2,
+        "value": 13,
+        "area": 1,
+        "dec": "在丛林中撞碎树木×13",
+        "decEN": "Smash 13 trees in the Jungle"
+    },
+    {
+        "id": 425,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 3,
+        "value": 10,
+        "area": 1,
+        "dec": "在丛林中撞碎岩石×10",
+        "decEN": "Smash 10 rocks in the Jungle"
+    },
+    {
+        "id": 426,
+        "difficulty": 1,
+        "type": "RUN_NO_JUMP",
+        "target": 0,
+        "value": 1500,
+        "area": 1,
+        "dec": "在丛林中单局游戏无换乘奔跑1500米",
+        "decEN": "Travel 1500m in the Jungle in one run without jumping"
+    },
+    {
+        "id": 427,
+        "difficulty": 0,
+        "type": "RIDE_CNT",
+        "target": 1011,
+        "value": 5,
+        "area": 1,
+        "dec": "在一局游戏中骑乘河马×5",
+        "decEN": "Ride 5 Hippo in one run"
+    },
+    {
+        "id": 428,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 2,
+        "value": 8,
+        "area": 1,
+        "dec": "在丛林中撞碎树木×8",
+        "decEN": "Smash 8 trees in the Jungle"
+    },
+    {
+        "id": 429,
+        "difficulty": 2,
+        "type": "RIDE_DIF_IN_ONE",
+        "target": 0,
+        "value": 7,
+        "area": 1,
+        "dec": "在丛林一局游戏内骑乘7种不同的动物",
+        "decEN": "Ride 7 different animals in one run in the Jungle"
+    },
+    {
+        "id": 430,
+        "difficulty": 0,
+        "type": "CRASH",
+        "target": 3,
+        "value": 13,
+        "area": 1,
+        "dec": "在丛林中撞碎岩石×13",
+        "decEN": "Smash 13 rocks in the Jungle"
+    },
+    {
+        "id": 431,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1009,
+        "value": 40,
+        "area": 1,
+        "dec": "乘大猩猩×40",
+        "decEN": "Ride 40 Gorilla"
+    },
+    {
+        "id": 432,
+        "difficulty": 1,
+        "type": "JUMP_LONG",
+        "target": 60,
+        "value": 3,
+        "area": 1,
+        "dec": "在丛林中完成3次60米跳跃",
+        "decEN": "Land 3 60m jumps in the Jungle"
+    },
+    {
+        "id": 433,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1009,
+        "value": 70,
+        "area": 1,
+        "dec": "从大猩猩身上跳起经过70米后骑上其他动物",
+        "decEN": "Jump 70m from Gorilla and land it"
+    },
+    {
+        "id": 434,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1014,
+        "value": 80,
+        "area": 1,
+        "dec": "从巨嘴鸟身上跳起经过80米后骑上其他动物",
+        "decEN": "Jump 80m from Toucan and land it"
+    },
+    {
+        "id": 435,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 264,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服游击猩猩",
+        "decEN": "Tame Guerilla"
+    },
+    {
+        "id": 436,
+        "difficulty": 0,
+        "type": "RIDE_STAY",
+        "target": 1008,
+        "value": 12,
+        "area": 1,
+        "dec": "骑在野猪身上保持12秒",
+        "decEN": "Stay on Boar for 12 seconds"
+    },
+    {
+        "id": 437,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 2,
+        "value": 18,
+        "area": 1,
+        "dec": "在丛林中撞碎树木×18",
+        "decEN": "Smash 18 trees in the Jungle"
+    },
+    {
+        "id": 438,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 1,
+        "value": 25,
+        "area": 1,
+        "dec": "在丛林中撞碎灌木丛×25",
+        "decEN": "Smash 25 shrubs in the Jungle"
+    },
+    {
+        "id": 439,
+        "difficulty": 1,
+        "type": "RIDE_STAY",
+        "target": 1009,
+        "value": 14,
+        "area": 1,
+        "dec": "骑在大猩猩身上保持14秒",
+        "decEN": "Stay on Gorilla for 14 seconds"
+    },
+    {
+        "id": 440,
+        "difficulty": 0,
+        "type": "RIDE_CNT",
+        "target": 1011,
+        "value": 6,
+        "area": 1,
+        "dec": "在一局游戏中骑乘河马×6",
+        "decEN": "Ride 6 Hippo in one run"
+    },
+    {
+        "id": 441,
+        "difficulty": 2,
+        "type": "CRASH",
+        "target": 2,
+        "value": 8,
+        "area": 1,
+        "dec": "在丛林中撞碎树木×8",
+        "decEN": "Smash 8 trees in the Jungle"
+    },
+    {
+        "id": 442,
+        "difficulty": 0,
+        "type": "RIDE_DIF_IN_ONE",
+        "target": 0,
+        "value": 4,
+        "area": 1,
+        "dec": "在丛林一局游戏内骑乘4种不同的动物",
+        "decEN": "Ride 4 different animals in one run in the Jungle"
+    },
+    {
+        "id": 443,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1013,
+        "value": 15,
+        "area": 1,
+        "dec": "乘老虎×15",
+        "decEN": "Ride 15 tiger"
+    },
+    {
+        "id": 444,
+        "difficulty": 2,
+        "type": "JUMP_LONG",
+        "target": 80,
+        "value": 3,
+        "area": 1,
+        "dec": "在丛林中完成3次80米跳跃",
+        "decEN": "Land 3 80m jumps in the Jungle"
+    },
+    {
+        "id": 445,
+        "difficulty": 0,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1011,
+        "value": 50,
+        "area": 1,
+        "dec": "从河马身上跳起经过50米后骑上其他动物",
+        "decEN": "Jump 50m from Hippo and land it"
+    },
+    {
+        "id": 446,
+        "difficulty": 0,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1012,
+        "value": 70,
+        "area": 1,
+        "dec": "从犀牛身上跳起经过70米后骑上其他动物",
+        "decEN": "Jump 70m from Rhino and land it"
+    },
+    {
+        "id": 447,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 302,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服侏儒河马",
+        "decEN": "Tame Pygmy Hippo"
+    },
+    {
+        "id": 448,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 3,
+        "value": 8,
+        "area": 1,
+        "dec": "在丛林中撞碎岩石×8",
+        "decEN": "Smash 8 rocks in the Jungle"
+    },
+    {
+        "id": 449,
+        "difficulty": 2,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 2500,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑2500米",
+        "decEN": "Ride 2500m in the Jungle in one run"
+    },
+    {
+        "id": 450,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1014,
+        "value": 2,
+        "area": 1,
+        "dec": "在一局游戏中骑乘巨嘴鸟×2",
+        "decEN": "Ride 2 Toucan in one run"
+    },
+    {
+        "id": 451,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 1,
+        "value": 25,
+        "area": 1,
+        "dec": "在丛林中撞碎灌木丛×25",
+        "decEN": "Smash 25 shrubs in the Jungle"
+    },
+    {
+        "id": 452,
+        "difficulty": 0,
+        "type": "RIDE_DIF_IN_ONE",
+        "target": 0,
+        "value": 5,
+        "area": 1,
+        "dec": "在丛林一局游戏内骑乘5种不同的动物",
+        "decEN": "Ride 5 different animals in one run in the Jungle"
+    },
+    {
+        "id": 453,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1013,
+        "value": 20,
+        "area": 1,
+        "dec": "乘老虎×20",
+        "decEN": "Ride 20 tiger"
+    },
+    {
+        "id": 454,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1014,
+        "value": 70,
+        "area": 1,
+        "dec": "从巨嘴鸟身上跳起经过70米后骑上其他动物",
+        "decEN": "Jump 70m from Toucan and land it"
+    },
+    {
+        "id": 455,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1012,
+        "value": 80,
+        "area": 1,
+        "dec": "从犀牛身上跳起经过80米后骑上其他动物",
+        "decEN": "Jump 80m from Rhino and land it"
+    },
+    {
+        "id": 456,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 303,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服芭蕾河马",
+        "decEN": "Tame Ballerina Hippo"
+    },
+    {
+        "id": 457,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 3,
+        "value": 13,
+        "area": 1,
+        "dec": "在丛林中撞碎岩石×13",
+        "decEN": "Smash 13 rocks in the Jungle"
+    },
+    {
+        "id": 458,
+        "difficulty": 2,
+        "type": "RIDE_STAY",
+        "target": 1008,
+        "value": 29,
+        "area": 1,
+        "dec": "骑在野猪身上保持29秒",
+        "decEN": "Stay on Boar for 29 seconds"
+    },
+    {
+        "id": 459,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1014,
+        "value": 3,
+        "area": 1,
+        "dec": "在一局游戏中骑乘巨嘴鸟×3",
+        "decEN": "Ride 3 Toucan in one run"
+    },
+    {
+        "id": 460,
+        "difficulty": 2,
+        "type": "RIDE_CNT",
+        "target": 1009,
+        "value": 10,
+        "area": 1,
+        "dec": "在一局游戏中骑乘大猩猩×10",
+        "decEN": "Ride 10 Gorilla in one run"
+    },
+    {
+        "id": 461,
+        "difficulty": 1,
+        "type": "RIDE_DIF_IN_ONE",
+        "target": 0,
+        "value": 6,
+        "area": 1,
+        "dec": "在丛林一局游戏内骑乘6种不同的动物",
+        "decEN": "Ride 6 different animals in one run in the Jungle"
+    },
+    {
+        "id": 462,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1013,
+        "value": 25,
+        "area": 1,
+        "dec": "乘老虎×25",
+        "decEN": "Ride 25 tiger"
+    },
+    {
+        "id": 463,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1014,
+        "value": 80,
+        "area": 1,
+        "dec": "从巨嘴鸟身上跳起经过80米后骑上其他动物",
+        "decEN": "Jump 80m from Toucan and land it"
+    },
+    {
+        "id": 464,
+        "difficulty": 1,
+        "type": "JUMP_LONG_IN_ONE",
+        "target": 25,
+        "value": 10,
+        "area": 1,
+        "dec": "在丛林中一局游戏完成10次25米跳跃",
+        "decEN": "Land 10 25m jumps in the Jungle in one run"
+    },
+    {
+        "id": 465,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 304,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服说唱河马",
+        "decEN": "Tame Hip Hop Hippo"
+    },
+    {
+        "id": 466,
+        "difficulty": 0,
+        "type": "CRASH",
+        "target": 1,
+        "value": 15,
+        "area": 1,
+        "dec": "在丛林中撞碎灌木丛×15",
+        "decEN": "Smash 15 shrubs in the Jungle"
+    },
+    {
+        "id": 467,
+        "difficulty": 2,
+        "type": "RUN_IN_ONE",
+        "target": 0,
+        "value": 2500,
+        "area": 1,
+        "dec": "在丛林中单局游戏奔跑2500米",
+        "decEN": "Ride 2500m in the Jungle in one run"
+    },
+    {
+        "id": 468,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1014,
+        "value": 4,
+        "area": 1,
+        "dec": "在一局游戏中骑乘巨嘴鸟×4",
+        "decEN": "Ride 4 Toucan in one run"
+    },
+    {
+        "id": 469,
+        "difficulty": 2,
+        "type": "RIDE_DIF_IN_ONE",
+        "target": 0,
+        "value": 7,
+        "area": 1,
+        "dec": "在丛林一局游戏内骑乘7种不同的动物",
+        "decEN": "Ride 7 different animals in one run in the Jungle"
+    },
+    {
+        "id": 470,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1011,
+        "value": 15,
+        "area": 1,
+        "dec": "乘河马×15",
+        "decEN": "Ride 15 Hippo"
+    },
+    {
+        "id": 471,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1012,
+        "value": 70,
+        "area": 1,
+        "dec": "从犀牛身上跳起经过70米后骑上其他动物",
+        "decEN": "Jump 70m from Rhino and land it"
+    },
+    {
+        "id": 472,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 362,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服喇叭嘴",
+        "decEN": "Tame Hornbill"
+    },
+    {
+        "id": 473,
+        "difficulty": 0,
+        "type": "CRASH",
+        "target": 1,
+        "value": 20,
+        "area": 1,
+        "dec": "在丛林中撞碎灌木丛×20",
+        "decEN": "Smash 20 shrubs in the Jungle"
+    },
+    {
+        "id": 474,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1012,
+        "value": 2,
+        "area": 1,
+        "dec": "在一局游戏中骑乘犀牛×2",
+        "decEN": "Ride 2 Rhino in one run"
+    },
+    {
+        "id": 475,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1011,
+        "value": 20,
+        "area": 1,
+        "dec": "乘河马×20",
+        "decEN": "Ride 20 Hippo"
+    },
+    {
+        "id": 476,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1012,
+        "value": 80,
+        "area": 1,
+        "dec": "从犀牛身上跳起经过80米后骑上其他动物",
+        "decEN": "Jump 80m from Rhino and land it"
+    },
+    {
+        "id": 477,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 363,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服蓝鸟",
+        "decEN": "Tame Bluecan"
+    },
+    {
+        "id": 478,
+        "difficulty": 1,
+        "type": "CRASH",
+        "target": 1,
+        "value": 25,
+        "area": 1,
+        "dec": "在丛林中撞碎灌木丛×25",
+        "decEN": "Smash 25 shrubs in the Jungle"
+    },
+    {
+        "id": 479,
+        "difficulty": 0,
+        "type": "RIDE_CNT",
+        "target": 1012,
+        "value": 3,
+        "area": 1,
+        "dec": "在一局游戏中骑乘犀牛×3",
+        "decEN": "Ride 3 Rhino in one run"
+    },
+    {
+        "id": 480,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1011,
+        "value": 25,
+        "area": 1,
+        "dec": "乘河马×25",
+        "decEN": "Ride 25 Hippo"
+    },
+    {
+        "id": 481,
+        "difficulty": 1,
+        "type": "JUMP_LONG_IN_ONE",
+        "target": 25,
+        "value": 10,
+        "area": 1,
+        "dec": "在丛林中一局游戏完成10次25米跳跃",
+        "decEN": "Land 10 25m jumps in the Jungle in one run"
+    },
+    {
+        "id": 482,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 364,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服哞哞鸟",
+        "decEN": "Tame Moocan"
+    },
+    {
+        "id": 483,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1012,
+        "value": 4,
+        "area": 1,
+        "dec": "在一局游戏中骑乘犀牛×4",
+        "decEN": "Ride 4 Rhino in one run"
+    },
+    {
+        "id": 484,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1014,
+        "value": 15,
+        "area": 1,
+        "dec": "乘巨嘴鸟×15",
+        "decEN": "Ride 15 Toucan"
+    },
+    {
+        "id": 485,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 322,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服夏威夷犀牛",
+        "decEN": "Tame Hawaiino"
+    },
+    {
+        "id": 486,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1008,
+        "value": 17,
+        "area": 1,
+        "dec": "在一局游戏中骑乘野猪×17",
+        "decEN": "Ride 17 Boar in one run"
+    },
+    {
+        "id": 487,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1014,
+        "value": 20,
+        "area": 1,
+        "dec": "乘巨嘴鸟×20",
+        "decEN": "Ride 20 Toucan"
+    },
+    {
+        "id": 488,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 323,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服果蔬犀牛",
+        "decEN": "Tame Apple Pieno"
+    },
+    {
+        "id": 489,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1010,
+        "value": 6,
+        "area": 1,
+        "dec": "在一局游戏中骑乘鳄鱼×6",
+        "decEN": "Ride 6 Alligator in one run"
+    },
+    {
+        "id": 490,
+        "difficulty": 2,
+        "type": "RIDE",
+        "target": 1014,
+        "value": 25,
+        "area": 1,
+        "dec": "乘巨嘴鸟×25",
+        "decEN": "Ride 25 Toucan"
+    },
+    {
+        "id": 491,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 324,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服喵犀牛",
+        "decEN": "Tame Feline'o"
+    },
+    {
+        "id": 492,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1013,
+        "value": 7,
+        "area": 1,
+        "dec": "在一局游戏中骑乘老虎×7",
+        "decEN": "Ride 7 tiger in one run"
+    },
+    {
+        "id": 493,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1012,
+        "value": 10,
+        "area": 1,
+        "dec": "乘犀牛×10",
+        "decEN": "Ride 10 Rhino"
+    },
+    {
+        "id": 494,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 342,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服狮虎兽",
+        "decEN": "Tame Liger"
+    },
+    {
+        "id": 495,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1014,
+        "value": 2,
+        "area": 1,
+        "dec": "在一局游戏中骑乘巨嘴鸟×2",
+        "decEN": "Ride 2 Toucan in one run"
+    },
+    {
+        "id": 496,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1012,
+        "value": 15,
+        "area": 1,
+        "dec": "乘犀牛×15",
+        "decEN": "Ride 15 Rhino"
+    },
+    {
+        "id": 497,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 343,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服卧虎",
+        "decEN": "Tame Crouching Tiger"
+    },
+    {
+        "id": 498,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1009,
+        "value": 9,
+        "area": 1,
+        "dec": "在一局游戏中骑乘大猩猩×9",
+        "decEN": "Ride 9 Gorilla in one run"
+    },
+    {
+        "id": 499,
+        "difficulty": 1,
+        "type": "RIDE",
+        "target": 1012,
+        "value": 20,
+        "area": 1,
+        "dec": "乘犀牛×20",
+        "decEN": "Ride 20 Rhino"
+    },
+    {
+        "id": 500,
+        "difficulty": 0,
+        "type": "ANIMAL",
+        "target": 344,
+        "value": 1,
+        "area": 1,
+        "dec": "驯服白虎",
+        "decEN": "Tame White Tiger"
+    },
+    {
+        "id": 501,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1013,
+        "value": 6,
+        "area": 1,
+        "dec": "在一局游戏中骑乘老虎×6",
+        "decEN": "Ride 6 tiger in one run"
+    },
+    {
+        "id": 502,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1011,
+        "value": 3,
+        "area": 1,
+        "dec": "在一局游戏中骑乘河马×3",
+        "decEN": "Ride 3 Hippo in one run"
+    },
+    {
+        "id": 503,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1008,
+        "value": 21,
+        "area": 1,
+        "dec": "在一局游戏中骑乘野猪×21",
+        "decEN": "Ride 21 Boar in one run"
+    },
+    {
+        "id": 504,
+        "difficulty": 1,
+        "type": "RIDE_CNT",
+        "target": 1012,
+        "value": 4,
+        "area": 1,
+        "dec": "在一局游戏中骑乘犀牛×4",
+        "decEN": "Ride 4 Rhino in one run"
+    },
+    {
+        "id": 505,
+        "difficulty": 1,
+        "type": "JUMP_ANIMAL_FROM",
+        "target": 1012,
+        "value": 70,
+        "area": 1,
+        "dec": "从犀牛身上跳起经过70米后骑上其他动物",
+        "decEN": "Jump 70m from Rhino and land it"
+    }
+]
