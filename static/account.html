@@ -437,7 +437,7 @@
         })
           .then((response) => response.json())
           .then((data) => {
-            if (data.premium === 1) {
+            if (data.premium) {
               document.getElementById("badges").innerHTML =
                 '<span class="profile-pill"><img loading="eager" src="/img/premium.webp" alt="">Premium</span>';
               localStorage.setItem("premium", 1);
