@@ -2,6 +2,21 @@
 <html>
 <head>
   <meta charset="utf-8">
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/stick-rush/">
+<script>
+  // Images load from the CDN, so they need CORS before the game can use them in WebGL or read their pixels.
+  (() => {
+    const src = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      ...src,
+      set(value) {
+        if (this.crossOrigin === null && !/^(data|blob):/.test(value)) this.crossOrigin = "anonymous";
+        src.set.call(this, value);
+      },
+    });
+  })();
+</script>
+
 
   <title>StickRush</title>
 
