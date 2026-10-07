@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        const GAME_VERSION = "1.0.0";
+        const storageKey = "stunt-car-extreme-version";
+        if (localStorage.getItem(storageKey) !== GAME_VERSION) {
+            if (indexedDB.databases) {
+                indexedDB.databases().then(dbs => {
+                    dbs.forEach(db => indexedDB.deleteDatabase(db.name));
+                });
+            }
+            localStorage.setItem(storageKey, GAME_VERSION);
+        }
+    </script>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Stunt Car Extreme</title>
+	<script>
+	window.config = {
+		loader: 'unity-2020',
+		debug: false,
+		maxRatio: 24 / 9,
+		minRatio: 9 / 24,
+
+		title: 'Stunt Car Extreme',
+		thumbnail: 'eb638126e29ebcde841d87cbf3af1b95.png',
+		numScreenshots:  5 ,
+
+		unityVersion: '2022.3.17f1',
+		unityWebglBuildUrl: '',
+
+		fileSize:  52 ,
+		cachedDecompressedFileSizes: {
+			'56d7dbf5d6f17b9486f2581be202a4a7.js':  402652 ,
+			'74682f744554efcc89b86fcd48f121e7.data':  12542102 ,
+			'9ec0c60700ece028945514dc7e8b7d63.wasm':  39241304 ,
+			'Builds.loader.js':  20672 ,
+		},
+		"metadata": {"poki_template_version":1,"background_color":"#231F20","code_filename":"9ec0c60700ece028945514dc7e8b7d63.wasm","company_name":"Hyperkani","data_filename":"74682f744554efcc89b86fcd48f121e7.data","development_player":"false","framework_filename":"56d7dbf5d6f17b9486f2581be202a4a7.js","height":"600","loader_filename":"Builds.loader.js","product_name":"Stunt Car Extreme","product_version":"1.046","splash_screen_style":"Dark","total_memory":"1024","unity_version":"2022.3.17f1","use_data_caching":"true","use_threads":"false","use_wasm":"true","use_webgl_1_0":"false","use_webgl_2_0":"true","width":"960"}
+	};
+	</script>
+<!-- will be copied to the resulting head //-->
+</head>
+<body>
+	<script src="poki/master-loader.js"></script>
+<!-- will be copied to the resulting body //-->
+<!-- will also be copied to the resulting body //-->
+</body>
+</html>
