@@ -2,6 +2,8 @@
 const PRIORITY_THUMBNAILS = 24;
 let loadingFadeTimer;
 let loadingHideTimer;
+let progressFrame = 0;
+let progressShown = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("retry-games")?.addEventListener("click", loadGames);
@@ -19,13 +21,16 @@ async function loadGames() {
   clearTimeout(loadingFadeTimer);
   clearTimeout(loadingHideTimer);
   gameContainer.replaceChildren();
+  loadingContainer.classList.remove("is-leaving");
+  loadingContainer.style.height = "";
   loadingContainer.style.display = "flex";
-  loadingContainer.style.opacity = "1";
   loadingText.textContent = "Loading games…";
-  progressBar.style.width = "0%";
-  progressBar.setAttribute("aria-valuenow", "0");
-  progressPercentage.textContent = "0%";
+  progressShown = 0;
+  drawProgress();
   retryButton.hidden = true;
+  // The catalog is one request with no byte progress to report, so the bar
+  // eases most of the way while it is in flight and finishes when it lands.
+  glideProgress(0.85, 700);
 
   try {
     const response = await fetch("/assets/json/load/g.json");
@@ -38,10 +43,6 @@ async function loadGames() {
 
     const cards = games.map(createGameCard).filter(Boolean);
     const fragment = document.createDocumentFragment();
-
-    progressBar.style.width = "100%";
-    progressBar.setAttribute("aria-valuenow", "100");
-    progressPercentage.textContent = "100%";
 
     cards.forEach(({ card, image, imageUrl }, index) => {
       if (index < PRIORITY_THUMBNAILS) image.fetchPriority = "high";
@@ -61,14 +62,50 @@ async function loadGames() {
       searchbar.placeholder = `Click here or type to search through our ${games.length} games!`;
     }
 
+    await glideProgress(1, 110);
     finishLoading(cards.length);
   } catch (error) {
+    cancelAnimationFrame(progressFrame);
     loadingText.textContent =
       "Unable to load games. Check your connection and try again.";
     progressPercentage.textContent = "Load failed";
     retryButton.hidden = false;
     console.error("Error loading games:", error);
   }
+}
+
+function drawProgress() {
+  const progressBar = document.getElementById("progress-bar");
+  const whole = Math.floor(progressShown * 100 + 0.01);
+  progressBar.style.width = `${progressShown * 100}%`;
+  progressBar.setAttribute("aria-valuenow", whole);
+  document.getElementById("progress-percentage").textContent = `${whole}%`;
+}
+
+// Glides the bar and the percentage toward a 0-1 target every frame; a larger
+// pace is slower. Resolves once the target is reached.
+function glideProgress(target, pace) {
+  cancelAnimationFrame(progressFrame);
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  return new Promise((resolve) => {
+    let lastFrame = performance.now();
+    const step = (now) => {
+      const elapsed = Math.min(now - lastFrame, 100);
+      lastFrame = now;
+      progressShown +=
+        (target - progressShown) * (1 - Math.exp(-elapsed / pace));
+      if (still || Math.abs(target - progressShown) < 0.005)
+        progressShown = target;
+      drawProgress();
+      if (progressShown !== target) {
+        progressFrame = requestAnimationFrame(step);
+        return;
+      }
+      progressFrame = 0;
+      resolve();
+    };
+    progressFrame = requestAnimationFrame(step);
+  });
 }
 
 function createGameCard(game) {
@@ -128,10 +165,15 @@ function finishLoading(totalGames) {
 
   loadingText.textContent = `${totalGames} games ready!`;
 
+  // Pin the current height so it can animate to zero: the bar fades and the
+  // games slide up into its place instead of jumping.
   loadingFadeTimer = setTimeout(() => {
-    loadingContainer.style.opacity = "0";
+    loadingContainer.style.height = `${loadingContainer.offsetHeight}px`;
+    loadingContainer.offsetHeight;
+    loadingContainer.classList.add("is-leaving");
+    loadingContainer.style.height = "0px";
     loadingHideTimer = setTimeout(() => {
       loadingContainer.style.display = "none";
-    }, 500);
-  }, 300);
+    }, 650);
+  }, 450);
 }

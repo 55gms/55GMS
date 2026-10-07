@@ -25,6 +25,21 @@ h6 {
   justify-content: center;
   margin: 20px 0;
   gap: 15px;
+  transition:
+    opacity 0.3s ease,
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.12s,
+    margin 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
+}
+
+/* Leaving: the bar fades and lifts, then the space it held closes up.
+   games.js pins the height before adding this class. */
+.loading-container.is-leaving {
+  margin: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px) scale(0.97);
+  pointer-events: none;
 }
 
 .loading-text {
@@ -42,7 +57,8 @@ h6 {
   border-radius: var(--site-radius-sm, 10px);
   overflow: hidden;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-  border: 1px solid color-mix(in srgb, var(--site-surface, #7a8fab) 60%, transparent);
+  border: 1px solid
+    color-mix(in srgb, var(--site-surface, #7a8fab) 60%, transparent);
 }
 
 .progress-bar {
@@ -55,7 +71,6 @@ h6 {
   );
   border-radius: var(--site-radius-sm, 10px);
   width: 0%;
-  transition: width 0.3s ease;
   position: relative;
   overflow: hidden;
 }
@@ -173,7 +188,10 @@ h6 {
   font-size: var(--site-search-font-size, 1.3rem);
   font-style: italic;
   border: 2px solid
-    var(--site-search-border-color, var(--site-control-border-hover, rgba(255, 255, 255, 0.34)));
+    var(
+      --site-search-border-color,
+      var(--site-control-border-hover, rgba(255, 255, 255, 0.34))
+    );
   outline: none;
   color: var(--site-input-text, #faf9f6);
   margin: 0px 0px 20px 0px;
@@ -191,17 +209,29 @@ h6 {
 
 .searchbar:hover {
   background-color: var(--site-search-hover-bg, var(--site-input-bg, #101d31));
-  border-color: var(--site-search-border-color, var(--site-control-border-hover, rgba(255, 255, 255, 0.34)));
-  box-shadow: var(--site-search-glow-shadow, 0 0 0 3px var(--site-control-ring, rgba(255, 255, 255, 0.18)));
+  border-color: var(
+    --site-search-border-color,
+    var(--site-control-border-hover, rgba(255, 255, 255, 0.34))
+  );
+  box-shadow: var(
+    --site-search-glow-shadow,
+    0 0 0 3px var(--site-control-ring, rgba(255, 255, 255, 0.18))
+  );
   cursor: text;
 }
 
 .searchbar:focus {
   outline: none;
   background-color: var(--site-search-hover-bg, var(--site-input-bg, #101d31));
-  border-color: var(--site-search-border-color, var(--site-control-border-hover, rgba(255, 255, 255, 0.38)));
+  border-color: var(
+    --site-search-border-color,
+    var(--site-control-border-hover, rgba(255, 255, 255, 0.38))
+  );
   transform: scale(1.04);
-  box-shadow: var(--site-search-glow-shadow, 0 0 0 4px var(--site-control-ring, rgba(255, 255, 255, 0.22)));
+  box-shadow: var(
+    --site-search-glow-shadow,
+    0 0 0 4px var(--site-control-ring, rgba(255, 255, 255, 0.22))
+  );
   cursor: text;
 }
 
@@ -250,7 +280,9 @@ h6 {
   color: white;
   font-size: 0.75rem;
   opacity: 0;
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
   animation: slide-out 0.35s ease forwards;
 }
 .game:hover .text,
@@ -276,6 +308,8 @@ h6 {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .loading-container,
+  .progress-bar::before,
   .progress-bar,
   .game img,
   .text {
