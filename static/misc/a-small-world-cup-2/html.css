@@ -1,0 +1,10 @@
+.button{
+	opacity:0;
+}
+
+.input-text{
+	background: none;
+	border:none;
+	outline:none;
+	font-size:2vh;
+}
