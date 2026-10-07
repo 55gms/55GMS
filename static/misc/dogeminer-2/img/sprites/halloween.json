@@ -1,0 +1,92 @@
+{"frames": {
+
+"halloween/fullmooncoin":
+{
+	"frame": {"x":242,"y":768,"w":220,"h":206},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":6,"w":220,"h":206},
+	"sourceSize": {"w":220,"h":216}
+},
+"halloween/ghostshibe":
+{
+	"frame": {"x":468,"y":768,"w":188,"h":194},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":6,"w":188,"h":194},
+	"sourceSize": {"w":192,"h":200}
+},
+"halloween/hat":
+{
+	"frame": {"x":242,"y":572,"w":236,"h":190},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":236,"h":190},
+	"sourceSize": {"w":236,"h":189}
+},
+"halloween/location-wrapper":
+{
+	"frame": {"x":4,"y":572,"w":232,"h":226},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":18,"y":20,"w":232,"h":226},
+	"sourceSize": {"w":250,"h":258}
+},
+"halloween/spider-idle":
+{
+	"frame": {"x":4,"y":864,"w":52,"h":20},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":52,"h":20},
+	"sourceSize": {"w":53,"h":23}
+},
+"halloween/spider-step1":
+{
+	"frame": {"x":4,"y":804,"w":52,"h":24},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":0,"w":52,"h":24},
+	"sourceSize": {"w":53,"h":23}
+},
+"halloween/spider-step2":
+{
+	"frame": {"x":4,"y":834,"w":50,"h":24},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":0,"w":50,"h":24},
+	"sourceSize": {"w":53,"h":23}
+},
+"halloween/spider-withweb":
+{
+	"frame": {"x":608,"y":4,"w":48,"h":94},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":94},
+	"sourceSize": {"w":47,"h":94}
+},
+"halloween/spider":
+{
+	"frame": {"x":60,"y":834,"w":52,"h":20},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":52,"h":20},
+	"sourceSize": {"w":53,"h":23}
+},
+"halloween/web-nospider":
+{
+	"frame": {"x":4,"y":4,"w":598,"h":562},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":598,"h":562},
+	"sourceSize": {"w":605,"h":566}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "halloween.png",
+	"format": "RGBA5555",
+	"size": {"w":660,"h":978},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:e34bbed7b555bec79b542e89bbefb74e:db71812f4ddaefc1212cd6f3439cb3b2:a2718b4ee4047cb4bc4942aabc31e87b$"
+}
+}
