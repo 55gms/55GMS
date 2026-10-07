@@ -1,0 +1,154 @@
+{
+    "BoxGlove": {
+        "patterns": [
+            "Pattern_GloveBricks",
+            "Pattern_GloveCross",
+            "Pattern_GloveLiane"
+        ],
+        "weight": 1,
+        "unlockLevel": 40,
+        "index": 0
+    },
+    "Bumper": {
+        "patterns": [
+            "Pattern_BumperCorridor",
+            "Pattern_Bumpers",
+            "Pattern_BumpersComputer",
+            "Pattern_BumperLianes"
+        ],
+        "weight": 1,
+        "unlockLevel": 35,
+        "index": 0
+    },
+    "Doors": {
+        "patterns": [
+            "Pattern_RotatingDoor",
+            "Pattern_RotatingDoorDouble",
+            "Pattern_RotatingDoorDouble"
+        ],
+        "weight": 2,
+        "unlockLevel": 0,
+        "index": 0
+    },
+    "Flowers": {
+        "patterns": [
+            "Pattern_Flower",
+            "Pattern_FlowerBig",
+            "Pattern_FlowerSmall"
+        ],
+        "weight": 1,
+        "unlockLevel": 10,
+        "index": 0
+    },
+    "Lianes": {
+        "patterns": [
+            "Pattern_Liane",
+            "Pattern_Lianes"
+        ],
+        "weight": 2,
+        "unlockLevel": 0,
+        "index": 0
+    },
+    "MegaFun": {
+        "patterns": [
+            "Pattern_RocketDoubleSpring",
+            "Pattern_RocketTest",
+            "Pattern_RocketSpring",
+            "Pattern_RocketWindMill",
+            "Pattern_CarRocket",
+            "Pattern_Flower",
+            "Pattern_FlowerBig",
+            "Pattern_BumpersComputer",
+            "Pattern_FlowerSmall",
+            "Pattern_WaterPipeTest",
+            "Pattern_Car",
+            "Pattern_Football"
+        ],
+        "weight": 1,
+        "unlockLevel": 50,
+        "index": 0
+    },
+    "PhysicsBlocks": {
+        "patterns": [
+            "Pattern_PhysicsBlocks",
+            "Pattern_PhysicsBlocks2",
+            "Pattern_PhysicsBricks",
+            "Pattern_PhysicsDoor",
+            "Pattern_PhysicsRoom"
+        ],
+        "weight": 1,
+        "unlockLevel": 15,
+        "index": 0
+    },
+    "Rocket": {
+        "patterns": [
+            "Pattern_CarRocket",
+            "Pattern_GloveRocket",
+            "Pattern_RocketWindMill",
+            "Pattern_RocketDoubleSpring",
+            "Pattern_RocketTest",
+            "Pattern_RocketSpring"
+        ],
+        "weight": 1,
+        "unlockLevel": 30,
+        "index": 0
+    },
+    "Rotating": {
+        "patterns": [
+            "Pattern_RotatingCircleBottom",
+            "Pattern_RotatingCircleBottomAndTop",
+            "Pattern_RotatingCircleCenter",
+            "Pattern_RotatingCircles",
+            "Pattern_RotatingCircleTop",
+            "Pattern_RotatingCircleTopDouble",
+            "Pattern_RotatingCircleTopWall",
+            "Pattern_RotatingCross",
+            "Pattern_RotatingCrossDouble",
+            "Pattern_RotatingCrosses",
+            "Pattern_RotatingCrossHigh",
+            "Pattern_RotatingCrossLow",
+            "Pattern_RotatingCrossTriple",
+            "Pattern_RocketWindMill",
+            "Pattern_RotatingSquare"
+        ],
+        "weight": 1,
+        "unlockLevel": 0,
+        "index": 0
+    },
+    "RotatingCrosses": {
+        "patterns": [
+            "Pattern_RotatingCross",
+            "Pattern_RotatingCrossDouble",
+            "Pattern_RotatingCrosses",
+            "Pattern_RotatingCrossHigh",
+            "Pattern_RotatingCrossLow",
+            "Pattern_RotatingCrossTriple"
+        ],
+        "weight": 2,
+        "unlockLevel": 0,
+        "index": 0
+    },
+    "Spring": {
+        "patterns": [
+            "Pattern_Spring",
+            "Pattern_Spring2",
+            "Pattern_SpringGrappe",
+            "Pattern_DoubleSpringBall",
+            "Pattern_DoubleSpringBallTop"
+        ],
+        "weight": 1,
+        "unlockLevel": 20,
+        "index": 0
+    },
+    "Towers": {
+        "patterns": [
+            "Pattern_Tower",
+            "Pattern_TowerHigh",
+            "Pattern_TowerLow",
+            "Pattern_TowerThin"
+        ],
+        "weight": 2,
+        "unlockLevel": 0,
+        "index": 0
+    }
+}
