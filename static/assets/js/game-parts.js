@@ -40,6 +40,8 @@ window.GameParts = (() => {
       const promise = join(parts, type);
       promise.catch((error) => window.GameLoader?.fail(error));
       merged.set(key(file), promise);
+      // Some engines build the URL from the page address instead of the <base>.
+      merged.set(key(new URL(file, location.href)), promise);
     }
   }
 
