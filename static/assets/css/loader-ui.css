@@ -1,5 +1,5 @@
-/* Geist-style loading screen built by loader-ui.js. The id selectors outrank
-   the overlay rules in game-loader.css and unity-cdn-loader.css. */
+/* Loading screen built by loader-ui.js. The id selectors outrank the overlay
+   rules in game-loader.css and unity-cdn-loader.css. */
 
 /* Shield the screen from the game page's own element styles. Keep this first:
    every rule below has to be able to override it. */
@@ -8,30 +8,52 @@
   box-sizing: border-box;
 }
 
+/* Palettes mirror --site-bg, --site-text, --site-muted and --site-surface in
+   /assets/css/style.css. */
 .loader-ui {
-  --loader-accent: #f5b942;
+  --loader-bg: #5e7594;
+  --loader-text: #ffffff;
+  --loader-muted: #b5cae0;
+  --loader-surface: #7a8fab;
   --loader-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --loader-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --loader-rainbow:
+    #ffadc6, #ffc9a3, #fff0a3, #b5f0c0, #a3dcff, #cdb8ff, #ffadc6;
 }
 
-/* Accents mirror --site-accent in /assets/css/style.css. */
 .loader-ui[data-theme="blue"] {
-  --loader-accent: #3b82f6;
+  --loader-bg: #0b1220;
+  --loader-text: #e6edf7;
+  --loader-muted: #8fa0b8;
+  --loader-surface: #111d2f;
 }
 
 .loader-ui[data-theme="midnight"] {
-  --loader-accent: #7dd3fc;
+  --loader-bg: #121826;
+  --loader-text: #f5f7fb;
+  --loader-muted: #9eb6d8;
+  --loader-surface: #22304a;
 }
 
 .loader-ui[data-theme="forest"] {
-  --loader-accent: #e4b363;
+  --loader-bg: #233329;
+  --loader-text: #f4fbf4;
+  --loader-muted: #b7d9bd;
+  --loader-surface: #3e5f48;
 }
 
 .loader-ui[data-theme="sunset"] {
-  --loader-accent: #ffb86b;
+  --loader-bg: #40284f;
+  --loader-text: #fff8f3;
+  --loader-muted: #ffd0c2;
+  --loader-surface: #74456f;
 }
 
 .loader-ui[data-theme="contrast"] {
-  --loader-accent: #ffff00;
+  --loader-bg: #000000;
+  --loader-text: #ffffff;
+  --loader-muted: #f5f5f5;
+  --loader-surface: #1a1a1a;
 }
 
 .loader-ui:is(#game-loading, #unity-cdn-loading) {
@@ -44,25 +66,26 @@
   box-sizing: border-box;
   margin: 0;
   padding: 24px;
-  background: #0a0a0a;
-  color: #ededed;
+  overflow: hidden;
+  background: var(--loader-bg);
+  color: var(--loader-text);
   font:
-    400 15px/22px Geist,
-    system-ui,
+    400 16px/24px system-ui,
     -apple-system,
     "Segoe UI",
     Roboto,
     Inter,
     sans-serif;
-  text-align: left;
+  text-align: center;
   text-shadow: none;
   -webkit-font-smoothing: antialiased;
   transition:
-    opacity 320ms ease,
-    visibility 0s linear 320ms;
+    opacity 420ms ease 140ms,
+    visibility 0s linear 560ms;
 }
 
-/* Fade out instead of vanishing when the loader hides the overlay. */
+/* Leave cleanly when the loader hides the overlay: the content lifts away,
+   then the backdrop fades to reveal the game. */
 .loader-ui:is(#game-loading, #unity-cdn-loading)[hidden] {
   display: flex;
   visibility: hidden;
@@ -71,117 +94,117 @@
 }
 
 .loader {
-  width: min(560px, calc(100vw - 48px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(640px, calc(100vw - 48px));
+  transition:
+    opacity 300ms ease,
+    transform 460ms var(--loader-ease);
 }
 
+.loader[hidden] {
+  display: none;
+}
+
+.loader-ui[hidden] .loader {
+  opacity: 0;
+  transform: translateY(-36px) scale(0.97);
+}
+
+/* Each piece drops in from the top, one after another. */
 .loader > * {
-  animation: loader-rise 520ms var(--loader-ease) both;
+  animation: loader-drop 720ms var(--loader-spring) both;
 }
 
 .loader > :nth-child(2) {
-  animation-delay: 60ms;
+  animation-delay: 70ms;
 }
 
 .loader > :nth-child(3) {
-  animation-delay: 120ms;
+  animation-delay: 140ms;
 }
 
 .loader > :nth-child(4) {
-  animation-delay: 180ms;
+  animation-delay: 210ms;
 }
 
-.loader-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 20px;
-  color: #ededed;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 20px;
+.loader-cover {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(112px, 22vmin, 176px);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 22%;
+  background: var(--loader-surface);
+  box-shadow:
+    0 18px 40px rgb(0 0 0 / 28%),
+    0 2px 6px rgb(0 0 0 / 18%);
 }
 
-.loader-logo {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
+.loader-initial {
+  color: var(--loader-muted);
+  font-size: clamp(44px, 9vmin, 72px);
+  font-weight: 700;
+  line-height: 1;
 }
 
-.loader-slash {
-  color: #454545;
+.loader-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.08);
+  transition:
+    opacity 360ms ease,
+    transform 600ms var(--loader-ease);
 }
 
-.loader-crumb {
-  color: #a1a1a1;
-  font-weight: 400;
+.loader-has-art .loader-art {
+  opacity: 1;
+  transform: none;
 }
 
 .loader-title {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 32px;
-  letter-spacing: -0.02em;
+  max-width: 100%;
+  margin: 26px 0 0;
+  font-size: clamp(24px, 4.4vmin, 34px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.loader-live {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  column-gap: 8px;
-  margin-top: 6px;
-}
-
-.loader-spinner {
-  width: 12px;
-  height: 12px;
-  box-sizing: border-box;
-  border: 1.5px solid #2e2e2e;
-  border-top-color: var(--loader-accent);
-  border-radius: 50%;
-  animation: loader-spin 700ms linear infinite;
-}
-
-.loader-status,
-.loader-detail {
-  margin: 0;
-  color: #a1a1a1;
-}
-
-/* A distinct animation name per state replays the swap on each change. */
-.loader-ui[data-state="downloading"] .loader-status {
-  animation: loader-swap-a 280ms var(--loader-ease) both;
-}
-
-.loader-ui[data-state="starting"] .loader-status {
-  animation: loader-swap-b 280ms var(--loader-ease) both;
-}
-
 .loader-progress {
-  margin-top: 32px;
+  width: 100%;
+  margin-top: 28px;
 }
 
 .loader-track {
-  height: 4px;
+  height: 14px;
   overflow: hidden;
-  border-radius: 2px;
-  background: #1f1f1f;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--loader-text) 16%, transparent);
 }
 
+/* The gradient spans the whole track and is revealed by the clip, so the
+   colors stay put while the bar grows and only drift with the animation. */
 .loader-fill {
+  --loader-value: 0;
   position: relative;
-  width: 0;
+  width: 100%;
   height: 100%;
-  overflow: hidden;
-  border-radius: inherit;
-  background: var(--loader-accent);
-  transition: width 160ms linear;
+  background: linear-gradient(90deg, var(--loader-rainbow)) 0 0 / 200% 100%;
+  clip-path: inset(0 calc((1 - var(--loader-value)) * 100%) 0 0 round 999px);
+  animation: loader-rainbow 6s linear infinite;
 }
 
-/* Sheen travelling along the filled part while work is in flight. */
+/* Sheen travelling along the bar while work is in flight. */
 .loader-fill::after {
   content: "";
   position: absolute;
@@ -189,18 +212,21 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgb(255 255 255 / 55%),
+    rgb(255 255 255 / 45%),
     transparent
   );
   transform: translateX(-100%);
-  animation: loader-sheen 1600ms ease-in-out infinite;
+  animation: loader-sheen 1800ms ease-in-out infinite;
 }
 
 /* Indeterminate: a segment slides along the track until progress is known. */
 .loader-ui[data-state="loading"] .loader-fill {
   width: 35%;
-  transition: none;
-  animation: loader-slide 1400ms ease-in-out infinite;
+  border-radius: 999px;
+  clip-path: none;
+  animation:
+    loader-rainbow 6s linear infinite,
+    loader-slide 1400ms ease-in-out infinite;
 }
 
 .loader-ui[data-state="loading"] .loader-fill::after {
@@ -212,24 +238,78 @@
 }
 
 .loader-meta {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 14px;
-  color: #a1a1a1;
-  font:
-    400 13px/18px "Geist Mono",
-    ui-monospace,
-    SFMono-Regular,
-    Menlo,
-    Consolas,
-    monospace;
+  min-height: 30px;
+  margin: 18px 0 0;
+  font-size: clamp(18px, 3vmin, 22px);
+  font-weight: 700;
+  line-height: 30px;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
-.loader-percent {
-  color: #ededed;
+.loader-amount:not(:empty)::before {
+  content: "· ";
+  opacity: 0.6;
+}
+
+.loader-amount {
+  color: color-mix(in srgb, var(--loader-text) 84%, var(--loader-bg));
+}
+
+/* Sizes are unknown: there is no percentage to show, only bytes received. */
+.loader-ui[data-sized="false"] .loader-percent {
+  display: none;
+}
+
+.loader-ui[data-sized="false"] .loader-amount::before {
+  content: none;
+}
+
+.loader-ui[data-sized="false"] .loader-fill {
+  --loader-value: 1 !important;
+  opacity: 0.45;
+}
+
+.loader-live {
+  margin-top: 4px;
+}
+
+.loader-line,
+.loader-detail {
+  margin: 0;
+  color: var(--loader-muted);
+}
+
+.loader-line {
+  min-height: 24px;
+  font-variant-numeric: tabular-nums;
+}
+
+.loader-status,
+.loader-speed {
+  display: inline-block;
+}
+
+.loader-speed:not(:empty)::before {
+  content: "· ";
+}
+
+/* A distinct animation name per state replays the swap on each change. */
+.loader-ui[data-state="downloading"] .loader-status {
+  animation: loader-swap-a 320ms var(--loader-ease) both;
+}
+
+.loader-ui[data-state="starting"] .loader-status {
+  animation: loader-swap-b 320ms var(--loader-ease) both;
+}
+
+/* Everything is in: the cover breathes while the game boots. */
+.loader-ui[data-state="starting"] .loader-cover {
+  animation: loader-pulse 1600ms ease-in-out infinite;
+}
+
+.loader-ui[data-state="starting"] .loader-fill {
+  animation-duration: 3s;
 }
 
 .loader-detail,
@@ -238,18 +318,17 @@
 }
 
 .loader-ui[data-state="error"] .loader-progress,
-.loader-ui[data-state="error"] .loader-spinner {
+.loader-ui[data-state="error"] .loader-speed {
   display: none;
 }
 
 .loader-ui[data-state="error"] .loader-live {
-  display: block;
   margin-top: 20px;
 }
 
 .loader-ui[data-state="error"] .loader-status {
-  color: #ff6166;
-  font-weight: 500;
+  color: #ff8a8f;
+  font-weight: 600;
 }
 
 .loader-ui[data-state="error"] .loader-detail {
@@ -263,48 +342,45 @@
 
 .loader-reload {
   align-items: center;
-  height: 36px;
+  height: 40px;
   margin-top: 24px;
-  padding: 0 14px;
-  border: 1px solid #2e2e2e;
-  border-radius: 6px;
-  background: #0a0a0a;
-  color: #ededed;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--loader-text);
+  color: var(--loader-bg);
   font: inherit;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
   transition:
-    background-color 150ms ease,
-    border-color 150ms ease,
+    opacity 150ms ease,
     transform 120ms var(--loader-ease);
 }
 
 .loader-reload:hover {
-  border-color: #454545;
-  background: #1a1a1a;
+  opacity: 0.88;
 }
 
 .loader-reload:active {
-  background: #1f1f1f;
-  transform: scale(0.97);
+  transform: scale(0.96);
 }
 
 .loader-reload:focus-visible {
-  outline: 2px solid var(--loader-accent);
-  outline-offset: 2px;
+  outline: 2px solid var(--loader-text);
+  outline-offset: 3px;
 }
 
-@keyframes loader-rise {
+@keyframes loader-drop {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(-48px);
   }
 }
 
-@keyframes loader-spin {
+@keyframes loader-rainbow {
   to {
-    transform: rotate(360deg);
+    background-position: 200% 0;
   }
 }
 
@@ -324,42 +400,69 @@
   }
 }
 
+@keyframes loader-pulse {
+  50% {
+    transform: scale(1.04);
+  }
+}
+
 @keyframes loader-swap-a {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(-6px);
   }
 }
 
 @keyframes loader-swap-b {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(-6px);
   }
 }
 
-@media (max-width: 480px) {
+@media (max-height: 420px) {
+  .loader-cover {
+    width: 72px;
+  }
+
   .loader-title {
-    font-size: 20px;
-    line-height: 28px;
+    margin-top: 12px;
+  }
+
+  .loader-progress {
+    margin-top: 14px;
+  }
+
+  .loader-meta {
+    margin-top: 10px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .loader-ui:is(#game-loading, #unity-cdn-loading),
-  .loader-fill,
+  .loader-ui:is(#game-loading, #unity-cdn-loading) {
+    transition:
+      opacity 200ms ease,
+      visibility 0s linear 200ms;
+  }
+
+  .loader,
+  .loader-art,
   .loader-reload {
     transition: none;
   }
 
+  .loader-ui[hidden] .loader {
+    transform: none;
+  }
+
   .loader > *,
+  .loader-fill,
   .loader-ui[data-state] .loader-status,
-  .loader-fill::after {
+  .loader-ui[data-state="starting"] .loader-cover {
     animation: none;
   }
 
-  .loader-fill::after,
-  .loader-spinner {
+  .loader-fill::after {
     display: none;
   }
 
