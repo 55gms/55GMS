@@ -1,0 +1,38 @@
+{
+  "types": {
+    "TunTunTunSahur": 0,
+    "Ballerina": 1,
+    "CapucinoAssasino": 2,
+    "KarpuziMakiyato": 3,
+    "BombardinoCrocodilo": 4,
+    "TralalaTrelolo": 5,
+    "LirilaraLirilero": 6,
+    "ChampanziniBanananini": 7,
+    "BonecaAmbalabu": 8,
+    "Burbalonilulliloli": 9,
+    "Udindindindun": 10,
+    "SixtySeven": 11,
+    "JobJobSahur": 13,
+    "Karkarkur": 14,
+    "TititiSahur": 15,
+    "FrigoCamelo": 17,
+    "Meowl": 18,
+    "StrawberryElephant": 19
+  },
+ "rarity": {
+    "0": ["TunTunTunSahur", "Ballerina", "CapucinoAssasino", "KarpuziMakiyato",  "BombardinoCrocodilo", "TralalaTrelolo", "LirilaraLirilero", "BonecaAmbalabu", "Burbalonilulliloli", "Udindindindun", "JobJobSahur", "Karkarkur", "TititiSahur", "FrigoCamelo"],
+    "1": ["TunTunTunSahur", "Ballerina", "CapucinoAssasino", "KarpuziMakiyato", "TralalaTrelolo", "LirilaraLirilero", "BonecaAmbalabu", "Burbalonilulliloli", "Udindindindun", "Karkarkur", "TititiSahur", "FrigoCamelo"],
+    "2": ["TunTunTunSahur", "Ballerina", "CapucinoAssasino", "KarpuziMakiyato", "BombardinoCrocodilo", "TralalaTrelolo", "LirilaraLirilero", "BonecaAmbalabu", "Burbalonilulliloli", "Udindindindun", "JobJobSahur", "Karkarkur", "FrigoCamelo"],
+    "3": ["BonecaAmbalabu", "Burbalonilulliloli", "Udindindindun", "JobJobSahur", "Karkarkur", "TititiSahur", "FrigoCamelo"],
+    "4": ["ChampanziniBanananini", "Udindindindun", "SixtySeven", "Karkarkur", "FrigoCamelo"],
+    "5": ["Meowl", "StrawberryElephant"]
+  },
+  "rarityRates": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 20,
+    "4": 75,
+    "5": 5
+  }
+}
