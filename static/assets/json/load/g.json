@@ -28,18 +28,21 @@
     "name": "Crazy Cars",
     "url": "/misc/play/crazycars.html",
     "image": "/misc/crazycars/img.webp",
+    "preview": "/img/videos/preview/crazycars.mp4",
     "usesProxy": false
   },
   {
     "name": "Blumgi Racers",
     "url": "/misc/play/blumgiracers.html",
     "image": "/misc/blumgiracers/img.webp",
+    "preview": "/img/videos/preview/blumgiracers.mp4",
     "usesProxy": false
   },
   {
     "name": "2048",
     "url": "/misc/play/2048.html",
     "image": "/misc/2048/2048.webp",
+    "preview": "/img/videos/preview/2048.mp4",
     "usesProxy": false
   },
   {
@@ -94,18 +97,21 @@
     "name": "Archery World Tour",
     "url": "/misc/play/archeryworldtour.html",
     "image": "/misc/archeryWorldTour/img.webp?v=1",
+    "preview": "/img/videos/preview/archeryworldtour.mp4",
     "usesProxy": false
   },
   {
     "name": "Super Star Car",
     "url": "/misc/play/superstarcar.html",
     "image": "/misc/superstarcar/splash.avif",
+    "preview": "/img/videos/preview/superstarcar.mp4",
     "usesProxy": false
   },
   {
     "name": "A Small World Cup",
     "url": "/misc/play/asmallworldcup.html",
     "image": "/misc/asmallworldcup/img.webp",
+    "preview": "/img/videos/preview/asmallworldcup.mp4",
     "usesProxy": false
   },
   {
@@ -124,6 +130,7 @@
     "name": "Bacon May Die",
     "url": "https://games.poki.com/458768/5dd2c21a-015f-11ea-ad56-9cb6d0d995f7",
     "image": "/misc/bacon-may-die/splash.webp",
+    "preview": "/img/videos/preview/baconmaydie.mp4",
     "usesProxy": true
   },
   {
@@ -148,12 +155,14 @@
     "name": "Basket Random",
     "url": "/misc/play/basket-random.html",
     "image": "/misc/basket-random/img.webp",
+    "preview": "/img/videos/preview/basketrandom.mp4",
     "usesProxy": false
   },
   {
     "name": "Basketball Stars",
     "url": "/misc/play/basketball-stars.html",
     "image": "/misc/basketball-stars/basketstars.webp",
+    "preview": "/img/videos/preview/basketballstars.mp4",
     "usesProxy": false
   },
   {
@@ -166,6 +175,7 @@
     "name": "BitLife",
     "url": "/misc/play/bitlife.html",
     "image": "/img/games/bitlife.webp",
+    "preview": "/img/videos/preview/bitlife.mp4",
     "usesProxy": false
   },
   {
@@ -214,6 +224,7 @@
     "name": "Boxing Random",
     "url": "/misc/play/boxing-random.html",
     "image": "/misc/boxing-random/img.jpeg",
+    "preview": "/img/videos/preview/boxingrandom.mp4",
     "usesProxy": false
   },
   {
@@ -226,6 +237,7 @@
     "name": "Cookie Clicker",
     "url": "/misc/play/cookieclicker.html",
     "image": "/misc/cookieclicker/clicker.jpeg",
+    "preview": "/img/videos/preview/cookieclicker.mp4",
     "usesProxy": false
   },
   {
@@ -238,6 +250,7 @@
     "name": "Crossy Road",
     "url": "/misc/play/crossyroad.html",
     "image": "/misc/crossy-road/crossyroad.png",
+    "preview": "/img/videos/preview/crossyroad.mp4",
     "usesProxy": false
   },
   {
@@ -347,6 +360,7 @@
     "name": "Gun Spin",
     "url": "/misc/play/Gun-Spin.html",
     "image": "/img/games/gunspin.webp",
+    "preview": "/img/videos/preview/gunspin.mp4",
     "usesProxy": false
   },
   {
@@ -359,12 +373,14 @@
     "name": "Dread Head Parkour",
     "author": "Gametornado",
     "image": "/misc/dhp/img.webp",
+    "preview": "/img/videos/preview/dreadheadparkour.mp4",
     "usesProxy": false
   },
   {
     "name": "Drift Boss",
     "url": "/misc/play/drift-boss.html",
     "image": "/misc/drift-boss/img.jpeg",
+    "preview": "/img/videos/preview/driftboss.mp4",
     "usesProxy": false
   },
   {
@@ -377,6 +393,7 @@
     "name": "Drive Mad",
     "url": "/misc/play/drive-mad.html",
     "image": "/misc/drive-mad/img.webp",
+    "preview": "/img/videos/preview/drivemad.mp4",
     "usesProxy": false
   },
   {
@@ -431,6 +448,7 @@
     "name": "Eggy Car",
     "url": "/misc/play/eggy-car.html",
     "image": "/misc/eggy-car/img.webp",
+    "preview": "/img/videos/preview/eggycar.mp4",
     "usesProxy": false
   },
   {
@@ -497,24 +515,28 @@
     "name": "Friday Night Funkin",
     "url": "/misc/play/fnf.html",
     "image": "/misc/fnf/img.png",
+    "preview": "/img/videos/preview/fridaynightfunkin.mp4",
     "usesProxy": false
   },
   {
     "name": "Fruit Ninja",
     "url": "/misc/play/fruitninja.html",
     "image": "/misc/fruit-ninja/img.jpeg",
+    "preview": "/img/videos/preview/fruitninja.mp4",
     "usesProxy": false
   },
   {
     "name": "Funny Shooter 2",
     "url": "/misc/play/funnyshooter2.html",
     "image": "/misc/funny-shooter-2/img.jpeg",
+    "preview": "/img/videos/preview/funnyshooter2.mp4",
     "usesProxy": false
   },
   {
     "name": "Block Blast",
     "url": "/misc/play/block-blast.html",
     "image": "/img/games/blockblast.webp",
+    "preview": "/img/videos/preview/blockblast.mp4",
     "usesProxy": false
   },
   {
@@ -527,12 +549,14 @@
     "name": "Geometry Dash",
     "author": "RobTop Games",
     "image": "/misc/geometry/img.webp",
+    "preview": "/img/videos/preview/geometrydash.mp4",
     "usesProxy": false
   },
   {
     "name": "Getaway Shootout",
     "url": "/misc/play/?title=Getaway Shootout&author=New Eich Games&link=getaway-shootout",
     "image": "/misc/getaway-shootout/img.webp",
+    "preview": "/img/videos/preview/getawayshootout.mp4",
     "usesProxy": false
   },
   {
@@ -575,6 +599,7 @@
     "name": "Gladihoppers",
     "url": "/misc/play/gladihoppers.html",
     "image": "/misc/gladihoppers/img.jpeg",
+    "preview": "/img/videos/preview/gladihoppers.mp4",
     "usesProxy": false
   },
   {
@@ -593,6 +618,7 @@
     "name": "Grindcraft",
     "url": "/misc/play/grindcraft.html",
     "image": "/misc/grindcraft/img.png",
+    "preview": "/img/videos/preview/grindcraft.mp4",
     "usesProxy": false
   },
   {
@@ -659,6 +685,7 @@
     "name": "Swingo",
     "url": "/misc/play/swingo.html",
     "image": "/misc/swingo/img.webp",
+    "preview": "/img/videos/preview/swingo.mp4",
     "usesProxy": false
   },
   {
@@ -731,30 +758,35 @@
     "name": "Idle Dice",
     "url": "/misc/play/idle_dice.html",
     "image": "/misc/idle_dice/img.jpeg",
+    "preview": "/img/videos/preview/idledices.mp4",
     "usesProxy": false
   },
   {
     "name": "Golf Orbit",
     "author": "Hoem",
     "image": "/misc/golforbit/img.webp",
+    "preview": "/img/videos/preview/golforbit.mp4",
     "usesProxy": false
   },
   {
     "name": "Speed Stars",
     "author": "Luke Doukakis",
     "image": "/misc/speed-stars/img.webp",
+    "preview": "/img/videos/preview/speedstars.mp4",
     "usesProxy": false
   },
   {
     "name": "Idle Breakout",
     "url": "/misc/play/idle-breakout.html",
     "image": "/misc/idle-breakout/img/thumbnail.png",
+    "preview": "/img/videos/preview/idlebreakout.mp4",
     "usesProxy": false
   },
   {
     "name": "Idle Mining Empire",
     "url": "/misc/play/idleminingempire.html",
     "image": "/misc/idle-mining-empire/img.jpeg",
+    "preview": "/img/videos/preview/idleminingempire.mp4",
     "usesProxy": false
   },
   {
@@ -767,6 +799,7 @@
     "name": "Impossible Quiz",
     "url": "/misc/play/impossiblequiz.html",
     "image": "/misc/impossible-quiz/img.avif",
+    "preview": "/img/videos/preview/impossiblequiz.mp4",
     "usesProxy": false
   },
   {
@@ -803,12 +836,14 @@
     "name": "Little Alchemy 2",
     "url": "https://littlealchemy2.com/",
     "image": "/misc/littlealchemy/2.png",
+    "preview": "/img/videos/preview/littlealc.mp4",
     "usesProxy": true
   },
   {
     "name": "Race Survival",
     "url": "/misc/play/survival-race.html",
     "image": "/img/games/racesurvival.webp",
+    "preview": "/img/videos/preview/racesurvival.mp4",
     "usesProxy": false
   },
   {
@@ -857,24 +892,28 @@
     "name": "Jump Only",
     "url": "/misc/play/?title=Jump Only&author=Kimo&link=jumponly",
     "image": "/misc/jumponly/img.webp",
+    "preview": "/img/videos/preview/jumponly.mp4",
     "usesProxy": false
   },
   {
     "name": "Police Chase",
     "url": "/misc/play/?title=Police Chase&author=Dylan Patel&link=policechase",
     "image": "/misc/policechase/img.webp",
+    "preview": "/img/videos/preview/policechase.mp4",
     "usesProxy": false
   },
   {
     "name": "Skyriders",
     "url": "/misc/play/?title=Skyriders&author=Asher Lee&link=skyriders",
     "image": "/misc/skyriders/img.webp",
+    "preview": "/img/videos/preview/skyriders.mp4",
     "usesProxy": false
   },
   {
     "name": "Temple of Boom",
     "url": "/misc/play/?title=Temple of Boom&author=Pierce Ozoude&link=templeofboom",
     "image": "/misc/templeofboom/img.webp",
+    "preview": "/img/videos/preview/templeofboom.mp4",
     "usesProxy": false
   },
   {
@@ -899,18 +938,21 @@
     "name": "Monkey Mart",
     "url": "/misc/play/monkeymart.html",
     "image": "/misc/monkey-mart/img.jpeg",
+    "preview": "/img/videos/preview/monkeymart.mp4",
     "usesProxy": false
   },
   {
     "name": "Monster Tracks",
     "url": "/misc/play/monstertrack.html",
     "image": "/misc/monster-track/thumb.jpg",
+    "preview": "/img/videos/preview/monstertracks.mp4",
     "usesProxy": false
   },
   {
     "name": "MotoX3M",
     "url": "/misc/play/motox3m.html",
     "image": "/misc/motox3m/splash.jpg",
+    "preview": "/img/videos/preview/motox3m.mp4",
     "usesProxy": false
   },
   {
@@ -941,30 +983,35 @@
     "name": "MotoX3M Pool Party",
     "url": "/misc/play/motox3m-party.html",
     "image": "/misc/motox3m-pool/splash.jpg",
+    "preview": "/img/videos/preview/motox3mpool.mp4",
     "usesProxy": false
   },
   {
     "name": "MotoX3M Spooky",
     "url": "/misc/play/motox3m-spook.html",
     "image": "/misc/motox3m-spooky/splash.jpeg",
+    "preview": "/img/videos/preview/motox3mspooky.mp4",
     "usesProxy": false
   },
   {
     "name": "MotoX3M Winter",
     "url": "/misc/play/motox3m-w.html",
     "image": "/misc/motox3m-winter/download.jpeg",
+    "preview": "/img/videos/preview/motox3mwinter.mp4",
     "usesProxy": false
   },
   {
     "name": "Ping Pong Go",
     "url": "/misc/play/pingponggo.html",
     "image": "/misc/pingponggo/img.webp",
+    "preview": "/img/videos/preview/pingponggo.mp4",
     "usesProxy": false
   },
   {
     "name": "Mr. Bullet",
     "url": "/misc/play/mrbullet.html",
     "image": "/misc/mrbullet/icon-256.png",
+    "preview": "/img/videos/preview/mrbullet.mp4",
     "usesProxy": false
   },
   {
@@ -989,6 +1036,7 @@
     "name": "OvO",
     "url": "/misc/play/ovo1.html",
     "image": "/misc/ovo/ovo.jpeg",
+    "preview": "/img/videos/preview/ovo.mp4",
     "usesProxy": false
   },
   {
@@ -1001,6 +1049,7 @@
     "name": "OvO Dimensions",
     "url": "/misc/play/ovo3.html",
     "image": "/misc/ovo3/img.webp",
+    "preview": "/img/videos/preview/ovodimensions.mp4",
     "usesProxy": false
   },
   {
@@ -1025,6 +1074,7 @@
     "name": "Papas Freezeria",
     "url": "/misc/play/papas-freezeria.html",
     "image": "/misc/papas/papas-freezeria/img.webp?v=1",
+    "preview": "/img/videos/preview/papasfreezeria.mp4",
     "usesProxy": false
   },
   {
@@ -1085,6 +1135,7 @@
     "name": "Paper.io 2",
     "url": "/misc/play/paperio2.html",
     "image": "/misc/paperio2/images/icon512.png",
+    "preview": "/img/videos/preview/paperio2.mp4",
     "usesProxy": false
   },
   {
@@ -1103,6 +1154,7 @@
     "name": "Super Foulist",
     "url": "/misc/play/super-foulist.html",
     "image": "/misc/super-foulist/img.webp",
+    "preview": "/img/videos/preview/superfowlst.mp4",
     "usesProxy": false
   },
   {
@@ -1139,6 +1191,7 @@
     "name": "Steel Hills",
     "url": "/misc/play/steelhills.html",
     "image": "/misc/steelhills/img.webp",
+    "preview": "/img/videos/preview/steelhills.mp4",
     "usesProxy": false
   },
   {
@@ -1187,6 +1240,7 @@
     "name": "Blumgi Slime",
     "url": "/misc/play/blumgislime.html",
     "image": "/misc/blumgislime/img.webp",
+    "preview": "/img/videos/preview/blumgislime.mp4",
     "usesProxy": false
   },
   {
@@ -1199,12 +1253,14 @@
     "name": "Raft Wars",
     "url": "https://games.poki.com/458768/raftwars",
     "image": "/misc/RaftWars/img.jpeg",
+    "preview": "/img/videos/preview/raftwars.mp4",
     "usesProxy": true
   },
   {
     "name": "Unicycle Hero",
     "url": "/misc/play/unicyclehero.html",
     "image": "/img/games/hero.webp",
+    "preview": "/img/videos/preview/unicyclehero.mp4",
     "usesProxy": false
   },
   {
@@ -1217,6 +1273,7 @@
     "name": "Tag",
     "url": "/misc/play/?title=Tag&link=tag&author=JetGames",
     "image": "/misc/tag/img.webp",
+    "preview": "/img/videos/preview/tag.mp4",
     "usesProxy": false
   },
   {
@@ -1229,6 +1286,7 @@
     "name": "Spiral Roll",
     "url": "/misc/play/?title=Spiral Roll&link=spiralroll&author=VooDoo Games",
     "image": "/misc/spiralroll/img.webp",
+    "preview": "/img/videos/preview/spiralroll.mp4",
     "usesProxy": false
   },
   {
@@ -1253,6 +1311,7 @@
     "name": "Big Tower Tiny Square",
     "url": "https://www.coolmathgames.com/0-big-tower-tiny-square/play",
     "image": "/img/games/btts.webp",
+    "preview": "/img/videos/preview/bigtowertinysquare2.mp4",
     "usesProxy": true
   },
   {
@@ -1265,6 +1324,7 @@
     "name": "Retro Bowl",
     "author": "New Star Games",
     "image": "/misc/rb/img.webp",
+    "preview": "/img/videos/preview/retrobowl.mp4",
     "usesProxy": false
   },
   {
@@ -1277,6 +1337,7 @@
     "name": "Polytrack",
     "url": "/misc/polytrack/index.html",
     "image": "/img/games/polytrack.webp",
+    "preview": "/img/videos/preview/polytrack.mp4",
     "usesProxy": false
   },
   {
@@ -1289,6 +1350,7 @@
     "name": "Retro Bowl College",
     "url": "/misc/play/retrobowlcollege.html",
     "image": "/misc/retrobowlcollege/img.png",
+    "preview": "/img/videos/preview/retrobowlcollege.mp4",
     "usesProxy": false
   },
   {
@@ -1349,6 +1411,7 @@
     "name": "Rooftop Snipers",
     "url": "/misc/play/rooftopsnipers.html",
     "image": "/misc/rooftop-snipers/rooftop.avif",
+    "preview": "/img/videos/preview/rooftopsnipers.mp4",
     "usesProxy": false
   },
   {
@@ -1367,6 +1430,7 @@
     "name": "Roper",
     "author": "Fancade",
     "image": "/misc/roper/img.webp",
+    "preview": "/img/videos/preview/roper.mp4",
     "usesProxy": false
   },
   {
@@ -1379,12 +1443,14 @@
     "name": "Super Liquid Soccer",
     "author": "Punyrobot",
     "image": "/misc/superliquidsoccor/img.webp",
+    "preview": "/img/videos/preview/superliquidsoccer.mp4",
     "usesProxy": false
   },
   {
     "name": "Ragdoll Archers",
     "author": "Joshua Tito",
     "image": "/misc/ragdoll-archers/img.webp",
+    "preview": "/img/videos/preview/ragdollarchers.mp4",
     "usesProxy": false
   },
   {
@@ -1397,6 +1463,7 @@
     "name": "Run 3",
     "url": "/misc/play/?title=Run 3&author=Joseph Cloutier&link=run3",
     "image": "/misc/run3/img.webp",
+    "preview": "/img/videos/preview/run3.mp4",
     "usesProxy": false
   },
   {
@@ -1409,6 +1476,7 @@
     "name": "Gobble",
     "url": "/misc/play/?title=Gobble&author=Fancade&link=gobble",
     "image": "/misc/gobble/img.webp",
+    "preview": "/img/videos/preview/gobble.mp4",
     "usesProxy": false
   },
   {
@@ -1456,12 +1524,14 @@
     "name": "Level Devil",
     "url": "/misc/play/leveldevil.html",
     "image": "/misc/leveldevil/img.webp",
+    "preview": "/img/videos/preview/leveldevil.mp4",
     "usesProxy": false
   },
   {
     "name": "Slope",
     "url": "/misc/play/slope.html",
     "image": "/misc/slope/slope.webp",
+    "preview": "/img/videos/preview/slope.mp4",
     "usesProxy": false
   },
   {
@@ -1480,6 +1550,7 @@
     "name": "Tomb Of The Mask",
     "url": "/misc/play/tombofthemask.html",
     "image": "/misc/tombofthemask/img.png",
+    "preview": "/img/videos/preview/tombofthemask.mp4",
     "usesProxy": false
   },
   {
@@ -1492,6 +1563,7 @@
     "name": "Snow Rider 3D",
     "url": "/misc/play/snow3D.html",
     "image": "/img/games/snowrider.webp",
+    "preview": "/img/videos/preview/snowrider3d.mp4",
     "usesProxy": false
   },
   {
@@ -1510,6 +1582,7 @@
     "name": "Soccer Random",
     "url": "/misc/play/soccerR.html",
     "image": "misc/soccer-random/img.jpeg",
+    "preview": "/img/videos/preview/soccerrandom.mp4",
     "usesProxy": false
   },
   {
@@ -1522,6 +1595,7 @@
     "name": "Stickman Hook",
     "url": "/misc/play/stickmanH.html",
     "image": "/misc/stickman-hook/unnamed.webp",
+    "preview": "/img/videos/preview/stickmanhook.mp4",
     "usesProxy": false
   },
   {
@@ -1546,6 +1620,7 @@
     "name": "Subway Surfers",
     "url": "/misc/play/subwaysurf.html",
     "image": "/misc/subway-surfers/NewYorkIcon.png",
+    "preview": "/img/videos/preview/subwaysurfers.mp4",
     "usesProxy": false
   },
   {
@@ -1564,12 +1639,14 @@
     "name": "Superhot",
     "url": "/misc/play/superhot.html",
     "image": "/misc/superhot/hot.jpg",
+    "preview": "/img/videos/preview/superhot.mp4",
     "usesProxy": false
   },
   {
     "name": "Table Tennis: WT",
     "url": "/misc/play/tabletennis.html",
     "image": "/misc/tabletennisworldtour/img.jpeg",
+    "preview": "/img/videos/preview/tabletennisworldtour.mp4",
     "usesProxy": false
   },
   {
@@ -1582,6 +1659,7 @@
     "name": "Takuni Sunset",
     "url": "/misc/play/takuni-sunset.html",
     "image": "/misc/Tanuki-Sunset/img.png",
+    "preview": "/img/videos/preview/tanukisunset.mp4",
     "usesProxy": false
   },
   {
@@ -1606,6 +1684,7 @@
     "name": "There Is No Game",
     "author": "Pascal Cammisotto",
     "image": "/misc/thereisnogame/img.webp",
+    "preview": "/img/videos/preview/thereisnog.mp4",
     "usesProxy": false
   },
   {
@@ -1624,12 +1703,14 @@
     "name": "Kiwi Clicker",
     "url": "/misc/play/kiwiclicker.html",
     "image": "/misc/kiwiclicker/img.webp",
+    "preview": "/img/videos/preview/kiwiclicker.mp4",
     "usesProxy": false
   },
   {
     "name": "Tiny Fishing",
     "url": "/misc/play/tinyfish.html",
     "image": "/misc/tiny-fishing/thumb.webp",
+    "preview": "/img/videos/preview/tinyfishing.mp4",
     "usesProxy": false
   },
   {
@@ -1642,6 +1723,7 @@
     "name": "Tunnel Rush 2",
     "url": "/misc/play/tunnelrush2.html",
     "image": "/misc/tunnelrush2/img.jpeg",
+    "preview": "/img/videos/preview/tunnelrush2.mp4",
     "usesProxy": false
   },
   {
@@ -1708,6 +1790,7 @@
     "name": "Volley Random",
     "url": "/misc/play/volleyran.html",
     "image": "/misc/volley-random/img.png",
+    "preview": "/img/videos/preview/volleyrandom.mp4",
     "usesProxy": false
   },
   {
@@ -1858,12 +1941,14 @@
     "name": "Stacktris",
     "url": "/misc/play/?title=Stacktrix&author=Fancade&link=stacktris",
     "image": "/misc/stacktris/img.webp",
+    "preview": "/img/videos/preview/stacktris.mp4",
     "usesProxy": false
   },
   {
     "name": "Harvest Simulator",
     "url": "/misc/play/?title=Harvest Simulator&author=Camu&link=harvestsimulator",
     "image": "/misc/harvestsimulator/img.webp",
+    "preview": "/img/videos/preview/harvestsimulator.mp4",
     "usesProxy": false
   },
   {
@@ -1906,6 +1991,7 @@
     "name": "Bouncemasters",
     "author": "Azur Games, Playgendary",
     "image": "/misc/bouncemasters/img.webp",
+    "preview": "/img/videos/preview/bouncemasters.mp4",
     "usesProxy": false
   },
   {
@@ -1918,6 +2004,7 @@
     "name": "Slime Dunk",
     "author": "Venturous",
     "image": "/misc/slime-dunk/img.webp",
+    "preview": "/img/videos/preview/slimedunk.mp4",
     "usesProxy": false
   }
 ]
