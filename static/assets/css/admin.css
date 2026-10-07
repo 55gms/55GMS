@@ -1,0 +1,137 @@
+/* Admin page — extends profile.css (same tokens, cards and buttons) */
+
+.admin-form {
+  display: flex;
+  gap: 10px;
+  padding: 16px 20px;
+}
+
+.admin-input {
+  flex: 1;
+  min-width: 0;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--p-border);
+  border-radius: var(--p-radius-sm);
+  background: var(--p-inset);
+  color: var(--p-text);
+  font-family: var(--p-font);
+  font-size: 0.875rem;
+  transition: border-color var(--p-fast) ease;
+}
+
+.admin-input::placeholder {
+  color: var(--p-muted);
+}
+
+.admin-input:hover {
+  border-color: var(--p-border-strong);
+}
+
+.admin-input:focus-visible {
+  outline: 2px solid var(--p-text);
+  outline-offset: 2px;
+}
+
+/* ---------- User search dropdown ---------- */
+
+/* The card clips its children; the dropdown has to escape it. */
+.admin-card {
+  overflow: visible;
+}
+
+.admin-search {
+  position: relative;
+  padding: 16px 20px;
+}
+
+.admin-search .admin-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.admin-options {
+  position: absolute;
+  top: calc(100% - 10px);
+  left: 20px;
+  right: 20px;
+  z-index: 10;
+  max-height: 280px;
+  margin: 0;
+  padding: 4px;
+  overflow-y: auto;
+  list-style: none;
+  border: 1px solid var(--p-border);
+  border-radius: var(--p-radius-sm);
+  background: color-mix(in srgb, var(--site-surface-2, #5e7594) 88%, #000);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.28);
+}
+
+.admin-options[hidden] {
+  display: none;
+}
+
+.admin-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.admin-option[aria-selected="true"] {
+  background: color-mix(in srgb, var(--p-text) 11%, transparent);
+}
+
+.admin-option-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-option-tag {
+  flex: none;
+  color: var(--p-muted);
+  font-size: 0.75rem;
+}
+
+.admin-empty {
+  padding: 8px 10px;
+  color: var(--p-muted);
+  font-size: 0.875rem;
+}
+
+/* ---------- Selected user ---------- */
+
+.admin-selected {
+  border-top: 1px solid var(--p-border);
+}
+
+.admin-selected[hidden] {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  .admin-form {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .admin-input {
+    flex: none;
+  }
+
+  .admin-search {
+    padding: 16px;
+  }
+
+  .admin-options {
+    left: 16px;
+    right: 16px;
+  }
+}

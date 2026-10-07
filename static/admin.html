@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+    <script src="/assets/js/font.js" defer></script>
+    <meta name="google" content="notranslate" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=7" />
+    <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
+    <link rel="stylesheet" href="/assets/css/profile.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/admin.css?v=1" />
+    <title>Google</title>
+
+    <script src="/assets/js/script.js?v=16"></script>
+  </head>
+
+  <body>
+    <nav>
+      <div class="navbar">
+        <a class="title" href="/">Reds Exploit Corner</a>
+        <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
+        <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
+        <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
+        <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
+        <a href="/chat" aria-label="Chat"
+          ><i class="fa-solid fa-comments">&nbsp;</i></a
+        >
+        <a href="/profile" aria-label="Profile"
+          ><i class="fa-solid fa-user"></i
+        ></a>
+      </div>
+    </nav>
+
+    <main class="profile">
+      <header class="profile-header">
+        <div class="profile-identity">
+          <h1 class="profile-name">Premium</h1>
+          <div class="profile-meta">Grant or revoke GMS Premium.</div>
+        </div>
+      </header>
+
+      <section class="profile-section" id="loginSection">
+        <div class="profile-section-head">
+          <h2>Confirm it's you</h2>
+          <p>Enter the admin account password to continue.</p>
+        </div>
+        <div class="profile-card">
+          <form class="admin-form" id="loginForm">
+            <input
+              type="password"
+              class="admin-input"
+              id="password"
+              placeholder="Password"
+              aria-label="Password"
+              autocomplete="current-password"
+              required
+            />
+            <button type="submit" class="p-btn p-btn-primary" id="loginButton">
+              <span class="p-btn-label">Continue</span>
+              <span class="p-spinner" aria-hidden="true"></span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <section class="profile-section" id="manageSection" hidden>
+        <div class="profile-section-head">
+          <h2>Find a user</h2>
+          <p>Search by username, then pick an account.</p>
+        </div>
+        <div class="profile-card admin-card">
+          <div class="admin-search">
+            <input
+              type="text"
+              class="admin-input"
+              id="search"
+              placeholder="Username"
+              role="combobox"
+              aria-label="Username"
+              aria-autocomplete="list"
+              aria-expanded="false"
+              aria-controls="options"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <ul
+              class="admin-options"
+              id="options"
+              role="listbox"
+              aria-label="Users"
+              hidden
+            ></ul>
+          </div>
+          <div class="profile-row admin-selected" id="selected" hidden>
+            <div class="profile-row-main">
+              <div class="profile-row-text">
+                <p class="profile-row-title" id="selectedName"></p>
+                <p class="profile-row-desc">
+                  <span id="selectedStatus"></span> ·
+                  <span class="profile-mono" id="selectedId"></span>
+                </p>
+              </div>
+            </div>
+            <button type="button" class="p-btn" id="toggleButton">
+              <span class="p-btn-label" id="toggleLabel"></span>
+              <span class="p-spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div class="p-toasts" id="toasts" role="status" aria-live="polite"></div>
+    </main>
+
+    <script src="/assets/js/admin.js?v=1"></script>
+  </body>
+</html>
