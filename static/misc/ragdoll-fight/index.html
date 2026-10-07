@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#23262e">
+  <meta name="description" content="Ragdoll Fight — Pizza Edition. Spin your arms, swing silly weapons, win crowns and coins.">
+  <title>Ragdoll Fight</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M7 15Q32 1 57 15L33 61Q31.5 62.5 30.5 61Z' fill='%23ffc23d' stroke='%231d2027' stroke-width='3' stroke-linejoin='round'/%3E%3Ccircle cx='24' cy='24' r='5.5' fill='%23d8432f'/%3E%3Ccircle cx='40' cy='27' r='5' fill='%23d8432f'/%3E%3Ccircle cx='31.5' cy='41' r='4.5' fill='%23d8432f'/%3E%3Cpath d='M7 15Q32 1 57 15' fill='none' stroke='%231d2027' stroke-width='12' stroke-linecap='round'/%3E%3Cpath d='M7 15Q32 1 57 15' fill='none' stroke='%23d4924b' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Lilita+One&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="game"></canvas>
+  <div id="ui"></div>
+  <div id="rotate-hint" aria-live="polite">
+    <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="20" y="8" width="24" height="42" rx="5" fill="none" stroke="#f2eee6" stroke-width="4"/><path d="M14 44a22 22 0 0 0 30 12" fill="none" stroke="#ffc23d" stroke-width="4" stroke-linecap="round"/><path d="M40 52l5 4-6 3" fill="none" stroke="#ffc23d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <p>Turn your phone sideways to fight!</p>
+  </div>
+  <noscript><p class="noscript">Ragdoll Fight needs JavaScript to run.</p></noscript>
+  <script src="poki-sdk.js"></script>
+  <script src="lib/planck.min.js"></script>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
