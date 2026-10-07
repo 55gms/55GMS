@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="application-name" content="Free Rider Jumps" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+    <meta name="theme-color" content="#000000">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="styles/styles.css" />
+</head>
+
+<body>
+
+    <div class="game-container" id="game-container">
+
+        <div class="centered-container">
+            <div class="freerider-canvas-container" id="freerider-canvas-container" style="visibility: hidden"></div>
+        </div>
+
+        <div class="centered-container">
+            <div class="phaser-canvas-container" id="phaser-canvas-container"></div>
+        </div>
+
+        <div id="ads-container" class="ads-container centered-container" style="display:none">
+            <video id="ads-player">
+            </video>
+            <div id="ads-sdk-container" class="ads-container centered-container"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="scripts/main.bundle.js" charset="utf-8"></script>
+</body>
+
+</html>
