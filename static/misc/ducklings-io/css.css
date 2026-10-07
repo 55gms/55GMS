@@ -1,0 +1,799 @@
+:root{
+	--main-white: #FFFFFF;
+	--not-black: #333333;
+	--default-border-radius: 15px;
+	--safe-area-inset-top: env(safe-area-inset-top);
+}
+
+body, html{
+	overflow: hidden;
+	position: relative;
+	margin: 0;
+	height: 100%;
+	user-select: none;
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+	font-family: Fredoka One, Helvetica, Arial, sans-serif;
+	font-weight: 900;
+}
+
+.touchListener{
+	cursor: url('img/mouseIcon.png') 9 9 , auto;
+}
+.touchListener.hiddenCursor{
+	cursor: none;
+}
+
+.fullScreen{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+}
+
+.mainCanvas{
+	z-index: -1;
+}
+
+@font-face {
+	font-family: 'Fredoka One';
+	font-style: normal;
+	font-weight: 900;
+	font-display: swap;
+	src: local('Fredoka One'), local('FredokaOne-Regular'), url(FredokaOne.woff2) format('woff2');
+}
+
+.niceFont, .niceTextField, .niceButton{
+	font-family: Fredoka One, Helvetica, Arial, sans-serif;
+	font-weight: 900;
+	font-size: 30pt;
+	color: var(--main-white);
+	text-shadow: 0px 4px var(--not-black);
+	-webkit-text-stroke: 2px var(--not-black);
+}
+
+.inputNoMarkup, .inputNoMarkup:focus{
+	border: none;
+	outline: none;
+	cursor: auto;
+	padding: 0;
+	-webkit-appearance: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.niceTextField, .niceTextField:focus{
+	padding: 20px;
+	caret-color: var(--not-black);
+	border-radius: var(--default-border-radius);
+	border: solid var(--not-black) 3px;
+	box-shadow: inset 0px 0px 14px var(--not-black), 0px 0px 0px 3px #ffffff, 0px 0px 0px 6px var(--not-black);
+}
+
+.niceButton, .niceButton:focus{
+	background: linear-gradient(#0B5FC1, #66BDF2);
+	border-radius: var(--default-border-radius);
+	padding: 20px;
+	box-shadow: inset 0 0px 10px 0px #0000007a, 0px 0px 0 3px var(--main-white), 0px 0px 0 6px var(--not-black), 0 8px 0 6px var(--not-black);
+	position: relative;
+	cursor: pointer;
+	display: inline-block;
+}
+.niceButton:focus:not(.disabled), .niceButton:hover:not(.disabled){
+	filter: brightness(110%);
+}
+.niceButton:active:not(.disabled){
+	top: 4px;
+}
+.niceButton:active:not(.disabled):not(.secondary){
+	box-shadow: inset 0 0px 10px 0px #0000007a, 0px 0px 0 3px var(--main-white), 0px 0px 0 6px var(--not-black), 0 4px 0 6px var(--not-black);
+}
+.niceButton::before{
+	content: "";
+	width: calc(100% - 10px);
+	height: 60%;
+	background: rgba(255, 255, 255, 0.1);
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	border-radius: 10px;
+}
+
+.niceButtonShine{
+	content: "";
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	mix-blend-mode: screen;
+}
+.niceButtonShine.blurred{
+	filter: blur(3px);
+}
+.niceButtonShine.shine1{
+	background: url(svg/buttonShine1.svg);
+}
+.niceButtonShine.shine2{
+	background: url(svg/buttonShine2.svg);
+}
+
+.niceButton.secondary{
+	background: none;
+	box-shadow: none;
+}
+.niceButton.secondary::before{
+	content: none;
+}
+.niceButton.block{
+	display: block;
+}
+.niceButton.disabled{
+	filter: saturate(0%);
+	cursor: inherit;
+}
+.niceButton.secondary.disabled{
+	color: #ababab;
+}
+
+.niceButton .niceButtonIcon{
+	width: 60px;
+	height: 60px;
+	position: static;
+	display: inline-block;
+	vertical-align: middle;
+}
+.niceButtonIconContainer{
+	display: inline-block;
+	vertical-align: bottom;
+	position: static;
+	height: 0px;
+	transform: translateY(-50px);
+}
+
+.niceButton.social{
+	margin: -15px;
+	padding: 10px;
+	transform: scale(0.5);
+}
+
+.hoverScaleButton{
+	transition: transform 0.2s;
+}
+.hoverScaleButton:hover:not(.customHoverScale):not(.disabled){
+	transform: scale(1.1);
+}
+.hoverScaleButton.active{
+	transform: scale(0.9);
+}
+
+.imageEl{
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	display: block;
+	position: absolute;
+	top: 0;
+}
+
+.toastMessage{
+	position: absolute;
+	background: var(--main-white);
+	z-index: 95;
+	width: fit-content;
+	max-width: 410px;
+	font-size: 20px;
+	left: 50%;
+	top: 0px;
+	padding: 15px 30px;
+	border-radius: 100px;
+	text-align: center;
+	box-shadow: 0px 0px 0 6px var(--not-black), 0 8px 0 6px var(--not-black);
+	transition: transform 0.3s;
+}
+@media(max-width: 600px){
+	.toastMessage{
+		font-size: 12px;
+		padding: 15px 20px;
+		max-width: calc(60%);
+		transform: translate(-50%, 60px);
+	}
+}
+@media(max-width: 400px){
+	.toastMessage{
+		max-width: calc(100% - 70px);
+	}
+}
+.toastMessage.hidden{
+	transform: translateX(-50%) translateY(calc(-100% - 20px));
+}
+.toastMessage.clickable{
+	cursor: pointer;
+}
+.toastMessage:not(.clickable){
+	pointer-events: none;
+}
+
+.menuScreen{
+	background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%,rgba(8, 9, 43, 0.93) 100%);
+	transition: visibility 0.5s, opacity 0.5s, transform 0.5s;
+	z-index: 90;
+}
+.menuScreen.hidden{
+	visibility: hidden;
+	opacity: 0;
+	transform: scale(1.1);
+}
+
+.mainMenuLogo{
+	background-image: url(svg/ducklingsLogo.svg);
+	width: 400px;
+	max-width: calc(100% - 30px);
+	height: 250px;
+	max-height: 30%;
+	left: 50%;
+	transform: translateX(-50%) translateX(6px);
+	top: 20px;
+	top: calc(20px + constant(safe-area-inset-top));
+	top: calc(20px + env(safe-area-inset-top));
+}
+
+.mainMenuButtonContainer{
+	position: absolute;
+	left: 50%;
+	bottom: 100px;
+	max-width: 351px;
+	width: 100%;
+	text-align: center;
+	transform: translate(-50%, 0px);
+	transform-origin: bottom center;
+}
+
+@media(max-height: 500px){
+	.mainMenuButtonContainer{
+		transform: translate(-50%, 0px) scale(0.7);
+		bottom: 90px;
+	}
+}
+
+.playWithFriendsText{
+	color: white;
+	display: block;
+	margin-top: 20px;
+	-webkit-text-stroke: 1px var(--not-black);
+	font-size: 20px;
+	text-shadow: 0px 2px var(--not-black);
+}
+
+.mainMenuAdBox{
+	width: 300px;
+	height: 600px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	overflow: hidden;
+	transform: translate(-480px, -50%);
+}
+.mainMenuAdBoxSmall{
+	width: 300px;
+	height: 250px;
+	position: absolute;
+	top: 50%;
+	left: 75%;
+	transform: translate(-50%, -50%);
+	display: none;
+}
+@media(max-width: 610px){
+	.mainMenuAdBoxSmall{
+		right: 10px;
+		left: auto;
+		transform: translateY(-50%);
+	}
+}
+@media(max-height: 410px){
+	.mainMenuAdBoxSmall{
+		top: 10px;
+		right: 10px;
+		transform: none;
+		left: auto;
+	}
+}
+.mainMenuAd{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.mainMenuTextBoxContainer{
+	width: 300px;
+	height: 600px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(180px, -50%);
+	border-radius: var(--default-border-radius);
+	overflow: hidden;
+}
+@media(max-height: 750px){
+	.mainMenuTextBoxContainer{
+		height: 400px;
+	}
+}
+@media(max-height: 550px){
+	.mainMenuTextBoxContainer{
+		height: 250px;
+	}
+}
+.mainMenuTextBox{
+	width: 100%;
+	height: 100%;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	background: #00070c47;
+	color: var(--main-white);
+	padding: 30px;
+	box-sizing: border-box;
+	text-align: center;
+	font-size: 12pt;
+	user-select: text;
+}
+.mainMenuTextBoxText{
+	margin: 100px;
+}
+
+@media(max-width: 830px){
+	.mainMenuTextBoxContainer, .mainMenuAdBox{
+		display: none;
+	}
+	.mainMenuAdBoxSmall{
+		display: block;
+	}
+	@media(min-width: 530px){
+		.mainMenuLogo, .mainMenuButtonContainer{
+			left: 25%;
+		}
+
+		.mainMenuTextBoxContainer.overrideAaddss{
+			display: inherit;
+			left: initial;
+			right: 40px;
+			transform: translate(0px, -50%);
+		}
+	}
+}
+
+@media(min-width: 1200px){
+	.mainMenuTextBoxContainer{
+		transform: translate(300px, -50%);
+	}
+	.mainMenuAdBox{
+		transform: translate(-600px, -50%);
+	}
+}
+@media(max-width: 980px){
+	.mainMenuTextBoxContainer{
+		transform: translate(110px, -50%);
+	}
+	.mainMenuAdBox{
+		transform: translate(-410px, -50%);
+	}
+}
+@media(max-height: 750px){
+	.mainMenuAdBox{
+		height: 250px;
+	}
+}
+@media(max-height: 335px), (max-width: 530px){
+	.mainMenuAdBoxSmall{
+		display: none;
+	}
+}
+
+.shareHatContainer{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	transition: opacity 0.2s, visibility 0.2s;
+	margin: 10px;
+}
+
+.shareHatContainer.hidden{
+	visibility: hidden;
+	opacity: 0;
+}
+
+.shareHatContainer * {
+	vertical-align: middle;
+}
+
+.shareHat{
+	width: 50px;
+	height: 50px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	display: inline-block;
+	cursor: pointer;
+	filter: drop-shadow(0px 4px var(--not-black));
+}
+
+.shareHat:hover{
+	filter: brightness(90%);
+}
+
+.shareHat:active{
+	filter: brightness(80%);
+}
+
+.shareHatArrowText{
+	display: inline-block;
+	animation: shareHatTextAnim 1s infinite cubic-bezier(0.28, -0.03, 0.35, 0.95) alternate;
+}
+
+@media(max-width: 610px), (max-height: 470px){
+	.shareHatArrowText{
+		display: none;
+	}
+}
+
+@media(max-width: 330px){
+	.shareHatContainer{
+		display: none;
+	}
+}
+
+@media(max-height: 720px) and (min-width: 980px){
+	.shareHatContainer{
+		display: none;
+	}
+}
+
+@keyframes shareHatTextAnim{
+	0% {
+		transform: translate(0px, 6px);
+	}
+
+	100% {
+		transform: translate(10px, 6px);
+	}
+}
+
+.shareHatArrow{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background-image: url("svg/arrowShareHats.svg");
+	margin: 5px;
+}
+
+.shareHatText{
+	color: var(--main-white);
+	font-size: 14pt;
+}
+
+
+::-webkit-scrollbar{
+    width: 10px;
+    height: 30%;
+}
+::-webkit-scrollbar-button{
+	background: black;
+}
+::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0);
+}
+::-webkit-scrollbar-track:hover{
+    background-color: rgba(0,0,0,0.2);
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-button{
+    visibility:hidden;
+}
+
+.rewarded-upgrade-container {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	margin-left: 20px;
+	transform: translateY(-50%);
+}
+.rewarded-upgrade-container .niceButton {
+	padding: 10px;
+}
+.rewarded-upgrade-container .niceButtonIcon {
+	width: 120px;
+	height: 60px;
+}
+
+.storeButton{
+	display: inline-block;
+	margin-bottom: 10px;
+}
+.storeButton:hover{
+	opacity: 0.7;
+}
+
+.mainMenuSettingsContainer{
+	position: absolute;
+	bottom: constant(safe-area-inset-bottom);
+	bottom: env(safe-area-inset-bottom);
+	right: constant(safe-area-inset-right);
+	right: env(safe-area-inset-right);
+	transform: scale(0.7);
+	transform-origin: bottom right;
+	white-space: nowrap;
+}
+
+.mainmenusettingsbutton, .mainmenusettingsbutton:focus{
+	padding: 10px;
+	margin: 20px;
+	margin-left: 0;
+}
+
+.loadingAnimation{
+	width: 1500px;
+	height: 300px;
+	transform: translate(-50%, -50%) scale(0.25) translateY(-110px);
+	position: absolute;
+	left: 50%;
+	top: 0;
+}
+@media(max-width: 650px){
+	.loadingAnimation{
+		transform: translate(-50%, -50%) scale(0.15) translateY(-110px);
+	}
+}
+.loadingAnimationDuck{
+	position: absolute;
+}
+.LoadingAnimationPathShadow{
+	fill: var(--not-black);
+}
+.LoadingAnimationPathMain{
+	fill: var(--main-white);
+}
+.LoadingAnimationPathOutline{
+	fill: var(--not-black);
+}
+
+.cornerScoreContainer{
+	position: absolute;
+	top: constant(safe-area-inset-top);
+	top: env(safe-area-inset-top);
+	left: constant(safe-area-inset-left);
+	left: env(safe-area-inset-left);
+	pointer-events: none;
+}
+.cornerScoreContainer.hidden{
+	display: none;
+}
+.cornerScoreIcon{
+	width: 63px;
+	height: 40px;
+	display: inline-block;
+	position: relative;
+	vertical-align: bottom;
+	padding-right: 10px;
+}
+.cornerScoreSection{
+	transition: transform 0.5s ease-in-out, opacity 0.3s;
+}
+.cornerScoreSection.hidden{
+	transform: translateX(-100%);
+	opacity: 0;
+}
+.cornerScoreNumber{
+	display: inline-block;
+	transition: transform 0.2s;
+}
+.cornerScoreNumber.zoomed{
+	transform: scale(1.5);
+}
+
+.cornerScoreStarRotateContainer{
+	position: absolute;
+	animation: 3s infinite alternate cubic-bezier(0.445, 0.05, 0.55, 0.95) scoreStarHover;
+}
+.cornerScoreStar{
+	background-image: url(svg/scoreStar.svg);
+	width: 10px;
+	height: 10px;
+	animation: 5s infinite linear scoreStarRotate;
+}
+
+@keyframes scoreStarRotate{
+	from{transform: rotate(  0deg)}
+	to  {transform: rotate(360deg)}
+}
+@keyframes scoreStarHover{
+	from{transform: translateY( 3px)}
+	to  {transform: translateY(-3px)}
+}
+
+.ducklingCountIcon{
+	background-image: url(svg/ducklingCount.svg);
+}
+.hatCountIcon{
+	background-image: url(svg/hatCount.svg);
+}
+.boostIcon {
+	background-image: url(svg/boost.svg);
+	width: 84px;
+}
+
+.pauseButtonContainer{
+	top: 0px;
+	right: 0px;
+	position: absolute;
+	margin: 10px;
+	top: constant(safe-area-inset-top);
+	top: env(safe-area-inset-top);
+	right: constant(safe-area-inset-right);
+	right: env(safe-area-inset-right);
+}
+
+.pauseButton{
+	width: 30px;
+	height: 30px;
+	z-index: 10;
+	cursor: pointer;
+}
+.pauseButton::before, .pauseButton::after{
+	content: ' ';
+	position: absolute;
+	background: var(--main-white);
+	width: 10px;
+	height: 100%;
+	border-radius: var(--default-border-radius);
+	border-radius: 4px;
+	box-shadow: 0px 0px 0 2px var(--not-black), 0 3px 0 2px var(--not-black);
+}
+.pauseButton::before{
+	right: 0px;
+}
+
+.compassContainer{
+	top: 0;
+	left: 0;
+	display: block;
+	position: absolute;
+	width: 230px;
+	height: 230px;
+	transition: opacity 0.5s, visibility 0.5s;
+	transform-origin: top left;
+	pointer-events: none;
+	filter: drop-shadow(0px 5px 0px var(--not-black));
+}
+.compassContainer.small{
+	width: 40px;
+	height: 40px;
+}
+
+.compassContainer.hidden{
+	visibility: hidden;
+	opacity: 0;
+}
+
+.compassIcon{
+	background-image: url(svg/nestCompassMiddle.svg);
+	width: 100px;
+	height: 100px;
+	left: 65px;
+	top: 65px;
+}
+
+.compassArrow{
+	background-image: url(svg/nestCompassArrow.svg);
+	width: 70px;
+	height: 70px;
+	top: 155px;
+	left: 80px;
+	transform-origin: 35px -45px;
+}
+.compassArrow.small{
+	background-image: url("svg/playerCompassArrow.svg");
+	transform-origin: initial;
+	width: 40px;
+	height: 40px;
+	top: 0px;
+	left: 0px;
+}
+
+.gameOverScreen{
+	text-align: center;
+}
+
+.gameOverTitle{
+	font-size: 50pt;
+	margin-top: 10vh;
+}
+
+.gameOverScreenAdContentSide{
+	display: none;
+}
+
+@media(max-height: 720px) and (min-width: 750px){
+	.gameOverScreenContent{
+		width: 50%;
+		top: 50%;
+		position: absolute;
+		transform: translateY(-50%);
+	}
+
+	.gameOverTitle{
+		margin-top: 0;
+	}
+
+	.gameOverScreenAdContentSide{
+		display: block;
+	}
+}
+
+.gameOverScreenAdContentSide{
+	width: 50%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%);
+}
+
+.menuSmallText{
+	font-size: 25pt;
+	margin-bottom: 50px;
+}
+
+.adBanner{
+	width: 300px;
+	height: 250px;
+	margin: 50px auto;
+}
+
+@media(max-width: 420px){
+	.gameOverTitle{
+		font-size: 30pt;
+		margin-top: 5vh;
+	}
+	.menuSmallText{
+		font-size: 18pt;
+		margin-bottom: 20px;
+	}
+	.adBanner{
+		margin: 20px auto;
+	}
+}
+
+.ageInput{
+	width: 60px;
+	text-align: center;
+	margin-right: 30px;
+}
+
+.ageQuestion{
+	padding-top: 20px;
+}
+
+.touchJoystickPad{
+	position: absolute;
+	width: 200px;
+	height: 200px;
+	background: #00000036;
+	border-radius: 300px;
+	pointer-events: none;
+	transition: opacity 0.5s;
+}
+
+.touchJoystick{
+	left: 75px;
+	top: 72px;
+	width: 50px;
+	height: 50px;
+	position: relative;
+	background: var(--main-white);
+	border-radius: 50px;
+	box-shadow: var(--not-black) 0px 0px 0 3px, var(--not-black) 0px 5px 0 3px;
+}

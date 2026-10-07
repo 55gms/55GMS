@@ -1,0 +1,97 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="website" content="amazinggames.io" />
+    <title>Ducklings</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <script type="text/javascript">
+        let VERSION_TIMESTAMP = "1704748315";
+			window["VERSION_TIMESTAMP"] = VERSION_TIMESTAMP;
+
+			function testEs6Supported(){
+				try{
+					eval("var foo = (x)=>x+1");
+					eval("class Test{}");
+					eval("(async () => ({}))()");
+					eval("let test = {...{test:true},...{test2:true}}");
+				}catch(e){
+					return false;
+				}
+
+				if(typeof TextEncoder === "undefined") return false;
+
+				return true;
+			}
+
+			if(!testEs6Supported()){
+				alert("Your browser is too old, please update your browser to play this game.");
+			}
+
+			let script = document.createElement("script");
+			script.async = false;
+			script.type = "module";
+			let src = "";
+			if(VERSION_TIMESTAMP == "000"){
+				script.src = "../js/mainInstance.js";
+			}else{
+				script.src = "js.js?v="+VERSION_TIMESTAMP;
+			}
+			document.head.appendChild(script);
+
+			let style = document.createElement("link");
+			style.rel = "stylesheet";
+			style.href = "css.css?v=" + VERSION_TIMESTAMP;
+			document.head.appendChild(style);
+    </script>
+
+    <!--cordova-->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <!-- stuffs -->
+    <meta name="description"
+        content="It's time to relax, you're a duck now. Swim around and rescue as many ducklings as possible. Dodge the reckless boats, they will hurt you. UPGRADE your home by retrieving more ducklings and get the best looking nest in the pond. By getting a bigger home you'll also unlock more funny hats. Collect all 50 hats! You can change your apearance by quacking close to your nest. Show off your nest by inviting your friends to your pond! Share the room code and start a co-op game of ducklings. There's no limit to the amount of friends you can invite, so recruite the biggest duck army possible.">
+    <meta name="keywords"
+        content="Duck, ducklings, swim, relax, collect, search, find, upgrade, hats, funny, coop, co-op, free to play, all ages, easy to play, free co-op game, paly with friends, multiplayer, free, share, nest, quack, free to play, cartoon, relaxing, swimming, 3D, stages, strategy, score, water, pond, sea, app, game, games, mouse">
+
+    <!--pwa stuff-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <meta name="theme-color" content="#01c6fe">
+
+    <!--smart app banner ios-->
+    <meta name="apple-itunes-app" content="app-id=1472975856">
+
+    <!--open graph stuff-->
+    <meta property="og:title" content="Ducklings">
+    <meta property="og:description"
+        content="It's time to relax, you're a duck now. Swim around and rescue as many ducklings as possible. Dodge the reckless boats, they will hurt you. UPGRADE your home by retrieving more ducklings and get the best looking nest in the pond. By getting a bigger home you'll also unlock more funny hats. Collect all 50 hats! You can change your apearance by quacking close to your nest. Show off your nest by inviting your friends to your pond! Share the room code and start a co-op game of ducklings. There's no limit to the amount of friends you can invite, so recruite the biggest duck army possible.">
+    <meta property="fb:app_id" content="371757996756993">
+    <meta property="og:image" content="https://ducklings.io/img/thumb.png">
+    <meta property="og:type" content="game">
+
+    <!--twitter stuff-->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@pelican_party">
+    <meta name="twitter:title" content="Ducklings">
+    <meta name="twitter:description"
+        content="It's time to relax, you're a duck now. Swim around and rescue as many ducklings as possible. Dodge the reckless boats, they will hurt you. UPGRADE your home by retrieving more ducklings and get the best looking nest in the pond. By getting a bigger home you'll also unlock more funny hats. Collect all 50 hats! You can change your apearance by quacking close to your nest. Show off your nest by inviting your friends to your pond! Share the room code and start a co-op game of ducklings. There's no limit to the amount of friends you can invite, so recruite the biggest duck army possible.">
+    <meta name="twitter:image" content="https://ducklings.io/img/thumb.png">
+
+    <script type="application/ld+json">
+        {"@context":"http://schema.org","@type":"Videogame","name":"ducklings.io","url":"http://ducklings.io","sameAs":["https://twitter.com/pelican_party","https://www.facebook.com/PelicanParty/","https://www.reddit.com/r/ducklings","https://www.youtube.com/watch?v=-Z_H1xW25us&feature=youtu.be","https://www.instagram.com/pelicanpartystudios/"],"image":"https://ducklings.io/img/thumb.png","screenshot":"https://ducklings.io/img/Ducklings_screenshot.PNG","description":"It's time to relax, you're a duck now. Swim around and rescue as many ducklings as possible. Dodge the reckless boats, they will hurt you. UPGRADE your home by retrieving more ducklings and get the best looking nest in the pond. By getting a bigger home you'll also unlock more funny hats. Collect all 50 hats! You can change your apearance by quacking close to your nest. Show off your nest by inviting your friends to your pond! Share the room code and start a co-op game of ducklings. There's no limit to the amount of friends you can invite, so recruite the biggest duck army possible.","inLanguage":["English"],"genre":["MMO","Massively multiplayer online","RTS","Real-time strategy","Casual game"],"creator":{"@type":"Organization","name":"Pelican Party Studios","url":"pelicanparty.co"},"gamePlatform":"webgame","applicationCategory":["Game","webgame","GameApplication"],"operatingSystem":["Windows","OSX","Linux"],"aggregateRating":{"ratingValue":"9/10","ratingCount":100}}
+    </script>
+</head>  
+<body ontouchstart="">
+
+
+</body>
+
+</html>
