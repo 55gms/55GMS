@@ -35,6 +35,7 @@
   --p-on-text: #0a0a0a;
   --p-danger: #ff6166;
   --p-success: #45d483;
+  --p-warning: #f5a623;
   --p-radius: 12px;
   --p-radius-sm: 8px;
   --p-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -357,6 +358,53 @@
   font-size: 0.8125rem;
 }
 
+.profile-card-foot-end {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-sync {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid var(--p-border-strong);
+  background: transparent;
+  color: var(--p-text);
+  font-family: var(--p-font);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--p-fast) var(--p-ease-out);
+}
+
+.profile-sync:hover {
+  background: var(--p-surface-hover);
+}
+
+.profile-sync-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--p-muted);
+}
+
+.profile-sync[data-state="synced"] .profile-sync-dot {
+  background: var(--p-success);
+}
+
+.profile-sync[data-state="unsynced"] .profile-sync-dot {
+  background: var(--p-warning);
+}
+
+.profile-sync[data-state="error"] .profile-sync-dot {
+  background: var(--p-danger);
+}
+
 .profile-mono {
   font-family: var(--p-mono);
   font-variant-numeric: tabular-nums;
@@ -414,6 +462,7 @@
 }
 
 .p-btn:focus-visible,
+.profile-sync:focus-visible,
 .profile-id:focus-visible {
   outline: 2px solid var(--p-text);
   outline-offset: 2px;
@@ -602,6 +651,7 @@
   }
 
   .profile-card-foot {
+    flex-wrap: wrap;
     padding: 12px 16px;
   }
 

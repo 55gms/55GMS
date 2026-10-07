@@ -14,7 +14,7 @@
     />
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=7" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
-    <link rel="stylesheet" href="/assets/css/profile.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/profile.css?v=4" />
     <title>Google</title>
     <meta name="author" content="Rednotsus" />
     <meta http-equiv="Cache-control" content="public" />
@@ -195,7 +195,19 @@
               >Local data:
               <span class="profile-mono" id="localSize">—</span></span
             >
-            <span id="cooldownNote" aria-live="polite"></span>
+            <span class="profile-card-foot-end">
+              <span id="cooldownNote" aria-live="polite"></span>
+              <button
+                class="profile-sync"
+                id="syncStatus"
+                type="button"
+                data-state="checking"
+                title="Check again"
+              >
+                <span class="profile-sync-dot" aria-hidden="true"></span>
+                <span id="syncStatusText" aria-live="polite">Checking…</span>
+              </button>
+            </span>
           </div>
         </div>
       </section>
@@ -352,6 +364,68 @@
           startCooldown();
         }
 
+        const syncStatus = document.getElementById("syncStatus");
+        const syncStatusText = document.getElementById("syncStatusText");
+        const SYNC_LABELS = {
+          checking: "Checking…",
+          synced: "In sync",
+          unsynced: "Out of sync",
+          empty: "No cloud save",
+          error: "Couldn't check",
+        };
+        // Keys this page rewrites on its own; the server skips them too.
+        const SYNC_IGNORED_KEYS = ["premium"];
+        let syncCheckId = 0;
+
+        function setSyncState(state) {
+          syncStatus.dataset.state = state;
+          syncStatusText.textContent = SYNC_LABELS[state];
+        }
+
+        // Must match hashSave() in routes/users.js.
+        async function hashLocalSave() {
+          const entries = Object.keys(localStorage)
+            .filter((key) => !SYNC_IGNORED_KEYS.includes(key))
+            .sort()
+            .map((key) => [key, localStorage.getItem(key)]);
+          const digest = await crypto.subtle.digest(
+            "SHA-256",
+            new TextEncoder().encode(JSON.stringify(entries)),
+          );
+          return Array.from(new Uint8Array(digest), (byte) =>
+            byte.toString(16).padStart(2, "0"),
+          ).join("");
+        }
+
+        function checkSyncStatus() {
+          const id = ++syncCheckId;
+          setSyncState("checking");
+          Promise.all([
+            fetch("/api/saveStatus", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ uuid }),
+            }).then((response) => {
+              if (!response.ok) throw new Error(`Error: ${response.status}`);
+              return response.json();
+            }),
+            hashLocalSave(),
+          ])
+            .then(([cloud, localHash]) => {
+              if (id !== syncCheckId) return;
+              if (!cloud.exists) setSyncState("empty");
+              else
+                setSyncState(cloud.hash === localHash ? "synced" : "unsynced");
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              if (id === syncCheckId) setSyncState("error");
+            });
+        }
+
+        syncStatus.addEventListener("click", checkSyncStatus);
+        checkSyncStatus();
+
         uploadButton.addEventListener("click", () => {
           if (!beginSync(uploadButton)) return;
 
@@ -367,6 +441,7 @@
             .then((data) => {
               if (data.success === true) {
                 toast("success", "Synced to the cloud.");
+                checkSyncStatus();
               } else {
                 toast(
                   "error",
@@ -407,6 +482,7 @@
               }
               updateLocalSize();
               toast("success", "Restored from the cloud.");
+              checkSyncStatus();
             })
             .catch((error) => {
               console.error("Error:", error);
