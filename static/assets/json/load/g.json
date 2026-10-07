@@ -136,12 +136,14 @@
     "name": "Bad Ice Cream",
     "url": "/misc/play/Badicecream.html",
     "image": "/misc/badicecream/img.webp",
+    "preview": "/img/videos/preview/badicecream.mp4",
     "usesProxy": false
   },
   {
     "name": "Bad Ice Cream 2",
     "url": "/misc/play/bad-ice-cream-2.html",
     "image": "/misc/badicecream2/img.webp",
+    "preview": "/img/videos/preview/badicecream2.mp4",
     "usesProxy": false
   },
   {
@@ -181,6 +183,7 @@
     "name": "Bloons TD",
     "url": "/misc/play/bloontd.html",
     "image": "/misc/flash/img/btd.webp",
+    "preview": "/img/videos/preview/bloonstd.mp4",
     "usesProxy": false
   },
   {
@@ -262,24 +265,28 @@
     "name": "Dadish",
     "url": "/misc/play/Dadish.html",
     "image": "/misc/dadish/img.webp",
+    "preview": "/img/videos/preview/dadish.mp4",
     "usesProxy": false
   },
   {
     "name": "Dadish 2",
     "url": "/misc/play/Dadish-2.html",
     "image": "/misc/dadish2/2.webp",
+    "preview": "/img/videos/preview/dadish2.mp4",
     "usesProxy": false
   },
   {
     "name": "Dadish 3",
     "url": "/misc/play/Dadish-3.html",
     "image": "/misc/dadish3/img-cover.webp",
+    "preview": "/img/videos/preview/dadish3.mp4",
     "usesProxy": false
   },
   {
     "name": "Dadish 3D",
     "image": "/misc/dadish3d/img.webp",
     "author": "Thomas K. Young",
+    "preview": "/img/videos/preview/dadish3d.mp4",
     "usesProxy": false
   },
   {
@@ -304,6 +311,7 @@
     "name": "Skibidi Shooter",
     "image": "/misc/skibidi-shooter/img.webp",
     "author": "Luqman Kalil",
+    "preview": "/img/videos/preview/skibidishooter.mp4",
     "usesProxy": false
   },
   {
@@ -322,6 +330,7 @@
     "name": "Daily Dadish",
     "url": "/misc/play/dailydadish.html",
     "image": "/misc/dadish3/img.webp",
+    "preview": "/img/videos/preview/dailydadish.mp4",
     "usesProxy": false
   },
   {
@@ -398,24 +407,28 @@
     "name": "Recoil",
     "url": "/misc/play/recoil.html",
     "image": "/img/games/recoil.webp",
+    "preview": "/img/videos/preview/recoil.mp4",
     "usesProxy": false
   },
   {
     "name": "Duck Life",
     "url": "/misc/play/duck-life.html",
     "image": "/misc/flash/img/dl.webp",
+    "preview": "/img/videos/preview/ducklife.mp4",
     "usesProxy": false
   },
   {
     "name": "Duck Life 2",
     "url": "/misc/play/duck-life2.html",
     "image": "/misc/flash/img/dl2.webp",
+    "preview": "/img/videos/preview/ducklife2.mp4",
     "usesProxy": false
   },
   {
     "name": "Duck Life 3",
     "url": "/misc/play/duck-life3.html",
     "image": "/misc/flash/img/dl3.webp",
+    "preview": "/img/videos/preview/ducklife3.mp4",
     "usesProxy": false
   },
   {
@@ -434,6 +447,7 @@
     "name": "Poor Bunny",
     "url": "/misc/play/poorbunny.html",
     "image": "/misc/poor-bunny/img.webp",
+    "preview": "/img/videos/preview/poorbunny.mp4",
     "usesProxy": false
   },
   {
@@ -585,6 +599,7 @@
     "name": "Light The Lamp",
     "url": "/misc/play/?title=Light The Lamp&author=Eray Zesen&link=lightthelamp",
     "image": "/misc/lightthelamp/img.webp",
+    "preview": "/img/videos/preview/lightthelamp.mp4",
     "usesProxy": false
   },
   {
@@ -610,6 +625,7 @@
     "name": "Grand Prix Hero",
     "url": "/misc/play/grandprixhero.html",
     "image": "/img/games/grandprixhero.webp",
+    "preview": "/img/videos/preview/grandprixhero.mp4",
     "usesProxy": false
   },
   {
@@ -750,6 +766,7 @@
     "name": "House Of Hazards",
     "url": "/misc/play/houseofhazards.html",
     "image": "/misc/houseofhazards/img.webp",
+    "preview": "/img/videos/preview/houseofhazards.mp4",
     "usesProxy": false
   },
   {
@@ -804,6 +821,7 @@
     "name": "Impossible Quiz 2",
     "url": "/misc/play/impossiblequiz2.html",
     "image": "/misc/impossible-quiz/2.webp",
+    "preview": "/img/videos/preview/theimpossiblequiz2.mp4",
     "usesProxy": false
   },
   {
@@ -975,6 +993,7 @@
     "name": "Bouncy Basketball",
     "url": "/misc/play/bouncybasketball.html",
     "image": "/misc/bouncybasketball/img.webp",
+    "preview": "/img/videos/preview/bouncybasketball.mp4",
     "usesProxy": false
   },
   {
@@ -1265,6 +1284,7 @@
     "name": "Cat Pizza",
     "url": "/misc/play/?title=Cat Pizza&link=catpizza&author=JetGames",
     "image": "/misc/catpizza/img.webp",
+    "preview": "/img/videos/preview/catpizza.mp4",
     "usesProxy": false
   },
   {
@@ -1297,6 +1317,7 @@
     "name": "Raft Wars 2",
     "url": "https://games.poki.com/458768/raftwars2",
     "image": "/misc/RaftWars2/img.webp",
+    "preview": "/img/videos/preview/raftwars2.mp4",
     "usesProxy": true
   },
   {
@@ -1342,6 +1363,7 @@
     "name": "Polytrack 0.4.1",
     "url": "/misc/polytrack-0.4.1/index.html",
     "image": "/img/games/polytrack.webp",
+    "preview": "/img/videos/preview/polytrack.mp4",
     "usesProxy": false
   },
   {
@@ -1416,6 +1438,7 @@
     "name": "Rooftop Snipers 2",
     "url": "/misc/play/rooftopsnipers2.html",
     "image": "/img/games/rooftopsnipers.webp",
+    "preview": "/img/videos/preview/rooftopsnipers2.mp4",
     "usesProxy": false
   },
   {
@@ -1435,6 +1458,7 @@
     "name": "Flick Goal",
     "author": "Luqman",
     "image": "/misc/flickgoal/img.webp",
+    "preview": "/img/videos/preview/flickgoal.mp4",
     "usesProxy": false
   },
   {
@@ -1455,6 +1479,7 @@
     "name": "Ragdoll Hit",
     "image": "/misc/ragdoll-hit/img.webp",
     "author": "Ericetto",
+    "preview": "/img/videos/preview/ragdollhit.mp4",
     "usesProxy": false
   },
   {
@@ -1555,6 +1580,7 @@
     "name": "Smash Karts",
     "url": "https://htmlxm.github.io/h/smash-karts/",
     "image": "/misc/smashkarts/img.webp",
+    "preview": "/img/videos/preview/smashkarts.mp4",
     "usesProxy": true
   },
   {
@@ -1746,6 +1772,7 @@
     "name": "Venge.io",
     "url": "https://venge.io/",
     "image": "/misc/venge-io/img.webp",
+    "preview": "/img/videos/preview/vengeio.mp4",
     "usesProxy": true
   },
   {
@@ -1837,6 +1864,7 @@
     "name": "Yohoho.io",
     "author": "Exodragon Games",
     "image": "/misc/yohoho/img.webp",
+    "preview": "/img/videos/preview/yohohoio.mp4",
     "usesProxy": false
   },
   {
@@ -1921,6 +1949,7 @@
     "name": "Zombie Derby",
     "url": "/misc/play/zombiederby.html",
     "image": "/misc/zombiederby/img.webp",
+    "preview": "/img/videos/preview/zombiederby.mp4",
     "usesProxy": false
   },
   {
@@ -3130,6 +3159,7 @@
     "name": "Stickman Climb 2",
     "author": "No Pressure Studios",
     "image": "/misc/stickman-climb-2/img.webp",
+    "preview": "/img/videos/preview/stickmanclimb2.mp4",
     "usesProxy": false
   },
   {
