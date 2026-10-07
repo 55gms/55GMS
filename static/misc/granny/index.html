@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Granny</title>
+    <script src="/assets/js/loader-ui.js?v=63f0cr4hc0"></script>
+    <script src="/assets/js/game-loader.js?v=63f0cr4hc0" data-title="Granny"></script>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #000;
+      }
+      #unity-canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+    <script src="yandex-sdk.js"></script>
+  </head>
+  <body>
+    <canvas id="unity-canvas" tabindex="0" aria-label="Granny"></canvas>
+    <script>
+      // The build asks for the player through these globals.
+      var player;
+      var myGameInstance = null;
+
+      function initPlayer() {
+        return ysdk.getPlayer({ scopes: false }).then((_player) => {
+          player = _player;
+          return player;
+        });
+      }
+
+      (async () => {
+        const data = [
+          ["Build/Granny.data.part1", 10000000],
+          ["Build/Granny.data.part2", 10000000],
+          ["Build/Granny.data.part3", 10000000],
+          ["Build/Granny.data.part4", 7294730],
+        ];
+        const wasm = [
+          ["Build/Granny.wasm.part1", 10000000],
+          ["Build/Granny.wasm.part2", 10000000],
+          ["Build/Granny.wasm.part3", 10000000],
+          ["Build/Granny.wasm.part4", 4458936],
+        ];
+        const framework = [["Build/Granny.framework.js", 758361]];
+        const loader = [["Build/Granny.loader.js", 31613]];
+        GameLoader.prepare([...data, ...wasm, ...framework, ...loader]);
+
+        const paths = (files) => files.map(([path]) => path);
+        const [dataUrl, codeUrl, frameworkUrl, loaderUrl] = await Promise.all([
+          GameLoader.merge(paths(data)),
+          GameLoader.merge(paths(wasm), "application/wasm"),
+          GameLoader.merge(paths(framework), "application/javascript"),
+          GameLoader.merge(paths(loader), "application/javascript"),
+        ]);
+        await GameLoader.script(loaderUrl);
+
+        const canvas = document.getElementById("unity-canvas");
+        myGameInstance = await createUnityInstance(canvas, {
+          dataUrl,
+          codeUrl,
+          frameworkUrl,
+          streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
+          companyName: "Anastasia Kazantseva",
+          productName: "Granny",
+          productVersion: "1.0",
+          showBanner(message, type) {
+            type === "error" ? GameLoader.fail(new Error(message)) : console.warn(message);
+          },
+        });
+        GameLoader.finish();
+        canvas.focus();
+      })().catch(GameLoader.fail);
+    </script>
+  </body>
+</html>
