@@ -47,27 +47,21 @@
         </div>
       </header>
 
-      <section class="profile-section" id="loginSection">
+      <section class="profile-section" id="loginSection" hidden>
         <div class="profile-section-head">
-          <h2>Confirm it's you</h2>
-          <p>Enter the admin account password to continue.</p>
+          <h2>Admin sign-in required</h2>
+          <p>Sign in with the admin account to manage premium.</p>
         </div>
         <div class="profile-card">
-          <form class="admin-form" id="loginForm">
-            <input
-              type="password"
-              class="admin-input"
-              id="password"
-              placeholder="Password"
-              aria-label="Password"
-              autocomplete="current-password"
-              required
-            />
-            <button type="submit" class="p-btn p-btn-primary" id="loginButton">
-              <span class="p-btn-label">Continue</span>
-              <span class="p-spinner" aria-hidden="true"></span>
-            </button>
-          </form>
+          <div class="profile-row">
+            <div class="profile-row-text">
+              <p class="profile-row-title">You don't have access</p>
+              <p class="profile-row-desc">
+                If you are already signed in, sign out and back in once.
+              </p>
+            </div>
+            <a class="p-btn p-btn-primary" href="/login">Sign in</a>
+          </div>
         </div>
       </section>
 
@@ -120,6 +114,6 @@
       <div class="p-toasts" id="toasts" role="status" aria-live="polite"></div>
     </main>
 
-    <script src="/assets/js/admin.js?v=1"></script>
+    <script src="/assets/js/admin.js?v=2"></script>
   </body>
 </html>

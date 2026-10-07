@@ -1,12 +1,8 @@
 (function () {
-  const TOKEN_KEY = "adminToken";
   const SEARCH_DELAY_MS = 200;
 
   const loginSection = document.getElementById("loginSection");
   const manageSection = document.getElementById("manageSection");
-  const loginForm = document.getElementById("loginForm");
-  const loginButton = document.getElementById("loginButton");
-  const passwordInput = document.getElementById("password");
   const searchInput = document.getElementById("search");
   const options = document.getElementById("options");
   const selected = document.getElementById("selected");
@@ -48,65 +44,28 @@
   }
 
   function showLogin() {
-    sessionStorage.removeItem(TOKEN_KEY);
     manageSection.hidden = true;
     loginSection.hidden = false;
-    passwordInput.focus();
   }
 
-  function showManage() {
-    loginSection.hidden = true;
-    manageSection.hidden = false;
-    searchInput.focus();
-    search();
-  }
-
-  // Sends the admin token; an expired or rejected token returns to the
-  // password prompt.
+  // Authorized by the session cookie from the main login; without an admin
+  // session the page shows the sign-in notice instead.
   async function api(path, init = {}) {
     const response = await fetch(path, {
       ...init,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${sessionStorage.getItem(TOKEN_KEY)}`,
-      },
+      headers: { "Content-Type": "application/json" },
     });
     const data = await response.json().catch(() => ({}));
 
-    if (response.status === 401) {
+    if (response.status === 401 || response.status === 403) {
       showLogin();
-      throw new Error("Session expired. Enter your password again.");
+      throw new Error("Sign in with the admin account.");
     }
     if (!response.ok) {
       throw new Error(data.error || "Request failed");
     }
     return data;
   }
-
-  loginForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    setLoading(loginButton, true);
-
-    try {
-      const response = await fetch("/api/admin/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password: passwordInput.value }),
-      });
-      const data = await response.json().catch(() => ({}));
-      if (!response.ok) {
-        throw new Error(data.error || "Login failed");
-      }
-
-      sessionStorage.setItem(TOKEN_KEY, data.token);
-      passwordInput.value = "";
-      showManage();
-    } catch (error) {
-      toast("error", error.message);
-    } finally {
-      setLoading(loginButton, false);
-    }
-  });
 
   function closeOptions() {
     options.hidden = true;
@@ -270,9 +229,10 @@
     }
   });
 
-  if (sessionStorage.getItem(TOKEN_KEY)) {
-    showManage();
-  } else {
-    showLogin();
-  }
+  // The first search doubles as the access check.
+  search().then(() => {
+    if (!loginSection.hidden) return;
+    manageSection.hidden = false;
+    searchInput.focus();
+  });
 })();
