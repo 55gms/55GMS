@@ -17,8 +17,6 @@
   --loader-surface: #7a8fab;
   --loader-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --loader-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
-  --loader-rainbow:
-    #ffadc6, #ffc9a3, #fff0a3, #b5f0c0, #a3dcff, #cdb8ff, #ffadc6;
 }
 
 .loader-ui[data-theme="blue"] {
@@ -192,16 +190,16 @@
   background: color-mix(in srgb, var(--loader-text) 16%, transparent);
 }
 
-/* The gradient spans the whole track and is revealed by the clip, so the
-   colors stay put while the bar grows and only drift with the animation. */
+/* The bar is one solid color that cycles through pastel hues. It spans the
+   whole track and is revealed by the clip as progress grows. */
 .loader-fill {
   --loader-value: 0;
   position: relative;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, var(--loader-rainbow)) 0 0 / 200% 100%;
+  background: #ffadc6;
   clip-path: inset(0 calc((1 - var(--loader-value)) * 100%) 0 0 round 999px);
-  animation: loader-rainbow 6s linear infinite;
+  animation: loader-chroma 9s linear infinite;
 }
 
 /* Sheen travelling along the bar while work is in flight. */
@@ -225,7 +223,7 @@
   border-radius: 999px;
   clip-path: none;
   animation:
-    loader-rainbow 6s linear infinite,
+    loader-chroma 9s linear infinite,
     loader-slide 1400ms ease-in-out infinite;
 }
 
@@ -308,10 +306,6 @@
   animation: loader-pulse 1600ms ease-in-out infinite;
 }
 
-.loader-ui[data-state="starting"] .loader-fill {
-  animation-duration: 3s;
-}
-
 .loader-detail,
 .loader-reload {
   display: none;
@@ -378,9 +372,30 @@
   }
 }
 
-@keyframes loader-rainbow {
-  to {
-    background-position: 200% 0;
+@keyframes loader-chroma {
+  0%,
+  100% {
+    background-color: #ffadc6;
+  }
+
+  16.6% {
+    background-color: #ffc9a3;
+  }
+
+  33.3% {
+    background-color: #fff0a3;
+  }
+
+  50% {
+    background-color: #b5f0c0;
+  }
+
+  66.6% {
+    background-color: #a3dcff;
+  }
+
+  83.3% {
+    background-color: #cdb8ff;
   }
 }
 
