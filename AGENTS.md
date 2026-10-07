@@ -84,7 +84,7 @@ For game pages, prefer the existing jsDelivr base pattern when possible because 
 
 ```html
 <base
-  href="https://cdn.jsdelivr.net/gh/55gms/55gms@master/static/misc/<folder-name>/"
+  href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/<folder-name>/"
 />
 ```
 
