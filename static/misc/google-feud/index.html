@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>fued</title>
+    <meta name="description" content="The world's most popular autocomplete game. Try to guess what Google will suggest. Webby Award Winner for Best Game. Created by Justin Hook." />
+    <meta
+      name="keywords"
+      content="google games, google trivia, feud, fued, google game, google search game, autocomplete, auto complete, funny, google suggest, autocorrect, autocompete, app, let's play, @midnight, chris hardwick, pewdiepie, smosh, webbys"
+    />
+    <style>
+      html {
+        overflow-y: scroll;
+      }
+
+      h1 {
+        margin: 20px 0 50px;
+        display: block;
+        position: relative;
+      }
+
+      #cg {
+        width: 200px;
+        display: block;
+        margin: 0 auto 1rem;
+      }
+
+      #footerbox a,
+      #footermenu a,
+      #totalgames,
+      a:active,
+      a:link,
+      a:visited {
+        color: #498bf3;
+      }
+
+      #queryspan,
+      #rebox,
+      #wholething {
+        display: inline-block;
+        text-align: left;
+      }
+
+      #message,
+      #wrapper {
+        text-align: center;
+      }
+
+      #testdiv,
+      #testdiv2,
+      body,
+      input[type="text"][disabled] {
+        background-color: #fff;
+      }
+
+      #footermenu a,
+      #queryspan,
+      #rebox,
+      #table1,
+      #table2 {
+        text-transform: lowercase;
+      }
+
+      #guess,
+      .caties {
+        cursor: pointer;
+      }
+
+      #___plusone_0 {
+        position: relative;
+        top: 2px;
+      }
+
+      #photobomber {
+        margin: 40px 0;
+        font-size: 15pt;
+        font-weight: 700;
+      }
+
+      #footerbox a:hover,
+      #gamesplayed a:link {
+        text-decoration: none;
+      }
+
+      #footermenu a:hover,
+      #gamesplayed a:hover {
+        text-decoration: underline;
+      }
+
+      @font-face {
+        font-family: "Squada One";
+        font-style: normal;
+        font-weight: 400;
+        src: local("Squada One"), local("SquadaOne-Regular"), url(http://themes.googleusercontent.com/static/fonts/squadaone/v2/DIbfqh10Zkwc_Qd08Y0saRsxEYwM7FgeyaSgU71cLG0.woff) format("woff");
+      }
+
+      body {
+        font: 15pt Helvetica, Arial, sans-serif;
+        color: #222;
+      }
+
+      #gamesplayed {
+        margin: -5px 0 20px;
+        font-size: 12pt;
+      }
+
+      #totalgames {
+        font-weight: 700;
+      }
+
+      #about,
+      #legal,
+      #press,
+      #bots,
+      #app {
+        display: none;
+      }
+
+      #footerbox,
+      #footermenu {
+        font-size: 12pt;
+        margin-bottom: 25px;
+      }
+
+      #footerbox {
+        min-height: 60px;
+      }
+
+      #footermenu a {
+        margin: 10px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      #footerbox ul {
+        list-style-type: none;
+        margin: 0 0 30px;
+        padding: 0;
+      }
+
+      #footerbox li {
+        line-height: 36pt;
+      }
+
+      #sharebuttons {
+        margin-bottom: 25px;
+      }
+
+      #preresults,
+      h2 {
+        font-size: 15pt;
+        font-weight: 400;
+        text-transform: uppercase;
+      }
+
+      #queryspan,
+      #rebox {
+        font-size: 15pt;
+        line-height: 17pt;
+        padding: 0;
+        margin: 0;
+        border: 0;
+      }
+
+      #scoreinfo {
+        display: inline-block;
+        margin-bottom: 15px;
+      }
+
+      #querydiv {
+        border: thin solid #ccc;
+        float: left;
+        padding: 8px;
+      }
+
+      #rebox {
+        font-weight: 700;
+        width: 200px;
+        margin-left: 6px;
+      }
+
+      #rebox:focus {
+        outline-width: 0;
+      }
+
+      #guess {
+        width: 87px;
+        height: 36px;
+        background: url(data:image/gif;base64,R0lGODlhrgAkAPcAAK7L+UyN+fP3//D2/+3z/3mq+tro/tfl/dXk/mmf9cXa/GGZ9MPZ/cHY/b7W+1KR+U+P+U+O9a/K94Sw93yq9XOm+XOl93Cj9VuX+EmK8j2B70GF80mK80qM9kuN+UKG9EeK+EqL9UuN+D6C8EWJ90eH7UeI7k2Q/kuO+jZ66EeH7jZ76UuM90SI9kqL9EyO+kqM90SH9UmL9ECE8j+E8v///4iy9f3+//n7/0SH9Pv9/0ZsvUWH9T+C8Ory/kOG9ENpuunx/vj7/0qK84av88HX+0uM9sjc/U2N967M+4Wv8/f6/zR038ve/fz9/0iK+Nrn/dnn/fr8/0GE7ent9UWF70yN9rjS/Pz9/vL2/EWI9kyM9MDX/P7//0eK+UCD8Gyg9d7j7bHN+6HD+1eS8py/+tTj/YSx+/b6/+Ds/rXP/GCa+r/W/D6B71aU98fc/Wac8ZzA+vb5/1WT+I63+kyM8+Tu/ZW8+sDX/cze/GWb8UyN90uL8r7W/WSc99vo/ou09rzU+9Li/FqW9c/g/c3f+7DN+qDD/EGE8EuN9zliuVGQ80mJ8VCQ97LO+snd/MTZ+7rT+0uM+Nbl/qvJ+kuL9Mrd/V+Z9pO597HN/LTP+k2N9Y219lmT8qPE+V+X8VyW9DyB7pu/+cLY+6zK/J3A99/r/qfG+neo92yi+tXk/OTu/oq1+pa9/Imz9r7V+/j6/4ey95i9+Zi++3Sk8pq/+4Ow95C4+EWI9JO6+3Kk9dnn/r3U+6XE+KTF+3ys+p7B+5/C+9Dh/Gme82CX8o22+Yy2+kOG8o+3+ajI+6rI+UiL906O95a8+G+i9L7V/IKv+ubv/ufw/pe9+snc/KjI/JC5++vz/2if90yM9z+C77vU/Mze/c3g/cba/Mbb/cfb/OLs/Wif+L/X/Ged9rTQ+7nT/bbR/Hmp93up9VqW+tjm/VWS9leT9KLD+ZS6+EiJ8TuA7k2P/UyP/Tp+7EyP/Dh960yO+0uO/EiL+UiJ8EmN+0iI7zd86mKa8S9btyH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS4zLWMwMTEgNjYuMTQ1NjYxLCAyMDEyLzAyLzA2LTE0OjU2OjI3ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4RjQxQTE5M0FERUMxMUUyQkUyQUM5MjIxODIzREQzNCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo4RjQxQTE5NEFERUMxMUUyQkUyQUM5MjIxODIzREQzNCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjhGNDFBMTkxQURFQzExRTJCRTJBQzkyMjE4MjNERDM0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjhGNDFBMTkyQURFQzExRTJCRTJBQzkyMjE4MjNERDM0Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Af/+/fz7+vn49/b19PPy8fDv7u3s6+rp6Ofm5eTj4uHg397d3Nva2djX1tXU09LR0M/OzczLysnIx8bFxMPCwcC/vr28u7q5uLe2tbSzsrGwr66trKuqqainpqWko6KhoJ+enZybmpmYl5aVlJOSkZCPjo2Mi4qJiIeGhYSDgoGAf359fHt6eXh3dnV0c3JxcG9ubWxramloZ2ZlZGNiYWBfXl1cW1pZWFdWVVRTUlFQT05NTEtKSUhHRkVEQ0JBQD8+PTw7Ojk4NzY1NDMyMTAvLi0sKyopKCcmJSQjIiEg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);
+        margin-top: 2px;
+        margin-left: 10px;
+        float: left;
+      }
+
+      #guess:hover {
+        -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+        background-position: -87px 0;
+      }
+
+      #failscontainer {
+        z-index: 99;
+        display: none;
+        position: absolute;
+        top: 280px;
+        font-size: 300px;
+        line-height: 230px;
+        color: red;
+        width: 100%;
+        font-family: Impact, "Squada One", sans-serif;
+        text-align: center;
+      }
+
+      .failx {
+        border: 10px solid red;
+        margin-right: 40px;
+        display: inline-block;
+      }
+
+      #failures,
+      #highscore,
+      #roundnumber,
+      #score {
+        color: #498bf3;
+        font-size: 15pt;
+        float: left;
+        clear: right;
+        margin-right: 70px;
+      }
+
+      #score {
+        margin-right: 0;
+      }
+
+      #scoreinfo span {
+        font-weight: 700;
+        font-size: 28pt;
+      }
+
+      #message {
+        margin-left: 10px;
+        margin-top: 6px;
+      }
+
+      #logo {
+        display: block;
+        width: 500px;
+        height: 94.5px;
+        margin: 0 auto;
+        position: relative;
+        left: -5px;
+      }
+
+      .otherthing,
+      .score {
+        display: inline-block;
+      }
+
+      #wrapper {
+        margin: 0 auto;
+        padding: 0;
+      }
+
+      #testdiv,
+      #testdiv2 {
+        width: 100%;
+        height: 42px;
+      }
+
+      .otherthing,
+      .score {
+        margin-top: 10px;
+      }
+
+      .preanswer {
+        background-color: #498bf3;
+      }
+
+      .caties,
+      .oval {
+        font-weight: 700;
+        background-color: #f5f5f5;
+      }
+
+      .score {
+        float: right;
+        color: #498bf3;
+        margin-right: 8px;
+      }
+
+      .otherthing {
+        float: left;
+        max-width: 260px;
+        text-align: left;
+        margin-left: 10px;
+      }
+
+      .otherthing a {
+        text-decoration: none;
+        color: #222;
+      }
+
+      .otherthing a:hover {
+        text-decoration: underline;
+      }
+
+      #answerkey {
+        width: 700px;
+        margin: 0 auto 30px;
+        /* margin: 0 auto 50px; */
+      }
+
+      #table1,
+      #table2 {
+        width: 350px;
+        float: left;
+        clear: right;
+        border-collapse: collapse;
+        border-left: thin #ccc solid;
+        border-right: thin #ccc solid;
+        font-size: 15pt;
+      }
+
+      #table1 td,
+      #table2 td {
+        border-bottom: thin #ccc solid;
+        border-top: thin #ccc solid;
+        height: 42px;
+        padding: 0;
+        margin: 0;
+      }
+
+      .answered {
+        font-weight: 700;
+      }
+
+      .unanswered {
+        margin: 0;
+      }
+
+      .oval {
+        height: 36px;
+        width: 60px;
+        border: none;
+        border-radius: 30px/18px;
+        text-align: center;
+        margin: auto;
+        line-height: 35px;
+      }
+
+      .left {
+        text-align: left;
+      }
+
+      .right {
+        text-align: right;
+      }
+
+      #categories {
+        text-align: center;
+        margin-left: 15px;
+      }
+
+      #categories h2 {
+        font-weight: 700;
+      }
+
+      #catwrap {
+        height: 100px;
+      }
+
+      #starter {
+        display: none;
+      }
+
+      .caties {
+        display: inline-block;
+        line-height: 22pt;
+        margin-right: 15px;
+        margin-bottom: 15px;
+        font-size: 10pt;
+        text-transform: capitalize;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border: 1px solid #dbdbdb;
+        width: 124px;
+        height: 30px;
+      }
+
+      .caties:hover {
+        -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+        border-color: #c6c6c6;
+      }
+
+      #guessdiv {
+        float: right;
+      }
+
+      #resize_wrapper {
+        width: 100%;
+      }
+
+      @media screen and (max-width: 1000px) {
+        #wrapper {
+          transform: scale(0.75);
+          transform-origin: top center;
+        }
+      }
+
+      @media screen and (max-width: 700px) {
+        #wrapper {
+          transform: scale(0.55);
+        }
+        #resize_wrapper {
+          width: 150%;
+          margin-left: -25%;
+        }
+      }
+
+      @media screen and (max-width: 500px) {
+        #wrapper {
+          transform: scale(1);
+        }
+        #table1 TD,
+        #table2 td,
+        #testdiv,
+        #testdiv2,
+        .oval {
+          height: 24px;
+        }
+        #wrapper {
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          min-width: 320px;
+        }
+        #logo {
+          width: 90%;
+          max-height: 55px;
+          margin: -15px 5%;
+        }
+        #table1,
+        #table2 {
+          float: none;
+          margin: 0 auto;
+        }
+        .oval {
+          width: 45px;
+          line-height: 26px;
+        }
+        .otherthing {
+          padding-top: 0;
+          margin-left: 5px;
+        }
+        .score {
+          padding: 0;
+          margin-right: 5px;
+        }
+        .otherthing,
+        .score {
+          margin-top: 5px;
+        }
+        #guess,
+        body {
+          margin: 0;
+        }
+        #message {
+          padding: 0;
+          width: 87px;
+          height: 36px;
+          line-height: 36px;
+          margin: -1px 0 0;
+        }
+        #table1,
+        #table2 {
+          font-size: 10pt;
+          width: 300px;
+        }
+        #catwrap {
+          height: auto;
+          margin-bottom: 5px;
+        }
+        #guessdiv {
+          margin: 9px 0 0;
+          padding-left: 4px;
+        }
+        #photobomber,
+        h2 {
+          font-size: 9pt;
+        }
+        #rebox {
+          width: 100%;
+          float: left;
+          clear: left;
+        }
+        #querydiv {
+          padding: 5px;
+        }
+        #queryspan,
+        #rebox {
+          font-size: 10pt;
+          margin: 0;
+          padding: 0;
+        }
+        #queryspan {
+          float: left;
+          width: 215px;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+        #queryspan:after {
+          content: "...";
+        }
+        #failures,
+        #highscore,
+        #roundnumber,
+        #score {
+          font-size: 9pt;
+          float: left;
+          margin-right: 12px;
+        }
+        body {
+          overflow-x: hidden;
+        }
+        #scoreinfo span {
+          font-size: 18pt;
+        }
+        #footerbox,
+        #footermenu {
+          font-size: 10pt;
+        }
+        #categories {
+          max-width: 420px;
+          margin: 0 auto;
+        }
+        .caties {
+          margin-bottom: 10px;
+          margin-right: 1px;
+          margin-left: 1px;
+          line-height: 19pt;
+          width: 65px;
+          height: 24px;
+        }
+        #score {
+          margin-right: 0;
+        }
+        #answerkey {
+          margin-bottom: 15px;
+          width: auto;
+        }
+        #footerbox {
+          padding: 0 15px;
+          min-height: 0;
+        }
+        #scoreinfo {
+          display: inline-block;
+          margin-bottom: 20px;
+        }
+        #sharebuttons {
+          padding: 0;
+          width: auto;
+          margin-right: -20px;
+        }
+        #failscontainer {
+          font-size: 150px;
+          line-height: 110px;
+          left: 0;
+          right: 0;
+          top: 80px;
+          margin: 0 auto;
+          width: 330px;
+        }
+        .failx {
+          margin-left: 8px;
+          margin-right: 8px;
+        }
+        #webby-pv-2014-bug {
+          display: none;
+        }
+      }
+
+      #flag {
+        margin-top: -70px;
+        position: relative;
+        text-indent: 450px;
+      }
+
+      .botimg {
+        margin: 15px;
+        width: 70px;
+      }
+
+      #blue_overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 99;
+        text-align: center;
+        background-color: #498bf3;
+        display: none;
+      }
+
+      #blue_text_box {
+        position: relative;
+        display: block;
+        top: 25%;
+        width: 90%;
+        margin: -1.5rem auto;
+        color: white;
+        max-width: 40rem;
+        font-size: 1.5rem;
+      }
+
+      #ok {
+        color: white;
+        position: relative;
+        display: block;
+        margin: 2rem auto;
+        border: thick white solid;
+        padding: 1rem 0;
+        width: 50%;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript" src="googlefeud.js"></script>
+    <div id="resize_wrapper">
+      <div id="blue_overlay">
+        <div id="blue_text_box">
+          <div id="blue_text"></div>
+          <div id="ok" onclick="$('#blue_overlay').hide()">OK</div>
+        </div>
+      </div>
+      <div id="wrapper">
+        <div id="failscontainer" style="display: none;"><span class="failx">X</span><span class="failx">X</span><span class="failx">X</span></div>
+        <h1>
+          <a href="./index.html">
+            <svg width="1000pt" height="189pt" viewBox="0 0 1000 189" alt="Google Feud" id="logo" border="0" version="1.1" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill="#4385f5"
+                d=" M 70.55 0.00 L 79.16 0.00 C 87.16 1.06 95.26 2.27 102.77 5.39 C 111.04 8.61 118.47 13.76 124.67 20.09 C 119.94 24.83 115.19 29.55 110.47 34.30 C 98.24 22.66 80.27 17.43 63.72 20.86 C 48.78 23.89 35.50 33.86 28.20 47.21 C 21.84 58.54 19.86 72.17 22.52 84.87 C 25.43 99.02 34.27 111.84 46.54 119.49 C 66.67 132.46 96.31 129.58 112.22 111.21 C 118.10 104.44 121.48 95.68 122.05 86.75 C 106.14 86.76 90.23 86.76 74.32 86.73 C 74.35 80.12 74.27 73.50 74.34 66.89 C 96.82 66.90 119.31 66.87 141.79 66.87 C 144.38 82.67 142.64 99.59 134.69 113.69 C 126.88 127.77 113.26 138.20 98.00 143.09 C 81.07 148.57 62.12 148.28 45.63 141.41 C 30.69 135.30 17.89 124.11 9.88 110.08 C 3.91 99.87 0.77 88.17 0.00 76.41 L 0.00 69.60 C 1.44 49.84 10.55 30.58 25.81 17.78 C 38.19 7.02 54.25 1.01 70.55 0.00 Z"
+              />
+              <path
+                fill="#4385f5"
+                d=" M 645.19 2.34 C 668.71 2.33 692.23 2.33 715.76 2.35 C 715.72 8.33 715.74 14.32 715.74 20.31 C 698.99 20.30 682.24 20.30 665.49 20.31 C 665.52 33.08 665.49 45.86 665.51 58.63 C 682.12 58.62 698.73 58.64 715.34 58.62 C 715.34 64.61 715.32 70.60 715.35 76.58 C 698.74 76.58 682.13 76.59 665.52 76.58 C 665.47 99.11 665.53 121.64 665.49 144.17 C 658.72 144.19 651.95 144.20 645.18 144.16 C 645.19 96.89 645.18 49.62 645.19 2.34 Z"
+              />
+              <path fill="#109d59" d=" M 461.69 4.78 C 468.60 4.82 475.52 4.80 482.43 4.79 C 482.46 51.25 482.44 97.71 482.45 144.17 C 475.53 144.19 468.61 144.19 461.70 144.16 C 461.69 97.70 461.71 51.24 461.69 4.78 Z" />
+              <path
+                fill="#109d59"
+                d=" M 981.06 4.75 C 987.37 4.84 993.68 4.78 1000.00 4.81 L 1000.00 143.92 C 993.63 143.90 987.27 143.96 980.91 143.88 C 980.87 140.33 980.91 136.78 981.11 133.24 C 978.96 135.72 976.78 138.23 974.11 140.17 C 960.82 149.85 941.29 148.38 928.47 138.57 C 916.60 129.66 910.91 114.48 910.81 99.97 C 910.58 86.51 915.44 72.63 925.52 63.42 C 935.95 53.58 951.80 50.01 965.46 54.32 C 971.81 56.30 976.97 60.81 980.93 66.03 C 980.98 45.61 980.72 25.18 981.06 4.75 Z"
+              />
+              <path
+                fill="#dc4437"
+                d=" M 189.17 52.25 C 203.40 49.53 218.73 53.77 229.51 63.43 C 239.39 72.02 245.40 84.85 245.68 97.94 C 246.12 109.66 241.93 121.43 234.33 130.35 C 224.16 142.51 207.62 148.93 191.90 146.83 C 177.07 145.08 163.40 135.84 156.16 122.79 C 150.13 112.25 148.57 99.36 151.47 87.61 C 155.73 69.80 171.14 55.39 189.17 52.25 Z"
+              />
+              <path
+                fill="#f5b401"
+                d=" M 292.19 52.26 C 303.60 50.08 315.77 52.29 325.69 58.32 C 339.13 66.33 348.23 81.26 348.78 96.94 C 349.54 109.73 344.75 122.68 335.99 132.01 C 328.70 139.86 318.69 145.14 308.08 146.66 C 296.10 148.56 283.45 145.51 273.55 138.52 C 261.39 130.12 253.61 115.76 253.21 100.99 C 252.71 88.08 257.70 75.02 266.84 65.87 C 273.63 58.88 282.61 54.05 292.19 52.26 Z"
+              />
+              <path
+                fill="#dc4437"
+                d=" M 521.08 54.93 C 532.25 50.75 545.20 51.53 555.69 57.27 C 567.53 63.49 575.92 75.24 579.04 88.14 C 557.80 96.67 536.51 105.06 515.31 113.70 C 520.93 126.78 538.28 131.63 550.63 125.53 C 555.43 123.30 559.20 119.37 562.25 115.12 C 567.74 118.70 573.04 122.57 578.43 126.32 C 572.13 134.17 564.31 141.23 554.58 144.40 C 544.76 147.50 533.88 148.44 524.01 145.05 C 508.72 140.12 496.70 126.63 493.35 110.95 C 490.84 99.16 492.03 86.39 497.69 75.66 C 502.62 66.22 511.05 58.59 521.08 54.93 Z"
+              />
+              <path
+                fill="#dc4437"
+                d=" M 743.92 56.89 C 755.24 51.08 769.22 50.72 780.76 56.14 C 793.70 62.04 803.11 74.40 806.34 88.15 C 785.13 96.68 763.84 105.02 742.69 113.70 C 748.48 127.44 767.29 132.01 779.67 124.63 C 783.75 122.34 786.85 118.77 789.67 115.11 C 795.05 118.82 800.44 122.52 805.73 126.35 C 800.03 133.51 793.07 139.99 784.46 143.43 C 777.36 146.34 769.58 147.36 761.95 147.14 C 743.95 146.04 727.74 132.94 722.07 115.95 C 717.95 103.44 718.54 89.27 724.20 77.32 C 728.29 68.59 735.31 61.25 743.92 56.89 Z"
+              />
+              <path
+                fill="#4385f5"
+                d=" M 367.34 70.37 C 375.23 59.91 387.85 52.84 401.05 52.59 C 410.95 52.61 421.62 55.36 428.19 63.27 C 428.19 60.60 428.20 57.92 428.22 55.25 C 434.77 55.23 441.32 55.25 447.87 55.27 C 447.79 85.50 447.84 115.74 447.84 145.98 C 447.57 158.79 441.99 171.79 431.90 179.91 C 425.11 185.44 416.45 188.15 407.84 189.00 L 400.57 189.00 C 383.74 188.13 366.95 177.89 361.32 161.51 C 367.02 158.77 373.00 156.67 378.91 154.45 C 381.62 159.09 384.79 163.63 389.24 166.76 C 401.10 175.84 420.76 170.22 426.20 156.35 C 429.13 149.82 428.03 142.53 428.14 135.61 C 422.46 141.02 415.49 145.45 407.57 146.46 C 396.03 147.78 384.29 143.80 375.15 136.83 C 363.29 127.82 356.25 112.89 356.97 98.02 C 357.77 88.08 361.17 78.26 367.34 70.37 Z"
+              />
+              <path
+                fill="#f5b401"
+                d=" M 819.28 55.06 C 825.60 55.14 831.93 55.09 838.25 55.08 C 838.29 71.27 838.12 87.47 838.34 103.66 C 838.97 111.22 840.07 119.69 845.59 125.38 C 853.83 131.88 868.52 130.47 873.60 120.61 C 876.93 113.94 877.44 106.30 877.48 98.97 C 877.50 84.33 877.51 69.70 877.46 55.07 C 883.82 55.13 890.19 55.08 896.56 55.10 C 896.59 72.40 896.58 89.71 896.56 107.01 C 896.53 116.13 894.73 125.67 889.18 133.12 C 883.46 141.06 873.92 145.54 864.35 146.56 C 853.41 147.66 841.47 146.37 832.53 139.43 C 823.23 132.38 819.48 120.29 819.29 109.01 C 819.23 91.03 819.26 73.05 819.28 55.06 Z"
+              />
+              <path
+                fill="#ffffff"
+                d=" M 296.49 70.68 C 304.64 69.14 313.34 71.94 319.20 77.77 C 329.07 87.15 331.04 103.42 323.98 115.01 C 319.02 123.64 309.11 129.43 299.06 128.49 C 285.92 127.64 275.27 115.87 274.09 103.03 C 272.04 88.70 281.85 73.17 296.49 70.68 Z"
+              />
+              <path
+                fill="#ffffff"
+                d=" M 948.46 70.78 C 956.51 68.37 966.07 69.71 972.23 75.74 C 984.40 87.51 985.03 108.65 974.89 121.90 C 966.41 133.22 947.40 133.12 938.39 122.51 C 928.52 111.38 927.54 93.80 935.15 81.21 C 938.25 76.39 942.91 72.41 948.46 70.78 Z"
+              />
+              <path fill="#ffffff" d=" M 191.21 71.16 C 205.27 66.95 220.42 77.12 223.87 90.93 C 228.55 105.85 219.66 124.10 204.07 127.82 C 190.96 131.42 176.88 122.69 172.64 110.13 C 166.52 95.03 175.08 75.36 191.21 71.16 Z" />
+              <path
+                fill="#ffffff"
+                d=" M 398.49 71.74 C 407.34 69.75 417.22 72.82 422.92 79.99 C 431.35 90.62 431.54 106.85 423.84 117.93 C 418.79 125.15 409.64 128.98 400.94 127.87 C 392.74 127.04 385.51 121.51 381.67 114.35 C 375.69 103.43 376.96 88.73 385.46 79.47 C 388.89 75.65 393.48 72.89 398.49 71.74 Z"
+              />
+              <path fill="#ffffff" d=" M 521.62 76.63 C 526.54 72.87 532.67 69.91 539.02 70.77 C 545.50 71.19 552.17 74.69 554.68 80.96 C 540.52 86.49 526.42 92.16 512.34 97.87 C 512.06 89.88 515.22 81.61 521.62 76.63 Z" />
+              <path fill="#ffffff" d=" M 749.35 76.32 C 754.10 72.83 759.89 70.00 765.95 70.75 C 772.53 71.09 779.49 74.52 781.98 80.95 C 767.84 86.50 753.75 92.17 739.65 97.84 C 739.36 89.68 742.73 81.29 749.35 76.32 Z" />
+            </svg>
+          </a>
+        </h1>
+        <div id="catwrap">
+          <div id="categories">
+            <h2>Choose a Category</h2>
+            <div id="cats">
+              <span class="caties" data-cat="culture">Culture</span> <span class="caties" data-cat="people">People</span> <span class="caties" data-cat="names">Names</span> <span class="caties" data-cat="questions">Questions</span>
+            </div>
+          </div>
+          <div id="starter">
+            <h2>How does Google <strong>autocomplete</strong> this query?</h2>
+            <div id="wholething">
+              <div id="querydiv"><span id="queryspan"></span><input id="rebox" type="text" name="rebox" maxlength="40" tabindex="1" onkeydown="if (event.keyCode == 13) getresults()" /></div>
+              <div id="guessdiv">
+                <div id="guess" onclick="getresults()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="answerkey">
+          <table id="table1">
+            <tbody>
+              <tr>
+                <td class="unanswered q1">
+                  <div class="oval">1</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="unanswered q2">
+                  <div class="oval">2</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="unanswered q3">
+                  <div class="oval">3</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="unanswered q4">
+                  <div class="oval">4</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="unanswered q5">
+                  <div class="oval">5</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table id="table2">
+            <tbody>
+              <tr>
+                <td class="unanswered q6">
+                  <div class="oval">6</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="unanswered q7">
+                  <div class="oval">7</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="unanswered q8">
+                  <div class="oval">8</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="unanswered q9">
+                  <div class="oval">9</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="unanswered q10">
+                  <div class="oval">10</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="clear: both;"></div>
+        </div>
+        <div id="scoreinfo">
+          <div id="roundnumber">
+            ROUND<br />
+            <span id="roundnumberspan">1</span>
+          </div>
+          <div id="failures">
+            GUESSES<br />
+            <span id="failuresspan">3</span>
+          </div>
+          <div id="highscore">
+            TOTAL SCORE<br />
+            <span id="highscorespan">0</span>
+          </div>
+          <div id="score">
+            THIS ROUND<br />
+            <span id="scorespan">0</span>
+          </div>
+          <div style="clear: both;"></div>
+        </div>
+        <div id="footermenu">
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="jquery-ui-1.11.3.min.js"></script>
+    <script type="text/javascript">
+      var _0x6913 = [
+        "Google\x20Feud\x20is\x20a\x20web\x20game\x20based\x20on\x20the\x20Google\x20API.\x20The\x20results\x20are\x20pulled\x20directly\x20from\x20Google\x27s\x20autocomplete.\x20Google\x20and\x20the\x20Google\x20logo\x20are\x20registered\x20trademarks\x20of\x20Google\x20Inc.\x20This\x20site\x20is\x20not\x20endorsed\x20by\x20or\x20affiliated\x20with\x20Google.\x20Google\x20Feud\x20was\x20created\x20by\x20Justin\x20Hook.",
+        "apply",
+        "return\x20(function()\x20",
+        "console",
+        "log",
+        "warn",
+        "debug",
+        "info",
+        "error",
+        "exception",
+        "trace",
+        "percentageDone",
+        "toString",
+        "#scorespan",
+        "text",
+        "gameData",
+        "qNumber",
+        "floor",
+        "random",
+        "indexOf",
+        "length",
+        "playedQuestions",
+        "prompt",
+        "toLowerCase",
+        "googleResults",
+        "allanswers",
+        "hide",
+        "#answerkey",
+        "html",
+        "<table\x20id=\x22table1\x22><tr><td\x20class=\x22unanswered\x20q1\x22><div\x20class=\x22oval\x22>1</div></td></tr><tr><td\x20class=\x22unanswered\x20q2\x22><div\x20class=\x22oval\x22>2</div></td></tr><tr><td\x20class=\x22unanswered\x20q3\x22><div\x20class=\x22oval\x22>3</div></td></tr><tr><td\x20class=\x22unanswered\x20q4\x22><div\x20class=\x22oval\x22>4</div></td></tr><tr><td\x20class=\x22unanswered\x20q5\x22><div\x20class=\x22oval\x22>5</div></td></tr></table><table\x20id=\x22table2\x22><tr><td\x20class=\x22unanswered\x20q6\x22><div\x20class=\x22oval\x22>6</div></td></tr><tr><td\x20class=\x22unanswered\x20q7\x22><div\x20class=\x22oval\x22>7</div></td></tr><tr><td\x20class=\x22unanswered\x20q8\x22><div\x20class=\x22oval\x22>8</div></td></tr><tr><td\x20class=\x22unanswered\x20q9\x22><div\x20class=\x22oval\x22>9</div></td></tr><tr><td\x20class=\x22unanswered\x20q10\x22><div\x20class=\x22oval\x22>10</div></td></tr></table><div\x20style=\x22clear:both;\x22></div>",
+        "#queryspan",
+        "#starter",
+        "show",
+        "#rebox",
+        "trim",
+        "substr",
+        "an\x20",
+        "my\x20",
+        "of\x20",
+        "so\x20",
+        "the\x20",
+        "too\x20",
+        "\x20in\x20space",
+        "val",
+        "focus",
+        "hasClass",
+        "unanswered",
+        "totalscore",
+        "correct",
+        "parent",
+        "addClass",
+        "answered",
+        "removeClass",
+        "preanswer",
+        "<div\x20id=\x22testdiv\x22\x20style=\x22display:none\x22><span\x20class=\x22otherthing\x22>",
+        "</span><span\x20class=\x22score\x22>",
+        ",000</span></div>",
+        "\x20#testdiv",
+        "blind",
+        "horizontal",
+        "easeInExpo",
+        "score",
+        "#highscorespan",
+        "wrong",
+        "#failuresspan",
+        "#failscontainer\x20.failx",
+        "slice",
+        "#failscontainer",
+        "css",
+        "color",
+        "#FF0000",
+        "<span\x20class=\x22otherthing\x22>\x20<a\x20href=\x22https://www.google.com/#q=",
+        "\x22\x20target=\x22_blank\x22>",
+        "</a></span><span\x20class=\x22score\x22>",
+        ",000</span>",
+        "new\x20round",
+        "#guessdiv",
+        "#message",
+        "prop",
+        "disabled",
+        "click",
+        "round",
+        "#bonusa",
+        "<div\x20id=\x22guess\x22\x20onClick=\x22getresults()\x22\x20></div>",
+        "#498bf3",
+        "#categories",
+        "people",
+        "names",
+        "questions",
+        ".caties",
+        "cat",
+        "attr",
+      ];
+      (function (_0x4dcff4, _0x32e3e2) {
+        var _0xbb54df = function (_0x4d3b29) {
+          while (--_0x4d3b29) {
+            _0x4dcff4["push"](_0x4dcff4["shift"]());
+          }
+        };
+        _0xbb54df(++_0x32e3e2);
+      })(_0x6913, 0xb9);
+      var _0x4c8a = function (_0x4b941a, _0x5b8c9d) {
+        _0x4b941a = _0x4b941a - 0x0;
+        var _0x54bb1a = _0x6913[_0x4b941a];
+        return _0x54bb1a;
+      };
+      var _0x10150a = (function () {
+        var _0x2b3928 = !![];
+        return function (_0x1f62a9, _0x2b96f0) {
+          var _0x1f3dd0 = _0x2b3928
+            ? function () {
+                if (_0x2b96f0) {
+                  var _0x1f01ed = _0x2b96f0[_0x4c8a("0x0")](_0x1f62a9, arguments);
+                  _0x2b96f0 = null;
+                  return _0x1f01ed;
+                }
+              }
+            : function () {};
+          _0x2b3928 = ![];
+          return _0x1f3dd0;
+        };
+      })();
+      var _0x51fb29 = _0x10150a(this, function () {
+        var _0x39c49f = function () {};
+        var _0x18c207;
+        try {
+          var _0x2d40f0 = Function(_0x4c8a("0x1") + "{}.constructor(\x22return\x20this\x22)(\x20)" + ");");
+          _0x18c207 = _0x2d40f0();
+        } catch (_0x17d915) {
+          _0x18c207 = window;
+        }
+        if (!_0x18c207[_0x4c8a("0x2")]) {
+          _0x18c207[_0x4c8a("0x2")] = (function (_0x39c49f) {
+            var _0x334dce = {};
+            _0x334dce[_0x4c8a("0x3")] = _0x39c49f;
+            _0x334dce[_0x4c8a("0x4")] = _0x39c49f;
+            _0x334dce[_0x4c8a("0x5")] = _0x39c49f;
+            _0x334dce[_0x4c8a("0x6")] = _0x39c49f;
+            _0x334dce[_0x4c8a("0x7")] = _0x39c49f;
+            _0x334dce[_0x4c8a("0x8")] = _0x39c49f;
+            _0x334dce["trace"] = _0x39c49f;
+            return _0x334dce;
+          })(_0x39c49f);
+        } else {
+          _0x18c207["console"][_0x4c8a("0x3")] = _0x39c49f;
+          _0x18c207[_0x4c8a("0x2")][_0x4c8a("0x4")] = _0x39c49f;
+          _0x18c207[_0x4c8a("0x2")][_0x4c8a("0x5")] = _0x39c49f;
+          _0x18c207[_0x4c8a("0x2")][_0x4c8a("0x6")] = _0x39c49f;
+          _0x18c207[_0x4c8a("0x2")][_0x4c8a("0x7")] = _0x39c49f;
+          _0x18c207[_0x4c8a("0x2")][_0x4c8a("0x8")] = _0x39c49f;
+          _0x18c207[_0x4c8a("0x2")][_0x4c8a("0x9")] = _0x39c49f;
+        }
+      });
+      _0x51fb29();
+      var adblock = ![];
+      var extraguess = ![];
+      var data = {};
+      data[_0x4c8a("0xa")] = 0x32;
+
+      function numberWithCommas(_0x506313) {
+        return _0x506313[_0x4c8a("0xb")]()["replace"](/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+      var adcount = 0x0;
+
+      function startGame(_0x1d3116) {
+        $(_0x4c8a("0xc"))[_0x4c8a("0xd")](window[_0x4c8a("0xe")]["score"]);
+        window[_0x4c8a("0xe")][_0x4c8a("0xf")] = Math[_0x4c8a("0x10")](Math[_0x4c8a("0x11")]() * categories[_0x1d3116]["length"]);
+        while (window["gameData"]["playedQuestions"][_0x1d3116][_0x4c8a("0x12")](window[_0x4c8a("0xe")]["qNumber"]) > -0x1) {
+          window["gameData"]["qNumber"] = Math["floor"](Math[_0x4c8a("0x11")]() * categories[_0x1d3116][_0x4c8a("0x13")]);
+        }
+        window[_0x4c8a("0xe")][_0x4c8a("0x14")][_0x1d3116]["push"](window[_0x4c8a("0xe")][_0x4c8a("0xf")]);
+        if (window[_0x4c8a("0xe")]["playedQuestions"][_0x1d3116][_0x4c8a("0x13")] == categories[_0x1d3116][_0x4c8a("0x13")]) window[_0x4c8a("0xe")][_0x4c8a("0x14")][_0x1d3116][_0x4c8a("0x13")] = 0x0;
+        window[_0x4c8a("0xe")][_0x4c8a("0x15")] = categories[_0x1d3116][window[_0x4c8a("0xe")][_0x4c8a("0xf")]];
+        encodedurl = window[_0x4c8a("0xe")][_0x4c8a("0x15")][_0x4c8a("0x16")]();
+        window[_0x4c8a("0xe")][_0x4c8a("0x17")] = window[_0x4c8a("0x18")][encodedurl];
+        $("#categories")[_0x4c8a("0x19")]();
+        $(_0x4c8a("0x1a"))[_0x4c8a("0x1b")](_0x4c8a("0x1c"));
+        $(_0x4c8a("0x1d"))[_0x4c8a("0x1b")](window[_0x4c8a("0xe")][_0x4c8a("0x15")]);
+        $(_0x4c8a("0x1e"))[_0x4c8a("0x1f")]();
+        $(_0x4c8a("0x20"))["focus"]();
+      }
+
+      function processGuess(_0xdcfd6b) {
+        _0xdcfd6b = _0xdcfd6b[_0x4c8a("0x16")]();
+        _0xdcfd6b = _0xdcfd6b[_0x4c8a("0x21")]();
+        if (_0xdcfd6b["substr"](0x0, 0x2) == "a\x20") _0xdcfd6b = _0xdcfd6b[_0x4c8a("0x22")](0x2);
+        if (_0xdcfd6b[_0x4c8a("0x22")](0x0, 0x3) == _0x4c8a("0x23")) _0xdcfd6b = _0xdcfd6b[_0x4c8a("0x22")](0x3);
+        if (_0xdcfd6b[_0x4c8a("0x22")](0x0, 0x3) == _0x4c8a("0x24")) _0xdcfd6b = _0xdcfd6b["substr"](0x3);
+        if (_0xdcfd6b[_0x4c8a("0x22")](0x0, 0x3) == _0x4c8a("0x25")) _0xdcfd6b = _0xdcfd6b[_0x4c8a("0x22")](0x3);
+        if (_0xdcfd6b[_0x4c8a("0x22")](0x0, 0x3) == _0x4c8a("0x26")) _0xdcfd6b = _0xdcfd6b[_0x4c8a("0x22")](0x3);
+        if (_0xdcfd6b["substr"](0x0, 0x4) == _0x4c8a("0x27")) _0xdcfd6b = _0xdcfd6b[_0x4c8a("0x22")](0x4);
+        if (_0xdcfd6b[_0x4c8a("0x22")](0x0, 0x4) == _0x4c8a("0x28")) _0xdcfd6b = _0xdcfd6b["substr"](0x4);
+        if (_0xdcfd6b[_0x4c8a("0x22")](-0x9) == _0x4c8a("0x29")) _0xdcfd6b = _0xdcfd6b[_0x4c8a("0x22")](0x0, _0xdcfd6b[_0x4c8a("0x13")] - 0x9);
+        if (_0xdcfd6b[_0x4c8a("0x22")](-0x2) == "es") {
+          _0xdcfd6b = _0xdcfd6b[_0x4c8a("0x22")](0x0, _0xdcfd6b[_0x4c8a("0x13")] - 0x2);
+        } else {
+          if (_0xdcfd6b["substr"](-0x1) == "s") _0xdcfd6b = _0xdcfd6b["substr"](0x0, _0xdcfd6b["length"] - 0x1);
+        }
+        return _0xdcfd6b;
+      }
+
+      function getresults() {
+        if ($(_0x4c8a("0x20"))[_0x4c8a("0x2a")]() == "") {
+          return ![];
+        }
+        var _0x558237 = processGuess($(_0x4c8a("0x20"))[_0x4c8a("0x2a")]());
+        $(_0x4c8a("0x20"))[_0x4c8a("0x2a")]("");
+        $(_0x4c8a("0x20"))[_0x4c8a("0x2b")]();
+        var _0x2ae497 = ![];
+        for (var _0x2f4162 = 0x0; _0x2f4162 < window["gameData"][_0x4c8a("0x17")][_0x4c8a("0x13")]; _0x2f4162++) {
+          var _0x26337c = ![];
+          if (processGuess(window["gameData"][_0x4c8a("0x17")][_0x2f4162]) == _0x558237) {
+            _0x26337c = !![];
+          }
+          if (_0x26337c === !![]) {
+            if ($(".q" + (_0x2f4162 + 0x1))[_0x4c8a("0x2c")](_0x4c8a("0x2d"))) {
+              window[_0x4c8a("0xe")]["score"] += (0xa - _0x2f4162) * 0x3e8;
+              window["gameData"][_0x4c8a("0x2e")] += (0xa - _0x2f4162) * 0x3e8;
+              window[_0x4c8a("0xe")][_0x4c8a("0x2f")]++;
+            }
+            $(".q" + (_0x2f4162 + 0x1))
+              [_0x4c8a("0x30")]()
+              [_0x4c8a("0x31")](_0x4c8a("0x32"));
+            $(".q" + (_0x2f4162 + 0x1))
+              [_0x4c8a("0x33")]("unanswered")
+              [_0x4c8a("0x31")](_0x4c8a("0x34"))
+              [_0x4c8a("0x1b")](_0x4c8a("0x35") + window[_0x4c8a("0xe")]["googleResults"][_0x2f4162] + _0x4c8a("0x36") + (0xa - _0x2f4162) + _0x4c8a("0x37"));
+            $(".q" + (_0x2f4162 + 0x1) + _0x4c8a("0x38"))[_0x4c8a("0x1f")](
+              _0x4c8a("0x39"),
+              {
+                direction: _0x4c8a("0x3a"),
+                easing: _0x4c8a("0x3b"),
+              },
+              0x5dc
+            );
+            $("#scorespan")["text"](numberWithCommas(window[_0x4c8a("0xe")][_0x4c8a("0x3c")]));
+            $(_0x4c8a("0x3d"))[_0x4c8a("0xd")](numberWithCommas(window[_0x4c8a("0xe")][_0x4c8a("0x2e")]));
+            _0x2ae497 = !![];
+          }
+        }
+        if (_0x2ae497 == ![]) {
+          window[_0x4c8a("0xe")][_0x4c8a("0x3e")]++;
+          $(_0x4c8a("0x3f"))[_0x4c8a("0xd")](0x3 - window[_0x4c8a("0xe")][_0x4c8a("0x3e")]);
+          if (window[_0x4c8a("0xe")][_0x4c8a("0x3e")] === 0x0) {
+            $(_0x4c8a("0x40"))[_0x4c8a("0x19")]();
+            $(_0x4c8a("0x40"))[_0x4c8a("0x41")](0x0, 0x1)[_0x4c8a("0x1f")]();
+            $(_0x4c8a("0x42"))[_0x4c8a("0x1f")]();
+            setTimeout(function () {
+              $("#failscontainer")[_0x4c8a("0x19")]();
+            }, 0x3e8);
+          } else {
+            $(_0x4c8a("0x40"))[_0x4c8a("0x19")]();
+            $(_0x4c8a("0x40"))[_0x4c8a("0x41")](0x0, window[_0x4c8a("0xe")][_0x4c8a("0x3e")])[_0x4c8a("0x1f")]();
+            $("#failscontainer")[_0x4c8a("0x1f")]();
+            setTimeout(function () {
+              $("#failscontainer")[_0x4c8a("0x19")]();
+            }, 0x3e8);
+          }
+          if (window[_0x4c8a("0xe")][_0x4c8a("0x3e")] == 0x3) {
+            $(".preanswer")[_0x4c8a("0x33")](_0x4c8a("0x34"));
+            $(_0x4c8a("0x3f"))[_0x4c8a("0x43")](_0x4c8a("0x44"), _0x4c8a("0x45"));
+            for (var _0x2f4162 = 0x0; _0x2f4162 < window[_0x4c8a("0xe")][_0x4c8a("0x17")][_0x4c8a("0x13")]; _0x2f4162++) {
+              $(".q" + (_0x2f4162 + 0x1))[_0x4c8a("0x1b")](
+                _0x4c8a("0x46") +
+                  encodeURIComponent(window[_0x4c8a("0xe")][_0x4c8a("0x15")][_0x4c8a("0x16")]() + "\x20" + window[_0x4c8a("0xe")]["googleResults"][_0x2f4162]) +
+                  _0x4c8a("0x47") +
+                  window[_0x4c8a("0xe")][_0x4c8a("0x17")][_0x2f4162] +
+                  _0x4c8a("0x48") +
+                  (0xa - _0x2f4162) +
+                  _0x4c8a("0x49")
+              );
+            }
+            newRound();
+          }
+        }
+        if (window[_0x4c8a("0xe")][_0x4c8a("0x2f")] == window[_0x4c8a("0xe")][_0x4c8a("0x17")][_0x4c8a("0x13")]) {
+          newRound();
+        }
+      }
+
+      function newRound() {
+        console[_0x4c8a("0x3")](_0x4c8a("0x4a"));
+        $(_0x4c8a("0x4b"))[_0x4c8a("0x1b")]("<span\x20id=\x22message\x22\x20class=\x22caties\x20nextround\x22>Next\x20Round</span>");
+        $(_0x4c8a("0x4c"))[_0x4c8a("0x4d")](_0x4c8a("0x4e"), !![]);
+        $(_0x4c8a("0x20"))[_0x4c8a("0x4d")](_0x4c8a("0x4e"), !![]);
+        $(".nextround")["on"](_0x4c8a("0x4f"), function () {
+          window[_0x4c8a("0xe")][_0x4c8a("0x3c")] = 0x0;
+          window["gameData"][_0x4c8a("0x2f")] = 0x0;
+          if (extraguess) {
+            window["gameData"][_0x4c8a("0x3e")] = -0x1;
+            extraguess = ![];
+          } else window["gameData"][_0x4c8a("0x3e")] = 0x0;
+          window["gameData"][_0x4c8a("0x50")]++;
+          if ((window["gameData"][_0x4c8a("0x50")] === 0x2) & !adblock) {
+            $(_0x4c8a("0x51"))[_0x4c8a("0x1f")]();
+          }
+          $("#roundnumberspan")[_0x4c8a("0xd")](window["gameData"]["round"]);
+          $("#failuresspan")["text"](0x3 - window[_0x4c8a("0xe")]["wrong"]);
+          $(_0x4c8a("0xc"))[_0x4c8a("0xd")](window[_0x4c8a("0xe")][_0x4c8a("0x3c")]);
+          $("#starter")[_0x4c8a("0x19")]();
+          $(_0x4c8a("0x4b"))[_0x4c8a("0x1b")](_0x4c8a("0x52"));
+          $("#rebox")[_0x4c8a("0x4d")](_0x4c8a("0x4e"), ![]);
+          $(_0x4c8a("0x3f"))["css"](_0x4c8a("0x44"), _0x4c8a("0x53"));
+          $(_0x4c8a("0x1a"))[_0x4c8a("0x1b")](_0x4c8a("0x1c"));
+          $(_0x4c8a("0x54"))[_0x4c8a("0x1f")]();
+          $(this)[_0x4c8a("0x19")]();
+        });
+      }
+      jQuery(document)["ready"](function () {
+        window[_0x4c8a("0xe")] = {};
+        window[_0x4c8a("0xe")]["score"] = 0x0;
+        window[_0x4c8a("0xe")][_0x4c8a("0x2e")] = 0x0;
+        window["gameData"][_0x4c8a("0x3e")] = 0x0;
+        window[_0x4c8a("0xe")][_0x4c8a("0x50")] = 0x1;
+        window["gameData"][_0x4c8a("0x14")] = [];
+        window[_0x4c8a("0xe")][_0x4c8a("0x14")][_0x4c8a("0x55")] = [];
+        window[_0x4c8a("0xe")][_0x4c8a("0x14")]["culture"] = [];
+        window["gameData"]["playedQuestions"][_0x4c8a("0x56")] = [];
+        window[_0x4c8a("0xe")][_0x4c8a("0x14")][_0x4c8a("0x57")] = [];
+        $(_0x4c8a("0x58"))["on"]("click", function () {
+          window[_0x4c8a("0xe")][_0x4c8a("0x59")] = $(this)[_0x4c8a("0x5a")]("data-cat");
+          startGame($(this)[_0x4c8a("0x5a")]("data-cat"));
+        });
+        $("#abouta")[_0x4c8a("0x4f")](function () {
+          custom_alert(_0x4c8a("0x5b"));
+        });
+        data["percentageDone"] = 0x63;
+      });
+
+      function custom_alert(_0x1e7ee6) {
+        $("#blue_text")["html"](_0x1e7ee6);
+        $("#blue_overlay")["show"]();
+      }
+    </script>
+  </body>
+</html>
