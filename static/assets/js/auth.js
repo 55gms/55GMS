@@ -1,7 +1,6 @@
 // Shared by /login and /signup. The form's data-auth attribute picks the flow.
 (function () {
   const HCAPTCHA_SITEKEY = "b53ebcec-4dfc-4536-b52e-a3bcbc1269e8";
-  const NEW_ACCOUNT_KEY = "authNewAccount";
 
   const form = document.querySelector("form[data-auth]");
   if (!form) return;
@@ -137,7 +136,14 @@
       return false;
     }
 
-    const data = await response.json();
+    return startSession(
+      await response.json(),
+      "First time logging in here. Uploading your current save to the cloud…",
+    );
+  }
+
+  // Stores the account the server just signed in, then opens the profile.
+  async function startSession(data, uploadNotice) {
     localStorage.setItem("uuid", data.uuid);
     localStorage.setItem("username", data.username);
     localStorage.setItem("premium", data.premium);
@@ -145,10 +151,7 @@
     const save = await postJson("/api/readSave", { uuid: data.uuid });
     if (save.status !== 200) {
       // No cloud save yet, so this browser's data becomes the first one
-      showMessage(
-        "First time logging in here. Uploading your current save to the cloud…",
-        "info",
-      );
+      showMessage(uploadNotice, "info");
       const upload = await postJson(
         "/api/uploadSave",
         JSON.stringify(localStorage),
@@ -200,11 +203,13 @@
     });
 
     if (response.status === 200) {
-      try {
-        sessionStorage.setItem(NEW_ACCOUNT_KEY, username);
-      } catch {}
-      location.href = "/login";
-      return true;
+      // The server signs the new account in, so skip the login page
+      const data = await response.json().catch(() => null);
+      if (!data || !data.uuid) return login();
+      return startSession(
+        data,
+        "Account created. Uploading your current save to the cloud…",
+      );
     }
 
     // A captcha token can only be verified once
@@ -269,19 +274,6 @@
   if (mode === "signup") {
     window.authCaptchaReady = renderCaptcha;
     renderCaptcha();
-  }
-
-  if (mode === "login") {
-    let created = null;
-    try {
-      created = sessionStorage.getItem(NEW_ACCOUNT_KEY);
-      sessionStorage.removeItem(NEW_ACCOUNT_KEY);
-    } catch {}
-    if (created) {
-      usernameInput.value = created;
-      showMessage("Account created. Log in to continue.", "success");
-      passwordInput.focus();
-    }
   }
 
   updateAvatar();
