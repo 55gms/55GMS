@@ -54,6 +54,13 @@
   --loader-surface: #1a1a1a;
 }
 
+/* The game page lays out underneath and can overflow before it settles: keep
+   its scrollbars away for as long as the screen is up. */
+html:has(.loader-ui:not([hidden])),
+html:has(.loader-ui:not([hidden])) body {
+  overflow: hidden !important;
+}
+
 .loader-ui:is(#game-loading, #unity-cdn-loading) {
   position: fixed;
   inset: 0;
@@ -131,7 +138,7 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: clamp(112px, 22vmin, 176px);
+  width: clamp(136px, 30vmin, 240px);
   aspect-ratio: 1;
   overflow: hidden;
   border-radius: 22%;
@@ -143,7 +150,7 @@
 
 .loader-initial {
   color: var(--loader-muted);
-  font-size: clamp(44px, 9vmin, 72px);
+  font-size: clamp(52px, 12vmin, 96px);
   font-weight: 700;
   line-height: 1;
 }
@@ -199,7 +206,7 @@
   height: 100%;
   background: #ffadc6;
   clip-path: inset(0 calc((1 - var(--loader-value)) * 100%) 0 0 round 999px);
-  animation: loader-chroma 9s linear infinite;
+  animation: loader-chroma 3.5s linear infinite;
 }
 
 /* Sheen travelling along the bar while work is in flight. */
@@ -223,7 +230,7 @@
   border-radius: 999px;
   clip-path: none;
   animation:
-    loader-chroma 9s linear infinite,
+    loader-chroma 3.5s linear infinite,
     loader-slide 1400ms ease-in-out infinite;
 }
 

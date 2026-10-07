@@ -2,60 +2,15 @@
 <html lang="en">
 
 <head>
-    <link rel="icon" type="image/x-icon" href="/images/pizzalogo.png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google</title>
-    <link id="favicon" rel="icon" href="/favicon.ico" type="image/x-icon">
     <script>
-        (function applySavedTheme() {
-            var allowedThemes = ["blue", "legacy", "midnight", "forest", "sunset", "contrast"];
-            var savedTheme = localStorage.getItem("siteTheme") || "legacy";
-            var theme = savedTheme === "classic" ? "legacy" : savedTheme;
-            document.documentElement.dataset.theme = allowedThemes.includes(theme) ? theme : "legacy";
-        })();
+        // The "Play Now!" screen is gone: old links land straight on the game.
+        const link = (new URLSearchParams(location.search).get('link') || '').replace(/^\/+|\/+$/g, '');
+        location.replace(link ? `/misc/${encodeURIComponent(link)}/index.html` : '/g');
     </script>
-    <link rel="stylesheet" href="/assets/css/style.css?v=5">
-    <link rel="stylesheet" href="css.css">
 </head>
 
-<body>
-    <div class="embed-container">
+<body></body>
 
-        <div id="overlay">
-            <img src="/img/no.webp" id='imageplay' alt="Play Image">
-            <div class="overlay-content">
-                <div class="game-title">&nbsp;</div>
-                <button id="play-btn">Play Now!</button>
-            </div>
-        </div>
-        <iframe id="embed-frame" src=""></iframe>
-    </div>
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const iframeElement = document.getElementById('embed-frame');
-            const titleElement = document.querySelector('.game-title');
-            const imgElement = document.getElementById('imageplay');
-
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-
-            const title = urlParams.get('title') || 'Title Not Set';
-            link = (urlParams.get('link') || '').replace(/^\/+|\/+$/g, '');
-            titleElement.textContent = title;
-            imgElement.src = link ? `/misc/${encodeURIComponent(link)}/img.webp` : '/img/no.webp';
-
-        });
-
-
-
-        document.getElementById('play-btn').addEventListener('click', function () {
-            const iframe = document.getElementById('embed-frame');
-            iframe.src = `/misc/${encodeURIComponent(link)}/index.html`;
-            iframe.focus();
-            document.getElementById('overlay').style.display = 'none';
-        });
-
-
-    </script>
+</html>

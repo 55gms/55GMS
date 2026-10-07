@@ -79,7 +79,7 @@
 
             titleElement.textContent = title;
             byTextElement.textContent = 'By ' + author;
-            iframeElement.src = `/misc/misc/frame.html?link=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}`;
+            iframeElement.src = `/misc/${encodeURIComponent(link)}/index.html`;
             gameIconElement.src = `/misc/${encodeURIComponent(link)}/img.webp`;
             gameIconElement.alt = title;
         });
