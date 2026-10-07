@@ -42,6 +42,11 @@ h6 {
   pointer-events: none;
 }
 
+/* Air between the search bar and the first row once the loader is gone. */
+#game-container {
+  margin-top: 24px;
+}
+
 .loading-text {
   font-family: "Roboto", serif;
   font-size: 18px;
