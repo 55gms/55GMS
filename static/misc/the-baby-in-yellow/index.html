@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Baby in Black</title>
+    <meta charset="UTF-8" />
+    <!-- this link to the preview online version of BJS -->
+
+    <script type="text/javascript" src="js/lagged-stub.js"></script>
+    <script src="js/babylon.js"></script>
+    <script src="js/babylon.gui.js"></script>
+    <script src="js/ammo.wasm.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dev_func.js"></script>
+
+
+    <style>
+        html,
+        body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            color: black;
+        }
+
+        #canvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+
+        #canvas:focus-within {
+            outline: none;
+        }
+
+        @font-face {
+            font-family: selectric;
+            src: url(fonts/selectric/SLC_.ttf);
+        }
+
+
+
+        .lock {
+            padding: 0;
+            margin: 0;
+            width: 150px;
+            height: 150px;
+            background: white;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%)
+        }
+
+        img {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+
+        }
+    </style>
+</head>
+
+<body oncontextmenu="event.preventDefault()">
+
+
+    <canvas id="canvas"></canvas>
+    <script type="text/javascript">
+
+    </script>
+
+
+
+    <div class="lock" id="lock_loader"><img id="logo" src="images/logo.png"></div>
+</body>
+
+</html>
