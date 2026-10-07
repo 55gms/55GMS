@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui, shrink-to-fit=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Knife merge 1.37</title>
+  <style type="text/css">
+	/* Disable user selection to avoid strange bug in Chrome on Windows:
+	* Selecting a text outside the canvas, then clicking+draging would
+	* drag the selected text but block mouse down/up events to the engine.
+	*/
+	body {
+	
+		position: fixed; /* Prevent overscroll */
+	
+		margin:0;
+		padding:0;
+	}
+
+	.canvas-app-container {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.canvas-app-container:-webkit-full-screen {
+		/* Auto width and height in Safari/Chrome fullscreen. */
+		width: auto;
+		height: auto;
+	}
+
+	#canvas {
+		outline: none;
+		border: 0;
+		width: 100%;
+		vertical-align: bottom;
+	}
+
+	#canvas-container {
+		position: relative;
+	}
+
+	canvas:focus, canvas:active {
+		outline: none;
+		border: 0;
+		ie-dummy: expression(this.hideFocus=true);
+		-moz-outline-style: none;
+	}
+
+	div {
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	
+	.outer {
+		width: 100%;
+		height: 100px;		
+		text-align: center;		
+	}
+
+	.outer:after {
+		display: inline-block;
+		height: 100%;
+		vertical-align: bottom;
+		content: "";
+	}
+
+	.inner {
+		display: inline-block;		
+		position:fixed;bottom:0;z-index:19;margin-left:auto;margin-right:auto;left:0;right:0;
+
+		vertical-align: bottom;
+		
+	}	
+	.myprogress {
+		position: fixed;
+		inset: 0;
+		z-index: 20;
+		display: flex;
+		box-sizing: border-box;
+		align-items: center;
+		justify-content: center;
+		padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
+		background: #ffffff;
+		color: #185da1;
+	}
+
+	.loading-content {
+		display: flex;
+		width: 100%;
+		max-width: 520px;
+		flex-direction: column;
+		align-items: center;
+		transform: translateY(-2vh);
+	}
+
+	.loading-illustration {
+		display: block;
+		width: min(45vw, 150px, 28vh);
+		height: auto;
+		aspect-ratio: 1;
+		object-fit: contain;
+		border-radius: 20px;
+	}
+
+	.loading-progress {
+		--loading-progress: 0%;
+		position: relative;
+		box-sizing: border-box;
+		width: min(100%, 260px);
+		margin-top: 24px;
+		padding-top: 0;
+	}
+
+	.loading-percent {
+		position: absolute;
+		bottom: -30px;
+		right: 0;
+		box-sizing: border-box;
+		color: #185da1;
+		font: 600 14px/18px Arial, sans-serif;
+		text-align: center;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.loading-progress-track {
+		display: grid;
+		grid-template-columns: repeat(25, minmax(0, 1fr));
+		gap: clamp(2px, 0.45vw, 4px);
+		width: 100%;
+	}
+
+	.loading-progress-segment {
+		box-sizing: border-box;
+		height: 8px;
+		border-radius: 3px;
+		background: #e3edf7;
+		transition: background-color 120ms linear, border-color 120ms linear;
+	}
+
+	.loading-progress-segment.is-filled {
+		border-color: #185da1;
+		background: #185da1;
+	}
+
+	.loading-label {
+		width: min(100%, 260px);
+		margin-top: 12px;
+		font: 600 12px/18px Arial, sans-serif;
+		letter-spacing: 0.08em;
+		white-space: nowrap;
+	}
+
+	@media (max-height: 560px) {
+		.loading-content {
+			transform: none;
+		}
+
+		.loading-illustration {
+			width: min(45vw, 120px, 30vh);
+		}
+
+		.loading-progress {
+			margin-top: 12px;
+			padding-top: 0;
+		}
+
+		.loading-label {
+			margin-top: 12px;
+		}
+	}
+
+	.myprogress[hidden], .loading-recovery[hidden] { display: none; }
+	.loading-recovery { max-width: 360px; text-align: center; font: 16px/1.5 Arial, sans-serif; }
+	.loading-recovery h1 { margin: 20px 0 8px; font-size: 24px; text-wrap: balance; }
+	.loading-retry {
+		min-height: 48px;
+		padding: 12px 28px;
+		border: 0;
+		border-radius: 12px;
+		background: #185da1;
+		color: white;
+		font: bold 16px Arial, sans-serif;
+		cursor: pointer;
+		transition: transform 120ms ease-out;
+	}
+	.loading-retry:active { transform: scale(0.96); }
+	.loading-retry:focus-visible { outline: 3px solid #ffad32; outline-offset: 4px; }
+	@media (prefers-reduced-motion: reduce) {
+		.loading-progress-segment, .loading-retry { transition: none; }
+	}
+		.canvas-app-progress {
+		position: absolute;
+		background-color: #d1dbeb;
+		height: 6px;
+		margin-top: -6px;
+		width: 100%;
+	}
+
+	.canvas-app-progress-bar {
+		font-size: 12px;
+		height: 6px;
+		color: rgb(255, 255, 255);
+		background-color: #1a72eb;
+		text-align: center;
+		line-height: 20px;
+	}
+
+
+	.link, .button {
+		font-family: sans-serif;
+		font-size: 14px;
+		font-weight: normal;
+		font-style: normal;
+		font-stretch: normal;
+		line-height: normal;
+		letter-spacing: 0px;
+		padding-top: 12px;
+	}
+
+	.buttons-background {
+		background-color: #ffffff;
+		width: 100%;
+		height: 42px;
+	}
+
+	body {
+		background-color: #d7d7d7;		
+	}
+
+	.canvas-app-container {
+		background: rgba(250,252,255,1);
+		background: -moz-linear-gradient(-45deg, rgba(250,252,255,1) 0%, rgba(250,252,255,1) 50%, rgba(245,249,255,1) 50%, rgba(245,249,255,1) 100%);
+		background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(250,252,255,1)), color-stop(50%, rgba(250,252,255,1)), color-stop(50%, rgba(245,249,255,1)), color-stop(100%, rgba(245,249,255,1)));
+		background: -webkit-linear-gradient(-45deg, rgba(250,252,255,1) 0%, rgba(250,252,255,1) 50%, rgba(245,249,255,1) 50%, rgba(245,249,255,1) 100%);
+		background: -o-linear-gradient(-45deg, rgba(250,252,255,1) 0%, rgba(250,252,255,1) 50%, rgba(245,249,255,1) 50%, rgba(245,249,255,1) 100%);
+		background: -ms-linear-gradient(-45deg, rgba(250,252,255,1) 0%, rgba(250,252,255,1) 50%, rgba(245,249,255,1) 50%, rgba(245,249,255,1) 100%);
+		background: linear-gradient(135deg, rgba(250,252,255,1) 0%, rgba(250,252,255,1) 50%, rgba(245,249,255,1) 50%, rgba(245,249,255,1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafcff', endColorstr='#f5f9ff', GradientType=1 );
+	}
+
+	.canvas-app-canvas {
+		background-repeat:no-repeat;
+		background-position: center center;
+
+		background-image: url("gui_logo_en.png");
+
+
+	}
+	</style>
+  <script defer src="poki-sdk.js" onload="poki_sdk_loaded()"></script>
+ </head>
+ <body>
+  <div id="app-container" class="canvas-app-container">
+   <div id="canvas-container" class="canvas-app-canvas-container">
+    <canvas id="canvas" class="canvas-app-canvas" tabindex="1" width="700" height="1100"></canvas>
+   </div>
+   <div class="buttons-background"></div>
+  </div>
+  <div id="myprogress" class="myprogress" aria-label="Game loading">
+   <div class="loading-content">
+    <img class="loading-illustration" src="gui_logo_en.png" alt="" aria-hidden="true">
+    <div id="loading-progress" class="loading-progress" role="progressbar" aria-label="Loading game" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+     <div id="loading-percent" class="loading-percent">0%</div>
+     <div id="loading-progress-track" class="loading-progress-track" aria-hidden="true">
+      <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span> <span class="loading-progress-segment"></span>
+     </div>
+    </div>
+    <div id="loading-label" class="loading-label">LOADING...</div>
+    <div id="loading-recovery" class="loading-recovery" role="alert" hidden>
+     <h1 id="loading-error-title">Let's try again</h1>
+     <p id="loading-error-message">Loading was interrupted. Reload the game to continue.</p>
+     <button id="loading-retry" class="loading-retry" type="button">Reload game</button>
+    </div>
+   </div>
+  </div>
+  <!-- -->
+  <script id="engine-loader" type="text/javascript" src="dmloader.js"></script>
+  <script id="web-helpers" type="text/javascript">
+	function addJavaScript(src, type) {
+		return new Promise(function(resolve, reject) {
+			var script = document.createElement("script");
+			script.src = src;
+			if (type) {
+				script.type = type;
+			}
+			script.addEventListener("load", resolve);
+			script.addEventListener("error", reject);
+			document.head.appendChild(script);
+		});
+	}
+
+	function Timer(seconds) {
+		var self = this;
+		self.seconds = seconds;
+		self.isCompleted = false;
+		self._timer = setInterval(function() {
+			self.seconds -= 1;
+			if (self.seconds <= 0) {
+				self.seconds = 0;
+				self.isCompleted = true;
+				clearInterval(self._timer);
+			}
+		}, 1000);
+	}
+
+	function isMobileDevice() {
+		return (typeof window.orientation !== "undefined") || /Android|iPhone|iPad|iPod|Mobile|IEMobile/i.test(navigator.userAgent);
+	}
+
+	var isMobile = {
+		Android: function() { return /Android/i.test(navigator.userAgent); },
+		BlackBerry: function() { return /BlackBerry/i.test(navigator.userAgent); },
+		iOS: function() { return /iPhone|iPad|iPod/i.test(navigator.userAgent); },
+		Opera: function() { return /Opera Mini/i.test(navigator.userAgent); },
+		Windows: function() { return /IEMobile/i.test(navigator.userAgent); },
+		Kindle: function() { return /Silk/i.test(navigator.userAgent); },
+		any: function() {
+			return isMobile.Kindle() || isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows();
+		}
+	};
+	</script>
+  <!-- -->
+  <script id="loading-ui" type="text/javascript">
+	(function() {
+		var screen = document.getElementById("myprogress");
+		var progress = document.getElementById("loading-progress");
+		var percent_label = document.getElementById("loading-percent");
+		var label = document.getElementById("loading-label");
+		var segments = document.querySelectorAll(".loading-progress-segment");
+		var recovery = document.getElementById("loading-recovery");
+		var canvas = document.getElementById("canvas");
+		var failed = false;
+		var percent = 0;
+
+		function show_error(title, message) {
+			failed = true;
+			screen.hidden = false;
+			progress.hidden = true;
+			label.hidden = true;
+			recovery.hidden = false;
+			canvas.inert = true;
+			document.getElementById("loading-error-title").textContent = title;
+			document.getElementById("loading-error-message").textContent = message;
+		}
+
+		Progress.addListener(function(value) {
+			if (failed || typeof value !== "number" || !isFinite(value)) return;
+			// Download completion is not engine readiness. Keep the screen until main starts.
+			percent = Math.max(percent, Math.min(99, Math.max(0, Math.floor(value))));
+			percent_label.textContent = percent + "%";
+			label.textContent = percent >= 90 ? "STARTING..." : "LOADING...";
+			progress.style.setProperty("--loading-progress", percent + "%");
+			progress.setAttribute("aria-valuenow", String(percent));
+			for (var i = 0; i < segments.length; i++) {
+				segments[i].classList.toggle("is-filled", i < Math.floor(percent * segments.length / 100));
+			}
+		});
+
+		var previous_start_success = CUSTOM_PARAMETERS.start_success;
+		CUSTOM_PARAMETERS.start_success = function() {
+			// start_success runs before main; allow synchronous graphics errors to surface.
+			setTimeout(function() {
+				if (!failed) screen.hidden = true;
+			}, 0);
+			previous_start_success.apply(this, arguments);
+		};
+		var previous_start_error = CUSTOM_PARAMETERS.start_error;
+		CUSTOM_PARAMETERS.start_error = function(error) {
+			show_error("Let's try again", "Loading was interrupted. Reload the game to continue.");
+			previous_start_error.apply(this, arguments);
+		};
+		CUSTOM_PARAMETERS.unsupported_webgl_callback = function() {
+			show_error("Graphics unavailable", "Your browser couldn't start the game. Try reloading or restarting your browser.");
+		};
+		canvas.addEventListener("webglcontextlost", function(event) {
+			event.preventDefault();
+			show_error("Game interrupted", "The game's graphics were interrupted. Reload the game to continue.");
+			console.warn("[Knife Merge] Graphics context lost; waiting for player to reload.");
+		});
+		// Restoring a WebGL context does not recreate Defold's graphics resources.
+		// Keep recovery visible until the player explicitly reloads, avoiding reload loops.
+		document.getElementById("loading-retry").addEventListener("click", function() {
+			window.location.reload();
+		});
+	}());
+	</script>
+  <!-- -->
+  <script id="engine-setup" type="text/javascript">
+	var extra_params = {
+		archive_location_filter: function( path ) {
+			return ("archive" + path + "");
+		},
+		engine_arguments: ["--verify-graphics-calls=false",],
+		custom_heap_size: 134217728,
+		full_screen_container: "#canvas-container",
+		disable_context_menu: true
+	}
+
+	Module['onRuntimeInitialized'] = function() {
+		Module.runApp("canvas", extra_params);
+	};
+
+	Module["locateFile"] = function(path, scriptDirectory)
+	{
+		// dmengine*.wasm is hardcoded in the built JS loader for WASM,
+		// we need to replace it here with the correct project name.
+		if (path == "dmengine.wasm" || path == "dmengine_release.wasm" || path == "dmengine_headless.wasm") {
+			path = "Knifemerge.wasm";
+		}
+		return scriptDirectory + path;
+	};
+
+	var is_iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+	var buttonHeight = 0;
+
+
+	// Resize on init, screen resize and orientation change
+	function resize_game_canvas() {
+		// Hack for iOS when exit from Fullscreen mode
+		if (is_iOS) {
+			window.scrollTo(0, 0);
+		}
+
+		var app_container = document.getElementById('app-container');
+		var game_canvas = document.getElementById('canvas');
+		var innerWidth = window.innerWidth;
+		var innerHeight = window.innerHeight - buttonHeight;
+		if (innerWidth <= 0 || innerHeight <= 0) return;
+		var width = 700;
+		var height = 1100;
+		var targetRatio = width / height;
+		var actualRatio = innerWidth / innerHeight;
+	
+	
+		//Stretch
+		width = innerWidth;
+		height = innerHeight;
+	
+	
+	
+		app_container.style.width = width + "px";
+		app_container.style.height = height + buttonHeight + "px";
+		// Use one resize owner, with a bounded high-DPI buffer on large/mobile screens.
+		var dpi = 1;
+	
+		dpi = Math.min(window.devicePixelRatio || 1, 2);
+	
+		var buffer_scale = Math.min(dpi, Math.sqrt(2073600 / (width * height)));
+		var buffer_width = Math.max(1, Math.floor(width * buffer_scale));
+		var buffer_height = Math.max(1, Math.floor(height * buffer_scale));
+		if (game_canvas.width !== buffer_width) game_canvas.width = buffer_width;
+		if (game_canvas.height !== buffer_height) game_canvas.height = buffer_height;
+	}
+	resize_game_canvas();
+	CUSTOM_PARAMETERS.resize_window_callback = resize_game_canvas;
+	</script>
+  <script id="engine-start" type="text/javascript">
+		EngineLoader.load("canvas", "Knifemerge");
+	</script>
+  <div class="outer"></div>
+  <script id="poki-sdk-setup" type="text/javascript">
+		var isWasmLoaded = false;
+		var isPokiSDKInited = false;
+		var runFunc = function() {
+			if (isPokiSDKInited && isWasmLoaded) {
+				Module.runApp("canvas");
+			}
+		}
+		Module['onRuntimeInitialized'] = function() {
+			isWasmLoaded = true;
+			runFunc();
+		};
+		function poki_sdk_loaded() {
+			var data = {};
+			var isLoadFinished = false;
+			Progress.addListener(function(percentage){
+				data.percentageDone = percentage / 100;
+				if (!isLoadFinished)
+					PokiSDK.gameLoadingProgress(data);
+				if (percentage == 100 && !isLoadFinished) {
+					PokiSDK.gameLoadingFinished();
+					isLoadFinished = true;
+				}
+			});
+			PokiSDK.init().then(()=>{
+					isPokiSDKInited = true;
+					runFunc();
+				}, ()=>{
+					isPokiSDKInited = true;
+					runFunc();
+				});
+		}
+	</script>
+ </body>
+</html>
