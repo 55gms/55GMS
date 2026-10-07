@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui, shrink-to-fit=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+
+    <title>Vex X3M</title>
+
+    <link rel="icon" type="image/png" href="assets/icon.png">
+    <!-- For apple devices -->
+    <link rel="apple-touch-icon" type="image/png" href="assets/icon.png" />
+    <link rel="stylesheet" href="assets/css/app.css" type="text/css" />
+
+    <script src="azerion-libs.min.js" defer onload="loadGame()"></script>
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+    <div id="content"> </div>
+    <div id="loader">
+        <div id="loaderR"></div>
+    </div>
+    <div id="orientation"></div>
+
+    <script type="text/javascript">
+        var gameName = "vex-x3m.min.js";
+
+
+        //This all here is for cache busting;
+        function addScript(src, buster, callback) {
+            var s = document.createElement('script');
+            s.setAttribute('src', src);
+            if (typeof callback === 'function') {
+                s.onload = callback;
+            }
+            document.body.appendChild(s);
+        }
+
+        function loadGame() {
+
+
+            addScript('version.js', Date.now(), function() {
+
+                addScript(gameName, Date.now(), function() {
+                    new Game();
+                });
+
+            });
+
+
+        }
+    </script>
+</body>
+
+</html>
