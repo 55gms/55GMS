@@ -2,6 +2,8 @@
 // bytes, before Unity's own decompression, and include all initial split-file
 // downloads. Loaded from <head>, it creates its own overlay. Imported ports
 // download through it; games with their own template call unity() instead.
+// Other engines (Godot, Emscripten, Defold) call track() and report when the
+// game is running.
 window.GameLoader = (() => {
   const overlay = document.getElementById("game-loading") ?? createOverlay();
   const ui = LoaderUI.mount(overlay);
@@ -13,6 +15,7 @@ window.GameLoader = (() => {
   let expected = 0;
   let failed = false;
   let starting = false;
+  let tracking = false;
 
   function createOverlay() {
     const element = document.createElement("div");
@@ -31,6 +34,7 @@ window.GameLoader = (() => {
       (pending ? 0 : [...sizes.values()].reduce((sum, size) => sum + size, 0));
     const done =
       starting ||
+      (tracking && expected > 0 && loaded >= expected) ||
       (sizes.size > 0 &&
         completed === sizes.size &&
         completed === downloads.size);
@@ -192,6 +196,16 @@ window.GameLoader = (() => {
     };
   }
 
+  // Loading screen for other engines that download their own files. `paths`
+  // are the files to count and `bytes` their combined size. The page's loading
+  // code is left untouched: it calls finish() once the game is running, or
+  // fail(). Call it before the page's game scripts.
+  function track(paths, bytes) {
+    tracking = true;
+    watch(paths);
+    expect(bytes);
+  }
+
   // Loading screen for Unity games that boot from their own page template.
   // `files` lists the [path, bytes] the engine downloads; the game's loading
   // code is left untouched and only its requests and startup are observed.
@@ -339,6 +353,7 @@ window.GameLoader = (() => {
     expect,
     measure,
     unity,
+    track,
     status,
     download,
     objectUrl,
