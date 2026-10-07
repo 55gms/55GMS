@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui, shrink-to-fit=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>HCR Lite 1.3.0</title>
+  <style type="text/css">
+	/* Disable user selection to avoid strange bug in Chrome on Windows:
+	* Selecting a text outside the canvas, then clicking+draging would
+	* drag the selected text but block mouse down/up events to the engine.
+	*/
+	body {
+	
+		position: fixed; /* Prevent overscroll */
+	
+		width: 100%;
+		height: 100%;
+		margin:0;
+		padding:0;
+		background-color: #1e2226;
+	}
+
+	.canvas-app-container {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.canvas-app-container:-webkit-full-screen {
+		/* Auto width and height in Safari/Chrome fullscreen. */
+		width: auto;
+		height: auto;
+	}
+
+	#canvas {
+		outline: none;
+		border: 0;
+		width: 100%;
+		vertical-align: bottom;
+	}
+
+	#canvas-container {
+		position: relative;
+	}
+
+	canvas:focus, canvas:active {
+		outline: none;
+		border: 0;
+		ie-dummy: expression(this.hideFocus=true);
+		-moz-outline-style: none;
+	}
+
+	div {
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	.canvas-app-progress {
+		position: absolute;
+		background-color: #394046;
+		height: 25px;
+		margin-top: -25px;
+		width: 100%;
+	}
+
+	.canvas-app-progress-bar {
+		font-size: 12px;
+		height: 25px;
+		color: rgb(255, 255, 255);
+		background-color: #3cdd0b;
+		text-align: center;
+		line-height: 20px;
+		transition: transform 1s ease;
+		transform-origin: left;
+		transform: scaleX(1.0);
+	}
+	
+
+
+
+	.canvas-app-container {
+		background: rgba(36,41,46,1);
+		background: -moz-linear-gradient(-45deg, rgba(36,41,46,1) 0%, rgba(36,41,46,1) 49%, rgba(38,43,49,1) 50%, rgba(38,43,49,1) 100%);
+		background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(36,41,46,1)), color-stop(49%, rgba(36,41,46,1)), color-stop(50%, rgba(38,43,49,1)), color-stop(100%, rgba(38,43,49,1)));
+		background: -webkit-linear-gradient(-45deg, rgba(36,41,46,1) 0%, rgba(36,41,46,1) 49%, rgba(38,43,49,1) 50%, rgba(38,43,49,1) 100%);
+		background: -o-linear-gradient(-45deg, rgba(36,41,46,1) 0%, rgba(36,41,46,1) 49%, rgba(38,43,49,1) 50%, rgba(38,43,49,1) 100%);
+		background: -ms-linear-gradient(-45deg, rgba(36,41,46,1) 0%, rgba(36,41,46,1) 49%, rgba(38,43,49,1) 50%, rgba(38,43,49,1) 100%);
+		background: linear-gradient(135deg, rgba(36,41,46,1) 0%, rgba(36,41,46,1) 49%, rgba(38,43,49,1) 50%, rgba(38,43,49,1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#24292e', endColorstr='#262b31', GradientType=1 );
+	}
+
+	.canvas-app-canvas {
+		background-repeat:no-repeat;
+		background-position: center center;
+		background-image: url("fingersoft-logo.png");
+	}
+	</style>
+  <script defer src="poki-sdk.js" onload="poki_sdk_loaded()"></script>
+ </head>
+ <body>
+  <div id="app-container" class="canvas-app-container">
+   <div id="canvas-container" class="canvas-app-canvas-container">
+    <canvas id="canvas" class="canvas-app-canvas" tabindex="1" width="836" height="470"></canvas>
+   </div>
+  </div>
+  <!-- -->
+  <script id="engine-loader" type="text/javascript" src="dmloader.js"></script>
+  <script id="engine-setup" type="text/javascript">
+		// From here you can configure game startup parameters via the CUSTOM_PARAMETERS object,
+		// override ProgressView to create your own loader. See dmloader.js for more details.
+		var engine_arguments = ["--verify-graphics-calls=false",]
+		engine_arguments.push("--verify-graphics-calls=false")
+	var extra_params = {
+		archive_location_filter: function( path ) {
+			return ("archive" + path + "");
+		},
+		engine_arguments:engine_arguments,
+		custom_heap_size: 268435456,
+		full_screen_container: "#canvas-container",
+		disable_context_menu: true
+	}
+
+	Module['INITIAL_MEMORY'] = extra_params.custom_heap_size;
+
+	Module['onRuntimeInitialized'] = function() {
+		Module.runApp("canvas", extra_params);
+	};
+
+	Module["locateFile"] = function(path, scriptDirectory)
+	{
+		// dmengine*.wasm is hardcoded in the built JS loader for WASM,
+		// we need to replace it here with the correct project name.
+		if (path == "dmengine.wasm" || path == "dmengine_release.wasm" || path == "dmengine_headless.wasm") {
+			path = "HCRLite.wasm";
+		}
+		return scriptDirectory + path;
+	};
+
+	var is_iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+	var buttonHeight = 0;
+	var prevInnerWidth = -1;
+	var prevInnerHeight = -1;
+
+
+	function resize_game_canvas() {
+		// Hack for iOS when exit from Fullscreen mode
+		if (is_iOS) {
+			window.scrollTo(0, 0);
+		}
+
+		var app_container = document.getElementById('app-container');
+		var game_canvas = document.getElementById('canvas');
+		var innerWidth = window.innerWidth;
+		var innerHeight = window.innerHeight - buttonHeight;
+		if (prevInnerWidth == innerWidth && prevInnerHeight == innerHeight)
+		{
+			return;
+		}
+		prevInnerWidth = innerWidth;
+		prevInnerHeight = innerHeight;
+		var width = 836;
+		var height = 470;
+		var targetRatio = width / height;
+		var actualRatio = innerWidth / innerHeight;
+	
+	
+		//Stretch
+		width = innerWidth;
+		height = innerHeight;
+	
+	
+	
+		app_container.style.width = width + "px";
+		app_container.style.height = height + buttonHeight + "px";
+		game_canvas.width = width;
+		game_canvas.height = height;
+	}
+	resize_game_canvas();
+	window.addEventListener('resize', resize_game_canvas, false);
+	window.addEventListener('orientationchange', resize_game_canvas, false);
+	window.addEventListener('focus', resize_game_canvas, false);
+	</script>
+  <script id="engine-start" type="text/javascript">
+		var runningFromFileWarning = document.getElementById("running-from-file-warning");
+		if (window.location.href.startsWith("file://")) {
+			runningFromFileWarning.style.display = "block";
+		}
+		else {
+			EngineLoader.load("canvas", "HCRLite");
+			//runningFromFileWarning.parentNode.removeChild(runningFromFileWarning);
+		}
+	</script>
+  <script id="poki-sdk-setup" type="text/javascript">
+		var isWasmLoaded = false;
+		var isPokiSDKInited = false;
+		var runFunc = function() {
+			if (isPokiSDKInited && isWasmLoaded) {
+				Module.runApp("canvas");
+			}
+		}
+		Module['onRuntimeInitialized'] = function() {
+			isWasmLoaded = true;
+			runFunc();
+		};
+		function poki_sdk_loaded() {
+			var data = {};
+			var isLoadFinished = false;
+			Progress.addListener(function(percentage){
+				data.percentageDone = percentage / 100;
+				if (!isLoadFinished)
+					PokiSDK.gameLoadingProgress(data);
+				if (percentage == 100 && !isLoadFinished) {
+					PokiSDK.gameLoadingFinished();
+					isLoadFinished = true;
+				}
+			});
+			PokiSDK.init().then(()=>{
+					isPokiSDKInited = true;
+					runFunc();
+				}, ()=>{
+					isPokiSDKInited = true;
+					runFunc();
+				});
+		}
+	</script>
+ </body>
+</html>
