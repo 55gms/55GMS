@@ -41,5 +41,8 @@
     "sequelize": {
       "uuid": "$uuid"
     }
+  },
+  "devDependencies": {
+    "playwright-core": "^1.63.0"
   }
 }
