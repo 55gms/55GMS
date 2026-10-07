@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Ragdoll fall</title>
+	<script>
+	window.config = {
+		loader: 'unity-2020',
+		debug: false,
+		maxRatio: 24 / 9,
+		minRatio: 9 / 24,
+
+		title: 'Ragdoll Drop',
+		thumbnail: 'https:\/\/img.poki-cdn.com\/518d4d2ed6c3c1b00930ba6313783c94.jfif',
+		numScreenshots:  3 ,
+
+		unityVersion: '2022.3.62f3',
+		unityWebglBuildUrl: '',
+
+		fileSize:  8 ,
+		cachedDecompressedFileSizes: {
+			'410e5115a82fe21daf3dff2040631f21.wasm.unityweb':  4560872 ,
+			'5b8ea49647417e58b78803801eb7506f.framework.js.unityweb':  65590 ,
+			'64cbab5583908a093c59d52635bffa4b.data.unityweb':  4014360 ,
+			'813700ccfaf64a0a3c57e3aa3166490b.loader.js':  114207 ,
+		},
+		"metadata": {"poki_template_version":1,"background_color":"#231F20","code_filename":"410e5115a82fe21daf3dff2040631f21.wasm.unityweb","company_name":"Ericetto","data_filename":"64cbab5583908a093c59d52635bffa4b.data.unityweb","decompression_fallback":"Brotli","development_player":"false","framework_filename":"5b8ea49647417e58b78803801eb7506f.framework.js.unityweb","height":"600","loader_filename":"813700ccfaf64a0a3c57e3aa3166490b.loader.js","product_name":"ragdoll-drop","product_version":"0.1","splash_screen_style":"Dark","unity_version":"2022.3.62f3","use_data_caching":"true","use_threads":"false","use_wasm":"true","use_webgl_1_0":"true","use_webgl_2_0":"true","width":"960"}
+	};
+	</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<style>
+  html, body { margin:0; height:100%; background:#333333; overscroll-behavior:none; touch-action:none; }
+  #unity-container, #unity-canvas { width:100vw; height:100dvh; }
+  #gameContainer, canvas#gameCanvas { width:100vw; height:100dvh; }
+  #unity-container, #gameContainer {
+    position:fixed; inset:0; box-sizing:border-box;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+  @supports not (height: 100dvh) {
+    #unity-container, #unity-canvas, #gameContainer, canvas#gameCanvas { height:100svh; }
+  }
+</style>
+</head>
+<body>
+	<script src="poki/master-loader.js"></script>
+</body>
+</html>
