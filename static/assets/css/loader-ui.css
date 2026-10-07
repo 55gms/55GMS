@@ -78,13 +78,12 @@
   text-shadow: none;
   -webkit-font-smoothing: antialiased;
   transition:
-    opacity 420ms ease 240ms,
-    visibility 0s linear 660ms;
+    opacity 420ms ease 140ms,
+    visibility 0s linear 560ms;
 }
 
-/* Leave cleanly when the loader hides the overlay: the bar closes in on its
-   centre, the rest lifts away piece by piece, then the backdrop fades to
-   reveal the game. */
+/* Leave cleanly when the loader hides the overlay: the content lifts away,
+   then the backdrop fades to reveal the game. */
 .loader-ui:is(#game-loading, #unity-cdn-loading)[hidden] {
   display: flex;
   visibility: hidden;
@@ -97,10 +96,18 @@
   flex-direction: column;
   align-items: center;
   width: min(640px, calc(100vw - 48px));
+  transition:
+    opacity 300ms ease,
+    transform 460ms var(--loader-ease);
 }
 
 .loader[hidden] {
   display: none;
+}
+
+.loader-ui[hidden] .loader {
+  opacity: 0;
+  transform: translateY(-36px) scale(0.97);
 }
 
 /* Each piece drops in from the top, one after another. */
@@ -118,36 +125,6 @@
 
 .loader > :nth-child(4) {
   animation-delay: 210ms;
-}
-
-/* On the way out the order flips: the bar goes first and the cover last. */
-.loader-ui[hidden] .loader > * {
-  animation: loader-leave 380ms ease-in both;
-}
-
-.loader-ui[hidden] .loader > .loader-progress {
-  animation: none;
-}
-
-.loader-ui[hidden] .loader > .loader-live {
-  animation-delay: 50ms;
-}
-
-.loader-ui[hidden] .loader > .loader-title {
-  animation-delay: 110ms;
-}
-
-.loader-ui[hidden] .loader > .loader-cover {
-  animation: loader-launch 380ms ease-in 170ms both;
-}
-
-.loader-ui[hidden] .loader-track,
-.loader-ui[data-state="error"] .loader-track {
-  animation: loader-bar-out 340ms var(--loader-ease) both;
-}
-
-.loader-ui[hidden] .loader-meta {
-  animation: loader-fade-out 220ms ease both;
 }
 
 .loader-cover {
@@ -334,13 +311,7 @@
   display: none;
 }
 
-/* The bar has nothing left to report: it closes up and the message below
-   slides into its place. */
-.loader-ui[data-state="error"] .loader-progress {
-  overflow: hidden;
-  animation: loader-collapse 420ms var(--loader-ease) both;
-}
-
+.loader-ui[data-state="error"] .loader-progress,
 .loader-ui[data-state="error"] .loader-speed {
   display: none;
 }
@@ -398,50 +369,6 @@
   from {
     opacity: 0;
     transform: translateY(-48px);
-  }
-}
-
-@keyframes loader-leave {
-  to {
-    opacity: 0;
-    transform: translateY(-28px) scale(0.96);
-  }
-}
-
-@keyframes loader-launch {
-  to {
-    opacity: 0;
-    transform: scale(1.14);
-  }
-}
-
-@keyframes loader-bar-out {
-  from {
-    clip-path: inset(0 0 round 999px);
-  }
-
-  to {
-    opacity: 0;
-    clip-path: inset(0 50% round 999px);
-  }
-}
-
-@keyframes loader-fade-out {
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes loader-collapse {
-  from {
-    max-height: 80px;
-  }
-
-  to {
-    max-height: 0;
-    margin-top: 0;
-    opacity: 0;
-    visibility: hidden;
   }
 }
 
@@ -533,20 +460,17 @@
       visibility 0s linear 200ms;
   }
 
+  .loader,
   .loader-art,
   .loader-reload {
     transition: none;
   }
 
-  .loader-ui[data-state="error"] .loader-progress {
-    display: none;
+  .loader-ui[hidden] .loader {
+    transform: none;
   }
 
   .loader > *,
-  .loader-ui[hidden] .loader > *,
-  .loader-ui[hidden] .loader-meta,
-  .loader-ui:is([hidden], [data-state="error"]) .loader-track,
-  .loader-ui[data-state="error"] .loader-progress,
   .loader-fill,
   .loader-ui[data-state] .loader-status,
   .loader-ui[data-state="starting"] .loader-cover {
