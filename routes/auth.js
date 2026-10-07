@@ -4,6 +4,7 @@ import defaultAccounts, {
   ACCOUNT_WRITES_FROZEN_ERROR,
   areAccountWritesFrozen,
 } from "../services/accounts.js";
+import { clearSessionCookie, setSessionCookie } from "../utils/sessionToken.js";
 
 async function verifyHcaptcha(captchaResponse) {
   const captchaVerifyResponse = await axios.post(
@@ -56,6 +57,7 @@ export function createAuthRouter({
 
       const user = await accounts.createUser({ username, password });
 
+      setSessionCookie(req, res, user.uuid);
       res.status(200).json(user);
     } catch (error) {
       res
@@ -78,10 +80,16 @@ export function createAuthRouter({
         return res.status(500).json({ error: "Invalid Email or password" });
       }
 
+      setSessionCookie(req, res, user.uuid);
       res.status(200).json(user);
     } catch (error) {
       res.status(500).json({ error: "Invalid Email or password" });
     }
+  });
+
+  router.post("/logout", (req, res) => {
+    clearSessionCookie(req, res);
+    res.status(200).json({ success: true });
   });
 
   return router;

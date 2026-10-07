@@ -451,7 +451,10 @@
             localStorage.removeItem("uuid");
             localStorage.removeItem("username");
             localStorage.removeItem("premium");
-            location.href = "/profile";
+            // Clear the session cookie before leaving the page.
+            fetch("/api/logout", { method: "POST" })
+              .catch(() => {})
+              .finally(() => (location.href = "/profile"));
           });
       })();
     </script>
