@@ -1,0 +1,391 @@
+
+skeleton.png
+size: 1024,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arm1
+  rotate: false
+  xy: 714, 91
+  size: 14, 35
+  orig: 14, 35
+  offset: 0, 0
+  index: -1
+arm1_ghost
+  rotate: false
+  xy: 212, 2
+  size: 18, 39
+  orig: 24, 45
+  offset: 2, 5
+  index: -1
+arm1_mummy
+  rotate: true
+  xy: 672, 28
+  size: 16, 36
+  orig: 16, 36
+  offset: 0, 0
+  index: -1
+arm1_skeleton
+  rotate: false
+  xy: 698, 90
+  size: 14, 36
+  orig: 22, 43
+  offset: 2, 7
+  index: -1
+arm1_zombie
+  rotate: false
+  xy: 722, 54
+  size: 14, 35
+  orig: 14, 35
+  offset: 0, 0
+  index: -1
+arm2
+  rotate: true
+  xy: 676, 11
+  size: 15, 33
+  orig: 15, 33
+  offset: 0, 0
+  index: -1
+arm2_ghost
+  rotate: false
+  xy: 252, 4
+  size: 19, 37
+  orig: 25, 44
+  offset: 1, 5
+  index: -1
+arm2_mummy
+  rotate: true
+  xy: 565, 9
+  size: 17, 33
+  orig: 17, 34
+  offset: 0, 0
+  index: -1
+arm2_skeleton
+  rotate: false
+  xy: 704, 53
+  size: 16, 35
+  orig: 23, 41
+  offset: 1, 5
+  index: -1
+arm2_zombie
+  rotate: true
+  xy: 710, 36
+  size: 15, 33
+  orig: 15, 33
+  offset: 0, 0
+  index: -1
+arm3
+  rotate: false
+  xy: 600, 9
+  size: 15, 17
+  orig: 15, 17
+  offset: 0, 0
+  index: -1
+arm3_mummy
+  rotate: false
+  xy: 600, 9
+  size: 15, 17
+  orig: 15, 17
+  offset: 0, 0
+  index: -1
+arm3_ghost
+  rotate: false
+  xy: 508, 5
+  size: 20, 21
+  orig: 26, 28
+  offset: 1, 5
+  index: -1
+arm3_skeleton
+  rotate: false
+  xy: 545, 6
+  size: 18, 20
+  orig: 23, 26
+  offset: 1, 5
+  index: -1
+arm3_zombie
+  rotate: false
+  xy: 617, 9
+  size: 15, 17
+  orig: 15, 17
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 418, 60
+  size: 14, 66
+  orig: 14, 66
+  offset: 0, 0
+  index: -1
+body_ghost
+  rotate: false
+  xy: 340, 44
+  size: 32, 82
+  orig: 37, 89
+  offset: 1, 6
+  index: -1
+body_mummy
+  rotate: false
+  xy: 401, 59
+  size: 15, 67
+  orig: 15, 67
+  offset: 0, 0
+  index: -1
+body_skeleton
+  rotate: false
+  xy: 374, 57
+  size: 25, 69
+  orig: 29, 74
+  offset: 0, 5
+  index: -1
+body_zombie
+  rotate: false
+  xy: 434, 60
+  size: 14, 66
+  orig: 14, 66
+  offset: 0, 0
+  index: -1
+empty
+  rotate: false
+  xy: 2, 4
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+leg1_ghost
+  rotate: false
+  xy: 2, 4
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+leg2_ghost
+  rotate: false
+  xy: 2, 4
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+leg3_ghost
+  rotate: false
+  xy: 2, 4
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+gun1
+  rotate: true
+  xy: 48, 8
+  size: 118, 47
+  orig: 118, 47
+  offset: 0, 0
+  index: -1
+gun1_anfas
+  rotate: true
+  xy: 152, 6
+  size: 27, 58
+  orig: 27, 58
+  offset: 0, 0
+  index: -1
+gun2
+  rotate: true
+  xy: 2, 7
+  size: 119, 44
+  orig: 119, 44
+  offset: 0, 0
+  index: -1
+gun2_anfas
+  rotate: false
+  xy: 450, 66
+  size: 20, 60
+  orig: 20, 60
+  offset: 0, 0
+  index: -1
+gun3
+  rotate: true
+  xy: 97, 33
+  size: 93, 53
+  orig: 93, 53
+  offset: 0, 0
+  index: -1
+gun3_anfas
+  rotate: false
+  xy: 438, 2
+  size: 20, 56
+  orig: 20, 56
+  offset: 0, 0
+  index: -1
+gun4
+  rotate: false
+  xy: 508, 28
+  size: 162, 47
+  orig: 162, 47
+  offset: 0, 0
+  index: -1
+gun4_anfas
+  rotate: true
+  xy: 273, 2
+  size: 40, 47
+  orig: 40, 47
+  offset: 0, 0
+  index: -1
+hat1
+  rotate: true
+  xy: 460, 14
+  size: 50, 46
+  orig: 50, 46
+  offset: 0, 0
+  index: -1
+hat2
+  rotate: false
+  xy: 97, 2
+  size: 53, 29
+  orig: 53, 29
+  offset: 0, 0
+  index: -1
+hat_christmas1
+  rotate: true
+  xy: 272, 44
+  size: 82, 66
+  orig: 82, 66
+  offset: 0, 0
+  index: -1
+hat_christmas2
+  rotate: true
+  xy: 210, 43
+  size: 83, 60
+  orig: 83, 60
+  offset: 0, 0
+  index: -1
+hat_christmas3
+  rotate: false
+  xy: 152, 35
+  size: 56, 91
+  orig: 56, 91
+  offset: 0, 0
+  index: -1
+hat_christmas4
+  rotate: false
+  xy: 374, 3
+  size: 62, 52
+  orig: 62, 52
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 655, 85
+  size: 41, 41
+  orig: 41, 41
+  offset: 0, 0
+  index: -1
+head_ghost
+  rotate: false
+  xy: 519, 81
+  size: 45, 45
+  orig: 51, 51
+  offset: 1, 5
+  index: -1
+head_mummy
+  rotate: true
+  xy: 611, 83
+  size: 43, 42
+  orig: 43, 42
+  offset: 0, 0
+  index: -1
+head_skeleton
+  rotate: false
+  xy: 472, 77
+  size: 45, 49
+  orig: 49, 52
+  offset: 0, 3
+  index: -1
+head_zombie
+  rotate: false
+  xy: 566, 82
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+leg1
+  rotate: false
+  xy: 730, 91
+  size: 13, 35
+  orig: 13, 35
+  offset: 0, 0
+  index: -1
+leg1_mummy
+  rotate: false
+  xy: 687, 47
+  size: 15, 36
+  orig: 15, 36
+  offset: 0, 0
+  index: -1
+leg1_skeleton
+  rotate: false
+  xy: 672, 46
+  size: 13, 37
+  orig: 21, 43
+  offset: 2, 6
+  index: -1
+leg1_zombie
+  rotate: false
+  xy: 738, 54
+  size: 13, 35
+  orig: 13, 35
+  offset: 0, 0
+  index: -1
+leg2
+  rotate: false
+  xy: 340, 5
+  size: 15, 37
+  orig: 15, 37
+  offset: 0, 0
+  index: -1
+leg2_mummy
+  rotate: false
+  xy: 322, 5
+  size: 16, 37
+  orig: 16, 37
+  offset: 0, 0
+  index: -1
+leg2_skeleton
+  rotate: false
+  xy: 232, 3
+  size: 18, 38
+  orig: 24, 45
+  offset: 0, 7
+  index: -1
+leg2_zombie
+  rotate: false
+  xy: 357, 5
+  size: 15, 37
+  orig: 15, 37
+  offset: 0, 0
+  index: -1
+leg3
+  rotate: true
+  xy: 634, 9
+  size: 17, 12
+  orig: 17, 12
+  offset: 0, 0
+  index: -1
+leg3_mummy
+  rotate: true
+  xy: 648, 9
+  size: 17, 12
+  orig: 17, 12
+  offset: 0, 0
+  index: -1
+leg3_skeleton
+  rotate: true
+  xy: 530, 5
+  size: 21, 13
+  orig: 25, 20
+  offset: 0, 5
+  index: -1
+leg3_zombie
+  rotate: true
+  xy: 662, 9
+  size: 17, 12
+  orig: 17, 12
+  offset: 0, 0
+  index: -1
