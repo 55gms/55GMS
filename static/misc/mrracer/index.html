@@ -1,135 +1,39 @@
+
 <!DOCTYPE html>
-<html lang="en-us">
-
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | MR RACER</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
-    <script src="/assets/js/loader-ui.js?v=4pgt4ltcze"></script>
-    <script src="/assets/js/game-loader.js?v=4pgt4ltcze" data-title="MR RACER"></script>
-    <script>
-      GameLoader.unity([
-        ["Build/9b1d1854608e81cc4b9f67c6578868dc.data.unityweb", 29403447],
-        ["Build/9bcd7f48f2381546f8d8c480fdd9e099.js.unityweb", 72947],
-        ["Build/ffbf0f73344f3d3e11191c1b791b2d30.wasm.unityweb", 8806695],
-      ]);
-    </script>
-    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@master/static/misc/mrracer/">
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>MR RACER - Car Racing</title>
+	<script>
+	window.config = {
+		loader: 'unity-2020',
+		debug: false,
+		maxRatio: 24 / 9,
+		minRatio: 9 / 24,
+
+		title: 'MR RACER - Car Racing',
+		thumbnail: './972a0e3dabb998d2fb8fce785e2c1fa4.jfif',
+		numScreenshots:  4 ,
+
+		unityVersion: '2022.3.14f1',
+		unityWebglBuildUrl: '',
+
+		fileSize:  31 ,
+		cachedDecompressedFileSizes: {
+			'02be9d9ae1a531c86986db347028ed68.js.unityweb':  83637 ,
+			'3d66475d0720d2344c040d4ced6ed87f.wasm.unityweb':  10656949 ,
+			'MRR_Poki_5.loader.js':  44284 ,
+			'b9d584e8cb4b4da7f12a62a30c8c2e81.data.unityweb':  20837749 ,
+		},
+		"metadata": {"poki_template_version":1,"background_color":"#000000","code_filename":"3d66475d0720d2344c040d4ced6ed87f.wasm.unityweb","company_name":"ChennaiGames","data_filename":"b9d584e8cb4b4da7f12a62a30c8c2e81.data.unityweb","decompression_fallback":"Gzip","development_player":"false","framework_filename":"02be9d9ae1a531c86986db347028ed68.js.unityweb","height":"600","loader_filename":"MRR_Poki_5.loader.js","product_name":"MR RACER","product_version":"1.5.6.2","splash_screen_style":"Dark","unity_version":"2022.3.14f1","use_data_caching":"true","use_threads":"false","use_wasm":"true","use_webgl_1_0":"false","use_webgl_2_0":"true","width":"960"}
+	};
+	</script>
+<!-- will be copied to the resulting head //-->
 </head>
-
 <body>
-    <div id="unity-container" style="position: absolute; width: 100%; height: 100%; left: 0%; top: 0%;">
-        <canvas id="unity-canvas" style="position: absolute; width: 100%; height: 100%;"></canvas>
-        <div id="unity-loading-bar">
-            <!-- <div id="unity-logo"></div> -->
-            <div id="unity-progress-bar-empty">
-                <div id="unity-progress-bar-full"></div>
-            </div>
-        </div>
-        <div id="unity-warning"> </div>
-        <!-- <div id="unity-footer">
-        <div id="unity-webgl-logo"></div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">MR RACER</div>
-      </div> -->
-    </div>
-    <script>
-
-        var container = document.querySelector("#unity-container");
-        var canvas = document.querySelector("#unity-canvas");
-        var loadingBar = document.querySelector("#unity-loading-bar");
-        var progressBarFull = document.querySelector("#unity-progress-bar-full");
-        // var fullscreenButton = document.querySelector("#unity-fullscreen-button");
-        var warningBanner = document.querySelector("#unity-warning");
-
-        // Shows a temporary message banner/ribbon for a few seconds, or
-        // a permanent error message on top of the canvas if type=='error'.
-        // If type=='warning', a yellow highlight color is used.
-        // Modify or remove this function to customize the visually presented
-        // way that non-critical warnings and error messages are presented to the
-        // user.
-        function unityShowBanner(msg, type) {
-            function updateBannerVisibility() {
-                warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
-            }
-            var div = document.createElement('div');
-            div.innerHTML = msg;
-            warningBanner.appendChild(div);
-            if (type == 'error') div.style = 'background: red; padding: 10px;';
-            else {
-                if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
-                setTimeout(function () {
-                    warningBanner.removeChild(div);
-                    updateBannerVisibility();
-                }, 5000);
-            }
-            updateBannerVisibility();
-        }
-
-        var buildUrl = "Build";
-        var loaderUrl = buildUrl + "/MRR_GameDistribution_1.loader.js";
-        var config = {
-            dataUrl: buildUrl + "/9b1d1854608e81cc4b9f67c6578868dc.data.unityweb",
-            frameworkUrl: buildUrl + "/9bcd7f48f2381546f8d8c480fdd9e099.js.unityweb",
-            codeUrl: buildUrl + "/ffbf0f73344f3d3e11191c1b791b2d30.wasm.unityweb",
-            streamingAssetsUrl: "StreamingAssets",
-            companyName: "ChennaiGames",
-            productName: "MR RACER",
-            productVersion: "1.5.6.2",
-            showBanner: unityShowBanner,
-        };
-
-        // By default, Unity keeps WebGL canvas render target size matched with
-        // the DOM size of the canvas element (scaled by window.devicePixelRatio)
-        // Set this to false if you want to decouple this synchronization from
-        // happening inside the engine, and you would instead like to size up
-        // the canvas DOM size and WebGL render target sizes yourself.
-        // config.matchWebGLToCanvasSize = false;
-
-        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-            // Mobile device style: fill the whole browser client area with the game canvas:
-
-            var meta = document.createElement('meta');
-            meta.name = 'viewport';
-            meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-            document.getElementsByTagName('head')[0].appendChild(meta);
-            container.className = "unity-mobile";
-            canvas.className = "unity-mobile";
-
-            // To lower canvas resolution on mobile devices to gain some
-            // performance, uncomment the following line:
-            // config.devicePixelRatio = 1;
-
-
-        } else {
-            // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-
-            canvas.style.width = "100%";
-            canvas.style.height = "100%";
-        }
-
-        loadingBar.style.display = "block";
-
-        var script = document.createElement("script");
-        script.src = loaderUrl;
-        script.onload = () => {
-            createUnityInstance(canvas, config, (progress) => {
-                progressBarFull.style.width = 100 * progress + "%";
-            }).then((unityInstance) => {
-                loadingBar.style.display = "none";
-                // fullscreenButton.onclick = () => {
-                //   unityInstance.SetFullscreen(1);
-                // };
-            }).catch((message) => {
-                alert(message);
-            });
-        };
-
-        document.body.appendChild(script);
-
-    </script>
+	<script src="poki/master-loader.js"></script>
+<!-- will be copied to the resulting body //-->
+<!-- will also be copied to the resulting body //-->
 </body>
-
 </html>
