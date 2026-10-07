@@ -34,18 +34,19 @@ A running PostgreSQL instance is required. Run `node setup-db.js` after configur
 
 ### Backend layout
 
-| Path                     | Purpose                                                                                           |
-| ------------------------ | ------------------------------------------------------------------------------------------------- |
-| `index.js`               | Server entry point — Express routes, Socket.IO events, static file serving                        |
-| `config/database.js`     | Sequelize PostgreSQL connection (pool: max 10)                                                    |
-| `models/`                | Sequelize ORM models: `Chat`, `Message`, `ChatMember`, `Friend`, `UserStatus`, `User`, `UserSave` |
-| `routes/auth.js`         | Login/signup with hcaptcha, via `services/accounts.js`                                            |
-| `routes/users.js`        | Premium checks, per-user save-data upload/download                                                |
-| `services/accounts.js`   | Account/save store; `ACCOUNT_BACKEND` picks the Worker (default) or local Postgres                |
-| `routes/messaging.js`    | Full chat REST API (~962 lines)                                                                   |
-| `routes/music.js`        | Proxy routes for music/media                                                                      |
-| `utils/userCache.js`     | In-memory user data cache                                                                         |
-| `utils/blockingCache.js` | In-memory blocked-user cache                                                                      |
+| Path                     | Purpose                                                                                            |
+| ------------------------ | -------------------------------------------------------------------------------------------------- |
+| `index.js`               | Server entry point — Express routes, Socket.IO events, static file serving                         |
+| `config/database.js`     | Sequelize PostgreSQL connection (pool: max 10)                                                     |
+| `models/`                | Sequelize ORM models: `Chat`, `Message`, `ChatMember`, `Friend`, `UserStatus`, `User`, `UserSave`  |
+| `routes/auth.js`         | Login/signup with hcaptcha, via `services/accounts.js`                                             |
+| `routes/users.js`        | Premium checks, per-user save-data upload/download                                                 |
+| `routes/admin.js`        | Premium management for `/admin`; password login as `jiayang`, token signed by `ADMIN_TOKEN_SECRET` |
+| `services/accounts.js`   | Account/save store; `ACCOUNT_BACKEND` picks the Worker (default) or local Postgres                 |
+| `routes/messaging.js`    | Full chat REST API (~962 lines)                                                                    |
+| `routes/music.js`        | Proxy routes for music/media                                                                       |
+| `utils/userCache.js`     | In-memory user data cache                                                                          |
+| `utils/blockingCache.js` | In-memory blocked-user cache                                                                       |
 
 ### Authentication flow
 
