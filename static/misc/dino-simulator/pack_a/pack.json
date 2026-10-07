@@ -1,0 +1,22 @@
+{
+	"dinos": [
+		"trike",
+		"trex",
+		"ankylo"
+	],
+	"colors": {
+		"background": "rgb(25, 70, 56)",
+		"summary": "rgb(18, 38, 18)",
+		"dialog": "rgb(25, 70, 56)",
+		"scrollbar": {
+			"track": "rgba(255, 255, 255, 0.14)",
+			"thumb": "rgb(18, 52, 38)",
+			"thumbHeld": "rgb(10, 34, 25)"
+		},
+		"labels": {
+			"title": "#ffeb66",
+			"reward": "#ffe36e",
+			"offer": "#ffe14d"
+		}
+	}
+}
