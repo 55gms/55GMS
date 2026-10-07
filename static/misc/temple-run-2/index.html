@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset='utf-8'>
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/temple-run-2/">
+<script>
+  // The game's files come from the CDN, another origin than this page.
+  (() => {
+    // Images need CORS before the game can use them in WebGL or read their pixels.
+    const src = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      ...src,
+      set(value) {
+        if (this.crossOrigin === null && !/^(data|blob):/.test(value)) this.crossOrigin = "anonymous";
+        src.set.call(this, value);
+      },
+    });
+
+    // Workers cannot be started from another origin, so start them from a blob that pulls the script in.
+    const NativeWorker = window.Worker;
+    window.Worker = function (url, options) {
+      const script = new URL(url, document.baseURI);
+      if (script.origin === location.origin || !/^https?:$/.test(script.protocol)) return new NativeWorker(url, options);
+      const code = options?.type === "module" ? `import ${JSON.stringify(script.href)};` : `importScripts(${JSON.stringify(script.href)});`;
+      return new NativeWorker(URL.createObjectURL(new Blob([code], { type: "text/javascript" })), options);
+    };
+    window.Worker.prototype = NativeWorker.prototype;
+
+    // Audio worklet modules have the same restriction.
+    if (window.AudioWorklet) {
+      const addModule = AudioWorklet.prototype.addModule;
+      AudioWorklet.prototype.addModule = async function (url, options) {
+        const script = new URL(url, document.baseURI);
+        if (script.origin === location.origin || !/^https?:$/.test(script.protocol)) return addModule.call(this, url, options);
+        const code = await (await fetch(script)).blob();
+        return addModule.call(this, URL.createObjectURL(new Blob([code], { type: "text/javascript" })), options);
+      };
+    }
+  })();
+</script>
+
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, 
+		minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no'>
+
+	<title>Temple Run 2</title>
+
+	<link rel='icon' type='image/ico' href='./favicon.ico'>
+	<style>
+		html,
+		body {
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+			min-height: 100%;
+			max-height: 100%;
+			position: absolute;
+			top:0;
+			left: 0;
+			margin: 0;
+			padding: 0;
+			-webkit-text-size-adjust: none;
+			touch-action: pan-x pan-y;
+		}
+		div.content {
+			position: relative;
+			width: 100%;
+			height: 100%;
+		}
+		.content-inner {
+			position: absolute;
+			left:0;
+			right:0;
+			top:0;
+			bottom:0;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			margin: auto;
+			background-color: #000;
+			z-index:100;
+		}
+		.flex-row {
+			width:80%;
+			max-width: 500px;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			column-gap: 10px;
+			/* margin-top:-15px; */
+		}
+		.progress {
+			width: 100%;
+			max-width: 260px;
+			height: 22px;
+			max-height: 2.8rem;
+			/* margin: 2em auto; */
+			border: 1px solid #fff;
+			padding: 4px 4px;
+			box-shadow: 0 0 10px #aaa;
+			background-color: black;
+		}
+
+		.progress .bar {
+			height: 100%;
+			width:0;
+			background: linear-gradient(gold, #f0dd54, gold);
+			background-repeat: repeat;
+			box-shadow: 0 0 10px 0px orange;
+		}
+		.pct {
+			font-size: 1.5em;
+			font-weight: 600;
+			color: #fff;
+		}
+
+		.logo-container {
+			max-width: 260px;
+			max-height: 260Px;
+			/* margin-bottom:-40px; */
+		}
+		.logo-container img {
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+	<link rel='stylesheet' type="text/css" href='./global.css' defer>
+	
+	<script src="poki-sdk.js" defer></script>
+	<script src='bundle.js' onload="window.updateProgress(2410000,'bundle');" defer></script>
+</head>
+
+<body>
+	<div class="content">
+		<div class="content-inner" id="splash-content">
+				<div class="logo-container" id="logo-container">
+					<img src="assets/textures/imangi_logo.jpg" alt="Imangi logo"/>
+				</div>
+				<div class="flex-row" id="progress-container">
+					<div class="progress">
+						<div class="bar" id="loading-bar"></div>
+					</div>
+					<div class="pct" id="loading-pct">0%</div>
+		</div>
+	</div>
+	<script>
+		var TOTAL_SIZE =  410000/*index*/ + 2410000/*bundle js*/ 
+											+ 249060/*base1*/ + 937252/*bas2*/
+											+ 929540 /*player*/ + 212000/*monkey*/ 
+											+ 200000;
+		//console.log("Total size: " + TOTAL_SIZE);
+		var ASSETS_SIZES = new Map();
+		ASSETS_SIZES.set('index',410000);
+		ASSETS_SIZES.set('bundle',2410000);
+		ASSETS_SIZES.set('base1',249060);
+		ASSETS_SIZES.set('base2',937252);
+		ASSETS_SIZES.set('player',929540);
+		//ASSETS_SIZES.set('playerTex',108933);
+		ASSETS_SIZES.set('monkey',212000);
+		ASSETS_SIZES.set('rest',600000);
+
+		const assetKeys = new Set(ASSETS_SIZES.keys());
+
+		var SPLASH_LOAD_DONE = false;
+		const progressDom = document.getElementById("loading-bar");
+		const pctDom = document.getElementById("loading-pct");
+		//const splashDom = document.getElementById("splash-content");
+		let totalLoaded = 0;
+		const assetWiseTotalLoaded = new Map();
+		window.updateProgress = function(amt,asset) {
+			assetKeys.delete(asset);
+			let val = assetWiseTotalLoaded.get(asset);
+			if(!val) {
+				val = 0;
+			}
+			val += amt;
+			assetWiseTotalLoaded.set(asset, val);
+			totalLoaded += amt;
+			//console.log("event progress=" + amt + " total=" + totalLoaded +" totalSize=" + totalSize);
+			let pct = ((totalLoaded/TOTAL_SIZE)*100).toFixed(0);
+			if ( pct > 100) {
+				pct = 100;
+				if(assetKeys.size == 0) {
+					SPLASH_LOAD_DONE = true;
+				}
+				//splashDom.style.zIndex = -1;
+			}
+			progressDom.style.width=`${pct}%`;
+			pctDom.innerText = `${pct}%`;
+
+		}
+		setTimeout( () => {
+			window.updateProgress(410000,'index');
+		},100); 
+		// removed the c.amazon-adsystem.com HEAD probe used as an adblock test. Off Poki the ads come
+		// from /scripts/v2/sdk.js, and a school filter blocking Amazon would otherwise hide every rewarded-ad button.
+		window.ADBLOCK_FOUND=false;
+	</script>
+</body>
+</html>

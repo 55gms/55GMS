@@ -1,0 +1,692 @@
+{"frames": {
+
+"achievement_acceleration":
+{
+	"frame": {"x":599,"y":1977,"w":65,"h":65},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":65},
+	"sourceSize": {"w":65,"h":65}
+},
+"achievement_armor":
+{
+	"frame": {"x":841,"y":1973,"w":65,"h":65},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":65},
+	"sourceSize": {"w":65,"h":65}
+},
+"achievement_balloons":
+{
+	"frame": {"x":1503,"y":1915,"w":65,"h":65},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":65},
+	"sourceSize": {"w":65,"h":65}
+},
+"achievement_bomb":
+{
+	"frame": {"x":1581,"y":1822,"w":65,"h":65},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":65},
+	"sourceSize": {"w":65,"h":65}
+},
+"achievement_boost":
+{
+	"frame": {"x":1652,"y":1825,"w":65,"h":65},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":65},
+	"sourceSize": {"w":65,"h":65}
+},
+"achievement_card":
+{
+	"frame": {"x":971,"y":5,"w":513,"h":525},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":513,"h":525},
+	"sourceSize": {"w":513,"h":525}
+},
+"achievement_coin":
+{
+	"frame": {"x":1723,"y":1825,"w":65,"h":65},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":65},
+	"sourceSize": {"w":65,"h":65}
+},
+"achievement_dynamite":
+{
+	"frame": {"x":1905,"y":1487,"w":65,"h":65},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":65},
+	"sourceSize": {"w":65,"h":65}
+},
+"achievement_handling":
+{
+	"frame": {"x":1976,"y":1487,"w":65,"h":65},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":65},
+	"sourceSize": {"w":65,"h":65}
+},
+"achievement_level_1_place_1":
+{
+	"frame": {"x":1673,"y":1130,"w":111,"h":152},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":152},
+	"sourceSize": {"w":111,"h":152}
+},
+"achievement_level_1_place_2":
+{
+	"frame": {"x":1640,"y":1288,"w":110,"h":152},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":152},
+	"sourceSize": {"w":110,"h":152}
+},
+"achievement_level_1_place_3":
+{
+	"frame": {"x":308,"y":1853,"w":110,"h":152},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":152},
+	"sourceSize": {"w":110,"h":152}
+},
+"achievement_level_1_place_4":
+{
+	"frame": {"x":716,"y":1831,"w":111,"h":151},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":151},
+	"sourceSize": {"w":111,"h":151}
+},
+"achievement_level_2_place_1":
+{
+	"frame": {"x":979,"y":1827,"w":110,"h":152},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":152},
+	"sourceSize": {"w":110,"h":152}
+},
+"achievement_level_2_place_2":
+{
+	"frame": {"x":1681,"y":1530,"w":113,"h":153},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":113,"h":153},
+	"sourceSize": {"w":113,"h":153}
+},
+"achievement_level_2_place_3":
+{
+	"frame": {"x":1387,"y":1838,"w":110,"h":152},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":152},
+	"sourceSize": {"w":110,"h":152}
+},
+"achievement_level_3_place_1":
+{
+	"frame": {"x":1756,"y":1288,"w":110,"h":152},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":152},
+	"sourceSize": {"w":110,"h":152}
+},
+"achievement_level_3_place_2":
+{
+	"frame": {"x":1872,"y":1272,"w":110,"h":152},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":152},
+	"sourceSize": {"w":110,"h":152}
+},
+"achievement_level_4_place_1":
+{
+	"frame": {"x":1067,"y":1530,"w":198,"h":286},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":198,"h":286},
+	"sourceSize": {"w":198,"h":286}
+},
+"achievement_stand_empty":
+{
+	"frame": {"x":5,"y":551,"w":439,"h":914},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":439,"h":914},
+	"sourceSize": {"w":439,"h":914}
+},
+"achievement_unlock_car":
+{
+	"frame": {"x":1938,"y":1558,"w":65,"h":65},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":65},
+	"sourceSize": {"w":65,"h":65}
+},
+"button_buy":
+{
+	"frame": {"x":764,"y":1724,"w":258,"h":97},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":258,"h":97},
+	"sourceSize": {"w":258,"h":97}
+},
+"button_buy_downed":
+{
+	"frame": {"x":1271,"y":1530,"w":258,"h":97},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":258,"h":97},
+	"sourceSize": {"w":258,"h":97}
+},
+"button_close":
+{
+	"frame": {"x":1800,"y":1495,"w":99,"h":99},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":99,"h":99},
+	"sourceSize": {"w":99,"h":99}
+},
+"button_continue":
+{
+	"frame": {"x":461,"y":1617,"w":297,"h":101},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":297,"h":101},
+	"sourceSize": {"w":297,"h":101}
+},
+"button_credits":
+{
+	"frame": {"x":5,"y":1853,"w":297,"h":101},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":297,"h":101},
+	"sourceSize": {"w":297,"h":101}
+},
+"button_go":
+{
+	"frame": {"x":1271,"y":1633,"w":258,"h":97},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":258,"h":97},
+	"sourceSize": {"w":258,"h":97}
+},
+"button_go_circle":
+{
+	"frame": {"x":1681,"y":1689,"w":130,"h":130},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":130,"h":130},
+	"sourceSize": {"w":130,"h":130}
+},
+"button_new_game":
+{
+	"frame": {"x":764,"y":1617,"w":297,"h":101},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":297,"h":101},
+	"sourceSize": {"w":297,"h":101}
+},
+"button_new_game_light":
+{
+	"frame": {"x":461,"y":1724,"w":297,"h":101},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":297,"h":101},
+	"sourceSize": {"w":297,"h":101}
+},
+"button_select":
+{
+	"frame": {"x":1271,"y":1736,"w":258,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":258,"h":96},
+	"sourceSize": {"w":258,"h":96}
+},
+"button_watch":
+{
+	"frame": {"x":1523,"y":1028,"w":258,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":258,"h":96},
+	"sourceSize": {"w":258,"h":96}
+},
+"car_upgrades_board":
+{
+	"frame": {"x":1523,"y":536,"w":462,"h":486},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":462,"h":486},
+	"sourceSize": {"w":462,"h":486}
+},
+"car_upgrades_filled":
+{
+	"frame": {"x":1049,"y":1530,"w":12,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":48},
+	"sourceSize": {"w":12,"h":48}
+},
+"car_upgrades_platform":
+{
+	"frame": {"x":461,"y":1530,"w":582,"h":81},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":582,"h":81},
+	"sourceSize": {"w":582,"h":81}
+},
+"car_upgrades_plus_button":
+{
+	"frame": {"x":186,"y":1960,"w":104,"h":71},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":104,"h":71},
+	"sourceSize": {"w":104,"h":71}
+},
+"car_upgrades_plus_points_background":
+{
+	"frame": {"x":1503,"y":1838,"w":72,"h":71},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":72,"h":71},
+	"sourceSize": {"w":72,"h":71}
+},
+"car_upgrades_point_background":
+{
+	"frame": {"x":1787,"y":1028,"w":204,"h":92},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":204,"h":92},
+	"sourceSize": {"w":204,"h":92}
+},
+"car_upgrades_unfilled":
+{
+	"frame": {"x":1492,"y":1067,"w":12,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":48},
+	"sourceSize": {"w":12,"h":48}
+},
+"car_upgrades_unfilled_9":
+{
+	"frame": {"x":1800,"y":1600,"w":132,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":132,"h":48},
+	"sourceSize": {"w":132,"h":48}
+},
+"challenge_card":
+{
+	"frame": {"x":1490,"y":5,"w":513,"h":525},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":513,"h":525},
+	"sourceSize": {"w":513,"h":525}
+},
+"map":
+{
+	"frame": {"x":5,"y":5,"w":960,"h":540},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":960,"h":540},
+	"sourceSize": {"w":960,"h":540}
+},
+"map_card_background":
+{
+	"frame": {"x":5,"y":1471,"w":450,"h":307},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":450,"h":307},
+	"sourceSize": {"w":450,"h":307}
+},
+"map_card_text_background":
+{
+	"frame": {"x":1004,"y":1067,"w":336,"h":101},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":336,"h":101},
+	"sourceSize": {"w":336,"h":101}
+},
+"map_item_challenge_completed":
+{
+	"frame": {"x":1891,"y":1430,"w":51,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":51,"h":51},
+	"sourceSize": {"w":51,"h":51}
+},
+"map_item_challenge_locked":
+{
+	"frame": {"x":1948,"y":1430,"w":51,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":51,"h":51},
+	"sourceSize": {"w":51,"h":51}
+},
+"map_item_challenge_unlocked":
+{
+	"frame": {"x":1991,"y":536,"w":51,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":51,"h":51},
+	"sourceSize": {"w":51,"h":51}
+},
+"map_item_empty":
+{
+	"frame": {"x":1936,"y":1232,"w":28,"h":28},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":28,"h":28},
+	"sourceSize": {"w":28,"h":28}
+},
+"map_item_empty_big":
+{
+	"frame": {"x":1991,"y":593,"w":51,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":51,"h":51},
+	"sourceSize": {"w":51,"h":51}
+},
+"map_item_finished":
+{
+	"frame": {"x":1254,"y":1174,"w":31,"h":31},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":31},
+	"sourceSize": {"w":31,"h":31}
+},
+"map_item_finished100":
+{
+	"frame": {"x":401,"y":1784,"w":40,"h":40},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":40},
+	"sourceSize": {"w":40,"h":40}
+},
+"map_item_not_available":
+{
+	"frame": {"x":1028,"y":1724,"w":31,"h":31},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":31},
+	"sourceSize": {"w":31,"h":31}
+},
+"red_border_100x100_2":
+{
+	"frame": {"x":1936,"y":1126,"w":100,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+	"sourceSize": {"w":100,"h":100}
+},
+"reward_acceleration":
+{
+	"frame": {"x":1535,"y":1530,"w":140,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":140},
+	"sourceSize": {"w":140,"h":140}
+},
+"reward_armor":
+{
+	"frame": {"x":1535,"y":1676,"w":140,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":140},
+	"sourceSize": {"w":140,"h":140}
+},
+"reward_balloons":
+{
+	"frame": {"x":1346,"y":1067,"w":140,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":140},
+	"sourceSize": {"w":140,"h":140}
+},
+"reward_bomb":
+{
+	"frame": {"x":1790,"y":1126,"w":140,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":140},
+	"sourceSize": {"w":140,"h":140}
+},
+"reward_boost":
+{
+	"frame": {"x":424,"y":1831,"w":140,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":140},
+	"sourceSize": {"w":140,"h":140}
+},
+"reward_card":
+{
+	"frame": {"x":450,"y":551,"w":548,"h":712},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":548,"h":712},
+	"sourceSize": {"w":548,"h":712}
+},
+"reward_coin":
+{
+	"frame": {"x":570,"y":1831,"w":140,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":140},
+	"sourceSize": {"w":140,"h":140}
+},
+"reward_dynamite":
+{
+	"frame": {"x":833,"y":1827,"w":140,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":140},
+	"sourceSize": {"w":140,"h":140}
+},
+"reward_handling":
+{
+	"frame": {"x":1095,"y":1822,"w":140,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":140},
+	"sourceSize": {"w":140,"h":140}
+},
+"reward_unlock_car":
+{
+	"frame": {"x":1241,"y":1838,"w":140,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":140},
+	"sourceSize": {"w":140,"h":140}
+},
+"scroll_border":
+{
+	"frame": {"x":424,"y":1977,"w":169,"h":45},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":169,"h":45},
+	"sourceSize": {"w":169,"h":45}
+},
+"scroll_map":
+{
+	"frame": {"x":1720,"y":1446,"w":165,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":165,"h":43},
+	"sourceSize": {"w":165,"h":43}
+},
+"scroll_map_dark":
+{
+	"frame": {"x":1817,"y":1654,"w":165,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":165,"h":43},
+	"sourceSize": {"w":165,"h":43}
+},
+"scroll_map_with_background":
+{
+	"frame": {"x":1004,"y":1215,"w":175,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":175,"h":48},
+	"sourceSize": {"w":175,"h":48}
+},
+"scroll_shop":
+{
+	"frame": {"x":1817,"y":1703,"w":165,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":165,"h":43},
+	"sourceSize": {"w":165,"h":43}
+},
+"scroll_shop_dark":
+{
+	"frame": {"x":1817,"y":1752,"w":165,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":165,"h":43},
+	"sourceSize": {"w":165,"h":43}
+},
+"scroll_shop_with_background":
+{
+	"frame": {"x":1185,"y":1215,"w":175,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":175,"h":48},
+	"sourceSize": {"w":175,"h":48}
+},
+"scroll_treasure":
+{
+	"frame": {"x":1817,"y":1801,"w":165,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":165,"h":43},
+	"sourceSize": {"w":165,"h":43}
+},
+"scroll_treasure_dark":
+{
+	"frame": {"x":670,"y":1988,"w":165,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":165,"h":43},
+	"sourceSize": {"w":165,"h":43}
+},
+"scroll_treasure_with_background":
+{
+	"frame": {"x":5,"y":1960,"w":175,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":175,"h":48},
+	"sourceSize": {"w":175,"h":48}
+},
+"scroll_trophies":
+{
+	"frame": {"x":912,"y":1985,"w":165,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":165,"h":43},
+	"sourceSize": {"w":165,"h":43}
+},
+"scroll_trophies_dark":
+{
+	"frame": {"x":1794,"y":1850,"w":165,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":165,"h":43},
+	"sourceSize": {"w":165,"h":43}
+},
+"scroll_trophies_with_background":
+{
+	"frame": {"x":1492,"y":1130,"w":175,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":175,"h":48},
+	"sourceSize": {"w":175,"h":48}
+},
+"scroll_upgrades":
+{
+	"frame": {"x":1581,"y":1896,"w":165,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":165,"h":43},
+	"sourceSize": {"w":165,"h":43}
+},
+"scroll_upgrades_dark":
+{
+	"frame": {"x":1574,"y":1945,"w":165,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":165,"h":43},
+	"sourceSize": {"w":165,"h":43}
+},
+"scroll_upgrades_with_background":
+{
+	"frame": {"x":1492,"y":1184,"w":175,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":175,"h":48},
+	"sourceSize": {"w":175,"h":48}
+},
+"shop_balk":
+{
+	"frame": {"x":450,"y":1406,"w":1184,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1184,"h":34},
+	"sourceSize": {"w":1184,"h":34}
+},
+"shop_bottom":
+{
+	"frame": {"x":461,"y":1446,"w":1253,"h":78},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1253,"h":78},
+	"sourceSize": {"w":1253,"h":78}
+},
+"shop_car_name_background":
+{
+	"frame": {"x":1004,"y":1174,"w":244,"h":35},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":244,"h":35},
+	"sourceSize": {"w":244,"h":35}
+},
+"shop_card":
+{
+	"frame": {"x":1004,"y":536,"w":513,"h":525},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":513,"h":525},
+	"sourceSize": {"w":513,"h":525}
+},
+"shop_card_name_background":
+{
+	"frame": {"x":5,"y":1784,"w":390,"h":63},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":390,"h":63},
+	"sourceSize": {"w":390,"h":63}
+},
+"shop_wood":
+{
+	"frame": {"x":450,"y":1269,"w":1142,"h":131},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1142,"h":131},
+	"sourceSize": {"w":1142,"h":131}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "graphics2.png",
+	"format": "RGBA8888",
+	"size": {"w":2048,"h":2048},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:6597cc066191e43632a56732ebce134b:f98451922df46f8a399771a1eefac8f0:b1b48813d35597982b1b5144d6473645$"
+}
+}

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <!-- Custom PreHead code is injected here -->
+    
+
+    <head>
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/circloo/">
+<script>
+  // The game's files come from the CDN, another origin than this page.
+  (() => {
+    // Images need CORS before the game can use them in WebGL or read their pixels.
+    const src = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      ...src,
+      set(value) {
+        if (this.crossOrigin === null && !/^(data|blob):/.test(value)) this.crossOrigin = "anonymous";
+        src.set.call(this, value);
+      },
+    });
+
+    // Workers cannot be started from another origin, so start them from a blob that pulls the script in.
+    const NativeWorker = window.Worker;
+    window.Worker = function (url, options) {
+      const script = new URL(url, document.baseURI);
+      if (script.origin === location.origin || !/^https?:$/.test(script.protocol)) return new NativeWorker(url, options);
+      const code = options?.type === "module" ? `import ${JSON.stringify(script.href)};` : `importScripts(${JSON.stringify(script.href)});`;
+      return new NativeWorker(URL.createObjectURL(new Blob([code], { type: "text/javascript" })), options);
+    };
+    window.Worker.prototype = NativeWorker.prototype;
+
+    // Audio worklet modules have the same restriction.
+    if (window.AudioWorklet) {
+      const addModule = AudioWorklet.prototype.addModule;
+      AudioWorklet.prototype.addModule = async function (url, options) {
+        const script = new URL(url, document.baseURI);
+        if (script.origin === location.origin || !/^https?:$/.test(script.protocol)) return addModule.call(this, url, options);
+        const code = await (await fetch(script)).blob();
+        return addModule.call(this, URL.createObjectURL(new Blob([code], { type: "text/javascript" })), options);
+      };
+    }
+  })();
+</script>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name ="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta charset="utf-8"/>
+
+        <!-- Builtin injector for disabling cache -->
+        <meta http-equiv="pragma" content="no-cache"/>
+
+        <!-- Set the title bar of the page -->
+        <title>circloO XL</title>
+
+        <!-- Custom PreStyle code is injected here -->
+        
+
+        <!-- Set the background colour of the document -->
+        <style>
+            body {
+                background: black;
+                color: #cccccc;
+                margin: 0px;
+                padding: 0px;
+                border: 0px;
+            }
+
+            canvas {
+                image-rendering: optimizeSpeed;
+                -webkit-interpolation-mode: nearest-neighbor;
+                -ms-touch-action: none;
+                touch-action: none;
+                margin: 0px;
+                padding: 0px;
+                border: 0px;
+            }
+            :-webkit-full-screen #canvas {
+                width: 100%;
+                height: 100%;
+            }
+            :-webkit-full-screen {
+                width: 100%;
+                height: 100%;
+            }
+            
+            /* Custom Runner Styles */
+            div.gm4html5_div_class {
+                margin: 0px;
+                padding: 0px;
+                border: 0px;
+            }
+            div.gm4html5_login {
+                padding: 20px;
+                position: absolute;
+                border: solid 2px #000000;
+                background-color: #404040;
+                color:#00ff00;
+                border-radius: 15px;
+                box-shadow: #101010 20px 20px 40px;
+            }
+            div.gm4html5_cancel_button {
+                float: right;
+            }
+            div.gm4html5_login_button {
+                float: left;
+            }
+            div.gm4html5_login_header {
+                text-align: center;
+            }
+
+            :root {
+                --sat: env(safe-area-inset-top);
+            }
+            /* END - Custom Runner Styles */
+            
+            /*https://cssloaders.github.io/*/
+            .loader {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            border: 2px solid red;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite, colorize 4s linear infinite;
+            }
+            .loader::after {
+            content: '';  
+            box-sizing: border-box;
+            position: absolute;
+            left: 4px;
+            top: 4px;
+            border: 2px solid red;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: colorize 4s linear infinite;
+            }
+            .loaderP {
+                transform: translate(-50%, -50%) scale(1);
+                animation: grow 50s linear forwards;
+            }
+            
+            @keyframes colorize {
+                0% {
+                    border-color: #7FFF00;
+                }
+                12.5% {
+                    border-color: #00FF3F;
+                }
+                25% {
+                    border-color: #00FFFF;
+                }
+                37.5% {
+                    border-color: #007FFF;
+                }
+                50% {
+                    border-color: #7F00FF;
+                }
+                62.5% {
+                    border-color: #FF00BF;
+                }
+                75% {
+                    border-color: red;
+                }
+                87.5% {
+                    border-color: #FFBF00;
+                }
+                100% {
+                    border-color: #7FFF00;
+                }
+            }
+
+            @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+            } 
+
+            @keyframes grow {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            5% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(9);
+            }
+            } 
+
+        </style>
+
+        <!-- Custom PostStyle code is injected here -->
+        
+
+        <!-- Builtin injector for injecting flurry analytics code -->
+        
+    </head>
+
+    <!-- Custom PostHead code is injected here -->
+    
+
+    <!-- Custom PreBody code is injected here -->
+    
+
+    <body>
+        <div class="gm4html5_div_class" id="gm4html5_div_id" style="visibility:hidden;">
+            
+            <!-- Builtin injector for splash screen -->
+            
+
+            <!-- Create the canvas element the game draws to -->
+            <canvas id="canvas" width="40px" height="40px" >
+                <p>Your browser doesn't support HTML5 canvas.</p>
+            </canvas>
+        </div>
+
+        <script>
+            window.createLoadingTextP = function(text) {
+                var loadingText = document.createElement("P");
+                loadingText.className = "loaderP";
+                loadingText.innerHTML = "<span class=\"loader\"></span>";
+                document.body.appendChild(loadingText);
+                loadingText.style.position = "absolute";
+                loadingText.style.left = "50%";
+                loadingText.style.top = "50%";
+                loadingText.style.color = "#e0e0e0";
+                loadingText.style.margin = "0";
+                loadingText.style.opacity = 1;
+
+                return loadingText;
+            }
+
+            window.removeLoadingTextP = function() {
+                if (window.loadingTextP != undefined)
+                    document.body.removeChild(window.loadingTextP);
+                window.loadingTextP = undefined;    
+            }
+
+            window.loadingTextP = window.createLoadingTextP("Loading...");
+        </script>
+
+        <!-- Run the game code -->
+        <script type="text/javascript" src="html5game/circloo-xl-web.js?cachebust=463015074"></script>
+
+        <!-- Builtin injector for injecting runner path -->
+        
+
+        <!-- Poki start -->
+        <script src="poki-sdk.js"></script>
+        <script>
+        (function() {
+
+            window.html5_has_antialias = function() { return false; }
+
+            HTMLCanvasElement.prototype.getContext = function (orig) {
+                return function(type, attrs) {
+                    if (attrs == undefined)
+                        attrs = {};
+                    if (window.devicePixelRatio != undefined && window.devicePixelRatio < 2) {
+                        attrs.antialias = true;
+                        window.html5_has_antialias = function() { return true; }
+                    }
+
+                    return orig.apply(this, [type, attrs]);
+                }
+            }(HTMLCanvasElement.prototype.getContext);
+
+            function fin(ok) {
+                window.PokiSDK_OK = ok;
+                GameMaker_Init();
+            }
+            window.addEventListener("load", function(_) {
+                window.PokiSDK_loadState = 0;
+                if (window.PokiSDK) {
+                    PokiSDK.init().then(function() {
+                    fin(true);
+                }).catch(function() {
+                    fin(false);
+                });
+                } else {
+                    window.PokiSDK = null;
+                    fin(false);
+                }
+            });
+            })();
+        </script>
+        <!-- Poki end -->
+
+        <!-- Builtin injector for injecting google analytics code -->
+        
+
+    </body>
+
+    <!-- Custom PostBody code is injected here -->
+    
+</html>

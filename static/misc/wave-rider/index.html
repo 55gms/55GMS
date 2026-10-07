@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+<script src="/assets/js/loader-ui.js?v=4pgt4ltcze"></script>
+<script src="/assets/js/game-loader.js?v=4pgt4ltcze" data-title="Wave Rider"></script>
+<script>
+  GameLoader.unity([
+
+  ]);
+  GameLoader.expect(22796731);
+</script>
+<script src="/assets/js/game-parts.js?v=1"></script>
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/wave-rider/">
+<script>
+  GameParts.serve({
+    "26062305/Build/wave-rider-v26062305.data.unityweb": ["26062305/Build/wave-rider-v26062305.data.unityweb.part1","26062305/Build/wave-rider-v26062305.data.unityweb.part2","26062305/Build/wave-rider-v26062305.data.unityweb.part3"],
+  });
+</script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title id="page-title">Wave Rider</title>
+	<meta name="robots" content="noindex, nofollow">
+	<script>
+		// The compiled GMSDK makes its own UnityWebRequest to
+		// api.cdndom.com (and azgame.io) to report this page's domain and
+		// have it verified, independent of any JS here. Blocking that does
+		// NOT stop the lock -- the SDK counts failures down from
+		// FAIL_REQUEST_COUNTER and calls LockGame when they run out. The
+		// lock is defeated in the wasm instead: GMSDK::LockGame (function
+		// 11322) is patched to a no-op, so nothing here has to succeed.
+		// This block stays purely so the page stops handing our hostname
+		// to azgame.io's servers on every load.
+		(function () {
+			var blocked = new RegExp([
+				// azgames.io licence / domain-verification and event collection
+				'(^|\\.)azgame\\.io$', '(^|\\.)azgames\\.io$', '(^|\\.)cdnwave\\.com$',
+				'(^|\\.)cdndom\\.com$', '(^|\\.)readyplayer1\\.xyz$',
+				// analytics / telemetry SDKs compiled into the build but unused here
+				'(^|\\.)google-analytics\\.com$', '(^|\\.)googletagmanager\\.com$',
+				'(^|\\.)firebaseio\\.com$', '(^|\\.)firebase\\.googleapis\\.com$',
+				'(^|\\.)facebook\\.com$', '(^|\\.)facebook\\.net$',
+				'(^|\\.)services\\.api\\.unity\\.com$', '(^|\\.)unity3d\\.com$',
+				'(^|\\.)crazygames\\.com$', '(^|\\.)geoplugin\\.net$'
+			].join('|'));
+			function isBlocked(url) {
+				try { return blocked.test(new URL(url, location.href).hostname); }
+				catch (e) { return false; }
+			}
+			var open = XMLHttpRequest.prototype.open;
+			XMLHttpRequest.prototype.open = function (method, url) {
+				if (isBlocked(url)) { url = 'about:blank#blocked-license-check'; }
+				return open.apply(this, [method, url].concat([].slice.call(arguments, 2)));
+			};
+			var fetch0 = window.fetch;
+			if (fetch0) {
+				window.fetch = function (input, init) {
+					var url = typeof input === 'string' ? input : (input && input.url);
+					if (url && isBlocked(url)) { return Promise.reject(new TypeError('blocked')); }
+					return fetch0.apply(this, arguments);
+				};
+			}
+			// gma.readyplayer1.xyz's gm-sdk.js is loaded by setting <script>.src
+			// directly (not fetch/XHR), and its own domain check is what's
+			// dispatching the 'gmsoftbanevent' -> GmSoft.LockGame bridge call
+			// ("Game is locked: code 1"). Stop it from ever loading.
+			var srcDesc = Object.getOwnPropertyDescriptor(HTMLScriptElement.prototype, 'src') ||
+				Object.getOwnPropertyDescriptor(HTMLImageElement.prototype.__proto__, 'src');
+			if (srcDesc && srcDesc.set) {
+				Object.defineProperty(HTMLScriptElement.prototype, 'src', {
+					configurable: true,
+					enumerable: srcDesc.enumerable,
+					get: srcDesc.get,
+					set: function (value) {
+						if (isBlocked(value)) { return; }
+						return srcDesc.set.call(this, value);
+					}
+				});
+			}
+		})();
+	</script>
+</head>
+<body>
+	<!-- Loader -->
+	<div id="loader">
+		<div id="preloader">
+			<div id="preloader-top">
+				<img id="thumbnail" alt="Game Logo" src="wave-rider.png">
+				<div id="preloader-top-container">
+					<div id="game-title">Loading...</div>
+					<div id="progress-container">
+						<div id="progress-bar">
+							<div id="progress-fill"></div>
+						</div>
+						<div id="progress-amount">0%</div>
+					</div>
+					<div id="progress-comment">Initializing...</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Game Container -->
+	<div id="game-container" class="hidden">
+		<div id="game" style="width: 100%; height: 100%; position: relative; background: rgb(35, 31, 32);">
+			<canvas id="canvas" style="width: 100%; height: 100%; display: block;"></canvas>
+		</div>
+	</div>
+
+	<script src="unityloader.js"></script>
+
+	<script>
+		// GMSoft SDK config. `config` must be a global and must exist before
+		// gmsdk-local.js runs (it reads it as window.GMSOFT_OPTIONS).
+		var buildUrl = "Build";
+		var versionFolder = "26062305/";
+		buildUrl = versionFolder + buildUrl;
+		var loaderUrl = buildUrl + "/wave-rider-v26062305.loader.js";
+		var config = {
+			dataUrl: buildUrl + "/wave-rider-v26062305.data.unityweb",
+			frameworkUrl: buildUrl + "/wave-rider-v26062305.framework.js.unityweb",
+			codeUrl: buildUrl + "/wave-rider-v26062305.wasm.unityweb",
+			streamingAssetsUrl: versionFolder + "StreamingAssets",
+			companyName: "azgames.io",
+			productName: "Wave Rider",
+			productVersion: "26062305",
+			icon: "wave-rider.png"
+		};
+		config.gameId = "wave-rider";
+		config.eventLog = false;
+		// config.buildAPI removed: it pointed at https://event.azgame.io/apiaz/event,
+		// azgames.io's event collector. Nothing here should report play data to them.
+
+		// Removed here vs. the original azgames.io page:
+		//  - an obfuscated site-lock that redirected to azgames.io when
+		//    document.referrer was empty, and wiped `config` in a cross-origin
+		//    iframe (which broke the build outright);
+		//  - the gma.readyplayer1.xyz gm-sdk.js loader, which the shim above
+		//    blocks anyway and which fired the GmSoft.LockGame bridge call;
+		//  - theme/game.css and the old azgames loading markup, replaced by the
+		//    shared unityloader.js preloader (its #loader / #game-container
+		//    rules collided with the ones game.css defined).
+		window["GMSOFT_SDKTYPE"] = "gm";
+		localStorage.setItem("gmsdksigndomain", "eyJzaWduZWQiOiJJaHQ2XC9qdTRUWk15dTljNUhNbWNmekM2QWFmdXFIbGlqOFNcL1ZNNGJxOFVERXZ2czBwc3gwZUZQNEdWSkVWNmVFU2FMaGV1UERNMnEwOVVhUFRLODFJbVpVYnBpTndMXC9wNENcL2R2RWRkanlQK1RyUFFqazNLOUxOM0ZNRDluN0hSXC9ZblAxRmJYTkxoOG0zY3ZLT1JjaWdyXC9Na1JJQnV4SndQaWlvTlFMTVVPbkIzUmZUUkV1czBXbThJK3l4WEdzWUttSVhrT1lGT2hMXC8xb29NNG1hYWswMHZCaFwvZ2J1T09DRDBmZE82K2k3WVFuQUpvQUlBVTNtVXZUc0g4bWN3XC9qUmtTc3E5a2hWdktWVStnem4rZndveVpKWDFWTE00alwvUzZWdVF5SGJoSWEzM0d6U2hjUDZYQXpUUTBIOWpsc2pzNU83aEx4alVkUlcrSDFsZW9RPT0iLCJhcCI6InllcyIsImhuIjoiZ2FtZWEuYXpnYW1lLmlvIiwiZG9tYWluIjoiYXpnYW1lLmlvIiwicyI6InllcyIsInN0eXBlIjoyfQ==");
+	</script>
+	<script src="26062305/gmsdk-local.js"></script>
+
+	<script>
+		// Bridge helpers the Unity build calls out to. The build ships a full
+		// analytics stack -- GMAnalytics / GMAnalyticsTracker (GamePlayStart,
+		// GamePlayComplete, LogEvent, LogLiveTime...), UIEventTracker (every
+		// button press), LifeCycleEventTracker, GMDebugError.SendAnalyticsError,
+		// the FirebaseAnalytics bridge and the CrazyGames AnalyticsModule -- and
+		// every one of them funnels out through these four globals. Defining them
+		// as sinks is what stops the whole stack at the boundary: there is no
+		// Firebase app, no GMGameSDK and no reporting endpoint here, so the events
+		// are simply dropped. Do not "restore" these to their azgames.io versions.
+		function firebaseSetUserProperties(props) {}
+		function firebaseLogEvent(event_name) {}
+		function firebaseLogEventParameter(event_name, event_param) {}
+		function gmEvent(eventName, msg) {}
+		function gmStartGame(callbackFunction) { callbackFunction(); }
+		function gmStartAds(callbackFunction) { callbackFunction(); }
+	</script>
+
+	<script>
+		(function loadGame() {
+			document.getElementById("page-title").textContent = config.productName;
+			GameLoader.init(config);
+
+			var loaderScript = document.createElement("script");
+			loaderScript.src = loaderUrl;
+			loaderScript.onload = function () {
+				createUnityInstance(
+					document.getElementById("canvas"),
+					config,
+					GameLoader.updateProgress
+				).then(function (unityInstance) {
+					window.unityInstance = unityInstance;
+					window.gameInstance = unityInstance;
+					// Safety net: make sure the canvas is visible even if the
+					// progress callback never reported a final 1.0.
+					GameLoader._hideLoader();
+					window.focus();
+					console.log("Game loaded successfully");
+				}).catch(function (error) {
+					console.error("Failed to load game:", error);
+					if (GameLoader.ui.comment) { GameLoader.ui.comment.textContent = "Failed to load game"; }
+				});
+			};
+			loaderScript.onerror = function () {
+				console.error("Failed to load loader script");
+				if (GameLoader.ui.comment) { GameLoader.ui.comment.textContent = "Failed to load game"; }
+			};
+			document.body.appendChild(loaderScript);
+		})();
+	</script>
+</body>
+</html>

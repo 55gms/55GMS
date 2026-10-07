@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<script src="/assets/js/loader-ui.js?v=4pgt4ltcze"></script>
+<script src="/assets/js/game-loader.js?v=4pgt4ltcze" data-title="Space Waves"></script>
+<script>
+  GameLoader.unity([
+
+  ]);
+  GameLoader.expect(22827148);
+</script>
+<script src="/assets/js/game-parts.js?v=1"></script>
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/space-waves/">
+<script>
+  GameParts.serve({
+    "Build/7fb5141de5923189bc1dc5f94eb619f2.wasm.unityweb": ["Build/7fb5141de5923189bc1dc5f94eb619f2.wasm.unityweb.part1","Build/7fb5141de5923189bc1dc5f94eb619f2.wasm.unityweb.part2","Build/7fb5141de5923189bc1dc5f94eb619f2.wasm.unityweb.part3"],
+  });
+</script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Space Waves</title>
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <!-- Pizza Edition: shared rewarded-ad SDK shim (games.pizzaedition.com/scripts/sdk.js).
+         Loaded up front, same as every other self-hosted game on this site, so
+         window.PokiSDK exists before the game calls into it below. -->
+    <script src="poki-sdk.js"></script>
+  </head>
+  <body class="noselect">
+    <div id="unity-container">
+      <canvas id="unity-canvas"></canvas>
+    </div>
+    <div id="loading-cover" style="display:none;">
+      <div id="unity-loading-bar">
+        <div id="unity-logo"><img src="logo.png"></div>
+        </br></br></br>
+        <div id="unity-progress-bar-empty" style="display: none;">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+        <div class="spinner"></div>
+      </div>
+    </div>
+
+    <script>
+
+	  const container = document.querySelector("#unity-container");
+      const canvas = document.querySelector("#unity-canvas");
+      const loadingCover = document.querySelector("#loading-cover");
+      const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+      const progressBarFull = document.querySelector("#unity-progress-bar-full");
+      const spinner = document.querySelector('.spinner');
+
+      const buildUrl = "Build";
+      const loaderUrl = buildUrl + "/dae5c7bd2b15915f51ae4e56b8f5367d.loader.js";
+      const config = {
+        dataUrl: buildUrl + "/568ea6b3af616bd57f419c508c933303.data.unityweb",
+        frameworkUrl: buildUrl + "/c699bc4c24abfbdb4c8b3e15b0af7d3f.framework.js.unityweb",
+        codeUrl: buildUrl + "/7fb5141de5923189bc1dc5f94eb619f2.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "do.Games",
+        productName: "Space Waves",
+        productVersion: "1.1.2-ms",
+		matchWebGLToCanvasSize: "false"
+      };
+
+      loadingCover.style.display = "";
+
+	  var gameInstance;
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+		  spinner.style.display = "none";
+          progressBarEmpty.style.display = "";
+          progressBarFull.style.width = 100 * progress + "%";
+        }).then((unityInstance) => {
+		  console.log("<do.G> Unity inited");
+          gameInstance = unityInstance;
+          loadingCover.style.display = "none";
+		  resizeCanvas();
+		  loadAds();
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+
+	  // Focus
+  	  function setFocus() {
+  	    container.focus();
+  		window.focus();
+  		canvas.focus();
+  	  }
+
+  	  window.addEventListener("touchstart", () => {
+  	    setFocus();
+  	  });
+  	  window.addEventListener("pointerdown", () => {
+  	    setFocus();
+  	  });
+  	  window.addEventListener("resize", () => {
+  	    setFocus();
+		resizeCanvas();
+  	  });
+
+	  function resizeCanvas() {
+		var pixelRatio = window.devicePixelRatio || 1;
+		var width = canvas.clientWidth * pixelRatio;
+		var height = canvas.clientHeight * pixelRatio;
+
+		if (canvas.width != width || canvas.height != height) {
+			if (height > 1080) {
+				canvas.width = Math.floor(width / height * 1080);
+				canvas.height = 1080;
+			}
+			else
+			{
+				canvas.width = width;
+				canvas.height = height;
+			}
+		}
+	  }
+    </script>
+
+    <!-- Pizza Edition: rewarded/interstitial ad hooks.
+         The compiled Unity build calls window.showRewardedAd() /
+         window.showInterstitialAd() directly (see the game's own "watch ad"
+         button and its Build/*.framework.js.unityweb externs
+         _ShowRewardedAdProvider / _ShowInterstitialAdProvider) and expects the
+         result back via gameInstance.SendMessage('MSStartSDK', <method>) with
+         the same method names the original do.Games/Microsoft Start build
+         used (OnReward / OnRewardedAdShowError / OnInterstitialAdClose /
+         OnInterstitialAdShowError) -- those are baked into the compiled C#
+         and are not ours to rename. Only the ad source changed: this used to
+         call Microsoft's own $msstart SDK (assets.msn.com, gated to
+         Microsoft's own domains and not usable here); it now calls this
+         site's shared PokiSDK shim, which runs Pizza Edition's normal
+         AppLixir/GPT/house-video fallback chain and reports back the same
+         way. This is a genuine, working rewarded-ad trigger already built
+         into the game's own UI -- no new button was added. -->
+    <script>
+	  function loadAds() {
+	    // PokiSDK ads need no pre-fetch step, unlike $msstart's loadAdsAsync.
+	  }
+
+	  function showInterstitialAd() {
+	    if (typeof gameInstance === 'undefined') return;
+		if (typeof PokiSDK === 'undefined') {
+		  gameInstance.SendMessage('MSStartSDK', 'OnInterstitialAdShowError');
+		  return;
+		}
+		PokiSDK.commercialBreak().then(() => {
+		  gameInstance.SendMessage('MSStartSDK', 'OnInterstitialAdClose');
+		}).catch(() => {
+		  gameInstance.SendMessage('MSStartSDK', 'OnInterstitialAdShowError');
+		});
+	  }
+
+	  function showRewardedAd() {
+	    if (typeof gameInstance === 'undefined') return;
+		if (typeof PokiSDK === 'undefined') {
+		  gameInstance.SendMessage('MSStartSDK', 'OnRewardedAdShowError');
+		  return;
+		}
+		PokiSDK.rewardedBreak().then((success) => {
+		  if (success) {
+		    gameInstance.SendMessage('MSStartSDK', 'OnReward');
+		  } else {
+		    gameInstance.SendMessage('MSStartSDK', 'OnRewardedAdShowError');
+		  }
+		}).catch(() => {
+		  gameInstance.SendMessage('MSStartSDK', 'OnRewardedAdShowError');
+		});
+	  }
+	</script>
+
+  </body>
+</html>

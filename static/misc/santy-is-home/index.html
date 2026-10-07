@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<script src="/assets/js/loader-ui.js?v=4pgt4ltcze"></script>
+<script src="/assets/js/game-loader.js?v=4pgt4ltcze" data-title="Santy is Home"></script>
+<script>
+  GameLoader.unity([
+    ["Build/SantyIsHome.loader.js",13438],
+    ["Build/SantyIsHome.framework.js",500670],
+  ]);
+  GameLoader.expect(43974382);
+</script>
+<script src="/assets/js/game-parts.js?v=1"></script>
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/santy-is-home/">
+<script>
+  GameParts.serve({
+    "Build/SantyIsHome.data": ["Build/SantyIsHome.data.part1","Build/SantyIsHome.data.part2","Build/SantyIsHome.data.part3"],
+    "Build/SantyIsHome.wasm": ["Build/SantyIsHome.wasm.part1","Build/SantyIsHome.wasm.part2","Build/SantyIsHome.wasm.part3"],
+  });
+</script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Santy is Home</title>
+    <style>
+      html, body { width: 100%; height: 100%; margin: 0; padding: 0; background: #601527; overflow: hidden; }
+      #unity-container { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+      #unity-canvas { background: #601527; width: 100%; height: 100%; display: block; }
+      #unity-loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+        color: #fff; font-family: Arial, Helvetica, sans-serif; font-size: 18px; }
+    </style>
+  </head>
+  <body>
+    <div id="unity-container">
+      <canvas id="unity-canvas" width="1280" height="720" tabindex="-1"></canvas>
+    </div>
+    <div id="unity-loading">Loading&hellip; <span id="unity-progress">0%</span></div>
+    <script src="Build/SantyIsHome.loader.js"></script>
+    <script>
+      var loadingEl = document.querySelector("#unity-loading");
+      var progressEl = document.querySelector("#unity-progress");
+      var canvas = document.querySelector("#unity-canvas");
+
+      function resizeCanvas() {
+        var container = document.querySelector("#unity-container");
+        var dpr = window.devicePixelRatio || 1;
+        var w = Math.round(container.clientWidth * dpr);
+        var h = Math.round(container.clientHeight * dpr);
+        if (canvas.width !== w) canvas.width = w;
+        if (canvas.height !== h) canvas.height = h;
+      }
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+      if (window.ResizeObserver) {
+        new ResizeObserver(resizeCanvas).observe(document.querySelector("#unity-container"));
+      }
+
+      createUnityInstance(canvas, {
+        dataUrl: "Build/SantyIsHome.data",
+        frameworkUrl: "Build/SantyIsHome.framework.js",
+        codeUrl: "Build/SantyIsHome.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Kulu",
+        productName: "Santy is Home",
+        productVersion: "0.1",
+      }, function (progress) {
+        progressEl.textContent = Math.round(progress * 100) + "%";
+      }).then(function () {
+        loadingEl.style.display = "none";
+      }).catch(function (err) {
+        loadingEl.textContent = "Failed to load: " + err;
+        console.error(err);
+      });
+    </script>
+  </body>
+</html>

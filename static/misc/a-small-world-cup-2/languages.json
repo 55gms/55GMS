@@ -1,0 +1,2195 @@
+{
+    "c2array": true,
+    "size": [
+        95,
+        7,
+        1
+    ],
+    "data": [
+        [
+            [
+                "btn_continue"
+            ],
+            [
+                "continue"
+            ],
+            [
+                "continuar"
+            ],
+            [
+                "continua"
+            ],
+            [
+                "continuar"
+            ],
+            [
+                "continuer"
+            ],
+            [
+                "fortsetzen"
+            ]
+        ],
+        [
+            [
+                "btn_viewreplay"
+            ],
+            [
+                "view/save replay"
+            ],
+            [
+                "ver/guardar replay"
+            ],
+            [
+                "rivedi/salva replay"
+            ],
+            [
+                "ver/salvar replay"
+            ],
+            [
+                "voir/sauver replay"
+            ],
+            [
+                "ansehen/speich. replay"
+            ]
+        ],
+        [
+            [
+                "btn_goalcancel"
+            ],
+            [
+                "goal cancel"
+            ],
+            [
+                "cancelar gol"
+            ],
+            [
+                "annulla gol"
+            ],
+            [
+                "cancelar gol"
+            ],
+            [
+                "annuler but"
+            ],
+            [
+                "tor abbrechen"
+            ]
+        ],
+        [
+            [
+                "btn_restartmatch"
+            ],
+            [
+                "restart match"
+            ],
+            [
+                "reiniciar partida"
+            ],
+            [
+                "ricomincia partita"
+            ],
+            [
+                "reiniciar partida"
+            ],
+            [
+                "recommencer match"
+            ],
+            [
+                "spiel neustarten"
+            ]
+        ],
+        [
+            [
+                "btn_savereplay"
+            ],
+            [
+                "save replay"
+            ],
+            [
+                "guardar replay"
+            ],
+            [
+                "salva replay"
+            ],
+            [
+                "salvar replay"
+            ],
+            [
+                "sauver replay"
+            ],
+            [
+                "replay speichern"
+            ]
+        ],
+        [
+            [
+                "btn_sharereplay"
+            ],
+            [
+                "share replay"
+            ],
+            [
+                "compartir replay"
+            ],
+            [
+                "condividi replay"
+            ],
+            [
+                "compartilhar replay"
+            ],
+            [
+                "partager replay"
+            ],
+            [
+                "replay teilen"
+            ]
+        ],
+        [
+            [
+                "sett_sound"
+            ],
+            [
+                "sound"
+            ],
+            [
+                "sonido"
+            ],
+            [
+                "suono"
+            ],
+            [
+                "som"
+            ],
+            [
+                "son"
+            ],
+            [
+                "sound"
+            ]
+        ],
+        [
+            [
+                "sett_music"
+            ],
+            [
+                "music"
+            ],
+            [
+                "música"
+            ],
+            [
+                "musica"
+            ],
+            [
+                "música"
+            ],
+            [
+                "musique"
+            ],
+            [
+                "musik"
+            ]
+        ],
+        [
+            [
+                "sett_vibration"
+            ],
+            [
+                "vibration"
+            ],
+            [
+                "vibración"
+            ],
+            [
+                "vibrazione"
+            ],
+            [
+                "vibração"
+            ],
+            [
+                "vibration"
+            ],
+            [
+                "vibration"
+            ]
+        ],
+        [
+            [
+                "pause_restart"
+            ],
+            [
+                "restart"
+            ],
+            [
+                "reiniciar"
+            ],
+            [
+                "ricomincia"
+            ],
+            [
+                "reiniciar"
+            ],
+            [
+                "recommencer"
+            ],
+            [
+                "neustarten"
+            ]
+        ],
+        [
+            [
+                "sett_quit"
+            ],
+            [
+                "quit"
+            ],
+            [
+                "salir"
+            ],
+            [
+                "esci"
+            ],
+            [
+                "sair"
+            ],
+            [
+                "quitter"
+            ],
+            [
+                "beenden"
+            ]
+        ],
+        [
+            [
+                "pause_resume"
+            ],
+            [
+                "resume"
+            ],
+            [
+                "reanudar"
+            ],
+            [
+                "riprendi"
+            ],
+            [
+                "retomar"
+            ],
+            [
+                "reprendre"
+            ],
+            [
+                "fortsetzen"
+            ]
+        ],
+        [
+            [
+                "team_wins"
+            ],
+            [
+                "wins"
+            ],
+            [
+                "gana"
+            ],
+            [
+                "vince"
+            ],
+            [
+                "vence"
+            ],
+            [
+                "gagne"
+            ],
+            [
+                "gewinnt"
+            ]
+        ],
+        [
+            [
+                "selecao_cup"
+            ],
+            [
+                "Select cup"
+            ],
+            [
+                "Seleccionar copa"
+            ],
+            [
+                "Seleziona coppa"
+            ],
+            [
+                "Selecionar copa"
+            ],
+            [
+                "Sélectionner coupe"
+            ],
+            [
+                "Pokal wählen"
+            ]
+        ],
+        [
+            [
+                "selecao_team"
+            ],
+            [
+                "Select team"
+            ],
+            [
+                "Seleccionar equipo"
+            ],
+            [
+                "Seleziona squadra"
+            ],
+            [
+                "Selecionar equipe"
+            ],
+            [
+                "Sélectionner équipe"
+            ],
+            [
+                "Team wählen"
+            ]
+        ],
+        [
+            [
+                "selecao_player"
+            ],
+            [
+                "Select player"
+            ],
+            [
+                "Seleccionar jugador"
+            ],
+            [
+                "Seleziona giocatore"
+            ],
+            [
+                "Selecionar jogador"
+            ],
+            [
+                "Sélectionner joueur"
+            ],
+            [
+                "Spieler wählen"
+            ]
+        ],
+        [
+            [
+                "selecao_matches"
+            ],
+            [
+                "matches"
+            ],
+            [
+                "partidos"
+            ],
+            [
+                "partite"
+            ],
+            [
+                "partidas"
+            ],
+            [
+                "matchs"
+            ],
+            [
+                "spiele"
+            ]
+        ],
+        [
+            [
+                "selecao_cup_locked"
+            ],
+            [
+                "You don't have players for this cup yet"
+            ],
+            [
+                "Aún no tienes jugadores de esta copa"
+            ],
+            [
+                "Non hai ancora giocatori per questa coppa"
+            ],
+            [
+                "Ainda não tens jogadores desta copa"
+            ],
+            [
+                "Tu n'as pas encore de joueurs de cette coupe"
+            ],
+            [
+                "Du hast noch keine Spieler für diesen Pokal"
+            ]
+        ],
+        [
+            [
+                "selecao_team_locked"
+            ],
+            [
+                "You don't have players from this team yet"
+            ],
+            [
+                "Aún no tienes jugadores de este equipo"
+            ],
+            [
+                "Non hai ancora giocatori di questa squadra"
+            ],
+            [
+                "Ainda não tens jogadores desta equipe"
+            ],
+            [
+                "Tu n'as pas encore de joueurs de cette équipe"
+            ],
+            [
+                "Du hast noch keine Spieler von diesem Team"
+            ]
+        ],
+        [
+            [
+                "selecao_player_locked"
+            ],
+            [
+                "You don't have this player"
+            ],
+            [
+                "No tienes este jugador"
+            ],
+            [
+                "Non hai questo giocatore"
+            ],
+            [
+                "Não tens este jogador"
+            ],
+            [
+                "Tu n'as pas ce joueur"
+            ],
+            [
+                "Du hast diesen Spieler nicht"
+            ]
+        ],
+        [
+            [
+                "cup_qual"
+            ],
+            [
+                "Qualification match"
+            ],
+            [
+                "Partido clasificatorio"
+            ],
+            [
+                "Partita di qualificazione"
+            ],
+            [
+                "Partida de qualificação"
+            ],
+            [
+                "Match de qualification"
+            ],
+            [
+                "Qualifikationsspiel"
+            ]
+        ],
+        [
+            [
+                "cup_round32"
+            ],
+            [
+                "Round of 32"
+            ],
+            [
+                "Dieciseisavos de final"
+            ],
+            [
+                "Sedicesimi di finale"
+            ],
+            [
+                "Oitavas de final"
+            ],
+            [
+                "Seizièmes de finale"
+            ],
+            [
+                "Sechzehntelfinale"
+            ]
+        ],
+        [
+            [
+                "cup_round16"
+            ],
+            [
+                "Round of 16"
+            ],
+            [
+                "Octavos de final"
+            ],
+            [
+                "Ottavi di finale"
+            ],
+            [
+                "Oitavas de final"
+            ],
+            [
+                "Huitièmes de finale"
+            ],
+            [
+                "Achtelfinale"
+            ]
+        ],
+        [
+            [
+                "cup_quarter"
+            ],
+            [
+                "Quarter finals"
+            ],
+            [
+                "Cuartos de final"
+            ],
+            [
+                "Quarti di finale"
+            ],
+            [
+                "Quartas de final"
+            ],
+            [
+                "Quarts de finale"
+            ],
+            [
+                "Viertelfinale"
+            ]
+        ],
+        [
+            [
+                "cup_semi"
+            ],
+            [
+                "Semi finals"
+            ],
+            [
+                "Semifinales"
+            ],
+            [
+                "Semifinali"
+            ],
+            [
+                "Semifinais"
+            ],
+            [
+                "Demi-finales"
+            ],
+            [
+                "Halbfinale"
+            ]
+        ],
+        [
+            [
+                "cup_final"
+            ],
+            [
+                "Final"
+            ],
+            [
+                "Final"
+            ],
+            [
+                "Finale"
+            ],
+            [
+                "Final"
+            ],
+            [
+                "Finale"
+            ],
+            [
+                "Finale"
+            ]
+        ],
+        [
+            [
+                "cup_continue"
+            ],
+            [
+                "Continue"
+            ],
+            [
+                "Continuar"
+            ],
+            [
+                "Continua"
+            ],
+            [
+                "Continuar"
+            ],
+            [
+                "Continuer"
+            ],
+            [
+                "Fortsetzen"
+            ]
+        ],
+        [
+            [
+                "cup_today"
+            ],
+            [
+                "Today"
+            ],
+            [
+                "Hoy"
+            ],
+            [
+                "Oggi"
+            ],
+            [
+                "Hoje"
+            ],
+            [
+                "Aujourd'hui"
+            ],
+            [
+                "Heute"
+            ]
+        ],
+        [
+            [
+                "cup_next"
+            ],
+            [
+                "Next opponent..."
+            ],
+            [
+                "Próximo rival..."
+            ],
+            [
+                "Prossimo avversario..."
+            ],
+            [
+                "Próximo adversário..."
+            ],
+            [
+                "Prochain adversaire..."
+            ],
+            [
+                "Nächster Gegner..."
+            ]
+        ],
+        [
+            [
+                "cup_gameover"
+            ],
+            [
+                "Game Over"
+            ],
+            [
+                "Game Over"
+            ],
+            [
+                "Game Over"
+            ],
+            [
+                "Game Over"
+            ],
+            [
+                "Game Over"
+            ],
+            [
+                "Game Over"
+            ]
+        ],
+        [
+            [
+                "busta_open"
+            ],
+            [
+                "OPEN"
+            ],
+            [
+                "ABRIR"
+            ],
+            [
+                "APRI"
+            ],
+            [
+                "ABRIR"
+            ],
+            [
+                "OUVRIR"
+            ],
+            [
+                "ÖFFNEN"
+            ]
+        ],
+        [
+            [
+                "busta_title1"
+            ],
+            [
+                "-- BASE PACK --"
+            ],
+            [
+                "-- SOBRE BÁSICO --"
+            ],
+            [
+                "-- BUSTA BASE --"
+            ],
+            [
+                "-- PACOTE BÁSICO --"
+            ],
+            [
+                "-- PACK BASIQUE --"
+            ],
+            [
+                "-- BASIS PACK --"
+            ]
+        ],
+        [
+            [
+                "busta_title2"
+            ],
+            [
+                "-- RARE PACK --"
+            ],
+            [
+                "-- SOBRE RARO --"
+            ],
+            [
+                "-- BUSTA RARA --"
+            ],
+            [
+                "-- PACOTE RARO --"
+            ],
+            [
+                "-- PACK RARE --"
+            ],
+            [
+                "-- SELTENES PACK --"
+            ]
+        ],
+        [
+            [
+                "busta_title3"
+            ],
+            [
+                "-- TOP PACK --"
+            ],
+            [
+                "-- SOBRE TOP --"
+            ],
+            [
+                "-- BUSTA TOP --"
+            ],
+            [
+                "-- PACOTE TOP --"
+            ],
+            [
+                "-- PACK TOP --"
+            ],
+            [
+                "-- TOP PACK --"
+            ]
+        ],
+        [
+            [
+                "busta_content1"
+            ],
+            [
+                "1 PLAYER"
+            ],
+            [
+                "1 JUGADOR"
+            ],
+            [
+                "1 GIOCATORE"
+            ],
+            [
+                "1 JOGADOR"
+            ],
+            [
+                "1 JOUEUR"
+            ],
+            [
+                "1 SPIELER"
+            ]
+        ],
+        [
+            [
+                "busta_content2"
+            ],
+            [
+                "2-3 PLAYERS"
+            ],
+            [
+                "2-3 JUGADORES"
+            ],
+            [
+                "2-3 GIOCATORI"
+            ],
+            [
+                "2-3 JOGADORES"
+            ],
+            [
+                "2-3 JOUEURS"
+            ],
+            [
+                "2-3 SPIELER"
+            ]
+        ],
+        [
+            [
+                "busta_content3"
+            ],
+            [
+                "4-6 PLAYERS"
+            ],
+            [
+                "4-6 JUGADORES"
+            ],
+            [
+                "4-6 GIOCATORI"
+            ],
+            [
+                "4-6 JOGADORES"
+            ],
+            [
+                "4-6 JOUEURS"
+            ],
+            [
+                "4-6 SPIELER"
+            ]
+        ],
+        [
+            [
+                "unlock_cards"
+            ],
+            [
+                "New players unlocked:"
+            ],
+            [
+                "Nuevos jugadores desbloqueados:"
+            ],
+            [
+                "Nuovi giocatori sbloccati:"
+            ],
+            [
+                "Novos jogadores desbloqueados:"
+            ],
+            [
+                "Nouveaux joueurs débloqués:"
+            ],
+            [
+                "Neue Spieler freigeschaltet:"
+            ]
+        ],
+        [
+            [
+                "unlock_teams"
+            ],
+            [
+                "New teams unlocked:"
+            ],
+            [
+                "Nuevos equipos desbloqueados:"
+            ],
+            [
+                "Nuove squadre sbloccate:"
+            ],
+            [
+                "Novas equipes desbloqueadas:"
+            ],
+            [
+                "Nouvelles équipes débloquées:"
+            ],
+            [
+                "Neue Teams freigeschaltet:"
+            ]
+        ],
+        [
+            [
+                "unlock_cups"
+            ],
+            [
+                "New cups unlocked:"
+            ],
+            [
+                "Nuevas copas desbloqueadas:"
+            ],
+            [
+                "Nuove coppe sbloccate:"
+            ],
+            [
+                "Novas copas desbloqueadas:"
+            ],
+            [
+                "Nouvelles coupes débloquées:"
+            ],
+            [
+                "Neue Pokale freigeschaltet:"
+            ]
+        ],
+        [
+            [
+                "ui_coins"
+            ],
+            [
+                "Coins:"
+            ],
+            [
+                "Monedas:"
+            ],
+            [
+                "Monete:"
+            ],
+            [
+                "Moedas:"
+            ],
+            [
+                "Pièces:"
+            ],
+            [
+                "Münzen:"
+            ]
+        ],
+        [
+            [
+                "btn_collect"
+            ],
+            [
+                "CLAIM"
+            ],
+            [
+                "RECLAMAR"
+            ],
+            [
+                "PRENDI"
+            ],
+            [
+                "RECEBER"
+            ],
+            [
+                "RÉCLAMER"
+            ],
+            [
+                "ABHOLEN"
+            ]
+        ],
+        [
+            [
+                "btn_collectx3"
+            ],
+            [
+                "CLAIM x3"
+            ],
+            [
+                "RECLAMAR x3"
+            ],
+            [
+                "PRENDI x3"
+            ],
+            [
+                "RECEBER x3"
+            ],
+            [
+                "RÉCLAMER x3"
+            ],
+            [
+                "ABHOLEN x3"
+            ]
+        ],
+        [
+            [
+                "btn_reroll"
+            ],
+            [
+                "REROLL"
+            ],
+            [
+                "REPETIR"
+            ],
+            [
+                "RIFAI"
+            ],
+            [
+                "REFAZER"
+            ],
+            [
+                "REFAIRE"
+            ],
+            [
+                "ERNEUT"
+            ]
+        ],
+        [
+            [
+                "sbusto_title_daily"
+            ],
+            [
+                "Daily Reward!"
+            ],
+            [
+                "¡Recompensa Diaria!"
+            ],
+            [
+                "Ricompensa Giornaliera!"
+            ],
+            [
+                "Recompensa Diária!"
+            ],
+            [
+                "Récompense Quotidienne!"
+            ],
+            [
+                "Tägliche Belohnung!"
+            ]
+        ],
+        [
+            [
+                "sbusto_title_game"
+            ],
+            [
+                "Match Reward!"
+            ],
+            [
+                "¡Recompensa de Partido!"
+            ],
+            [
+                "Ricompensa Partita!"
+            ],
+            [
+                "Recompensa de Partida!"
+            ],
+            [
+                "Récompense de Match!"
+            ],
+            [
+                "Spiel Belohnung!"
+            ]
+        ],
+        [
+            [
+                "sbusto_title_cup"
+            ],
+            [
+                "Cup Reward!"
+            ],
+            [
+                "¡Recompensa de Copa!"
+            ],
+            [
+                "Ricompensa Coppa!"
+            ],
+            [
+                "Recompensa de Copa!"
+            ],
+            [
+                "Récompense de Coupe!"
+            ],
+            [
+                "Pokal Belohnung!"
+            ]
+        ],
+        [
+            [
+                "sbusto_title_part"
+            ],
+            [
+                "Participation Reward!"
+            ],
+            [
+                "¡Recompensa de participación!"
+            ],
+            [
+                "Ricompensa di partecipazione!"
+            ],
+            [
+                "Recompensa de participação!"
+            ],
+            [
+                "Récompense de participation!"
+            ],
+            [
+                "Teilnahme Belohnung!"
+            ]
+        ],
+        [
+            [
+                "sbusto_title_tutorial"
+            ],
+            [
+                "Welcome Bonus!"
+            ],
+            [
+                "¡Premio de Bienvenida!"
+            ],
+            [
+                "Premio di Benvenuto!"
+            ],
+            [
+                "Prêmio de Boas-vindas!"
+            ],
+            [
+                "Bonus de Bienvenue!"
+            ],
+            [
+                "Willkommensbonus!"
+            ]
+        ],
+        [
+            [
+                "btn_shirts"
+            ],
+            [
+                "Kits:"
+            ],
+            [
+                "Camisetas:"
+            ],
+            [
+                "Magliette:"
+            ],
+            [
+                "Camisas:"
+            ],
+            [
+                "Maillots:"
+            ],
+            [
+                "Trikots:"
+            ]
+        ],
+        [
+            [
+                "btn_shirts_home"
+            ],
+            [
+                "Home"
+            ],
+            [
+                "Local"
+            ],
+            [
+                "Casa"
+            ],
+            [
+                "Casa"
+            ],
+            [
+                "Domicile"
+            ],
+            [
+                "Heim"
+            ]
+        ],
+        [
+            [
+                "btn_shirts_away"
+            ],
+            [
+                "Away"
+            ],
+            [
+                "Visitante"
+            ],
+            [
+                "Fuori"
+            ],
+            [
+                "Fora"
+            ],
+            [
+                "Extérieur"
+            ],
+            [
+                "Auswärts"
+            ]
+        ],
+        [
+            [
+                "btn_saveshare"
+            ],
+            [
+                "save/share"
+            ],
+            [
+                "guardar/compartir"
+            ],
+            [
+                "salva/condividi"
+            ],
+            [
+                "salvar/compartilhar"
+            ],
+            [
+                "sauver/partager"
+            ],
+            [
+                "speichern/teilen"
+            ]
+        ],
+        [
+            [
+                "btn_play"
+            ],
+            [
+                "play"
+            ],
+            [
+                "jugar"
+            ],
+            [
+                "gioca"
+            ],
+            [
+                "jogar"
+            ],
+            [
+                "jouer"
+            ],
+            [
+                "spielen"
+            ]
+        ],
+        [
+            [
+                "btn_shop"
+            ],
+            [
+                "shop"
+            ],
+            [
+                "tienda"
+            ],
+            [
+                "negozio"
+            ],
+            [
+                "loja"
+            ],
+            [
+                "boutique"
+            ],
+            [
+                "shop"
+            ]
+        ],
+        [
+            [
+                "btn_deck"
+            ],
+            [
+                "deck"
+            ],
+            [
+                "colección"
+            ],
+            [
+                "collezione"
+            ],
+            [
+                "coleção"
+            ],
+            [
+                "collection"
+            ],
+            [
+                "sammlung"
+            ]
+        ],
+        [
+            [
+                "btn_multi"
+            ],
+            [
+                "multiplayer"
+            ],
+            [
+                "multijugador"
+            ],
+            [
+                "multiplayer"
+            ],
+            [
+                "multijogador"
+            ],
+            [
+                "multijoueur"
+            ],
+            [
+                "mehrspieler"
+            ]
+        ],
+        [
+            [
+                "btn_difficulty"
+            ],
+            [
+                "difficulty"
+            ],
+            [
+                "dificultad"
+            ],
+            [
+                "difficoltà"
+            ],
+            [
+                "dificuldade"
+            ],
+            [
+                "difficulté"
+            ],
+            [
+                "schwierigkeit"
+            ]
+        ],
+        [
+            [
+                "diff_easy"
+            ],
+            [
+                "easy"
+            ],
+            [
+                "fácil"
+            ],
+            [
+                "facile"
+            ],
+            [
+                "fácil"
+            ],
+            [
+                "facile"
+            ],
+            [
+                "leicht"
+            ]
+        ],
+        [
+            [
+                "diff_normal"
+            ],
+            [
+                "normal"
+            ],
+            [
+                "normal"
+            ],
+            [
+                "normale"
+            ],
+            [
+                "normal"
+            ],
+            [
+                "normal"
+            ],
+            [
+                "normal"
+            ]
+        ],
+        [
+            [
+                "diff_hard"
+            ],
+            [
+                "hard"
+            ],
+            [
+                "difícil"
+            ],
+            [
+                "difficile"
+            ],
+            [
+                "difícil"
+            ],
+            [
+                "difficile"
+            ],
+            [
+                "schwer"
+            ]
+        ],
+        [
+            [
+                "diff_legend"
+            ],
+            [
+                "legend"
+            ],
+            [
+                "leyenda"
+            ],
+            [
+                "leggenda"
+            ],
+            [
+                "lenda"
+            ],
+            [
+                "légende"
+            ],
+            [
+                "legende"
+            ]
+        ],
+        [
+            [
+                "diff_locked_text"
+            ],
+            [
+                "win in hard mode to unlock legend"
+            ],
+            [
+                "gana en modo difícil para desbloquear leyenda"
+            ],
+            [
+                "vinci in modalità hard per sbloccare leggenda"
+            ],
+            [
+                "vence em modo difícil para desbloquear lenda"
+            ],
+            [
+                "gagne en mode difficile pour débloquer légende"
+            ],
+            [
+                "gewinne im schwer modus um legende freizuschalten"
+            ]
+        ],
+        [
+            [
+                "sett_language"
+            ],
+            [
+                "language"
+            ],
+            [
+                "idioma"
+            ],
+            [
+                "lingua"
+            ],
+            [
+                "idioma"
+            ],
+            [
+                "langue"
+            ],
+            [
+                "sprache"
+            ]
+        ],
+        [
+            [
+                "sett_reset"
+            ],
+            [
+                "reset progress"
+            ],
+            [
+                "resetear progreso"
+            ],
+            [
+                "resetta progressi"
+            ],
+            [
+                "resetar progresso"
+            ],
+            [
+                "réinitialiser progression"
+            ],
+            [
+                "fortschritt zurücksetzen"
+            ]
+        ],
+        [
+            [
+                "sett_onetouch"
+            ],
+            [
+                "one-touch control"
+            ],
+            [
+                "control de un toque"
+            ],
+            [
+                "controllo a un tocco"
+            ],
+            [
+                "controle de um toque"
+            ],
+            [
+                "contrôle en un toucher"
+            ],
+            [
+                "ein-touch steuerung"
+            ]
+        ],
+        [
+            [
+                "sett_time"
+            ],
+            [
+                "match time"
+            ],
+            [
+                "tiempo de partido"
+            ],
+            [
+                "tempo partita"
+            ],
+            [
+                "tempo de partida"
+            ],
+            [
+                "temps de match"
+            ],
+            [
+                "spielzeit"
+            ]
+        ],
+        [
+            [
+                "sett_quality"
+            ],
+            [
+                "graphics quality"
+            ],
+            [
+                "calidad gráfica"
+            ],
+            [
+                "qualità grafica"
+            ],
+            [
+                "qualidade gráfica"
+            ],
+            [
+                "qualité graphique"
+            ],
+            [
+                "grafikqualität"
+            ]
+        ],
+        [
+            [
+                "sett_quality_high"
+            ],
+            [
+                "high"
+            ],
+            [
+                "alta"
+            ],
+            [
+                "alta"
+            ],
+            [
+                "alta"
+            ],
+            [
+                "haute"
+            ],
+            [
+                "hoch"
+            ]
+        ],
+        [
+            [
+                "sett_quality_low"
+            ],
+            [
+                "low"
+            ],
+            [
+                "baja"
+            ],
+            [
+                "bassa"
+            ],
+            [
+                "baixa"
+            ],
+            [
+                "basse"
+            ],
+            [
+                "niedrig"
+            ]
+        ],
+        [
+            [
+                "sett_on"
+            ],
+            [
+                "on"
+            ],
+            [
+                "activado"
+            ],
+            [
+                "acceso"
+            ],
+            [
+                "ligado"
+            ],
+            [
+                "activé"
+            ],
+            [
+                "an"
+            ]
+        ],
+        [
+            [
+                "sett_off"
+            ],
+            [
+                "off"
+            ],
+            [
+                "desactivado"
+            ],
+            [
+                "spento"
+            ],
+            [
+                "desligado"
+            ],
+            [
+                "désactivé"
+            ],
+            [
+                "aus"
+            ]
+        ],
+        [
+            [
+                "sett_language_name"
+            ],
+            [
+                "eng"
+            ],
+            [
+                "esp"
+            ],
+            [
+                "ita"
+            ],
+            [
+                "por"
+            ],
+            [
+                "fra"
+            ],
+            [
+                "deu"
+            ]
+        ],
+        [
+            [
+                "multi_local"
+            ],
+            [
+                "local"
+            ],
+            [
+                "local"
+            ],
+            [
+                "locale"
+            ],
+            [
+                "local"
+            ],
+            [
+                "local"
+            ],
+            [
+                "lokal"
+            ]
+        ],
+        [
+            [
+                "multi_online"
+            ],
+            [
+                "online"
+            ],
+            [
+                "online"
+            ],
+            [
+                "online"
+            ],
+            [
+                "online"
+            ],
+            [
+                "en ligne"
+            ],
+            [
+                "online"
+            ]
+        ],
+        [
+            [
+                "gen_back"
+            ],
+            [
+                "back"
+            ],
+            [
+                "atrás"
+            ],
+            [
+                "indietro"
+            ],
+            [
+                "voltar"
+            ],
+            [
+                "retour"
+            ],
+            [
+                "zurück"
+            ]
+        ],
+        [
+            [
+                "gen_comingsoon"
+            ],
+            [
+                "coming soon"
+            ],
+            [
+                "próximamente"
+            ],
+            [
+                "in arrivo"
+            ],
+            [
+                "em breve"
+            ],
+            [
+                "bientôt disponible"
+            ],
+            [
+                "demnächst"
+            ]
+        ],
+        [
+            [
+                "shop_no_money"
+            ],
+            [
+                "not enough coins"
+            ],
+            [
+                "no tienes suficientes monedas"
+            ],
+            [
+                "non hai abbastanza monete"
+            ],
+            [
+                "não tens moedas suficientes"
+            ],
+            [
+                "pas assez de pièces"
+            ],
+            [
+                "nicht genug münzen"
+            ]
+        ],
+        [
+            [
+                "shop_deck_full"
+            ],
+            [
+                "you already completed the player deck"
+            ],
+            [
+                "ya has completado el mazo de jugadores"
+            ],
+            [
+                "hai già completato il deck giocatori"
+            ],
+            [
+                "já completaste o baralho de jogadores"
+            ],
+            [
+                "tu as déjà complété le deck de joueurs"
+            ],
+            [
+                "du hast bereits das spieler deck vervollständigt"
+            ]
+        ],
+        [
+            [
+                "local_title"
+            ],
+            [
+                "local match"
+            ],
+            [
+                "partido local"
+            ],
+            [
+                "partita locale"
+            ],
+            [
+                "partida local"
+            ],
+            [
+                "match local"
+            ],
+            [
+                "lokales spiel"
+            ]
+        ],
+        [
+            [
+                "local_nat"
+            ],
+            [
+                "national"
+            ],
+            [
+                "selecciones"
+            ],
+            [
+                "nazionali"
+            ],
+            [
+                "seleções"
+            ],
+            [
+                "sélections"
+            ],
+            [
+                "nationalteams"
+            ]
+        ],
+        [
+            [
+                "local_club"
+            ],
+            [
+                "clubs"
+            ],
+            [
+                "clubes"
+            ],
+            [
+                "club"
+            ],
+            [
+                "clubes"
+            ],
+            [
+                "clubs"
+            ],
+            [
+                "vereine"
+            ]
+        ],
+        [
+            [
+                "deck_my"
+            ],
+            [
+                "my players"
+            ],
+            [
+                "mis jugadores"
+            ],
+            [
+                "miei giocatori"
+            ],
+            [
+                "meus jogadores"
+            ],
+            [
+                "mes joueurs"
+            ],
+            [
+                "meine spieler"
+            ]
+        ],
+        [
+            [
+                "deck_deck"
+            ],
+            [
+                "collection"
+            ],
+            [
+                "colección"
+            ],
+            [
+                "collezione"
+            ],
+            [
+                "coleção"
+            ],
+            [
+                "collection"
+            ],
+            [
+                "sammlung"
+            ]
+        ],
+        [
+            [
+                "deck_palm"
+            ],
+            [
+                "trophies"
+            ],
+            [
+                "palmarés"
+            ],
+            [
+                "palmares"
+            ],
+            [
+                "conquistas"
+            ],
+            [
+                "palmarès"
+            ],
+            [
+                "trophäen"
+            ]
+        ],
+        [
+            [
+                "deck-title"
+            ],
+            [
+                "unlocked"
+            ],
+            [
+                "desbloqueados"
+            ],
+            [
+                "sbloccati"
+            ],
+            [
+                "desbloqueados"
+            ],
+            [
+                "débloqués"
+            ],
+            [
+                "freigeschaltet"
+            ]
+        ],
+        [
+            [
+                "deck_my_played"
+            ],
+            [
+                "played"
+            ],
+            [
+                "jugados"
+            ],
+            [
+                "Giocate"
+            ],
+            [
+                "jogados"
+            ],
+            [
+                "joués"
+            ],
+            [
+                "gespielt"
+            ]
+        ],
+        [
+            [
+                "deck_my_win"
+            ],
+            [
+                "won"
+            ],
+            [
+                "ganados"
+            ],
+            [
+                "Vinte"
+            ],
+            [
+                "ganhos"
+            ],
+            [
+                "gagnés"
+            ],
+            [
+                "gewonnen"
+            ]
+        ],
+        [
+            [
+                "deck_my_goal"
+            ],
+            [
+                "goals"
+            ],
+            [
+                "goles"
+            ],
+            [
+                "Goal"
+            ],
+            [
+                "gols"
+            ],
+            [
+                "buts"
+            ],
+            [
+                "tore"
+            ]
+        ],
+        [
+            [
+                "deck_my_against"
+            ],
+            [
+                "conceded"
+            ],
+            [
+                "encajados"
+            ],
+            [
+                "Subiti"
+            ],
+            [
+                "sofridos"
+            ],
+            [
+                "encaissés"
+            ],
+            [
+                "kassiert"
+            ]
+        ],
+        [
+            [
+                "deck_my_cups"
+            ],
+            [
+                "cups won"
+            ],
+            [
+                "copas ganadas"
+            ],
+            [
+                "Coppe Vinte"
+            ],
+            [
+                "copas ganhas"
+            ],
+            [
+                "coupes gagnées"
+            ],
+            [
+                "pokale gewonnen"
+            ]
+        ],
+        [
+            [
+                "deck_palm_with"
+            ],
+            [
+                "with"
+            ],
+            [
+                "con"
+            ],
+            [
+                "con"
+            ],
+            [
+                "com"
+            ],
+            [
+                "avec"
+            ],
+            [
+                "mit"
+            ]
+        ],
+        [
+            [
+                "deck_palm_date"
+            ],
+            [
+                "date"
+            ],
+            [
+                "fecha"
+            ],
+            [
+                "data"
+            ],
+            [
+                "data"
+            ],
+            [
+                "date"
+            ],
+            [
+                "datum"
+            ]
+        ],
+        [
+            [
+                "sett_adv"
+            ],
+            [
+                "ADV"
+            ],
+            [
+                "ADV"
+            ],
+            [
+                "ADV"
+            ],
+            [
+                "ADV"
+            ],
+            [
+                "ADV"
+            ],
+            [
+                "ADV"
+            ]
+        ],
+        [
+            [
+                "empty_palmares"
+            ],
+            [
+                "This is where you'll see your trophies!"
+            ],
+            [
+                "¡Aquí es donde verás tus trofeos!"
+            ],
+            [
+                "Qui è dove vedrai i tuoi trofei!"
+            ],
+            [
+                "Aqui é onde verás os teus troféus!"
+            ],
+            [
+                "C'est ici que tu verras tes trophées!"
+            ],
+            [
+                "Hier siehst du deine Trophäen!"
+            ]
+        ]
+    ]
+}

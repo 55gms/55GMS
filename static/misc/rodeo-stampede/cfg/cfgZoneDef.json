@@ -1,0 +1,166 @@
+[
+    {
+        "name": "Savannah",
+        "zone": [
+            {
+                "greebleGridSize": 8.0156,
+                "randomObstacleChance": 0.4,
+                "minObstacleDist": 5,
+                "randomObstacles": [
+                    "shrub02",
+                    "shrub00",
+                    "shrub01",
+                    "shrub02",
+                    "shrub00",
+                    "shrub01",
+                    "shrub02",
+                    "shrub00",
+                    "shrub01",
+                    "treesml",
+                    "treesml",
+                    "rockHigh01",
+                    "rockLow02",
+                    "treebig",
+                    "shrub00",
+                    "shrub01",
+                    "shrub02",
+                    "rockHigh00",
+                    "rockLow01",
+                    "treesml",
+                    "treemed",
+                    "shrub00",
+                    "shrub01",
+                    "treebig"
+                ]
+            },
+            {
+                "greebleGridSize": 8.0156,
+                "randomObstacleChance": 0.5,
+                "minObstacleDist": 5,
+                "randomObstacles": [
+                    "rockLow01",
+                    "rockLow00",
+                    "shrub02",
+                    "rockLow02",
+                    "rockHigh00",
+                    "treebig",
+                    "shrub00",
+                    "rockLow02",
+                    "shrub01",
+                    "rockHigh01",
+                    "treemed",
+                    "treesml",
+                    "treebig",
+                    "treemed",
+                    "treesml"
+                ]
+            },
+            {
+                "greebleGridSize": 8.0156,
+                "randomObstacleChance": 0.5,
+                "minObstacleDist": 5,
+                "randomObstacles": [
+                    "rockLow01",
+                    "rockLow00",
+                    "shrub02",
+                    "rockLow02",
+                    "rockHigh00",
+                    "treebig",
+                    "shrub00",
+                    "rockHigh02",
+                    "shrub01",
+                    "rockHigh01",
+                    "treemed",
+                    "treesml",
+                    "rockLow01",
+                    "rockLow00",
+                    "rockLow02",
+                    "rockHigh00",
+                    "rockHigh02",
+                    "rockHigh01",
+                    "treebig",
+                    "treebig",
+                    "coin",
+                    "coin"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Jungle",
+        "zone": [
+            {
+                "greebleGridSize": 8.0156,
+                "randomObstacleChance": 1,
+                "minObstacleDist": 16,
+                "randomObstacles": [
+                    "coin",
+                    "jungleRockHigh2",
+                    "jungleTreeMed",
+                    "jungleRockLow2",
+                    "jungleTreeSmall",
+                    "jungleRockHigh1",
+                    "jungleTreeBig",
+                    "jungleRockHigh0",
+                    "jungleRockLow1",
+                    "jungleRockLow0",
+                    "j_lake_small",
+                    "j_lake_small",
+                    "jungleRockHigh0",
+                    "jungleShrub02",
+                    "jungleRockLow2"
+                ]
+            },
+            {
+                "greebleGridSize": 7.01567,
+                "randomObstacleChance": 0.3,
+                "minObstacleDist": 8,
+                "randomObstacles": [
+                    "jungleRockLow0",
+                    "jungleRockLow1",
+                    "jungleShrub00",
+                    "jungleRockLow2",
+                    "jungleRockHigh0",
+                    "jungleTreeBig",
+                    "jungleShrub01",
+                    "jungleRockHigh2",
+                    "jungleShrub02",
+                    "jungleRockHigh1",
+                    "jungleTreeMed",
+                    "jungleTreeSmall",
+                    "jungleTreeBig",
+                    "jungleTreeMed",
+                    "jungleTreeSmall"
+                ]
+            },
+            {
+                "greebleGridSize": 6.01567,
+                "randomObstacleChance": 0.3,
+                "minObstacleDist": 7,
+                "randomObstacles": [
+                    "jungleRockLow0",
+                    "jungleRockLow1",
+                    "jungleShrub00",
+                    "jungleRockLow2",
+                    "jungleRockHigh0",
+                    "jungleTreeBig",
+                    "jungleShrub01",
+                    "jungleRockHigh1",
+                    "jungleShrub02",
+                    "jungleRockHigh2",
+                    "jungleTreeMed",
+                    "jungleTreeSmall",
+                    "jungleRockLow0",
+                    "jungleRockLow1",
+                    "jungleRockLow2",
+                    "jungleRockHigh0",
+                    "jungleRockHigh1",
+                    "jungleRockHigh2",
+                    "jungleTreeSmall",
+                    "jungleTreeBig",
+                    "coin"
+                ]
+            }
+        ]
+    }
+]

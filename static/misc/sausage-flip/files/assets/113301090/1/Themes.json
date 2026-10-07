@@ -1,0 +1,58 @@
+{
+    "BlueTheme": {
+        "backgroundColor": "5E96B4",
+        "backgroundElementsColor": "72C89A",
+        "stickyGpeColor": "FFE07C",
+        "bouncyGpeColor": "6C4554",
+        "backgroundPattern": "pattern"
+    },
+    "ForestTheme": {
+        "backgroundColor": "4A8758",
+        "backgroundElementsColor": "97C876",
+        "stickyGpeColor": "E9C792",
+        "bouncyGpeColor": "78423F",
+        "backgroundPattern": "forest"
+    },
+    "IndustrialTheme": {
+        "backgroundColor": "9F9F9F",
+        "backgroundElementsColor": "E9D7BE",
+        "stickyGpeColor": "FF7B70",
+        "bouncyGpeColor": "413839",
+        "backgroundPattern": "brick"
+    },
+    "PastequeTheme": {
+        "backgroundColor": "EC8E8D",
+        "backgroundElementsColor": "B1FFBD",
+        "stickyGpeColor": "51CBF1",
+        "bouncyGpeColor": "413839",
+        "backgroundPattern": "pasteque"
+    },
+    "DarkTheme": {
+        "backgroundColor": "7D8B8E",
+        "backgroundElementsColor": "715E69",
+        "stickyGpeColor": "F16351",
+        "bouncyGpeColor": "413839",
+        "backgroundPattern": "darkness"
+    },
+    "IceTheme": {
+        "backgroundColor": "6299D6",
+        "backgroundElementsColor": "BCE4E7",
+        "stickyGpeColor": "F3735D",
+        "bouncyGpeColor": "23295B",
+        "backgroundPattern": "snowflakes"
+    },
+    "SpaceTheme": {
+        "backgroundColor": "5E4A93",
+        "backgroundElementsColor": "7787FF",
+        "stickyGpeColor": "E0DBC1",
+        "bouncyGpeColor": "234E5B",
+        "backgroundPattern": "stars"
+    },
+    "BeeTheme": {
+        "backgroundColor": "D69458",
+        "backgroundElementsColor": "ECC946",
+        "stickyGpeColor": "FFFBC2",
+        "bouncyGpeColor": "5B2D23",
+        "backgroundPattern": "honeycomb"
+    }
+}

@@ -1,0 +1,111 @@
+{
+    "Level 0": {
+        "patterns": [
+            "Pattern_Start_Onboarding",
+            "Pattern_End"
+        ]
+    },
+    "Level 1": {
+        "patterns": [
+            "Pattern_RotatingDoor",
+            "Pattern_End"
+        ]
+    },
+    "Level 2": {
+        "patterns": [
+            "Pattern_CarRocket",
+            "Pattern_End"
+        ]
+    },
+    "Level 3": {
+        "patterns": [
+            "Pattern_Bumpers",
+            "Pattern_RotatingDoor",
+            "Pattern_End"
+        ]
+    },
+    "Level 4": {
+        "patterns": [
+            "Pattern_BumperCorridor",
+            "Pattern_TowerHigh",
+            "Pattern_RotatingCross",
+            "Pattern_End"
+        ]
+    },
+    "Level 5": {
+        "patterns": [
+            "Pattern_GloveBricks",
+            "Pattern_TowerLow",
+            "Pattern_RotatingCross",
+            "Pattern_End"
+        ]
+    },
+    "Level 6": {
+        "patterns": [
+            "Pattern_RotatingDoor",
+            "Pattern_RotatingDoorDouble",
+            "Pattern_TowerHigh",
+            "Pattern_RotatingCross",
+            "Pattern_RotatingCrossDouble",
+            "Pattern_End"
+        ]
+    },
+    "Level 7": {
+        "patterns": [
+            "Pattern_PhysicsDoor",
+            "Pattern_RotatingCircleBottomAndTop",
+            "Pattern_Liane",
+            "Pattern_End"
+        ]
+    },
+    "Level 8": {
+        "patterns": [
+            "Pattern_Lianes",
+            "Pattern_RotatingDoor",
+            "Pattern_Liane",
+            "Pattern_End"
+        ]
+    },
+    "Level 9": {
+        "patterns": [
+            "Pattern_RocketTest",
+            "Pattern_End"
+        ]
+    },
+    "Level 10": {
+        "patterns": [
+            "Pattern_FlowerBig",
+            "Pattern_Flower",
+            "Pattern_FlowerSmall",
+            "Pattern_End"
+        ]
+    },
+    "Level 11": {
+        "patterns": [
+            "Pattern_CarRocket",
+            "Pattern_FlowerBig",
+            "Pattern_FlowerSmall",
+            "Pattern_Flower",
+            "Pattern_End"
+        ]
+    },
+    "Level 12": {
+        "patterns": [
+            "Pattern_GloveBricks",
+            "Pattern_BumperLianes",
+            "Pattern_End"
+        ]
+    },
+    "Level 13": {
+        "patterns": [
+            "Pattern_PhysicsRoom",
+            "Pattern_End"
+        ]
+    },
+    "Level 14": {
+        "patterns": [
+            "Pattern_PhysicsRoom",
+            "Pattern_End"
+        ]
+    }
+}

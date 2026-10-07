@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/plonky/">
+<script>
+  // The game's files come from the CDN, another origin than this page.
+  (() => {
+    // Images need CORS before the game can use them in WebGL or read their pixels.
+    const src = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      ...src,
+      set(value) {
+        if (this.crossOrigin === null && !/^(data|blob):/.test(value)) this.crossOrigin = "anonymous";
+        src.set.call(this, value);
+      },
+    });
+
+    // Workers cannot be started from another origin, so start them from a blob that pulls the script in.
+    const NativeWorker = window.Worker;
+    window.Worker = function (url, options) {
+      const script = new URL(url, document.baseURI);
+      if (script.origin === location.origin || !/^https?:$/.test(script.protocol)) return new NativeWorker(url, options);
+      const code = options?.type === "module" ? `import ${JSON.stringify(script.href)};` : `importScripts(${JSON.stringify(script.href)});`;
+      return new NativeWorker(URL.createObjectURL(new Blob([code], { type: "text/javascript" })), options);
+    };
+    window.Worker.prototype = NativeWorker.prototype;
+
+    // Audio worklet modules have the same restriction.
+    if (window.AudioWorklet) {
+      const addModule = AudioWorklet.prototype.addModule;
+      AudioWorklet.prototype.addModule = async function (url, options) {
+        const script = new URL(url, document.baseURI);
+        if (script.origin === location.origin || !/^https?:$/.test(script.protocol)) return addModule.call(this, url, options);
+        const code = await (await fetch(script)).blob();
+        return addModule.call(this, URL.createObjectURL(new Blob([code], { type: "text/javascript" })), options);
+      };
+    }
+  })();
+</script>
+
+	<title>Plonky</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	
+	<!-- Made with Construct, the game and app creator :: https://www.construct.net -->
+	<meta name="generator" content="Scirra Construct">
+
+	<meta name="author" content="gametornado">
+
+
+	<link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128.png">
+	<link rel="apple-touch-icon" sizes="256x256" href="icons/icon-256.png">
+	<link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512.png">
+	<link rel="icon" type="image/png" href="icons/icon-512.png">
+	<meta name="theme-color" content="#1dd7d7">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="file.css">
+
+
+</head> 
+ 
+<body>
+
+  <!-- Instant boot spinner (shows while Construct loads) -->
+  <div id="boot">
+    <div class="spin" aria-label="Loading"></div>
+  </div>
+  <style>
+    #boot {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #19d1d1;
+      z-index: 999999;
+    }
+    .spin {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(255,255,255,.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+
+
+	
+
+<script>
+if (location.protocol.substr(0, 4) === "file")
+{
+	alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
+}
+</script>
+	
+	<noscript>
+		<div id="notSupportedWrap">
+			<h2 id="notSupportedTitle">This content requires JavaScript</h2>
+			<p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content.</p>
+		</div>
+	</noscript>
+	<script src="scripts/modernjscheck.js"></script>
+	<script src="scripts/supportcheck.js"></script>
+
+	<script src="scripts/main.js" type="module"></script>
+
+
+<script>
+  (function () {
+    const boot = document.getElementById('boot');
+    if (!boot) return;
+
+    const removeBoot = () => boot && boot.remove();
+
+    // Wait for a real, visible canvas and one rendered frame.
+    function whenFirstFrameDrawn(canvas, done) {
+      let frames = 0;
+      function tick() {
+        // Canvas must be visible and sized
+        const r = canvas.getBoundingClientRect();
+        const visible = r.width > 0 && r.height > 0 && getComputedStyle(canvas).visibility !== 'hidden';
+        if (visible && ++frames >= 2) {   // give it 2 frames to be safe
+          // small grace for shader compile/layout
+          setTimeout(done, 100);
+          return;
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // Observe when Construct injects the canvas, then wait for the first frames.
+    const mo = new MutationObserver(() => {
+      const canvas = document.querySelector('canvas');
+      if (!canvas) return;
+      mo.disconnect();
+
+      // If we can grab a context, it’s almost certainly ready to draw soon.
+      try { canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getContext('2d'); } catch(e) {}
+
+      whenFirstFrameDrawn(canvas, removeBoot);
+    });
+
+    mo.observe(document.documentElement || document.body, { childList: true, subtree: true });
+
+    // If Construct exposes an init promise, still start observing early but DO NOT remove here.
+    if (window.C3_InitPromise && typeof C3_InitPromise.then === 'function') {
+      window.C3_InitPromise.catch(() => {
+        // On fatal init error, at least hide spinner after a while so users aren't stuck.
+        setTimeout(removeBoot, 8000);
+      });
+    }
+
+    // Absolute safety: if nothing shows up, remove after 15s to avoid trapping users.
+    setTimeout(removeBoot, 15000);
+  })();
+</script>
+
+
+
+</body> 
+</html>

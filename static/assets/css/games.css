@@ -275,6 +275,32 @@ h6 {
   cursor: pointer;
 }
 
+/* Hover clip from hover-preview.js. It sits exactly over the thumbnail in its
+   hovered position, and crops (never stretches) clips that are not square. */
+.game-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 175px;
+  height: 175px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--site-radius-md, 14px);
+  transform: scale(1.05) translateY(-0.2vw);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+.game-preview.is-shown {
+  opacity: 1;
+}
+/* The clip is not dimmed like the thumbnail, so the label carries its own shade. */
+.game-link.is-previewing .text {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.95),
+    0 0 8px rgba(0, 0, 0, 0.8);
+}
+
 .text {
   font-family: "Roboto", serif;
   font-weight: 500;

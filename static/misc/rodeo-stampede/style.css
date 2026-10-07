@@ -1,0 +1,18 @@
+body {
+    background-color: #859af5;
+}
+
+#loImg {
+    width: 400px;
+    margin: 20% auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#backgroundImg {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

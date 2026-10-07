@@ -1,0 +1,1268 @@
+{
+    "10": {
+        "id": "10",
+        "name": "Cash Cow",
+        "res": "game/Conventional/buffalo6.lh",
+        "type": "Buffalo",
+        "encId": 1000,
+        "linkEncId": 1001,
+        "describe": "The Cash Cow worked its way out of the bull pen to get to where it is today."
+    },
+    "11": {
+        "id": "11",
+        "name": "Revive Raven",
+        "res": "game/Conventional/reviveBird.lh",
+        "type": "AnimalFlyer",
+        "encId": 1000,
+        "linkEncId": 1006,
+        "describe": "Rarest of the rare. A bird like this comes along once in a lifetime."
+    },
+    "12": {
+        "id": "12",
+        "name": "Lucky Lamb",
+        "res": "game/Conventional/luckyLamb.lh",
+        "type": "Horse",
+        "encId": 1000,
+        "linkEncId": 1001,
+        "describe": "With the Lucky Lamb in your zoo, you'll have a lot more luck finding rare animals out there in the stampede."
+    },
+    "13": {
+        "id": "13",
+        "name": "Mission Mule",
+        "res": "game/Conventional/zebra6.lh",
+        "type": "Horse",
+        "encId": 1000,
+        "linkEncId": 1002,
+        "describe": "This military workhorse will keep you on mission."
+    },
+    "101": {
+        "id": "101",
+        "name": "Cape Buffalo",
+        "res": "game/Conventional/buffalo0.lh",
+        "type": "Buffalo",
+        "skinIndex": 0,
+        "encId": 1001,
+        "exp": 0,
+        "describe": "The African buffalo or Cape buffalo, is a large African bovine"
+    },
+    "102": {
+        "id": "102",
+        "name": "Forest Buffalo",
+        "res": "game/Conventional/buffalo1.lh",
+        "type": "Buffalo",
+        "skinIndex": 1,
+        "encId": 1001,
+        "exp": 1,
+        "describe": "A smaller variety of buffalo, which is brown like the trees"
+    },
+    "103": {
+        "id": "103",
+        "name": "Water Buffalo",
+        "res": "game/Conventional/buffalo2.lh",
+        "type": "Buffalo",
+        "skinIndex": 2,
+        "encId": 1001,
+        "exp": 3,
+        "describe": "These domestic buffalo are more chilled than their wild cousins"
+    },
+    "104": {
+        "id": "104",
+        "name": "Bison",
+        "res": "game/Conventional/buffalo3.lh",
+        "type": "Buffalo",
+        "skinIndex": 3,
+        "encId": 1001,
+        "exp": 14,
+        "describe": "Bison are big, tough and need a haircut"
+    },
+    "105": {
+        "id": "105",
+        "name": "Kerfuffle'o",
+        "res": "game/Conventional/buffalo4.lh",
+        "type": "Buffalo",
+        "skinIndex": 4,
+        "encId": 1001,
+        "exp": 30,
+        "describe": "A bold new designer buffalo on the runway this season. It has caused quite a stir."
+    },
+    "106": {
+        "id": "106",
+        "name": "Diabuffalo",
+        "res": "game/Conventional/buffalo5.lh",
+        "type": "Buffalo",
+        "skinIndex": 5,
+        "encId": 1001,
+        "exp": 3,
+        "describe": "Prepare yourself, mortal. This is one spicy meatball."
+    },
+    "107": {
+        "id": "107",
+        "name": "Bufferrari",
+        "res": "game/Conventional/buffalo7.lh",
+        "type": "Buffalo",
+        "skinIndex": 7,
+        "encId": 1001,
+        "exp": 14,
+        "describe": "Much faster than the Lambuffini."
+    },
+    "108": {
+        "id": "108",
+        "name": "Buff the Magic Dragon",
+        "res": "game/Conventional/buffalo8.lh",
+        "type": "Buffalo",
+        "skinIndex": 6,
+        "encId": 1001,
+        "exp": 30,
+        "describe": "Buff the Magic Dragon lives in the zoo, frolicks in the Savannah when stampeding with you."
+    },
+    "121": {
+        "id": "121",
+        "name": "Zebra",
+        "res": "game/Conventional/zebra0.lh",
+        "type": "zebra",
+        "skinIndex": 0,
+        "encId": 1002,
+        "exp": 0,
+        "describe": "Originally thought to be a white horse with black markings. To a zebra, stripes are always flattering."
+    },
+    "122": {
+        "id": "122",
+        "name": "Reverzebra",
+        "res": "game/Conventional/zebra1.lh",
+        "type": "zebra",
+        "skinIndex": 2,
+        "encId": 1002,
+        "exp": 1,
+        "describe": "The backwards cousin of a zebra"
+    },
+    "123": {
+        "id": "123",
+        "name": "Candicorn",
+        "res": "game/Conventional/zebra2.lh",
+        "type": "zebra",
+        "skinIndex": 4,
+        "encId": 1002,
+        "exp": 3,
+        "describe": "Prime suspect in an increasing trend of lions with diabetes."
+    },
+    "124": {
+        "id": "124",
+        "name": "Trojan Zebra",
+        "res": "game/Conventional/zebra3.lh",
+        "type": "zebra",
+        "skinIndex": 10,
+        "encId": 1002,
+        "exp": 14,
+        "describe": "For Sparta!"
+    },
+    "125": {
+        "id": "125",
+        "name": "Punky Zeb",
+        "res": "game/Conventional/zebra4.lh",
+        "type": "zebra",
+        "skinIndex": 8,
+        "encId": 1002,
+        "exp": 25,
+        "describe": "This is one zebra that doesn't follow the herd"
+    },
+    "126": {
+        "id": "126",
+        "name": "Electro Zebra",
+        "res": "game/Conventional/zebra5.lh",
+        "type": "zebra",
+        "skinIndex": 6,
+        "encId": 1002,
+        "exp": 25,
+        "describe": "On the run after escaping from a retro arcade game."
+    },
+    "127": {
+        "id": "127",
+        "name": "Legend of Zebra",
+        "res": "game/Conventional/zebra7.lh",
+        "type": "zebra",
+        "skinIndex": 14,
+        "encId": 1002,
+        "exp": 14,
+        "describe": "Behold, the hero of lines."
+    },
+    "128": {
+        "id": "128",
+        "name": "Zegasus",
+        "res": "game/Conventional/zebra8.lh",
+        "type": "zebra",
+        "skinIndex": 12,
+        "encId": 1002,
+        "exp": 30,
+        "describe": "This zebra is just like Pegasus but with stripes, for better visibility in the air."
+    },
+    "129": {
+        "id": "129",
+        "name": "Merry-go-round",
+        "res": "game/Conventional/zebra10.lh",
+        "type": "zebra",
+        "skinIndex": 10,
+        "encId": 1002,
+        "exp": 3,
+        "describe": "They prefer giving rides to children over roaming the Savannah."
+    },
+    "141": {
+        "id": "141",
+        "name": "African Elephant",
+        "res": "game/Conventional/elephant0.lh",
+        "type": "elephant",
+        "skinIndex": 0,
+        "encId": 1003,
+        "exp": 0,
+        "describe": "Elephants are the best way to go if you need something smashed"
+    },
+    "142": {
+        "id": "142",
+        "name": "Mammoth",
+        "res": "game/Conventional/elephant1.lh",
+        "type": "elephant",
+        "skinIndex": 1,
+        "encId": 1003,
+        "exp": 1,
+        "describe": "Bigger than elephants, stronger than elephants, hairier than elephants, though they have some minor troubles with extinction."
+    },
+    "143": {
+        "id": "143",
+        "name": "The King",
+        "res": "game/Conventional/elephant2.lh",
+        "type": "elephant",
+        "skinIndex": 2,
+        "encId": 1003,
+        "exp": 3,
+        "describe": "The most civilized elephant you'll meet"
+    },
+    "144": {
+        "id": "144",
+        "name": "Psychedelephant",
+        "res": "game/Conventional/elephant3.lh",
+        "type": "elephant",
+        "skinIndex": 3,
+        "encId": 1003,
+        "exp": 14,
+        "describe": "This elephant never let the man keep it down"
+    },
+    "145": {
+        "id": "145",
+        "name": "Tootephant",
+        "res": "game/Conventional/elephant4.lh",
+        "type": "elephant",
+        "skinIndex": 4,
+        "encId": 1003,
+        "exp": 30,
+        "describe": "This one time at band camp..."
+    },
+    "146": {
+        "id": "146",
+        "name": "Jellephant",
+        "res": "game/Conventional/elephant5.lh",
+        "type": "elephant",
+        "skinIndex": 0,
+        "encId": 1003,
+        "exp": 30,
+        "describe": "In the elephant graveyard hyenas are the last thing you should be worrying about"
+    },
+    "147": {
+        "id": "147",
+        "name": "Fire Hydrophant",
+        "res": "game/Conventional/elephant6.lh",
+        "type": "elephant",
+        "skinIndex": 6,
+        "encId": 1003,
+        "exp": 14,
+        "describe": "Parking in front of this will cost you!"
+    },
+    "148": {
+        "id": "148",
+        "name": "Jellephant",
+        "res": "game/Conventional/elephant7.lh",
+        "type": "elephant",
+        "skinIndex": 7,
+        "encId": 1003,
+        "exp": 14,
+        "describe": "The Peanut Butter Jellephant is the healthiest member of the Lunchodonta genus."
+    },
+    "149": {
+        "id": "149",
+        "name": "Santa's Big Helper",
+        "res": "game/Conventional/elephant9.lh",
+        "type": "elephant",
+        "skinIndex": 2,
+        "encId": 1003,
+        "exp": 14,
+        "describe": "This Elf-ephant does all the heavy lifting."
+    },
+    "161": {
+        "id": "161",
+        "name": "Ostrich",
+        "res": "game/Conventional/ostrich0.lh",
+        "type": "ostrich",
+        "skinIndex": 0,
+        "encId": 1004,
+        "exp": 0,
+        "describe": "Ostriches only have one response to all their problems... Running"
+    },
+    "162": {
+        "id": "162",
+        "name": "Celebirdy",
+        "res": "game/Conventional/ostrich1.lh",
+        "type": "ostrich",
+        "skinIndex": 1,
+        "encId": 1004,
+        "exp": 1,
+        "describe": "A snippy snooty fancy prancy blue-blooded bird. It simply must hog all the attention."
+    },
+    "163": {
+        "id": "163",
+        "name": "Glam Rockstrich",
+        "res": "game/Conventional/ostrich2.lh",
+        "type": "ostrich",
+        "skinIndex": 2,
+        "encId": 1004,
+        "exp": 3,
+        "describe": "Its parents insisted it settle down, get a haircut and a real job. But some ostriches just wanna have fun."
+    },
+    "164": {
+        "id": "164",
+        "name": "Ostri Chevalier",
+        "res": "game/Conventional/ostrich3.lh",
+        "type": "ostrich",
+        "skinIndex": 5,
+        "encId": 1004,
+        "exp": 14,
+        "describe": "Noble, gallant, chivalrous. Prefers tournaments to war for lifestyle reasons."
+    },
+    "165": {
+        "id": "165",
+        "name": "Ostrich of Hearts",
+        "res": "game/Conventional/ostrich4.lh",
+        "type": "ostrich",
+        "skinIndex": 4,
+        "encId": 1004,
+        "exp": 30,
+        "describe": "Off with your head!"
+    },
+    "166": {
+        "id": "166",
+        "name": "Bosstrich",
+        "res": "game/Conventional/ostrich5.lh",
+        "type": "ostrich",
+        "skinIndex": 3,
+        "encId": 1004,
+        "exp": 30,
+        "describe": "Nobody likes the Bosstrich but everyone pretends to"
+    },
+    "167": {
+        "id": "167",
+        "name": "Mosstrich",
+        "res": "game/Conventional/ostrich6.lh",
+        "type": "ostrich",
+        "skinIndex": 6,
+        "encId": 1004,
+        "exp": 14,
+        "describe": "Rocks an impressive mosstache, but smells kinda fungi."
+    },
+    "168": {
+        "id": "168",
+        "name": "Ostwitch",
+        "res": "game/Conventional/ostrich7.lh",
+        "type": "ostrich",
+        "skinIndex": 7,
+        "encId": 1004,
+        "exp": 14,
+        "describe": "Rides the fastest broom in the Savannah, but has a tendency to fly off the handle."
+    },
+    "181": {
+        "id": "181",
+        "name": "Giraffe",
+        "res": "game/Conventional/giraffe0.lh",
+        "type": "Giraffe",
+        "skinIndex": 0,
+        "encId": 1005,
+        "exp": 0,
+        "describe": "Up to 6m high, the tallest of all animals. With their long bendy neck, they are nature's own catapult."
+    },
+    "182": {
+        "id": "182",
+        "name": "Girafferty",
+        "res": "game/Conventional/giraffe1.lh",
+        "type": "Giraffe",
+        "skinIndex": 4,
+        "encId": 1005,
+        "exp": 1,
+        "describe": "A restored vintage model from the late 18th century: the coal-powered giraffe."
+    },
+    "183": {
+        "id": "183",
+        "name": "Taco Jirafa",
+        "res": "game/Conventional/giraffe2.lh",
+        "type": "Giraffe",
+        "skinIndex": 2,
+        "encId": 1005,
+        "exp": 3,
+        "describe": "A tall order. Best served with salsa, guacamole, hotsauce and la música!"
+    },
+    "184": {
+        "id": "184",
+        "name": "Highballer",
+        "res": "game/Conventional/giraffe3.lh",
+        "type": "Giraffe",
+        "skinIndex": 6,
+        "encId": 1005,
+        "exp": 14,
+        "describe": "Slam dunks look easy from up there."
+    },
+    "185": {
+        "id": "185",
+        "name": "Giraxxus",
+        "res": "game/Conventional/giraffe4.lh",
+        "type": "Giraffe",
+        "skinIndex": 8,
+        "encId": 1005,
+        "exp": 30,
+        "describe": "A good friend of the Diabuffalo, they often hang together at conventions."
+    },
+    "186": {
+        "id": "186",
+        "name": "UFG",
+        "res": "game/Conventional/giraffe5.lh",
+        "type": "Giraffe",
+        "skinIndex": 10,
+        "encId": 1005,
+        "exp": 30,
+        "describe": "Nobody knows the truth about its origins, but we're pretty sure the government is behind it."
+    },
+    "187": {
+        "id": "187",
+        "name": "Giraffatar",
+        "res": "game/Conventional/giraffe6.lh",
+        "type": "Giraffe",
+        "skinIndex": 12,
+        "encId": 1005,
+        "exp": 14,
+        "describe": "Put on your 3D glasses now…"
+    },
+    "188": {
+        "id": "188",
+        "name": "World's Tallest Sheep",
+        "res": "game/Conventional/giraffe7.lh",
+        "type": "Giraffe",
+        "skinIndex": 14,
+        "encId": 1005,
+        "exp": 30,
+        "describe": "This giraffe really has its head up in the clouds."
+    },
+    "189": {
+        "id": "189",
+        "name": "Giraffemas Tree",
+        "res": "game/Conventional/giraffe8.lh",
+        "type": "Giraffe",
+        "skinIndex": 0,
+        "encId": 1005,
+        "exp": 3,
+        "describe": "Gifts are left at this giraffe's feet and it can't work out why."
+    },
+    "201": {
+        "id": "201",
+        "name": "Vulture",
+        "res": "game/Conventional/vulture0.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 0,
+        "encId": 1006,
+        "exp": 0,
+        "describe": "They scavenge far and wide to find their meals, but insist on travelling light. They only fly with carrion baggage. "
+    },
+    "202": {
+        "id": "202",
+        "name": "Egyptian Vulture",
+        "res": "game/Conventional/vulture1.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 1,
+        "encId": 1006,
+        "exp": 1,
+        "describe": "Unlike their folically challenged cousins, this species discovered a miracle hair growth formula."
+    },
+    "203": {
+        "id": "203",
+        "name": "Viva Las Vulture",
+        "res": "game/Conventional/vulture2.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 2,
+        "encId": 1006,
+        "exp": 3,
+        "describe": "The Savannah Strip's premier Elvis impersonator."
+    },
+    "204": {
+        "id": "204",
+        "name": "Vulture Captialist",
+        "res": "game/Conventional/vulture3.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 3,
+        "encId": 1006,
+        "exp": 14,
+        "describe": "\"Why is nobody thanking me for saving these dying companies?\""
+    },
+    "205": {
+        "id": "205",
+        "name": "Pop Vulture",
+        "res": "game/Conventional/vulture4.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 4,
+        "encId": 1006,
+        "exp": 30,
+        "describe": "This vulture is a big deal in Japan"
+    },
+    "206": {
+        "id": "206",
+        "name": "Vulture-on",
+        "res": "game/Conventional/vulture5.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 5,
+        "encId": 1006,
+        "exp": 5,
+        "describe": "Vulture-on is actually made up of many tiny robot vultures."
+    },
+    "207": {
+        "id": "207",
+        "name": "Dracorian",
+        "res": "game/Conventional/vulture6.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 6,
+        "encId": 1006,
+        "exp": 14,
+        "describe": "Resembles a graceful bird of paradise. Is actually a prehistoric lizard."
+    },
+    "208": {
+        "id": "208",
+        "name": "Volture",
+        "res": "game/Conventional/vulture7.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 7,
+        "encId": 1006,
+        "exp": 30,
+        "describe": "This high voltage bird has a lot of potential. Keep out of water."
+    },
+    "209": {
+        "id": "209",
+        "name": "Scarecrow",
+        "res": "game/Conventional/vulture8.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 0,
+        "encId": 1006,
+        "exp": 3,
+        "describe": "The Scarecrow can't figure out why other birds keep avoiding them."
+    },
+    "221": {
+        "id": "221",
+        "name": "Lion",
+        "res": "game/Conventional/lion0.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 0,
+        "encId": 1007,
+        "exp": 0,
+        "describe": "Second-largest of the big cats, but they're endowed with the animal kingdom's most glorious hair."
+    },
+    "222": {
+        "id": "222",
+        "name": "Dande Lion",
+        "res": "game/Conventional/lion1.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 1,
+        "encId": 1007,
+        "exp": 1,
+        "describe": "The world's rarest and most feared carnivorous plant. Don't get too close, this ain't no pussywillow."
+    },
+    "223": {
+        "id": "223",
+        "name": "Sabretooth Lion",
+        "res": "game/Conventional/lion2.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 2,
+        "encId": 1007,
+        "exp": 3,
+        "describe": "This was totally a thing, right?"
+    },
+    "224": {
+        "id": "224",
+        "name": "Gryphon",
+        "res": "game/Conventional/lion3.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 3,
+        "encId": 1007,
+        "exp": 14,
+        "describe": "A mythical beast of epic origins, or a festive kitty in a homemade costume."
+    },
+    "225": {
+        "id": "225",
+        "name": "Le' Ion Chef",
+        "res": "game/Conventional/lion4.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 4,
+        "encId": 1007,
+        "exp": 14,
+        "describe": "A world renowned chef, be sure to try the anti-pasto-lope."
+    },
+    "226": {
+        "id": "226",
+        "name": "Cryin' Lion",
+        "res": "game/Conventional/lion5.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 5,
+        "encId": 1007,
+        "exp": 30,
+        "describe": "A failed circus clown, still recovering from the embarassment."
+    },
+    "227": {
+        "id": "227",
+        "name": "Massai Lion",
+        "res": "game/Conventional/lion6.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 6,
+        "encId": 1007,
+        "exp": 14,
+        "describe": "Adolescent tribal lions hunt people in groups as a rite of passage."
+    },
+    "228": {
+        "id": "228",
+        "name": "Sea Lion",
+        "res": "game/Conventional/lion7.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 0,
+        "encId": 1007,
+        "exp": 3,
+        "describe": "The notorious pirate captain Blackmane is the scourge of the high seas. An incredibly skilled sailor despite an intense fear of water."
+    },
+    "229": {
+        "id": "229",
+        "name": "Nian Monster",
+        "res": "game/Conventional/lion8.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 7,
+        "encId": 1007,
+        "exp": 30,
+        "describe": "Most commonly found dancing in lines in China.  Scare it away with fireworks."
+    },
+    "241": {
+        "id": "241",
+        "name": "Wild Boar",
+        "res": "game/Conventional/boar0.lh",
+        "type": "AnimalBoar",
+        "skinIndex": 0,
+        "encId": 1008,
+        "exp": 0,
+        "describe": "Boars remove parasites by rolling in mud, so the mud infact makes them cleaner, not dirtier."
+    },
+    "242": {
+        "id": "242",
+        "name": "Indian Boar",
+        "res": "game/Conventional/boar1.lh",
+        "type": "AnimalBoar",
+        "skinIndex": 1,
+        "encId": 1008,
+        "exp": 1,
+        "describe": "Known for its long mane and dark coat."
+    },
+    "243": {
+        "id": "243",
+        "name": "Boaring",
+        "res": "game/Conventional/boar2.lh",
+        "type": "AnimalBoar",
+        "skinIndex": 2,
+        "encId": 1008,
+        "exp": 3,
+        "describe": "It was not the coolest piglet at boar-ding school."
+    },
+    "244": {
+        "id": "244",
+        "name": "Borc",
+        "res": "game/Conventional/boar3.lh",
+        "type": "AnimalBoar",
+        "skinIndex": 3,
+        "encId": 1008,
+        "exp": 10,
+        "describe": "The Boaring plays videogames featuring the Borc, and even dresses up like one at conventions."
+    },
+    "245": {
+        "id": "245",
+        "name": "Beautiful Boar",
+        "res": "game/Conventional/boar4.lh",
+        "type": "AnimalBoar",
+        "skinIndex": 4,
+        "encId": 1008,
+        "exp": 25,
+        "describe": "This is what really happens when you throw pearls before swine."
+    },
+    "246": {
+        "id": "246",
+        "name": "Hog Rider",
+        "res": "game/Conventional/boar5.lh",
+        "type": "AnimalBoar",
+        "skinIndex": 5,
+        "encId": 1008,
+        "exp": 25,
+        "describe": "Loves to hit the open road."
+    },
+    "247": {
+        "id": "247",
+        "name": "Wild Snore",
+        "res": "game/Conventional/boar6.lh",
+        "type": "AnimalBoar",
+        "skinIndex": 6,
+        "encId": 1008,
+        "exp": 10,
+        "describe": "Uproarious, but cannot hear itself and thus sleeps soundly."
+    },
+    "248": {
+        "id": "248",
+        "name": "BoarBQ",
+        "res": "game/Conventional/boar7.lh",
+        "type": "AnimalBoar",
+        "skinIndex": 7,
+        "encId": 1008,
+        "exp": 25,
+        "describe": "It's as if bacon, ham and pork all come from one magical animal..."
+    },
+    "249": {
+        "id": "249",
+        "name": "Frankenswine",
+        "res": "game/Conventional/boar9.lh",
+        "type": "AnimalBoar",
+        "skinIndex": 8,
+        "encId": 1008,
+        "exp": 25,
+        "describe": "This lab grown meat is more than the sum of its parts."
+    },
+    "261": {
+        "id": "261",
+        "name": "Western Gorilla",
+        "res": "game/Conventional/gorilla0.lh",
+        "type": "AnimalVaulter",
+        "skinIndex": 0,
+        "encId": 1009,
+        "exp": 0,
+        "describe": "Its powerful arms allow it to vault over obstacles and lay the smackdown. Truly a great ape."
+    },
+    "262": {
+        "id": "262",
+        "name": "Mountain Gorilla",
+        "res": "game/Conventional/gorilla1.lh",
+        "type": "AnimalVaulter",
+        "skinIndex": 1,
+        "encId": 1009,
+        "exp": 1,
+        "describe": "An increasingly rare breed. Some say a good coif makes for an even greater ape."
+    },
+    "263": {
+        "id": "263",
+        "name": "Quarterback Gorilla",
+        "res": "game/Conventional/gorilla2.lh",
+        "type": "AnimalVaulter",
+        "skinIndex": 2,
+        "encId": 1009,
+        "exp": 3,
+        "describe": "Has a mean throwing arm."
+    },
+    "264": {
+        "id": "264",
+        "name": "Guerilla",
+        "res": "game/Conventional/gorilla3.lh",
+        "type": "AnimalVaulter",
+        "skinIndex": 3,
+        "encId": 1009,
+        "exp": 10,
+        "describe": "Considered a pest in many parts of the world."
+    },
+    "265": {
+        "id": "265",
+        "name": "Lawrilla",
+        "res": "game/Conventional/gorilla4.lh",
+        "type": "AnimalVaulter",
+        "skinIndex": 4,
+        "encId": 1009,
+        "exp": 25,
+        "describe": "Impartial to everything except bananas. Lawrilla loves bananas."
+    },
+    "266": {
+        "id": "266",
+        "name": "Volcanorilla",
+        "res": "game/Conventional/gorilla5.lh",
+        "type": "AnimalVaulter",
+        "skinIndex": 5,
+        "encId": 1009,
+        "exp": 25,
+        "describe": "Volcanorilla's explosive nature presents a challenge when living in a rainforest."
+    },
+    "267": {
+        "id": "267",
+        "name": "Thorilla",
+        "res": "game/Conventional/gorilla6.lh",
+        "type": "AnimalVaulter",
+        "skinIndex": 6,
+        "encId": 1009,
+        "exp": 10,
+        "describe": "Does Thorilla look to be in a gaming mood?"
+    },
+    "268": {
+        "id": "268",
+        "name": "Gorill-uck",
+        "res": "game/Conventional/gorilla8.lh",
+        "type": "AnimalVaulter",
+        "skinIndex": 7,
+        "encId": 1009,
+        "exp": 25,
+        "describe": "The luckiest gorilla alive. "
+    },
+    "281": {
+        "id": "281",
+        "name": "Alligator",
+        "res": "game/Conventional/alligator0.lh",
+        "type": "Alligator",
+        "skinIndex": 0,
+        "encId": 1010,
+        "exp": 0,
+        "describe": "Knows a thing or two about eating."
+    },
+    "282": {
+        "id": "282",
+        "name": "Frogator",
+        "res": "game/Conventional/alligator1.lh",
+        "type": "Alligator",
+        "skinIndex": 1,
+        "encId": 1010,
+        "exp": 1,
+        "describe": "Significantly better at jumping than the average alligator."
+    },
+    "283": {
+        "id": "283",
+        "name": "Snorkadile",
+        "res": "game/Conventional/alligator2.lh",
+        "type": "Alligator",
+        "skinIndex": 2,
+        "encId": 1010,
+        "exp": 3,
+        "describe": "Always gets the entire beach to itself for some reason. Just lucky I guess."
+    },
+    "284": {
+        "id": "284",
+        "name": "Bunny Gator",
+        "res": "game/Conventional/alligator3.lh",
+        "type": "Alligator",
+        "skinIndex": 3,
+        "encId": 1010,
+        "exp": 10,
+        "describe": "Uses its cute appearance to lure in its prey."
+    },
+    "285": {
+        "id": "285",
+        "name": "Bridezilla",
+        "res": "game/Conventional/alligator4.lh",
+        "type": "Alligator",
+        "skinIndex": 4,
+        "encId": 1010,
+        "exp": 25,
+        "describe": "It's the snappiest day of her life."
+    },
+    "286": {
+        "id": "286",
+        "name": "Cockadoodile",
+        "res": "game/Conventional/alligator5.lh",
+        "type": "Alligator",
+        "skinIndex": 5,
+        "encId": 1010,
+        "exp": 3,
+        "describe": "Part sleepy cold blooded lizard, part early rising rooster. Mornings are a challenge."
+    },
+    "287": {
+        "id": "287",
+        "name": "Crookodile",
+        "res": "game/Conventional/alligator6.lh",
+        "type": "Alligator",
+        "skinIndex": 6,
+        "encId": 1010,
+        "exp": 10,
+        "describe": "Never smile at a Crookodile, lest it rob you of that smile..."
+    },
+    "288": {
+        "id": "288",
+        "name": "Termigator",
+        "res": "game/Conventional/alligator7.lh",
+        "type": "Alligator",
+        "skinIndex": 7,
+        "encId": 1010,
+        "exp": 25,
+        "describe": "Crocodile be back."
+    },
+    "289": {
+        "id": "289",
+        "name": "Investi-Gator",
+        "res": "game/Conventional/alligator8.lh",
+        "type": "Alligator",
+        "skinIndex": 0,
+        "encId": 1010,
+        "exp": 3,
+        "describe": "For some reason, all the evidence from this detective's cases are covered in teeth marks."
+    },
+    "301": {
+        "id": "301",
+        "name": "Hippo",
+        "res": "game/Conventional/hippo0.lh",
+        "type": "AnimalStopper",
+        "skinIndex": 0,
+        "encId": 1011,
+        "exp": 0,
+        "describe": "For an animal that can't swim, they sure love the water."
+    },
+    "302": {
+        "id": "302",
+        "name": "Pygmy Hippo",
+        "res": "game/Conventional/hippo1.lh",
+        "type": "AnimalStopper",
+        "skinIndex": 1,
+        "encId": 1011,
+        "exp": 1,
+        "describe": "Like a teacup pig, Africa style."
+    },
+    "303": {
+        "id": "303",
+        "name": "Ballerina Hippo",
+        "res": "game/Conventional/hippo2.lh",
+        "type": "AnimalStopper",
+        "skinIndex": 2,
+        "encId": 1011,
+        "exp": 3,
+        "describe": "The most graceful of the hippos. Walks en pointe."
+    },
+    "304": {
+        "id": "304",
+        "name": "Hip Hop Hippo",
+        "res": "game/Conventional/hippo3.lh",
+        "type": "AnimalStopper",
+        "skinIndex": 3,
+        "encId": 1011,
+        "exp": 10,
+        "describe": "Goes by the stage name Notorious H.I.P.P.O."
+    },
+    "305": {
+        "id": "305",
+        "name": "Hippiepotamus",
+        "res": "game/Conventional/hippo4.lh",
+        "type": "AnimalStopper",
+        "skinIndex": 4,
+        "encId": 1011,
+        "exp": 25,
+        "describe": "Hippiepotamus is still living in the 70's."
+    },
+    "306": {
+        "id": "306",
+        "name": "Platypotamus",
+        "res": "game/Conventional/hippo5.lh",
+        "type": "AnimalStopper",
+        "skinIndex": 5,
+        "encId": 1011,
+        "exp": 15,
+        "describe": "And you thought a platypus was a weird animal."
+    },
+    "307": {
+        "id": "307",
+        "name": "Taweret",
+        "res": "game/Conventional/hippo6.lh",
+        "type": "AnimalStopper",
+        "skinIndex": 6,
+        "encId": 1011,
+        "exp": 10,
+        "describe": "An ancient being known as \"the great one, lardy of heaven, retainer of waters.\""
+    },
+    "308": {
+        "id": "308",
+        "name": "Sabretooth Hippo",
+        "res": "game/Conventional/hippo7.lh",
+        "type": "AnimalStopper",
+        "skinIndex": 7,
+        "encId": 1011,
+        "exp": 25,
+        "describe": "Despite appearances, the most terrifying end of this hippo is the rear."
+    },
+    "321": {
+        "id": "321",
+        "name": "Rhino",
+        "res": "game/Conventional/rhino0.lh",
+        "type": "Rhino",
+        "skinIndex": 0,
+        "encId": 1012,
+        "exp": 0,
+        "describe": "Rhinos love to smash stuff, they just take a while to get going."
+    },
+    "322": {
+        "id": "322",
+        "name": "Hawaiino",
+        "res": "game/Conventional/rhino1.lh",
+        "type": "Rhino",
+        "skinIndex": 1,
+        "encId": 1012,
+        "exp": 1,
+        "describe": "Loves dancing by firelight, and hangin' three toes up on the Malibu."
+    },
+    "323": {
+        "id": "323",
+        "name": "Apple Pieno",
+        "res": "game/Conventional/rhino2.lh",
+        "type": "Rhino",
+        "skinIndex": 2,
+        "encId": 1012,
+        "exp": 3,
+        "describe": "Keeps in great shape on a cinnamon diet. Going extinct 'cause it smells too delicious..."
+    },
+    "324": {
+        "id": "324",
+        "name": "Feline'o",
+        "res": "game/Conventional/rhino3.lh",
+        "type": "Rhino",
+        "skinIndex": 3,
+        "encId": 1012,
+        "exp": 10,
+        "describe": "When combined with a laser pointer, this becomes a lethal weapon."
+    },
+    "325": {
+        "id": "325",
+        "name": "Skynoceros",
+        "res": "game/Conventional/rhino4.lh",
+        "type": "Rhino",
+        "skinIndex": 4,
+        "encId": 1012,
+        "exp": 25,
+        "describe": "Unfortunately these wings don't provide quite enough lift for takeoff..."
+    },
+    "326": {
+        "id": "326",
+        "name": "Dhinoceros",
+        "res": "game/Conventional/rhino5.lh",
+        "type": "Rhino",
+        "skinIndex": 5,
+        "encId": 1012,
+        "exp": 25,
+        "describe": "Like many Rhinosaurs, the Dhinoceros is in grave danger of extinction."
+    },
+    "327": {
+        "id": "327",
+        "name": "Marcel Rhineau",
+        "res": "game/Conventional/rhino6.lh",
+        "type": "Rhino",
+        "skinIndex": 6,
+        "encId": 1012,
+        "exp": 10,
+        "describe": "Has perfected the art of mime by silently rampaging through the jungle."
+    },
+    "328": {
+        "id": "328",
+        "name": "Slimenoceros",
+        "res": "game/Conventional/rhino7.lh",
+        "type": "Rhino",
+        "skinIndex": 7,
+        "encId": 1012,
+        "exp": 25,
+        "describe": "Has a runny nose. Its sneeze could level a city block."
+    },
+    "341": {
+        "id": "341",
+        "name": "Tiger",
+        "res": "game/Conventional/tiger0.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 0,
+        "encId": 1013,
+        "exp": 0,
+        "describe": "Largest of all cats, Tigers were unfairly overlooked when Lions got awarded 'king of the jungle'."
+    },
+    "342": {
+        "id": "342",
+        "name": "Liger",
+        "res": "game/Conventional/tiger1.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 2,
+        "encId": 1013,
+        "exp": 1,
+        "describe": "Bred for its skills and magic."
+    },
+    "343": {
+        "id": "343",
+        "name": "Crouching Tiger",
+        "res": "game/Conventional/tiger2.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 4,
+        "encId": 1013,
+        "exp": 3,
+        "describe": "Hidden movie reference."
+    },
+    "344": {
+        "id": "344",
+        "name": "White Tiger",
+        "res": "game/Conventional/tiger3.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 6,
+        "encId": 1013,
+        "exp": 10,
+        "describe": "The favourite animal of super villains the world over."
+    },
+    "345": {
+        "id": "345",
+        "name": "H.R. Tiger",
+        "res": "game/Conventional/tiger4.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 8,
+        "encId": 1013,
+        "exp": 25,
+        "describe": "Freaky."
+    },
+    "346": {
+        "id": "346",
+        "name": "Tiger Lily",
+        "res": "game/Conventional/tiger5.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 10,
+        "encId": 1013,
+        "exp": 25,
+        "describe": "The most beautiful of all the tigers."
+    },
+    "347": {
+        "id": "347",
+        "name": "Pink Panthera",
+        "res": "game/Conventional/tiger6.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 12,
+        "encId": 1013,
+        "exp": 10,
+        "describe": "Otherwise known as the famous \"Inspector Pusseau\"."
+    },
+    "348": {
+        "id": "348",
+        "name": "Tigermoth",
+        "res": "game/Conventional/tiger7.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 14,
+        "encId": 1013,
+        "exp": 25,
+        "describe": "Don't leave the lights on when you go camping..."
+    },
+    "349": {
+        "id": "349",
+        "name": "Santa Claws",
+        "res": "game/Conventional/tiger8.lh",
+        "type": "AnimalPredator",
+        "skinIndex": 0,
+        "encId": 1013,
+        "exp": 3,
+        "describe": "Loves to deliver presents but always gets distracted by the wrapping paper."
+    },
+    "361": {
+        "id": "361",
+        "name": "Toucan",
+        "res": "game/Conventional/toucan0.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 0,
+        "encId": 1014,
+        "exp": 0,
+        "describe": "A toucan's bill can account for up to 50% of its entire body surface area."
+    },
+    "362": {
+        "id": "362",
+        "name": "Hornbill",
+        "res": "game/Conventional/toucan1.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 1,
+        "encId": 1014,
+        "exp": 1,
+        "describe": "Not actually a type of toucan. A bird can dream though."
+    },
+    "363": {
+        "id": "363",
+        "name": "Bluecan",
+        "res": "game/Conventional/toucan2.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 2,
+        "encId": 1014,
+        "exp": 3,
+        "describe": "The offical mascot of the blue man group."
+    },
+    "364": {
+        "id": "364",
+        "name": "Moocan",
+        "res": "game/Conventional/toucan3.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 3,
+        "encId": 1014,
+        "exp": 10,
+        "describe": "Despite being a jungle dwelling bird, it longs for the rolling hills of the countryside."
+    },
+    "365": {
+        "id": "365",
+        "name": "Brewcan",
+        "res": "game/Conventional/toucan4.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 4,
+        "encId": 1014,
+        "exp": 25,
+        "describe": "Finally a way for birds to drink from a can."
+    },
+    "366": {
+        "id": "366",
+        "name": "Threecan",
+        "res": "game/Conventional/toucan5.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 5,
+        "encId": 1014,
+        "exp": 5,
+        "describe": "So much bill."
+    },
+    "367": {
+        "id": "367",
+        "name": "Kazoocan",
+        "res": "game/Conventional/toucan6.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 6,
+        "encId": 1014,
+        "exp": 10,
+        "describe": "In your sky zoo-can be heard these rare toucans. Amazing the songs you-can sing with Kazoocans."
+    },
+    "368": {
+        "id": "368",
+        "name": "Bazookan",
+        "res": "game/Conventional/toucan7.lh",
+        "type": "AnimalFlyer",
+        "skinIndex": 7,
+        "encId": 1014,
+        "exp": 25,
+        "describe": "Lightweight, portable, anti-tank bird of prey."
+    },
+    "900": {
+        "id": "900",
+        "name": "Horse",
+        "type": "Horse",
+        "encId": 1001
+    },
+    "901": {
+        "id": "901",
+        "name": "Beijing Opera Panda",
+        "res": "game/Conventional/panda6.lh",
+        "type": "AnimalCuddler",
+        "skinIndex": 6,
+        "encId": 1015
+    },
+    "902": {
+        "id": "902",
+        "name": "Chinese Dragon",
+        "res": "game/Conventional/chineseDragon0.lh",
+        "type": "AnimalChineseDragon",
+        "skinIndex": 0,
+        "encId": 1016
+    },
+    "903": {
+        "id": "903",
+        "name": "Monkey King",
+        "res": "game/Conventional/monkey2.lh",
+        "type": "AnimalVaulter",
+        "skinIndex": 2,
+        "encId": 1009
+    }
+}

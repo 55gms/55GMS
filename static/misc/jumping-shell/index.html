@@ -1,0 +1,127 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/jumping-shell/">
+<script>
+  // The game's files come from the CDN, another origin than this page.
+  (() => {
+    // Images need CORS before the game can use them in WebGL or read their pixels.
+    const src = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      ...src,
+      set(value) {
+        if (this.crossOrigin === null && !/^(data|blob):/.test(value)) this.crossOrigin = "anonymous";
+        src.set.call(this, value);
+      },
+    });
+
+    // Workers cannot be started from another origin, so start them from a blob that pulls the script in.
+    const NativeWorker = window.Worker;
+    window.Worker = function (url, options) {
+      const script = new URL(url, document.baseURI);
+      if (script.origin === location.origin || !/^https?:$/.test(script.protocol)) return new NativeWorker(url, options);
+      const code = options?.type === "module" ? `import ${JSON.stringify(script.href)};` : `importScripts(${JSON.stringify(script.href)});`;
+      return new NativeWorker(URL.createObjectURL(new Blob([code], { type: "text/javascript" })), options);
+    };
+    window.Worker.prototype = NativeWorker.prototype;
+
+    // Audio worklet modules have the same restriction.
+    if (window.AudioWorklet) {
+      const addModule = AudioWorklet.prototype.addModule;
+      AudioWorklet.prototype.addModule = async function (url, options) {
+        const script = new URL(url, document.baseURI);
+        if (script.origin === location.origin || !/^https?:$/.test(script.protocol)) return addModule.call(this, url, options);
+        const code = await (await fetch(script)).blob();
+        return addModule.call(this, URL.createObjectURL(new Blob([code], { type: "text/javascript" })), options);
+      };
+    }
+  })();
+</script>
+
+
+	<title>Jumping Shell</title>
+	<meta name="website" content="classroom6x.gitlab.io" />
+
+	<meta id="viewport" name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+
+	<link rel="shortcut icon" type="image/png" href="./favicon.png">
+
+	<!-- added this line for Poki -->
+	<script src="patch/poki-sdk.js"></script>
+
+	<script src="./progress.js" />
+
+	<script>
+		window.addEventListener ("touchmove", function (event) { event.preventDefault (); }, { capture: false, passive: false });
+		if (typeof window.devicePixelRatio != 'undefined' && window.devicePixelRatio > 2) {
+			var meta = document.getElementById ("viewport");
+			meta.setAttribute ('content', 'width=device-width, initial-scale=' + (2 / window.devicePixelRatio) + ', user-scalable=no');
+		}
+	</script>
+
+	<style>
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		#openfl-content {
+			background: #000000;
+			width: 100%;
+			height: 100%;
+		}
+
+		#progress {
+			position: relative;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 50%;
+		}
+	</style>
+
+</head>
+
+<body style="overflow:hidden;">
+
+	<noscript>This webpage makes extensive use of JavaScript. Please enable JavaScript in your web browser to view this
+		page.</noscript>
+
+	<div id="openfl-content"><progress id="progress" value="0" max="1"></progress></div>
+
+	<script>
+		var __filesToLoad = {
+			"./Jumping Shell.js": {total: 2482661}
+		}
+		
+		var __progressBar;
+		
+		var __progressListener = function __progressListener(progress) {
+			if(!__progressBar) __progressBar = document.getElementById("progress");
+			if(__progressBar) __progressBar.value = progress;
+		};
+
+		var __completionCallback = function __completionCallback() {
+			__progressBar.parentNode.removeChild(__progressBar);
+			lime.embed ("Jumping Shell", "openfl-content", 1252, 704, { parameters: {} });
+		};
+
+		__loadWithProgress(__filesToLoad, __progressListener, __completionCallback);
+		
+	</script>
+
+</body>
+
+</html>

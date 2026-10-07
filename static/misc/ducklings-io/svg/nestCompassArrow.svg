@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg x="0px" y="0px" width="867" height="929" viewBox="0 0 867 929" xmlns="http://www.w3.org/2000/svg">
+  <path class="wi" d="M431.4,189c209.9,2.2,287.1-101.5,336.2-31.7C829,239.9,556,828.1,440.5,828.1h-2 c-115.5,0-390.6-588.2-329.2-670.8C158.4,87.5,221.6,191.3,431.4,189L431.4,189z" style="fill: rgb(255, 255, 255); stroke: rgb(51, 51, 51); stroke-width: 27; stroke-miterlimit: 10;"/>
+  <linearGradient id="grad">
+    <stop offset="0.001" style="stop-color:#0B5FC1"/>
+    <stop offset="1" style="stop-color:#66BDF2"/>
+  </linearGradient>
+  <path d="M171.7,222.9c20.4-35.8,120.3,39.5,263.2,39.5c145.7,0,223.9-64.8,259.7-39.5C738,253.5,499.2,748,438.6,748 S147.2,265.9,171.7,222.9z" style="fill: url('#grad');"/>
+  <path class="shine" d="M425.6,352.8l-163.5-47.7c-9.8,9.1,142.5,342.7,167,342.7L425.6,352.8z" style="fill: #FFF; opacity: 0.1;"/>
+  <path class="shine" d="M242.7,270.9c0,0,156.4,61.1,195,61.1s169-60.6,169-60.6s-134.3,36.8-167.9,36.8S242.7,270.9,242.7,270.9z" style="fill: #333; opacity: 0.1;"/>
+</svg>

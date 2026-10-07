@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+<script src="/assets/js/loader-ui.js?v=4pgt4ltcze"></script>
+<script src="/assets/js/game-loader.js?v=4pgt4ltcze" data-title="Going Balls"></script>
+<script>
+  GameLoader.unity([
+
+  ]);
+  GameLoader.expect(53222851);
+</script>
+<script src="/assets/js/game-parts.js?v=1"></script>
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/going-balls/">
+<script>
+  GameParts.serve({
+    "Build/goingballs.data": ["Build/goingballs.data.part1","Build/goingballs.data.part2","Build/goingballs.data.part3"],
+    "Build/goingballs.wasm": ["Build/goingballs.wasm.part1","Build/goingballs.wasm.part2","Build/goingballs.wasm.part3"],
+  });
+</script>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Going Balls</title>
+
+  <style>
+    /* Remove ALL padding / margins */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+    }
+
+    #unity-container {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+    }
+
+    #unity-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      background: #000;
+    }
+
+    /* Custom loading screen */
+    #custom-loader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 10;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #222;
+      border-top: 6px solid #ffffff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Custom loader -->
+  <div id="custom-loader">
+    <div class="spinner"></div>
+    <div class="loading-text">Loading Going Balls...</div>
+  </div>
+
+  <div id="unity-container">
+    <canvas id="unity-canvas"></canvas>
+  </div>
+
+  <script>
+    var buildUrl = "Build";
+    var loaderUrl = buildUrl + "/goingballs.loader.js";
+
+    var config = {
+      dataUrl: buildUrl + "/goingballs.data",
+      frameworkUrl: buildUrl + "/goingballs.framework.js",
+      codeUrl: buildUrl + "/goingballs.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "DEFU Games",
+      productName: "Going Balls",
+      productVersion: "0.1",
+    };
+
+    var canvas = document.querySelector("#unity-canvas");
+    var loader = document.querySelector("#custom-loader");
+
+    var script = document.createElement("script");
+    script.src = loaderUrl;
+
+    script.onload = () => {
+      createUnityInstance(canvas, config, () => {})
+      .then((unityInstance) => {
+
+        // Keep loader visible for minimum 2 seconds
+        setTimeout(() => {
+          loader.style.transition = "opacity 0.5s ease";
+          loader.style.opacity = "0";
+          setTimeout(() => {
+            loader.style.display = "none";
+          }, 500);
+        }, 2000);
+
+      }).catch((message) => {
+        alert(message);
+      });
+    };
+
+    document.body.appendChild(script);
+  </script>
+</body>
+</html>

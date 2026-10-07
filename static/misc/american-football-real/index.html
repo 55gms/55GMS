@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/american-football-real/">
+<script>
+  // Images load from the CDN, so they need CORS before the game can use them in WebGL or read their pixels.
+  (() => {
+    const src = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      ...src,
+      set(value) {
+        if (this.crossOrigin === null && !/^(data|blob):/.test(value)) this.crossOrigin = "anonymous";
+        src.set.call(this, value);
+      },
+    });
+  })();
+</script>
+
+<meta http-equiv="Content-Type" content="text/html;" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta charset="utf-8">
+
+<meta name="viewport" id="viewport" content="width = device-width,
+initial-scale = 1, minimum-scale = 1, maximum-scale = 1" />
+<title>American Football REAL</title>
+<style type="text/css">
+<!--
+body {
+-webkit-user-select: none;
+margin:0px;
+background:#000;
+overflow-y: hidden;
+position:fixed;
+}
+-->
+</style>
+<script src="poki-sdk.js"></script>
+<script src="images/three.min.js"></script>
+<script src="images/GLTFLoader.js"></script>
+<script src="images/SkeletonUtils.js"></script>
+<script src="images/cannon.min.js"></script>
+<script src="game.js"></script>
+
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<canvas id="myCanvas"></canvas>
+<div id="chf2" style="position:absolute;left:0px;top:0px;"></div>
+</body>
+</html>

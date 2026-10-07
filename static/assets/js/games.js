@@ -142,6 +142,7 @@ function createGameCard(game) {
   }
 
   control.className = "game-link";
+  if (game.preview) control.dataset.preview = game.preview;
 
   const image = document.createElement("img");
   image.alt = "";

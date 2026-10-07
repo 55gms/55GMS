@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/carnado-stunt-car/">
+<script>
+  // Images load from the CDN, so they need CORS before the game can use them in WebGL or read their pixels.
+  (() => {
+    const src = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      ...src,
+      set(value) {
+        if (this.crossOrigin === null && !/^(data|blob):/.test(value)) this.crossOrigin = "anonymous";
+        src.set.call(this, value);
+      },
+    });
+  })();
+</script>
+
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover' />
+    <meta charset='utf-8'>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style></style>
+    <title>CARNADO STUNT CAR V3</title>
+    <script src="poki-sdk.js"></script>
+    <script src="playcanvas-stable.min.js"></script>
+    <script src="__settings__.js"></script>
+</head>
+<body>
+    <script src="__modules__.js"></script>
+    <script src="__start__.js"></script>
+    <script src="__loading__.js"></script>
+</body>
+</html>

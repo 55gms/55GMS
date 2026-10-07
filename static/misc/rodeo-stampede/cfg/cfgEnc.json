@@ -1,0 +1,123 @@
+[
+    {
+        "res": "Epic",
+        "size": 1,
+        "id": 1000,
+        "name": "传奇动物",
+        "nameEN": "Epic Animals",
+        "path": "ship_back.Epic_Enclosure",
+        "world": 0
+    },
+    {
+        "res": "Buffalo",
+        "size": 1,
+        "id": 1001,
+        "name": "野牛",
+        "nameEN": "Buffalo",
+        "world": 0
+    },
+    {
+        "res": "Zebra",
+        "size": 1,
+        "id": 1002,
+        "name": "斑马",
+        "nameEN": "Zebra",
+        "world": 0
+    },
+    {
+        "res": "Elephant",
+        "size": 2,
+        "id": 1003,
+        "name": "大象",
+        "nameEN": "Elephant",
+        "world": 0
+    },
+    {
+        "res": "Ostrich",
+        "size": 1,
+        "id": 1004,
+        "name": "鸵鸟",
+        "nameEN": "Ostrich",
+        "world": 0
+    },
+    {
+        "res": "Giraffe",
+        "size": 1,
+        "id": 1005,
+        "name": "长颈鹿",
+        "nameEN": "Giraffe",
+        "world": 0
+    },
+    {
+        "res": "Vulture",
+        "size": 1,
+        "id": 1006,
+        "name": "秃鹰",
+        "nameEN": "Vulture",
+        "world": 0
+    },
+    {
+        "res": "Lion",
+        "size": 1,
+        "id": 1007,
+        "name": "狮子",
+        "nameEN": "Lion",
+        "world": 0
+    },
+    {
+        "res": "Boar",
+        "size": 1,
+        "id": 1008,
+        "name": "野猪",
+        "nameEN": "Boar",
+        "world": 1
+    },
+    {
+        "res": "Gorilla",
+        "size": 1,
+        "id": 1009,
+        "name": "猩猩",
+        "nameEN": "Gorilla",
+        "world": 1
+    },
+    {
+        "res": "Alligator",
+        "size": 1,
+        "id": 1010,
+        "name": "鳄鱼",
+        "nameEN": "Alligator",
+        "world": 1
+    },
+    {
+        "res": "Hippo",
+        "size": 1,
+        "id": 1011,
+        "name": "河马",
+        "nameEN": "Hippo",
+        "world": 1
+    },
+    {
+        "res": "Rhino",
+        "size": 2,
+        "id": 1012,
+        "name": "犀牛",
+        "nameEN": "Rhino",
+        "world": 1
+    },
+    {
+        "res": "Tiger",
+        "size": 1,
+        "id": 1013,
+        "name": "老虎",
+        "nameEN": "Tiger",
+        "world": 1
+    },
+    {
+        "res": "Toucan",
+        "size": 1,
+        "id": 1014,
+        "name": "巨嘴鸟",
+        "nameEN": "Toucan",
+        "world": 1
+    }
+]

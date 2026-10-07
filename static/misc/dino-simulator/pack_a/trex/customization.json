@@ -1,0 +1,399 @@
+{
+	"catalog": {
+		"body": [
+			{
+				"id": "original",
+				"color": "#9b9f32",
+				"hsv": [
+					0,
+					1,
+					1
+				]
+			},
+			{
+				"id": "palegreen",
+				"color": "#95ae52",
+				"hsv": [
+					0.03,
+					0.692,
+					0.87
+				]
+			},
+			{
+				"id": "darkbrown",
+				"color": "#7b5641",
+				"hsv": [
+					-0.09,
+					0.744,
+					0.615
+				],
+				"cost": 80
+			},
+			{
+				"id": "white",
+				"color": "#cacfd5",
+				"hsv": [
+					-0.025,
+					0.188,
+					2
+				],
+				"cost": 80
+			},
+			{
+				"id": "black",
+				"color": "#373635",
+				"hsv": [
+					-0.25,
+					0.188,
+					0.295
+				],
+				"cost": 80
+			},
+			{
+				"id": "coolgray",
+				"color": "#727c7f",
+				"hsv": [
+					-0.16,
+					0.098,
+					0.707
+				],
+				"cost": 80
+			},
+			{
+				"id": "bluegray",
+				"color": "#6e99a6",
+				"hsv": [
+					0.351,
+					0.368,
+					0.922
+				],
+				"cost": 80
+			},
+			{
+				"id": "moss",
+				"color": "#617d4f",
+				"hsv": [
+					0.076,
+					0.523,
+					0.742
+				],
+				"cost": 80
+			},
+			{
+				"id": "aubergine",
+				"color": "#815a7a",
+				"hsv": [
+					-0.289,
+					0.328,
+					0.742
+				],
+				"cost": 80
+			},
+			{
+				"id": "taupe",
+				"color": "#816963",
+				"hsv": [
+					-0.109,
+					0.328,
+					0.742
+				],
+				"cost": 80
+			},
+			{
+				"id": "cream",
+				"color": "#f7e4c6",
+				"hsv": [
+					0.929,
+					0.523,
+					1.344
+				],
+				"cost": 80
+			},
+			{
+				"id": "turq",
+				"color": "#539c89",
+				"hsv": [
+					0.264,
+					0.523,
+					0.954
+				],
+				"cost": 80
+			},
+			{
+				"id": "orange",
+				"color": "#cf9333",
+				"hsv": [
+					-0.066,
+					1.043,
+					1.324
+				],
+				"cost": 80
+			}
+		],
+		"belly": [
+			{
+				"id": "original",
+				"color": "#e2d64e"
+			},
+			{
+				"id": "taupe",
+				"color": "#9d7c44"
+			},
+			{
+				"id": "orange",
+				"color": "#fa7500",
+				"cost": 50
+			},
+			{
+				"id": "red",
+				"color": "#cf1c2e",
+				"cost": 50
+			},
+			{
+				"id": "blue",
+				"color": "#0086ed",
+				"cost": 50
+			},
+			{
+				"id": "cyan",
+				"color": "#00cfc8",
+				"cost": 50
+			},
+			{
+				"id": "cream",
+				"color": "#ebd260",
+				"cost": 50
+			},
+			{
+				"id": "black",
+				"color": "#191e24",
+				"cost": 50
+			},
+			{
+				"id": "grass",
+				"color": "#78b134",
+				"cost": 50
+			},
+			{
+				"id": "white",
+				"color": "#cacfd5",
+				"cost": 50
+			}
+		],
+		"pattern": [
+			{
+				"id": "tiger_original",
+				"color": "#583d15",
+				"pattern": "tiger"
+			},
+			{
+				"id": "dots_darkbrown",
+				"color": "#f9c843",
+				"pattern": "dots",
+				"cost": 60
+			},
+			{
+				"id": "net_moss",
+				"color": "#0b3821",
+				"pattern": "net",
+				"cost": 60
+			},
+			{
+				"id": "tiger_darknavy",
+				"color": "#0a202e",
+				"pattern": "tiger",
+				"cost": 60
+			},
+			{
+				"id": "stripe_sky",
+				"color": "#32add2",
+				"pattern": "stripe",
+				"cost": 60
+			},
+			{
+				"id": "dots_taupe",
+				"color": "#5b5336",
+				"pattern": "dots",
+				"cost": 60
+			},
+			{
+				"id": "net_grass",
+				"color": "#74b600",
+				"pattern": "net",
+				"cost": 60
+			},
+			{
+				"id": "tiger_navy",
+				"color": "#143464",
+				"pattern": "tiger",
+				"cost": 60
+			},
+			{
+				"id": "tiger_black",
+				"color": "#111112",
+				"pattern": "tiger",
+				"cost": 60
+			},
+			{
+				"id": "dots_black",
+				"color": "#111112",
+				"pattern": "dots",
+				"cost": 60
+			},
+			{
+				"id": "stripe_cream",
+				"color": "#e7e7cb",
+				"pattern": "stripe",
+				"cost": 60
+			},
+			{
+				"id": "stripe_maroon",
+				"color": "#802f2d",
+				"pattern": "stripe",
+				"cost": 60
+			},
+			{
+				"id": "tiger_cream",
+				"color": "#e7e7cb",
+				"pattern": "tiger",
+				"cost": 60
+			},
+			{
+				"id": "lightning_gold",
+				"color": "#d4af37",
+				"pattern": "lightning",
+				"metallic": true,
+				"cost": 100
+			}
+		],
+		"eyes": [
+			{
+				"id": "original",
+				"color": "#f8f301"
+			},
+			{
+				"id": "orange",
+				"color": "#f47a00",
+				"cost": 20
+			},
+			{
+				"id": "red",
+				"color": "#dd001d",
+				"cost": 20
+			},
+			{
+				"id": "sky",
+				"color": "#81d1ff",
+				"cost": 20
+			},
+			{
+				"id": "grass",
+				"color": "#3eed00",
+				"cost": 20
+			},
+			{
+				"id": "pink",
+				"color": "#fc709c",
+				"cost": 20
+			},
+			{
+				"id": "white",
+				"color": "#def9fa",
+				"cost": 20
+			},
+			{
+				"id": "black",
+				"color": "#242b2c",
+				"cost": 20
+			}
+		],
+		"horns": [
+			{
+				"id": "original",
+				"color": "#666b04"
+			},
+			{
+				"id": "darkbrown",
+				"color": "#3b2d19",
+				"cost": 30
+			},
+			{
+				"id": "black",
+				"color": "#1a1b19",
+				"cost": 30
+			},
+			{
+				"id": "yellow",
+				"color": "#e7cd20",
+				"cost": 30
+			},
+			{
+				"id": "cyan",
+				"color": "#32b9a9",
+				"cost": 30
+			},
+			{
+				"id": "navy",
+				"color": "#195582",
+				"cost": 30
+			},
+			{
+				"id": "aubergine",
+				"color": "#4d3555",
+				"cost": 30
+			},
+			{
+				"id": "pink",
+				"color": "#ff93c6",
+				"cost": 30
+			},
+			{
+				"id": "red",
+				"color": "#fc003d",
+				"cost": 30
+			},
+			{
+				"id": "white",
+				"color": "#cacfd5",
+				"cost": 30
+			},
+			{
+				"id": "gold_metallic",
+				"color": "#d4af37",
+				"metallic": true,
+				"cost": 60
+			}
+		]
+	},
+	"defaults": {
+		"patterns": {},
+		"colors": {
+			"pattern_color": [
+				0.1554201,
+				0.085101284,
+				0.028908737
+			],
+			"eyes_color": [
+				0.8580848,
+				0.43096083,
+				0
+			],
+			"horns_color": [
+				0.44623172,
+				0.31700566,
+				0.10974971
+			],
+			"belly_color": [
+				0.86888343,
+				0.6101529,
+				0.16460723
+			]
+		},
+		"floats": {
+			"hue_shift": -0.07499995606249998,
+			"saturation": 1.110000052725,
+			"brightness": 0.658000031255
+		},
+		"pattern": "tiger"
+	}
+}

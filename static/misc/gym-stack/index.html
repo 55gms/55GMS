@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/gym-stack/">
+<script>
+  // The game's files come from the CDN, another origin than this page.
+  (() => {
+    // Images need CORS before the game can use them in WebGL or read their pixels.
+    const src = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      ...src,
+      set(value) {
+        if (this.crossOrigin === null && !/^(data|blob):/.test(value)) this.crossOrigin = "anonymous";
+        src.set.call(this, value);
+      },
+    });
+
+    // Workers cannot be started from another origin, so start them from a blob that pulls the script in.
+    const NativeWorker = window.Worker;
+    window.Worker = function (url, options) {
+      const script = new URL(url, document.baseURI);
+      if (script.origin === location.origin || !/^https?:$/.test(script.protocol)) return new NativeWorker(url, options);
+      const code = options?.type === "module" ? `import ${JSON.stringify(script.href)};` : `importScripts(${JSON.stringify(script.href)});`;
+      return new NativeWorker(URL.createObjectURL(new Blob([code], { type: "text/javascript" })), options);
+    };
+    window.Worker.prototype = NativeWorker.prototype;
+
+    // Audio worklet modules have the same restriction.
+    if (window.AudioWorklet) {
+      const addModule = AudioWorklet.prototype.addModule;
+      AudioWorklet.prototype.addModule = async function (url, options) {
+        const script = new URL(url, document.baseURI);
+        if (script.origin === location.origin || !/^https?:$/.test(script.protocol)) return addModule.call(this, url, options);
+        const code = await (await fetch(script)).blob();
+        return addModule.call(this, URL.createObjectURL(new Blob([code], { type: "text/javascript" })), options);
+      };
+    }
+  })();
+</script>
+<script nonce="VvKCyf8bE2oz6QC7GiF5yw">(function(){'use strict';function p(a){var b=0;return function(){return b<a.length?{done:!1,value:a[b++]}:{done:!0}}}var r=typeof Object.defineProperties=="function"?Object.defineProperty:function(a,b,e){if(a==Array.prototype||a==Object.prototype)return a;a[b]=e.value;return a};
+function t(a){a=["object"==typeof globalThis&&globalThis,a,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var b=0;b<a.length;++b){var e=a[b];if(e&&e.Math==Math)return e}throw Error("Cannot find global object");}var u=t(this);function v(a,b){if(b)a:{var e=u;a=a.split(".");for(var f=0;f<a.length-1;f++){var k=a[f];if(!(k in e))break a;e=e[k]}a=a[a.length-1];f=e[a];b=b(f);b!=f&&b!=null&&r(e,a,{configurable:!0,writable:!0,value:b})}}
+v("Symbol",function(a){function b(h){if(this instanceof b)throw new TypeError("Symbol is not a constructor");return new e(f+(h||"")+"_"+k++,h)}function e(h,c){this.g=h;r(this,"description",{configurable:!0,writable:!0,value:c})}if(a)return a;e.prototype.toString=function(){return this.g};var f="jscomp_symbol_"+(Math.random()*1E9>>>0)+"_",k=0;return b});
+v("Symbol.iterator",function(a){if(a)return a;a=Symbol("Symbol.iterator");for(var b="Array Int8Array Uint8Array Uint8ClampedArray Int16Array Uint16Array Int32Array Uint32Array Float32Array Float64Array".split(" "),e=0;e<b.length;e++){var f=u[b[e]];typeof f==="function"&&typeof f.prototype[a]!="function"&&r(f.prototype,a,{configurable:!0,writable:!0,value:function(){return w(p(this))}})}return a});function w(a){a={next:a};a[Symbol.iterator]=function(){return this};return a}
+function x(a){var b=typeof Symbol!="undefined"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length=="number")return{next:p(a)};throw Error(String(a)+" is not an iterable or ArrayLike");}function y(){this.j=!1;this.h=null;this.l=void 0;this.g=1;this.o=0;this.i=null}function z(a){if(a.j)throw new TypeError("Generator is already running");a.j=!0}y.prototype.m=function(a){this.l=a};function A(a,b){a.i={H:b,I:!0};a.g=a.o}
+y.prototype.return=function(a){this.i={return:a};this.g=this.o};function E(a,b,e){a.g=e;return{value:b}}function F(a){this.g=new y;this.h=a}function G(a,b){z(a.g);var e=a.g.h;if(e)return H(a,"return"in e?e["return"]:function(f){return{value:f,done:!0}},b,a.g.return);a.g.return(b);return I(a)}
+function H(a,b,e,f){try{var k=b.call(a.g.h,e);if(!(k instanceof Object))throw new TypeError("Iterator result "+k+" is not an object");if(!k.done)return a.g.j=!1,k;var h=k.value}catch(c){return a.g.h=null,A(a.g,c),I(a)}a.g.h=null;f.call(a.g,h);return I(a)}function I(a){for(;a.g.g;)try{var b=a.h(a.g);if(b)return a.g.j=!1,{value:b.value,done:!1}}catch(e){a.g.l=void 0,A(a.g,e)}a.g.j=!1;if(a.g.i){b=a.g.i;a.g.i=null;if(b.I)throw b.H;return{value:b.return,done:!0}}return{value:void 0,done:!0}}
+function J(a){this.next=function(b){z(a.g);a.g.h?b=H(a,a.g.h.next,b,a.g.m):(a.g.m(b),b=I(a));return b};this.throw=function(b){z(a.g);a.g.h?b=H(a,a.g.h["throw"],b,a.g.m):(A(a.g,b),b=I(a));return b};this.return=function(b){return G(a,b)};this[Symbol.iterator]=function(){return this}}function K(a){function b(f){return a.next(f)}function e(f){return a.throw(f)}return new Promise(function(f,k){function h(c){c.done?f(c.value):Promise.resolve(c.value).then(b,e).then(h,k)}h(a.next())})}
+v("Promise",function(a){function b(c){this.h=0;this.i=void 0;this.g=[];this.o=!1;var d=this.j();try{c(d.resolve,d.reject)}catch(g){d.reject(g)}}function e(){this.g=null}function f(c){return c instanceof b?c:new b(function(d){d(c)})}if(a)return a;e.prototype.h=function(c){if(this.g==null){this.g=[];var d=this;this.i(function(){d.l()})}this.g.push(c)};var k=u.setTimeout;e.prototype.i=function(c){k(c,0)};e.prototype.l=function(){for(;this.g&&this.g.length;){var c=this.g;this.g=[];for(var d=0;d<c.length;++d){var g=
+c[d];c[d]=null;try{g()}catch(l){this.j(l)}}}this.g=null};e.prototype.j=function(c){this.i(function(){throw c;})};b.prototype.j=function(){function c(l){return function(m){g||(g=!0,l.call(d,m))}}var d=this,g=!1;return{resolve:c(this.C),reject:c(this.l)}};b.prototype.C=function(c){if(c===this)this.l(new TypeError("A Promise cannot resolve to itself"));else if(c instanceof b)this.F(c);else{a:switch(typeof c){case "object":var d=c!=null;break a;case "function":d=!0;break a;default:d=!1}d?this.B(c):this.m(c)}};
+b.prototype.B=function(c){var d=void 0;try{d=c.then}catch(g){this.l(g);return}typeof d=="function"?this.G(d,c):this.m(c)};b.prototype.l=function(c){this.v(2,c)};b.prototype.m=function(c){this.v(1,c)};b.prototype.v=function(c,d){if(this.h!=0)throw Error("Cannot settle("+c+", "+d+"): Promise already settled in state"+this.h);this.h=c;this.i=d;this.h===2&&this.D();this.J()};b.prototype.D=function(){var c=this;k(function(){if(c.A()){var d=u.console;typeof d!=="undefined"&&d.error(c.i)}},1)};b.prototype.A=
+function(){if(this.o)return!1;var c=u.CustomEvent,d=u.Event,g=u.dispatchEvent;if(typeof g==="undefined")return!0;typeof c==="function"?c=new c("unhandledrejection",{cancelable:!0}):typeof d==="function"?c=new d("unhandledrejection",{cancelable:!0}):(c=u.document.createEvent("CustomEvent"),c.initCustomEvent("unhandledrejection",!1,!0,c));c.promise=this;c.reason=this.i;return g(c)};b.prototype.J=function(){if(this.g!=null){for(var c=0;c<this.g.length;++c)h.h(this.g[c]);this.g=null}};var h=new e;b.prototype.F=
+function(c){var d=this.j();c.u(d.resolve,d.reject)};b.prototype.G=function(c,d){var g=this.j();try{c.call(d,g.resolve,g.reject)}catch(l){g.reject(l)}};b.prototype.then=function(c,d){function g(n,q){return typeof n=="function"?function(B){try{l(n(B))}catch(C){m(C)}}:q}var l,m,D=new b(function(n,q){l=n;m=q});this.u(g(c,l),g(d,m));return D};b.prototype.catch=function(c){return this.then(void 0,c)};b.prototype.u=function(c,d){function g(){switch(l.h){case 1:c(l.i);break;case 2:d(l.i);break;default:throw Error("Unexpected state: "+
+l.h);}}var l=this;this.g==null?h.h(g):this.g.push(g);this.o=!0};b.resolve=f;b.reject=function(c){return new b(function(d,g){g(c)})};b.race=function(c){return new b(function(d,g){for(var l=x(c),m=l.next();!m.done;m=l.next())f(m.value).u(d,g)})};b.all=function(c){var d=x(c),g=d.next();return g.done?f([]):new b(function(l,m){function D(B){return function(C){n[B]=C;q--;q==0&&l(n)}}var n=[],q=0;do n.push(void 0),q++,f(g.value).u(D(n.length-1),m),g=d.next();while(!g.done)})};return b});
+function L(a,b){a instanceof String&&(a+="");var e=0,f=!1,k={next:function(){if(!f&&e<a.length){var h=e++;return{value:b(h,a[h]),done:!1}}f=!0;return{done:!0,value:void 0}}};k[Symbol.iterator]=function(){return k};return k}v("Array.prototype.keys",function(a){return a?a:function(){return L(this,function(b){return b})}});(function(){var a,b,e,f,k;return K(new J(new F(function(h){switch(h.g){case 1:if(!("serviceWorker"in navigator)){h.g=0;break}return E(h,navigator.serviceWorker.getRegistration("../.."),3);case 3:return(a=h.l)?E(h,a.unregister(),4):h.return();case 4:return window.caches==null?h.return():E(h,window.caches.keys(),5);case 5:b=h.l,e=x(b),f=e.next();case 6:if(f.done){h.g=0;break}k=f.value;return E(h,window.caches.delete(k),7);case 7:f=e.next(),h.g=6}})))})();}).call(this);
+</script><script src="" data-target-origin="" data-user-activity-metrics data-run-slotcar-ads-in-game-center data-game-center-monetized data-rewarded-monetizable data-interstitial-monetizable data-level-complete-monetizable data-game-over-monetizable nonce="VvKCyf8bE2oz6QC7GiF5yw"></script><meta name="robots" content="noindex, nofollow"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style></style>
+    <title>Gym Stack GS2</title>
+    <script src="playcanvas-stable.min.js"></script>
+    <script src="__settings__.js"></script><body><script src="__start__.js"></script>
+    <script src="__loading__.js"></script>

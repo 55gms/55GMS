@@ -1,0 +1,285 @@
+
+
+<html>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <head>
+    <meta charset="UTF-8" />
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/adventure-drivers/">
+<script>
+  // The game's files come from the CDN, another origin than this page.
+  (() => {
+    // Images need CORS before the game can use them in WebGL or read their pixels.
+    const src = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      ...src,
+      set(value) {
+        if (this.crossOrigin === null && !/^(data|blob):/.test(value)) this.crossOrigin = "anonymous";
+        src.set.call(this, value);
+      },
+    });
+
+    // Workers cannot be started from another origin, so start them from a blob that pulls the script in.
+    const NativeWorker = window.Worker;
+    window.Worker = function (url, options) {
+      const script = new URL(url, document.baseURI);
+      if (script.origin === location.origin || !/^https?:$/.test(script.protocol)) return new NativeWorker(url, options);
+      const code = options?.type === "module" ? `import ${JSON.stringify(script.href)};` : `importScripts(${JSON.stringify(script.href)});`;
+      return new NativeWorker(URL.createObjectURL(new Blob([code], { type: "text/javascript" })), options);
+    };
+    window.Worker.prototype = NativeWorker.prototype;
+
+    // Audio worklet modules have the same restriction.
+    if (window.AudioWorklet) {
+      const addModule = AudioWorklet.prototype.addModule;
+      AudioWorklet.prototype.addModule = async function (url, options) {
+        const script = new URL(url, document.baseURI);
+        if (script.origin === location.origin || !/^https?:$/.test(script.protocol)) return addModule.call(this, url, options);
+        const code = await (await fetch(script)).blob();
+        return addModule.call(this, URL.createObjectURL(new Blob([code], { type: "text/javascript" })), options);
+      };
+    }
+  })();
+</script>
+
+    <title>Adventure Drivers</title>
+    <meta name="website" content="o" />
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="HandheldFriendly" content="true" />
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+    <link rel="icon" href="favicon.png" type="image/x-icon" />
+    
+    <style>
+      html,
+      body {
+        margin: 0%;
+        padding: 0%;
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        background: #ffffff;
+        color: #fff;
+        overflow: hidden;
+        touch-action: none;
+        -ms-touch-action: none;
+      }
+      html {
+        display: table;
+        margin: auto;
+      }
+      body {
+        display: table-cell;
+        vertical-align: middle;
+      }
+      canvas {
+        touch-action: none;
+        -ms-touch-action: none;
+      }
+      #gamecanvas {
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+    </style>
+    <script src="pixi.min.js" type="text/javascript"></script>
+    <script src="perf.min.js" type="text/javascript"></script>
+    <script src="howler.min.js" type="text/javascript"></script>
+    <script src="poki-sdk.js"></script>
+    <style>
+      .pokiSdkContainer {
+        overflow: hidden;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .pokiSdkContainer.pokiSdkFixed {
+        position: fixed;
+      }
+
+      .pokiSdkContainer.pokiSdkVisible {
+        display: block;
+      }
+
+      .pokiSdkContainer.pokiSdkHidden,
+      .pokiSdkSpinnerContainer.pokiSdkHidden {
+        display: none;
+      }
+
+      .pokiSdkContainer.pokiSdkHidden,
+      .pokiSdkSpinnerContainer {
+        pointer-events: none;
+      }
+
+      .pokiSdkSpinnerContainer {
+        z-index: 10;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("thumb_anim_2x.gif") 50% 50% no-repeat;
+        user-select: none;
+      }
+
+      .pokiSdkInsideContainer {
+        background: #000;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        opacity: 0;
+        -webkit-transition: opacity 0.5s ease-in-out;
+        -moz-transition: opacity 0.5s ease-in-out;
+        -ms-transition: opacity 0.5s ease-in-out;
+        -o-transition: opacity 0.5s ease-in-out;
+        transition: opacity 0.5s ease-in-out;
+      }
+
+      .pokiSdkContainer.pokiSdkVisible .pokiSdkInsideContainer {
+        opacity: 1;
+      }
+
+      .pokiSDKAdContainer,
+      .pokiSdkVideoContainer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      .pokiSdkStartAdButton {
+        position: absolute;
+        z-index: 9999;
+        top: 0;
+
+        padding-top: 10%;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        color: #fff;
+
+        font: 700 15pt "Arial", sans-serif;
+        font-weight: bold;
+        letter-spacing: 1px;
+        transition: 0.1s ease-in-out;
+        line-height: 1em;
+      }
+
+      .pokiSdkPauseButton {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 1;
+      }
+
+      .pokiSdkPauseButton:before {
+        content: "";
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        display: block;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        user-select: none;
+        background-color: rgba(0, 0, 0, 0.6);
+        transition: background-color 0.5s ease;
+        animation: 1s linear infinite pokiPulse;
+      }
+
+      .pokiSdkPauseButton:after {
+        content: "";
+        position: absolute;
+        display: block;
+        box-sizing: border-box;
+        border-color: transparent transparent transparent #fff;
+        border-style: solid;
+        border-width: 26px 0 26px 40px;
+        pointer-events: none;
+        animation: 1s linear infinite pokiPulse;
+        left: 6px;
+      }
+      .pokiSdkPauseButtonBG {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: block;
+        content: "";
+        background: rgba(0, 43, 80, 0.5);
+        width: 100%;
+        height: 100%;
+      }
+
+      .pokiSdkPauseButtonBG:hover {
+        background: rgba(0, 43, 80, 0.7);
+      }
+
+      @keyframes pokiPulse {
+        0% {
+          transform: translate(-50%, -50%) scale(0.95);
+        }
+        70% {
+          transform: translate(-50%, -50%) scale(1.1);
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(0.95);
+        }
+      }
+
+      .pokiSdkProgressContainer {
+        background: #b8c7dd;
+        width: 100%;
+        height: 5px;
+        position: absolute;
+        bottom: 0;
+        z-index: 9999;
+      }
+
+      .pokiSdkProgressBar {
+        position: relative;
+        bottom: 0px;
+        background: #ffdc00;
+        height: 100%;
+        width: 0%;
+        transition: width 0.5s;
+        transition-timing-function: linear;
+      }
+
+      .pokiSdkProgressBar.pokiSdkVisible,
+      .pokiSdkPauseButton.pokiSdkVisible,
+      .pokiSdkStartAdButton.pokiSdkVisible {
+        display: block;
+        pointer-events: auto;
+      }
+
+      .pokiSdkProgressBar.pokiSdkHidden,
+      .pokiSdkPauseButton.pokiSdkHidden,
+      .pokiSdkStartAdButton.pokiSdkHidden {
+        display: none;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body style="overflow:hidden;">
+    <canvas id="gamecanvas" draggable="false" width="640" height="360" style="touch-action: none; width: 640px; height: 360px; cursor: inherit;"></canvas>
+    <script src="AdventureDrivers.min.js" type="text/javascript"></script>
+  </body>
+</html>

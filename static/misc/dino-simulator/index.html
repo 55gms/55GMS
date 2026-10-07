@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/dino-simulator/">
+<script>
+  // Images load from the CDN, so they need CORS before the game can use them in WebGL or read their pixels.
+  (() => {
+    const src = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      ...src,
+      set(value) {
+        if (this.crossOrigin === null && !/^(data|blob):/.test(value)) this.crossOrigin = "anonymous";
+        src.set.call(this, value);
+      },
+    });
+  })();
+</script>
+
+		<meta name="build-version" content="103.0">
+		<script>window.__PACK='pack_a'</script>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover">
+		<!-- Keep browser UI and any DOM overlays light even when the device prefers dark
+		     mode. The meta form accepts the supported scheme itself; `only` is CSS-only. -->
+		<meta name="color-scheme" content="light">
+		<title>Dino Simulator</title>
+		<style>
+@font-face {
+	font-family: 'SN Pro';
+	src: url('SNPro-Regular.woff2') format('woff2');
+	font-weight: 400 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Lilita One';
+	src: url('LilitaOne-Regular.ttf') format('truetype');
+	font-weight: 400 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* On every element, not just body: iOS shows its text-magnifier loupe on a
+   tap-tap-longpress over anything selectable, including elements added later (the debug
+   menu). Killing selection and the callout everywhere is what actually suppresses it. */
+*, *::before, *::after {
+	-webkit-user-select: none;
+	user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+	/* The game paints its own colours on canvases; never inherit an OS dark theme. */
+	color-scheme: light only;
+	forced-color-adjust: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-color: #111111;
+	color: white;
+	/* The game handles its own gestures; without this the browser steals drags for
+	   scroll and pinch-zoom, which is what the joystick uses. */
+	touch-action: none;
+	overscroll-behavior: none;
+}
+
+#canvas, #ui {
+	display: block;
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	outline: none;
+	/* Prevent mobile browsers' forced-dark-mode pass from recolouring WebGL and UI pixels. */
+	color-scheme: light only;
+	forced-color-adjust: none;
+	filter: none !important;
+}
+
+/* The UI is a second canvas: a single element cannot hold both a 2D and a WebGL context,
+   and drawing text and nine-patches through three.js would mean rebuilding them as geometry
+   for nothing. It is no longer stacked over the WebGL one, though -- main.js hides it and
+   draws it INTO the WebGL canvas as a textured quad, so a recorder capturing the game canvas
+   gets the whole game rather than the world without its interface (see scene/ui_overlay.js).
+   It stays in the document because its layout rect is what maps a pointer position into UI
+   coordinates; #canvas is what actually receives the pointer events now. */
+#ui {
+	z-index: 1;
+	touch-action: none;
+}
+
+/* Boot errors only; the loading bar itself lives on the canvas UI (StartScreen). */
+#status-notice {
+	display: none;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 2;
+	max-width: min(80%, 480px);
+	font-family: 'SN Pro', Arial, sans-serif;
+	background-color: #5b3943;
+	border: 1px solid #9b3943;
+	border-radius: 0.5rem;
+	color: #e0e0e0;
+	line-height: 1.3;
+	padding: 1rem;
+	text-align: center;
+}
+		</style>
+
+		<!-- Poki SDK. Loaded ahead of the bundle so the game can measure its own load. -->
+		<script src="poki-sdk.js"></script>
+	</head>
+	<body>
+		<canvas id="canvas" tabindex="0"></canvas>
+		<canvas id="ui"></canvas>
+
+		<div id="status-notice"></div>
+
+		<!--
+			No WebAssembly, no SIMD probe, no emscripten version gate, and no bundle either:
+			the browser loads index.js as a module and follows the imports into script/.
+			The only requirement left is ES module support -- Chrome 61, Safari 11.
+
+			The bootstrap below replaces a plain script src for two dev-only features that
+			must exist before any module loads:
+
+			- Cache busting on dev/local (Godot's is_local_or_dev_build hosts:
+			  storygiantgames.com, localhost). A dev page without ?nocache redirects to
+			  itself with ?nocache=Date.now(); the value then rides every resource request
+			  -- index.js here via the dynamic import, everything else through
+			  script/nocache.js. Production (Poki) never redirects and never busts.
+
+			- The debug menu trigger: three clicks in the top-left corner within 2 seconds,
+			  live from this very script tag -- so it works during loading, before the game
+			  exists. It lazy-imports script/debug.js. (The Godot build hid this on the
+			  coins widget; that trigger is deliberately not carried over.)
+		-->
+		<script type="module">
+			// The iOS text-magnifier loupe (tap-tap-longpress) ignores user-select:none in
+			// current Safari; cancelling the touch default on the game surfaces is what
+			// actually stops it. Pointer events still fire, so game input is unaffected.
+			// Scoped to the canvases and the loader rather than the document, because the
+			// debug menu is real DOM and needs native touch behaviour (scrolling, clicks).
+			for (const id of ['canvas', 'ui']) {
+				document.getElementById(id)?.addEventListener(
+					'touchstart',
+					(event) => event.preventDefault(),
+					{ passive: false }
+				)
+			}
+
+			const host = location.hostname
+			// Never a dev host here: the cache-busting redirect would leave the CDN base.
+			const isDev = false
+			const params = new URLSearchParams(location.search)
+
+			if (isDev && !params.has('nocache')) {
+				params.set('nocache', Date.now())
+				location.replace(location.pathname + '?' + params.toString() + location.hash)
+			} else {
+				const nocache = params.get('nocache')
+				window.__NOCACHE = nocache
+				import(nocache ? `./index.js?nocache=${encodeURIComponent(nocache)}` : './index.js')
+			}
+
+			// The debug trigger, on the same terms script/main.js exposes window.game: a dev
+			// host, or ?debug anywhere. It used to be ungated, which meant three taps in the
+			// corner of the LIVE game opened a menu whose cheats and "Clear saved data" work
+			// perfectly well -- they write settings directly and never touch window.game.
+			// The Poki upload can drop script/debug*.js entirely, and then there is nothing
+			// left to import either.
+			if (isDev || params.has('debug')) {
+				// The one place in the whole build that names script/debug.js. main.js also
+				// wants it -- to put a saved FPS readout or collision overlay back the way it
+				// was left -- but a module that ships to players must not name a file that
+				// does not ship with them, so it asks through this instead and gets nothing
+				// on a production build, which is the right answer there anyway.
+				const nocache = window.__NOCACHE
+				window.__loadDebugMenu = () =>
+					import(nocache ? `./script/debug.js?nocache=${encodeURIComponent(nocache)}` : './script/debug.js')
+
+				const openDebugMenu = () =>
+					window.__loadDebugMenu()
+						.then((m) => m.toggleDebugMenu())
+						.catch((err) => console.error('debug menu failed:', err))
+
+				// Alt+Q on a keyboard, the three-tap corner gesture on a touchscreen. Alt
+				// because every unmodified letter is already a game shortcut; capture phase,
+				// so it lands whatever else is listening.
+				addEventListener('keydown', (event) => {
+					if (!event.altKey || event.ctrlKey || event.metaKey || event.repeat) return
+					if (event.code !== 'KeyQ') return
+					event.preventDefault()
+					openDebugMenu()
+				}, true)
+
+				let taps = 0
+				let firstTap = 0
+				addEventListener('pointerdown', (event) => {
+					if (event.clientX > 100 || event.clientY > 100) return
+					const now = performance.now()
+					if (taps === 0 || now - firstTap > 2000) {
+						taps = 0
+						firstTap = now
+					}
+					if (++taps >= 3) {
+						taps = 0
+						openDebugMenu()
+					}
+				}, true)
+			}
+		</script>
+	</body>
+</html>

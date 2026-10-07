@@ -1,0 +1,97 @@
+{
+  "set": {
+    "ZY_FIRST":["cfg"],
+    "zoo": [
+      "game","preload","audio_first","cfg"
+    ],
+    "game": [
+      "game","preload","audio_first","cfg"
+    ],
+    "teach": [
+      "teach","preload","cfg"
+    ],
+    "channel": [
+      "wx",
+      "qq",
+      "zj",
+      "oppo",
+      "vivo"
+    ],
+    "path": "assets"
+  },
+  "cfg":{
+    "url": "https://zy-1257315588.file.myqcloud.com/zoo/oppo/cfg_1_0_4.zip",
+    "ver": 4,
+    "size": 0.05,
+    "files": [
+      "cfg"
+    ],
+    "dir": [
+      "cfg"
+    ]
+  },
+  "preload":{
+    "url": "https://zy-1257315588.file.myqcloud.com/zoo/oppo/zoo_preload_1_0_5.zip",
+    "ver": 5,
+    "size": 0.05,
+    "files": [
+      "preload"
+    ],
+    "dir": [
+      "preload"
+    ]
+  },
+  "game": {
+    "url": "https://zy-1257315588.file.myqcloud.com/zoo/oppo/zoo_new_1_0_25.zip",
+    "ver": 25,
+    "size": 16.13,
+    "files": [
+      "game/Conventional",
+      "ship/Conventional",
+      "audioGame",
+      "icons",
+      "main",
+      "question",
+      "res"
+    ],
+    "dir": [
+      "game",
+      "ship",
+      "audioGame",
+      "icons",
+      "main",
+      "question",
+      "res"
+    ]
+  },
+  "teach": {
+    "url": "https://zy-1257315588.file.myqcloud.com/zoo/oppo/zoo_teach_1_0_5.zip",
+    "ver": 5,
+    "size": 0.79939,
+    "files": [
+      "first/Conventional",
+      "res/atlas"
+    ],
+    "dir": [
+      "first",
+      "res/preload.atlas",
+      "res/preload.png"
+    ]
+  },
+  "audio_first": {
+    "url": "https://zy-1257315588.file.myqcloud.com/zoo/oppo/audio_first.zip",
+    "ver": 1,
+    "size": 0.69533,
+    "files": [
+      "audio/Music/Music_Tutorial.mp3",
+      "audio/Amb_Farm_Cow.mp3",
+      "audio/Amb_Farm_Rooster.mp3",
+      "audio/Amb_Farm_Sheep.mp3",
+      "audio/Amb_Farm.mp3",
+      "audio/UI_Randomize.mp3"
+    ],
+    "dir": [
+      "audio"
+    ]
+  }
+}

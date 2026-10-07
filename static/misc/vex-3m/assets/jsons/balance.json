@@ -1,0 +1,21 @@
+{
+    "__comment_skins": "id: number, price: number -> if price < 0 then you need whatch reward ad for unlock skin",
+    "skins": [
+        ["vex", 0],
+        ["sport", 100],
+        ["lego", 300],
+        ["kid", 900],
+        ["valentines", 2300],
+        ["scooter", 500],
+        ["tron", 1200],
+        ["police", 3500],
+        ["halloween", -4],
+        ["dino", -3],
+        ["gold-sport", -2],
+        ["white", 700],
+        ["future", 1300],
+        ["mad", 3100],
+        ["christmas", 5000],
+        ["dragon", -5]
+    ]
+}

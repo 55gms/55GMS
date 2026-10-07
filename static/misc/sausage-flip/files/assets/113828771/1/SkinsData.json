@@ -1,0 +1,107 @@
+{
+    "Basic": {
+        "name": "Basic",
+        "order": "1",
+        "type": "BASIC",
+        "packagingColor": "5DB3E2",
+        "level": -1
+    },
+    "Sunglasses": {
+        "name": "Sunglasses",
+        "order": "2",
+        "type": "BASIC",
+        "packagingColor": "FFA45D",
+        "level": 10
+    },
+    "TopHat": {
+        "name": "TopHat",
+        "order": "3",
+        "type": "BASIC",
+        "packagingColor": "9771E9",
+        "level": 25
+    },
+    "Ninja": {
+        "name": "Ninja",
+        "order": "4",
+        "type": "BASIC",
+        "packagingColor": "D0FFFE",
+        "level": 50
+    },
+    "Knight": {
+        "name": "Knight",
+        "order": "5",
+        "type": "BASIC",
+        "packagingColor": "3ED96D",
+        "level": 100
+    },
+    "Cosmonaut": {
+        "name": "Cosmonaut",
+        "order": "6",
+        "type": "BASIC",
+        "packagingColor": "41A1A0",
+        "level": 150
+    },
+    "Flower": {
+        "name": "Flower",
+        "order": "1",
+        "type": "REWARDED",
+        "packagingColor": "6BC9F3",
+        "level": -1
+    },
+    "Dog": {
+        "name": "Dog",
+        "order": "2",
+        "type": "REWARDED",
+        "packagingColor": "32EC8D",
+        "level": -1
+    },
+    "Unicorn": {
+        "name": "Unicorn",
+        "order": "3",
+        "type": "REWARDED",
+        "packagingColor": "F874A8",
+        "level": -1
+    },
+    "Bee": {
+        "name": "Bee",
+        "order": "4",
+        "type": "REWARDED",
+        "packagingColor": "4EF8B0",
+        "level": -1
+    },
+    "Pencil": {
+        "name": "Pencil",
+        "order": "5",
+        "type": "REWARDED",
+        "packagingColor": "2EAAF8",
+        "level": -1
+    },
+    "Dollar": {
+        "name": "Dollar",
+        "order": "6",
+        "type": "REWARDED",
+        "packagingColor": "8359F5",
+        "level": -1
+    },
+    "Dolphin": {
+        "name": "Dolphin",
+        "order": "7",
+        "type": "REWARDED",
+        "packagingColor": "FF5847",
+        "level": -1
+    },
+    "Carot": {
+        "name": "Carot",
+        "order": "8",
+        "type": "REWARDED",
+        "packagingColor": "B37CFF",
+        "level": -1
+    },
+    "Caterpillar": {
+        "name": "Caterpillar",
+        "order": "9",
+        "type": "REWARDED",
+        "packagingColor": "FF7864",
+        "level": -1
+    }
+}

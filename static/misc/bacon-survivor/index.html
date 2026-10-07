@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/bacon-survivor/">
+<script>
+  // Images load from the CDN, so they need CORS before the game can use them in WebGL or read their pixels.
+  (() => {
+    const src = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      ...src,
+      set(value) {
+        if (this.crossOrigin === null && !/^(data|blob):/.test(value)) this.crossOrigin = "anonymous";
+        src.set.call(this, value);
+      },
+    });
+  })();
+</script>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="pragma" content="no-cache"/>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name ="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta charset="utf-8"/>
+
+        <title>Bacon Survivor by SnoutUp</title>
+		
+        <script src="poki-sdk.js"></script>
+		
+		<!-- 
+		<script>(()=>{var e=function(e){var n=RegExp("[?&]"+e+"=([^&]*)").exec(window.location.search);return n&&decodeURIComponent(n[1].replace(/\+/g," "))},n="kids"===e("tag"),t=!!window.adBridge,o="yes"===e("gdhoist"),i=new(function(){function e(){var e=this;this.queue=[],this.init=function(n,t){return void 0===n&&(n={}),void 0===t&&(t={}),new Promise((function(o,i){e.enqueue("init",[n,t],o,i)}))},this.rewardedBreak=function(){return new Promise((function(e){e(!1)}))},this.commercialBreak=function(n){return new Promise((function(t,o){e.enqueue("commercialBreak",[n],t,o)}))},this.displayAd=function(e,n,t,o){o&&o(!0),t&&t()},this.withArguments=function(n){return function(){for(var t=[],o=0;o<arguments.length;o++)t[o]=arguments[o];e.enqueue(n,t)}},this.handleAutoResolvePromise=function(){return new Promise((function(e){e()}))},this.throwNotLoaded=function(){console.debug("PokiSDK is not loaded yet. Not all methods are available.")},this.doNothing=function(){}}return e.prototype.enqueue=function(e,t,o,i){var r={fn:e,args:t||[],resolveFn:o,rejectFn:i};n?o&&o(!0):this.queue.push(r)},e.prototype.dequeue=function(){for(var e=this,n=function(){var n,o,i=t.queue.shift(),r=i,a=r.fn,u=r.args;if("function"==typeof window.PokiSDK[a])if((null==i?void 0:i.resolveFn)||(null==i?void 0:i.rejectFn)){var s="init"===a;if((n=window.PokiSDK)[a].apply(n,u).catch((function(){for(var n=[],t=0;t<arguments.length;t++)n[t]=arguments[t];"function"==typeof i.rejectFn&&i.rejectFn.apply(i,n),s&&setTimeout((function(){e.dequeue()}),0)})).then((function(){for(var n=[],t=0;t<arguments.length;t++)n[t]=arguments[t];"function"==typeof i.resolveFn&&i.resolveFn.apply(i,n),s&&setTimeout((function(){e.dequeue()}),0)})),s)return"break"}else(o=window.PokiSDK)[a].apply(o,u);else console.error("Cannot execute "+a)},t=this;this.queue.length>0;){if("break"===n())break}},e}());window.PokiSDK={init:i.init,initWithVideoHB:i.init,commercialBreak:i.commercialBreak,rewardedBreak:i.rewardedBreak,displayAd:i.displayAd,destroyAd:i.doNothing,getLeaderboard:i.handleAutoResolvePromise,shareableURL:function(){return new Promise((function(e,n){return n()}))},getURLParam:function(n){return e("gd"+n)||e(n)||""},getLanguage:function(){return navigator.language.toLowerCase().split("-")[0]},isAdBlocked:function(){}},["captureError","customEvent","gameInteractive","gameLoadingFinished","gameLoadingProgress","gameLoadingStart","gameplayStart","gameplayStop","happyTime","logError","muteAd","roundEnd","roundStart","sendHighscore","setDebug","setDebugTouchOverlayController","setLogging","setPlayerAge","setPlaytestCanvas","enableEventTracking"].forEach((function(e){window.PokiSDK[e]=i.withArguments(e)}));var r,a,u=(r=window.pokiSDKVersion||e("ab")||"v2.324.0",a="poki-sdk-core-"+r+".js",n&&(a="poki-sdk-kids-"+r+".js"),t&&(a="poki-sdk-playground-"+r+".js"),o&&(a="poki-sdk-hoist-"+r+".js"),"poki-sdk.js"),s=document.createElement("script");s.setAttribute("src",u),s.setAttribute("type","text/javascript"),s.setAttribute("crossOrigin","anonymous"),s.onload=function(){return i.dequeue()},document.head.appendChild(s)})();</script>
+		<!-- -->
+        
+		<script>
+			document.addEventListener('touchstart', e => {
+				e.preventDefault();
+				}, {passive: false})
+		</script>	
+		
+        <style>
+            html {
+                height: 100%;
+                width: 100%;
+            }
+            
+            body {
+              background: #f3c2b5;
+              color:#cccccc;
+              margin: 0px;
+              padding: 0px;
+              border: 0px;
+			  overflow:hidden;
+			  
+			  width: 100%;
+              height:100%;
+			  
+			background-color:#cb9864;
+			background-image: url('html5game/bg_snow.png');
+			background-repeat: repeat-x repeat-y;
+			background-position: center 0;
+			background-size: auto auto;
+            }
+			
+			#decor { 
+				position:fixed;
+				width: 70%;
+				bottom:40%;
+				left:50%;
+				transform: translate(-50%, 0%);				
+				
+				max-height:400px;
+				max-width:600px;
+				object-fit:contain;
+				
+				animation: anim-scale-pulse 1s linear infinite;	
+			}
+			@keyframes anim-scale-pulse {
+				0% {
+					 transform: translate(-50%, 0%) scale(1, 1) ;
+				}
+
+				50% {
+					 transform: translate(-50%, 0%) scale(1.02, 1.02) ;
+				}
+
+				100% {
+					transform: translate(-50%, 0%) scale(1, 1);
+				}
+			}				
+			
+			#bar {
+				position:fixed;
+				width:50%;
+				left:0;
+				right:0;
+				margin:0 auto;
+				padding:8px;
+				height: 50px;
+				top:60%;
+				background:#5a3a32;
+				z-index:-9999;
+				
+				border-radius: 20px;				
+			}
+			
+			#fill {
+				position:relative;
+				width:5%;
+				background-color:#ffffff;
+				height:50px;
+				margin:0px;
+				
+				border-radius: 15px;
+				
+				background: #ff0000;
+				background: linear-gradient(
+					to right,
+					#ff0000,#fdcf58
+				);			
+			}
+			
+			.pulsating { 
+				animation: anim-pulse 1s ease-in-out infinite;	
+			}
+		
+			#proc {
+				position:fixed;
+				
+				font-size:50px;
+				line-height:64px;
+				
+				top:60%;
+				left:50%;
+				
+				color:#fff;
+				font-family: sans-serif;
+				transform: translate(-50%, 0%);
+				z-index:100;		
+				font-weight:bold;
+				
+				text-shadow: 2px 2px 2px black;
+			}			
+			
+            canvas {
+				  image-rendering: optimizeSpeed;
+				  -webkit-interpolation-mode: nearest-neighbor;
+				  -ms-touch-action: none;
+				  margin: 0px;
+				  padding: 0px;
+				  border: 0px;
+				  display:none;
+            }
+			
+			#canvas, canvas {
+				-webkit-tap-highlight-color: transparent;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}		
+
+			@keyframes anim-pulse {
+			  from { opacity: 1; }
+			  50% { opacity: 0; }
+			  to { opacity: 1; }
+			}
+			
+			
+            
+            :-webkit-full-screen #canvas {
+                 width: 100%;
+                 height: 100%;
+            }
+			
+            div.gm4html5_div_class {
+              margin: 0px;
+              padding: 0px;
+              border: 0px;
+			  with:100%;
+			  height:100%;
+            }
+        </style>
+    </head>
+
+    <body id="body">
+		<img id="decor" src="html5game/winter.png" alt=""/></div>
+		<div id="bar"><div id="fill" class="pulsating"></div></div>
+		<div id="proc">0%</div>
+		
+		<script>
+		var proc		= document.getElementById("proc");
+		var fakeCent	= 1;			
+		var fakeCentTarget 	= 10;
+		var fails			= 0;
+		var lerpSpd 		= 0.02;
+		var bodyLoad	= false;
+		var fill 		= document.getElementById("fill");
+
+        /// smooth things out 
+        function loading_lerp (start, end, amt){
+            return (1 - amt) * start + amt * end;
+        }
+		
+		function bar_update(progress) {
+			progress = Math.max(fakeCent, progress);
+			fill.style.width = progress + "%";
+			proc.innerHTML = Math.floor(progress) + "%"
+		}			
+
+		var fakeLoading = setInterval(function() {
+			if (fakeCentTarget - fakeCent > 1) {
+				fakeCent = loading_lerp(fakeCent, fakeCentTarget, lerpSpd);
+			} else {
+				if (fakeCentTarget < 70) {
+					fakeCentTarget += 0.15;
+				} else if (fakeCentTarget <= 98) {
+					fakeCentTarget += 0.015;
+				}
+			}
+			bar_update(fakeCent);
+		}, 10);	
+		
+		
+		</script>		
+		
+        <div class="gm4html5_div_class" id="gm4html5_div_id">
+            <canvas id="canvas" width="100%" height="100%">
+               <p>Your browser doesn't support HTML5 canvas.</p>
+            </canvas>
+			<script type="text/javascript" src="html5game/BaconMaySurvive.js"></script>
+        </div>
+
+
+		<script>
+		
+
+		
+		var sdk 		= PokiSDK;
+		var pokiDebug 	= false;
+		
+        var canvas      = document.getElementById("canvas");
+		var body 		= document.getElementById("body");
+		var bar 		= document.getElementById("bar");
+		var decor 		= document.getElementById("decor");		
+
+		fill.classList.remove("pulsating");
+		
+		function poki_log(t) {
+			console.log(t);
+		}
+            
+        function poki_debug() {
+            return pokiDebug;
+        }
+		
+		function poki_loading(progress) {
+			fakeCentTarget = Math.max(fakeCentTarget, (progress * 0.8) * 100);
+			sdk.gameLoadingProgress({percentageDone: progress * 0.9});
+			
+			if (progress == 1) {
+				fakeCentTarget = 100;
+				fakeCent = 100;
+				bar_update(100);					
+				decor.style.display = "none";				
+				proc.style.display = "none";				
+				
+				setTimeout(function () {
+					canvas.style.display = "block";
+                    clearInterval(fakeLoading);					
+				}, 200);
+			}
+			bodyLoad = true;
+		}
+		
+
+		
+
+		
+		
+		function gamemaker_start() {
+			try {
+			  GameMaker_Init();
+			} catch(err) {
+				fails++;			
+				setTimeout(gamemaker_start, 2000);
+				if (fails == 1) throw(err);						
+			}
+		}
+
+		//var bgScale = window.innerHeight / 1024;
+		//body.style.backgroundSize = (512 * bgScale) + "px " + (1024 * bgScale) + "px";
+		
+		window.onload = function() {
+			sdk.init().then(() => {
+                setTimeout(gamemaker_start, 5);
+                sdk.setDebug(pokiDebug);   
+				sdk.gameLoadingStart();		
+			}).catch(() => {
+                gamemaker_start();
+			});
+        
+            canvas.width  = window.innerWidth;
+            canvas.height = window.innerHeight;
+            canvas.addEventListener('click', function(){
+                window.focus();
+            });           
+		}
+		
+		window.addEventListener('wheel', ev => ev.preventDefault(), { passive: false });
+		window.addEventListener('keydown', ev => {
+			if (['ArrowDown', 'ArrowUp', ' '].includes(ev.key)) {
+				ev.preventDefault();
+			}
+		});		
+            
+                
+
+		</script>
+    </body>
+</html>

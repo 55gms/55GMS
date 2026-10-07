@@ -1,0 +1,174 @@
+{
+    "1001" : {
+        "animal" :[
+        {"id":101 ,"chance":1000 ,"dis": -200 ,"name":"buffalo0" ,"upgradeLevelRequired":0  },
+        {"id":102 ,"chance":40   ,"dis": 150  ,"name":"buffalo1" ,"upgradeLevelRequired":0  },
+        {"id":103 ,"chance":7    ,"dis": 300  ,"name":"buffalo2" ,"upgradeLevelRequired":0  },
+        {"id":104 ,"chance":3    ,"dis": 600  ,"name":"buffalo3" ,"upgradeLevelRequired":0  },
+        {"id":105 ,"chance":2    ,"dis": 1000 ,"name":"buffalo4" ,"upgradeLevelRequired":0  },
+        {"id":106 ,"chance":0    ,"dis": 0    ,"name":"buffalo5" ,"upgradeLevelRequired":0  },
+        {"id":107 ,"chance":3    ,"dis": 600  ,"name":"buffalo7" ,"upgradeLevelRequired":1  },
+        {"id":108 ,"chance":7    ,"dis": 300  ,"name":"buffalo8" ,"upgradeLevelRequired":0 ,"usedInAOTD" : true}]
+        },
+    "1002" : {
+        "animal" :[
+        {"id":121 ,"chance":1000 ,"dis": -200 ,"name":"zebra0"  ,"upgradeLevelRequired":0   },
+        {"id":122 ,"chance":13   ,"dis": 600  ,"name":"zebra1"  ,"upgradeLevelRequired":0   },
+        {"id":123 ,"chance":5    ,"dis": 1000 ,"name":"zebra2"  ,"upgradeLevelRequired":0   },
+        {"id":124 ,"chance":0    ,"dis": 0    ,"name":"zebra3"  ,"upgradeLevelRequired":0   },
+        {"id":125 ,"chance":2    ,"dis": 1600 ,"name":"zebra4"  ,"upgradeLevelRequired":0   },
+        {"id":126 ,"chance":1    ,"dis": 2000 ,"name":"zebra5"  ,"upgradeLevelRequired":0   },
+        {"id":127 ,"chance":2    ,"dis": 1000 ,"name":"zebra7"  ,"upgradeLevelRequired":1   },
+        {"id":128 ,"chance":5    ,"dis": 1000 ,"name":"zebra8"  ,"upgradeLevelRequired":0  ,"usedInAOTD" : true},
+        {"id":129 ,"chance":5    ,"dis": 1000 ,"name":"zebra10" ,"upgradeLevelRequired":0 ,"onlySpawnsIfPurchased" : true}]
+        },
+    "1003" : {
+        "animal" :[
+        {"id":141 ,"chance":1000  ,"dis": -200 ,"name":"elephant0" ,"upgradeLevelRequired":0  },
+        {"id":142 ,"chance":13   ,"dis": 200  ,"name":"elephant1" ,"upgradeLevelRequired":0  },
+        {"id":143 ,"chance":5    ,"dis": 500  ,"name":"elephant2" ,"upgradeLevelRequired":0  },
+        {"id":144 ,"chance":0    ,"dis": 1000 ,"name":"elephant3" ,"upgradeLevelRequired":0  },
+        {"id":145 ,"chance":2    ,"dis": 1500 ,"name":"elephant4" ,"upgradeLevelRequired":0  },
+        {"id":146 ,"chance":1    ,"dis": 1500 ,"name":"elephant5" ,"upgradeLevelRequired":0 ,"onlySpawnsIfCaptured" : true },
+        {"id":147 ,"chance":2    ,"dis": 1000 ,"name":"elephant6" ,"upgradeLevelRequired":1  },
+        {"id":148 ,"chance":5    ,"dis": 1000 ,"name":"elephant7" ,"upgradeLevelRequired":0  }]
+        },
+    "1004" : {
+        "animal" :[
+        {"id":161 ,"chance":1000 ,"dis": -200 ,"name":"ostrich0" ,"upgradeLevelRequired":0   },
+        {"id":162 ,"chance":50   ,"dis": 400 , "name":"ostrich1" ,"upgradeLevelRequired":0   },
+        {"id":163 ,"chance":20   ,"dis": 750 , "name":"ostrich2" ,"upgradeLevelRequired":0   },
+        {"id":164 ,"chance":8    ,"dis": 1000 ,"name":"ostrich3" ,"upgradeLevelRequired":0   },
+        {"id":165 ,"chance":5    ,"dis": 1500 ,"name":"ostrich4" ,"upgradeLevelRequired":0   },
+        {"id":166 ,"chance":5    ,"dis": 1500 ,"name":"ostrich5" ,"upgradeLevelRequired":0   },
+        {"id":167 ,"chance":8    ,"dis": 1000 ,"name":"ostrich6" ,"upgradeLevelRequired":1   },
+        {"id":168 ,"chance":8    ,"dis": 1000 ,"name":"ostrich7" ,"upgradeLevelRequired":0   }]
+        },
+    "1005" : {
+        "animal" :[
+        {"id":181 ,"chance":1000  ,"dis": -200 ,"name":"giraffe0" ,"upgradeLevelRequired":0    },
+        {"id":182 ,"chance":65    ,"dis": 1200 ,"name":"giraffe1" ,"upgradeLevelRequired":0    },
+        {"id":183 ,"chance":35    ,"dis": 1500 ,"name":"giraffe2" ,"upgradeLevelRequired":0    },
+        {"id":184 ,"chance":11    ,"dis": 1800 ,"name":"giraffe3" ,"upgradeLevelRequired":0    },
+        {"id":185 ,"chance":7     ,"dis": 2000 ,"name":"giraffe4" ,"upgradeLevelRequired":0    },
+        {"id":186 ,"chance":7     ,"dis": 2000 ,"name":"giraffe5" ,"upgradeLevelRequired":0 ,"onlySpawnsIfCaptured" : true  },
+        {"id":187 ,"chance":11    ,"dis": 1800 ,"name":"giraffe6" ,"upgradeLevelRequired":1    },
+        {"id":188 ,"chance":35    ,"dis": 1500 ,"name":"giraffe7" ,"upgradeLevelRequired":0 ,"usedInAOTD" : true   },
+        {"id":189 ,"chance":35    ,"dis": 1500 ,"name":"giraffe8" ,"upgradeLevelRequired":0 ,"onlySpawnsIfPurchased" : true }]
+        },
+    "1006" : {
+        "animal" :[
+        {"id":201 ,"chance":1000  ,"dis": -500 ,"name":"vulture0" ,"upgradeLevelRequired":0    },
+        {"id":202 ,"chance":250   ,"dis": 500  ,"name":"vulture1" ,"upgradeLevelRequired":0    },
+        {"id":203 ,"chance":150   ,"dis": 1000 ,"name":"vulture2" ,"upgradeLevelRequired":0    },
+        {"id":204 ,"chance":200   ,"dis": 1500 ,"name":"vulture3" ,"upgradeLevelRequired":0    },
+        {"id":205 ,"chance":250   ,"dis": 2000 ,"name":"vulture4" ,"upgradeLevelRequired":0    },
+        {"id":206 ,"chance":0     ,"dis": 2500 ,"name":"vulture5" ,"upgradeLevelRequired":1    },
+        {"id":207 ,"chance":200   ,"dis": 1500 ,"name":"vulture6" ,"upgradeLevelRequired":0    },
+        {"id":208 ,"chance":150   ,"dis": 1000 ,"name":"vulture7" ,"upgradeLevelRequired":0 ,"usedInAOTD" : true   },
+        {"id":209 ,"chance":150   ,"dis": 1000 ,"name":"vulture8" ,"upgradeLevelRequired":0 ,"onlySpawnsIfPurchased" : true   }]
+        },
+    "1007" : {
+        "animal" :[
+        {"id":221 ,"chance":1000  ,"dis": -200 ,"name":"lion0" ,"upgradeLevelRequired":0    },
+        {"id":222 ,"chance":110   ,"dis": 1400 ,"name":"lion1" ,"upgradeLevelRequired":0    },
+        {"id":223 ,"chance":60    ,"dis": 1800 ,"name":"lion2" ,"upgradeLevelRequired":0    },
+        {"id":224 ,"chance":18    ,"dis": 2200 ,"name":"lion3" ,"upgradeLevelRequired":0    },
+        {"id":225 ,"chance":0     ,"dis": 1000 ,"name":"lion4" ,"upgradeLevelRequired":0    },
+        {"id":226 ,"chance":11    ,"dis": 2400 ,"name":"lion5" ,"upgradeLevelRequired":0    },
+        {"id":227 ,"chance":18    ,"dis": 2200 ,"name":"lion6" ,"upgradeLevelRequired":1    },
+        {"id":228 ,"chance":60    ,"dis": 1800 ,"name":"lion7" ,"upgradeLevelRequired":0  ,"onlySpawnsIfPurchased" : true  },
+        {"id":229 ,"chance":60    ,"dis": 1800 ,"name":"lion8" ,"upgradeLevelRequired":0  ,"usedInAOTD" : true  }]
+        },
+    "1008" : {
+        "animal" :[
+        {"id":241 ,"chance":1000 ,"dis": -200 ,"name":"boar0" ,"upgradeLevelRequired":0    },
+        {"id":242 ,"chance":4    ,"dis": 500  ,"name":"boar1" ,"upgradeLevelRequired":0    },
+        {"id":243 ,"chance":2    ,"dis": 900  ,"name":"boar2" ,"upgradeLevelRequired":0    },
+        {"id":244 ,"chance":1    ,"dis": 1400 ,"name":"boar3" ,"upgradeLevelRequired":0    },
+        {"id":245 ,"chance":1    ,"dis": 2000 ,"name":"boar4" ,"upgradeLevelRequired":0    },
+        {"id":246 ,"chance":1    ,"dis": 2000 ,"name":"boar5" ,"upgradeLevelRequired":0 ,"onlySpawnsIfCaptured" : true   },
+        {"id":247 ,"chance":1    ,"dis": 1400 ,"name":"boar6" ,"upgradeLevelRequired":1    },
+        {"id":248 ,"chance":2    ,"dis": 900  ,"name":"boar7" ,"upgradeLevelRequired":0 ,"usedInAOTD" : true  },
+        {"id":249 ,"chance":2    ,"dis": 900  ,"name":"boar9" ,"upgradeLevelRequired":0 ,"onlySpawnsIfPurchased" : true   }]
+        },
+    "1009" : {
+        "animal" :[
+        {"id":261 ,"chance":1000 ,"dis": -200 ,"name":"gorilla0" ,"upgradeLevelRequired":0 },
+        {"id":262 ,"chance":25   ,"dis": 600  ,"name":"gorilla1" ,"upgradeLevelRequired":0 },
+        {"id":263 ,"chance":12   ,"dis": 900  ,"name":"gorilla2" ,"upgradeLevelRequired":0 },
+        {"id":264 ,"chance":7    ,"dis": 1400 ,"name":"gorilla3" ,"upgradeLevelRequired":0 },
+        {"id":265 ,"chance":5    ,"dis": 2000 ,"name":"gorilla4" ,"upgradeLevelRequired":0 },
+        {"id":266 ,"chance":5    ,"dis": 2000 ,"name":"gorilla5" ,"upgradeLevelRequired":0 ,"onlySpawnsIfCaptured" : true},
+        {"id":267 ,"chance":7    ,"dis": 1400 ,"name":"gorilla6" ,"upgradeLevelRequired":1 },
+        {"id":268 ,"chance":12   ,"dis": 900  ,"name":"gorilla8" ,"upgradeLevelRequired":0 ,"usedInAOTD" : true}]
+        },
+    "1010" : {
+        "animal" :[
+        {"id":281 ,"chance":900   ,"dis": -200 ,"name":"alligator0" ,"upgradeLevelRequired":0 },
+        {"id":282 ,"chance":50    ,"dis": 500  ,"name":"alligator1" ,"upgradeLevelRequired":0 },
+        {"id":283 ,"chance":25    ,"dis": 1200 ,"name":"alligator2" ,"upgradeLevelRequired":0 },
+        {"id":284 ,"chance":10    ,"dis": 1800 ,"name":"alligator3" ,"upgradeLevelRequired":0 },
+        {"id":285 ,"chance":10    ,"dis": 2400 ,"name":"alligator4" ,"upgradeLevelRequired":0 },
+        {"id":286 ,"chance":50    ,"dis": -200 ,"name":"alligator5" ,"upgradeLevelRequired":0 },
+        {"id":287 ,"chance":10    ,"dis": 1800 ,"name":"alligator6" ,"upgradeLevelRequired":1 },
+        {"id":288 ,"chance":25    ,"dis": 1200 ,"name":"alligator7" ,"upgradeLevelRequired":0 ,"usedInAOTD" : true},
+        {"id":289 ,"chance":25    ,"dis": 1200 ,"name":"alligator8" ,"upgradeLevelRequired":0 ,"onlySpawnsIfPurchased" : true}]
+        },
+    "1011" : {
+        "animal" :[
+        {"id":301 ,"chance":1000 ,"dis": -200 ,"name":"hippo0" ,"upgradeLevelRequired":0   },
+        {"id":302 ,"chance":36   ,"dis": 700  ,"name":"hippo1" ,"upgradeLevelRequired":0   },
+        {"id":303 ,"chance":18   ,"dis": 1200 ,"name":"hippo2" ,"upgradeLevelRequired":0   },
+        {"id":304 ,"chance":11   ,"dis": 1700 ,"name":"hippo3" ,"upgradeLevelRequired":0   },
+        {"id":305 ,"chance":10   ,"dis": 2200 ,"name":"hippo4" ,"upgradeLevelRequired":0   },
+        {"id":306 ,"chance":0    ,"dis": 0    ,"name":"hippo5" ,"upgradeLevelRequired":0   },
+        {"id":307 ,"chance":11   ,"dis": 1700 ,"name":"hippo6" ,"upgradeLevelRequired":0   },
+        {"id":308 ,"chance":18   ,"dis": 1200 ,"name":"hippo7" ,"upgradeLevelRequired":0 ,"usedInAOTD" : true   }]
+        },
+    "1012" : {
+        "animal" :[
+        {"id":321 ,"chance":1000  ,"dis": -200 ,"name":"rhino0" ,"upgradeLevelRequired":0    },
+        {"id":322 ,"chance":340   ,"dis": 400  ,"name":"rhino1" ,"upgradeLevelRequired":0    },
+        {"id":323 ,"chance":215   ,"dis": 800  ,"name":"rhino2" ,"upgradeLevelRequired":0    },
+        {"id":324 ,"chance":150   ,"dis": 1200 ,"name":"rhino3" ,"upgradeLevelRequired":0    },
+        {"id":325 ,"chance":100   ,"dis": 1600 ,"name":"rhino4" ,"upgradeLevelRequired":0    },
+        {"id":326 ,"chance":0     ,"dis": 0    ,"name":"rhino5" ,"upgradeLevelRequired":0    },
+        {"id":327 ,"chance":150   ,"dis": 1200 ,"name":"rhino6" ,"upgradeLevelRequired":1    },
+        {"id":328 ,"chance":150   ,"dis": 1200 ,"name":"rhino7" ,"upgradeLevelRequired":0    }]
+        },
+    "1013" : {
+        "animal" :[
+        {"id":341 ,"chance":1000  ,"dis": -200 ,"name":"tiger0" ,"upgradeLevelRequired":0    },
+        {"id":342 ,"chance":85    ,"dis": 1400 ,"name":"tiger1" ,"upgradeLevelRequired":0    },
+        {"id":343 ,"chance":46    ,"dis": 1800 ,"name":"tiger2" ,"upgradeLevelRequired":0    },
+        {"id":344 ,"chance":29    ,"dis": 2200 ,"name":"tiger3" ,"upgradeLevelRequired":0    },
+        {"id":345 ,"chance":21    ,"dis": 2400 ,"name":"tiger4" ,"upgradeLevelRequired":0    },
+        {"id":346 ,"chance":21    ,"dis": 2400 ,"name":"tiger5" ,"upgradeLevelRequired":0 ,"onlySpawnsIfCaptured" : true   },
+        {"id":347 ,"chance":29    ,"dis": 2200 ,"name":"tiger6" ,"upgradeLevelRequired":1    },
+        {"id":348 ,"chance":46    ,"dis": 1800 ,"name":"tiger7" ,"upgradeLevelRequired":0 ,"usedInAOTD" : true   },
+        {"id":349 ,"chance":46    ,"dis": 1800 ,"name":"tiger8" ,"upgradeLevelRequired":0 ,"onlySpawnsIfPurchased" : true   }]
+        },
+    "1014" : {
+        "animal" :[
+        {"id":361 ,"chance":1000  ,"dis": -200 ,"name":"toucan0" ,"upgradeLevelRequired":0 },
+        {"id":362 ,"chance":184   ,"dis": 500  ,"name":"toucan1" ,"upgradeLevelRequired":0 },
+        {"id":363 ,"chance":115   ,"dis": 900  ,"name":"toucan2" ,"upgradeLevelRequired":0 },
+        {"id":364 ,"chance":75    ,"dis": 1400 ,"name":"toucan3" ,"upgradeLevelRequired":0 },
+        {"id":365 ,"chance":60    ,"dis": 1800 ,"name":"toucan4" ,"upgradeLevelRequired":0 },
+        {"id":366 ,"chance":0     ,"dis": -200 ,"name":"toucan5" ,"upgradeLevelRequired":0 },
+        {"id":367 ,"chance":75    ,"dis": 1400 ,"name":"toucan6" ,"upgradeLevelRequired":1 },
+        {"id":368 ,"chance":115   ,"dis": 900  ,"name":"toucan7" ,"upgradeLevelRequired":0 ,"usedInAOTD" : true}]
+        }
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,745 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<stringresources>
+  <languages>
+    <language>sk</language>
+    <language>en</language>
+    <language>de</language>
+    <language>es</language>
+    <language>fr</language>
+    <language>it</language>
+    <language>br</language>
+    <language>ru</language>
+  </languages>
+  <strings>
+    <string id="TITLE">
+      <sk>Dune!</sk>
+      <en>Dune!</en>
+      <de>Dune!</de>
+      <es>Dune!</es>
+      <fr>Dune!</fr>
+      <it>Dune!</it>
+      <br>Dune!</br>
+      <ru>Dune!</ru>
+    </string>
+    <string id="KEYWORDS">
+      <sk>Casual, Zábavné, Arkáda, Presnosť, Gravitácia, Gulička, Návykové, Nekonečná hra</sk>
+      <en>Casual, Fun, Arcade, Precision, Gravity, Ball, Addictive, Endless gameplay</en>
+      <de>Casual, Spaß, Arcade, Präzision, Gravitation, Schwerkraft, Ball, Kugel, Packend, Endlos Spielprinzip</de>
+      <es>Casual, divertido, arcade, precisión, gravedad, bola, adictivo, juego infinito</es>
+      <fr>Casual, Amusant, Arcade, Précision, Gravité, Balle, Addictif, Jouabilité infinie</fr>
+      <it>Casual, Divertente, Arcade, Precisione, Gravità, Palla, Coinvolgente, Gameplay infinito</it>
+      <br>Casual, diversão, arcade, precisão, gravidade, bola, viciante, infinito</br>
+      <ru>Казуальные игры, Развлечения, Аркады, Точность, Гравитация, Мяч, Захватывающий, Бесконечный геймплей</ru>
+    </string>
+    <string id="EXTRA SHORT DESCRIPTION">
+      <sk>Leťte oblohou, perfektne pristaňte a tým sa vystreľte ešte ďalej!</sk>
+      <en>Fly through the sky, land perfectly and launch yourself even further!</en>
+      <de>Fliege am Himmel entlang, lande perfekt und springe noch weiter!</de>
+      <es>¡Vuela por el cielo, realiza un aterrizaje perfecto y lánzate aún más lejos!</es>
+      <fr>Volez dans le ciel, atterrissez parfaitement et propulsez-vous encore plus loin !</fr>
+      <it>Vola nel cielo, atterra perfettamente e lanciati ancora più lontano!</it>
+      <br>Voe pelo céu, aterrisse perfeitamente e prossiga ainda mais!</br>
+      <ru>Летите к небу, совершайте посадки и запускайте себя еще дальше!</ru>
+    </string>
+    <string id="SHORT DESCRIPTION">
+      <sk>Zažite vzrušenie z vystreľovania sa do vzduchu, kozmu a ešte ďalej!</sk>
+      <en>Experience the thrill of launching yourself into the air, to the cosmos and beyond!</en>
+      <de>Erlebe den Nervenkitzel, wenn du dich in die Luft schleuderst, in den Kosmos und darüber hinaus!</de>
+      <es>¡Disfruta de la emoción de lanzarte por los aires, al cosmos y más allá!</es>
+      <fr>Frissonnez alors que vous êtes propulsé dans les airs, dans le cosmos et au-delà !</fr>
+      <it>Prova l'emozione di lanciarti in aria, nel cosmo e oltre!</it>
+      <br>Experimente a emoção de se lançar no ar, para o cosmos e além!</br>
+      <ru>Испытайте острые ощущения от запусков себя в воздух, в космос и за его пределы!</ru>
+    </string>
+    <string id="LONG DESCRIPTION">
+      <sk>Zažite vzrušenie z vystreľovania sa do vzduchu, kozmu a ešte ďalej! Ale aby to bolo možné, budete musieť využiť svoj cit na presnosť a triafať sa do perfektného sklonu, aby sa gulička skĺzla čo najhladšie a tým sa vystrelila čo najďalej. Je to jednoduché, ale oveľa ťažšie, než si myslíte. Ste pripravení prijať túto výzvu a dostať sa čo najďalej sa dá?</sk>
+      <en>Experience the thrill of launching yourself into the air, to the cosmos and beyond! But for that to be possible, you'll have to stretch your precision muscle and land perfect slides to get there. Easy to pick up, hard to master. Are you ready to take on the challenge and get as far as possible?</en>
+      <de>Erlebe den Nervenkitzel, wenn du dich in die Luft schleuderst, in den Kosmos und darüber hinaus! Aber damit das möglich ist, musst du deinen Präzisionsmuskel anspannen und perfekt rutschend landen. Leicht zu erlernen, schwer zu meistern. Bist du bereit, dich der Herausforderung zu stellen, möglichst weit zu fliegen?</de>
+      <es>¡Disfruta de la emoción de lanzarte por los aires, al cosmos y más allá! Pero para ello, tendrás que mejorar tu precisión y realizar aterrizajes perfectos para llegar hasta allí. Es un juego sencillo de aprender, pero difícil de dominar. Estás listo para enfrentarte al desafío e intentar llegar lo más lejos posible?</es>
+      <fr>Frissonnez alors que vous êtes propulsé dans les airs, dans le cosmos et au-delà ! Mais pour y parvenir, vous devrez améliorer votre précision et réaliser des atterrissages parfaits. Facile à prendre en main, difficile à maîtriser. Êtes-vous prêt à relever le défi et à aller le plus loin possible ?</fr>
+      <it>Prova l'emozione di lanciarti in aria, nel cosmo e oltre! Ma per farlo, dovrai sfruttare al massimo le tue abilità di precisione per atterrare perfettamente. Facile da imparare, difficile da padroneggiare. Sei pronto ad affrontare la sfida e arrivare il più lontano possibile?</it>
+      <br>Experimente a emoção de se lançar no ar, para o cosmos e além! Mas para que isso seja possível, você terá que esticar seu músculo de precisão e deslizar perfeitamente para chegar lá. Fácil de aprender, difícil de dominar. Você está pronto para assumir o desafio e chegar o mais longe possível?</br>
+      <ru>Испытайте острые ощущения от запусков себя в воздух, в космос и за его пределы! Но чтобы это было возможно, вам нужно будет использовать свою точность и совершить идеальные выстрелы, чтобы добраться туда. Легко начать, трудно стать мастером. Готовы ли вы взять на себя такую ответственность?</ru>
+    </string>
+    <string id="INSTRUCTIONS">
+      <sk>Snažte sa pristáť na vlnách tak hladko ako sa len dá. Čím hladšie pristanete, tým ďalej a vyššie vystrelíte guličku. Nehovoriac o tom, že dostanete viac skóre a pozbierate viac mincí. Čím hladšie pristanete, tým viac sa vám bude násobiť skóre! Nehovoriac o tom, že vás to zrýchli ešte viac!</sk>
+      <en>Try to land on the waves as smoothly as possible. That way, you'll launch the ball even higher and get even more score and coins! The smoother you land, the bigger multiplier you'll get! Not to mention you'll get even faster!</en>
+      <de>Versuche, möglichst sanft auf den Wellen zu landen. Dadurch springt der Ball noch höher und du erhältst mehr Punkte und Münzen! Je sanfter du landest, desto größer ist der Multiplikator, den du erhältst! Und schneller wirst du außerdem noch!</de>
+      <es>Intenta aterrizar en las olas de manera suave. Así, lanzarás la bola todavía más alto y conseguirás más puntos y monedas. Cuanto mejor sea el aterrizaje, mayor será el multiplicador que obtengas. ¡Por no mencionar que irás todavía más deprisa!</es>
+      <fr>Essayez d'atterrir sur les vagues le plus en douceur possible. Ainsi, vous lancerez la balle encore plus haut et vous obtiendrez encore plus de points et de pièces ! Plus vous atterrissez en douceur, plus vous obtenez un multiplicateur important ! Et bien sûr, vous irez encore plus vite !</fr>
+      <it>Cerca di atterrare sulle dune nel modo più dolcemente possibile per lanciare la palla ancora più in alto e ottenere più punti e monete! Più dolcemente atterri, maggiore sarà il moltiplicatore! Per non parlare del fatto che diventerai ancora più veloce!</it>
+      <br>Tente pousar nas ondas com muita suavidade. Dessa forma, você lançará a bola ainda mais alto e ganhará ainda mais pontos e moedas! Quanto mais suave você pousar, maior será o multiplicador! Sem mencionar que você ficará ainda mais rápido!</br>
+      <ru>Постарайтесь приземлиться на волны как можно более аккуратней. Таким образом, вы запустите мяч еще выше и получите еще больше очков и монет! Чем лучше вы приземлитесь, тем больше множитель вы получите! Не говоря уже о том, что вы получите еще ускорение!</ru>
+    </string>
+    <string id="SHORT INSTRUCTIONS">
+      <sk>Snažte sa pristáť na vlnách tak hladko ako sa len dá. Čím hladšie pristanete, tým ďalej a vyššie vystrelíte guličku.</sk>
+      <en>Try to land on the waves as smoothly as possible. That way, you'll launch the ball even higher and get even more score and coins!</en>
+      <de>Versuche, möglichst sanft auf den Wellen zu landen. Dadurch springt der Ball noch höher und du erhältst mehr Punkte und Münzen!</de>
+      <es>Intenta aterrizar en las olas de manera suave. Así, lanzarás la bola todavía más alto y conseguirás más puntos y monedas.</es>
+      <fr>Essayez d'atterrir sur les vagues le plus en douceur possible. Ainsi, vous lancerez la balle encore plus haut et vous obtiendrez encore plus de points et de pièces !</fr>
+      <it>Cerca di atterrare sulle dune nel modo più dolcemente possibile per lanciare la palla ancora più in alto e ottenere più punti e monete!</it>
+      <br>Tente pousar nas ondas com muita suavidade. Dessa forma, você lançará a bola ainda mais alto e ganhará ainda mais pontos e moedas!</br>
+      <ru>Постарайтесь приземлиться на волны как можно более аккуратней. Таким образом, вы запустите мяч еще выше и получите еще больше очков и монет!</ru>
+    </string>
+    <string id="CONTROLS TOUCH">
+      <sk>Ťuknite a podržte prst na obrazovke, aby ste zrýchlili guličku dole kopcom a pustili, aby mohla vyletieť. Keď je gulička vo vzduchu, tak ťuknutie a držanie ju pritiahne bližšie k zemi. Použite to, aby ste jej pomohli čo najhladšie pristáť. Dávajte ale pozor! Keď narazíte, tak prehrávate!</sk>
+      <en>Tap the screen and hold to accelerate the ball downhill and release to let it fly into the sky. When the ball is in the air, tap and hold to pull the ball towards the surface to help it land smoothly downhill.  Beware! Crashing into the hill makes you lose!</en>
+      <de>Tippe auf den Bildschirm und halte gedrückt, um den Ball bergab zu beschleunigen. Lasse los, um ihn in den Himmel fliegen zu lassen. Wenn der Ball in der Luft ist, tippe und halt, um den Ball zur Oberfläche zu ziehen und ihm zu helfen, sanft in einem Bergab-Bereich zu landen.  Aber pass auf! Wenn du gegen den Berg stößt, hast du verloren!</de>
+      <es>Toca la pantalla y mantén pulsado para llevar la bola cuesta abajo; luego suelta para que vuele por los aires. Cuando la bola esté en el aire, toca y mantén para llevar la bola hacia la superficie y que aterrice con suavidad. ¡Pero cuidado! ¡Si te chocas contra la colina, perderás!</es>
+      <fr>Touchez l'écran et maintenez appuyé pour faire accélérer la balle jusqu'en bas et relâchez pour la laisser voler dans le ciel. Lorsque la balle est en l'air, touchez et maintenez appuyé pour attirer la balle vers la surface et ainsi l'aider à atterrir en douceur jusqu'en bas. Attention ! Si vous vous écrasez sur la colline, c'est perdu !</fr>
+      <it>Tocca lo schermo e tieni premuto per accelerare quando la palla è in discesa e rilascia per farla volare in cielo. Quando la palla è in aria, tocca e tieni premuto per portarla verso la superficie e farla atterrare dolcemente. Fai attenzione: se ti schianti contro il pendio sabbioso, perderai!</it>
+      <br>Toque na tela e segure para acelerar a bola para baixo e solte para que voe para o céu. Quando a bola está no ar, toque e segure para puxar a bola para a superfície para que ela desça suavemente.  Cuidado! Bater no morro faz você perder!</br>
+      <ru>Нажмите на экран и удерживайте, чтобы ускорить мяч и отпустите, чтобы выстрелить в небо. Когда мяч находится в воздухе, коснитесь и удерживайте его, чтобы опустить мяч к поверхности и он мог аккуратно приземляться. Осторожно! Врезаться в холмы вы теряете жизни!</ru>
+    </string>
+    <string id="SHORT TAGLINE">
+      <sk>Kĺžte sa a lietajte!</sk>
+      <en>Slide and Fly!</en>
+      <de>Rutsche und fliege!</de>
+      <es>¡Deslízate y vuela!</es>
+      <fr>Glissez et volez !</fr>
+      <it>Scivola e vola!</it>
+      <br>Deslize e voe!</br>
+      <ru>Выстреливай и лети!</ru>
+    </string>
+    <string id="TAGLINE">
+      <sk>Zrýchľujte, Kĺžte sa a lietajte!</sk>
+      <en>Accelerate, Slide and Fly!</en>
+      <de>Beschleunige, rutsche und fliege!</de>
+      <es>¡Acelera, deslízate y vuela!</es>
+      <fr>Accélérez, glissez et volez !</fr>
+      <it>Accelera, scivola e vola!</it>
+      <br>Acelere, deslize e voe!</br>
+      <ru>Ускоряйся, выстреливай и лети!</ru>
+    </string>
+    <string id="FEATURES">
+      <sk>Živá farebnosť</sk>
+      <en>Vibrant Colors</en>
+      <de>Lebendige Farben</de>
+      <es>Colores vivos</es>
+      <fr>Couleurs vives</fr>
+      <it>Colori vibranti</it>
+      <br>Cores vibrantes</br>
+      <ru>Яркие цвета</ru>
+    </string>
+    <string id="12">
+      <sk>Nekonečná zábava</sk>
+      <en>Endless fun</en>
+      <de>Endloser Spaß</de>
+      <es>Diversión sin fin</es>
+      <fr>Amusement sans fin</fr>
+      <it>Divertimento infinito</it>
+      <br>Diversão ilimitada</br>
+      <ru>Бесконечное веселье</ru>
+    </string>
+    <string id="13">
+      <sk>Uspokojujúci gameplay</sk>
+      <en>Satisfying gameplay</en>
+      <de>Befriedigendes Spielprinzip</de>
+      <es>Juego gratificante</es>
+      <fr>Gameplay plaisant</fr>
+      <it>Gameplay soddisfacente</it>
+      <br>Jogabilidade satisfatória</br>
+      <ru>Удовлетворяющий геймплей</ru>
+    </string>
+    <string id="14">
+      <sk>Jednoduché na naučenie</sk>
+      <en>Easy to learn</en>
+      <de>Leicht zu erlernen</de>
+      <es>Fácil de aprender</es>
+      <fr>Facile à apprendre</fr>
+      <it>Facile da imparare</it>
+      <br>Fácil de aprender</br>
+      <ru>Легко обучаемая</ru>
+    </string>
+    <string id="15">
+      <sk>Veľa skinov</sk>
+      <en>A lot of skins</en>
+      <de>Zahlreiche Skins</de>
+      <es>Numerosos aspectos</es>
+      <fr>Beaucoup de skins</fr>
+      <it>Tantissime skin</it>
+      <br>Muitas skins</br>
+      <ru>Много скинов</ru>
+    </string>
+    <string id="COPYRIGHT">
+      <sk>© Inlogic Software s.r.o. All rights reserved</sk>
+      <en>© Inlogic Software s.r.o. All rights reserved</en>
+      <de>© Inlogic Software s.r.o. All rights reserved</de>
+      <es>© Inlogic Software s.r.o. All rights reserved</es>
+      <fr>© Inlogic Software s.r.o. All rights reserved</fr>
+      <it>© Inlogic Software s.r.o. All rights reserved</it>
+      <br>© Inlogic Software s.r.o. All rights reserved</br>
+      <ru>© Inlogic Software s.r.o. All rights reserved</ru>
+    </string>
+    <string id="AGE RATING">
+      <sk>doplna roman
+4 (PEGI 3)
+9 (PEGI 7)
+12 (PEGI 12)
+16 (PEGI 16)
+18 (PEGI 18)</sk>
+      <en>doplna roman
+4 (PEGI 3)
+9 (PEGI 7)
+12 (PEGI 12)
+16 (PEGI 16)
+18 (PEGI 18)</en>
+      <de>doplna roman
+4 (PEGI 3)
+9 (PEGI 7)
+12 (PEGI 12)
+16 (PEGI 16)
+18 (PEGI 18)</de>
+      <es>doplna roman
+4 (PEGI 3)
+9 (PEGI 7)
+12 (PEGI 12)
+16 (PEGI 16)
+18 (PEGI 18)</es>
+      <fr>doplna roman
+4 (PEGI 3)
+9 (PEGI 7)
+12 (PEGI 12)
+16 (PEGI 16)
+18 (PEGI 18)</fr>
+      <it>doplna roman
+4 (PEGI 3)
+9 (PEGI 7)
+12 (PEGI 12)
+16 (PEGI 16)
+18 (PEGI 18)</it>
+      <br>doplna roman
+4 (PEGI 3)
+9 (PEGI 7)
+12 (PEGI 12)
+16 (PEGI 16)
+18 (PEGI 18)</br>
+      <ru>doplna roman
+4 (PEGI 3)
+9 (PEGI 7)
+12 (PEGI 12)
+16 (PEGI 16)
+18 (PEGI 18)</ru>
+    </string>
+    <string id="MIN OS">
+      <sk>doplna roman</sk>
+      <en>doplna roman</en>
+      <de>doplna roman</de>
+      <es>doplna roman</es>
+      <fr>doplna roman</fr>
+      <it>doplna roman</it>
+      <br>doplna roman</br>
+      <ru>doplna roman</ru>
+    </string>
+    <string id="PACKAGE NAME">
+      <sk>doplna roman</sk>
+      <en>doplna roman</en>
+      <de>doplna roman</de>
+      <es>doplna roman</es>
+      <fr>doplna roman</fr>
+      <it>doplna roman</it>
+      <br>doplna roman</br>
+      <ru>doplna roman</ru>
+    </string>
+    <string id="RESUME">
+      <sk>Pokračovať</sk>
+      <en>Resume</en>
+      <de>Weiter</de>
+      <es>Continuar</es>
+      <fr>Reprendre</fr>
+      <it>Riprendi</it>
+      <br>Retomar</br>
+      <ru>ПРОДОЛЖИТЬ</ru>
+    </string>
+    <string id="MENU">
+      <sk>Menu</sk>
+      <en>Menu</en>
+      <de>MENÜ</de>
+      <es>Menú</es>
+      <fr>Menu</fr>
+      <it>Menu</it>
+      <br>Menu</br>
+      <ru>МЕНЮ</ru>
+    </string>
+    <string id="NICE SLIDE">
+      <sk>Pekné pristátie</sk>
+      <en>Nice Slide</en>
+      <de>Nett gerutscht</de>
+      <es>Buen aterrizaje</es>
+      <fr>Jolie glissade</fr>
+      <it>Bella scivolata</it>
+      <br>Deslizamento agradável</br>
+      <ru>Хорошее приземление</ru>
+    </string>
+    <string id="PERFECT SLIDE">
+      <sk>Perfektné pristátie</sk>
+      <en>Perfect Slide</en>
+      <de>Perfekt gerutscht</de>
+      <es>Aterrizaje perfecto</es>
+      <fr>Glissade parfaite</fr>
+      <it>Scivolata perfetta</it>
+      <br>Deslizamento perfeito</br>
+      <ru>Идеальное приземление</ru>
+    </string>
+    <string id="INSTRUCTIONS_TITLE">
+      <sk>Inštrukcie</sk>
+      <en>Instructions</en>
+      <de>Anleitung</de>
+      <es>Instrucciones</es>
+      <fr>Instructions</fr>
+      <it>Istruzioni</it>
+      <br>Instruções</br>
+      <ru>Инструкция</ru>
+    </string>
+    <string id="YOU CRASHED!">
+      <sk>Narazili ste!</sk>
+      <en>You Crashed!</en>
+      <de>Du bist abgestürzt!</de>
+      <es>¡Te has chocado!</es>
+      <fr>Vous vous êtes écrasé !</fr>
+      <it>Ti sei schiantato!</it>
+      <br>Você caiu!</br>
+      <ru>Вы разбились!</ru>
+    </string>
+    <string id="HOLD = SPEED">
+      <sk>Držať = Rýchlosť</sk>
+      <en>Hold = Speed</en>
+      <de>Halten = Geschwindigkeit</de>
+      <es>Mantener = Acelerar</es>
+      <fr>Maintenir = Vitesse</fr>
+      <it>Tieni premuto = Velocità</it>
+      <br>Segurar = Velocidade</br>
+      <ru>Удержание = Скорость</ru>
+    </string>
+    <string id="RELEASE = FLY">
+      <sk>Pustiť = Letieť</sk>
+      <en>Release = Fly</en>
+      <de>Loslassen = Fliegen</de>
+      <es>Soltar = Volar</es>
+      <fr>Relâcher = Voler</fr>
+      <it>Rilascia = Vola</it>
+      <br>Lançar = Voar</br>
+      <ru>Выстрел = Полёт</ru>
+    </string>
+    <string id="HOLD = DIVE">
+      <sk>Držať = Letieť nadol</sk>
+      <en>Hold = Dive</en>
+      <de>Halten = Sinken</de>
+      <es>Mantener = Caer en picado</es>
+      <fr>Maintenir = Plonger</fr>
+      <it>Tieni premuto = Scendi in picchiata</it>
+      <br>Segurar = Mergulhar</br>
+      <ru>Удержание = Приземление</ru>
+    </string>
+    <string id="BALLOON">
+      <sk>Balón</sk>
+      <en>Balloon</en>
+      <de>Ballon</de>
+      <es>Globo</es>
+      <fr>Ballon</fr>
+      <it>Palloncino</it>
+      <br>Balão</br>
+      <ru>Воздушный шар</ru>
+    </string>
+    <string id="CANDY">
+      <sk>Lízatko</sk>
+      <en>Candy</en>
+      <de>Süßigkeit</de>
+      <es>Golosina</es>
+      <fr>Bonbon</fr>
+      <it>Caramella</it>
+      <br>Doce</br>
+      <ru>Конфета</ru>
+    </string>
+    <string id="SMILEY">
+      <sk>Smajlík</sk>
+      <en>Smiley</en>
+      <de>Smiley</de>
+      <es>Smiley</es>
+      <fr>Smiley</fr>
+      <it>Faccina sorridente</it>
+      <br>Risonho</br>
+      <ru>Смайлик</ru>
+    </string>
+    <string id="ALIEN">
+      <sk>Mimozemšťan</sk>
+      <en>Alien</en>
+      <de>Alien</de>
+      <es>Alienígena</es>
+      <fr>Extraterrestre</fr>
+      <it>Alieno</it>
+      <br>Alienígena</br>
+      <ru>Пришелец</ru>
+    </string>
+    <string id="ANGEL">
+      <sk>Anjel</sk>
+      <en>Angel</en>
+      <de>Engel</de>
+      <es>Ángel</es>
+      <fr>Ange</fr>
+      <it>Angelo</it>
+      <br>Anjo</br>
+      <ru>Ангел</ru>
+    </string>
+    <string id="DEMON">
+      <sk>Démon</sk>
+      <en>Demon</en>
+      <de>Dämon</de>
+      <es>Demonio</es>
+      <fr>Démon</fr>
+      <it>Demone</it>
+      <br>Demônio</br>
+      <ru>Демон</ru>
+    </string>
+    <string id="HEART">
+      <sk>Srdce</sk>
+      <en>Heart</en>
+      <de>Herz</de>
+      <es>Corazón</es>
+      <fr>Cœur</fr>
+      <it>Cuore</it>
+      <br>Coração</br>
+      <ru>Сердце</ru>
+    </string>
+    <string id="ASTEROID">
+      <sk>Asteroid</sk>
+      <en>Asteroid</en>
+      <de>Asteroid</de>
+      <es>Asteroide</es>
+      <fr>Astéroïde</fr>
+      <it>Asteroide</it>
+      <br>Asteróide</br>
+      <ru>Астероид</ru>
+    </string>
+    <string id="BOMB">
+      <sk>Bomba</sk>
+      <en>Bomb</en>
+      <de>Bombe</de>
+      <es>Bomba</es>
+      <fr>Bombe</fr>
+      <it>Bomba</it>
+      <br>Bomba</br>
+      <ru>Бомба</ru>
+    </string>
+    <string id="MOUNTAINS">
+      <sk>Hory</sk>
+      <en>Mountains</en>
+      <de>Berge</de>
+      <es>Montañas</es>
+      <fr>Montagnes</fr>
+      <it>Montagne</it>
+      <br>Montanhas</br>
+      <ru>Горы</ru>
+    </string>
+    <string id="CANDY LAND">
+      <sk>Cukríkový svet</sk>
+      <en>Candy Land</en>
+      <de>Süßigkeitenland</de>
+      <es>Dulcelandia</es>
+      <fr>Pays des bonbons</fr>
+      <it>Terra delle caramelle</it>
+      <br>Terra de doces</br>
+      <ru>Конфетная Земля</ru>
+    </string>
+    <string id="NIGHT LAND">
+      <sk>Nočná krajina</sk>
+      <en>Night Land</en>
+      <de>Nachtland</de>
+      <es>Nocturlandia</es>
+      <fr>Pays de la nuit</fr>
+      <it>Terra buia</it>
+      <br>Terra da noite</br>
+      <ru>Ночная Земля</ru>
+    </string>
+    <string id="OUTER SPACE">
+      <sk>Vesmír</sk>
+      <en>Outer Space</en>
+      <de>Weltall</de>
+      <es>Espacio exterior</es>
+      <fr>Espace</fr>
+      <it>Spazio</it>
+      <br>Espaço sideral</br>
+      <ru>Космическое пространство</ru>
+    </string>
+    <string id="VOLCANO">
+      <sk>Sopka</sk>
+      <en>Volcano</en>
+      <de>Vulkan</de>
+      <es>Volcán</es>
+      <fr>Volcan</fr>
+      <it>Vulcano</it>
+      <br>Vulcão</br>
+      <ru>Вулкан</ru>
+    </string>
+    <string id="MUSHROOM LAND">
+      <sk>Hubová krajina</sk>
+      <en>Mushroom Land</en>
+      <de>Pilzland</de>
+      <es>Tierra de los champiñones</es>
+      <fr>Terre des champignons</fr>
+      <it>Terra dei funghi</it>
+      <br>Terra de cogumelo</br>
+      <ru>Грибная Земля</ru>
+    </string>
+    <string id="ICE MOUNTAINS">
+      <sk>Ľadové hory</sk>
+      <en>Ice Mountains</en>
+      <de>Eisgebirge</de>
+      <es>Montañas gélidas</es>
+      <fr>Montagnes de glace</fr>
+      <it>Montagne ghiacciate</it>
+      <br>Montanhas de gelo</br>
+      <ru>Ледяные горы</ru>
+    </string>
+    <string id="YELLOW">
+      <sk>Žltá</sk>
+      <en>Yellow</en>
+      <de>Gelb</de>
+      <es>Amarillo</es>
+      <fr>Jaune</fr>
+      <it>Gialla</it>
+      <br>Amarelo</br>
+      <ru>Желтый</ru>
+    </string>
+    <string id="RED">
+      <sk>Červená</sk>
+      <en>Red</en>
+      <de>Rot</de>
+      <es>Rojo</es>
+      <fr>Rouge</fr>
+      <it>Rossa</it>
+      <br>Vermelho</br>
+      <ru>Красный</ru>
+    </string>
+    <string id="GREEN">
+      <sk>Zelená</sk>
+      <en>Green</en>
+      <de>Grün</de>
+      <es>Verde</es>
+      <fr>Vert</fr>
+      <it>Verde</it>
+      <br>Verde</br>
+      <ru>Зеленый</ru>
+    </string>
+    <string id="BLUE">
+      <sk>Modrá</sk>
+      <en>Blue</en>
+      <de>Blau</de>
+      <es>Azul</es>
+      <fr>Bleu</fr>
+      <it>Blu</it>
+      <br>Azul</br>
+      <ru>Синий</ru>
+    </string>
+    <string id="BASKETBALL">
+      <sk>Baseballová lopti?ka</sk>
+      <en>Basketball</en>
+      <de>Basketball</de>
+      <es>Baloncesto</es>
+      <fr>Basket</fr>
+      <it>Basket</it>
+      <br>Basquetebol</br>
+      <ru>Баскетбольный</ru>
+    </string>
+    <string id="8-BALL">
+      <sk>8-ball</sk>
+      <en>8-ball</en>
+      <de>8-Ball</de>
+      <es>Bola 8</es>
+      <fr>Boule n°8</fr>
+      <it>Palla 8</it>
+      <br>Bola 8</br>
+      <ru>8 мяч</ru>
+    </string>
+    <string id="FOOTBALL">
+      <sk>Futbalová lopta</sk>
+      <en>Football</en>
+      <de>Fußball</de>
+      <es>Fútbol</es>
+      <fr>Tenue de foot</fr>
+      <it>Calcio</it>
+      <br>Futebol</br>
+      <ru>Футбольный</ru>
+    </string>
+    <string id="TENNIS">
+      <sk>Tenisová lopti?ka</sk>
+      <en>Tennis</en>
+      <de>Tennis</de>
+      <es>Tenis</es>
+      <fr>Tennis</fr>
+      <it>Tennis</it>
+      <br>Tęnis</br>
+      <ru>Теннисный</ru>
+    </string>
+    <string id="BASKETBALL">
+      <sk>Baseballová lopti?ka</sk>
+      <en>Basketball</en>
+      <de>Basketball</de>
+      <es>Baloncesto</es>
+      <fr>Basket</fr>
+      <it>Basket</it>
+      <br>Basquetebol</br>
+      <ru>Баскетбольный</ru>
+    </string>
+    <string id="STAR">
+      <sk>Hviezda</sk>
+      <en>Star</en>
+      <de>Stern</de>
+      <es>Estrella</es>
+      <fr>Étoile</fr>
+      <it>Stella</it>
+      <br>Estrela</br>
+      <ru>Звездный</ru>
+    </string>
+    <string id="DONUT">
+      <sk>Donut</sk>
+      <en>Donut</en>
+      <de>Donut</de>
+      <es>Rosquilla</es>
+      <fr>Donut</fr>
+      <it>Ciambella</it>
+      <br>Rosquinha</br>
+      <ru>Пончик</ru>
+    </string>
+    <string id="PINEAPPLE">
+      <sk>Ananás</sk>
+      <en>Pineapple</en>
+      <de>Ananas</de>
+      <es>Pińa</es>
+      <fr>Ananas</fr>
+      <it>Ananas</it>
+      <br>Abacaxi</br>
+      <ru>Ананас</ru>
+    </string>
+    <string id="MELON">
+      <sk>Melón</sk>
+      <en>Melon</en>
+      <de>Melone</de>
+      <es>Melón</es>
+      <fr>Melon</fr>
+      <it>Melone</it>
+      <br>Melăo</br>
+      <ru>Арбуз</ru>
+    </string>
+    <string id="ORANGE">
+      <sk>Pomaranč</sk>
+      <en>Orange</en>
+      <de>Orange</de>
+      <es>Naranja</es>
+      <fr>Orange</fr>
+      <it>Arancia</it>
+      <br>Laranja</br>
+      <ru>Апельсин</ru>
+    </string>
+    <string id="RAINBOW BUBBLE">
+      <sk>Dúhová bublina</sk>
+      <en>Rainbow bubble</en>
+      <de>Regenbogenblase</de>
+      <es>Burbuja arcoíris</es>
+      <fr>Bulle arc-en-ciel</fr>
+      <it>Bolla arcobaleno</it>
+      <br>Bolha do arco-íris</br>
+      <ru>Радужный пузырь</ru>
+    </string>
+    <string id="DO YOU WANT TO BUY [SKIN.NAME]">
+      <sk>Chcete kúpi? [názov.skinu]</sk>
+      <en>Do you want to buy [skin.name]</en>
+      <de>Möchtest du [skin.name] kaufen?</de>
+      <es>żQuieres comprar [skin.name]?</es>
+      <fr>Voulez-vous acheter [skin.name] ?</fr>
+      <it>Vuoi acquistare [skin.name]?</it>
+      <br>Vocę quer comprar [skin.name]?</br>
+      <ru>Вы хотите купить [skin.name]</ru>
+    </string>
+    <string id="NOT ENOUGH [X]">
+      <sk>Nedostatok [x]</sk>
+      <en>Not enough [x]</en>
+      <de>Nicht genug [x]</de>
+      <es>No tienes suficiente [x]</es>
+      <fr>Pas assez de [x]</fr>
+      <it>Non hai [x] a sufficienza</it>
+      <br>Năo tem [x] suficiente</br>
+      <ru>Недостаточно [х]</ru>
+    </string>
+    <string id="BUY [CHARACTER] FOR [X] COINS?">
+      <sk>Kúpiť [character] za [X] mincí?</sk>
+      <en>buy [character] for [X] coins?</en>
+      <de>[character] für [X] Münzen kaufen?</de>
+      <es>żComprar [character] por [X] monedas?</es>
+      <fr>Acheter [character] pour [X] pičces ?</fr>
+      <it>Comprare [character] per [X] monete?</it>
+      <br>Comprar [character] por [X] moedas?</br>
+      <ru>Купить [character] за [X] монеты?</ru>
+    </string>
+    <string id="SHOP">
+      <sk>Obchod</sk>
+      <en>Shop</en>
+      <de>Shop</de>
+      <es>Comprar</es>
+      <fr>Boutique</fr>
+      <it>Negozio</it>
+      <br>Loja</br>
+      <ru>Магазин</ru>
+    </string>
+    <string id="TAP TO RETRY">
+      <sk>Pokračuj kliknutím</sk>
+      <en>Tap to retry</en>
+      <de>Tippen für Neuversuch</de>
+      <es>Toca para volver a intentar</es>
+      <fr>Touchez pour réessayer</fr>
+      <it>Tocca per riprovare</it>
+      <br>Toque para tentar novamente</br>
+      <ru>Нажмите, чтобы повторить попытку</ru>
+    </string>
+    <string id="YES">
+      <sk>Áno</sk>
+      <en>Yes</en>
+      <de>Ja</de>
+      <es>Sí</es>
+      <fr>Oui</fr>
+      <it>Sì</it>
+      <br>Sim</br>
+      <ru>Да</ru>
+    </string>
+    <string id="NO">
+      <sk>Nie</sk>
+      <en>No</en>
+      <de>Nein</de>
+      <es>No</es>
+      <fr>Non</fr>
+      <it>No</it>
+      <br>Não</br>
+      <ru>Нет</ru>
+    </string>
+    <string id="LOADING">
+      <sk>Načítavanie</sk>
+      <en>Loading</en>
+      <de>Beladung</de>
+      <es>Cargando</es>
+      <fr>Chargement</fr>
+      <it>il caricamento</it>
+      <br>Carregando</br>
+      <ru>загрузка</ru>
+    </string>
+    <string id="BASEBALL">
+      <sk></sk>
+      <en>Baseball</en>
+      <de>Baseball</de>
+      <es>Pelota de béisbol</es>
+      <fr>Balle de base-ball</fr>
+      <it>Palla da baseball</it>
+      <br>Beisebol</br>
+      <ru>Бейсбол</ru>
+    </string>
+    <string id="RUGBY">
+      <sk>Ragby</sk>
+      <en>Rugby</en>
+      <de>Rugby</de>
+      <es>Rugby</es>
+      <fr>Rugby</fr>
+      <it>Rugby</it>
+      <br>Ragby</br>
+      <ru>Регби</ru>
+    </string>
+  </strings>
+</stringresources>

@@ -1,0 +1,95 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background: #000000;
+    overflow: hidden;
+}
+
+.centered-container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.game-container {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.ads-container {
+    background:#000;
+}
+
+@media (min-width: 600px) {
+
+    .desktop .game-container {
+        top: 0px;
+        left: 0px;
+    }
+}
+
+.freerider-canvas-container {
+    background: #FFFFFF;
+}
+
+.footer {
+    display: none;
+    height: 100px;
+    background: #FFF;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+}
+
+.footer a, .footer button {
+    float: right;
+    margin: 0 10px;
+}
+
+.footer a.footer-messenger-badge {
+    float: left;
+}
+
+.footer-chrome-badge {
+    display: none;
+}
+
+@media (min-width: 600px) {
+    .desktop .footer {
+        display: block;
+        padding: 20px 40px;
+        background: #000000;
+    }
+}
+
+@media (min-width: 700px) {
+    .desktop .footer-chrome-badge {
+        display: inline-block;
+    }
+}
