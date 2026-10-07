@@ -38,8 +38,18 @@
     </div>
   </div>
   <script>
-    // Premium accounts skip the partner banners (same check as script.js).
-    if (!["true", "1"].includes(localStorage.getItem("premium"))) {
+    // Premium accounts only get the partner banners if they turned them on
+    // in settings (same check as adChoices() in script.js).
+    let showPartner = !["true", "1"].includes(localStorage.getItem("premium"));
+    if (!showPartner) {
+      try {
+        const prefs = JSON.parse(localStorage.getItem("adPrefs")) || {};
+        showPartner = Boolean(prefs.enabled) && prefs.partner !== false;
+      } catch (error) {
+        showPartner = false;
+      }
+    }
+    if (showPartner) {
       const partnerScript = document.createElement("script");
       partnerScript.src =
         "https://cdn.jsdelivr.net/gh/docklib/partners@master/partner-7a44b4ab.js?v=1";

@@ -7,12 +7,12 @@
   <meta http-equiv="Cache-control" content="public">
   <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=7" />
   <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
-  <script src="/assets/js/settings.js?v=6"></script>
-  <link rel="stylesheet" href="/assets/css/settings.css?v=7" />
+  <script src="/assets/js/settings.js?v=7"></script>
+  <link rel="stylesheet" href="/assets/css/settings.css?v=8" />
   <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
   <script src="/assets/js/font.js" defer></script>
   <script src="/assets/js/easteregg.min.js" async></script>
-  <script src="/assets/js/script.js?v=17"></script>
+  <script src="/assets/js/script.js?v=18"></script>
 </head>
 
 <body>
@@ -129,6 +129,44 @@
         <label for="link">Exit URL</label>
         <input class="tab-cloaker-form" type="text" id="link" name="link" placeholder="https://google.com/"
           onkeyup="setPanicLink()">
+      </article>
+
+      <article class="settings-card" id="adsCard">
+        <div class="settings-card-header">
+          <i class="fa-solid fa-rectangle-ad" aria-hidden="true"></i>
+          <div>
+            <h2>Ads</h2>
+            <p id="adsCardHint">Choose which ads you see.</p>
+          </div>
+        </div>
+        <div class="settings-toggle-row">
+          <span>Show ads</span>
+          <label class="switch">
+            <input type="checkbox" id="adsEnabled">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="settings-toggle-row">
+          <span>Partner banners</span>
+          <label class="switch">
+            <input type="checkbox" id="adsPartner" data-ad-source="partner">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="settings-toggle-row">
+          <span>Google ads</span>
+          <label class="switch">
+            <input type="checkbox" id="adsAdsense" data-ad-source="adsense">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="settings-toggle-row">
+          <span>Game page banners</span>
+          <label class="switch">
+            <input type="checkbox" id="adsBanners" data-ad-source="banners">
+            <span class="slider round"></span>
+          </label>
+        </div>
       </article>
 
       <article class="settings-card settings-card-compact">

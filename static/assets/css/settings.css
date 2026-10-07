@@ -255,6 +255,51 @@ input:focus {
   border-color: color-mix(in srgb, var(--site-muted, #b5cae0) 34%, var(--site-border, #353d49));
 }
 
+.settings-toggle-locked,
+.settings-toggle-off {
+  position: relative;
+}
+
+.settings-toggle-locked .switch,
+.settings-toggle-off .switch {
+  opacity: 0.5;
+}
+
+.settings-toggle-locked .slider,
+.settings-toggle-off .slider {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.settings-toggle-locked {
+  cursor: not-allowed;
+}
+
+.settings-toggle-locked::after {
+  position: absolute;
+  right: 10px;
+  bottom: calc(100% + 6px);
+  z-index: 5;
+  padding: 6px 10px;
+  color: #1b2330;
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+  background: var(--site-accent, #f5b942);
+  border-radius: var(--site-radius-sm, 10px);
+  content: attr(data-tooltip);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.14s ease, transform 0.14s ease;
+}
+
+.settings-toggle-locked:hover::after,
+.settings-toggle-locked:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .switch {
   position: relative;
   display: inline-block;

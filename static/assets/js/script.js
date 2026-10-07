@@ -71,12 +71,34 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // ====================================
-// ADS (skipped for premium accounts)
+// ADS (premium accounts choose theirs in settings)
 // ====================================
 // The flag is "true" from login or "1" from the account page.
 function hasPremium() {
   const premium = localStorage.getItem("premium");
   return premium === "true" || premium === "1";
+}
+
+// Which ad sources this visitor gets. Everyone without premium gets all of
+// them; premium accounts get none until they turn ads on in settings, then
+// whichever sources they picked there (stored in "adPrefs").
+function adChoices() {
+  if (!hasPremium()) return { partner: true, adsense: true, banners: true };
+
+  let prefs = null;
+  try {
+    prefs = JSON.parse(localStorage.getItem("adPrefs"));
+  } catch (error) {
+    prefs = null;
+  }
+  if (!prefs || !prefs.enabled) {
+    return { partner: false, adsense: false, banners: false };
+  }
+  return {
+    partner: prefs.partner !== false,
+    adsense: prefs.adsense !== false,
+    banners: prefs.banners !== false,
+  };
 }
 
 function whenDomReady(callback) {
@@ -87,39 +109,50 @@ function whenDomReady(callback) {
   }
 }
 
-if (hasPremium()) {
-  // Game pages ship their banner slots in the markup, so hide them here.
-  const hideAds = document.createElement("style");
-  hideAds.textContent =
-    "#adleft, #adright, .bottom-addisplay, .addisplay { display: none !important; }";
-  document.head.append(hideAds);
-  script("Premium account, skipping ads");
-} else {
-  whenDomReady(() => {
-    const partnerScript = document.createElement("script");
-    partnerScript.src =
-      "https://cdn.jsdelivr.net/gh/docklib/partners@master/partner-7a44b4ab.js?v=1";
-    document.body.append(partnerScript);
-  });
+(function loadAds() {
+  const ads = adChoices();
 
-  fetch("/assets/json/ads.json")
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.domains.includes(window.location.hostname)) {
-        const adscipterz92 = document.createElement("script");
-        adscipterz92.setAttribute("async", "");
-        adscipterz92.setAttribute(
-          "src",
-          "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317",
-        );
-        adscipterz92.setAttribute("crossorigin", "anonymous");
-        document.head.append(adscipterz92);
-        script("Injected script 3/3 (Adsense)");
-      } else {
-        console.log("Skipping Adsense Injection for this domain.");
-      }
+  if (!ads.banners) {
+    // Game pages ship their banner slots in the markup, so hide them here.
+    const hideAds = document.createElement("style");
+    hideAds.textContent =
+      "#adleft, #adright, .bottom-addisplay, .addisplay { display: none !important; }";
+    document.head.append(hideAds);
+  }
+
+  if (ads.partner) {
+    whenDomReady(() => {
+      const partnerScript = document.createElement("script");
+      partnerScript.src =
+        "https://cdn.jsdelivr.net/gh/docklib/partners@master/partner-7a44b4ab.js?v=1";
+      document.body.append(partnerScript);
     });
-}
+  }
+
+  if (ads.adsense) {
+    fetch("/assets/json/ads.json")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.domains.includes(window.location.hostname)) {
+          const adscipterz92 = document.createElement("script");
+          adscipterz92.setAttribute("async", "");
+          adscipterz92.setAttribute(
+            "src",
+            "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6700774525685317",
+          );
+          adscipterz92.setAttribute("crossorigin", "anonymous");
+          document.head.append(adscipterz92);
+          script("Injected script 3/3 (Adsense)");
+        } else {
+          console.log("Skipping Adsense Injection for this domain.");
+        }
+      });
+  }
+
+  if (!ads.partner && !ads.adsense && !ads.banners) {
+    script("Premium account, skipping ads");
+  }
+})();
 
 // Keep the stored flag in step with the server, so a grant or revoke from
 // /admin applies on the next page load.

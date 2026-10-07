@@ -212,8 +212,74 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  setupAdSettings();
   setupImportDialog();
 });
+
+// Ads card: premium accounts pick their ads (read by adChoices() in
+// script.js); everyone else sees the switches locked on.
+function setupAdSettings() {
+  var enabled = document.getElementById("adsEnabled");
+  if (!enabled) return;
+
+  var sources = Array.from(document.querySelectorAll("[data-ad-source]"));
+  var switches = [enabled].concat(sources);
+  var storedPremium = localStorage.getItem("premium");
+  var premium = storedPremium === "true" || storedPremium === "1";
+
+  if (!premium) {
+    switches.forEach(function (input) {
+      input.checked = true;
+      input.disabled = true;
+      var row = input.closest(".settings-toggle-row");
+      row.classList.add("settings-toggle-locked");
+      row.setAttribute("data-tooltip", "Upgrade to premium");
+      // Disabled inputs are skipped by the keyboard, so the row carries the hint.
+      row.tabIndex = 0;
+      row.setAttribute(
+        "aria-label",
+        row.querySelector("span").textContent +
+          ": upgrade to premium to change",
+      );
+    });
+    document.getElementById("adsCardHint").textContent =
+      "Premium accounts can turn ads off or pick which ones show.";
+    return;
+  }
+
+  var prefs = null;
+  try {
+    prefs = JSON.parse(localStorage.getItem("adPrefs"));
+  } catch (error) {
+    prefs = null;
+  }
+  prefs = prefs || {};
+
+  function render() {
+    enabled.checked = Boolean(prefs.enabled);
+    sources.forEach(function (input) {
+      input.checked = prefs[input.dataset.adSource] !== false;
+      input.disabled = !prefs.enabled;
+      input
+        .closest(".settings-toggle-row")
+        .classList.toggle("settings-toggle-off", !prefs.enabled);
+    });
+  }
+
+  function save() {
+    prefs.enabled = enabled.checked;
+    sources.forEach(function (input) {
+      prefs[input.dataset.adSource] = input.checked;
+    });
+    localStorage.setItem("adPrefs", JSON.stringify(prefs));
+    render();
+  }
+
+  switches.forEach(function (input) {
+    input.addEventListener("change", save);
+  });
+  render();
+}
 
 function setPanicKey() {
   var key = document.getElementById("key").value;
