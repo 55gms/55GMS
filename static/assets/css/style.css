@@ -352,18 +352,26 @@ a:hover {
 
 /* Scrollbar settings */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 12px;
 }
-::-webkit-scrollbar-track {
-  background: var(--site-surface-3);
-  border-radius: var(--site-radius-sm);
-  box-shadow: inset 0 0 5px grey;
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--site-accent);
-  border-radius: var(--site-radius-sm);
-  transform: background 0.1s ease;
+  background: color-mix(in srgb, var(--site-text) 24%, transparent);
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  border-radius: var(--site-radius-pill);
 }
-::-webkit-scrollbar-thumb:hover {
-  background: var(--site-accent-hover);
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+  background: color-mix(in srgb, var(--site-text) 42%, transparent);
+  background-clip: padding-box;
+}
+@supports not selector(::-webkit-scrollbar) {
+  :root {
+    scrollbar-color: color-mix(in srgb, var(--site-text) 24%, transparent)
+      transparent;
+  }
 }
