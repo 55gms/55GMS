@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name ="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta charset="utf-8"/>
+
+        <title>Bacon May Die</title>
+		
+        <script src="poki-sdk.js"></script>
+		
+        
+		<script>
+			document.addEventListener('touchstart', e => {
+				e.preventDefault();
+				}, {passive: false})
+		</script>	
+		
+        <script>var adsAreDisabled = false;</script>
+        <style>
+            html {
+                height: 100%;
+                width: 100%;
+            }
+            
+            body {
+              background: #f3c2b5;
+              color:#cccccc;
+              margin: 0px;
+              padding: 0px;
+              border: 0px;
+			  overflow:hidden;
+			  
+			  width: 100%;
+              height:100%;
+			  
+			  background-color:#191923;
+            }
+			
+			#background {
+				position:absolute;
+				width:100%;
+				
+				background-color:#191A25;
+				background-image: url('html5game/bg.webp');
+				background-repeat: repeat-x;
+				background-position: center 0;
+				background-size: auto 100%;
+				z-index:0;
+			}
+			
+			#bar {
+				position:fixed;
+				height:58%;
+				width:20px;
+				
+				top:0;
+				left:0;
+				right:0;
+				
+				margin:0 auto;
+				
+				
+				padding:4px;
+				background:#191923;
+				background-color:rgba(25, 25, 35, 0.9);
+				z-index:-9999;
+				
+				transform: translate(-10px, 0%);
+			}
+			
+			img#spider  {
+				position:absolute;			
+				left:-60px;
+				bottom:-30px;
+				z-index:100;
+			}
+			
+			#spinny { 
+				position:absolute;
+				top:55%;
+				left:50%;
+				
+				margin-left:-110px;
+				
+				with:200px;
+				height:200px;
+			}
+		
+			#proc {
+				position:absolute;
+				
+				font-size:80px;
+				line-height:80px;
+				
+				bottom:5%;
+				left:50%;
+				
+				color:#fff;
+				font-family: 'Impact', sans-serif;
+				transform: translate(-50%, 0%);
+				z-index:100;		
+				font-weight:normal;
+				
+				text-shadow: 1px 1px 2px black;
+			}			
+			
+			
+			#fill {
+				position:relative;
+				height:0%;
+				background:#a4a6b5;
+				width:20px;
+				margin:0px;
+				
+				background: linear-gradient(
+					to bottom,
+					#ff0000,#fdcf58
+				);				
+			}
+            			
+			
+			img.torch {
+				position:fixed;
+				height:128px;
+				width:128px;
+				top:30%;
+				background-size: 128px;
+			}	
+			
+			#t1 {
+				left:20%;
+			}
+			
+			#t2 {
+				right:20%;
+			}
+			
+            canvas {
+				  image-rendering: optimizeSpeed;
+				  -webkit-interpolation-mode: nearest-neighbor;
+				  -ms-touch-action: none;
+				  margin: 0px;
+				  padding: 0px;
+				  border: 0px;
+				  display:none;
+            }
+			
+			#canvas, canvas {
+				-webkit-tap-highlight-color: transparent;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}			
+            
+            :-webkit-full-screen #canvas {
+                 width: 100%;
+                 height: 100%;
+            }
+			
+            div.gm4html5_div_class {
+              margin: 0px;
+              padding: 0px;
+              border: 0px;
+            }
+			
+
+			.
+        </style>
+    </head>
+
+    <body id="body">
+		<div id ="background">
+		<div id="bar"><div id="fill"><img id="spider" alt="" src="html5game/spider.png"/></div></div>
+		<img id="spinny" src="html5game/spinny.png" alt=""/>
+		<div id="proc">0%</div>
+		
+		<div id="decor">
+			<img class="torch" id="t1" src="html5game/torch.gif" alt=""/>
+			<img class="torch" id="t2" src="html5game/torch.gif" alt=""/>			
+			
+		</div>			
+			
+		</div>		
+		
+		<script>
+			var fakeCent	= 1;			
+			var bodyLoad	= false;
+			var fill 		= document.getElementById("fill");
+			var proc		= document.getElementById("proc");
+			var background	= document.getElementById("background");
+			
+			function bar_update(progress) {
+				progress = Math.max(fakeCent, progress);
+				fill.style.height = progress + "%";
+				proc.innerHTML = Math.floor(progress) + "%"
+			}			
+		
+			var angle = 45;
+			var spinny = document.getElementById("spinny");
+			setInterval(function() {
+				angle+=1;
+				spinny.style.transform = "rotate(" + angle + "deg)";
+			}, 5);		
+
+			var windowHeight = window.innerHeight;
+			background.style.height = windowHeight + "px";		
+
+			setInterval(function() {
+				if (!bodyLoad && fakeCent < 10) {
+					fakeCent += 1;
+					bar_update(fakeCent);
+				}
+			}, 1000);	
+		</script>		
+		
+
+        <div class="gm4html5_div_class" id="gm4html5_div_id">
+            <canvas id="canvas" width="1024" height="576">
+               <p>Your browser doesn't support HTML5 canvas.</p>
+            </canvas>
+			<script type="text/javascript" src="html5game/BaconMayDie.js"></script>
+        </div>
+	
+		
+		<script>
+		var sdk 		= PokiSDK;
+		var pokiDebug 	= false;
+		
+        var canvas      = document.getElementById("canvas");
+		var body 		= document.getElementById("body");
+		var bar 		= document.getElementById("bar");
+
+
+		var decor 		= document.getElementById("decor");		
+
+
+		var fakeCentTarget 	= 85;
+		var fails			= 0;
+		var lerpSpd 		= 0.02;
+		
+		function poki_log(t) {
+			console.log(t);
+		}
+            
+        function poki_debug() {
+            return pokiDebug;
+        }
+		
+		function poki_loading(progress) {
+			fakeCentTarget = Math.max(fakeCentTarget, (progress * 0.8) * 100);
+			sdk.gameLoadingProgress({percentageDone: progress * 0.9});
+		
+			if (progress == 1) {
+				fakeCentTarget = 100;
+				fakeCent = 100;
+				bar_update(100);					
+				
+				setTimeout(function () {
+					canvas.style.display 		= "block";
+					background.remove();
+                    clearInterval(fakeLoading);					
+				}, 200);
+			}
+			bodyLoad = true;
+		}
+		
+
+		
+		var fakeLoading = setInterval(function() {
+			if (fakeCentTarget - fakeCent > 1) {
+				fakeCent = loading_lerp(fakeCent, fakeCentTarget, lerpSpd);
+			} else {
+				if (fakeCentTarget < 70) {
+					fakeCentTarget += 0.2;
+				} else if (fakeCentTarget <= 99) {
+					fakeCentTarget += 0.02;
+				}
+			}
+			bar_update(fakeCent);
+		}, 10);	
+		
+		
+		function gamemaker_start() {
+			try {
+			  GameMaker_Init();
+			} catch(err) {
+				fails++;			
+				setTimeout(gamemaker_start, 2000);
+				if (fails == 1) throw(err);						
+			}
+		}
+
+		//var bgScale = window.innerHeight / 1024;
+		//body.style.backgroundSize = (512 * bgScale) + "px " + (1024 * bgScale) + "px";
+		
+		window.onload = function() {
+			sdk.init().then(() => {
+                setTimeout(gamemaker_start, 5);
+                sdk.setDebug(pokiDebug);   
+				sdk.gameLoadingStart();		
+			}).catch(() => {
+                gamemaker_start();
+			});
+        
+            canvas.width  = window.innerWidth;
+            canvas.height = window.innerHeight;
+            canvas.addEventListener('click', function(){
+                window.focus();
+            });           
+		}
+		
+		window.addEventListener('wheel', ev => ev.preventDefault(), { passive: false });
+		window.addEventListener('keydown', ev => {
+			if (['ArrowDown', 'ArrowUp', ' '].includes(ev.key)) {
+				ev.preventDefault();
+			}
+		});		
+            
+                
+        /// smooth things out 
+        function loading_lerp (start, end, amt){
+            return (1 - amt) * start + amt * end;
+        }
+		</script>
+    </body>
+</html>
