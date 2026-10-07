@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui, shrink-to-fit=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>daymeat 1.0</title>
+    <style type="text/css">
+        /* Disable user selection to avoid strange bug in Chrome on Windows:
+        * Selecting a text outside the canvas, then clicking+draging would
+        * drag the selected text but block mouse down/up events to the engine.
+        */
+        body {
+
+            position: fixed; /* Prevent overscroll */
+
+            margin: 0;
+            padding: 0;
+        }
+
+        .canvas-app-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .canvas-app-container:-webkit-full-screen {
+            /* Auto width and height in Safari/Chrome fullscreen. */
+            width: auto;
+            height: auto;
+        }
+
+        #canvas {
+            outline: none;
+            border: 0;
+            width: 100%;
+            vertical-align: bottom;
+        }
+
+        #canvas-container {
+            position: relative;
+        }
+
+        canvas:focus, canvas:active {
+            outline: none;
+            border: 0;
+            ie-dummy: expression(this.hideFocus=true);
+            -moz-outline-style: none;
+        }
+
+        div {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .canvas-app-progress {
+            position: absolute;
+            background-color: #d1dbeb;
+            height: 12px;
+            margin-top: -12px;
+            width: 100%;
+        }
+
+        .canvas-app-progress-bar {
+            font-size: 12px;
+            height: 12px;
+            color: rgb(15, 17, 9);
+            background-color: #D12D5D;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        .link, .button {
+            font-family: sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: 0px;
+            padding-top: 12px;
+        }
+
+        .buttons-background {
+            background-color: #ffffff;
+            width: 100%;
+            height: 42px;
+        }
+
+        body {
+            background-color: #ffffff;
+        }
+
+
+        .progress {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-top: -2vh;
+            position: absolute;
+            width: 100%;
+        }
+
+        .progress .t {
+            color: #D12D5D;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            margin-top: -1.5em;
+            text-align: center;
+            font-family: Verdana, sans-serif, Tahoma, Geneva;
+            font-size: 5vh;
+            font-variant-numeric: tabular-nums lining-nums;
+        }
+
+        .canvas-app-container {
+            background: rgba(250, 252, 255, 1);
+            background: -moz-linear-gradient(-45deg, rgba(250, 252, 255, 1) 0%, rgba(250, 252, 255, 1) 50%, rgba(245, 249, 255, 1) 50%, rgba(245, 249, 255, 1) 100%);
+            background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(250, 252, 255, 1)), color-stop(50%, rgba(250, 252, 255, 1)), color-stop(50%, rgba(245, 249, 255, 1)), color-stop(100%, rgba(245, 249, 255, 1)));
+            background: -webkit-linear-gradient(-45deg, rgba(250, 252, 255, 1) 0%, rgba(250, 252, 255, 1) 50%, rgba(245, 249, 255, 1) 50%, rgba(245, 249, 255, 1) 100%);
+            background: -o-linear-gradient(-45deg, rgba(250, 252, 255, 1) 0%, rgba(250, 252, 255, 1) 50%, rgba(245, 249, 255, 1) 50%, rgba(245, 249, 255, 1) 100%);
+            background: -ms-linear-gradient(-45deg, rgba(250, 252, 255, 1) 0%, rgba(250, 252, 255, 1) 50%, rgba(245, 249, 255, 1) 50%, rgba(245, 249, 255, 1) 100%);
+            background: linear-gradient(135deg, rgba(250, 252, 255, 1) 0%, rgba(250, 252, 255, 1) 50%, rgba(245, 249, 255, 1) 50%, rgba(245, 249, 255, 1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafcff', endColorstr='#f5f9ff', GradientType=1);
+        }
+
+        .canvas-app-canvas {
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-image: url("splash_2_24bit.png");
+        }
+    </style>
+    <script src="poki-sdk.js"></script>
+</head>
+<body>
+<div id="app-container" class="canvas-app-container">
+    <div id="canvas-container" class="canvas-app-canvas-container">
+        <canvas id="canvas" class="canvas-app-canvas" tabindex="1" width="1067" height="600"></canvas>
+        <div class="progress">
+            <div class="t">
+                0%
+            </div>
+        </div>
+    </div>
+    <div class="buttons-background">
+    </div>
+</div>
+<!-- -->
+<script id="engine-loader" type="text/javascript" src="dmloader.js"></script>
+<!-- -->
+<script id="engine-setup" type="text/javascript">
+    var extra_params = {
+        archive_location_filter: function (path) {
+            return ("archive" + path + "");
+        },
+        engine_arguments: [],
+        custom_heap_size: 268435456,
+        full_screen_container: "#canvas-container",
+        disable_context_menu: true
+    }
+
+    Module['INITIAL_MEMORY'] = extra_params.custom_heap_size;
+
+    Module['onRuntimeInitialized'] = function () {
+        Module.runApp("canvas", extra_params);
+    };
+
+    Module["locateFile"] = function (path, scriptDirectory) {
+        // dmengine*.wasm is hardcoded in the built JS loader for WASM,
+        // we need to replace it here with the correct project name.
+        if (path == "dmengine.wasm" || path == "dmengine_release.wasm" || path == "dmengine_headless.wasm") {
+            path = "daymeat.wasm";
+        }
+        return scriptDirectory + path;
+    };
+
+    var is_iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    var buttonHeight = 0;
+
+    // Resize on init, screen resize and orientation change
+    function resize_game_canvas() {
+        // Hack for iOS when exit from Fullscreen mode
+        if (is_iOS) {
+            window.scrollTo(0, 0);
+        }
+
+        var app_container = document.getElementById('app-container');
+        var game_canvas = document.getElementById('canvas');
+        var innerWidth = window.innerWidth;
+        var innerHeight = window.innerHeight - buttonHeight;
+        var width = 1067;
+        var height = 600;
+        var targetRatio = width / height;
+        var actualRatio = innerWidth / innerHeight;
+
+
+        //Stretch
+        width = innerWidth;
+        height = innerHeight;
+
+
+        app_container.style.width = width + "px";
+        app_container.style.height = height + buttonHeight + "px";
+        game_canvas.width = width;
+        game_canvas.height = height;
+
+
+        var progressText = document.getElementsByClassName("t")[0];
+        Module.isGameLoaded = false;
+        Progress.addListener(function (percentage, text) {
+            if (!isNaN(percentage)) {
+                var data = {};
+                progressText.innerHTML = percentage.toFixed(2) + "%";
+                data.percentageDone = percentage / 100;
+            }
+            if (percentage == 100 && !Module.isGameLoaded) {
+                Module.isGameLoaded = true;
+                document.getElementsByClassName("progress")[0].remove();
+            }
+        });
+
+    }
+
+    resize_game_canvas();
+    window.addEventListener('resize', resize_game_canvas, false);
+    window.addEventListener('orientationchange', resize_game_canvas, false);
+</script>
+<script id="engine-start" type="text/javascript">
+    EngineLoader.stream_wasm = false;
+    EngineLoader.load("canvas", "daymeat");
+</script>
+<script id="poki-sdk-setup" type="text/javascript">
+    PokiSDK.gameLoadingStart();
+    var data = {};
+    var isLoadFinished = false;
+    Progress.addListener(function (percentage) {
+        data.percentageDone = percentage / 100;
+        if (!isLoadFinished)
+            PokiSDK.gameLoadingProgress(data);
+        if (percentage == 100 && !isLoadFinished) {
+            PokiSDK.gameLoadingFinished();
+            isLoadFinished = true;
+        }
+    });
+    Module['onRuntimeInitialized'] = function () {
+        PokiSDK.init().then(() => {
+            Module.runApp("canvas", extra_params);
+        }).catch(() => {
+            Module.runApp("canvas", extra_params);
+        });
+    };
+</script>
+</body>
+</html>
