@@ -138,10 +138,10 @@ html:has(.loader-ui:not([hidden])) body {
   position: relative;
   display: grid;
   place-items: center;
-  width: clamp(136px, 30vmin, 240px);
+  width: clamp(168px, 38vmin, 320px);
   aspect-ratio: 1;
   overflow: hidden;
-  border-radius: 22%;
+  border-radius: 10%;
   background: var(--loader-surface);
   box-shadow:
     0 18px 40px rgb(0 0 0 / 28%),
@@ -150,7 +150,7 @@ html:has(.loader-ui:not([hidden])) body {
 
 .loader-initial {
   color: var(--loader-muted);
-  font-size: clamp(52px, 12vmin, 96px);
+  font-size: clamp(64px, 15vmin, 128px);
   font-weight: 700;
   line-height: 1;
 }
@@ -444,7 +444,7 @@ html:has(.loader-ui:not([hidden])) body {
 
 @media (max-height: 420px) {
   .loader-cover {
-    width: 72px;
+    width: 92px;
   }
 
   .loader-title {
