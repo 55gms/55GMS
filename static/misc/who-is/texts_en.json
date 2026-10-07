@@ -1,0 +1,1366 @@
+{
+    "level_title":"LEVEL ",
+    
+    "watch_video_title":"Would you like to watch video?",
+    "watch_video_button":"Watch",
+    "find_evidence":"FIND EVIDENCE FIRST",
+    
+    "daily_claim":"CLAIM!",
+    "daily_text":"Claim your daily reward to uncover the picture!",
+    "daily_day":"Day {0}",
+    
+    "settings_language":"english",
+    "settings_sound":"Sound",
+    "settings_music":"Music",
+    "settings_notification":"Notification",
+    "settings_support":"Support",
+    "settings_share":"Share",
+    "settings_restore":"Restore",
+    "settings_language_text":"Language",
+    "settings_share_text":"Check this game out!\n{0}",
+    "settings_email_text":"Please Enter your message here\n\n\n\n________\n\nPlease Do Not Modify This\n\nModel: {0}\n\nOS: {1}\n\nApplication Version: {2}\n\n________",
+
+    "shop_title":"Shop",
+    "shop_remove_ads":"remove ads",
+    "shop_purchased":"Purchased",
+    "shop_loading":"Loading...",
+    "shop_claim":"Claim",
+    "shop_free":"FREE",
+
+    "rateScreen_title":"RATE",
+    "rateScreen_hint":"FULL MARKS",
+    "rateScreen_question":"How much did you like our game?",
+    "rateScreen_thanks":"Thanks for supporting our game!",
+
+    "vipPanel_privacy_policy":"PRIVACY POLICY",
+    "vipPanel_terms_of_use":"TERMS OF USE",
+
+    "merriage_certificate":"MARRIAGE CERTIFICATE",
+    "vegan_cookies":"Vegan Cookies",
+    "wanted":"WANTED",
+    "honey":"Honey",
+    "mom":"Mom",
+    "george":"George",
+    "order":"ORDER PIZZA",
+    "john":"JOHN",
+
+    "game_end_text":"You have completed all levels. New levels are coming very soon... If you like our game, please rate us!",
+    "restart":"Restart",
+    "rate":"Rate us!",
+    
+    "dads_hero":"DAD’S HERO",
+    
+    "question_1":"Who is his wife?",
+    "hint_1":"Check out his pocket.",
+    "bubble_1_1":"He is my hubby!",
+    "bubble_1_2":"We are married!",
+    "end_1":"That is why she must wear her prescription eyeglasses!",
+
+    "question_2":"Who is not pregnant?",
+    "hint_2":"Check out their bellies.",
+    "bubble_2_1":"I'm always hungry!",
+    "bubble_2_2":"My back is killing me!",
+    "end_2":"She just wanted an excuse to eat everyone's cakes.",
+
+    "question_3":"Who is the dog's owner?",
+    "hint_3":"Test the dog by giving the ball to the people.",
+    "bubble_3_1":"Come doggy doggy!",
+    "bubble_3_2":"That's my dog!",
+    "end_3":"Hey! You guys go and get your own dogs!",
+
+    "question_4":"Who is cheating?",
+    "hint_4":"Check out the sleeves.",
+    "bubble_4_1":"Hmm, what is 2+2?",
+    "bubble_4_2":"This exam is insane!",
+    "end_4":"He could have been an A+ student if he had spent time studying instead of devising cheating methods.",
+
+    "question_5":"Who did this?",
+    "hint_5":"Try to see their hands.",
+    "bubble_5_1":"He is the murderer!",
+    "bubble_5_2":"I am innocent!",
+    "end_5":"Amateur mistake! Always wash your hands afterwards. Not that I know anything about it, seriously, stop looking at me like that!",
+
+    "question_6":"Who is a spy?",
+    "hint_6":"Isolate them one by one.",
+    "end_6":"What if he is simply calling his wife?",
+
+    "question_7":"Who is a werewolf?",
+    "hint_7":"Try to bring the night.",
+    "end_7":"Someone quickly call Monster Hunter Joe!",
+
+    "question_8":"Who is the mother?",
+    "hint_8":"The baby would cry if his mother leaves the room.",
+    "bubble_8_1":"What a cute baby!",
+    "bubble_8_2":"So cute!",
+    "end_8":"Mothers can't stand their babies crying. Well, no one can actually, it is one of the most annoying sounds!",
+
+    "question_9":"Who is her true lover?",
+    "hint_9":"Find the hidden frog and make them kiss.",
+    "bubble_9_1":"Marry me!",
+    "bubble_9_2":"I love you!",
+    "end_9":"Bad Luck Betty tried to kiss a frog after playing this level. She got poisoned!",
+
+    "question_10":"Who is an imposter?",
+    "hint_10":"Try to wash their make ups.",
+    "bubble_10_1":"Let's have a picnic!",
+    "bubble_10_2":"We will have great food!",
+    "end_10":"He must be here for the picnic food! Get back to your swamp!",
+
+    "question_11":"Who is cheating?",
+    "hint_11":"Check out her bag.",
+    "bubble_11_1":"I love you!",
+    "bubble_11_2":"You are my life!",
+    "end_11":"Wait! What if that is her brother?!",
+
+    "question_12":"Who is rich?",
+    "hint_12":"Check out their pockets.",
+    "bubble_12_1":"I have the latest phone.",
+    "bubble_12_2":"I have bitcoin.",
+    "end_12":"The important thing is being rich in heart... Nah! Who am I kidding?! I want sportcars and huge mansions!",
+
+    "question_13":"Who is their child?",
+    "hint_13":"Tap on 2 clues to find the one. Check their eye and hair colors.",
+    "bubble_13_1":"Mommy!",
+    "bubble_13_2":"Daddy!",
+    "end_13":"Same hair and eye colors, genetics never lie. Unless you fiddle with the DNA.",
+
+    "question_14":"Who ate my chicken sandwich?",
+    "hint_14":"Tap on 2 clues to find the one. One of them is vegan.",
+    "bubble_14_1":"Don't look at me!",
+    "bubble_14_2":"It wasn't me!",
+    "end_14":"Umbrella shows that John just came in. Emily is a vegan. It must be Joe! Never trust an intern!",
+
+    "question_15":"Who is her crush?",
+    "hint_15":"Try to make them look at her.",
+    "bubble_15_1":"One of them loves me.",
+    "end_15":"She needs to confess her love, can you help? You look like a great matchmaker material.",
+
+    "question_16":"Who will win the race?",
+    "hint_16":"Tap on 2 clues to find the one. One of them has loose shoelaces.",
+    "bubble_16_1":"Let's go!",
+    "bubble_16_2":"I will win!",
+    "end_16":"One of them drank too much water before the race while the other does not pay attention to his shoelaces. What a bunch of amateurs!",
+
+    "question_17":"Who is cheating?",
+    "hint_17":"Tap on 3 clues to find the one. Look at the two half glasses.",
+    "bubble_17_1":"Where have you been?",
+    "bubble_17_2":"I was at work!",
+    "end_17":"A sock, an extra glass and the husband just got home. There must be another man! Now let's find out where is he hiding...",
+
+    "question_18":"Who did this?",
+    "hint_18":"Tap on 3 clues to find the one. Hairs on the ground would help.",
+    "bubble_18_1":"It wasn't me!",
+    "bubble_18_2":"That's so cruel!",
+    "end_18":"Fingerprints on her leg, her hair on the ground and her broken heel. And she simply stands there! This woman is quite bad at this 'job.'",
+
+    "question_19":"Who is an alien?",
+    "hint_19":"Aliens should have antlers.",
+    "bubble_19_1":"Come on, move!",
+    "end_19":"Aliens must learn how to do online shopping.",
+
+    "question_20":"Who should be her husband?",
+    "hint_20":"Tap on 2 clues to find the one. One of them is a wanted person.",
+    "bubble_20_1":"Marry me!",
+    "bubble_20_2":"I love you!",
+    "end_20":"One of them has an engagement ring already while the other is a criminal. Does she really have to pick one of those?!",
+
+    "question_21":"Who is a bad guy?",
+    "hint_21":"Use the x-ray tool to search and find the evidence.",
+    "bubble_21_1":"I hate check-in lines!",
+    "bubble_21_2":"I will miss my flight!",
+    "end_21":"He is up to no good with those bombs!",
+
+    "question_22":"Who has super powers?",
+    "hint_22":"You can see the weight of that dumbell if you turn him around.",
+    "bubble_22_1":"UrrgggH!",
+    "bubble_22_2":"Only 724 more!",
+    "end_22":"It is a good idea to change the weight labels on these to attract some attention at the gym.",
+
+    "question_23":"Who is his wife?",
+    "hint_23":"Try to call his wife.",
+    "bubble_23_1":"Did you see Mary's shirt?",
+    "bubble_23_2":"I heard Joe and Sue are breaking up!",
+    "end_23":"She was fallen into the gossip swirl!",
+
+    "question_24":"Who is not a zombie?",
+    "hint_24":"You can lure the real zombies with a brain.",
+    "end_24":"That is your opening! Run away now!",
+
+    "question_25":"Who is trying to trick the teacher?",
+    "hint_25":"Open their cameras to check.",
+    "bubble_25_1":"Ok class, let's start the lecture.",
+    "end_25":"Next time put a mannequin in your place!",
+
+    "question_26":"Who is a traitor?",
+    "hint_26":"Tap on 2 clues to find the one. One clue is hidden behind something.",
+    "bubble_26_1":"Oh no! She is poisoned!",
+    "bubble_26_2":"It must be the Queen!",
+    "end_26":"Poison in his pocket! One of the top 10 anime betrayals!",
+
+    "question_27":"Who is a genius?",
+    "hint_27":"There might be something in the toybox to test their intelligence.",
+    "bubble_27_1":"My IQ is above 9000.",
+    "bubble_27_2":"My friends call me 'Einstein Jr.'",
+    "end_27":"That cube always makes me feel like a fool!",
+
+    "question_28":"Who is sick?",
+    "hint_28":"Use the x-ray tool to search for a sickness.",
+    "bubble_28_1":"My back!",
+    "bubble_28_2":"Oww my knees!",
+    "end_28":"Quick! Call an ambulance!",
+
+    "question_29":"Who is his father?",
+    "hint_29":"Tap on 3 clues to find the one. Pay attention to the child's gloves.",
+    "bubble_29_1":"Hello, son.",
+    "bubble_29_2":"Son, time to go home.",
+    "end_29":"The same hair, the same face mark and the other pair of that glove. Good thing that we did not need a DNA test.",
+
+    "question_30":"Who should we save?",
+    "hint_30":"Tap on 2 clues to find the one. Two of them does not require saving, prove it!",
+    "bubble_30_1":"I hate swimming!",
+    "bubble_30_2":"Save me!",
+    "end_30":"He has a lifesaver! And the other one has winged feet?! The Submariner?!",
+
+    "question_31":"Who is not a real princess?",
+    "hint_31":"Fairy Godmother's spell will be broken at midnight.",
+    "bubble_31_1":"Let it go, let it go!",
+    "bubble_31_2":"La la la la...",
+    "end_31":"Quick, leave your shoe there and run away!",
+
+    "question_32":"Who is not a statue?",
+    "hint_32":"Try to tickle them with something.",
+    "end_32":"You shattered his dreams of becoming a statue!",
+
+    "question_33":"Who is her date?",
+    "hint_33":"Tap on 3 clues to find the one. Pay attention to each table.",
+    "bubble_33_1":"Where is she?",
+    "bubble_33_2":"She is late again!",
+    "end_33":"One of them is a single as he is already eating. The other's date is in the bathroom. Her date is waiting with the menus.",
+
+    "question_34":"Who did this?",
+    "hint_34":"You need to find a clue. That man might be hiding something.",
+    "bubble_34_1":"Oops!",
+    "bubble_34_2":"Why would anyone do that?!",
+    "end_34":"I guess that guy is his landlord.",
+
+    "question_35":"Who is a greedy person?",
+    "hint_35":"Test them by giving money.",
+    "bubble_35_1":"I am a true stoic!",
+    "bubble_35_2":"I live so modestly.",
+    "end_35":"Just take the whole suitcase and go! What a greedy guy!",
+
+    "question_36":"Who are a couple?",
+    "hint_36":"Try to match them to see.",
+    "end_36":"What a lovely couple! But wait until the first child to see their true relationship.",
+
+    "question_37":"Who is a human?",
+    "hint_37":"Tap on 2 clues to find the one. Look for anomalies on the non-humans.",
+    "bubble_37_1":"I am just a normal human.",
+    "bubble_37_2":"I am 100% human!",
+    "end_37":"Claws and a tail! Open your eyes! The Reptilians are among us!",
+
+    "question_38":"Who is not a criminal?",
+    "hint_38":"Tap on 2 clues to find the one. The guy on the right might be hiding something.",
+    "bubble_38_1":"I pay my taxes!",
+    "bubble_38_2":"I never download torrents!",
+    "end_38":"He stole those pants, while the other one has blood on his hands. That innocent guy should not stay there for long!",
+
+    "question_39":"Who is a superhero?",
+    "hint_39":"A certain superhero suits up in phone booths.",
+    "bubble_39_1":"What a boring day.",
+    "bubble_39_2":"I don't have a secret identity.",
+    "end_39":"Remember the times when Superman used phone booths? Nah, you are probably not that old!",
+
+    "question_40":"Who did this?",
+    "hint_40":"Tap on 3 clues to find the one. Pay attention to their attire and the room.",
+    "bubble_40_1":"Oh cruel fate!",
+    "bubble_40_2":"Noo! He is murdered!",
+    "end_40":"The gardener just came in from the gardening, the wife still wears her hat as she has just returned from outside. But the maid was not here for cleaning, look at the cobwebs! Arrest her!",
+
+    "question_41":"Where is the candy?",
+    "hint_41":"The little girl points toward the candy.",
+    "end_41":"Is that a candy milk?!",
+
+    "question_42":"Where is the black cat?",
+    "hint_42":"Look behind the armchair.",
+    "end_42":"Is this Catwoman after the retirement?",
+
+    "question_43":"Find 5 hidden objects.",
+    "hint_43":"Look carefully at their hairs. But not all objects are hidden in the hairs.",
+    "end_43":"These foods are sneaking up on them to ruin their fitness.",
+
+    "question_44":"Separate these into two categories.",
+    "hint_44":"That red flag is used at soccer matches to define corners. ",
+    "end_44":"Should we call it 'football' or 'soccer?'",
+
+    "question_45":"Where is the bird?",
+    "hint_45":"It looks like a fish, but has a beak.",
+    "end_45":"Someone should feed these cats before they jump into the aquarium.",
+
+    "question_46":"Where is the lamp?",
+    "hint_46":"Look above the conveyor belt entrance.",
+    "end_46":"This work environment does not look safe at all!",
+
+    "question_47":"Where is the truck?",
+    "hint_47":"Look below the conveyor belt.",
+    "end_47":"Wait, is this place a toy workshop in the day, and a pharmaceutical factory in the night?",
+
+    "question_48":"Where is the ladybug?",
+    "hint_48":"Look close to the carrot on the ground.",
+    "end_48":"That ladybug is quite brave.",
+
+    "question_49":"Where is the girl who blows gum?",
+    "hint_49":"Look around the bottom middle parts.",
+    "end_49":"She will blow it and ruin someone's hair!",
+
+    "question_50":"Where is the dog?",
+    "hint_50":"Look around the center.",
+    "end_50":"Who let the dog in?! I don't even want to ask about the cat.",
+
+    "question_51":"Where is the baby?",
+    "hint_51":"She is very close to the center.",
+    "end_51":"Shh! Everyone be quiet!",
+
+    "question_52":"Where is the birdman?",
+    "hint_52":"He is very close to the center.",
+    "end_52":"Maybe we should call him the 'manbird?'",
+
+    "question_53":"Find 5 hidden objects.",
+    "hint_53":"HHHHHHHHHH",
+    "end_53":"This tree is a great hiding place.",
+
+    "question_54":"Find 5 hidden objects.",
+    "hint_54":"HHHHHHHHHH",
+    "end_54":"She is a true animal lover.",
+
+    "question_55":"Find 5 hidden objects.",
+    "hint_55":"HHHHHHHHHH",
+    "end_55":"That spider is in trouble.",
+
+    "question_56":"Find 5 hidden objects.",
+    "hint_56":"HHHHHHHHHH",
+    "end_56":"Another 'big sale' to trick people to overspend.",
+
+    "question_57":"Find 5 hidden objects.",
+    "hint_57":"HHHHHHHHHH",
+    "end_57":"What a nice couple of sisters.",
+
+    "question_58":"Find 5 hidden objects.",
+    "hint_58":"HHHHHHHHHH",
+    "end_58":"Leave before that dinosaur comes alive during the night!",
+
+    "question_59":"Find 5 hidden objects.",
+    "hint_59":"HHHHHHHHHH",
+    "end_59":"She needs a bigger bed.",
+
+    "question_60":"Separate these into two categories.",
+    "hint_60":"HHHHHHHHHH",
+    "end_60":"This level made me hungry!",
+
+    "question_61":"Separate these into two categories.",
+    "hint_61":"HHHHHHHHHH",
+    "end_61":"We always need good cops and good firemen.",
+
+    "question_62":"Separate these into two categories.",
+    "hint_62":"HHHHHHHHHH",
+    "end_62":"It was a very healthy level.",
+
+    "question_63":"Separate these into two categories.",
+    "hint_63":"HHHHHHHHHH",
+    "end_63":"What if I eat ice cream in the winter too?!",
+
+    "question_64":"Who is afraid of guns?",
+    "hint_64":"That bodyguard might be hiding a gun under his suit.",
+    "bubble_64_1":"He looks tough!",
+    "bubble_64_2":"What a cool suit!",
+    "end_64":"Don't fear the gun, fear the guy carrying it.",
+
+    "question_65":"Who is the chosen one?",
+    "hint_65":"A truly chosen one would not fall down that cliff.",
+    "bubble_65_1":"Last night, I had a revelation.",
+    "bubble_65_2":"I was chosen!",
+    "end_65":"Nirvana, here he comes!",
+
+    "question_66":"Who is hungry?",
+    "hint_66":"Try ordering a pizza with the laptop.",
+    "bubble_66_1":"Am I hearing my stomach?",
+    "bubble_66_2":"Am I hungry?",
+    "end_66":"Don't forget to tip.",
+
+    "question_67":"Who doesn't have a pet?",
+    "hint_67":"Tap on 2 clues to find the one. Look carefully at the bag.",
+    "bubble_67_1":"I love hamsters!",
+    "bubble_67_2":"I love geckos!",
+    "end_67":"One has a toy bone while the other was clawed by a cat. Let's get him a pet too! What about a cute python?",
+
+    "question_68":"Who is his best friend?",
+    "hint_68":"His best friend must have the same sense of humour.",
+    "bubble_68_1":"What is so funny?",
+    "bubble_68_2":"Is it a cat video?",
+    "end_68":"It is an inside joke between those two, we can't understand.",
+
+    "question_69":"Who is a social media influencer?",
+    "hint_69":"Use the phone to check out their filters.",
+    "bubble_69_1":"I have 1000 followers.",
+    "bubble_69_2":"My posts are trending.",
+    "end_69":"What exactly do these influencers influence?!",
+
+    "question_70":"Who is cheating at the game?",
+    "hint_70":"A true cheater cheats when no one is looking.",
+    "bubble_70_1":"How long will you keep thinking?!",
+    "bubble_70_2":"Just let me play, dude!",
+    "end_70":"If she doesn't realize that cheating, she deserves to lose anyway!",
+
+    "question_71":"Who is a terrible man?",
+    "hint_71":"Check out their phones to see their fidelity.",
+    "bubble_71_1":"I love you 3000!",
+    "bubble_71_2":"You are the love of my life.",
+    "end_71":"That is another woman! Shame on you, man!",
+
+    "question_72":"Who is pregnant?",
+    "hint_72":"Pregnant women can get dizzy easily.",
+    "bubble_72_1":"I feel... weird.",
+    "bubble_72_2":"Is it the last night's lasagna, or a baby in there?",
+    "end_72":"Stop it before she pukes all over the place. What is wrong with you?!",
+
+    "question_73":"Who is single?",
+    "hint_73":"Tap on 2 clues to find the one. Check out the shopping basket.",
+    "bubble_73_1":"Did she say 'broccoli' or 'avocado?'",
+    "bubble_73_2":"I will not fail at self-checkout this time!",
+    "end_73":"That pink razor is for his wife while the other guy has a ring. I bet the single guy is here for the microwave foods.",
+
+    "question_74":"Who will survive?",
+    "hint_74":"Try to look below.",
+    "bubble_74_1":"Heeeeelp!",
+    "bubble_74_2":"Mommy!!...",
+    "end_74":"What if he does not know how to swim?!",
+
+    "question_75":"Who knows karate?",
+    "hint_75":"Test them with the monster.",
+    "bubble_75_1":"Come at me, bro!",
+    "bubble_75_2":"I am a fan of Ip Man.",
+    "end_75":"Bruce Lee would be proud of this man.",
+
+    "question_76":"Who is going to die?",
+    "hint_76":"Find 1 evidence. The mirror might be hiding something.",
+    "bubble_76_1":"I hate my life.",
+    "bubble_76_2":"My hair sucks!",
+    "end_76":"There must be a misunderstanding! I am not supposed to die yet!",
+
+    "question_77":"Who is a ghost?",
+    "hint_77":"A ghost would go through the walls.",
+    "bubble_77_1":"I am totally alive!",
+    "bubble_77_2":"I am not dead yet!",
+    "end_77":"Well, he should still knock on the doors!",
+
+    "question_78":"Who is creepy?",
+    "hint_78":"That arm goes somewhere.",
+    "end_78":"Ermmm... Ok...",
+
+    "question_79":"Who ate the father's cake?",
+    "hint_79":"Tap on 3 clues to find the one. The boy hides something.",
+    "bubble_79_1":"Oh, hi dad!",
+    "bubble_79_2":"You are early!",
+    "end_79":"The girl ate a pink cake, the mother is on a diet. That boy has some explaining to do!",
+
+    "question_80":"Who is he waiting for?",
+    "hint_80":"He might be holding that sign in the wrong direction.",
+    "bubble_80_1":"Where is my guy?",
+    "bubble_80_2":"I have been waiting for so long!",
+    "end_80":"You had one job, Jerry!",
+
+    "question_81":"Solve this puzzle!",
+    "hint_81":"Rings and love would result in a marriage.",
+    "end_81":"Maybe a 3rd symbol can be handcuffs.",
+
+    "question_82":"Solve this puzzle!",
+    "hint_82":"If you commit crimes, police will imprison you.",
+    "end_82":"Don't be a bad guy!",
+
+    "question_83":"Solve this puzzle!",
+    "hint_83":"Put the two countries in North America.",
+    "end_83":"There is also Mexico.",
+
+    "question_84":"Solve this puzzle!",
+    "hint_84":"Seeds and water are needed for a plant.",
+    "end_84":"Some people pour coffee instead of water, they expect to grow coffee beans.",
+
+    "question_85":"Solve this puzzle!",
+    "hint_85":"Sweets are dangerous for the tooth.",
+    "end_85":"Don't forget to brush your teeth and floss.",
+
+    "question_86":"Solve this puzzle!",
+    "hint_86":"A radioactive spider bit Spider Man.",
+    "end_86":"He looks more like a Spider Boy.",
+
+    "question_87":"Solve this puzzle!",
+    "hint_87":"Remember what happened when a man ate a bat?",
+    "end_87":"Never eat a bat, please.",
+
+    "question_88":"Solve this puzzle!",
+    "hint_88":"An empty stomach needs food to be happy.",
+    "end_88":"That hamburger would definitely make me happy.",
+
+    "question_89":"Solve this puzzle!",
+    "hint_89":"Engine is also called 'motor.'",
+    "end_89":"I wish I could turn my bicycle into a motorbike this easily.",
+
+    "question_90":"Solve this puzzle!",
+    "hint_90":"What is the fastest way to ruin your wealth?",
+    "end_90":"Don't go to Las Vegas if you value your money and happiness.",
+
+    "question_91":"Where is the earring?",
+    "hint_91":"Check out the ears.",
+    "end_91":"Do you have to take a selfie everywhere?!",
+
+    "question_92":"Where is the bicycle?",
+    "hint_92":"Check behind the antique race car.",
+    "end_92":"I wonder how people ride those bicycles with huge wheels in the past.",
+
+    "question_93":"Where is the groom?",
+    "hint_93":"Check out the corners.",
+    "end_93":"I would not try to catch that bouquet.",
+
+    "question_94":"Where is the skull?",
+    "hint_94":"Very close to the middle.",
+    "end_94":"It must be a monster convention.",
+
+    "question_95":"Separate these into two categories.",
+    "hint_95":"Cinema and stage arts should be separated.",
+    "end_95":"You definitely can't eat a popcorn at a stage show!",
+
+    "question_96":"Separate these into two categories.",
+    "hint_96":"Visual and musical arts should be separated.",
+    "end_96":"You might put that headphone in the painting category as people love to listen while painting.",
+
+    "question_97":"Separate these into two categories.",
+    "hint_97":"Mathematics and geometry should be in seperated from the other sciences.",
+    "end_97":"This level resurfaced my high school nightmares!",
+
+    "question_98":"Who is a good chef?",
+    "hint_98":"Tap on 2 clues to find the one. Pay attention to their mistakes.",
+    "bubble_98_1":"It smells good!",
+    "bubble_98_2":"I feel a strange pain?!",
+    "end_98":"A true chef would never spill their food or cut their own fingers. Let's hire the third one for our new hotel. ",
+
+    "question_99":"Find 5 hidden objects.",
+    "hint_99":"HHHHHHHHHH",
+    "end_99":"That poor dog is bored of their chit-chat.",
+
+    "question_100":"Find 5 hidden objects.",
+    "hint_100":"HHHHHHHHHH",
+    "end_100":"A race is brewing between these two.",
+
+    "question_101":"Find 5 hidden objects.",
+    "hint_101":"HHHHHHHHHH",
+    "end_101":"Someone take that lipstick out of Dory's hand before she paints her face pink.",
+
+    "question_102":"Who should be her valentine?",
+    "hint_102":"Tap on 3 clues to find the one. A guy's face might be fake.",
+    "bubble_102_1":"I am so cool.",
+    "bubble_102_2":"Look at that handsome devil!",
+    "end_102":"One of them is a robot while the other is a narcissist. The third guy reads the same book as her. What a nice match!",
+
+    "question_103":"Who is a true magician?",
+    "hint_103":"Tap on 2 clues to find the one. That apple is definitely not levitating.",
+    "bubble_103_1":"Alakazam!",
+    "bubble_103_2":"Abra Cadabra!",
+    "end_103":"He is holding the apple with some tiny ropes, while the other hides the cards up in his sleeves. But that fire? That's MAGIC!",
+
+    "question_104":"Who is the father?",
+    "hint_104":"Try to put the baby in danger to test the dad reflexes.",
+    "bubble_104_1":"I have 7 children!",
+    "bubble_104_2":"I am a great dad!",
+    "end_104":"Dad reflexes are the fastest thing in the world.",
+
+    "question_105":"Who is hiding a secret?",
+    "hint_105":"One of them might have a wig.",
+    "bubble_105_1":"I love my hair.",
+    "bubble_105_2":"My hair is majestic!",
+    "end_105":"Why did you humiliate her in front of her friends?!",
+
+    "question_106":"Who ate my chips?",
+    "hint_106":"Tap on 2 clues to find the one. Chips leave unmistakable marks.",
+    "bubble_106_1":"I hate chips!",
+    "bubble_106_2":"I don't eat junk food!",
+    "end_106":"Oil marks and crumbs! But no need to scold him. He will pay the price with those extra calories anyway.",
+
+    "question_107":"Who will win the fight?",
+    "hint_107":"Try to start the match with the bell.",
+    "bubble_107_1":"",
+    "bubble_107_2":"",
+    "end_107":"That was such a short fight. At least I had free tickets.",
+
+    "question_108":"Who is not a vampire?",
+    "hint_108":"Tap on 2 clues to find the one. That moustache looks suspicious.",
+    "bubble_108_1":"I am not a vampire.",
+    "bubble_108_2":"Vampires suck! I mean literally...",
+    "end_108":"Red eyes and sharp teeth! The third guy is not a vampire, but we must tell him to stop dressing like one!",
+
+    "question_109":"Who is his wife?",
+    "hint_109":"He would be happy to see his wife.",
+    "bubble_109_1":"",
+    "bubble_109_2":"",
+    "end_109":"So romantic! They are still in love after a long marriage.",
+
+    "question_110":"Who is generous?",
+    "hint_110":"You can test their generosity by forcing them to share.",
+    "bubble_110_1":"I love apples!",
+    "bubble_110_2":"Is that a worm in there?!",
+    "end_110":"Between you and me, that apple had worms in it. She is not so generous actually.",
+
+    "question_111":"Who is not allergic?",
+    "hint_111":"Test them by putting things into their faces.",
+    "bubble_111_1":"I am totally healthy.",
+    "bubble_111_2":"I hate spring!",
+    "end_111":"Everybody has allergies these days! I hope you are not allergic to this game.",
+
+    "question_112":"Who is not part of the robbery?",
+    "hint_112":"Tap on 4 clues to find the one. Pay attention to their shirts.",
+    "bubble_112_1":"Who did this?!",
+    "bubble_112_2":"Some people are terrible!",
+    "end_112":"Their shirt pieces are there! They also probably torn his shirt to frame him. But you solved the case.",
+
+    "question_113":"Who is her true lover?",
+    "hint_113":"Try to take away her beauty starting with the hairs.",
+    "bubble_113_1":"Wow! Those hair!",
+    "bubble_113_2":"Please marry me!",
+    "end_113":"They should exchange numbers now.",
+
+    "question_114":"Who is naughty?",
+    "hint_114":"Kids show their true faces when parents don't look.",
+    "bubble_114_1":"",
+    "bubble_114_2":"",
+    "end_114":"Wow that was quick! I can't even get mad at him.",
+
+    "question_115":"Who is a thief?",
+    "hint_115":"Tap on 3 clues to find the one. The thief steals wallets.",
+    "bubble_115_1":"I am a decent citizen.",
+    "bubble_115_2":"I don't even hurt an ant.",
+    "end_115":"Is he a thief or a wallet collector?",
+
+    "question_116":"Who loves the cold?",
+    "hint_116":"Try to make the room colder. The fireplace and the window keep the warm.",
+    "bubble_116_1":"Such a cozy night.",
+    "bubble_116_2":"I can't stand the cold!",
+    "end_116":"Now you have to rekindle that fireplace before they freeze to death!",
+
+    "question_117":"Who is snoring?",
+    "hint_117":"Tap on 2 clues to find the one. Pay attention to the ears.",
+    "bubble_117_1":"Zzzz...",
+    "bubble_117_2":"Grrrrr!",
+    "end_117":"That smart guy uses earplugs. But the other one is suffering. Maybe he can try putting a sock into his mouth?",
+
+    "question_118":"Who is a good striker?",
+    "hint_118":"Test them with the football.",
+    "bubble_118_1":"They call me Messi's lost cousin.",
+    "bubble_118_2":"I was Ronaldo's tutor.",
+    "end_118":"Nice shot! Let's put him in the forward position. The other two? We still need ball boys, you know.",
+
+    "question_119":"Who is his lover?",
+    "hint_119":"Look into their bags to find a clue.",
+    "bubble_119_1":"He looks like Brad Pitt!",
+    "bubble_119_2":"His jaw is so smooth.",
+    "end_119":"Isn't it a bit inappropriate to look into their bags like that?!",
+
+    "question_120":"Who is a vegetarian?",
+    "hint_120":"Tap on 2 clues to find the one. Look carefully in and around the plates.",
+    "bubble_120_1":"I love plants.",
+    "bubble_120_2":"Broccoli is my favorite.",
+    "end_120":"One of them ate a chicken and the other has meat in his plate. She is a true vegetarian.",
+
+    "question_121":"Who is a married man?",
+    "hint_121":"Try to attract their attention with the woman.",
+    "bubble_121_1":"They finally caught that serial voter.",
+    "bubble_121_2":"All bad news! 2020 sucks!",
+    "end_121":"Married or not, these guys should learn some manners!",
+
+    "question_122":"Who is not a mutant?",
+    "hint_122":"Tap on 3 clues to find the one. Pay attention to hands and feet.",
+    "bubble_122_1":"My hands are itchy...",
+    "bubble_122_2":"When will they accept me to X-men?",
+    "end_122":"Claws, monster feet and a tail. That guy must be feeling lucky not to be a mutant!",
+
+    "question_123":"Who should she ride with?",
+    "hint_123":"Tap on 3 clues to find the one. Pay attention to the safety features.",
+    "bubble_123_1":"Come with me!",
+    "bubble_123_2":"Let's ride!",
+    "end_123":"A blown tire and a rider with no helmet. She should go with the decent guy.",
+
+    "question_124":"Who is left-handed?",
+    "hint_124":"They would write whatever written on the board.",
+    "bubble_124_1":"",
+    "bubble_124_2":"",
+    "end_124":"Don't tell them that their teacher is a ghost.",
+
+    "question_125":"Who is a responsible parent?",
+    "hint_125":"Tap on 2 clues to find the one. Check out the traffic law violations.",
+    "bubble_125_1":"Let's go eat ice cream!",
+    "bubble_125_2":"Come dear.",
+    "end_125":"A child in the front seat with no belt and the other one is crossing under the red. Outrageous!",
+
+    "question_126":"Solve this puzzle.",
+    "hint_126":"Stepping on a certain toy is extremely painful.",
+    "end_126":"Never go into a child's room barefoot.",
+
+    "question_127":"Solve this puzzle.",
+    "hint_127":"There is a terrible pizza trend.",
+    "end_127":"Pineapple-pizza is one of the worst crimes of humanity.",
+
+    "question_128":"Solve this puzzle.",
+    "hint_128":"What do you need in the morning?",
+    "end_128":"Some people prefer tea though.",
+
+    "question_129":"Solve this puzzle.",
+    "hint_129":"The internet addiction numbs our brain.",
+    "end_129":"Keep playing, don't worry this game is good for your brain.",
+
+    "question_130":"Solve this puzzle.",
+    "hint_130":"Hospitals consist of beds and doctors.",
+    "end_130":"I hope you will not need a hospital visit ever, except for a birth.",
+
+    "question_131":"Solve this puzzle.",
+    "hint_131":"Petting is a great way to relax.",
+    "end_131":"This level was sponsored by the Cats Association. They want some petting.",
+
+    "question_132":"Solve this puzzle.",
+    "hint_132":"Have you ever played Minecraft? How to get glass out of sand?",
+    "end_132":"Whenever you need some extra glasses, burn some beach sand.",
+
+    "question_133":"Solve this puzzle.",
+    "hint_133":"A device helps us to fry the potatoes.",
+    "end_133":"Quick, grab some ketchup and mayonnaise! ",
+
+    "question_134":"Solve this puzzle.",
+    "hint_134":"Sharks are attracted to something.",
+    "end_134":"Sharks are sea-vampires! ",
+
+    "question_135":"Solve this puzzle.",
+    "hint_135":"Clouds are actually evaporated water.",
+    "end_135":"Then it rains, and then turns into clouds again, and then it rains, and then...",
+
+    "question_136":"Find 5 hidden objects.",
+    "hint_136":"RESIMLI",
+    "end_136":"What a messy room!",
+
+    "question_137":"Find 5 hidden objects.",
+    "hint_137":"RESIMLI",
+    "end_137":"Those dogs must be hard to control.",
+
+    "question_138":"Find 5 hidden objects.",
+    "hint_138":"RESIMLI",
+    "end_138":"Someone call the firefighters for that cat!",
+
+    "question_139":"Find 5 hidden objects.",
+    "hint_139":"RESIMLI",
+    "end_139":"I hope they all wear sunscreen.",
+
+    "question_140":"Find 5 hidden objects.",
+    "hint_140":"RESIMLI",
+    "end_140":"Say goodbye to your diet.",
+
+    "question_141":"Find 5 hidden objects.",
+    "hint_141":"RESIMLI",
+    "end_141":"A big step towards the galactic peace.",
+
+    "question_142":"Find 5 hidden objects.",
+    "hint_142":"RESIMLI",
+    "end_142":"I guess she still wants new toys.",
+
+    "question_143":"Put them in order.",
+    "hint_143":"Winter-Spring-Summer-???",
+    "end_143":"Some climates have less than 4 seasons though.",
+
+    "question_144":"Put them in order.",
+    "hint_144":"He will get married and then have kids.",
+    "end_144":"What a happy life!",
+
+    "question_145":"Put them in order.",
+    "hint_145":"That tractor should not be used in the answer.",
+    "end_145":"That is why we still use 'horsepower' to describe a car's power.",
+
+    "question_146":"Put them in order.",
+    "hint_146":"A caterpillar turns into a cocoon and finally comes out as a butterfly.",
+    "end_146":"Never despise a caterpillar. They turn into beautiful butterflies.",
+
+    "question_147":"Put them in order.",
+    "hint_147":"It is a frog's life.",
+    "end_147":"You can insult a frog by reminding him of his fishy past.",
+
+    "question_148":"Put them in order.",
+    "hint_148":"Tomatoes go from green to red.",
+    "end_148":"That apple was a spy!",
+
+    "question_149":"Put them in order.",
+    "hint_149":"A plastic bottle is recycled if you throw them into recycle bins.",
+    "end_149":"Never throw plastics into regular trash bins!",
+
+    "question_150":"Put them in order.",
+    "hint_150":"It is the evolution of communication.",
+    "end_150":"Have you ever seen a telegraph?",
+
+    "question_151":"Separate these into two categories.",
+    "hint_151":"RESIMLI",
+    "end_151":"This was quite tricky as there are so many unisex clothes these days.",
+
+    "question_152":"Separate these into two categories.",
+    "hint_152":"RESIMLI",
+    "end_152":"Old school gaming was the best!",
+
+    "question_153":"Put the missing pieces.",
+    "hint_153":"RESIMLI",
+    "end_153":"Is this a picture of our modern life?",
+
+    "question_154":"Put the missing pieces.",
+    "hint_154":"RESIMLI",
+    "end_154":"Who did design this city?!",
+
+    "question_155":"Put the missing pieces.",
+    "hint_155":"RESIMLI",
+    "end_155":"What a cozy neighborhood.",
+
+    "question_156":"Put the missing pieces.",
+    "hint_156":"RESIMLI",
+    "end_156":"I have no idea what these plants are!",
+
+    "question_157":"Put the missing pieces.",
+    "hint_157":"RESIMLI",
+    "end_157":"Is this an animal march? ",
+
+    "question_158":"Put the missing pieces.",
+    "hint_158":"RESIMLI",
+    "end_158":"No one cares about the personal space there!",
+
+    "question_159":"Who came here earlier?",
+    "hint_159":"Tap on 2 clues to find the one. Look at the things related to cold or warm.",
+    "bubble_159_1":"This bank is terrible!",
+    "bubble_159_2":"I have been waiting for ages!",
+    "end_159":"That ice cream is still not melting and the guy in the middle is still sweaty. They just came in and should stop complaining!",
+
+    "question_160":"Who is in danger?",
+    "hint_160":"Check out the shrubs to find a clue.",
+    "bubble_160_1":"Mmm, yummy!",
+    "bubble_160_2":"These berries are sweet!",
+    "end_160":"Uh oh!... He must rush to the nearest hospital!",
+
+    "question_161":"Who is her lover?",
+    "hint_161":"Tap on 2 clues to find the one. Check out what is under the sweaters.",
+    "bubble_161_1":"My love!",
+    "bubble_161_2":"I love you!",
+    "end_161":"They complete each other! ",
+
+    "question_162":"Who is not in danger?",
+    "hint_162":"Tap on 1 clue to find the one. Werewolves appear during the full moon.",
+    "bubble_162_1":"I must get in!",
+    "bubble_162_2":"Let me in!",
+    "end_162":"Crescent moon shows that the werewolf will stay as human tonight. Such a pity for the other guys!",
+
+    "question_163":"Who does not drink coffee?",
+    "hint_163":"Tap on 2 clues to find the one. Pay attention to the lipstick mark.",
+    "bubble_163_1":"I hate coffee!",
+    "bubble_163_2":"Coffee is for losers!",
+    "end_163":"He is a tea-guy. ",
+
+    "question_164":"Who is lying?",
+    "hint_164":"Check out the closet and the bag.",
+    "bubble_164_1":"I was alone at home!",
+    "bubble_164_2":"I was at work!",
+    "end_164":"You are so busted, dude! ",
+
+    "question_165":"Who stole my gold?",
+    "hint_165":"The one who hides the gold must be quite heavy.",
+    "bubble_165_1":"",
+    "bubble_165_2":"",
+    "end_165":"The gold made him too heavy for the ice. Now take him out of there before he drowns with all my gold!!!",
+
+    "question_166":"Who is a fool?",
+    "hint_166":"Tap on 2 clues to find the one. Pay attention to where they will fall.",
+    "bubble_166_1":"What are you doing?!",
+    "bubble_166_2":"You will fall! He he!",
+    "end_166":"That hay bale will save the innocent man. But the evil guy in the middle will pay for his villainy!",
+
+    "question_167":"Who is a thief?",
+    "hint_167":"Try to leave them alone with the gem.",
+    "bubble_167_1":"",
+    "bubble_167_2":"",
+    "end_167":"As always, a person shows their true personality when they are alone.",
+
+    "question_168":"Who will win this race?",
+    "hint_168":"Tap on 2 clues to find the one. Focus on the facial expressions.",
+    "bubble_168_1":"I run like the wind!",
+    "bubble_168_2":"I am Sonic!",
+    "end_168":"Those two guys look exhausted. The confident one will win this for sure!",
+
+    "question_169":"Who is an immortal?",
+    "hint_169":"Try to bring the year forward.",
+    "bubble_169_1":"I will live for 100 years!",
+    "bubble_169_2":"I saw my great great great great grandchildren.",
+    "end_169":"It's the year 9009 and we are also still alive! Are we immortal too?!",
+
+    "question_170":"Who are the soul mates?",
+    "hint_170":"Soul mates would like the same kind of music.",
+    "bubble_170_1":"Where is my soul mate?",
+    "bubble_170_2":"I want some music.",
+    "end_170":"These two will have a long and romantic future.",
+
+    "question_171":"Who is impatient?",
+    "hint_171":"You can test them with the gamepads.",
+    "bubble_171_1":"I win again!",
+    "bubble_171_2":"Ha! In your face!",
+    "end_171":"You are grounded and you can forget about that Playstation 5!",
+
+    "question_172":"Who is a single mom?",
+    "hint_172":"Tap on 2 clues to find the one. Pay attention to the strolleys.",
+    "bubble_172_1":"I love my baby!",
+    "bubble_172_2":"I am a full-package mom!",
+    "end_172":"That strolley is empty because the father is carrying the baby. Must be tough for that single mom, but at least she get to decide everything.",
+
+    "question_173":"Who is a robot?",
+    "hint_173":"A robot would have a remote control.",
+    "bubble_173_1":"I am an organic human.",
+    "bubble_173_2":"I don't have any chips or something!",
+    "end_173":"Beep boop! Watch out there is a disguised robot among us!",
+
+    "question_174":"Who has the strongest breath?",
+    "hint_174":"A strong blow could shatter that window.",
+    "bubble_174_1":"My breath is weak.",
+    "bubble_174_2":"I can't even blow up a balloon.",
+    "end_174":"Well done! Now go and get a new window!",
+
+    "question_175":"Who is grumpy?",
+    "hint_175":"A grumpy kid would not laugh at something funny.",
+    "bubble_175_1":"Make me laugh, dad.",
+    "bubble_175_2":"I am so bored!",
+    "end_175":"Can't wait to see that kid's old age grumpiness!",
+
+    "question_176":"Who is a slacker?",
+    "hint_176":"That eyewear looks fishy.",
+    "bubble_176_1":"So interesting.",
+    "bubble_176_2":"I hate this book!",
+    "end_176":"You can trick your teacher, but not us!",
+
+    "question_177":"Who is a monster?",
+    "hint_177":"Look under the masks.",
+    "bubble_177_1":"I am actually a human.",
+    "bubble_177_2":"It is my costume.",
+    "end_177":"Be careful during Halloween.",
+
+    "question_178":"Who is in love?",
+    "hint_178":"Put something into their dreams.",
+    "bubble_178_1":"My life is so bland.",
+    "bubble_178_2":"I don't have any passions.",
+    "end_178":"We know your secret now! Emily and Jack sitting under a tree...",
+
+    "question_179":"Who can't be trusted?",
+    "hint_179":"The traitor can do his job only when the others don't look.",
+    "bubble_179_1":"",
+    "bubble_179_2":"",
+    "end_179":"These are the worst bodyguards I have ever seen!",
+
+    "question_180":"Who is a careless mom?",
+    "hint_180":"Tap on 3 clues to find the one. One of the babies is in serious danger.",
+    "bubble_180_1":"I love my baby!",
+    "bubble_180_2":"You are so cute!",
+    "end_180":"That hot mug is dangerously close, the earring is quite sharp and the baby holds a battery. Outrageous parenting!",
+
+    "question_181":"Who is the most concentrated?",
+    "hint_181":"Try to distract them with something.",
+    "bubble_181_1":"Hmm....",
+    "bubble_181_2":"Hmmm...",
+    "end_181":"Even a nuclear blast can't break that girl's concentration!",
+
+    "question_182":"Who is a zoologist?",
+    "hint_182":"A zoologist would wear a disguise.",
+    "bubble_182_1":"What is that guy doing here?",
+    "bubble_182_2":"Get back to your city, human!",
+    "end_182":"He needs a better disguise, something to cover his whole body.",
+
+    "question_183":"Who is a coward?",
+    "hint_183":"A moving scarecrow would be quite scary.",
+    "bubble_183_1":"Trick or treat!",
+    "bubble_183_2":"Oh you guys are scary!",
+    "end_183":"That's what I call a proper trick!",
+
+    "question_184":"Who is not celebrating Halloween?",
+    "hint_184":"Tap on 3 clues to find the one. A celebrator should both be at home and have some decors.",
+    "bubble_184_1":"",
+    "bubble_184_2":"",
+    "end_184":"That house might be truly haunted. Stay away from there, kids!",
+
+    "question_185":"Find 5 hidden objects.",
+    "hint_185":"RESIMLI",
+    "end_185":"Is this Santa Claus' workshop?",
+
+    "question_186":"Find 5 hidden objects.",
+    "hint_186":"RESIMLI",
+    "end_186":"They are researching the formula for the next Unico Studio game.",
+
+    "question_187":"Find 5 hidden objects.",
+    "hint_187":"RESIMLI",
+    "end_187":"These cats are lucky to have such a nice owner.",
+
+    "question_188":"Find 5 hidden objects.",
+    "hint_188":"RESIMLI",
+    "end_188":"Soon we will have smartphones and VR headsets in such museums.",
+
+    "question_189":"Find 5 hidden objects.",
+    "hint_189":"RESIMLI",
+    "end_189":"Don't catch that bouquet, I warn you!",
+
+    "question_190":"Find 5 hidden objects.",
+    "hint_190":"RESIMLI",
+    "end_190":"Put those phones away and enjoy the moment!",
+
+    "question_191":"Find 5 hidden objects.",
+    "hint_191":"RESIMLI",
+    "end_191":"Someone should feed these cats before they do something crazy.",
+
+    "question_192":"Find 5 hidden objects.",
+    "hint_192":"RESIMLI",
+    "end_192":"They are so cute!",
+
+    "question_193":"Find 5 hidden objects.",
+    "hint_193":"RESIMLI",
+    "end_193":"That kid will cause a serious mess!",
+
+    "question_194":"Find 5 hidden objects.",
+    "hint_194":"RESIMLI",
+    "end_194":"This place is too crowded for my liking.",
+
+    "question_195":"Where is the bee?",
+    "hint_195":"Look around the North-west.",
+    "end_195":"This tree is full of life.",
+
+    "question_196":"Where is the spider?",
+    "hint_196":"Look around the lower areas.",
+    "end_196":"That spider is in trouble!",
+
+    "question_197":"Where is the mushroom?",
+    "hint_197":"Look below the dog.",
+    "end_197":"Watch out! That is a poisonous mushroom!",
+
+    "question_198":"Where is the sugar?",
+    "hint_198":"It must be on the table somewhere.",
+    "end_198":"Do you drink tea with sugar?",
+
+    "question_199":"Where is the cat?",
+    "hint_199":"It is stuck on the tree.",
+    "end_199":"Does anyone have a ladder?",
+
+    "question_200":"Where is the UFO?",
+    "hint_200":"Look around the sky.",
+    "end_200":"Is this still an UFO if we have already identified the aliens?",
+
+    "question_201":"Where is the dog?",
+    "hint_201":"The dog is chasing the jumping girl.",
+    "end_201":"What a cheerful beach.",
+
+    "question_202":"Where is the mummy coffin?",
+    "hint_202":"Look close to the dinosaur's mouth.",
+    "end_202":"This museum must have an expensive insurance.",
+
+    "question_203":"Where is the smiling star?",
+    "hint_203":"Look closely at their clothes.",
+    "end_203":"Such a happy sock!",
+
+    "question_204":"Where is the pizza?",
+    "hint_204":"Look at the women's necks.",
+    "end_204":"A neck-pizza?",
+
+    "question_205":"Where is the cell phone?",
+    "hint_205":"Where do you usually put the phone when you sleep?",
+    "end_205":"She should put it somewhere less reachable to prevent 'the snooze incidents.'",
+
+    "question_206":"Where is the bone?",
+    "hint_206":"It is camouflaged somewhere.",
+    "end_206":"Why is she hiding a bone in her hair?",
+
+    "question_207":"Solve this puzzle.",
+    "hint_207":"OTOMATIK HINTLI",
+    "end_207":"What a lovely room!",
+
+    "question_208":"Solve this puzzle.",
+    "hint_208":"OTOMATIK HINTLI",
+    "end_208":"It is a twisty beach!",
+
+    "question_209":"Solve this puzzle.",
+    "hint_209":"OTOMATIK HINTLI",
+    "end_209":"Say goodbye to her fitness dreams.",
+
+    "question_210":"Solve this puzzle.",
+    "hint_210":"OTOMATIK HINTLI",
+    "end_210":"We found this photo in AREA 51.",
+
+    "question_211":"Solve this puzzle.",
+    "hint_211":"OTOMATIK HINTLI",
+    "end_211":"She should stop carrying that bunny to everywhere.",
+
+    "question_212":"Solve this puzzle.",
+    "hint_212":"OTOMATIK HINTLI",
+    "end_212":"I hope you don't have OCD.",
+
+    "question_213":"Solve this puzzle.",
+    "hint_213":"OTOMATIK HINTLI",
+    "end_213":"She is about to lose control of those dogs.",
+    
+    "question_214":"Who is lactose intolerant?",
+    "hint_214":"Put some milk into their coffees to test.",
+    "bubble_214_1":"I love milk so much!",
+    "bubble_214_2":"Milk is life, milk is love!",
+    "end_214":"I think he should start drinking almond milk.",
+    
+    "question_215":"Who is late for work?",
+    "hint_215":"Tap on 3 clues to find the one. Look for messy things.",
+    "bubble_215_1":"I will be there on time.",
+    "bubble_215_2":"Am I late again?!",
+    "end_215":"He should not have pressed the snooze button.",
+    
+    "question_216":"Who is clumsy?",
+    "hint_216":"A clumsy person would not look where they are going.",
+    "bubble_216_1":"",
+    "bubble_216_2":"",
+    "end_216":"Don't blame the stone now!",
+    
+    "question_217":"Who is a mutant?",
+    "hint_217":"Those apples might be used for a test of normality.",
+    "bubble_217_1":"I feel something strange.",
+    "bubble_217_2":"I have laser eyes!",
+    "end_217":"A 3rd arm would come in handy!",
+    
+    "question_218":"Who should be her date?",
+    "hint_218":"Tap on 2 clues to find the one. Eyes and legs can be deceiving. ",
+    "bubble_218_1":"Hey, girl!",
+    "bubble_218_2":"Let's go for a picnic!",
+    "end_218":"One of them has an ankle monitor while the other has evil eyes! The guy in the middle is the best option, unless he has some secrets too... ",
+    
+    "question_219":"Who is not a real beggar?",
+    "hint_219":"One of them might be an undercover cop.",
+    "bubble_219_1":"I need money for donuts.",
+    "bubble_219_2":"Spare me a coin, will you?",
+    "end_219":"He is trying to uncover the secret beggar mafia.",
+    
+    "question_220":"Who has evil intentions?",
+    "hint_220":"Darkness would help an evil person.",
+    "bubble_220_1":"",
+    "bubble_220_2":"",
+    "end_220":"Never trust your friends during the dark.",
+    
+    "question_221":"Who is a visitor?",
+    "hint_221":"Tap on 3 clues to find the one. You can open that door.",
+    "bubble_221_1":"Home, sweet home!",
+    "bubble_221_2":"I love this house!",
+    "end_221":"One of them has a bathrobe while the other framed her own face on the wall. The guy in the middle is here for the free WIFI.",
+    
+    "question_222":"Who is indecent?",
+    "hint_222":"The indecent man must have been slapped by the woman.",
+    "bubble_222_1":"What did I do?",
+    "bubble_222_2":"Why are you mad?",
+    "end_222":"He probably deserved it! ",
+    
+    "question_223":"Who is his true love?",
+    "hint_223":"Strip him off the luxury to find the true lover.",
+    "bubble_223_1":"",
+    "bubble_223_2":"",
+    "end_223":"Why was she hiding behind the car?",
+    
+    "question_224":"Who is stingy?",
+    "hint_224":"Tap on 3 clues to find the one. Focus on the receipts.",
+    "bubble_224_1":"Hmm, what a delicious meal!",
+    "bubble_224_2":"Oh, I am so full!",
+    "end_224":"He ate so much and made his friends pay for it. What a jerk!",
+    
+    "question_225":"Who is a spoiler?",
+    "hint_225":"Try to see their mouths.",
+    "bubble_225_1":"Everybody shut up!",
+    "bubble_225_2":"Stop spoiling the movie!",
+    "end_225":"How is he going to eat his popcorn? ",
+    
+    "question_226":"Who will win the debate?",
+    "hint_226":"Tap on 2 clues to find the one. One of them is quite nervous.",
+    "bubble_226_1":"I will bring universal income!",
+    "bubble_226_2":"Vote for me!",
+    "end_226":"One of them is very nervous, while the other looks at his notes. That confident one will win this!",
+    
+    "question_227":"Who is in danger?",
+    "hint_227":"Tap on 3 clues to find the one. Some of them seem like in danger, but actually not.",
+    "bubble_227_1":"What a lovely iron.",
+    "bubble_227_2":"Let's see if the gas works.",
+    "end_227":"The iron is not plugged in while the gas cylinder is empty. That scorpion is venomous though!",
+    
+    "question_228":"Who doesn't own a smartphone?",
+    "hint_228":"Cause an incident to create something worthy of recording.",
+    "bubble_228_1":"I hate phones!",
+    "bubble_228_2":"I dislike technology.",
+    "end_228":"Stop recording and help that poor man!",
+    
+    "question_229":"Who is going to crash?",
+    "hint_229":"They are waiting for the green light.",
+    "bubble_229_1":"",
+    "bubble_229_2":"",
+    "end_229":"Check the traffic even if it is green for you.",
+    
+    "question_230":"Who is lucky?",
+    "hint_230":"You can make them roll the dice.",
+    "bubble_230_1":"I am born lucky!",
+    "bubble_230_2":"Luck is my nickname!",
+    "end_230":"Ask him to buy us some lottery tickets.",
+    
+    "question_231":"Who should be my barber?",
+    "hint_231":"Tap on 2 clues to find the one. Look for their mistakes.",
+    "bubble_231_1":"I cut like a samurai.",
+    "bubble_231_2":"My hands are steady.",
+    "end_231":"He cut his face while the other ruined his customer's hair. Let's stick with the barber in the middle.",
+    
+    "question_232":"Who is stronger?",
+    "hint_232":"You need to leave them alone to test their strengths.",
+    "bubble_232_1":"",
+    "bubble_232_2":"",
+    "end_232":"Into the mud! Better luck next time!",
+    
+    "question_233":"Who is going to fall hard?",
+    "hint_233":"Test their parachutes.",
+    "bubble_233_1":"AaaaAAaAA!",
+    "bubble_233_2":"Wooooo!!",
+    "end_233":"Well, there is nothing we can do to save him now. RIP...",
+    
+    "question_234":"Who is not a mother?",
+    "hint_234":"Tap on 2 clues to find the one. Look for things related to children.",
+    "bubble_234_1":"I miss my baby.",
+    "bubble_234_2":"Can't wait to go home to my boys.",
+    "end_234":"That is a feeder in her bag. And the other one has her family photo. The middle one must have so much free time!",
+    
+    "question_235":"Who is a bad chemist?",
+    "hint_235":"Try to mix their formulas.",
+    "bubble_235_1":"I know Avogadro's number!",
+    "bubble_235_2":"Protons are my life!",
+    "end_235":"Someone take his chemistry license before he explodes the whole laboratory.",
+    
+    "question_236":"Who is hiding?",
+    "hint_236":"Snow and a man make a snowman.",
+    "bubble_236_1":"",
+    "bubble_236_2":"",
+    "end_236":"Get out of there before you freeze and become a real snowman!",
+    
+    "question_237":"Who is a bully?",
+    "hint_237":"Tap on 3 clues to find the one. You can hurt yourself while punching others.",
+    "bubble_237_1":"I am a nerd.",
+    "bubble_237_2":"I follow all of the school rules.",
+    "end_237":"Stop playing the victim card and apologize to your friends!",
+    
+    "question_238":"Who will return from the death?",
+    "hint_238":"A number can be turned into the symbol of infinity.",
+    "bubble_238_1":"",
+    "bubble_238_2":"",
+    "end_238":"You disturbed his resting soul, now it will haunt you forever!",
+    
+    "question_239":"Solve this puzzle.",
+    "hint_239":"How can you damage your eyes?",
+    "end_239":"Take a lesson and pull the phone a bit away from you, NOW!",
+
+    "question_240":"Solve this puzzle.",
+    "hint_240":"Centaurs are half something and half something.",
+    "end_240":"Have you ever seen a centaur?",
+
+    "question_241":"Solve this puzzle.",
+    "hint_241":"Starfish can be considered as the stars in the sea.",
+    "end_241":"Do they also have shooting versions?",
+
+    "question_242":"Solve this puzzle.",
+    "hint_242":"What is the top cause of car accidents?",
+    "end_242":"Stop driving after your 7th yawn.",
+
+    "question_243":"Solve this puzzle.",
+    "hint_243":"What do you need to have a school bus?",
+    "end_243":"No need for a school bus without children.",
+
+    "question_244":"Solve this puzzle.",
+    "hint_244":"How to find and dig out a treasure?",
+    "end_244":"Are we rich now?",
+    
+    "question_245":"Solve this puzzle.",
+    "hint_245":"Mermaids are half something and half something.",
+    "end_245":"Don't get close to a mermaid, they are quite fishy.",
+    
+    "question_246":"Solve this puzzle.",
+    "hint_246":"How can you become a scientist?",
+    "end_246":"A good brain means nothing if you don't read and study.",
+    
+    "question_247":"Solve this puzzle.",
+    "hint_247":"To get a sword, you need to use a tool.",
+    "end_247":"This level is a piece of cake for Runescape players.",
+    
+    "question_248":"Solve this puzzle.",
+    "hint_248":"Pick two foods originated from France.",
+    "end_248":"You can never enjoy these truly unless you eat them in France.",
+    
+    "question_249":"Match the faces with correct heads.",
+    "hint_249":"OTOMATIK HINTLI",
+    "end_249":"He doesn't seem happy with her winking.",
+    
+    "question_250":"Match the faces with correct heads.",
+    "hint_250":"OTOMATIK HINTLI",
+    "end_250":"Those two women must have been quarreling.",
+    
+    "question_251":"Match the faces with correct heads.",
+    "hint_251":"OTOMATIK HINTLI",
+    "end_251":"Who made that poor guy cry?!",
+    
+    "question_252":"Put them in order.",
+    "hint_252":"It is someone's morning routine.",
+    "end_252":"It is good to keep technology away from your morning routine.",
+    
+    "question_253":"Put them in order.",
+    "hint_253":"The Sun's cycle in a day.",
+    "end_253":"We used to use the Sun instead of the clocks to follow time.",
+    
+    "question_254":"Put them in order.",
+    "hint_254":"It is the process of bread.",
+    "end_254":"Think about all of the labor before biting a bread.",
+    
+    "question_255":"Put them in order.",
+    "hint_255":"How does a small baby grows inside a mom's belly?",
+    "end_255":"It is a magical journey.",
+    
+    "question_256":"Put them in order.",
+    "hint_256":"It is a movie's production.",
+    "end_256":"Everything begins with an idea.",
+    
+    "question_257":"Put them in order.",
+    "hint_257":"It is the evolution of human shelters.",
+    "end_257":"Don't tell me you are still living in a cave!",
+    
+    "question_258":"Put them in order.",
+    "hint_258":"It is the evolution of heating methods.",
+    "end_258":"Still, nothing beats the coziness of a campfire.",
+    
+    "question_259":"Put them in order.",
+    "hint_259":"We have developed new ways of calculating.",
+    "end_259":"We would never have invented calculators if we had thousands of fingers.",
+    
+    "question_260":"Put them in order.",
+    "hint_260":"It is the evolution of vacuum cleaners.",
+    "end_260":"Broomsticks are still handy though. Especially if you are a witch.",
+    
+    "question_261":"Put them in order.",
+    "hint_261":"It is the life cycle of a chicken.",
+    "end_261":"Chicken or egg, which came first? ",
+    
+    "question_262":"Put them in order.",
+    "hint_262":"How do birthday cakes progress as we get older?",
+    "end_262":"You stop putting candles because you don't want any reminders of your old age.",
+    
+    "question_263":"Put them in order.",
+    "hint_263":"It is the development of airplanes.",
+    "end_263":"Helicopter is a rotorcraft, not an airplane.",
+    
+    
+
+
+
+
+    "question_999":"QQQQQQQQQQ",
+    "hint_999":"HHHHHHHHHH",
+    "bubble_999_1":"BBBBBBBBBB",
+    "bubble_999_2":"BBBBBBBBBB",
+    "end_999":"EEEEEEEEEEEEEEEE"
+}
