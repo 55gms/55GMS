@@ -7,9 +7,9 @@ window.addEventListener("load", (event) => {
         if (localStorage.getItem(`${type}-last-body`) != data[type].body) {
           localStorage.setItem(`${type}-viewed`, "false");
         }
-        // Change color to red if the message has not been viewed
+        // Highlight the message if it has not been viewed
         if (localStorage.getItem(`${type}-viewed`) != "true") {
-          document.getElementById(type).style.color = "#fc8585";
+          document.getElementById(type).style.color = "var(--site-accent)";
           document.getElementById(type).classList.add("pulse");
         }
       });

@@ -44,7 +44,7 @@
 
 .navbar a:not(:first-child):hover {
   color: var(--site-accent-text, #484c51);
-  background: var(--site-accent-hover, #e7928f);
+  background: var(--site-accent-hover, #f8cd6b);
   transform: scale(1.05);
 }
 
@@ -68,7 +68,7 @@
 
 .navbar a:first-child:hover {
   color: var(--site-accent-text, #484c51);
-  background: var(--site-accent-hover, #e7928f);
+  background: var(--site-accent-hover, #f8cd6b);
   transform: translateX(10px) scale(1.1);
 }
 

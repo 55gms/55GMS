@@ -154,7 +154,7 @@ input::placeholder {
 
 button:focus-visible,
 .switch input:focus-visible + .slider {
-  outline: 2px solid var(--site-accent, #fc8585);
+  outline: 2px solid var(--site-accent, #f5b942);
   outline-offset: 2px;
 }
 
@@ -279,8 +279,8 @@ input:focus {
 }
 
 .slider:hover {
-  border-color: color-mix(in srgb, var(--site-accent, #fc8585) 42%, var(--site-border, #353d49));
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--site-accent, #fc8585) 12%, transparent);
+  border-color: color-mix(in srgb, var(--site-accent, #f5b942) 42%, var(--site-border, #353d49));
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--site-accent, #f5b942) 12%, transparent);
 }
 
 .slider:before {
@@ -299,7 +299,7 @@ input:focus {
 }
 
 input:checked + .slider {
-  background: var(--site-accent, #fc8585);
+  background: var(--site-accent, #f5b942);
 }
 
 input:checked + .slider:before {
@@ -311,7 +311,7 @@ input:checked + .slider:hover:before {
 }
 
 input:checked + .slider:hover {
-  background: var(--site-accent-hover, #e7928f);
+  background: var(--site-accent-hover, #f8cd6b);
 }
 
 .slider.round,
@@ -380,7 +380,7 @@ input:checked + .slider:hover {
 }
 
 .settings-modal-panel:hover {
-  border-color: color-mix(in srgb, var(--site-accent, #fc8585) 36%, var(--site-border, #353d49));
+  border-color: color-mix(in srgb, var(--site-accent, #f5b942) 36%, var(--site-border, #353d49));
   box-shadow: 0 22px 60px rgba(0, 0, 0, 0.38);
   transform: translateY(-1px) scale(1.01);
 }

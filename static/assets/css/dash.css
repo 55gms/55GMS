@@ -3,7 +3,7 @@
 #btnn {
   font-family: "Roboto", serif;
   cursor: pointer;
-  background-color: var(--site-accent, #fc8585);
+  background-color: var(--site-accent, #f5b942);
   border: none;
   color: var(--site-accent-text, rgb(248, 244, 244));
   padding: 15px 20px;
@@ -26,7 +26,7 @@
 .btnn {
   font-family: "Roboto", serif;
   cursor: pointer;
-  background-color: var(--site-accent, #fc8585);
+  background-color: var(--site-accent, #f5b942);
   border: none;
   color: var(--site-accent-text, rgb(248, 244, 244));
   padding: 15px 20px;
