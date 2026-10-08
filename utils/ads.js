@@ -21,8 +21,12 @@ export function mountAds(app) {
     adServerUrl,
     apiKey,
     secret: process.env.ADS_EDGE_SECRET,
-    // Unsent stats survive restarts here; mount a volume to keep them across deploys.
-    spoolDir: process.env.ADS_SPOOL_DIR || path.join(rootDir, ".ads-spool"),
+    // Unsent stats survive restarts here. Each pm2 cluster worker keeps its
+    // own folder, because a spool holds one process's counters and instance ID.
+    spoolDir: path.join(
+      process.env.ADS_SPOOL_DIR || path.join(rootDir, ".ads-spool"),
+      `worker-${process.env.NODE_APP_INSTANCE || 0}`,
+    ),
   });
   app.use("/_ads", router);
   return router;
