@@ -54,9 +54,11 @@ In the repo:
 - `static/settings.html` is served three ways: the `/s` route, the
   extensionless fallback (`/settings`), and `express.static`
   (`/settings.html`).
-- `.github/workflows/main.yml` (Prettier) and `minify.yml` each push a bot
-  commit to `main`. Commits pushed with `GITHUB_TOKEN` do not trigger other
-  workflows, so a deploy workflow triggered on push would never see them.
+- `.github/workflows/main.yml` (Prettier) pushes a bot commit to `main`.
+  Commits pushed with `GITHUB_TOKEN` do not trigger other workflows, so a
+  deploy workflow triggered on push would never see it.
+- `.github/workflows/minify.yml` is dead: its output folder
+  `static/assets/min/` does not exist and nothing references it.
 
 ## Design
 
@@ -85,9 +87,11 @@ The payload differs from the note in one way. The note carries only `title`,
 which never executes scripts. The settings page loads `settings.js`,
 `font.js`, `easteregg.min.js` and `script.js` from its head. So:
 
-- `m`: `<title>` and `<meta>` tags, applied with `insertAdjacentHTML`.
+- `t`: the real `<title>` text, applied with `document.title` (a second
+  `<title>` element would be ignored by the browser).
+- `m`: `<meta>` tags, applied with `insertAdjacentHTML`.
 - `a`: attributes of `<body>`.
-- `h`: every `<link>` and `<script>` from the head, in source order, followed
+- `h`: every other head element (`<link>`, `<script>`), in source order, followed
   by the inner HTML of `<body>`. The loader writes `h` with `document.write`
   while the document is still loading, so scripts run in order and before the
   markup that follows them, as they do today.
@@ -133,19 +137,25 @@ thing the deploy SSH key can run. It:
    `origin/main`.
 4. Extracts `deploy/deploy.sh` from the target commit into a temp file and
    runs it. The deploy logic is versioned with the code and never rewrites
-   itself mid-run.
+   itself mid-run. For a commit older than the pipeline it uses the copy
+   installed at `/root/deploy/deploy.sh`.
 
 `deploy/deploy.sh <sha>`:
 
 1. Refuses to run if tracked files have local changes.
 2. Records the current commit as `previous`.
 3. `git checkout --detach <sha>`.
-4. `npm ci --omit=dev` if `package-lock.json` differs between the two commits.
+4. `npm install --omit=dev --no-save` if `package-lock.json` differs between
+   the two commits. Not `npm ci`: wiping `node_modules` would 404 the proxy
+   bundles served from it while the install runs.
 5. `npm run build`.
 6. Reloads only when needed: `pm2 reload ecosystem.config.cjs` unless every
    changed path is under `static/`, `src/`, `docs/`, `.github/`, `test/`,
    `tests/` or is a `*.md` file. Commits that only add games therefore do not
-   drop chat and proxy websocket connections.
+   drop chat and proxy websocket connections. Before a reload, a preflight
+   boots the new code on port 8099 and requests `/`; if that fails, no live
+   worker is touched. This stops a commit that crashes on boot from taking
+   all ten workers down during the rolling reload.
 7. Health check against `localhost:8080`, retried for up to 30 seconds: `/`
    returns 200, and `/s` returns 200 and contains the loader marker.
 8. On success, appends `timestamp sha` to `/root/deploy/releases.log`.
@@ -173,9 +183,9 @@ Every checkout is sparse (everything except `static/misc/`) with
 
 Jobs, in order:
 
-1. `tidy`: the existing Prettier and minify steps, moved here from `main.yml`
-   and `minify.yml`, each pushing its bot commit as today. `minify.yml` is
-   deleted. `main.yml` keeps only its `pull_request` trigger.
+1. `tidy`: the existing Prettier step, moved here from `main.yml` and pushing
+   its bot commit as today. `main.yml` keeps only its `pull_request` trigger.
+   `minify.yml` is deleted.
 2. `check`: checks out the tip of `main` after `tidy`, runs `npm ci`,
    `node --check` on `index.js` and every file in `routes/`, `services/`,
    `utils/`, `models/`, `config/` and `build/`, then `npm run build`, and
@@ -197,15 +207,19 @@ so it cannot open a shell.
 Done once, by hand over SSH, with the user's go-ahead for each step that
 changes production:
 
-1. Push the build, serving and deploy code. The old cron pulls it; settings
-   is served by the in-memory fallback until the first real deploy.
-2. `npm ci` on the server (for `node-html-parser`), then install
-   `/root/deploy/entry.sh` and the deploy key.
-3. Remove both cron lines. `/root/cron/` is left in place for reference.
-4. `pm2 delete 55gms`, `pm2 start ecosystem.config.cjs`, `pm2 save`. This is
+1. Install `/root/deploy/entry.sh`, the fallback `deploy.sh`, a seeded
+   `releases.log` and the deploy key on the server; add the three repository
+   secrets.
+2. Remove both cron lines. This comes before the push: the running workers
+   serve `/s` from `static/settings.html`, so a cron pull of the new commits
+   would delete that file and break the page until a reload, and the 02:00
+   reload would crash on the missing dependency. `/root/cron/` is left in
+   place for reference.
+3. Push. The workflow's own run performs the first deploy.
+4. If pm2 has not picked up `wait_ready` from the ecosystem file:
+   `pm2 delete 55gms`, `pm2 start ecosystem.config.cjs`, `pm2 save`. This is
    the one restart that is not rolling; it takes a few seconds.
-5. Add the three repository secrets and run the workflow by hand.
-6. With no git process running, delete `.git/objects/pack/tmp_pack_*`.
+5. With no git process running, delete `.git/objects/pack/tmp_pack_*`.
 
 Rollback of the cutover itself: restore the two cron lines.
 
