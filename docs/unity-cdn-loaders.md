@@ -28,7 +28,7 @@ and chunks:
 
 ```sh
 python3 scripts/prepare-unity-cdn.py
-node --test tests/unity-cdn-assets.test.js tests/unity-cdn-games.test.js
+node --test test/unity-cdn-assets.test.js test/unity-cdn-games.test.js
 ```
 
 The native tests check chunk reconstruction, every payload hash, file size

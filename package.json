@@ -5,7 +5,9 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node .",
+    "setup-db": "node scripts/setup-db.js",
+    "test": "node --test \"test/*.test.js\""
   },
   "author": "",
   "license": "ISC",
@@ -23,7 +25,6 @@
     "dompurify": "^3.4.13",
     "dotenv": "^16.4.5",
     "express": "^4.22.0",
-    "i": "^0.3.7",
     "isomorphic-dompurify": "^2.26.0",
     "jquery": "^3.7.1",
     "pg": "^8.16.3",

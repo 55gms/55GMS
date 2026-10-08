@@ -6,7 +6,7 @@
 //     [--users migration-data/users.sql] [--saves migration-data/saves.ndjson] \
 //     [--dry-run]
 //
-// Run `node setup-db.js` first so the users and user_saves tables exist.
+// Run `node scripts/setup-db.js` first so the users and user_saves tables exist.
 import "dotenv/config";
 import fs from "node:fs";
 import path from "node:path";

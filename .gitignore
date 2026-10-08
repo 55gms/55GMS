@@ -13,3 +13,7 @@ migration-data/
 
 # Local agent worktrees
 .claude/worktrees/
+
+# OS junk
+.DS_Store
+Thumbs.db

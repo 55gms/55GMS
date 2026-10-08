@@ -9,7 +9,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 node .
 
 # Initialize the database (run once before first start)
-node setup-db.js
+node scripts/setup-db.js
+
+# Run the tests (Node's built-in runner)
+npm test
 ```
 
 No build step — the project uses ES6 modules served directly by Node.js.
@@ -26,7 +29,7 @@ hcaptchaSecret=your_hcaptcha_secret
 PORT=8080
 ```
 
-A running PostgreSQL instance is required. Run `node setup-db.js` after configuring `POSTGRES_URL` to create schema.
+A running PostgreSQL instance is required. Run `node scripts/setup-db.js` after configuring `POSTGRES_URL` to create schema.
 
 ## Architecture
 
@@ -108,4 +111,4 @@ Primary deployments target **Render** (`render.yaml`) and **Vercel** (`vercel.js
 
 ## CI
 
-GitHub Actions runs **Prettier** for formatting on every push/PR (`.github/workflows/main.yml`). There are no automated tests.
+GitHub Actions runs **Prettier** for formatting on every push/PR (`.github/workflows/main.yml`). Tests live in `test/` and run locally with `npm test`; CI does not run them.
