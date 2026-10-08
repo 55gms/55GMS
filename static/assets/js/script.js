@@ -144,7 +144,12 @@ function whenDomReady(callback) {
     });
   }
 
-  if (ads.partner) {
+  // The partner script runs only on the game pages (/misc/play/). The game
+  // inside them (/misc/<game>/) and the proxy pages (/b, /embed) load this
+  // file too but don't get it.
+  const onGamePage = window.location.pathname.startsWith("/misc/play/");
+
+  if (ads.partner && onGamePage) {
     whenDomReady(() => {
       const partnerScript = document.createElement("script");
       partnerScript.src =
