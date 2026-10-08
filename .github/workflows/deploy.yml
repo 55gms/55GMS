@@ -1,0 +1,119 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      action:
+        description: Deploy the tip of main, or go back to the previous deploy
+        type: choice
+        options: [deploy, rollback]
+        default: deploy
+
+# One deploy at a time; GitHub keeps only the newest waiting run.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  tidy:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout without the games
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/static/misc/
+
+      - name: Prettify code
+        uses: creyD/prettier_action@v4.3
+        with:
+          prettier_options: --write **/*.{js,md}
+          only_changed: True
+
+  check:
+    needs: tidy
+    # Formatting is cosmetic: a failed tidy job does not block the deploy.
+    if: ${{ !cancelled() && inputs.action != 'rollback' }}
+    runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.sha.outputs.sha }}
+    steps:
+      # The tip of main, so a Prettier commit from the tidy job is included.
+      - name: Checkout without the games
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/static/misc/
+
+      - id: sha
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Syntax check server code and deploy scripts
+        run: |
+          for f in index.js setup-db.js $(git ls-files routes services utils models config | grep '\.js$'); do
+            node --check "$f"
+          done
+          bash -n deploy/entry.sh
+          bash -n deploy/deploy.sh
+
+      - name: Build
+        run: npm run build --if-present
+
+  deploy:
+    needs: check
+    if: ${{ !cancelled() && needs.check.result == 'success' && github.repository_owner == '55gms' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy ${{ needs.check.outputs.sha }}
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+          REQUEST: deploy ${{ needs.check.outputs.sha }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
+            "root@$DEPLOY_HOST" "$REQUEST"
+
+  rollback:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.action == 'rollback' && github.repository_owner == '55gms' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Roll back to the previous deploy
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
+            "root@$DEPLOY_HOST" rollback
