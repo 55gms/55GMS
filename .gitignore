@@ -13,3 +13,6 @@ migration-data/
 
 # Local agent worktrees
 .claude/worktrees/
+
+# Build output (npm run build)
+dist/
