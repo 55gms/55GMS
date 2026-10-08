@@ -137,7 +137,9 @@ window.GameLoader = (() => {
 
   // Counts the bytes of files the game downloads itself. Paths are matched
   // when a request is made, as the page's <base> may not be parsed yet.
-  function watch(paths) {
+  // `onError` hears about a counted file the server refused or never sent.
+  // Returns the test for whether a URL is one of the counted files.
+  function watch(paths, onError) {
     const key = (input) => {
       try {
         const url = new URL(input?.url ?? input, document.baseURI);
@@ -151,11 +153,21 @@ window.GameLoader = (() => {
       loaded += bytes;
       render();
     };
+    const refused = (input, status) =>
+      onError?.(new Error(`Failed to load ${key(input)}: ${status}`));
 
     const fetch = window.fetch;
     if (fetch)
       window.fetch = async function (input, options) {
-        const response = await fetch.call(this, input, options);
+        let response;
+        try {
+          response = await fetch.call(this, input, options);
+        } catch (error) {
+          if (watched(input) && error?.name !== "AbortError") onError?.(error);
+          throw error;
+        }
+        if (watched(input) && response.status >= 400)
+          refused(input, response.status);
         const method = options?.method ?? input?.method ?? "GET";
         if (
           !watched(input) ||
@@ -191,9 +203,14 @@ window.GameLoader = (() => {
           count(event.loaded - received);
           received = event.loaded;
         });
+        this.addEventListener("error", () => refused(url, "network error"));
+        this.addEventListener("load", () => {
+          if (this.status >= 400) refused(url, this.status);
+        });
       }
       return open.call(this, method, url, ...rest);
     };
+    return watched;
   }
 
   // Loading screen for other engines that download their own files. `paths`
@@ -215,7 +232,10 @@ window.GameLoader = (() => {
   function unity(files, { preloads = false } = {}) {
     let started = false;
     let finished = false;
-    watch(files.map(([path]) => path));
+    const watched = watch(
+      files.map(([path]) => path),
+      failure,
+    );
     expect(files.reduce((sum, [, size]) => sum + size, 0));
 
     function start() {
@@ -292,6 +312,17 @@ window.GameLoader = (() => {
         if (event.target.tagName === "SCRIPT" && window.createUnityInstance) {
           window.createUnityInstance = wrapFactory(window.createUnityInstance);
         }
+      },
+      true,
+    );
+    // The engine's own scripts load through <script> tags, which only report
+    // a refused file as an error event on the tag.
+    document.addEventListener(
+      "error",
+      (event) => {
+        const script = event.target;
+        if (script?.tagName === "SCRIPT" && watched(script.src))
+          failure(new Error(`Failed to load ${script.src}`));
       },
       true,
     );

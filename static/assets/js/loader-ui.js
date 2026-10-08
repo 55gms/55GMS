@@ -4,7 +4,7 @@
 window.LoaderUI = (() => {
   // .js/.css/images are cached for a day. After changing any loader asset run
   // `node scripts/bump-loader-version.js` to refresh this and every ?v= tag.
-  const VERSION = "63f0cr4hc0";
+  const VERSION = "v6uetwu86c";
   const asset = (path) => new URL(`${path}?v=${VERSION}`, location.origin).href;
   const CATALOG = "/assets/json/load/g.json";
   const MB = 1048576;
