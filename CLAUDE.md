@@ -12,7 +12,7 @@ node .
 node setup-db.js
 ```
 
-No build step — the project uses ES6 modules served directly by Node.js.
+No build step yet — the project uses ES6 modules served directly by Node.js. Deploys run `npm run build --if-present`; a build that writes `dist/current/static` is served instead of `static/` (see `docs/deploy.md`).
 
 ## Environment Setup
 
@@ -49,6 +49,8 @@ A running PostgreSQL instance is required. Run `node setup-db.js` after configur
 | `utils/blockingCache.js` | In-memory blocked-user cache                                                                      |
 | `utils/ads.js`           | Mounts 55GMS Ads at `/_ads` when `ADS_SERVER_URL` and `ADS_API_KEY` are set                       |
 | `utils/ads-edge/`        | Vendored edge module from the gms-ads repo; do not edit here                                      |
+| `deploy/`                | Server-side deploy scripts run by the GitHub Actions deploy key (`docs/deploy.md`)                |
+| `ecosystem.config.cjs`   | pm2 settings for production (cluster, 10 workers, `STATIC_ROOT`)                                  |
 
 ### Authentication flow
 
@@ -104,8 +106,10 @@ See `docs/proxy-stack.md` for versions, caching, the neutral-naming rules, and u
 
 ## Deployment
 
-Primary deployments target **Render** (`render.yaml`) and **Vercel** (`vercel.json`). The start command for both is `node .`.
+Production is a single server (SSH host `55gms`, `/root/55gms`) running pm2 behind Caddy. A push to `main` is deployed by the `Deploy` GitHub Actions workflow, which SSHes in with a key limited to `/root/deploy/entry.sh`; that runs the commit's `deploy/deploy.sh` (checkout, install, build, preflight boot, rolling reload, health check, restore on failure). Rollback is the workflow's manual `rollback` run. Do not edit files on the server by hand: the deploy refuses to run over local changes. See `docs/deploy.md`.
+
+`render.yaml` and `vercel.json` remain for forks; their start command is `node .`.
 
 ## CI
 
-GitHub Actions runs **Prettier** for formatting on every push/PR (`.github/workflows/main.yml`). There are no automated tests.
+`.github/workflows/deploy.yml` runs on every push to `main`: Prettier (auto-commits), syntax checks, the build, then the deploy. `.github/workflows/main.yml` runs Prettier on pull requests. There are no automated tests in CI.
