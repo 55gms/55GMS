@@ -397,7 +397,8 @@
   background: var(--p-success);
 }
 
-.profile-sync[data-state="unsynced"] .profile-sync-dot {
+.profile-sync[data-state="unsynced"] .profile-sync-dot,
+.profile-sync[data-state="ahead"] .profile-sync-dot {
   background: var(--p-warning);
 }
 

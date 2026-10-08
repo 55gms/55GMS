@@ -14,7 +14,7 @@
     />
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=7" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
-    <link rel="stylesheet" href="/assets/css/profile.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/profile.css?v=5" />
     <title>Google</title>
     <meta name="author" content="Rednotsus" />
     <meta http-equiv="Cache-control" content="public" />
@@ -370,6 +370,7 @@
           checking: "Checking…",
           synced: "In sync",
           unsynced: "Out of sync",
+          ahead: "Not uploaded yet",
           empty: "No cloud save",
           error: "Couldn't check",
         };
@@ -382,12 +383,15 @@
           syncStatusText.textContent = SYNC_LABELS[state];
         }
 
-        // Must match hashSave() in routes/users.js.
-        async function hashLocalSave() {
-          const entries = Object.keys(localStorage)
+        function localSaveKeys() {
+          return Object.keys(localStorage)
             .filter((key) => !SYNC_IGNORED_KEYS.includes(key))
-            .sort()
-            .map((key) => [key, localStorage.getItem(key)]);
+            .sort();
+        }
+
+        // Must match fingerprintSave() in routes/users.js.
+        async function hashLocalSave(keys) {
+          const entries = keys.map((key) => [key, localStorage.getItem(key)]);
           const digest = await crypto.subtle.digest(
             "SHA-256",
             new TextEncoder().encode(JSON.stringify(entries)),
@@ -409,13 +413,17 @@
               if (!response.ok) throw new Error(`Error: ${response.status}`);
               return response.json();
             }),
-            hashLocalSave(),
+            hashLocalSave(localSaveKeys()),
           ])
-            .then(([cloud, localHash]) => {
-              if (id !== syncCheckId) return;
-              if (!cloud.exists) setSyncState("empty");
-              else
-                setSyncState(cloud.hash === localHash ? "synced" : "unsynced");
+            .then(async ([cloud, localHash]) => {
+              let state = "unsynced";
+              if (!cloud.exists) state = "empty";
+              else if (cloud.hash === localHash) state = "synced";
+              // Restore only adds and overwrites keys, so everything in the
+              // cloud can match while this browser holds keys it lacks.
+              else if ((await hashLocalSave(cloud.keys)) === cloud.hash)
+                state = "ahead";
+              if (id === syncCheckId) setSyncState(state);
             })
             .catch((error) => {
               console.error("Error:", error);
