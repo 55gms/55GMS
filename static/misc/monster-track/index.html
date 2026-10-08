@@ -20,17 +20,6 @@
   <meta name="description" content="" />
   <meta name="google" content="notranslate" />
   <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/monster-track/">
-  <script src="/assets/js/loader-ui.js?v=63f0cr4hc0"></script>
-  <script src="/assets/js/game-loader.js?v=63f0cr4hc0" data-title="Monster Tracks"></script>
-  <script>
-    GameLoader.track(
-      [
-        "webapp/index.wasm",
-        "webapp/index.data",
-      ],
-      2450219,
-    );
-  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <link rel="stylesheet" href="webapp/fancade.css" />
   <link rel="icon" href="" />
@@ -65,16 +54,6 @@
     <div id="webview_content"></div>
   </div>
   <script type="text/javascript" src="webapp/source_min.js" crossorigin="anonymous"></script>
-  <script>
-    // 55GMS loading screen: lifted when the game hides its own.
-    {
-      const hide = window.hideOverlay;
-      window.hideOverlay = function () {
-        hide.apply(this, arguments);
-        GameLoader.finish();
-      };
-    }
-  </script>
   <script type="text/javascript" src="webapp/index.js" crossorigin="anonymous"></script>
 </body>
 

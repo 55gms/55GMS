@@ -3,22 +3,6 @@
  <head>
   <meta charset="utf-8">
 <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/hexellent/">
-<script src="/assets/js/loader-ui.js?v=63f0cr4hc0"></script>
-<script src="/assets/js/game-loader.js?v=63f0cr4hc0" data-title="Hexellent"></script>
-<script>
-  GameLoader.track(
-    [
-      "Hexellent.wasm",
-      "archive/game0.arcd",
-      "archive/game0.arci",
-      "archive/game0.dmanifest",
-      "archive/game0.projectc",
-      "archive/game0.public.der",
-      "archive/game1.arcd",
-    ],
-    6636232,
-  );
-</script>
 <script>
   // Images load from the CDN, so they need CORS before the game can use them in WebGL or read their pixels.
   (() => {
@@ -219,15 +203,6 @@
 			runningFromFileWarning.style.display = "block";
 		}
 		else {
-			// 55GMS loading screen: lifted when the engine starts the game.
-			{
-				const view = window.ProgressView || Progress;
-				const removeProgress = view.removeProgress;
-				view.removeProgress = function () {
-					removeProgress.apply(this, arguments);
-					GameLoader.finish();
-				};
-			}
 			EngineLoader.load("canvas", "Hexellent");
 			runningFromFileWarning.parentNode.removeChild(runningFromFileWarning);
 		}

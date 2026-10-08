@@ -3,17 +3,6 @@
   <head>
     <meta charset="utf-8">
 <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/snake-pivot/">
-<script src="/assets/js/loader-ui.js?v=63f0cr4hc0"></script>
-<script src="/assets/js/game-loader.js?v=63f0cr4hc0" data-title="Snake Pivot"></script>
-<script>
-  GameLoader.track(
-    [
-      "webapp/index.wasm",
-      "webapp/index.data",
-    ],
-    2881536,
-  );
-</script>
 <script>
   // The game's files come from the CDN, another origin than this page.
   (() => {
@@ -88,16 +77,6 @@
       <div id="webview_content"></div>
     </div>
     <script type="text/javascript" src="webapp/source_min.js" crossorigin="anonymous"></script>
-    <script>
-      // 55GMS loading screen: lifted when the game hides its own.
-      {
-        const hide = window.hideOverlay;
-        window.hideOverlay = function () {
-          hide.apply(this, arguments);
-          GameLoader.finish();
-        };
-      }
-    </script>
     <script type="text/javascript" src="webapp/index.js" crossorigin="anonymous"></script>
 </body>
 </html>

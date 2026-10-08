@@ -9,24 +9,6 @@
     "0dbaa831198375b1e4861b7868f73a4580740180.zip": ["0dbaa831198375b1e4861b7868f73a4580740180.zip.part1","0dbaa831198375b1e4861b7868f73a4580740180.zip.part2","0dbaa831198375b1e4861b7868f73a4580740180.zip.part3"],
   });
 </script>
-<script src="/assets/js/loader-ui.js?v=63f0cr4hc0"></script>
-<script src="/assets/js/game-loader.js?v=63f0cr4hc0" data-title="Mad Skills Motocross 2"></script>
-<script>
-  GameLoader.track(
-    [
-      "MSM2.wasm",
-      "archive/game0.arcd",
-      "archive/game0.arci",
-      "archive/game0.dmanifest",
-      "archive/game0.projectc",
-      "archive/game0.public.der",
-      "archive/game1.arcd",
-      "archive/game2.arcd",
-      "archive/game3.arcd",
-    ],
-    10650257,
-  );
-</script>
 <script>
   // The game's files come from the CDN, another origin than this page.
   (() => {
@@ -483,15 +465,6 @@
 			runningFromFileWarning.style.display = "block";
 		}
 		else {
-			// 55GMS loading screen: lifted when the engine starts the game.
-			{
-				const view = window.ProgressView || Progress;
-				const removeProgress = view.removeProgress;
-				view.removeProgress = function () {
-					removeProgress.apply(this, arguments);
-					GameLoader.finish();
-				};
-			}
 			EngineLoader.load("canvas", "MSM2");
 			runningFromFileWarning.parentNode.removeChild(runningFromFileWarning);
 		}

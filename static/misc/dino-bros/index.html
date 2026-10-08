@@ -1,16 +1,5 @@
 <!DOCTYPE html><html lang="en-us"><head><meta charset="utf-8">
 <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/dino-bros/">
-<script src="/assets/js/loader-ui.js?v=63f0cr4hc0"></script>
-<script src="/assets/js/game-loader.js?v=63f0cr4hc0" data-title="Dino Bros"></script>
-<script>
-  GameLoader.track(
-    [
-      "webapp/index.wasm",
-      "webapp/index.data",
-    ],
-    3001846,
-  );
-</script>
 <script>
   // Images load from the CDN, so they need CORS before the game can use them in WebGL or read their pixels.
   (() => {
@@ -24,15 +13,4 @@
     });
   })();
 </script>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Dino Bros</title><meta name="description" content=""><meta name="google" content="notranslate"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><link rel="stylesheet" href="webapp/fancade.css"><script src="poki-sdk.js"></script></head><body id="body"><div id="modal_parent"><div id="modal_content"><span id="modal_close_button">&times;</span><div id="store_link_modal_content" class="modal_inner"></div><div id="share_file_modal_content" class="modal_inner"></div></div></div><div id="canvas_border" class="emscripten_border"><div id="play_content" class="middle center"><div class="edge"><div class="box"><div class="black"><img src="webapp/cover.jpg" class="cover"><p class="title">Dino Bros</p><p class="author">Fancade</p></div></div></div><div id="progress_or_play"><progress id="progress" class="loading" value="0" max="100"></progress></div><p class="description"></p></div><canvas class="emscripten" id="canvas" tabindex="-1"></canvas><div id="gradient"></div><div id="webview_content"></div></div><script type="text/javascript" src="webapp/source_min.js" crossorigin="anonymous"></script>
-<script>
-  // 55GMS loading screen: lifted when the game hides its own.
-  {
-    const hide = window.hideOverlay;
-    window.hideOverlay = function () {
-      hide.apply(this, arguments);
-      GameLoader.finish();
-    };
-  }
-</script>
-<script type="text/javascript" src="webapp/index.js" crossorigin="anonymous"></script></body></html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Dino Bros</title><meta name="description" content=""><meta name="google" content="notranslate"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><link rel="stylesheet" href="webapp/fancade.css"><script src="poki-sdk.js"></script></head><body id="body"><div id="modal_parent"><div id="modal_content"><span id="modal_close_button">&times;</span><div id="store_link_modal_content" class="modal_inner"></div><div id="share_file_modal_content" class="modal_inner"></div></div></div><div id="canvas_border" class="emscripten_border"><div id="play_content" class="middle center"><div class="edge"><div class="box"><div class="black"><img src="webapp/cover.jpg" class="cover"><p class="title">Dino Bros</p><p class="author">Fancade</p></div></div></div><div id="progress_or_play"><progress id="progress" class="loading" value="0" max="100"></progress></div><p class="description"></p></div><canvas class="emscripten" id="canvas" tabindex="-1"></canvas><div id="gradient"></div><div id="webview_content"></div></div><script type="text/javascript" src="webapp/source_min.js" crossorigin="anonymous"></script><script type="text/javascript" src="webapp/index.js" crossorigin="anonymous"></script></body></html>

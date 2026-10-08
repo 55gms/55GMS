@@ -3,22 +3,6 @@
  <head>
   <meta charset="utf-8">
 <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/knife-merge/">
-<script src="/assets/js/loader-ui.js?v=63f0cr4hc0"></script>
-<script src="/assets/js/game-loader.js?v=63f0cr4hc0" data-title="Knife Merge"></script>
-<script>
-  GameLoader.track(
-    [
-      "Knifemerge.wasm",
-      "archive/game0.arcd",
-      "archive/game0.arci",
-      "archive/game0.dmanifest",
-      "archive/game0.projectc",
-      "archive/game1.arcd",
-      "archive/game2.arcd",
-    ],
-    7499724,
-  );
-</script>
 <script>
   // Images load from the CDN, so they need CORS before the game can use them in WebGL or read their pixels.
   (() => {
@@ -498,15 +482,6 @@
 	CUSTOM_PARAMETERS.resize_window_callback = resize_game_canvas;
 	</script>
   <script id="engine-start" type="text/javascript">
-		// 55GMS loading screen: lifted when the engine starts the game.
-		{
-			const view = window.ProgressView || Progress;
-			const removeProgress = view.removeProgress;
-			view.removeProgress = function () {
-				removeProgress.apply(this, arguments);
-				GameLoader.finish();
-			};
-		}
 		EngineLoader.load("canvas", "Knifemerge");
 	</script>
   <div class="outer"></div>
