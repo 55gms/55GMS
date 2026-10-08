@@ -33,29 +33,31 @@ Failure modes the spec implies that are most likely to bite, each pinned to a ma
 
 ## File Structure
 
-| Path | Responsibility |
-| --- | --- |
-| `src/pages/settings.html` | Clean settings page source (moved from `static/settings.html`) |
-| `src/decoy.html` | Shell every built page uses; what a non-JS reader sees |
-| `build/obfuscate.js` | `buildPage(name)` returns built HTML; run as a CLI it writes `dist/` |
-| `utils/builtPages.js` | `getBuiltPage(name)` (dist or in-memory) and `mountBuiltPages(app)` |
-| `index.js` | Mounts built pages; tells pm2 when it is ready |
-| `ecosystem.config.cjs` | pm2 settings for the `55gms` app |
-| `deploy/entry.sh` | The only command the deploy key can run; validates and dispatches |
-| `deploy/deploy.sh` | Checkout, install, build, preflight, reload, health check, restore |
-| `.github/workflows/deploy.yml` | Prettier, checks, deploy, rollback |
-| `docs/deploy.md` | Runbook |
+| Path                           | Responsibility                                                       |
+| ------------------------------ | -------------------------------------------------------------------- |
+| `src/pages/settings.html`      | Clean settings page source (moved from `static/settings.html`)       |
+| `src/decoy.html`               | Shell every built page uses; what a non-JS reader sees               |
+| `build/obfuscate.js`           | `buildPage(name)` returns built HTML; run as a CLI it writes `dist/` |
+| `utils/builtPages.js`          | `getBuiltPage(name)` (dist or in-memory) and `mountBuiltPages(app)`  |
+| `index.js`                     | Mounts built pages; tells pm2 when it is ready                       |
+| `ecosystem.config.cjs`         | pm2 settings for the `55gms` app                                     |
+| `deploy/entry.sh`              | The only command the deploy key can run; validates and dispatches    |
+| `deploy/deploy.sh`             | Checkout, install, build, preflight, reload, health check, restore   |
+| `.github/workflows/deploy.yml` | Prettier, checks, deploy, rollback                                   |
+| `docs/deploy.md`               | Runbook                                                              |
 
 ---
 
 ### Task 1: Build script and source layout
 
 **Files:**
+
 - Move: `static/settings.html` → `src/pages/settings.html`
 - Create: `src/decoy.html`, `build/obfuscate.js`
 - Modify: `package.json`, `package-lock.json`, `.gitignore`
 
 **Interfaces:**
+
 - Produces, from `build/obfuscate.js`:
   - `buildPage(name: string): string` — `name` is a file name in `src/pages/`, e.g. `"settings.html"`. Throws if the source or decoy is missing or the decoy has no `<body>` tag.
   - `buildAll(): string[]` — writes every page to `dist/`, returns the names built.
@@ -97,49 +99,53 @@ Create `src/decoy.html`. The literal `<body>` tag (no attributes) must stay as w
 ```html
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Social Structures and Institutions | Introduction to Sociology
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Study notes on social structure, institutions and the sociological imagination."
+    />
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <title>Social Structures and Institutions | Introduction to Sociology</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="Study notes on social structure, institutions and the sociological imagination." />
-</head>
-
-<body>
-  <noscript>
-    <main>
-      <h1>Social Structures and Institutions</h1>
-      <p>
-        Sociology studies how people live together: the groups they form, the
-        rules they follow and the institutions that outlast any one person.
-        A social structure is a stable pattern of relationships, such as a
-        family, a school or a workplace, that shapes what its members can do.
-      </p>
-      <h2>The sociological imagination</h2>
-      <p>
-        C. Wright Mills used this phrase for the habit of connecting personal
-        experience to wider social forces. Losing a job feels private, but
-        when thousands lose jobs at once the cause lies in the economy, not
-        in any one worker.
-      </p>
-      <h2>Institutions</h2>
-      <p>
-        Institutions are established ways of meeting a society's needs. The
-        five usually studied first are family, education, religion, the
-        economy and government. Each has roles, norms and sanctions that
-        guide behaviour.
-      </p>
-      <h2>Review questions</h2>
-      <ol>
-        <li>Give one example of a role and one example of a norm in a school.</li>
-        <li>How does a social structure differ from a social institution?</li>
-        <li>Describe a personal trouble that is also a public issue.</li>
-      </ol>
-    </main>
-  </noscript>
-</body>
-
+  <body>
+    <noscript>
+      <main>
+        <h1>Social Structures and Institutions</h1>
+        <p>
+          Sociology studies how people live together: the groups they form, the
+          rules they follow and the institutions that outlast any one person. A
+          social structure is a stable pattern of relationships, such as a
+          family, a school or a workplace, that shapes what its members can do.
+        </p>
+        <h2>The sociological imagination</h2>
+        <p>
+          C. Wright Mills used this phrase for the habit of connecting personal
+          experience to wider social forces. Losing a job feels private, but
+          when thousands lose jobs at once the cause lies in the economy, not in
+          any one worker.
+        </p>
+        <h2>Institutions</h2>
+        <p>
+          Institutions are established ways of meeting a society's needs. The
+          five usually studied first are family, education, religion, the
+          economy and government. Each has roles, norms and sanctions that guide
+          behaviour.
+        </p>
+        <h2>Review questions</h2>
+        <ol>
+          <li>
+            Give one example of a role and one example of a norm in a school.
+          </li>
+          <li>How does a social structure differ from a social institution?</li>
+          <li>Describe a personal trouble that is also a public issue.</li>
+        </ol>
+      </main>
+    </noscript>
+  </body>
 </html>
 ```
 
@@ -307,10 +313,12 @@ git commit -m "feat: add build step that obfuscates the settings page"
 ### Task 2: Serve the built settings page
 
 **Files:**
+
 - Create: `utils/builtPages.js`
 - Modify: `index.js:15` (import), `index.js:359` (mount before static), `index.js:376` (remove `/s` route)
 
 **Interfaces:**
+
 - Consumes: `buildPage`, `PAGES_DIR`, `DECOY_PATH`, `DIST_DIR`, `BUILD_SCRIPT` from `build/obfuscate.js`.
 - Produces: `getBuiltPage(name: string): string` and `mountBuiltPages(app): void` from `utils/builtPages.js`.
 
@@ -387,7 +395,7 @@ import { mountBuiltPages } from "./utils/builtPages.js";
 Immediately before `app.use(express.static(path.join(__dirname, "static"), staticOptions));` add:
 
 ```javascript
-  mountBuiltPages(app);
+mountBuiltPages(app);
 ```
 
 Delete this line from the `routes` array:
@@ -447,10 +455,12 @@ git commit -m "feat: serve the built settings page with an in-memory fallback"
 ### Task 3: pm2 ecosystem file and ready signal
 
 **Files:**
+
 - Create: `ecosystem.config.cjs`
 - Modify: `index.js` (the `server.on("listening", ...)` handler near line 423)
 
 **Interfaces:**
+
 - Produces: `ecosystem.config.cjs` at the repo root, app name `55gms`; `deploy.sh` runs `pm2 reload ecosystem.config.cjs --update-env`.
 
 - [ ] **Step 1: Write `ecosystem.config.cjs`**
@@ -481,13 +491,13 @@ module.exports = {
 In `index.js`, change the listening handler to:
 
 ```javascript
-  server.on("listening", () => {
-    console.log(`\n------------------------------------`);
-    console.log(`🔗 URL: http://localhost:${process.env.PORT}`);
-    console.log(`------------------------------------\n`);
-    // Tells pm2 (wait_ready) this worker can take traffic. No-op otherwise.
-    process.send?.("ready");
-  });
+server.on("listening", () => {
+  console.log(`\n------------------------------------`);
+  console.log(`🔗 URL: http://localhost:${process.env.PORT}`);
+  console.log(`------------------------------------\n`);
+  // Tells pm2 (wait_ready) this worker can take traffic. No-op otherwise.
+  process.send?.("ready");
+});
 ```
 
 - [ ] **Step 3: Verify**
@@ -509,9 +519,11 @@ git commit -m "feat: add pm2 ecosystem file and ready signal for rolling reloads
 ### Task 4: Server deploy scripts
 
 **Files:**
+
 - Create: `deploy/entry.sh`, `deploy/deploy.sh` (both mode 755)
 
 **Interfaces:**
+
 - Consumes: `npm run build`, `ecosystem.config.cjs`, the loader marker `data-edu="1"`, `GET /` returning 200.
 - Produces:
   - `entry.sh` reads `SSH_ORIGINAL_COMMAND`: `deploy <40-hex-sha>`, `rollback`, or `status` (default). Exit 0 on success, non-zero on failure.
@@ -793,11 +805,13 @@ git commit -m "feat: add server deploy scripts with preflight, health check and 
 ### Task 5: GitHub Actions workflow
 
 **Files:**
+
 - Create: `.github/workflows/deploy.yml`
 - Modify: `.github/workflows/main.yml`
 - Delete: `.github/workflows/minify.yml`
 
 **Interfaces:**
+
 - Consumes: repository secrets `DEPLOY_SSH_KEY`, `DEPLOY_HOST`, `DEPLOY_KNOWN_HOSTS` (created in Task 7); `entry.sh` requests `deploy <sha>` and `rollback`.
 - Produces: workflow `Deploy`, runnable from the Actions tab with input `action` = `deploy` or `rollback`.
 
@@ -977,6 +991,7 @@ git commit -m "ci: add deploy workflow and retire the unused minify action"
 ### Task 6: Documentation
 
 **Files:**
+
 - Create: `docs/deploy.md`
 - Modify: `CLAUDE.md` (Commands, Backend layout, Frontend, Deployment, CI sections)
 
@@ -1086,10 +1101,10 @@ Server code is ES6 modules run directly by Node.js. The only build step is `npm 
 Add these rows to the Backend layout table, after the `utils/blockingCache.js` row:
 
 ```markdown
-| `utils/builtPages.js`    | Serves built pages (`/s`) from `dist/`, or builds them in memory when `dist/` is stale            |
-| `build/obfuscate.js`     | Build step: `src/pages/*.html` + `src/decoy.html` → `dist/`                                       |
-| `deploy/`                | Server-side deploy scripts run by the GitHub Actions deploy key                                   |
-| `ecosystem.config.cjs`   | pm2 settings for production                                                                       |
+| `utils/builtPages.js` | Serves built pages (`/s`) from `dist/`, or builds them in memory when `dist/` is stale |
+| `build/obfuscate.js` | Build step: `src/pages/*.html` + `src/decoy.html` → `dist/` |
+| `deploy/` | Server-side deploy scripts run by the GitHub Actions deploy key |
+| `ecosystem.config.cjs` | pm2 settings for production |
 ```
 
 In the Frontend section, change the first bullet and add one after it:
@@ -1127,6 +1142,7 @@ git commit -m "docs: document the deploy pipeline and build step"
 Manual, in order. Steps marked **(prod)** change the production server or the public repo: state what the step will do and wait for the user's go-ahead before each one. Stop and report if any expected result does not match.
 
 **Interfaces:**
+
 - Consumes: everything from Tasks 1 to 6, committed on local `main` and not yet pushed.
 
 - [ ] **Step 1: Create the deploy key and host key file (local, no prod change)**
