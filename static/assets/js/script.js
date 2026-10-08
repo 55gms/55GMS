@@ -144,7 +144,33 @@ function whenDomReady(callback) {
     });
   }
 
-  if (ads.partner) {
+  // The partner script runs only on the main pages (home, games, apps, media,
+  // settings, profile) and the game pages (/misc/play/). The game inside them
+  // (/misc/<game>/), the proxy pages (/b, /embed) and the rest of the site
+  // load this file too but don't get it.
+  const partnerPages = [
+    "/",
+    "/index",
+    "/g",
+    "/games",
+    "/a",
+    "/apps",
+    "/-",
+    "/m",
+    "/media",
+    "/s",
+    "/settings",
+    "/profile",
+    "/account",
+  ];
+  const pagePath =
+    window.location.pathname.replace(/\.html$/, "").replace(/(.)\/+$/, "$1") ||
+    "/";
+  const onPartnerPage =
+    partnerPages.includes(pagePath) ||
+    window.location.pathname.startsWith("/misc/play/");
+
+  if (ads.partner && onPartnerPage) {
     whenDomReady(() => {
       const partnerScript = document.createElement("script");
       partnerScript.src =
