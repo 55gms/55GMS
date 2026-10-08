@@ -3,6 +3,22 @@
  <head> 
   <meta charset="utf-8">
 <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/boxrob/">
+<script src="/assets/js/loader-ui.js?v=63f0cr4hc0"></script>
+<script src="/assets/js/game-loader.js?v=63f0cr4hc0" data-title="BoxRob"></script>
+<script>
+  GameLoader.track(
+    [
+      "boxrob.wasm",
+      "archive/game.arcd0",
+      "archive/game.arcd1",
+      "archive/game.arci0",
+      "archive/game.dmanifest0",
+      "archive/game.projectc0",
+      "archive/game.public.der0",
+    ],
+    5633763,
+  );
+</script>
 <script>
   // Images load from the CDN, so they need CORS before the game can use them in WebGL or read their pixels.
   (() => {
@@ -316,6 +332,15 @@ font-family: Verdana,serif"></div>
 			// Remove any background/splash image that was set in runApp().
 			// Workaround for Safari bug DEF-3061.
 			Module.canvas.style.background = "";
+		}
+		// 55GMS loading screen: lifted when the engine starts the game.
+		{
+			const view = window.ProgressView || Progress;
+			const removeProgress = view.removeProgress;
+			view.removeProgress = function () {
+				removeProgress.apply(this, arguments);
+				GameLoader.finish();
+			};
 		}
 		EngineLoader.load("canvas", "boxrob");
 	</script>   

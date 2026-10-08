@@ -3,6 +3,22 @@
 <head>
     <meta charset="utf-8">
 <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/day-of-meat-radiation/">
+<script src="/assets/js/loader-ui.js?v=63f0cr4hc0"></script>
+<script src="/assets/js/game-loader.js?v=63f0cr4hc0" data-title="Day Of Meat: Radiation"></script>
+<script>
+  GameLoader.track(
+    [
+      "daymeat.wasm",
+      "archive/game.arcd0",
+      "archive/game.arcd1",
+      "archive/game.arci0",
+      "archive/game.dmanifest0",
+      "archive/game.projectc0",
+      "archive/game.public.der0",
+    ],
+    6201171,
+  );
+</script>
 <script>
   // The game's files come from the CDN, another origin than this page.
   (() => {
@@ -275,6 +291,15 @@
 </script>
 <script id="engine-start" type="text/javascript">
     EngineLoader.stream_wasm = false;
+    // 55GMS loading screen: lifted when the engine starts the game.
+    {
+        const view = window.ProgressView || Progress;
+        const removeProgress = view.removeProgress;
+        view.removeProgress = function () {
+            removeProgress.apply(this, arguments);
+            GameLoader.finish();
+        };
+    }
     EngineLoader.load("canvas", "daymeat");
 </script>
 <script id="poki-sdk-setup" type="text/javascript">
