@@ -12,7 +12,6 @@ const UserStatus = sequelize.define(
     userUuid: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
     isOnline: {
       type: DataTypes.BOOLEAN,
@@ -31,7 +30,11 @@ const UserStatus = sequelize.define(
     tableName: "user_status",
     timestamps: true,
     indexes: [
+      // Named, so sync({ alter: true }) reuses it. A column-level
+      // `unique: true` adds another unnamed constraint on every alter.
       {
+        name: "user_status_userUuid_key",
+        unique: true,
         fields: ["userUuid"],
       },
       {
