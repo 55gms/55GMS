@@ -64,25 +64,56 @@
         </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
+        // One page for every game: /misc/play/?g=<id> looks the game up in the
+        // catalog (assets/json/load/g.json) by its "id".
+        (async function loadGame() {
+            const params = new URLSearchParams(location.search);
+            const iframe = document.getElementById('iframe');
+            const icon = document.querySelector('.gameicon');
+            const titleText = document.querySelector('.titletext');
+            const byText = document.querySelector('.bytext');
 
-            const title = urlParams.get('title') || 'No title provided';
-            const author = urlParams.get('author') || 'Author';
-            const link = (urlParams.get('link') || '').replace(/^\/+|\/+$/g, '');
+            let game = null;
+            const id = params.get('g');
+            if (id) {
+                try {
+                    const response = await fetch('/assets/json/load/g.json');
+                    const games = await response.json();
+                    game = games.find((entry) => entry.id === id) || null;
+                } catch (error) {
+                    console.error('Could not load the game catalog:', error);
+                }
+            } else if (params.get('link')) {
+                // Older links: ?title=…&author=…&link=<folder under /misc/>
+                const folder = encodeURIComponent(params.get('link').replace(/^\/+|\/+$/g, ''));
+                game = {
+                    name: params.get('title') || '',
+                    author: params.get('author') || '',
+                    image: `/misc/${folder}/img.webp`,
+                    frame: `/misc/${folder}/index.html`,
+                };
+            }
 
-            const titleElement = document.querySelector('.titletext');
-            const byTextElement = document.querySelector('.bytext');
-            const iframeElement = document.getElementById('iframe');
-            const gameIconElement = document.querySelector('.gameicon');
+            if (!game) {
+                titleText.textContent = 'Game not found';
+                byText.innerHTML = '<a href="/g">Back to games</a>';
+                icon.hidden = true;
+                iframe.src = 'about:blank';
+                return;
+            }
 
-            titleElement.textContent = title;
-            byTextElement.textContent = 'By ' + author;
-            iframeElement.src = `/misc/${encodeURIComponent(link)}/index.html`;
-            gameIconElement.src = `/misc/${encodeURIComponent(link)}/img.webp`;
-            gameIconElement.alt = title;
-        });
+            titleText.textContent = game.name;
+            byText.textContent = game.author ? 'By ' + game.author : '';
+            icon.src = game.image;
+            icon.alt = game.name;
+            if (game.sandbox) iframe.setAttribute('sandbox', game.sandbox);
+            iframe.src = game.frame || game.url;
+            if (game.fullscreenOpensGame) {
+                document.querySelector('.fullscreenbtn').onclick = () => {
+                    location.href = iframe.src;
+                };
+            }
+        })();
     </script>
     <div class="bottom-addisplay" id="bottomAddisplay">
         <div class="adcenter">
@@ -100,7 +131,6 @@
         </div>
 
 
-    </div>
     </div>
     <script>
         var elem = document.getElementById("iframe");

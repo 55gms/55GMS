@@ -78,6 +78,7 @@ All frontend code is static files under `static/`:
 - `static/assets/cloaks/` — tab-cloak favicons (Canvas, Gmail, Google Drive, etc.)
 - `static/assets/sj/` — small proxy helper scripts (URL handling, service-worker registration)
 - `static/misc/` — 200+ self-contained embedded game directories
+- `static/misc/play/index.html` — the one game page. `/misc/play/?g=<id>` loads the game whose `id` matches in `static/assets/json/load/g.json` (fields: `name`, `image`, `author`, `frame` = iframe URL, optional `sandbox`, `fullscreenOpensGame`). Old `/misc/play/<id>.html` links redirect to it from `index.js`. To add a game, add its folder under `static/misc/` and a catalog entry; don't create per-game HTML pages.
 
 ### Proxy infrastructure
 

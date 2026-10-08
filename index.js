@@ -358,6 +358,13 @@ try {
     }
   }, 60000).unref?.();
 
+  // Each game used to have its own page at /misc/play/<id>.html; they are
+  // now one page that reads the game from the catalog.
+  app.get(/^\/misc\/play\/([\w.-]+)\.html$/, (req, res, next) => {
+    if (req.params[0] === "index") return next();
+    res.redirect(301, `/misc/play/?g=${encodeURIComponent(req.params[0])}`);
+  });
+
   app.use(express.static(path.join(__dirname, "static"), staticOptions));
   app.use((req, res, next) => {
     if (req.method === "GET" && !path.extname(req.url)) {

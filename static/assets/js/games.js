@@ -121,16 +121,7 @@ function createGameCard(game) {
       hire(game.url);
     });
   } else {
-    let href = game.url;
-    if (game.author && !game.url) {
-      const gameLink = game.image.split("/").filter(Boolean).at(-2);
-      href = `/misc/play/?title=${encodeURIComponent(
-        game.name,
-      )}&author=${encodeURIComponent(game.author)}&link=${encodeURIComponent(
-        gameLink,
-      )}`;
-    }
-
+    const href = game.url;
     if (!href) return null;
 
     control = document.createElement("a");
