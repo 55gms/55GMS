@@ -13,6 +13,9 @@ export { selectAd, eligibleCampaigns, pickWeighted, hostMatches, domainAllowed, 
 const HOUR = 60 * 60 * 1000;
 const IMPRESSION_WINDOW_MS = 10 * 60 * 1000;
 const CLICK_WINDOW_MS = 60 * 60 * 1000;
+const MEDIA_RE = /^[a-f0-9]{64}\.(png|jpe?g|webp|gif|avif)$/;
+const MEDIA_MAX_BYTES = 8 * 1024 * 1024;
+const MEDIA_MAX_FILES = 200;
 const BOT_RE = /bot|crawl|spider|slurp|headless|lighthouse|preview|monitor|pingdom|curl|wget|python-requests|facebookexternalhit|scrapy|httpclient|go-http/i;
 
 const b64u = (buf) => Buffer.from(buf).toString('base64url');
@@ -90,9 +93,10 @@ export function createAdsRouter(options = {}) {
     instanceId: options.instanceId || null,
     mountPath: options.mountPath || '/_ads',
     trustForwardedHost: options.trustForwardedHost ?? false,
-    rateLimit: { serve: 240, impression: 240, click: 60, windowMs: 60 * 1000, ...options.rateLimit },
+    rateLimit: { serve: 240, impression: 240, click: 60, media: 240, windowMs: 60 * 1000, ...options.rateLimit },
     maxTrackedServes: options.maxTrackedServes ?? 500_000,
     maxDomains: options.maxDomains ?? 5000,
+    cacheMedia: options.cacheMedia ?? true,
     requestTimeoutMs: options.requestTimeoutMs ?? 15_000,
     retryBaseMs: options.retryBaseMs ?? 5_000,
     retryMaxMs: options.retryMaxMs ?? 10 * 60 * 1000,
@@ -116,6 +120,8 @@ export function createAdsRouter(options = {}) {
   let byCampaign = new Map();
   let blocked = []; // hostname patterns switched off on the ad server
   let allowed = null; // hostname patterns this API key is limited to; null means any host
+  let mediaNames = new Set(); // uploaded creative files named by the current manifest
+  const mediaCache = new Map(); // "name|variant" -> Promise<{ body, type, etag } | null>
   const seenDomains = new Set(); // hosts served since the last sealed batch, bounded by maxDomains
   const counters = new Map(); // "hour|campaign|creative|domain" -> { impressions, clicks }
   let countersDirty = false;
@@ -128,6 +134,7 @@ export function createAdsRouter(options = {}) {
     serve: new RateLimiter(opts.rateLimit.serve, opts.rateLimit.windowMs),
     impression: new RateLimiter(opts.rateLimit.impression, opts.rateLimit.windowMs),
     click: new RateLimiter(opts.rateLimit.click, opts.rateLimit.windowMs),
+    media: new RateLimiter(opts.rateLimit.media, opts.rateLimit.windowMs),
   };
   const stats = {
     startedAt: new Date(opts.now()).toISOString(),
@@ -305,6 +312,66 @@ export function createAdsRouter(options = {}) {
     }
   }
 
+  // Uploaded creatives live on the ad server under /media/creatives/<sha256>.<ext>.
+  // Returns that file name, or null for external images, which keep their own URL.
+  function mediaName(imageUrl) {
+    const prefix = `${opts.adServerUrl}/media/creatives/`;
+    if (!opts.cacheMedia || typeof imageUrl !== 'string' || !imageUrl.startsWith(prefix)) return null;
+    const name = imageUrl.slice(prefix.length);
+    return MEDIA_RE.test(name) ? name : null;
+  }
+
+  async function fetchMedia(name, webp) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), opts.requestTimeoutMs);
+    try {
+      const res = await opts.fetch(`${opts.adServerUrl}/media/creatives/${name}`, {
+        headers: { accept: webp ? 'image/webp,image/*' : 'image/*' },
+        signal: controller.signal,
+        redirect: 'error',
+      });
+      const type = res.headers.get('content-type') || '';
+      if (!res.ok || !type.startsWith('image/')) throw new Error(`media request returned ${res.status}`);
+      const body = Buffer.from(await res.arrayBuffer());
+      if (body.length > MEDIA_MAX_BYTES) throw new Error('media file is too large');
+      return { body, type, etag: res.headers.get('etag') || `"${name}${webp ? '-webp' : ''}"` };
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  // Creative files are content-addressed, so a copy never goes stale. They
+  // are kept in memory and dropped once no manifest campaign uses them.
+  function loadMedia(name, webp) {
+    const key = `${name}|${webp ? 'webp' : 'orig'}`;
+    let entry = mediaCache.get(key);
+    if (!entry) {
+      if (mediaCache.size >= MEDIA_MAX_FILES) mediaCache.delete(mediaCache.keys().next().value);
+      entry = fetchMedia(name, webp).catch((err) => {
+        mediaCache.delete(key);
+        log.warn('creative image not fetched', { name, error: err.message });
+        return null;
+      });
+      mediaCache.set(key, entry);
+    }
+    return entry;
+  }
+
+  async function handleMedia(req, res, name) {
+    if (!MEDIA_RE.test(name) || !mediaNames.has(name)) return send(res, 404, { error: 'not found' });
+    const negotiable = !/\.(webp|gif)$/.test(name);
+    const file = await loadMedia(name, negotiable && /\bimage\/webp\b/.test(req.headers.accept || ''));
+    if (!file) return send(res, 502, { error: 'image unavailable' });
+    const headers = {
+      'Cache-Control': 'public, max-age=31536000, immutable',
+      ETag: file.etag,
+      'Content-Type': file.type,
+      ...(negotiable ? { Vary: 'Accept' } : {}),
+    };
+    if (req.headers['if-none-match'] === file.etag) return send(res, 304, undefined, headers);
+    send(res, 200, undefined, { ...headers, 'Content-Length': String(file.body.length) }, req.method === 'HEAD' ? undefined : file.body);
+  }
+
   async function refreshManifest() {
     if (!opts.adServerUrl || !opts.apiKey) return false;
     const startedAt = opts.now();
@@ -320,6 +387,14 @@ export function createAdsRouter(options = {}) {
         byCampaign = new Map(data.campaigns.map((c) => [c.id, c]));
         blocked = Array.isArray(data.blockedDomains) ? data.blockedDomains : [];
         allowed = Array.isArray(data.allowedDomains) ? data.allowedDomains : null;
+        mediaNames = new Set();
+        for (const campaign of data.campaigns) {
+          for (const creative of campaign.creatives || []) {
+            const name = mediaName(creative.imageUrl);
+            if (name) mediaNames.add(name);
+          }
+        }
+        for (const key of mediaCache.keys()) if (!mediaNames.has(key.split('|')[0])) mediaCache.delete(key);
       } else if (res.status === 304 && manifest) {
         manifest.fetchedAt = startedAt;
       } else {
@@ -516,12 +591,12 @@ export function createAdsRouter(options = {}) {
   }
 
   // --- HTTP --------------------------------------------------------------
-  function send(res, status, body, headers) {
+  function send(res, status, body, headers, raw) {
     res.statusCode = status;
     res.setHeader('Cache-Control', 'no-store');
     res.setHeader('X-Content-Type-Options', 'nosniff');
     if (headers) for (const [k, v] of Object.entries(headers)) res.setHeader(k, v);
-    if (body === undefined) return res.end();
+    if (body === undefined) return res.end(raw);
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.end(JSON.stringify(body));
   }
@@ -569,9 +644,11 @@ export function createAdsRouter(options = {}) {
 
   function toAd(pick, domain, now) {
     const serveId = makeServeId(pick.campaign.id, pick.creative.id, domain, now);
+    // Uploaded images are served from this origin; see handleMedia.
+    const local = mediaName(pick.creative.imageUrl);
     return {
       serveId,
-      imageUrl: pick.creative.imageUrl,
+      imageUrl: local ? `${opts.mountPath}/m/${local}` : pick.creative.imageUrl,
       width: pick.creative.width,
       height: pick.creative.height,
       alt: pick.creative.alt || '',
@@ -669,6 +746,10 @@ export function createAdsRouter(options = {}) {
       }
       if (route === '/i' && req.method === 'POST') {
         if (!limited('impression')) handleImpression(req, res).catch(() => send(res, 204));
+        return;
+      }
+      if (route.startsWith('/m/') && (req.method === 'GET' || req.method === 'HEAD')) {
+        if (!limited('media')) handleMedia(req, res, route.slice(3)).catch(() => send(res, 502, { error: 'image unavailable' }));
         return;
       }
       if (route.startsWith('/c/') && (req.method === 'GET' || req.method === 'HEAD')) {
