@@ -51,7 +51,8 @@ preflight() {
     >"$STATE_DIR/preflight.log" 2>&1 &
   pid=$!
   for _ in $(seq 1 20); do
-    if curl -fsS -o /dev/null "http://127.0.0.1:$PREFLIGHT_PORT/"; then
+    # -s without -S: refused connections are expected while it boots.
+    if curl -fs -o /dev/null "http://127.0.0.1:$PREFLIGHT_PORT/"; then
       ok=0
       break
     fi
