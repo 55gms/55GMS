@@ -1,4 +1,4 @@
-import { initDatabase } from "./models/index.js";
+import { initDatabase } from "../models/index.js";
 
 async function setupDatabase() {
   try {

@@ -31,7 +31,7 @@ Limits: the bundle bodies still contain their own names, and the core appends pl
 Run the targeted checks without a browser:
 
 ```sh
-node --test tests/media-player.test.js tests/proxy-runtime.test.js test/proxy-integrity.test.js
+node --test test/media-player.test.js test/proxy-runtime.test.js test/proxy-integrity.test.js
 node --check index.js
 node --check static/sw.js
 node --check static/assets/js/frame-runtime.js

@@ -54,7 +54,7 @@ You have two options:
 If your database user has CREATE TYPE and CREATE TABLE permissions:
 
 ```bash
-node setup-db.js
+node scripts/setup-db.js
 ```
 
 ## API Endpoints
@@ -154,8 +154,7 @@ Messages are delivered instantly via Socket.IO while also being stored in the da
 │       └── js/chat.js       # Chat functionality
 ├── config/
 │   └── database.js          # Database connection
-├── setup-database.sql       # Database schema
-└── setup-db.js             # Database initialization script
+└── scripts/setup-db.js      # Database initialization script
 ```
 
 ## Usage
