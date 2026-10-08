@@ -4,6 +4,7 @@ import { Server as SocketIO } from "socket.io";
 import { createAdapter } from "@socket.io/redis-adapter";
 import { createClient } from "redis";
 import path from "path";
+import { existsSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import cors from "cors";
@@ -36,6 +37,16 @@ import { startMessageRetention } from "./services/messageRetention.js";
 try {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
+
+  // Production serves the built site (npm run build, see docs/deploy.md);
+  // without STATIC_ROOT the server serves static/ as-is.
+  const staticRoot = path.resolve(
+    __dirname,
+    process.env.STATIC_ROOT || "static",
+  );
+  if (!existsSync(staticRoot)) {
+    throw new Error(`STATIC_ROOT ${staticRoot} does not exist`);
+  }
 
   const app = express();
   app.use(createCompression());
@@ -358,10 +369,10 @@ try {
     }
   }, 60000).unref?.();
 
-  app.use(express.static(path.join(__dirname, "static"), staticOptions));
+  app.use(express.static(staticRoot, staticOptions));
   app.use((req, res, next) => {
     if (req.method === "GET" && !path.extname(req.url)) {
-      const filePath = path.join(__dirname, "static", req.url + ".html");
+      const filePath = path.join(staticRoot, req.url + ".html");
       res.sendFile(filePath, (err) => {
         if (err) {
           next();
@@ -395,16 +406,16 @@ try {
 
   routes.forEach((route) => {
     app.get(route.path, (req, res) => {
-      res.sendFile(path.join(__dirname, "static", route.file));
+      res.sendFile(path.join(staticRoot, route.file));
     });
   });
 
   app.get("/chat/:chatId", (req, res) => {
-    res.sendFile(path.join(__dirname, "static", "chat.html"));
+    res.sendFile(path.join(staticRoot, "chat.html"));
   });
 
   app.use((req, res) => {
-    const notFoundPage = path.join(__dirname, "static", "404.html");
+    const notFoundPage = path.join(staticRoot, "404.html");
     res.status(404).sendFile(notFoundPage);
   });
 
@@ -426,6 +437,8 @@ try {
     console.log(`\n------------------------------------`);
     console.log(`🔗 URL: http://localhost:${process.env.PORT}`);
     console.log(`------------------------------------\n`);
+    // Tells pm2 (wait_ready) this worker can take traffic. No-op otherwise.
+    process.send?.("ready");
   });
 
   let shuttingDown = false;
