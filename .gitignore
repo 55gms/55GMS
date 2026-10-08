@@ -8,5 +8,8 @@ static/misc/rayvon-shootout/Build/323862927f75a9b36201c486bc3975d5.data
 # Worker export: password hashes and user saves
 migration-data/
 
+# Unsent ad stats (utils/ads.js)
+.ads-spool/
+
 # Local agent worktrees
 .claude/worktrees/

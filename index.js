@@ -13,6 +13,7 @@ import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
 import { createCompression, staticOptions } from "./utils/httpPerformance.js";
 
 import { mountProxyAssets } from "./utils/proxyAssets.js";
+import { mountAds } from "./utils/ads.js";
 
 logging.set_level(logging.ERROR);
 
@@ -39,6 +40,7 @@ try {
   const app = express();
   app.use(createCompression());
   mountProxyAssets(app);
+  mountAds(app);
   const server = createServer(app);
 
   const io = new SocketIO({

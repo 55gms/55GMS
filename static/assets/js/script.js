@@ -120,6 +120,30 @@ function whenDomReady(callback) {
     document.head.append(hideAds);
   }
 
+  if (ads.banners) {
+    whenDomReady(() => {
+      // The box under each game shows a 55GMS Ads banner, served from this
+      // origin (/_ads) so it works on every domain.
+      const boxes = document.querySelectorAll(".bottom-addisplay .adcenter");
+      if (!boxes.length) return;
+      boxes.forEach((box) => {
+        const slot = document.createElement("div");
+        slot.setAttribute("data-55gms-ad", "");
+        slot.setAttribute("data-size", "728x90");
+        box.replaceChildren(slot);
+      });
+
+      const adsScript = document.createElement("script");
+      adsScript.async = true;
+      adsScript.src =
+        "https://cdn.jsdelivr.net/gh/55gms/gms-ads@1.0.0/embed/dist/ads.min.js";
+      adsScript.integrity =
+        "sha384-czZZMouRahXbtvwrh6bKuo9VokxpOxgW0mxFqdTy0GNuh3Rm6hyvWnfAAzyCdzAd";
+      adsScript.crossOrigin = "anonymous";
+      document.head.append(adsScript);
+    });
+  }
+
   if (ads.partner) {
     whenDomReady(() => {
       const partnerScript = document.createElement("script");
