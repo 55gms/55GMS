@@ -47,6 +47,8 @@ A running PostgreSQL instance is required. Run `node setup-db.js` after configur
 | `routes/music.js`        | Proxy routes for music/media                                                                      |
 | `utils/userCache.js`     | In-memory user data cache                                                                         |
 | `utils/blockingCache.js` | In-memory blocked-user cache                                                                      |
+| `utils/ads.js`           | Mounts 55GMS Ads at `/_ads` when `ADS_SERVER_URL` and `ADS_API_KEY` are set                       |
+| `utils/ads-edge/`        | Vendored edge module from the gms-ads repo; do not edit here                                      |
 
 ### Authentication flow
 
