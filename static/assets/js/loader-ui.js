@@ -7,6 +7,19 @@ window.LoaderUI = (() => {
   const VERSION = "v6uetwu86c";
   const asset = (path) => new URL(`${path}?v=${VERSION}`, location.origin).href;
   const CATALOG = "/assets/json/load/g.json";
+  // The deployed catalogue is encoded by scripts/build/catalogue.js: base64url
+  // of a 16-byte key followed by the JSON XORed with that key. Plain JSON
+  // (development, or an older deploy) is read as-is.
+  async function readCatalogue(response) {
+    const text = (await response.text()).trim();
+    if (text[0] === "[" || text[0] === "{") return JSON.parse(text);
+    const raw = atob(text.replace(/-/g, "+").replace(/_/g, "/"));
+    const bytes = new Uint8Array(raw.length - 16);
+    for (let i = 0; i < bytes.length; i++) {
+      bytes[i] = raw.charCodeAt(i + 16) ^ raw.charCodeAt(i % 16);
+    }
+    return JSON.parse(new TextDecoder().decode(bytes));
+  }
   const MB = 1048576;
   const STATUS = {
     loading: "Loading game…",
@@ -34,7 +47,9 @@ window.LoaderUI = (() => {
   // Game pages do not know their own cover, so it is looked up in the games
   // catalog: by the page that frames this one, by folder, then by name.
   async function findCover(title) {
-    const games = await (await fetch(new URL(CATALOG, location.origin))).json();
+    const games = await readCatalogue(
+      await fetch(new URL(CATALOG, location.origin)),
+    );
     let framePath = "";
     let frameTitle = "";
     try {
