@@ -16,12 +16,21 @@
 
     <!-- Set the background colour of the document -->
     <style>
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             background: #000;
             color: #cccccc;
             margin: 0px;
             padding: 0px;
             border: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         canvas {
@@ -31,6 +40,10 @@
             margin: 0px;
             padding: 0px;
             border: 0px;
+            display: block;
+            /* Fit the 1024x384 (8:3) game inside the frame without distorting it */
+            width: min(100vw, calc(100vh * 8 / 3));
+            height: auto;
         }
 
         :-webkit-full-screen #canvas {
