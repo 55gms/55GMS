@@ -22,6 +22,88 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title id="page-title">Escape Road 3</title>
+    <script>
+        // The build waits for the CrazyGames SDK before it leaves its splash
+        // screen: it adds a <script> for ../../scripts/crazy/sdk.js, then calls
+        // CrazyGames.SDK.init() once that has loaded. There is no such file
+        // here, so the request is pointed at an empty script and the SDK below
+        // answers instead. It has no ads, accounts or analytics; saves go to
+        // localStorage.
+        (function () {
+            var empty = URL.createObjectURL(new Blob([""], { type: "text/javascript" }));
+            var src = Object.getOwnPropertyDescriptor(HTMLScriptElement.prototype, "src");
+            Object.defineProperty(HTMLScriptElement.prototype, "src", {
+                configurable: true,
+                enumerable: src.enumerable,
+                get: src.get,
+                set: function (value) {
+                    var sdk = /(^|\/)scripts\/crazy\/sdk\.js/.test(String(value));
+                    return src.set.call(this, sdk ? empty : value);
+                }
+            });
+
+            var PREFIX = "escape-road-3:";
+            var unavailable = function () {
+                return Promise.reject({ code: "userNotAuthenticated", message: "No account" });
+            };
+            window.CrazyGames = {
+                SDK: {
+                    environment: "crazygames",
+                    isQaTool: false,
+                    init: function () { return Promise.resolve(); },
+                    ad: {
+                        hasAdblock: function () { return Promise.resolve(false); },
+                        // Rewarded ads grant their reward as soon as they are asked for.
+                        requestAd: function (type, callbacks) {
+                            return Promise.resolve().then(function () {
+                                if (callbacks && callbacks.adStarted) callbacks.adStarted();
+                                if (callbacks && callbacks.adFinished) callbacks.adFinished();
+                            });
+                        }
+                    },
+                    banner: { requestOverlayBanners: function () {} },
+                    analytics: { trackOrder: function () {} },
+                    game: {
+                        settings: { disableChat: false, muteAudio: false },
+                        gameplayStart: function () {},
+                        gameplayStop: function () {},
+                        happytime: function () {},
+                        inviteLink: function () { return ""; },
+                        showInviteButton: function () { return ""; },
+                        hideInviteButton: function () {}
+                    },
+                    user: {
+                        isUserAccountAvailable: false,
+                        systemInfo: {
+                            countryCode: "US",
+                            locale: "en-US",
+                            browser: { name: "", version: "" },
+                            os: { name: "", version: "" },
+                            device: { type: "desktop" }
+                        },
+                        getUser: function () { return Promise.resolve(null); },
+                        getUserToken: unavailable,
+                        getXsollaUserToken: unavailable,
+                        showAuthPrompt: unavailable,
+                        showAccountLinkPrompt: unavailable,
+                        addAuthListener: function () {},
+                        addScore: function () {}
+                    },
+                    data: {
+                        getItem: function (key) { return localStorage.getItem(PREFIX + key); },
+                        setItem: function (key, value) { localStorage.setItem(PREFIX + key, value); },
+                        removeItem: function (key) { localStorage.removeItem(PREFIX + key); },
+                        clear: function () {
+                            Object.keys(localStorage).forEach(function (key) {
+                                if (key.indexOf(PREFIX) === 0) localStorage.removeItem(key);
+                            });
+                        },
+                        syncUnityGameData: function () {}
+                    }
+                }
+            };
+        })();
+    </script>
    </head>
 <body>
     <!-- Loader -->
@@ -79,7 +161,12 @@
                     GameLoader.updateProgress
                 )
                 .then(function(unityInstance) {
+                    window.unityInstance = unityInstance;
                     window.gameInstance = unityInstance;
+                    // The shared loading screen hides at this moment. Hide this
+                    // page's own loader with it, or it shows for the half second
+                    // the progress callback waits before hiding it.
+                    GameLoader._hideLoader();
                     console.log("Game loaded successfully");
                 })
                 .catch(function(error) {
