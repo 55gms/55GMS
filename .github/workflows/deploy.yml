@@ -36,11 +36,25 @@ jobs:
             /*
             !/static/misc/
 
-      - name: Prettify code
-        uses: creyD/prettier_action@v4.3
-        with:
-          prettier_options: --write **/*.{js,md}
-          only_changed: True
+      # Only the files of the pushed commit, and never the games: they are not
+      # in this checkout, so git cannot stage them.
+      - name: Prettify changed files
+        run: |
+          git diff --name-only --diff-filter=d -z HEAD^..HEAD -- '*.js' '*.md' ':!static/misc/' > changed.list
+          if [ ! -s changed.list ]; then
+            echo "No changed .js or .md files outside the games."
+            exit 0
+          fi
+          xargs -0 npx --yes prettier@3 --write --ignore-unknown < changed.list
+          xargs -0 git add -- < changed.list
+          if git diff --cached --quiet; then
+            echo "Already formatted."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "style: prettify code"
+          git push origin HEAD:main
 
   check:
     needs: tidy
