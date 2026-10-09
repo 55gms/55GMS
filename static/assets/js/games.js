@@ -104,7 +104,8 @@ function glideProgress(target, pace) {
   return new Promise((resolve) => {
     let lastFrame = performance.now();
     const step = (now) => {
-      const elapsed = Math.min(now - lastFrame, 100);
+      // A frame timestamp can predate the performance.now() taken before it.
+      const elapsed = Math.min(Math.max(now - lastFrame, 0), 100);
       lastFrame = now;
       progressShown +=
         (target - progressShown) * (1 - Math.exp(-elapsed / pace));

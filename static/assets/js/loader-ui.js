@@ -186,7 +186,8 @@ window.LoaderUI = (() => {
     }
 
     function step(now) {
-      const elapsed = Math.min(now - lastFrame, 100);
+      // A frame timestamp can predate the performance.now() taken before it.
+      const elapsed = Math.min(Math.max(now - lastFrame, 0), 100);
       lastFrame = now;
       shown += (target - shown) * (1 - Math.exp(-elapsed / 140));
       if (Math.abs(target - shown) < 0.0005) shown = target;
