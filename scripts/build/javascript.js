@@ -27,6 +27,8 @@ function obfuscatorOptions(prefix) {
   };
 }
 
+export { obfuscatorOptions };
+
 export async function obfuscateScripts(outStatic) {
   const jsDir = path.join(outStatic, "assets", "js");
   const obfuscated = [];
