@@ -29,11 +29,11 @@ const checks = [
   { url: "/embed.html", status: 200, type: "text/html" },
   { url: "/b", status: 200, type: "text/html" },
   { url: "/assets/js/frame-runtime.js", status: 200, type: "javascript" },
-  { url: "/assets/lib/vendor-core.js?v=2.0.67-alpha.2", status: 200, type: "javascript" },
-  { url: "/assets/lib/vendor-frame.js?v=0.0.14", status: 200, type: "javascript" },
-  { url: "/assets/lib/vendor-util.js?v=0.0.3", status: 200, type: "javascript" },
-  { url: "/assets/lib/vendor-net.js?v=3.0.1", status: 200, type: "javascript" },
-  { url: "/assets/lib/vendor-core.wasm?v=2.0.67-alpha.2", status: 200, type: "wasm" },
+  { url: "/assets/lib/vendor-core.js?v=2.0.67-alpha.2-1", status: 200, type: "javascript" },
+  { url: "/assets/lib/vendor-frame.js?v=0.0.14-1", status: 200, type: "javascript" },
+  { url: "/assets/lib/vendor-util.js?v=0.0.3-1", status: 200, type: "javascript" },
+  { url: "/assets/lib/vendor-net.js?v=3.0.1-1", status: 200, type: "javascript" },
+  { url: "/assets/lib/vendor-core.wasm?v=2.0.67-alpha.2-1", status: 200, type: "wasm" },
   { url: "/sw.js", status: 200, type: "javascript" },
 ];
 
@@ -92,7 +92,7 @@ async function main() {
     // stack destructures; an empty/HTML body would pass the type check in
     // theory but fail here.
     try {
-      const body = await (await fetch(`${BASE}/assets/lib/vendor-core.js?v=2.0.67-alpha.2`)).text();
+      const body = await (await fetch(`${BASE}/assets/lib/vendor-core.js?v=2.0.67-alpha.2-1`)).text();
       const defines = /\$scramjet/.test(body) && body.length > 1000;
       if (!defines) failed++;
       console.log(`${defines ? "ok  " : "FAIL"} vendor-core defines $scramjet (${body.length} bytes)`);

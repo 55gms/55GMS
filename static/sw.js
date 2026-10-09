@@ -1,4 +1,4 @@
-importScripts("/assets/lib/vendor-worker.js?v=0.0.14");
+importScripts("/assets/lib/vendor-worker.js?v=0.0.14-1");
 
 const frames = self[["$scr", "amj", "etController"].join("")];
 
