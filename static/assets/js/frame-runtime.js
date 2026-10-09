@@ -1,7 +1,7 @@
 "use strict";
 
 window.frameRuntime = (() => {
-  const CORE_VERSION = "2.0.67-alpha.2-2";
+  const CORE_VERSION = "2.0.67-alpha.2-3";
   const CONTROLLER_VERSION = "0.0.14-1";
   const WORKER_URL = `/sw.js?v=${CORE_VERSION}-${CONTROLLER_VERSION}-2`;
   const PREFIX = "/stream/";
