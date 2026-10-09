@@ -4,7 +4,7 @@
 window.LoaderUI = (() => {
   // .js/.css/images are cached for a day. After changing any loader asset run
   // `node scripts/bump-loader-version.js` to refresh this and every ?v= tag.
-  const VERSION = "v6uetwu86c";
+  const VERSION = "e39jq3w37n";
   const asset = (path) => new URL(`${path}?v=${VERSION}`, location.origin).href;
   const CATALOG = "/assets/json/load/g.json";
   // The deployed catalogue is encoded by scripts/build/catalogue.js: base64url
