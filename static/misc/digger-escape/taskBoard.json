@@ -1,0 +1,183 @@
+{
+  "quests": [
+    {
+      "id": 0,
+      "disc": "Заработайте 300£",
+      "icon_id": 0,
+      "completion_type": "percent",
+      "goal": 700,
+      "tutorial": 
+      [{
+        "type": "arrow",
+        "pos": "900, 2700",
+        "angle": 0
+      },
+      {
+        "type": "hand",
+        "pos": "drilling",
+        "angle": 45
+      },
+      {
+        "type": "arrow",
+        "pos": "982, 2994",
+        "angle": 0
+      },
+      {
+        "type": "hand",
+        "pos": "taskBoard",
+        "angle": 0
+      }
+      ]
+    },
+    {
+      "id": 1,
+      "disc": "Постройте Гараж",
+      "icon_id": 1,
+      "completion_type": "binary",
+      "goal": 1,
+      "tutorial": 
+      [{
+        "type": "hand",
+        "pos": "buildMenu",
+        "angle": 315
+      },
+      {
+        "type": "hand",
+        "pos": "buildThisBtn",
+        "angle": 45
+      }
+      ]
+    },
+    {
+      "id": 2,
+      "disc": "Улучшить Хранилище в гараж",
+      "icon_id": 2,
+      "completion_type": "binary",
+      "goal": 1,
+      "tutorial": 
+      [{
+        "type": "arrow",
+        "pos": "614, 2976",
+        "angle": 0
+      },
+      {
+        "type": "hand",
+        "pos": "buyGgradeVault",
+        "angle": 45
+      }
+      ]
+    },
+    {
+      "id": 3,
+      "disc": "Построить 1 этап ракетной шахты",
+      "icon_id": 1,
+      "completion_type": "percent",
+      "goal": 1,
+      "tutorial": 
+      [{
+        "type": "arrow",
+        "pos": "790, 3280",
+        "angle": 0
+      }
+      ]
+    },
+    {
+      "id": 4,
+      "disc": "Улучить Диск до 2 уровня",
+      "icon_id": 1,
+      "completion_type": "binary",
+      "goal": 1
+    },
+    {
+      "id": 5,
+      "disc": "Построить Медную плавильню",
+      "icon_id": 1,
+      "completion_type": "binary",
+      "goal": 1
+    },
+    {
+      "id": 6,
+      "disc": "Собрать 100 медных слитков",
+      "icon_id": 1,
+      "completion_type": "percent",
+      "goal": 100
+    },
+    {
+      "id": 7,
+      "disc": "Заработать 1000£ за раз",
+      "icon_id": 1,
+      "completion_type": "percent",
+      "goal": 1000
+    },
+    {
+      "id": 8,
+      "disc": "Построить Лабораторию",
+      "icon_id": 1,
+      "completion_type": "binary",
+      "goal": 1
+    },
+    {
+      "id": 9,
+      "disc": "Потратить 10 очков на улучшения",
+      "icon_id": 1,
+      "completion_type": "percent",
+      "goal": 10
+    },
+    {
+      "id": 10,
+      "disc": "Завершить 2 этап стройки шахты",
+      "icon_id": 1,
+      "completion_type": "percent",
+      "goal": 100
+    },
+    {
+      "id": 11,
+      "disc": "Завершить 3 этап стройки шахты",
+      "icon_id": 1,
+      "completion_type": "percent",
+      "goal": 100
+    },
+    {
+      "id": 12,
+      "disc": "Завершить 1 этап постройки ракеты",
+      "icon_id": 1,
+      "completion_type": "percent",
+      "goal": 100
+    },
+    {
+      "id": 13,
+      "disc": "Выполнить 3 контракта",
+      "icon_id": 1,
+      "completion_type": "percent",
+      "goal": 100
+    },
+    {
+      "id": 14,
+      "disc": "Заработать 7500£ за раз",
+      "icon_id": 1,
+      "completion_type": "percent",
+      "goal": 7500
+    },
+    {
+      "id": 15,
+      "disc": "Улучшить Хранилище на максимум",
+      "icon_id": 1,
+      "completion_type": "binary",
+      "goal": 1
+    },
+    {
+      "id": 16,
+      "disc": "Улучшить Диск на максимум",
+      "icon_id": 1,
+      "completion_type": "binary",
+      "goal": 1
+    },
+    {
+      "id": 17,
+      "disc": "Улелеть с Земли",
+      "icon_id": 1,
+      "completion_type": "binary",
+      "goal": 1
+    }
+  ]
+}

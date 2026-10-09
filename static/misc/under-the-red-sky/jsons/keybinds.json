@@ -1,0 +1,104 @@
+{
+    "commentKBM": "using physical event CODE values, useful checker: https://keyjs.dev/ . Mouse buttons are handled with button indices e.g. left-click = 0, middle = 1, right = 2... Scroll wheel is the string pseudo-codes WheelUp/WheelDown (release-less pulse, see scripts/inputs.js).",
+    "kbm": {
+        "up": [
+            "ArrowUp",
+            "KeyW"
+        ],
+        "down": [
+            "ArrowDown",
+            "KeyS"
+        ],
+        "left": [
+            "ArrowLeft",
+            "KeyA"
+        ],
+        "right": [
+            "ArrowRight",
+            "KeyD"
+        ],
+        "jump": [
+            "Space"
+        ],
+        "reset": [
+            "KeyR"
+        ],
+        "menu": [
+            "KeyP",
+            "Escape"
+        ],
+        "emote": [
+            "KeyE"
+        ],
+        "toggleTPM": [
+            "KeyT"
+        ],
+        "openCamera": [
+            "KeyC"
+        ],
+        "takePhoto": [
+            0
+        ],
+        "interact": [
+            0
+        ],
+        "focusFar": [
+            "WheelUp"
+        ],
+        "focusNear": [
+            "WheelDown"
+        ],
+        "zoom": [
+            "KeyQ"
+        ]
+    },
+    "commentGamepad": "0 = A, 1 = B, 2 = X, 3 = Y, 4 = L-SHOULDER, 5 = R-SHOULDER, 6 = L-TRIGGER, 7 = R-TRIGGER, 8 = SELECT, 9 = MENU, 10 = L-STICK Press, 11 = R-STICK Press, 12 = D-PAD UP, 13 = D-PAD DOWN, 14 = D-PAD LEFT, 15 = D-PAD RIGHT. LB/RB (4/5) double as photo-mode focus (photoMode active) and TPM camera zoom (TPM active) - contextual, never both at once.",
+    "gamepad": {
+        "up": [
+            12
+        ],
+        "down": [
+            13
+        ],
+        "left": [
+            14
+        ],
+        "right": [
+            15
+        ],
+        "jump": [
+            0,
+            6
+        ],
+        "reset": [
+            3
+        ],
+        "menu": [
+            9
+        ],
+        "emote": [
+            2
+        ],
+        "toggleTPM": [
+            11
+        ],
+        "openCamera": [
+            8
+        ],
+        "takePhoto": [
+            7
+        ],
+        "interact": [
+            7
+        ],
+        "focusFar": [
+            5
+        ],
+        "focusNear": [
+            4
+        ],
+        "zoom": [
+            10
+        ]
+    }
+}

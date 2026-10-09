@@ -1,0 +1,295 @@
+{
+  "mineShaft": {
+    "stages": [
+      {
+        "stage": 0,
+        "timeSec": 310,
+        "requirements": [
+          {
+            "id": "stone",
+            "required": 500,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "dirt",
+            "required": 800,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "iron",
+            "required": 200,
+            "used": 0,
+            "buffer": 0
+          }
+        ]
+      },
+      {
+        "stage": 1,
+        "timeSec": 350,
+        "requirements": [
+          {
+            "id": "coal",
+            "required": 500,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "stone",
+            "required": 200,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "ironIgnot",
+            "required": 80,
+            "used": 0,
+            "buffer": 0
+          }
+        ]
+      },
+      {
+        "stage": 2,
+        "timeSec": 150,
+        "requirements": [
+          {
+            "id": "copper",
+            "required": 300,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "iron",
+            "required": 150,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "meteor",
+            "required": 50,
+            "used": 0,
+            "buffer": 0
+          }
+        ]
+      }, 
+      {
+        "stage": 3,
+        "timeSec": 360,
+        "requirements": [
+          {
+            "id": "copperIgnot",
+            "required": 300,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "stone",
+            "required": 800,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "coal",
+            "required": 300,
+            "used": 0,
+            "buffer": 0
+          }
+        ]
+      },
+      {
+        "stage": 4,
+        "timeSec": 310,
+        "requirements": [
+          {
+            "id": "deepStone",
+            "required": 600,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "ironIgnot",
+            "required": 50,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "stone",
+            "required": 300,
+            "used": 0,
+            "buffer": 0
+          }
+        ]
+      },
+      {
+        "stage": 5,
+        "timeSec": 330,
+        "requirements": [
+          {
+            "id": "copperIgnot",
+            "required": 150,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "ironIgnot",
+            "required": 125,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "polimer",
+            "required": 50,
+            "used": 0,
+            "buffer": 0
+          }
+        ]
+      },
+      {
+        "stage": 6,
+        "timeSec": 150,
+        "requirements": [
+          {
+            "id": "stone",
+            "required": 500,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "iron",
+            "required": 300,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "ironIgnot",
+            "required": 80,
+            "used": 0,
+            "buffer": 0
+          }
+        ]
+      },
+      {
+        "stage": 7,
+        "timeSec": 300,
+        "requirements": [
+          {
+            "id": "wood",
+            "required": 150,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "copper",
+            "required": 200,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "cristall",
+            "required": 500,
+            "used": 0,
+            "buffer": 0
+          }
+        ]
+      },
+      {
+        "stage": 8,
+        "timeSec": 90,
+        "requirements": [
+          {
+            "id": "copperIgnot",
+            "required": 300,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "ironIgnot",
+            "required": 100,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "stone",
+            "required": 400,
+            "used": 0,
+            "buffer": 0
+          }
+        ]
+      },
+      {
+        "stage": 9,
+        "timeSec": 300,
+        "requirements": [
+          {
+            "id": "deepStone",
+            "required": 500,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "iron",
+            "required": 200,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "stone",
+            "required": 600,
+            "used": 0,
+            "buffer": 0
+          }
+        ]
+      },
+      {
+        "stage": 10,
+        "timeSec": 280,
+        "requirements": [
+          {
+            "id": "meteor",
+            "required": 150,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "ironIgnot",
+            "required": 200,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "ultraDeepStone",
+            "required": 800,
+            "used": 0,
+            "buffer": 0
+          }
+        ]
+      },
+      {
+        "stage": 11,
+        "timeSec": 390,
+        "requirements": [
+          {
+            "id": "ultraDeepStone",
+            "required": 2000,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "ironIgnot",
+            "required": 500,
+            "used": 0,
+            "buffer": 0
+          },
+          {
+            "id": "cristall",
+            "required": 500,
+            "used": 0,
+            "buffer": 0
+          }
+        ]
+      }
+
+    ]
+  }
+}

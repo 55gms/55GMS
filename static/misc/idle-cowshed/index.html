@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8" />
+<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/idle-cowshed/">
+<script>
+  // The game's files come from the CDN, another origin than this page.
+  (() => {
+    // Images need CORS before the game can use them in WebGL or read their pixels.
+    const src = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      ...src,
+      set(value) {
+        if (this.crossOrigin === null && !/^(data|blob):/.test(value)) this.crossOrigin = "anonymous";
+        src.set.call(this, value);
+      },
+    });
+
+    // Workers cannot be started from another origin, so start them from a blob that pulls the script in.
+    const NativeWorker = window.Worker;
+    window.Worker = function (url, options) {
+      const script = new URL(url, document.baseURI);
+      if (script.origin === location.origin || !/^https?:$/.test(script.protocol)) return new NativeWorker(url, options);
+      const code = options?.type === "module" ? `import ${JSON.stringify(script.href)};` : `importScripts(${JSON.stringify(script.href)});`;
+      return new NativeWorker(URL.createObjectURL(new Blob([code], { type: "text/javascript" })), options);
+    };
+    window.Worker.prototype = NativeWorker.prototype;
+
+    // Audio worklet modules have the same restriction.
+    if (window.AudioWorklet) {
+      const addModule = AudioWorklet.prototype.addModule;
+      AudioWorklet.prototype.addModule = async function (url, options) {
+        const script = new URL(url, document.baseURI);
+        if (script.origin === location.origin || !/^https?:$/.test(script.protocol)) return addModule.call(this, url, options);
+        const code = await (await fetch(script)).blob();
+        return addModule.call(this, URL.createObjectURL(new Blob([code], { type: "text/javascript" })), options);
+      };
+    }
+  })();
+</script>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Idle Cowshed</title>
+	
+	<!-- Standardised web app manifest -->
+	
+	<!-- Allow fullscreen mode on iOS devices. (These are Apple specific meta tags.) -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="apple-touch-icon" sizes="256x256" href="icon-256.png" />
+	<meta name="HandheldFriendly" content="true" />
+	
+	<!-- Chrome for Android web app tags -->
+	<meta name="mobile-web-app-capable" content="yes" />
+	<link rel="shortcut icon" sizes="256x256" href="icon-256.png" />
+
+	<script src="poki-sdk.js"></script>
+
+
+	<link rel="stylesheet" href="assets/css/ui.css">
+	<script src="assets/js/UIManager.js"></script>
+
+    <!-- All margins and padding must be zero for the canvas to fill the screen. -->
+	<style type="text/css">
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		html, body {
+			background: #000;
+			color: #fff;
+			overflow: hidden;
+			touch-action: none;
+			-ms-touch-action: none;
+		}
+		canvas {
+			touch-action-delay: none;
+			touch-action: none;
+			-ms-touch-action: none;
+		}
+		html, body, canvas {
+			touch-action: none !important;
+			touch-action-delay: none !important;
+			-ms-touch-action: none !important;
+			-webkit-touch-callout: none !important;
+			-webkit-user-select: none !important;
+			-khtml-user-select: none !important;
+			-moz-user-select: none !important;
+			-ms-user-select: none !important;
+			user-select: none !important;
+		}
+		@font-face {
+		  font-family: Lilita One;
+		  src: url(lilitaone_regular.ttf);
+		}
+		@font-face {
+		  font-family: Lilita One;
+		  src: url(lilitaone_regular.ttf);
+		  font-weight: bold;
+		}
+    </style>
+
+    <script type="text/javascript">
+    var isOnMobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    var preLoadingProgress = 0;
+    var userLang = "en"; 
+    var supportedLanguages = ["en","fr","it","de","es","zh","ja","ko","pt","ru","tr"];
+    var isWebgPopUpDisplayed = false;
+    function detectLanguage(argument) {
+    	 userLang = navigator.language || navigator.userLanguage;
+    	 if(userLang)
+    	 {
+    	 	if(userLang.includes("-"))
+    	 	{
+    	 		userLang = userLang.split("-")[0];
+    	 	}
+    	 }
+    	 else
+    	 {
+    	 	userLang = "en";
+    	 }
+    	 for(var no=0; no<supportedLanguages.length; no++)
+    	 {
+    	 	if(userLang.includes(supportedLanguages[no]))
+    	 	{
+    	 		userLang = supportedLanguages[no];
+    	 		no = supportedLanguages.length;
+    	 	}
+    	 }
+    	 console.log("User Languauge " + userLang);
+    }
+    
+    function isLocalStorageAvailable(){
+	  	var test = 'test';
+			try {
+		    localStorage.setItem(test, test);
+		    localStorage.removeItem(test);
+		    return true;
+		} catch(e) {
+		    return false;
+		}
+	}
+
+	var isOnMobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+	function onPageReady()
+	{
+		console.log("Page Ready");
+		UIManager.Init();
+		PlayLoadingAnimation("start");
+	}
+
+	var isLocalStorageEnabled = 0;
+	if(isLocalStorageAvailable()){
+		console.log("Local Storage Enabled");
+		isLocalStorageEnabled = 1;
+	}else{
+		console.log("Local Storage Disabled");
+		isLocalStorageEnabled = 0;
+	    // unavailable
+	}
+
+	var pokiSDKReady = false; 
+	var isGameLoaded = false;
+	var adBlockerEnabled = false;
+	
+	
+	PokiSDK.init().then(
+	    () => {
+	    	pokiSDKReady = true;
+	        // successfully initialized
+	        PokiSDK.setDebug(false);
+	        console.log("PokiSDK initialized");
+	        PokiSDK.gameLoadingStart();
+	        // continue to game
+	    }   
+	).catch(
+	    () => {
+	        // initialized but the user has an adblock
+	        console.log("Adblock enabled");
+	        pokiSDKReady = true;
+	        adBlockerEnabled = true;
+	        PokiSDK.setDebug(false);
+	        PokiSDK.gameLoadingStart();
+	        // feel free to kindly ask the user to disable AdBlock, like forcing weird usernames or showing a sad face; be creative!
+	        // continue to the game
+	        if(isGameLoaded)
+	        {
+	        	if(adBlockerEnabled)
+	        	{
+	        		console.log("Disable Reawred Ads");
+	        		c2_callFunction("onRewardedAD_Disabled");
+	        	}
+	        }
+	    }   
+	);
+	
+	function Update_LoadingProgress(progress)
+	{
+		if(preLoadingProgress == progress)
+			return;
+		preLoadingProgress = progress;
+		if(!pokiSDKReady)
+			return;
+		var data = {};
+		data.percentageDone = progress;
+		PokiSDK.gameLoadingProgress(data);
+	}
+
+	function onSceneLoaded(sceneName)
+	{
+		switch(sceneName)
+		{
+			case "gamelayout":
+			HideLoadingScreen();
+			break;
+		}
+	}
+
+	function onGameStarted()
+	{
+		console.log("Game Loaded");
+		detectLanguage();
+		isGameLoaded = true;
+		c2_callFunction("LocalStorage_Status",[isLocalStorageEnabled]);
+		c2_callFunction("Set_Language",[userLang]);
+		if(pokiSDKReady)
+		{
+			PokiSDK.gameLoadingFinished();	
+			if(adBlockerEnabled)
+			{
+				console.log("Disable Reawred Ads");
+				c2_callFunction("onRewardedAD_Disabled");
+			}
+	        
+		}
+	}
+	function onMatchStarted() {
+		console.log("Match Started");
+		if(pokiSDKReady)
+			PokiSDK.gameplayStart();
+	}
+	function onMatchEnded() {
+		console.log("Match Ended");
+		if(pokiSDKReady)
+			PokiSDK.gameplayStop();
+	}
+	function Show_Ads()
+	{
+		console.log("<Poki> Show Ads Called");
+		if(pokiSDKReady)
+	  	{
+	  		PokiSDK.commercialBreak()
+			.then(
+			    () => { //you can also use a normal function here
+			        console.log('End of commercial break');
+			        goToGame();
+			    }
+			)
+			.catch(
+			    () => {
+			        goToGame();
+			    }   
+			);
+	  	}
+	  	else
+	  	{
+	  		goToGame();
+	  	}
+	    
+	  }
+	  function goToGame()
+	  {
+	  	console.log('Go To Game');
+	  	c2_callFunction("On_Ad_Served");
+	  }
+	  function HappyTime(intensity)
+	  {
+	  	console.log("Happy Time <" +intensity + ">");
+	  	if(pokiSDKReady)
+	  	{
+	  		PokiSDK.happyTime(intensity);
+	  	}
+	  }
+	  function isAdBlockerEnabled()
+	  {
+	  	if(adBlockerEnabled)
+	  		return 1;
+	  	else
+	  		return 0;
+	  }
+
+	  function WatchRewardedVideoAd()
+	  {
+	  	if(!pokiSDKReady)
+	  	{
+	  		c2_callFunction("On_RewardedAd_Closed");
+	  		return;
+	  	}
+	  	if(!adBlockerEnabled)
+	  	{
+	  		PokiSDK.rewardedBreak().then((success) => {
+			    if(success) {
+			        c2_callFunction("On_RewardedAd_Served");
+		  			console.log("Video Ad Finished");
+			    } else {
+			        // video not displayed, should not give reward
+			        c2_callFunction("On_RewardedAd_Closed");
+			    }
+			});
+	  	}
+	  	else
+	  	{
+	  		c2_callFunction("On_RewardedAd_Closed");
+	  	}
+	  }
+
+	  
+	
+
+
+
+	</script>
+	
+
+</head> 
+ 
+<body onload="onPageReady()">
+	<div id="fb-root"></div>
+	
+	<script>
+	// Issue a warning if trying to preview an exported project on disk.
+	(function(){
+		// Check for running exported on file protocol
+		if (window.location.protocol.substr(0, 4) === "file")
+		{
+			alert("Exported games won't work until you upload them. (When running on the file:/// protocol, browsers block many features from working for security reasons.)");
+		}
+	})();
+	</script>
+	
+	<!-- The canvas must be inside a div called c2canvasdiv -->
+	<div id="c2canvasdiv">
+	
+		<!-- The canvas the project will render to.  If you change its ID, don't forget to change the
+		ID the runtime looks for in the jQuery events above (ready() and cr_sizeCanvas()). -->
+		<canvas id="c2canvas" width="2400" height="1350">
+			<!-- This text is displayed if the visitor's browser does not support HTML5.
+			You can change it, but it is a good idea to link to a description of a browser
+			and provide some links to download some popular HTML5-compatible browsers. -->
+			<h1>Your browser does not appear to support HTML5.  Try upgrading your browser to the latest version.  <a href="http://www.whatbrowser.org">What is a browser?</a>
+			<br/><br/><a href="http://www.microsoft.com/windows/internet-explorer/default.aspx">Microsoft Internet Explorer</a><br/>
+			<a href="http://www.mozilla.com/firefox/">Mozilla Firefox</a><br/>
+			<a href="http://www.google.com/chrome/">Google Chrome</a><br/>
+			<a href="http://www.apple.com/safari/download/">Apple Safari</a></h1>
+		</canvas>
+		
+	</div>
+	
+	<!-- Pages load faster with scripts at the bottom -->
+	
+	<!-- Construct 2 exported games require jQuery. -->
+	<script src="jquery-2.1.1.min.js"></script>
+
+	<script src="spine_webgl.js"></script>
+
+	
+    <!-- The runtime script.  You can rename it, but don't forget to rename the reference here as well.
+    This file will have been minified and obfuscated if you enabled "Minify script" during export. -->
+	<script src="c2runtime.js"></script>
+
+    <script>
+		// Start the Construct 2 project running on window load.
+		jQuery(document).ready(function ()
+		{			
+			// Create new runtime using the c2canvas
+			cr_createRuntime("c2canvas");
+		});
+		
+		// Pause and resume on page becoming visible/invisible
+		function onVisibilityChanged() {
+			if (document.hidden || document.mozHidden || document.webkitHidden || document.msHidden)
+				cr_setSuspended(true);
+			else
+				cr_setSuspended(false);
+		};
+		
+		document.addEventListener("visibilitychange", onVisibilityChanged, false);
+		document.addEventListener("mozvisibilitychange", onVisibilityChanged, false);
+		document.addEventListener("webkitvisibilitychange", onVisibilityChanged, false);
+		document.addEventListener("msvisibilitychange", onVisibilityChanged, false);
+		
+		function OnRegisterSWError(e)
+		{
+			console.warn("Failed to register service worker: ", e);
+		};
+		
+		// Runtime calls this global method when ready to start caching (i.e. after startup).
+		// This registers the service worker which caches resources for offline support.
+		window.C2_RegisterSW = function C2_RegisterSW()
+		{
+			if (!navigator.serviceWorker)
+				return;		// no SW support, ignore call
+			
+			try {
+				navigator.serviceWorker.register("sw.js", { scope: "./" })
+				.then(function (reg)
+				{
+					console.log("Registered service worker on " + reg.scope);
+				})
+				.catch(OnRegisterSWError);
+			}
+			catch (e)
+			{
+				OnRegisterSWError(e);
+			}
+		};
+    </script>
+
+    <div id="loading" class="loading_bg" style="background-image: url(assets/images/background.png);">
+		<div id="logo_container" class="" style="display: none;">
+			<div class="center_align" style="height: 100%">
+				<img id="sun_rays" style="width:auto; height: 100%" src="assets/images/sun_rays.png" class="">
+			</div>
+			<div class="logo">
+				<img class="icon" src="assets/images/logo.png"/>
+			</div>
+		</div>
+		<h1 id="text_container" class="" style="display: block;"></h1>
+
+		<div id="loading_container" class="" style="display: none;" >
+			<div id="loading_frame" class="bar loading_frame">
+				<div id="loading_bar" class="loading_bar"></div>
+			</div>
+			
+		</div>
+	</div>
+	<script type="text/javascript">
+		window.addEventListener('resize', function(event){
+		  Resize();
+		});
+		window.addEventListener("wheel", (event) => event.preventDefault(), {
+			passive: false,
+		});
+    </script>
+</body> 
+</html> 

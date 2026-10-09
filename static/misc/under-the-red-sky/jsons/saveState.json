@@ -1,0 +1,65 @@
+{
+	"settings": {
+		"volume": 0.6,
+		"musicVolume": 0.65,
+		"soundVolume": 1,
+		"sensitivity": 0.18,
+		"graphicsQuality": "lowest",
+		"FOV": 93,
+		"language": "en",
+		"FPSLimit": "vsync",
+		"displayMode": "fullscreen",
+		"3rdPerson": 0,
+		"camYDir": 1
+	},
+	"useSteamUsername":false,
+	"usePokiUsername":"false",
+	"firstSpawn": true,
+	"DEMOENDED": true,
+	"name": "Z-corp Worker",
+	"achievements": {},
+	"totalDeaths": 0,
+	"totalPlaytime": 0,
+	"totalRunDistance": 0,
+	"lastPlayedLevel": "TutorialHub",
+	"lastPlayedHub": "TutorialHub",
+	"notifications": {
+		"skinView": 1,
+		"profile": 1
+	},
+	"crosshair": "",
+	"skin": {
+		"name": "NvLL"
+	},
+	"skinUnlocks": {
+		"Default": {
+			"unlocked": true,
+			"adsWatched": 0
+		},
+		"altDefault": {
+			"unlocked": true,
+			"adsWatched": 0
+		}
+	},
+	"chapters": {
+		"chapterName": {
+			"completed": true
+		}
+	},
+	"levels": {
+		"levelName": {
+			"bestTime": false,
+			"foundSecret": false,
+			"ghost": [
+				{
+					"position": [
+						0,
+						0,
+						0
+					],
+					"time": 0
+				}
+			]
+		}
+	}
+}
