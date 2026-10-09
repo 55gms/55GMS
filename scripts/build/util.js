@@ -4,7 +4,18 @@ import path from "node:path";
 
 // Files later stages are ALLOWED to modify. Anything else is copied through
 // untouched by prepare, so a new kind of file is never half-transformed.
-export const JS_SKIP = new Set(["easteregg.min.js", "frame-runtime.js"]);
+// easteregg.min.js is third-party and already minified, so it is left alone.
+export const JS_SKIP = new Set(["easteregg.min.js"]);
+
+// Scripts that export functions which are later serialized with
+// Function.prototype.toString() and re-evaluated in a context that has none of
+// this file's module-level helpers. frame-runtime.js hands codec.encode/decode
+// to the proxy controller, which injects `${codec.encode.toString()}` into the
+// service worker and every frame (see controller.api.js). The default RC4
+// string-array + control-flow profile rewrites those bodies to reference a
+// module-level decoder, so the serialized copy throws "<name> is not defined".
+// These files get the serialization-safe profile in javascript.js instead.
+export const SERIALIZED_FN_SCRIPTS = new Set(["frame-runtime.js"]);
 
 export async function copyTree(src, dst) {
   await cp(src, dst, { recursive: true, dereference: false });

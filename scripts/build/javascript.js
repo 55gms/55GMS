@@ -2,7 +2,7 @@ import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { minify } from "terser";
 import JavaScriptObfuscator from "javascript-obfuscator";
-import { JS_SKIP } from "./util.js";
+import { JS_SKIP, SERIALIZED_FN_SCRIPTS } from "./util.js";
 
 // script mode: these are classic scripts (no type="module"). renameGlobals
 // stays OFF so $, io, frameRuntime.* and inline on* handlers keep resolving.
@@ -27,7 +27,33 @@ function obfuscatorOptions(prefix) {
   };
 }
 
-export { obfuscatorOptions };
+// Serialization-safe profile for SERIALIZED_FN_SCRIPTS. The transforms that
+// pull references out of a function body — the string array and its decoder,
+// and control-flow flattening — are OFF, so every function still stringifies
+// to self-contained source. Identifier renaming, split strings and
+// numbers-to-expressions stay ON, and object keys are left literal so the
+// returned frameRuntime.* members keep the names other files look them up by.
+function serializedFnObfuscatorOptions(prefix) {
+  return {
+    target: "browser",
+    stringArray: false,
+    controlFlowFlattening: false,
+    splitStrings: true,
+    splitStringsChunkLength: 5,
+    numbersToExpressions: true,
+    simplify: true,
+    identifierNamesGenerator: "hexadecimal",
+    identifiersPrefix: prefix,
+    transformObjectKeys: false,
+    renameGlobals: false,
+    deadCodeInjection: false,
+    selfDefending: false,
+    debugProtection: false,
+    disableConsoleOutput: false,
+  };
+}
+
+export { obfuscatorOptions, serializedFnObfuscatorOptions };
 
 // Most app scripts are classic scripts, but a few (unity-cdn-loader.js and
 // unity-cdn-assets.js, loaded with type="module" by game pages) are ES
@@ -74,7 +100,10 @@ export async function obfuscateScripts(outStatic) {
     const { code, isModule } = await minifyScript(src, entry.name);
     if (isModule) modules.push(entry.name);
     const prefix = "_" + entry.name.replace(/[^a-z0-9]/gi, "").slice(0, 6) + "_";
-    const out = JavaScriptObfuscator.obfuscate(code, obfuscatorOptions(prefix)).getObfuscatedCode();
+    const options = SERIALIZED_FN_SCRIPTS.has(entry.name)
+      ? serializedFnObfuscatorOptions(prefix)
+      : obfuscatorOptions(prefix);
+    const out = JavaScriptObfuscator.obfuscate(code, options).getObfuscatedCode();
     // A module's import/export statements and top-level await must survive,
     // or the pages that load it with type="module" would break.
     if (isModule) assertModuleSyntax(out, entry.name);
