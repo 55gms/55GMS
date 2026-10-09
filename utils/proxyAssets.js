@@ -1,7 +1,7 @@
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { scramjetPath } from "@mercuryworkshop/scramjet/path";
-import { setStaticCacheHeaders } from "./httpPerformance.js";
+import { getStaticCacheControl } from "./httpPerformance.js";
 
 const require = createRequire(import.meta.url);
 const packageDir = (name) => dirname(require.resolve(name));
@@ -36,9 +36,12 @@ export const proxyAssetFiles = {
 
 export function mountProxyAssets(app) {
   for (const [route, file] of Object.entries(proxyAssetFiles)) {
+    // The cache header goes on through sendFile so it is only set when the
+    // file is actually sent: set up front, it would also ride along on the 404
+    // for a missing file, and browsers would keep that 404 for a day.
+    const headers = { "Cache-Control": getStaticCacheControl(file) };
     app.get(route, (req, res, next) => {
-      setStaticCacheHeaders(res, file);
-      res.sendFile(file, (err) => err && next(err));
+      res.sendFile(file, { headers }, (err) => err && next(err));
     });
   }
 }
