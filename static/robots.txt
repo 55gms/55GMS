@@ -1,1 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /stream/
+Disallow: /wisp/
+Disallow: /_ads/
+
 Sitemap: https://55gms.com/sitemap.xml
