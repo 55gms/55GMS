@@ -95,31 +95,53 @@ window.frameRuntime = (() => {
       }),
       "The service worker could not be registered.",
     );
-    // Prefer the new worker during an upgrade, rather than sending new RPC
-    // messages to the previous generation's still-active worker.
-    const worker =
-      registration.installing || registration.waiting || registration.active;
-    if (!worker) throw new Error("No service worker is available.");
-    if (worker.state === "activated") return worker;
-    let changed;
-    try {
-      await withTimeout(
-        new Promise((resolve, reject) => {
-          changed = () => {
-            if (worker.state === "activated" || worker.state === "redundant") {
-              if (worker.state === "activated") resolve();
-              else reject(new Error("Service worker installation failed."));
-            }
-          };
-          worker.addEventListener("statechange", changed);
-          changed();
-        }),
-        "The service worker did not activate.",
+    const pending = registration.installing || registration.waiting;
+    // A replacement cannot take over while the current worker still has frame
+    // requests pending, which can be minutes. Every generation runs the same
+    // routing code, so start on the worker that is already active and let
+    // followWorker move the controller across when the replacement is ready.
+    if (registration.active)
+      return { registration, worker: registration.active };
+    if (!pending) throw new Error("No service worker is available.");
+    await withTimeout(
+      whenActivated(pending),
+      "The service worker did not activate.",
+    );
+    return { registration, worker: pending };
+  }
+
+  function whenActivated(worker) {
+    return new Promise((resolve, reject) => {
+      const changed = () => {
+        if (worker.state !== "activated" && worker.state !== "redundant")
+          return;
+        worker.removeEventListener("statechange", changed);
+        if (worker.state === "activated") resolve(worker);
+        else reject(new Error("Service worker installation failed."));
+      };
+      worker.addEventListener("statechange", changed);
+      changed();
+    });
+  }
+
+  // Points the controller at whichever worker becomes active later, so its
+  // frames keep routing after an upgrade lands mid-session.
+  function followWorker(registration, controller, current) {
+    const follow = (worker) => {
+      if (!worker || worker === current) return;
+      whenActivated(worker).then(
+        () => {
+          current = worker;
+          controller.serviceWorkerController = worker;
+          controller.setupMessagePort();
+        },
+        () => {},
       );
-    } finally {
-      worker.removeEventListener("statechange", changed);
-    }
-    return worker;
+    };
+    follow(registration.installing || registration.waiting);
+    registration.addEventListener("updatefound", () =>
+      follow(registration.installing),
+    );
   }
 
   const CACHE_METHODS = new Set(["GET", "HEAD"]);
@@ -352,7 +374,7 @@ window.frameRuntime = (() => {
       [tunnel]: endpoint,
       [tunnel + "_v2"]: true,
     });
-    const [serviceworker] = await Promise.all([
+    const [{ registration, worker: serviceworker }] = await Promise.all([
       registerWorker(),
       withTimeout(transport.init(), "The connection did not start."),
     ]);
@@ -377,6 +399,7 @@ window.frameRuntime = (() => {
       controller.wait(),
       "The frame controller did not initialize.",
     );
+    followWorker(registration, controller, serviceworker);
     return controller;
   }
 
