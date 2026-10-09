@@ -4,7 +4,7 @@ import { Server as SocketIO } from "socket.io";
 import { createAdapter } from "@socket.io/redis-adapter";
 import { createClient } from "redis";
 import path from "path";
-import { existsSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import cors from "cors";
@@ -38,14 +38,30 @@ try {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
 
-  // Production serves the built site (npm run build, see docs/deploy.md);
-  // without STATIC_ROOT the server serves static/ as-is.
+  // Production serves the built site (npm run build, see docs/deploy.md).
+  // Precedence: explicit STATIC_ROOT env > built tree if present > static/.
+  // The path stays lexical (no realpath) so a dist/current symlink swap is
+  // served on the next request without a restart.
+  const builtStatic = path.resolve(__dirname, "dist/current/static");
   const staticRoot = path.resolve(
     __dirname,
-    process.env.STATIC_ROOT || "static",
+    process.env.STATIC_ROOT ||
+      (existsSync(builtStatic) ? builtStatic : "static"),
   );
   if (!existsSync(staticRoot)) {
     throw new Error(`STATIC_ROOT ${staticRoot} does not exist`);
+  }
+
+  // manifest.json sits beside the resolved root (built tree only). routes is
+  // empty for now and nothing consumes it yet; a bad manifest never stops boot.
+  let manifest = { routes: {} };
+  const manifestPath = path.join(path.dirname(staticRoot), "manifest.json");
+  if (existsSync(manifestPath)) {
+    try {
+      manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+    } catch (e) {
+      console.warn(`[static] ignoring unreadable manifest: ${e.message}`);
+    }
   }
 
   const app = express();
@@ -436,6 +452,7 @@ try {
   server.on("listening", () => {
     console.log(`\n------------------------------------`);
     console.log(`🔗 URL: http://localhost:${process.env.PORT}`);
+    console.log(`📁 Static: ${staticRoot}`);
     console.log(`------------------------------------\n`);
     // Tells pm2 (wait_ready) this worker can take traffic. No-op otherwise.
     process.send?.("ready");
