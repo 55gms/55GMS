@@ -1,0 +1,113 @@
+{
+    "emoteList": {
+        "utrs_emote_wave_120": 0,
+        "utrs_emote_sit_30": "loop",
+        "utrs_emote_warmup_180": 0,
+        "utrs_emote_pointing_loop_30": "loop",
+        "utrs_emote_anger_120": 0,
+        "utrs_emote_salute_100": 0,
+        "utrs_emote_drama_160":0,
+        "utrs_emote_joke_220":0,
+        "utrs_emote_like_180":0
+    },
+    "emotes": {
+        "wave": {
+            "default": {
+                "filename": "utrs_emote_wave_120",
+                "blendTime": 0.2,
+                "animLockTime": 1,
+                "animSpeed": 1,
+                "isLoop": 0
+            }
+        },
+        "point": {
+            "default": {
+                "intro": {
+                    "filename": "utrs_emote_pointing_start_25",
+                    "blendTime": 0.15,
+                    "animLockTime": 0.8,
+                    "animSpeed": 1,
+                    "isLoop": 0,
+                    "introDuration": 0.3
+                },
+                "loop": {
+                    "filename": "utrs_emote_pointing_loop_30",
+                    "blendTime": 0.1,
+                    "animLockTime": 0.3,
+                    "animSpeed": 1,
+                    "isLoop": 1
+                }
+            }
+        },
+        "sit": {
+            "default": {
+                "filename": "utrs_emote_sit_30",
+                "blendTime": 0.2,
+                "animLockTime": 0.8,
+                "animSpeed": 1,
+                "isLoop": 1
+            }
+        },
+        "warmup": {
+            "default": {
+                "filename": "utrs_emote_warmup_180",
+                "blendTime": 0.1,
+                "animLockTime": 2.5,
+                "animSpeed": 1,
+                "isLoop": 0
+            }
+        },
+        "drama": {
+            "default": {
+                "filename": "utrs_emote_drama_160",
+                "blendTime": 0.1,
+                "animLockTime": 0.6,
+                "animSpeed": 1,
+                "isLoop": 0
+            },
+            "phantom": {
+                "filename": "utrs_emote_drama_160",
+                "blendTime": 0.1,
+                "animLockTime": 0.6,
+                "animSpeed": 1,
+                "isLoop": 0
+            }
+        },
+        "like": {
+            "default": {
+                "filename": "utrs_emote_like_180",
+                "blendTime": 0.1,
+                "animLockTime": 0.6,
+                "animSpeed": 1,
+                "isLoop": 0
+            }
+        },
+        "salute": {
+            "default": {
+                "filename": "utrs_emote_salute_100",
+                "blendTime": 0.1,
+                "animLockTime": 0.6,
+                "animSpeed": 1,
+                "isLoop": 0
+            }
+        },
+        "joke": {
+            "default": {
+                "filename": "utrs_emote_joke_220",
+                "blendTime": 0.1,
+                "animLockTime": 0.6,
+                "animSpeed": 1,
+                "isLoop": 0
+            }
+        },
+        "anger": {
+            "default": {
+                "filename": "utrs_emote_anger_120",
+                "blendTime": 0.1,
+                "animLockTime": 0.6,
+                "animSpeed": 1,
+                "isLoop": 0
+            }
+        }
+    }
+}

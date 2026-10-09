@@ -1,0 +1,151 @@
+{
+	"skinOrder": [
+		"Default",
+		"altDefault",
+		"Buns",
+		"Worker",
+		"Techwear",
+		"Frankie",
+		"OvO",
+		"Winter",
+		"wetNoodle",
+		"Phantom",
+		"KarimCheese",
+		"ChinoAlphaWolf",
+		"Valentine"
+	],
+	"skins": {
+		"Default": {
+			"accessories": [],
+			"voice": "genericFemale"
+		},
+		"altDefault": {
+			"accessories": ["hat"],
+			"voice": "genericFemale"
+		},
+		"Buns": {
+			"unlockType": "progression",
+			"threshold" : 12,
+			"accessories": [],
+			"voice": "genericFemale"
+		},
+		"Worker": {
+			"unlockType": "progression",
+			"threshold" : 24,
+			"accessories": [],
+			"voice": "genericFemale"
+		},
+		"Techwear": {
+			"unlockType": "progression",
+			"threshold" : 36,
+			"accessories": ["hat"],
+			"voice": "genericFemale"
+		},
+		"Frankie": {
+			"unlockType": "progression",
+			"threshold" : 48,
+			"accessories": [],
+			"voice": "genericFemale"
+		},
+		"KaiCenat": {
+			"accessories": [],
+			"voice": "genericMale"
+		},
+		"Agent00": {
+			"accessories": [],
+			"voice": "genericMale"
+		},
+		"OvO": {
+			"unlockType": "achievement",
+			"threshold" : "OvO3",
+			"accessories": [],
+			"voice": "genericFemale"
+		},
+		"Winter": {
+			"unlockType": "achievement",
+			"threshold" : "Viking",
+			"accessories": [],
+			"voice": "genericFemale"
+		},
+		"wetNoodle": {
+			"unlockType": "achievement",
+			"threshold" : "voidfinished",
+			"accessories": [],
+			"hidden": 1,
+			"voice": "genericFemale"
+		},
+		"Phantom": {
+			"unlockType": "achievement",
+			"threshold" : "completion",
+			"accessories": [],
+			"hidden": 1,
+			"voice": "genericFemale"
+		},
+		"IceMan": {
+			"voice": "genericFemale"
+		},
+		"Egg": {
+			"voice": "genericFemale"
+		},
+		"ChinoAlphaWolf": {
+			"unlockType": "dlc",
+			"voice": "genericMale",
+			"dlc": 4341320
+		},
+		"KarimCheese": {
+			"unlockType": "dlc",
+			"voice": "genericMale",
+			"dlc": 4335870
+		},
+		"Valentine": {
+			"unlockType": "dlc",
+			"voice": "genericFemale",
+			"dlc": 4404670
+		},
+		"BarefootTasha": {
+			"unlockType": "dlc",
+			"voice": "genericFemale",
+			"dlc": 4404700
+		},
+		"CalebCity": {
+			"unlockType": "dlc",
+			"voice": "genericMale",
+			"dlc": 4404680
+		},
+		"CalebCity_alt": {
+			"unlockType": "dlc",
+			"voice": "genericMale",
+			"dlc": 4404680
+		},
+		"HundoGrand": {
+			"unlockType": "dlc",
+			"voice": "genericMale",
+			"dlc": 4404720
+		},
+		"KaijuBlack": {
+			"unlockType": "dlc",
+			"voice": "genericMale",
+			"dlc": 4404750
+		},
+		"KaijuBlack_alt": {
+			"unlockType": "dlc",
+			"voice": "genericMale",
+			"dlc": 4404750
+		},
+		"Kimmickles": {
+			"unlockType": "dlc",
+			"voice": "genericFemale",
+			"dlc": 4404730
+		},
+		"KingVader": {
+			"unlockType": "dlc",
+			"voice": "genericMale",
+			"dlc": 4404690
+		}
+	},
+	"accessories": {
+		"hat": {
+			"nodeName": "utrsChara_Techwear_Hat"
+		}
+	}
+}
