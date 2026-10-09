@@ -96,6 +96,14 @@ jobs:
       - name: Build
         run: npm run build --if-present
 
+      # Fails the job, and so blocks the deploy, if the build stopped hiding
+      # catalogue titles, page text or app script strings. Run it locally with
+      # the same command after `npm run build`.
+      - name: Check the built tree exposes no readable catalogue or page text
+        run: |
+          set -euo pipefail
+          node scripts/build/check-output.js dist/current/static static
+
   deploy:
     needs: check
     if: ${{ !cancelled() && needs.check.result == 'success' && github.repository_owner == '55gms' }}
