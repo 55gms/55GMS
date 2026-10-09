@@ -228,7 +228,11 @@ window.frameRuntime = (() => {
       this.notify = notify;
       this.popups = new Map();
       this.namedPopups = new Map();
-      this.popupNamespace = crypto.randomUUID();
+      // randomUUID only exists on HTTPS or localhost. Fall back so a plain
+      // http:// address reaches the service worker error instead of dying
+      // here with a blank page.
+      this.popupNamespace =
+        crypto.randomUUID?.() ?? Math.random().toString(36).slice(2);
       this.nextPopupId = 0;
     }
 
