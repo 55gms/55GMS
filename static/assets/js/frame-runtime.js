@@ -3,7 +3,12 @@
 window.frameRuntime = (() => {
   const CORE_VERSION = "2.0.67-alpha.2-3";
   const CONTROLLER_VERSION = "0.0.14-1";
-  const WORKER_URL = `/sw.js?v=${CORE_VERSION}-${CONTROLLER_VERSION}-2`;
+  // Not derived from CORE_VERSION: the worker only loads the controller's
+  // worker bundle, and a new URL makes returning browsers install a second
+  // worker that cannot take over while the old one still has frame requests
+  // pending, so the page times out. Change it only when sw.js or that bundle
+  // changes.
+  const WORKER_URL = "/sw.js?v=2.0.67-alpha.2-1-0.0.14-1-2";
   const PREFIX = "/stream/";
   const LEGACY_SCOPES = ["/", "/~/sj/"];
   const VIRTUAL_DATA = "vendor-data.js";
