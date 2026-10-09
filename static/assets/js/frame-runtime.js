@@ -96,18 +96,29 @@ window.frameRuntime = (() => {
       "The service worker could not be registered.",
     );
     const pending = registration.installing || registration.waiting;
-    // A replacement cannot take over while the current worker still has frame
-    // requests pending, which can be minutes. Every generation runs the same
-    // routing code, so start on the worker that is already active and let
-    // followWorker move the controller across when the replacement is ready.
-    if (registration.active)
+    if (!pending) {
+      if (!registration.active)
+        throw new Error("No service worker is available.");
       return { registration, worker: registration.active };
-    if (!pending) throw new Error("No service worker is available.");
-    await withTimeout(
-      whenActivated(pending),
-      "The service worker did not activate.",
-    );
-    return { registration, worker: pending };
+    }
+    // A replacement normally takes over at once, but cannot while the current
+    // worker still has frame requests pending, which can be minutes. Every
+    // generation runs the same routing code, so after a short grace period
+    // start on the worker that is already active; followWorker moves the
+    // controller across when the replacement is ready.
+    const activated = whenActivated(pending);
+    activated.catch(() => {});
+    try {
+      await withTimeout(
+        activated,
+        "The service worker did not activate.",
+        registration.active ? 2500 : 15000,
+      );
+      return { registration, worker: pending };
+    } catch (err) {
+      if (registration.active?.state !== "activated") throw err;
+      return { registration, worker: registration.active };
+    }
   }
 
   function whenActivated(worker) {
@@ -395,11 +406,13 @@ window.frameRuntime = (() => {
         maskedfiles: ["vendor-page.js", VIRTUAL_DATA],
       },
     });
+    // Before the handshake: it would never finish if the worker it started
+    // with is replaced partway through.
+    followWorker(registration, controller, serviceworker);
     await withTimeout(
       controller.wait(),
       "The frame controller did not initialize.",
     );
-    followWorker(registration, controller, serviceworker);
     return controller;
   }
 
