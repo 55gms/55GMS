@@ -146,7 +146,7 @@
   width: 100%;
   max-width: 31.25vw;
   height: auto;
-  aspect-ratio: 730 / 90;
+  aspect-ratio: 728 / 90;
   background-color: var(--site-surface-2, #3d4756);
   border-radius: var(--site-radius-sm, 10px);
   display: flex;
@@ -163,6 +163,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.bottom-addisplay [data-55gms-ad] {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  aspect-ratio: auto !important;
+}
+
+.bottom-addisplay [data-55gms-ad] a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.bottom-addisplay [data-55gms-ad] img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: fill;
 }
 
 .bottom-addisplay iframe {
