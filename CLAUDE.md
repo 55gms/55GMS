@@ -10,9 +10,15 @@ node .
 
 # Initialize the database (run once before first start)
 node setup-db.js
+
+# Build the obfuscated copy of static/ into dist/ (CI and every deploy run this)
+npm run build
+
+# Check that the build hides what it should (CI runs this after the build)
+node scripts/build/check-output.js
 ```
 
-No build step yet — the project uses ES6 modules served directly by Node.js. Deploys run `npm run build --if-present`; a build that writes `dist/current/static` is served instead of `static/` (see `docs/deploy.md`).
+The server serves `STATIC_ROOT` if set, else `dist/current/static` if it exists, else `static/`. So after a local `npm run build`, plain `node .` serves the built copy and edits under `static/` do not show until you rebuild. To serve the sources, run `STATIC_ROOT=static node .` or delete `dist/`.
 
 ## Environment Setup
 
@@ -49,6 +55,8 @@ A running PostgreSQL instance is required. Run `node setup-db.js` after configur
 | `utils/blockingCache.js` | In-memory blocked-user cache                                                                      |
 | `utils/ads.js`           | Mounts 55GMS Ads at `/_ads` when `ADS_SERVER_URL` and `ADS_API_KEY` are set                       |
 | `utils/ads-edge/`        | Vendored edge module from the gms-ads repo; do not edit here                                      |
+| `scripts/build.js`       | `npm run build`: builds `static/` into `dist/builds/<id>/` and points `dist/current` at it        |
+| `scripts/build/`         | The build stages, and `check-output.js`, the check CI runs on the built tree                      |
 | `deploy/`                | Server-side deploy scripts run by the GitHub Actions deploy key (`docs/deploy.md`)                |
 | `ecosystem.config.cjs`   | pm2 settings for production (cluster, 10 workers, `STATIC_ROOT`)                                  |
 
@@ -77,6 +85,26 @@ All frontend code is static files under `static/`:
 - `static/assets/cloaks/` — tab-cloak favicons (Canvas, Gmail, Google Drive, etc.)
 - `static/assets/sj/` — small proxy helper scripts (URL handling, service-worker registration)
 - `static/misc/` — 200+ self-contained embedded game directories
+
+### Build
+
+`static/` is the source. `npm run build` writes a transformed copy to `dist/builds/<id>/static/` and swaps the `dist/current` symlink to it; production serves that copy. `dist/` is git-ignored. Stages, in order (`scripts/build/`):
+
+1. `prepare` — copies `static/`; `misc/` and `img/` are symlinked, never copied or rebuilt
+2. `javascript` — minifies and obfuscates the scripts directly in `assets/js/`
+3. `catalogue` — encodes `assets/json/load/*.json`
+4. `html` — obfuscates inline scripts, minifies, and entity-encodes visible text in `static/*.html`
+5. `asset-version` — rewrites `/assets/*.js|css` references to a per-build `?v=`
+
+What this means when editing the frontend:
+
+- Byte-for-byte untouched: `sw.js`, `assets/sj/`, `assets/js/frame-runtime.js`, `assets/js/easteregg.min.js`, `assets/js/sdks/`. CSS and the other JSON files are copied as they are.
+- Top-level function names in app scripts stay readable (global renaming is off) because pages call them from inline handlers; so does `<meta name="description">` content.
+- A built catalogue is base64url of a 16-byte key followed by the JSON XORed with that key. `games.js`, `apps.js`, `packs.js` and `loader-ui.js` each carry the decoder (`readCatalogue`) and still accept plain JSON; any new code that fetches a catalogue needs it too.
+- `unity-cdn-loader.js` and `unity-cdn-assets.js` are ES modules loaded by game pages under `static/misc/`, which are never rebuilt: keep their file names and export names stable.
+- Whatever `?v=` a page puts on an `/assets/*.js|css` reference is replaced by the per-build one. `/assets/lib/vendor-*` and `/assets/js/sdks/*` keep their own versions, and so do URLs built at runtime inside app scripts (the loader `VERSION` in `loader-ui.js`, still bumped with `scripts/bump-loader-version.js`) and the game pages under `static/misc/`.
+
+The proxy surface (phases 3–5) is not built: see `docs/superpowers/specs/2026-10-08-build-phases-3-5.md`. Details, the `dist/` layout and how to check a build are in `docs/deploy.md`.
 
 ### Proxy infrastructure
 
@@ -112,4 +140,4 @@ Production is a single server (SSH host `55gms`, `/root/55gms`) running pm2 behi
 
 ## CI
 
-`.github/workflows/deploy.yml` runs on every push to `main`: Prettier (auto-commits), syntax checks, the build, then the deploy. `.github/workflows/main.yml` runs Prettier on pull requests. There are no automated tests in CI.
+`.github/workflows/deploy.yml` runs on every push to `main`: Prettier (auto-commits), syntax checks, the build, a check that the built tree exposes no readable catalogue or page text (`scripts/build/check-output.js`), then the deploy. `.github/workflows/main.yml` runs Prettier on pull requests. There are no automated tests in CI.
