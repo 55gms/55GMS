@@ -16,3 +16,6 @@ migration-data/
 
 # Build output (npm run build)
 dist/
+
+# Playwright MCP run artifacts
+.playwright-mcp/
