@@ -69,7 +69,11 @@ async function minifyScript(src, name) {
     return { code: min.code, isModule: false };
   } catch (scriptErr) {
     try {
-      const min = await minify(src, { compress: true, mangle: true, module: true });
+      const min = await minify(src, {
+        compress: true,
+        mangle: true,
+        module: true,
+      });
       return { code: min.code, isModule: true };
     } catch (moduleErr) {
       throw new Error(
@@ -91,19 +95,29 @@ export async function obfuscateScripts(outStatic) {
   const skipped = [];
   const modules = [];
   for (const entry of await readdir(jsDir, { withFileTypes: true })) {
-    if (entry.isDirectory()) { skipped.push(entry.name + "/"); continue; } // sdks/
+    if (entry.isDirectory()) {
+      skipped.push(entry.name + "/");
+      continue;
+    } // sdks/
     if (!entry.name.endsWith(".js")) continue;
-    if (JS_SKIP.has(entry.name)) { skipped.push(entry.name); continue; }
+    if (JS_SKIP.has(entry.name)) {
+      skipped.push(entry.name);
+      continue;
+    }
 
     const file = path.join(jsDir, entry.name);
     const src = await readFile(file, "utf8");
     const { code, isModule } = await minifyScript(src, entry.name);
     if (isModule) modules.push(entry.name);
-    const prefix = "_" + entry.name.replace(/[^a-z0-9]/gi, "").slice(0, 6) + "_";
+    const prefix =
+      "_" + entry.name.replace(/[^a-z0-9]/gi, "").slice(0, 6) + "_";
     const options = SERIALIZED_FN_SCRIPTS.has(entry.name)
       ? serializedFnObfuscatorOptions(prefix)
       : obfuscatorOptions(prefix);
-    const out = JavaScriptObfuscator.obfuscate(code, options).getObfuscatedCode();
+    const out = JavaScriptObfuscator.obfuscate(
+      code,
+      options,
+    ).getObfuscatedCode();
     // A module's import/export statements and top-level await must survive,
     // or the pages that load it with type="module" would break.
     if (isModule) assertModuleSyntax(out, entry.name);
@@ -115,9 +129,13 @@ export async function obfuscateScripts(outStatic) {
   // the sdks/ dir. A new file that should have been obfuscated fails loudly.
   const expectedSkips = new Set([...JS_SKIP, "sdks/"]);
   const unexpected = skipped.filter((s) => !expectedSkips.has(s));
-  if (unexpected.length) throw new Error(`[build] unexpected JS skips: ${unexpected.join(", ")}`);
+  if (unexpected.length)
+    throw new Error(`[build] unexpected JS skips: ${unexpected.join(", ")}`);
   const missed = [...JS_SKIP].filter((s) => !skipped.includes(s));
-  if (missed.length) throw new Error(`[build] expected-but-missing JS skips (file renamed/removed?): ${missed.join(", ")}`);
+  if (missed.length)
+    throw new Error(
+      `[build] expected-but-missing JS skips (file renamed/removed?): ${missed.join(", ")}`,
+    );
   console.log(
     `[build] obfuscated ${obfuscated.length} scripts (${modules.length} parsed as ES modules: ${modules.join(", ") || "none"}), skipped ${skipped.join(", ")}`,
   );
