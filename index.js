@@ -385,6 +385,10 @@ try {
     }
   }, 60000).unref?.();
 
+  // Saved tab icons from before the folder was renamed still point at the old path.
+  app.use("/assets/cloaks", (req, res) => {
+    res.redirect(301, "/assets/harry-potter" + req.url);
+  });
   app.use(express.static(staticRoot, staticOptions));
   app.use((req, res, next) => {
     if (req.method === "GET" && !path.extname(req.url)) {

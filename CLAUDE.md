@@ -82,7 +82,7 @@ All frontend code is static files under `static/`:
 - `static/*.html` — page templates (no templating engine; plain HTML)
 - `static/assets/js/` — client-side JS (chat, auth, games UI)
 - `static/assets/json/` — game/app catalog data
-- `static/assets/cloaks/` — tab-cloak favicons (Canvas, Gmail, Google Drive, etc.)
+- `static/assets/harry-potter/` — preset tab favicons (Canvas, Gmail, Google Drive, etc.)
 - `static/assets/sj/` — small proxy helper scripts (URL handling, service-worker registration)
 - `static/misc/` — 200+ self-contained embedded game directories
 

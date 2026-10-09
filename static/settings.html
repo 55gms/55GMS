@@ -59,12 +59,12 @@
         <div class="settings-card-header">
           <i class="fa-solid fa-user-secret" aria-hidden="true"></i>
           <div>
-            <h2>Tab cloak</h2>
+            <h2>Tab appearance</h2>
             <p>Change the tab title and icon.</p>
           </div>
         </div>
-        <label for="premadecloaks">Preset</label>
-        <select name="Readymade Cloaks" id="premadecloaks" title="Cloaks">
+        <label for="harry-potter-presets">Preset</label>
+        <select name="Harry Potter Presets" id="harry-potter-presets" title="Presets">
           <option value="bsite">BilliBilli</option>
           <option value="calendar">Google Calendar</option>
           <option value="canvas">Canvas</option>
@@ -83,18 +83,18 @@
         <div class="settings-two-column">
           <div>
             <label for="title">Custom title</label>
-            <input class="tab-cloaker-form" type="text" id="title" placeholder="Google" onkeyup="setTitle(this.value)"
+            <input class="harry-potter-form" type="text" id="title" placeholder="Google" onkeyup="setTitle(this.value)"
               name="title">
           </div>
           <div>
             <label for="icon">Custom icon URL</label>
-            <input class="tab-cloaker-form" type="text" id="icon" name="icon" placeholder="/img/favicon.ico"
+            <input class="harry-potter-form" type="text" id="icon" name="icon" placeholder="/img/favicon.ico"
               onkeyup="setFavicon(this.value.trim())">
           </div>
         </div>
         <div class="settings-actions">
-          <button class="tab-cloak" onclick="setCloak();">Apply preset</button>
-          <button class="tab-cloak tab-cloak-secondary" onclick="resetTab();">Reset cloak</button>
+          <button class="harry-potter" onclick="setHarryPotter();">Apply preset</button>
+          <button class="harry-potter harry-potter-secondary" onclick="resetTab();">Reset tab</button>
         </div>
       </article>
 
@@ -113,7 +113,7 @@
             <span class="slider round"></span>
           </label>
         </div>
-        <button onclick="cloak()" class="tab-cloak">Open popup</button>
+        <button onclick="openHarryPotter()" class="harry-potter">Open popup</button>
       </article>
 
       <article class="settings-card">
@@ -125,9 +125,9 @@
           </div>
         </div>
         <label for="key">Key</label>
-        <input class="tab-cloaker-form" type="text" id="key" placeholder="`" onkeyup="setPanicKey()" name="key">
+        <input class="harry-potter-form" type="text" id="key" placeholder="`" onkeyup="setPanicKey()" name="key">
         <label for="link">Exit URL</label>
-        <input class="tab-cloaker-form" type="text" id="link" name="link" placeholder="https://google.com/"
+        <input class="harry-potter-form" type="text" id="link" name="link" placeholder="https://google.com/"
           onkeyup="setPanicLink()">
       </article>
 
@@ -179,8 +179,8 @@
         </div>
         <input type="file" id="uploadSave" class="uploadBox uploadBox-hidden" accept=".gmsconfig">
         <div class="settings-actions">
-          <button class="tab-cloak" onclick="openSaveImportPicker();">Import data</button>
-          <button class="tab-cloak tab-cloak-secondary" onclick="saveSave();">Export data</button>
+          <button class="harry-potter" onclick="openSaveImportPicker();">Import data</button>
+          <button class="harry-potter harry-potter-secondary" onclick="saveSave();">Export data</button>
         </div>
       </article>
 
@@ -219,8 +219,8 @@
       <h2 id="importConfirmTitle">Are you sure you want to import?</h2>
       <p id="importConfirmFile">This will replace matching saved browser settings.</p>
       <div class="settings-modal-actions">
-        <button class="tab-cloak" id="confirmImportSave" type="button">Yes, import</button>
-        <button class="tab-cloak tab-cloak-secondary" id="cancelImportSave" type="button">Cancel</button>
+        <button class="harry-potter" id="confirmImportSave" type="button">Yes, import</button>
+        <button class="harry-potter harry-potter-secondary" id="cancelImportSave" type="button">Cancel</button>
       </div>
     </div>
   </div>

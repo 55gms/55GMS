@@ -69,7 +69,7 @@ All frontend code is static files under `static/`:
 - `static/*.html` — page templates (no templating engine; plain HTML)
 - `static/assets/js/` — client-side JS (chat, auth, games UI)
 - `static/assets/json/` — game/app catalog data
-- `static/assets/cloaks/` — Mercury Workshop proxy-cloaking libraries
+- `static/assets/harry-potter/` — Mercury Workshop proxy-cloaking libraries
 - `static/misc/` — 200+ self-contained embedded game directories
 
 ### Game asset handling
@@ -116,7 +116,7 @@ The site uses Mercury Workshop libraries for browser-based proxying:
 
 - `@mercuryworkshop/bare-mux`, `wisp-js`, `epoxy-transport`, `scramjet`
 
-These are served from `static/assets/sj/` and `static/assets/cloaks/`.
+These are served from `static/assets/sj/` and `static/assets/harry-potter/`.
 
 ## Deployment
 

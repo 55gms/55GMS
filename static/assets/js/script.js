@@ -59,7 +59,7 @@ if (tabData.title) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Set the Tab icon if the Tab cloak data is there
+  // Set the Tab icon if saved tab data is there
   if (tabData.icon) {
     var iconLink = document.querySelector('link[rel="icon"]');
     if (iconLink) {
@@ -242,7 +242,7 @@ if (blankerCheck === "true") {
   if (!inFrame && !navigator.userAgent.includes("Firefox")) {
     const popup = open("about:blank", "_blank");
     if (!popup || popup.closed) {
-      alert("Please allow popups and redirects for about:blank cloak to work.");
+      alert("Please allow popups and redirects for about:blank mode to work.");
     } else {
       popup.document.title = "My Drive - Google Drive";
       const link = popup.document.createElement("link");

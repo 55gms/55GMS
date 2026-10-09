@@ -1,4 +1,4 @@
-var cloakElement;
+var harryPotterElement;
 var pendingImportFile = null;
 
 var siteThemes = {
@@ -104,65 +104,65 @@ function setFavicon(icon) {
   localStorage.setItem("tab", JSON.stringify(tabData));
 }
 
-function setCloak() {
-  var cloak = cloakElement.value;
+function setHarryPotter() {
+  var preset = harryPotterElement.value;
 
-  switch (cloak) {
+  switch (preset) {
     case "search":
       setTitle("Google");
-      setFavicon("/assets/cloaks/Google Search.ico");
+      setFavicon("/assets/harry-potter/Google Search.ico");
       break;
     case "wikipedia":
       setTitle("Wikipedia, the free encyclopedia");
-      setFavicon("/assets/cloaks/Wikipedia.ico");
+      setFavicon("/assets/harry-potter/Wikipedia.ico");
       break;
     case "bsite":
       setTitle("Billibilli");
-      setFavicon("/assets/cloaks/Billibilli.ico");
+      setFavicon("/assets/harry-potter/Billibilli.ico");
       break;
     case "drive":
       setTitle("My Drive - Google Drive");
-      setFavicon("/assets/cloaks/Google Drive.ico");
+      setFavicon("/assets/harry-potter/Google Drive.ico");
       break;
     case "gmail":
       setTitle("Gmail");
-      setFavicon("/assets/cloaks/Gmail.ico");
+      setFavicon("/assets/harry-potter/Gmail.ico");
       break;
     case "calendar":
       setTitle("Google Calendar");
-      setFavicon("/assets/cloaks/Calendar.ico");
+      setFavicon("/assets/harry-potter/Calendar.ico");
       break;
     case "meets":
       setTitle("Google Meet");
-      setFavicon("/assets/cloaks/Meet.ico");
+      setFavicon("/assets/harry-potter/Meet.ico");
       break;
     case "classroom":
       setTitle("Classes");
-      setFavicon("/assets/cloaks/Classroom.png");
+      setFavicon("/assets/harry-potter/Classroom.png");
       break;
     case "canvas":
       setTitle("Dashboard");
-      setFavicon("/assets/cloaks/Canvas.ico");
+      setFavicon("/assets/harry-potter/Canvas.ico");
       break;
     case "zoom":
       setTitle("Zoom");
-      setFavicon("/assets/cloaks/Zoom.ico");
+      setFavicon("/assets/harry-potter/Zoom.ico");
       break;
     case "khan":
       setTitle("Dashboard | Khan Academy");
-      setFavicon("/assets/cloaks/Khan Academy.ico");
+      setFavicon("/assets/harry-potter/Khan Academy.ico");
       break;
     case "itchio":
       setTitle("Download the latest indie games - itch.io");
-      setFavicon("/assets/cloaks/itchio.ico");
+      setFavicon("/assets/harry-potter/itchio.ico");
       break;
     case "deltamath":
       setTitle("DeltaMath Student Application");
-      setFavicon("/assets/cloaks/deltamath.png");
+      setFavicon("/assets/harry-potter/deltamath.png");
       break;
     case "ed":
       setTitle("Edpuzzle");
-      setFavicon("/assets/cloaks/edpuzzle.png");
+      setFavicon("/assets/harry-potter/edpuzzle.png");
       break;
   }
 }
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.getElementById("key").value = panicKey;
   document.getElementById("link").value = panicLink;
-  cloakElement = document.getElementById("premadecloaks");
+  harryPotterElement = document.getElementById("harry-potter-presets");
   var themeSelect = document.getElementById("siteTheme");
   if (themeSelect) {
     themeSelect.value = getSafeTheme(localStorage.getItem("siteTheme"));
@@ -291,7 +291,7 @@ function setPanicLink() {
   localStorage.setItem("PanicLink", link);
 }
 
-function cloak() {
+function openHarryPotter() {
   let inFrame;
 
   try {
