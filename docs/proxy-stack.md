@@ -26,7 +26,9 @@ When publishing a new proxy generation, reload existing proxy/media tabs. The ne
 
 Nothing the browser requests or renders for the player names the libraries. Served site files (`embed.html`, `sw.js`, `frame-runtime.js`, the media pages) look the bundles' globals up by assembled name and expose them as `frameRuntime.core` and friends. Frame URLs are `/stream/<controller>/<frame>/<token>`, where the token is the controller codec's XOR + base64url encoding of the destination; the watch pages pass the same token to the embed as `/embed.html#~<token>` (`mediaPlayer.token` in `player.js` must stay in sync with the codec). The browser shell (`static/browser.html`, served at `/b`) passes the same token via `frameHash` in `browser.js`; the embed still accepts a plain URL in the hash.
 
-Limits: the bundle bodies still contain their own names, and the core appends plain-text query metadata such as `$io=<origin>` to frame subresource URLs. Those requests are answered by the service worker and never reach the network.
+The core tags frame URLs with request metadata (`$io=<origin>`, `$rfs=<referrer>`, `$dest`, …) as a plain query string. `utils/proxyAssets.js` edits `vendor-core.js` as it serves it (`packFrameQuery`) so that query is packed into a single `?_=<token>` parameter with the same codec, and unpacked where the core reads it. The three anchors it edits must each match exactly once or the server refuses to start, so re-check them on a core upgrade, and bump `CORE_VERSION` whenever the edits change.
+
+Limits: the bundle bodies still contain their own names.
 
 Run the targeted checks without a browser:
 
