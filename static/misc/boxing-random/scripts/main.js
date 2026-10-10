@@ -1650,7 +1650,7 @@ self.JobSchedulerDOM = class {
 };
 ('use strict');
 window.C3_IsSupported &&
-	(window.c3_runtimeInterface = new self.RuntimeInterface({
+	(window.c3_runtimeInterface = new self.RuntimeInterface({baseUrl:document.baseURI,runtimeBaseUrl:document.baseURI,
 		useWorker: !1,
 		workerMainUrl: 'workermain.js',
 		engineScripts: ['scripts/c3runtime.js'],

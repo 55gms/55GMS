@@ -1,6 +1,6 @@
 <html>
     <head>
-<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/henry-stickmin-escaping-the-prison/">
+<base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/henry-stickmin-escaping-the-prison/">
 
 
       <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,7 +26,7 @@
         player.style.width = "100%";
         player.style.height = "100%";
         container.appendChild(player);
-        player.load("escapingtheprison.swf");
+        player.load(new URL("escapingtheprison.swf", document.baseURI).href);
       });
     </script>
   </body>

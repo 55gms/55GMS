@@ -27,8 +27,8 @@
         }
     }
 </style>
-<script src="/assets/js/loader-ui.js?v=e39jq3w37n"></script>
-<script src="/assets/js/game-loader.js?v=e39jq3w37n" data-title="Bank Robbery 2"></script>
+<script src="/assets/js/loader-ui.js?v=2re0106df4"></script>
+<script src="/assets/js/game-loader.js?v=2re0106df4" data-title="Bank Robbery 2"></script>
 <script>
   GameLoader.unity([
     ["https://cdn.jsdelivr.net/gh/bavlin-san7990/react@a2f035b519b99dbc2c69f174cf9788b56cb36c32/src/br1.data.js", 13631488],
@@ -37,7 +37,7 @@
     ["BankRobbery2.wasm.unityweb", 6029732],
   ], { preloads: true });
 </script>
-<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/bankrob2/">
+<base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/bankrob2/">
 </head>
 
 <body class="dark" dir="ltr">
@@ -185,7 +185,7 @@
                     dataUrl: dataBlobUrl,
                     frameworkUrl: "BankRobbery2.framework.js.unityweb",
                     codeUrl: "BankRobbery2.wasm.unityweb",
-                    streamingAssetsUrl: "StreamingAssets",
+                    streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
                     companyName: "JustAlien",
                     productName: "BankRobbery2",
                     productVersion: "1.0",

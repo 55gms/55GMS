@@ -1,6 +1,6 @@
 <html>
     <head>
-<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/henry-stickmin-breaking-the-bank/">
+<base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/henry-stickmin-breaking-the-bank/">
 
 
       <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -28,7 +28,7 @@
         player.style.width = "100%";
         player.style.height = "100%";
         container.appendChild(player);
-        player.load("breaking-the-bank.swf");
+        player.load(new URL("breaking-the-bank.swf", document.baseURI).href);
       });
     </script>
   </body>

@@ -6,9 +6,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Google</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
-    <script src="/assets/js/loader-ui.js?v=e39jq3w37n"></script>
-    <script src="/assets/js/game-loader.js?v=e39jq3w37n" data-title="KARLSON&#x27;T"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/karlsont/TemplateData/style.css">
+    <script src="/assets/js/loader-ui.js?v=2re0106df4"></script>
+    <script src="/assets/js/game-loader.js?v=2re0106df4" data-title="KARLSON&#x27;T"></script>
     <script>
       GameLoader.unity([
         ["Build/KARLSON'T.data.unityweb", 14850578],
@@ -16,7 +16,7 @@
         ["Build/KARLSON'T.wasm.unityweb", 6865506],
       ]);
     </script>
-    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/karlsont/">
+    <base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/karlsont/">
 </head>
 
 <body style="margin: 0; overflow: hidden; background: #231F20">
@@ -59,7 +59,7 @@
             dataUrl: buildUrl + "/KARLSON'T.data.unityweb",
             frameworkUrl: buildUrl + "/KARLSON'T.framework.js.unityweb",
             codeUrl: buildUrl + "/KARLSON'T.wasm.unityweb",
-            streamingAssetsUrl: "StreamingAssets",
+            streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
             companyName: "CompanyName",
             productName: "KARLSON'T",
             productVersion: "0.1.0",

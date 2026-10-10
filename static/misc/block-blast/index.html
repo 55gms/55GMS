@@ -6,11 +6,11 @@
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Block Blast Puzzle</title>
-  <link rel="shortcut icon" href="TemplateData/favicon.ico">
-  <link rel="stylesheet" href="TemplateData/style.css">
-  <link rel="manifest" href="manifest.webmanifest">
-  <script src="/assets/js/loader-ui.js?v=e39jq3w37n"></script>
-  <script src="/assets/js/game-loader.js?v=e39jq3w37n" data-title="Block Blast"></script>
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/block-blast/TemplateData/favicon.ico">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/block-blast/TemplateData/style.css">
+  <link rel="manifest" href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/block-blast/manifest.webmanifest">
+  <script src="/assets/js/loader-ui.js?v=2re0106df4"></script>
+  <script src="/assets/js/game-loader.js?v=2re0106df4" data-title="Block Blast"></script>
   <script>
     GameLoader.unity([
       ["Build/BlockBlast1.1-8.data.unityweb", 2608575],
@@ -18,7 +18,7 @@
       ["Build/BlockBlast1.1-8.wasm.unityweb", 7531483],
     ]);
   </script>
-  <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/block-blast/">
+  <base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/block-blast/">
 </head>
 
 <body>
@@ -89,7 +89,7 @@
       dataUrl: buildUrl + "/BlockBlast1.1-8.data.unityweb",
       frameworkUrl: buildUrl + "/BlockBlast1.1-8.framework.js.unityweb",
       codeUrl: buildUrl + "/BlockBlast1.1-8.wasm.unityweb",
-      streamingAssetsUrl: "StreamingAssets",
+      streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
       companyName: "reun",
       productName: "Block Blast Puzzle",
       productVersion: "1.1",

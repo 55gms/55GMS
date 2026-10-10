@@ -1,7 +1,7 @@
 <html>
     <head>
 <script src="/assets/js/game-parts.js?v=1"></script>
-<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/henry-stickmin-fleeing-the-complex/">
+<base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/henry-stickmin-fleeing-the-complex/">
 <script>
   GameParts.serve({
     "5.swf": ["5.swf.part1","5.swf.part2","5.swf.part3","5.swf.part4"],
@@ -32,7 +32,7 @@
         player.style.width = "100%";
         player.style.height = "100%";
         container.appendChild(player);
-        player.load("5.swf");
+        player.load(new URL("5.swf", document.baseURI).href);
       });
     </script>
   </body>

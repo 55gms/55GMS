@@ -1,7 +1,13 @@
 <html>
 
 <head>
+  <script src="/assets/js/cdn-compat.js"></script>
   <script src="/assets/js/script.js?v=20"></script>
+  <script src="/assets/js/game-parts.js?v=2"></script>
+  <base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/emulator/pokemon/florasky/" />
+  <script>
+    GameParts.serve({ "gba.gba": ["gba.gba.part1", "gba.gba.part2", "gba.gba.part3", "gba.gba.part4"] });
+  </script>
 
   <title>Pokemon Flora Sky</title>
 
@@ -21,11 +27,11 @@
   <script>
     EJS_player = "#game";
     EJS_core = "CORE_NAME";
-    EJS_pathtodata = "/misc/emulator/emulatorjs/data/";
+    EJS_pathtodata = "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/emulator/emulatorjs/data/";
     EJS_gameUrl = "gba.gba";
     EJS_core = "gba";
   </script>
-  <script src="/misc/emulator/emulatorjs/data/loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/emulator/emulatorjs/data/loader.js"></script>
 </body>
 
 </html>

@@ -2,14 +2,14 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8" />
-<script src="/assets/js/loader-ui.js?v=e39jq3w37n"></script>
-<script src="/assets/js/game-loader.js?v=e39jq3w37n" data-title="Idle Revolution"></script>
+<script src="/assets/js/loader-ui.js?v=2re0106df4"></script>
+<script src="/assets/js/game-loader.js?v=2re0106df4" data-title="Idle Revolution"></script>
 <script>
   GameLoader.unity([
 
   ]);
 </script>
-<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/idle-revolution/">
+<base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/idle-revolution/">
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta
@@ -44,7 +44,7 @@
         dataUrl: buildUrl + "/Build_WebGL.data",
         frameworkUrl: buildUrl + "/Build_WebGL.framework.js",
         codeUrl: buildUrl + "/Build_WebGL.wasm",
-        streamingAssetsUrl: "StreamingAssets",
+        streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
         companyName: "Nu Games",
         productName: "Revolution Idle X",
         productVersion: "0.3",
