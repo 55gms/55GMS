@@ -1,1 +1,0 @@
-KhanUtil.maintry8(jQuery);$(document).ready(KhanUtil.try5Ready);$("#calcform").submit(function(a){a.preventDefault();KhanUtil.runCommand();return false});$("#graphdivform").submit(function(a){a.preventDefault();KhanUtil.runCommand();return false});

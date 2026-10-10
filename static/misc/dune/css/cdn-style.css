@@ -1,8 +1,0 @@
-/* local copy of cdn2.unblocked-games-free.com/data/style.css */
-
-body, html {
-    margin:0;
-	padding:0
-}
-#unityContainer, #gameContainer, #unity-container, #unity-canvas{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;}
-#unityContainer, #gameContainer, #unity-container, #unity-canvas{width:100vw!important;height:100vh!important;max-width:100vw!important;max-height:100vh!important}
