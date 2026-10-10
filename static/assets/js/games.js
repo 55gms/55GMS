@@ -1,13 +1,11 @@
-// Thumbnails above the fold get high fetch priority; all thumbnails load eagerly.
+
 const PRIORITY_THUMBNAILS = 24;
 let loadingFadeTimer;
 let loadingHideTimer;
 let progressFrame = 0;
 let progressShown = 0;
+let gameRevealObserver = null;
 
-// The deployed catalogue is encoded by scripts/build/catalogue.js: base64url
-// of a 16-byte key followed by the JSON XORed with that key. Plain JSON
-// (development, or an older deploy) is read as-is.
 async function readCatalogue(response) {
   const text = (await response.text()).trim();
   if (text[0] === "[" || text[0] === "{") return JSON.parse(text);
@@ -34,6 +32,8 @@ async function loadGames() {
 
   clearTimeout(loadingFadeTimer);
   clearTimeout(loadingHideTimer);
+  gameRevealObserver?.disconnect();
+  gameRevealObserver = null;
   gameContainer.replaceChildren();
   loadingContainer.classList.remove("is-leaving");
   loadingContainer.style.height = "";
@@ -42,8 +42,6 @@ async function loadGames() {
   progressShown = 0;
   drawProgress();
   retryButton.hidden = true;
-  // The catalog is one request with no byte progress to report, so the bar
-  // eases most of the way while it is in flight and finishes when it lands.
   glideProgress(0.85, 700);
 
   try {
@@ -57,8 +55,28 @@ async function loadGames() {
 
     const cards = games.map(createGameCard).filter(Boolean);
     const fragment = document.createDocumentFragment();
+    const revealCards =
+      "IntersectionObserver" in window &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (revealCards) {
+      gameRevealObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          });
+        },
+        { rootMargin: "0px 0px -20px 0px", threshold: 0.08 },
+      );
+    }
 
     cards.forEach(({ card, image, imageUrl }, index) => {
+      if (revealCards) {
+        card.classList.add("game-reveal");
+        card.style.setProperty("--reveal-delay", `${(index % 6) * 50}ms`);
+      }
       if (index < PRIORITY_THUMBNAILS) image.fetchPriority = "high";
       image.addEventListener(
         "error",
@@ -70,6 +88,9 @@ async function loadGames() {
     });
 
     gameContainer.appendChild(fragment);
+    if (gameRevealObserver) {
+      cards.forEach(({ card }) => gameRevealObserver.observe(card));
+    }
 
     const searchbar = document.querySelector(".searchbar");
     if (searchbar) {
@@ -96,15 +117,12 @@ function drawProgress() {
   document.getElementById("progress-percentage").textContent = `${whole}%`;
 }
 
-// Glides the bar and the percentage toward a 0-1 target every frame; a larger
-// pace is slower. Resolves once the target is reached.
 function glideProgress(target, pace) {
   cancelAnimationFrame(progressFrame);
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
   return new Promise((resolve) => {
     let lastFrame = performance.now();
     const step = (now) => {
-      // A frame timestamp can predate the performance.now() taken before it.
       const elapsed = Math.min(Math.max(now - lastFrame, 0), 100);
       lastFrame = now;
       progressShown +=
@@ -181,8 +199,6 @@ function finishLoading(totalGames) {
 
   loadingText.textContent = `${totalGames} games ready!`;
 
-  // Pin the current height so it can animate to zero: the bar fades and the
-  // games slide up into its place instead of jumping.
   loadingFadeTimer = setTimeout(() => {
     loadingContainer.style.height = `${loadingContainer.offsetHeight}px`;
     loadingContainer.offsetHeight;
