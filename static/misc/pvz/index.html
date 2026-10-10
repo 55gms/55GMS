@@ -2,16 +2,16 @@
 <html>
 
 <head>
+    <script src="/assets/js/cdn-compat.js"></script>
+    <script src="/assets/js/script.js?v=20"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/pvz/" />
     <title>Google</title>
-    <link rel="stylesheet" href="/misc/flash/waflash/waflash-style.css" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/flash/waflash/waflash-style.css" type="text/css">
     <script>
-        // get current domain
-        var domain = window.location.hostname;
 
-        var gameConfig = { swfUrl: `https://${domain}/misc/pvz/swf.swf` };
+        var gameConfig = { swfUrl: new URL("swf.swf", document.baseURI).href };
         console.log(gameConfig);
     </script>
-    <script src="/assets/js/script.js?v=20"></script>
 </head>
 
 <body>
@@ -19,7 +19,7 @@
         <div id="waflashStatus" style="display: none;">Playing...</div>
         <script> var ua = navigator.userAgent.toLowerCase(); if ((navigator.appName == 'Netscape' && ua.indexOf('trident') != -1) || (ua.indexOf("msie") != -1)) { var waf = document.getElementById('waflashStatus'); waf.style.display = 'block'; waf.innerText = '??? ?????(IE) ??? ??? ???? ???? !\n??, ???? ?? ????? ??????.'; gtag('event', 'connect_from_ie', { 'event_category': 'error', 'event_label': ua }); }; </script>
         <script type="module"
-            crossorigin="anonymous"> let is_mobile = /Mobi/i.test(window.navigator.userAgent); if (is_mobile) { function scrollToSubject() { try { window.scrollTo({ top: 100, left: 0, behavior: 'smooth' }); } catch (e) { } } scrollToSubject(); window.addEventListener("orientationchange", function () { setTimeout(scrollToSubject, 100); }); } else { document.getElementById('canvas').focus(); } document.getElementById('canvas').addEventListener("keydown", function (ev) { ev.preventDefault(); ev.stopPropagation(); }); document.getElementById('canvas').addEventListener("click", function () { document.getElementById('canvas').focus(); }); document.addEventListener("mousedown", (function () { const canvasElement = document.getElementById('canvas'); let focused = false; return function (ev) { if (ev.target == canvasElement) { if (!focused) { canvasElement.focus(); focused = true; } } else { if (focused) { focused = false; } } return true; } })()); import { createWaflash } from '/misc/flash/waflash/waflash-player.min.js'; createWaflash(gameConfig.swfUrl, window.wafOptions || {}); </script>
+            crossorigin="anonymous"> let is_mobile = /Mobi/i.test(window.navigator.userAgent); if (is_mobile) { function scrollToSubject() { try { window.scrollTo({ top: 100, left: 0, behavior: 'smooth' }); } catch (e) { } } scrollToSubject(); window.addEventListener("orientationchange", function () { setTimeout(scrollToSubject, 100); }); } else { document.getElementById('canvas').focus(); } document.getElementById('canvas').addEventListener("keydown", function (ev) { ev.preventDefault(); ev.stopPropagation(); }); document.getElementById('canvas').addEventListener("click", function () { document.getElementById('canvas').focus(); }); document.addEventListener("mousedown", (function () { const canvasElement = document.getElementById('canvas'); let focused = false; return function (ev) { if (ev.target == canvasElement) { if (!focused) { canvasElement.focus(); focused = true; } } else { if (focused) { focused = false; } } return true; } })()); import { createWaflash } from 'https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/flash/waflash/waflash-player.min.js'; createWaflash(gameConfig.swfUrl, window.wafOptions || {}); </script>
     </div>
 </body>
 

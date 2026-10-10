@@ -2,6 +2,14 @@
 <html lang="en-us">
 
 <head>
+    <script src="/assets/js/cdn-compat.js"></script>
+    <script src="/assets/js/loader-ui.js?v=2re0106df4"></script>
+    <script src="/assets/js/game-loader.js?v=2re0106df4" data-title="Nazi Zombies: Portable"></script>
+    <script src="/assets/js/game-parts.js?v=2"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/nzp/" />
+    <script>
+        GameParts.serve({ "nzp/game.pk3": ["nzp/game.pk3.part1", "nzp/game.pk3.part2", "nzp/game.pk3.part3", "nzp/game.pk3.part4", "nzp/game.pk3.part5", "nzp/game.pk3.part6"] });
+    </script>
     <meta charset="utf-8">
 
     <title>NZ: Portable</title>
@@ -39,13 +47,10 @@
             margin: 0;
         }
     </style>
-    <script src="/assets/js/loader-ui.js?v=e39jq3w37n"></script>
-    <script src="/assets/js/game-loader.js?v=e39jq3w37n" data-title="Nazi Zombies: Portable"></script>
     <script>
         GameLoader.track(
             [
                 "ftewebgl.wasm",
-                "nzp/game.pk3",
                 "nzp/progs.pk3",
             ],
             57521013,

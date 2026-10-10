@@ -1752,7 +1752,7 @@ window.DOMElementHandler = class extends DOMHandler {
 if (window["C3_IsSupported"]) {
   const a = false,
     b = "undefined" != typeof OffscreenCanvas;
-  window["c3_runtimeInterface"] = new RuntimeInterface({
+  window["c3_runtimeInterface"] = new RuntimeInterface({baseUrl:document.baseURI,runtimeBaseUrl:document.baseURI,
     useWorker: a && b,
     workerMainUrl: "workermain.js",
     engineScripts: ["scripts/c3runtime.js"],

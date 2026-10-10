@@ -84,7 +84,7 @@ All frontend code is static files under `static/`:
 - `static/assets/json/` — game/app catalog data
 - `static/assets/harry-potter/` — preset tab favicons (Canvas, Gmail, Google Drive, etc.)
 - `static/assets/sj/` — small proxy helper scripts (URL handling, service-worker registration)
-- `static/misc/` — 200+ self-contained embedded game directories
+- `static/misc/` — 200+ self-contained embedded game directories. Their files are served from jsDelivr out of the [55gms/assets](https://github.com/55gms/assets) repo (`misc/` there mirrors `static/misc/`); see `AGENTS.md` for the `<base>` pattern
 
 ### Build
 

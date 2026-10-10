@@ -1,7 +1,7 @@
 <html>
     <head>
 <script src="/assets/js/game-parts.js?v=1"></script>
-<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/henry-stickmin-infiltrating-the-airship/">
+<base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/henry-stickmin-infiltrating-the-airship/">
 <script>
   GameParts.serve({
     "infiltratingtheairship.swf": ["infiltratingtheairship.swf.part1","infiltratingtheairship.swf.part2","infiltratingtheairship.swf.part3"],
@@ -32,7 +32,7 @@
         player.style.width = "100%";
         player.style.height = "100%";
         container.appendChild(player);
-        player.load("infiltratingtheairship.swf");
+        player.load(new URL("infiltratingtheairship.swf", document.baseURI).href);
       });
     </script>
   </body>

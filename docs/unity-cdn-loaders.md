@@ -6,7 +6,7 @@ builds and game SDK startup scripts are retained in an inert HTML template and
 run after oversized assets have been reconstructed.
 
 Game assets resolve against the page's jsDelivr base for
-`55gms/55gms@main/static/misc/<folder>/`. The shared loading code and site-wide
+`55gms/assets@main/misc/<folder>/` (the [55gms/assets](https://github.com/55gms/assets) repo). The shared loading code and site-wide
 resources stay on the app origin. Changes to game assets must reach GitHub's
 `main` branch before these CDN URLs can serve them; deploying the HTML alone is
 insufficient.

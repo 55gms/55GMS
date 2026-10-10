@@ -3,9 +3,9 @@
 <html lang="en-us">
 
 <head>
-    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css?v=e39jq3w37n">
-    <script type="module" src="/assets/js/unity-cdn-loader.js?v=e39jq3w37n"></script>
-    <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/flickgoal/">
+    <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css?v=2re0106df4">
+    <script type="module" src="/assets/js/unity-cdn-loader.js?v=2re0106df4"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/flickgoal/">
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
@@ -67,7 +67,7 @@
             dataUrl: buildUrl + "/FlickGoal.data",
             frameworkUrl: buildUrl + "/FlickGoal.framework.js",
             codeUrl: buildUrl + "/FlickGoal.wasm",
-            streamingAssetsUrl: "StreamingAssets",
+            streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
             companyName: "ChimericalDream",
             productName: "Dodge Asteroids",
             productVersion: "0.11"

@@ -84,11 +84,15 @@ For game pages, prefer the existing jsDelivr base pattern when possible because 
 
 ```html
 <base
-  href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/<folder-name>/"
+  href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/<folder-name>/"
 />
 ```
 
-Use relative asset paths inside the game page (`index.js`, `main.js`, `data/file.wasm`, etc.) so the `<base>` URL controls where game assets load from. Keep site-wide assets that should come from this server, such as `/assets/js/script.js`, as absolute paths.
+Use relative asset paths inside the game page (`index.js`, `main.js`, `data/file.wasm`, etc.) so the `<base>` URL controls where game assets load from. Keep site-wide assets that should come from this server, such as `/assets/js/script.js`, as absolute paths, and put their tags before the `<base>`: after it, `/assets/...` resolves against `cdn.jsdelivr.net`. For the same reason a `/misc/...` path after the `<base>` must be written as the full jsDelivr URL.
+
+jsDelivr serves the [55gms/assets](https://github.com/55gms/assets) repo, whose `misc/` mirrors `static/misc/`. A change to a game's files only reaches players once it is committed there too; the page itself (`index.html`) is always served by this server, since jsDelivr serves HTML as plain text.
+
+Load `/assets/js/cdn-compat.js` before the `<base>` when a game starts Workers or draws images into WebGL or a canvas: it starts cross-origin Workers through a same-origin blob and requests CDN images and media with CORS so they do not taint the canvas.
 
 Before relying on jsDelivr, verify the actual game assets work there. jsDelivr/GitHub has practical file-size limits; individual files around 25 MB or larger may fail, be blocked, or behave inconsistently. Check large assets with `curl -I` or range requests before assuming they will load.
 

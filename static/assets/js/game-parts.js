@@ -12,7 +12,11 @@
 // (level bundles): their parts are downloaded when the game first requests them.
 window.GameParts = (() => {
   const merged = new Map(); // absolute URL without query -> () => Promise<blob URL>
-  const TYPES = { wasm: "application/wasm", js: "text/javascript", json: "application/json" };
+  const TYPES = {
+    wasm: "application/wasm",
+    js: "text/javascript",
+    json: "application/json",
+  };
 
   const key = (input) => {
     try {
@@ -28,7 +32,8 @@ window.GameParts = (() => {
     const blobs = await Promise.all(
       parts.map(async (part) => {
         const response = await fetch(new URL(part, document.baseURI));
-        if (!response.ok) throw new Error(`Failed to load ${part}: ${response.status}`);
+        if (!response.ok)
+          throw new Error(`Failed to load ${part}: ${response.status}`);
         return response.blob();
       }),
     );
@@ -39,7 +44,9 @@ window.GameParts = (() => {
     // The page's <base> must be parsed before paths are resolved against it.
     for (const [file, parts] of Object.entries(files)) {
       const name = file.replace(/\.(br|gz|unityweb)$/i, "");
-      const type = TYPES[name.split(".").pop().toLowerCase()] || "application/octet-stream";
+      const type =
+        TYPES[name.split(".").pop().toLowerCase()] ||
+        "application/octet-stream";
       let promise;
       const whole = () =>
         (promise ??= join(parts, type, lazy).catch((error) => {
@@ -61,7 +68,9 @@ window.GameParts = (() => {
   window.fetch = function (input, options) {
     const whole = merged.get(key(input));
     if (!whole) return fetch.call(this, input, options);
-    return whole().then((url) => fetch.call(this, url, { signal: options?.signal }));
+    return whole().then((url) =>
+      fetch.call(this, url, { signal: options?.signal }),
+    );
   };
 
   const open = XMLHttpRequest.prototype.open;
@@ -77,9 +86,11 @@ window.GameParts = (() => {
     const request = waiting.get(this);
     if (!request) return send.call(this, body);
     // Opening again keeps the listeners and responseType the game has set.
+    // A blob URL answers only GET, which also carries the headers a HEAD asks for.
     request.whole().then(
       (url) => {
-        open.call(this, request.method, url, true);
+        const method = /^head$/i.test(request.method) ? "GET" : request.method;
+        open.call(this, method, url, true);
         send.call(this, body);
       },
       () => this.dispatchEvent(new ProgressEvent("error")),

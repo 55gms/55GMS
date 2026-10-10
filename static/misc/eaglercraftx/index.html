@@ -2,6 +2,9 @@
 <html style="width:100%;height:100%;background-color:black;">
 
 <head>
+	<script src="/assets/js/cdn-compat.js"></script>
+	<script src='/assets/js/script.js?v=20'></script>
+	<base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/eaglercraftx/" />
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 	<meta name="description" content="Play minecraft 1.8 in your browser" />
@@ -13,8 +16,26 @@
 	<meta property="og:description" content="Play minecraft 1.8 in your browser" />
 	<meta property="og:image" content="favicon.png" />
 	<link type="image/png" rel="shortcut icon" href="favicon.png" />
-	<script src='/assets/js/script.js?v=20'></script>
-	<script type="text/javascript" src="classes.js"></script>
+	<script type="text/javascript">
+		// classes.js is over jsDelivr's 20 MB limit, so it is stored in parts.
+		window.classesReady = Promise.all(
+			["classes.js.part1", "classes.js.part2", "classes.js.part3"].map(function (part) {
+				return fetch(part).then(function (response) {
+					if (!response.ok) throw new Error(part + ": " + response.status);
+					return response.blob();
+				});
+			})
+		).then(function (parts) {
+			return new Promise(function (resolve, reject) {
+				var script = document.createElement("script");
+				script.type = "text/javascript";
+				script.src = URL.createObjectURL(new Blob(parts, { type: "text/javascript" }));
+				script.onload = resolve;
+				script.onerror = reject;
+				document.head.appendChild(script);
+			});
+		});
+	</script>
 	<script type="text/javascript">
 		"use strict";
 		window.addEventListener("load", function () {
@@ -53,7 +74,7 @@
 					if (s) window.eaglercraftXOpts.joinServer = s;
 				}
 
-				main();
+				window.classesReady.then(function () { main(); });
 
 			}
 		});

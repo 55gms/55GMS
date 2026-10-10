@@ -5,9 +5,9 @@
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <script src="/assets/js/loader-ui.js?v=e39jq3w37n"></script>
-  <script src="/assets/js/game-loader.js?v=e39jq3w37n" data-title="Boom Slingers Reboom"></script>
-  <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/boomslingersreboom/">
+  <script src="/assets/js/loader-ui.js?v=2re0106df4"></script>
+  <script src="/assets/js/game-loader.js?v=2re0106df4" data-title="Boom Slingers Reboom"></script>
+  <base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/boomslingersreboom/">
 </head>
 
 <body style="margin:0;padding:0" class="noselect">
@@ -80,7 +80,7 @@
         dataUrl: "Build/3b03bb7182763a41817b795e550d8412.data",
         frameworkUrl: "Build/8ff9826371bd14e0e81ec413c9e15bb1.framework.js",
         codeUrl: "Build/2cbda98ae67d1b28f920398806093415.wasm",
-        streamingAssetsUrl: "StreamingAssets",
+        streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
         companyName: "Boom Slingers ReBoom",
         productName: "Boom Slingers ReBoom",
         productVersion: "1.0.0"

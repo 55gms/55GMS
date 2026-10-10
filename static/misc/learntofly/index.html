@@ -1,6 +1,9 @@
 <html>
 
 <head>
+  <script src="/assets/js/cdn-compat.js"></script>
+  <script src="/assets/js/script.js?v=20"></script>
+  <base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/learntofly/" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Learn to fly</title>
   <link rel="icon" type="image/x-icon" href="learntofly.png" />
@@ -8,10 +11,9 @@
 </head>
 
 <body>
-  <script src="/assets/js/script.js?v=20"></script>
 
   <div id="ruffle" width="100%" height="100%"></div>
-  <script src="/misc/flash/ruffle.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/flash/ruffle.js"></script>
   <script>
     window.RufflePlayer = window.RufflePlayer || {};
     window.addEventListener("load", (event) => {
@@ -22,7 +24,7 @@
       player.style.width = "100%";
       player.style.height = "100%";
       container.appendChild(player);
-      player.load("learntofly.swf");
+      player.load(new URL("learntofly.swf", document.baseURI).href);
     });
   </script>
 </body>

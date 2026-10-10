@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+    <script src="/assets/js/cdn-compat.js"></script>
+    <base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/dailydadish/" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="pragma" content="no-cache" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -141,13 +143,28 @@
     </div>
 
     <!-- Run the game code -->
-    <script type="text/javascript" src="dailydadish/DailyDadishPoki.js?PDGYB=714293554"></script>
+    <script>
+        // The game code is over jsDelivr's 20 MB limit, so it is stored in parts.
+        window.gameCode = Promise.all(
+            ["part1", "part2", "part3", "part4", "part5"].map(async (part) => {
+                const response = await fetch(`dailydadish/DailyDadishPoki.js.${part}`);
+                if (!response.ok) throw new Error(`DailyDadishPoki.js.${part}: ${response.status}`);
+                return response.blob();
+            }),
+        ).then((parts) => new Promise((resolve, reject) => {
+            const script = document.createElement("script");
+            script.src = URL.createObjectURL(new Blob(parts, { type: "text/javascript" }));
+            script.onload = resolve;
+            script.onerror = reject;
+            document.body.appendChild(script);
+        }));
+    </script>
     <script src="poki-sdk.js"></script>
     <script>
         (function () {
             function fin(ok) {
                 window.PokiSDK_OK = ok;
-                GameMaker_Init();
+                window.gameCode.then(() => GameMaker_Init());
             }
 
             window.addEventListener("load", function (_) {

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-<script src="/assets/js/loader-ui.js?v=e39jq3w37n"></script>
-<script src="/assets/js/game-loader.js?v=e39jq3w37n" data-title="Time Shooter 3"></script>
+<script src="/assets/js/loader-ui.js?v=2re0106df4"></script>
+<script src="/assets/js/game-loader.js?v=2re0106df4" data-title="Time Shooter 3"></script>
 <script>
   GameLoader.unity([
 
   ]);
 </script>
-<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/time-shooter-3/">
+<base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/time-shooter-3/">
 
 
     <title>Time Shooter 3 | </title>
@@ -34,7 +34,7 @@
       const hideFullScreenButton = "1";
       const buildUrl = "Build";
       const loaderUrl = buildUrl + "/ts3.loader.js";
-      const config = { dataUrl: buildUrl + "/ts3.data", frameworkUrl: buildUrl + "/ts3.framework.js", codeUrl: buildUrl + "/ts3.wasm", streamingAssetsUrl: "StreamingAssets", companyName: "GoGoMan", productName: "Time Shooter SWAT", productVersion: "0.03" };
+      const config = { dataUrl: buildUrl + "/ts3.data", frameworkUrl: buildUrl + "/ts3.framework.js", codeUrl: buildUrl + "/ts3.wasm", streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href, companyName: "GoGoMan", productName: "Time Shooter SWAT", productVersion: "0.03" };
       const container = document.querySelector("#unity-container");
       const canvas = document.querySelector("#unity-canvas");
       const loadingCover = document.querySelector("#loading-cover");

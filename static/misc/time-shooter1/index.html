@@ -6,8 +6,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>Time Shooter</title>
-  <script src="/assets/js/loader-ui.js?v=e39jq3w37n"></script>
-  <script src="/assets/js/game-loader.js?v=e39jq3w37n" data-title="Time Shooter 1"></script>
+  <script src="/assets/js/loader-ui.js?v=2re0106df4"></script>
+  <script src="/assets/js/game-loader.js?v=2re0106df4" data-title="Time Shooter 1"></script>
   <script>
     GameLoader.unity([
       ["Build/TimeGD.data.unityweb", 15682303],
@@ -15,7 +15,7 @@
       ["Build/TimeGD.wasm.unityweb", 3751409],
     ]);
   </script>
-  <base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/time-shooter1/">
+  <base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/time-shooter1/">
   <link rel="shortcut icon" href="TemplateData/favicon.ico" />
   <link rel="stylesheet" href="TemplateData/style.css" />
 </head>
@@ -43,7 +43,7 @@
       dataUrl: buildUrl + "/TimeGD.data.unityweb",
       frameworkUrl: buildUrl + "/TimeGD.framework.js.unityweb",
       codeUrl: buildUrl + "/TimeGD.wasm.unityweb",
-      streamingAssetsUrl: "StreamingAssets",
+      streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
       companyName: "GoGoMan",
       productName: "Time Shooter",
       productVersion: "1.0",

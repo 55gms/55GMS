@@ -7,7 +7,7 @@ import {
   prepareAssets,
 } from "../static/assets/js/unity-cdn-assets.js";
 
-const base = "https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/test/";
+const base = "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/test/";
 
 test("asset matching preserves case and ignores cache queries", () => {
   assert.equal(
