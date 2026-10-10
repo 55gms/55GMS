@@ -1,13 +1,39 @@
-// Thumbnails above the fold get high fetch priority; all thumbnails load eagerly.
+
 const PRIORITY_THUMBNAILS = 24;
+const FAVORITES_KEY = "55gms.favoriteGames.v1";
+const RECENT_KEY = "55gms.recentGames.v1";
+const RECENT_LIMIT = 24;
 let loadingFadeTimer;
 let loadingHideTimer;
 let progressFrame = 0;
 let progressShown = 0;
+let gameRevealObserver = null;
+let gameCards = [];
+let activeGameView = "all";
+let orderedGameView = "all";
+let favoriteGameIds = new Set(readStoredIds(FAVORITES_KEY));
+let recentGameIds = readStoredIds(RECENT_KEY).slice(0, RECENT_LIMIT);
 
-// The deployed catalogue is encoded by scripts/build/catalogue.js: base64url
-// of a 16-byte key followed by the JSON XORed with that key. Plain JSON
-// (development, or an older deploy) is read as-is.
+function readStoredIds(key) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key) || "[]");
+    return Array.isArray(value) ? value.filter((item) => typeof item === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+function writeStoredIds(key, values) {
+  try {
+    localStorage.setItem(key, JSON.stringify(values));
+  } catch {
+  }
+}
+
+function gameId(game) {
+  return `${game.name}|${game.url || game.image || game.author || ""}`;
+}
+
 async function readCatalogue(response) {
   const text = (await response.text()).trim();
   if (text[0] === "[" || text[0] === "{") return JSON.parse(text);
@@ -21,6 +47,22 @@ async function readCatalogue(response) {
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("retry-games")?.addEventListener("click", loadGames);
+  document.querySelectorAll("[data-game-view]").forEach((button) => {
+    button.addEventListener("click", () => {
+      activeGameView = button.dataset.gameView;
+      applyGameFilters();
+    });
+  });
+  window.search = applyGameFilters;
+  document.querySelector(".searchbar")?.addEventListener("input", applyGameFilters);
+  window.addEventListener("storage", (event) => {
+    if (event.key === FAVORITES_KEY || event.key === RECENT_KEY) {
+      favoriteGameIds = new Set(readStoredIds(FAVORITES_KEY));
+      recentGameIds = readStoredIds(RECENT_KEY).slice(0, RECENT_LIMIT);
+      gameCards.forEach(updateFavoriteButton);
+      applyGameFilters();
+    }
+  });
   loadGames();
 });
 
@@ -34,7 +76,12 @@ async function loadGames() {
 
   clearTimeout(loadingFadeTimer);
   clearTimeout(loadingHideTimer);
+  gameRevealObserver?.disconnect();
+  gameRevealObserver = null;
+  gameCards = [];
+  orderedGameView = "all";
   gameContainer.replaceChildren();
+  document.getElementById("game-empty").hidden = true;
   loadingContainer.classList.remove("is-leaving");
   loadingContainer.style.height = "";
   loadingContainer.style.display = "flex";
@@ -42,8 +89,6 @@ async function loadGames() {
   progressShown = 0;
   drawProgress();
   retryButton.hidden = true;
-  // The catalog is one request with no byte progress to report, so the bar
-  // eases most of the way while it is in flight and finishes when it lands.
   glideProgress(0.85, 700);
 
   try {
@@ -57,8 +102,28 @@ async function loadGames() {
 
     const cards = games.map(createGameCard).filter(Boolean);
     const fragment = document.createDocumentFragment();
+    const revealCards =
+      "IntersectionObserver" in window &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (revealCards) {
+      gameRevealObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          });
+        },
+        { rootMargin: "0px 0px -20px 0px", threshold: 0.08 },
+      );
+    }
 
     cards.forEach(({ card, image, imageUrl }, index) => {
+      if (revealCards) {
+        card.classList.add("game-reveal");
+        card.style.setProperty("--reveal-delay", `${(index % 6) * 50}ms`);
+      }
       if (index < PRIORITY_THUMBNAILS) image.fetchPriority = "high";
       image.addEventListener(
         "error",
@@ -69,12 +134,17 @@ async function loadGames() {
       fragment.appendChild(card);
     });
 
+    gameCards = cards;
     gameContainer.appendChild(fragment);
+    if (gameRevealObserver) {
+      cards.forEach(({ card }) => gameRevealObserver.observe(card));
+    }
 
     const searchbar = document.querySelector(".searchbar");
     if (searchbar) {
       searchbar.placeholder = `Click here or type to search through our ${games.length} games!`;
     }
+    applyGameFilters();
 
     await glideProgress(1, 110);
     finishLoading(cards.length);
@@ -96,15 +166,12 @@ function drawProgress() {
   document.getElementById("progress-percentage").textContent = `${whole}%`;
 }
 
-// Glides the bar and the percentage toward a 0-1 target every frame; a larger
-// pace is slower. Resolves once the target is reached.
 function glideProgress(target, pace) {
   cancelAnimationFrame(progressFrame);
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
   return new Promise((resolve) => {
     let lastFrame = performance.now();
     const step = (now) => {
-      // A frame timestamp can predate the performance.now() taken before it.
       const elapsed = Math.min(Math.max(now - lastFrame, 0), 100);
       lastFrame = now;
       progressShown +=
@@ -123,15 +190,43 @@ function glideProgress(target, pace) {
   });
 }
 
+function updateFavoriteButton(entry) {
+  const chosen = favoriteGameIds.has(entry.id);
+  entry.favoriteButton.classList.toggle("is-favorite", chosen);
+  entry.favoriteButton.setAttribute("aria-pressed", String(chosen));
+  const label = `${chosen ? "Remove" : "Add"} ${entry.game.name} ${chosen ? "from" : "to"} favorites`;
+  entry.favoriteButton.setAttribute("aria-label", label);
+  entry.favoriteButton.title = label;
+}
+
+function toggleFavorite(entry) {
+  if (favoriteGameIds.has(entry.id)) {
+    favoriteGameIds.delete(entry.id);
+  } else {
+    favoriteGameIds.add(entry.id);
+  }
+  writeStoredIds(FAVORITES_KEY, [...favoriteGameIds]);
+  updateFavoriteButton(entry);
+  applyGameFilters();
+}
+
+function recordGamePlayed(id) {
+  recentGameIds = [id, ...recentGameIds.filter((item) => item !== id)].slice(0, RECENT_LIMIT);
+  writeStoredIds(RECENT_KEY, recentGameIds);
+  applyGameFilters();
+}
+
 function createGameCard(game) {
   const card = document.createElement("div");
   card.className = "game";
+  const id = gameId(game);
 
   let control;
   if (game.usesProxy) {
     control = document.createElement("button");
     control.type = "button";
     control.addEventListener("click", () => {
+      recordGamePlayed(id);
       if (game.alert) window.alert(game.alert);
       hire(game.url);
     });
@@ -151,12 +246,14 @@ function createGameCard(game) {
     control = document.createElement("a");
     control.href = href;
     control.rel = "noopener noreferrer";
-    if (game.alert) {
-      control.addEventListener("click", () => window.alert(game.alert));
-    }
+    control.addEventListener("click", () => {
+      recordGamePlayed(id);
+      if (game.alert) window.alert(game.alert);
+    });
   }
 
   control.className = "game-link";
+  control.setAttribute("aria-label", `Play ${game.name}`);
   if (game.preview) control.dataset.preview = game.preview;
 
   const image = document.createElement("img");
@@ -169,10 +266,74 @@ function createGameCard(game) {
   label.className = "text";
   label.textContent = game.name;
 
-  control.append(image, label);
-  card.appendChild(control);
+  const favoriteButton = document.createElement("button");
+  favoriteButton.type = "button";
+  favoriteButton.className = "game-favorite";
+  favoriteButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.9 2.8 5.7 6.3.9-4.55 4.44 1.08 6.27L12 17.25l-5.63 2.96 1.08-6.27L2.9 9.5l6.3-.9z"/></svg>';
 
-  return { card, image, imageUrl: game.image };
+  control.append(image, label);
+  card.append(control, favoriteButton);
+  const entry = { id, game, card, image, imageUrl: game.image, favoriteButton };
+  favoriteButton.addEventListener("click", () => toggleFavorite(entry));
+  updateFavoriteButton(entry);
+  return entry;
+}
+
+function applyGameFilters() {
+  const gameContainer = document.getElementById("game-container");
+  if (!gameContainer) return;
+  const query = document.querySelector(".searchbar")?.value.toLowerCase().trim() || "";
+  const recentPositions = new Map(recentGameIds.map((id, index) => [id, index]));
+
+  if (orderedGameView !== activeGameView) {
+    const reordered = activeGameView === "recent"
+      ? [...gameCards].sort((a, b) => (recentPositions.get(a.id) ?? Infinity) - (recentPositions.get(b.id) ?? Infinity))
+      : gameCards;
+    gameContainer.append(...reordered.map((entry) => entry.card));
+    orderedGameView = activeGameView;
+  }
+
+  let visible = 0;
+  gameCards.forEach((entry) => {
+    const matchesView = activeGameView === "all" ||
+      (activeGameView === "favorites" && favoriteGameIds.has(entry.id)) ||
+      (activeGameView === "recent" && recentPositions.has(entry.id));
+    const shows = matchesView && entry.game.name.toLowerCase().includes(query);
+    entry.card.style.display = shows ? "inline-block" : "none";
+    if (shows) visible++;
+  });
+
+  const favoritesCount = gameCards.filter((entry) => favoriteGameIds.has(entry.id)).length;
+  const recentCount = gameCards.filter((entry) => recentPositions.has(entry.id)).length;
+  const counts = { all: gameCards.length, favorites: favoritesCount, recent: recentCount };
+  document.querySelectorAll("[data-count]").forEach((count) => {
+    count.textContent = counts[count.dataset.count];
+  });
+  document.querySelectorAll("[data-game-view]").forEach((button) => {
+    const selected = button.dataset.gameView === activeGameView;
+    button.classList.toggle("is-active", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+
+  const empty = document.getElementById("game-empty");
+  empty.hidden = visible !== 0 || gameCards.length === 0;
+  if (!empty.hidden) {
+    const title = document.getElementById("game-empty-title");
+    const text = document.getElementById("game-empty-text");
+    if (query) {
+      title.textContent = "No matching games";
+      text.textContent = "Try another search or switch views.";
+    } else if (activeGameView === "favorites") {
+      title.textContent = "No favorites yet";
+      text.textContent = "Tap the star on any game to save it here.";
+    } else if (activeGameView === "recent") {
+      title.textContent = "No recently played games";
+      text.textContent = "Open a game from All Games to see it here.";
+    } else {
+      title.textContent = "No games found";
+      text.textContent = "Try again in a moment.";
+    }
+  }
 }
 
 function finishLoading(totalGames) {
@@ -181,8 +342,6 @@ function finishLoading(totalGames) {
 
   loadingText.textContent = `${totalGames} games ready!`;
 
-  // Pin the current height so it can animate to zero: the bar fades and the
-  // games slide up into its place instead of jumping.
   loadingFadeTimer = setTimeout(() => {
     loadingContainer.style.height = `${loadingContainer.offsetHeight}px`;
     loadingContainer.offsetHeight;

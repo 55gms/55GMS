@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +36,7 @@
 <body>
   <nav>
     <div class="navbar">
-      <a id="nav-title" href="/">Reds's Exploit Corner</a>
+      <a id="nav-title" href="/">Reds Exploit Corner</a>
       <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
       <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
       <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
@@ -45,11 +46,18 @@
     </div>
   </nav>
   <main>
-    <link href="/assets/css/games.css?v=9" rel="stylesheet" />
-    <script src="/assets/js/games.js?v=15"></script>
+    <link href="/assets/css/games.css?v=13" rel="stylesheet" />
+    <script src="/assets/js/games.js?v=18"></script>
     <script src="/assets/js/hover-preview.js?v=1" defer></script>
     <input class='searchbar' onkeyup="search();" placeholder="Search through our games" type="text"
       autocomplete="off" /><br>
+    <section class="game-browser" aria-label="Browse games">
+      <div class="game-views" role="group" aria-label="Game collection">
+        <button class="game-view is-active" type="button" data-game-view="all" aria-pressed="true">All Games <span class="game-view-count" data-count="all"></span></button>
+        <button class="game-view" type="button" data-game-view="favorites" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.9 2.8 5.7 6.3.9-4.55 4.44 1.08 6.27L12 17.25l-5.63 2.96 1.08-6.27L2.9 9.5l6.3-.9z"/></svg> Favorites <span class="game-view-count" data-count="favorites">0</span></button>
+        <button class="game-view" type="button" data-game-view="recent" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v6l4 2M3.1 11a9 9 0 1 1 1.2 5.8M3 4v7h7"/></svg> Recently Played <span class="game-view-count" data-count="recent">0</span></button>
+      </div>
+    </section>
     <div id="loading-container" class="loading-container" role="status" aria-live="polite">
       <div class="loading-text" id="loading-text">Loading games…</div>
       <div class="progress-bar-container">
@@ -60,6 +68,10 @@
       <button id="retry-games" class="loading-retry" type="button" hidden>Try Again</button>
     </div>
     <div id="game-container">
+    </div>
+    <div id="game-empty" class="game-empty" role="status" hidden>
+      <p id="game-empty-title">Nothing here yet</p>
+      <span id="game-empty-text">Games will appear here.</span>
     </div>
     <br>
   </main>
