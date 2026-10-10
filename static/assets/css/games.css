@@ -1,3 +1,4 @@
+
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 * {
@@ -32,8 +33,6 @@ h6 {
     margin 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
 }
 
-/* Leaving: the bar fades and lifts, then the space it held closes up.
-   games.js pins the height before adding this class. */
 .loading-container.is-leaving {
   margin: 0;
   overflow: hidden;
@@ -42,7 +41,6 @@ h6 {
   pointer-events: none;
 }
 
-/* Air between the search bar and the first row once the loader is gone. */
 #game-container {
   margin-top: 24px;
 }
@@ -247,6 +245,27 @@ h6 {
   display: inline-block;
 }
 
+.game.game-reveal {
+  opacity: 0;
+  transform: translate3d(0, 32px, 0) scale(0.96);
+  transition:
+    opacity 0.65s ease var(--reveal-delay, 0ms),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+}
+
+.game.game-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game.game-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .game-link {
   display: block;
   position: relative;
@@ -267,6 +286,7 @@ h6 {
   border-radius: var(--site-radius-md, 14px);
   transition: all 0.35s ease;
 }
+
 .game:hover img,
 .game:focus-within img {
   transform: scale(1.05) translateY(-0.2vw);
@@ -275,8 +295,6 @@ h6 {
   cursor: pointer;
 }
 
-/* Hover clip from hover-preview.js. It sits exactly over the thumbnail in its
-   hovered position, and crops (never stretches) clips that are not square. */
 .game-preview {
   position: absolute;
   top: 0;
@@ -291,10 +309,11 @@ h6 {
   opacity: 0;
   transition: opacity 0.18s ease;
 }
+
 .game-preview.is-shown {
   opacity: 1;
 }
-/* The clip is not dimmed like the thumbnail, so the label carries its own shade. */
+
 .game-link.is-previewing .text {
   text-shadow:
     0 1px 2px rgba(0, 0, 0, 0.95),
@@ -316,6 +335,7 @@ h6 {
     transform 0.35s ease;
   animation: slide-out 0.35s ease forwards;
 }
+
 .game:hover .text,
 .game:focus-within .text {
   opacity: 1;
@@ -366,6 +386,7 @@ h6 {
     transform: translate(-50%, 0%);
   }
 }
+
 @media screen and (max-width: 1000px) {
   .searchbar {
     width: min(88vw, 1080px);
