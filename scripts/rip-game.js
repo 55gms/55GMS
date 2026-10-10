@@ -3,7 +3,7 @@
 // a matching folder structure, then open the copy and fetch whatever 404s.
 //
 //   node scripts/rip-game.js <url> [--name <folder>] [--headless] [--wait 30]
-//                                  [--rounds 5] [--force]
+//                                  [--rounds 5] [--referer <url>] [--force]
 //
 // By default Chrome opens visibly so you can click through the menus and a
 // level (games load most assets lazily); press Enter in the terminal when done.
@@ -42,7 +42,7 @@ for (let i = 0; i < args.length; i++) {
 const startUrl = positional[0];
 if (!startUrl || !/^https?:\/\//.test(startUrl)) {
   console.error(
-    "Usage: node scripts/rip-game.js <url> [--name <folder>] [--headless] [--wait 30] [--rounds 5] [--force]",
+    "Usage: node scripts/rip-game.js <url> [--name <folder>] [--headless] [--wait 30] [--rounds 5] [--referer <url>] [--force]",
   );
   process.exit(1);
 }
@@ -113,6 +113,9 @@ const MIME = {
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const skipped = (url) => {
   const u = new URL(url);
+  // The game's own host is never an ad host, whatever its name looks like
+  // (a UUID hostname can contain "-ad56-").
+  if (gameRoot && u.origin === gameRoot.origin) return false;
   return SKIP_HOSTS.test(u.hostname) || SKIP_PATHS.test(u.pathname);
 };
 
@@ -353,7 +356,12 @@ page.on("response", (response) => {
     body: response.status() === 206 ? null : response.body().catch(() => null),
   });
 });
-await page.goto(startUrl, { waitUntil: "load", timeout: 60000 });
+await page.goto(startUrl, {
+  waitUntil: "load",
+  timeout: 60000,
+  // Some game hosts answer 403 unless the visit comes from their portal.
+  referer: options.referer,
+});
 await settle(activity);
 const gameFrame = await findGameFrame(page, activity);
 gameUrl = new URL(gameFrame.url());
@@ -372,7 +380,7 @@ if (options.headless) {
 
 async function download(url) {
   const response = await context.request.get(url, {
-    headers: { Referer: gameUrl.href },
+    headers: { Referer: options.referer || gameUrl.href },
     timeout: 120000,
     failOnStatusCode: false,
   });
