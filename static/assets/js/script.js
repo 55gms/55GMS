@@ -79,10 +79,19 @@ function hasPremium() {
   return premium === "true" || premium === "1";
 }
 
+// True when the site is opened through a GitHub Codespace's forwarded port.
+function inCodespace() {
+  return /\.(app\.github\.dev|githubpreview\.dev)$/.test(
+    window.location.hostname,
+  );
+}
+
 // Which ad sources this visitor gets. Everyone without premium gets all of
 // them; premium accounts get none until they turn ads on in settings, then
-// whichever sources they picked there (stored in "adPrefs").
+// whichever sources they picked there (stored in "adPrefs"). A Codespace
+// shows none at all.
 function adChoices() {
+  if (inCodespace()) return { partner: false, adsense: false, banners: false };
   if (!hasPremium()) return { partner: true, adsense: true, banners: true };
 
   let prefs = null;
@@ -200,7 +209,11 @@ function whenDomReady(callback) {
   }
 
   if (!ads.partner && !ads.adsense && !ads.banners) {
-    script("Premium account, skipping ads");
+    script(
+      inCodespace()
+        ? "Codespace, skipping ads"
+        : "Premium account, skipping ads",
+    );
   }
 })();
 

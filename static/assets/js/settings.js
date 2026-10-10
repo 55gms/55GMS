@@ -222,6 +222,12 @@ function setupAdSettings() {
   var enabled = document.getElementById("adsEnabled");
   if (!enabled) return;
 
+  // A Codespace shows no ads, so there is nothing to choose.
+  if (typeof inCodespace === "function" && inCodespace()) {
+    document.getElementById("adsCard").style.display = "none";
+    return;
+  }
+
   var sources = Array.from(document.querySelectorAll("[data-ad-source]"));
   var switches = [enabled].concat(sources);
   var storedPremium = localStorage.getItem("premium");
