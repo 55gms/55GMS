@@ -4,6 +4,7 @@ import { minify as minifyHtml } from "html-minifier-terser";
 import { minify as terserMinify } from "terser";
 import JavaScriptObfuscator from "javascript-obfuscator";
 import { obfuscatorOptions } from "./javascript.js";
+import { configuredFeatures } from "../../utils/features.js";
 
 const ENCODE_ATTRS = ["alt", "aria-label", "title", "placeholder", "value"];
 
@@ -143,11 +144,28 @@ function protectAndEncode(html) {
   return work.replace(/\u0000(\d+)\u0000/g, (_, n) => tokens[+n]);
 }
 
+// Navbar links to features the env leaves off (utils/features.js). The server
+// redirects their pages home, so the built pages drop the links to them.
+function disabledNavLinks() {
+  const features = configuredFeatures();
+  const hrefs = [];
+  if (!features.chat) hrefs.push("/chat");
+  if (!features.accounts) hrefs.push("/profile");
+  if (!hrefs.length) return null;
+  console.log(`[build] leaving out navbar links: ${hrefs.join(", ")}`);
+  return new RegExp(
+    `[ \\t]*<a\\s[^>]*href="(?:${hrefs.join("|")})"[^>]*>[\\s\\S]*?</a\\s*>\\n?`,
+    "g",
+  );
+}
+
 export async function transformHtml(outStatic) {
+  const navLinks = disabledNavLinks();
   for (const entry of await readdir(outStatic)) {
     if (!entry.endsWith(".html")) continue;
     const file = path.join(outStatic, entry);
-    const original = await readFile(file, "utf8");
+    let original = await readFile(file, "utf8");
+    if (navLinks) original = original.replace(navLinks, "");
     const before = visibleText(original);
 
     let html = await obfuscateInline(original);

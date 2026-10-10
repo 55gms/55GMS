@@ -148,12 +148,6 @@ try {
     next();
   });
 
-  // Lets pages hide the links to features this server runs without.
-  app.get("/api/features", (req, res) => {
-    res.setHeader("Cache-Control", "public, max-age=300");
-    res.json({ accounts: features.accounts, chat: features.chat });
-  });
-
   if (features.accounts) {
     const [auth, users, admin] = await Promise.all([
       import("./routes/auth.js"),

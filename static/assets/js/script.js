@@ -222,43 +222,6 @@ function whenDomReady(callback) {
     .catch(() => {});
 })();
 
-// A server started without a database or account backend runs without chat
-// and accounts (see utils/features.js). Hide the links to whatever is off.
-(function hideDisabledFeatures() {
-  const linksFor = {
-    accounts: ["/profile", "/login", "/signup", "/admin"],
-    chat: ["/chat", "/c"],
-  };
-
-  function apply(features) {
-    const selectors = Object.keys(linksFor)
-      .filter((name) => features[name] === false)
-      .flatMap((name) => linksFor[name].map((href) => `a[href="${href}"]`));
-    if (!selectors.length) return;
-
-    const style = document.createElement("style");
-    style.textContent = `${selectors.join(",")}{display:none!important}`;
-    document.head.append(style);
-  }
-
-  // Kept for the tab so the links don't flash in on every page.
-  try {
-    const stored = sessionStorage.getItem("features");
-    if (stored) return apply(JSON.parse(stored));
-  } catch {}
-
-  fetch("/api/features")
-    .then((response) => (response.ok ? response.json() : null))
-    .then((features) => {
-      if (!features) return;
-      try {
-        sessionStorage.setItem("features", JSON.stringify(features));
-      } catch {}
-      apply(features);
-    })
-    .catch(() => {});
-})();
-
 var panicKey = localStorage.getItem("panicKey") || "`";
 var panicLink = localStorage.getItem("PanicLink") || "https://google.com";
 

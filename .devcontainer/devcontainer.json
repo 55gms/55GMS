@@ -1,7 +1,7 @@
 {
   "name": "55GMS",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:24",
-  "postCreateCommand": "npm install",
+  "postCreateCommand": "npm install && npm run build",
   "postAttachCommand": "node .",
   "forwardPorts": [8080],
   "portsAttributes": {

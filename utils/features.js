@@ -10,21 +10,32 @@ const PLACEHOLDERS = {
 
 export const inCodespaces = process.env.CODESPACES === "true";
 
-// Decides which optional parts of the site this server runs. Games, apps and
-// the proxy need nothing. Accounts need their backend (the local database, or
-// the Worker and its token) and chat needs the database and accounts. With no
-// .env at all, both are off and the server still boots.
-export async function loadFeatures() {
+function withAccountsAndChat(features) {
+  features.accounts =
+    process.env.ACCOUNT_BACKEND === "postgres"
+      ? features.database
+      : Boolean(process.env.workerAUTH);
+  features.chat = features.database && features.accounts;
+  return features;
+}
+
+// Which optional parts of the site the env asks for. Games, apps and the
+// proxy need nothing. Accounts need their backend (the local database, or the
+// Worker and its token) and chat needs the database and accounts. With no
+// .env at all, both are off. The build reads this to leave their links out of
+// the navbar.
+export function configuredFeatures() {
   for (const [name, placeholder] of Object.entries(PLACEHOLDERS)) {
     if (process.env[name]?.trim() === placeholder) delete process.env[name];
   }
 
-  const features = {
-    database: false,
-    accounts: false,
-    chat: false,
-    models: null,
-  };
+  return withAccountsAndChat({ database: Boolean(process.env.POSTGRES_URL) });
+}
+
+// What the server runs: the configured features, once the database has
+// answered. The models are loaded only when it is configured.
+export async function loadFeatures() {
+  const features = { ...configuredFeatures(), database: false, models: null };
 
   if (process.env.POSTGRES_URL) {
     try {
@@ -41,13 +52,7 @@ export async function loadFeatures() {
     }
   }
 
-  features.accounts =
-    process.env.ACCOUNT_BACKEND === "postgres"
-      ? features.database
-      : Boolean(process.env.workerAUTH);
-  features.chat = features.database && features.accounts;
-
-  return features;
+  return withAccountsAndChat(features);
 }
 
 // Pages that only work with the feature they belong to.
