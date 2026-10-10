@@ -42,7 +42,7 @@ h6 {
 }
 
 #game-container {
-  margin-top: 24px;
+  margin-top: 32px;
 }
 
 .loading-text {
@@ -441,4 +441,184 @@ h6 {
   border: none;
   box-shadow: none;
   transform: none;
+}
+
+.game-browser {
+  width: min(100%, 1100px);
+  margin: 18px auto 5px;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+.game-views {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.game-view {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 45px;
+  padding: 9px 15px;
+  color: var(--site-text, #faf9f6);
+  border: 1px solid var(--site-control-border, rgba(255, 255, 255, 0.22));
+  background: color-mix(in srgb, var(--site-button, #506581) 78%, var(--site-surface, #506581));
+  border-radius: var(--site-radius-sm, 11px);
+  font: 600 0.95rem "Roboto", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.game-view:hover {
+  background: var(--site-button-hover, #617896);
+  transform: translateY(-1px);
+}
+
+.game-view.is-active {
+  background: color-mix(in srgb, var(--site-accent, #8cb7f2) 24%, var(--site-button, #506581));
+  border-color: var(--site-accent, #8cb7f2);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--site-accent, #8cb7f2) 25%, transparent);
+}
+
+.game-view svg {
+  height: 18px;
+  width: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.game-view-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 5px;
+  box-sizing: border-box;
+  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.25);
+  font-size: 0.77rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.game-favorite {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid var(--site-control-border, rgba(255, 255, 255, 0.27));
+  border-radius: 11px;
+  color: var(--site-text, #ffffff);
+  background: color-mix(in srgb, var(--site-button, #263b57) 84%, rgba(0, 0, 0, 0.8));
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.game-favorite:hover {
+  transform: scale(1.1);
+  background: var(--site-button-hover, #334b6a);
+}
+
+.game-favorite.is-favorite {
+  color: var(--site-accent, #ffd36b);
+  border-color: var(--site-accent, #ffd36b);
+}
+
+.game-favorite svg {
+  width: 20px;
+  height: 20px;
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: fill 0.2s ease;
+}
+
+.game-favorite.is-favorite svg {
+  fill: currentColor;
+}
+
+.game-view:focus-visible,
+.game-favorite:focus-visible {
+  outline: 3px solid var(--site-text, white);
+  outline-offset: 3px;
+}
+
+.game-empty {
+  max-width: 520px;
+  margin: 38px auto 60px;
+  padding: 34px 24px;
+  box-sizing: border-box;
+  color: var(--site-text, #faf9f6);
+  background: color-mix(in srgb, var(--site-surface, #506581) 38%, rgba(0, 0, 0, 0.55));
+  border: 1px solid var(--site-control-border, rgba(255, 255, 255, 0.2));
+  border-radius: var(--site-radius-md, 14px);
+}
+
+.game-empty[hidden] {
+  display: none;
+}
+
+.game-empty p {
+  margin: 0 0 9px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.game-empty span {
+  color: var(--site-muted, #b5cae0);
+  font-size: 0.94rem;
+}
+
+@media (max-width: 500px) {
+  .game-views {
+    gap: 7px;
+  }
+
+  .game-view {
+    padding: 10px 9px;
+    min-height: 43px;
+    gap: 5px;
+    font-size: 0.8rem;
+  }
+
+  .game-view svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .game-view-count {
+    min-width: 19px;
+    height: 19px;
+    font-size: 0.72rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-view,
+  .game-favorite,
+  .game-favorite svg {
+    transition: none;
+  }
+
+  .game-view:hover,
+  .game-favorite:hover {
+    transform: none;
+  }
 }
