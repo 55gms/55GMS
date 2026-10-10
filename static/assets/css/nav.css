@@ -86,8 +86,8 @@
   }
 }
 
-.navbar a:nth-last-child(2),
-.navbar a:last-child {
+.navbar a[href="/chat"],
+.navbar a[href="/profile"] {
   position: absolute;
   width: 42px;
   height: 42px;
@@ -96,11 +96,11 @@
   place-items: center;
 }
 
-.navbar a:nth-last-child(2) {
+.navbar a[href="/chat"] {
   right: 58px;
 }
 
-.navbar a:last-child {
+.navbar a[href="/profile"] {
   right: 10px;
 }
 
@@ -129,24 +129,24 @@
     transform: none;
   }
 
-  .navbar a:nth-last-child(2),
-  .navbar a:last-child {
+  .navbar a[href="/chat"],
+  .navbar a[href="/profile"] {
     top: 8px;
     width: 42px;
     height: 42px;
     font-size: 17px;
   }
 
-  .navbar a:nth-last-child(2) {
+  .navbar a[href="/chat"] {
     right: 54px;
   }
 
-  .navbar a:last-child {
+  .navbar a[href="/profile"] {
     right: 8px;
   }
 
   /* Row 2: evenly spaced tabs, icon over label */
-  .navbar a:not(:first-child):not(:nth-last-child(-n + 2)) {
+  .navbar a:not(:first-child):not([href="/chat"]):not([href="/profile"]) {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -161,7 +161,7 @@
     background: color-mix(in srgb, var(--site-text, #fff) 6%, transparent);
   }
 
-  .navbar a:not(:first-child):not(:nth-last-child(-n + 2)) i {
+  .navbar a:not(:first-child):not([href="/chat"]):not([href="/profile"]) i {
     /* clip the &nbsp; inside the icon so the glyph centers */
     width: 1.25em;
     overflow: hidden;
@@ -169,7 +169,7 @@
     white-space: nowrap;
   }
 
-  .navbar a:nth-last-child(2) i {
+  .navbar a[href="/chat"] i {
     width: 1.25em;
     overflow: hidden;
     white-space: nowrap;
@@ -181,7 +181,7 @@
 }
 
 @media only screen and (max-width: 340px) {
-  .navbar a:not(:first-child):not(:nth-last-child(-n + 2)) {
+  .navbar a:not(:first-child):not([href="/chat"]):not([href="/profile"]) {
     font-size: 10px;
     letter-spacing: 0;
   }
