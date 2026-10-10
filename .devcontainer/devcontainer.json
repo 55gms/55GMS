@@ -1,0 +1,13 @@
+{
+  "name": "55GMS",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:24",
+  "postCreateCommand": "npm install",
+  "postAttachCommand": "node .",
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": {
+      "label": "55GMS",
+      "onAutoForward": "notify"
+    }
+  }
+}

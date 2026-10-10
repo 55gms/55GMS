@@ -32,7 +32,9 @@ hcaptchaSecret=your_hcaptcha_secret
 PORT=8080
 ```
 
-A running PostgreSQL instance is required. Run `node setup-db.js` after configuring `POSTGRES_URL` to create schema.
+Every value is optional. `utils/features.js` decides at boot which optional features run: accounts need their backend (`POSTGRES_URL` with `ACCOUNT_BACKEND=postgres`, or `workerAUTH` for the Worker), and chat needs `POSTGRES_URL` plus accounts. With no `.env`, or one still holding the `EXAMPLE.env` placeholders, the server boots with both off and serves games, apps and the proxy: their API routes and models are never loaded, `/api/*` calls to them return 503 JSON, their pages redirect to `/`, and `script.js` hides their nav links using `GET /api/features`. A configured database that cannot be reached is fatal, except in GitHub Codespaces (`CODESPACES=true`), where the server starts without it. `.devcontainer/devcontainer.json` installs dependencies and runs `node .` in a Codespace.
+
+For chat, run a PostgreSQL instance and `node setup-db.js` after configuring `POSTGRES_URL` to create schema.
 
 ## Architecture
 
@@ -51,6 +53,7 @@ A running PostgreSQL instance is required. Run `node setup-db.js` after configur
 | `services/accounts.js`   | Account/save store; `ACCOUNT_BACKEND` picks the Worker (default) or local Postgres                |
 | `routes/messaging.js`    | Full chat REST API (~962 lines)                                                                   |
 | `routes/music.js`        | Proxy routes for music/media                                                                      |
+| `utils/features.js`      | Turns accounts and chat on or off at boot from the env; see Environment Setup                     |
 | `utils/userCache.js`     | In-memory user data cache                                                                         |
 | `utils/blockingCache.js` | In-memory blocked-user cache                                                                      |
 | `utils/ads.js`           | Mounts 55GMS Ads at `/_ads` when `ADS_SERVER_URL` and `ADS_API_KEY` are set                       |
