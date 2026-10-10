@@ -54,6 +54,7 @@ A running PostgreSQL instance is required. Run `node setup-db.js` after configur
 | `utils/userCache.js`     | In-memory user data cache                                                                         |
 | `utils/blockingCache.js` | In-memory blocked-user cache                                                                      |
 | `utils/ads.js`           | Mounts 55GMS Ads at `/_ads` when `ADS_SERVER_URL` and `ADS_API_KEY` are set                       |
+| `utils/gameAssets.js`    | Relays `/misc/` files that are not on disk from the 55gms/assets mirror on jsDelivr               |
 | `utils/ads-edge/`        | Vendored edge module from the gms-ads repo; do not edit here                                      |
 | `scripts/build.js`       | `npm run build`: builds `static/` into `dist/builds/<id>/` and points `dist/current` at it        |
 | `scripts/build/`         | The build stages, and `check-output.js`, the check CI runs on the built tree                      |

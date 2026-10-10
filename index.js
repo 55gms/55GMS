@@ -15,6 +15,7 @@ import { createCompression, staticOptions } from "./utils/httpPerformance.js";
 
 import { mountProxyAssets } from "./utils/proxyAssets.js";
 import { mountAds } from "./utils/ads.js";
+import { mountGameAssetFallback } from "./utils/gameAssets.js";
 
 logging.set_level(logging.ERROR);
 
@@ -390,6 +391,8 @@ try {
     res.redirect(301, "/assets/harry-potter" + req.url);
   });
   app.use(express.static(staticRoot, staticOptions));
+  // Game files that are not on disk are relayed from the 55gms/assets mirror.
+  mountGameAssetFallback(app, staticRoot);
   app.use((req, res, next) => {
     if (req.method === "GET" && !path.extname(req.url)) {
       const filePath = path.join(staticRoot, req.url + ".html");
