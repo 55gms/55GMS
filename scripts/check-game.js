@@ -1,8 +1,9 @@
 // Loads one game page in headless Chrome and reports what breaks, before the
-// game's files have reached GitHub. Requests to the page's jsDelivr base for
-// 55gms/assets are answered from static/misc/<folder>/ the way the CDN would
-// answer them (CORS headers, 404 for missing files, 403 over 20 MB), so the
-// page is tested exactly as committed.
+// game's files have reached GitHub. The page comes from static/misc/<folder>/;
+// requests to its jsDelivr base for 55gms/assets are answered from the local
+// assets clone (misc/<folder>/) the way the CDN would answer them (CORS
+// headers, 404 for missing files, 403 over 20 MB), so the game is tested
+// exactly as committed in both repos.
 //
 //   node scripts/check-game.js <folder> [--wait 15] [--live] [--shot <png>]
 //
@@ -14,6 +15,7 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright-core";
+import { assetsRepo, filesDir, requireAssetsRepo } from "./lib/gameFiles.js";
 
 const args = process.argv.slice(2);
 const option = (name, fallback) => {
@@ -33,12 +35,13 @@ const shot = option("shot", path.join(os.tmpdir(), `check-${folder}.png`));
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const staticDir = path.join(root, "static");
-const gameDir = path.join(staticDir, "misc", folder);
-const entryPage = path.join(gameDir, "index.html");
+const gameDir = filesDir(folder);
+const entryPage = path.join(staticDir, "misc", folder, "index.html");
 if (!fs.existsSync(entryPage)) {
   console.error(`No static/misc/${folder}/index.html`);
   process.exit(1);
 }
+requireAssetsRepo();
 
 const CDN = new RegExp(
   `^https://cdn\\.jsdelivr\\.net/gh/55gms/assets@[^/]+/misc/${folder}/`,
@@ -73,16 +76,20 @@ const MIME = {
 const mime = (file) =>
   MIME[path.extname(file).slice(1).toLowerCase()] || "application/octet-stream";
 
-// The site itself is not needed, only its static files.
+// The site itself is not needed, only its static files. A game file that is
+// not in static/ is answered from the assets clone, as the site relays it.
 const server = http.createServer((req, res) => {
   const pathname = decodeURIComponent(new URL(req.url, "http://x").pathname);
   let file = path.join(staticDir, pathname);
   if (pathname.endsWith("/")) file = path.join(file, "index.html");
-  if (
-    !file.startsWith(staticDir) ||
-    !fs.existsSync(file) ||
-    !fs.statSync(file).isFile()
-  ) {
+  const isFile = (candidate, within) =>
+    candidate.startsWith(within) &&
+    fs.existsSync(candidate) &&
+    fs.statSync(candidate).isFile();
+  if (!isFile(file, staticDir) && pathname.startsWith("/misc/")) {
+    file = path.join(assetsRepo, pathname);
+  }
+  if (!isFile(file, staticDir) && !isFile(file, assetsRepo)) {
     res.writeHead(404).end();
     return;
   }

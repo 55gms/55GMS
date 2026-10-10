@@ -1,4 +1,4 @@
-// Copies a web game into static/misc/<name>/ by doing what you would do by hand
+// Copies a web game by doing what you would do by hand
 // in the DevTools Network tab: load the game, save every file it requests into
 // a matching folder structure, then open the copy and fetch whatever 404s.
 //
@@ -12,15 +12,23 @@
 // If the URL is a portal page, the script follows the largest iframe (nested
 // ones too) down to the game itself and only keeps what that frame requested.
 // Files from other hosts land in _ext/<host>/ and their URLs in the saved
-// HTML/JS/CSS are rewritten to /misc/<name>/_ext/..., so the folder has to stay
-// at static/misc/<name>/.
+// HTML/JS/CSS are rewritten to /misc/<name>/_ext/..., so the folder has to keep
+// its name.
+//
+// The pages (*.html) end up in static/misc/<name>/; every other file ends up in
+// the 55gms/assets clone under misc/<name>/, which is what jsDelivr serves.
 import fs from "node:fs";
 import http from "node:http";
 import os from "node:os";
 import path from "node:path";
 import zlib from "node:zlib";
-import { fileURLToPath } from "node:url";
 import { chromium } from "playwright-core";
+import {
+  filesDir,
+  isPage,
+  pagesDir,
+  requireAssetsRepo,
+} from "./lib/gameFiles.js";
 
 const args = process.argv.slice(2);
 const flags = new Set(["headless", "force"]);
@@ -49,15 +57,19 @@ const name = (
   .replace(/\.[a-z0-9]+$/, "")
   .replace(/[^a-z0-9-_]+/g, "-");
 
-const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
-const outDir = path.join(root, "static/misc", name);
+// The copy is assembled in the assets clone; its pages move to this repo at
+// the end, since the site serves pages and jsDelivr serves everything else.
+requireAssetsRepo();
+const outDir = filesDir(name);
+const pageDir = pagesDir(name);
 const prefix = `/misc/${name}/`;
-if (fs.existsSync(outDir)) {
+for (const dir of [outDir, pageDir]) {
+  if (!fs.existsSync(dir)) continue;
   if (!options.force) {
-    console.error(`static/misc/${name} already exists (use --force or --name)`);
+    console.error(`${dir} already exists (use --force or --name)`);
     process.exit(1);
   }
-  fs.rmSync(outDir, { recursive: true });
+  fs.rmSync(dir, { recursive: true });
 }
 
 // Ads and analytics: never saved, and blocked when checking the local copy.
@@ -497,9 +509,17 @@ const list = (title, items) => {
   for (const item of items.slice(0, 40)) console.log(`  ${item}`);
   if (items.length > 40) console.log(`  ...and ${items.length - 40} more`);
 };
+const pages = [...saved.keys()].filter(isPage);
+for (const rel of pages) {
+  const target = path.join(pageDir, rel);
+  fs.mkdirSync(path.dirname(target), { recursive: true });
+  fs.renameSync(path.join(outDir, rel), target);
+}
 console.log(
-  `\nstatic/misc/${name}: ${saved.size} files, ${(bytes / 1024 / 1024).toFixed(1)} MB`,
+  `\n${name}: ${saved.size} files, ${(bytes / 1024 / 1024).toFixed(1)} MB`,
 );
+console.log(`  pages (${pages.length}): ${pageDir}`);
+console.log(`  files (${saved.size - pages.length}): ${outDir}`);
 list("Still missing (the original server does not have them either):", [
   ...missing.values(),
 ]);
@@ -510,4 +530,4 @@ list("Requested outside the game folder (fix these paths by hand):", [
 list("Script errors in the local copy:", [...pageErrors]);
 list("Over GitHub's 100 MB file limit:", big);
 console.log(`\nScreenshot of the local copy: ${screenshot}`);
-console.log(`Try it: node . then open ${prefix}index.html`);
+console.log(`Check it: node scripts/check-game.js ${name}`);

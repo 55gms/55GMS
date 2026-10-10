@@ -2,10 +2,13 @@
 """Prepare the 21 locally hosted Unity games for jsDelivr delivery."""
 import hashlib
 import json
+import os
 import pathlib
 import re
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+# Pages stay in this repo; game files live in the 55gms/assets clone beside it.
+ASSETS = pathlib.Path(os.environ.get("ASSETS_REPO", ROOT.parent / "assets")).resolve()
 FOLDERS = [
     "nowgg", "amazing-rope-police", "superstarcar", "dadish3d",
     "drift-hunters", "funny-shooter-2", "geometry-dash", "gladihoppers",
@@ -48,7 +51,7 @@ def chunk(path, folder):
 
 
 def migrate_page(folder):
-    page = folder / "index.html"
+    page = ROOT / "static/misc" / folder.name / "index.html"
     html = page.read_text()
     if 'id="unity-game-scripts"' in html:
         return
@@ -96,7 +99,7 @@ def migrate_page(folder):
 
 
 for name in FOLDERS:
-    folder = ROOT / "static/misc" / name
+    folder = ASSETS / "misc" / name
     manifest_path = folder / "unity-assets.json"
     previous = json.loads(manifest_path.read_text())["files"] if manifest_path.exists() else []
     files = {entry["path"]: entry for entry in previous}

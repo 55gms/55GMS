@@ -1,4 +1,5 @@
-// Splits every file over jsDelivr's 20 MB limit in a game folder into 10 MB
+// Splits every file over jsDelivr's 20 MB limit in a game's folder in the
+// 55gms/assets clone (misc/<folder>/) into 10 MB
 // .part1, .part2, ... pieces, removes the original, and prints the
 // [path, bytes] lists that GameLoader.prepare() and GameLoader.merge() take.
 //
@@ -8,7 +9,7 @@
 // keeps refusing: small pieces fail far less often than large ones.
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { filesDir, requireAssetsRepo } from "./lib/gameFiles.js";
 
 const args = process.argv.slice(2);
 const megabytes = (name, fallback) => {
@@ -18,8 +19,8 @@ const megabytes = (name, fallback) => {
 const LIMIT = megabytes("limit", 20);
 const CHUNK = megabytes("chunk", 10);
 const folder = args[0];
-const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
-const gameDir = path.join(root, "static/misc", folder || "");
+requireAssetsRepo();
+const gameDir = filesDir(folder || "");
 if (!folder || !fs.existsSync(gameDir) || !(LIMIT > 0) || !(CHUNK > 0)) {
   console.error(
     "Usage: node scripts/split-game-files.js <folder> [--limit 20] [--chunk 10]",
