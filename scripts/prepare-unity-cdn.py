@@ -15,7 +15,7 @@ FOLDERS = [
 ]
 LIMIT = 20_000_000
 CHUNK_SIZE = 10_000_000
-CDN = "https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/"
+CDN = "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/"
 
 
 def digest(path):

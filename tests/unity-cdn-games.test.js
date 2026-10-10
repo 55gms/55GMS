@@ -35,7 +35,7 @@ for (const folder of folders) {
     const page = await readFile(new URL("index.html", root), "utf8");
     assert.ok(
       page.includes(
-        `<base href="https://cdn.jsdelivr.net/gh/55gms/55gms@main/static/misc/${folder}/">`,
+        `<base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/${folder}/">`,
       ),
     );
     assert.ok(page.includes('id="unity-cdn-loading"'));

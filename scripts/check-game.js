@@ -1,6 +1,6 @@
 // Loads one game page in headless Chrome and reports what breaks, before the
 // game's files have reached GitHub. Requests to the page's jsDelivr base for
-// 55gms/55gms are answered from static/misc/<folder>/ the way the CDN would
+// 55gms/assets are answered from static/misc/<folder>/ the way the CDN would
 // answer them (CORS headers, 404 for missing files, 403 over 20 MB), so the
 // page is tested exactly as committed.
 //
@@ -41,7 +41,7 @@ if (!fs.existsSync(entryPage)) {
 }
 
 const CDN = new RegExp(
-  `^https://cdn\\.jsdelivr\\.net/gh/55gms/55gms@[^/]+/static/misc/${folder}/`,
+  `^https://cdn\\.jsdelivr\\.net/gh/55gms/assets@[^/]+/misc/${folder}/`,
   "i",
 );
 const CDN_LIMIT = 20_000_000;
@@ -113,9 +113,7 @@ let fromCdn = 0;
 if (!live) {
   await context.route(CDN, (route) => {
     const url = new URL(route.request().url());
-    const rel = decodeURIComponent(
-      url.pathname.split(`/static/misc/${folder}/`)[1],
-    );
+    const rel = decodeURIComponent(url.pathname.split(`/misc/${folder}/`)[1]);
     const file = path.join(gameDir, rel);
     const headers = {
       "access-control-allow-origin": "*",

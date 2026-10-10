@@ -250,7 +250,10 @@ test("Unity pages list the real sizes of the files in their folder", async () =>
     const base = html.match(/<base\s+href="([^"]+)"/)?.[1] ?? "";
     for (const [, path, size] of call[1].matchAll(/\["([^"]+)", (\d+)\]/g)) {
       // Files on other hosts cannot be checked from here.
-      if (path.includes("://") || !base.includes(`/static/misc/${folder}/`))
+      if (
+        path.includes("://") ||
+        !base.includes(`/assets@main/misc/${folder}/`)
+      )
         continue;
       const file = await stat(new URL(`${folder}/${path}`, misc));
       assert.equal(Number(size), file.size, `${folder}: ${path}`);
