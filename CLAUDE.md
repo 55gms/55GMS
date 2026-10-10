@@ -85,7 +85,7 @@ All frontend code is static files under `static/`:
 - `static/assets/json/` — game/app catalog data
 - `static/assets/harry-potter/` — preset tab favicons (Canvas, Gmail, Google Drive, etc.)
 - `static/assets/sj/` — small proxy helper scripts (URL handling, service-worker registration)
-- `static/misc/` — 400+ embedded game directories holding only the game pages (`*.html`). The game files themselves live in the [55gms/assets](https://github.com/55gms/assets) repo under `misc/<folder>/` and are served from jsDelivr; see `AGENTS.md` for the `<base>` pattern. A `/misc/` file requested from this server that is not on disk is relayed from that mirror by `utils/gameAssets.js`. Three files over jsDelivr's size limit stay here: `fruit-ninja/vendors.bundle.js`, `misc/packs/skyline/§bSkyline.zip`, `fnf/assets/videos/videos/toyCommercial.mp4`
+- `static/misc/` — 400+ embedded game directories holding only the game pages (`*.html`). The game files themselves live in the [55gms/assets](https://github.com/55gms/assets) repo under `misc/<folder>/` and are served from jsDelivr; see `AGENTS.md` for the `<base>` pattern. A `/misc/` file requested from this server that is not on disk is relayed from that mirror by `utils/gameAssets.js`. `static/misc/media/` (the media player's scripts and styles) is site code and stays here in full. `.gitignore` keeps other non-HTML files out of `static/misc/`. Three files over jsDelivr's size limit also stay here: `fruit-ninja/vendors.bundle.js`, `misc/packs/skyline/§bSkyline.zip`, `fnf/assets/videos/videos/toyCommercial.mp4`
 
 ### Build
 

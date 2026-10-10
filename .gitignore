@@ -19,3 +19,11 @@ dist/
 
 # Playwright MCP run artifacts
 .playwright-mcp/
+
+# Game files live in the 55gms/assets repo; only the pages belong here.
+static/misc/**
+!static/misc/**/
+!static/misc/**/*.html
+!static/misc/**/*.htm
+# The media player is site code, not a game: it stays here.
+!static/misc/media/**
