@@ -358,3 +358,31 @@ production.
 
 The `Jiayang` account (`e0aa7d6f…`, created 2026-10-07, premium) should be
 confirmed as the maintainer's own before launch. It has no admin access.
+
+## Amendments (2026-10-10, from writing the implementation plan)
+
+Reading the code changed these details. The plan
+(`docs/superpowers/plans/2026-10-10-handles.md`) follows these, not the text
+above.
+
+- **Page names.** The forced screen is `/choose-handle`
+  (`static/choose-handle.html`), not `/handle`, so it cannot be confused with
+  the info page `/handles`.
+- **Who is "signed in".** The site identifies a browser by the UUID in
+  `localStorage` (the `X-User-UUID` header); the session cookie exists only
+  for logins made since sessions were added. So `GET /api/me` and last-seen
+  work from the UUID, while `POST /api/handle` requires the session cookie
+  wherever `ADMIN_TOKEN_SECRET` is set, because UUIDs are visible to chat
+  members. A browser without a cookie is asked to sign in again before
+  choosing.
+- **Rate limiting.** No new dependency. The server does not set
+  `trust proxy`, which `express-rate-limit` needs behind Caddy, and turning
+  it on would change `req.ip` and `req.secure` everywhere. A small limiter in
+  `utils/rateLimit.js` covers the lookup route.
+- **Columns.** `setup-db.js` only creates missing tables, so the columns are
+  added by `scripts/add-handle-columns.js` (or the same statements in
+  `psql`), not by `setup-db.js`.
+- **The deadline** is the env var `HANDLE_MIGRATION_DEADLINE`. Unset means
+  no deadline and no notices.
+- **Non-ASCII names** are not claimants: they neither make a handle
+  contested nor take a remainder that another account holds.
