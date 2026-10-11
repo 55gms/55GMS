@@ -27,3 +27,7 @@ static/misc/**
 !static/misc/**/*.htm
 # The media player is site code, not a game: it stays here.
 !static/misc/media/**
+
+# Handle migration inputs and reports (scripts/migrate-handles.js)
+signup-order.txt
+handle-migration-report.csv
