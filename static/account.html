@@ -281,8 +281,11 @@
         const toasts = document.getElementById("toasts");
         let isOnCooldown = false;
 
-        document.getElementById("username").textContent = username;
-        document.getElementById("initials").textContent = username.charAt(0);
+        function showHandle(handle) {
+          document.getElementById("username").textContent = "@" + handle;
+          document.getElementById("initials").textContent = handle.charAt(0);
+        }
+        showHandle(username);
         document.getElementById("shortId").textContent = uuid.slice(0, 8);
 
         function formatBytes(bytes) {
@@ -320,6 +323,40 @@
               once: true,
             });
           }, 4500);
+        }
+
+        // Refresh the handle, send an account that still has to choose one
+        // to the chooser, and sign out a browser whose account is gone.
+        fetch("/api/me", { headers: { "X-User-UUID": uuid } })
+          .then((response) => {
+            if (response.status === 404) {
+              localStorage.removeItem("uuid");
+              localStorage.removeItem("username");
+              localStorage.removeItem("premium");
+              location.replace("/login");
+              return null;
+            }
+            return response.ok ? response.json() : null;
+          })
+          .then((me) => {
+            if (!me) return;
+            if (me.handlePending) {
+              location.replace("/choose-handle");
+              return;
+            }
+            localStorage.setItem("username", me.username);
+            showHandle(me.username);
+          })
+          .catch(() => {});
+
+        // Set by the login page when an old username was converted.
+        const convertedHandle = sessionStorage.getItem("handleNotice");
+        if (convertedHandle) {
+          sessionStorage.removeItem("handleNotice");
+          toast(
+            "success",
+            `You are now @${convertedHandle}. You can sign in with either name.`,
+          );
         }
 
         function setLoading(button, loading) {

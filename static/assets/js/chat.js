@@ -37,6 +37,31 @@ async function initializeChat() {
     return;
   }
 
+  // The handle in localStorage can be out of date, and an account that still
+  // has to choose one cannot use chat yet.
+  try {
+    const response = await fetch("/api/me", {
+      headers: { "X-User-UUID": currentUser.uuid },
+    });
+    if (response.status === 404) {
+      localStorage.removeItem("uuid");
+      localStorage.removeItem("username");
+      window.location.href = "/login";
+      return;
+    }
+    if (response.ok) {
+      const me = await response.json();
+      if (me.handlePending) {
+        window.location.href = "/choose-handle";
+        return;
+      }
+      currentUser.username = me.username;
+      localStorage.setItem("username", me.username);
+    }
+  } catch (error) {
+    console.error("Couldn't refresh the account:", error);
+  }
+
   // Initialize Socket.IO
   initializeSocket();
 
@@ -150,7 +175,7 @@ function initializeSocket() {
     // Show notification since this is for a chat the user is not currently viewing
     showNotification(
       "New Message",
-      `${data.senderUsername || "Unknown"}: ${data.content}`,
+      `${atHandle(data.senderUsername || "Unknown")}: ${data.content}`,
       () => {
         selectChat(data.chatId);
       },
@@ -640,6 +665,26 @@ function icon(name) {
   return `<svg class="icon" aria-hidden="true"><use href="#i-${name}"></use></svg>`;
 }
 
+// A handle as people see it. Anything that is not a handle ("Unknown User",
+// a group's name) is shown as it is.
+function atHandle(name) {
+  const text = String(name ?? "");
+  return /^[a-z0-9]+(-[a-z0-9]+)*$/.test(text) ? `@${text}` : text;
+}
+
+// What someone typed into a "handle" box: no "@", lowercase.
+function typedHandle(value) {
+  return String(value ?? "")
+    .trim()
+    .replace(/^@/, "")
+    .toLowerCase();
+}
+
+// A direct chat is named after the other person; a group keeps its own name.
+function chatLabel(chat) {
+  return chat.type === "direct" ? atHandle(chat.name) : chat.name;
+}
+
 function getInitial(name) {
   const trimmed = String(name ?? "").trim();
   return trimmed ? Array.from(trimmed)[0].toUpperCase() : "?";
@@ -725,7 +770,7 @@ function getChatPreview(chat) {
     if (lastMessage.senderUuid === currentUser.uuid) {
       prefix = "You: ";
     } else if (chat.type === "group" && lastMessage.senderUsername) {
-      prefix = `${lastMessage.senderUsername}: `;
+      prefix = `${atHandle(lastMessage.senderUsername)}: `;
     }
   }
 
@@ -773,7 +818,7 @@ function renderChatList() {
                 })}
                 <div class="chat-item-content">
                     <div class="chat-item-row">
-                        <div class="chat-item-name">${escapeHtml(chat.name)}</div>
+                        <div class="chat-item-name">${escapeHtml(chatLabel(chat))}</div>
                         ${
                           lastMessage
                             ? `<div class="chat-time" data-timestamp="${new Date(
@@ -813,7 +858,7 @@ function updateChatHeader() {
   const statusElement = document.getElementById("chatStatus");
   const onlineIndicator = document.getElementById("onlineIndicator");
 
-  document.getElementById("chatName").textContent = chat.name;
+  document.getElementById("chatName").textContent = chatLabel(chat);
   document.getElementById("chatInitials").textContent = getInitial(chat.name);
   avatar.classList.toggle("is-group", isGroup);
   avatar.style.setProperty("--avatar-hue", getAvatarHue(chat.name));
@@ -831,7 +876,8 @@ function updateChatHeader() {
     onlineIndicator.style.display = "none";
   }
 
-  document.getElementById("messageInput").placeholder = `Message ${chat.name}`;
+  document.getElementById("messageInput").placeholder =
+    `Message ${chatLabel(chat)}`;
 }
 
 // Select and load a chat
@@ -1078,10 +1124,10 @@ function insertMessage(
             ${
               showSender
                 ? `<div class="message-header"><span class="message-sender">${escapeHtml(
-                    message.senderUsername,
+                    atHandle(message.senderUsername),
                   )}</span></div>`
                 : `<span class="sr-only">${escapeHtml(
-                    message.isOwn ? "You" : message.senderUsername,
+                    message.isOwn ? "You" : atHandle(message.senderUsername),
                   )}:</span>`
             }
             <div class="message-bubble" title="${escapeHtml(
@@ -1242,6 +1288,10 @@ async function sendMessage() {
       updateChatInList(chatId, message);
     } else {
       const errorData = await response.json();
+      if (errorData.error === "handle_required") {
+        window.location.href = "/choose-handle";
+        return;
+      }
 
       // Handle blocked messages specially
       if (errorData.blocked) {
@@ -1339,7 +1389,7 @@ function renderTypingIndicator() {
       chat && chat.members
         ? chat.members.find((m) => m.uuid === userUuid)
         : null;
-    return member ? member.username : "Someone";
+    return member ? atHandle(member.username) : "Someone";
   });
 
   let text = "";
@@ -1359,11 +1409,11 @@ function renderTypingIndicator() {
 
 // Create direct chat
 async function createDirectChat() {
-  const username = document.getElementById("directUsername").value.trim();
+  const username = typedHandle(document.getElementById("directUsername").value);
 
   if (!username) {
     document.getElementById("directUsername").focus();
-    showToast("Enter a username to start a chat", "warning");
+    showToast("Enter a handle to start a chat", "warning");
     return;
   }
 
@@ -1479,9 +1529,9 @@ function getGroupMemberUsernames() {
 // Add member to group
 function addMemberToGroup(usernameToAdd) {
   const input = document.getElementById("addMemberInput");
-  const username = (
-    typeof usernameToAdd === "string" ? usernameToAdd : input.value
-  ).trim();
+  const username = typedHandle(
+    typeof usernameToAdd === "string" ? usernameToAdd : input.value,
+  );
 
   if (!username) return;
 
@@ -1519,8 +1569,8 @@ function addMemberToGroup(usernameToAdd) {
   memberTag.className = "member-tag";
   memberTag.dataset.username = username;
   memberTag.innerHTML = `
-        <span class="member-tag-name">${escapeHtml(username)}</span>
-        <button class="remove" type="button" data-action="remove-member" aria-label="Remove ${escapeHtml(username)}">${icon("x")}</button>
+        <span class="member-tag-name">${escapeHtml(atHandle(username))}</span>
+        <button class="remove" type="button" data-action="remove-member" aria-label="Remove ${escapeHtml(atHandle(username))}">${icon("x")}</button>
     `;
 
   membersList.appendChild(memberTag);
@@ -1584,7 +1634,7 @@ function renderFriendPickers() {
         <button class="picker-item" type="button" data-action="start-chat" data-username="${escapeHtml(friend.username)}">
             ${avatarHtml(friend.username, { isOnline: Boolean(friend.isOnline) })}
             <span class="friend-info">
-                <span class="friend-name"><span>${escapeHtml(friend.username)}</span></span>
+                <span class="friend-name"><span>${escapeHtml(atHandle(friend.username))}</span></span>
                 <span class="friend-meta">${friend.isOnline ? "Online" : "Offline"}</span>
             </span>
         </button>
@@ -1611,7 +1661,7 @@ function renderFriendPickers() {
         .map(
           (friend) => `
         <button class="suggestion" type="button" data-action="add-member" data-username="${escapeHtml(friend.username)}">
-            ${icon("plus")}<span class="member-tag-name">${escapeHtml(friend.username)}</span>
+            ${icon("plus")}<span class="member-tag-name">${escapeHtml(atHandle(friend.username))}</span>
         </button>
     `,
         )
@@ -1658,7 +1708,7 @@ function renderFriendsList() {
   if (friends.length === 0) {
     friendsList.innerHTML = listStateHtml(
       "No friends yet",
-      "Add someone by username to get started.",
+      "Add someone by handle to get started.",
     );
     return;
   }
@@ -1669,7 +1719,7 @@ function renderFriendsList() {
         <div class="friend-item">
             ${avatarHtml(friend.username, { isOnline: Boolean(friend.isOnline) })}
             <div class="friend-info">
-                <div class="friend-name"><span>${escapeHtml(friend.username)}</span></div>
+                <div class="friend-name"><span>${escapeHtml(atHandle(friend.username))}</span></div>
                 <div class="friend-meta">
                     ${friend.isOnline ? "Online" : escapeHtml(formatLastSeen(friend.lastSeen))}
                 </div>
@@ -1678,7 +1728,7 @@ function renderFriendsList() {
                 <button class="btn btn-sm" type="button" data-action="start-chat" data-username="${escapeHtml(friend.username)}">
                     Message
                 </button>
-                <button class="icon-btn btn-sm" type="button" data-action="remove-friend" data-username="${escapeHtml(friend.username)}" title="Remove friend" aria-label="Remove ${escapeHtml(friend.username)} from friends">
+                <button class="icon-btn btn-sm" type="button" data-action="remove-friend" data-username="${escapeHtml(friend.username)}" title="Remove friend" aria-label="Remove ${escapeHtml(atHandle(friend.username))} from friends">
                     ${icon("user-minus")}
                 </button>
             </div>
@@ -1720,11 +1770,11 @@ async function startChatWithFriend(username) {
 
 // Send friend request
 async function sendFriendRequest() {
-  const username = document.getElementById("friendUsername").value.trim();
+  const username = typedHandle(document.getElementById("friendUsername").value);
 
   if (!username) {
     document.getElementById("friendUsername").focus();
-    showToast("Enter a username to add a friend", "warning");
+    showToast("Enter a handle to add a friend", "warning");
     return;
   }
 
@@ -1814,7 +1864,7 @@ function renderFriendRequests(requests) {
         <div class="request-item">
             ${avatarHtml(request.requesterUsername)}
             <div class="friend-info">
-                <div class="friend-name"><span>${escapeHtml(request.requesterUsername)}</span></div>
+                <div class="friend-name"><span>${escapeHtml(atHandle(request.requesterUsername))}</span></div>
                 <div class="friend-meta">
                     ${escapeHtml(formatLastSeen(request.createdAt).replace("Last seen", "Sent"))}
                 </div>
@@ -2207,8 +2257,8 @@ function initializeUserInfoBar() {
       "--avatar-hue",
       getAvatarHue(currentUser.username),
     );
-    userDisplayName.textContent = currentUser.username;
-    userDisplayName.title = currentUser.username;
+    userDisplayName.textContent = atHandle(currentUser.username);
+    userDisplayName.title = atHandle(currentUser.username);
   }
 }
 
@@ -2224,17 +2274,17 @@ function copyUsername() {
       const originalIcon = copyBtn.innerHTML;
       copyBtn.innerHTML = icon("check");
       copyBtn.classList.add("is-copied");
-      copyBtn.setAttribute("aria-label", "Username copied");
+      copyBtn.setAttribute("aria-label", "Handle copied");
 
       setTimeout(() => {
         copyBtn.innerHTML = originalIcon;
         copyBtn.classList.remove("is-copied");
-        copyBtn.setAttribute("aria-label", "Copy username");
+        copyBtn.setAttribute("aria-label", "Copy handle");
       }, 1000);
     })
     .catch((err) => {
       console.error("Failed to copy username:", err);
-      showToast("Couldn't copy your username", "error");
+      showToast("Couldn't copy your handle", "error");
     });
 }
 
@@ -2730,7 +2780,7 @@ function renderBlockedUsers(blockedUsers) {
         <div class="friend-item">
             ${avatarHtml(user.username)}
             <div class="friend-info">
-                <div class="friend-name"><span>${escapeHtml(user.username)}</span></div>
+                <div class="friend-name"><span>${escapeHtml(atHandle(user.username))}</span></div>
                 <div class="friend-meta">Blocked</div>
             </div>
             <div class="friend-actions">
@@ -2851,7 +2901,7 @@ function displayGroupMembers(members) {
         ${avatarHtml(member.username, { isOnline, image: member.avatar })}
         <div class="member-info">
           <span class="member-username">
-            <span>${escapeHtml(member.username)}</span>
+            <span>${escapeHtml(atHandle(member.username))}</span>
             ${member.role === "admin" ? '<span class="role-badge is-admin">Admin</span>' : ""}
             ${isSelf ? '<span class="role-badge">You</span>' : ""}
           </span>
