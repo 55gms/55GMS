@@ -1,4 +1,3 @@
-
 (() => {
   const STORAGE_KEY = "55gms:browser";
   const DOCK_KEY = "55gms:browser:dock";
@@ -227,13 +226,17 @@
       showTabContext(tab, e.clientX, e.clientY);
     });
     node.addEventListener("pointerdown", (e) => beginTabDrag(e, tab));
-    node.addEventListener("click", (e) => {
-      if (node.dataset.suppressClick === "true") {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        delete node.dataset.suppressClick;
-      }
-    }, true);
+    node.addEventListener(
+      "click",
+      (e) => {
+        if (node.dataset.suppressClick === "true") {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          delete node.dataset.suppressClick;
+        }
+      },
+      true,
+    );
     return node;
   }
 
@@ -352,7 +355,7 @@
       node: null,
     };
     tab.node = createTabNode(tab);
-    const pinCount = tabs.filter(t => t.pinned).length;
+    const pinCount = tabs.filter((t) => t.pinned).length;
     index = tab.pinned ? Math.min(index, pinCount) : Math.max(index, pinCount);
     tabs.splice(index, 0, tab);
     el.tabs.insertBefore(tab.node, el.tabs.children[index] || null);
@@ -931,7 +934,9 @@
     item("pin").disabled = !tab;
     $("menu-pin-label").textContent = tab?.pinned ? "Unpin tab" : "Pin tab";
     item("fullscreen").disabled = false;
-    $("menu-fullscreen-label").textContent = document.fullscreenElement ? "Unfullscreen" : "Fullscreen page";
+    $("menu-fullscreen-label").textContent = document.fullscreenElement
+      ? "Unfullscreen"
+      : "Fullscreen page";
     item("devtools").disabled = !tab || !tab.ready;
   }
 
@@ -1019,7 +1024,9 @@
     if (!el.menu.hidden && !e.target.closest(".menu-anchor")) closeMenu();
   });
   document.addEventListener("fullscreenchange", () => {
-    $("menu-fullscreen-label").textContent = document.fullscreenElement ? "Unfullscreen" : "Fullscreen page";
+    $("menu-fullscreen-label").textContent = document.fullscreenElement
+      ? "Unfullscreen"
+      : "Fullscreen page";
   });
 
   window.addEventListener("blur", () => {
@@ -1162,29 +1169,42 @@
   function readBookmarks() {
     try {
       const stored = JSON.parse(localStorage.getItem(BOOKMARKS_KEY) || "[]");
-      return Array.isArray(stored) ? stored.filter(x => x && typeof x.url === "string").slice(0, 200) : [];
-    } catch { return []; }
+      return Array.isArray(stored)
+        ? stored.filter((x) => x && typeof x.url === "string").slice(0, 200)
+        : [];
+    } catch {
+      return [];
+    }
   }
 
   function saveBookmarks() {
-    try { localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(bookmarks)); } catch {}
+    try {
+      localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(bookmarks));
+    } catch {}
   }
 
   function updateBookmarkButton() {
     const tab = activeTab();
-    const marked = !!tab?.url && bookmarks.some(b => b.url === tab.url);
+    const marked = !!tab?.url && bookmarks.some((b) => b.url === tab.url);
     el.bookmarkBtn.disabled = !tab?.url;
     el.bookmarkBtn.classList.toggle("is-bookmarked", marked);
-    el.bookmarkBtn.setAttribute("aria-label", marked ? "Remove bookmark" : "Bookmark this page");
+    el.bookmarkBtn.setAttribute(
+      "aria-label",
+      marked ? "Remove bookmark" : "Bookmark this page",
+    );
     el.bookmarkBtn.title = marked ? "Remove bookmark" : "Bookmark this page";
   }
 
   function toggleBookmark() {
     const tab = activeTab();
     if (!tab?.url) return;
-    const idx = bookmarks.findIndex(b => b.url === tab.url);
+    const idx = bookmarks.findIndex((b) => b.url === tab.url);
     if (idx !== -1) bookmarks.splice(idx, 1);
-    else bookmarks.unshift({ url: tab.url, title: tab.title || hostnameOf(tab.url) });
+    else
+      bookmarks.unshift({
+        url: tab.url,
+        title: tab.title || hostnameOf(tab.url),
+      });
     saveBookmarks();
     updateBookmarkButton();
     renderBookmarks();
@@ -1220,9 +1240,10 @@
       remove.className = "icon-btn icon-btn-sm bookmark-remove";
       remove.type = "button";
       remove.setAttribute("aria-label", `Remove ${name.textContent} bookmark`);
-      remove.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-x" /></svg>';
+      remove.innerHTML =
+        '<svg class="icon" aria-hidden="true"><use href="#i-x" /></svg>';
       remove.addEventListener("click", () => {
-        bookmarks = bookmarks.filter(b => b.url !== item.url);
+        bookmarks = bookmarks.filter((b) => b.url !== item.url);
         saveBookmarks();
         updateBookmarkButton();
         renderBookmarks();
@@ -1239,20 +1260,35 @@
   }
 
   el.bookmarkBtn.addEventListener("click", toggleBookmark);
-  el.bookmarkClose.addEventListener("click", () => el.bookmarkPanel.hidden = true);
-  document.addEventListener("pointerdown", e => {
-    if (!el.bookmarkPanel.hidden && !el.bookmarkPanel.contains(e.target) && !e.target.closest('[data-action="bookmarks"]')) el.bookmarkPanel.hidden = true;
-    if (!el.tabContext.hidden && !el.tabContext.contains(e.target)) el.tabContext.hidden = true;
+  el.bookmarkClose.addEventListener(
+    "click",
+    () => (el.bookmarkPanel.hidden = true),
+  );
+  document.addEventListener("pointerdown", (e) => {
+    if (
+      !el.bookmarkPanel.hidden &&
+      !el.bookmarkPanel.contains(e.target) &&
+      !e.target.closest('[data-action="bookmarks"]')
+    )
+      el.bookmarkPanel.hidden = true;
+    if (!el.tabContext.hidden && !el.tabContext.contains(e.target))
+      el.tabContext.hidden = true;
   });
 
   function moveTab(tab, nextIndex) {
     const index = tabs.indexOf(tab);
-    if (index < 0 || nextIndex < 0 || nextIndex >= tabs.length || index === nextIndex) return;
+    if (
+      index < 0 ||
+      nextIndex < 0 ||
+      nextIndex >= tabs.length ||
+      index === nextIndex
+    )
+      return;
     const other = tabs[nextIndex];
     if (other.pinned !== tab.pinned) tab.pinned = other.pinned;
     tabs.splice(index, 1);
     tabs.splice(nextIndex, 0, tab);
-    el.tabs.append(...tabs.map(t => t.node));
+    el.tabs.append(...tabs.map((t) => t.node));
     renderTab(tab);
     saveSession();
   }
@@ -1263,9 +1299,9 @@
     if (index < 0) return;
     tabs.splice(index, 1);
     tab.pinned = value;
-    const destination = tabs.filter(t => t.pinned).length;
+    const destination = tabs.filter((t) => t.pinned).length;
     tabs.splice(destination, 0, tab);
-    el.tabs.append(...tabs.map(t => t.node));
+    el.tabs.append(...tabs.map((t) => t.node));
     renderTab(tab);
     saveSession();
   }
@@ -1275,25 +1311,59 @@
     panel.replaceChildren();
     const index = tabs.indexOf(tab);
     const entries = [
-      { label: "Move tab left", icon: "arrow-left", enabled: index > 0, action: () => moveTab(tab, index - 1) },
-      { label: "Move tab right", icon: "arrow-right", enabled: index < tabs.length - 1, action: () => moveTab(tab, index + 1) },
-      { label: tab.pinned ? "Unpin tab" : "Pin tab", icon: "pin", enabled: true, action: () => setTabPinned(tab, !tab.pinned) },
-      { label: bookmarks.some(b => b.url === tab.url) ? "Remove bookmark" : "Bookmark tab", icon: "star", enabled: !!tab.url, action: () => {
-        const index = bookmarks.findIndex(b => b.url === tab.url);
-        if (index !== -1) bookmarks.splice(index, 1);
-        else bookmarks.unshift({ url: tab.url, title: tab.title || hostnameOf(tab.url) });
-        saveBookmarks();
-        updateBookmarkButton();
-        renderBookmarks();
-      } },
-      { label: "Close tab", icon: "x", enabled: true, action: () => closeTab(tab.id) },
+      {
+        label: "Move tab left",
+        icon: "arrow-left",
+        enabled: index > 0,
+        action: () => moveTab(tab, index - 1),
+      },
+      {
+        label: "Move tab right",
+        icon: "arrow-right",
+        enabled: index < tabs.length - 1,
+        action: () => moveTab(tab, index + 1),
+      },
+      {
+        label: tab.pinned ? "Unpin tab" : "Pin tab",
+        icon: "pin",
+        enabled: true,
+        action: () => setTabPinned(tab, !tab.pinned),
+      },
+      {
+        label: bookmarks.some((b) => b.url === tab.url)
+          ? "Remove bookmark"
+          : "Bookmark tab",
+        icon: "star",
+        enabled: !!tab.url,
+        action: () => {
+          const index = bookmarks.findIndex((b) => b.url === tab.url);
+          if (index !== -1) bookmarks.splice(index, 1);
+          else
+            bookmarks.unshift({
+              url: tab.url,
+              title: tab.title || hostnameOf(tab.url),
+            });
+          saveBookmarks();
+          updateBookmarkButton();
+          renderBookmarks();
+        },
+      },
+      {
+        label: "Close tab",
+        icon: "x",
+        enabled: true,
+        action: () => closeTab(tab.id),
+      },
     ];
     for (const entry of entries) {
       const button = document.createElement("button");
       button.type = "button";
       button.className = "tab-context-action";
       button.disabled = !entry.enabled;
-      const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      const icon = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg",
+      );
       icon.setAttribute("class", "icon");
       icon.setAttribute("aria-hidden", "true");
       const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
@@ -1309,12 +1379,14 @@
       panel.appendChild(button);
     }
     panel.hidden = false;
-    panel.style.left = Math.max(5, Math.min(x, innerWidth - panel.offsetWidth - 5)) + "px";
-    panel.style.top = Math.max(5, Math.min(y, innerHeight - panel.offsetHeight - 5)) + "px";
+    panel.style.left =
+      Math.max(5, Math.min(x, innerWidth - panel.offsetWidth - 5)) + "px";
+    panel.style.top =
+      Math.max(5, Math.min(y, innerHeight - panel.offsetHeight - 5)) + "px";
     el.bookmarkPanel.hidden = true;
   }
 
-  document.addEventListener("keydown", e => {
+  document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && !el.tabContext.hidden) {
       el.tabContext.hidden = true;
       activeTab()?.node.focus();
@@ -1329,7 +1401,7 @@
     const originalLeft = node.getBoundingClientRect().left;
     let dragging = false;
     let lastX = startX;
-    const move = ev => {
+    const move = (ev) => {
       if (ev.pointerId !== e.pointerId) return;
       lastX = ev.clientX;
       if (!dragging && Math.abs(lastX - startX) < 6) return;
@@ -1345,17 +1417,27 @@
       const desiredCenter = originalLeft + delta + node.offsetWidth / 2;
       const next = tabs[i + 1];
       const prev = tabs[i - 1];
-      if (next && desiredCenter > next.node.getBoundingClientRect().left + next.node.offsetWidth / 2) {
+      if (
+        next &&
+        desiredCenter >
+          next.node.getBoundingClientRect().left + next.node.offsetWidth / 2
+      ) {
         moveTab(tab, i + 1);
-      } else if (prev && desiredCenter < prev.node.getBoundingClientRect().left + prev.node.offsetWidth / 2) {
+      } else if (
+        prev &&
+        desiredCenter <
+          prev.node.getBoundingClientRect().left + prev.node.offsetWidth / 2
+      ) {
         moveTab(tab, i - 1);
       }
-      const ownLeft = node.getBoundingClientRect().left - (parseFloat(node.style.getPropertyValue("--tab-drag-x")) || 0);
+      const ownLeft =
+        node.getBoundingClientRect().left -
+        (parseFloat(node.style.getPropertyValue("--tab-drag-x")) || 0);
       const x = originalLeft + delta - ownLeft;
       node.style.setProperty("--tab-drag-x", `${x}px`);
       node.style.transform = `translate3d(${x}px,-2px,0)`;
     };
-    const end = ev => {
+    const end = (ev) => {
       if (ev.pointerId !== e.pointerId) return;
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerup", end);
@@ -1368,7 +1450,9 @@
         node.style.transform = "";
         node.style.removeProperty("--tab-drag-x");
         saveSession();
-        setTimeout(() => { delete node.dataset.suppressClick; }, 0);
+        setTimeout(() => {
+          delete node.dataset.suppressClick;
+        }, 0);
       }
     };
     window.addEventListener("pointermove", move, { passive: false });
