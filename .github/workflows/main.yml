@@ -4,8 +4,15 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: write
+
 jobs:
   prettier:
+    # A pull request from a fork gets a read-only token whatever is asked for
+    # here, so the commit could never be pushed. Those are formatted by the
+    # tidy job in deploy.yml once they are merged.
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
 
     steps:
