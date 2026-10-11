@@ -6,7 +6,9 @@ Date: 2026-10-10
 
 Replace free-form usernames with handles, shown everywhere as `@handle`.
 
-- A handle is 3 to 16 characters, `a-z` and `0-9` only. Regex: `^[a-z0-9]{3,16}$`.
+- A handle is 3 to 16 characters: `a-z`, `0-9` and `-`. It starts and ends
+  with a letter or number and never has two dashes in a row. Regex:
+  `^[a-z0-9]+(-[a-z0-9]+)*$`, plus the length check.
 - Handles are not case sensitive: `@Jiayang` and `@jiayang` are the same
   handle. They are stored lowercase.
 - The `@` is display only. It is never stored, and every input accepts the
@@ -37,16 +39,17 @@ Success means:
 
 37,737 accounts.
 
-| Group                                                      | Accounts |
-| ---------------------------------------------------------- | -------- |
-| Already a valid handle                                     | 17,280   |
-| Valid once lowercased                                      | 13,318   |
-| Contain other characters (spaces, `_ . -`, `@`, non-ASCII) | 7,139    |
-| Fewer than 3 characters once cleaned ("unusable")          | 225      |
-| Contested handles (cleaned name shared by 2+ accounts)     | 1,879    |
-| Accounts on contested handles                              | 4,306    |
+| Group                                                   | Accounts |
+| ------------------------------------------------------- | -------- |
+| Already a valid handle                                  | 17,354   |
+| Valid once lowercased                                   | 13,434   |
+| Need characters removed (spaces, `_ .`, `@`, non-ASCII) | 6,724    |
+| Fewer than 3 characters once cleaned ("unusable")       | 225      |
+| Contested handles (cleaned name shared by 2+ accounts)  | 1,860    |
+| Accounts on contested handles                           | 4,264    |
 
-"Cleaned" means: remove everything that is not `A-Z a-z 0-9`, then lowercase.
+"Cleaned" means: lowercase, remove everything that is not `a-z 0-9 -`,
+collapse runs of dashes to one, and drop dashes from both ends.
 
 Two facts shape the design:
 
@@ -82,7 +85,8 @@ Changes to `users` (model `models/User.js`):
 | `handle_pending`  | boolean, default false  | True until the account has chosen a handle on the forced screen.             |
 | `last_seen_at`    | timestamp, nullable     | Last signed-in activity, for the later clean-up.                             |
 
-After the migration, a CHECK constraint `username ~ '^[a-z0-9]{3,16}$'` is
+After the migration, a CHECK constraint (the handle regex and
+`length(username) between 3 and 16`) is
 added so the database refuses anything else. The existing unique index on
 `username` is then enough for case-insensitive uniqueness.
 
@@ -109,7 +113,7 @@ instant feedback; the server remains the authority.
 ### Signup
 
 `POST /api/signUp` normalizes the submitted name and rejects it unless it is a
-valid handle ("Handles use only letters and numbers, 3 to 16 characters").
+valid handle ("Handles use only letters, numbers and dashes, 3 to 16 characters").
 A taken handle returns a specific "That handle is taken" error instead of the
 current generic 500. The form shows a fixed `@` in front of the field.
 
@@ -123,9 +127,22 @@ The request field stays `username`. The server builds up to three candidates:
    the migration has run, so the same code works on both sides of it).
 
 The password is checked against each distinct candidate in that order and the
-first match signs in. Checking all of them matters: after the migration, an
-old name such as `king` can be the legacy name of one account and the handle
-of another.
+first match signs in. The password decides which account is meant.
+
+This is what lets people on a contested handle keep signing in. Example:
+`King` signed up first and holds `@king`; `king` signed up later and holds the
+placeholder `@king2`.
+
+| Who     | Types             | Candidates tried                              | Result                  |
+| ------- | ----------------- | --------------------------------------------- | ----------------------- |
+| Later   | `king`            | legacy `king` (theirs)                        | In, sent to the chooser |
+| Earlier | `King`            | legacy `King` (theirs)                        | In                      |
+| Earlier | `king` or `@king` | legacy `king` (fails), handle `king` (theirs) | In                      |
+| Later   | `king2`           | handle `king2` (theirs)                       | In                      |
+
+Typing an old name in a different case than it was registered with fails for
+a contested account, exactly as it does today. If two contested accounts share
+a password, the exact legacy match wins, which is also today's behaviour.
 
 The response gains `handlePending`. If the handle returned differs from what
 was typed by more than case or `@`, the client shows a one-time notice: "You
@@ -197,7 +214,7 @@ Dry run by default; `--apply` to write. Takes the signup-order file as an
 argument. Everything below happens in one transaction.
 
 1. **Rank** every account (see Definitions).
-2. **Delete** empty accounts that sit on a contested handle: 1,338 today.
+2. **Delete** empty accounts that sit on a contested handle: 1,324 today.
    Never the admin account. Their `user_status` rows go with them; by
    definition they have no other rows. Empty accounts whose handle nobody else
    wants are kept.
@@ -205,7 +222,7 @@ argument. Everything below happens in one transaction.
 4. **Assign**, per cleaned name, in rank order:
    - the first account gets the cleaned name, `handle_pending = false`;
    - every later account gets a placeholder (the cleaned name plus the lowest
-     free number, shortened to fit 16) and `handle_pending = true`;
+     free number, e.g. `king2`, shortened to fit 16) and `handle_pending = true`;
    - unusable names get `user` plus seven digits and `handle_pending = true`.
      Placeholders are allocated after all winners, so they never take a handle
      someone legitimately holds.
@@ -217,9 +234,9 @@ argument. Everything below happens in one transaction.
 
 After the transaction commits, the script adds the CHECK constraint.
 
-Expected result with today's data: 1,338 deleted; 159 contested handles freed
-entirely, 691 settled with one remaining claimant, 1,029 still contested,
-leaving about 1,248 accounts pending on those plus 225 with unusable names.
+Expected result with today's data: 1,324 deleted; 159 contested handles freed
+entirely, 679 settled with one remaining claimant, 1,022 still contested,
+leaving about 1,239 accounts pending on those plus 225 with unusable names.
 
 ### What goes to the server
 
