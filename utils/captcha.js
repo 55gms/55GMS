@@ -22,8 +22,7 @@ let fallbackSecret;
 // CAPTCHA_SECRET if set, else the session secret, else a key derived from a
 // secret every worker already shares, so production needs no new setting.
 function signingKey() {
-  const explicit =
-    process.env.CAPTCHA_SECRET || process.env.ADMIN_TOKEN_SECRET;
+  const explicit = process.env.CAPTCHA_SECRET || process.env.ADMIN_TOKEN_SECRET;
   if (explicit) return explicit;
 
   const shared = process.env.POSTGRES_URL || process.env.workerAUTH;

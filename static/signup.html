@@ -151,7 +151,61 @@
             <p class="auth-hint" id="password-hint" hidden></p>
           </div>
 
-          <div class="auth-captcha" id="captcha"></div>
+          <button
+            class="auth-captcha"
+            id="captcha"
+            type="button"
+            role="checkbox"
+            aria-checked="false"
+            data-state="idle"
+          >
+            <span class="auth-captcha-box" aria-hidden="true">
+              <svg
+                class="auth-captcha-check"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12.5 10 17.5 19 7" pathLength="1" />
+              </svg>
+            </span>
+            <span class="auth-captcha-text">
+              <span class="auth-captcha-label" id="captcha-label"
+                >I'm not a robot</span
+              >
+              <span class="auth-captcha-note" id="captcha-note"
+                >Checks itself once you pick a handle</span
+              >
+            </span>
+            <svg
+              class="auth-captcha-mark"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 3 5 6v5c0 4.5 2.9 8.3 7 10 4.1-1.7 7-5.5 7-10V6l-7-3Z"
+              />
+            </svg>
+          </button>
+
+          <div class="auth-trap" aria-hidden="true">
+            <label for="website">Leave this empty</label>
+            <input
+              type="text"
+              id="website"
+              name="website"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
 
           <p class="auth-message" role="alert" hidden></p>
 
@@ -192,11 +246,6 @@
       </ul>
     </main>
 
-    <script src="/assets/js/auth.js?v=3"></script>
-    <script
-      src="https://js.hcaptcha.com/1/api.js?render=explicit&onload=authCaptchaReady"
-      async
-      defer
-    ></script>
+    <script src="/assets/js/auth.js?v=4"></script>
   </body>
 </html>

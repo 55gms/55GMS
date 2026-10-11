@@ -356,10 +356,162 @@
   rotate: 45deg;
 }
 
+.auth-hint.is-ok {
+  color: var(--a-success);
+}
+
+/* ---------- Captcha: a box that ticks itself ---------- */
+
 .auth-captcha {
   display: flex;
-  justify-content: center;
-  min-height: 78px;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 64px;
+  padding: 12px 14px;
+  border: 1px solid var(--a-control-border);
+  border-radius: var(--a-radius-sm);
+  background: var(--a-inset);
+  color: var(--a-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--a-normal) ease,
+    background-color var(--a-normal) ease;
+}
+
+.auth-captcha:hover {
+  border-color: var(--a-control-border-hover);
+}
+
+.auth-captcha:focus-visible {
+  outline: 2px solid var(--a-accent);
+  outline-offset: 2px;
+}
+
+.auth-captcha[data-state="working"] {
+  cursor: progress;
+}
+
+.auth-captcha[data-state="done"] {
+  border-color: color-mix(in srgb, var(--a-success) 55%, transparent);
+  cursor: default;
+}
+
+.auth-captcha[data-state="error"] {
+  border-color: color-mix(in srgb, var(--a-danger) 60%, transparent);
+}
+
+.auth-captcha-box {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--a-control-border-hover);
+  border-radius: 7px;
+  transition:
+    border-color var(--a-normal) ease,
+    border-radius var(--a-normal) var(--a-ease-out),
+    background-color var(--a-normal) ease,
+    scale var(--a-fast) ease;
+}
+
+.auth-captcha[data-state="idle"]:active .auth-captcha-box,
+.auth-captcha[data-state="error"]:active .auth-captcha-box {
+  scale: 0.9;
+}
+
+/* Working: the box rounds into a ring and spins */
+.auth-captcha[data-state="working"] .auth-captcha-box {
+  border-color: color-mix(in srgb, var(--a-accent) 28%, transparent);
+  border-top-color: var(--a-accent);
+  border-radius: 50%;
+  animation: a-spin 0.7s linear infinite;
+}
+
+/* Done: it fills, pops, and the tick draws itself */
+.auth-captcha[data-state="done"] .auth-captcha-box {
+  border-color: var(--a-success);
+  border-radius: 50%;
+  background: var(--a-success);
+  animation: a-captcha-pop var(--a-slow) var(--a-ease-spring);
+}
+
+.auth-captcha-check {
+  width: 16px;
+  height: 16px;
+  color: #0b2b18;
+}
+
+.auth-captcha-check path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.auth-captcha[data-state="done"] .auth-captcha-check path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 320ms var(--a-ease-out) 120ms;
+}
+
+@keyframes a-captcha-pop {
+  from {
+    scale: 0.6;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+.auth-captcha-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.auth-captcha-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.auth-captcha-note {
+  color: var(--a-muted);
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.auth-captcha[data-state="error"] .auth-captcha-note {
+  color: var(--a-danger);
+}
+
+.auth-captcha-mark {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  color: var(--a-muted);
+  opacity: 0.7;
+  transition:
+    color var(--a-normal) ease,
+    opacity var(--a-normal) ease;
+}
+
+.auth-captcha[data-state="done"] .auth-captcha-mark {
+  color: var(--a-success);
+  opacity: 1;
+}
+
+/* A field for form-filling scripts only: off screen, out of the tab order */
+.auth-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 /* ---------- Messages ---------- */
@@ -816,7 +968,8 @@
     transition-duration: 1ms !important;
   }
 
-  .auth-spinner {
+  .auth-spinner,
+  .auth-captcha[data-state="working"] .auth-captcha-box {
     animation: a-spin 1.4s linear infinite !important;
   }
 
