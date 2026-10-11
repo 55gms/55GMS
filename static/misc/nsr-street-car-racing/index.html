@@ -289,7 +289,8 @@ window.addEventListener("message",function(e){
     var loaderUrl = buildUrl + "/nsr.loader.js";
     var config = {
       frameworkUrl: buildUrl + "/nsr.framework.js",
-      streamingAssetsUrl: "StreamingAssets",
+      // Unity resolves this against the page URL, not <base>, so make it absolute.
+      streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
       companyName: "Y2G",
       productName: "NSR Street",
       productVersion: "1.5.7",
