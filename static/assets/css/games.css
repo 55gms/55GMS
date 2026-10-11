@@ -1,3 +1,4 @@
+
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 * {
@@ -32,8 +33,6 @@ h6 {
     margin 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
 }
 
-/* Leaving: the bar fades and lifts, then the space it held closes up.
-   games.js pins the height before adding this class. */
 .loading-container.is-leaving {
   margin: 0;
   overflow: hidden;
@@ -42,9 +41,8 @@ h6 {
   pointer-events: none;
 }
 
-/* Air between the search bar and the first row once the loader is gone. */
 #game-container {
-  margin-top: 24px;
+  margin-top: 32px;
 }
 
 .loading-text {
@@ -247,6 +245,28 @@ h6 {
   display: inline-block;
 }
 
+.game.game-first-load {
+  animation: game-load-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--load-delay, 0ms);
+}
+
+@keyframes game-load-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game.game-first-load {
+    animation: none;
+  }
+}
+
 .game-link {
   display: block;
   position: relative;
@@ -267,16 +287,15 @@ h6 {
   border-radius: var(--site-radius-md, 14px);
   transition: all 0.35s ease;
 }
+
 .game:hover img,
-.game:focus-within img {
+.game:has(:focus-visible) img {
   transform: scale(1.05) translateY(-0.2vw);
   filter: brightness(0.7);
   box-shadow: 0 0 0.5vw rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
-/* Hover clip from hover-preview.js. It sits exactly over the thumbnail in its
-   hovered position, and crops (never stretches) clips that are not square. */
 .game-preview {
   position: absolute;
   top: 0;
@@ -291,10 +310,11 @@ h6 {
   opacity: 0;
   transition: opacity 0.18s ease;
 }
+
 .game-preview.is-shown {
   opacity: 1;
 }
-/* The clip is not dimmed like the thumbnail, so the label carries its own shade. */
+
 .game-link.is-previewing .text {
   text-shadow:
     0 1px 2px rgba(0, 0, 0, 0.95),
@@ -316,8 +336,9 @@ h6 {
     transform 0.35s ease;
   animation: slide-out 0.35s ease forwards;
 }
+
 .game:hover .text,
-.game:focus-within .text {
+.game:has(:focus-visible) .text {
   opacity: 1;
   animation: slide-in 0.35s ease forwards;
 }
@@ -366,6 +387,7 @@ h6 {
     transform: translate(-50%, 0%);
   }
 }
+
 @media screen and (max-width: 1000px) {
   .searchbar {
     width: min(88vw, 1080px);
@@ -420,4 +442,200 @@ h6 {
   border: none;
   box-shadow: none;
   transform: none;
+}
+
+.game-search-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: min(94vw, 1100px);
+  margin: 0 auto 16px;
+  box-sizing: border-box;
+}
+
+.game-search-row .searchbar,
+.game-search-row .searchbar:hover,
+.game-search-row .searchbar:focus {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: auto;
+  height: 69px;
+  min-height: 69px;
+  box-sizing: border-box;
+  padding: 0 20px;
+  margin: 0;
+  border-radius: 5px;
+  transform: none;
+  scale: 1;
+}
+
+.game-view-select {
+  flex: 0 0 230px;
+  width: 230px;
+  max-width: 230px;
+  height: 69px;
+  min-height: 69px;
+  box-sizing: border-box;
+  padding: 0 42px 0 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--site-input-bg, #2a3a5b);
+  color: var(--site-input-text, var(--site-text, #fff));
+  box-shadow: none;
+  font: 500 0.95rem "Roboto", sans-serif;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 14px;
+  outline: none;
+  transition: none;
+}
+
+.game-view-select:hover,
+.game-view-select:focus,
+.game-view-select:focus-visible,
+.game-view-select:active {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: var(--site-input-bg, #2a3a5b);
+}
+
+.game-view-select option {
+  background: var(--site-surface-2, #364b66);
+  color: var(--site-text, #fff);
+}
+
+@media (max-width: 600px) {
+  .game-search-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .game-search-row .searchbar,
+  .game-search-row .searchbar:hover,
+  .game-search-row .searchbar:focus {
+    flex: 0 0 69px;
+    width: 100%;
+  }
+
+  .game-view-select {
+    flex: 0 0 69px;
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.game-favorite {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 11px;
+  color: var(--site-text, #ffffff);
+  background: color-mix(in srgb, var(--site-button, #263b57) 32%, transparent);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1) translateY(0);
+  transition:
+    background-color 0.35s ease,
+    transform 0.35s ease,
+    opacity 0.35s ease;
+}
+
+.game:hover .game-favorite,
+.game:has(:focus-visible) .game-favorite {
+  opacity: 0.78;
+  pointer-events: auto;
+  transform: scale(1.05) translateY(-0.2vw);
+}
+
+.game-favorite:hover {
+  opacity: 0.95;
+  transform: scale(1.05) translateY(-0.2vw);
+  background: color-mix(in srgb, var(--site-button-hover, #334b6a) 48%, transparent);
+}
+
+.game-favorite.is-favorite {
+  color: var(--site-accent, #ffd36b);
+}
+
+.game-favorite svg {
+  width: 20px;
+  height: 20px;
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: fill 0.35s ease, transform 0.35s ease;
+}
+
+.game-favorite.is-favorite svg {
+  fill: currentColor;
+}
+
+.game-favorite:focus-visible {
+  outline: none;
+}
+
+.game-empty {
+  max-width: 520px;
+  margin: 38px auto 60px;
+  padding: 34px 24px;
+  box-sizing: border-box;
+  color: var(--site-text, #faf9f6);
+  background: color-mix(in srgb, var(--site-surface, #506581) 38%, rgba(0, 0, 0, 0.55));
+  border: 1px solid var(--site-control-border, rgba(255, 255, 255, 0.2));
+  border-radius: var(--site-radius-md, 14px);
+}
+
+.game-empty[hidden] {
+  display: none;
+}
+
+.game-empty p {
+  margin: 0 0 9px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.game-empty span {
+  color: var(--site-muted, #b5cae0);
+  font-size: 0.94rem;
+}
+
+@media (hover: none) {
+  .game-favorite {
+    opacity: 0.78;
+    pointer-events: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-favorite,
+  .game-favorite svg {
+    transition: none;
+  }
+
+  .game:hover .game-favorite,
+  .game:has(:focus-visible) .game-favorite,
+  .game-favorite:hover,
+  .game-favorite {
+    transform: none;
+  }
 }
