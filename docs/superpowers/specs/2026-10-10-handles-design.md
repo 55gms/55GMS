@@ -203,13 +203,21 @@ The launch date is stored in one place (`HANDLE_MIGRATION_DEADLINE`, set on
 the day) and the notices show the actual date, not a rolling "30 days".
 
 - Login page: a banner above the form, "Usernames are now handles. Sign in
-  before <date> to keep your account's place", linking to `/handles`.
+  before <date> to choose yours", linking to `/handles`.
 - Choose-a-handle screen: "Choose your handle before <date>".
 - The one-time notice for automatically converted accounts links to
   `/handles` too.
 - The banners disappear after the deadline.
 
-What happens to accounts that miss the deadline is the open point below.
+At the deadline, placeholders are locked in. An account that has not chosen
+by then keeps the placeholder it was given (`king2`, `user1234567`) as its
+handle: the choose-a-handle screen stops appearing and the chat gate lifts.
+Nothing is deleted. This needs no job: `handlePending` is reported as
+`handle_pending` and "now is before the deadline". The stored flag is left
+as it is, so the deferred clean-up can still tell who never chose.
+
+The choose-a-handle screen says so: "Choose your handle before <date>, or you
+keep `@king2`."
 
 ### Chat
 
@@ -350,7 +358,3 @@ production.
 
 The `Jiayang` account (`e0aa7d6f…`, created 2026-10-07, premium) should be
 confirmed as the maintainer's own before launch. It has no admin access.
-
-## Open point: what the 30-day deadline does
-
-Not yet decided. Until it is, the notices cannot state a consequence.
