@@ -14,6 +14,8 @@
   const PHONE_WIDTH = 700;
   const STACKED_WIDTH = 1150; // narrower than this, the game takes every column
   const GAME_RATIO = 1.8; // columns of the game for each of its rows
+  const GAME_TALL_RATIO = 1.6; // the same, when the window has the height
+  const ROWS_UNDER_GAME = 4; // at most: the game stays the main thing
   const AD_MAX_SCALE = 1.15;
 
   const showAds = typeof adChoices !== "function" || adChoices().banners;
@@ -155,9 +157,11 @@
       // The game in the middle with as many columns to its left as to its
       // right (the right gets the odd one). A wide window has a skyscraper on
       // the left; the box ad and the big tiles go on the right.
-      const middle = cols - (cols >= 12 ? 6 : 5);
+      // The game gets about two thirds of the columns, and all but six in a
+      // wide window; a short window narrows it to keep its shape.
+      const middle = Math.max(cols - 6, Math.round(cols * 0.66));
       const gameRows = Math.min(
-        Math.max(3, Math.round(middle / GAME_RATIO)),
+        Math.max(3, Math.round(middle / GAME_TALL_RATIO)),
         Math.max(3, fitRows - 1),
       );
       let gameCols = Math.min(
@@ -167,7 +171,14 @@
       if ((cols - gameCols) % 2 && gameCols < middle) gameCols++;
       const leftCols = Math.floor((cols - gameCols) / 2);
       const left = wanted(ads.left) && cols >= 16 && leftCols >= 2;
-      rows = Math.max(fitRows, gameRows + 1);
+      // The box ad goes beside the game, or under it when the side is too
+      // narrow.
+      const boxBeside = cols - gameCols - leftCols >= 3;
+      const boxBelow = wanted(ads.box) && !boxBeside;
+      rows = Math.min(
+        Math.max(fitRows, gameRows + (boxBelow ? 4 : 1)),
+        gameRows + ROWS_UNDER_GAME,
+      );
       board = createBoard(cols, rows);
       const gameCol = leftCols + 1;
       const side = gameCol + gameCols;
@@ -175,7 +186,9 @@
       if (left) {
         placed.left = board.take(1, 1, 2, Math.min(rows - 1, 6));
       }
-      if (wanted(ads.box)) placed.box = board.take(cols - 2, 1, 3, 3);
+      if (wanted(ads.box)) {
+        placed.box = board.take(cols - 2, boxBeside ? 1 : gameRows + 1, 3, 3);
+      }
       if (wanted(ads.wide)) {
         const span = Math.min(8, cols);
         const start = gameCol + Math.floor((gameCols - span) / 2);
@@ -192,6 +205,7 @@
         [side, 1],
         [1, 1],
         [cols - 1, 1],
+        [1, gameRows + 1],
       ];
       for (const [col, row] of spots) {
         const slot = big.indexOf(null);
