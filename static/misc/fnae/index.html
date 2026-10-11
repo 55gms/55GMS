@@ -113,7 +113,7 @@
                 dataUrl: dataUrl,
                 frameworkUrl: buildUrl + "/fnae.framework.js",
                 codeUrl: wasmUrl,
-                streamingAssetsUrl: "StreamingAssets",
+                streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
                 companyName: "DefaultCompany",
                 productName: "fnae",
                 productVersion: "1.0",
