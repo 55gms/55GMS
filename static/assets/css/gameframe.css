@@ -17,9 +17,9 @@
 }
 
 #gameframe {
-  /* The bar under the game is drawn in this unit; game-page.js sets it from
-     the frame's width. */
-  --u: 12px;
+  /* The bar under the game and the border are drawn in this unit, 1vw;
+     game-page.js gives it a floor on small screens. */
+  --u: 1vw;
   min-width: 0;
   min-height: 0;
 }

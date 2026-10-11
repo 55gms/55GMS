@@ -207,7 +207,8 @@
 
     const span = (count) => count * cell + (count - 1) * gap;
     setArea(frame, game);
-    const unit = Math.min(15, Math.max(8, span(game.cols) / 72.5));
+    // 1vw, as the bar and the border were drawn before the grid.
+    const unit = Math.max(width / 100, phone ? 8 : 10);
     frame.style.setProperty("--u", `${unit}px`);
 
     for (const [name, ad] of Object.entries(ads)) {
