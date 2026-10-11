@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en" class="notranslate" translate="no">
   <head>
@@ -24,6 +23,7 @@
 
   <body>
     <div class="browser" id="browser">
+      <!-- Tab strip -->
       <header class="tabstrip">
         <div class="tabs-scroller" id="tabs-scroller">
           <div class="tabs" id="tabs" role="tablist" aria-label="Tabs"></div>
@@ -39,6 +39,7 @@
         </button>
       </header>
 
+      <!-- Web content -->
       <main class="viewport" id="viewport">
         <div class="progress" id="progress" aria-hidden="true"></div>
         <div class="frames" id="frames"></div>
@@ -86,6 +87,7 @@
         </button>
       </main>
 
+      <!-- Bottom dock -->
       <div class="dock-wrap" id="dock-wrap">
         <div class="dock-clip">
           <footer class="dock" id="dock">
@@ -121,7 +123,7 @@
                   spellcheck="false"
                   autocapitalize="off"
                   autocorrect="off"
-                  placeholder="Search up anything"
+                  placeholder="Search or enter address"
                   aria-label="Address and search bar"
                   role="combobox"
                   aria-autocomplete="list"
@@ -254,28 +256,6 @@
                     </svg>
                     <span>Copy link</span>
                   </button>
-                  <button
-                    class="menu-item"
-                    role="menuitem"
-                    data-action="bookmarks"
-                    type="button"
-                  >
-                    <svg class="icon" aria-hidden="true">
-                      <use href="#i-star" />
-                    </svg>
-                    <span>Bookmarks</span>
-                  </button>
-                  <button
-                    class="menu-item"
-                    role="menuitem"
-                    data-action="pin"
-                    type="button"
-                  >
-                    <svg class="icon" aria-hidden="true">
-                      <use href="#i-pin" />
-                    </svg>
-                    <span id="menu-pin-label">Pin tab</span>
-                  </button>
                   <div class="menu-sep" role="separator"></div>
                   <button
                     class="menu-item"
@@ -286,7 +266,7 @@
                     <svg class="icon" aria-hidden="true">
                       <use href="#i-maximize" />
                     </svg>
-                    <span id="menu-fullscreen-label">Fullscreen page</span>
+                    <span>Fullscreen page</span>
                   </button>
                   <button
                     class="menu-item"
@@ -317,37 +297,10 @@
         </div>
       </div>
 
-      <section
-        class="bookmark-panel"
-        id="bookmark-panel"
-        aria-label="Bookmarks"
-        hidden
-      >
-        <header class="bookmark-panel-header">
-          <strong>Bookmarks</strong>
-          <button
-            class="icon-btn icon-btn-sm"
-            id="bookmark-panel-close"
-            type="button"
-            aria-label="Close bookmarks"
-          >
-            <svg class="icon" aria-hidden="true">
-              <use href="#i-x" />
-            </svg>
-          </button>
-        </header>
-        <div class="bookmark-list" id="bookmark-list"></div>
-      </section>
-
-      <div
-        class="tab-context-menu"
-        id="tab-context-menu"
-        role="menu"
-        hidden
-      ></div>
       <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
     </div>
 
+    <!-- Icon sprite (Lucide) -->
     <svg width="0" height="0" style="position: absolute" aria-hidden="true">
       <defs>
         <symbol id="i-home" viewBox="0 0 24 24">
@@ -399,17 +352,6 @@
           <circle cx="12" cy="12" r="10" />
           <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
           <path d="M2 12h20" />
-        </symbol>
-        <symbol id="i-star" viewBox="0 0 24 24">
-          <path
-            d="m12 2 3.1 6.3 7 .99-5.05 4.94 1.2 6.98L12 17.91l-6.25 3.3 1.2-6.98L1.9 9.29l7-.99z"
-          />
-        </symbol>
-        <symbol id="i-pin" viewBox="0 0 24 24">
-          <path d="M12 17v5" />
-          <path
-            d="M9 10.76a2 2 0 0 1-1.52 1.5C5.87 12.73 5 14.67 5 17h14c0-2.33-.87-4.27-2.48-4.74A2 2 0 0 1 15 10.76V3a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1z"
-          />
         </symbol>
         <symbol id="i-history" viewBox="0 0 24 24">
           <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />

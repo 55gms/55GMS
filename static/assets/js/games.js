@@ -1,4 +1,3 @@
-
 const PRIORITY_THUMBNAILS = 24;
 const FAVORITES_KEY = "55gms.favoriteGames.v1";
 const RECENT_KEY = "55gms.recentGames.v1";
@@ -16,7 +15,9 @@ let recentGameIds = readStoredIds(RECENT_KEY).slice(0, RECENT_LIMIT);
 function readStoredIds(key) {
   try {
     const value = JSON.parse(localStorage.getItem(key) || "[]");
-    return Array.isArray(value) ? value.filter((item) => typeof item === "string") : [];
+    return Array.isArray(value)
+      ? value.filter((item) => typeof item === "string")
+      : [];
   } catch {
     return [];
   }
@@ -25,8 +26,7 @@ function readStoredIds(key) {
 function writeStoredIds(key, values) {
   try {
     localStorage.setItem(key, JSON.stringify(values));
-  } catch {
-  }
+  } catch {}
 }
 
 function gameId(game) {
@@ -46,11 +46,15 @@ async function readCatalogue(response) {
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("retry-games")?.addEventListener("click", loadGames);
-  document.getElementById("game-view-select")?.addEventListener("change", (event) => {
-    activeGameView = event.target.value;
-    applyGameFilters();
-  });
-  document.querySelector(".searchbar")?.addEventListener("input", applyGameFilters);
+  document
+    .getElementById("game-view-select")
+    ?.addEventListener("change", (event) => {
+      activeGameView = event.target.value;
+      applyGameFilters();
+    });
+  document
+    .querySelector(".searchbar")
+    ?.addEventListener("input", applyGameFilters);
   window.addEventListener("storage", (event) => {
     if (event.key === FAVORITES_KEY || event.key === RECENT_KEY) {
       favoriteGameIds = new Set(readStoredIds(FAVORITES_KEY));
@@ -145,10 +149,14 @@ function animateFirstScreen(cards) {
       }
       card.style.setProperty("--load-delay", `${rowIndex * 110}ms`);
       card.classList.add("game-first-load");
-      card.addEventListener("animationend", () => {
-        card.classList.remove("game-first-load");
-        card.style.removeProperty("--load-delay");
-      }, { once: true });
+      card.addEventListener(
+        "animationend",
+        () => {
+          card.classList.remove("game-first-load");
+          card.style.removeProperty("--load-delay");
+        },
+        { once: true },
+      );
     });
   });
 }
@@ -205,7 +213,10 @@ function toggleFavorite(entry) {
 }
 
 function recordGamePlayed(id) {
-  recentGameIds = [id, ...recentGameIds.filter((item) => item !== id)].slice(0, RECENT_LIMIT);
+  recentGameIds = [id, ...recentGameIds.filter((item) => item !== id)].slice(
+    0,
+    RECENT_LIMIT,
+  );
   writeStoredIds(RECENT_KEY, recentGameIds);
   applyGameFilters();
 }
@@ -263,7 +274,8 @@ function createGameCard(game) {
   const favoriteButton = document.createElement("button");
   favoriteButton.type = "button";
   favoriteButton.className = "game-favorite";
-  favoriteButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.9 2.8 5.7 6.3.9-4.55 4.44 1.08 6.27L12 17.25l-5.63 2.96 1.08-6.27L2.9 9.5l6.3-.9z"/></svg>';
+  favoriteButton.innerHTML =
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.9 2.8 5.7 6.3.9-4.55 4.44 1.08 6.27L12 17.25l-5.63 2.96 1.08-6.27L2.9 9.5l6.3-.9z"/></svg>';
 
   control.append(image, label);
   card.append(control, favoriteButton);
@@ -276,20 +288,29 @@ function createGameCard(game) {
 function applyGameFilters() {
   const gameContainer = document.getElementById("game-container");
   if (!gameContainer) return;
-  const query = document.querySelector(".searchbar")?.value.toLowerCase().trim() || "";
-  const recentPositions = new Map(recentGameIds.map((id, index) => [id, index]));
+  const query =
+    document.querySelector(".searchbar")?.value.toLowerCase().trim() || "";
+  const recentPositions = new Map(
+    recentGameIds.map((id, index) => [id, index]),
+  );
 
   if (orderedGameView !== activeGameView) {
-    const reordered = activeGameView === "recent"
-      ? [...gameCards].sort((a, b) => (recentPositions.get(a.id) ?? Infinity) - (recentPositions.get(b.id) ?? Infinity))
-      : gameCards;
+    const reordered =
+      activeGameView === "recent"
+        ? [...gameCards].sort(
+            (a, b) =>
+              (recentPositions.get(a.id) ?? Infinity) -
+              (recentPositions.get(b.id) ?? Infinity),
+          )
+        : gameCards;
     gameContainer.append(...reordered.map((entry) => entry.card));
     orderedGameView = activeGameView;
   }
 
   let visible = 0;
   gameCards.forEach((entry) => {
-    const matchesView = activeGameView === "all" ||
+    const matchesView =
+      activeGameView === "all" ||
       (activeGameView === "favorites" && favoriteGameIds.has(entry.id)) ||
       (activeGameView === "recent" && recentPositions.has(entry.id));
     const shows = matchesView && entry.game.name.toLowerCase().includes(query);
@@ -297,9 +318,17 @@ function applyGameFilters() {
     if (shows) visible++;
   });
 
-  const favoritesCount = gameCards.filter((entry) => favoriteGameIds.has(entry.id)).length;
-  const recentCount = gameCards.filter((entry) => recentPositions.has(entry.id)).length;
-  const counts = { all: gameCards.length, favorites: favoritesCount, recent: recentCount };
+  const favoritesCount = gameCards.filter((entry) =>
+    favoriteGameIds.has(entry.id),
+  ).length;
+  const recentCount = gameCards.filter((entry) =>
+    recentPositions.has(entry.id),
+  ).length;
+  const counts = {
+    all: gameCards.length,
+    favorites: favoritesCount,
+    recent: recentCount,
+  };
   const viewSelector = document.getElementById("game-view-select");
   if (viewSelector) {
     viewSelector.value = activeGameView;

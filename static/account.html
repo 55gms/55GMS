@@ -52,7 +52,65 @@
 
     <main class="profile">
       <header class="profile-header">
-        <div class="profile-avatar" id="initials" aria-hidden="true"></div>
+        <button
+          type="button"
+          class="profile-avatar"
+          id="avatarButton"
+          aria-label="Change avatar"
+          aria-haspopup="dialog"
+          disabled
+        >
+          <span class="profile-avatar-face" id="initials"></span>
+          <span class="profile-avatar-edit" aria-hidden="true">
+            <svg
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M11 2.5 13.5 5 5.5 13H3v-2.5z" />
+            </svg>
+          </span>
+        </button>
+        <dialog
+          class="avatar-dialog"
+          id="avatarDialog"
+          aria-labelledby="avatar-heading"
+        >
+          <div class="avatar-dialog-body">
+            <div class="avatar-dialog-head">
+              <div>
+                <h2 id="avatar-heading">Choose an avatar</h2>
+                <p>This is how you appear in chat.</p>
+              </div>
+              <button
+                type="button"
+                class="avatar-dialog-close"
+                id="avatarClose"
+                aria-label="Close"
+              >
+                <svg
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  aria-hidden="true"
+                >
+                  <path d="m4 4 8 8M12 4l-8 8" />
+                </svg>
+              </button>
+            </div>
+            <div
+              class="avatar-grid"
+              id="avatarGrid"
+              role="radiogroup"
+              aria-labelledby="avatar-heading"
+            ></div>
+          </div>
+        </dialog>
         <div class="profile-identity">
           <div class="profile-name-row">
             <h1 class="profile-name" id="username">Profile</h1>
@@ -87,26 +145,6 @@
           </div>
         </div>
       </header>
-
-      <section
-        class="profile-section"
-        id="avatarSection"
-        aria-labelledby="avatar-heading"
-        hidden
-      >
-        <div class="profile-section-head">
-          <h2 id="avatar-heading">Avatar</h2>
-          <p>Pick how you appear in chat.</p>
-        </div>
-        <div class="profile-card">
-          <div
-            class="avatar-grid"
-            id="avatarGrid"
-            role="radiogroup"
-            aria-labelledby="avatar-heading"
-          ></div>
-        </div>
-      </section>
 
       <section class="profile-section" aria-labelledby="sync-heading">
         <div class="profile-section-head">
@@ -308,7 +346,8 @@
           return /^a\d{2}$/.test(id || "") ? `/img/avatars/${id}.svg` : "";
         }
 
-        // The header shows the chosen preset, or the handle's initial.
+        // The header shows the account's avatar, or the handle's initial
+        // until it loads and where the server has no avatars.
         function showIdentity() {
           document.getElementById("username").textContent = "@" + handle;
           const circle = document.getElementById("initials");
@@ -389,14 +428,17 @@
           })
           .catch(() => {});
 
-        // The avatar picker: a "no avatar" tile, then the presets the server
-        // offers. It stays hidden where the server has none.
+        // The avatar picker: clicking the header avatar opens a dialog with
+        // the presets the server offers. Where it has none, the avatar is
+        // not a button.
+        const avatarButton = document.getElementById("avatarButton");
+        const avatarDialog = document.getElementById("avatarDialog");
         const avatarGrid = document.getElementById("avatarGrid");
         let isSavingAvatar = false;
 
         function markAvatarChoice() {
           for (const tile of avatarGrid.children) {
-            const chosen = (tile.dataset.avatar || null) === avatar;
+            const chosen = tile.dataset.avatar === avatar;
             tile.setAttribute("aria-checked", String(chosen));
           }
         }
@@ -406,24 +448,33 @@
           tile.type = "button";
           tile.className = "avatar-tile";
           tile.setAttribute("role", "radio");
-          tile.dataset.avatar = id || "";
-          if (id) {
-            const img = document.createElement("img");
-            img.src = avatarUrl(id);
-            img.alt = "";
-            img.loading = "lazy";
-            tile.appendChild(img);
-            tile.setAttribute("aria-label", "Avatar " + Number(id.slice(1)));
-          } else {
-            tile.textContent = handle.charAt(0);
-            tile.setAttribute("aria-label", "No avatar, show my initial");
-          }
-          tile.addEventListener("click", () => chooseAvatar(id || null));
+          tile.dataset.avatar = id;
+          const img = document.createElement("img");
+          img.src = avatarUrl(id);
+          img.alt = "";
+          img.loading = "lazy";
+          tile.appendChild(img);
+          tile.setAttribute("aria-label", "Avatar " + Number(id.slice(1)));
+          tile.addEventListener("click", () => chooseAvatar(id));
           return tile;
         }
 
+        avatarButton.addEventListener("click", () => {
+          avatarDialog.showModal();
+          avatarGrid.querySelector('[aria-checked="true"]')?.focus();
+        });
+        document
+          .getElementById("avatarClose")
+          .addEventListener("click", () => avatarDialog.close());
+        // A click on the backdrop lands on the dialog element itself.
+        avatarDialog.addEventListener("click", (event) => {
+          if (event.target === avatarDialog) avatarDialog.close();
+        });
+
         async function chooseAvatar(id) {
-          if (isSavingAvatar || id === avatar) return;
+          if (isSavingAvatar) return;
+          avatarDialog.close();
+          if (id === avatar) return;
           isSavingAvatar = true;
           const previous = avatar;
           avatar = id;
@@ -461,12 +512,9 @@
           .then((response) => (response.ok ? response.json() : null))
           .then((config) => {
             if (!config || !config.supported) return;
-            avatarGrid.replaceChildren(
-              avatarTile(null),
-              ...config.avatars.map(avatarTile),
-            );
+            avatarGrid.replaceChildren(...config.avatars.map(avatarTile));
             markAvatarChoice();
-            document.getElementById("avatarSection").hidden = false;
+            avatarButton.disabled = false;
           })
           .catch(() => {});
 

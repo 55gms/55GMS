@@ -261,6 +261,7 @@ try {
         // client, so nobody can post under another handle.
         let finalSenderUsername = "System";
         let senderAvatar = null;
+        let senderPremium = false;
         if (!isSystem) {
           finalSenderUsername = "Unknown User";
           try {
@@ -279,6 +280,7 @@ try {
             }
             finalSenderUsername = sender.username;
             senderAvatar = sender.avatar || null;
+            senderPremium = Boolean(sender.premium);
           } catch (error) {
             // Unknown sender: the message is still relayed, unnamed.
           }
@@ -290,6 +292,7 @@ try {
           senderUuid,
           senderUsername: finalSenderUsername,
           senderAvatar,
+          senderPremium,
           timestamp: new Date(),
           isSystem: isSystem || false,
         });

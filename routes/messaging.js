@@ -101,6 +101,7 @@ router.get("/chats/:chatId/members", authenticateUser, async (req, res) => {
         uuid: member.userUuid,
         username: userData.username,
         avatar: userData.avatar || null,
+        premium: Boolean(userData.premium),
         role: member.role,
         status: status?.isOnline ? "online" : "offline",
         joinedAt: member.createdAt,
@@ -578,6 +579,7 @@ router.get("/friends", authenticateUser, async (req, res) => {
         uuid: friendUuid,
         username: userData.username,
         avatar: userData.avatar || null,
+        premium: Boolean(userData.premium),
         isOnline: status?.isOnline || false,
         lastSeen: status?.lastSeen ?? null,
       };
@@ -908,6 +910,7 @@ router.get("/friends/requests", authenticateUser, async (req, res) => {
             requesterUuid: request.requesterUuid,
             requesterUsername: userResponse.username,
             requesterAvatar: userResponse.avatar || null,
+            requesterPremium: Boolean(userResponse.premium),
             createdAt: request.createdAt,
           };
         } catch (error) {
@@ -1072,6 +1075,7 @@ export function formatUserChats(
         uuid: member.userUuid,
         username: userData.username,
         avatar: userData.avatar || null,
+        premium: Boolean(userData.premium),
         isOnline: status?.isOnline || false,
       };
     });
@@ -1085,6 +1089,7 @@ export function formatUserChats(
       name: chatName,
       type: chat.type,
       avatar: chat.type === "direct" ? members[0]?.avatar || null : null,
+      premium: chat.type === "direct" && Boolean(members[0]?.premium),
       lastMessage: chat.messages?.[0] || null,
       unreadCount: unreadCountMap.get(chat.id) || 0,
       members,

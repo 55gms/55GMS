@@ -18,7 +18,7 @@ function toPublicUser(user) {
     uuid: user.uuid,
     username: user.username,
     premium: Boolean(user.premium),
-    avatar: publicAvatar(user.avatar),
+    avatar: publicAvatar(user.avatar, user.uuid),
     handlePending: Boolean(user.handlePending) && isHandleChoiceOpen(),
   };
 }
@@ -170,8 +170,8 @@ export function createPostgresAccounts({
       return toPublicUser(user);
     },
 
-    // Sets a preset avatar, or clears it with null. Returns false for an
-    // id that is not a preset.
+    // Sets a preset avatar, or goes back to the default with null. Returns
+    // false for an id that is not a preset.
     async setAvatar(uuid, avatar) {
       if (avatar !== null && !isValidAvatar(avatar)) return false;
 
