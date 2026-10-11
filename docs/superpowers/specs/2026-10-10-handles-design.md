@@ -223,7 +223,12 @@ argument. Everything below happens in one transaction.
    - the first account gets the cleaned name, `handle_pending = false`;
    - every later account gets a placeholder (the cleaned name plus the lowest
      free number, e.g. `king2`, shortened to fit 16) and `handle_pending = true`;
-   - unusable names get `user` plus seven digits and `handle_pending = true`.
+   - unusable names get `user` plus seven digits and `handle_pending = true`;
+   - names containing any non-ASCII character (225 today, e.g. Chinese) never
+     win a handle automatically, because what is left after cleaning is a
+     fragment the owner did not choose. They are always `handle_pending`,
+     with the cleaned remainder as the placeholder if it is 3+ characters
+     and free, otherwise `user` plus seven digits.
      Placeholders are allocated after all winners, so they never take a handle
      someone legitimately holds.
 5. **Clear** `senderUsername` on non-system messages.
