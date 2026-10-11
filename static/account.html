@@ -88,6 +88,26 @@
         </div>
       </header>
 
+      <section
+        class="profile-section"
+        id="avatarSection"
+        aria-labelledby="avatar-heading"
+        hidden
+      >
+        <div class="profile-section-head">
+          <h2 id="avatar-heading">Avatar</h2>
+          <p>Pick how you appear in chat.</p>
+        </div>
+        <div class="profile-card">
+          <div
+            class="avatar-grid"
+            id="avatarGrid"
+            role="radiogroup"
+            aria-labelledby="avatar-heading"
+          ></div>
+        </div>
+      </section>
+
       <section class="profile-section" aria-labelledby="sync-heading">
         <div class="profile-section-head">
           <h2 id="sync-heading">Cloud sync</h2>
@@ -281,11 +301,28 @@
         const toasts = document.getElementById("toasts");
         let isOnCooldown = false;
 
-        function showHandle(handle) {
-          document.getElementById("username").textContent = "@" + handle;
-          document.getElementById("initials").textContent = handle.charAt(0);
+        let handle = username;
+        let avatar = null;
+
+        function avatarUrl(id) {
+          return /^a\d{2}$/.test(id || "") ? `/img/avatars/${id}.svg` : "";
         }
-        showHandle(username);
+
+        // The header shows the chosen preset, or the handle's initial.
+        function showIdentity() {
+          document.getElementById("username").textContent = "@" + handle;
+          const circle = document.getElementById("initials");
+          const url = avatarUrl(avatar);
+          if (url) {
+            const img = document.createElement("img");
+            img.src = url;
+            img.alt = "";
+            circle.replaceChildren(img);
+          } else {
+            circle.textContent = handle.charAt(0);
+          }
+        }
+        showIdentity();
         document.getElementById("shortId").textContent = uuid.slice(0, 8);
 
         function formatBytes(bytes) {
@@ -345,7 +382,91 @@
               return;
             }
             localStorage.setItem("username", me.username);
-            showHandle(me.username);
+            handle = me.username;
+            avatar = me.avatar || null;
+            showIdentity();
+            markAvatarChoice();
+          })
+          .catch(() => {});
+
+        // The avatar picker: a "no avatar" tile, then the presets the server
+        // offers. It stays hidden where the server has none.
+        const avatarGrid = document.getElementById("avatarGrid");
+        let isSavingAvatar = false;
+
+        function markAvatarChoice() {
+          for (const tile of avatarGrid.children) {
+            const chosen = (tile.dataset.avatar || null) === avatar;
+            tile.setAttribute("aria-checked", String(chosen));
+          }
+        }
+
+        function avatarTile(id) {
+          const tile = document.createElement("button");
+          tile.type = "button";
+          tile.className = "avatar-tile";
+          tile.setAttribute("role", "radio");
+          tile.dataset.avatar = id || "";
+          if (id) {
+            const img = document.createElement("img");
+            img.src = avatarUrl(id);
+            img.alt = "";
+            img.loading = "lazy";
+            tile.appendChild(img);
+            tile.setAttribute("aria-label", "Avatar " + Number(id.slice(1)));
+          } else {
+            tile.textContent = handle.charAt(0);
+            tile.setAttribute("aria-label", "No avatar, show my initial");
+          }
+          tile.addEventListener("click", () => chooseAvatar(id || null));
+          return tile;
+        }
+
+        async function chooseAvatar(id) {
+          if (isSavingAvatar || id === avatar) return;
+          isSavingAvatar = true;
+          const previous = avatar;
+          avatar = id;
+          showIdentity();
+          markAvatarChoice();
+
+          try {
+            const response = await fetch("/api/avatar", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-User-UUID": uuid,
+              },
+              body: JSON.stringify({ avatar: id }),
+            });
+            if (!response.ok) {
+              const body = await response.json().catch(() => ({}));
+              throw new Error(
+                response.status === 401
+                  ? "Sign in again to change your avatar."
+                  : body.error || "Couldn't save the avatar.",
+              );
+            }
+          } catch (error) {
+            avatar = previous;
+            showIdentity();
+            markAvatarChoice();
+            toast("error", error.message || "Couldn't save the avatar.");
+          } finally {
+            isSavingAvatar = false;
+          }
+        }
+
+        fetch("/api/avatar-config")
+          .then((response) => (response.ok ? response.json() : null))
+          .then((config) => {
+            if (!config || !config.supported) return;
+            avatarGrid.replaceChildren(
+              avatarTile(null),
+              ...config.avatars.map(avatarTile),
+            );
+            markAvatarChoice();
+            document.getElementById("avatarSection").hidden = false;
           })
           .catch(() => {});
 
