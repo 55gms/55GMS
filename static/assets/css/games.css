@@ -245,24 +245,25 @@ h6 {
   display: inline-block;
 }
 
-.game.game-reveal {
-  opacity: 0;
-  transform: translate3d(0, 32px, 0) scale(0.96);
-  transition:
-    opacity 0.65s ease var(--reveal-delay, 0ms),
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+.game.game-first-load {
+  animation: game-load-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--load-delay, 0ms);
 }
 
-.game.game-reveal.is-visible {
-  opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
+@keyframes game-load-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .game.game-reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
+  .game.game-first-load {
+    animation: none;
   }
 }
 
@@ -443,70 +444,70 @@ h6 {
   transform: none;
 }
 
-.game-browser {
-  width: min(100%, 1100px);
-  margin: 18px auto 5px;
-  padding: 0 12px;
-  box-sizing: border-box;
-}
-
-.game-views {
+.game-search-row {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-}
-
-.game-view {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 45px;
-  padding: 9px 15px;
-  color: var(--site-text, #faf9f6);
-  border: 1px solid var(--site-control-border, rgba(255, 255, 255, 0.22));
-  background: color-mix(in srgb, var(--site-button, #506581) 78%, var(--site-surface, #506581));
-  border-radius: var(--site-radius-sm, 11px);
-  font: 600 0.95rem "Roboto", sans-serif;
-  cursor: pointer;
-  transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
-}
-
-.game-view:hover {
-  background: var(--site-button-hover, #617896);
-  transform: translateY(-1px);
-}
-
-.game-view.is-active {
-  background: color-mix(in srgb, var(--site-accent, #8cb7f2) 24%, var(--site-button, #506581));
-  border-color: var(--site-accent, #8cb7f2);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--site-accent, #8cb7f2) 25%, transparent);
-}
-
-.game-view svg {
-  height: 18px;
-  width: 18px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.game-view-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 22px;
-  height: 22px;
-  padding: 0 5px;
+  gap: 12px;
+  width: min(94vw, 1100px);
+  margin: 0 auto 16px;
   box-sizing: border-box;
-  border-radius: 100px;
-  background: rgba(0, 0, 0, 0.25);
-  font-size: 0.77rem;
-  font-variant-numeric: tabular-nums;
+}
+
+.game-search-row .searchbar,
+.game-search-row .searchbar:hover,
+.game-search-row .searchbar:focus {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: auto;
+  margin: 0;
+  transform: none;
+  scale: 1;
+}
+
+.game-view-select {
+  flex: 0 0 auto;
+  max-width: 230px;
+  min-height: 51px;
+  padding: 10px 14px;
+  border: 1px solid var(--site-control-border, var(--site-border, #32415b));
+  border-radius: var(--site-radius-sm, 10px);
+  background: var(--site-input-bg, var(--site-surface, #506581));
+  color: var(--site-input-text, var(--site-text, #fff));
+  box-shadow: 0 4px 12px var(--site-shadow, rgba(0, 0, 0, 0.18));
+  font: 500 0.95rem "Roboto", sans-serif;
+  cursor: pointer;
+}
+
+.game-view-select:hover {
+  border-color: var(--site-control-border-hover, var(--site-accent, #f5b942));
+}
+
+.game-view-select:focus-visible {
+  outline: 2px solid var(--site-accent, #f5b942);
+  outline-offset: 2px;
+}
+
+.game-view-select option {
+  background: var(--site-surface-2, #364b66);
+  color: var(--site-text, #fff);
+}
+
+@media (max-width: 600px) {
+  .game-search-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .game-search-row .searchbar {
+    flex: auto;
+    width: 100%;
+  }
+
+  .game-view-select {
+    width: 100%;
+    max-width: none;
+  }
 }
 
 .game-favorite {
@@ -519,24 +520,32 @@ h6 {
   width: 34px;
   height: 34px;
   padding: 0;
-  border: 1px solid var(--site-control-border, rgba(255, 255, 255, 0.27));
+  border: 0;
   border-radius: 11px;
   color: var(--site-text, #ffffff);
-  background: color-mix(in srgb, var(--site-button, #263b57) 84%, rgba(0, 0, 0, 0.8));
+  background: color-mix(in srgb, var(--site-button, #263b57) 42%, transparent);
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  opacity: 0;
+  pointer-events: none;
+  transition: background-color 0.2s ease, transform 0.2s ease, opacity 0.18s ease;
+}
+
+.game:hover .game-favorite,
+.game:focus-within .game-favorite {
+  opacity: 0.78;
+  pointer-events: auto;
 }
 
 .game-favorite:hover {
   transform: scale(1.1);
-  background: var(--site-button-hover, #334b6a);
+  background: color-mix(in srgb, var(--site-button-hover, #334b6a) 60%, transparent);
+  opacity: 0.95;
 }
 
 .game-favorite.is-favorite {
   color: var(--site-accent, #ffd36b);
-  border-color: var(--site-accent, #ffd36b);
 }
 
 .game-favorite svg {
@@ -554,7 +563,6 @@ h6 {
   fill: currentColor;
 }
 
-.game-view:focus-visible,
 .game-favorite:focus-visible {
   outline: 3px solid var(--site-text, white);
   outline-offset: 3px;
@@ -586,38 +594,19 @@ h6 {
   font-size: 0.94rem;
 }
 
-@media (max-width: 500px) {
-  .game-views {
-    gap: 7px;
-  }
-
-  .game-view {
-    padding: 10px 9px;
-    min-height: 43px;
-    gap: 5px;
-    font-size: 0.8rem;
-  }
-
-  .game-view svg {
-    width: 15px;
-    height: 15px;
-  }
-
-  .game-view-count {
-    min-width: 19px;
-    height: 19px;
-    font-size: 0.72rem;
+@media (hover: none) {
+  .game-favorite {
+    opacity: 0.78;
+    pointer-events: auto;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .game-view,
   .game-favorite,
   .game-favorite svg {
     transition: none;
   }
 
-  .game-view:hover,
   .game-favorite:hover {
     transform: none;
   }
