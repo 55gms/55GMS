@@ -1,0 +1,46 @@
+
+.profile-header {
+  position: relative;
+}
+
+.profile-banner-edit {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background: rgba(22, 28, 43, 0.85);
+  color: #fff;
+  cursor: pointer;
+}
+
+.profile-banner-edit:hover {
+  background: rgba(53, 68, 107, 0.95);
+}
+
+.profile-banner-edit:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.profile-banner-edit svg {
+  width: 16px;
+  height: 16px;
+}
+
+.profile-banner-edit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.profile-header.has-custom-banner {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
