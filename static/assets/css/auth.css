@@ -381,10 +381,6 @@
     background-color var(--a-normal) ease;
 }
 
-.auth-captcha:hover {
-  border-color: var(--a-control-border-hover);
-}
-
 .auth-captcha:focus-visible {
   outline: 2px solid var(--a-accent);
   outline-offset: 2px;
