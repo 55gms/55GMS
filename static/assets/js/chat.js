@@ -19,7 +19,6 @@ const MAX_GROUP_OTHERS = 9;
 const MAX_RENDERED_MESSAGES = 200;
 // Consecutive messages from one sender within this window render as a group
 const MESSAGE_GROUP_WINDOW_MS = 5 * 60 * 1000;
-const DEFAULT_AVATAR = "/img/user.webp";
 
 const typingUsers = new Set();
 const drafts = new Map();
@@ -56,6 +55,7 @@ async function initializeChat() {
         return;
       }
       currentUser.username = me.username;
+      currentUser.avatar = me.avatar || null;
       localStorage.setItem("username", me.username);
     }
   } catch (error) {
@@ -701,15 +701,26 @@ function getAvatarHue(name) {
   return (Math.imul(hash, 2654435761) >>> 0) % 360;
 }
 
-function avatarHtml(name, { isGroup = false, isOnline = null, image } = {}) {
-  const content =
-    image && image !== DEFAULT_AVATAR
-      ? `<img loading="lazy" src="${escapeHtml(image)}" alt="" />`
-      : escapeHtml(getInitial(name));
+// Image for a preset avatar id (utils/avatars.js on the server), or "" for
+// anything else, which leaves the initial showing.
+function avatarUrl(avatar) {
+  return /^a\d{2}$/.test(String(avatar ?? ""))
+    ? `/img/avatars/${avatar}.svg`
+    : "";
+}
 
+// What goes inside an avatar circle: the chosen preset, or the initial.
+function avatarContentHtml(name, avatar) {
+  const url = avatarUrl(avatar);
+  return url
+    ? `<img loading="lazy" src="${url}" alt="" />`
+    : escapeHtml(getInitial(name));
+}
+
+function avatarHtml(name, { isGroup = false, isOnline = null, avatar } = {}) {
   return `
     <span class="chat-avatar">
-      <span class="avatar-circle${isGroup ? " is-group" : ""}" style="--avatar-hue: ${getAvatarHue(name)}">${content}</span>
+      <span class="avatar-circle${isGroup ? " is-group" : ""}" style="--avatar-hue: ${getAvatarHue(name)}">${avatarContentHtml(name, avatar)}</span>
       ${
         isOnline === null
           ? ""
@@ -814,6 +825,7 @@ function renderChatList() {
             <a class="${classes}" href="/chat/${encodeURIComponent(chat.id)}" data-chat-id="${escapeHtml(chat.id)}"${isActive ? ' aria-current="page"' : ""}>
                 ${avatarHtml(chat.name, {
                   isGroup,
+                  avatar: chat.avatar,
                   isOnline: chat.type === "direct" ? isOnline : null,
                 })}
                 <div class="chat-item-content">
@@ -859,7 +871,10 @@ function updateChatHeader() {
   const onlineIndicator = document.getElementById("onlineIndicator");
 
   document.getElementById("chatName").textContent = chatLabel(chat);
-  document.getElementById("chatInitials").textContent = getInitial(chat.name);
+  document.getElementById("chatInitials").innerHTML = avatarContentHtml(
+    chat.name,
+    chat.avatar,
+  );
   avatar.classList.toggle("is-group", isGroup);
   avatar.style.setProperty("--avatar-hue", getAvatarHue(chat.name));
 
@@ -1048,10 +1063,22 @@ function normalizeMessage(messageData) {
     senderUuid: String(messageData.senderUuid ?? ""),
     senderUsername:
       messageData.senderUsername || (isOwn ? currentUser.username : "Unknown"),
+    senderAvatar: isSystem
+      ? null
+      : messageData.senderAvatar || memberAvatar(messageData.senderUuid),
     isSystem,
     isOwn,
     timestamp,
   };
+}
+
+// The avatar of someone in the open chat. Stored messages do not carry one,
+// so it comes from the chat's member list; someone who has left the group
+// falls back to their initial.
+function memberAvatar(uuid) {
+  if (uuid === currentUser.uuid) return currentUser.avatar || null;
+  const member = getCurrentChat()?.members?.find((m) => m.uuid === uuid);
+  return member?.avatar || null;
 }
 
 // Builds one message element and appends it, grouping it with the previous
@@ -1117,7 +1144,7 @@ function insertMessage(
           showSender
             ? `<div class="message-avatar" aria-hidden="true" style="--avatar-hue: ${getAvatarHue(
                 message.senderUsername,
-              )}">${escapeHtml(getInitial(message.senderUsername))}</div>`
+              )}">${avatarContentHtml(message.senderUsername, message.senderAvatar)}</div>`
             : ""
         }
         <div class="message-content">
@@ -1632,7 +1659,7 @@ function renderFriendPickers() {
           .map(
             (friend) => `
         <button class="picker-item" type="button" data-action="start-chat" data-username="${escapeHtml(friend.username)}">
-            ${avatarHtml(friend.username, { isOnline: Boolean(friend.isOnline) })}
+            ${avatarHtml(friend.username, { isOnline: Boolean(friend.isOnline), avatar: friend.avatar })}
             <span class="friend-info">
                 <span class="friend-name"><span>${escapeHtml(atHandle(friend.username))}</span></span>
                 <span class="friend-meta">${friend.isOnline ? "Online" : "Offline"}</span>
@@ -1717,7 +1744,7 @@ function renderFriendsList() {
     .map(
       (friend) => `
         <div class="friend-item">
-            ${avatarHtml(friend.username, { isOnline: Boolean(friend.isOnline) })}
+            ${avatarHtml(friend.username, { isOnline: Boolean(friend.isOnline), avatar: friend.avatar })}
             <div class="friend-info">
                 <div class="friend-name"><span>${escapeHtml(atHandle(friend.username))}</span></div>
                 <div class="friend-meta">
@@ -1862,7 +1889,7 @@ function renderFriendRequests(requests) {
     .map(
       (request) => `
         <div class="request-item">
-            ${avatarHtml(request.requesterUsername)}
+            ${avatarHtml(request.requesterUsername, { avatar: request.requesterAvatar })}
             <div class="friend-info">
                 <div class="friend-name"><span>${escapeHtml(atHandle(request.requesterUsername))}</span></div>
                 <div class="friend-meta">
@@ -2252,7 +2279,10 @@ function initializeUserInfoBar() {
   const userDisplayName = document.getElementById("userDisplayName");
 
   if (currentUser.username) {
-    userInitials.textContent = getInitial(currentUser.username);
+    userInitials.innerHTML = avatarContentHtml(
+      currentUser.username,
+      currentUser.avatar,
+    );
     userInitials.parentElement.style.setProperty(
       "--avatar-hue",
       getAvatarHue(currentUser.username),
@@ -2778,7 +2808,7 @@ function renderBlockedUsers(blockedUsers) {
     .map(
       (user) => `
         <div class="friend-item">
-            ${avatarHtml(user.username)}
+            ${avatarHtml(user.username, { avatar: user.avatar })}
             <div class="friend-info">
                 <div class="friend-name"><span>${escapeHtml(atHandle(user.username))}</span></div>
                 <div class="friend-meta">Blocked</div>
@@ -2898,7 +2928,7 @@ function displayGroupMembers(members) {
 
       return `
       <div class="group-member-item">
-        ${avatarHtml(member.username, { isOnline, image: member.avatar })}
+        ${avatarHtml(member.username, { isOnline, avatar: member.avatar })}
         <div class="member-info">
           <span class="member-username">
             <span>${escapeHtml(atHandle(member.username))}</span>

@@ -491,10 +491,17 @@ body.chat-page {
   border-radius: var(--chat-radius-md);
 }
 
-.avatar-circle img {
+.avatar-circle img,
+.message-avatar img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* the header and user-bar circles wrap their content in a span */
+.avatar-circle > span {
+  display: contents;
 }
 
 .avatar-sm .avatar-circle,
