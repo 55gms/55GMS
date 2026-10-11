@@ -171,6 +171,46 @@ create chat, friend request and the other username-taking routes) and the
 `send_message` socket event return `handle_required`. Games, saves and premium
 are not gated.
 
+### Info page and handle lookup
+
+New page `static/handles.html` (route `/handles`, added to `ACCOUNT_PAGES`),
+linked from the bottom of the login page ("Usernames are now handles. What
+changed?") and from the signup page.
+
+It explains, in plain words: what a handle is and the allowed characters;
+that the old username and password still sign you in; that some accounts were
+given a cleaned-up handle and some must choose one; and the deadline below.
+
+It also has a lookup: type an old username, get the handle it has now.
+
+- `POST /api/handle-lookup` `{ username }`, no sign-in needed.
+- Match order: exact `legacy_username`; otherwise, if exactly one account
+  matches ignoring case, that one.
+- Responses: the handle ("`Cool_Guy` is now `@coolguy`"); or "this account
+  still has to choose a handle: sign in with the old username to pick one"
+  for a pending account (its placeholder is not shown as if it were final);
+  or "more than one account used that name: sign in with your old username
+  and password to see yours"; or "no account with that name" (which is also
+  what a deleted account gets, with a pointer to sign up again).
+- It reveals nothing that chat does not already show (both names are public),
+  but it is rate limited per IP so it cannot be used to dump the user list.
+  The project has no rate limiter yet; this adds `express-rate-limit` and
+  applies it to this route only.
+
+### Deadline notices
+
+The launch date is stored in one place (`HANDLE_MIGRATION_DEADLINE`, set on
+the day) and the notices show the actual date, not a rolling "30 days".
+
+- Login page: a banner above the form, "Usernames are now handles. Sign in
+  before <date> to keep your account's place", linking to `/handles`.
+- Choose-a-handle screen: "Choose your handle before <date>".
+- The one-time notice for automatically converted accounts links to
+  `/handles` too.
+- The banners disappear after the deadline.
+
+What happens to accounts that miss the deadline is the open point below.
+
 ### Chat
 
 - `getUserByUsername` in `routes/messaging.js` normalizes its input, so
@@ -287,6 +327,7 @@ production.
 | `routes/auth.js`                                                                                                 | Signup validation and errors, `handlePending`, `GET /api/me`, `POST /api/handle` |
 | `routes/messaging.js`, `index.js`                                                                                | Normalized lookups, pending gate, server-side sender name, last-seen             |
 | `utils/features.js`                                                                                              | `/handle` page                                                                   |
+| `static/handles.html` (new), `package.json`                                                                      | Info page, lookup, deadline banner; `express-rate-limit`                         |
 | `static/handle.html` (new), `static/signup.html`, `static/login.html`, `static/account.html`, `static/chat.html` | `@` branding, chooser, pending redirect                                          |
 | `static/assets/js/auth.js`, `static/assets/js/chat.js`                                                           | Validation, notice, `@handle` display                                            |
 | `scripts/migrate-handles.js` (new)                                                                               | The migration                                                                    |
@@ -309,3 +350,7 @@ production.
 
 The `Jiayang` account (`e0aa7d6f…`, created 2026-10-07, premium) should be
 confirmed as the maintainer's own before launch. It has no admin access.
+
+## Open point: what the 30-day deadline does
+
+Not yet decided. Until it is, the notices cannot state a consequence.
