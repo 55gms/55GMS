@@ -10,6 +10,7 @@ const METHODS = [
   "searchUsers",
   "setPremium",
   "setHandle",
+  "setAvatar",
   "lookupLegacyUsername",
   "touchLastSeen",
   "writeSave",

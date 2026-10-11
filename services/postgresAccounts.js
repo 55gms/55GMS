@@ -7,6 +7,7 @@ import {
   isValidHandle,
   normalizeHandle,
 } from "../utils/handle.js";
+import { isValidAvatar, publicAvatar } from "../utils/avatars.js";
 
 const SEARCH_LIMIT = 20;
 
@@ -17,6 +18,7 @@ function toPublicUser(user) {
     uuid: user.uuid,
     username: user.username,
     premium: Boolean(user.premium),
+    avatar: publicAvatar(user.avatar),
     handlePending: Boolean(user.handlePending) && isHandleChoiceOpen(),
   };
 }
@@ -133,7 +135,7 @@ export function createPostgresAccounts({
       const prefix = String(query).replace(/[\\%_]/g, "\\$&");
       const users = await User.findAll({
         where: { username: { [Op.iLike]: `${prefix}%` } },
-        attributes: ["uuid", "username", "premium"],
+        attributes: ["uuid", "username", "premium", "avatar"],
         order: [["username", "ASC"]],
         limit: SEARCH_LIMIT,
       });
@@ -165,6 +167,18 @@ export function createPostgresAccounts({
         if (isUniqueViolation(error)) throw new HandleError("handle_taken");
         throw error;
       }
+      return toPublicUser(user);
+    },
+
+    // Sets a preset avatar, or clears it with null. Returns false for an
+    // id that is not a preset.
+    async setAvatar(uuid, avatar) {
+      if (avatar !== null && !isValidAvatar(avatar)) return false;
+
+      const user = await User.findByPk(String(uuid));
+      if (!user) return null;
+
+      await user.update({ avatar });
       return toPublicUser(user);
     },
 

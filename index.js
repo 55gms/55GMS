@@ -260,6 +260,7 @@ try {
         // The name shown to the room comes from the account, never from the
         // client, so nobody can post under another handle.
         let finalSenderUsername = "System";
+        let senderAvatar = null;
         if (!isSystem) {
           finalSenderUsername = "Unknown User";
           try {
@@ -277,6 +278,7 @@ try {
               }
             }
             finalSenderUsername = sender.username;
+            senderAvatar = sender.avatar || null;
           } catch (error) {
             // Unknown sender: the message is still relayed, unnamed.
           }
@@ -287,6 +289,7 @@ try {
           content,
           senderUuid,
           senderUsername: finalSenderUsername,
+          senderAvatar,
           timestamp: new Date(),
           isSystem: isSystem || false,
         });

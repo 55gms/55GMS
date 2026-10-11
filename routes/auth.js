@@ -16,6 +16,7 @@ import {
   isValidHandle,
   normalizeHandle,
 } from "../utils/handle.js";
+import { AVATAR_IDS } from "../utils/avatars.js";
 import { rateLimit } from "../utils/rateLimit.js";
 import { createChallenge, verifySolution } from "../utils/captcha.js";
 import { noteSeen } from "../utils/lastSeen.js";
@@ -169,6 +170,7 @@ export function createAuthRouter({
         uuid: user.uuid,
         username: user.username,
         premium: user.premium,
+        avatar: user.avatar ?? null,
         handlePending: Boolean(user.handlePending),
         deadline: handleDeadline()?.toISOString() ?? null,
       });
@@ -213,6 +215,53 @@ export function createAuthRouter({
       if (sendHandleError(res, error)) return;
       console.log(error);
       res.status(500).json({ error: "Couldn't save the handle" });
+    }
+  });
+
+  // The presets the profile page offers. Like handles, avatars exist only
+  // where accounts live in the local database.
+  router.get("/avatar-config", (req, res) => {
+    res.status(200).json({
+      supported: handlesSupported(),
+      avatars: handlesSupported() ? AVATAR_IDS : [],
+    });
+  });
+
+  const avatarLimit = rateLimit({
+    windowMs: 60 * 1000,
+    max: 30,
+    message: "Too many changes. Try again in a minute.",
+  });
+
+  // A picture everyone in chat sees, so like a handle it needs the session
+  // cookie wherever sessions are configured. `avatar: null` clears it.
+  router.post("/avatar", avatarLimit, async (req, res) => {
+    if (!handlesSupported()) {
+      return res.status(503).json({ error: "Avatars are off on this server" });
+    }
+
+    const uuid = process.env.ADMIN_TOKEN_SECRET
+      ? readSession(req)?.uuid
+      : req.headers["x-user-uuid"];
+    if (!uuid || typeof uuid !== "string") {
+      return res.status(401).json({ error: "sign_in_again" });
+    }
+    if (areAccountWritesFrozen()) {
+      return res.status(503).json({ error: ACCOUNT_WRITES_FROZEN_ERROR });
+    }
+
+    try {
+      const user = await accounts.setAvatar(uuid, req.body?.avatar ?? null);
+      if (user === false) {
+        return res.status(400).json({ error: "That avatar doesn't exist" });
+      }
+      if (!user) return res.status(404).json({ error: "Account not found" });
+
+      userCache.invalidateUser(user.uuid);
+      res.status(200).json({ avatar: user.avatar });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: "Couldn't save the avatar" });
     }
   });
 

@@ -15,7 +15,7 @@ import {
   sequelize,
 } from "../models/index.js";
 const router = express.Router();
-const UNKNOWN_USER = { username: "Unknown User", avatar: "/img/user.webp" };
+const UNKNOWN_USER = { username: "Unknown User", avatar: null };
 
 // Middleware to authenticate user via UUID
 const authenticateUser = async (req, res, next) => {
@@ -100,7 +100,7 @@ router.get("/chats/:chatId/members", authenticateUser, async (req, res) => {
       return {
         uuid: member.userUuid,
         username: userData.username,
-        avatar: userData.avatar || "/img/user.webp",
+        avatar: userData.avatar || null,
         role: member.role,
         status: status?.isOnline ? "online" : "offline",
         joinedAt: member.createdAt,
@@ -235,11 +235,9 @@ router.post(
       }
 
       if (content.length > 2000) {
-        return res
-          .status(400)
-          .json({
-            error: "Message too long. Maximum 2000 characters allowed.",
-          });
+        return res.status(400).json({
+          error: "Message too long. Maximum 2000 characters allowed.",
+        });
       }
 
       // Sanitize content
@@ -575,9 +573,11 @@ router.get("/friends", authenticateUser, async (req, res) => {
 
     const friendsWithUsernames = friendUuids.map((friendUuid) => {
       const status = statusMap.get(friendUuid);
+      const userData = userMap.get(friendUuid) || UNKNOWN_USER;
       return {
         uuid: friendUuid,
-        username: (userMap.get(friendUuid) || UNKNOWN_USER).username,
+        username: userData.username,
+        avatar: userData.avatar || null,
         isOnline: status?.isOnline || false,
         lastSeen: status?.lastSeen ?? null,
       };
@@ -870,11 +870,13 @@ router.get("/friends/blocked", authenticateUser, async (req, res) => {
           return {
             uuid: friendship.addresseeUuid,
             username: userResponse.username,
+            avatar: userResponse.avatar || null,
           };
         } catch (error) {
           return {
             uuid: friendship.addresseeUuid,
             username: "Unknown User",
+            avatar: null,
           };
         }
       }),
@@ -905,6 +907,7 @@ router.get("/friends/requests", authenticateUser, async (req, res) => {
             id: request.id,
             requesterUuid: request.requesterUuid,
             requesterUsername: userResponse.username,
+            requesterAvatar: userResponse.avatar || null,
             createdAt: request.createdAt,
           };
         } catch (error) {
@@ -912,6 +915,7 @@ router.get("/friends/requests", authenticateUser, async (req, res) => {
             id: request.id,
             requesterUuid: request.requesterUuid,
             requesterUsername: "Unknown User",
+            requesterAvatar: null,
             createdAt: request.createdAt,
           };
         }
@@ -1067,6 +1071,7 @@ export function formatUserChats(
       return {
         uuid: member.userUuid,
         username: userData.username,
+        avatar: userData.avatar || null,
         isOnline: status?.isOnline || false,
       };
     });
@@ -1079,6 +1084,7 @@ export function formatUserChats(
       id: chat.id,
       name: chatName,
       type: chat.type,
+      avatar: chat.type === "direct" ? members[0]?.avatar || null : null,
       lastMessage: chat.messages?.[0] || null,
       unreadCount: unreadCountMap.get(chat.id) || 0,
       members,
