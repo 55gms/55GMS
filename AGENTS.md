@@ -22,7 +22,6 @@ Copy `EXAMPLE.env` to `.env` and fill in:
 API_KEY=
 POSTGRES_URL=postgresql://username:password@localhost:5432/55gms_chat
 workerAUTH=your_worker_auth_token
-hcaptchaSecret=your_hcaptcha_secret
 PORT=8080
 ```
 
@@ -39,7 +38,8 @@ A running PostgreSQL instance is required. Run `node setup-db.js` after configur
 | `index.js`               | Server entry point — Express routes, Socket.IO events, static file serving                        |
 | `config/database.js`     | Sequelize PostgreSQL connection (pool: max 10)                                                    |
 | `models/`                | Sequelize ORM models: `Chat`, `Message`, `ChatMember`, `Friend`, `UserStatus`, `User`, `UserSave` |
-| `routes/auth.js`         | Login/signup with hcaptcha, via `services/accounts.js`                                            |
+| `routes/auth.js`         | Login/signup, the handle check and the signup captcha challenge                                   |
+| `utils/captcha.js`       | Self-hosted signup captcha: a signed proof of work bound to the handle                            |
 | `routes/users.js`        | Premium checks, per-user save-data upload/download                                                |
 | `services/accounts.js`   | Account/save store; `ACCOUNT_BACKEND` picks the Worker (default) or local Postgres                |
 | `routes/messaging.js`    | Full chat REST API (~962 lines)                                                                   |

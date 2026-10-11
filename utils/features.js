@@ -5,7 +5,6 @@ import "dotenv/config";
 const PLACEHOLDERS = {
   POSTGRES_URL: "postgresql://username:password@localhost:5432/55gms_chat",
   workerAUTH: "your_worker_auth_token",
-  hcaptchaSecret: "your_hcaptcha_secret",
 };
 
 export const inCodespaces = process.env.CODESPACES === "true";

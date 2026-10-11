@@ -31,7 +31,6 @@ Copy `EXAMPLE.env` to `.env` and fill in:
 API_KEY=
 POSTGRES_URL=postgresql://username:password@localhost:5432/55gms_chat
 workerAUTH=your_worker_auth_token
-hcaptchaSecret=your_hcaptcha_secret
 PORT=8080
 ```
 
@@ -50,7 +49,8 @@ For chat, run a PostgreSQL instance and `node setup-db.js` after configuring `PO
 | `index.js`                   | Server entry point — Express routes, Socket.IO events, static file serving                          |
 | `config/database.js`         | Sequelize PostgreSQL connection (pool: max 10)                                                      |
 | `models/`                    | Sequelize ORM models: `Chat`, `Message`, `ChatMember`, `Friend`, `UserStatus`, `User`, `UserSave`   |
-| `routes/auth.js`             | Login/signup with hcaptcha, via `services/accounts.js`                                              |
+| `routes/auth.js`             | Login/signup, the handle check and the signup captcha challenge                                     |
+| `utils/captcha.js`           | Self-hosted signup captcha: a signed proof of work bound to the handle                              |
 | `routes/users.js`            | Premium checks, per-user save-data upload/download                                                  |
 | `routes/admin.js`            | Premium management for `/admin`; allowed only for the session cookie of user `jiayang`              |
 | `services/accounts.js`       | Account/save store; `ACCOUNT_BACKEND` picks the Worker (default) or local Postgres                  |
@@ -107,7 +107,7 @@ All frontend code is static files under `static/`:
 
 What this means when editing the frontend:
 
-- Byte-for-byte untouched: `sw.js`, `assets/sj/`, `assets/js/frame-runtime.js`, `assets/js/easteregg.min.js`, `assets/js/sdks/`. CSS and the other JSON files are copied as they are.
+- Byte-for-byte untouched: `sw.js`, `assets/sj/`, `assets/js/frame-runtime.js`, `assets/js/easteregg.min.js`, `assets/js/captcha-worker.js`, `assets/js/sdks/`. CSS and the other JSON files are copied as they are.
 - Top-level function names in app scripts stay readable (global renaming is off) because pages call them from inline handlers; so does `<meta name="description">` content.
 - A built catalogue is base64url of a 16-byte key followed by the JSON XORed with that key. `games.js`, `apps.js`, `packs.js` and `loader-ui.js` each carry the decoder (`readCatalogue`) and still accept plain JSON; any new code that fetches a catalogue needs it too.
 - `unity-cdn-loader.js` and `unity-cdn-assets.js` are ES modules loaded by game pages under `static/misc/`, which are never rebuilt: keep their file names and export names stable.
