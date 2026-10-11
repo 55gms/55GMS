@@ -386,11 +386,18 @@ a:hover {
 .site-ad--billboard {
   --site-ad-width: 970px;
 }
-.site-ad--small {
-  --site-ad-width: 468px;
-}
 .site-ad--box {
   --site-ad-width: 336px;
+}
+/* Under 336px the embed offers the short mobile banners (320x100, 320x50)
+   before the boxes, which is what a slot beside a form or on a phone wants. */
+.site-ad--small {
+  --site-ad-width: 335px;
+}
+@media (max-width: 500px) {
+  .site-ad:not(.site-ad--billboard, .site-ad--box) {
+    --site-ad-width: 335px;
+  }
 }
 
 /* Skyscrapers in the side gutters, on screens wide enough to have gutters.

@@ -655,3 +655,11 @@ input:checked + .slider:hover {
     font-size: 1.4rem;
   }
 }
+
+/* The ad slot sits in the grid as a bare cell, not a card. */
+.settings-grid > .site-ad {
+  width: 100%;
+  margin: 0;
+  align-self: center;
+  justify-self: center;
+}
