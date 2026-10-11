@@ -120,7 +120,7 @@
 			dataUrl: buildUrl + "/wave-rider-v26062305.data.unityweb",
 			frameworkUrl: buildUrl + "/wave-rider-v26062305.framework.js.unityweb",
 			codeUrl: buildUrl + "/wave-rider-v26062305.wasm.unityweb",
-			streamingAssetsUrl: versionFolder + "StreamingAssets",
+			streamingAssetsUrl: new URL(versionFolder + "StreamingAssets", document.baseURI).href,
 			companyName: "azgames.io",
 			productName: "Wave Rider",
 			productVersion: "26062305",

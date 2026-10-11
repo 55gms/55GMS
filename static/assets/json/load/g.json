@@ -1336,7 +1336,7 @@
   {
     "name": "Retro Bowl",
     "author": "New Star Games",
-    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/rb/img.webp",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/retro-bowl-game/img.webp",
     "preview": "/img/videos/preview/retrobowl.mp4",
     "usesProxy": false
   },
@@ -3219,6 +3219,18 @@
     "author": "Beedo Games",
     "image": "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/idle-cowshed/img.webp",
     "preview": "/img/videos/preview/idlecowshed.mp4",
+    "usesProxy": false
+  },
+  {
+    "name": "Pilot Life",
+    "author": "Rabbit Mountain",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/pilot-life/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "NSR Street Car Racing",
+    "author": "Yes2Games",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/nsr-street-car-racing/img.webp",
     "usesProxy": false
   }
 ]
