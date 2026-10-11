@@ -8,6 +8,9 @@ const METHODS = [
   "isPremium",
   "searchUsers",
   "setPremium",
+  "setHandle",
+  "lookupLegacyUsername",
+  "touchLastSeen",
   "writeSave",
   "readSave",
 ];
