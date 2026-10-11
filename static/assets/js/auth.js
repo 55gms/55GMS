@@ -232,8 +232,17 @@
     error: ["Couldn't verify", "Click to try again"],
   };
 
+  // Set once the box has ticked. A proof only counts for the handle it was
+  // solved for, so a new handle still needs a new one, but that work then
+  // happens out of sight and the box stays ticked unless it fails.
+  let captchaPassed = false;
+
   function setCaptcha(state) {
-    if (!captcha || captcha.dataset.state === state) return;
+    if (!captcha) return;
+    if (state === "done") captchaPassed = true;
+    else if (state === "error") captchaPassed = false;
+    else if (captchaPassed) return;
+    if (captcha.dataset.state === state) return;
     captcha.dataset.state = state;
     captcha.setAttribute("aria-checked", String(state === "done"));
     captcha.setAttribute("aria-busy", String(state === "working"));
@@ -357,7 +366,9 @@
         const { worker, solved } = solveChallenge(check.challenge);
         current.worker = worker;
         const payload = await solved;
-        const wait = CAPTCHA_MIN_MS - (Date.now() - started);
+        const wait = captchaPassed
+          ? 0
+          : CAPTCHA_MIN_MS - (Date.now() - started);
         if (wait > 0) await new Promise((done) => setTimeout(done, wait));
         if (proof !== current) return null;
 
