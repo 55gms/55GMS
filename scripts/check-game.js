@@ -1,6 +1,6 @@
 // Loads one game page in headless Chrome and reports what breaks, before the
 // game's files have reached GitHub. The page comes from static/misc/<folder>/;
-// requests to its jsDelivr base for 55gms/assets are answered from the local
+// requests to its jsDelivr base (55gms/assets or kfm5/a) are answered from the local
 // assets clone (misc/<folder>/) the way the CDN would answer them (CORS
 // headers, 404 for missing files, 403 over 20 MB), so the game is tested
 // exactly as committed in both repos.
@@ -44,7 +44,7 @@ if (!fs.existsSync(entryPage)) {
 requireAssetsRepo();
 
 const CDN = new RegExp(
-  `^https://cdn\\.jsdelivr\\.net/gh/55gms/assets@[^/]+/misc/${folder}/`,
+  `^https://cdn\\.jsdelivr\\.net/gh/(?:55gms/assets|kfm5/a)@[^/]+/misc/${folder}/`,
   "i",
 );
 const CDN_LIMIT = 20_000_000;
