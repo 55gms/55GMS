@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <script src="/assets/js/loader-ui.js?v=2re0106df4"></script>
+  <script src="/assets/js/game-loader.js?v=2re0106df4" data-title="NSR Street Car Racing"></script>
+  <base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/nsr-street-car-racing/" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, interactive-widget=overlays-content">
+  <title>NSR Street Car Racing</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%; height: 100%; overflow: hidden; background: #0a0a0a;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+    #unity-container { width: 100%; height: 100%; }
+    #unity-canvas {
+      width: 100%;
+      /* --app-height locks the canvas height so the soft keyboard doesn't shrink it (Yandex Browser) */
+      height: var(--app-height, 100%);
+      background: #0a0a0a;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: none;
+    }
+    canvas:focus { outline: none; }
+
+    /* ── Yes2Games Loading Screen ── */
+    #y2g-loader {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #0a0a0a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 0.6s ease-out;
+    }
+    #y2g-loader.y2g-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Logo wrapper — entrance animation */
+    .y2g-logo-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0.95);
+      animation: y2gEntrance 0.8s ease-out 0.1s forwards;
+    }
+
+    /* Ambient glow behind logo */
+    .y2g-glow {
+      position: absolute;
+      width: 500px;
+      height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(168,85,247,0.18) 0%, transparent 70%);
+      animation: y2gGlowPulse 2.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    /* Logo image */
+    .y2g-logo {
+      position: relative;
+      width: min(55vw, 340px);
+      height: auto;
+      animation: y2gBreathe 2.5s ease-in-out 0.9s infinite;
+      filter: drop-shadow(0 0 20px rgba(168,85,247,0.35));
+    }
+
+    /* Progress track */
+    .y2g-progress-track {
+      width: min(45vw, 220px);
+      height: 3px;
+      background: rgba(168,85,247,0.12);
+      border-radius: 2px;
+      margin-top: 44px;
+      overflow: hidden;
+      opacity: 0;
+      animation: y2gFadeIn 0.4s ease-out 0.6s forwards;
+    }
+
+    /* Progress fill */
+    .y2g-progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #A855F7, #C084FC);
+      border-radius: 2px;
+      transition: width 0.3s ease-out;
+      position: relative;
+    }
+    .y2g-progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+      animation: y2gShimmer 1.5s ease-in-out infinite;
+    }
+
+    /* Percentage text */
+    .y2g-percent {
+      color: rgba(168,85,247,0.55);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      margin-top: 14px;
+      opacity: 0;
+      animation: y2gFadeIn 0.4s ease-out 0.9s forwards;
+    }
+
+    /* ── Keyframes ── */
+    @keyframes y2gEntrance {
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes y2gBreathe {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(168,85,247,0.35)); }
+      50%      { transform: scale(1.03); filter: drop-shadow(0 0 32px rgba(168,85,247,0.55)); }
+    }
+    @keyframes y2gGlowPulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50%      { opacity: 1;   transform: scale(1.08); }
+    }
+    @keyframes y2gShimmer {
+      0%   { left: -100%; }
+      100% { left: 200%; }
+    }
+    @keyframes y2gFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes y2gComplete {
+      0%   { transform: scale(1); filter: drop-shadow(0 0 20px rgba(168,85,247,0.35)); }
+      50%  { transform: scale(1.06); filter: drop-shadow(0 0 44px rgba(168,85,247,0.7)); }
+      100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(168,85,247,0.35)); }
+    }
+  </style>
+</head>
+<body>
+  <div id="unity-container">
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+  </div>
+
+
+  <script src="yes2sdk-data.js?v=be5d767f7cc8" type="text/javascript"></script>
+<script>
+(function(){
+  var cfg=window.__yes2sdkConfig;
+  if(!cfg||!cfg.orientation||cfg.orientation==="both")return;
+  var LANDSCAPE=cfg.orientation==="landscape";
+  var TARGET=LANDSCAPE?16/9:9/16;
+  var suspended=false;
+  var winW=Object.getOwnPropertyDescriptor(Window.prototype,"innerWidth");
+  var winH=Object.getOwnPropertyDescriptor(Window.prototype,"innerHeight");
+  var realW=function(){return winW&&winW.get?winW.get.call(window):document.documentElement.clientWidth};
+  var realH=function(){return winH&&winH.get?winH.get.call(window):document.documentElement.clientHeight};
+  function box(){
+    var vw=realW(),vh=realH(),w,h;
+    if(LANDSCAPE){
+      // Landscape game: fill any landscape screen edge-to-edge; only
+      // letterbox (bars top/bottom) when shown on a portrait screen.
+      if(vw>=vh){w=vw;h=vh}else{w=vw;h=w/TARGET}
+    }else{
+      // Portrait game: fill any portrait screen; only letterbox (bars
+      // left/right) when shown on a landscape screen.
+      if(vh>=vw){w=vw;h=vh}else{h=vh;w=h*TARGET}
+    }
+    return{w:Math.floor(w),h:Math.floor(h)}
+  }
+  try{
+    Object.defineProperty(window,"innerWidth",{get:function(){return suspended?realW():box().w},configurable:true});
+    Object.defineProperty(window,"innerHeight",{get:function(){return suspended?realH():box().h},configurable:true});
+  }catch(e){}
+  function applyStyles(){
+    var b=box();
+    var html=document.documentElement,body=document.body;
+    if(!body)return;
+    html.style.margin="0";html.style.padding="0";
+    html.style.width="100%";html.style.height="100%";
+    html.style.background="#000";
+    body.style.margin="0";body.style.padding="0";
+    body.style.background="#000";body.style.overflow="hidden";
+    body.style.width=realW()+"px";body.style.height=realH()+"px";
+    body.style.position="relative";
+    var wrap=document.getElementById("__y2_letterbox");
+    if(!wrap){
+      wrap=document.createElement("div");
+      wrap.id="__y2_letterbox";
+      while(body.firstChild){wrap.appendChild(body.firstChild)}
+      body.appendChild(wrap);
+    }
+    if(suspended){
+      wrap.style.cssText="position:absolute;left:0;top:0;transform:none;overflow:hidden;width:"+realW()+"px;height:"+realH()+"px;";
+    }else{
+      wrap.style.cssText="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);overflow:hidden;width:"+b.w+"px;height:"+b.h+"px;";
+    }
+  }
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",applyStyles);
+  }else{applyStyles()}
+  window.__y2Letterbox={suspend:function(){suspended=true;applyStyles();window.dispatchEvent(new Event("resize"));},resume:function(){suspended=false;applyStyles();window.dispatchEvent(new Event("resize"));}};
+  window.addEventListener("resize",applyStyles);
+})();
+</script>
+<script>
+(function(){
+  var cfg=window.__yes2sdkConfig;
+  if(!cfg||!cfg.platform||cfg.platform==="crazygames")return;
+  var _cg=window.CrazyGames;
+  try{Object.defineProperty(window,"CrazyGames",{
+    get:function(){return typeof window.Yes2SDK!=="undefined"?undefined:_cg;},
+    configurable:true,enumerable:true
+  });}catch(e){}
+})();
+</script>
+<script src="yes2sdk.umd.js?v=2.5.0" type="text/javascript"></script>
+<script>
+(function(){
+  var origGetContext=HTMLCanvasElement.prototype.getContext;
+  HTMLCanvasElement.prototype.getContext=function(type,attrs){
+    if(type==="webgl"||type==="webgl2"||type==="experimental-webgl"){
+      attrs=Object.assign({},attrs||{},{preserveDrawingBuffer:true});
+    }
+    return origGetContext.call(this,type,attrs);
+  };
+})();
+window.addEventListener("message",function(e){
+  if(e.data&&e.data.type==="yes2sdk:capture"){
+    try{
+      var c=document.querySelector("#unity-canvas")||document.querySelector("canvas");
+      if(!c){parent.postMessage({type:"yes2sdk:capture-result",success:false,error:"No canvas found"},"*");return;}
+      var url=c.toDataURL("image/png");
+      parent.postMessage({type:"yes2sdk:capture-result",success:true,dataUrl:url},"*");
+    }catch(err){
+      parent.postMessage({type:"yes2sdk:capture-result",success:false,error:err.message},"*");
+    }
+  }
+});
+</script>
+<script>
+    // ── Loading screen controller ──
+    var Y2GLoader = (function() {
+      var loader = document.getElementById('y2g-loader');
+      var fill   = document.getElementById('y2g-progress-fill');
+      var pct    = document.getElementById('y2g-percent');
+      var logo   = loader ? loader.querySelector('.y2g-logo') : null;
+      var done   = false;
+
+      function setProgress(p) {
+        var v = Math.max(0, Math.min(100, Math.round(p)));
+        if (fill) fill.style.width = v + '%';
+        if (pct)  pct.textContent  = v + '%';
+      }
+
+      function complete() {
+        if (done) return;
+        done = true;
+        setProgress(100);
+        // Final satisfying pulse
+        if (logo) {
+          logo.style.animation = 'y2gComplete 0.5s ease-in-out';
+        }
+        setTimeout(function() {
+          if (loader) loader.classList.add('y2g-hidden');
+          // Remove from DOM after fade
+          setTimeout(function() {
+            if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
+          }, 700);
+        }, 500);
+      }
+
+      return { setProgress: setProgress, complete: complete };
+    })();
+
+    // ── Unity bootstrap ──
+    var buildUrl = "Build";
+    var loaderUrl = buildUrl + "/nsr.loader.js";
+    var config = {
+      frameworkUrl: buildUrl + "/nsr.framework.js",
+      // Unity resolves this against the page URL, not <base>, so make it absolute.
+      streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
+      companyName: "Y2G",
+      productName: "NSR Street",
+      productVersion: "1.5.7",
+    };
+
+    var canvas = document.querySelector("#unity-canvas");
+
+    // ── NSR platform-neutral customizations (ported from the legacy Yandex template) ──
+
+    // Lock canvas height so the soft keyboard doesn't shrink it (Yandex Browser).
+    // Capture the full viewport height once and only update it when the width
+    // changes (orientation flip / real resize), ignoring height-only changes
+    // caused by the keyboard sliding in or out.
+    (function () {
+      var lastW = window.innerWidth;
+      function setAppHeight() {
+        document.documentElement.style.setProperty('--app-height', window.innerHeight + 'px');
+        lastW = window.innerWidth;
+      }
+      setAppHeight();
+      window.addEventListener('resize', function () {
+        if (window.innerWidth !== lastW) setAppHeight();
+      });
+    })();
+
+    // Disable iOS/Safari long-press context menu and related selection gestures
+    ['contextmenu', 'selectstart', 'gesturestart'].forEach(function (evt) {
+      canvas.addEventListener(evt, function (e) {
+        e.preventDefault();
+      }, { capture: true, passive: false });
+    });
+    document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+
+    // Refocus the canvas on tap, but never steal focus from Unity's hidden
+    // text input — doing so silently drops soft-keyboard input (Yandex Browser
+    // fires pointerdown/touchstart for every soft-keyboard tap).
+    function FocusGame() {
+      var active = document.activeElement;
+      if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) {
+        return;
+      }
+      window.focus();
+      canvas.focus();
+    }
+    window.addEventListener('pointerdown', FocusGame);
+    window.addEventListener('touchstart', FocusGame);
+
+    // Cap devicePixelRatio on mobile to bound GPU cost
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      config.devicePixelRatio = Math.min(1.6, window.devicePixelRatio);
+    }
+
+    // Debounced viewport-change notification for Unity UI reflow
+    var resizeTimer = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        if (window.unityInstance) {
+          window.unityInstance.SendMessage("WebEventWatcher", "HtmlOnViewportChanged");
+        }
+        resizeTimer = null;
+      }, 150); // fire once 150 ms after resizing stops
+    });
+
+    // nsr.data and nsr.wasm are over jsDelivr's size limit, so they are
+    // stored in 10 MB parts and joined here.
+    function parts(file, count) {
+      var list = [];
+      for (var i = 1; i <= count; i++) list.push(buildUrl + "/" + file + ".part" + i);
+      return list;
+    }
+    var dataParts = parts("nsr.data", 3);
+    var wasmParts = parts("nsr.wasm", 4);
+    GameLoader.prepare([
+      [dataParts[0], 10000000], [dataParts[1], 10000000], [dataParts[2], 5295170],
+      [wasmParts[0], 10000000], [wasmParts[1], 10000000], [wasmParts[2], 10000000], [wasmParts[3], 7418938],
+    ]);
+    Promise.all([
+      GameLoader.merge(dataParts),
+      GameLoader.merge(wasmParts, "application/wasm"),
+    ]).then(function (urls) {
+    config.dataUrl = urls[0];
+    config.codeUrl = urls[1];
+    var script = document.createElement("script");
+    script.src = loaderUrl;
+    script.onload = function() {
+      var lastSdkProgressPct = -1;
+      createUnityInstance(canvas, config, function(progress) {
+        Y2GLoader.setProgress(progress * 100);
+        // Report integer-percentage progress to Yes2SDK only when it
+        // changes — the dashboard inspector logs every call, so an
+        // unthrottled forward fills the boot console with hundreds of
+        // duplicate "Loading progress" entries.
+        var pct = Math.round(progress * 100);
+        if (pct !== lastSdkProgressPct &&
+            window.Yes2SDK && window.Yes2SDK.setLoadingProgress) {
+          window.Yes2SDK.setLoadingProgress(pct);
+          lastSdkProgressPct = pct;
+        }
+      }).then(function(unityInstance) {
+        Y2GLoader.complete();
+        GameLoader.finish();
+        // Store unity instance globally for SDK bridge access
+        window.unityInstance = unityInstance;
+      }).catch(GameLoader.fail);
+    };
+    document.body.appendChild(script);
+    }).catch(GameLoader.fail);
+  </script>
+</body>
+</html>
