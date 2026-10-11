@@ -454,6 +454,10 @@
     opacity var(--p-fast) ease;
 }
 
+.p-btn[hidden] {
+  display: none;
+}
+
 .p-btn svg {
   width: 14px;
   height: 14px;
