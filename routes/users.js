@@ -4,6 +4,7 @@ import defaultAccounts, {
   ACCOUNT_WRITES_FROZEN_ERROR,
   areAccountWritesFrozen,
 } from "../services/accounts.js";
+import { noteSeen } from "../utils/lastSeen.js";
 
 // Keys the profile page rewrites on its own, left out of the fingerprint.
 const SAVE_HASH_IGNORED_KEYS = new Set(["premium"]);
@@ -53,6 +54,7 @@ export function createUsersRouter({ accounts = defaultAccounts } = {}) {
         return res.status(500).json({ error: "User not found" });
       }
 
+      noteSeen(uuid, accounts);
       res.status(200).json(result);
     } catch (error) {
       res.status(500).json({ error: error });
