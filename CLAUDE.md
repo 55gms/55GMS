@@ -11,6 +11,9 @@ node .
 # Initialize the database (run once before first start)
 node setup-db.js
 
+# Add the handle columns to an existing database (safe to re-run)
+node scripts/add-handle-columns.js
+
 # Build the obfuscated copy of static/ into dist/ (CI and every deploy run this)
 npm run build
 
@@ -42,31 +45,33 @@ For chat, run a PostgreSQL instance and `node setup-db.js` after configuring `PO
 
 ### Backend layout
 
-| Path                     | Purpose                                                                                           |
-| ------------------------ | ------------------------------------------------------------------------------------------------- |
-| `index.js`               | Server entry point — Express routes, Socket.IO events, static file serving                        |
-| `config/database.js`     | Sequelize PostgreSQL connection (pool: max 10)                                                    |
-| `models/`                | Sequelize ORM models: `Chat`, `Message`, `ChatMember`, `Friend`, `UserStatus`, `User`, `UserSave` |
-| `routes/auth.js`         | Login/signup with hcaptcha, via `services/accounts.js`                                            |
-| `routes/users.js`        | Premium checks, per-user save-data upload/download                                                |
-| `routes/admin.js`        | Premium management for `/admin`; allowed only for the session cookie of user `jiayang`            |
-| `services/accounts.js`   | Account/save store; `ACCOUNT_BACKEND` picks the Worker (default) or local Postgres                |
-| `routes/messaging.js`    | Full chat REST API (~962 lines)                                                                   |
-| `routes/music.js`        | Proxy routes for music/media                                                                      |
-| `utils/features.js`      | Turns accounts and chat on or off at boot from the env; see Environment Setup                     |
-| `utils/userCache.js`     | In-memory user data cache                                                                         |
-| `utils/blockingCache.js` | In-memory blocked-user cache                                                                      |
-| `utils/ads.js`           | Mounts 55GMS Ads at `/_ads` when `ADS_SERVER_URL` and `ADS_API_KEY` are set                       |
-| `utils/gameAssets.js`    | Relays `/misc/` files that are not on disk from the 55gms/assets mirror on jsDelivr               |
-| `utils/ads-edge/`        | Vendored edge module from the gms-ads repo; do not edit here                                      |
-| `scripts/build.js`       | `npm run build`: builds `static/` into `dist/builds/<id>/` and points `dist/current` at it        |
-| `scripts/build/`         | The build stages, and `check-output.js`, the check CI runs on the built tree                      |
-| `deploy/`                | Server-side deploy scripts run by the GitHub Actions deploy key (`docs/deploy.md`)                |
-| `ecosystem.config.cjs`   | pm2 settings for production (cluster, 10 workers, `STATIC_ROOT`)                                  |
+| Path                         | Purpose                                                                                             |
+| ---------------------------- | --------------------------------------------------------------------------------------------------- |
+| `index.js`                   | Server entry point — Express routes, Socket.IO events, static file serving                          |
+| `config/database.js`         | Sequelize PostgreSQL connection (pool: max 10)                                                      |
+| `models/`                    | Sequelize ORM models: `Chat`, `Message`, `ChatMember`, `Friend`, `UserStatus`, `User`, `UserSave`   |
+| `routes/auth.js`             | Login/signup with hcaptcha, via `services/accounts.js`                                              |
+| `routes/users.js`            | Premium checks, per-user save-data upload/download                                                  |
+| `routes/admin.js`            | Premium management for `/admin`; allowed only for the session cookie of user `jiayang`              |
+| `services/accounts.js`       | Account/save store; `ACCOUNT_BACKEND` picks the Worker (default) or local Postgres                  |
+| `routes/messaging.js`        | Full chat REST API (~962 lines)                                                                     |
+| `routes/music.js`            | Proxy routes for music/media                                                                        |
+| `utils/features.js`          | Turns accounts and chat on or off at boot from the env; see Environment Setup                       |
+| `utils/userCache.js`         | In-memory user data cache                                                                           |
+| `utils/handle.js`            | The handle rule (`@handle`: lowercase letters, numbers, dashes, 3 to 16) and the choose-by deadline |
+| `scripts/migrate-handles.js` | One-off username-to-handle migration; steps in `docs/handles-rollout.md`                            |
+| `utils/blockingCache.js`     | In-memory blocked-user cache                                                                        |
+| `utils/ads.js`               | Mounts 55GMS Ads at `/_ads` when `ADS_SERVER_URL` and `ADS_API_KEY` are set                         |
+| `utils/gameAssets.js`        | Relays `/misc/` files that are not on disk from the 55gms/assets mirror on jsDelivr                 |
+| `utils/ads-edge/`            | Vendored edge module from the gms-ads repo; do not edit here                                        |
+| `scripts/build.js`           | `npm run build`: builds `static/` into `dist/builds/<id>/` and points `dist/current` at it          |
+| `scripts/build/`             | The build stages, and `check-output.js`, the check CI runs on the built tree                        |
+| `deploy/`                    | Server-side deploy scripts run by the GitHub Actions deploy key (`docs/deploy.md`)                  |
+| `ecosystem.config.cjs`       | pm2 settings for production (cluster, 10 workers, `STATIC_ROOT`)                                    |
 
 ### Authentication flow
 
-Accounts and saves go through `services/accounts.js`. By default it calls an external worker API (`https://db.55gms.com/api/`) authenticated with the `workerAUTH` token; with `ACCOUNT_BACKEND=postgres` it uses the local `users` and `user_saves` tables (passwords stored as bcrypt over SHA-256). UUIDs identify users. The migration plan is in `docs/superpowers/specs/2026-10-01-worker-to-postgres-migration-design.md`.
+Accounts and saves go through `services/accounts.js`. By default it calls an external worker API (`https://db.55gms.com/api/`) authenticated with the `workerAUTH` token; with `ACCOUNT_BACKEND=postgres` it uses the local `users` and `user_saves` tables (passwords stored as bcrypt over SHA-256). UUIDs identify users. A username is a handle: lowercase letters, numbers and dashes, 3 to 16 characters, shown as `@handle`; `utils/handle.js` is the only definition of the rule. `users.legacy_username` keeps the pre-migration username, which still signs in; `users.handle_pending` marks an account that must pick a handle at `/choose-handle` and cannot write to chat until it does, or until `HANDLE_MIGRATION_DEADLINE` passes and its placeholder becomes final. `/handles` explains this and looks up a handle from an old username. The migration plan is in `docs/superpowers/specs/2026-10-01-worker-to-postgres-migration-design.md`.
 
 ### Real-time (Socket.IO)
 

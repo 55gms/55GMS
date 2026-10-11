@@ -3,8 +3,8 @@ import defaultAccounts from "../services/accounts.js";
 import userCache from "../utils/userCache.js";
 import { readSession } from "../utils/sessionToken.js";
 
-// The only account allowed to manage premium. Usernames are unique and
-// case-sensitive, so this matches exactly one user.
+// The only account allowed to manage premium. Handles are unique and stored
+// lowercase, so this matches exactly one user.
 const ADMIN_USERNAME = "jiayang";
 
 export function createAdminRouter({ accounts = defaultAccounts } = {}) {
