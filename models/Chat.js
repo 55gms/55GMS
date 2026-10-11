@@ -30,7 +30,7 @@ const Chat = sequelize.define(
   {
     tableName: "chats",
     timestamps: true,
-  }
+  },
 );
 
 export default Chat;
