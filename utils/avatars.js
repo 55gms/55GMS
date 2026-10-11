@@ -1,6 +1,6 @@
 // The preset avatars an account can pick. An account stores one of these ids
 // (users.avatar) or nothing, which shows its initial on a colour instead.
-// The images are static/img/avatars/<id>.svg: the DiceBear "Thumbs" style,
+// The images are static/img/avatars/<id>.svg: the DiceBear "Sprouts" style,
 // CC0 1.0. An id that has been handed out must keep its file.
 export const AVATAR_IDS = Array.from(
   { length: 40 },
