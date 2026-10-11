@@ -730,6 +730,13 @@ function avatarHtml(name, { isGroup = false, isOnline = null, avatar } = {}) {
   `;
 }
 
+// The mark shown after the handle of an account with GMS Premium.
+function premiumBadgeHtml(isPremium) {
+  return isPremium
+    ? '<img class="premium-badge" src="/img/premium.webp" alt="Premium" title="Premium" />'
+    : "";
+}
+
 function listStateHtml(title, description = "") {
   return `
     <div class="list-state">
@@ -870,7 +877,9 @@ function updateChatHeader() {
   const statusElement = document.getElementById("chatStatus");
   const onlineIndicator = document.getElementById("onlineIndicator");
 
-  document.getElementById("chatName").textContent = chatLabel(chat);
+  document.getElementById("chatName").innerHTML =
+    `<span>${escapeHtml(chatLabel(chat))}</span>` +
+    premiumBadgeHtml(chat.premium);
   document.getElementById("chatInitials").innerHTML = avatarContentHtml(
     chat.name,
     chat.avatar,
@@ -1066,6 +1075,11 @@ function normalizeMessage(messageData) {
     senderAvatar: isSystem
       ? null
       : messageData.senderAvatar || memberAvatar(messageData.senderUuid),
+    senderPremium:
+      !isSystem &&
+      Boolean(
+        messageData.senderPremium ?? memberPremium(messageData.senderUuid),
+      ),
     isSystem,
     isOwn,
     timestamp,
@@ -1079,6 +1093,13 @@ function memberAvatar(uuid) {
   if (uuid === currentUser.uuid) return currentUser.avatar || null;
   const member = getCurrentChat()?.members?.find((m) => m.uuid === uuid);
   return member?.avatar || null;
+}
+
+// Whether someone in the open chat has premium, read from its member list
+// for the same reason.
+function memberPremium(uuid) {
+  const member = getCurrentChat()?.members?.find((m) => m.uuid === uuid);
+  return Boolean(member?.premium);
 }
 
 // Builds one message element and appends it, grouping it with the previous
@@ -1152,7 +1173,7 @@ function insertMessage(
               showSender
                 ? `<div class="message-header"><span class="message-sender">${escapeHtml(
                     atHandle(message.senderUsername),
-                  )}</span></div>`
+                  )}</span>${premiumBadgeHtml(message.senderPremium)}</div>`
                 : `<span class="sr-only">${escapeHtml(
                     message.isOwn ? "You" : atHandle(message.senderUsername),
                   )}:</span>`
@@ -1661,7 +1682,7 @@ function renderFriendPickers() {
         <button class="picker-item" type="button" data-action="start-chat" data-username="${escapeHtml(friend.username)}">
             ${avatarHtml(friend.username, { isOnline: Boolean(friend.isOnline), avatar: friend.avatar })}
             <span class="friend-info">
-                <span class="friend-name"><span>${escapeHtml(atHandle(friend.username))}</span></span>
+                <span class="friend-name"><span>${escapeHtml(atHandle(friend.username))}</span>${premiumBadgeHtml(friend.premium)}</span>
                 <span class="friend-meta">${friend.isOnline ? "Online" : "Offline"}</span>
             </span>
         </button>
@@ -1746,7 +1767,7 @@ function renderFriendsList() {
         <div class="friend-item">
             ${avatarHtml(friend.username, { isOnline: Boolean(friend.isOnline), avatar: friend.avatar })}
             <div class="friend-info">
-                <div class="friend-name"><span>${escapeHtml(atHandle(friend.username))}</span></div>
+                <div class="friend-name"><span>${escapeHtml(atHandle(friend.username))}</span>${premiumBadgeHtml(friend.premium)}</div>
                 <div class="friend-meta">
                     ${friend.isOnline ? "Online" : escapeHtml(formatLastSeen(friend.lastSeen))}
                 </div>
@@ -1891,7 +1912,7 @@ function renderFriendRequests(requests) {
         <div class="request-item">
             ${avatarHtml(request.requesterUsername, { avatar: request.requesterAvatar })}
             <div class="friend-info">
-                <div class="friend-name"><span>${escapeHtml(atHandle(request.requesterUsername))}</span></div>
+                <div class="friend-name"><span>${escapeHtml(atHandle(request.requesterUsername))}</span>${premiumBadgeHtml(request.requesterPremium)}</div>
                 <div class="friend-meta">
                     ${escapeHtml(formatLastSeen(request.createdAt).replace("Last seen", "Sent"))}
                 </div>
@@ -2932,6 +2953,7 @@ function displayGroupMembers(members) {
         <div class="member-info">
           <span class="member-username">
             <span>${escapeHtml(atHandle(member.username))}</span>
+            ${premiumBadgeHtml(member.premium)}
             ${member.role === "admin" ? '<span class="role-badge is-admin">Admin</span>' : ""}
             ${isSelf ? '<span class="role-badge">You</span>' : ""}
           </span>
