@@ -92,6 +92,10 @@ export function createWorkerAccounts({ httpClient = axios } = {}) {
       throw new Error("setHandle requires ACCOUNT_BACKEND=postgres");
     },
 
+    async isHandleTaken(handle) {
+      return Boolean(await this.getUserByUsername(handle));
+    },
+
     async lookupLegacyUsername() {
       throw new Error("lookupLegacyUsername requires ACCOUNT_BACKEND=postgres");
     },

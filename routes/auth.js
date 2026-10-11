@@ -1,5 +1,4 @@
 import express from "express";
-import axios from "axios";
 import defaultAccounts, {
   ACCOUNT_WRITES_FROZEN_ERROR,
   areAccountWritesFrozen,
@@ -18,6 +17,7 @@ import {
   normalizeHandle,
 } from "../utils/handle.js";
 import { rateLimit } from "../utils/rateLimit.js";
+import { createChallenge, verifySolution } from "../utils/captcha.js";
 import { noteSeen } from "../utils/lastSeen.js";
 import userCache from "../utils/userCache.js";
 
@@ -41,36 +41,52 @@ function handlesSupported() {
   return process.env.ACCOUNT_BACKEND === "postgres";
 }
 
-async function verifyHcaptcha(captchaResponse) {
-  const captchaVerifyResponse = await axios.post(
-    "https://hcaptcha.com/siteverify",
-    new URLSearchParams({
-      secret: process.env.hcaptchaSecret,
-      response: captchaResponse,
-    }),
-    {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    },
-  );
-
-  if (!captchaVerifyResponse.data.success) {
-    console.log(captchaVerifyResponse.data["error-codes"]);
-    return false;
-  }
-  return true;
-}
-
 export function createAuthRouter({
   accounts = defaultAccounts,
-  verifyCaptcha = verifyHcaptcha,
+  verifyCaptcha = verifySolution,
 } = {}) {
   const router = express.Router();
 
-  router.post("/signUp", async (req, res) => {
+  const checkLimit = rateLimit({
+    windowMs: 60 * 1000,
+    max: 120,
+    message: "Too many checks. Try again in a minute.",
+  });
+
+  // What the signup form asks as a handle is typed: whether it is free, and
+  // the captcha challenge to solve for it, in one round trip. `available` is
+  // null when the lookup failed, which signup itself then settles.
+  router.get("/signup-check", checkLimit, async (req, res) => {
+    const handle = normalizeHandle(req.query.handle);
+    if (!isValidHandle(handle)) {
+      return res.status(400).json({ error: HANDLE_RULE_MESSAGE });
+    }
+
+    let available = null;
+    try {
+      available = !(await accounts.isHandleTaken(handle));
+    } catch (error) {
+      console.log(error);
+    }
+
+    res.set("Cache-Control", "no-store");
+    res.status(200).json({
+      handle,
+      available,
+      challenge: available === false ? null : createChallenge(handle),
+    });
+  });
+
+  // Many students share one school address, so this only stops a flood.
+  const signUpLimit = rateLimit({
+    windowMs: 10 * 60 * 1000,
+    max: 20,
+    message: "Too many signups from this network. Try again in a few minutes.",
+  });
+
+  router.post("/signUp", signUpLimit, async (req, res) => {
     // premium is never taken from the client
-    let { password, username, captchaResponse } = req.body;
+    let { password, username, captchaResponse, website } = req.body;
 
     if (!password || !username || !captchaResponse) {
       return res.status(400).json({ error: "Not enough arguments" });
@@ -85,9 +101,13 @@ export function createAuthRouter({
     if (areAccountWritesFrozen()) {
       return res.status(503).json({ error: ACCOUNT_WRITES_FROZEN_ERROR });
     }
+    // A field no person sees or fills in; only a form-filling script does.
+    if (website) {
+      return res.status(400).json({ error: "Invalid CAPTCHA" });
+    }
 
     try {
-      if (!(await verifyCaptcha(captchaResponse))) {
+      if (!(await verifyCaptcha(captchaResponse, handle))) {
         return res.status(400).json({ error: "Invalid CAPTCHA" });
       }
 

@@ -5,6 +5,7 @@ const METHODS = [
   "verifyLogin",
   "getUserByUuid",
   "getUserByUsername",
+  "isHandleTaken",
   "isPremium",
   "searchUsers",
   "setPremium",

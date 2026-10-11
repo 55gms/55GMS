@@ -110,6 +110,17 @@ export function createPostgresAccounts({
       return user ? toPublicUser(user) : null;
     },
 
+    // Whether a handle already belongs to an account. One lookup on the
+    // unique username index, fetching no row data.
+    async isHandleTaken(handle) {
+      const user = await User.findOne({
+        attributes: ["uuid"],
+        where: { username: String(handle) },
+        raw: true,
+      });
+      return Boolean(user);
+    },
+
     async isPremium(uuid) {
       const user = await User.findByPk(String(uuid), {
         attributes: ["uuid", "premium"],
