@@ -90,7 +90,7 @@ turn a paid premium into a grant.
 `utils/features.js` gains `billing`:
 
     billing = accounts on the Postgres backend
-              AND STRIPE_SECRET_KEY AND STRIPE_WEBHOOK_SECRET
+              AND STRIPE (the secret key) AND STRIPE_WEBHOOK_SECRET
               AND ADMIN_TOKEN_SECRET
 
 `EXAMPLE.env` lists the two Stripe settings commented out, so a copied `.env`
@@ -222,7 +222,7 @@ Production, in live mode:
 1. Run `node scripts/add-billing.js` on production.
 2. Run `node scripts/setup-stripe.js --webhook https://<site>/api/stripe/webhook`
    with the live key.
-3. Put `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` in production's `.env`
+3. Put `STRIPE` (the secret key) and `STRIPE_WEBHOOK_SECRET` in production's `.env`
    (`ADMIN_TOKEN_SECRET` must already be there).
 4. Deploy. Until step 3 is done, the deployed code runs with billing off.
 

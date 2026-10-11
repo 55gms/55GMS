@@ -59,7 +59,7 @@ Also out of scope: Docker, Coolify, moving off pm2, any Caddy change.
 Server:
 
 - `* * * * * /root/cron/update.sh` runs `git pull`; `0 2 * * *
-  /root/cron/restart.sh` runs `pm2 reload 55gms`. No install, build or
+/root/cron/restart.sh` runs `pm2 reload 55gms`. No install, build or
   rollback.
 - pm2 runs `index.js` in cluster mode, 10 workers, port 8080, started by hand,
   no ecosystem file.
@@ -113,8 +113,8 @@ group `deploy-production`, `cancel-in-progress: false`. Jobs:
    `pull_request` trigger.
 2. `check`: checks out the tip of `main` (so a Prettier commit is included),
    sparse without `static/misc/`, `filter: blob:none`; `npm ci`; `node
-   --check` on the server JS and `bash -n` on the deploy scripts; `npm run
-   build`; asserts the built catalogue and a built page contain no readable
+--check` on the server JS and `bash -n` on the deploy scripts; `npm run
+build`; asserts the built catalogue and a built page contain no readable
    title / site text.
 3. `deploy`: SSHes to the server and sends `deploy <sha>` (the sha `check`
    verified). A `rollback` dispatch runs a `rollback` job that sends
@@ -135,7 +135,7 @@ no-agent-forwarding,no-X11-forwarding`, so it can only run the deploy.
   older than the pipeline).
 - `deploy/deploy.sh <sha>`: refuses to run over local changes; records the
   current commit; `git checkout --detach <sha>`; `npm install --omit=dev
-  --no-save` if `package-lock.json` changed (not `npm ci` — wiping
+--no-save` if `package-lock.json` changed (not `npm ci` — wiping
   `node_modules` would 404 the proxy bundles served from it); `npm run build`;
   reloads only when a non-static file changed, after a **preflight** boot of
   the new code on port 8099; health-checks `/` and a built page on 8080; on
@@ -255,7 +255,7 @@ go-ahead:
    to `static/` — the real reason is simply that the cron is being retired).
 3. Push; the workflow performs the first real deploy.
 4. If pm2 has not picked up `wait_ready`: `pm2 delete 55gms && pm2 start
-   ecosystem.config.cjs && pm2 save` (the one non-rolling restart).
+ecosystem.config.cjs && pm2 save` (the one non-rolling restart).
 5. With no git process running, delete `.git/objects/pack/tmp_pack_*`.
 
 Undo: restore the crontab from `/root/deploy/crontab.pre-cutover`.
@@ -279,8 +279,7 @@ Undo: restore the crontab from `/root/deploy/crontab.pre-cutover`.
 
 No new automated tests (user's standing instruction). The existing suites
 (`node --test`) must still pass against the built tree where relevant; the
-proxy suites are untouched because the proxy surface is excluded until phase
-5. Checked by hand:
+proxy suites are untouched because the proxy surface is excluded until phase 5. Checked by hand:
 
 - Locally: run `npm run build`; grep the built `g.json`, a built page and a
   built script for a known game title and for readable site text — none
