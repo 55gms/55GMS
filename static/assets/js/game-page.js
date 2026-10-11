@@ -16,6 +16,9 @@
   const GAME_RATIO = 1.8; // columns of the game for each of its rows
   const GAME_TALL_RATIO = 1.6; // the same, when the window has the height
   const ROWS_UNDER_GAME = 4; // at most: the game stays the main thing
+  const SHORT_ROWS = 4; // a window that fits no more gives them all to the game
+  const AD_FULL_WIDTH = 1700; // the window width at which an ad is its own size
+  const AD_MIN_SCALE = 0.6;
   const AD_MAX_SCALE = 1.15;
 
   const showAds = typeof adChoices !== "function" || adChoices().banners;
@@ -132,6 +135,15 @@
       rows: fitRows,
     } = pickCells(width - pad * 2, height, gap, stacked);
 
+    // Ads shrink with the window, so on a small screen they leave the room to
+    // the game. The tiles keep their size. A stacked page fits its ads to the
+    // cells it gives them.
+    const adScale = stacked
+      ? AD_MAX_SCALE
+      : Math.min(AD_MAX_SCALE, Math.max(AD_MIN_SCALE, width / AD_FULL_WIDTH));
+    const span = (count) => count * cell + (count - 1) * gap;
+    const cellsFor = (size) => (size + gap) / (cell + gap);
+
     const placed = { left: null, box: null, wide: null };
     const big = [null, null];
     let game;
@@ -149,20 +161,22 @@
       if (boxRows) placed.box = board.take(1, gameRows + 1, 3, 3);
       big[0] = board.take(1, gameRows + boxRows + 1, 2, 2);
       if (wanted(ads.wide)) {
-        const span = Math.min(8, cols);
-        const start = 1 + Math.floor((cols - span) / 2);
-        placed.wide = board.take(start, rows, span, 1);
+        const wide = Math.min(8, cols);
+        const start = 1 + Math.floor((cols - wide) / 2);
+        placed.wide = board.take(start, rows, wide, 1);
       }
     } else {
       // The game in the middle with as many columns to its left as to its
       // right (the right gets the odd one). A wide window has a skyscraper on
       // the left; the box ad and the big tiles go on the right.
       // The game gets about two thirds of the columns, and all but six in a
-      // wide window; a short window narrows it to keep its shape.
+      // wide window; a short window narrows it to keep its shape. The banner
+      // has the window's last row, unless the window is so short that the
+      // game needs it: then the banner is the first thing below the fold.
       const middle = Math.max(cols - 6, Math.round(cols * 0.66));
       const gameRows = Math.min(
         Math.max(3, Math.round(middle / GAME_TALL_RATIO)),
-        Math.max(3, fitRows - 1),
+        Math.max(3, fitRows > SHORT_ROWS ? fitRows - 1 : fitRows),
       );
       let gameCols = Math.min(
         middle,
@@ -171,12 +185,21 @@
       if ((cols - gameCols) % 2 && gameCols < middle) gameCols++;
       const leftCols = Math.floor((cols - gameCols) / 2);
       const left = wanted(ads.left) && cols >= 16 && leftCols >= 2;
-      // The box ad goes beside the game, or under it when the side is too
-      // narrow.
-      const boxBeside = cols - gameCols - leftCols >= 3;
+      // The box ad is two or three cells square, whichever is nearer its
+      // size in this window. It goes beside the game, or under it when the
+      // side is too narrow.
+      const rightCols = cols - gameCols - leftCols;
+      const boxSize =
+        rightCols === 2
+          ? 2
+          : Math.min(
+              3,
+              Math.max(2, Math.round(cellsFor(ads.box.width * adScale))),
+            );
+      const boxBeside = rightCols >= boxSize;
       const boxBelow = wanted(ads.box) && !boxBeside;
       rows = Math.min(
-        Math.max(fitRows, gameRows + (boxBelow ? 4 : 1)),
+        Math.max(fitRows, gameRows + (boxBelow ? boxSize + 1 : 1)),
         gameRows + ROWS_UNDER_GAME,
       );
       board = createBoard(cols, rows);
@@ -187,21 +210,29 @@
         placed.left = board.take(1, 1, 2, Math.min(rows - 1, 6));
       }
       if (wanted(ads.box)) {
-        placed.box = board.take(cols - 2, boxBeside ? 1 : gameRows + 1, 3, 3);
+        placed.box = board.take(
+          cols - boxSize + 1,
+          boxBeside ? 1 : gameRows + 1,
+          boxSize,
+          boxSize,
+        );
       }
       if (wanted(ads.wide)) {
-        const span = Math.min(8, cols);
-        const start = gameCol + Math.floor((gameCols - span) / 2);
+        const wide = Math.min(
+          cols,
+          Math.ceil(cellsFor(ads.wide.width * adScale)),
+        );
+        const start = gameCol + Math.floor((gameCols - wide) / 2);
         placed.wide = board.take(
-          Math.min(Math.max(1, start), cols - span + 1),
+          Math.min(Math.max(1, start), cols - wide + 1),
           rows,
-          span,
+          wide,
           1,
         );
       }
       // Big tiles keep clear of the last row, which is the banner's.
       const spots = [
-        [cols - 2, 4],
+        [cols - boxSize + 1, boxSize + 1],
         [side, 1],
         [1, 1],
         [cols - 1, 1],
@@ -219,7 +250,6 @@
     page.style.setProperty("--gap", `${gap}px`);
     page.classList.add("is-laid-out");
 
-    const span = (count) => count * cell + (count - 1) * gap;
     setArea(frame, game);
     // 1vw, as the bar and the border were drawn before the grid.
     const unit = Math.max(width / 100, phone ? 8 : 10);
@@ -237,7 +267,7 @@
       const scale = Math.min(
         span(area.cols) / ad.width,
         span(area.rows) / ad.height,
-        AD_MAX_SCALE,
+        adScale,
       );
       ad.fit.style.width = `${Math.floor(ad.width * scale)}px`;
       ad.fit.style.height = `${Math.floor(ad.height * scale)}px`;
