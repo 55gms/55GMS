@@ -232,6 +232,9 @@ function createGameCard(game) {
     control.type = "button";
     control.addEventListener("click", () => {
       recordGamePlayed(id);
+      if (typeof trackGamePlay === "function") {
+        trackGamePlay(game.name, "proxy");
+      }
       if (game.alert) window.alert(game.alert);
       hire(game.url);
     });
