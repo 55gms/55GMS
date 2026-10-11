@@ -460,32 +460,50 @@ h6 {
   flex: 1 1 auto;
   min-width: 0;
   width: auto;
+  height: 69px;
+  min-height: 69px;
+  box-sizing: border-box;
+  padding: 0 20px;
   margin: 0;
+  border-radius: 5px;
   transform: none;
   scale: 1;
 }
 
 .game-view-select {
-  flex: 0 0 auto;
+  flex: 0 0 230px;
+  width: 230px;
   max-width: 230px;
-  min-height: 51px;
-  padding: 10px 14px;
-  border: 1px solid var(--site-control-border, var(--site-border, #32415b));
-  border-radius: var(--site-radius-sm, 10px);
-  background: var(--site-input-bg, var(--site-surface, #506581));
+  height: 69px;
+  min-height: 69px;
+  box-sizing: border-box;
+  padding: 0 42px 0 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--site-input-bg, #2a3a5b);
   color: var(--site-input-text, var(--site-text, #fff));
-  box-shadow: 0 4px 12px var(--site-shadow, rgba(0, 0, 0, 0.18));
+  box-shadow: none;
   font: 500 0.95rem "Roboto", sans-serif;
   cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 14px;
+  outline: none;
+  transition: none;
 }
 
-.game-view-select:hover {
-  border-color: var(--site-control-border-hover, var(--site-accent, #f5b942));
-}
-
-.game-view-select:focus-visible {
-  outline: 2px solid var(--site-accent, #f5b942);
-  outline-offset: 2px;
+.game-view-select:hover,
+.game-view-select:focus,
+.game-view-select:focus-visible,
+.game-view-select:active {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: var(--site-input-bg, #2a3a5b);
 }
 
 .game-view-select option {
@@ -499,12 +517,15 @@ h6 {
     gap: 10px;
   }
 
-  .game-search-row .searchbar {
-    flex: auto;
+  .game-search-row .searchbar,
+  .game-search-row .searchbar:hover,
+  .game-search-row .searchbar:focus {
+    flex: 0 0 69px;
     width: 100%;
   }
 
   .game-view-select {
+    flex: 0 0 69px;
     width: 100%;
     max-width: none;
   }
@@ -523,25 +544,30 @@ h6 {
   border: 0;
   border-radius: 11px;
   color: var(--site-text, #ffffff);
-  background: color-mix(in srgb, var(--site-button, #263b57) 42%, transparent);
+  background: color-mix(in srgb, var(--site-button, #263b57) 32%, transparent);
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
-  transition: background-color 0.2s ease, transform 0.2s ease, opacity 0.18s ease;
+  transform: scale(1) translateY(0);
+  transition:
+    background-color 0.35s ease,
+    transform 0.35s ease,
+    opacity 0.35s ease;
 }
 
 .game:hover .game-favorite,
 .game:focus-within .game-favorite {
   opacity: 0.78;
   pointer-events: auto;
+  transform: scale(1.05) translateY(-0.2vw);
 }
 
 .game-favorite:hover {
-  transform: scale(1.1);
-  background: color-mix(in srgb, var(--site-button-hover, #334b6a) 60%, transparent);
   opacity: 0.95;
+  transform: scale(1.05) translateY(-0.2vw);
+  background: color-mix(in srgb, var(--site-button-hover, #334b6a) 48%, transparent);
 }
 
 .game-favorite.is-favorite {
@@ -556,7 +582,7 @@ h6 {
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  transition: fill 0.2s ease;
+  transition: fill 0.35s ease, transform 0.35s ease;
 }
 
 .game-favorite.is-favorite svg {
@@ -564,8 +590,7 @@ h6 {
 }
 
 .game-favorite:focus-visible {
-  outline: 3px solid var(--site-text, white);
-  outline-offset: 3px;
+  outline: none;
 }
 
 .game-empty {
@@ -607,7 +632,10 @@ h6 {
     transition: none;
   }
 
-  .game-favorite:hover {
+  .game:hover .game-favorite,
+  .game:focus-within .game-favorite,
+  .game-favorite:hover,
+  .game-favorite {
     transform: none;
   }
 }
