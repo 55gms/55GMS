@@ -1,13 +1,7 @@
-// 55GMS browser shell.
-//
-// Each tab owns an outer iframe pointing at /embed.html, which hosts the
-// page frame for that tab. The shell talks to embed.html over a
-// postMessage bridge:
-//   shell -> embed: { type: "browser:command", command, url }
-//   embed -> shell: { type: "browser:<event>", ... }  (see handleBridgeMessage)
 (() => {
   const STORAGE_KEY = "55gms:browser";
   const DOCK_KEY = "55gms:browser:dock";
+  const BOOKMARKS_KEY = "55gms:browser:bookmarks";
   const MAX_CLOSED = 15;
   const SEARCH_URL = "https://duckduckgo.com/?q=";
   const NEW_TAB_TITLE = "New Tab";
@@ -81,6 +75,11 @@
     back: $("btn-back"),
     forward: $("btn-forward"),
     reload: $("btn-reload"),
+    bookmarkBtn: $("btn-bookmark"),
+    bookmarkPanel: $("bookmark-panel"),
+    bookmarkList: $("bookmark-list"),
+    bookmarkClose: $("bookmark-panel-close"),
+    tabContext: $("tab-context-menu"),
     menuBtn: $("btn-menu"),
     menu: $("menu"),
     omnibox: $("omnibox"),
@@ -91,16 +90,11 @@
     toasts: $("toasts"),
   };
 
-  // ======================================================================
-  // URL handling
-  // ======================================================================
-
   const IPV4 = /^(\d{1,3}\.){3}\d{1,3}(:\d+)?(\/.*)?$/;
   const LOCALHOST = /^localhost(:\d+)?(\/.*)?$/i;
   const DOMAIN = /^([a-z\d]([a-z\d-]*[a-z\d])?\.)+[a-z]{2,}(:\d+)?([/?#].*)?$/i;
   const HAS_SCHEME = /^[a-z][a-z\d+.-]*:/i;
 
-  // Turns omnibox text into { url } or { error }.
   function resolveInput(raw) {
     const text = raw.trim();
     if (!text) return { error: "empty" };
@@ -124,9 +118,7 @@
       if (DOMAIN.test(text)) {
         try {
           return { url: new URL("https://" + text).href };
-        } catch {
-          /* fall through to search */
-        }
+        } catch {}
       }
     }
 
@@ -141,30 +133,10 @@
     }
   }
 
-  // ======================================================================
-  // State
-  // ======================================================================
-
-  /** @type {Array<Tab>} */
   const tabs = [];
   let activeId = null;
   let nextId = 1;
   let closedTabs = [];
-
-  /**
-   * @typedef {Object} Tab
-   * @property {string} id
-   * @property {string} url        Real page URL, "" for the new-tab page
-   * @property {string} title
-   * @property {string} favicon
-   * @property {boolean} loading
-   * @property {boolean} canGoBack
-   * @property {boolean} canGoForward
-   * @property {?{kind: string, message: string}} error
-   * @property {?HTMLIFrameElement} iframe  Created lazily on first navigation/activation
-   * @property {boolean} ready     Embed bridge is listening for commands
-   * @property {HTMLElement} node  Tab strip element
-   */
 
   const getTab = (id) => tabs.find((t) => t.id === id);
   const activeTab = () => getTab(activeId);
@@ -180,22 +152,19 @@
           STORAGE_KEY,
           JSON.stringify({
             active: tabs.findIndex((t) => t.id === activeId),
-            tabs: tabs.map(({ url, title, favicon }) => ({
+            tabs: tabs.map(({ url, title, favicon, pinned }) => ({
               url,
               title,
               favicon,
+              pinned: !!pinned,
             })),
             closed: closedTabs,
           }),
         );
-      } catch {
-        /* storage full or blocked; session restore is best-effort */
-      }
+      } catch {}
     });
   }
 
-  // Tabs only survive a reload. Leaving the page closes them, so coming back
-  // (or being handed a URL by another page) starts with a clean strip.
   function loadSession() {
     try {
       const [entry] = performance.getEntriesByType("navigation");
@@ -207,10 +176,6 @@
       return null;
     }
   }
-
-  // ======================================================================
-  // Tab strip
-  // ======================================================================
 
   function createTabNode(tab) {
     const node = document.createElement("div");
@@ -235,7 +200,6 @@
       { once: true },
     );
 
-    // Page favicon failed -> fall back to a globe.
     node.querySelector(".tab-favicon").addEventListener("error", (e) => {
       if (e.currentTarget.dataset.src)
         tab.failedIcons.add(e.currentTarget.dataset.src);
@@ -243,7 +207,6 @@
     });
 
     node.addEventListener("mousedown", (e) => {
-      // Middle click closes, like every desktop browser.
       if (e.button === 1) e.preventDefault();
     });
     node.addEventListener("auxclick", (e) => {
@@ -258,11 +221,28 @@
       closeTab(tab.id);
     });
     node.addEventListener("keydown", onTabKeydown);
+    node.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      showTabContext(tab, e.clientX, e.clientY);
+    });
+    node.addEventListener("pointerdown", (e) => beginTabDrag(e, tab));
+    node.addEventListener(
+      "click",
+      (e) => {
+        if (node.dataset.suppressClick === "true") {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          delete node.dataset.suppressClick;
+        }
+      },
+      true,
+    );
     return node;
   }
 
   function renderTab(tab) {
     const { node } = tab;
+    node.classList.toggle("pinned", !!tab.pinned);
     const title =
       tab.title ||
       (tab.url ? hostnameOf(tab.url) : NEW_TAB_TITLE) ||
@@ -337,7 +317,6 @@
     }
   }
 
-  // Vertical wheel scrolls the tab strip horizontally when it overflows.
   el.tabsScroller.addEventListener(
     "wheel",
     (e) => {
@@ -352,22 +331,20 @@
     { passive: false },
   );
 
-  // ======================================================================
-  // Tab lifecycle
-  // ======================================================================
-
   function createTab({
     url = "",
     title = "",
     favicon = "",
     activate = true,
     index = tabs.length,
+    pinned = false,
   } = {}) {
     const tab = {
       id: String(nextId++),
       url,
       title,
       favicon,
+      pinned: !!pinned,
       loading: false,
       canGoBack: false,
       canGoForward: false,
@@ -378,6 +355,8 @@
       node: null,
     };
     tab.node = createTabNode(tab);
+    const pinCount = tabs.filter((t) => t.pinned).length;
+    index = tab.pinned ? Math.min(index, pinCount) : Math.max(index, pinCount);
     tabs.splice(index, 0, tab);
     el.tabs.insertBefore(tab.node, el.tabs.children[index] || null);
     renderTab(tab);
@@ -386,8 +365,6 @@
     return tab;
   }
 
-  // The embed takes its target as an opaque token, so the address never
-  // appears in the frame's own URL. Must match /assets/js/frame-runtime.js.
   function frameHash(url) {
     const bytes = new TextEncoder().encode(url);
     let out = "";
@@ -453,6 +430,7 @@
         url: tab.url,
         title: tab.title,
         favicon: tab.favicon,
+        pinned: tab.pinned,
         index,
       });
       if (closedTabs.length > MAX_CLOSED) closedTabs.shift();
@@ -464,7 +442,6 @@
       createTab();
       focusOmnibox();
     } else if (id === activeId) {
-      // Prefer the tab that slid into this slot, else the one to the left.
       activeId = null;
       activateTab((tabs[index] || tabs[index - 1]).id);
     }
@@ -482,10 +459,6 @@
     activateTab(tabs[(index + delta + tabs.length) % tabs.length].id);
   }
 
-  // ======================================================================
-  // Navigation + bridge
-  // ======================================================================
-
   function sendCommand(tab, command, extra = {}) {
     if (!tab.iframe || !tab.ready) return false;
     tab.iframe.contentWindow.postMessage(
@@ -496,7 +469,6 @@
   }
 
   function navigate(tab, url) {
-    // An embed whose transport never came up can't take commands; start it over.
     if (tab.iframe && tab.error && tab.error.kind === "transport") {
       tab.iframe.remove();
       tab.iframe = null;
@@ -510,7 +482,6 @@
     if (!tab.iframe) {
       ensureFrame(tab);
     } else if (!sendCommand(tab, "go", { url })) {
-      // Embed is still booting: a hash change is picked up by its hashchange listener.
       tab.iframe.contentWindow.location.hash = frameHash(url);
     }
     renderTab(tab);
@@ -565,7 +536,6 @@
           opened.popupId = data.popupId;
         }
         ensureFrame(opened);
-        // Keyboard focus would otherwise stay in the now-hidden opener.
         if (data.activate !== false) focusFrame(opened);
         return;
       }
@@ -604,7 +574,6 @@
       case "browser:urlchange":
         if (data.url && data.url !== tab.url) {
           tab.url = data.url;
-          // A new document gets a new favicon; keep the title until the page reports one.
           tab.favicon = "";
         }
         break;
@@ -638,24 +607,18 @@
     }
 
     renderTab(tab);
-    // Background tabs only update their own tab; the omnibox and nav state
-    // always reflect the active tab.
     if (tab.id === activeId) syncChrome();
     saveSession();
   }
 
   window.addEventListener("message", handleBridgeMessage);
 
-  // ======================================================================
-  // Chrome sync (omnibox, nav buttons, progress, NTP, banner)
-  // ======================================================================
-
   let progressState = "idle";
 
   function setProgress(loading) {
     if (loading && progressState !== "running") {
       el.progress.classList.remove("done");
-      void el.progress.offsetWidth; // restart the animation
+      void el.progress.offsetWidth;
       el.progress.classList.add("running");
       progressState = "running";
     } else if (!loading && progressState === "running") {
@@ -683,6 +646,7 @@
       tab.loading ? "Stop loading" : "Reload",
     );
     el.reload.title = tab.loading ? "Stop" : "Reload";
+    updateBookmarkButton();
 
     setProgress(tab.loading && !!tab.url);
     el.ntp.hidden = !!tab.url;
@@ -704,10 +668,6 @@
     el.inputIcon.classList.toggle("secure", secure);
     el.inputIcon.querySelector("use").setAttribute("href", "#i-" + name);
   }
-
-  // ======================================================================
-  // Omnibox + autocomplete
-  // ======================================================================
 
   let typedValue = "";
   let suggestionItems = [];
@@ -780,7 +740,6 @@
           hint.textContent = item.hint;
           li.append(hint);
         }
-        // mousedown keeps focus in the input so blur doesn't close the list first.
         li.addEventListener("mousedown", (e) => e.preventDefault());
         li.addEventListener("click", () => commitSuggestion(item));
         return li;
@@ -813,7 +772,6 @@
         if (err.name === "AbortError") return;
         console.warn("Autocomplete error:", err);
       }
-      // Ignore late responses for text the user has since changed.
       if (document.activeElement === el.input && typedValue === query)
         renderSuggestions(query, phrases);
     }, 90);
@@ -853,7 +811,6 @@
 
   el.input.addEventListener("focus", () => {
     typedValue = el.input.value;
-    // Select on the next frame so the click that focused the input doesn't collapse the selection.
     requestAnimationFrame(() => {
       if (document.activeElement === el.input) el.input.select();
     });
@@ -862,7 +819,6 @@
   el.input.addEventListener("blur", () => {
     closeSuggestions();
     const tab = activeTab();
-    // Revert unsubmitted edits so the bar keeps showing the real URL.
     if (tab) {
       el.input.value = tab.url;
       updateOmniboxIcon(tab.url);
@@ -871,7 +827,6 @@
 
   el.input.addEventListener("keydown", (e) => {
     const open = !el.suggestions.hidden && suggestionItems.length > 0;
-    // The list is rendered bottom-up, so ArrowUp moves away from the input.
     if (e.key === "ArrowUp" && open) {
       e.preventDefault();
       selectSuggestion(Math.min(selectedIndex + 1, suggestionItems.length - 1));
@@ -899,10 +854,6 @@
     closeSuggestions();
     if (navigateActive(el.input.value)) el.input.blur();
   });
-
-  // ======================================================================
-  // Nav buttons
-  // ======================================================================
 
   function goBack() {
     const tab = activeTab();
@@ -932,7 +883,6 @@
     if (!tab.url) return;
     tab.error = null;
     if (!sendCommand(tab, "reload")) {
-      // Bridge not up (e.g. the transport failed): reload the whole embed.
       if (tab.iframe) tab.iframe.remove();
       tab.iframe = null;
       ensureFrame(tab);
@@ -961,10 +911,6 @@
     syncChrome();
   });
 
-  // ======================================================================
-  // Overflow menu
-  // ======================================================================
-
   const modLabel = IS_MAC ? "⌘" : "Ctrl+";
   el.menu.querySelectorAll("kbd[data-kbd]").forEach((kbd) => {
     kbd.textContent =
@@ -985,7 +931,12 @@
     item("restore-tab").disabled = closedTabs.length === 0;
     item("forward").disabled = !tab || !tab.canGoForward;
     item("copy-link").disabled = !tab || !tab.url;
-    item("fullscreen").disabled = !tab || !tab.iframe;
+    item("pin").disabled = !tab;
+    $("menu-pin-label").textContent = tab?.pinned ? "Unpin tab" : "Pin tab";
+    item("fullscreen").disabled = false;
+    $("menu-fullscreen-label").textContent = document.fullscreenElement
+      ? "Unfullscreen"
+      : "Fullscreen page";
     item("devtools").disabled = !tab || !tab.ready;
   }
 
@@ -1031,6 +982,12 @@
     closeMenu();
     const tab = activeTab();
     switch (item.dataset.action) {
+      case "bookmarks":
+        toggleBookmarkPanel();
+        break;
+      case "pin":
+        setTabPinned(tab, !tab.pinned);
+        break;
       case "new-tab":
         createTab();
         focusOmnibox();
@@ -1050,10 +1007,11 @@
         }
         break;
       case "fullscreen":
-        if (tab.iframe && tab.iframe.requestFullscreen) {
-          tab.iframe
-            .requestFullscreen()
-            .catch(() => toast("Fullscreen isn't available"));
+        try {
+          if (document.fullscreenElement) await document.exitFullscreen();
+          else await document.documentElement.requestFullscreen();
+        } catch {
+          toast("Fullscreen isn't available");
         }
         break;
       case "devtools":
@@ -1065,19 +1023,17 @@
   document.addEventListener("pointerdown", (e) => {
     if (!el.menu.hidden && !e.target.closest(".menu-anchor")) closeMenu();
   });
+  document.addEventListener("fullscreenchange", () => {
+    $("menu-fullscreen-label").textContent = document.fullscreenElement
+      ? "Unfullscreen"
+      : "Fullscreen page";
+  });
 
-  // Clicking into a page moves focus into its iframe: close any popups.
   window.addEventListener("blur", () => {
     closeMenu();
     if (document.activeElement !== el.input) closeSuggestions();
   });
 
-  // ======================================================================
-  // Dock collapse
-  // ======================================================================
-
-  // The dock's clip box hides content while it animates; popups (menu,
-  // suggestions) need to overflow it, so only unclip once it's settled open.
   function setPopupOverflow(on) {
     el.dockClip.classList.toggle(
       "overflow-visible",
@@ -1104,9 +1060,7 @@
     if (persist) {
       try {
         localStorage.setItem(DOCK_KEY, collapsed ? "collapsed" : "open");
-      } catch {
-        /* ignore */
-      }
+      } catch {}
     }
   }
 
@@ -1119,12 +1073,6 @@
     el.input.focus();
   });
 
-  // ======================================================================
-  // Keyboard shortcuts
-  // ======================================================================
-
-  // Shared by the shell's own keydown handler and shortcuts forwarded from
-  // pages (browser:shortcut). Returns true when handled.
   function handleShortcut(e) {
     const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
     const mod = IS_MAC ? e.metaKey || e.ctrlKey : e.ctrlKey;
@@ -1189,10 +1137,6 @@
     true,
   );
 
-  // ======================================================================
-  // Toasts
-  // ======================================================================
-
   function toast(message) {
     const node = document.createElement("div");
     node.className = "toast";
@@ -1203,10 +1147,6 @@
       setTimeout(() => node.remove(), 200);
     }, 2400);
   }
-
-  // ======================================================================
-  // New tab page
-  // ======================================================================
 
   el.ntpShortcuts.replaceChildren(
     ...SHORTCUTS.map(({ title, url, img }) => {
@@ -1224,9 +1164,301 @@
     }),
   );
 
-  // ======================================================================
-  // Boot
-  // ======================================================================
+  let bookmarks = readBookmarks();
+
+  function readBookmarks() {
+    try {
+      const stored = JSON.parse(localStorage.getItem(BOOKMARKS_KEY) || "[]");
+      return Array.isArray(stored)
+        ? stored.filter((x) => x && typeof x.url === "string").slice(0, 200)
+        : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveBookmarks() {
+    try {
+      localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(bookmarks));
+    } catch {}
+  }
+
+  function updateBookmarkButton() {
+    const tab = activeTab();
+    const marked = !!tab?.url && bookmarks.some((b) => b.url === tab.url);
+    el.bookmarkBtn.disabled = !tab?.url;
+    el.bookmarkBtn.classList.toggle("is-bookmarked", marked);
+    el.bookmarkBtn.setAttribute(
+      "aria-label",
+      marked ? "Remove bookmark" : "Bookmark this page",
+    );
+    el.bookmarkBtn.title = marked ? "Remove bookmark" : "Bookmark this page";
+  }
+
+  function toggleBookmark() {
+    const tab = activeTab();
+    if (!tab?.url) return;
+    const idx = bookmarks.findIndex((b) => b.url === tab.url);
+    if (idx !== -1) bookmarks.splice(idx, 1);
+    else
+      bookmarks.unshift({
+        url: tab.url,
+        title: tab.title || hostnameOf(tab.url),
+      });
+    saveBookmarks();
+    updateBookmarkButton();
+    renderBookmarks();
+    toast(idx === -1 ? "Bookmark saved" : "Bookmark removed");
+  }
+
+  function renderBookmarks() {
+    el.bookmarkList.replaceChildren();
+    if (!bookmarks.length) {
+      const empty = document.createElement("div");
+      empty.className = "bookmark-empty";
+      empty.textContent = "No bookmarks yet";
+      el.bookmarkList.append(empty);
+      return;
+    }
+    for (const item of bookmarks) {
+      const row = document.createElement("div");
+      row.className = "bookmark-entry";
+      const open = document.createElement("button");
+      open.type = "button";
+      open.className = "bookmark-open";
+      const name = document.createElement("strong");
+      const address = document.createElement("small");
+      name.textContent = item.title || hostnameOf(item.url);
+      address.textContent = item.url;
+      open.append(name, address);
+      open.addEventListener("click", () => {
+        const tab = activeTab() || createTab();
+        navigate(tab, item.url);
+        el.bookmarkPanel.hidden = true;
+      });
+      const remove = document.createElement("button");
+      remove.className = "icon-btn icon-btn-sm bookmark-remove";
+      remove.type = "button";
+      remove.setAttribute("aria-label", `Remove ${name.textContent} bookmark`);
+      remove.innerHTML =
+        '<svg class="icon" aria-hidden="true"><use href="#i-x" /></svg>';
+      remove.addEventListener("click", () => {
+        bookmarks = bookmarks.filter((b) => b.url !== item.url);
+        saveBookmarks();
+        updateBookmarkButton();
+        renderBookmarks();
+      });
+      row.append(open, remove);
+      el.bookmarkList.append(row);
+    }
+  }
+
+  function toggleBookmarkPanel() {
+    el.bookmarkPanel.hidden = !el.bookmarkPanel.hidden;
+    if (!el.bookmarkPanel.hidden) renderBookmarks();
+    el.tabContext.hidden = true;
+  }
+
+  el.bookmarkBtn.addEventListener("click", toggleBookmark);
+  el.bookmarkClose.addEventListener(
+    "click",
+    () => (el.bookmarkPanel.hidden = true),
+  );
+  document.addEventListener("pointerdown", (e) => {
+    if (
+      !el.bookmarkPanel.hidden &&
+      !el.bookmarkPanel.contains(e.target) &&
+      !e.target.closest('[data-action="bookmarks"]')
+    )
+      el.bookmarkPanel.hidden = true;
+    if (!el.tabContext.hidden && !el.tabContext.contains(e.target))
+      el.tabContext.hidden = true;
+  });
+
+  function moveTab(tab, nextIndex) {
+    const index = tabs.indexOf(tab);
+    if (
+      index < 0 ||
+      nextIndex < 0 ||
+      nextIndex >= tabs.length ||
+      index === nextIndex
+    )
+      return;
+    const other = tabs[nextIndex];
+    if (other.pinned !== tab.pinned) tab.pinned = other.pinned;
+    tabs.splice(index, 1);
+    tabs.splice(nextIndex, 0, tab);
+    el.tabs.append(...tabs.map((t) => t.node));
+    renderTab(tab);
+    saveSession();
+  }
+
+  function setTabPinned(tab, value) {
+    if (tab.pinned === value) return;
+    const index = tabs.indexOf(tab);
+    if (index < 0) return;
+    tabs.splice(index, 1);
+    tab.pinned = value;
+    const destination = tabs.filter((t) => t.pinned).length;
+    tabs.splice(destination, 0, tab);
+    el.tabs.append(...tabs.map((t) => t.node));
+    renderTab(tab);
+    saveSession();
+  }
+
+  function showTabContext(tab, x, y) {
+    const panel = el.tabContext;
+    panel.replaceChildren();
+    const index = tabs.indexOf(tab);
+    const entries = [
+      {
+        label: "Move tab left",
+        icon: "arrow-left",
+        enabled: index > 0,
+        action: () => moveTab(tab, index - 1),
+      },
+      {
+        label: "Move tab right",
+        icon: "arrow-right",
+        enabled: index < tabs.length - 1,
+        action: () => moveTab(tab, index + 1),
+      },
+      {
+        label: tab.pinned ? "Unpin tab" : "Pin tab",
+        icon: "pin",
+        enabled: true,
+        action: () => setTabPinned(tab, !tab.pinned),
+      },
+      {
+        label: bookmarks.some((b) => b.url === tab.url)
+          ? "Remove bookmark"
+          : "Bookmark tab",
+        icon: "star",
+        enabled: !!tab.url,
+        action: () => {
+          const index = bookmarks.findIndex((b) => b.url === tab.url);
+          if (index !== -1) bookmarks.splice(index, 1);
+          else
+            bookmarks.unshift({
+              url: tab.url,
+              title: tab.title || hostnameOf(tab.url),
+            });
+          saveBookmarks();
+          updateBookmarkButton();
+          renderBookmarks();
+        },
+      },
+      {
+        label: "Close tab",
+        icon: "x",
+        enabled: true,
+        action: () => closeTab(tab.id),
+      },
+    ];
+    for (const entry of entries) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "tab-context-action";
+      button.disabled = !entry.enabled;
+      const icon = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg",
+      );
+      icon.setAttribute("class", "icon");
+      icon.setAttribute("aria-hidden", "true");
+      const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+      use.setAttribute("href", "#i-" + entry.icon);
+      icon.appendChild(use);
+      const label = document.createElement("span");
+      label.textContent = entry.label;
+      button.append(icon, label);
+      button.addEventListener("click", () => {
+        panel.hidden = true;
+        entry.action();
+      });
+      panel.appendChild(button);
+    }
+    panel.hidden = false;
+    panel.style.left =
+      Math.max(5, Math.min(x, innerWidth - panel.offsetWidth - 5)) + "px";
+    panel.style.top =
+      Math.max(5, Math.min(y, innerHeight - panel.offsetHeight - 5)) + "px";
+    el.bookmarkPanel.hidden = true;
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !el.tabContext.hidden) {
+      el.tabContext.hidden = true;
+      activeTab()?.node.focus();
+    }
+  });
+
+  function beginTabDrag(e, tab) {
+    if (e.button !== 0 || e.target.closest(".tab-close")) return;
+    el.tabContext.hidden = true;
+    const node = tab.node;
+    const startX = e.clientX;
+    const originalLeft = node.getBoundingClientRect().left;
+    let dragging = false;
+    let lastX = startX;
+    const move = (ev) => {
+      if (ev.pointerId !== e.pointerId) return;
+      lastX = ev.clientX;
+      if (!dragging && Math.abs(lastX - startX) < 6) return;
+      if (!dragging) {
+        dragging = true;
+        document.body.classList.add("is-dragging-tabs");
+        el.tabs.classList.add("is-reordering");
+        node.classList.add("dragging");
+      }
+      ev.preventDefault();
+      let i = tabs.indexOf(tab);
+      const delta = lastX - startX;
+      const desiredCenter = originalLeft + delta + node.offsetWidth / 2;
+      const next = tabs[i + 1];
+      const prev = tabs[i - 1];
+      if (
+        next &&
+        desiredCenter >
+          next.node.getBoundingClientRect().left + next.node.offsetWidth / 2
+      ) {
+        moveTab(tab, i + 1);
+      } else if (
+        prev &&
+        desiredCenter <
+          prev.node.getBoundingClientRect().left + prev.node.offsetWidth / 2
+      ) {
+        moveTab(tab, i - 1);
+      }
+      const ownLeft =
+        node.getBoundingClientRect().left -
+        (parseFloat(node.style.getPropertyValue("--tab-drag-x")) || 0);
+      const x = originalLeft + delta - ownLeft;
+      node.style.setProperty("--tab-drag-x", `${x}px`);
+      node.style.transform = `translate3d(${x}px,-2px,0)`;
+    };
+    const end = (ev) => {
+      if (ev.pointerId !== e.pointerId) return;
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", end);
+      window.removeEventListener("pointercancel", end);
+      if (dragging) {
+        node.dataset.suppressClick = "true";
+        document.body.classList.remove("is-dragging-tabs");
+        el.tabs.classList.remove("is-reordering");
+        node.classList.remove("dragging");
+        node.style.transform = "";
+        node.style.removeProperty("--tab-drag-x");
+        saveSession();
+        setTimeout(() => {
+          delete node.dataset.suppressClick;
+        }, 0);
+      }
+    };
+    window.addEventListener("pointermove", move, { passive: false });
+    window.addEventListener("pointerup", end);
+    window.addEventListener("pointercancel", end);
+  }
 
   function boot() {
     const session = loadSession();
@@ -1240,24 +1472,24 @@
             url: saved.url,
             title: saved.title || "",
             favicon: saved.favicon || "",
+            pinned: !!saved.pinned,
             activate: false,
           });
         }
       }
     }
 
-    // hire() on other pages hands us a URL through sessionStorage.
     let incoming = null;
     try {
       incoming = sessionStorage.getItem("encodedUrl");
       sessionStorage.removeItem("encodedUrl");
-    } catch {
-      /* ignore */
-    }
+    } catch {}
 
     if (incoming) {
       const result = resolveInput(incoming);
       createTab({ url: result.url || "" });
+    } else if (tabs.length > 0 && !session) {
+      createTab();
     } else if (tabs.length > 0) {
       const index = Math.min(Math.max(session.active | 0, 0), tabs.length - 1);
       activateTab(tabs[index].id);
@@ -1268,9 +1500,7 @@
     let dockState = null;
     try {
       dockState = localStorage.getItem(DOCK_KEY);
-    } catch {
-      /* ignore */
-    }
+    } catch {}
     setDockCollapsed(dockState === "collapsed", {
       persist: false,
       animate: false,
