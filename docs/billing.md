@@ -86,8 +86,7 @@ and the line above the pay button on every session, so nothing needs
 setting in the dashboard. The panel is the site's default blue
 (`--site-bg`) and the button the premium icon's cyan. Stripe
 takes the icon and the product image only as PNG, JPG or SVG, which is why
-`static/img/premium.png` exists beside the WebP. It is 640px wide because
-Stripe shows the product image large in the summary panel; both are fetched from
+`static/img/premium.png` exists beside the WebP; both are fetched from
 `https://55gms.com/img/premium.png` whichever domain the buyer is on.
 
 Checkout sends the buyer back to the domain they were on, so every mirror
