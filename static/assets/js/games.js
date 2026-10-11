@@ -1,376 +1,677 @@
-const PRIORITY_THUMBNAILS = 24;
-const FAVORITES_KEY = "55gms.favoriteGames.v1";
-const RECENT_KEY = "55gms.recentGames.v1";
-const RECENT_LIMIT = 24;
-let loadingFadeTimer;
-let loadingHideTimer;
-let progressFrame = 0;
-let progressShown = 0;
-let gameCards = [];
-let activeGameView = "all";
-let orderedGameView = "all";
-let favoriteGameIds = new Set(readStoredIds(FAVORITES_KEY));
-let recentGameIds = readStoredIds(RECENT_KEY).slice(0, RECENT_LIMIT);
 
-function readStoredIds(key) {
-  try {
-    const value = JSON.parse(localStorage.getItem(key) || "[]");
-    return Array.isArray(value)
-      ? value.filter((item) => typeof item === "string")
-      : [];
-  } catch {
-    return [];
-  }
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
 }
 
-function writeStoredIds(key, values) {
-  try {
-    localStorage.setItem(key, JSON.stringify(values));
-  } catch {}
+body,
+h1,
+h3,
+h4,
+h5,
+text,
+h6 {
+  font-family: "Roboto", serif;
+  text-align: center;
+  font-weight: 400;
+  color: var(--site-text, #faf9f6);
 }
 
-function gameId(game) {
-  return `${game.name}|${game.url || game.image || game.author || ""}`;
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 15px;
+  transition:
+    opacity 0.3s ease,
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.12s,
+    margin 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
 }
 
-async function readCatalogue(response) {
-  const text = (await response.text()).trim();
-  if (text[0] === "[" || text[0] === "{") return JSON.parse(text);
-  const raw = atob(text.replace(/-/g, "+").replace(/_/g, "/"));
-  const bytes = new Uint8Array(raw.length - 16);
-  for (let i = 0; i < bytes.length; i++) {
-    bytes[i] = raw.charCodeAt(i + 16) ^ raw.charCodeAt(i % 16);
-  }
-  return JSON.parse(new TextDecoder().decode(bytes));
+.loading-container.is-leaving {
+  margin: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px) scale(0.97);
+  pointer-events: none;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("retry-games")?.addEventListener("click", loadGames);
-  document
-    .getElementById("game-view-select")
-    ?.addEventListener("change", (event) => {
-      activeGameView = event.target.value;
-      applyGameFilters();
-    });
-  document
-    .querySelector(".searchbar")
-    ?.addEventListener("input", applyGameFilters);
-  window.addEventListener("storage", (event) => {
-    if (event.key === FAVORITES_KEY || event.key === RECENT_KEY) {
-      favoriteGameIds = new Set(readStoredIds(FAVORITES_KEY));
-      recentGameIds = readStoredIds(RECENT_KEY).slice(0, RECENT_LIMIT);
-      gameCards.forEach(updateFavoriteButton);
-      applyGameFilters();
-    }
-  });
-  loadGames();
-});
-
-async function loadGames() {
-  const gameContainer = document.getElementById("game-container");
-  const loadingContainer = document.getElementById("loading-container");
-  const progressBar = document.getElementById("progress-bar");
-  const progressPercentage = document.getElementById("progress-percentage");
-  const loadingText = document.getElementById("loading-text");
-  const retryButton = document.getElementById("retry-games");
-
-  clearTimeout(loadingFadeTimer);
-  clearTimeout(loadingHideTimer);
-  gameCards = [];
-  orderedGameView = "all";
-  gameContainer.replaceChildren();
-  document.getElementById("game-empty").hidden = true;
-  loadingContainer.classList.remove("is-leaving");
-  loadingContainer.style.height = "";
-  loadingContainer.style.display = "flex";
-  loadingText.textContent = "Loading games…";
-  progressShown = 0;
-  drawProgress();
-  retryButton.hidden = true;
-  glideProgress(0.85, 700);
-
-  try {
-    const response = await fetch("/assets/json/load/g.json");
-    if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`);
-    }
-
-    const games = await readCatalogue(response);
-    games.sort((a, b) => a.name.localeCompare(b.name));
-
-    const cards = games.map(createGameCard).filter(Boolean);
-    const fragment = document.createDocumentFragment();
-    cards.forEach(({ card, image, imageUrl }, index) => {
-      if (index < PRIORITY_THUMBNAILS) image.fetchPriority = "high";
-      image.addEventListener(
-        "error",
-        () => card.classList.add("game-image-error"),
-        { once: true },
-      );
-      image.src = imageUrl;
-      fragment.appendChild(card);
-    });
-
-    gameCards = cards;
-    gameContainer.appendChild(fragment);
-
-    const searchbar = document.querySelector(".searchbar");
-    if (searchbar) {
-      searchbar.placeholder = `Click here or type to search through our ${games.length} games!`;
-    }
-    applyGameFilters();
-    animateFirstScreen(cards);
-
-    await glideProgress(1, 110);
-    finishLoading(cards.length);
-  } catch (error) {
-    cancelAnimationFrame(progressFrame);
-    loadingText.textContent =
-      "Unable to load games. Check your connection and try again.";
-    progressPercentage.textContent = "Load failed";
-    retryButton.hidden = false;
-    console.error("Error loading games:", error);
-  }
+#game-container {
+  margin-top: 32px;
 }
 
-function animateFirstScreen(cards) {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  requestAnimationFrame(() => {
-    const rows = [];
-    const viewportHeight = window.innerHeight;
-    cards.forEach(({ card }) => {
-      if (card.style.display === "none") return;
-      const box = card.getBoundingClientRect();
-      if (box.top >= viewportHeight || box.bottom <= 0) return;
-      let rowIndex = rows.findIndex((top) => Math.abs(top - box.top) < 8);
-      if (rowIndex < 0) {
-        rowIndex = rows.length;
-        rows.push(box.top);
-      }
-      card.style.setProperty("--load-delay", `${rowIndex * 110}ms`);
-      card.classList.add("game-first-load");
-      card.addEventListener(
-        "animationend",
-        () => {
-          card.classList.remove("game-first-load");
-          card.style.removeProperty("--load-delay");
-        },
-        { once: true },
-      );
-    });
-  });
+.loading-text {
+  font-family: "Roboto", serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--site-text, #faf9f6);
+  opacity: 0.9;
 }
 
-function drawProgress() {
-  const progressBar = document.getElementById("progress-bar");
-  const whole = Math.floor(progressShown * 100 + 0.01);
-  progressBar.style.width = `${progressShown * 100}%`;
-  progressBar.setAttribute("aria-valuenow", whole);
-  document.getElementById("progress-percentage").textContent = `${whole}%`;
+.progress-bar-container {
+  width: 400px;
+  height: 12px;
+  background: color-mix(in srgb, var(--site-surface, #7a8fab) 35%, transparent);
+  border-radius: var(--site-radius-sm, 10px);
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid
+    color-mix(in srgb, var(--site-surface, #7a8fab) 60%, transparent);
 }
 
-function glideProgress(target, pace) {
-  cancelAnimationFrame(progressFrame);
-  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  return new Promise((resolve) => {
-    let lastFrame = performance.now();
-    const step = (now) => {
-      const elapsed = Math.min(Math.max(now - lastFrame, 0), 100);
-      lastFrame = now;
-      progressShown +=
-        (target - progressShown) * (1 - Math.exp(-elapsed / pace));
-      if (still || Math.abs(target - progressShown) < 0.005)
-        progressShown = target;
-      drawProgress();
-      if (progressShown !== target) {
-        progressFrame = requestAnimationFrame(step);
-        return;
-      }
-      progressFrame = 0;
-      resolve();
-    };
-    progressFrame = requestAnimationFrame(step);
-  });
-}
-
-function updateFavoriteButton(entry) {
-  const chosen = favoriteGameIds.has(entry.id);
-  entry.favoriteButton.classList.toggle("is-favorite", chosen);
-  entry.favoriteButton.setAttribute("aria-pressed", String(chosen));
-  const label = `${chosen ? "Remove" : "Add"} ${entry.game.name} ${chosen ? "from" : "to"} favorites`;
-  entry.favoriteButton.setAttribute("aria-label", label);
-}
-
-function toggleFavorite(entry) {
-  if (favoriteGameIds.has(entry.id)) {
-    favoriteGameIds.delete(entry.id);
-  } else {
-    favoriteGameIds.add(entry.id);
-  }
-  writeStoredIds(FAVORITES_KEY, [...favoriteGameIds]);
-  updateFavoriteButton(entry);
-  applyGameFilters();
-}
-
-function recordGamePlayed(id) {
-  recentGameIds = [id, ...recentGameIds.filter((item) => item !== id)].slice(
-    0,
-    RECENT_LIMIT,
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--site-surface, #7a8fab) 0%,
+    var(--site-accent, #6f829b) 50%,
+    var(--site-muted, #8fa5c7) 100%
   );
-  writeStoredIds(RECENT_KEY, recentGameIds);
-  applyGameFilters();
+  border-radius: var(--site-radius-sm, 10px);
+  width: 0%;
+  position: relative;
+  overflow: hidden;
 }
 
-function createGameCard(game) {
-  const card = document.createElement("div");
-  card.className = "game";
-  const id = gameId(game);
-
-  let control;
-  if (game.usesProxy) {
-    control = document.createElement("button");
-    control.type = "button";
-    control.addEventListener("click", () => {
-      recordGamePlayed(id);
-      if (game.alert) window.alert(game.alert);
-      hire(game.url);
-    });
-  } else {
-    let href = game.url;
-    if (game.author && !game.url) {
-      const gameLink = game.image.split("/").filter(Boolean).at(-2);
-      href = `/misc/play/?title=${encodeURIComponent(
-        game.name,
-      )}&author=${encodeURIComponent(game.author)}&link=${encodeURIComponent(
-        gameLink,
-      )}`;
-    }
-
-    if (!href) return null;
-
-    control = document.createElement("a");
-    control.href = href;
-    control.rel = "noopener noreferrer";
-    control.addEventListener("click", () => {
-      recordGamePlayed(id);
-      if (game.alert) window.alert(game.alert);
-    });
-  }
-
-  control.className = "game-link";
-  control.setAttribute("aria-label", `Play ${game.name}`);
-  if (game.preview) control.dataset.preview = game.preview;
-
-  const image = document.createElement("img");
-  image.alt = "";
-  image.width = 175;
-  image.height = 175;
-  image.loading = "eager";
-
-  const label = document.createElement("p");
-  label.className = "text";
-  label.textContent = game.name;
-
-  const favoriteButton = document.createElement("button");
-  favoriteButton.type = "button";
-  favoriteButton.className = "game-favorite";
-  favoriteButton.innerHTML =
-    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.9 2.8 5.7 6.3.9-4.55 4.44 1.08 6.27L12 17.25l-5.63 2.96 1.08-6.27L2.9 9.5l6.3-.9z"/></svg>';
-
-  control.append(image, label);
-  card.append(control, favoriteButton);
-  const entry = { id, game, card, image, imageUrl: game.image, favoriteButton };
-  favoriteButton.addEventListener("click", () => toggleFavorite(entry));
-  updateFavoriteButton(entry);
-  return entry;
-}
-
-function applyGameFilters() {
-  const gameContainer = document.getElementById("game-container");
-  if (!gameContainer) return;
-  const query =
-    document.querySelector(".searchbar")?.value.toLowerCase().trim() || "";
-  const recentPositions = new Map(
-    recentGameIds.map((id, index) => [id, index]),
+.progress-bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
   );
+  animation: shine 2s infinite;
+}
 
-  if (orderedGameView !== activeGameView) {
-    const reordered =
-      activeGameView === "recent"
-        ? [...gameCards].sort(
-            (a, b) =>
-              (recentPositions.get(a.id) ?? Infinity) -
-              (recentPositions.get(b.id) ?? Infinity),
-          )
-        : gameCards;
-    gameContainer.append(...reordered.map((entry) => entry.card));
-    orderedGameView = activeGameView;
+@keyframes shine {
+  0% {
+    left: -100%;
   }
-
-  let visible = 0;
-  gameCards.forEach((entry) => {
-    const matchesView =
-      activeGameView === "all" ||
-      (activeGameView === "favorites" && favoriteGameIds.has(entry.id)) ||
-      (activeGameView === "recent" && recentPositions.has(entry.id));
-    const shows = matchesView && entry.game.name.toLowerCase().includes(query);
-    entry.card.style.display = shows ? "inline-block" : "none";
-    if (shows) visible++;
-  });
-
-  const favoritesCount = gameCards.filter((entry) =>
-    favoriteGameIds.has(entry.id),
-  ).length;
-  const recentCount = gameCards.filter((entry) =>
-    recentPositions.has(entry.id),
-  ).length;
-  const counts = {
-    all: gameCards.length,
-    favorites: favoritesCount,
-    recent: recentCount,
-  };
-  const viewSelector = document.getElementById("game-view-select");
-  if (viewSelector) {
-    viewSelector.value = activeGameView;
-    viewSelector.options[0].textContent = `All Games (${counts.all})`;
-    viewSelector.options[1].textContent = `Favorites (${counts.favorites})`;
-    viewSelector.options[2].textContent = `Recently Played (${counts.recent})`;
+  50% {
+    left: 100%;
   }
-
-  const empty = document.getElementById("game-empty");
-  empty.hidden = visible !== 0 || gameCards.length === 0;
-  if (!empty.hidden) {
-    const title = document.getElementById("game-empty-title");
-    const text = document.getElementById("game-empty-text");
-    if (query) {
-      title.textContent = "No matching games";
-      text.textContent = "Try another search or switch views.";
-    } else if (activeGameView === "favorites") {
-      title.textContent = "No favorites yet";
-      text.textContent = "Tap the star on any game to save it here.";
-    } else if (activeGameView === "recent") {
-      title.textContent = "No recently played games";
-      text.textContent = "Open a game from All Games to see it here.";
-    } else {
-      title.textContent = "No games found";
-      text.textContent = "Try again in a moment.";
-    }
+  100% {
+    left: 100%;
   }
 }
 
-function finishLoading(totalGames) {
-  const loadingContainer = document.getElementById("loading-container");
-  const loadingText = document.getElementById("loading-text");
+.progress-percentage {
+  font-family: "Roboto", serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--site-text, #faf9f6);
+  opacity: 0.8;
+  margin-top: 5px;
+}
 
-  loadingText.textContent = `${totalGames} games ready!`;
+.loading-retry {
+  padding: 10px 18px;
+  color: var(--site-text, #faf9f6);
+  background: var(--site-button, #506581);
+  border: 1px solid var(--site-control-border, rgba(255, 255, 255, 0.26));
+  border-radius: var(--site-radius-sm, 10px);
+  font: inherit;
+  cursor: pointer;
+}
 
-  loadingFadeTimer = setTimeout(() => {
-    loadingContainer.style.height = `${loadingContainer.offsetHeight}px`;
-    loadingContainer.offsetHeight;
-    loadingContainer.classList.add("is-leaving");
-    loadingContainer.style.height = "0px";
-    loadingHideTimer = setTimeout(() => {
-      loadingContainer.style.display = "none";
-    }, 650);
-  }, 450);
+.loading-retry:hover {
+  background: var(--site-button-hover, #617896);
+}
+
+.loading-retry:focus-visible,
+.game-link:focus-visible {
+  outline: 3px solid var(--site-text, #faf9f6);
+  outline-offset: 3px;
+}
+
+@media screen and (max-width: 1000px) {
+  .progress-bar-container {
+    width: 80%;
+    max-width: 350px;
+  }
+
+  .loading-text {
+    font-size: 16px;
+  }
+
+  .searchbar {
+    width: min(88vw, 1080px);
+    padding: 20px 30px;
+  }
+
+  .searchbar:focus {
+    scale: 1.05;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .progress-bar-container {
+    width: 90%;
+    max-width: 300px;
+    height: 10px;
+  }
+
+  .loading-text {
+    font-size: 14px;
+  }
+
+  .progress-percentage {
+    font-size: 12px;
+  }
+
+  .searchbar {
+    width: calc(100vw - 24px);
+    padding: 18px 22px;
+    font-size: 1.05rem;
+  }
+
+  .searchbar:focus {
+    scale: 1.02;
+  }
+}
+
+.searchbar {
+  box-sizing: border-box;
+  width: var(--site-search-width, min(88vw, 1080px));
+  padding: 20px 30px;
+  border-radius: var(--site-search-radius, 20px);
+  background-color: var(--site-search-bg, var(--site-input-bg, #101d31));
+  text-align: center;
+  font-size: var(--site-search-font-size, 1.3rem);
+  font-style: italic;
+  border: 2px solid
+    var(
+      --site-search-border-color,
+      var(--site-control-border-hover, rgba(255, 255, 255, 0.34))
+    );
+  outline: none;
+  color: var(--site-input-text, #faf9f6);
+  margin: 0px 0px 20px 0px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px var(--site-shadow, rgba(0, 0, 0, 0.3));
+}
+
+.searchbar::placeholder {
+  font-family: "Roboto", serif;
+  font-size: inherit;
+  color: var(--site-placeholder, #faf9f6);
+  text-align: center;
+  opacity: 1;
+}
+
+.searchbar:hover {
+  background-color: var(--site-search-hover-bg, var(--site-input-bg, #101d31));
+  border-color: var(
+    --site-search-border-color,
+    var(--site-control-border-hover, rgba(255, 255, 255, 0.34))
+  );
+  box-shadow: var(
+    --site-search-glow-shadow,
+    0 0 0 3px var(--site-control-ring, rgba(255, 255, 255, 0.18))
+  );
+  cursor: text;
+}
+
+.searchbar:focus {
+  outline: none;
+  background-color: var(--site-search-hover-bg, var(--site-input-bg, #101d31));
+  border-color: var(
+    --site-search-border-color,
+    var(--site-control-border-hover, rgba(255, 255, 255, 0.38))
+  );
+  transform: scale(1.04);
+  box-shadow: var(
+    --site-search-glow-shadow,
+    0 0 0 4px var(--site-control-ring, rgba(255, 255, 255, 0.22))
+  );
+  cursor: text;
+}
+
+.game {
+  margin: 0.45rem;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+
+.game.game-first-load {
+  animation: game-load-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--load-delay, 0ms);
+}
+
+@keyframes game-load-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game.game-first-load {
+    animation: none;
+  }
+}
+
+.game-link {
+  display: block;
+  position: relative;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: var(--site-radius-md, 14px);
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.game img {
+  width: 175px;
+  height: 175px;
+  border-radius: var(--site-radius-md, 14px);
+  transition: all 0.35s ease;
+}
+
+.game:hover img,
+.game:has(:focus-visible) img {
+  transform: scale(1.05) translateY(-0.2vw);
+  filter: brightness(0.7);
+  box-shadow: 0 0 0.5vw rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.game-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 175px;
+  height: 175px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--site-radius-md, 14px);
+  transform: scale(1.05) translateY(-0.2vw);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.game-preview.is-shown {
+  opacity: 1;
+}
+
+.game-link.is-previewing .text {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.95),
+    0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+.text {
+  font-family: "Roboto", serif;
+  font-weight: 500;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 0.75rem;
+  opacity: 0;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+  animation: slide-out 0.35s ease forwards;
+}
+
+.game:hover .text,
+.game:has(:focus-visible) .text {
+  opacity: 1;
+  animation: slide-in 0.35s ease forwards;
+}
+
+.game-image-error img {
+  opacity: 0.35;
+}
+
+@media (hover: none) {
+  .text {
+    width: calc(100% - 16px);
+    padding: 4px 6px;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.72);
+    border-radius: 6px;
+    animation: none;
+    transform: translate(-50%, 0%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-container,
+  .progress-bar::before,
+  .progress-bar,
+  .game img,
+  .text {
+    transition: none;
+    animation: none;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translate(-50%, 0%);
+  }
+  to {
+    transform: translate(-50%, calc(-50% - 0.2vw));
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translate(-50%, calc(-50% - 0.2vw));
+  }
+  to {
+    transform: translate(-50%, 0%);
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .searchbar {
+    width: min(88vw, 1080px);
+    padding: 20px 30px;
+  }
+
+  .searchbar:focus {
+    transform: scale(1.02);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .searchbar {
+    width: calc(100vw - 24px);
+    padding: 18px 22px;
+    font-size: 1.05rem;
+  }
+
+  .searchbar:focus {
+    transform: none;
+  }
+}
+
+.searchbar {
+  box-sizing: border-box;
+  padding: 1.2vw;
+  width: 50%;
+  border-radius: 5px;
+  background: var(--site-input-bg, #2a3a5b);
+  text-align: center;
+  font-family: "Roboto", serif;
+  font-size: 24px;
+  font-style: normal;
+  border: none;
+  outline: none;
+  color: white;
+  transition: 0.2s;
+  margin: 0 0 20px;
+  box-shadow: none;
+  transform: none;
+}
+
+.searchbar::placeholder {
+  color: #aaa;
+  text-align: center;
+  opacity: 1;
+}
+
+.searchbar:hover,
+.searchbar:focus {
+  background: var(--site-search-hover-bg, #3a4a7b);
+  border: none;
+  box-shadow: none;
+  transform: none;
+}
+
+.game-search-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: min(94vw, 1100px);
+  margin: 0 auto 16px;
+  box-sizing: border-box;
+}
+
+.game-search-row .searchbar,
+.game-search-row .searchbar:hover,
+.game-search-row .searchbar:focus {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: auto;
+  height: 69px;
+  min-height: 69px;
+  box-sizing: border-box;
+  padding: 0 20px;
+  margin: 0;
+  border-radius: 5px;
+  transform: none;
+  scale: 1;
+}
+
+.game-view-select {
+  flex: 0 0 230px;
+  width: 230px;
+  max-width: 230px;
+  height: 69px;
+  min-height: 69px;
+  box-sizing: border-box;
+  padding: 0 42px 0 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--site-input-bg, #2a3a5b);
+  color: var(--site-input-text, var(--site-text, #fff));
+  box-shadow: none;
+  font: 500 0.95rem "Roboto", sans-serif;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 14px;
+  outline: none;
+  transition: none;
+}
+
+.game-view-select:hover,
+.game-view-select:focus,
+.game-view-select:focus-visible,
+.game-view-select:active {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: var(--site-input-bg, #2a3a5b);
+}
+
+.game-view-select option {
+  background: var(--site-surface-2, #364b66);
+  color: var(--site-text, #fff);
+}
+
+@media (max-width: 600px) {
+  .game-search-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .game-search-row .searchbar,
+  .game-search-row .searchbar:hover,
+  .game-search-row .searchbar:focus {
+    flex: 0 0 69px;
+    width: 100%;
+  }
+
+  .game-view-select {
+    flex: 0 0 69px;
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.game-favorite {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 11px;
+  color: var(--site-text, #ffffff);
+  background: color-mix(in srgb, var(--site-button, #263b57) 32%, transparent);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1) translateY(0);
+  transition:
+    background-color 0.35s ease,
+    transform 0.35s ease,
+    opacity 0.35s ease;
+}
+
+.game:hover .game-favorite,
+.game:has(:focus-visible) .game-favorite {
+  opacity: 0.78;
+  pointer-events: auto;
+  transform: scale(1.05) translateY(-0.2vw);
+}
+
+.game-favorite:hover {
+  opacity: 0.95;
+  transform: scale(1.05) translateY(-0.2vw);
+  background: color-mix(in srgb, var(--site-button-hover, #334b6a) 48%, transparent);
+}
+
+.game-favorite.is-favorite {
+  color: var(--site-accent, #ffd36b);
+}
+
+.game-favorite svg {
+  width: 20px;
+  height: 20px;
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: fill 0.35s ease, transform 0.35s ease;
+}
+
+.game-favorite.is-favorite svg {
+  fill: currentColor;
+}
+
+.game-favorite:focus-visible {
+  outline: none;
+}
+
+.game-empty {
+  max-width: 520px;
+  margin: 38px auto 60px;
+  padding: 34px 24px;
+  box-sizing: border-box;
+  color: var(--site-text, #faf9f6);
+  background: color-mix(in srgb, var(--site-surface, #506581) 38%, rgba(0, 0, 0, 0.55));
+  border: 1px solid var(--site-control-border, rgba(255, 255, 255, 0.2));
+  border-radius: var(--site-radius-md, 14px);
+}
+
+.game-empty[hidden] {
+  display: none;
+}
+
+.game-empty p {
+  margin: 0 0 9px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.game-empty span {
+  color: var(--site-muted, #b5cae0);
+  font-size: 0.94rem;
+}
+
+@media (hover: none) {
+  .game-favorite {
+    opacity: 0.78;
+    pointer-events: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-favorite,
+  .game-favorite svg {
+    transition: none;
+  }
+
+  .game:hover .game-favorite,
+  .game:has(:focus-visible) .game-favorite,
+  .game-favorite:hover,
+  .game-favorite {
+    transform: none;
+  }
+}
+
+
+.random-game-btn {
+  flex: 0 0 auto;
+  min-height: 69px;
+  box-sizing: border-box;
+  padding: 0 18px;
+  border: none;
+  border-radius: 5px;
+  background: var(--site-input-bg, #2a3a5b);
+  color: var(--site-input-text, var(--site-text, #fff));
+  font: 500 0.95rem "Roboto", sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.random-game-btn:hover:not(:disabled) {
+  background: var(--site-search-hover-bg, #3a4a7b);
+}
+
+.random-game-btn:focus-visible {
+  outline: 2px solid var(--site-accent, #ffd36b);
+  outline-offset: 2px;
+}
+
+.random-game-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .random-game-btn {
+    flex: 0 0 69px;
+    width: 100%;
+  }
 }
