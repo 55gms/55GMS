@@ -21,8 +21,8 @@
     <meta http-equiv="Cache-control" content="public">
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="/assets/css/gameframe.css?v=5" />
-    <script src="/assets/js/script.js?v=20"></script>
+    <link rel="stylesheet" href="/assets/css/gameframe.css?v=6" />
+    <script src="/assets/js/script.js?v=21"></script>
 
 </head>
 
@@ -39,6 +39,7 @@
         </div>
     </nav>
 
+    <div class="game-page" id="gamepage">
     <div id="gameframe">
         <div class="gameDisplay">
             <div class="game">
@@ -63,6 +64,7 @@
             </div>
         </div>
     </div>
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const queryString = window.location.search;
@@ -84,23 +86,6 @@
             gameIconElement.alt = title;
         });
     </script>
-    <div class="bottom-addisplay" id="bottomAddisplay">
-        <div class="adcenter">
-            <script type="text/javascript">
-                atOptions = {
-                    'key': 'b3a5490f293f185d1d7b4c6e5a0c1c50',
-                    'format': 'iframe',
-                    'height': 90,
-                    'width': 728,
-                    'params': {}
-                };
-            </script>
-            <script type="text/javascript"
-                src="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/misc/misc/b3a5490f293f185d1d7b4c6e5a0c1c50/invoke.js"></script>
-        </div>
-
-
-    </div>
     </div>
     <script>
         var elem = document.getElementById("iframe");
@@ -123,32 +108,9 @@
         }
         reloadbtn.onclick = reload;
     </script>
-    <div id="adleft">
-        <script type="text/javascript">
-            atOptions = {
-                'key': '9116277e8ea77908b4f2daec2924df67',
-                'format': 'iframe',
-                'height': 600,
-                'width': 160,
-                'params': {}
-            };
-        </script>
-        <script type="text/javascript"
-            src="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/misc/misc/9116277e8ea77908b4f2daec2924df67/invoke.js"></script>
-    </div>
-    <div id="adright">
-        <script type="text/javascript">
-            atOptions = {
-                'key': '9116277e8ea77908b4f2daec2924df67',
-                'format': 'iframe',
-                'height': 600,
-                'width': 160,
-                'params': {}
-            };
-        </script>
-        <script type="text/javascript"
-            src="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/misc/misc/9116277e8ea77908b4f2daec2924df67/invoke.js"></script>
-    </div>
+
+    <script src="/assets/js/game-page.js?v=1"></script>
+    <script src="/assets/js/hover-preview.js?v=1" defer></script>
 </body>
 
 </html>
