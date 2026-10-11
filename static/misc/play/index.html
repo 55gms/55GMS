@@ -82,14 +82,7 @@
             titleElement.textContent = title;
             byTextElement.textContent = 'By ' + author;
             iframeElement.src = `/misc/${encodeURIComponent(link)}/index.html`;
-            // Games live in 55gms/assets or kfm5/a; try the second when the first has no cover.
-            const iconRepos = ['55gms/assets', 'kfm5/a'];
-            const iconUrl = (repo) => `https://cdn.jsdelivr.net/gh/${repo}@main/misc/${encodeURIComponent(link)}/img.webp`;
-            gameIconElement.onerror = () => {
-                gameIconElement.onerror = null;
-                gameIconElement.src = iconUrl(iconRepos[1]);
-            };
-            gameIconElement.src = iconUrl(iconRepos[0]);
+            gameIconElement.src = `https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/${encodeURIComponent(link)}/img.webp`;
             gameIconElement.alt = title;
         });
     </script>
