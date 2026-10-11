@@ -14,6 +14,9 @@ node setup-db.js
 # Add the handle columns to an existing database (safe to re-run)
 node scripts/add-handle-columns.js
 
+# Add the avatar column to an existing database (safe to re-run)
+node scripts/add-avatar-column.js
+
 # Build the obfuscated copy of static/ into dist/ (CI and every deploy run this)
 npm run build
 
@@ -59,6 +62,7 @@ For chat, run a PostgreSQL instance and `node setup-db.js` after configuring `PO
 | `utils/features.js`          | Turns accounts and chat on or off at boot from the env; see Environment Setup                       |
 | `utils/userCache.js`         | In-memory user data cache                                                                           |
 | `utils/handle.js`            | The handle rule (`@handle`: lowercase letters, numbers, dashes, 3 to 16) and the choose-by deadline |
+| `utils/avatars.js`           | The preset avatar ids an account can pick; images are `static/img/avatars/<id>.svg`                 |
 | `scripts/migrate-handles.js` | One-off username-to-handle migration; steps in `docs/handles-rollout.md`                            |
 | `utils/blockingCache.js`     | In-memory blocked-user cache                                                                        |
 | `utils/ads.js`               | Mounts 55GMS Ads at `/_ads` when `ADS_SERVER_URL` and `ADS_API_KEY` are set                         |
@@ -71,7 +75,7 @@ For chat, run a PostgreSQL instance and `node setup-db.js` after configuring `PO
 
 ### Authentication flow
 
-Accounts and saves go through `services/accounts.js`. By default it calls an external worker API (`https://db.55gms.com/api/`) authenticated with the `workerAUTH` token; with `ACCOUNT_BACKEND=postgres` it uses the local `users` and `user_saves` tables (passwords stored as bcrypt over SHA-256). UUIDs identify users. A username is a handle: lowercase letters, numbers and dashes, 3 to 16 characters, shown as `@handle`; `utils/handle.js` is the only definition of the rule. `users.legacy_username` keeps the pre-migration username, which still signs in; `users.handle_pending` marks an account that must pick a handle at `/choose-handle` and cannot write to chat until it does, or until `HANDLE_MIGRATION_DEADLINE` passes and its placeholder becomes final. `/handles` explains this and looks up a handle from an old username. The migration plan is in `docs/superpowers/specs/2026-10-01-worker-to-postgres-migration-design.md`.
+Accounts and saves go through `services/accounts.js`. By default it calls an external worker API (`https://db.55gms.com/api/`) authenticated with the `workerAUTH` token; with `ACCOUNT_BACKEND=postgres` it uses the local `users` and `user_saves` tables (passwords stored as bcrypt over SHA-256). UUIDs identify users. A username is a handle: lowercase letters, numbers and dashes, 3 to 16 characters, shown as `@handle`; `utils/handle.js` is the only definition of the rule. `users.legacy_username` keeps the pre-migration username, which still signs in; `users.handle_pending` marks an account that must pick a handle at `/choose-handle` and cannot write to chat until it does, or until `HANDLE_MIGRATION_DEADLINE` passes and its placeholder becomes final. `/handles` explains this and looks up a handle from an old username. An account may also pick a preset avatar (`users.avatar`, an id from `utils/avatars.js`, set on `/profile` through `POST /api/avatar`); with none, chat and the profile show its initial on a colour. There are no uploaded pictures. The images are the DiceBear "Thumbs" style, CC0 1.0; the column must exist before a build that reads it is deployed. The migration plan is in `docs/superpowers/specs/2026-10-01-worker-to-postgres-migration-design.md`.
 
 ### Real-time (Socket.IO)
 
