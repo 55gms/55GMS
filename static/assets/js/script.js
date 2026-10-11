@@ -122,23 +122,22 @@ function whenDomReady(callback) {
   const ads = adChoices();
 
   if (!ads.banners) {
-    // Game pages build their ad boxes (game-page.js), so hide them here. The
-    // game tiles there then take the space.
+    // Game pages ship their banner slots in the markup, so hide them here.
     const hideAds = document.createElement("style");
     hideAds.textContent =
-      ".ad-box, .site-ad, .site-ad-rail { display: none !important; }";
+      "#adleft, #adright, .bottom-addisplay, .addisplay, .site-ad, .site-ad-rail { display: none !important; }";
     document.head.append(hideAds);
   }
 
   if (ads.banners) {
     whenDomReady(() => {
-      // Each ad box on a page names its size (data-ad-size) and gets a 55GMS
-      // Ads slot, served from this origin (/_ads) so it works on every domain.
-      const boxes = document.querySelectorAll("[data-ad-size]");
+      // The box under each game shows a 55GMS Ads banner, served from this
+      // origin (/_ads) so it works on every domain.
+      const boxes = document.querySelectorAll(".bottom-addisplay .adcenter");
       boxes.forEach((box) => {
         const slot = document.createElement("div");
         slot.setAttribute("data-55gms-ad", "");
-        slot.setAttribute("data-size", box.dataset.adSize);
+        slot.setAttribute("data-size", "728x90");
         box.replaceChildren(slot);
       });
 
