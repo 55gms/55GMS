@@ -1,37 +1,69 @@
+/* The game page is one grid of square cells: the game, three ad boxes and the
+   2x2 tile have fixed places, and game tiles flow into every cell left over
+   (game-page.js adds as many as there are free cells). A cell is sized so the
+   first seven rows, which hold all three ads, fit under the navbar. */
+.game-page {
+  --gap: clamp(8px, 0.85vw, 16px);
+  --cell: clamp(
+    40px,
+    min(
+      (100vw - 40px - 13 * var(--gap)) / 14,
+      (100vh - 116px - 6 * var(--gap)) / 7
+    ),
+    104px
+  );
+  --frame-w: calc(9 * var(--cell) + 8 * var(--gap));
+  /* The frame's own unit: its bar was drawn for a frame 72.5 units wide. */
+  --u: calc(var(--frame-w) / 72.5);
+  display: grid;
+  grid-template-columns: repeat(14, var(--cell));
+  grid-auto-rows: var(--cell);
+  grid-auto-flow: dense;
+  gap: var(--gap);
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
 #gameframe {
-  margin-top: 1vw;
-  display: flex;
+  grid-column: 3 / span 9;
+  grid-row: 1 / span 6;
+  min-width: 0;
 }
 #gameframe .gameDisplay {
-  margin: auto;
-  outline: 0.2vw solid color-mix(in srgb, var(--site-border, #ffffff) 45%, transparent);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  outline: calc(0.2 * var(--u)) solid color-mix(in srgb, var(--site-border, #ffffff) 45%, transparent);
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
-  width: 72.5vw;
-  height: 38.5vw;
   background-color: var(--site-border, #353d49);
   border-radius: var(--site-radius-md, 14px);
   overflow: hidden;
 }
 #gameframe .game {
-  margin: auto;
-  width: 72.5vw;
-  height: 34vw;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
   background-color: var(--site-surface-3, #444);
   background-repeat: no-repeat;
   background-position: center;
 }
 #gameframe .game iframe {
-  width: 72.6vw;
-  height: 34.1vw;
+  display: block;
+  width: 100%;
+  height: 100%;
   border: 0;
 }
 #gameframe .options {
   margin: auto;
   width: 100%;
-  height: 2.3vw;
+  flex: none;
+  box-sizing: content-box;
+  height: calc(2.3 * var(--u));
   display: flex;
   align-items: center;
-  padding-bottom: 1.5vh;
+  padding-bottom: calc(2.2 * var(--u));
 }
 #gameframe .options .left {
   display: flex;
@@ -39,75 +71,49 @@
 }
 #gameframe .options .right {
   display: flex;
-  margin-top: 2.2vw;
-  margin-right: 1.5vw;
+  margin-top: calc(2.2 * var(--u));
+  margin-right: calc(1.5 * var(--u));
   align-items: center;
   justify-content: flex-end;
 }
-.addisplay {
-  margin-left: 80vw;
-  width: 16vw;
-  height: 32vw;
-  background-color: var(--site-surface-2, #3d4756);
-  border-radius: var(--site-radius-md, 14px);
-  display: flex;
-  margin-top: -42.5vw;
-  margin-bottom: -5vw;
-  outline: 0.2vw solid color-mix(in srgb, var(--site-border, #ffffff) 45%, transparent);
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
-}
-
 .gameicon {
-  margin-left: 0.6vw;
-  margin-top: 1.9vw;
+  margin-left: calc(0.6 * var(--u));
+  margin-top: calc(1.9 * var(--u));
   border-radius: var(--site-radius-sm, 10px);
   background: var(--site-button, #19191b);
-  width: 2.6vw;
-  height: 2.6vw;
-  margin-top: 0.2vw;
+  width: calc(2.6 * var(--u));
+  height: calc(2.6 * var(--u));
+  margin-top: calc(0.2 * var(--u));
   transition: 0.4s;
 }
 
 .margin {
-  margin-top: 0.3vw;
-  margin-left: 0.7vw;
+  margin-top: calc(0.3 * var(--u));
+  margin-left: calc(0.7 * var(--u));
 }
 .flex {
   display: flex;
 }
 .titletext {
   margin: 0;
-  font-size: 1.4vw;
-  padding: 0 0.5vw 0.5vw 0 0;
+  font-size: calc(1.4 * var(--u));
+  padding: 0 calc(0.5 * var(--u)) calc(0.5 * var(--u)) 0 0;
   color: var(--site-text, #ffffff);
-  width: 45vw;
+  width: calc(45 * var(--u));
 }
 .bytext {
   display: block;
   color: var(--site-muted, #cfcfcf);
-  font-size: 1.1vw;
-  margin: 0.2vw 0 0;
+  font-size: calc(1.1 * var(--u));
+  margin: calc(0.2 * var(--u)) 0 0;
   letter-spacing: 0.3px;
-  font-size: 0.8vw;
+  font-size: calc(0.8 * var(--u));
 }
 .gametext {
-  font-size: 1.25vw;
+  font-size: calc(1.25 * var(--u));
   display: flex;
-  margin-top: 2vw;
+  margin-top: calc(2 * var(--u));
 }
-.adtext {
-  font-size: 0.5vw;
-  text-transform: uppercase;
-  text-align: center;
-  opacity: 0.7;
-  letter-spacing: 0.05vw;
-  position: absolute;
-  right: 15vw;
-  padding-top: 10px;
-  margin-top: 32.2vw;
-  transform-origin: right center;
-}
-
 #gameframe .options .left,
 #gameframe .options .right {
   width: 50%;
@@ -120,21 +126,21 @@
 }
 #gameframe .options .right .game-button {
   float: right;
-  margin-right: 1vw;
+  margin-right: calc(1 * var(--u));
   height: 70%;
 }
 .fullscreenbtn {
   border-radius: var(--site-radius-sm, 10px);
-  font-size: 1.6vw;
+  font-size: calc(1.6 * var(--u));
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
-  margin-left: 1.2vw;
+  margin-left: calc(1.2 * var(--u));
 }
 .fullscreenbtn:hover {
   transform: scaleX(1.2) scaleY(1.2) rotate(-10deg);
 }
 .reloadbtn {
-  font-size: 1.6vw;
+  font-size: calc(1.6 * var(--u));
   cursor: pointer;
   transition: transform 0.55s ease-in-out;
 }
@@ -142,54 +148,162 @@
   transform: scaleX(1.2) scaleY(1.2) rotate(360deg);
 }
 
-.bottom-addisplay {
-  width: 100%;
-  max-width: 31.25vw;
-  height: auto;
-  aspect-ratio: 728 / 90;
-  background-color: var(--site-surface-2, #3d4756);
-  border-radius: var(--site-radius-sm, 10px);
+.ad-box {
   display: flex;
-  margin: 20px auto;
-  outline: 0.2vw solid color-mix(in srgb, var(--site-border, #ffffff) 45%, transparent);
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
-  position: relative;
-  overflow: hidden;
-}
-
-.bottom-addisplay .adcenter {
-  width: 100%;
-  height: 100%;
-  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 6px;
+  min-width: 0;
+  min-height: 0;
 }
-
-.bottom-addisplay [data-55gms-ad] {
+.ad-box[hidden] {
+  display: none;
+}
+.ad-box::after {
+  content: "Advertisement";
+  color: var(--site-muted, #cfcfcf);
+  font: 500 9px/1 "Roboto", sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.ad-box--left {
+  --ad-w: 160;
+  --ad-h: 600;
+  --box-h: calc(6 * var(--cell) + 5 * var(--gap) - 15px);
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 6;
+}
+.ad-box--right {
+  --ad-w: 300;
+  --ad-h: 250;
+  --box-h: calc(3 * var(--cell) + 2 * var(--gap) - 15px);
+  grid-column: 12 / span 3;
+  grid-row: 1 / span 3;
+}
+.ad-box--wide {
+  --ad-w: 728;
+  --ad-h: 90;
+  --box-h: var(--cell);
+  flex-direction: row;
+  grid-column: 5 / span 7;
+  grid-row: 7;
+}
+.ad-box--wide::after {
+  writing-mode: vertical-rl;
+}
+/* The ad at its real size, or scaled down to what its box can hold. */
+.ad-fit {
+  width: min(
+    var(--ad-w) * 1px,
+    100% - 15px * var(--beside, 0),
+    var(--box-h) * var(--ad-w) / var(--ad-h)
+  );
+  aspect-ratio: var(--ad-w) / var(--ad-h);
+  background-color: color-mix(in srgb, var(--site-surface-3, #444) 55%, transparent);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.ad-box--wide .ad-fit {
+  --beside: 1;
+}
+.ad-fit [data-55gms-ad] {
   width: 100% !important;
   height: 100% !important;
   max-width: none !important;
+  min-height: 0 !important;
   aspect-ratio: auto !important;
 }
-
-.bottom-addisplay [data-55gms-ad] a {
+.ad-fit [data-55gms-ad] a {
   display: block;
   width: 100%;
   height: 100%;
 }
-
-.bottom-addisplay [data-55gms-ad] img {
+.ad-fit [data-55gms-ad] img {
   width: 100% !important;
   height: 100% !important;
   object-fit: fill;
 }
 
-.bottom-addisplay iframe {
-  width: 728px !important;
-  height: 90px !important;
-  border: none;
-  border-radius: var(--site-radius-sm, 10px);
-  zoom: calc(31.25vw / 728px);
-  max-width: none;
-  max-height: none;
+.game-tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background-color: var(--site-surface-3, #444);
+  border-radius: var(--site-radius-md, 14px);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.24);
+  transition: transform 0.15s ease;
+}
+.game-tile--big {
+  grid-column: 12 / span 2;
+  grid-row: 4 / span 2;
+}
+.game-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.game-tile span {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 14px 6px 5px;
+  color: #fff;
+  font: 700 11px/1.2 "Roboto", sans-serif;
+  text-align: center;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.game-tile[href]:hover,
+.game-tile[href]:focus-visible {
+  transform: scale(1.07);
+  z-index: 1;
+}
+.game-tile:hover span,
+.game-tile:focus-visible span {
+  opacity: 1;
+}
+
+/* Narrow windows stack: the game, the rectangle ad, tiles, the wide ad. */
+@media (max-width: 900px) {
+  .game-page {
+    --gap: 10px;
+    --frame-w: calc(100vw - 24px);
+    --u: calc(var(--frame-w) / 36);
+    --box-h: 100vh;
+    grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+    grid-auto-rows: auto;
+    margin: 0 12px 24px;
+  }
+  #gameframe {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    height: max(62vw, 300px);
+  }
+  .ad-box--left {
+    display: none;
+  }
+  .ad-box--right,
+  .ad-box--wide {
+    --box-h: 100vh;
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+  .ad-box--wide {
+    order: 1;
+  }
+  .game-tile--big {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-tile,
+  .game-tile span {
+    transition: none;
+  }
 }
