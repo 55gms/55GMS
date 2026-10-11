@@ -366,7 +366,8 @@ a:hover {
    hides it when no ad is available, so the wrapper only takes up room while
    that box is reserved or filled. */
 .site-ad {
-  width: min(var(--site-ad-width, 728px), calc(100% - 32px));
+  width: min(var(--site-ad-width, 728px), 100%);
+  max-width: calc(100vw - 32px);
   margin: 0 auto;
 }
 .site-ad:has(> [data-55gms-ad][style]:not([style*="display: none"])) {
