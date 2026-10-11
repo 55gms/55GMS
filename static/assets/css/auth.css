@@ -545,31 +545,6 @@
   --a-tone: var(--a-muted);
 }
 
-.auth-notice {
-  display: block;
-  padding: 12px 14px;
-  border: 1px solid var(--a-border);
-  border-left: 3px solid var(--a-accent);
-  border-radius: var(--a-radius-sm);
-  background: var(--a-surface);
-  color: var(--a-text);
-  font-size: 0.92rem;
-  line-height: 1.45;
-  text-align: left;
-  text-decoration: none;
-  transition: border-color var(--a-fast) ease;
-}
-
-.auth-notice[hidden] {
-  display: none;
-}
-
-.auth-notice:hover {
-  border-color: var(--a-control-border-hover);
-  border-left-color: var(--a-accent-hover);
-  color: var(--a-text);
-}
-
 /* ---------- Submit ---------- */
 
 .auth-submit {
@@ -606,7 +581,6 @@
 
 .auth-submit:focus-visible,
 .auth-toggle:focus-visible,
-.auth-notice:focus-visible,
 .auth-links a:focus-visible {
   outline: 2px solid var(--a-text);
   outline-offset: 2px;

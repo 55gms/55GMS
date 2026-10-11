@@ -533,24 +533,6 @@
     if (typedHandle()) scheduleVerify();
   }
 
-  // While accounts are being asked to choose a handle, say so and by when.
-  const notice = document.getElementById("handle-notice");
-  if (notice) {
-    fetch("/api/handle-config")
-      .then((response) => (response.ok ? response.json() : null))
-      .then((config) => {
-        if (!config || !config.deadline || !config.open) return;
-        const date = new Date(config.deadline).toLocaleDateString(undefined, {
-          month: "long",
-          day: "numeric",
-          year: "numeric",
-        });
-        notice.textContent = `Usernames are now handles. Sign in before ${date} to choose yours. Learn more`;
-        notice.hidden = false;
-      })
-      .catch(() => {});
-  }
-
   updateAvatar();
   updatePreview();
   updateRules();
