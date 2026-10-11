@@ -1,0 +1,324 @@
+/* Profile page layout. Sits on top of profile.css and uses its tokens. */
+
+.profile.account {
+  width: min(1040px, calc(100% - 32px));
+  padding-top: 40px;
+}
+
+/* ---------- Header: who you are, and the state of your data ---------- */
+
+.acct-hero {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-bottom: 20px;
+  padding: 28px 32px;
+  border: 1px solid var(--p-border);
+  border-radius: var(--p-radius);
+  background: var(--p-surface);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--p-text) 5%, transparent);
+}
+
+.acct-who {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+}
+
+.account .profile-avatar {
+  width: 88px;
+  height: 88px;
+  font-size: 2rem;
+}
+
+/* The header sits on a card here, so the badge has no page colour to cut
+   a ring out of. */
+.account .profile-avatar-edit {
+  border: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.acct-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.acct-name-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.account .profile-name {
+  font-size: 2rem;
+}
+
+.acct-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  color: var(--p-muted);
+  font-size: 0.8125rem;
+}
+
+.acct-stats {
+  flex: none;
+  display: flex;
+  margin: 0;
+}
+
+/* The markup is label then value; the value reads first. */
+.acct-stat {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: 4px;
+  min-width: 0;
+  padding: 2px 28px;
+  border-left: 1px solid var(--p-border);
+}
+
+.acct-stat:last-child {
+  padding-right: 0;
+}
+
+.acct-stat dt {
+  color: var(--p-muted);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+.acct-stat dd {
+  display: flex;
+  align-items: center;
+  height: 1.3em;
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* The cloud status is a button: pressing it compares again. */
+.acct-sync {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+
+.acct-sync:focus-visible {
+  outline: 2px solid var(--p-text);
+  outline-offset: 4px;
+}
+
+.acct-sync-dot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--p-muted);
+}
+
+.acct-sync[data-state="synced"] .acct-sync-dot {
+  background: var(--p-success);
+}
+
+.acct-sync[data-state="unsynced"] .acct-sync-dot,
+.acct-sync[data-state="ahead"] .acct-sync-dot {
+  background: var(--p-warning);
+}
+
+.acct-sync[data-state="error"] .acct-sync-dot {
+  background: var(--p-danger);
+}
+
+.acct-sync svg {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  color: var(--p-muted);
+  transition: color var(--p-fast) ease;
+}
+
+.acct-sync:hover svg {
+  color: var(--p-text);
+}
+
+.acct-sync[data-state="checking"] svg {
+  animation: p-spin 0.9s linear infinite;
+}
+
+/* ---------- Cards ---------- */
+
+.acct-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 20px;
+}
+
+.acct-col {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+
+.acct-card-head {
+  padding: 18px 20px 16px;
+  border-bottom: 1px solid var(--p-border);
+}
+
+.acct-card-head h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.acct-card-head p {
+  margin: 4px 0 0;
+  color: var(--p-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.acct-foot {
+  align-items: flex-start;
+  line-height: 1.45;
+}
+
+.acct-foot #cooldownNote {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Confirmation dialog ---------- */
+
+.acct-confirm {
+  padding: 20px;
+}
+
+.acct-confirm h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.acct-confirm p {
+  margin: 8px 0 0;
+  color: var(--p-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.acct-confirm .acct-confirm-warning {
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--p-warning) 55%, transparent);
+  border-radius: var(--p-radius-sm);
+  color: var(--p-text);
+}
+
+.acct-confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .acct-hero {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .acct-stats {
+    padding-top: 20px;
+    border-top: 1px solid var(--p-border);
+  }
+
+  .acct-stat {
+    flex: 1;
+  }
+
+  .acct-stat:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .acct-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .acct-hero {
+    padding: 20px 16px;
+  }
+
+  .acct-who {
+    gap: 16px;
+  }
+
+  .account .profile-avatar {
+    width: 64px;
+    height: 64px;
+    font-size: 1.5rem;
+  }
+
+  .account .profile-name {
+    font-size: 1.5rem;
+  }
+
+  /* Two numbers side by side, the cloud status on its own line below. */
+  .acct-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 16px;
+  }
+
+  .acct-stat {
+    padding: 0 16px;
+  }
+
+  .acct-stat:last-child {
+    grid-column: 1 / -1;
+    padding: 16px 0 0;
+    border-top: 1px solid var(--p-border);
+    border-left: 0;
+  }
+
+  .acct-stat dd {
+    font-size: 1.125rem;
+  }
+
+  .acct-card-head {
+    padding: 16px;
+  }
+
+  .acct-confirm-actions .p-btn {
+    width: auto;
+    flex: 1;
+    min-width: 0;
+  }
+}

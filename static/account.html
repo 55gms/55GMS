@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
     <link rel="stylesheet" href="/assets/css/profile.css?v=5" />
     <link rel="stylesheet" href="/assets/css/premium.css?v=1" />
+    <link rel="stylesheet" href="/assets/css/account.css?v=1" />
     <title>Google</title>
     <meta name="author" content="Rednotsus" />
     <meta http-equiv="Cache-control" content="public" />
@@ -51,30 +52,102 @@
       </div>
     </nav>
 
-    <main class="profile">
-      <header class="profile-header">
-        <button
-          type="button"
-          class="profile-avatar"
-          id="avatarButton"
-          aria-label="Change avatar"
-          aria-haspopup="dialog"
-          disabled
-        >
-          <span class="profile-avatar-face" id="initials"></span>
-          <span class="profile-avatar-edit" aria-hidden="true">
-            <svg
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M11 2.5 13.5 5 5.5 13H3v-2.5z" />
-            </svg>
-          </span>
-        </button>
+    <main class="profile account">
+      <header class="acct-hero">
+        <div class="acct-who">
+          <button
+            type="button"
+            class="profile-avatar"
+            id="avatarButton"
+            aria-label="Change avatar"
+            aria-haspopup="dialog"
+            disabled
+          >
+            <span class="profile-avatar-face" id="initials"></span>
+            <span class="profile-avatar-edit" aria-hidden="true">
+              <svg
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M11 2.5 13.5 5 5.5 13H3v-2.5z" />
+              </svg>
+            </span>
+          </button>
+          <div class="acct-identity">
+            <div class="acct-name-row">
+              <h1 class="profile-name" id="username">Profile</h1>
+              <span id="badges"></span>
+            </div>
+            <div class="acct-meta">
+              <span class="profile-status"
+                ><span class="profile-status-dot"></span>Signed in</span
+              >
+              <button
+                type="button"
+                class="profile-id"
+                id="copyId"
+                title="Copy user ID"
+              >
+                <span id="shortId"></span>
+                <svg
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
+                  <path
+                    d="M10.5 5.5v-2A1.5 1.5 0 0 0 9 2H4a1.5 1.5 0 0 0-1.5 1.5V9A1.5 1.5 0 0 0 4 10.5h1.5"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <dl class="acct-stats">
+          <div class="acct-stat">
+            <dt>Items in this browser</dt>
+            <dd id="localCount">—</dd>
+          </div>
+          <div class="acct-stat">
+            <dt>Size</dt>
+            <dd id="localSize">—</dd>
+          </div>
+          <div class="acct-stat">
+            <dt>Cloud save</dt>
+            <dd>
+              <button
+                class="acct-sync"
+                id="syncStatus"
+                type="button"
+                data-state="checking"
+                title="Check again"
+              >
+                <span class="acct-sync-dot" aria-hidden="true"></span>
+                <span id="syncStatusText" aria-live="polite">Checking…</span>
+                <svg
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9" />
+                  <path d="M13.5 2.5v3h-3" />
+                </svg>
+              </button>
+            </dd>
+          </div>
+        </dl>
         <dialog
           class="avatar-dialog"
           id="avatarDialog"
@@ -112,73 +185,23 @@
             ></div>
           </div>
         </dialog>
-        <div class="profile-identity">
-          <div class="profile-name-row">
-            <h1 class="profile-name" id="username">Profile</h1>
-            <span id="badges"></span>
-          </div>
-          <div class="profile-meta">
-            <span class="profile-status"
-              ><span class="profile-status-dot"></span>Signed in</span
-            >
-            <button
-              type="button"
-              class="profile-id"
-              id="copyId"
-              title="Copy user ID"
-            >
-              <span id="shortId"></span>
-              <svg
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
-                <path
-                  d="M10.5 5.5v-2A1.5 1.5 0 0 0 9 2H4a1.5 1.5 0 0 0-1.5 1.5V9A1.5 1.5 0 0 0 4 10.5h1.5"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
       </header>
 
-      <section class="profile-section" aria-labelledby="sync-heading">
-        <div class="profile-section-head">
-          <h2 id="sync-heading">Cloud sync</h2>
-          <p>
-            Back up your game saves and settings, then restore them on any
-            device or mirror.
-          </p>
-        </div>
-        <div class="profile-card">
+      <div class="acct-grid">
+        <section class="profile-card" aria-labelledby="sync-heading">
+          <div class="acct-card-head">
+            <h2 id="sync-heading">Cloud sync</h2>
+            <p>
+              Back up your game saves and settings, then restore them on any
+              device or mirror.
+            </p>
+          </div>
           <div class="profile-row">
-            <div class="profile-row-main">
-              <div class="profile-row-icon" aria-hidden="true">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 8.5a4 4 0 0 1-.5 9.5"
-                  />
-                  <path d="M12 12v8M9 15l3-3 3 3" />
-                </svg>
-              </div>
-              <div class="profile-row-text">
-                <p class="profile-row-title">Upload to cloud</p>
-                <p class="profile-row-desc">
-                  Overwrites your cloud save with this browser's data.
-                </p>
-              </div>
+            <div class="profile-row-text">
+              <p class="profile-row-title">Upload to cloud</p>
+              <p class="profile-row-desc">
+                Overwrites your cloud save with this browser's data.
+              </p>
             </div>
             <button
               type="button"
@@ -204,28 +227,11 @@
             </button>
           </div>
           <div class="profile-row">
-            <div class="profile-row-main">
-              <div class="profile-row-icon" aria-hidden="true">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 8.5a4 4 0 0 1-.5 9.5"
-                  />
-                  <path d="M12 20v-8M9 17l3 3 3-3" />
-                </svg>
-              </div>
-              <div class="profile-row-text">
-                <p class="profile-row-title">Restore from cloud</p>
-                <p class="profile-row-desc">
-                  Replaces matching local data with your cloud save.
-                </p>
-              </div>
+            <div class="profile-row-text">
+              <p class="profile-row-title">Restore from cloud</p>
+              <p class="profile-row-desc">
+                Replaces matching local data with your cloud save.
+              </p>
             </div>
             <button
               type="button"
@@ -250,123 +256,113 @@
               <span class="p-spinner" aria-hidden="true"></span>
             </button>
           </div>
-          <div class="profile-card-foot">
-            <span
-              >Local data:
-              <span class="profile-mono" id="localSize">—</span></span
-            >
-            <span class="profile-card-foot-end">
-              <span id="cooldownNote" aria-live="polite"></span>
-              <button
-                class="profile-sync"
-                id="syncStatus"
-                type="button"
-                data-state="checking"
-                title="Check again"
-              >
-                <span class="profile-sync-dot" aria-hidden="true"></span>
-                <span id="syncStatusText" aria-live="polite">Checking…</span>
-              </button>
-            </span>
+          <div class="profile-card-foot acct-foot">
+            <span id="syncHint" aria-live="polite"></span>
+            <span id="cooldownNote" aria-live="polite"></span>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section
-        class="profile-section"
-        id="premiumSection"
-        aria-labelledby="premium-heading"
-        hidden
-      >
-        <div class="profile-section-head">
-          <h2 id="premium-heading">Premium</h2>
-        </div>
-        <div class="profile-card">
-          <div class="profile-row">
-            <div class="profile-row-main">
-              <div class="profile-row-icon" aria-hidden="true">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="m12 3.5 2.6 5.3 5.9.9-4.25 4.1 1 5.8L12 16.9l-5.25 2.7 1-5.8L3.5 9.7l5.9-.9z"
-                  />
-                </svg>
-              </div>
+        <div class="acct-col">
+          <section
+            class="profile-card"
+            id="premiumSection"
+            aria-labelledby="premium-heading"
+            hidden
+          >
+            <div class="acct-card-head">
+              <h2 id="premium-heading">Premium</h2>
+            </div>
+            <div class="profile-row">
               <div class="profile-row-text">
                 <p class="profile-row-title" id="premiumTitle">55GMS Premium</p>
                 <p class="profile-row-desc" id="premiumDesc">
                   Choose which ads you see, or turn them off.
                 </p>
               </div>
+              <a class="p-btn p-btn-primary" id="upgradeLink" href="/premium">
+                <span class="p-btn-label">Upgrade</span>
+              </a>
+              <button type="button" class="p-btn" id="billingButton" hidden>
+                <span class="p-btn-label">Manage billing</span>
+                <span class="p-spinner" aria-hidden="true"></span>
+              </button>
             </div>
-            <a class="p-btn p-btn-primary" id="upgradeLink" href="/premium">
-              <span class="p-btn-label">Upgrade</span>
-            </a>
-            <button type="button" class="p-btn" id="billingButton" hidden>
-              <span class="p-btn-label">Manage billing</span>
-              <span class="p-spinner" aria-hidden="true"></span>
-            </button>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      <section class="profile-section" aria-labelledby="account-heading">
-        <div class="profile-section-head">
-          <h2 id="account-heading">Account</h2>
-        </div>
-        <div class="profile-card">
-          <div class="profile-row">
-            <div class="profile-row-main">
-              <div class="profile-row-icon" aria-hidden="true">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4" />
-                  <path d="M10 16l4-4-4-4M14 12H4" />
-                </svg>
-              </div>
+          <section class="profile-card" aria-labelledby="account-heading">
+            <div class="acct-card-head">
+              <h2 id="account-heading">Account</h2>
+            </div>
+            <div class="profile-row">
               <div class="profile-row-text">
                 <p class="profile-row-title">Sign out</p>
                 <p class="profile-row-desc">
                   Sign out of this browser. Local saves stay on this device.
                 </p>
               </div>
+              <button
+                type="button"
+                class="p-btn p-btn-danger"
+                id="logoutButton"
+                data-dir="right"
+              >
+                <span class="p-btn-label">
+                  Sign out
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M3 8h10M9 4l4 4-4 4" />
+                  </svg>
+                </span>
+              </button>
             </div>
-            <button
-              type="button"
-              class="p-btn p-btn-danger"
-              id="logoutButton"
-              data-dir="right"
-            >
-              <span class="p-btn-label">
-                Sign out
-                <svg
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.6"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M3 8h10M9 4l4 4-4 4" />
-                </svg>
-              </span>
+            <div class="profile-row">
+              <div class="profile-row-text">
+                <p class="profile-row-title">Clear local data</p>
+                <p class="profile-row-desc">
+                  Removes game saves and settings from this browser. Your cloud
+                  save is kept.
+                </p>
+              </div>
+              <button type="button" class="p-btn" id="clearButton">
+                <span class="p-btn-label">Clear data</span>
+              </button>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <dialog
+        class="avatar-dialog"
+        id="clearDialog"
+        aria-labelledby="clear-heading"
+      >
+        <div class="avatar-dialog-body acct-confirm">
+          <h2 id="clear-heading">Clear this browser's data?</h2>
+          <p>
+            Game saves and settings stored in this browser are removed. You stay
+            signed in, and your cloud save is not changed.
+          </p>
+          <p class="acct-confirm-warning" id="clearWarning" hidden>
+            Your cloud save may not have everything in this browser. Upload
+            first if you want to keep it.
+          </p>
+          <div class="acct-confirm-actions">
+            <button type="button" class="p-btn" id="clearCancel">
+              <span class="p-btn-label">Cancel</span>
+            </button>
+            <button type="button" class="p-btn p-btn-danger" id="clearConfirm">
+              <span class="p-btn-label">Clear data</span>
             </button>
           </div>
         </div>
-      </section>
+      </dialog>
 
       <div class="p-toasts" id="toasts" role="status" aria-live="polite"></div>
     </main>
@@ -417,8 +413,9 @@
 
         function updateLocalSize() {
           const bytes = new Blob([JSON.stringify(localStorage)]).size;
-          document.getElementById("localSize").textContent =
-            `${localStorage.length} keys · ${formatBytes(bytes)}`;
+          document.getElementById("localCount").textContent =
+            localStorage.length.toLocaleString();
+          document.getElementById("localSize").textContent = formatBytes(bytes);
         }
         updateLocalSize();
 
@@ -618,6 +615,7 @@
 
         const syncStatus = document.getElementById("syncStatus");
         const syncStatusText = document.getElementById("syncStatusText");
+        const syncHint = document.getElementById("syncHint");
         const SYNC_LABELS = {
           checking: "Checking…",
           synced: "In sync",
@@ -626,6 +624,18 @@
           empty: "No cloud save",
           error: "Couldn't check",
         };
+        // What each state means for the buttons above it.
+        const SYNC_HINTS = {
+          checking: "Comparing this browser with your cloud save…",
+          synced: "This browser matches your cloud save.",
+          unsynced:
+            "This browser and your cloud save differ. Upload to keep this browser's data, or restore to bring back the cloud's.",
+          ahead:
+            "This browser has data that isn't in the cloud yet. Upload to back it up.",
+          empty: "You have no cloud save yet. Upload to create one.",
+          error:
+            "Couldn't compare with your cloud save. Try again in a moment.",
+        };
         // Keys this page rewrites on its own; the server skips them too.
         const SYNC_IGNORED_KEYS = ["premium"];
         let syncCheckId = 0;
@@ -633,6 +643,7 @@
         function setSyncState(state) {
           syncStatus.dataset.state = state;
           syncStatusText.textContent = SYNC_LABELS[state];
+          syncHint.textContent = SYNC_HINTS[state];
         }
 
         function localSaveKeys() {
@@ -846,6 +857,35 @@
               });
           });
         })();
+
+        // Clearing keeps the keys that sign this browser in, so the page
+        // still works afterwards.
+        const SESSION_KEYS = ["uuid", "username", "premium"];
+        const clearDialog = document.getElementById("clearDialog");
+
+        document.getElementById("clearButton").addEventListener("click", () => {
+          const state = syncStatus.dataset.state;
+          document.getElementById("clearWarning").hidden =
+            state === "synced" || state === "checking";
+          clearDialog.showModal();
+        });
+        document
+          .getElementById("clearCancel")
+          .addEventListener("click", () => clearDialog.close());
+        clearDialog.addEventListener("click", (event) => {
+          if (event.target === clearDialog) clearDialog.close();
+        });
+        document
+          .getElementById("clearConfirm")
+          .addEventListener("click", () => {
+            for (const key of Object.keys(localStorage)) {
+              if (!SESSION_KEYS.includes(key)) localStorage.removeItem(key);
+            }
+            clearDialog.close();
+            updateLocalSize();
+            toast("success", "Local data cleared.");
+            checkSyncStatus();
+          });
 
         document
           .getElementById("logoutButton")
