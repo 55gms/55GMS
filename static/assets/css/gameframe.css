@@ -1,140 +1,131 @@
+/* The game page (/misc/play/) is a grid of square cells. game-page.js picks
+   the cell size and the number of columns and rows from the window, so the
+   grid spans the page and its last row, which holds the banner ad, ends it.
+   The script gives the game and the ad boxes their cells; game tiles flow
+   into every cell left over. */
+.game-page {
+  --pad: 20px;
+  padding: var(--pad);
+}
+.game-page.is-laid-out {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cell));
+  grid-auto-rows: var(--cell);
+  grid-auto-flow: dense;
+  gap: var(--gap);
+  justify-content: center;
+}
+
 #gameframe {
-  margin-top: 1vw;
-  display: flex;
+  /* The bar under the game is drawn in this unit; game-page.js sets it from
+     the frame's width. */
+  --u: 12px;
+  min-width: 0;
+  min-height: 0;
+}
+/* Until the script has run, or without it. */
+.game-page:not(.is-laid-out) #gameframe {
+  height: min(72vh, 56vw);
 }
 #gameframe .gameDisplay {
-  margin: auto;
-  outline: 0.2vw solid color-mix(in srgb, var(--site-border, #ffffff) 45%, transparent);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  outline: calc(0.2 * var(--u)) solid
+    color-mix(in srgb, var(--site-border, #ffffff) 45%, transparent);
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
-  width: 72.5vw;
-  height: 38.5vw;
   background-color: var(--site-border, #353d49);
   border-radius: var(--site-radius-md, 14px);
   overflow: hidden;
 }
 #gameframe .game {
-  margin: auto;
-  width: 72.5vw;
-  height: 34vw;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
   background-color: var(--site-surface-3, #444);
   background-repeat: no-repeat;
   background-position: center;
 }
 #gameframe .game iframe {
-  width: 72.6vw;
-  height: 34.1vw;
+  display: block;
+  width: 100%;
+  height: 100%;
   border: 0;
 }
 #gameframe .options {
-  margin: auto;
+  flex: none;
+  box-sizing: border-box;
   width: 100%;
-  height: 2.3vw;
+  height: calc(4.5 * var(--u));
   display: flex;
   align-items: center;
-  padding-bottom: 1.5vh;
+  justify-content: space-between;
+  gap: var(--u);
+  padding: 0 calc(1.5 * var(--u)) 0 calc(0.6 * var(--u));
 }
-#gameframe .options .left {
-  display: flex;
-  align-items: center;
-}
+#gameframe .options .left,
 #gameframe .options .right {
   display: flex;
-  margin-top: 2.2vw;
-  margin-right: 1.5vw;
   align-items: center;
-  justify-content: flex-end;
+  min-width: 0;
 }
-.addisplay {
-  margin-left: 80vw;
-  width: 16vw;
-  height: 32vw;
-  background-color: var(--site-surface-2, #3d4756);
-  border-radius: var(--site-radius-md, 14px);
+#gameframe .options .right {
+  flex: none;
+  gap: calc(1.2 * var(--u));
+}
+.gametext {
   display: flex;
-  margin-top: -42.5vw;
-  margin-bottom: -5vw;
-  outline: 0.2vw solid color-mix(in srgb, var(--site-border, #ffffff) 45%, transparent);
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
+  align-items: center;
+  min-width: 0;
 }
-
 .gameicon {
-  margin-left: 0.6vw;
-  margin-top: 1.9vw;
+  flex: none;
+  width: calc(2.6 * var(--u));
+  height: calc(2.6 * var(--u));
   border-radius: var(--site-radius-sm, 10px);
   background: var(--site-button, #19191b);
-  width: 2.6vw;
-  height: 2.6vw;
-  margin-top: 0.2vw;
   transition: 0.4s;
 }
-
 .margin {
-  margin-top: 0.3vw;
-  margin-left: 0.7vw;
+  margin-left: calc(0.7 * var(--u));
+  min-width: 0;
 }
 .flex {
   display: flex;
+  min-width: 0;
 }
 .titletext {
   margin: 0;
-  font-size: 1.4vw;
-  padding: 0 0.5vw 0.5vw 0 0;
+  padding: 0;
+  font-size: calc(1.4 * var(--u));
   color: var(--site-text, #ffffff);
-  width: 45vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .bytext {
   display: block;
+  margin: calc(0.2 * var(--u)) 0 0;
   color: var(--site-muted, #cfcfcf);
-  font-size: 1.1vw;
-  margin: 0.2vw 0 0;
+  font-size: calc(0.8 * var(--u));
   letter-spacing: 0.3px;
-  font-size: 0.8vw;
-}
-.gametext {
-  font-size: 1.25vw;
-  display: flex;
-  margin-top: 2vw;
-}
-.adtext {
-  font-size: 0.5vw;
-  text-transform: uppercase;
-  text-align: center;
-  opacity: 0.7;
-  letter-spacing: 0.05vw;
-  position: absolute;
-  right: 15vw;
-  padding-top: 10px;
-  margin-top: 32.2vw;
-  transform-origin: right center;
-}
-
-#gameframe .options .left,
-#gameframe .options .right {
-  width: 50%;
-  height: 100%;
-}
-#gameframe .options .right {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-#gameframe .options .right .game-button {
-  float: right;
-  margin-right: 1vw;
-  height: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .fullscreenbtn {
   border-radius: var(--site-radius-sm, 10px);
-  font-size: 1.6vw;
+  font-size: calc(1.6 * var(--u));
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
-  margin-left: 1.2vw;
 }
 .fullscreenbtn:hover {
   transform: scaleX(1.2) scaleY(1.2) rotate(-10deg);
 }
 .reloadbtn {
-  font-size: 1.6vw;
+  font-size: calc(1.6 * var(--u));
   cursor: pointer;
   transition: transform 0.55s ease-in-out;
 }
@@ -142,54 +133,134 @@
   transform: scaleX(1.2) scaleY(1.2) rotate(360deg);
 }
 
-.bottom-addisplay {
-  width: 100%;
-  max-width: 31.25vw;
-  height: auto;
-  aspect-ratio: 728 / 90;
-  background-color: var(--site-surface-2, #3d4756);
-  border-radius: var(--site-radius-sm, 10px);
-  display: flex;
-  margin: 20px auto;
-  outline: 0.2vw solid color-mix(in srgb, var(--site-border, #ffffff) 45%, transparent);
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
-  position: relative;
-  overflow: hidden;
-}
-
-.bottom-addisplay .adcenter {
-  width: 100%;
-  height: 100%;
+/* An ad box is centred in its cells; .ad-fit is the ad itself, scaled by the
+   script to fit them. */
+.ad-box {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 0;
+  min-height: 0;
 }
-
-.bottom-addisplay [data-55gms-ad] {
+.ad-box[hidden] {
+  display: none;
+}
+.ad-fit {
+  flex: none;
+  position: relative;
+  background-color: var(--site-surface-2, #3d4756);
+  border-radius: var(--site-radius-sm, 10px);
+  outline: 2px solid
+    color-mix(in srgb, var(--site-border, #ffffff) 45%, transparent);
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
+  overflow: hidden;
+}
+.ad-fit [data-55gms-ad] {
   width: 100% !important;
   height: 100% !important;
   max-width: none !important;
+  min-height: 0 !important;
   aspect-ratio: auto !important;
 }
-
-.bottom-addisplay [data-55gms-ad] a {
+.ad-fit [data-55gms-ad] a {
   display: block;
   width: 100%;
   height: 100%;
 }
-
-.bottom-addisplay [data-55gms-ad] img {
+.ad-fit [data-55gms-ad] img {
   width: 100% !important;
   height: 100% !important;
   object-fit: fill;
 }
 
-.bottom-addisplay iframe {
-  width: 728px !important;
-  height: 90px !important;
-  border: none;
-  border-radius: var(--site-radius-sm, 10px);
-  zoom: calc(31.25vw / 728px);
-  max-width: none;
-  max-height: none;
+/* Game tiles: the hover and the clip are the games page's (games.css). */
+.game-tile {
+  position: relative;
+  display: block;
+  min-width: 0;
+  min-height: 0;
+  color: #fff;
+  text-decoration: none;
+  border-radius: var(--site-radius-md, 14px);
+  touch-action: manipulation;
+}
+.game-tile[hidden] {
+  display: none;
+}
+.game-tile:empty {
+  background-color: color-mix(
+    in srgb,
+    var(--site-surface-2, #3d4756) 55%,
+    transparent
+  );
+}
+.game-tile:hover,
+.game-tile:focus-visible {
+  z-index: 1;
+}
+.game-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--site-radius-md, 14px);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.24);
+  transition: all 0.35s ease;
+}
+.game-tile:hover img,
+.game-tile:focus-visible img {
+  transform: scale(1.05) translateY(-3px);
+  filter: brightness(0.7);
+}
+.game-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--site-radius-md, 14px);
+  transform: scale(1.05) translateY(-3px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+.game-preview.is-shown {
+  opacity: 1;
+}
+.game-tile-name {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: calc(100% - 12px);
+  transform: translate(-50%, 0);
+  font-family: "Roboto", serif;
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+.game-tile:hover .game-tile-name,
+.game-tile:focus-visible .game-tile-name {
+  opacity: 1;
+  transform: translate(-50%, -10px);
+}
+.game-link.is-previewing .game-tile-name {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.95),
+    0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-tile img,
+  .game-tile-name {
+    transition: none;
+  }
 }
