@@ -105,6 +105,7 @@ All frontend code is static files under `static/`:
 - `static/assets/json/` — game/app catalog data
 - `static/assets/harry-potter/` — preset tab favicons (Canvas, Gmail, Google Drive, etc.)
 - `static/assets/sj/` — small proxy helper scripts (URL handling, service-worker registration)
+- `static/misc/play/*.html` — the page a game is played on. Each ships only the game frame inside `#gamepage`; `assets/js/game-page.js` adds three 55GMS Ads boxes (160x600, 300x250, 728x90) and tiles of random games from `g.json`, and `assets/css/gameframe.css` lays them out as one grid. A box whose slot gets no ad is hidden and tiles take its cells. These pages are never rebuilt, so bump the `?v=` on their script and stylesheet tags by hand when those files change
 - `static/misc/` — 400+ embedded game directories holding only the game pages (`*.html`). The game files themselves live in the [55gms/assets](https://github.com/55gms/assets) repo under `misc/<folder>/` and are served from jsDelivr; see `AGENTS.md` for the `<base>` pattern. A `/misc/` file requested from this server that is not on disk is relayed from that mirror by `utils/gameAssets.js`. `static/misc/media/` (the media player's scripts and styles) is site code and stays here in full. `.gitignore` keeps other non-HTML files out of `static/misc/`. Three files over jsDelivr's size limit also stay here: `fruit-ninja/vendors.bundle.js`, `misc/packs/skyline/§bSkyline.zip`, `fnf/assets/videos/videos/toyCommercial.mp4`
 
 ### Build
@@ -121,7 +122,7 @@ What this means when editing the frontend:
 
 - Byte-for-byte untouched: `sw.js`, `assets/sj/`, `assets/js/frame-runtime.js`, `assets/js/easteregg.min.js`, `assets/js/captcha-worker.js`, `assets/js/sdks/`. CSS and the other JSON files are copied as they are.
 - Top-level function names in app scripts stay readable (global renaming is off) because pages call them from inline handlers; so does `<meta name="description">` content.
-- A built catalogue is base64url of a 16-byte key followed by the JSON XORed with that key. `games.js`, `apps.js`, `packs.js` and `loader-ui.js` each carry the decoder (`readCatalogue`) and still accept plain JSON; any new code that fetches a catalogue needs it too.
+- A built catalogue is base64url of a 16-byte key followed by the JSON XORed with that key. `games.js`, `apps.js`, `packs.js`, `game-page.js` and `loader-ui.js` each carry the decoder (`readCatalogue`) and still accept plain JSON; any new code that fetches a catalogue needs it too.
 - `unity-cdn-loader.js` and `unity-cdn-assets.js` are ES modules loaded by game pages under `static/misc/`, which are never rebuilt: keep their file names and export names stable.
 - Whatever `?v=` a page puts on an `/assets/*.js|css` reference is replaced by the per-build one. `/assets/lib/vendor-*` and `/assets/js/sdks/*` keep their own versions, and so do URLs built at runtime inside app scripts (the loader `VERSION` in `loader-ui.js`, still bumped with `scripts/bump-loader-version.js`) and the game pages under `static/misc/`.
 
