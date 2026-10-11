@@ -78,6 +78,16 @@ the same every time for one machine and key). Run the server with
 4. Deploy. The build must run with those settings present, or it strips the
    `/premium` links.
 
+## How checkout looks
+
+The buyer pays on Stripe's hosted page. `CHECKOUT_BRANDING` and
+`CHECKOUT_TEXT` in `services/billing.js` set its name, icon, colours, font
+and the line above the pay button on every session, so nothing needs
+setting in the dashboard. The colours are the premium icon's own. Stripe
+takes the icon and the product image only as PNG, JPG or SVG, which is why
+`static/img/premium.png` exists beside the WebP; both are fetched from
+`https://55gms.com/img/premium.png` whichever domain the buyer is on.
+
 Checkout sends the buyer back to the domain they were on, so every mirror
 works for buying. Webhooks go to the one URL registered in step 2.
 

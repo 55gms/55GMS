@@ -11,6 +11,8 @@ import Stripe from "stripe";
 // Kept in step with services/billing.js, which is not imported here because
 // it connects to the database as it loads.
 const MARKER = { app: "55gms-premium" };
+// Shown beside the plan on Stripe's checkout page.
+const PRODUCT_IMAGE = "https://55gms.com/img/premium.png";
 const PRICES = [
   {
     lookup_key: "premium_monthly",
@@ -55,10 +57,15 @@ try {
   let product = products.find((item) => item.metadata?.app === MARKER.app);
   if (product) {
     console.log(`found:   product ${product.id}`);
+    if (!product.images.length) {
+      await stripe.products.update(product.id, { images: [PRODUCT_IMAGE] });
+      console.log("updated: product image");
+    }
   } else {
     product = await stripe.products.create({
       name: "55GMS Premium",
       description: "Choose your ads or turn them off, and a premium badge.",
+      images: [PRODUCT_IMAGE],
       metadata: MARKER,
     });
     console.log(`created: product ${product.id}`);

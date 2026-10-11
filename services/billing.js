@@ -13,6 +13,26 @@ export const PLANS = {
 // Marks the product and portal configuration this site created.
 export const STRIPE_MARKER = { app: "55gms-premium" };
 
+// How Stripe's hosted checkout page looks. The colours are the premium
+// icon's own, so its square sits flush on the page. The image is always the
+// main site's: Stripe has to fetch it, and a mirror or localhost may not
+// answer.
+const PREMIUM_ICON = "https://55gms.com/img/premium.png";
+const CHECKOUT_BRANDING = {
+  display_name: "55GMS Premium",
+  icon: { type: "url", url: PREMIUM_ICON },
+  background_color: "#fad699",
+  button_color: "#01b6d8",
+  border_style: "rounded",
+  font_family: "inter",
+};
+const CHECKOUT_TEXT = {
+  submit: {
+    message:
+      "Cancel any time from your profile. You keep premium until the end of the time you paid for.",
+  },
+};
+
 // past_due stays premium: Stripe is still retrying the card. It ends as
 // canceled or unpaid when the retries run out.
 const LIVE_STATUSES = new Set(["active", "trialing", "past_due"]);
@@ -183,6 +203,8 @@ export async function createCheckout(uuid, plan, origin) {
     client_reference_id: user.uuid,
     line_items: [{ price, quantity: 1 }],
     subscription_data: { metadata: { uuid: user.uuid } },
+    branding_settings: CHECKOUT_BRANDING,
+    custom_text: CHECKOUT_TEXT,
     success_url: `${origin}/premium?done=1`,
     cancel_url: `${origin}/premium`,
   });
