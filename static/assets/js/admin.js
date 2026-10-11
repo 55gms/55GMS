@@ -150,17 +150,31 @@
     }
   }
 
+  // Whether premium was given from this page. A server without billing
+  // sends no premiumGranted, and there every premium is a grant.
+  function isGranted(user) {
+    return typeof user.premiumGranted === "boolean"
+      ? user.premiumGranted
+      : Boolean(user.premium);
+  }
+
   function renderSelected() {
     document.getElementById("selectedName").textContent = selectedUser.username;
-    document.getElementById("selectedStatus").textContent = selectedUser.premium
-      ? "Premium"
-      : "Not premium";
+    // Premium without a grant comes from a paid subscription, which is
+    // managed in Stripe and not from here.
+    const granted = isGranted(selectedUser);
+    document.getElementById("selectedStatus").textContent =
+      !selectedUser.premium
+        ? "Not premium"
+        : granted
+          ? "Premium"
+          : "Premium (subscription)";
     document.getElementById("selectedId").textContent = selectedUser.uuid;
-    document.getElementById("toggleLabel").textContent = selectedUser.premium
+    document.getElementById("toggleLabel").textContent = granted
       ? "Revoke premium"
       : "Grant premium";
-    toggleButton.classList.toggle("p-btn-primary", !selectedUser.premium);
-    toggleButton.classList.toggle("p-btn-danger", selectedUser.premium);
+    toggleButton.classList.toggle("p-btn-primary", !granted);
+    toggleButton.classList.toggle("p-btn-danger", granted);
     selected.hidden = false;
   }
 
@@ -204,7 +218,7 @@
 
   toggleButton.addEventListener("click", async () => {
     if (!selectedUser) return;
-    const premium = !selectedUser.premium;
+    const premium = !isGranted(selectedUser);
     setLoading(toggleButton, true);
 
     try {
@@ -220,7 +234,7 @@
       );
       toast(
         "success",
-        `${data.user.username} ${premium ? "now has" : "no longer has"} premium.`,
+        `${data.user.username} ${data.user.premium ? (premium ? "now has" : "still has") : "no longer has"} premium${!premium && data.user.premium ? " through a subscription" : ""}.`,
       );
     } catch (error) {
       toast("error", error.message);

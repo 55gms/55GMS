@@ -141,6 +141,16 @@ try {
     });
   }
 
+  if (features.billing) {
+    // Ahead of express.json: the signature covers the raw request body.
+    const { stripeWebhook } = await import("./routes/billing.js");
+    app.post(
+      "/api/stripe/webhook",
+      express.raw({ type: "application/json" }),
+      stripeWebhook,
+    );
+  }
+
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ extended: true, limit: "50mb" }));
   app.use(cors());
@@ -160,7 +170,16 @@ try {
     ]);
     app.use("/api", auth.default);
     app.use("/api", users.default);
-    app.use("/api", admin.default);
+    if (features.billing) {
+      const [billing, { recomputePremium }] = await Promise.all([
+        import("./routes/billing.js"),
+        import("./services/billing.js"),
+      ]);
+      app.use("/api", billing.default);
+      app.use("/api", admin.createAdminRouter({ recomputePremium }));
+    } else {
+      app.use("/api", admin.default);
+    }
   }
   if (features.chat) {
     const messaging = await import("./routes/messaging.js");
@@ -169,12 +188,19 @@ try {
   app.use("/api", searchRoutes);
   app.use("/api/music", proxyRoutes);
 
+  // Calls to a feature that is off are answered in JSON, which is what its
+  // callers parse, instead of the 404 page.
+  const featureOff = (req, res) => {
+    res.status(503).json({ error: "This feature is off on this server" });
+  };
+  if (!features.billing) {
+    app.use(["/api/billing", "/api/stripe"], featureOff);
+  }
   if (!features.accounts || !features.chat) {
-    // What is left under /api belongs to a feature that is off. Answer in
-    // JSON, which is what its callers parse, instead of the 404 page.
-    app.use("/api", (req, res) => {
-      res.status(503).json({ error: "This feature is off on this server" });
-    });
+    // What is left under /api belongs to a feature that is off.
+    app.use("/api", featureOff);
+  }
+  if (!features.accounts || !features.chat || !features.billing) {
     app.use(disabledPageRedirect(features));
   }
 
@@ -471,6 +497,7 @@ try {
     { path: "/m", file: "media.html" },
     { path: "/profile", file: "account.html" },
     { path: "/admin", file: "admin.html" },
+    { path: "/premium", file: "premium.html" },
     { path: "/login", file: "login.html" },
     { path: "/signup", file: "signup.html" },
     { path: "/l", file: "/assets/404/loading.html" },

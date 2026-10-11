@@ -7,7 +7,12 @@ import { readSession } from "../utils/sessionToken.js";
 // lowercase, so this matches exactly one user.
 const ADMIN_USERNAME = "jiayang";
 
-export function createAdminRouter({ accounts = defaultAccounts } = {}) {
+// recomputePremium is passed only when billing is on: premium is then the
+// grant or a live subscription, and services/billing.js decides.
+export function createAdminRouter({
+  accounts = defaultAccounts,
+  recomputePremium = null,
+} = {}) {
   const router = express.Router();
 
   // UUIDs are visible to chat members, so admin calls are authorized by the
@@ -58,6 +63,9 @@ export function createAdminRouter({ accounts = defaultAccounts } = {}) {
       const user = await accounts.setPremium(uuid, premium);
       if (!user) {
         return res.status(404).json({ error: "User not found" });
+      }
+      if (recomputePremium) {
+        user.premium = Boolean(await recomputePremium(uuid));
       }
 
       await userCache.invalidateUser(uuid);
