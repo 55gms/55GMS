@@ -56,7 +56,15 @@ export async function loadFeatures() {
 }
 
 // Pages that only work with the feature they belong to.
-const ACCOUNT_PAGES = ["/login", "/signup", "/profile", "/account", "/admin"];
+const ACCOUNT_PAGES = [
+  "/login",
+  "/signup",
+  "/profile",
+  "/account",
+  "/admin",
+  "/choose-handle",
+  "/handles",
+];
 const CHAT_PAGES = ["/c", "/chat"];
 
 // Sends visitors home from the pages of a feature that is turned off.

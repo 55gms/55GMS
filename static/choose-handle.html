@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+    <script src="/assets/js/font.js" defer></script>
+    <meta name="google" content="notranslate" />
+    <meta name="googlebot" content="notranslate" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=7" />
+    <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
+    <link rel="stylesheet" href="/assets/css/auth.css?v=2" />
+    <title>Google</title>
+    <meta name="author" content="Rednotsus" />
+    <meta http-equiv="Cache-control" content="public" />
+    <meta
+      name="description"
+      content="55GMS - Reds Exploit Corner - Join the discord for links!"
+    />
+
+    <script src="/assets/js/script.js?v=20"></script>
+    <script src="/assets/js/easteregg.min.js" async></script>
+  </head>
+
+  <body>
+    <nav>
+      <div class="navbar">
+        <a id="nav-title" href="/">Reds Exploit Corner</a>
+        <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
+        <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
+        <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
+        <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
+        <a href="/chat"><i class="fa-solid fa-comments">&nbsp;</i></a>
+        <a href="/profile"><i class="fa-solid fa-user"></i></a>
+      </div>
+    </nav>
+
+    <main class="auth">
+      <header class="auth-header">
+        <div>
+          <h1 class="auth-title">Choose your handle</h1>
+          <p class="auth-subtitle" id="choose-subtitle">
+            Usernames are now handles. Yours needs a new one.
+          </p>
+        </div>
+      </header>
+
+      <form class="auth-card" data-handles="choose" novalidate>
+        <div class="auth-field">
+          <label class="auth-label" for="handle">Handle</label>
+          <div class="auth-control has-prefix">
+            <span class="auth-prefix" aria-hidden="true">@</span>
+            <input
+              class="auth-input"
+              type="text"
+              id="handle"
+              name="handle"
+              autocomplete="off"
+              autocapitalize="none"
+              spellcheck="false"
+              maxlength="17"
+              aria-describedby="handle-hint"
+            />
+          </div>
+          <p class="auth-hint" id="handle-hint">
+            3 to 16 characters: letters, numbers and dashes.
+          </p>
+        </div>
+
+        <p class="auth-message" role="alert" hidden></p>
+
+        <button class="auth-submit" type="submit">
+          <span class="auth-submit-label">Save handle</span>
+          <span class="auth-spinner" aria-hidden="true"></span>
+        </button>
+      </form>
+
+      <p class="auth-switch">
+        Your old username and password still sign you in.
+        <a href="/handles">What changed?</a>
+      </p>
+    </main>
+
+    <script src="/assets/js/handles.js?v=1"></script>
+  </body>
+</html>
