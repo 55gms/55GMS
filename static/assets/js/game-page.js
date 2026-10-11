@@ -12,7 +12,7 @@
   const RECENT_KEY = "55gms.recentGames.v1";
   const RECENT_LIMIT = 24;
   const PHONE_WIDTH = 700;
-  const STACKED_WIDTH = 1000; // narrower than this, the game takes every column
+  const STACKED_WIDTH = 1150; // narrower than this, the game takes every column
   const GAME_RATIO = 1.8; // columns of the game for each of its rows
   const AD_MAX_SCALE = 1.15;
 
@@ -152,21 +152,24 @@
         placed.wide = board.take(start, rows, span, 1);
       }
     } else {
-      // The game in the middle, a skyscraper in the left gutter of a wide
-      // window, and the box ad and the big tiles in a column on the right.
-      const left = wanted(ads.left) && cols >= 16 ? 2 : 0;
-      const middle = cols - left - (cols >= 13 ? 5 : 3);
+      // The game in the middle with as many columns to its left as to its
+      // right (the right gets the odd one). A wide window has a skyscraper on
+      // the left; the box ad and the big tiles go on the right.
+      const middle = cols - (cols >= 12 ? 6 : 5);
       const gameRows = Math.min(
         Math.max(3, Math.round(middle / GAME_RATIO)),
         Math.max(3, fitRows - 1),
       );
-      const gameCols = Math.min(
+      let gameCols = Math.min(
         middle,
         Math.max(4, Math.round(gameRows * GAME_RATIO)),
       );
+      if ((cols - gameCols) % 2 && gameCols < middle) gameCols++;
+      const leftCols = Math.floor((cols - gameCols) / 2);
+      const left = wanted(ads.left) && cols >= 16 && leftCols >= 2;
       rows = Math.max(fitRows, gameRows + 1);
       board = createBoard(cols, rows);
-      const gameCol = left + 1;
+      const gameCol = leftCols + 1;
       const side = gameCol + gameCols;
       game = board.take(gameCol, 1, gameCols, gameRows);
       if (left) {
@@ -185,9 +188,9 @@
       }
       // Big tiles keep clear of the last row, which is the banner's.
       const spots = [
-        [side, 1],
-        [side, 3],
         [cols - 2, 4],
+        [side, 1],
+        [1, 1],
         [cols - 1, 1],
       ];
       for (const [col, row] of spots) {

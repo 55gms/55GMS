@@ -235,6 +235,7 @@
   left: 50%;
   width: calc(100% - 12px);
   transform: translate(-50%, 0);
+  color: #fff;
   font-family: "Roboto", serif;
   font-weight: 500;
   font-size: 0.75rem;
