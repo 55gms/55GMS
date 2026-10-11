@@ -148,15 +148,16 @@ function protectAndEncode(html) {
   return work.replace(/\u0000(\d+)\u0000/g, (_, n) => tokens[+n]);
 }
 
-// Navbar links to features the env leaves off (utils/features.js). The server
+// Links to features the env leaves off (utils/features.js). The server
 // redirects their pages home, so the built pages drop the links to them.
 function disabledNavLinks() {
   const features = configuredFeatures();
   const hrefs = [];
   if (!features.chat) hrefs.push("/chat");
   if (!features.accounts) hrefs.push("/profile");
+  if (!features.billing) hrefs.push("/premium");
   if (!hrefs.length) return null;
-  console.log(`[build] leaving out navbar links: ${hrefs.join(", ")}`);
+  console.log(`[build] leaving out links: ${hrefs.join(", ")}`);
   return new RegExp(
     `[ \\t]*<a\\s[^>]*href="(?:${hrefs.join("|")})"[^>]*>[\\s\\S]*?</a\\s*>\\n?`,
     "g",

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+    <script src="/assets/js/font.js" defer></script>
+    <meta name="google" content="notranslate" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=7" />
+    <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
+    <link rel="stylesheet" href="/assets/css/profile.css?v=5" />
+    <link rel="stylesheet" href="/assets/css/premium.css?v=1" />
+    <title>Google</title>
+    <meta name="author" content="Rednotsus" />
+    <meta http-equiv="Cache-control" content="public" />
+    <meta
+      name="description"
+      content="55GMS - Reds Exploit Corner - Join the discord for links!"
+    />
+
+    <script src="/assets/js/script.js?v=20"></script>
+    <script src="/assets/js/easteregg.min.js" async></script>
+  </head>
+
+  <body>
+    <nav>
+      <div class="navbar">
+        <a class="title" href="/">Reds Exploit Corner</a>
+        <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
+        <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
+        <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
+        <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
+        <a href="/chat" aria-label="Chat"
+          ><i class="fa-solid fa-comments">&nbsp;</i></a
+        >
+        <a href="/profile" aria-label="Profile"
+          ><i class="fa-solid fa-user"></i
+        ></a>
+      </div>
+    </nav>
+
+    <main class="profile premium" id="premium" data-state="loading">
+      <header class="premium-header">
+        <img
+          class="premium-mark"
+          src="/img/premium.webp"
+          alt=""
+          width="40"
+          height="40"
+        />
+        <h1>55GMS Premium</h1>
+        <p>Decide which ads you see, or turn them all off.</p>
+      </header>
+
+      <p class="premium-message" id="premiumMessage" role="status" hidden></p>
+
+      <section class="profile-card premium-current" id="premiumCurrent" hidden>
+        <div class="profile-row">
+          <div class="profile-row-text">
+            <p class="profile-row-title" id="currentTitle"></p>
+            <p class="profile-row-desc" id="currentDesc"></p>
+          </div>
+          <button type="button" class="p-btn" id="manageButton" hidden>
+            <span class="p-btn-label">Manage billing</span>
+            <span class="p-spinner" aria-hidden="true"></span>
+          </button>
+        </div>
+      </section>
+
+      <section
+        class="premium-plans"
+        id="premiumPlans"
+        aria-label="Plans"
+        hidden
+      >
+        <article class="profile-card premium-plan">
+          <h2>Monthly</h2>
+          <p class="premium-price">
+            <span class="premium-amount">$1.99</span>
+            <span class="premium-per">per month</span>
+          </p>
+          <p class="premium-note">Billed every month.</p>
+          <button type="button" class="p-btn" data-plan="monthly">
+            <span class="p-btn-label">Get monthly</span>
+            <span class="p-spinner" aria-hidden="true"></span>
+          </button>
+        </article>
+        <article class="profile-card premium-plan premium-plan--best">
+          <h2>Yearly <span class="premium-save">Save 37%</span></h2>
+          <p class="premium-price">
+            <span class="premium-amount">$14.99</span>
+            <span class="premium-per">per year</span>
+          </p>
+          <p class="premium-note">About $1.25 a month, billed once a year.</p>
+          <button type="button" class="p-btn p-btn-primary" data-plan="yearly">
+            <span class="p-btn-label">Get yearly</span>
+            <span class="p-spinner" aria-hidden="true"></span>
+          </button>
+        </article>
+      </section>
+
+      <section class="profile-section" aria-labelledby="perks-heading">
+        <div class="profile-section-head">
+          <h2 id="perks-heading">What you get</h2>
+        </div>
+        <div class="profile-card">
+          <div class="profile-row">
+            <div class="profile-row-text">
+              <p class="profile-row-title">Your choice of ads</p>
+              <p class="profile-row-desc">
+                Ads are off until you turn them on. In Settings you pick which
+                kinds show, or leave them all off.
+              </p>
+            </div>
+          </div>
+          <div class="profile-row">
+            <div class="profile-row-text">
+              <p class="profile-row-title">A premium badge</p>
+              <p class="profile-row-desc">
+                Shown beside your handle in chat and on your profile.
+              </p>
+            </div>
+          </div>
+          <div class="profile-row">
+            <div class="profile-row-text">
+              <p class="profile-row-title">Cancel any time</p>
+              <p class="profile-row-desc">
+                Cancel from your profile. You keep premium until the end of the
+                time you paid for.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <p class="premium-foot">
+        Payment is handled by Stripe. This site never sees your card.
+      </p>
+    </main>
+
+    <script src="/assets/js/premium.js?v=1"></script>
+  </body>
+</html>

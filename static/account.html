@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=7" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
     <link rel="stylesheet" href="/assets/css/profile.css?v=5" />
+    <link rel="stylesheet" href="/assets/css/premium.css?v=1" />
     <title>Google</title>
     <meta name="author" content="Rednotsus" />
     <meta http-equiv="Cache-control" content="public" />
@@ -267,6 +268,50 @@
                 <span id="syncStatusText" aria-live="polite">Checking…</span>
               </button>
             </span>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="profile-section"
+        id="premiumSection"
+        aria-labelledby="premium-heading"
+        hidden
+      >
+        <div class="profile-section-head">
+          <h2 id="premium-heading">Premium</h2>
+        </div>
+        <div class="profile-card">
+          <div class="profile-row">
+            <div class="profile-row-main">
+              <div class="profile-row-icon" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="m12 3.5 2.6 5.3 5.9.9-4.25 4.1 1 5.8L12 16.9l-5.25 2.7 1-5.8L3.5 9.7l5.9-.9z"
+                  />
+                </svg>
+              </div>
+              <div class="profile-row-text">
+                <p class="profile-row-title" id="premiumTitle">55GMS Premium</p>
+                <p class="profile-row-desc" id="premiumDesc">
+                  Choose which ads you see, or turn them off.
+                </p>
+              </div>
+            </div>
+            <a class="p-btn p-btn-primary" id="upgradeLink" href="/premium">
+              <span class="p-btn-label">Upgrade</span>
+            </a>
+            <button type="button" class="p-btn" id="billingButton" hidden>
+              <span class="p-btn-label">Manage billing</span>
+              <span class="p-spinner" aria-hidden="true"></span>
+            </button>
           </div>
         </div>
       </section>
@@ -735,6 +780,72 @@
             }
           })
           .catch((error) => console.error("Error:", error));
+
+        // Paid premium. A server that does not sell it answers 503 and the
+        // section stays hidden; 401 is a browser without a session, which
+        // can still be sent to the plans.
+        (function setupBilling() {
+          const section = document.getElementById("premiumSection");
+          const upgradeLink = document.getElementById("upgradeLink");
+          const billingButton = document.getElementById("billingButton");
+
+          fetch("/api/billing/status")
+            .then((response) => {
+              if (response.status === 401) return {};
+              return response.ok ? response.json() : null;
+            })
+            .then((status) => {
+              if (!status) return;
+
+              const title = document.getElementById("premiumTitle");
+              const desc = document.getElementById("premiumDesc");
+              if (status.source === "subscription") {
+                title.textContent =
+                  status.plan === "yearly"
+                    ? "Premium, billed yearly"
+                    : "Premium, billed monthly";
+                const date = status.renewsAt
+                  ? new Date(status.renewsAt).toLocaleDateString(undefined, {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })
+                  : "";
+                desc.textContent = status.pastDue
+                  ? "Your last payment failed. Update your card to keep premium."
+                  : date
+                    ? (status.cancelAtPeriodEnd ? "Ends on " : "Renews on ") +
+                      date +
+                      "."
+                    : "";
+                if (upgradeLink) upgradeLink.hidden = true;
+                billingButton.hidden = false;
+              } else if (status.source === "grant") {
+                title.textContent = "Premium";
+                desc.textContent =
+                  "Added to your account. There is nothing to pay.";
+                if (upgradeLink) upgradeLink.hidden = true;
+              }
+              section.hidden = false;
+            })
+            .catch((error) => console.error("Error:", error));
+
+          billingButton.addEventListener("click", () => {
+            billingButton.classList.add("is-loading");
+            billingButton.disabled = true;
+            fetch("/api/billing/portal", { method: "POST" })
+              .then((response) => response.json())
+              .then((data) => {
+                if (!data.url) throw new Error(data.error);
+                location.href = data.url;
+              })
+              .catch((error) => {
+                billingButton.classList.remove("is-loading");
+                billingButton.disabled = false;
+                toast("error", error.message || "Could not open billing.");
+              });
+          });
+        })();
 
         document
           .getElementById("logoutButton")
