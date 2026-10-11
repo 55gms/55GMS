@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -6,8 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Loading</title>
     <script src="/assets/js/script.js?v=20"></script>
-
-    <!-- Versioned, compatible controller/core/transport bundles. -->
     <script src="/assets/lib/vendor-core.js?v=2.0.67-alpha.2-3"></script>
     <script src="/assets/lib/vendor-frame.js?v=0.0.14-1"></script>
     <script src="/assets/lib/vendor-util.js?v=0.0.3-1"></script>
@@ -62,7 +61,6 @@
         background: #fff;
       }
 
-      /* First-connect state: only visible while the transport boots. */
       .status {
         position: fixed;
         inset: 0;
@@ -210,9 +208,6 @@
     <div id="iframe-container"></div>
 
     <script>
-      // ---------------- BRIDGE ----------------
-      // Events go up to the browser shell as { type: "browser:*" }.
-      // Commands come down as { type: "browser:command", command, url }.
       const inShell = window.parent && window.parent !== window;
 
       function emit(type, detail = {}) {
@@ -239,13 +234,11 @@
         .getElementById("status-retry")
         .addEventListener("click", () => location.reload());
 
-      // ---------------- CONTROLLER / TRANSPORT ----------------
       let frames;
       const newTabPlugin = new frameRuntime.NewTabPlugin((type, detail) =>
         emit("browser:" + type, detail),
       );
 
-      // Only show the connecting screen if booting is actually slow.
       const bootStatusTimer = setTimeout(
         () => showStatus("Connecting", "Starting a secure connection…"),
         350,
@@ -271,7 +264,6 @@
         (err) => {
           clearTimeout(bootStatusTimer);
           console.error("Player failed to start:", err);
-          // Name the stage that failed so reports can be diagnosed.
           const reason =
             err instanceof Error && err.message
               ? err.message
@@ -289,15 +281,11 @@
         },
       );
 
-      // ---------------- FRAME + NAVIGATION ----------------
       let frame = null;
       let currentUrl = "";
       let loadTimer = null;
       let navigationId = 0;
 
-      // Per-tab history. The iframe's own history is joint session history
-      // shared with every other tab, so history.back() could navigate a
-      // different tab; we track entries here and navigate explicitly instead.
       let entries = [];
       let index = -1;
       let pendingHistoryMove = null;
@@ -312,7 +300,7 @@
       function recordUrl(url) {
         if (pendingHistoryMove !== null) {
           index = pendingHistoryMove;
-          entries[index] = url; // a redirect may land somewhere slightly different
+          entries[index] = url;
           pendingHistoryMove = null;
         } else if (url !== entries[index]) {
           entries = entries.slice(0, index + 1);
@@ -340,6 +328,116 @@
           return null;
         }
       }
+
+      function seekForwardTen(view) {
+        try {
+          if (typeof view.jwplayer === "function") {
+            const player = view.jwplayer();
+            if (
+              player &&
+              typeof player.seek === "function" &&
+              typeof player.getPosition === "function"
+            ) {
+              const position = Number(player.getPosition());
+              const duration = typeof player.getDuration === "function"
+                ? Number(player.getDuration())
+                : Infinity;
+              if (Number.isFinite(position)) {
+                player.seek(Math.min(
+                  position + 10,
+                  Number.isFinite(duration) && duration > 0 ? duration : Infinity,
+                ));
+                return;
+              }
+            }
+          }
+        } catch {}
+
+        try {
+          const video = view.document.querySelector("video");
+          if (!video || !Number.isFinite(video.currentTime)) return;
+          const duration = Number.isFinite(video.duration) && video.duration > 0
+            ? video.duration
+            : Infinity;
+          video.currentTime = Math.min(video.currentTime + 10, duration);
+        } catch {}
+      }
+
+      function insertForwardTen(view, depth = 0) {
+        if (!view || depth > 8) return;
+        let doc;
+        try {
+          doc = view.document;
+        } catch {
+          return;
+        }
+
+        for (const rewind of doc.querySelectorAll(".jw-icon-rewind")) {
+          if (!rewind.parentElement) continue;
+          if (rewind.nextElementSibling?.classList.contains("jw-55gms-forward-ten")) {
+            continue;
+          }
+
+          const button = rewind.cloneNode(false);
+          button.classList.remove("jw-icon-rewind");
+          button.classList.add("jw-55gms-forward-ten");
+          for (const attribute of button.getAttributeNames()) {
+            if (
+              attribute === "id" ||
+              attribute === "aria-describedby" ||
+              attribute.startsWith("on") ||
+              attribute.startsWith("data-tooltip")
+            ) {
+              button.removeAttribute(attribute);
+            }
+          }
+          button.setAttribute("aria-label", "Forward 10 Seconds");
+          button.setAttribute("title", "Forward 10 Seconds");
+          if (button.tagName === "BUTTON") button.type = "button";
+          button.innerHTML = `
+            <svg class="jw-svg-icon" viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M7.5 24.5A10.5 10.5 0 1 1 25 13" fill="none"
+                stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" />
+              <path d="M24.5 4.5V12H17" fill="none"
+                stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round" />
+              <text x="16" y="20" text-anchor="middle"
+                font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+                fill="currentColor">10</text>
+            </svg>
+          `;
+
+          button.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            seekForwardTen(view);
+          }, true);
+
+          button.addEventListener("keydown", (event) => {
+            if (event.key !== "Enter" && event.key !== " ") return;
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            seekForwardTen(view);
+          }, true);
+
+          rewind.insertAdjacentElement("afterend", button);
+        }
+
+        for (const child of doc.querySelectorAll("iframe")) {
+          try {
+            insertForwardTen(child.contentWindow, depth + 1);
+          } catch {}
+        }
+      }
+
+      setInterval(() => {
+        if (!frame || !/^https:\/\/vidsrc\.party\/embed\/(?:movie|tv)\//.test(currentUrl)) {
+          return;
+        }
+        const doc = frameDocument();
+        if (doc?.defaultView) insertForwardTen(doc.defaultView);
+      }, 750);
 
       function readTitle() {
         const doc = frameDocument();
@@ -380,7 +478,6 @@
           const link = doc.querySelector(
             'link[rel~="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]',
           );
-          // Sites without a declared icon usually still serve /favicon.ico.
           return toFrameAsset(
             link ? link.href : new URL("/favicon.ico", currentUrl).href,
           );
@@ -389,8 +486,6 @@
         }
       }
 
-      // The shell sits outside the worker's scope and can't load frame assets,
-      // so the icon is fetched through the page frame and handed over as pixels.
       const setImageSrc = Object.getOwnPropertyDescriptor(
         HTMLImageElement.prototype,
         "src",
@@ -421,7 +516,6 @@
             }
           });
           img.addEventListener("error", () => reportFavicon(request, ""));
-          // The embed's own setter: src is already a frame URL.
           setImageSrc.call(img, src);
         } catch {
           reportFavicon(request, "");
@@ -464,8 +558,6 @@
         } catch {}
       }
 
-      // Browser shortcuts pressed while the framed page has focus are
-      // forwarded to the shell so they behave the same everywhere.
       const SHORTCUT_KEYS = new Set([
         "l",
         "t",
@@ -583,11 +675,11 @@
         }
         if (id !== navigationId) return;
         if (!frame) mountFrame();
-        // The shell clears a tab's title/favicon on navigation, so always re-report them.
         lastTitle = "";
         lastFavicon = "";
         faviconData = "";
         faviconRequest++;
+        pendingHistoryMove = null;
         pendingHistoryMove = historyMove;
         currentUrl = url;
         frame.go(url);
@@ -624,7 +716,6 @@
         });
       }
 
-      // Eruda is ~500KB, so it's only fetched when requested.
       function toggleDevtools() {
         let win;
         try {
@@ -655,8 +746,6 @@
         win.document.head.appendChild(script);
       }
 
-      // The shell focuses this embed when its tab is opened from another page;
-      // hand that focus on to the framed page.
       window.addEventListener("focus", () => {
         if (frame && document.activeElement === document.body)
           frame.element.focus();
@@ -695,7 +784,6 @@
       function urlFromHash() {
         let raw = window.location.hash.substring(1);
         if (!raw) return "https://start.duckduckgo.com/";
-        // The media player passes its target as an opaque token.
         if (raw.startsWith("~")) raw = frameRuntime.codec.decode(raw.slice(1));
         return /^https?:\/\//i.test(raw) ? raw : "https://" + raw;
       }
