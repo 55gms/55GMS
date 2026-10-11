@@ -289,7 +289,7 @@ h6 {
 }
 
 .game:hover img,
-.game:focus-within img {
+.game:has(:focus-visible) img {
   transform: scale(1.05) translateY(-0.2vw);
   filter: brightness(0.7);
   box-shadow: 0 0 0.5vw rgba(0, 0, 0, 0.2);
@@ -338,7 +338,7 @@ h6 {
 }
 
 .game:hover .text,
-.game:focus-within .text {
+.game:has(:focus-visible) .text {
   opacity: 1;
   animation: slide-in 0.35s ease forwards;
 }
@@ -558,7 +558,7 @@ h6 {
 }
 
 .game:hover .game-favorite,
-.game:focus-within .game-favorite {
+.game:has(:focus-visible) .game-favorite {
   opacity: 0.78;
   pointer-events: auto;
   transform: scale(1.05) translateY(-0.2vw);
@@ -633,7 +633,7 @@ h6 {
   }
 
   .game:hover .game-favorite,
-  .game:focus-within .game-favorite,
+  .game:has(:focus-visible) .game-favorite,
   .game-favorite:hover,
   .game-favorite {
     transform: none;
