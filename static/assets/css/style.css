@@ -399,6 +399,13 @@ a:hover {
   );
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
 }
+/* The embed sizes its image with inline width: 100%. A page's own img rule
+   (media.css caps every img at the poster size) must not shrink it. */
+.site-ad > [data-55gms-ad] img,
+.site-ad-rail > [data-55gms-ad] img {
+  max-width: none;
+  max-height: none;
+}
 .site-ad--billboard {
   --site-ad-width: 970px;
 }
