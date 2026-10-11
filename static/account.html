@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -31,6 +32,39 @@
         location.replace("/login");
       }
     </script>
+    <style>
+      .profile-header {
+        position: relative;
+      }
+      .profile-banner-edit {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 3;
+        display: grid;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        background: rgba(22, 28, 43, 0.85);
+        color: #fff;
+        cursor: pointer;
+      }
+      .profile-banner-edit:hover {
+        background: rgba(53, 68, 107, 0.95);
+      }
+      .profile-banner-edit svg {
+        width: 16px;
+        height: 16px;
+      }
+      .profile-header.has-custom-banner {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    </style>
   </head>
 
   <body>
@@ -52,6 +86,31 @@
 
     <main class="profile">
       <header class="profile-header">
+        <button
+          type="button"
+          class="profile-banner-edit"
+          id="bannerButton"
+          aria-label="Change banner"
+          title="Change banner"
+        >
+          <svg
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M11 2.5 13.5 5 5.5 13H3v-2.5z" />
+          </svg>
+        </button>
+        <input
+          type="file"
+          id="bannerInput"
+          accept="image/png,image/jpeg,image/webp"
+          hidden
+        />
         <button
           type="button"
           class="profile-avatar"
@@ -315,7 +374,7 @@
                   stroke-linejoin="round"
                   aria-hidden="true"
                 >
-                  <path d="M3 8h10M9 4l4 4-4 4" />
+                  <path d="M3 8h10M9 4l4 4 4-4" />
                 </svg>
               </span>
             </button>
@@ -346,8 +405,6 @@
           return /^a\d{2}$/.test(id || "") ? `/img/avatars/${id}.svg` : "";
         }
 
-        // The header shows the account's avatar, or the handle's initial
-        // until it loads and where the server has no avatars.
         function showIdentity() {
           document.getElementById("username").textContent = "@" + handle;
           const circle = document.getElementById("initials");
@@ -401,8 +458,68 @@
           }, 4500);
         }
 
-        // Refresh the handle, send an account that still has to choose one
-        // to the chooser, and sign out a browser whose account is gone.
+        const bannerHeader = document.querySelector(".profile-header");
+        const bannerButton = document.getElementById("bannerButton");
+        const bannerInput = document.getElementById("bannerInput");
+        const bannerKey = "55gms_profile_banner_" + uuid;
+
+        function showBanner(dataUrl) {
+          bannerHeader.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.36), rgba(0, 0, 0, 0.36)), url("${dataUrl}")`;
+          bannerHeader.classList.add("has-custom-banner");
+        }
+
+        try {
+          const savedBanner = localStorage.getItem(bannerKey);
+          if (savedBanner) showBanner(savedBanner);
+        } catch (error) {
+          console.error("Couldn't load banner:", error);
+        }
+
+        bannerButton.addEventListener("click", () => bannerInput.click());
+        bannerInput.addEventListener("change", async () => {
+          const file = bannerInput.files[0];
+          bannerInput.value = "";
+          if (!file) return;
+          if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
+            toast("error", "Choose a PNG, JPG, or WebP image.");
+            return;
+          }
+          if (file.size > 8 * 1024 * 1024) {
+            toast("error", "Your banner must be smaller than 8 MB.");
+            return;
+          }
+
+          bannerButton.disabled = true;
+          const objectUrl = URL.createObjectURL(file);
+          try {
+            const image = new Image();
+            await new Promise((resolve, reject) => {
+              image.onload = resolve;
+              image.onerror = reject;
+              image.src = objectUrl;
+            });
+            const canvas = document.createElement("canvas");
+            canvas.width = 1200;
+            canvas.height = 360;
+            const context = canvas.getContext("2d");
+            if (!context) throw new Error("Canvas isn't available.");
+            const ratio = Math.max(canvas.width / image.width, canvas.height / image.height);
+            const width = image.width * ratio;
+            const height = image.height * ratio;
+            context.drawImage(image, (canvas.width - width) / 2, (canvas.height - height) / 2, width, height);
+            const dataUrl = canvas.toDataURL("image/jpeg", 0.8);
+            localStorage.setItem(bannerKey, dataUrl);
+            showBanner(dataUrl);
+            updateLocalSize();
+          } catch (error) {
+            toast("error", "Couldn't save your banner. Try another image.");
+            console.error("Banner save failed:", error);
+          } finally {
+            URL.revokeObjectURL(objectUrl);
+            bannerButton.disabled = false;
+          }
+        });
+
         fetch("/api/me", { headers: { "X-User-UUID": uuid } })
           .then((response) => {
             if (response.status === 404) {
@@ -428,9 +545,6 @@
           })
           .catch(() => {});
 
-        // The avatar picker: clicking the header avatar opens a dialog with
-        // the presets the server offers. Where it has none, the avatar is
-        // not a button.
         const avatarButton = document.getElementById("avatarButton");
         const avatarDialog = document.getElementById("avatarDialog");
         const avatarGrid = document.getElementById("avatarGrid");
@@ -466,7 +580,6 @@
         document
           .getElementById("avatarClose")
           .addEventListener("click", () => avatarDialog.close());
-        // A click on the backdrop lands on the dialog element itself.
         avatarDialog.addEventListener("click", (event) => {
           if (event.target === avatarDialog) avatarDialog.close();
         });
@@ -518,7 +631,6 @@
           })
           .catch(() => {});
 
-        // Set by the login page when an old username was converted.
         const convertedHandle = sessionStorage.getItem("handleNotice");
         if (convertedHandle) {
           sessionStorage.removeItem("handleNotice");
@@ -581,7 +693,6 @@
           empty: "No cloud save",
           error: "Couldn't check",
         };
-        // Keys this page rewrites on its own; the server skips them too.
         const SYNC_IGNORED_KEYS = ["premium"];
         let syncCheckId = 0;
 
@@ -596,7 +707,6 @@
             .sort();
         }
 
-        // Must match fingerprintSave() in routes/users.js.
         async function hashLocalSave(keys) {
           const entries = keys.map((key) => [key, localStorage.getItem(key)]);
           const digest = await crypto.subtle.digest(
@@ -626,8 +736,6 @@
               let state = "unsynced";
               if (!cloud.exists) state = "empty";
               else if (cloud.hash === localHash) state = "synced";
-              // Restore only adds and overwrites keys, so everything in the
-              // cloud can match while this browser holds keys it lacks.
               else if ((await hashLocalSave(cloud.keys)) === cloud.hash)
                 state = "ahead";
               if (id === syncCheckId) setSyncState(state);
@@ -742,7 +850,6 @@
             localStorage.removeItem("uuid");
             localStorage.removeItem("username");
             localStorage.removeItem("premium");
-            // Clear the session cookie before leaving the page.
             fetch("/api/logout", { method: "POST" })
               .catch(() => {})
               .finally(() => (location.href = "/profile"));
