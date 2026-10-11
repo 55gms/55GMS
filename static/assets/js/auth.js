@@ -41,6 +41,31 @@
     avatar.classList.add("is-popping");
   }
 
+  // ---------- Signup preview and rules ----------
+
+  const handlePreview = document.getElementById("handle-preview");
+  const previewPlaceholder = handlePreview ? handlePreview.textContent : "";
+
+  function updatePreview() {
+    if (!handlePreview) return;
+    const handle = typedHandle();
+    handlePreview.textContent = handle ? `@${handle}` : previewPlaceholder;
+    handlePreview.classList.toggle("is-empty", !handle);
+  }
+
+  // Ticks each requirement under the fields as soon as it is met.
+  function updateRules() {
+    const handle = typedHandle();
+    const met = {
+      length: handle.length >= 3 && handle.length <= 16,
+      characters: HANDLE_PATTERN.test(handle),
+      password: passwordInput.value.length >= 6,
+    };
+    form.querySelectorAll(".auth-rules [data-rule]").forEach((rule) => {
+      rule.classList.toggle("is-met", Boolean(met[rule.dataset.rule]));
+    });
+  }
+
   // ---------- Messages and field errors ----------
 
   function showMessage(text, tone = "error") {
@@ -283,9 +308,15 @@
   });
 
   [usernameInput, passwordInput].forEach((input) => {
-    input.addEventListener("input", () => clearFieldError(input));
+    input.addEventListener("input", () => {
+      clearFieldError(input);
+      updateRules();
+    });
   });
-  usernameInput.addEventListener("input", updateAvatar);
+  usernameInput.addEventListener("input", () => {
+    updateAvatar();
+    updatePreview();
+  });
 
   form.querySelectorAll(".auth-toggle").forEach((toggle) => {
     toggle.addEventListener("click", () => {
@@ -323,4 +354,6 @@
   }
 
   updateAvatar();
+  updatePreview();
+  updateRules();
 })();

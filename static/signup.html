@@ -7,15 +7,9 @@
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
     <script src="/assets/js/font.js" defer></script>
     <meta name="google" content="notranslate" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap"
-    />
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=7" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
-    <link rel="stylesheet" href="/assets/css/auth.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/auth.css?v=3" />
     <title>Google</title>
     <meta name="author" content="Rednotsus" />
     <meta http-equiv="Cache-control" content="public" />
@@ -41,125 +35,164 @@
       </div>
     </nav>
 
-    <main class="auth">
+    <main class="auth auth--split">
       <header class="auth-header">
-        <div class="auth-avatar" aria-hidden="true">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="12" cy="8" r="4" />
-            <path d="M4 20c0-3.6 3.6-6 8-6s8 2.4 8 6" />
-          </svg>
-        </div>
         <div>
+          <p class="auth-kicker">New account</p>
           <h1 class="auth-title">Create your account</h1>
           <p class="auth-subtitle">
-            Keep your saves in the cloud and chat with friends.
+            Pick a handle and a password. That is the whole form.
           </p>
         </div>
       </header>
 
-      <form class="auth-card" data-auth="signup" novalidate>
-        <div class="auth-field">
-          <label class="auth-label" for="username">Handle</label>
-          <div class="auth-control has-prefix">
-            <span class="auth-prefix" aria-hidden="true">@</span>
-            <input
-              class="auth-input"
-              type="text"
-              id="username"
-              name="username"
-              autocomplete="username"
-              autocapitalize="none"
-              spellcheck="false"
-              maxlength="17"
-              aria-describedby="username-hint"
-              autofocus
-            />
-          </div>
-          <p class="auth-hint" id="username-hint">
-            3 to 16 characters: letters, numbers and dashes.
-          </p>
-        </div>
-
-        <div class="auth-field">
-          <label class="auth-label" for="password">Password</label>
-          <div class="auth-control">
-            <input
-              class="auth-input"
-              type="password"
-              id="password"
-              name="password"
-              autocomplete="new-password"
-              aria-describedby="password-hint"
-            />
-            <button
-              class="auth-toggle"
-              type="button"
-              aria-label="Show password"
-              aria-pressed="false"
-            >
+      <div class="auth-panel">
+        <form class="auth-card" data-auth="signup" novalidate>
+          <div class="auth-tag">
+            <div class="auth-avatar" aria-hidden="true">
               <svg
-                class="auth-eye"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                aria-hidden="true"
               >
-                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" />
-                <circle cx="12" cy="12" r="3" />
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-3.6 3.6-6 8-6s8 2.4 8 6" />
               </svg>
-              <svg
-                class="auth-eye-off"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
+            </div>
+            <div class="auth-tag-text" aria-hidden="true">
+              <span class="auth-tag-handle is-empty" id="handle-preview"
+                >@your-handle</span
               >
-                <path
-                  d="M10.6 5.1A9.8 9.8 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3 3.9"
-                />
-                <path
-                  d="M6.5 6.6A17 17 0 0 0 2 12s3.6 7 10 7a9.6 9.6 0 0 0 5.4-1.6"
-                />
-                <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
-                <path d="m3 3 18 18" />
-              </svg>
-            </button>
+              <span class="auth-tag-note">How you show up in chat</span>
+            </div>
           </div>
-          <p class="auth-hint" id="password-hint">At least 6 characters.</p>
+
+          <div class="auth-field">
+            <label class="auth-label" for="username">Handle</label>
+            <div class="auth-control has-prefix">
+              <span class="auth-prefix" aria-hidden="true">@</span>
+              <input
+                class="auth-input"
+                type="text"
+                id="username"
+                name="username"
+                autocomplete="username"
+                autocapitalize="none"
+                spellcheck="false"
+                maxlength="17"
+                aria-describedby="username-rules username-hint"
+                autofocus
+              />
+            </div>
+            <ul class="auth-rules" id="username-rules">
+              <li data-rule="length">3 to 16 characters</li>
+              <li data-rule="characters">Letters, numbers and dashes</li>
+            </ul>
+            <p class="auth-hint" id="username-hint" hidden></p>
+          </div>
+
+          <div class="auth-field">
+            <label class="auth-label" for="password">Password</label>
+            <div class="auth-control">
+              <input
+                class="auth-input"
+                type="password"
+                id="password"
+                name="password"
+                autocomplete="new-password"
+                aria-describedby="password-rules password-hint"
+              />
+              <button
+                class="auth-toggle"
+                type="button"
+                aria-label="Show password"
+                aria-pressed="false"
+              >
+                <svg
+                  class="auth-eye"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                <svg
+                  class="auth-eye-off"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M10.6 5.1A9.8 9.8 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3 3.9"
+                  />
+                  <path
+                    d="M6.5 6.6A17 17 0 0 0 2 12s3.6 7 10 7a9.6 9.6 0 0 0 5.4-1.6"
+                  />
+                  <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
+                  <path d="m3 3 18 18" />
+                </svg>
+              </button>
+            </div>
+            <ul class="auth-rules" id="password-rules">
+              <li data-rule="password">At least 6 characters</li>
+            </ul>
+            <p class="auth-hint" id="password-hint" hidden></p>
+          </div>
+
+          <div class="auth-captcha" id="captcha"></div>
+
+          <p class="auth-message" role="alert" hidden></p>
+
+          <button class="auth-submit" type="submit">
+            <span class="auth-submit-label">Create account</span>
+            <span class="auth-spinner" aria-hidden="true"></span>
+          </button>
+        </form>
+
+        <div class="auth-links">
+          <p>Already have an account? <a href="/login">Log in</a></p>
+          <p><a href="/handles">What is a handle?</a></p>
         </div>
+      </div>
 
-        <div class="auth-captcha" id="captcha"></div>
-
-        <p class="auth-message" role="alert" hidden></p>
-
-        <button class="auth-submit" type="submit">
-          <span class="auth-submit-label">Create account</span>
-          <span class="auth-spinner" aria-hidden="true"></span>
-        </button>
-      </form>
-
-      <p class="auth-switch">
-        Already have an account? <a href="/login">Log in</a>
-      </p>
-      <p class="auth-switch">
-        <a href="/handles">What is a handle?</a>
-      </p>
+      <ul class="auth-benefits">
+        <li>
+          <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
+          <div>
+            <strong>Your saves go with you</strong>
+            <span>Game progress syncs to any device you log in on.</span>
+          </div>
+        </li>
+        <li>
+          <i class="fa-solid fa-comments" aria-hidden="true"></i>
+          <div>
+            <strong>Chat with friends</strong>
+            <span>Add people by their handle and message them.</span>
+          </div>
+        </li>
+        <li>
+          <i class="fa-solid fa-key" aria-hidden="true"></i>
+          <div>
+            <strong>No email needed</strong>
+            <span>A handle and a password are all we ask for.</span>
+          </div>
+        </li>
+      </ul>
     </main>
 
-    <script src="/assets/js/auth.js?v=2"></script>
+    <script src="/assets/js/auth.js?v=3"></script>
     <script
       src="https://js.hcaptcha.com/1/api.js?render=explicit&onload=authCaptchaReady"
       async

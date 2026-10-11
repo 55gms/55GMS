@@ -8,15 +8,9 @@
     <script src="/assets/js/font.js" defer></script>
     <meta name="google" content="notranslate" />
     <meta name="googlebot" content="notranslate" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap"
-    />
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=7" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
-    <link rel="stylesheet" href="/assets/css/auth.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/auth.css?v=3" />
     <title>Google</title>
     <meta name="author" content="Rednotsus" />
     <meta http-equiv="Cache-control" content="public" />
@@ -42,81 +36,98 @@
       </div>
     </nav>
 
-    <main class="auth">
+    <main class="auth auth--wide">
       <header class="auth-header">
         <div>
+          <p class="auth-kicker">Accounts</p>
           <h1 class="auth-title">Usernames are now handles</h1>
-          <p class="auth-subtitle">What changed, and how to find yours.</p>
+          <p class="auth-subtitle">
+            Your account, saves and chats are the same. Only the name changed.
+          </p>
         </div>
       </header>
-
-      <section class="auth-card auth-prose">
-        <h2>What a handle is</h2>
-        <p>
-          A handle is your name on this site, written with an @ in front, like
-          <strong>@jiayang</strong>. It is 3 to 16 characters and uses only
-          letters, numbers and dashes. Capital letters do not matter:
-          <strong>@Jiayang</strong> and <strong>@jiayang</strong> are the same
-          handle.
-        </p>
-        <p>You never have to type the @. It is only shown.</p>
-
-        <h2>Signing in</h2>
-        <p>
-          Nothing changes. Your old username and password still work, typed
-          exactly as before. Your handle works too.
-        </p>
-
-        <h2>What happened to my username</h2>
-        <ul>
-          <li>
-            If it already fit the rules, it is your handle now, in lowercase.
-          </li>
-          <li>
-            If it had spaces or symbols, they were removed. You will see your
-            new handle the next time you sign in.
-          </li>
-          <li>
-            If someone who joined before you had the same name, or yours used
-            other alphabets, you are asked to choose a new handle when you sign
-            in. Chat stays locked until you do.
-          </li>
-        </ul>
-        <p id="handles-deadline" hidden></p>
-
-        <h2>Chat</h2>
-        <p>
-          Your chats, messages and friends are unchanged. To add someone, type
-          their handle.
-        </p>
-      </section>
 
       <form class="auth-card" data-handles="lookup" novalidate>
         <div class="auth-field">
           <label class="auth-label" for="old-username"
             >Find your handle from your old username</label
           >
-          <input
-            class="auth-input"
-            type="text"
-            id="old-username"
-            name="old-username"
-            autocomplete="off"
-            autocapitalize="none"
-            spellcheck="false"
-            maxlength="64"
-          />
+          <div class="auth-inline">
+            <input
+              class="auth-input"
+              type="text"
+              id="old-username"
+              name="old-username"
+              autocomplete="off"
+              autocapitalize="none"
+              spellcheck="false"
+              maxlength="64"
+            />
+            <button class="auth-submit" type="submit">
+              <span class="auth-submit-label">Find my handle</span>
+              <span class="auth-spinner" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
 
         <p class="auth-message" role="status" hidden></p>
-
-        <button class="auth-submit" type="submit">
-          <span class="auth-submit-label">Look up</span>
-          <span class="auth-spinner" aria-hidden="true"></span>
-        </button>
       </form>
 
-      <p class="auth-switch"><a href="/login">Back to log in</a></p>
+      <div class="auth-grid">
+        <section class="auth-card auth-card--wide auth-prose">
+          <h2>What a handle is</h2>
+          <p>
+            A handle is your name on this site, written with an @ in front, like
+            <strong>@jiayang</strong>. It is 3 to 16 characters and uses only
+            letters, numbers and dashes. Capital letters do not matter:
+            <strong>@Jiayang</strong> and <strong>@jiayang</strong> are the same
+            handle.
+          </p>
+          <p>You never have to type the @. It is only shown.</p>
+        </section>
+
+        <section class="auth-card auth-prose">
+          <h2>Signing in</h2>
+          <p>
+            Nothing changes. Your old username and password still work, typed
+            exactly as before. Your handle works too.
+          </p>
+        </section>
+
+        <section class="auth-card auth-prose">
+          <h2>Chat</h2>
+          <p>
+            Your chats, messages and friends are unchanged. To add someone, type
+            their handle.
+          </p>
+        </section>
+
+        <section class="auth-card auth-card--wide auth-prose">
+          <h2>What happened to my username</h2>
+          <dl class="auth-cases">
+            <dt>It already fit the rules</dt>
+            <dd>It is your handle now, in lowercase.</dd>
+            <dt>It had spaces or symbols</dt>
+            <dd>
+              They were removed. You will see your new handle the next time you
+              sign in.
+            </dd>
+            <dt>
+              Someone who joined before you had the same name, or yours used
+              other alphabets
+            </dt>
+            <dd>
+              You are asked to choose a new handle when you sign in. Chat stays
+              locked until you do.
+            </dd>
+          </dl>
+          <p id="handles-deadline" hidden></p>
+        </section>
+      </div>
+
+      <div class="auth-links">
+        <p><a href="/login">Back to log in</a></p>
+      </div>
     </main>
 
     <script src="/assets/js/handles.js?v=1"></script>
