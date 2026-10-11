@@ -234,7 +234,8 @@ export function createAuthRouter({
   });
 
   // A picture everyone in chat sees, so like a handle it needs the session
-  // cookie wherever sessions are configured. `avatar: null` clears it.
+  // cookie wherever sessions are configured. `avatar: null` goes back to the
+  // account's default.
   router.post("/avatar", avatarLimit, async (req, res) => {
     if (!handlesSupported()) {
       return res.status(503).json({ error: "Avatars are off on this server" });

@@ -37,7 +37,7 @@ const User = sequelize.define(
       defaultValue: false,
       field: "handle_pending",
     },
-    // A preset id from utils/avatars.js. Null shows the initial instead.
+    // A preset id from utils/avatars.js. Null shows the account's default.
     avatar: {
       type: DataTypes.STRING(16),
       allowNull: true,
