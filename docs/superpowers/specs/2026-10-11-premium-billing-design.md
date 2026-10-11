@@ -23,16 +23,16 @@ badge). This spec adds no new perks.
 
 ## Decisions already made
 
-| Question                         | Decision                                                                |
-| -------------------------------- | ----------------------------------------------------------------------- |
-| Prices                           | $1.99 monthly, $14.99 yearly, USD only                                  |
-| Payment surface                  | Stripe-hosted Checkout (redirect), not embedded                         |
-| Hand-granted premium             | Kept. Premium is a grant OR a live subscription                         |
-| Cancel, card change, plan switch | Stripe Customer Portal, no custom billing UI                            |
-| Stripe account                   | The live `55gms` account (`acct_1OJLUQDQl6SK5gdk`); no separate sandbox |
-| Trials, coupons, tax             | None                                                                    |
-| When the site is not production  | Billing is off entirely unless the Stripe settings are present          |
-| Tests                            | None written; checked by hand                                           |
+| Question                         | Decision                                                                                                   |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Prices                           | $1.99 monthly, $14.99 yearly, USD only                                                                     |
+| Payment surface                  | Stripe-hosted Checkout (redirect), not embedded                                                            |
+| Hand-granted premium             | Kept. Premium is a grant OR a live subscription                                                            |
+| Cancel, card change, plan switch | Stripe Customer Portal, no custom billing UI                                                               |
+| Stripe account                   | The `55gms` account (`acct_1OJLUQDQl6SK5gdk`): its test mode for development, its live mode for production |
+| Trials, coupons, tax             | None                                                                                                       |
+| When the site is not production  | Billing is off entirely unless the Stripe settings are present                                             |
+| Tests                            | None written; checked by hand                                                                              |
 
 ## Today
 
@@ -164,20 +164,31 @@ is no subscription to consider and the result equals today's behaviour.
 
 ## Stripe setup
 
-`scripts/setup-stripe.js`, run once with the live key in `.env`, safe to
-re-run:
+The same account has two modes with separate keys and separate data. A
+`sk_test_` key takes Stripe's test cards (`4242 4242 4242 4242`) and never
+moves money; a `sk_live_` key takes real cards only. The code is the same for
+both: the mode is whichever key is in `.env`. Development uses the test key,
+production the live key.
+
+`scripts/setup-stripe.js` sets up the mode its key belongs to, through the
+Stripe API, and is safe to re-run. Nothing is clicked in the dashboard.
 
 - Creates the product "55GMS Premium" if none carries its metadata marker.
 - Creates the two recurring prices with their lookup keys if missing.
-- Prints what it found or created.
+- Creates the Customer Portal configuration (cancel at period end, update
+  payment method, switch between the two prices) and makes it the default.
+- With `--webhook https://<site>/api/stripe/webhook`, creates the webhook
+  endpoint for the four events above if that URL has none, and prints its
+  signing secret once, to the terminal, for `STRIPE_WEBHOOK_SECRET`.
+- Prints what it found or created, and which mode it ran in.
 
-Done by hand in the Stripe dashboard, listed in `docs/billing.md`:
+Locally, Stripe cannot reach `localhost`, so webhooks come through the Stripe
+CLI: `stripe listen --forward-to localhost:8080/api/stripe/webhook`, which
+prints the signing secret to use in the local `.env`.
 
-- The webhook endpoint `https://<site>/api/stripe/webhook` with the four
-  events above; its signing secret goes in `STRIPE_WEBHOOK_SECRET`.
-- The Customer Portal settings: cancel at period end, update payment method,
-  switch between the two prices.
-- Retry rules: cancel the subscription after the final failed retry.
+One setting has no API and is checked once in the dashboard (Billing,
+Revenue recovery): after the last failed retry, cancel the subscription.
+`docs/billing.md` records this and the steps above.
 
 ## Pages
 
@@ -196,16 +207,24 @@ Done by hand in the Stripe dashboard, listed in `docs/billing.md`:
 
 ## Rollout
 
+Development, in test mode:
+
+1. Put the `sk_test_` key in the local `.env`; run
+   `node scripts/add-billing.js` and `node scripts/setup-stripe.js`.
+2. Run `stripe listen` and put its signing secret in `.env`.
+3. Check by hand with test cards: subscribe monthly, subscribe yearly, a
+   declined card, cancel in the portal, a failed renewal, a hand grant that
+   survives a cancelled subscription, and a boot with the Stripe settings
+   removed.
+
+Production, in live mode:
+
 1. Run `node scripts/add-billing.js` on production.
-2. Run `node scripts/setup-stripe.js` with the live key.
-3. Create the webhook endpoint and portal settings in the dashboard; put
-   `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` in production's `.env`
+2. Run `node scripts/setup-stripe.js --webhook https://<site>/api/stripe/webhook`
+   with the live key.
+3. Put `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` in production's `.env`
    (`ADMIN_TOKEN_SECRET` must already be there).
 4. Deploy. Until step 3 is done, the deployed code runs with billing off.
-5. Check by hand with one real subscription on a real card, then cancel it in
-   the portal and refund it in the dashboard.
-
-There is no sandbox: the first end-to-end run is a real $1.99 charge.
 
 ## Out of scope
 

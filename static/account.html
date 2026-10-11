@@ -15,7 +15,7 @@
     />
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=7" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
-    <link rel="stylesheet" href="/assets/css/profile.css?v=5" />
+    <link rel="stylesheet" href="/assets/css/profile.css?v=6" />
     <title>Google</title>
     <meta name="author" content="Rednotsus" />
     <meta http-equiv="Cache-control" content="public" />
@@ -61,56 +61,7 @@
           disabled
         >
           <span class="profile-avatar-face" id="initials"></span>
-          <span class="profile-avatar-edit" aria-hidden="true">
-            <svg
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M11 2.5 13.5 5 5.5 13H3v-2.5z" />
-            </svg>
-          </span>
         </button>
-        <dialog
-          class="avatar-dialog"
-          id="avatarDialog"
-          aria-labelledby="avatar-heading"
-        >
-          <div class="avatar-dialog-body">
-            <div class="avatar-dialog-head">
-              <div>
-                <h2 id="avatar-heading">Choose an avatar</h2>
-                <p>This is how you appear in chat.</p>
-              </div>
-              <button
-                type="button"
-                class="avatar-dialog-close"
-                id="avatarClose"
-                aria-label="Close"
-              >
-                <svg
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  aria-hidden="true"
-                >
-                  <path d="m4 4 8 8M12 4l-8 8" />
-                </svg>
-              </button>
-            </div>
-            <div
-              class="avatar-grid"
-              id="avatarGrid"
-              role="radiogroup"
-              aria-labelledby="avatar-heading"
-            ></div>
-          </div>
-        </dialog>
         <div class="profile-identity">
           <div class="profile-name-row">
             <h1 class="profile-name" id="username">Profile</h1>
@@ -118,73 +69,67 @@
           </div>
           <div class="profile-meta">
             <span class="profile-status"
-              ><span class="profile-status-dot"></span>Signed in</span
+              ><span class="profile-status-dot" aria-hidden="true"></span>Signed
+              in on this browser</span
             >
-            <button
-              type="button"
-              class="profile-id"
-              id="copyId"
-              title="Copy user ID"
-            >
-              <span id="shortId"></span>
-              <svg
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
-                <path
-                  d="M10.5 5.5v-2A1.5 1.5 0 0 0 9 2H4a1.5 1.5 0 0 0-1.5 1.5V9A1.5 1.5 0 0 0 4 10.5h1.5"
-                />
-              </svg>
-            </button>
           </div>
         </div>
+        <button
+          type="button"
+          class="p-btn"
+          id="avatarChange"
+          aria-haspopup="dialog"
+          hidden
+        >
+          Change avatar
+        </button>
       </header>
 
       <section class="profile-section" aria-labelledby="sync-heading">
         <div class="profile-section-head">
           <h2 id="sync-heading">Cloud sync</h2>
           <p>
-            Back up your game saves and settings, then restore them on any
-            device or mirror.
+            Keep a copy of this browser's game saves and settings in your
+            account, and bring it back on any device or mirror. Nothing syncs on
+            its own: you choose when to upload and when to restore.
           </p>
         </div>
         <div class="profile-card">
+          <div class="sync-status" id="syncStatus" data-state="checking">
+            <span class="sync-status-dot" aria-hidden="true"></span>
+            <div class="sync-status-text" aria-live="polite">
+              <p class="sync-status-label" id="syncStatusText">Checking…</p>
+              <p class="sync-status-desc" id="syncStatusDesc">
+                Comparing this browser with your cloud save.
+              </p>
+            </div>
+            <button type="button" class="p-btn p-btn-quiet" id="syncRecheck">
+              Check again
+            </button>
+          </div>
           <div class="profile-row">
-            <div class="profile-row-main">
-              <div class="profile-row-icon" aria-hidden="true">
+            <div class="profile-row-text">
+              <p class="profile-row-flow" aria-hidden="true">
+                <b>This browser</b>
                 <svg
-                  viewBox="0 0 24 24"
+                  viewBox="0 0 16 16"
                   fill="none"
                   stroke="currentColor"
                   stroke-width="1.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 >
-                  <path
-                    d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 8.5a4 4 0 0 1-.5 9.5"
-                  />
-                  <path d="M12 12v8M9 15l3-3 3 3" />
+                  <path d="M3 8h10M9 4l4 4-4 4" />
                 </svg>
-              </div>
-              <div class="profile-row-text">
-                <p class="profile-row-title">Upload to cloud</p>
-                <p class="profile-row-desc">
-                  Overwrites your cloud save with this browser's data.
-                </p>
-              </div>
+                Cloud
+              </p>
+              <p class="profile-row-title">Upload to cloud</p>
+              <p class="profile-row-desc">
+                Saves this browser's data to your account. It replaces the cloud
+                save you have now.
+              </p>
             </div>
-            <button
-              type="button"
-              class="p-btn p-btn-primary"
-              id="uploadButton"
-              data-dir="up"
-            >
+            <button type="button" class="p-btn p-btn-primary" id="uploadButton">
               <span class="p-btn-label">
                 <svg
                   viewBox="0 0 16 16"
@@ -203,35 +148,28 @@
             </button>
           </div>
           <div class="profile-row">
-            <div class="profile-row-main">
-              <div class="profile-row-icon" aria-hidden="true">
+            <div class="profile-row-text">
+              <p class="profile-row-flow" aria-hidden="true">
+                Cloud
                 <svg
-                  viewBox="0 0 24 24"
+                  viewBox="0 0 16 16"
                   fill="none"
                   stroke="currentColor"
                   stroke-width="1.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 >
-                  <path
-                    d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 8.5a4 4 0 0 1-.5 9.5"
-                  />
-                  <path d="M12 20v-8M9 17l3 3 3-3" />
+                  <path d="M3 8h10M9 4l4 4-4 4" />
                 </svg>
-              </div>
-              <div class="profile-row-text">
-                <p class="profile-row-title">Restore from cloud</p>
-                <p class="profile-row-desc">
-                  Replaces matching local data with your cloud save.
-                </p>
-              </div>
+                <b>This browser</b>
+              </p>
+              <p class="profile-row-title">Restore from cloud</p>
+              <p class="profile-row-desc">
+                Copies your cloud save into this browser. Data saved under the
+                same names here is overwritten; anything else here stays.
+              </p>
             </div>
-            <button
-              type="button"
-              class="p-btn"
-              id="downloadButton"
-              data-dir="down"
-            >
+            <button type="button" class="p-btn" id="downloadButton">
               <span class="p-btn-label">
                 <svg
                   viewBox="0 0 16 16"
@@ -251,22 +189,10 @@
           </div>
           <div class="profile-card-foot">
             <span
-              >Local data:
+              >In this browser:
               <span class="profile-mono" id="localSize">—</span></span
             >
-            <span class="profile-card-foot-end">
-              <span id="cooldownNote" aria-live="polite"></span>
-              <button
-                class="profile-sync"
-                id="syncStatus"
-                type="button"
-                data-state="checking"
-                title="Check again"
-              >
-                <span class="profile-sync-dot" aria-hidden="true"></span>
-                <span id="syncStatusText" aria-live="polite">Checking…</span>
-              </button>
-            </span>
+            <span id="cooldownNote" aria-live="polite"></span>
           </div>
         </div>
       </section>
@@ -274,54 +200,129 @@
       <section class="profile-section" aria-labelledby="account-heading">
         <div class="profile-section-head">
           <h2 id="account-heading">Account</h2>
+          <p>Your account's ID, and this browser's session.</p>
         </div>
         <div class="profile-card">
           <div class="profile-row">
-            <div class="profile-row-main">
-              <div class="profile-row-icon" aria-hidden="true">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4" />
-                  <path d="M10 16l4-4-4-4M14 12H4" />
-                </svg>
-              </div>
-              <div class="profile-row-text">
-                <p class="profile-row-title">Sign out</p>
-                <p class="profile-row-desc">
-                  Sign out of this browser. Local saves stay on this device.
-                </p>
-              </div>
+            <div class="profile-row-text">
+              <p class="profile-row-title">User ID</p>
+              <p class="profile-row-desc">
+                Identifies your account if you ask for help. Only the start is
+                shown; Copy gives the whole ID.
+              </p>
             </div>
-            <button
-              type="button"
-              class="p-btn p-btn-danger"
-              id="logoutButton"
-              data-dir="right"
-            >
-              <span class="p-btn-label">
-                Sign out
-                <svg
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.6"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M3 8h10M9 4l4 4-4 4" />
-                </svg>
-              </span>
+            <div class="profile-row-end">
+              <span class="profile-mono" id="shortId"></span>
+              <button
+                type="button"
+                class="p-btn"
+                id="copyId"
+                aria-label="Copy user ID"
+              >
+                <span id="copyIdLabel" aria-live="polite">Copy</span>
+              </button>
+            </div>
+          </div>
+          <div class="profile-row">
+            <div class="profile-row-text">
+              <p class="profile-row-title">Sign out</p>
+              <p class="profile-row-desc">
+                Signs you out of this browser. Local saves stay on this device.
+              </p>
+            </div>
+            <button type="button" class="p-btn p-btn-danger" id="logoutButton">
+              Sign out
             </button>
           </div>
         </div>
       </section>
+
+      <dialog
+        class="p-dialog avatar-dialog"
+        id="avatarDialog"
+        aria-labelledby="avatar-heading"
+        aria-describedby="avatar-note"
+      >
+        <div class="p-dialog-body">
+          <div class="p-dialog-head">
+            <span
+              class="avatar-preview"
+              id="avatarPreview"
+              aria-hidden="true"
+            ></span>
+            <div class="p-dialog-title">
+              <h2 id="avatar-heading">Choose an avatar</h2>
+              <p id="avatar-note">Shown next to your name in chat.</p>
+            </div>
+            <button
+              type="button"
+              class="p-dialog-close"
+              id="avatarClose"
+              aria-label="Close"
+            >
+              <svg
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                aria-hidden="true"
+              >
+                <path d="m4 4 8 8M12 4l-8 8" />
+              </svg>
+            </button>
+          </div>
+          <div class="p-dialog-content">
+            <div
+              class="avatar-grid"
+              id="avatarGrid"
+              role="radiogroup"
+              aria-labelledby="avatar-heading"
+            ></div>
+          </div>
+          <div class="p-dialog-foot">
+            <p class="p-dialog-error" id="avatarError" role="alert"></p>
+            <button type="button" class="p-btn" id="avatarCancel">
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="p-btn p-btn-primary"
+              id="avatarSave"
+              disabled
+            >
+              <span class="p-btn-label">Save avatar</span>
+              <span class="p-spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog
+        class="p-dialog"
+        id="confirmDialog"
+        aria-labelledby="confirm-heading"
+        aria-describedby="confirm-text"
+      >
+        <form class="p-dialog-body" method="dialog">
+          <div class="p-dialog-head">
+            <div class="p-dialog-title">
+              <h2 id="confirm-heading"></h2>
+            </div>
+          </div>
+          <div class="p-dialog-content">
+            <div class="p-dialog-text" id="confirm-text"></div>
+          </div>
+          <div class="p-dialog-foot">
+            <button class="p-btn" value="cancel">Cancel</button>
+            <button
+              class="p-btn p-btn-primary"
+              id="confirmAction"
+              value="confirm"
+            ></button>
+          </div>
+        </form>
+      </dialog>
 
       <div class="p-toasts" id="toasts" role="status" aria-live="polite"></div>
     </main>
@@ -360,6 +361,11 @@
           } else {
             circle.textContent = handle.charAt(0);
           }
+        }
+
+        function setLoading(button, loading) {
+          button.classList.toggle("is-loading", loading);
+          button.setAttribute("aria-busy", String(loading));
         }
         showIdentity();
         document.getElementById("shortId").textContent = uuid.slice(0, 8);
@@ -424,23 +430,45 @@
             handle = me.username;
             avatar = me.avatar || null;
             showIdentity();
-            markAvatarChoice();
+            if (!avatarDialog.open) selectAvatar(avatar);
           })
           .catch(() => {});
 
-        // The avatar picker: clicking the header avatar opens a dialog with
-        // the presets the server offers. Where it has none, the avatar is
-        // not a button.
+        // The avatar picker: the header avatar and the button beside it open
+        // a dialog with the presets the server offers. A preset is picked
+        // there, then saved; where the server has none, neither opens it.
         const avatarButton = document.getElementById("avatarButton");
+        const avatarChange = document.getElementById("avatarChange");
         const avatarDialog = document.getElementById("avatarDialog");
         const avatarGrid = document.getElementById("avatarGrid");
+        const avatarPreview = document.getElementById("avatarPreview");
+        const avatarSave = document.getElementById("avatarSave");
+        const avatarError = document.getElementById("avatarError");
+        // The preset picked in the dialog, which is not saved yet.
+        let pendingAvatar = null;
         let isSavingAvatar = false;
 
-        function markAvatarChoice() {
-          for (const tile of avatarGrid.children) {
-            const chosen = tile.dataset.avatar === avatar;
-            tile.setAttribute("aria-checked", String(chosen));
+        function selectAvatar(id) {
+          pendingAvatar = id;
+          const tiles = Array.from(avatarGrid.children);
+          const chosen = tiles.find((tile) => tile.dataset.avatar === id);
+          // One tile is in the tab order; the arrow keys reach the rest.
+          for (const tile of tiles) {
+            tile.setAttribute("aria-checked", String(tile === chosen));
+            tile.tabIndex = tile === (chosen || tiles[0]) ? 0 : -1;
           }
+
+          const url = avatarUrl(id);
+          if (url) {
+            const img = document.createElement("img");
+            img.src = url;
+            img.alt = "";
+            avatarPreview.replaceChildren(img);
+          } else {
+            avatarPreview.textContent = handle.charAt(0);
+          }
+          avatarSave.disabled = isSavingAvatar || !chosen || id === avatar;
+          avatarError.textContent = "";
         }
 
         function avatarTile(id) {
@@ -455,31 +483,65 @@
           img.loading = "lazy";
           tile.appendChild(img);
           tile.setAttribute("aria-label", "Avatar " + Number(id.slice(1)));
-          tile.addEventListener("click", () => chooseAvatar(id));
+          tile.addEventListener("click", () => {
+            if (!isSavingAvatar) selectAvatar(id);
+          });
           return tile;
         }
 
-        avatarButton.addEventListener("click", () => {
+        function openAvatarDialog() {
+          selectAvatar(avatar);
           avatarDialog.showModal();
-          avatarGrid.querySelector('[aria-checked="true"]')?.focus();
-        });
+          (
+            avatarGrid.querySelector('[aria-checked="true"]') ||
+            avatarGrid.firstElementChild
+          )?.focus();
+        }
+
+        avatarButton.addEventListener("click", openAvatarDialog);
+        avatarChange.addEventListener("click", openAvatarDialog);
         document
           .getElementById("avatarClose")
+          .addEventListener("click", () => avatarDialog.close());
+        document
+          .getElementById("avatarCancel")
           .addEventListener("click", () => avatarDialog.close());
         // A click on the backdrop lands on the dialog element itself.
         avatarDialog.addEventListener("click", (event) => {
           if (event.target === avatarDialog) avatarDialog.close();
         });
 
-        async function chooseAvatar(id) {
-          if (isSavingAvatar) return;
-          avatarDialog.close();
-          if (id === avatar) return;
+        // Arrow keys move through the grid as through radio buttons, picking
+        // as they go; Home and End jump to its ends.
+        avatarGrid.addEventListener("keydown", (event) => {
+          const tiles = Array.from(avatarGrid.children);
+          const index = tiles.indexOf(document.activeElement);
+          if (index < 0 || isSavingAvatar) return;
+          const columns = tiles.filter(
+            (tile) => tile.offsetTop === tiles[0].offsetTop,
+          ).length;
+          const target = {
+            ArrowLeft: index - 1,
+            ArrowRight: index + 1,
+            ArrowUp: index - columns,
+            ArrowDown: index + columns,
+            Home: 0,
+            End: tiles.length - 1,
+          }[event.key];
+          if (target === undefined) return;
+          event.preventDefault();
+          if (target < 0 || target >= tiles.length) return;
+          selectAvatar(tiles[target].dataset.avatar);
+          tiles[target].focus();
+        });
+
+        avatarSave.addEventListener("click", async () => {
+          const id = pendingAvatar;
+          if (isSavingAvatar || !id || id === avatar) return;
           isSavingAvatar = true;
-          const previous = avatar;
-          avatar = id;
-          showIdentity();
-          markAvatarChoice();
+          avatarSave.disabled = true;
+          avatarError.textContent = "";
+          setLoading(avatarSave, true);
 
           try {
             const response = await fetch("/api/avatar", {
@@ -498,23 +560,29 @@
                   : body.error || "Couldn't save the avatar.",
               );
             }
-          } catch (error) {
-            avatar = previous;
+            avatar = id;
             showIdentity();
-            markAvatarChoice();
-            toast("error", error.message || "Couldn't save the avatar.");
+            avatarDialog.close();
+            toast("success", "Avatar saved.");
+          } catch (error) {
+            // The dialog stays open on the same choice, so it can be retried.
+            avatarError.textContent =
+              error.message || "Couldn't save the avatar.";
           } finally {
             isSavingAvatar = false;
+            setLoading(avatarSave, false);
+            avatarSave.disabled = pendingAvatar === avatar;
           }
-        }
+        });
 
         fetch("/api/avatar-config")
           .then((response) => (response.ok ? response.json() : null))
           .then((config) => {
             if (!config || !config.supported) return;
             avatarGrid.replaceChildren(...config.avatars.map(avatarTile));
-            markAvatarChoice();
+            selectAvatar(avatar);
             avatarButton.disabled = false;
+            avatarChange.hidden = false;
           })
           .catch(() => {});
 
@@ -528,28 +596,63 @@
           );
         }
 
-        function setLoading(button, loading) {
-          button.classList.toggle("is-loading", loading);
-          button.setAttribute("aria-busy", String(loading));
+        const syncStatus = document.getElementById("syncStatus");
+        const syncStatusText = document.getElementById("syncStatusText");
+        const syncStatusDesc = document.getElementById("syncStatusDesc");
+        // What each state is called, and what it means for the two actions.
+        const SYNC_STATES = {
+          checking: [
+            "Checking…",
+            "Comparing this browser with your cloud save.",
+          ],
+          synced: ["In sync", "This browser matches your cloud save."],
+          unsynced: [
+            "Out of sync",
+            "This browser and your cloud save differ. Upload to keep what is here, or restore to bring back the cloud copy.",
+          ],
+          ahead: [
+            "Not uploaded yet",
+            "This browser has data your cloud save does not. Upload to back it up.",
+          ],
+          empty: [
+            "No cloud save",
+            "Nothing is backed up yet, so there is nothing to restore. Upload to create your cloud save.",
+          ],
+          error: [
+            "Couldn't check",
+            "The server could not be reached to compare. Check your connection, then check again.",
+          ],
+        };
+        // Keys this page rewrites on its own; the server skips them too.
+        const SYNC_IGNORED_KEYS = ["premium"];
+        let syncState = "checking";
+        let syncCheckId = 0;
+
+        // Both actions wait out the cooldown; restore also needs a cloud save.
+        function updateSyncButtons() {
+          uploadButton.disabled = isOnCooldown;
+          downloadButton.disabled = isOnCooldown || syncState === "empty";
         }
 
-        function setSyncDisabled(disabled) {
-          uploadButton.disabled = disabled;
-          downloadButton.disabled = disabled;
+        function setSyncState(state) {
+          syncState = state;
+          syncStatus.dataset.state = state;
+          [syncStatusText.textContent, syncStatusDesc.textContent] =
+            SYNC_STATES[state];
+          updateSyncButtons();
         }
 
         function startCooldown() {
           const endsAt = Date.now() + COOLDOWN_MS;
-          setSyncDisabled(true);
           const tick = () => {
             const left = Math.ceil((endsAt - Date.now()) / 1000);
             if (left <= 0) {
               isOnCooldown = false;
-              setSyncDisabled(false);
+              updateSyncButtons();
               cooldownNote.textContent = "";
               return;
             }
-            cooldownNote.textContent = `Available again in ${left}s`;
+            cooldownNote.textContent = `Upload and restore are available again in ${left}s`;
             setTimeout(tick, 1000);
           };
           tick();
@@ -561,7 +664,7 @@
             return false;
           }
           isOnCooldown = true;
-          setSyncDisabled(true);
+          updateSyncButtons();
           setLoading(button, true);
           return true;
         }
@@ -571,24 +674,32 @@
           startCooldown();
         }
 
-        const syncStatus = document.getElementById("syncStatus");
-        const syncStatusText = document.getElementById("syncStatusText");
-        const SYNC_LABELS = {
-          checking: "Checking…",
-          synced: "In sync",
-          unsynced: "Out of sync",
-          ahead: "Not uploaded yet",
-          empty: "No cloud save",
-          error: "Couldn't check",
-        };
-        // Keys this page rewrites on its own; the server skips them too.
-        const SYNC_IGNORED_KEYS = ["premium"];
-        let syncCheckId = 0;
-
-        function setSyncState(state) {
-          syncStatus.dataset.state = state;
-          syncStatusText.textContent = SYNC_LABELS[state];
+        // Asks before an action that replaces data. Resolves true to go on.
+        const confirmDialog = document.getElementById("confirmDialog");
+        function confirmReplace(title, paragraphs, action) {
+          document.getElementById("confirm-heading").textContent = title;
+          document.getElementById("confirm-text").replaceChildren(
+            ...paragraphs.map((text) => {
+              const p = document.createElement("p");
+              p.textContent = text;
+              return p;
+            }),
+          );
+          document.getElementById("confirmAction").textContent = action;
+          // Escape and the backdrop close it with no value, which is a no.
+          confirmDialog.returnValue = "";
+          confirmDialog.showModal();
+          return new Promise((resolve) => {
+            confirmDialog.addEventListener(
+              "close",
+              () => resolve(confirmDialog.returnValue === "confirm"),
+              { once: true },
+            );
+          });
         }
+        confirmDialog.addEventListener("click", (event) => {
+          if (event.target === confirmDialog) confirmDialog.close();
+        });
 
         function localSaveKeys() {
           return Object.keys(localStorage)
@@ -638,10 +749,29 @@
             });
         }
 
-        syncStatus.addEventListener("click", checkSyncStatus);
+        document
+          .getElementById("syncRecheck")
+          .addEventListener("click", checkSyncStatus);
         checkSyncStatus();
 
-        uploadButton.addEventListener("click", () => {
+        uploadButton.addEventListener("click", async () => {
+          // Nothing in the cloud is lost when there is no cloud save, or when
+          // this browser already holds everything in it.
+          const replaces = !["empty", "ahead", "synced"].includes(syncState);
+          if (
+            replaces &&
+            !isOnCooldown &&
+            !(await confirmReplace(
+              "Replace your cloud save?",
+              [
+                "This browser's data will be uploaded and will replace the save in your account.",
+                "Anything in the cloud save that is not in this browser is lost. This cannot be undone.",
+              ],
+              "Upload and replace",
+            ))
+          ) {
+            return;
+          }
           if (!beginSync(uploadButton)) return;
 
           fetch("/api/uploadSave", {
@@ -671,7 +801,24 @@
             .finally(() => endSync(uploadButton));
         });
 
-        downloadButton.addEventListener("click", () => {
+        downloadButton.addEventListener("click", async () => {
+          // Restoring changes nothing here when the cloud save already
+          // matches what this browser holds.
+          const replaces = !["ahead", "synced"].includes(syncState);
+          if (
+            replaces &&
+            !isOnCooldown &&
+            !(await confirmReplace(
+              "Restore from your cloud save?",
+              [
+                "Your cloud save will be copied into this browser. Data saved here under the same names is overwritten, including progress made since your last upload.",
+                "Data that exists only in this browser is kept. This cannot be undone.",
+              ],
+              "Restore and overwrite",
+            ))
+          ) {
+            return;
+          }
           if (!beginSync(downloadButton)) return;
 
           fetch("/api/readSave", {
@@ -710,12 +857,16 @@
         });
 
         const copyId = document.getElementById("copyId");
+        const copyIdLabel = document.getElementById("copyIdLabel");
+        let copyResetTimer = null;
         copyId.addEventListener("click", () => {
           navigator.clipboard.writeText(uuid).then(
             () => {
-              copyId.classList.add("is-copied");
-              toast("success", "User ID copied.");
-              setTimeout(() => copyId.classList.remove("is-copied"), 1200);
+              copyIdLabel.textContent = "Copied";
+              clearTimeout(copyResetTimer);
+              copyResetTimer = setTimeout(() => {
+                copyIdLabel.textContent = "Copy";
+              }, 1600);
             },
             () => toast("error", "Couldn't copy your user ID."),
           );
