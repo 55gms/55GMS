@@ -104,37 +104,161 @@
   border-bottom: 1px solid var(--p-border);
 }
 
+/* The avatar is a button that opens the picker; it is disabled, and looks
+   like a plain picture, where the server has no avatars to offer. */
 .profile-avatar {
+  position: relative;
   flex: none;
-  display: grid;
-  place-items: center;
   width: 72px;
   height: 72px;
+  padding: 0;
+  border: 0;
   border-radius: 50%;
-  border: 1px solid var(--p-border);
-  background: var(--p-inset);
+  background: none;
   color: var(--p-text);
-  font-size: 1.75rem;
-  font-weight: 500;
+  font: 500 1.75rem var(--p-font);
   letter-spacing: -0.02em;
   text-transform: uppercase;
   user-select: none;
+  cursor: pointer;
 }
 
-.profile-avatar img {
+.profile-avatar:disabled {
+  cursor: default;
+}
+
+.profile-avatar-face {
+  display: grid;
+  place-items: center;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   border-radius: 50%;
+  background: var(--p-inset);
+  box-shadow: 0 0 0 1px var(--p-border);
+  transition: box-shadow var(--p-fast) ease;
 }
 
-.profile-section[hidden] {
+.profile-avatar-face img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.profile-avatar:not(:disabled):hover .profile-avatar-face {
+  box-shadow: 0 0 0 2px var(--p-border-strong);
+}
+
+.profile-avatar:focus-visible {
+  outline: 2px solid var(--p-text);
+  outline-offset: 4px;
+}
+
+.profile-avatar-edit {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--site-bg, #000000);
+  background: var(--p-text);
+  color: var(--p-on-text);
+}
+
+.profile-avatar:disabled .profile-avatar-edit {
   display: none;
+}
+
+.profile-avatar-edit svg {
+  width: 12px;
+  height: 12px;
+}
+
+.avatar-dialog {
+  width: min(440px, calc(100% - 32px));
+  max-height: min(560px, calc(100dvh - 32px));
+  padding: 0;
+  border: 1px solid var(--p-border);
+  border-radius: var(--p-radius);
+  background: var(--site-bg, #000000);
+  color: var(--p-text);
+  font-family: var(--p-font);
+  text-align: left;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+}
+
+.avatar-dialog[open] {
+  animation: p-rise var(--p-normal) var(--p-ease-out) both;
+}
+
+.avatar-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.avatar-dialog-body {
+  background: var(--p-surface);
+}
+
+.avatar-dialog-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 16px 4px;
+}
+
+.avatar-dialog-head h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.avatar-dialog-head p {
+  margin: 4px 0 0;
+  color: var(--p-muted);
+  font-size: 0.875rem;
+}
+
+.avatar-dialog-close {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--p-radius-sm);
+  background: none;
+  color: var(--p-muted);
+  cursor: pointer;
+  transition:
+    background var(--p-fast) ease,
+    color var(--p-fast) ease;
+}
+
+.avatar-dialog-close:hover {
+  background: var(--p-surface-hover);
+  color: var(--p-text);
+}
+
+.avatar-dialog-close:focus-visible {
+  outline: 2px solid var(--p-text);
+  outline-offset: 2px;
+}
+
+.avatar-dialog-close svg {
+  width: 16px;
+  height: 16px;
 }
 
 .avatar-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+  gap: 14px;
   padding: 16px;
 }
 
