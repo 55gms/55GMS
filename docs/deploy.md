@@ -33,6 +33,11 @@ If any step fails, the previous commit is put back and the workflow run goes
 red. Commits that only add or change games do not reload the app, so chat and
 proxy connections are not dropped.
 
+The deploy job runs in the `production` environment, so every run is listed
+under Deployments on the repository page with its result. The entry names the
+commit that started the run: when the Prettier job added a commit, the server
+is one commit ahead of it. Rollbacks are not listed.
+
 ## Rolling back
 
 Actions tab → Deploy → Run workflow → `rollback`. This deploys the previous
