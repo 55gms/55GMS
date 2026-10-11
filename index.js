@@ -61,6 +61,10 @@ try {
   // .env (a fresh Codespace, say) still serves games, apps and the proxy.
   const features = await loadFeatures();
   const { UserStatus, ChatMember } = features.models ?? {};
+  // Loaded only with chat, like the models: it reaches the account store.
+  const userCache = features.chat
+    ? (await import("./utils/userCache.js")).default
+    : null;
   const port = process.env.PORT || 8080;
 
   const app = express();
@@ -246,14 +250,37 @@ try {
 
     socket.on("send_message", async (data) => {
       try {
-        const { chatId, content, senderUuid, senderUsername, isSystem } = data;
+        const { chatId, content, senderUuid, isSystem } = data;
 
         const authenticatedUuid = socket.data.userUuid;
         if (authenticatedUuid !== senderUuid && !isSystem) {
           return socket.emit("error", "Authentication mismatch");
         }
 
-        const finalSenderUsername = senderUsername || "Unknown User";
+        // The name shown to the room comes from the account, never from the
+        // client, so nobody can post under another handle.
+        let finalSenderUsername = "System";
+        if (!isSystem) {
+          finalSenderUsername = "Unknown User";
+          try {
+            let sender = await userCache.getUserByUuid(senderUuid);
+            if (sender.handlePending) {
+              // The cache can be minutes behind a handle chosen on another
+              // worker, so the account is read again before refusing.
+              userCache.invalidateUser(senderUuid);
+              sender = await userCache.getUserByUuid(senderUuid);
+              if (sender.handlePending) {
+                return socket.emit(
+                  "error",
+                  "Choose your handle to send messages",
+                );
+              }
+            }
+            finalSenderUsername = sender.username;
+          } catch (error) {
+            // Unknown sender: the message is still relayed, unnamed.
+          }
+        }
 
         socket.to(`chat_${chatId}`).emit("new_message", {
           chatId,
