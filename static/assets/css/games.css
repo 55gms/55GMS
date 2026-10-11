@@ -639,3 +639,39 @@ h6 {
     transform: none;
   }
 }
+
+
+.random-game-btn {
+  flex: 0 0 auto;
+  min-height: 69px;
+  box-sizing: border-box;
+  padding: 0 18px;
+  border: none;
+  border-radius: 5px;
+  background: var(--site-input-bg, #2a3a5b);
+  color: var(--site-input-text, var(--site-text, #fff));
+  font: 500 0.95rem "Roboto", sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.random-game-btn:hover:not(:disabled) {
+  background: var(--site-search-hover-bg, #3a4a7b);
+}
+
+.random-game-btn:focus-visible {
+  outline: 2px solid var(--site-accent, #ffd36b);
+  outline-offset: 2px;
+}
+
+.random-game-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .random-game-btn {
+    flex: 0 0 69px;
+    width: 100%;
+  }
+}
