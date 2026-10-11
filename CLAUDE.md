@@ -17,6 +17,12 @@ node scripts/add-handle-columns.js
 # Add the avatar column to an existing database (safe to re-run)
 node scripts/add-avatar-column.js
 
+# Add the billing column and table to an existing database (safe to re-run)
+node scripts/add-billing.js
+
+# Create the Stripe product, prices and portal settings for the key in .env
+node scripts/setup-stripe.js
+
 # Build the obfuscated copy of static/ into dist/ (CI and every deploy run this)
 npm run build
 
@@ -37,7 +43,7 @@ workerAUTH=your_worker_auth_token
 PORT=8080
 ```
 
-Every value is optional. `utils/features.js` decides at boot which optional features run: accounts need their backend (`POSTGRES_URL` with `ACCOUNT_BACKEND=postgres`, or `workerAUTH` for the Worker), and chat needs `POSTGRES_URL` plus accounts. With no `.env`, or one still holding the `EXAMPLE.env` placeholders, the server boots with both off and serves games, apps and the proxy: their API routes and models are never loaded, `/api/*` calls to them return 503 JSON, their pages redirect to `/`, and the build's `html` stage leaves their navbar links (`/chat`, `/profile`) out of the built pages. The build reads the same env as the server (`configuredFeatures()`), so it must run where the server's `.env` is; served straight from `static/`, the links stay and redirect home. A configured database that cannot be reached is fatal, except in GitHub Codespaces (`CODESPACES=true`), where the server starts without it. `.devcontainer/devcontainer.json` installs dependencies, builds, and runs `node .` in a Codespace.
+Every value is optional. `utils/features.js` decides at boot which optional features run: accounts need their backend (`POSTGRES_URL` with `ACCOUNT_BACKEND=postgres`, or `workerAUTH` for the Worker), and chat needs `POSTGRES_URL` plus accounts. With no `.env`, or one still holding the `EXAMPLE.env` placeholders, the server boots with both off and serves games, apps and the proxy: their API routes and models are never loaded, `/api/*` calls to them return 503 JSON, their pages redirect to `/`, and the build's `html` stage leaves their navbar links (`/chat`, `/profile`) out of the built pages. The build reads the same env as the server (`configuredFeatures()`), so it must run where the server's `.env` is; served straight from `static/`, the links stay and redirect home. Paid premium (`billing`) is a third switch: it needs `STRIPE`, `STRIPE_WEBHOOK_SECRET`, `ADMIN_TOKEN_SECRET` and the Postgres account backend, and with any missing its routes return 503, `/premium` redirects home and the build drops links to `/premium`. A configured database that cannot be reached is fatal, except in GitHub Codespaces (`CODESPACES=true`), where the server starts without it. `.devcontainer/devcontainer.json` installs dependencies, builds, and runs `node .` in a Codespace.
 
 For chat, run a PostgreSQL instance and `node setup-db.js` after configuring `POSTGRES_URL` to create schema.
 
@@ -47,35 +53,37 @@ For chat, run a PostgreSQL instance and `node setup-db.js` after configuring `PO
 
 ### Backend layout
 
-| Path                         | Purpose                                                                                             |
-| ---------------------------- | --------------------------------------------------------------------------------------------------- |
-| `index.js`                   | Server entry point — Express routes, Socket.IO events, static file serving                          |
-| `config/database.js`         | Sequelize PostgreSQL connection (pool: max 10)                                                      |
-| `models/`                    | Sequelize ORM models: `Chat`, `Message`, `ChatMember`, `Friend`, `UserStatus`, `User`, `UserSave`   |
-| `routes/auth.js`             | Login/signup, the handle check and the signup captcha challenge                                     |
-| `utils/captcha.js`           | Self-hosted signup captcha: a signed proof of work bound to the handle                              |
-| `routes/users.js`            | Premium checks, per-user save-data upload/download                                                  |
-| `routes/admin.js`            | Premium management for `/admin`; allowed only for the session cookie of user `jiayang`              |
-| `services/accounts.js`       | Account/save store; `ACCOUNT_BACKEND` picks the Worker (default) or local Postgres                  |
-| `routes/messaging.js`        | Full chat REST API (~962 lines)                                                                     |
-| `routes/music.js`            | Proxy routes for music/media                                                                        |
-| `utils/features.js`          | Turns accounts and chat on or off at boot from the env; see Environment Setup                       |
-| `utils/userCache.js`         | In-memory user data cache                                                                           |
-| `utils/handle.js`            | The handle rule (`@handle`: lowercase letters, numbers, dashes, 3 to 16) and the choose-by deadline |
-| `utils/avatars.js`           | The preset avatar ids an account can pick; images are `static/img/avatars/<id>.svg`                 |
-| `scripts/migrate-handles.js` | One-off username-to-handle migration; steps in `docs/handles-rollout.md`                            |
-| `utils/blockingCache.js`     | In-memory blocked-user cache                                                                        |
-| `utils/ads.js`               | Mounts 55GMS Ads at `/_ads` when `ADS_SERVER_URL` and `ADS_API_KEY` are set                         |
-| `utils/gameAssets.js`        | Relays `/misc/` files that are not on disk from the 55gms/assets mirror on jsDelivr                 |
-| `utils/ads-edge/`            | Vendored edge module from the gms-ads repo; do not edit here                                        |
-| `scripts/build.js`           | `npm run build`: builds `static/` into `dist/builds/<id>/` and points `dist/current` at it          |
-| `scripts/build/`             | The build stages, and `check-output.js`, the check CI runs on the built tree                        |
-| `deploy/`                    | Server-side deploy scripts run by the GitHub Actions deploy key (`docs/deploy.md`)                  |
-| `ecosystem.config.cjs`       | pm2 settings for production (cluster, 10 workers, `STATIC_ROOT`)                                    |
+| Path                         | Purpose                                                                                                           |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `index.js`                   | Server entry point — Express routes, Socket.IO events, static file serving                                        |
+| `config/database.js`         | Sequelize PostgreSQL connection (pool: max 10)                                                                    |
+| `models/`                    | Sequelize ORM models: `Chat`, `Message`, `ChatMember`, `Friend`, `UserStatus`, `User`, `UserSave`, `Subscription` |
+| `routes/auth.js`             | Login/signup, the handle check and the signup captcha challenge                                                   |
+| `utils/captcha.js`           | Self-hosted signup captcha: a signed proof of work bound to the handle                                            |
+| `routes/users.js`            | Premium checks, per-user save-data upload/download                                                                |
+| `routes/admin.js`            | Premium management for `/admin`; allowed only for the session cookie of user `jiayang`                            |
+| `routes/billing.js`          | Stripe checkout, portal and status routes, and the webhook; loaded only with billing on                           |
+| `services/billing.js`        | Every Stripe call and the rule for who is premium (`recomputePremium`); see `docs/billing.md`                     |
+| `services/accounts.js`       | Account/save store; `ACCOUNT_BACKEND` picks the Worker (default) or local Postgres                                |
+| `routes/messaging.js`        | Full chat REST API (~962 lines)                                                                                   |
+| `routes/music.js`            | Proxy routes for music/media                                                                                      |
+| `utils/features.js`          | Turns accounts and chat on or off at boot from the env; see Environment Setup                                     |
+| `utils/userCache.js`         | In-memory user data cache                                                                                         |
+| `utils/handle.js`            | The handle rule (`@handle`: lowercase letters, numbers, dashes, 3 to 16) and the choose-by deadline               |
+| `utils/avatars.js`           | The preset avatar ids an account can pick; images are `static/img/avatars/<id>.svg`                               |
+| `scripts/migrate-handles.js` | One-off username-to-handle migration; steps in `docs/handles-rollout.md`                                          |
+| `utils/blockingCache.js`     | In-memory blocked-user cache                                                                                      |
+| `utils/ads.js`               | Mounts 55GMS Ads at `/_ads` when `ADS_SERVER_URL` and `ADS_API_KEY` are set                                       |
+| `utils/gameAssets.js`        | Relays `/misc/` files that are not on disk from the 55gms/assets mirror on jsDelivr                               |
+| `utils/ads-edge/`            | Vendored edge module from the gms-ads repo; do not edit here                                                      |
+| `scripts/build.js`           | `npm run build`: builds `static/` into `dist/builds/<id>/` and points `dist/current` at it                        |
+| `scripts/build/`             | The build stages, and `check-output.js`, the check CI runs on the built tree                                      |
+| `deploy/`                    | Server-side deploy scripts run by the GitHub Actions deploy key (`docs/deploy.md`)                                |
+| `ecosystem.config.cjs`       | pm2 settings for production (cluster, 10 workers, `STATIC_ROOT`)                                                  |
 
 ### Authentication flow
 
-Accounts and saves go through `services/accounts.js`. By default it calls an external worker API (`https://db.55gms.com/api/`) authenticated with the `workerAUTH` token; with `ACCOUNT_BACKEND=postgres` it uses the local `users` and `user_saves` tables (passwords stored as bcrypt over SHA-256). UUIDs identify users. A username is a handle: lowercase letters, numbers and dashes, 3 to 16 characters, shown as `@handle`; `utils/handle.js` is the only definition of the rule. `users.legacy_username` keeps the pre-migration username, which still signs in; `users.handle_pending` marks an account that must pick a handle at `/choose-handle` and cannot write to chat until it does, or until `HANDLE_MIGRATION_DEADLINE` passes and its placeholder becomes final. `/handles` explains this and looks up a handle from an old username. An account may also pick a preset avatar (`users.avatar`, an id from `utils/avatars.js`, set on `/profile` through `POST /api/avatar`); with none, the server sends the preset its uuid maps to (`defaultAvatar`), so only group chats and unknown users show an initial on a colour. Chat payloads also carry each account's `premium` flag, shown as a badge after the handle. There are no uploaded pictures. The images are the DiceBear "Sprouts" style, CC0 1.0; the column must exist before a build that reads it is deployed. The migration plan is in `docs/superpowers/specs/2026-10-01-worker-to-postgres-migration-design.md`.
+Accounts and saves go through `services/accounts.js`. By default it calls an external worker API (`https://db.55gms.com/api/`) authenticated with the `workerAUTH` token; with `ACCOUNT_BACKEND=postgres` it uses the local `users` and `user_saves` tables (passwords stored as bcrypt over SHA-256). UUIDs identify users. A username is a handle: lowercase letters, numbers and dashes, 3 to 16 characters, shown as `@handle`; `utils/handle.js` is the only definition of the rule. `users.legacy_username` keeps the pre-migration username, which still signs in; `users.handle_pending` marks an account that must pick a handle at `/choose-handle` and cannot write to chat until it does, or until `HANDLE_MIGRATION_DEADLINE` passes and its placeholder becomes final. `/handles` explains this and looks up a handle from an old username. An account may also pick a preset avatar (`users.avatar`, an id from `utils/avatars.js`, set on `/profile` through `POST /api/avatar`); with none, the server sends the preset its uuid maps to (`defaultAvatar`), so only group chats and unknown users show an initial on a colour. Chat payloads also carry each account's `premium` flag, shown as a badge after the handle. `users.premium` is derived: it is true for an admin grant (`users.premium_granted`) or a live Stripe subscription (the `subscriptions` table), and only `recomputePremium` in `services/billing.js` and `setPremium` write it. There are no uploaded pictures. The images are the DiceBear "Sprouts" style, CC0 1.0; the column must exist before a build that reads it is deployed. The migration plan is in `docs/superpowers/specs/2026-10-01-worker-to-postgres-migration-design.md`.
 
 ### Real-time (Socket.IO)
 
