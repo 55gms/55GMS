@@ -155,7 +155,7 @@
                 dataUrl: dataUrl,
                 frameworkUrl: buildUrl + "/PPG.framework.js",
                 codeUrl: wasmUrl,
-                streamingAssetsUrl: "StreamingAssets",
+                streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
                 companyName: "Studio Minus",
                 productName: "People Playground",
                 productVersion: "0"

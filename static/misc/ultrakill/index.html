@@ -101,7 +101,7 @@
                 dataUrl: dataUrl,
                 frameworkUrl: "Build/ultrakill.framework.js.unityweb",
                 codeUrl: wasmUrl,
-                streamingAssetsUrl: "StreamingAssets",
+                streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
                 companyName: "Hakita and Cake Logic",
                 productName: "ULTRAKILL",
                 productVersion: "1.4",

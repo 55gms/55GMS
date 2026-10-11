@@ -80,7 +80,7 @@
                 dataUrl: buildUrl + '/Build.data',
                 frameworkUrl: buildUrl + "/Build.framework.js",
                 codeUrl: wasmUrl,
-                streamingAssetsUrl: "StreamingAssets",
+                streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
                 companyName: "SmashGames",
                 productName: "Kindergarten",
                 productVersion: "2.04",
