@@ -360,3 +360,71 @@ a:hover {
       transparent;
   }
 }
+
+/* 55GMS Ads slots on the site pages (game pages have their own, .ad-box in
+   gameframe.css). The embed (ads.js) sizes the inner [data-55gms-ad] box and
+   hides it when no ad is available, so the wrapper only takes up room while
+   that box is reserved or filled. */
+.site-ad {
+  width: min(var(--site-ad-width, 728px), calc(100% - 32px));
+  margin: 0 auto;
+}
+.site-ad:has(> [data-55gms-ad][style]:not([style*="display: none"])) {
+  margin-block: var(--site-ad-gap, 28px);
+}
+.site-ad > [data-55gms-ad],
+.site-ad-rail > [data-55gms-ad] {
+  margin: 0 auto;
+  border-radius: var(--site-radius-sm, 10px);
+  background-color: color-mix(
+    in srgb,
+    var(--site-surface-2, #5e7594) 40%,
+    transparent
+  );
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+}
+.site-ad--billboard {
+  --site-ad-width: 970px;
+}
+.site-ad--small {
+  --site-ad-width: 468px;
+}
+.site-ad--box {
+  --site-ad-width: 336px;
+}
+
+/* Skyscrapers in the side gutters, on screens wide enough to have gutters.
+   --slim is for pages with a narrow centred column; --gutter is for
+   full-width pages, whose <main> makes room once a rail has an ad. */
+.site-ad-rail {
+  position: fixed;
+  top: calc(50% + 28px);
+  transform: translateY(-50%);
+  z-index: 5;
+  display: none;
+  width: 160px;
+}
+.site-ad-rail--left {
+  left: 20px;
+}
+.site-ad-rail--right {
+  right: 20px;
+}
+@media (min-width: 1200px) and (min-height: 740px) {
+  .site-ad-rail--slim {
+    display: block;
+  }
+}
+@media (min-width: 1400px) and (min-height: 740px) {
+  .site-ad-rail--gutter {
+    display: block;
+  }
+  body:has(.site-ad-rail--gutter [data-serve]) main {
+    padding-inline: 200px;
+  }
+}
+@media (min-width: 1600px) and (min-height: 740px) {
+  .site-ad-rail {
+    display: block;
+  }
+}

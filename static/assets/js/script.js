@@ -125,7 +125,8 @@ function whenDomReady(callback) {
     // Game pages build their ad boxes (game-page.js), so hide them here. The
     // game tiles there then take the space.
     const hideAds = document.createElement("style");
-    hideAds.textContent = ".ad-box { display: none !important; }";
+    hideAds.textContent =
+      ".ad-box, .site-ad, .site-ad-rail { display: none !important; }";
     document.head.append(hideAds);
   }
 
@@ -134,13 +135,20 @@ function whenDomReady(callback) {
       // Each ad box on a page names its size (data-ad-size) and gets a 55GMS
       // Ads slot, served from this origin (/_ads) so it works on every domain.
       const boxes = document.querySelectorAll("[data-ad-size]");
-      if (!boxes.length) return;
       boxes.forEach((box) => {
         const slot = document.createElement("div");
         slot.setAttribute("data-55gms-ad", "");
         slot.setAttribute("data-size", box.dataset.adSize);
         box.replaceChildren(slot);
       });
+
+      // The other pages carry their slots in the markup (.site-ad and
+      // .site-ad-rail). One the stylesheet hides at this screen size is
+      // removed, so no ad is requested for a slot nobody can see.
+      document.querySelectorAll(".site-ad, .site-ad-rail").forEach((ad) => {
+        if (getComputedStyle(ad).display === "none") ad.remove();
+      });
+      if (!document.querySelector("[data-55gms-ad]")) return;
 
       const adsScript = document.createElement("script");
       adsScript.async = true;
