@@ -174,8 +174,8 @@
                         <span class="user-status" id="userStatus">Online</span>
                     </div>
                 </div>
-                <button id="copyUsernameBtn" class="icon-btn copy-btn" type="button" title="Copy username"
-                    aria-label="Copy username">
+                <button id="copyUsernameBtn" class="icon-btn copy-btn" type="button" title="Copy handle"
+                    aria-label="Copy handle">
                     <svg class="icon" aria-hidden="true">
                         <use href="#i-copy" />
                     </svg>
@@ -318,9 +318,9 @@
             </div>
             <div class="modal-body">
                 <form class="add-friend-form" id="addFriendForm" autocomplete="off">
-                    <label class="sr-only" for="friendUsername">Add a friend by username</label>
+                    <label class="sr-only" for="friendUsername">Add a friend by handle</label>
                     <input type="text" id="friendUsername" class="field friendRequest"
-                        placeholder="Add a friend by username" autocomplete="off" spellcheck="false" />
+                        placeholder="Add a friend by handle" autocomplete="off" spellcheck="false" />
                     <button id="addFriendBtn" class="btn btn-primary" type="submit">Add friend</button>
                 </form>
 
@@ -374,10 +374,10 @@
                     <div id="directTab" class="tab-panel active" role="tabpanel">
                         <form id="directChatForm" autocomplete="off">
                             <div class="form-group">
-                                <label for="directUsername">Username</label>
+                                <label for="directUsername">Handle</label>
                                 <div class="field-row">
                                     <input type="text" id="directUsername" class="field"
-                                        placeholder="Enter a username" autocomplete="off" spellcheck="false" />
+                                        placeholder="Enter a handle" autocomplete="off" spellcheck="false" />
                                     <button id="createDirectBtn" class="btn btn-primary" type="submit">Start
                                         chat</button>
                                 </div>
@@ -397,7 +397,7 @@
                                 <label for="addMemberInput">Members <span id="memberCount">1 / 10</span></label>
                                 <div class="token-field" id="memberField">
                                     <div id="membersList"></div>
-                                    <input type="text" id="addMemberInput" placeholder="Add by username"
+                                    <input type="text" id="addMemberInput" placeholder="Add by handle"
                                         autocomplete="off" spellcheck="false" />
                                 </div>
                                 <div class="field-hint">
@@ -439,7 +439,7 @@
     <!-- Notification Container -->
     <div id="notificationContainer" class="notification-container" aria-live="polite"></div>
 
-    <script src="/assets/js/chat.js?v=7"></script>
+    <script src="/assets/js/chat.js?v=8"></script>
     <script>
         // Check authentication
         const uuid = localStorage.getItem('uuid');

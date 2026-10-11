@@ -22,6 +22,31 @@ const User = sequelize.define(
       allowNull: false,
       defaultValue: false,
     },
+    // The username before the handle migration, exactly as it was stored.
+    // Null on accounts created since. Old names still sign in through it.
+    legacyUsername: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      field: "legacy_username",
+    },
+    // True while the account still has to choose a handle; it holds a
+    // generated placeholder meanwhile.
+    handlePending: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+      field: "handle_pending",
+    },
+    // A preset id from utils/avatars.js. Null shows the initial instead.
+    avatar: {
+      type: DataTypes.STRING(16),
+      allowNull: true,
+    },
+    lastSeenAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      field: "last_seen_at",
+    },
   },
   {
     tableName: "users",

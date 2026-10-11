@@ -121,6 +121,62 @@
   user-select: none;
 }
 
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.profile-section[hidden] {
+  display: none;
+}
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+  gap: 12px;
+  padding: 16px;
+}
+
+.avatar-tile {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 50%;
+  background: var(--p-inset);
+  box-shadow: 0 0 0 1px var(--p-border);
+  color: var(--p-text);
+  font: 500 1.125rem var(--p-font);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: box-shadow var(--p-fast) ease;
+}
+
+.avatar-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.avatar-tile:hover {
+  box-shadow: 0 0 0 2px var(--p-border-strong);
+}
+
+.avatar-tile[aria-checked="true"] {
+  box-shadow:
+    0 0 0 2px var(--site-bg, #000000),
+    0 0 0 4px var(--p-text);
+}
+
+.avatar-tile:focus-visible {
+  outline: 2px solid var(--p-text);
+  outline-offset: 4px;
+}
+
 .profile-identity {
   min-width: 0;
   display: flex;

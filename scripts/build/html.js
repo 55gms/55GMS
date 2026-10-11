@@ -4,6 +4,7 @@ import { minify as minifyHtml } from "html-minifier-terser";
 import { minify as terserMinify } from "terser";
 import JavaScriptObfuscator from "javascript-obfuscator";
 import { obfuscatorOptions } from "./javascript.js";
+import { configuredFeatures } from "../../utils/features.js";
 
 const ENCODE_ATTRS = ["alt", "aria-label", "title", "placeholder", "value"];
 
@@ -43,8 +44,7 @@ const numericEntities = (s) => {
 // Matches one HTML tag while respecting quoted attribute values, so a `>`
 // inside an attribute (e.g. `onclick="...'</b>'..."`) never ends the tag early.
 // A fresh instance is made per use to avoid shared lastIndex state.
-const tagMatcher = () =>
-  /<[a-zA-Z!/][^>"']*(?:(?:"[^"]*"|'[^']*')[^>"']*)*>/g;
+const tagMatcher = () => /<[a-zA-Z!/][^>"']*(?:(?:"[^"]*"|'[^']*')[^>"']*)*>/g;
 
 // Numeric-encode only the text nodes between tags; tags (and their attribute
 // internals) are emitted verbatim.
@@ -67,21 +67,23 @@ function encodeTextNodes(html) {
 // Existing named entities (e.g. &nbsp;) survive identically on both sides, so
 // they compare equal without being decoded here.
 function visibleText(html) {
-  return html
-    // Comments are not visible and minify strips them (removeComments), so
-    // drop them on both sides — a comment may contain `>` that would otherwise
-    // split across the tag-strip and leak its tail into the comparison.
-    .replace(/<!--[\s\S]*?-->/g, " ")
-    .replace(/<(script|style|template)[^>]*>[\s\S]*?<\/\1>/gi, " ")
-    // Quote-aware tag strip (same matcher as the encoder): a `>` inside a
-    // quoted attribute value (e.g. an inline onclick handler holding HTML like
-    // `'...</b>'`) must not end the tag early, or that JS would leak into the
-    // comparison and minify's whitespace collapse around the real tag boundary
-    // would read as a diff.
-    .replace(tagMatcher(), " ")
-    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(+n))
-    .replace(/\s+/g, " ")
-    .trim();
+  return (
+    html
+      // Comments are not visible and minify strips them (removeComments), so
+      // drop them on both sides — a comment may contain `>` that would otherwise
+      // split across the tag-strip and leak its tail into the comparison.
+      .replace(/<!--[\s\S]*?-->/g, " ")
+      .replace(/<(script|style|template)[^>]*>[\s\S]*?<\/\1>/gi, " ")
+      // Quote-aware tag strip (same matcher as the encoder): a `>` inside a
+      // quoted attribute value (e.g. an inline onclick handler holding HTML like
+      // `'...</b>'`) must not end the tag early, or that JS would leak into the
+      // comparison and minify's whitespace collapse around the real tag boundary
+      // would read as a diff.
+      .replace(tagMatcher(), " ")
+      .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(+n))
+      .replace(/\s+/g, " ")
+      .trim()
+  );
 }
 
 async function obfuscateInline(html) {
@@ -131,7 +133,10 @@ function protectAndEncode(html) {
   // Encode the five attributes.
   for (const attr of ENCODE_ATTRS) {
     const are = new RegExp(`(\\b${attr}\\s*=\\s*)(["'])([\\s\\S]*?)\\2`, "gi");
-    work = work.replace(are, (_, pre, q, val) => `${pre}${q}${numericEntities(val)}${q}`);
+    work = work.replace(
+      are,
+      (_, pre, q, val) => `${pre}${q}${numericEntities(val)}${q}`,
+    );
   }
   // Encode visible text nodes only. Walk the markup tag-by-tag (quote-aware,
   // so a `>` inside a quoted attribute value such as an inline onclick handler
@@ -143,11 +148,28 @@ function protectAndEncode(html) {
   return work.replace(/\u0000(\d+)\u0000/g, (_, n) => tokens[+n]);
 }
 
+// Navbar links to features the env leaves off (utils/features.js). The server
+// redirects their pages home, so the built pages drop the links to them.
+function disabledNavLinks() {
+  const features = configuredFeatures();
+  const hrefs = [];
+  if (!features.chat) hrefs.push("/chat");
+  if (!features.accounts) hrefs.push("/profile");
+  if (!hrefs.length) return null;
+  console.log(`[build] leaving out navbar links: ${hrefs.join(", ")}`);
+  return new RegExp(
+    `[ \\t]*<a\\s[^>]*href="(?:${hrefs.join("|")})"[^>]*>[\\s\\S]*?</a\\s*>\\n?`,
+    "g",
+  );
+}
+
 export async function transformHtml(outStatic) {
+  const navLinks = disabledNavLinks();
   for (const entry of await readdir(outStatic)) {
     if (!entry.endsWith(".html")) continue;
     const file = path.join(outStatic, entry);
-    const original = await readFile(file, "utf8");
+    let original = await readFile(file, "utf8");
+    if (navLinks) original = original.replace(navLinks, "");
     const before = visibleText(original);
 
     let html = await obfuscateInline(original);

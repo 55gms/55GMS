@@ -28,7 +28,6 @@ Add the following to your `.env` file:
 ```env
 POSTGRES_URL=postgresql://username:password@localhost:5432/your_database_name
 workerAUTH=your_worker_auth_token
-hcaptchaSecret=your_hcaptcha_secret
 PORT=8080
 REDIS_URL=redis://localhost:6379
 ```

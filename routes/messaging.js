@@ -4,6 +4,8 @@ import DOMPurify from "isomorphic-dompurify";
 import userCache from "../utils/userCache.js";
 import blockingCache from "../utils/blockingCache.js";
 import { trimChatMessages } from "../services/messageRetention.js";
+import accounts from "../services/accounts.js";
+import { noteSeen } from "../utils/lastSeen.js";
 import {
   Chat,
   Message,
@@ -13,7 +15,7 @@ import {
   sequelize,
 } from "../models/index.js";
 const router = express.Router();
-const UNKNOWN_USER = { username: "Unknown User", avatar: "/img/user.webp" };
+const UNKNOWN_USER = { username: "Unknown User", avatar: null };
 
 // Middleware to authenticate user via UUID
 const authenticateUser = async (req, res, next) => {
@@ -22,6 +24,26 @@ const authenticateUser = async (req, res, next) => {
     return res.status(401).json({ error: "Authentication required" });
   }
   req.userUuid = uuid;
+  noteSeen(uuid);
+  next();
+};
+
+// An account that was told to choose a handle cannot write to chat until it
+// has. The cache can be minutes behind on another worker, so before refusing
+// the account is read again from the store.
+const requireChosenHandle = async (req, res, next) => {
+  try {
+    const cached = await userCache.getUserByUuid(req.userUuid);
+    if (cached.handlePending) {
+      const fresh = await accounts.getUserByUuid(req.userUuid);
+      if (fresh?.handlePending) {
+        return res.status(403).json({ error: "handle_required" });
+      }
+      userCache.invalidateUser(req.userUuid);
+    }
+  } catch (error) {
+    // An unknown account is turned away by the route itself.
+  }
   next();
 };
 
@@ -78,7 +100,7 @@ router.get("/chats/:chatId/members", authenticateUser, async (req, res) => {
       return {
         uuid: member.userUuid,
         username: userData.username,
-        avatar: userData.avatar || "/img/user.webp",
+        avatar: userData.avatar || null,
         role: member.role,
         status: status?.isOnline ? "online" : "offline",
         joinedAt: member.createdAt,
@@ -199,253 +221,268 @@ router.get("/chats/:chatId/messages", authenticateUser, async (req, res) => {
 });
 
 // Send a message
-router.post("/chats/:chatId/messages", authenticateUser, async (req, res) => {
-  try {
-    const { chatId } = req.params;
-    const { content, isSystem } = req.body;
+router.post(
+  "/chats/:chatId/messages",
+  authenticateUser,
+  requireChosenHandle,
+  async (req, res) => {
+    try {
+      const { chatId } = req.params;
+      const { content, isSystem } = req.body;
 
-    if (!content || content.trim().length === 0) {
-      return res.status(400).json({ error: "Message content is required" });
-    }
+      if (!content || content.trim().length === 0) {
+        return res.status(400).json({ error: "Message content is required" });
+      }
 
-    if (content.length > 2000) {
-      return res
-        .status(400)
-        .json({ error: "Message too long. Maximum 2000 characters allowed." });
-    }
+      if (content.length > 2000) {
+        return res.status(400).json({
+          error: "Message too long. Maximum 2000 characters allowed.",
+        });
+      }
 
-    // Sanitize content
-    const sanitizedContent = DOMPurify.sanitize(content.trim());
+      // Sanitize content
+      const sanitizedContent = DOMPurify.sanitize(content.trim());
 
-    // Membership, chat type and sender name don't depend on each other
-    const [membership, chat, senderUsername] = await Promise.all([
-      ChatMember.findOne({
-        where: { chatId, userUuid: req.userUuid },
-        attributes: ["id"],
-        raw: true,
-      }),
-      Chat.findByPk(chatId, { attributes: ["id", "type"], raw: true }),
-      getUsernameByUuid(req.userUuid).then(
-        (user) => user.username,
-        (error) => {
-          console.error("Error fetching sender username:", error);
-          return "Unknown User";
-        },
-      ),
-    ]);
+      // Membership, chat type and sender name don't depend on each other
+      const [membership, chat, senderUsername] = await Promise.all([
+        ChatMember.findOne({
+          where: { chatId, userUuid: req.userUuid },
+          attributes: ["id"],
+          raw: true,
+        }),
+        Chat.findByPk(chatId, { attributes: ["id", "type"], raw: true }),
+        getUsernameByUuid(req.userUuid).then(
+          (user) => user.username,
+          (error) => {
+            console.error("Error fetching sender username:", error);
+            return "Unknown User";
+          },
+        ),
+      ]);
 
-    if (!membership) {
-      return res
-        .status(403)
-        .json({ error: "Not authorized to send messages to this chat" });
-    }
+      if (!membership) {
+        return res
+          .status(403)
+          .json({ error: "Not authorized to send messages to this chat" });
+      }
 
-    // Check if this is a direct chat and if the user is blocked
-    if (chat && chat.type === "direct") {
-      // Find other chat member
-      const otherMember = await ChatMember.findOne({
-        where: {
-          chatId,
-          userUuid: { [Op.ne]: req.userUuid },
-        },
-        attributes: ["userUuid"],
-        raw: true,
-      });
+      // Check if this is a direct chat and if the user is blocked
+      if (chat && chat.type === "direct") {
+        // Find other chat member
+        const otherMember = await ChatMember.findOne({
+          where: {
+            chatId,
+            userUuid: { [Op.ne]: req.userUuid },
+          },
+          attributes: ["userUuid"],
+          raw: true,
+        });
 
-      if (otherMember) {
-        // Use the blocking cache to check blocking status
-        const blockingStatus = await blockingCache.getBlockingStatus(
-          req.userUuid,
-          otherMember.userUuid,
-        );
+        if (otherMember) {
+          // Use the blocking cache to check blocking status
+          const blockingStatus = await blockingCache.getBlockingStatus(
+            req.userUuid,
+            otherMember.userUuid,
+          );
 
-        if (blockingStatus.blockedByOther) {
-          return res.status(403).json({
-            error: "Cannot send message",
-            blocked: true,
-            message: "You have been blocked by this user",
-          });
-        }
+          if (blockingStatus.blockedByOther) {
+            return res.status(403).json({
+              error: "Cannot send message",
+              blocked: true,
+              message: "You have been blocked by this user",
+            });
+          }
 
-        if (blockingStatus.blockedByMe) {
-          return res.status(403).json({
-            error: "Cannot send message",
-            blocked: true,
-            message: "You have blocked this user",
-          });
+          if (blockingStatus.blockedByMe) {
+            return res.status(403).json({
+              error: "Cannot send message",
+              blocked: true,
+              message: "You have blocked this user",
+            });
+          }
         }
       }
-    }
 
-    // Create message and update chat's last activity
-    const [message] = await Promise.all([
-      Message.create({
-        chatId,
-        senderUuid: req.userUuid,
+      // Create message and update chat's last activity
+      const [message] = await Promise.all([
+        Message.create({
+          chatId,
+          senderUuid: req.userUuid,
+          senderUsername,
+          content: sanitizedContent,
+          isSystem: isSystem || false,
+        }),
+        Chat.update({ lastActivity: new Date() }, { where: { id: chatId } }),
+      ]);
+
+      const messageWithUsername = {
+        ...message.toJSON(),
         senderUsername,
-        content: sanitizedContent,
-        isSystem: isSystem || false,
-      }),
-      Chat.update({ lastActivity: new Date() }, { where: { id: chatId } }),
-    ]);
+      };
 
-    const messageWithUsername = {
-      ...message.toJSON(),
-      senderUsername,
-    };
+      res.status(201).json(messageWithUsername);
 
-    res.status(201).json(messageWithUsername);
-
-    // Enforce max 200 messages per chat. The sender doesn't need to wait on it.
-    void trimChatMessages(chatId).catch((error) => {
-      console.error("Error trimming old chat messages:", error);
-    });
-  } catch (error) {
-    console.error("Error sending message:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
+      // Enforce max 200 messages per chat. The sender doesn't need to wait on it.
+      void trimChatMessages(chatId).catch((error) => {
+        console.error("Error trimming old chat messages:", error);
+      });
+    } catch (error) {
+      console.error("Error sending message:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  },
+);
 
 // Create a direct message chat
-router.post("/chats/direct", authenticateUser, async (req, res) => {
-  try {
-    const { username } = req.body;
-
-    if (!username) {
-      return res.status(400).json({ error: "Username is required" });
-    }
-
-    // Get the other user's UUID
-    let otherUserUuid;
+router.post(
+  "/chats/direct",
+  authenticateUser,
+  requireChosenHandle,
+  async (req, res) => {
     try {
-      const userResponse = await getUserByUsername(username);
-      otherUserUuid = userResponse.uuid;
-    } catch (error) {
-      return res.status(404).json({ error: "User not found" });
-    }
+      const { username } = req.body;
 
-    if (otherUserUuid === req.userUuid) {
-      return res
-        .status(400)
-        .json({ error: "Cannot create chat with yourself" });
-    }
-
-    // Check if direct chat already exists
-    const existingChatMembers = await ChatMember.findAll({
-      include: [
-        {
-          model: Chat,
-          as: "chat",
-          where: { type: "direct" },
-        },
-      ],
-      where: {
-        userUuid: {
-          [Op.in]: [req.userUuid, otherUserUuid],
-        },
-      },
-    });
-
-    // Group by chatId and find chats with both users
-    const chatCounts = {};
-    existingChatMembers.forEach((member) => {
-      if (!chatCounts[member.chatId]) {
-        chatCounts[member.chatId] = [];
+      if (!username) {
+        return res.status(400).json({ error: "Username is required" });
       }
-      chatCounts[member.chatId].push(member.userUuid);
-    });
 
-    const existingChatId = Object.keys(chatCounts).find(
-      (chatId) =>
-        chatCounts[chatId].length === 2 &&
-        chatCounts[chatId].includes(req.userUuid) &&
-        chatCounts[chatId].includes(otherUserUuid),
-    );
+      // Get the other user's UUID
+      let otherUserUuid;
+      try {
+        const userResponse = await getUserByUsername(username);
+        otherUserUuid = userResponse.uuid;
+      } catch (error) {
+        return res.status(404).json({ error: "User not found" });
+      }
 
-    if (existingChatId) {
-      return res.json({ chatId: existingChatId });
+      if (otherUserUuid === req.userUuid) {
+        return res
+          .status(400)
+          .json({ error: "Cannot create chat with yourself" });
+      }
+
+      // Check if direct chat already exists
+      const existingChatMembers = await ChatMember.findAll({
+        include: [
+          {
+            model: Chat,
+            as: "chat",
+            where: { type: "direct" },
+          },
+        ],
+        where: {
+          userUuid: {
+            [Op.in]: [req.userUuid, otherUserUuid],
+          },
+        },
+      });
+
+      // Group by chatId and find chats with both users
+      const chatCounts = {};
+      existingChatMembers.forEach((member) => {
+        if (!chatCounts[member.chatId]) {
+          chatCounts[member.chatId] = [];
+        }
+        chatCounts[member.chatId].push(member.userUuid);
+      });
+
+      const existingChatId = Object.keys(chatCounts).find(
+        (chatId) =>
+          chatCounts[chatId].length === 2 &&
+          chatCounts[chatId].includes(req.userUuid) &&
+          chatCounts[chatId].includes(otherUserUuid),
+      );
+
+      if (existingChatId) {
+        return res.json({ chatId: existingChatId });
+      }
+
+      // Create new direct chat
+      const chat = await Chat.create({
+        type: "direct",
+        createdBy: req.userUuid,
+      });
+
+      // Add both users as members
+      await ChatMember.bulkCreate([
+        { chatId: chat.id, userUuid: req.userUuid, role: "member" },
+        { chatId: chat.id, userUuid: otherUserUuid, role: "member" },
+      ]);
+
+      res.status(201).json({ chatId: chat.id });
+    } catch (error) {
+      console.error("Error creating direct chat:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
-
-    // Create new direct chat
-    const chat = await Chat.create({
-      type: "direct",
-      createdBy: req.userUuid,
-    });
-
-    // Add both users as members
-    await ChatMember.bulkCreate([
-      { chatId: chat.id, userUuid: req.userUuid, role: "member" },
-      { chatId: chat.id, userUuid: otherUserUuid, role: "member" },
-    ]);
-
-    res.status(201).json({ chatId: chat.id });
-  } catch (error) {
-    console.error("Error creating direct chat:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
+  },
+);
 
 // Create a group chat
-router.post("/chats/group", authenticateUser, async (req, res) => {
-  try {
-    const { name, members = [] } = req.body;
+router.post(
+  "/chats/group",
+  authenticateUser,
+  requireChosenHandle,
+  async (req, res) => {
+    try {
+      const { name, members = [] } = req.body;
 
-    if (!name || name.trim().length === 0) {
-      return res.status(400).json({ error: "Group name is required" });
-    }
+      if (!name || name.trim().length === 0) {
+        return res.status(400).json({ error: "Group name is required" });
+      }
 
-    // Check if trying to add more than 10 people total (including creator)
-    if (members.length > 9) {
-      return res.status(400).json({
-        error:
-          "Cannot add more than 10 people to a group chat (including yourself)",
+      // Check if trying to add more than 10 people total (including creator)
+      if (members.length > 9) {
+        return res.status(400).json({
+          error:
+            "Cannot add more than 10 people to a group chat (including yourself)",
+        });
+      }
+
+      const sanitizedName = DOMPurify.sanitize(name.trim());
+
+      // Create group chat
+      const chat = await Chat.create({
+        name: sanitizedName,
+        type: "group",
+        createdBy: req.userUuid,
       });
+
+      // Add creator as admin
+      const chatMembers = [
+        { chatId: chat.id, userUuid: req.userUuid, role: "admin" },
+      ];
+
+      // Add other members, but prevent adding self
+      const resolvedMembers = await Promise.all(
+        members.map(async (username) => {
+          try {
+            return await getUserByUsername(username);
+          } catch (error) {
+            console.error(`User ${username} not found, skipping`);
+            return null;
+          }
+        }),
+      );
+      const addedUuids = new Set([req.userUuid]);
+      for (const userResponse of resolvedMembers) {
+        if (!userResponse || addedUuids.has(userResponse.uuid)) continue;
+        addedUuids.add(userResponse.uuid);
+        chatMembers.push({
+          chatId: chat.id,
+          userUuid: userResponse.uuid,
+          role: "member",
+        });
+      }
+
+      await ChatMember.bulkCreate(chatMembers);
+
+      res.status(201).json({ chatId: chat.id });
+    } catch (error) {
+      console.error("Error creating group chat:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
-
-    const sanitizedName = DOMPurify.sanitize(name.trim());
-
-    // Create group chat
-    const chat = await Chat.create({
-      name: sanitizedName,
-      type: "group",
-      createdBy: req.userUuid,
-    });
-
-    // Add creator as admin
-    const chatMembers = [
-      { chatId: chat.id, userUuid: req.userUuid, role: "admin" },
-    ];
-
-    // Add other members, but prevent adding self
-    const resolvedMembers = await Promise.all(
-      members.map(async (username) => {
-        try {
-          return await getUserByUsername(username);
-        } catch (error) {
-          console.error(`User ${username} not found, skipping`);
-          return null;
-        }
-      }),
-    );
-    const addedUuids = new Set([req.userUuid]);
-    for (const userResponse of resolvedMembers) {
-      if (!userResponse || addedUuids.has(userResponse.uuid)) continue;
-      addedUuids.add(userResponse.uuid);
-      chatMembers.push({
-        chatId: chat.id,
-        userUuid: userResponse.uuid,
-        role: "member",
-      });
-    }
-
-    await ChatMember.bulkCreate(chatMembers);
-
-    res.status(201).json({ chatId: chat.id });
-  } catch (error) {
-    console.error("Error creating group chat:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
+  },
+);
 
 // Leave a group chat
 router.post("/chats/:chatId/leave", authenticateUser, async (req, res) => {
@@ -536,9 +573,11 @@ router.get("/friends", authenticateUser, async (req, res) => {
 
     const friendsWithUsernames = friendUuids.map((friendUuid) => {
       const status = statusMap.get(friendUuid);
+      const userData = userMap.get(friendUuid) || UNKNOWN_USER;
       return {
         uuid: friendUuid,
-        username: (userMap.get(friendUuid) || UNKNOWN_USER).username,
+        username: userData.username,
+        avatar: userData.avatar || null,
         isOnline: status?.isOnline || false,
         lastSeen: status?.lastSeen ?? null,
       };
@@ -552,106 +591,118 @@ router.get("/friends", authenticateUser, async (req, res) => {
 });
 
 // Send friend request
-router.post("/friends/request", authenticateUser, async (req, res) => {
-  try {
-    const { username } = req.body;
-
-    if (!username) {
-      return res.status(400).json({ error: "Username is required" });
-    }
-
-    // Get the other user's UUID
-    let otherUserUuid;
+router.post(
+  "/friends/request",
+  authenticateUser,
+  requireChosenHandle,
+  async (req, res) => {
     try {
-      const userResponse = await getUserByUsername(username);
-      otherUserUuid = userResponse.uuid;
-    } catch (error) {
-      return res.status(404).json({ error: "User not found" });
-    }
+      const { username } = req.body;
 
-    if (otherUserUuid === req.userUuid) {
-      return res.status(400).json({ error: "Cannot add yourself as friend" });
-    }
-
-    // Check if friendship already exists
-    const existingFriendship = await Friend.findOne({
-      where: {
-        [Op.or]: [
-          { requesterUuid: req.userUuid, addresseeUuid: otherUserUuid },
-          { requesterUuid: otherUserUuid, addresseeUuid: req.userUuid },
-        ],
-      },
-    });
-
-    if (existingFriendship) {
-      if (existingFriendship.status === "accepted") {
-        return res.status(400).json({ error: "Already friends" });
-      } else if (existingFriendship.status === "pending") {
-        return res.status(400).json({ error: "Friend request already sent" });
+      if (!username) {
+        return res.status(400).json({ error: "Username is required" });
       }
+
+      // Get the other user's UUID
+      let otherUserUuid;
+      try {
+        const userResponse = await getUserByUsername(username);
+        otherUserUuid = userResponse.uuid;
+      } catch (error) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      if (otherUserUuid === req.userUuid) {
+        return res.status(400).json({ error: "Cannot add yourself as friend" });
+      }
+
+      // Check if friendship already exists
+      const existingFriendship = await Friend.findOne({
+        where: {
+          [Op.or]: [
+            { requesterUuid: req.userUuid, addresseeUuid: otherUserUuid },
+            { requesterUuid: otherUserUuid, addresseeUuid: req.userUuid },
+          ],
+        },
+      });
+
+      if (existingFriendship) {
+        if (existingFriendship.status === "accepted") {
+          return res.status(400).json({ error: "Already friends" });
+        } else if (existingFriendship.status === "pending") {
+          return res.status(400).json({ error: "Friend request already sent" });
+        }
+      }
+
+      // Create friend request
+      await Friend.create({
+        requesterUuid: req.userUuid,
+        addresseeUuid: otherUserUuid,
+        status: "pending",
+      });
+
+      res.status(201).json({ message: "Friend request sent" });
+    } catch (error) {
+      console.error("Error sending friend request:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
-
-    // Create friend request
-    await Friend.create({
-      requesterUuid: req.userUuid,
-      addresseeUuid: otherUserUuid,
-      status: "pending",
-    });
-
-    res.status(201).json({ message: "Friend request sent" });
-  } catch (error) {
-    console.error("Error sending friend request:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
+  },
+);
 
 // Accept/reject friend request
-router.put("/friends/:friendId", authenticateUser, async (req, res) => {
-  try {
-    const { friendId } = req.params;
-    const { action } = req.body; // 'accept' or 'reject'
+router.put(
+  "/friends/:friendId",
+  authenticateUser,
+  requireChosenHandle,
+  async (req, res) => {
+    try {
+      const { friendId } = req.params;
+      const { action } = req.body; // 'accept' or 'reject'
 
-    if (!["accept", "reject"].includes(action)) {
-      return res.status(400).json({ error: "Invalid action" });
-    }
-
-    const friendship = await Friend.findOne({
-      where: {
-        id: friendId,
-        addresseeUuid: req.userUuid,
-        status: "pending",
-      },
-    });
-
-    if (!friendship) {
-      return res.status(404).json({ error: "Friend request not found" });
-    }
-
-    if (action === "accept") {
-      friendship.status = "accepted";
-      await friendship.save();
-
-      let friendUsername = "Unknown User";
-      try {
-        const userResponse = await getUsernameByUuid(friendship.requesterUuid);
-        friendUsername = userResponse.username;
-      } catch (error) {
-        console.error("Error fetching friend username:", error);
+      if (!["accept", "reject"].includes(action)) {
+        return res.status(400).json({ error: "Invalid action" });
       }
 
-      res.json({
-        message: "Friend request accepted",
-        friendUsername: friendUsername,
+      const friendship = await Friend.findOne({
+        where: {
+          id: friendId,
+          addresseeUuid: req.userUuid,
+          status: "pending",
+        },
       });
-    } else {
-      await friendship.destroy();
-      res.json({ message: "Friend request rejected" });
+
+      if (!friendship) {
+        return res.status(404).json({ error: "Friend request not found" });
+      }
+
+      if (action === "accept") {
+        friendship.status = "accepted";
+        await friendship.save();
+
+        let friendUsername = "Unknown User";
+        try {
+          const userResponse = await getUsernameByUuid(
+            friendship.requesterUuid,
+          );
+          friendUsername = userResponse.username;
+        } catch (error) {
+          console.error("Error fetching friend username:", error);
+        }
+
+        res.json({
+          message: "Friend request accepted",
+          friendUsername: friendUsername,
+        });
+      } else {
+        await friendship.destroy();
+        res.json({ message: "Friend request rejected" });
+      }
+    } catch (error) {
+      console.error("Error handling friend request:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
-  } catch (error) {
-    console.error("Error handling friend request:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
+  },
+);
 
 // Remove a friend
 router.post("/friends/remove", authenticateUser, async (req, res) => {
@@ -819,11 +870,13 @@ router.get("/friends/blocked", authenticateUser, async (req, res) => {
           return {
             uuid: friendship.addresseeUuid,
             username: userResponse.username,
+            avatar: userResponse.avatar || null,
           };
         } catch (error) {
           return {
             uuid: friendship.addresseeUuid,
             username: "Unknown User",
+            avatar: null,
           };
         }
       }),
@@ -854,6 +907,7 @@ router.get("/friends/requests", authenticateUser, async (req, res) => {
             id: request.id,
             requesterUuid: request.requesterUuid,
             requesterUsername: userResponse.username,
+            requesterAvatar: userResponse.avatar || null,
             createdAt: request.createdAt,
           };
         } catch (error) {
@@ -861,6 +915,7 @@ router.get("/friends/requests", authenticateUser, async (req, res) => {
             id: request.id,
             requesterUuid: request.requesterUuid,
             requesterUsername: "Unknown User",
+            requesterAvatar: null,
             createdAt: request.createdAt,
           };
         }
@@ -1016,6 +1071,7 @@ export function formatUserChats(
       return {
         uuid: member.userUuid,
         username: userData.username,
+        avatar: userData.avatar || null,
         isOnline: status?.isOnline || false,
       };
     });
@@ -1028,6 +1084,7 @@ export function formatUserChats(
       id: chat.id,
       name: chatName,
       type: chat.type,
+      avatar: chat.type === "direct" ? members[0]?.avatar || null : null,
       lastMessage: chat.messages?.[0] || null,
       unreadCount: unreadCountMap.get(chat.id) || 0,
       members,

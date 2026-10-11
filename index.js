@@ -19,21 +19,13 @@ import { mountGameAssetFallback } from "./utils/gameAssets.js";
 
 logging.set_level(logging.ERROR);
 
-import {
-  initDatabase,
-  UserStatus,
-  Chat,
-  Message,
-  ChatMember,
-} from "./models/index.js";
-
-import authRoutes from "./routes/auth.js";
-import userRoutes from "./routes/users.js";
-import adminRoutes from "./routes/admin.js";
-import messagingRoutes from "./routes/messaging.js";
 import searchRoutes from "./routes/search.js";
 import proxyRoutes from "./routes/music.js";
-import { startMessageRetention } from "./services/messageRetention.js";
+import {
+  disabledPageRedirect,
+  inCodespaces,
+  loadFeatures,
+} from "./utils/features.js";
 
 try {
   const __filename = fileURLToPath(import.meta.url);
@@ -64,6 +56,16 @@ try {
       console.warn(`[static] ignoring unreadable manifest: ${e.message}`);
     }
   }
+
+  // Chat and accounts load only when their env is set, so a server with no
+  // .env (a fresh Codespace, say) still serves games, apps and the proxy.
+  const features = await loadFeatures();
+  const { UserStatus, ChatMember } = features.models ?? {};
+  // Loaded only with chat, like the models: it reaches the account store.
+  const userCache = features.chat
+    ? (await import("./utils/userCache.js")).default
+    : null;
+  const port = process.env.PORT || 8080;
 
   const app = express();
   app.use(createCompression());
@@ -150,14 +152,36 @@ try {
     next();
   });
 
-  app.use("/api", authRoutes);
-  app.use("/api", userRoutes);
-  app.use("/api", adminRoutes);
-  app.use("/api", messagingRoutes);
+  if (features.accounts) {
+    const [auth, users, admin] = await Promise.all([
+      import("./routes/auth.js"),
+      import("./routes/users.js"),
+      import("./routes/admin.js"),
+    ]);
+    app.use("/api", auth.default);
+    app.use("/api", users.default);
+    app.use("/api", admin.default);
+  }
+  if (features.chat) {
+    const messaging = await import("./routes/messaging.js");
+    app.use("/api", messaging.default);
+  }
   app.use("/api", searchRoutes);
   app.use("/api/music", proxyRoutes);
 
+  if (!features.accounts || !features.chat) {
+    // What is left under /api belongs to a feature that is off. Answer in
+    // JSON, which is what its callers parse, instead of the 404 page.
+    app.use("/api", (req, res) => {
+      res.status(503).json({ error: "This feature is off on this server" });
+    });
+    app.use(disabledPageRedirect(features));
+  }
+
   io.on("connection", (socket) => {
+    // Every handler below is chat or presence, and all of them use the database.
+    if (!features.chat) return;
+
     socket.on("authenticate", async (data) => {
       try {
         const { uuid, joinChatRooms = false } = data;
@@ -226,20 +250,46 @@ try {
 
     socket.on("send_message", async (data) => {
       try {
-        const { chatId, content, senderUuid, senderUsername, isSystem } = data;
+        const { chatId, content, senderUuid, isSystem } = data;
 
         const authenticatedUuid = socket.data.userUuid;
         if (authenticatedUuid !== senderUuid && !isSystem) {
           return socket.emit("error", "Authentication mismatch");
         }
 
-        const finalSenderUsername = senderUsername || "Unknown User";
+        // The name shown to the room comes from the account, never from the
+        // client, so nobody can post under another handle.
+        let finalSenderUsername = "System";
+        let senderAvatar = null;
+        if (!isSystem) {
+          finalSenderUsername = "Unknown User";
+          try {
+            let sender = await userCache.getUserByUuid(senderUuid);
+            if (sender.handlePending) {
+              // The cache can be minutes behind a handle chosen on another
+              // worker, so the account is read again before refusing.
+              userCache.invalidateUser(senderUuid);
+              sender = await userCache.getUserByUuid(senderUuid);
+              if (sender.handlePending) {
+                return socket.emit(
+                  "error",
+                  "Choose your handle to send messages",
+                );
+              }
+            }
+            finalSenderUsername = sender.username;
+            senderAvatar = sender.avatar || null;
+          } catch (error) {
+            // Unknown sender: the message is still relayed, unnamed.
+          }
+        }
 
         socket.to(`chat_${chatId}`).emit("new_message", {
           chatId,
           content,
           senderUuid,
           senderUsername: finalSenderUsername,
+          senderAvatar,
           timestamp: new Date(),
           isSystem: isSystem || false,
         });
@@ -359,6 +409,7 @@ try {
   });
 
   setInterval(async () => {
+    if (!features.chat) return;
     try {
       // 1. Clean up stale users in database
       const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
@@ -458,8 +509,18 @@ try {
 
   server.on("listening", () => {
     console.log(`\n------------------------------------`);
-    console.log(`🔗 URL: http://localhost:${process.env.PORT}`);
+    console.log(`🔗 URL: http://localhost:${port}`);
+    if (inCodespaces && process.env.CODESPACE_NAME) {
+      const domain =
+        process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN ||
+        "app.github.dev";
+      console.log(
+        `🌐 Codespace: https://${process.env.CODESPACE_NAME}-${port}.${domain}`,
+      );
+    }
     console.log(`📁 Static: ${staticRoot}`);
+    console.log(`👤 Accounts: ${features.accounts ? "on" : "off"}`);
+    console.log(`💬 Chat: ${features.chat ? "on" : "off"}`);
     console.log(`------------------------------------\n`);
     // Tells pm2 (wait_ready) this worker can take traffic. No-op otherwise.
     process.send?.("ready");
@@ -502,12 +563,14 @@ try {
   process.on("SIGTERM", () => shutdown("SIGTERM"));
   process.on("SIGINT", () => shutdown("SIGINT"));
 
-  Promise.all([initDatabase(), configureSocketAdapter()])
-    .then(() => {
-      startMessageRetention();
-      server.listen({
-        port: process.env.PORT || 8080,
-      });
+  configureSocketAdapter()
+    .then(async () => {
+      if (features.database) {
+        const { startMessageRetention } =
+          await import("./services/messageRetention.js");
+        startMessageRetention();
+      }
+      server.listen({ port });
     })
     .catch((error) => {
       console.error("Failed to initialize server dependencies:", error);

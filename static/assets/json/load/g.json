@@ -500,12 +500,6 @@
     "usesProxy": false
   },
   {
-    "name": "Flight Pilot Airplane",
-    "url": "/misc/play/flightpilotairline.html",
-    "image": "/img/games/fpag24.webp",
-    "usesProxy": false
-  },
-  {
     "name": "Flippy Fish",
     "url": "/misc/play/Flippy-Fish.html",
     "image": "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/flippyfish/icon.webp",
@@ -870,9 +864,9 @@
   },
   {
     "name": "Learn to Fly",
-    "url": "https://www.coolmathgames.com/0-learn-to-fly/play",
-    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/learn-to-fly/2.webp",
-    "usesProxy": true
+    "author": "Light Bringer",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/learntofly/img.webp",
+    "usesProxy": false
   },
   {
     "name": "Learn to Fly 2",
@@ -1268,10 +1262,10 @@
   },
   {
     "name": "Raft Wars",
-    "url": "https://games.poki.com/458768/raftwars",
-    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/RaftWars/img.webp",
+    "author": "Martijn Kunst",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/raft-wars/img.webp",
     "preview": "/img/videos/preview/raftwars.mp4",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Unicycle Hero",
@@ -1315,10 +1309,10 @@
   },
   {
     "name": "Raft Wars 2",
-    "url": "https://games.poki.com/458768/raftwars2",
-    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/RaftWars2/img.webp",
+    "author": "Martijn Kunst",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/raft-wars-2/img.webp",
     "preview": "/img/videos/preview/raftwars2.mp4",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Rainbow Tower",

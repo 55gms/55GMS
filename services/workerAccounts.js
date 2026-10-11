@@ -87,6 +87,21 @@ export function createWorkerAccounts({ httpClient = axios } = {}) {
       throw new Error("setPremium requires ACCOUNT_BACKEND=postgres");
     },
 
+    // Handles are chosen and looked up only on the Postgres backend.
+    async setHandle() {
+      throw new Error("setHandle requires ACCOUNT_BACKEND=postgres");
+    },
+
+    async isHandleTaken(handle) {
+      return Boolean(await this.getUserByUsername(handle));
+    },
+
+    async lookupLegacyUsername() {
+      throw new Error("lookupLegacyUsername requires ACCOUNT_BACKEND=postgres");
+    },
+
+    async touchLastSeen() {},
+
     async writeSave(uuid, saveData) {
       const response = await httpClient.post(
         `${WORKER_API}/users/uploadSave`,

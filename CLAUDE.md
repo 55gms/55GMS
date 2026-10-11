@@ -11,6 +11,12 @@ node .
 # Initialize the database (run once before first start)
 node setup-db.js
 
+# Add the handle columns to an existing database (safe to re-run)
+node scripts/add-handle-columns.js
+
+# Add the avatar column to an existing database (safe to re-run)
+node scripts/add-avatar-column.js
+
 # Build the obfuscated copy of static/ into dist/ (CI and every deploy run this)
 npm run build
 
@@ -28,11 +34,12 @@ Copy `EXAMPLE.env` to `.env` and fill in:
 API_KEY=
 POSTGRES_URL=postgresql://username:password@localhost:5432/55gms_chat
 workerAUTH=your_worker_auth_token
-hcaptchaSecret=your_hcaptcha_secret
 PORT=8080
 ```
 
-A running PostgreSQL instance is required. Run `node setup-db.js` after configuring `POSTGRES_URL` to create schema.
+Every value is optional. `utils/features.js` decides at boot which optional features run: accounts need their backend (`POSTGRES_URL` with `ACCOUNT_BACKEND=postgres`, or `workerAUTH` for the Worker), and chat needs `POSTGRES_URL` plus accounts. With no `.env`, or one still holding the `EXAMPLE.env` placeholders, the server boots with both off and serves games, apps and the proxy: their API routes and models are never loaded, `/api/*` calls to them return 503 JSON, their pages redirect to `/`, and the build's `html` stage leaves their navbar links (`/chat`, `/profile`) out of the built pages. The build reads the same env as the server (`configuredFeatures()`), so it must run where the server's `.env` is; served straight from `static/`, the links stay and redirect home. A configured database that cannot be reached is fatal, except in GitHub Codespaces (`CODESPACES=true`), where the server starts without it. `.devcontainer/devcontainer.json` installs dependencies, builds, and runs `node .` in a Codespace.
+
+For chat, run a PostgreSQL instance and `node setup-db.js` after configuring `POSTGRES_URL` to create schema.
 
 ## Architecture
 
@@ -40,30 +47,35 @@ A running PostgreSQL instance is required. Run `node setup-db.js` after configur
 
 ### Backend layout
 
-| Path                     | Purpose                                                                                           |
-| ------------------------ | ------------------------------------------------------------------------------------------------- |
-| `index.js`               | Server entry point — Express routes, Socket.IO events, static file serving                        |
-| `config/database.js`     | Sequelize PostgreSQL connection (pool: max 10)                                                    |
-| `models/`                | Sequelize ORM models: `Chat`, `Message`, `ChatMember`, `Friend`, `UserStatus`, `User`, `UserSave` |
-| `routes/auth.js`         | Login/signup with hcaptcha, via `services/accounts.js`                                            |
-| `routes/users.js`        | Premium checks, per-user save-data upload/download                                                |
-| `routes/admin.js`        | Premium management for `/admin`; allowed only for the session cookie of user `jiayang`            |
-| `services/accounts.js`   | Account/save store; `ACCOUNT_BACKEND` picks the Worker (default) or local Postgres                |
-| `routes/messaging.js`    | Full chat REST API (~962 lines)                                                                   |
-| `routes/music.js`        | Proxy routes for music/media                                                                      |
-| `utils/userCache.js`     | In-memory user data cache                                                                         |
-| `utils/blockingCache.js` | In-memory blocked-user cache                                                                      |
-| `utils/ads.js`           | Mounts 55GMS Ads at `/_ads` when `ADS_SERVER_URL` and `ADS_API_KEY` are set                       |
-| `utils/gameAssets.js`    | Relays `/misc/` files that are not on disk from the 55gms/assets mirror on jsDelivr               |
-| `utils/ads-edge/`        | Vendored edge module from the gms-ads repo; do not edit here                                      |
-| `scripts/build.js`       | `npm run build`: builds `static/` into `dist/builds/<id>/` and points `dist/current` at it        |
-| `scripts/build/`         | The build stages, and `check-output.js`, the check CI runs on the built tree                      |
-| `deploy/`                | Server-side deploy scripts run by the GitHub Actions deploy key (`docs/deploy.md`)                |
-| `ecosystem.config.cjs`   | pm2 settings for production (cluster, 10 workers, `STATIC_ROOT`)                                  |
+| Path                         | Purpose                                                                                             |
+| ---------------------------- | --------------------------------------------------------------------------------------------------- |
+| `index.js`                   | Server entry point — Express routes, Socket.IO events, static file serving                          |
+| `config/database.js`         | Sequelize PostgreSQL connection (pool: max 10)                                                      |
+| `models/`                    | Sequelize ORM models: `Chat`, `Message`, `ChatMember`, `Friend`, `UserStatus`, `User`, `UserSave`   |
+| `routes/auth.js`             | Login/signup, the handle check and the signup captcha challenge                                     |
+| `utils/captcha.js`           | Self-hosted signup captcha: a signed proof of work bound to the handle                              |
+| `routes/users.js`            | Premium checks, per-user save-data upload/download                                                  |
+| `routes/admin.js`            | Premium management for `/admin`; allowed only for the session cookie of user `jiayang`              |
+| `services/accounts.js`       | Account/save store; `ACCOUNT_BACKEND` picks the Worker (default) or local Postgres                  |
+| `routes/messaging.js`        | Full chat REST API (~962 lines)                                                                     |
+| `routes/music.js`            | Proxy routes for music/media                                                                        |
+| `utils/features.js`          | Turns accounts and chat on or off at boot from the env; see Environment Setup                       |
+| `utils/userCache.js`         | In-memory user data cache                                                                           |
+| `utils/handle.js`            | The handle rule (`@handle`: lowercase letters, numbers, dashes, 3 to 16) and the choose-by deadline |
+| `utils/avatars.js`           | The preset avatar ids an account can pick; images are `static/img/avatars/<id>.svg`                 |
+| `scripts/migrate-handles.js` | One-off username-to-handle migration; steps in `docs/handles-rollout.md`                            |
+| `utils/blockingCache.js`     | In-memory blocked-user cache                                                                        |
+| `utils/ads.js`               | Mounts 55GMS Ads at `/_ads` when `ADS_SERVER_URL` and `ADS_API_KEY` are set                         |
+| `utils/gameAssets.js`        | Relays `/misc/` files that are not on disk from the 55gms/assets mirror on jsDelivr                 |
+| `utils/ads-edge/`            | Vendored edge module from the gms-ads repo; do not edit here                                        |
+| `scripts/build.js`           | `npm run build`: builds `static/` into `dist/builds/<id>/` and points `dist/current` at it          |
+| `scripts/build/`             | The build stages, and `check-output.js`, the check CI runs on the built tree                        |
+| `deploy/`                    | Server-side deploy scripts run by the GitHub Actions deploy key (`docs/deploy.md`)                  |
+| `ecosystem.config.cjs`       | pm2 settings for production (cluster, 10 workers, `STATIC_ROOT`)                                    |
 
 ### Authentication flow
 
-Accounts and saves go through `services/accounts.js`. By default it calls an external worker API (`https://db.55gms.com/api/`) authenticated with the `workerAUTH` token; with `ACCOUNT_BACKEND=postgres` it uses the local `users` and `user_saves` tables (passwords stored as bcrypt over SHA-256). UUIDs identify users. The migration plan is in `docs/superpowers/specs/2026-10-01-worker-to-postgres-migration-design.md`.
+Accounts and saves go through `services/accounts.js`. By default it calls an external worker API (`https://db.55gms.com/api/`) authenticated with the `workerAUTH` token; with `ACCOUNT_BACKEND=postgres` it uses the local `users` and `user_saves` tables (passwords stored as bcrypt over SHA-256). UUIDs identify users. A username is a handle: lowercase letters, numbers and dashes, 3 to 16 characters, shown as `@handle`; `utils/handle.js` is the only definition of the rule. `users.legacy_username` keeps the pre-migration username, which still signs in; `users.handle_pending` marks an account that must pick a handle at `/choose-handle` and cannot write to chat until it does, or until `HANDLE_MIGRATION_DEADLINE` passes and its placeholder becomes final. `/handles` explains this and looks up a handle from an old username. An account may also pick a preset avatar (`users.avatar`, an id from `utils/avatars.js`, set on `/profile` through `POST /api/avatar`); with none, chat and the profile show its initial on a colour. There are no uploaded pictures. The images are the DiceBear "Sprouts" style, CC0 1.0; the column must exist before a build that reads it is deployed. The migration plan is in `docs/superpowers/specs/2026-10-01-worker-to-postgres-migration-design.md`.
 
 ### Real-time (Socket.IO)
 
@@ -99,7 +111,7 @@ All frontend code is static files under `static/`:
 
 What this means when editing the frontend:
 
-- Byte-for-byte untouched: `sw.js`, `assets/sj/`, `assets/js/frame-runtime.js`, `assets/js/easteregg.min.js`, `assets/js/sdks/`. CSS and the other JSON files are copied as they are.
+- Byte-for-byte untouched: `sw.js`, `assets/sj/`, `assets/js/frame-runtime.js`, `assets/js/easteregg.min.js`, `assets/js/captcha-worker.js`, `assets/js/sdks/`. CSS and the other JSON files are copied as they are.
 - Top-level function names in app scripts stay readable (global renaming is off) because pages call them from inline handlers; so does `<meta name="description">` content.
 - A built catalogue is base64url of a 16-byte key followed by the JSON XORed with that key. `games.js`, `apps.js`, `packs.js` and `loader-ui.js` each carry the decoder (`readCatalogue`) and still accept plain JSON; any new code that fetches a catalogue needs it too.
 - `unity-cdn-loader.js` and `unity-cdn-assets.js` are ES modules loaded by game pages under `static/misc/`, which are never rebuilt: keep their file names and export names stable.
