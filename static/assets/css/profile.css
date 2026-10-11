@@ -1,5 +1,4 @@
-/* Profile and admin: a settings page on the site theme tokens. The scale,
-   surfaces and controls match auth.css; keep the two token blocks in step. */
+/* Profile page — Geist-style layout driven entirely by the site theme tokens */
 
 .profile {
   --p-surface: color-mix(
@@ -9,109 +8,116 @@
   );
   --p-surface-hover: color-mix(
     in srgb,
-    var(--site-text, #ffffff) 8%,
-    transparent
+    var(--site-surface-2, #5e7594) 76%,
+    rgba(0, 0, 0, 0.3)
   );
   --p-inset: color-mix(
     in srgb,
-    var(--site-surface-3, #4a5f7a) 76%,
-    rgba(0, 0, 0, 0.48)
+    var(--site-surface-2, #5e7594) 58%,
+    rgba(0, 0, 0, 0.42)
   );
   --p-border: color-mix(
     in srgb,
     var(--site-border, #353d49) 70%,
     var(--site-muted, #b5cae0)
   );
-  --p-border-strong: var(
-    --site-control-border-hover,
-    rgba(255, 255, 255, 0.34)
+  --p-border-strong: color-mix(
+    in srgb,
+    var(--site-text, #ffffff) 70%,
+    var(--site-border, #353d49)
   );
-  /* Hairlines between the page's sections and a panel's rows */
-  --p-line: color-mix(in srgb, var(--site-text, #ffffff) 12%, transparent);
   --p-text: var(--site-text, #ffffff);
-  /* Secondary text; mixed toward the text colour so it holds up on the page
-     background as well as on panels */
   --p-muted: color-mix(
     in srgb,
-    var(--site-muted, #b5cae0) 55%,
+    var(--site-muted, #b5cae0) 65%,
     var(--site-text, #ffffff)
   );
-  --p-accent: var(--site-accent, #f5b942);
-  --p-accent-hover: var(--site-accent-hover, #f8cd6b);
-  --p-on-accent: var(--site-accent-text, #484c51);
-  --p-danger: #ff9a9d;
-  --p-success: #6ee7a0;
-  --p-warning: #f7c56b;
+  --p-on-text: #0a0a0a;
+  --p-danger: #ff6166;
+  --p-success: #45d483;
+  --p-warning: #f5a623;
   --p-radius: 12px;
   --p-radius-sm: 8px;
-  --p-pad: 20px;
+  --p-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --p-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --p-fast: 120ms;
-  --p-normal: 180ms;
+  --p-normal: 200ms;
+  --p-slow: 360ms;
   --p-font: "Geist", "Roboto", system-ui, -apple-system, sans-serif;
   --p-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  box-sizing: border-box;
-  width: min(920px, calc(100% - 48px));
+  width: min(720px, calc(100% - 32px));
   margin: 0 auto;
-  padding: clamp(28px, 6vh, 56px) 0 80px;
+  padding: 56px 0 96px;
   font-family: var(--p-font);
-  font-size: 0.875rem;
-  line-height: 1.5;
   color: var(--p-text);
-  text-align: left;
   -webkit-font-smoothing: antialiased;
-}
-
-.profile *,
-.profile *::before,
-.profile *::after {
-  box-sizing: border-box;
 }
 
 :root[data-theme="contrast"] .profile {
   --p-surface: #000000;
-  --p-surface-hover: #1a1a1a;
+  --p-surface-hover: #111111;
   --p-inset: #0a0a0a;
   --p-border: #ffffff;
   --p-border-strong: #ffff00;
-  --p-line: #ffffff;
   --p-muted: #ffffff;
-  --p-danger: #ff6b6b;
 }
 
-/* style.css scales every button on hover; nothing here moves. */
-.profile button:hover,
-.profile button:active {
-  transform: none;
+/* ---------- Entrance ---------- */
+
+.profile > * {
+  animation: p-rise var(--p-slow) var(--p-ease-out) both;
+}
+.profile > *:nth-child(2) {
+  animation-delay: 50ms;
+}
+.profile > *:nth-child(3) {
+  animation-delay: 100ms;
+}
+.profile > *:nth-child(4) {
+  animation-delay: 150ms;
 }
 
-.profile button:focus-visible,
-.profile a:focus-visible {
-  outline: 2px solid var(--p-accent);
-  outline-offset: 2px;
+@keyframes p-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
 }
 
-/* ---------- Identity ---------- */
+/* ---------- Header ---------- */
 
 .profile-header {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
   gap: 16px;
-  padding-bottom: 28px;
+  padding-bottom: 32px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--p-border);
 }
 
 /* The avatar is a button that opens the picker; it is disabled, and looks
    like a plain picture, where the server has no avatars to offer. */
 .profile-avatar {
+  position: relative;
   flex: none;
-  width: 56px;
-  height: 56px;
+  width: 72px;
+  height: 72px;
   padding: 0;
   border: 0;
   border-radius: 50%;
   background: none;
   color: var(--p-text);
-  font: 600 1.375rem var(--p-font);
+  font: 500 1.75rem var(--p-font);
+  letter-spacing: -0.02em;
   text-transform: uppercase;
   user-select: none;
   cursor: pointer;
@@ -143,484 +149,81 @@
   box-shadow: 0 0 0 2px var(--p-border-strong);
 }
 
-.profile-identity {
-  flex: 1;
-  min-width: 0;
+.profile-avatar:focus-visible {
+  outline: 2px solid var(--p-text);
+  outline-offset: 4px;
 }
 
-.profile-name-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px 10px;
-}
-
-.profile-name {
-  min-width: 0;
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-  overflow-wrap: anywhere;
-}
-
-.profile-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px 12px;
-  margin-top: 2px;
-  color: var(--p-muted);
-  font-size: 0.8125rem;
-}
-
-.profile-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.profile-status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--p-success);
-}
-
-.profile-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  height: 22px;
-  padding: 0 8px;
-  border: 1px solid color-mix(in srgb, var(--p-accent) 55%, transparent);
-  border-radius: 999px;
-  color: var(--p-text);
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.profile-pill img {
-  width: 13px;
-  height: 13px;
-  border-radius: 3px;
-}
-
-/* ---------- Sections: a label column beside its panel ---------- */
-
-.profile-section {
-  padding: 28px 0;
-  border-top: 1px solid var(--p-line);
-}
-
-.profile-section[hidden] {
-  display: none;
-}
-
-.profile-section-head {
-  margin-bottom: 14px;
-}
-
-.profile-section-head h2 {
-  margin: 0;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.profile-section-head p {
-  max-width: 46ch;
-  margin: 4px 0 0;
-  color: var(--p-muted);
-  font-size: 0.8125rem;
-  line-height: 1.55;
-  text-wrap: pretty;
-}
-
-@media (min-width: 860px) {
-  .profile-section {
-    display: grid;
-    grid-template-columns: 232px minmax(0, 1fr);
-    gap: 0 48px;
-    align-items: start;
-    padding: 32px 0;
-  }
-
-  .profile-section-head {
-    margin: 0;
-    padding-top: 2px;
-  }
-}
-
-.profile-card {
-  border: 1px solid var(--p-border);
-  border-radius: var(--p-radius);
-  background: var(--p-surface);
-  overflow: hidden;
-}
-
-.profile-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px 20px;
-  padding: 14px var(--p-pad);
-}
-
-.profile-row[hidden] {
-  display: none;
-}
-
-.profile-row + .profile-row,
-.sync-status + .profile-row {
-  border-top: 1px solid var(--p-line);
-}
-
-.profile-row-main {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  min-width: 0;
-}
-
-.profile-row-text {
-  min-width: 0;
-}
-
-/* Which way the data moves: "This browser → Cloud" */
-.profile-row-flow {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: 0 0 4px;
-  color: var(--p-muted);
-  font-family: var(--p-mono);
-  font-size: 0.6875rem;
-  line-height: 1.4;
-}
-
-.profile-row-flow svg {
-  flex: none;
-  width: 12px;
-  height: 12px;
-}
-
-.profile-row-flow b {
-  color: var(--p-text);
-  font-weight: 500;
-}
-
-.profile-row-title {
-  margin: 0;
-  font-size: 0.875rem;
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-.profile-row-desc {
-  max-width: 52ch;
-  margin: 2px 0 0;
-  color: var(--p-muted);
-  font-size: 0.8125rem;
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-
-.profile-row-end {
-  display: flex;
-  flex: none;
-  align-items: center;
-  gap: 12px;
-}
-
-.profile-card-foot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 4px 16px;
-  padding: 10px var(--p-pad);
-  border-top: 1px solid var(--p-line);
-  background: var(--p-inset);
-  color: var(--p-muted);
-  font-size: 0.8125rem;
-}
-
-.profile-mono {
-  color: var(--p-text);
-  font-family: var(--p-mono);
-  font-size: 0.8125rem;
-  font-variant-numeric: tabular-nums;
-}
-
-/* ---------- Sync status: the strip that heads the sync panel ---------- */
-
-.sync-status {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 14px var(--p-pad);
-  background: var(--p-inset);
-}
-
-.sync-status-dot {
-  flex: none;
-  width: 8px;
-  height: 8px;
-  margin-top: 6px;
-  border-radius: 50%;
-  background: var(--p-muted);
-  transition: background-color var(--p-normal) ease;
-}
-
-.sync-status[data-state="checking"] .sync-status-dot {
-  width: 12px;
-  height: 12px;
-  margin: 4px -2px 0;
-  border: 2px solid color-mix(in srgb, var(--p-text) 25%, transparent);
-  border-top-color: var(--p-text);
-  background: none;
-  animation: p-spin 0.7s linear infinite;
-}
-
-.sync-status[data-state="synced"] .sync-status-dot {
-  background: var(--p-success);
-}
-
-.sync-status[data-state="unsynced"] .sync-status-dot,
-.sync-status[data-state="ahead"] .sync-status-dot {
-  background: var(--p-warning);
-}
-
-.sync-status[data-state="error"] .sync-status-dot {
-  background: var(--p-danger);
-}
-
-/* No cloud save: a hollow dot */
-.sync-status[data-state="empty"] .sync-status-dot {
-  border: 1.5px solid var(--p-muted);
-  background: none;
-}
-
-.sync-status-text {
-  flex: 1;
-  min-width: 0;
-}
-
-.sync-status-label {
-  margin: 0;
-  font-size: 0.875rem;
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-.sync-status-desc {
-  max-width: 56ch;
-  margin: 2px 0 0;
-  color: var(--p-muted);
-  font-size: 0.8125rem;
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-
-/* ---------- Buttons ---------- */
-
-.p-btn {
-  position: relative;
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  height: 34px;
-  min-width: 96px;
-  padding: 0 14px;
-  border: 1px solid var(--p-border-strong);
-  border-radius: var(--p-radius-sm);
-  background: color-mix(in srgb, var(--p-text) 5%, transparent);
-  color: var(--p-text);
-  font-family: var(--p-font);
-  font-size: 0.8125rem;
-  font-weight: 500;
-  line-height: 1;
-  text-decoration: none;
-  white-space: nowrap;
-  cursor: pointer;
-  transition:
-    background-color var(--p-fast) ease,
-    border-color var(--p-fast) ease,
-    color var(--p-fast) ease,
-    opacity var(--p-fast) ease;
-}
-
-.p-btn[hidden] {
-  display: none;
-}
-
-.p-btn svg {
-  width: 14px;
-  height: 14px;
-}
-
-.p-btn:not(:disabled):hover {
-  background: color-mix(in srgb, var(--p-text) 12%, transparent);
-  color: var(--p-text);
-}
-
-.p-btn:not(:disabled):active {
-  background: color-mix(in srgb, var(--p-text) 16%, transparent);
-}
-
-.p-btn:disabled {
-  cursor: not-allowed;
-}
-
-.p-btn:disabled:not(.is-loading) {
-  opacity: 0.5;
-}
-
-.p-btn-primary {
-  border-color: transparent;
-  background: var(--p-accent);
-  color: var(--p-on-accent);
-  font-weight: 600;
-}
-
-.p-btn-primary:not(:disabled):hover {
-  background: var(--p-accent-hover);
-  color: var(--p-on-accent);
-}
-
-.p-btn-primary:not(:disabled):active {
-  background: color-mix(in srgb, var(--p-accent) 86%, #000000);
-}
-
-/* No frame until it is hovered: for actions that sit beside something else */
-.p-btn-quiet {
-  min-width: 0;
-  padding: 0 10px;
-  border-color: transparent;
-  background: none;
-  color: var(--p-muted);
-}
-
-.p-btn-danger {
-  color: var(--p-danger);
-}
-
-.p-btn-danger:not(:disabled):hover {
-  border-color: var(--p-danger);
-  background: color-mix(in srgb, var(--p-danger) 12%, transparent);
-  color: var(--p-danger);
-}
-
-/* Loading state: the label gives way to a spinner, the width stays */
-.p-btn-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: opacity var(--p-fast) ease;
-}
-
-.p-spinner {
+.profile-avatar-edit {
   position: absolute;
-  inset: 0;
-  margin: auto;
-  width: 14px;
-  height: 14px;
+  right: -2px;
+  bottom: -2px;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  border: 2px solid currentColor;
-  border-right-color: transparent;
-  opacity: 0;
-  transition: opacity var(--p-fast) ease;
-  animation: p-spin 0.7s linear infinite;
+  border: 2px solid var(--site-bg, #000000);
+  background: var(--p-text);
+  color: var(--p-on-text);
 }
 
-.p-btn.is-loading .p-btn-label {
-  opacity: 0;
+.profile-avatar:disabled .profile-avatar-edit {
+  display: none;
 }
 
-.p-btn.is-loading .p-spinner {
-  opacity: 1;
+.profile-avatar-edit svg {
+  width: 12px;
+  height: 12px;
 }
 
-@keyframes p-spin {
-  to {
-    rotate: 360deg;
-  }
-}
-
-/* ---------- Dialogs: the avatar picker and the sync confirmation ---------- */
-
-.p-dialog {
+.avatar-dialog {
   width: min(440px, calc(100% - 32px));
-  max-width: none;
+  max-height: min(560px, calc(100dvh - 32px));
   padding: 0;
-  overflow: hidden;
   border: 1px solid var(--p-border);
   border-radius: var(--p-radius);
-  /* The surface is translucent; the page colour under it makes it solid. */
   background: var(--site-bg, #000000);
   color: var(--p-text);
   font-family: var(--p-font);
-  font-size: 0.875rem;
-  line-height: 1.5;
   text-align: left;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
 }
 
-.p-dialog[open] {
-  animation: p-dialog-in 150ms ease-out;
+.avatar-dialog[open] {
+  animation: p-rise var(--p-normal) var(--p-ease-out) both;
 }
 
-.p-dialog::backdrop {
-  background: rgba(0, 0, 0, 0.55);
+.avatar-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
 }
 
-@keyframes p-dialog-in {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-}
-
-.p-dialog-body {
-  display: flex;
-  flex-direction: column;
-  max-height: min(620px, calc(100dvh - 32px));
-  margin: 0;
+.avatar-dialog-body {
   background: var(--p-surface);
 }
 
-.p-dialog-head {
-  flex: none;
+.avatar-dialog-head {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 12px 14px var(--p-pad);
-  border-bottom: 1px solid var(--p-line);
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 16px 4px;
 }
 
-.p-dialog-title {
-  flex: 1;
-  min-width: 0;
-}
-
-.p-dialog-title h2 {
+.avatar-dialog-head h2 {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.4;
+  letter-spacing: -0.01em;
 }
 
-.p-dialog-title p {
-  margin: 0;
+.avatar-dialog-head p {
+  margin: 4px 0 0;
   color: var(--p-muted);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
 }
 
-.p-dialog-close {
+.avatar-dialog-close {
   flex: none;
   display: grid;
   place-items: center;
@@ -633,151 +236,500 @@
   color: var(--p-muted);
   cursor: pointer;
   transition:
-    background-color var(--p-fast) ease,
+    background var(--p-fast) ease,
     color var(--p-fast) ease;
 }
 
-.p-dialog-close:hover {
+.avatar-dialog-close:hover {
   background: var(--p-surface-hover);
   color: var(--p-text);
 }
 
-.p-dialog-close svg {
+.avatar-dialog-close:focus-visible {
+  outline: 2px solid var(--p-text);
+  outline-offset: 2px;
+}
+
+.avatar-dialog-close svg {
   width: 16px;
   height: 16px;
-}
-
-.p-dialog-content {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-}
-
-.p-dialog-text {
-  padding: 16px var(--p-pad);
-}
-
-.p-dialog-text p {
-  margin: 0;
-  color: var(--p-muted);
-  text-wrap: pretty;
-}
-
-.p-dialog-text p + p {
-  margin-top: 8px;
-}
-
-.p-dialog-foot {
-  flex: none;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-  padding: 12px var(--p-pad);
-  border-top: 1px solid var(--p-line);
-  background: var(--p-inset);
-}
-
-.p-dialog-error {
-  flex: 1 1 180px;
-  min-width: 0;
-  margin: 0;
-  color: var(--p-danger);
-  font-size: 0.8125rem;
-  line-height: 1.4;
-}
-
-.p-dialog-error:empty {
-  display: none;
-}
-
-/* ---------- Avatar picker ---------- */
-
-.avatar-dialog {
-  width: min(480px, calc(100% - 32px));
-}
-
-/* The choice being made, beside the title */
-.avatar-preview {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  overflow: hidden;
-  border-radius: 50%;
-  background: var(--p-inset);
-  box-shadow: 0 0 0 1px var(--p-border);
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.avatar-preview img {
-  display: block;
-  width: 100%;
-  height: 100%;
 }
 
 .avatar-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
   gap: 14px;
-  padding: var(--p-pad);
+  padding: 16px;
 }
 
 .avatar-tile {
-  position: relative;
-  display: block;
+  display: grid;
+  place-items: center;
   width: 100%;
   aspect-ratio: 1;
   padding: 0;
+  overflow: hidden;
   border: 0;
   border-radius: 50%;
   background: var(--p-inset);
+  box-shadow: 0 0 0 1px var(--p-border);
+  color: var(--p-text);
+  font: 500 1.125rem var(--p-font);
+  text-transform: uppercase;
   cursor: pointer;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  transition: outline-color var(--p-fast) ease;
+  transition: box-shadow var(--p-fast) ease;
 }
 
 .avatar-tile img {
   display: block;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
 }
 
 .avatar-tile:hover {
-  outline-color: var(--p-border-strong);
+  box-shadow: 0 0 0 2px var(--p-border-strong);
 }
 
 .avatar-tile[aria-checked="true"] {
-  outline-color: var(--p-accent);
+  box-shadow:
+    0 0 0 2px var(--site-bg, #000000),
+    0 0 0 4px var(--p-text);
 }
 
-/* The chosen one also carries a tick, so colour is not the only cue */
-.avatar-tile[aria-checked="true"]::after {
-  content: "";
-  position: absolute;
-  right: -3px;
-  bottom: -3px;
+.avatar-tile:focus-visible {
+  outline: 2px solid var(--p-text);
+  outline-offset: 4px;
+}
+
+.profile-identity {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-name-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.profile-name {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  overflow-wrap: anywhere;
+}
+
+.profile-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 14px;
+  color: var(--p-muted);
+  font-size: 0.8125rem;
+}
+
+.profile-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--p-success);
+}
+
+/* ---------- Pills / badges ---------- */
+
+.profile-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid var(--p-border-strong);
+  background: var(--p-inset);
+  color: var(--p-text);
+  font-size: 0.75rem;
+  font-weight: 500;
+  animation: p-pop var(--p-slow) var(--p-ease-spring) both;
+}
+
+.profile-pill img {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+@keyframes p-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- ID copy ---------- */
+
+.profile-id {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 6px 0 8px;
+  border: 1px solid var(--p-border);
+  border-radius: 6px;
+  background: var(--p-inset);
+  color: var(--p-muted);
+  font-family: var(--p-mono);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition:
+    color var(--p-fast) ease,
+    border-color var(--p-fast) ease,
+    transform var(--p-fast) var(--p-ease-out);
+}
+
+.profile-id:hover {
+  color: var(--p-text);
+  border-color: var(--p-border-strong);
+  transform: none;
+}
+
+.profile-id:active {
+  transform: scale(0.97);
+}
+
+.profile-id svg {
+  width: 13px;
+  height: 13px;
+  transition: transform var(--p-normal) var(--p-ease-spring);
+}
+
+.profile-id.is-copied svg {
+  transform: scale(1.15);
+  color: var(--p-success);
+}
+
+/* ---------- Sections ---------- */
+
+.profile-section {
+  margin-bottom: 40px;
+}
+
+.profile-section-head {
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.profile-section-head h2 {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.profile-section-head p {
+  margin: 4px 0 0;
+  color: var(--p-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.profile-card {
+  border: 1px solid var(--p-border);
+  border-radius: var(--p-radius);
+  background: var(--p-surface);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--p-text) 5%, transparent);
+  overflow: hidden;
+}
+
+.profile-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  transition: background-color var(--p-fast) ease;
+}
+
+.profile-row + .profile-row {
+  border-top: 1px solid var(--p-border);
+}
+
+.profile-row:hover {
+  background: var(--p-surface-hover);
+}
+
+.profile-row-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.profile-row-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--p-radius-sm);
+  border: 1px solid var(--p-border);
+  background: var(--p-inset);
+  color: var(--p-muted);
+  transition:
+    color var(--p-normal) ease,
+    border-color var(--p-normal) ease,
+    transform var(--p-normal) var(--p-ease-spring);
+}
+
+.profile-row-icon svg {
   width: 18px;
   height: 18px;
+}
+
+.profile-row:hover .profile-row-icon {
+  color: var(--p-text);
+  border-color: var(--p-border-strong);
+  transform: translateY(-1px);
+}
+
+.profile-row-text {
+  min-width: 0;
+}
+
+.profile-row-title {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.profile-row-desc {
+  margin: 2px 0 0;
+  color: var(--p-muted);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.profile-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--p-border);
+  background: var(--p-inset);
+  color: var(--p-muted);
+  font-size: 0.8125rem;
+}
+
+.profile-card-foot-end {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-sync {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid var(--p-border-strong);
+  background: transparent;
+  color: var(--p-text);
+  font-family: var(--p-font);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--p-fast) var(--p-ease-out);
+}
+
+.profile-sync:hover {
+  background: var(--p-surface-hover);
+}
+
+.profile-sync-dot {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--p-accent)
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4.5 8.5 2.5 2.5 4.5-5'/%3E%3C/svg%3E")
-    center / 12px no-repeat;
+  background: var(--p-muted);
 }
 
-.profile .avatar-tile:focus-visible {
-  outline-color: var(--p-text);
-  box-shadow: 0 0 0 6px color-mix(in srgb, var(--p-text) 30%, transparent);
+.profile-sync[data-state="synced"] .profile-sync-dot {
+  background: var(--p-success);
 }
 
-.profile .avatar-tile[aria-checked="true"]:focus-visible {
-  outline-color: var(--p-accent);
+.profile-sync[data-state="unsynced"] .profile-sync-dot,
+.profile-sync[data-state="ahead"] .profile-sync-dot {
+  background: var(--p-warning);
+}
+
+.profile-sync[data-state="error"] .profile-sync-dot {
+  background: var(--p-danger);
+}
+
+.profile-mono {
+  font-family: var(--p-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--p-text);
+}
+
+/* ---------- Buttons ---------- */
+
+.p-btn {
+  position: relative;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 36px;
+  min-width: 108px;
+  padding: 0 14px;
+  border-radius: var(--p-radius-sm);
+  border: 1px solid var(--p-border);
+  background: color-mix(in srgb, var(--p-text) 6%, transparent);
+  color: var(--p-text);
+  font-family: var(--p-font);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--p-fast) ease,
+    border-color var(--p-fast) ease,
+    color var(--p-fast) ease,
+    box-shadow var(--p-normal) ease,
+    transform var(--p-normal) var(--p-ease-spring);
+}
+
+.p-btn svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--p-normal) var(--p-ease-spring);
+}
+
+.p-btn:not(:disabled):hover {
+  transform: translateY(-1px) scale(1.02);
+  background: color-mix(in srgb, var(--p-text) 11%, transparent);
+  border-color: var(--p-border-strong);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.16),
+    0 4px 12px rgba(0, 0, 0, 0.14);
+}
+
+.p-btn:not(:disabled):active {
+  transform: scale(0.97);
+  box-shadow: none;
+  transition-duration: 60ms;
+}
+
+.p-btn:focus-visible,
+.profile-sync:focus-visible,
+.profile-id:focus-visible {
+  outline: 2px solid var(--p-text);
+  outline-offset: 2px;
+}
+
+.p-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.p-btn-primary {
+  background: var(--p-text);
+  border-color: transparent;
+  color: var(--p-on-text);
+}
+
+.p-btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--p-text) 86%, transparent);
+  border-color: transparent;
+}
+
+.p-btn[data-dir="up"]:not(:disabled):hover svg {
+  transform: translateY(-2px);
+}
+.p-btn[data-dir="down"]:not(:disabled):hover svg {
+  transform: translateY(2px);
+}
+.p-btn[data-dir="right"]:not(:disabled):hover svg {
+  transform: translateX(2px);
+}
+
+.p-btn-danger {
+  color: var(--p-danger);
+}
+
+.p-btn-danger:not(:disabled):hover {
+  background: color-mix(in srgb, var(--p-danger) 14%, transparent);
+  border-color: color-mix(in srgb, var(--p-danger) 55%, transparent);
+  color: var(--p-danger);
+}
+
+:root[data-theme="contrast"] .p-btn-danger {
+  color: #ff4d4d;
+}
+
+/* Loading state: label fades out, spinner fades in */
+.p-btn-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition:
+    opacity var(--p-fast) ease,
+    transform var(--p-normal) var(--p-ease-out);
+}
+
+.p-spinner {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity var(--p-fast) ease,
+    transform var(--p-normal) var(--p-ease-spring);
+  animation: p-spin 0.7s linear infinite;
+}
+
+.p-btn.is-loading .p-btn-label {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.p-btn.is-loading .p-spinner {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@keyframes p-spin {
+  to {
+    rotate: 360deg;
+  }
 }
 
 /* ---------- Toast ---------- */
@@ -800,112 +752,93 @@
   align-items: flex-start;
   gap: 10px;
   max-width: min(380px, calc(100vw - 32px));
-  padding: 10px 14px;
+  padding: 12px 14px;
   border: 1px solid var(--p-border);
-  border-radius: var(--p-radius-sm);
-  background: color-mix(in srgb, var(--site-surface-3, #4a5f7a) 80%, #000000);
+  border-radius: var(--p-radius);
+  background: color-mix(in srgb, var(--site-surface-2, #5e7594) 88%, #000);
   color: var(--p-text);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.45;
-  overflow-wrap: anywhere;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.28);
   pointer-events: auto;
-  animation: p-toast-in 160ms ease-out both;
+  animation: p-toast-in var(--p-slow) var(--p-ease-spring) both;
 }
 
 .p-toast.is-leaving {
-  animation: p-toast-out 160ms ease-in both;
+  animation: p-toast-out var(--p-normal) var(--p-ease-out) both;
 }
 
 .p-toast svg {
   flex: none;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   margin-top: 1px;
 }
 
 .p-toast[data-type="success"] svg {
   color: var(--p-success);
 }
-
 .p-toast[data-type="error"] svg {
   color: var(--p-danger);
+}
+
+.p-toast[data-type="success"] svg path {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: p-draw 420ms 120ms var(--p-ease-out) forwards;
+}
+
+@keyframes p-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes p-toast-in {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
 @keyframes p-toast-out {
   to {
     opacity: 0;
+    transform: translateY(6px) scale(0.98);
   }
 }
 
 /* ---------- Responsive ---------- */
 
-@media (max-width: 620px) {
+@media (max-width: 560px) {
   .profile {
-    --p-pad: 16px;
-    width: calc(100% - 32px);
-    padding-bottom: 56px;
-  }
-
-  .profile-header {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 12px 16px;
-    padding-bottom: 24px;
-  }
-
-  /* The avatar button drops under the name, in line with it */
-  .profile-header > .p-btn {
-    grid-column: 2;
-    justify-self: start;
-  }
-
-  .profile-section {
-    padding: 24px 0;
+    padding-top: 32px;
   }
 
   .profile-row {
     flex-direction: column;
     align-items: stretch;
+    padding: 16px;
   }
 
-  .profile-row > .p-btn {
+  .p-btn {
     width: 100%;
   }
 
-  .profile-row-end {
-    justify-content: space-between;
+  .profile-card-foot {
+    flex-wrap: wrap;
+    padding: 12px 16px;
   }
 
   .p-toasts {
     left: 16px;
     align-items: stretch;
-  }
-
-  .p-toast {
-    max-width: none;
-  }
-
-  .p-dialog-foot .p-btn {
-    flex: 1;
-  }
-}
-
-@media (max-width: 360px) {
-  .profile {
-    width: calc(100% - 24px);
-  }
-
-  .avatar-grid {
-    grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
-    gap: 12px;
   }
 }
 
@@ -913,14 +846,20 @@
 
 @media (prefers-reduced-motion: reduce) {
   .profile *,
-  .p-dialog[open],
+  .profile > *,
   .p-toast {
-    transition-duration: 1ms !important;
     animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
   }
 
-  .profile .p-spinner,
-  .profile .sync-status[data-state="checking"] .sync-status-dot {
-    animation-duration: 1.4s !important;
+  .p-spinner {
+    animation: p-spin 1.4s linear infinite !important;
+  }
+
+  .p-btn:not(:disabled):hover,
+  .p-btn:not(:disabled):active,
+  .profile-row:hover .profile-row-icon {
+    transform: none;
   }
 }

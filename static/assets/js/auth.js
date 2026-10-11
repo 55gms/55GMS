@@ -33,6 +33,9 @@
     } else {
       avatar.innerHTML = avatarIcon;
     }
+    avatar.classList.remove("is-popping");
+    void avatar.offsetWidth;
+    avatar.classList.add("is-popping");
   }
 
   // ---------- Signup preview and rules ----------
@@ -246,17 +249,10 @@
     [captchaLabel.textContent, captchaNote.textContent] = CAPTCHA_TEXT[state];
   }
 
-  // The line under the handle field: "Checking…", "Available", or taken. The
-  // field's right edge mirrors it with a spinner, then a tick.
+  // The line under the handle field: "Checking…", "available", or taken.
   function setAvailability(text, ok = false) {
     const hint = hintFor(usernameInput);
-    const control = usernameInput.closest(".auth-control");
-    const hasError = !hint || hint.classList.contains("is-error");
-    if (control) {
-      if (text && !hasError) control.dataset.status = ok ? "ok" : "checking";
-      else delete control.dataset.status;
-    }
-    if (hasError) return;
+    if (!hint || hint.classList.contains("is-error")) return;
     hint.textContent = text;
     hint.classList.toggle("is-ok", ok);
     hint.hidden = !text;
@@ -362,7 +358,10 @@
           markTaken();
           return null;
         }
-        setAvailability(check.available ? "Available" : "", true);
+        setAvailability(
+          check.available ? `@${handle} is available.` : "",
+          true,
+        );
 
         const { worker, solved } = solveChallenge(check.challenge);
         current.worker = worker;

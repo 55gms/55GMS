@@ -7,15 +7,9 @@
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
     <script src="/assets/js/font.js" defer></script>
     <meta name="google" content="notranslate" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
-    />
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=7" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
-    <link rel="stylesheet" href="/assets/css/auth.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/auth.css?v=3" />
     <title>Google</title>
     <meta name="author" content="Rednotsus" />
     <meta http-equiv="Cache-control" content="public" />
@@ -42,20 +36,20 @@
     </nav>
 
     <main class="auth auth--split">
-      <div class="auth-aside">
-        <header class="auth-header">
-          <div>
-            <h1 class="auth-title">Create your account</h1>
-            <p class="auth-subtitle">
-              A handle and a password. No email, nothing to confirm.
-            </p>
-          </div>
-        </header>
+      <header class="auth-header">
+        <div>
+          <p class="auth-kicker">New account</p>
+          <h1 class="auth-title">Create your account</h1>
+          <p class="auth-subtitle">
+            Pick a handle and a password. That is the whole form.
+          </p>
+        </div>
+      </header>
 
-        <div class="auth-preview" aria-hidden="true">
-          <p class="auth-preview-label">Preview</p>
-          <div class="auth-preview-row">
-            <div class="auth-avatar">
+      <div class="auth-panel">
+        <form class="auth-card" data-auth="signup" novalidate>
+          <div class="auth-tag">
+            <div class="auth-avatar" aria-hidden="true">
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -68,43 +62,16 @@
                 <path d="M4 20c0-3.6 3.6-6 8-6s8 2.4 8 6" />
               </svg>
             </div>
-            <div class="auth-preview-text">
-              <p class="auth-preview-head">
-                <span class="auth-preview-handle is-empty" id="handle-preview"
-                  >@your-handle</span
-                >
-                <span class="auth-preview-time">now</span>
-              </p>
-              <p class="auth-preview-body">
-                This is how your name shows up in chat. You can pick an avatar
-                once you are in.
-              </p>
+            <div class="auth-tag-text" aria-hidden="true">
+              <span class="auth-tag-handle is-empty" id="handle-preview"
+                >@your-handle</span
+              >
+              <span class="auth-tag-note">How you show up in chat</span>
             </div>
           </div>
-        </div>
 
-        <dl class="auth-benefits">
-          <div>
-            <dt>Saves that follow you</dt>
-            <dd>
-              Upload your game progress, then restore it on any device you log
-              in on.
-            </dd>
-          </div>
-          <div>
-            <dt>Chat with friends</dt>
-            <dd>Add people by their handle and message them.</dd>
-          </div>
-        </dl>
-      </div>
-
-      <div class="auth-panel">
-        <form class="auth-card" data-auth="signup" novalidate>
           <div class="auth-field">
-            <div class="auth-label-row">
-              <label class="auth-label" for="username">Handle</label>
-              <a class="auth-label-link" href="/handles">What is a handle?</a>
-            </div>
+            <label class="auth-label" for="username">Handle</label>
             <div class="auth-control has-prefix">
               <span class="auth-prefix" aria-hidden="true">@</span>
               <input
@@ -120,18 +87,11 @@
                 autofocus
               />
             </div>
-            <div class="auth-field-foot">
-              <ul class="auth-rules" id="username-rules">
-                <li data-rule="length">3 to 16 characters</li>
-                <li data-rule="characters">Letters, numbers, dashes</li>
-              </ul>
-              <p
-                class="auth-hint"
-                id="username-hint"
-                aria-live="polite"
-                hidden
-              ></p>
-            </div>
+            <ul class="auth-rules" id="username-rules">
+              <li data-rule="length">3 to 16 characters</li>
+              <li data-rule="characters">Letters, numbers and dashes</li>
+            </ul>
+            <p class="auth-hint" id="username-hint" hidden></p>
           </div>
 
           <div class="auth-field">
@@ -185,12 +145,10 @@
                 </svg>
               </button>
             </div>
-            <div class="auth-field-foot">
-              <ul class="auth-rules" id="password-rules">
-                <li data-rule="password">At least 6 characters</li>
-              </ul>
-              <p class="auth-hint" id="password-hint" hidden></p>
-            </div>
+            <ul class="auth-rules" id="password-rules">
+              <li data-rule="password">At least 6 characters</li>
+            </ul>
+            <p class="auth-hint" id="password-hint" hidden></p>
           </div>
 
           <button
@@ -222,6 +180,20 @@
                 >Checks itself once you pick a handle</span
               >
             </span>
+            <svg
+              class="auth-captcha-mark"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 3 5 6v5c0 4.5 2.9 8.3 7 10 4.1-1.7 7-5.5 7-10V6l-7-3Z"
+              />
+            </svg>
           </button>
 
           <div class="auth-trap" aria-hidden="true">
@@ -241,14 +213,39 @@
             <span class="auth-submit-label">Create account</span>
             <span class="auth-spinner" aria-hidden="true"></span>
           </button>
-
-          <div class="auth-card-foot">
-            <p>Already have an account? <a href="/login">Log in</a></p>
-          </div>
         </form>
+
+        <div class="auth-links">
+          <p>Already have an account? <a href="/login">Log in</a></p>
+          <p><a href="/handles">What is a handle?</a></p>
+        </div>
       </div>
+
+      <ul class="auth-benefits">
+        <li>
+          <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
+          <div>
+            <strong>Your saves go with you</strong>
+            <span>Game progress syncs to any device you log in on.</span>
+          </div>
+        </li>
+        <li>
+          <i class="fa-solid fa-comments" aria-hidden="true"></i>
+          <div>
+            <strong>Chat with friends</strong>
+            <span>Add people by their handle and message them.</span>
+          </div>
+        </li>
+        <li>
+          <i class="fa-solid fa-key" aria-hidden="true"></i>
+          <div>
+            <strong>No email needed</strong>
+            <span>A handle and a password are all we ask for.</span>
+          </div>
+        </li>
+      </ul>
     </main>
 
-    <script src="/assets/js/auth.js?v=5"></script>
+    <script src="/assets/js/auth.js?v=4"></script>
   </body>
 </html>
