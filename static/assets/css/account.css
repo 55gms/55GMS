@@ -1,43 +1,113 @@
 /* Profile page layout. Sits on top of profile.css and uses its tokens. */
 
 .profile.account {
-  width: min(1040px, calc(100% - 32px));
+  width: min(1180px, calc(100% - 32px));
   padding-top: 40px;
 }
 
-/* ---------- Header: who you are, and the state of your data ---------- */
+.profile.account {
+  --acct-gold: #f5b942;
+  --acct-gold-hover: #f8cd6b;
+  --acct-gold-text: #2b2208;
+}
+
+:root[data-theme="contrast"] .profile.account {
+  --acct-gold: #ffff00;
+  --acct-gold-hover: #ffffff;
+  --acct-gold-text: #000000;
+}
+
+/* ---------- Icons ---------- */
+
+.acct-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.acct-icon {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.acct-icon-solid {
+  fill: currentColor;
+}
+
+/* ---------- Header: who you are, over a quiet landscape ---------- */
 
 .acct-hero {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 40px;
   margin-bottom: 20px;
-  padding: 28px 32px;
+  padding: 36px 48px;
+  overflow: hidden;
   border: 1px solid var(--p-border);
   border-radius: var(--p-radius);
   background: var(--p-surface);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--p-text) 5%, transparent);
+}
+
+/* The scene is drawn in the theme's own text colour at low opacity, so it
+   follows every theme. */
+.acct-scene {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  max-height: 260px;
+  pointer-events: none;
+}
+
+.acct-scene {
+  fill: var(--p-text);
+}
+
+:root[data-theme="contrast"] .acct-scene {
+  display: none;
+}
+
+.acct-who,
+.acct-stats {
+  position: relative;
 }
 
 .acct-who {
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 28px;
   min-width: 0;
 }
 
 .account .profile-avatar {
-  width: 88px;
-  height: 88px;
-  font-size: 2rem;
+  width: 112px;
+  height: 112px;
+  font-size: 2.5rem;
 }
 
 /* The header sits on a card here, so the badge has no page colour to cut
    a ring out of. */
 .account .profile-avatar-edit {
+  right: 0;
+  bottom: 0;
+  width: 34px;
+  height: 34px;
   border: 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.account .profile-avatar-edit svg {
+  width: 15px;
+  height: 15px;
 }
 
 .acct-identity {
@@ -64,40 +134,54 @@
   align-items: center;
   gap: 8px 14px;
   color: var(--p-muted);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
+}
+
+.acct-lead {
+  max-width: 44ch;
+  margin: 2px 0 0;
+  color: var(--p-muted);
+  font-size: 0.9375rem;
+  line-height: 1.45;
 }
 
 .acct-stats {
   flex: none;
   display: flex;
   margin: 0;
-}
-
-/* The markup is label then value; the value reads first. */
-.acct-stat {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-end;
-  gap: 4px;
-  min-width: 0;
-  padding: 2px 28px;
+  padding-left: 16px;
   border-left: 1px solid var(--p-border);
 }
 
-.acct-stat:last-child {
-  padding-right: 0;
+.acct-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 132px;
+  padding: 8px 20px;
+  text-align: center;
+}
+
+.acct-stat .acct-icon {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 8px;
+  color: var(--p-muted);
+  stroke-width: 1.4;
 }
 
 .acct-stat dt {
+  order: 1;
   color: var(--p-muted);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   white-space: nowrap;
 }
 
 .acct-stat dd {
   display: flex;
   align-items: center;
-  height: 1.3em;
+  gap: 8px;
   margin: 0;
   font-size: 1.25rem;
   font-weight: 600;
@@ -107,27 +191,7 @@
   white-space: nowrap;
 }
 
-/* The cloud status is a button: pressing it compares again. */
-.acct-sync {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0;
-  border: 0;
-  border-radius: 4px;
-  background: none;
-  color: inherit;
-  font: inherit;
-  letter-spacing: inherit;
-  cursor: pointer;
-}
-
-.acct-sync:focus-visible {
-  outline: 2px solid var(--p-text);
-  outline-offset: 4px;
-}
-
-.acct-sync-dot {
+.acct-state-dot {
   flex: none;
   width: 9px;
   height: 9px;
@@ -135,77 +199,294 @@
   background: var(--p-muted);
 }
 
-.acct-sync[data-state="synced"] .acct-sync-dot {
+[data-state="synced"] > dd .acct-state-dot {
   background: var(--p-success);
 }
 
-.acct-sync[data-state="unsynced"] .acct-sync-dot,
-.acct-sync[data-state="ahead"] .acct-sync-dot {
+[data-state="unsynced"] > dd .acct-state-dot,
+[data-state="ahead"] > dd .acct-state-dot {
   background: var(--p-warning);
 }
 
-.acct-sync[data-state="error"] .acct-sync-dot {
+[data-state="error"] > dd .acct-state-dot {
   background: var(--p-danger);
-}
-
-.acct-sync svg {
-  flex: none;
-  width: 14px;
-  height: 14px;
-  color: var(--p-muted);
-  transition: color var(--p-fast) ease;
-}
-
-.acct-sync:hover svg {
-  color: var(--p-text);
-}
-
-.acct-sync[data-state="checking"] svg {
-  animation: p-spin 0.9s linear infinite;
 }
 
 /* ---------- Cards ---------- */
 
 .acct-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  align-items: start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
 }
 
-.acct-col {
-  display: grid;
-  gap: 20px;
-  min-width: 0;
+.acct-card {
+  padding: 22px 24px 24px;
+}
+
+/* With premium not sold here, the last card would sit alone in its row. */
+.acct-card[hidden] + .acct-card {
+  grid-column: 1 / -1;
 }
 
 .acct-card-head {
-  padding: 18px 20px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 20px;
+  margin-bottom: 6px;
   border-bottom: 1px solid var(--p-border);
 }
 
-.acct-card-head h2 {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+.acct-tile {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--p-text) 12%, transparent);
 }
 
-.acct-card-head p {
+.acct-tile .acct-icon {
+  width: 26px;
+  height: 26px;
+}
+
+.acct-card-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.acct-card-title h2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  margin: 0;
+  font-size: 1.1875rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.acct-card-title p {
   margin: 4px 0 0;
   color: var(--p-muted);
   font-size: 0.875rem;
-  line-height: 1.5;
+  line-height: 1.45;
+}
+
+.account .profile-sync {
+  height: 32px;
+  padding: 0 14px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+/* Identity */
+
+.acct-details {
+  display: grid;
+  gap: 4px;
+  margin: 14px 0 0;
+}
+
+.acct-details > div {
+  display: grid;
+  grid-template-columns: minmax(110px, 1fr) 2fr;
+  align-items: center;
+  gap: 16px;
+  min-height: 34px;
+}
+
+.acct-details dt {
+  color: var(--p-muted);
+  font-size: 0.9375rem;
+}
+
+.acct-details dd {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.acct-copy {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--p-muted);
+  cursor: pointer;
+  transition:
+    background var(--p-fast) ease,
+    color var(--p-fast) ease;
+}
+
+.acct-copy .acct-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.acct-copy:hover {
+  background: color-mix(in srgb, var(--p-text) 10%, transparent);
+  color: var(--p-text);
+}
+
+.acct-copy.is-copied {
+  color: var(--p-success);
+}
+
+.acct-copy:focus-visible {
+  outline: 2px solid var(--p-text);
+  outline-offset: 2px;
+}
+
+/* Action rows */
+
+.acct-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--p-inset);
+}
+
+.acct-row-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--p-text) 9%, transparent);
+}
+
+.acct-row-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.acct-row .p-btn {
+  height: 40px;
+  min-width: 128px;
 }
 
 .acct-foot {
+  display: flex;
   align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--p-border);
+  color: var(--p-muted);
+  font-size: 0.8125rem;
   line-height: 1.45;
 }
 
 .acct-foot #cooldownNote {
   flex: none;
   font-variant-numeric: tabular-nums;
+}
+
+/* Premium: the one place on the page with its own colour. */
+
+.acct-premium .acct-tile {
+  background: color-mix(in srgb, var(--acct-gold) 22%, transparent);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--acct-gold) 55%, transparent);
+  color: var(--acct-gold);
+}
+
+.acct-premium .acct-row-icon,
+.acct-perks .acct-icon {
+  color: var(--acct-gold);
+}
+
+.acct-gold-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: var(--acct-gold);
+  color: var(--acct-gold-text);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.acct-gold-pill[hidden] {
+  display: none;
+}
+
+.acct-gold-pill .acct-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.account .p-btn-gold,
+.account a.p-btn-gold,
+.account a.p-btn-gold:hover {
+  background: var(--acct-gold);
+  border-color: transparent;
+  color: var(--acct-gold-text);
+  font-weight: 600;
+}
+
+.account .p-btn-gold:not(:disabled):hover {
+  background: var(--acct-gold-hover);
+  border-color: transparent;
+}
+
+.acct-perks-title {
+  margin: 18px 0 12px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.acct-perks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.acct-perks li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 0 12px;
+  border-left: 1px solid var(--p-border);
+}
+
+.acct-perks li:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.acct-perks .acct-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.acct-perks .profile-row-title {
+  font-size: 0.875rem;
 }
 
 /* ---------- Confirmation dialog ---------- */
@@ -244,26 +525,23 @@
 
 /* ---------- Responsive ---------- */
 
-@media (max-width: 900px) {
+@media (max-width: 1020px) {
   .acct-hero {
     flex-direction: column;
     align-items: stretch;
-    gap: 20px;
-    padding: 24px;
+    gap: 24px;
+    padding: 28px;
   }
 
   .acct-stats {
-    padding-top: 20px;
+    padding: 20px 0 0;
     border-top: 1px solid var(--p-border);
+    border-left: 0;
   }
 
   .acct-stat {
     flex: 1;
-  }
-
-  .acct-stat:first-child {
-    padding-left: 0;
-    border-left: 0;
+    min-width: 0;
   }
 
   .acct-grid {
@@ -277,43 +555,96 @@
   }
 
   .acct-who {
+    align-items: flex-start;
     gap: 16px;
   }
 
   .account .profile-avatar {
-    width: 64px;
-    height: 64px;
+    width: 68px;
+    height: 68px;
     font-size: 1.5rem;
+  }
+
+  .account .profile-avatar-edit {
+    width: 26px;
+    height: 26px;
+  }
+
+  .account .profile-avatar-edit svg {
+    width: 12px;
+    height: 12px;
   }
 
   .account .profile-name {
     font-size: 1.5rem;
   }
 
-  /* Two numbers side by side, the cloud status on its own line below. */
-  .acct-stats {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 16px;
+  .acct-lead {
+    font-size: 0.875rem;
   }
 
   .acct-stat {
-    padding: 0 16px;
+    padding: 4px;
   }
 
-  .acct-stat:last-child {
-    grid-column: 1 / -1;
-    padding: 16px 0 0;
-    border-top: 1px solid var(--p-border);
-    border-left: 0;
+  .acct-stat .acct-icon {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 4px;
+  }
+
+  .acct-stat dt {
+    font-size: 0.75rem;
   }
 
   .acct-stat dd {
-    font-size: 1.125rem;
+    display: block;
+    font-size: 0.9375rem;
+    white-space: normal;
+  }
+
+  .acct-state-dot {
+    display: inline-block;
+    margin-right: 4px;
+  }
+
+  .acct-card {
+    padding: 16px;
   }
 
   .acct-card-head {
-    padding: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* Keeps the title beside its icon; the button or status drops below. */
+  .acct-card-title {
+    flex-basis: 0;
+    min-width: 200px;
+  }
+
+  .acct-tile {
+    width: 44px;
+    height: 44px;
+  }
+
+  .acct-row {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .acct-row .p-btn {
+    width: 100%;
+  }
+
+  .acct-perks {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .acct-perks li {
+    padding: 0;
+    border-left: 0;
   }
 
   .acct-confirm-actions .p-btn {
