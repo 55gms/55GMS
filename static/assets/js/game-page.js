@@ -1,5 +1,6 @@
 // Builds everything around the game on a game page (/misc/play/): the three ad
-// boxes and the tiles of random games that fill the rest of the grid. The page
+// boxes and the tiles of random games: a small cluster beside the ads, plus
+// the place of any ad that is not shown. The page
 // ships only the game frame inside #gamepage; the grid itself is laid out in
 // gameframe.css. Runs at the end of <body>, so the ad boxes exist before
 // script.js fills them on DOMContentLoaded.
@@ -7,12 +8,12 @@
   const page = document.getElementById("gamepage");
   if (!page) return;
 
-  const COLUMNS = 14;
-  const ROWS = 9;
-  const NARROW_ROWS = 4;
+  const CELL = 94;
+  const PITCH = 110; // a cell and the gap after it
+  const PHONE_ROWS = 2;
   const RECENT_KEY = "55gms.recentGames.v1";
   const RECENT_LIMIT = 24;
-  const narrow = window.matchMedia("(max-width: 900px)");
+  const phone = window.matchMedia("(max-width: 789px)");
 
   function adBox(place, size) {
     const box = document.createElement("div");
@@ -56,24 +57,26 @@
   const tiles = [];
   let queue = null; // games not yet on a tile, once the catalogue is in
 
-  function span(value) {
-    return Number(/span (\d+)/.exec(value)?.[1] ?? 1);
-  }
-
-  // How many single-cell tiles the grid has room for.
+  // How many single-cell tiles the grid has room for: every cell of its first
+  // --rows rows that the game, a shown ad or the big tile does not cover.
   function freeCells() {
     const style = getComputedStyle(page);
-    if (narrow.matches) {
+    if (phone.matches) {
       const columns = style.gridTemplateColumns.split(" ").length;
-      return columns * NARROW_ROWS - 1;
+      return columns * PHONE_ROWS - 1;
     }
+    const columns = Number(style.getPropertyValue("--cols"));
+    const rows = Number(style.getPropertyValue("--rows"));
+    const top = page.getBoundingClientRect().top;
     let taken = 0;
     for (const element of fixed) {
-      const placed = getComputedStyle(element);
-      if (placed.display === "none") continue;
-      taken += span(placed.gridColumnEnd) * span(placed.gridRowEnd);
+      const box = element.getBoundingClientRect();
+      if (!box.width || Math.round((box.top - top) / PITCH) >= rows) continue;
+      taken +=
+        Math.round((box.width + PITCH - CELL) / PITCH) *
+        Math.round((box.height + PITCH - CELL) / PITCH);
     }
-    return COLUMNS * ROWS - taken;
+    return columns * rows - taken;
   }
 
   function fill() {
@@ -175,10 +178,8 @@
   }
 
   fill();
-  narrow.addEventListener("change", fill);
-  window.addEventListener("resize", () => {
-    if (narrow.matches) fill();
-  });
+  // A window resize can cross a column step, which changes the free cells.
+  window.addEventListener("resize", fill);
 
   fetch("/assets/json/load/g.json")
     .then((response) => {

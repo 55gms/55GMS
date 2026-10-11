@@ -1,32 +1,36 @@
-/* The game page is one grid of square cells: the game, three ad boxes and the
-   2x2 tile have fixed places, and game tiles flow into every cell left over
-   (game-page.js adds as many as there are free cells). A cell is sized so the
-   first seven rows, which hold all three ads, fit under the navbar. */
+/* The game page is a grid of fixed 94px cells. Nothing in it scales with the
+   window: a narrower window gets fewer columns and a smaller step of the frame
+   instead. The game, the ad boxes and the 2x2 tile have named places; game
+   tiles flow into the cells left over, which is a small cluster beside the
+   ads, plus the place of any ad that is not shown (game-page.js adds as many
+   tiles as there are free cells in the first --rows rows). */
 .game-page {
-  --gap: clamp(8px, 0.85vw, 16px);
-  --cell: clamp(
-    40px,
-    min(
-      (100vw - 40px - 13 * var(--gap)) / 14,
-      (100vh - 116px - 6 * var(--gap)) / 7
-    ),
-    104px
-  );
-  --frame-w: calc(9 * var(--cell) + 8 * var(--gap));
+  --cell: 94px;
+  --gap: 16px;
+  --cols: 14;
+  --rows: 6;
+  --frame-w: 974px;
   /* The frame's own unit: its bar was drawn for a frame 72.5 units wide. */
   --u: calc(var(--frame-w) / 72.5);
   display: grid;
-  grid-template-columns: repeat(14, var(--cell));
+  grid-template-columns: repeat(var(--cols), var(--cell));
   grid-auto-rows: var(--cell);
   grid-auto-flow: dense;
+  grid-template-areas:
+    "left left game game game game game game game game game right right right"
+    "left left game game game game game game game game game right right right"
+    "left left game game game game game game game game game right right right"
+    "left left game game game game game game game game game big big ."
+    "left left game game game game game game game game game big big ."
+    "left left game game game game game game game game game . . ."
+    ". . . wide wide wide wide wide wide wide . . . .";
   gap: var(--gap);
   justify-content: center;
   margin: 0 auto 24px;
 }
 
 #gameframe {
-  grid-column: 3 / span 9;
-  grid-row: 1 / span 6;
+  grid-area: game;
   min-width: 0;
 }
 #gameframe .gameDisplay {
@@ -171,42 +175,29 @@
 .ad-box--left {
   --ad-w: 160;
   --ad-h: 600;
-  --box-h: calc(6 * var(--cell) + 5 * var(--gap) - 15px);
-  grid-column: 1 / span 2;
-  grid-row: 1 / span 6;
+  grid-area: left;
 }
 .ad-box--right {
   --ad-w: 300;
   --ad-h: 250;
-  --box-h: calc(3 * var(--cell) + 2 * var(--gap) - 15px);
-  grid-column: 12 / span 3;
-  grid-row: 1 / span 3;
+  grid-area: right;
 }
 .ad-box--wide {
   --ad-w: 728;
   --ad-h: 90;
-  --box-h: var(--cell);
   flex-direction: row;
-  grid-column: 5 / span 7;
-  grid-row: 7;
+  grid-area: wide;
 }
 .ad-box--wide::after {
   writing-mode: vertical-rl;
 }
-/* The ad at its real size, or scaled down to what its box can hold. */
 .ad-fit {
-  width: min(
-    var(--ad-w) * 1px,
-    100% - 15px * var(--beside, 0),
-    var(--box-h) * var(--ad-w) / var(--ad-h)
-  );
-  aspect-ratio: var(--ad-w) / var(--ad-h);
+  flex: none;
+  width: calc(var(--ad-w) * 1px);
+  height: calc(var(--ad-h) * 1px);
   background-color: color-mix(in srgb, var(--site-surface-3, #444) 55%, transparent);
   border-radius: 6px;
   overflow: hidden;
-}
-.ad-box--wide .ad-fit {
-  --beside: 1;
 }
 .ad-fit [data-55gms-ad] {
   width: 100% !important;
@@ -237,8 +228,7 @@
   transition: transform 0.15s ease;
 }
 .game-tile--big {
-  grid-column: 12 / span 2;
-  grid-row: 4 / span 2;
+  grid-area: big;
 }
 .game-tile img {
   display: block;
@@ -267,37 +257,79 @@
   opacity: 1;
 }
 
-/* Narrow windows stack: the game, the rectangle ad, tiles, the wide ad. */
-@media (max-width: 900px) {
+@media (max-width: 1559px) {
   .game-page {
-    --gap: 10px;
-    --frame-w: calc(100vw - 24px);
-    --u: calc(var(--frame-w) / 36);
-    --box-h: 100vh;
-    grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
-    grid-auto-rows: auto;
-    margin: 0 12px 24px;
+    --cols: 12;
+    --frame-w: 754px;
+    grid-template-areas:
+      "left left game game game game game game game right right right"
+      "left left game game game game game game game right right right"
+      "left left game game game game game game game right right right"
+      "left left game game game game game game game big big ."
+      "left left game game game game game game game big big ."
+      "left left wide wide wide wide wide wide wide . . .";
   }
-  #gameframe {
-    grid-column: 1 / -1;
-    grid-row: auto;
-    height: max(62vw, 300px);
+}
+
+@media (max-width: 1339px) {
+  .game-page {
+    --cols: 10;
+    grid-template-areas:
+      "game game game game game game game right right right"
+      "game game game game game game game right right right"
+      "game game game game game game game right right right"
+      "game game game game game game game big big ."
+      "game game game game game game game big big ."
+      "wide wide wide wide wide wide wide . . .";
   }
   .ad-box--left {
     display: none;
   }
-  .ad-box--right,
-  .ad-box--wide {
-    --box-h: 100vh;
+}
+
+@media (max-width: 1119px) {
+  .game-page {
+    --cols: 7;
+    --rows: 9;
+    grid-template-areas:
+      "game game game game game game game"
+      "game game game game game game game"
+      "game game game game game game game"
+      "game game game game game game game"
+      "game game game game game game game"
+      "wide wide wide wide wide wide wide"
+      "right right right big big . ."
+      "right right right big big . ."
+      "right right right . . . .";
+  }
+}
+
+/* Phones: the game across the screen, the rectangle ad, then a few tiles. */
+@media (max-width: 789px) {
+  .game-page {
+    --frame-w: calc(100vw - 24px);
+    --u: calc(var(--frame-w) / 36);
+    grid-template-columns: repeat(auto-fill, var(--cell));
+    grid-template-areas: none;
+    grid-auto-rows: auto;
+    margin: 0 12px 24px;
+  }
+  #gameframe {
+    grid-area: auto;
     grid-column: 1 / -1;
-    grid-row: auto;
+    justify-self: center;
+    width: var(--frame-w);
+    height: 420px;
   }
   .ad-box--wide {
-    order: 1;
+    display: none;
+  }
+  .ad-box--right {
+    grid-area: auto;
+    grid-column: 1 / -1;
   }
   .game-tile--big {
-    grid-column: auto;
-    grid-row: auto;
+    grid-area: auto;
   }
 }
 
