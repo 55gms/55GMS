@@ -452,3 +452,74 @@
     transform: none;
   }
 }
+
+/* ---------- Handles ---------- */
+
+.auth-control.has-prefix .auth-input {
+  padding-left: 30px;
+  padding-right: 12px;
+}
+
+.auth-prefix {
+  position: absolute;
+  top: 0;
+  left: 12px;
+  display: grid;
+  height: 42px;
+  place-items: center;
+  color: var(--a-muted);
+  font-size: 0.9375rem;
+  pointer-events: none;
+}
+
+.auth-notice {
+  display: block;
+  padding: 10px 12px;
+  border: 1px solid var(--a-border);
+  border-radius: var(--a-radius-sm);
+  background: var(--a-inset);
+  color: var(--a-text);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  text-align: left;
+  text-decoration: none;
+}
+
+.auth-notice[hidden] {
+  display: none;
+}
+
+.auth-notice:hover {
+  border-color: var(--a-border-strong);
+}
+
+.auth-prose {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: var(--a-muted);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.auth-prose h2 {
+  margin: 8px 0 0;
+  color: var(--a-text);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.auth-prose p,
+.auth-prose ul {
+  margin: 0;
+}
+
+.auth-prose ul {
+  padding-left: 20px;
+}
+
+.auth-prose strong {
+  color: var(--a-text);
+  font-weight: 500;
+}

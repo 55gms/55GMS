@@ -14,11 +14,18 @@
   const avatarIcon = avatar ? avatar.innerHTML : "";
   let captchaWidget = null;
 
+  const HANDLE_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+
+  // What the person typed as a handle: no "@", lowercase.
+  function typedHandle() {
+    return usernameInput.value.trim().replace(/^@/, "").toLowerCase();
+  }
+
   // ---------- Avatar ----------
 
   function updateAvatar() {
     if (!avatar) return;
-    const initial = usernameInput.value.trim().charAt(0);
+    const initial = usernameInput.value.trim().replace(/^@/, "").charAt(0);
     const current = avatar.dataset.initial || "";
     if (initial === current) return;
 
@@ -83,11 +90,22 @@
     const errors = [];
 
     if (!username) {
-      errors.push([usernameInput, "Enter your username."]);
-    } else if (mode === "signup" && username.length < 3) {
-      errors.push([usernameInput, "Use at least 3 characters."]);
-    } else if (mode === "signup" && username.length > 16) {
-      errors.push([usernameInput, "Use 16 characters or fewer."]);
+      errors.push([
+        usernameInput,
+        mode === "signup" ? "Choose a handle." : "Enter your handle.",
+      ]);
+    } else if (mode === "signup") {
+      const handle = typedHandle();
+      if (handle.length < 3) {
+        errors.push([usernameInput, "Use at least 3 characters."]);
+      } else if (handle.length > 16) {
+        errors.push([usernameInput, "Use 16 characters or fewer."]);
+      } else if (!HANDLE_PATTERN.test(handle)) {
+        errors.push([
+          usernameInput,
+          "Use only letters, numbers and dashes, with no dash at either end.",
+        ]);
+      }
     }
 
     if (!password) {
@@ -130,14 +148,20 @@
       const error = await readError(response);
       showMessage(
         !error || error === "Invalid Email or password"
-          ? "Wrong username or password."
+          ? "Wrong handle or password."
           : error,
       );
       return false;
     }
 
+    const data = await response.json();
+    // An old username that was converted for them: tell them once, on the
+    // page they land on, what their handle is now.
+    if (!data.handlePending && data.username !== typedHandle()) {
+      sessionStorage.setItem("handleNotice", data.username);
+    }
     return startSession(
-      await response.json(),
+      data,
       "First time logging in here. Uploading your current save to the cloud…",
     );
   }
@@ -165,7 +189,7 @@
       }
     }
 
-    location.href = "/profile";
+    location.href = data.handlePending ? "/choose-handle" : "/profile";
     return true;
   }
 
@@ -195,7 +219,7 @@
       return false;
     }
 
-    const username = usernameInput.value.trim();
+    const username = typedHandle();
     const response = await postJson("/api/signup", {
       username,
       password: passwordInput.value,
@@ -216,10 +240,14 @@
     window.hcaptcha.reset(captchaWidget);
 
     const error = await readError(response);
-    if (response.status === 500) {
-      // The server reports every creation failure the same way; a taken name is the usual cause
-      setFieldError(usernameInput, "That username may already be taken.");
-      showMessage("Couldn't create the account. Try a different username.");
+    if (response.status === 409) {
+      setFieldError(usernameInput, "That handle is taken.");
+      showMessage("Someone already has that handle. Try another.");
+    } else if (response.status === 400 && /^Handles use/.test(error)) {
+      setFieldError(
+        usernameInput,
+        "Use only letters, numbers and dashes, 3 to 16 characters.",
+      );
     } else if (error === "Invalid CAPTCHA") {
       showMessage("The captcha check failed. Complete it again.");
     } else {
@@ -274,6 +302,24 @@
   if (mode === "signup") {
     window.authCaptchaReady = renderCaptcha;
     renderCaptcha();
+  }
+
+  // While accounts are being asked to choose a handle, say so and by when.
+  const notice = document.getElementById("handle-notice");
+  if (notice) {
+    fetch("/api/handle-config")
+      .then((response) => (response.ok ? response.json() : null))
+      .then((config) => {
+        if (!config || !config.deadline || !config.open) return;
+        const date = new Date(config.deadline).toLocaleDateString(undefined, {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        });
+        notice.textContent = `Usernames are now handles. Sign in before ${date} to choose yours. Learn more`;
+        notice.hidden = false;
+      })
+      .catch(() => {});
   }
 
   updateAvatar();

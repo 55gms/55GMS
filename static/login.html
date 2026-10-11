@@ -16,7 +16,7 @@
     />
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=7" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
-    <link rel="stylesheet" href="/assets/css/auth.css?v=1" />
+    <link rel="stylesheet" href="/assets/css/auth.css?v=2" />
     <title>Google</title>
     <meta name="author" content="Rednotsus" />
     <meta http-equiv="Cache-control" content="public" />
@@ -65,9 +65,11 @@
         </div>
       </header>
 
+      <a class="auth-notice" id="handle-notice" href="/handles" hidden></a>
+
       <form class="auth-card" data-auth="login" novalidate>
         <div class="auth-field">
-          <label class="auth-label" for="username">Username</label>
+          <label class="auth-label" for="username">Handle</label>
           <input
             class="auth-input"
             type="text"
@@ -79,7 +81,9 @@
             aria-describedby="username-hint"
             autofocus
           />
-          <p class="auth-hint" id="username-hint" hidden></p>
+          <p class="auth-hint" id="username-hint">
+            Your old username still works here.
+          </p>
         </div>
 
         <div class="auth-field">
@@ -147,8 +151,11 @@
       <p class="auth-switch">
         Don't have an account yet? <a href="/signup">Sign up</a>
       </p>
+      <p class="auth-switch">
+        <a href="/handles">Usernames are now handles. What changed?</a>
+      </p>
     </main>
 
-    <script src="/assets/js/auth.js?v=1"></script>
+    <script src="/assets/js/auth.js?v=2"></script>
   </body>
 </html>
