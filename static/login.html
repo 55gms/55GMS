@@ -8,9 +8,15 @@
     <script src="/assets/js/font.js" defer></script>
     <meta name="google" content="notranslate" />
     <meta name="googlebot" content="notranslate" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
+    />
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=7" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
-    <link rel="stylesheet" href="/assets/css/auth.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/login.css?v=1" />
     <title>Google</title>
     <meta name="author" content="Rednotsus" />
     <meta http-equiv="Cache-control" content="public" />
@@ -35,26 +41,15 @@
         <a href="/profile"><i class="fa-solid fa-user"></i></a>
       </div>
     </nav>
+    <div class="site-ad-rail site-ad-rail--left site-ad-rail--slim"><div data-55gms-ad data-size="160x600"></div></div>
+    <div class="site-ad-rail site-ad-rail--right site-ad-rail--slim"><div data-55gms-ad data-size="160x600"></div></div>
 
     <main class="auth">
       <header class="auth-header">
-        <div class="auth-avatar" aria-hidden="true">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="12" cy="8" r="4" />
-            <path d="M4 20c0-3.6 3.6-6 8-6s8 2.4 8 6" />
-          </svg>
-        </div>
         <div>
-          <h1 class="auth-title">Welcome back</h1>
+          <h1 class="auth-title">Log in</h1>
           <p class="auth-subtitle">
-            Log in to sync your saves and chat with friends.
+            Pick up your cloud saves and your chats where you left them.
           </p>
         </div>
       </header>
@@ -138,10 +133,15 @@
           <span class="auth-submit-label">Log in</span>
           <span class="auth-spinner" aria-hidden="true"></span>
         </button>
+
+        <div class="auth-card-foot">
+          <p>New here? <a href="/signup">Create an account</a></p>
+        </div>
       </form>
 
+      <div class="site-ad site-ad--small"><div data-55gms-ad></div></div>
+
       <div class="auth-links">
-        <p>Don't have an account yet? <a href="/signup">Sign up</a></p>
         <p>
           Usernames are now handles. <a href="/handles">See what changed</a>
         </p>

@@ -1,0 +1,149 @@
+/* Premium page. Sits on top of profile.css and uses its tokens. */
+
+.premium-header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.premium-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.premium-header h1 {
+  margin: 14px 0 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.premium-header p {
+  margin: 6px 0 0;
+  color: var(--p-muted);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.premium-message {
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  border: 1px solid var(--p-border);
+  border-radius: var(--p-radius);
+  background: var(--p-inset);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.premium-message[data-type="success"] {
+  border-color: color-mix(in srgb, var(--p-success) 55%, transparent);
+}
+
+.premium-message[data-type="error"] {
+  border-color: color-mix(in srgb, var(--p-danger) 55%, transparent);
+}
+
+.premium-current {
+  margin-bottom: 40px;
+}
+
+.premium-plans {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.premium-plans[hidden] {
+  display: none;
+}
+
+.premium-plan {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.premium-plan--best {
+  border-color: var(--p-border-strong);
+}
+
+.premium-plan h2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0;
+  color: var(--p-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.premium-save {
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--p-success) 55%, transparent);
+  color: var(--p-success);
+  font-size: 0.75rem;
+}
+
+.premium-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 12px 0 0;
+}
+
+.premium-amount {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.premium-per,
+.premium-note {
+  color: var(--p-muted);
+  font-size: 0.8125rem;
+}
+
+.premium-note {
+  flex: 1;
+  margin: 6px 0 20px;
+  line-height: 1.45;
+}
+
+.premium-plan .p-btn {
+  width: 100%;
+}
+
+.premium-foot {
+  margin: 0;
+  color: var(--p-muted);
+  font-size: 0.8125rem;
+  text-align: center;
+}
+
+@media (max-width: 560px) {
+  .premium-plans {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Buttons that are links, and buttons hidden with the hidden attribute
+   (.p-btn sets display, which would otherwise win over it). */
+.p-btn[hidden] {
+  display: none;
+}
+
+a.p-btn,
+a.p-btn:hover {
+  color: var(--p-text);
+  text-decoration: none;
+}
+
+a.p-btn-primary,
+a.p-btn-primary:hover {
+  color: var(--p-on-text);
+}

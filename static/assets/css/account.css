@@ -1,0 +1,655 @@
+/* Profile page layout. Sits on top of profile.css and uses its tokens. */
+
+.profile.account {
+  width: min(1180px, calc(100% - 32px));
+  padding-top: 40px;
+}
+
+.profile.account {
+  --acct-gold: #f5b942;
+  --acct-gold-hover: #f8cd6b;
+  --acct-gold-text: #2b2208;
+}
+
+:root[data-theme="contrast"] .profile.account {
+  --acct-gold: #ffff00;
+  --acct-gold-hover: #ffffff;
+  --acct-gold-text: #000000;
+}
+
+/* ---------- Icons ---------- */
+
+.acct-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.acct-icon {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.acct-icon-solid {
+  fill: currentColor;
+}
+
+/* ---------- Header: who you are, over a quiet landscape ---------- */
+
+.acct-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 20px;
+  padding: 36px 48px;
+  overflow: hidden;
+  border: 1px solid var(--p-border);
+  border-radius: var(--p-radius);
+  background: var(--p-surface);
+}
+
+/* The scene is drawn in the theme's own text colour at low opacity, so it
+   follows every theme. */
+.acct-scene {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  max-height: 260px;
+  pointer-events: none;
+}
+
+.acct-scene {
+  fill: var(--p-text);
+}
+
+:root[data-theme="contrast"] .acct-scene {
+  display: none;
+}
+
+.acct-who,
+.acct-stats {
+  position: relative;
+}
+
+.acct-who {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  min-width: 0;
+}
+
+.account .profile-avatar {
+  width: 112px;
+  height: 112px;
+  font-size: 2.5rem;
+}
+
+/* The header sits on a card here, so the badge has no page colour to cut
+   a ring out of. */
+.account .profile-avatar-edit {
+  right: 0;
+  bottom: 0;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.account .profile-avatar-edit svg {
+  width: 15px;
+  height: 15px;
+}
+
+.acct-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.acct-name-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.account .profile-name {
+  font-size: 2rem;
+}
+
+.acct-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  color: var(--p-muted);
+  font-size: 0.875rem;
+}
+
+.acct-lead {
+  max-width: 44ch;
+  margin: 2px 0 0;
+  color: var(--p-muted);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.acct-stats {
+  flex: none;
+  display: flex;
+  margin: 0;
+  padding-left: 16px;
+  border-left: 1px solid var(--p-border);
+}
+
+.acct-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 132px;
+  padding: 8px 20px;
+  text-align: center;
+}
+
+.acct-stat .acct-icon {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 8px;
+  color: var(--p-muted);
+  stroke-width: 1.4;
+}
+
+.acct-stat dt {
+  order: 1;
+  color: var(--p-muted);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.acct-stat dd {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.acct-state-dot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--p-muted);
+}
+
+[data-state="synced"] > dd .acct-state-dot {
+  background: var(--p-success);
+}
+
+[data-state="unsynced"] > dd .acct-state-dot,
+[data-state="ahead"] > dd .acct-state-dot {
+  background: var(--p-warning);
+}
+
+[data-state="error"] > dd .acct-state-dot {
+  background: var(--p-danger);
+}
+
+/* ---------- Cards ---------- */
+
+.acct-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.acct-card {
+  padding: 22px 24px 24px;
+}
+
+/* With premium not sold here, the last card would sit alone in its row. */
+.acct-card[hidden] + .acct-card {
+  grid-column: 1 / -1;
+}
+
+.acct-card-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 20px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--p-border);
+}
+
+.acct-tile {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--p-text) 12%, transparent);
+}
+
+.acct-tile .acct-icon {
+  width: 26px;
+  height: 26px;
+}
+
+.acct-card-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.acct-card-title h2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  margin: 0;
+  font-size: 1.1875rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.acct-card-title p {
+  margin: 4px 0 0;
+  color: var(--p-muted);
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.account .profile-sync {
+  height: 32px;
+  padding: 0 14px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+/* Identity */
+
+.acct-details {
+  display: grid;
+  gap: 4px;
+  margin: 14px 0 0;
+}
+
+.acct-details > div {
+  display: grid;
+  grid-template-columns: minmax(110px, 1fr) 2fr;
+  align-items: center;
+  gap: 16px;
+  min-height: 34px;
+}
+
+.acct-details dt {
+  color: var(--p-muted);
+  font-size: 0.9375rem;
+}
+
+.acct-details dd {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.acct-copy {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--p-muted);
+  cursor: pointer;
+  transition:
+    background var(--p-fast) ease,
+    color var(--p-fast) ease;
+}
+
+.acct-copy .acct-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.acct-copy:hover {
+  background: color-mix(in srgb, var(--p-text) 10%, transparent);
+  color: var(--p-text);
+}
+
+.acct-copy.is-copied {
+  color: var(--p-success);
+}
+
+.acct-copy:focus-visible {
+  outline: 2px solid var(--p-text);
+  outline-offset: 2px;
+}
+
+/* Action rows */
+
+.acct-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--p-inset);
+}
+
+.acct-row-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--p-text) 9%, transparent);
+}
+
+.acct-row-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.acct-row .p-btn {
+  height: 40px;
+  min-width: 128px;
+}
+
+.acct-foot {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--p-border);
+  color: var(--p-muted);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.acct-foot #cooldownNote {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Premium: the one place on the page with its own colour. */
+
+.acct-premium .acct-tile {
+  background: color-mix(in srgb, var(--acct-gold) 22%, transparent);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--acct-gold) 55%, transparent);
+  color: var(--acct-gold);
+}
+
+.acct-premium .acct-row-icon,
+.acct-perks .acct-icon {
+  color: var(--acct-gold);
+}
+
+.acct-gold-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: var(--acct-gold);
+  color: var(--acct-gold-text);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.acct-gold-pill[hidden] {
+  display: none;
+}
+
+.acct-gold-pill .acct-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.account .p-btn-gold,
+.account a.p-btn-gold,
+.account a.p-btn-gold:hover {
+  background: var(--acct-gold);
+  border-color: transparent;
+  color: var(--acct-gold-text);
+  font-weight: 600;
+}
+
+.account .p-btn-gold:not(:disabled):hover {
+  background: var(--acct-gold-hover);
+  border-color: transparent;
+}
+
+.acct-perks-title {
+  margin: 18px 0 12px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.acct-perks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.acct-perks li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 0 12px;
+  border-left: 1px solid var(--p-border);
+}
+
+.acct-perks li:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.acct-perks .acct-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.acct-perks .profile-row-title {
+  font-size: 0.875rem;
+}
+
+/* ---------- Confirmation dialog ---------- */
+
+.acct-confirm {
+  padding: 20px;
+}
+
+.acct-confirm h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.acct-confirm p {
+  margin: 8px 0 0;
+  color: var(--p-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.acct-confirm .acct-confirm-warning {
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--p-warning) 55%, transparent);
+  border-radius: var(--p-radius-sm);
+  color: var(--p-text);
+}
+
+.acct-confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1020px) {
+  .acct-hero {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+    padding: 28px;
+  }
+
+  .acct-stats {
+    padding: 20px 0 0;
+    border-top: 1px solid var(--p-border);
+    border-left: 0;
+  }
+
+  .acct-stat {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .acct-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .acct-hero {
+    padding: 20px 16px;
+  }
+
+  .acct-who {
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .account .profile-avatar {
+    width: 68px;
+    height: 68px;
+    font-size: 1.5rem;
+  }
+
+  .account .profile-avatar-edit {
+    width: 26px;
+    height: 26px;
+  }
+
+  .account .profile-avatar-edit svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .account .profile-name {
+    font-size: 1.5rem;
+  }
+
+  .acct-lead {
+    font-size: 0.875rem;
+  }
+
+  .acct-stat {
+    padding: 4px;
+  }
+
+  .acct-stat .acct-icon {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 4px;
+  }
+
+  .acct-stat dt {
+    font-size: 0.75rem;
+  }
+
+  .acct-stat dd {
+    display: block;
+    font-size: 0.9375rem;
+    white-space: normal;
+  }
+
+  .acct-state-dot {
+    display: inline-block;
+    margin-right: 4px;
+  }
+
+  .acct-card {
+    padding: 16px;
+  }
+
+  .acct-card-head {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* Keeps the title beside its icon; the button or status drops below. */
+  .acct-card-title {
+    flex-basis: 0;
+    min-width: 200px;
+  }
+
+  .acct-tile {
+    width: 44px;
+    height: 44px;
+  }
+
+  .acct-row {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .acct-row .p-btn {
+    width: 100%;
+  }
+
+  .acct-perks {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .acct-perks li {
+    padding: 0;
+    border-left: 0;
+  }
+
+  .acct-confirm-actions .p-btn {
+    width: auto;
+    flex: 1;
+    min-width: 0;
+  }
+}

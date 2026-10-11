@@ -122,25 +122,25 @@ function whenDomReady(callback) {
   const ads = adChoices();
 
   if (!ads.banners) {
-    // Game pages ship their banner slots in the markup, so hide them here.
+    // The slots are in the page markup, so hide them here. (Game pages make
+    // theirs in game-page.js, which leaves them out.)
     const hideAds = document.createElement("style");
     hideAds.textContent =
-      "#adleft, #adright, .bottom-addisplay, .addisplay { display: none !important; }";
+      "#adleft, #adright, .bottom-addisplay, .ad-box, .site-ad, .site-ad-rail { display: none !important; }";
     document.head.append(hideAds);
   }
 
   if (ads.banners) {
     whenDomReady(() => {
-      // The box under each game shows a 55GMS Ads banner, served from this
-      // origin (/_ads) so it works on every domain.
-      const boxes = document.querySelectorAll(".bottom-addisplay .adcenter");
-      if (!boxes.length) return;
-      boxes.forEach((box) => {
-        const slot = document.createElement("div");
-        slot.setAttribute("data-55gms-ad", "");
-        slot.setAttribute("data-size", "728x90");
-        box.replaceChildren(slot);
+      // 55GMS Ads are served from this origin (/_ads), so they work on every
+      // domain. Game pages get their slots from game-page.js. The other pages
+      // carry theirs in the markup (.site-ad and .site-ad-rail). One the
+      // stylesheet hides at this screen size is removed, so no ad is
+      // requested for a slot nobody can see.
+      document.querySelectorAll(".site-ad, .site-ad-rail").forEach((ad) => {
+        if (getComputedStyle(ad).display === "none") ad.remove();
       });
+      if (!document.querySelector("[data-55gms-ad]")) return;
 
       const adsScript = document.createElement("script");
       adsScript.async = true;

@@ -22,6 +22,14 @@ const User = sequelize.define(
       allowNull: false,
       defaultValue: false,
     },
+    // Premium given by hand from /admin. premium above is the effective
+    // flag: this grant, or a live subscription (services/billing.js).
+    premiumGranted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+      field: "premium_granted",
+    },
     // The username before the handle migration, exactly as it was stored.
     // Null on accounts created since. Old names still sign in through it.
     legacyUsername: {

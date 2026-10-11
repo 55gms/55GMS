@@ -28,6 +28,25 @@ export function mountAds(app) {
       `worker-${process.env.NODE_APP_INSTANCE || 0}`,
     ),
   });
-  app.use("/_ads", router);
+  app.use("/_ads", serveLocalhost, router);
   return router;
+}
+
+const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "[::1]"]);
+
+// The edge only serves to a DNS name with a dot, so a local run shows no ads.
+// A request made to this machine by a loopback name is served as this stand-in
+// domain instead. Nothing it does is counted: its impressions are dropped
+// here, and its clicks still redirect but fail the edge's same-domain check,
+// so local testing never reaches the ad server's stats or budgets.
+const LOCAL_AD_DOMAIN = "dev.localhost";
+
+function serveLocalhost(req, res, next) {
+  const host = String(req.headers.host || "")
+    .toLowerCase()
+    .replace(/:\d+$/, "");
+  if (!LOCAL_HOSTS.has(host)) return next();
+  if (req.path === "/i") return res.status(204).end();
+  if (req.path === "/serve") req.headers.host = LOCAL_AD_DOMAIN;
+  next();
 }

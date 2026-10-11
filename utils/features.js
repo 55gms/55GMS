@@ -15,14 +15,24 @@ function withAccountsAndChat(features) {
       ? features.database
       : Boolean(process.env.workerAUTH);
   features.chat = features.database && features.accounts;
+  // Paid premium needs the local accounts, the Stripe keys, and the session
+  // cookie that proves who is paying. Without all of them none of it loads.
+  features.billing =
+    features.accounts &&
+    process.env.ACCOUNT_BACKEND === "postgres" &&
+    Boolean(
+      process.env.STRIPE &&
+      process.env.STRIPE_WEBHOOK_SECRET &&
+      process.env.ADMIN_TOKEN_SECRET,
+    );
   return features;
 }
 
 // Which optional parts of the site the env asks for. Games, apps and the
 // proxy need nothing. Accounts need their backend (the local database, or the
-// Worker and its token) and chat needs the database and accounts. With no
-// .env at all, both are off. The build reads this to leave their links out of
-// the navbar.
+// Worker and its token), chat needs the database and accounts, and billing
+// needs local accounts and the Stripe keys. With no .env at all, all are off.
+// The build reads this to leave their links out of the built pages.
 export function configuredFeatures() {
   for (const [name, placeholder] of Object.entries(PLACEHOLDERS)) {
     if (process.env[name]?.trim() === placeholder) delete process.env[name];
@@ -65,12 +75,14 @@ const ACCOUNT_PAGES = [
   "/handles",
 ];
 const CHAT_PAGES = ["/c", "/chat"];
+const BILLING_PAGES = ["/premium"];
 
 // Sends visitors home from the pages of a feature that is turned off.
 export function disabledPageRedirect(features) {
   const disabled = [
     ...(features.accounts ? [] : ACCOUNT_PAGES),
     ...(features.chat ? [] : CHAT_PAGES),
+    ...(features.billing ? [] : BILLING_PAGES),
   ];
 
   return (req, res, next) => {

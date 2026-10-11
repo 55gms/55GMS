@@ -23,6 +23,14 @@ function toPublicUser(user) {
   };
 }
 
+// For /admin only: says whether premium is a grant made there.
+function toAdminUser(user) {
+  return {
+    ...toPublicUser(user),
+    premiumGranted: Boolean(user.premiumGranted),
+  };
+}
+
 function isUniqueViolation(error) {
   return error?.name === "SequelizeUniqueConstraintError";
 }
@@ -135,19 +143,23 @@ export function createPostgresAccounts({
       const prefix = String(query).replace(/[\\%_]/g, "\\$&");
       const users = await User.findAll({
         where: { username: { [Op.iLike]: `${prefix}%` } },
-        attributes: ["uuid", "username", "premium", "avatar"],
+        attributes: ["uuid", "username", "premium", "premiumGranted", "avatar"],
         order: [["username", "ASC"]],
         limit: SEARCH_LIMIT,
       });
-      return users.map(toPublicUser);
+      return users.map(toAdminUser);
     },
 
+    // Grants or revokes premium by hand. With billing on, the admin route
+    // then recomputes the flag, so revoking a grant leaves a paying
+    // subscriber premium (services/billing.js).
     async setPremium(uuid, premium) {
       const user = await User.findByPk(String(uuid));
       if (!user) return null;
 
-      await user.update({ premium: Boolean(premium) });
-      return toPublicUser(user);
+      const granted = Boolean(premium);
+      await user.update({ premium: granted, premiumGranted: granted });
+      return toAdminUser(user);
     },
 
     // Only an account that was told to choose can set its handle, once, and

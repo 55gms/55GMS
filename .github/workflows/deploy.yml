@@ -108,6 +108,10 @@ jobs:
     needs: check
     if: ${{ !cancelled() && needs.check.result == 'success' && github.repository_owner == '55gms' }}
     runs-on: ubuntu-latest
+    # Lists each run under Deployments on the repository page.
+    environment:
+      name: production
+      url: https://55gms.com
     steps:
       - name: Deploy ${{ needs.check.outputs.sha }}
         env:

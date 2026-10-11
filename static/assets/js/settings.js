@@ -248,8 +248,20 @@ function setupAdSettings() {
           ": upgrade to premium to change",
       );
     });
-    document.getElementById("adsCardHint").textContent =
+    var hint = document.getElementById("adsCardHint");
+    hint.textContent =
       "Premium accounts can turn ads off or pick which ones show.";
+    // Only a server that sells premium gets the link: it answers this with
+    // the plan (200) or asks for a sign-in (401). Anything else has none.
+    fetch("/api/billing/status")
+      .then(function (response) {
+        if (response.status !== 200 && response.status !== 401) return;
+        var link = document.createElement("a");
+        link.href = "/premium";
+        link.textContent = "Get premium";
+        hint.append(" ", link);
+      })
+      .catch(function () {});
     return;
   }
 

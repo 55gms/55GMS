@@ -46,7 +46,7 @@ const ChatMember = sequelize.define(
         fields: ["userUuid"],
       },
     ],
-  }
+  },
 );
 
 export default ChatMember;

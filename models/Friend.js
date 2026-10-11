@@ -34,7 +34,7 @@ const Friend = sequelize.define(
         fields: ["addresseeUuid"],
       },
     ],
-  }
+  },
 );
 
 export default Friend;

@@ -41,7 +41,7 @@ const UserStatus = sequelize.define(
         fields: ["isOnline"],
       },
     ],
-  }
+  },
 );
 
 export default UserStatus;
