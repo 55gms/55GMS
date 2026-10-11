@@ -229,10 +229,7 @@ window.GameLoader = (() => {
   // Call it before the page's game scripts.
   // preloads: the page downloads files itself before it starts Unity, so the
   // screen must stay up through that wait instead of being released.
-  // streamingAssetsUrl: overrides where Unity 2020+ looks for StreamingAssets,
-  // for builds whose framework refuses web requests to other hosts. A path on
-  // this server reaches the mirror through the /misc/ relay.
-  function unity(files, { preloads = false, streamingAssetsUrl } = {}) {
+  function unity(files, { preloads = false } = {}) {
     let started = false;
     let finished = false;
     const watched = watch(
@@ -295,11 +292,6 @@ window.GameLoader = (() => {
         return create;
       const wrapped = function (canvas, config, onProgress, ...rest) {
         start();
-        if (streamingAssetsUrl && config)
-          config.streamingAssetsUrl = new URL(
-            streamingAssetsUrl,
-            location.href,
-          ).href;
         const report = (amount) => {
           onProgress?.(amount);
           progress(amount);
