@@ -203,6 +203,9 @@ export async function createCheckout(uuid, plan, origin) {
     client_reference_id: user.uuid,
     line_items: [{ price, quantity: 1 }],
     subscription_data: { metadata: { uuid: user.uuid } },
+    allow_promotion_codes: true,
+    // A code that takes the whole price off needs no card.
+    payment_method_collection: "if_required",
     branding_settings: CHECKOUT_BRANDING,
     custom_text: CHECKOUT_TEXT,
     success_url: `${origin}/premium?done=1`,

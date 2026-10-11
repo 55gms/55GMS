@@ -92,6 +92,16 @@ takes the icon and the product image only as PNG, JPG or SVG, which is why
 Checkout sends the buyer back to the domain they were on, so every mirror
 works for buying. Webhooks go to the one URL registered in step 2.
 
+## Promotion codes
+
+Checkout shows an "Add promotion code" field. Codes are made in the Stripe
+dashboard, not here: create a coupon (the discount), then a promotion code
+on it (what the buyer types, with its own expiry, redemption cap and
+first-time-only limit). A code that takes the whole price off skips the
+card form. A discounted subscription is `active` like any other, so it is
+premium for as long as it lasts; a 100% coupon with duration "forever" is
+free premium until the subscription is cancelled.
+
 ## Routes
 
 | Route                        | What it does                                                     |
