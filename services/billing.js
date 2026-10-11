@@ -13,15 +13,15 @@ export const PLANS = {
 // Marks the product and portal configuration this site created.
 export const STRIPE_MARKER = { app: "55gms-premium" };
 
-// How Stripe's hosted checkout page looks. The colours are the premium
-// icon's own, so its square sits flush on the page. The image is always the
-// main site's: Stripe has to fetch it, and a mirror or localhost may not
+// How Stripe's hosted checkout page looks: the site's default blue behind the
+// summary, and the premium icon's cyan on the pay button. The image is always
+// the main site's: Stripe has to fetch it, and a mirror or localhost may not
 // answer.
 const PREMIUM_ICON = "https://55gms.com/img/premium.png";
 const CHECKOUT_BRANDING = {
   display_name: "55GMS Premium",
   icon: { type: "url", url: PREMIUM_ICON },
-  background_color: "#fad699",
+  background_color: "#5e7594",
   button_color: "#01b6d8",
   border_style: "rounded",
   font_family: "inter",

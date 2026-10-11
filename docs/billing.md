@@ -83,7 +83,8 @@ the same every time for one machine and key). Run the server with
 The buyer pays on Stripe's hosted page. `CHECKOUT_BRANDING` and
 `CHECKOUT_TEXT` in `services/billing.js` set its name, icon, colours, font
 and the line above the pay button on every session, so nothing needs
-setting in the dashboard. The colours are the premium icon's own. Stripe
+setting in the dashboard. The panel is the site's default blue
+(`--site-bg`) and the button the premium icon's cyan. Stripe
 takes the icon and the product image only as PNG, JPG or SVG, which is why
 `static/img/premium.png` exists beside the WebP; both are fetched from
 `https://55gms.com/img/premium.png` whichever domain the buyer is on.
