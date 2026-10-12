@@ -21,4 +21,3 @@ if (typeof exports === 'object' && typeof module === 'object')
     define([], function() { return UnityModule; });
   else if (typeof exports === 'object')
     exports["UnityModule"] = UnityModule;
-  

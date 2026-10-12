@@ -55,7 +55,7 @@
           `Build/FlyingCarTest.wasm.part${i + 1}`,
           i === 2 ? 8079051 : 10000000,
         ]);
-        const framework = [["Build/FlyingCarTest.framework.js", 567655]];
+        const framework = [["Build/FlyingCarTest.framework.js", 567653]];
         GameLoader.prepare([...data, ...wasm, ...framework]);
         const paths = (files) => files.map(([file]) => file);
         const [dataUrl, wasmCodeUrl, wasmFrameworkUrl] = await Promise.all([
