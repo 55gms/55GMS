@@ -247,6 +247,7 @@ function createGameCard(game) {
       )}&author=${encodeURIComponent(game.author)}&link=${encodeURIComponent(
         gameLink,
       )}`;
+      if (game.image.startsWith("/misc/")) href += "&localCover=1";
     }
 
     if (!href) return null;

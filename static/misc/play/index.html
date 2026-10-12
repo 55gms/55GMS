@@ -82,7 +82,9 @@
             titleElement.textContent = title;
             byTextElement.textContent = 'By ' + author;
             iframeElement.src = `/misc/${encodeURIComponent(link)}/index.html`;
-            gameIconElement.src = `https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/${encodeURIComponent(link)}/img.webp`;
+            gameIconElement.src = urlParams.get('localCover') === '1'
+                ? `/misc/${encodeURIComponent(link)}/img.webp`
+                : `https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/${encodeURIComponent(link)}/img.webp`;
             gameIconElement.alt = title;
         });
     </script>
