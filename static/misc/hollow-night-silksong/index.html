@@ -217,7 +217,7 @@
                     dataUrl: buildUrl + "/w-pt.data.unityweb",
                     frameworkUrl: buildUrl + "/w-pt.framework.js.unityweb",
                     codeUrl: buildUrl + "/w-pt.wasm.unityweb",
-                    streamingAssetsUrl: "StreamingAssets",
+                    streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
                     companyName: "EDUrocks Group, Truffled, GN-Math",
                     productName: "Hollow Knight SilkSong",
                     productVersion: "1.0",

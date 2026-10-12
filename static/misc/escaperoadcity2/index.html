@@ -76,7 +76,7 @@
             dataUrl: buildUrl + "/escape-road-city-2-v25022604.data.unityweb",
             frameworkUrl: buildUrl + "/escape-road-city-2-v25022604.framework.js.unityweb",
             codeUrl: buildUrl + "/escape-road-city-2-v25022604.wasm.unityweb",
-            streamingAssetsUrl: "StreamingAssets",
+            streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
             companyName: "azgames.io",
             productName: "Tung Sahur Horror",
             productVersion: "25051505",

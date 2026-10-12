@@ -41,6 +41,24 @@ inlinegascript.innerHTML = `window.dataLayer = window.dataLayer || [];
 document.head.append(newScript, inlinegascript);
 script("Injected script 1/3");
 
+// One "game_play" event per game opened, so Google Analytics can rank games by
+// name. Game pages send it on load; games.js sends it for proxied games.
+function trackGamePlay(name, type) {
+  const gameName = String(name || "").trim();
+  if (!gameName || typeof gtag !== "function") return;
+  gtag("event", "game_play", {
+    game_name: gameName.slice(0, 100),
+    game_type: type,
+  });
+}
+
+if (location.pathname.startsWith("/misc/play/")) {
+  document.addEventListener("DOMContentLoaded", () => {
+    const title = document.querySelector("#gameframe .titletext");
+    if (title) trackGamePlay(title.textContent, "hosted");
+  });
+}
+
 script("Injected script 2/3 (USE AN AD BLOCKER PLEASE)");
 
 var tab = localStorage.getItem("tab");

@@ -88,7 +88,7 @@
                 dataUrl: dataUrl,
                 frameworkUrl: buildUrl + "/NewestBuild.framework.js",
                 codeUrl: wasmUrl,
-                streamingAssetsUrl: "StreamingAssets",
+                streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
                 companyName: "Stupid Game",
                 productName: "R.E.P.O",
                 productVersion: "0.1"
