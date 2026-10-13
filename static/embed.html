@@ -394,19 +394,46 @@
           button.setAttribute("aria-label", "Forward 10 Seconds");
           button.setAttribute("title", "Forward 10 Seconds");
           if (button.tagName === "BUTTON") button.type = "button";
-          button.innerHTML = `
-            <svg class="jw-svg-icon" viewBox="0 0 32 32" aria-hidden="true">
-              <path d="M7.5 24.5A10.5 10.5 0 1 1 25 13" fill="none"
-                stroke="currentColor" stroke-width="2.5"
-                stroke-linecap="round" />
-              <path d="M24.5 4.5V12H17" fill="none"
-                stroke="currentColor" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round" />
-              <text x="16" y="20" text-anchor="middle"
-                font-family="Arial, sans-serif" font-size="10" font-weight="bold"
-                fill="currentColor">10</text>
-            </svg>
-          `;
+          const rewindIcon = rewind.querySelector("svg");
+          let forwardDigits = null;
+          let forwardViewBox = null;
+          if (rewindIcon) {
+            const forwardIcon = rewindIcon.cloneNode(true);
+            const paths = forwardIcon.querySelectorAll("path");
+            const segments = paths.length === 1
+              ? paths[0].getAttribute("d")?.match(/M[^M]*/g)
+              : null;
+            if (segments?.length === 3) {
+              forwardViewBox = forwardIcon.viewBox.baseVal;
+              const arrow = paths[0];
+              arrow.setAttribute("d", segments[2]);
+              arrow.setAttribute(
+                "transform",
+                `translate(${2 * forwardViewBox.x + forwardViewBox.width} 0) scale(-1 1)`,
+              );
+              forwardDigits = arrow.cloneNode(false);
+              forwardDigits.setAttribute("d", segments[0] + segments[1]);
+              forwardDigits.removeAttribute("transform");
+              forwardIcon.appendChild(forwardDigits);
+            } else {
+              forwardIcon.style.transform = "scaleX(-1)";
+            }
+            button.replaceChildren(forwardIcon);
+          } else {
+            button.innerHTML = `
+              <svg class="jw-svg-icon" viewBox="0 0 32 32" aria-hidden="true">
+                <path d="M7.5 24.5A10.5 10.5 0 1 1 25 13" fill="none"
+                  stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" />
+                <path d="M24.5 4.5V12H17" fill="none"
+                  stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round" />
+                <text x="16" y="20" text-anchor="middle"
+                  font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+                  fill="currentColor">10</text>
+              </svg>
+            `;
+          }
 
           button.addEventListener("click", (event) => {
             event.preventDefault();
@@ -422,6 +449,13 @@
           }, true);
 
           rewind.insertAdjacentElement("afterend", button);
+          if (forwardDigits && forwardViewBox) {
+            const bounds = forwardDigits.getBBox();
+            forwardDigits.setAttribute(
+              "transform",
+              `translate(${2 * (forwardViewBox.x + forwardViewBox.width / 2 - bounds.x - bounds.width / 2)} 0)`,
+            );
+          }
         }
 
         for (const child of doc.querySelectorAll("iframe")) {
