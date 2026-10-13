@@ -22,9 +22,11 @@
   const AD_MAX_SCALE = 1.15;
 
   const showAds = typeof adChoices !== "function" || adChoices().banners;
+  // The box ads are 250x250, scaled to fill a frame the size of a big tile.
   const ads = {
     left: { width: 160, height: 600 },
-    box: { width: 300, height: 250 },
+    box: { width: 250, height: 250, square: true },
+    box2: { width: 250, height: 250, square: true },
     wide: { width: 728, height: 90 },
   };
   // The embed scans the page once, so an ad that has no place in the first
@@ -47,7 +49,7 @@
 
   function createAd(ad) {
     ad.box = document.createElement("div");
-    ad.box.className = "ad-box";
+    ad.box.className = ad.square ? "ad-box ad-box--square" : "ad-box";
     ad.fit = document.createElement("div");
     ad.fit.className = "ad-fit";
     const slot = document.createElement("div");
@@ -144,7 +146,7 @@
     const span = (count) => count * cell + (count - 1) * gap;
     const cellsFor = (size) => (size + gap) / (cell + gap);
 
-    const placed = { left: null, box: null, wide: null };
+    const placed = { left: null, box: null, box2: null, wide: null };
     const big = [null, null];
     let game;
     let rows;
@@ -168,7 +170,9 @@
     } else {
       // The game in the middle with as many columns to its left as to its
       // right (the right gets the odd one). A wide window has a skyscraper on
-      // the left; the box ad and the big tiles go on the right.
+      // the left; a narrower one (a Chromebook's 1366px) has a second box ad
+      // there instead, so a page never shows more than three ads. The box
+      // ads are the size of a big tile, with the big tiles under them.
       // The game gets about two thirds of the columns, and all but six in a
       // wide window; a short window narrows it to keep its shape. The banner
       // has the window's last row, unless the window is so short that the
@@ -185,17 +189,10 @@
       if ((cols - gameCols) % 2 && gameCols < middle) gameCols++;
       const leftCols = Math.floor((cols - gameCols) / 2);
       const left = wanted(ads.left) && cols >= 16 && leftCols >= 2;
-      // The box ad is two or three cells square, whichever is nearer its
-      // size in this window. It goes beside the game, or under it when the
-      // side is too narrow.
+      // The box ad goes beside the game, or under it when the side is too
+      // narrow.
       const rightCols = cols - gameCols - leftCols;
-      const boxSize =
-        rightCols === 2
-          ? 2
-          : Math.min(
-              3,
-              Math.max(2, Math.round(cellsFor(ads.box.width * adScale))),
-            );
+      const boxSize = 2;
       const boxBeside = rightCols >= boxSize;
       const boxBelow = wanted(ads.box) && !boxBeside;
       rows = Math.min(
@@ -208,6 +205,10 @@
       game = board.take(gameCol, 1, gameCols, gameRows);
       if (left) {
         placed.left = board.take(1, 1, 2, Math.min(rows - 1, 6));
+      }
+      if (!left && wanted(ads.box2) && leftCols >= boxSize) {
+        // Above the banner's row, as the big tiles are.
+        placed.box2 = board.take(1, 1, boxSize, boxSize, rows - 1);
       }
       if (wanted(ads.box)) {
         placed.box = board.take(
@@ -235,6 +236,7 @@
         [cols - boxSize + 1, boxSize + 1],
         [side, 1],
         [1, 1],
+        [1, boxSize + 1],
         [cols - 1, 1],
         [1, gameRows + 1],
       ];
@@ -264,10 +266,12 @@
       if (!ad.box) createAd(ad);
       ad.box.hidden = false;
       setArea(ad.box, area);
+      // A square ad fills its frame; the others keep to the window's
+      // scale.
       const scale = Math.min(
         span(area.cols) / ad.width,
         span(area.rows) / ad.height,
-        adScale,
+        ad.square ? Infinity : adScale,
       );
       ad.fit.style.width = `${Math.floor(ad.width * scale)}px`;
       ad.fit.style.height = `${Math.floor(ad.height * scale)}px`;

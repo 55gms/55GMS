@@ -155,6 +155,21 @@
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.24);
   overflow: hidden;
 }
+/* A square ad box is framed like a big game tile and fills its cells; the
+   250x250 ad is scaled to fill the frame. */
+.ad-box--square {
+  background-color: var(--site-surface-2, #3d4756);
+  border-radius: var(--site-radius-md, 14px);
+  outline: 2px solid
+    color-mix(in srgb, var(--site-border, #ffffff) 45%, transparent);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.24);
+  overflow: hidden;
+}
+.ad-box--square .ad-fit {
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+}
 .ad-fit [data-55gms-ad] {
   width: 100% !important;
   height: 100% !important;
