@@ -891,6 +891,12 @@ export function createAdsRouter(options = {}) {
         if (!limited('serve')) handleServe(req, res, url.searchParams);
         return;
       }
+      // What the page itself needs to know about this host, so a site can keep
+      // its other ad scripts off wherever Google fills the banner slots.
+      if (route === '/site' && req.method === 'GET') {
+        if (!limited('serve')) send(res, 200, { google: Boolean(google && hostMatchesAny(google.domains, hostOf(req))) }, { 'Cache-Control': 'private, max-age=300' });
+        return;
+      }
       if (route === '/i' && req.method === 'POST') {
         if (!limited('impression')) handleImpression(req, res).catch(() => send(res, 204));
         return;
