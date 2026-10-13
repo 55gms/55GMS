@@ -2,6 +2,208 @@ const PRIORITY_THUMBNAILS = 24;
 const FAVORITES_KEY = "55gms.favoriteGames.v1";
 const RECENT_KEY = "55gms.recentGames.v1";
 const RECENT_LIMIT = 24;
+
+const GAME_CATEGORIES = {
+  "Action & Fighting": [
+    "Alien Hominid", "Amazing Rope Police", "Astro Survivors", "Bacon May Die",
+    "Bacon Survivor", "Bad Time Simulator", "Bowmasters", "Brawl Simulator 3D", "Brotato",
+    "Cuphead", "Dante", "Day Of Meat: Radiation", "Dino Fighter", "Fruit Ninja",
+    "Fruits of Fury", "Gladihoppers", "Hobo", "Hobo 2", "Hobo 3", "Hobo 4", "Hobo 5",
+    "Hobo 6", "Hobo 7", "Hotline Miami", "Iron Snout", "Kick The Buddy", "Knife Hit",
+    "Knife Merge", "Mortal Kombat", "No Pain No Gain", "Punchy Guy", "Ragdoll Archers",
+    "Ragdoll Chaos", "Ragdoll Fight", "Ragdoll Hit", "Stick Fighter", "Street Fighter 2",
+    "Street Fighter 3", "Super Foulist", "Whack Your Boss", "Whack Your Computer",
+    "Whack Your Ex"
+  ],
+  "Adventure & Exploration": [
+    "Bad Ice Cream", "Bad Ice Cream 2", "Bad Ice Cream 3", "Bob The Robber 2",
+    "Digger Escape", "Digging Master", "Dino Bros", "Duck Life", "Duck Life 2",
+    "Duck Life 3", "Duck Life 4", "Frying Nemo", "Henry Stickmin - Breaking The Bank",
+    "Henry Stickmin - Escaping The Prison", "Henry Stickmin - Fleeing The Complex",
+    "Henry Stickmin - Infiltrating The Airship", "Henry Stickmin - Stealing The Diamond",
+    "Pokemon Chaos Black", "Pokemon Crystal", "Pokemon Emerald", "Pokemon Fire Red",
+    "Pokemon Flora Sky", "Pokemon Ruby Red", "Pokemon Sapphire", "Pokemon Showdown",
+    "Pokemon Ultraviolet", "Raft", "Steal A Brainrot"
+  ],
+  "Arcade & Casual": [
+    "Blumgi Bloom", "Blumgi Bounce", "Blumgi Castle", "Blumgi Dragon", "Blumgi Merge",
+    "Blumgi Slime", "Blumgi Splash", "Bottle Flip", "Bottle Flip 3D", "Bouncemasters",
+    "Buck Bounce", "Crazy Cattle 3D", "Crossy Road", "Cubefield", "Duck Merge", "Dune",
+    "Fashion Legends", "Flip Bros", "Flippy Fish", "Gimme the Airpod", "Gobble",
+    "Going Balls", "Google Snake", "Gym Stack", "Happy Wheels", "Helix Jump",
+    "House Of Hazards", "Jetpack Joyride", "Learn to Fly", "Learn to Fly 2",
+    "Learn to Fly 3", "Marble Run 3D", "Paper Plane", "Papery Planes", "Perfect Peel",
+    "Plonky", "Ragdoll Fall", "Rise Higher", "Roller", "Sausage Flip", "Slice Master",
+    "Slope", "Smash It", "Spiral Roll", "Stack", "Stack Bounce", "Stickman Bike",
+    "Subway Surfers", "Toss the Turtle", "Tube Jumpers", "Tunnel Rush", "Tunnel Rush 2",
+    "WBWWB", "Zorr.pro"
+  ],
+  "Card & Board": [
+    "Balatro", "Deal or No Deal", "Master Chess", "Poker"
+  ],
+  "Cooking & Management": [
+    "Airplane Manager", "Capitalist Bus Driver", "Cat Pizza", "Cooking Fever", "Gas Station",
+    "Goods Master", "Harvest Loop", "Harvest Simulator", "Idle Restaurants", "Monkey Mart",
+    "My Perfect Hotel", "Papas Burgeria", "Papas Cheeseria", "Papas Cupcakeria",
+    "Papas Donuteria", "Papas Freezeria", "Papas Hot Doggeria", "Papas Pancakeria",
+    "Papas Pasteria", "Papas Pizzaria", "Papas Scooperia", "Papas Sushiria",
+    "Papas Taco Mia", "Papas Wingeria", "School Cleaning", "Tiny Towers"
+  ],
+  "Horror": [
+    "10 Minutes Till Dawn", "60 Seconds! Reatomized", "Backrooms", "Backrooms Recovery",
+    "Baldi's Basics", "Bendy", "Buckshot Roulette", "Clover Pit", "Fear Response",
+    "Five Nights at Epstien's", "FNAF", "FNAF 2", "FNAF 3", "FNAF 4",
+    "FNAF: Sister Location", "Granny", "Kindergarden", "Kindergarden 2", "Murder", "REPO",
+    "Santy is Home", "Thats not my Neighbor", "The Baby In Yellow", "The Binding Of Issac",
+    "You Monster"
+  ],
+  "Idle & Clicker": [
+    "Adventure Capitalist", "Adventure Miner", "Bee Swarm Simulator", "Capybara Clicker",
+    "Cookie Clicker", "CSGO Clicker", "Doge Miner", "Dogeminer 2", "Grindcraft", "Idle Ants",
+    "Idle Breakout", "Idle Cowshed", "Idle Dice", "Idle Digging Tycoon", "Idle Lumber Inc",
+    "Idle Mining Empire", "Idle Revolution", "Idle Success", "Kiwi Clicker", "Mine Line",
+    "Nut Simulator", "Reel Tycoon", "Spacebar Clicker", "Tiny Fishing",
+    "Universal Paperclips"
+  ],
+  "Multiplayer & .io": [
+    "Aquapark.io", "Deeeep.io", "digdig.io", "Ducklings.io", "Fish Eat Fish", "Hole.io",
+    "MK48.io", "Paper.io 2", "Ships 3D", "Skribble.IO", "Slither.io", "Smash Karts",
+    "Snowball.io", "Stumble Guys", "Webfishing", "Yohoho.io"
+  ],
+  "Platformer & Parkour": [
+    "60 Second Burger Run", "Big Flappy Tower Tiny Square", "Big Tower Tiny Square",
+    "Bike Obby", "BoxRob", "Choppy Orc", "Cluster Rush", "Dadish", "Dadish 2", "Dadish 3",
+    "Dadish 3D", "Daily Dadish", "Doodle Jump", "Dread Head Parkour", "E Parkour.Io",
+    "Edge Not Found", "FancyPants Adventure", "FancyPants Adventure 2", "Getting Over It",
+    "Hollow Night", "Hollow Night Silksong", "Jump Only", "Jumping Shell", "Level Devil",
+    "Mophead Dash", "N Gon", "Neon Swing", "OvO", "OvO 2", "OvO Dimensions", "Parkour Race",
+    "Poor Bunny", "Poor Eddie", "Rainbow Tower", "Red Ball 4", "Roper", "Run 3",
+    "Slime Journey", "Stickman Boost", "Stickman Climb 2", "Stickman Climb 3D",
+    "Stickman Hook", "Stickman Run", "Super Mario 64", "Swingo", "Tag", "Temple Run 2",
+    "Tomb Of The Mask", "Under the Red Sky", "Unfair Mario", "Vex 3", "Vex 4", "Vex 5",
+    "Vex 6", "Vex 7", "Vex 8", "Worlds Hardest Game", "Worlds Hardest Game 2"
+  ],
+  "Puzzle & Brain": [
+    "2048", "Apple Worm", "Block Blast", "Bloxrz", "Brain Test", "CircloO",
+    "Color Pencil Run", "Core Ball", "Cut The Rope", "Draw The Hill", "Fire Boy Water Girl",
+    "Fruit Merge", "Google Feud", "Happy Glass", "Hexellent", "Hextris", "Impossible Quiz",
+    "Impossible Quiz 2", "Light The Lamp", "Little Alchemy", "Little Alchemy 2", "Longcat",
+    "Marbles Sorting", "Monster Match", "Perfect Shape", "Rescue the Fish", "Riddle School",
+    "Riddle School 2", "Riddle School 3", "Riddle School 4", "Riddle School 5",
+    "Riddle School Transfer", "Riddle Transfer 2", "Sandtris", "SandTrix", "Snake Pivot",
+    "Stacktris", "Tetris", "There Is No Game", "Twitch Tetris", "Who Is?", "Wordle",
+    "World of Screw"
+  ],
+  "Racing & Driving": [
+    "2D Rocket League", "Adventure Drivers", "Arcade Car Drift", "Blumgi Racers",
+    "Car Circle", "Car Machines", "Carnado Stunt Car", "Crazy Bikes", "Crazy Cars",
+    "Deadly Descent", "Drift Boss", "Drift Hunters", "Drive Mad", "Eagle Ride", "Eggy Car",
+    "Escape Road", "Escape Road 2", "Escape Road 3", "Escape Road City 2",
+    "Free Rider Jumps", "Full Speed Racing", "Grand Prix Hero", "HexGL", "Hill Climb Racing",
+    "Jelly Drift", "Mad Skills Motocross 2", "Madalin Stunt Cars 3", "Merge Round Racers",
+    "Monster Tracks", "Moto Trap", "MotoX3M", "MotoX3M 2", "MotoX3M Pool Party",
+    "MotoX3M Spooky", "MotoX3M Winter", "Mr Racer", "NSR Street Car Racing", "Police Chase",
+    "Polytrack", "Polytrack 0.4.1", "Race Survival", "Retro Highway", "Rocket Soccer Derby",
+    "Skyriders", "Slowroads", "Snow Rider 3D", "Snow Train Odyssey", "Steel Hills",
+    "Stunt Bike Extreme", "Stunt Car Extreme", "Super Star Car", "Supercar Legends",
+    "Takuni Sunset", "Turbo Moto Racer", "Vex X3M", "Wave Rider"
+  ],
+  "Rhythm & Music": [
+    "A Dance Of Fire & Ice", "Friday Night Funkin", "Geometry Dash", "Geometry Dash Lite",
+    "Geometry Dash SubZero", "Just Shapes & Beats", "Space Waves"
+  ],
+  "Sandbox & Creative": [
+    "Eaglercraft X", "Emulator JS", "GBA Games", "Infinite Craft", "Minecraft",
+    "People Playground", "Roblox", "Sandboxels", "Sketchbook", "Slime Rancher",
+    "Solar Smash", "The Final Earth 2", "WebGL Fluid"
+  ],
+  "Shooter": [
+    "1v1.lol", "2Doom", "Bank Robbery 2", "Blumgi Paintball", "Boom Slingers Reboom",
+    "buildnow.gg", "Bullet Bros", "deadshot.io", "Funny Shooter 2", "Getaway Shootout",
+    "Gun Mayhem 2", "Gun Mayhem 3", "Gun Spin", "Gunblood", "Horde Killer You VS 100",
+    "Johnny Trigger", "Johnny Trigger Sniper", "Karlson", "KARLSON'T", "kour.io",
+    "Mr. Bullet", "Nazi Zombies: Portable", "Raft Wars", "Raft Wars 2", "Recoil",
+    "Red Vs. Bluez", "Rooftop Snipers", "Rooftop Snipers 2", "Shell Shockers",
+    "Skibidi Shooter", "Superhot", "Temple of Boom", "Time Shooter 1", "Time Shooter 2",
+    "Time Shooter 3", "Ultrakill", "Venge.io", "Zombie Derby"
+  ],
+  "Simulation": [
+    "BitLife", "Dino Simulator", "Perfect Landing, Plane Pilot", "Pilot Life",
+    "Robo Cleaner Simulator", "Space Company", "Spaceflight Simulator"
+  ],
+  "Sports": [
+    "1 on 1 Soccer", "A Small World Cup", "A Small World Cup 2", "American Football REAL",
+    "Archery World Tour", "Baseball Bros", "Basket Random", "Basketball REAL",
+    "Basketball Stars", "Basketball Superstars", "Basketbros", "Blumgi Ball",
+    "Blumgi Soccer", "Bouncy Basketball", "Boxing Random", "Flick Goal", "Football Bros",
+    "Golf Orbit", "Google Baseball", "Penalty Kick Online", "Penalty Shooters 2",
+    "Ping Pong Go", "Retro Bowl", "Retro Bowl College", "Rodeo Stampede", "Slime Dunk",
+    "Soccer Bros", "Soccer Random", "Soccer REAL", "Speed Stars", "Super Liquid Soccer",
+    "Table Tennis: WT", "Unicycle Hero", "Unicycle Legend", "Volley Random"
+  ],
+  "Strategy & Defense": [
+    "Awesome Tanks", "Awesome Tanks 2", "Bloons TD", "Bloons TD 2", "Bloons TD 3",
+    "Bloons TD 4", "Magic Battleground", "Path To Glory", "Plants vs. Zombies", "State IO",
+    "Stick Defenders", "Stick Merge", "Stick Rush", "Stick War: Legacy", "Stickman Battle",
+    "Stickman Merge", "Territorial.io", "War The Knights"
+  ],
+  "Other": [
+    "[!!] Request A Game"
+  ],
+};
+
+const CATEGORY_SHORT_NAMES = {
+  "Action & Fighting": "Action",
+  "Adventure & Exploration": "Adventure",
+  "Arcade & Casual": "Arcade",
+  "Card & Board": "Cards",
+  "Cooking & Management": "Cooking",
+  "Horror": "Horror",
+  "Idle & Clicker": "Idle",
+  "Multiplayer & .io": ".io",
+  "Platformer & Parkour": "Parkour",
+  "Puzzle & Brain": "Puzzle",
+  "Racing & Driving": "Racing",
+  "Rhythm & Music": "Rhythm",
+  "Sandbox & Creative": "Sandbox",
+  "Shooter": "Shooter",
+  "Simulation": "Sim",
+  "Sports": "Sports",
+  "Strategy & Defense": "Strategy",
+  "Other": "Other",
+};
+
+const GAME_CATEGORY_BY_NAME = new Map(
+  Object.entries(GAME_CATEGORIES).flatMap(([category, names]) =>
+    names.map((name) => [name, category]),
+  ),
+);
+
+function getGameCategory(game) {
+  return GAME_CATEGORY_BY_NAME.get(game.name) || "Other";
+}
+
+function populateGameCategories(games) {
+  const select = document.getElementById("game-view-select");
+  if (!select) return;
+  select.querySelectorAll("option[data-game-category]").forEach((option) => option.remove());
+
+  const counts = new Map(Object.keys(GAME_CATEGORIES).map((name) => [name, 0]));
+
+  games.forEach((game) => {
+    const category = getGameCategory(game);
+    counts.set(category, (counts.get(category) || 0) + 1);
+  });
+
+  counts.forEach((count, category) => {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = `${category} (${count})`;
+    option.dataset.gameCategory = "true";
+    select.appendChild(option);
+  });
+}
+
 let loadingFadeTimer;
 let loadingHideTimer;
 let progressFrame = 0;
@@ -113,6 +315,7 @@ async function loadGames() {
 
     gameCards = cards;
     gameContainer.appendChild(fragment);
+    populateGameCategories(cards.map(({ game }) => game));
 
     const searchbar = document.querySelector(".searchbar");
     if (searchbar) {
@@ -274,13 +477,19 @@ function createGameCard(game) {
   label.className = "text";
   label.textContent = game.name;
 
+  const category = getGameCategory(game);
+  const categoryBadge = document.createElement("span");
+  categoryBadge.className = "game-category-badge";
+  categoryBadge.textContent = CATEGORY_SHORT_NAMES[category] || category;
+  categoryBadge.title = category;
+
   const favoriteButton = document.createElement("button");
   favoriteButton.type = "button";
   favoriteButton.className = "game-favorite";
   favoriteButton.innerHTML =
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.9 2.8 5.7 6.3.9-4.55 4.44 1.08 6.27L12 17.25l-5.63 2.96 1.08-6.27L2.9 9.5l6.3-.9z"/></svg>';
 
-  control.append(image, label);
+  control.append(image, label, categoryBadge);
   card.append(control, favoriteButton);
   const entry = { id, game, card, image, imageUrl: game.image, favoriteButton };
   favoriteButton.addEventListener("click", () => toggleFavorite(entry));
@@ -315,7 +524,8 @@ function applyGameFilters() {
     const matchesView =
       activeGameView === "all" ||
       (activeGameView === "favorites" && favoriteGameIds.has(entry.id)) ||
-      (activeGameView === "recent" && recentPositions.has(entry.id));
+      (activeGameView === "recent" && recentPositions.has(entry.id)) ||
+      getGameCategory(entry.game) === activeGameView;
     const shows = matchesView && entry.game.name.toLowerCase().includes(query);
     entry.card.style.display = shows ? "inline-block" : "none";
     if (shows) visible++;
