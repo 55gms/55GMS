@@ -640,3 +640,48 @@ h6 {
     transform: none;
   }
 }
+
+.game-link .game-category-badge {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  z-index: 2;
+  max-width: 105px;
+  padding: 3px 5px;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+  font: 600 9px/1.15 "Roboto", sans-serif;
+  color: #fff;
+  background: rgba(8, 13, 25, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.65);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+  pointer-events: none;
+}
+
+.game:hover .game-category-badge,
+.game:has(:focus-visible) .game-category-badge,
+.game:focus-within .game-category-badge {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (hover: none) {
+  .game-link .game-category-badge {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-link .game-category-badge {
+    transition: none;
+  }
+}
