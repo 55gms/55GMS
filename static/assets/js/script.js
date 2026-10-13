@@ -163,9 +163,9 @@ function whenDomReady(callback) {
       const adsScript = document.createElement("script");
       adsScript.async = true;
       adsScript.src =
-        "https://cdn.jsdelivr.net/gh/55gms/gms-ads@1.2.0/embed/dist/ads.min.js";
+        "https://cdn.jsdelivr.net/gh/55gms/gms-ads@1.2.1/embed/dist/ads.min.js";
       adsScript.integrity =
-        "sha384-5I7RXGJ6FzS1tEbwP9Pzxxi0uGwqmMjRll034fmse4MrXVleTqxo9yplzdHKwWBv";
+        "sha384-mQ/P4Pg92IA0slUqUgSpo8vMyWjV0gnjECz0xZrc1lSmEJ6wF2u43pGJbDSXo26m";
       adsScript.crossOrigin = "anonymous";
       document.head.append(adsScript);
     });
