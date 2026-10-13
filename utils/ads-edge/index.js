@@ -93,7 +93,12 @@ export function createAdsRouter(options = {}) {
     instanceId: options.instanceId || null,
     mountPath: options.mountPath || '/_ads',
     trustForwardedHost: options.trustForwardedHost ?? false,
-    rateLimit: { serve: 240, impression: 240, click: 60, media: 240, windowMs: 60 * 1000, ...options.rateLimit },
+    rateLimit: { serve: 240, impression: 240, click: 60, media: 240, video: 120, videoEvent: 900, windowMs: 60 * 1000, ...options.rateLimit },
+    // Video and rewarded ads. Off with `video: false`.
+    video: options.video ?? true,
+    // (req) => { userId?, premium? } | null, from the host app's own session.
+    // The only source of Premium status: anything the browser sends is ignored.
+    resolveViewer: options.resolveViewer || null,
     maxTrackedServes: options.maxTrackedServes ?? 500_000,
     maxDomains: options.maxDomains ?? 5000,
     cacheMedia: options.cacheMedia ?? true,
@@ -120,6 +125,7 @@ export function createAdsRouter(options = {}) {
   let byCampaign = new Map();
   let blocked = []; // hostname patterns switched off on the ad server
   let allowed = null; // hostname patterns this API key is limited to; null means any host
+  let google = null; // { client, slot, domains }: hosts where Google fills the banner slots
   let mediaNames = new Set(); // uploaded creative files named by the current manifest
   const mediaCache = new Map(); // "name|variant" -> Promise<{ body, type, etag } | null>
   const seenDomains = new Set(); // hosts served since the last sealed batch, bounded by maxDomains
@@ -135,11 +141,14 @@ export function createAdsRouter(options = {}) {
     impression: new RateLimiter(opts.rateLimit.impression, opts.rateLimit.windowMs),
     click: new RateLimiter(opts.rateLimit.click, opts.rateLimit.windowMs),
     media: new RateLimiter(opts.rateLimit.media, opts.rateLimit.windowMs),
+    video: new RateLimiter(opts.rateLimit.video, opts.rateLimit.windowMs),
+    videoEvent: new RateLimiter(opts.rateLimit.videoEvent, opts.rateLimit.windowMs),
   };
   const stats = {
     startedAt: new Date(opts.now()).toISOString(),
     serves: 0,
     noFill: 0,
+    google: 0,
     impressions: 0,
     clicks: 0,
     rejectedTokens: 0,
@@ -387,6 +396,7 @@ export function createAdsRouter(options = {}) {
         byCampaign = new Map(data.campaigns.map((c) => [c.id, c]));
         blocked = Array.isArray(data.blockedDomains) ? data.blockedDomains : [];
         allowed = Array.isArray(data.allowedDomains) ? data.allowedDomains : null;
+        google = data.google?.client && data.google.slot && Array.isArray(data.google.domains) ? data.google : null;
         mediaNames = new Set();
         for (const campaign of data.campaigns) {
           for (const creative of campaign.creatives || []) {
@@ -676,6 +686,12 @@ export function createAdsRouter(options = {}) {
     const domain = hostOf(req);
     // Any real hostname is served unless it was switched off on the ad server.
     if (!canServe(domain)) return single ? send(res, 204) : send(res, 200, { ads: groups.map(() => null) });
+    // On sites approved for Google, ads.js renders an AdSense unit in every
+    // slot and campaigns stay out. The single-ad form has no way to say so.
+    if (google && hostMatchesAny(google.domains, domain)) {
+      stats.google += groups.length;
+      return single ? send(res, 204) : send(res, 200, { ads: groups.map(() => null), google: { client: google.client, slot: google.slot } });
+    }
     const used = new Set();
     const ads = groups.map((group) => {
       const sizes = parseSizes(group);
@@ -726,7 +742,138 @@ export function createAdsRouter(options = {}) {
     const countable =
       req.method === 'GET' && !isBot(req) && serve.domain === hostOf(req) && now - serve.at <= CLICK_WINDOW_MS && serve.at - now <= 60_000;
     if (countable && seenClicks.add(token, now)) count('clicks', serve, now);
+    // A path such as /premium is relative, so the browser stays on the site it is on.
     return send(res, 302, undefined, { Location: campaign.clickUrl, 'Referrer-Policy': 'no-referrer' });
+  }
+
+  // --- Video and rewarded ------------------------------------------------
+  // Unlike images, every video request goes to the ad server in real time:
+  // a reward needs a per-session decision. The edge adds what only it can
+  // vouch for (host, viewer key, Premium) and passes on a whitelist of fields.
+  const SLUG_RE = /^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$/;
+  const VIDEO_FORMATS = new Set(['video_embedded', 'video_fullscreen', 'video_rewarded']);
+  let videoConfig = null; // { at, body }
+
+  const slugOrNull = (v) => (typeof v === 'string' && SLUG_RE.test(v) ? v : null);
+
+  // Pseudonymous viewer key: an HMAC of the signed-in user, or of IP, user
+  // agent, the UTC day, and a per-tab nonce for anonymous visitors. No
+  // cookie, nothing that follows a visitor across days or sites.
+  async function viewerOf(req, nonce) {
+    let info = null;
+    if (opts.resolveViewer) {
+      try {
+        info = await opts.resolveViewer(req);
+      } catch (err) {
+        log.warn('resolveViewer failed; treating as anonymous', { error: err.message });
+      }
+    }
+    const day = new Date(opts.now()).toISOString().slice(0, 10);
+    // The per-tab nonce keeps visitors behind one school NAT, on identical
+    // devices, from sharing a key. It is client-chosen, so per-IP limits here
+    // remain the abuse control for anonymous traffic.
+    const tab = typeof nonce === 'string' && /^[A-Za-z0-9_-]{8,64}$/.test(nonce) ? nonce : '';
+    const basis = info?.userId ? `u:${info.userId}` : `a:${day}:${ipOf(req)}:${req.headers['user-agent'] || ''}:${tab}`;
+    return { key: sign(`viewer|${basis}`).slice(0, 32), premium: info?.premium === true };
+  }
+
+  async function upstream(path, body) {
+    const res = await request('POST', path, { headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+    let data = null;
+    try {
+      data = await res.json();
+    } catch {
+      /* empty or not JSON */
+    }
+    return { status: res.status, data };
+  }
+
+  async function handleVideoConfig(_req, res) {
+    const now = opts.now();
+    if (!videoConfig || now - videoConfig.at > 60_000) {
+      try {
+        const r = await request('GET', '/api/v1/video/config');
+        if (!r.ok) throw new Error(`status ${r.status}`);
+        videoConfig = { at: now, body: await r.json() };
+      } catch (err) {
+        if (!videoConfig) return send(res, 200, { enabled: false, providers: [] });
+        log.warn('video config refresh failed; using last copy', { error: err.message });
+      }
+    }
+    send(res, 200, videoConfig.body, { 'Cache-Control': 'private, max-age=60' });
+  }
+
+  async function handleVideoSession(req, res, kind) {
+    const body = await readBody(req);
+    const format = VIDEO_FORMATS.has(body?.format) ? body.format : null;
+    const domain = hostOf(req);
+    if (!format) return send(res, 400, { error: 'format required' });
+    if (isBot(req) || !canServe(domain)) return send(res, 200, kind === 'available' ? { available: false } : { fill: false, reason: 'not_served' });
+    const viewer = await viewerOf(req, body.nonce);
+    const payload = { format, domain, gameId: slugOrNull(body.gameId) };
+    if (kind === 'session') {
+      Object.assign(payload, {
+        placement: slugOrNull(body.placement),
+        rewardId: slugOrNull(body.rewardId),
+        provider: ['google_h5', 'vast'].includes(body.provider) ? body.provider : 'auto',
+        viewer,
+      });
+    }
+    try {
+      const r = await upstream(kind === 'available' ? '/api/v1/video/availability' : '/api/v1/video/sessions', payload);
+      if (r.status === 200 && r.data && kind === 'session' && r.data.token) {
+        // Click-throughs go via this origin so they are counted once.
+        r.data.clickUrl = r.data.ad?.hasClickThrough ? `${opts.mountPath}/v/c/${encodeURIComponent(r.data.token)}` : null;
+      }
+      if (r.status === 200) return send(res, 200, r.data);
+      if (r.status === 429) return send(res, 429, r.data || { error: 'rate limited' });
+      return send(res, 200, kind === 'available' ? { available: false } : { fill: false, reason: 'unavailable' });
+    } catch (err) {
+      log.warn('video request failed', { kind, error: err.message });
+      return send(res, 200, kind === 'available' ? { available: false } : { fill: false, reason: 'unavailable' });
+    }
+  }
+
+  async function handleVideoForward(req, res, path) {
+    const body = await readBody(req);
+    if (typeof body?.token !== 'string' || body.token.length > 100) return send(res, 400, { error: 'token required' });
+    const payload = path.endsWith('/claim')
+      ? { token: body.token, idempotencyKey: typeof body.idempotencyKey === 'string' ? body.idempotencyKey.slice(0, 100) : undefined }
+      : { token: body.token, events: Array.isArray(body.events) ? body.events.slice(0, 12).map((e) => ({ type: String(e?.type || '').slice(0, 20), position: Number(e?.position) || 0 })) : [] };
+    try {
+      const r = await upstream(path, payload);
+      return send(res, r.status >= 500 ? 503 : r.status, r.data || {});
+    } catch (err) {
+      log.warn('video forward failed', { path, error: err.message });
+      return send(res, 503, { error: 'ad server unavailable' });
+    }
+  }
+
+  async function handleVideoClick(req, res, token) {
+    if (req.method !== 'GET' || isBot(req)) return send(res, 404, { error: 'not found' });
+    try {
+      const r = await upstream('/api/v1/video/click', { token });
+      if (r.status === 200 && typeof r.data?.url === 'string' && /^https:\/\//.test(r.data.url)) {
+        return send(res, 302, undefined, { Location: r.data.url, 'Referrer-Policy': 'no-referrer' });
+      }
+    } catch (err) {
+      log.warn('video click failed', { error: err.message });
+    }
+    return send(res, 404, { error: 'not found' });
+  }
+
+  function routeVideo(req, res, route, limited) {
+    if (route === '/v/config' && req.method === 'GET') return limited('video') || handleVideoConfig(req, res).catch(() => send(res, 200, { enabled: false, providers: [] }));
+    if (req.method === 'POST') {
+      if (route === '/v/available') return limited('videoEvent') || handleVideoSession(req, res, 'available').catch(() => send(res, 200, { available: false }));
+      if (route === '/v/session') return limited('video') || handleVideoSession(req, res, 'session').catch(() => send(res, 200, { fill: false, reason: 'unavailable' }));
+      if (route === '/v/event') return limited('videoEvent') || handleVideoForward(req, res, '/api/v1/video/events').catch(() => send(res, 503, {}));
+      if (route === '/v/reward') return limited('video') || handleVideoForward(req, res, '/api/v1/video/rewards/claim').catch(() => send(res, 503, {}));
+    }
+    if (route.startsWith('/v/c/') && (req.method === 'GET' || req.method === 'HEAD')) {
+      return limited('click') || handleVideoClick(req, res, decodeURIComponent(route.slice(5)));
+    }
+    return false;
   }
 
   function router(req, res, next) {
@@ -756,6 +903,7 @@ export function createAdsRouter(options = {}) {
         if (!limited('click')) handleClick(req, res, decodeURIComponent(route.slice(3)));
         return;
       }
+      if (opts.video && route.startsWith('/v/') && routeVideo(req, res, route, limited) !== false) return;
     } catch (err) {
       log.error('request failed', { route, error: err.message });
       if (!res.headersSent) return send(res, 204);
