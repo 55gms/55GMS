@@ -198,21 +198,12 @@ function whenDomReady(callback) {
     window.location.pathname.startsWith("/misc/play/");
 
   if (ads.partner && onPartnerPage) {
-    // The partner ad stays off any site where Google fills the banner slots
-    // (the list is on the ad server's Providers page). If the ad server can't
-    // be asked, the partner script loads as before.
-    fetch("/_ads/site")
-      .then((response) => (response.ok ? response.json() : null))
-      .catch(() => null)
-      .then((site) => {
-        if (site && site.google) return;
-        whenDomReady(() => {
-          const partnerScript = document.createElement("script");
-          partnerScript.src =
-            "https://cdn.jsdelivr.net/gh/docklib/partners@master/partner-7a44b4ab.js?v=1";
-          document.body.append(partnerScript);
-        });
-      });
+    whenDomReady(() => {
+      const partnerScript = document.createElement("script");
+      partnerScript.src =
+        "https://cdn.jsdelivr.net/gh/docklib/partners@master/partner-7a44b4ab.js?v=1";
+      document.body.append(partnerScript);
+    });
   }
 
   if (ads.adsense) {
