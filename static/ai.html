@@ -1,0 +1,1387 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>55GMS AI</title>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$','$$']],
+        processEscapes: true,
+        packages: {'[+]': ['ams', 'noerrors', 'noundefined']}
+      },
+      svg: {fontCache: 'local'},
+      startup: {typeset: false}
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: #2c3a52;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #e8eef7;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: 260px;
+      background: #243247;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #3a4d6a;
+      flex-shrink: 0;
+    }
+
+    .sidebar-header {
+      padding: 1rem 1rem 0.75rem;
+      border-bottom: 1px solid #3a4d6a;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .logo-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 7px;
+      background: #6b8caf;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.48rem;
+      font-weight: 800;
+      color: #111;
+      letter-spacing: -0.3px;
+      line-height: 1.15;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .logo span {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+
+    .new-chat-btn {
+      width: 100%;
+      background: #3d5270;
+      border: 1px solid #4a6385;
+      color: #e8eef7;
+      padding: 0.6rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.15s;
+    }
+
+    .new-chat-btn:hover {
+      background: #4a6385;
+    }
+
+    .chat-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.75rem 0.6rem;
+    }
+
+    .chat-item {
+      padding: 0.55rem 0.6rem 0.55rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      color: #b8c5d9;
+      cursor: pointer;
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: background 0.15s;
+      position: relative;
+    }
+
+    .chat-item:hover {
+      background: #334660;
+    }
+
+    .chat-item.active {
+      background: #3d5270;
+      color: #fff;
+    }
+
+    .chat-item .chat-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .delete-btn {
+      background: transparent;
+      border: none;
+      color: #7a8fad;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s, color 0.15s, background 0.15s;
+    }
+
+    .chat-item:hover .delete-btn {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .delete-btn:hover {
+      color: #f87171;
+      background: rgba(248, 113, 113, 0.15);
+    }
+
+    @media (hover: none) {
+      .delete-btn { opacity: 1; pointer-events: auto; }
+    }
+
+    .empty-chats {
+      padding: 1.5rem 0.85rem;
+      text-align: center;
+      color: #6b7f9c;
+      font-size: 0.85rem;
+    }
+
+    .sidebar-footer {
+      padding: 0.85rem 1rem;
+      border-top: 1px solid #3a4d6a;
+      font-size: 0.8rem;
+      color: #8ba3c7;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sidebar-footer .logo-icon {
+      width: 24px;
+      height: 24px;
+      font-size: 0.38rem;
+      border-radius: 5px;
+    }
+
+    /* ===== MAIN AREA ===== */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #2c3a52;
+    }
+
+    .main-header {
+      padding: 0.9rem 1.5rem;
+      border-bottom: 1px solid #3a4d6a;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .main-header .logo-icon {
+      width: 26px;
+      height: 26px;
+      font-size: 0.4rem;
+      border-radius: 5px;
+    }
+
+    /* Messages */
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .message {
+      max-width: 720px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .avatar.user {
+      background: #4a6385;
+      color: #fff;
+    }
+
+    .avatar.ai {
+      background: #6b8caf;
+      color: #111;
+      font-size: 0.42rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      line-height: 1.15;
+      text-align: center;
+    }
+
+    .bubble {
+      background: #364a66;
+      padding: 0.7rem 1rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #e8eef7;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      min-width: 0;
+      max-width: calc(100% - 34px - 0.75rem);
+      width: fit-content;
+      flex: 0 1 auto;
+    }
+
+    .message.user .bubble {
+      background: #3d5270;
+    }
+
+    /* Keep the typing animation snug without preserved template whitespace. */
+    #typing-msg .bubble {
+      white-space: normal;
+    }
+
+    /* Typing indicator */
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0.15rem 0.1rem;
+      min-height: auto;
+    }
+
+    .typing-indicator span {
+      width: 7px;
+      height: 7px;
+      background: #8ba3c7;
+      border-radius: 50%;
+      animation: bounce 1.4s infinite ease-in-out both;
+    }
+
+    .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Welcome state */
+    .welcome {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .welcome-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 16px;
+      background: #6b8caf;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #111;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+      text-align: center;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .welcome h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+
+    .welcome p {
+      color: #8ba3c7;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      max-width: 600px;
+    }
+
+    .suggestion {
+      background: #364a66;
+      border: 1px solid #4a6385;
+      color: #c8d4e8;
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .suggestion:hover {
+      background: #3d5270;
+    }
+
+    /* Input bar */
+    .input-area {
+      padding: 1rem 1.5rem 1.4rem;
+      border-top: 1px solid #3a4d6a;
+    }
+
+    .input-box {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      gap: 0.6rem;
+      background: #364a66;
+      border: 1px solid #4a6385;
+      border-radius: 14px;
+      padding: 0.7rem 0.85rem;
+    }
+
+    .input-box textarea {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #e8eef7;
+      font-size: 0.95rem;
+      font-family: inherit;
+      resize: none;
+      max-height: 120px;
+      line-height: 1.45;
+      padding: 0.25rem 0;
+    }
+
+    .input-box textarea::placeholder {
+      color: #7a8fad;
+    }
+
+    .send-btn {
+      background: #3b82f6;
+      border: none;
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    .send-btn:hover {
+      background: #2563eb;
+    }
+
+    .send-btn:disabled {
+      background: #4a6385;
+      cursor: not-allowed;
+    }
+
+    /* Confirmation for a destructive chat action. */
+    .delete-confirm-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(10, 17, 29, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .delete-confirm-overlay[hidden] {
+      display: none;
+    }
+
+    .delete-confirm-dialog {
+      width: min(100%, 410px);
+      background: #2c3a52;
+      border: 1px solid #4a6385;
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .delete-confirm-dialog h2 {
+      color: #fff;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .delete-confirm-dialog p {
+      color: #c8d4e8;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+
+    .delete-confirm-actions {
+      display: flex;
+      gap: 0.65rem;
+      justify-content: flex-end;
+    }
+
+    .delete-confirm-actions button {
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      color: #fff;
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .delete-cancel-btn {
+      background: #3d5270;
+      border-color: #4a6385 !important;
+    }
+
+    .delete-cancel-btn:hover { background: #4a6385; }
+    .delete-confirm-btn { background: #c43d4b; }
+    .delete-confirm-btn:hover { background: #a92e3b; }
+    .delete-confirm-actions button:focus-visible {
+      outline: 2px solid #b8d9ff;
+      outline-offset: 2px;
+    }
+    .connection-status[hidden] { display: none; }
+
+
+    /* Render AI replies as rich text without changing the original chat theme. */
+    .message.ai-message .bubble {
+      white-space: normal;
+      min-width: 0;
+    }
+    .message.ai-message .bubble.has-code {
+      width: 100%;
+      max-width: calc(100% - 34px - 0.75rem);
+    }
+    .ai-markdown { min-width: 0; overflow-wrap: anywhere; }
+    .ai-markdown > :first-child { margin-top: 0; }
+    .ai-markdown > :last-child { margin-bottom: 0; }
+    .ai-markdown p { margin: 0 0 0.75rem; }
+    .ai-markdown h1, .ai-markdown h2, .ai-markdown h3,
+    .ai-markdown h4, .ai-markdown h5, .ai-markdown h6 {
+      line-height: 1.3; margin: 1.15rem 0 0.55rem; color: #fff;
+    }
+    .ai-markdown h1 { font-size: 1.3rem; }
+    .ai-markdown h2 { font-size: 1.17rem; }
+    .ai-markdown h3 { font-size: 1.07rem; }
+    .ai-markdown h4, .ai-markdown h5, .ai-markdown h6 { font-size: 1rem; }
+    .ai-markdown ul, .ai-markdown ol { margin: 0.35rem 0 0.85rem; padding-left: 1.55rem; }
+    .ai-markdown li { margin: 0.3rem 0; }
+    .ai-markdown strong { color: #fff; font-weight: 700; }
+    .ai-markdown em { font-style: italic; }
+    .ai-markdown a { color: #a9d0ff; text-decoration: underline; text-underline-offset: 2px; }
+    .ai-markdown a:hover { color: #d6eaff; }
+    .ai-markdown blockquote { margin: 0.7rem 0; padding: 0.25rem 0.85rem; border-left: 3px solid #88a7ce; color: #d2deed; }
+    .ai-markdown hr { border: 0; border-top: 1px solid #63758f; margin: 0.95rem 0; }
+
+    /* Mathematical equations are rendered to self-contained MathJax SVG, not raw LaTeX. */
+    .ai-markdown .math-display {
+      display: block; width: 100%; max-width: 100%; overflow-x: auto;
+      overflow-y: hidden; padding: 0.45rem 0.2rem;
+      margin: 0.65rem 0 1rem; text-align: center;
+    }
+    .ai-markdown .math-inline {
+      display: inline; vertical-align: middle;
+    }
+    .ai-markdown .math-inline mjx-container {
+      display: inline-block !important; max-width: 100%; vertical-align: middle;
+    }
+    .ai-markdown .math-display mjx-container { min-width: max-content; }
+    .ai-markdown mjx-container svg { max-width: none; }
+    /* MathJax accessibility MathML should be read by assistive tech, not drawn twice. */
+    mjx-assistive-mml {
+      position: absolute !important;
+      top: 0 !important; left: 0 !important;
+      width: 1px !important; height: 1px !important;
+      overflow: hidden !important;
+      padding: 0 !important; margin: 0 !important;
+      clip: rect(1px, 1px, 1px, 1px) !important;
+      clip-path: inset(50%) !important;
+      white-space: nowrap !important;
+    }
+    .ai-markdown .math-display mjx-container[display="true"] { margin: 0.2rem 0 !important; }
+    .ai-markdown .math-fallback { font-family: Georgia, 'Times New Roman', serif; white-space: pre-wrap; }
+    .ai-markdown p { overflow-wrap: anywhere; }
+    .ai-markdown .inline-code {
+      padding: 0.1rem 0.34rem; border-radius: 4px; background: #1d2a3e;
+      color: #d9e8ff; font-family: Consolas, Monaco, 'Courier New', monospace;
+      font-size: 0.88em;
+    }
+    .ai-markdown .code-panel {
+      width: 100%; min-width: 0; max-width: 100%; overflow: hidden;
+      background: #172338; border: 1px solid #49617f;
+      border-radius: 10px; margin: 0.75rem 0 1rem;
+    }
+    .ai-markdown .code-toolbar {
+      padding: 0.5rem 0.75rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 0.6rem; background: #23334b; border-bottom: 1px solid #49617f;
+    }
+    .ai-markdown .code-language { font-size: 0.74rem; color: #b9cee8; font-weight: 600; font-family: Consolas, Monaco, monospace; }
+    .ai-markdown .copy-code {
+      appearance: none; padding: 0.3rem 0.7rem; cursor: pointer;
+      border: 1px solid #6e85a5; background: #3b5272; border-radius: 5px;
+      font-size: 0.76rem; font-family: inherit; color: #f3f7ff;
+    }
+    .ai-markdown .copy-code:hover { background: #506c91; }
+    .ai-markdown .copy-code:focus-visible { outline: 2px solid #9bc9ff; outline-offset: 2px; }
+    .ai-markdown .code-panel pre {
+      margin: 0; padding: 0.95rem 1rem; max-width: 100%;
+      overflow-x: auto; white-space: pre; overflow-wrap: normal;
+      tab-size: 2; font-size: 0.83rem; line-height: 1.55;
+      font-family: Consolas, Monaco, 'Courier New', monospace;
+      color: #e7eefc;
+    }
+    .ai-markdown .code-panel code { font-family: inherit; }
+    .ai-markdown .table-scroll { overflow-x: auto; max-width: 100%; margin: 0.7rem 0 1rem; }
+    .ai-markdown table { border-collapse: collapse; width: 100%; min-width: max-content; font-size: 0.9rem; }
+    .ai-markdown th, .ai-markdown td { border: 1px solid #657894; padding: 0.45rem 0.7rem; text-align: left; }
+    .ai-markdown th { background: #2a405e; color: #fff; }
+    @media (max-width: 720px) {
+      body { flex-direction: column; }
+      .sidebar {
+        width: 100%; flex: none; min-height: 0; max-height: 128px;
+        border-right: 0; border-bottom: 1px solid #3a4d6a;
+      }
+      .sidebar-header {
+        padding: 0.55rem 0.8rem; display: flex; align-items: center;
+        justify-content: space-between; gap: 0.75rem;
+      }
+      .sidebar-header .logo { margin-bottom: 0; }
+      .new-chat-btn { width: auto; white-space: nowrap; }
+      .chat-list { flex: none; display: flex; overflow-x: auto; overflow-y: hidden; padding: 0.25rem 0.65rem; gap: 0.4rem; }
+      .chat-item { margin: 0; min-width: 120px; max-width: 220px; flex: 0 0 auto; }
+      .chat-list .empty-chats { padding: 0.4rem 0.7rem; }
+      .sidebar-footer { display: none; }
+      .main { min-width: 0; width: 100%; min-height: 0; }
+      .messages { min-width: 0; padding: 0.85rem; }
+      .message { min-width: 0; }
+      .bubble { max-width: calc(100% - 34px - 0.75rem); }
+      .input-area { padding: 0.7rem; }
+      .input-box textarea { min-width: 0; }
+      .ai-markdown .code-panel pre { padding: 0.8rem; font-size: 0.78rem; }
+      .ai-markdown .code-toolbar { padding: 0.45rem 0.6rem; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-icon">55GMS<br>AI</div>
+        <span>55GMS AI</span>
+      </div>
+      <button class="new-chat-btn" onclick="newChat()">
+        <span>+</span> New chat
+      </button>
+    </div>
+
+    <div class="chat-list" id="chat-list">
+      <div class="empty-chats">No chats yet</div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="logo-icon">55GMS<br>AI</div>
+      55GMS AI
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="main-header">
+      <div class="logo-icon">55GMS<br>AI</div>
+      55GMS AI
+    </div>
+
+    <div class="messages" id="messages">
+      <div class="welcome" id="welcome">
+        <div class="welcome-logo">55GMS<br>AI</div>
+        <h1>55GMS AI IS BACK</h1>
+        <p>How can I help you today?</p>
+        <div class="suggestions">
+          <div class="suggestion" onclick="sendSuggestion(this)">Explain something complex simply</div>
+          <div class="suggestion" onclick="sendSuggestion(this)">Help me write code</div>
+          <div class="suggestion" onclick="sendSuggestion(this)">Brainstorm creative ideas</div>
+          <div class="suggestion" onclick="sendSuggestion(this)">Summarize a topic</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <div class="input-box">
+        <textarea id="input" rows="1" placeholder="Message 55GMS AI..." onkeydown="handleKey(event)"></textarea>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()" title="Send">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="delete-confirm-overlay" id="delete-confirm-overlay" hidden>
+    <div class="delete-confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="delete-confirm-heading" aria-describedby="delete-confirm-description">
+      <h2 id="delete-confirm-heading">Delete chat?</h2>
+      <p id="delete-confirm-description">Are you sure you want to delete this chat?</p>
+      <div class="delete-confirm-actions">
+        <button class="delete-cancel-btn" type="button" id="delete-cancel-btn">Cancel</button>
+        <button class="delete-confirm-btn" type="button" id="delete-confirm-btn">Delete chat</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const messagesEl = document.getElementById('messages');
+    const inputEl = document.getElementById('input');
+    const chatListEl = document.getElementById('chat-list');
+    const sendBtn = document.getElementById('sendBtn');
+    const inputBox = document.querySelector('.input-box');
+    const deleteConfirmOverlay = document.getElementById('delete-confirm-overlay');
+    const cancelDeleteButton = document.getElementById('delete-cancel-btn');
+    const confirmDeleteButton = document.getElementById('delete-confirm-btn');
+    let pendingDeleteId = null;
+    let previousDeleteFocus = null;
+    const STORAGE_KEY = '55gms-ai-local-chats-v1';
+    let chats = [];
+    let activeChatId = null;
+    const pendingChats = new Set();
+
+    // Key supplied by the site owner; never ask visitors to type it.
+    const POLLINATIONS_API_KEY = 'sk_pVmADZAxwwefyHPzZqoecm4dSASmpudB';
+
+    function getActiveChat() {
+      return chats.find(chat => chat.id === activeChatId) || null;
+    }
+
+    function saveChats() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ chats, activeChatId }));
+      } catch {}
+    }
+
+    function isOldSystemNotice(value) {
+      const text = String(value || '').trim();
+      return /^(?:pollinations|this key has no|could not reach|i couldn.t connect|this file needs to be opened|55gms created this chatbot[, .])/i.test(text);
+    }
+
+    function loadChats() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+        if (!saved || !Array.isArray(saved.chats)) return;
+        chats = saved.chats.filter(chat => chat && typeof chat.id === 'string' && Array.isArray(chat.messages))
+          .map(chat => ({
+            id: chat.id,
+            title: typeof chat.title === 'string' ? chat.title : 'New chat',
+            messages: chat.messages.filter(message => message &&
+              (message.role === 'user' || message.role === 'assistant') &&
+              typeof message.content === 'string' &&
+              !(message.role === 'assistant' && isOldSystemNotice(message.content))),
+            createdAt: Number.isFinite(chat.createdAt) ? chat.createdAt : 0,
+            updatedAt: Number.isFinite(chat.updatedAt) ? chat.updatedAt : 0
+          }));
+        activeChatId = chats.some(chat => chat.id === saved.activeChatId)
+          ? saved.activeChatId : null;
+      } catch {
+        chats = [];
+        activeChatId = null;
+      }
+    }
+
+    function renderChatList() {
+      chatListEl.innerHTML = '';
+      if (chats.length === 0) {
+        chatListEl.innerHTML = '<div class="empty-chats">No chats yet</div>';
+        return;
+      }
+
+      for (const chat of [...chats].sort((a, b) => b.updatedAt - a.updatedAt)) {
+        const item = document.createElement('div');
+        item.className = 'chat-item' + (chat.id === activeChatId ? ' active' : '');
+        item.tabIndex = 0;
+        item.setAttribute('role', 'button');
+        item.setAttribute('aria-label', 'Open chat: ' + chat.title);
+        item.addEventListener('click', () => openChat(chat.id));
+        item.addEventListener('keydown', event => {
+          if (event.target !== item) return;
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openChat(chat.id);
+          }
+        });
+
+        const title = document.createElement('span');
+        title.className = 'chat-title';
+        title.textContent = chat.title;
+        item.appendChild(title);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.className = 'delete-btn';
+        deleteButton.title = 'Delete chat';
+        deleteButton.setAttribute('aria-label', 'Delete chat: ' + chat.title);
+        deleteButton.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="3 6 5 6 21 6"></polyline>
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+        </svg>`;
+        deleteButton.addEventListener('click', event => {
+          event.stopPropagation();
+          requestDeleteChat(chat.id);
+        });
+        item.appendChild(deleteButton);
+        chatListEl.appendChild(item);
+      }
+    }
+
+    function renderMessages() {
+      const chat = getActiveChat();
+      messagesEl.innerHTML = '';
+      if (!chat || chat.messages.length === 0) {
+        messagesEl.innerHTML = getWelcomeHTML();
+      } else {
+        for (const message of chat.messages) {
+          addMessage(message.content, message.role === 'user');
+        }
+        if (pendingChats.has(chat.id)) showTyping();
+      }
+      sendBtn.disabled = Boolean(chat && pendingChats.has(chat.id));
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function openChat(id) {
+      if (!chats.some(chat => chat.id === id)) return;
+      activeChatId = id;
+      saveChats();
+      renderChatList();
+      renderMessages();
+    }
+
+    function getWelcomeHTML() {
+      return `
+        <div class="welcome" id="welcome">
+          <div class="welcome-logo">55GMS<br>AI</div>
+          <h1>55GMS AI IS BACK</h1>
+          <p>How can I help you today?</p>
+          <div class="suggestions">
+            <div class="suggestion" onclick="sendSuggestion(this)">Explain something complex simply</div>
+            <div class="suggestion" onclick="sendSuggestion(this)">Help me write code</div>
+            <div class="suggestion" onclick="sendSuggestion(this)">Brainstorm creative ideas</div>
+            <div class="suggestion" onclick="sendSuggestion(this)">Summarize a topic</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+
+    // All replies go through this renderer, including previously saved chat messages.
+    // Markdown/HTML never executes as input code. Math is converted to SVG locally.
+    function mathHolder(tex, display) {
+      const klass = display ? 'math-display' : 'math-inline';
+      const tag = display ? 'div' : 'span';
+      return '<' + tag + ' class="' + klass + '" data-math-tex="' + escapeHtml(tex).replace(/"/g, '&quot;') +
+        '" data-math-display="' + (display ? 'true' : 'false') + '"></' + tag + '>';
+    }
+
+    async function typesetMathIn(element) {
+      const holders = Array.from(element.querySelectorAll('[data-math-tex]'));
+      if (!holders.length) return;
+      try {
+        await window.MathJax.startup.promise;
+        // Sequential SVG conversion protects the shared MathJax TeX parser state.
+        for (const holder of holders) {
+          if (!holder.isConnected) continue;
+          const latex = holder.getAttribute('data-math-tex');
+          const display = holder.getAttribute('data-math-display') === 'true';
+          try {
+            const svg = await window.MathJax.tex2svgPromise(latex, {display});
+            if (holder.isConnected) {
+              holder.replaceChildren(svg);
+              holder.removeAttribute('data-math-tex');
+              holder.removeAttribute('data-math-display');
+            }
+          } catch (error) {
+            if (holder.isConnected) {
+              holder.replaceChildren();
+              holder.classList.add('math-fallback');
+              holder.removeAttribute('data-math-tex');
+            }
+          }
+        }
+        if (element.isConnected) messagesEl.scrollTop = messagesEl.scrollHeight;
+      } catch (error) {
+        holders.forEach(holder => { if (holder.isConnected) {
+          holder.replaceChildren();
+          holder.removeAttribute('data-math-tex');
+        }});
+      }
+    }
+
+    function renderInlineMarkdown(source) {
+      let value = escapeHtml(source);
+      const protectedContent = [];
+      const hold = html => '\uE000' + (protectedContent.push(html) - 1) + '\uE001';
+      // Protect inline code before parsing math or styling symbols.
+      value = value.replace(/(`+)([^\n]*?)\1/g,
+        (all, ticks, code) => hold('<code class="inline-code">' + code + '</code>'));
+      // Standard TeX forms: \( ... \), \[ ... \], plus paired $...$ and $$...$$.
+      // A second slash before a delimiter is accepted for double-escaped model output.
+      value = value.replace(/\\{1,2}\[([^\n]*?)\\{1,2}\]|\\{1,2}\(([^\n]*?)\\{1,2}\)|\$\$([^\n]+?)\$\$|(?<!\\)\$(?!\$)([^$\n]+?)\$(?!\$)/g,
+        (all, blockTex, inlineTex, doubleDollarTex, singleDollarTex) => {
+          const math = blockTex ?? inlineTex ?? doubleDollarTex ?? singleDollarTex;
+          const display = blockTex !== undefined || doubleDollarTex !== undefined;
+          // value is already HTML escaped; store it in a safe HTML attribute.
+          return hold(mathHolder(math.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>'), display));
+        });
+      // Ordinary safe links (no scripts or generated HTML).
+      value = value.replace(/\[([^\]\n]+)\]\((https?:\/\/[^\s)]+)\)/gi, (all, label, url) => {
+        const href = url.replace(/&amp;/g, '&');
+        return hold('<a target="_blank" rel="noopener noreferrer" href="' + escapeHtml(href) + '">' + label + '</a>');
+      });
+      value = value.replace(/\*\*([^\n]+?)\*\*/g, '<strong>$1</strong>');
+      value = value.replace(/__([^\n]+?)__/g, '<strong>$1</strong>');
+      value = value.replace(/~~([^\n]+?)~~/g, '<del>$1</del>');
+      value = value.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+      value = value.replace(/(^|[^\w_])_([^_\n]+)_(?!\w)/g, '$1<em>$2</em>');
+      return value.replace(/\uE000(\d+)\uE001/g, (all, id) => protectedContent[Number(id)] || '');
+    }
+
+    function mathBlockStart(line) {
+      const match = line.match(/^\s*(\\{1,2}\[|\$\$|\\{1,2}begin\{(align\*?|equation\*?|gather\*?|multline\*?|split|cases)\})\s*$/);
+      if (!match) return null;
+      if (match[1] === '$$') return {kind:'dollar',open:match[1]};
+      if (/\[$/.test(match[1])) return {kind:'bracket',open:match[1]};
+      return {kind:'environment',open:match[1],environment:match[2]};
+    }
+
+    function renderMarkdown(source) {
+      const lines = String(source).replace(/\r\n?/g, '\n').split('\n');
+      const parts = [];
+      const isFence = line => /^ {0,3}(`{3,}|~{3,})\s*([^`]*)$/.test(line);
+      const isHeading = line => /^ {0,3}#{1,6}\s+/.test(line);
+      const isBullet = line => /^\s{0,3}[-*+]\s+/.test(line);
+      const isNumbered = line => /^\s{0,3}\d+[.)]\s+/.test(line);
+      const isQuote = line => /^ {0,3}>\s?/.test(line);
+      const isRule = line => /^ {0,3}(?:-{3,}|\*{3,}|_{3,})\s*$/.test(line);
+      const isTableDivider = line => /^\s*\|?\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(line);
+      const hasTableNext = i => i + 1 < lines.length && lines[i].includes('|') && isTableDivider(lines[i + 1]);
+      const startsBlock = i => isFence(lines[i]) || mathBlockStart(lines[i]) || isHeading(lines[i]) || isBullet(lines[i]) ||
+        isNumbered(lines[i]) || isQuote(lines[i]) || isRule(lines[i]) || hasTableNext(i);
+      const splitCells = line => line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(cell => cell.trim());
+      const cleanBreak = line => line.replace(/\\\s*$/, '');
+      let index = 0;
+      while (index < lines.length) {
+        const line = lines[index];
+        if (!line.trim()) { index++; continue; }
+
+        // Code fences must be handled BEFORE math: code is literal and unchanged.
+        const opening = line.match(/^ {0,3}(`{3,}|~{3,})\s*([^`]*)$/);
+        if (opening) {
+          const marker = opening[1];
+          const language = opening[2].trim().split(/\s+/)[0].slice(0, 24) || 'Code';
+          const code = [];
+          index++;
+          const closing = new RegExp('^ {0,3}' + marker[0] + '{' + marker.length + ',}\\s*$');
+          while (index < lines.length && !closing.test(lines[index])) code.push(lines[index++]);
+          if (index < lines.length) index++;
+          parts.push('<section class="code-panel"><div class="code-toolbar"><span class="code-language">' +
+            escapeHtml(language) + '</span><button type="button" class="copy-code" aria-label="Copy code">Copy code</button></div>' +
+            '<pre><code>' + escapeHtml(code.join('\n')) + '</code></pre></section>');
+          continue;
+        }
+
+        const mathStart = mathBlockStart(line);
+        if (mathStart) {
+          const latex = [];
+          let foundClose = false;
+          index++;
+          while (index < lines.length) {
+            const current = lines[index];
+            const closing = mathStart.kind === 'dollar' ? /^\s*\$\$\s*$/ :
+              mathStart.kind === 'bracket' ? /^\s*\\{1,2}\]\s*$/ :
+              new RegExp('^\\s*\\\\{1,2}end\\{' + mathStart.environment.replace('*', '\\*') + '\\}\\s*$');
+            if (closing.test(current)) { foundClose = true; index++; break; }
+            latex.push(current);
+            index++;
+          }
+          const inner = latex.join('\n').trim();
+          if (foundClose) {
+            const tex = mathStart.kind === 'environment' ?
+              '\\begin{' + mathStart.environment + '}\n' + inner + '\n\\end{' + mathStart.environment + '}' : inner;
+            parts.push(mathHolder(tex, true));
+          } else {
+            parts.push('<p>' + renderInlineMarkdown(mathStart.open) + '</p>');
+            if (inner) parts.push('<p>' + escapeHtml(inner) + '</p>');
+          }
+          continue;
+        }
+
+        const heading = line.match(/^ {0,3}(#{1,6})\s+(.+?)\s*#*\s*$/);
+        if (heading) {
+          const depth = heading[1].length;
+          parts.push('<h' + depth + '>' + renderInlineMarkdown(heading[2]) + '</h' + depth + '>');
+          index++; continue;
+        }
+        if (isRule(line)) { parts.push('<hr>'); index++; continue; }
+
+        if (hasTableNext(index)) {
+          const header = splitCells(lines[index]);
+          index += 2;
+          const rows = [];
+          while (index < lines.length && lines[index].trim() && lines[index].includes('|'))
+            rows.push(splitCells(lines[index++]));
+          parts.push('<div class="table-scroll"><table><thead><tr>' +
+            header.map(v => '<th>' + renderInlineMarkdown(v) + '</th>').join('') +
+            '</tr></thead><tbody>' + rows.map(row => '<tr>' + header.map((_, i) =>
+              '<td>' + renderInlineMarkdown(row[i] || '') + '</td>').join('') + '</tr>').join('') +
+            '</tbody></table></div>');
+          continue;
+        }
+
+        if (isBullet(line) || isNumbered(line)) {
+          const ordered = isNumbered(line);
+          const tag = ordered ? 'ol' : 'ul';
+          const items = [];
+          const itemPattern = ordered ? /^\s{0,3}\d+[.)]\s+(.+)$/ : /^\s{0,3}[-*+]\s+(.+)$/;
+          const firstNumber = ordered ? Number((line.match(/^\s*(\d+)/) || [,'1'])[1]) : 1;
+          while (index < lines.length) {
+            const match = lines[index].match(itemPattern);
+            if (!match) break;
+            items.push('<li>' + renderInlineMarkdown(cleanBreak(match[1])) + '</li>');
+            index++;
+          }
+          parts.push('<' + tag + (ordered && firstNumber !== 1 ? ' start="' + firstNumber + '"' : '') + '>' +
+            items.join('') + '</' + tag + '>');
+          continue;
+        }
+
+        if (isQuote(line)) {
+          const quoted = [];
+          while (index < lines.length && isQuote(lines[index]))
+            quoted.push(lines[index++].replace(/^ {0,3}>\s?/, ''));
+          parts.push('<blockquote><p>' + quoted.map(v => renderInlineMarkdown(cleanBreak(v))).join('<br>') + '</p></blockquote>');
+          continue;
+        }
+
+        const paragraph = [];
+        while (index < lines.length && lines[index].trim() &&
+          (paragraph.length === 0 || !startsBlock(index))) paragraph.push(lines[index++]);
+        parts.push('<p>' + paragraph.map(v => renderInlineMarkdown(cleanBreak(v))).join('<br>') + '</p>');
+      }
+      return parts.join('');
+    }
+
+    async function copyCodeBlock(button) {
+      const code = button.closest('.code-panel')?.querySelector('pre code');
+      if (!code) return;
+      const text = code.textContent;
+      let copied = false;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(text);
+          copied = true;
+        }
+      } catch (error) { /* Some file:// pages don't support Clipboard API. */ }
+      if (!copied) {
+        const temporary = document.createElement('textarea');
+        temporary.value = text;
+        temporary.setAttribute('readonly', '');
+        temporary.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0';
+        document.body.appendChild(temporary);
+        temporary.select();
+        try { copied = document.execCommand('copy'); } catch (error) { copied = false; }
+        temporary.remove();
+      }
+      if (copied) {
+        button.textContent = 'Copied!';
+        clearTimeout(button.copyResetTimer);
+        button.copyResetTimer = setTimeout(() => { if (button.isConnected) button.textContent = 'Copy code'; }, 1800);
+      } else {
+        button.textContent = 'Select code to copy';
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(code);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    }
+
+    messagesEl.addEventListener('click', event => {
+      const button = event.target.closest('.copy-code');
+      if (button) copyCodeBlock(button);
+    });
+
+    function addMessage(text, isUser) {
+      const welcome = document.getElementById('welcome');
+      if (welcome) welcome.remove();
+
+      const msg = document.createElement('div');
+      msg.className = 'message' + (isUser ? ' user' : '');
+      
+      if (isUser) {
+        msg.innerHTML = `
+          <div class="avatar user">You</div>
+          <div class="bubble">${escapeHtml(text)}</div>
+        `;
+      } else {
+        msg.classList.add('ai-message');
+        const containsCode = /^ {0,3}(?:`{3,}|~{3,})/m.test(text) || text.includes('\\[') || text.includes('$$') || text.includes('\\begin{');
+        msg.innerHTML = `
+          <div class="avatar ai">55GMS<br>AI</div>
+          <div class="bubble${containsCode ? ' has-code' : ''}"><div class="ai-markdown">${renderMarkdown(text)}</div></div>
+        `;
+      }
+      
+      messagesEl.appendChild(msg);
+      if (!isUser) void typesetMathIn(msg);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function showTyping() {
+      if (document.getElementById('typing-msg')) return;
+      const msg = document.createElement('div');
+      msg.className = 'message';
+      msg.id = 'typing-msg';
+      msg.innerHTML = `
+        <div class="avatar ai">55GMS<br>AI</div>
+        <div class="bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>
+      `;
+      messagesEl.appendChild(msg);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function extractPollinationsText(raw, contentType) {
+      let data;
+      try {
+        data = JSON.parse(raw);
+      } catch {
+        if (contentType.includes('json') || /^\s*[{[]/.test(raw)) return null;
+        if (/^\s*<!?doctype|^\s*<html/i.test(raw)) return null;
+        return raw.trim() || null;
+      }
+      if (typeof data === 'string') return data.trim() || null;
+      if (data?.error) return null;
+      const content = data?.choices?.[0]?.message?.content ?? data?.choices?.[0]?.text ?? data?.text;
+      if (typeof content === 'string') return content.trim() || null;
+      if (Array.isArray(content)) {
+        return content.filter(part => part && typeof part.text === 'string')
+          .map(part => part.text).join('').trim() || null;
+      }
+      return null;
+    }
+
+    async function pollinationsFetch(url, options = {}, timeoutMs = 17000) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      try {
+        const response = await fetch(url, { ...options, signal: controller.signal, cache: 'no-store' });
+        if (!response.ok) return null;
+        const raw = await response.text();
+        return extractPollinationsText(raw, response.headers.get('content-type') || '');
+      } catch {
+        return null;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    // Answer identity questions consistently without inventing ownership or hosting details.
+    function normalizeIdentityQuestion(question) {
+      return String(question || '').toLowerCase().replace(/[’]/g, "'")
+        .replace(/[!?.,;:]+$/g, '').replace(/\s+/g, ' ').trim();
+    }
+
+    function isCreatorQuestion(q) {
+      return /\bwho (?:made|created|built|designed|developed|owns) (?:you|this (?:ai|chatbot|bot|assistant))\b|\bwho(?:'s| is) your (?:creator|maker|developer|owner)\b|\b(?:did|was|were) (?:55gms|you) (?:make|made|create|created|build|built) (?:you|by 55gms|this chatbot)\b|\bwho is behind (?:you|55gms ai)\b|\b(?:what company|which company|what team) (?:made|created|built) you\b/i.test(q);
+    }
+
+    function isChatGPTQuestion(q) {
+      return /\b(?:are you|you are|r u|are u|is this) (?:actually |really )?chat\s?gpt\b|\b(?:are you|is this) (?:openai'?s|openai) (?:chatgpt|bot)\b/i.test(q);
+    }
+
+    function isConnectionQuestion(q) {
+      // Do not hijack a general programming or educational question.
+      if (/^(?:what is|explain|define|do you know|can you explain|tell me about|how (?:do|does|can) (?:i|you|we)|write|show|give me|teach|create|build|make|code)\b/i.test(q) &&
+          !/\b(?:your|you as an ai|this (?:chatbot|ai|bot|website)|55gms ai)\b/.test(q)) return false;
+      const topic = /\b(?:pollinations|api|apis|backend|back end|provider|model|model provider|endpoint|host|hosted|hosting|server|servers|openai|gpt|chatgpt|infrastructure|connection|connections|engine)\b/i.test(q);
+      const aboutThisChat = /\b(?:you|your|yours|yourself|55gms|this (?:ai|bot|chatbot|assistant|site|website|app|service|version)|the (?:ai|bot|chatbot|assistant))\b/i.test(q);
+      const connectionVerb = /\b(?:connected|connect|using|uses|use|based on|powered|run|running|hosted|created|made|built|trained|generated|generate|replies|responses|provider|backend|api)\b/i.test(q);
+      return topic && (aboutThisChat || connectionVerb || /^(?:(?:is|are|does|do|can) (?:it|this|the ai)\b|what (?:api|server|model|provider|powers|runs)|which (?:api|server|model|provider))/.test(q));
+    }
+
+    const TECHNICAL_IDENTITY_REPLY = 'I’m 55GMS AI, created by 55GMS. I don’t provide technical connection details in chat.';
+
+    function getIdentityReply(question, history) {
+      const q = normalizeIdentityQuestion(question);
+      const certain = /^(?:are you (?:really |absolutely )?sure|you sure|really|seriously|is that true|is that right|for real|are you certain|you positive|prove it)$/i;
+      const lastUser = [...history].reverse().find(item => item.role === 'user')?.content || '';
+      const lastAssistant = [...history].reverse().find(item => item.role === 'assistant')?.content || '';
+      if (certain.test(q)) {
+        if (isCreatorQuestion(normalizeIdentityQuestion(lastUser)) || isChatGPTQuestion(normalizeIdentityQuestion(lastUser)))
+          return 'Yes, I’m sure. 55GMS created this chatbot.';
+        if (isConnectionQuestion(normalizeIdentityQuestion(lastUser)) || lastAssistant === TECHNICAL_IDENTITY_REPLY)
+          return '55GMS created this chatbot. I don’t provide technical connection details in chat.';
+      }
+      if (isCreatorQuestion(q)) {
+        const count = history.filter(item => item.role === 'user' && isCreatorQuestion(normalizeIdentityQuestion(item.content))).length;
+        return ['55GMS made me.', 'I was created by 55GMS.', 'The 55GMS team built this chatbot.'][count % 3];
+      }
+      if (isChatGPTQuestion(q)) return 'No, I’m 55GMS AI, a chatbot created by 55GMS.';
+      if (/\b(?:did openai (?:create|make|build) you|were you (?:created|made) by openai)\b/i.test(q))
+        return '55GMS created this chatbot. I don’t claim that 55GMS trained its underlying language model.';
+      if (isConnectionQuestion(q)) return TECHNICAL_IDENTITY_REPLY;
+      if (/^(?:who are you|what is your name|what's your name)$/i.test(q))
+        return 'I’m 55GMS AI. What can I help you with?';
+      return null;
+    }
+
+    function reviewGeneratedIdentityReply(answer) {
+      // Guard unexpected autobiographical claims about who built or powers this chatbot.
+      // Leave ordinary factual answers, code examples and quoted information untouched.
+      const text = String(answer || '');
+      if (/(?:^|\n)\s*```/.test(text)) return text;
+      const autobiographical = /\b(?:i(?:'m| am)|my (?:responses|replies|model|backend|api)|this (?:chatbot|ai|version|assistant)|55gms(?: ai)?)\b.{0,100}\b(?:pollinations|openai|chatgpt|gpt model|private 55gms servers|external api|third-party api)\b|\b(?:pollinations|openai|chatgpt)\b.{0,90}\b(?:powers|hosts|runs|made|created|trained|built|generates|provides|supplies)\b.{0,45}\b(?:me|my|this (?:chatbot|ai))\b/i;
+      return autobiographical.test(text) ? TECHNICAL_IDENTITY_REPLY : text;
+    }
+
+    function buildMessages(userMessage, history) {
+      return [
+        { role: 'system', content: 'You are 55GMS AI, a useful and natural chatbot created by 55GMS. Speak conversationally and maintain context. Credit 55GMS as the developer of the chatbot when asked. Do not volunteer technical connection details. Never falsely state that there are no external services or that the chatbot is hosted on private 55GMS AI servers; no such hosting has been verified. Do not claim 55GMS trained the underlying language model. Avoid speculative claims about model origins. If asked for infrastructure details, say that you do not provide technical connection details in chat. Answer ordinary requests for programming, factual explanations, and creative writing normally.' },
+        ...history.slice(-16),
+        { role: 'user', content: userMessage }
+      ];
+    }
+
+    async function tryAuthenticatedPollinations(messages, key) {
+      return pollinationsFetch('https://gen.pollinations.ai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + key
+        },
+        body: JSON.stringify({ model: 'openai', messages, stream: false })
+      }, 30000);
+    }
+
+    async function getAIResponse(userMessage, history) {
+      const identityAnswer = getIdentityReply(userMessage, history);
+      if (identityAnswer !== null) {
+        await new Promise(resolve => setTimeout(resolve, 950));
+        return identityAnswer;
+      }
+      const messages = buildMessages(userMessage, history);
+      let answer = await tryAuthenticatedPollinations(messages, POLLINATIONS_API_KEY);
+      if (!answer) {
+        await new Promise(resolve => setTimeout(resolve, 850));
+        answer = await tryAuthenticatedPollinations(messages, POLLINATIONS_API_KEY);
+      }
+      return answer ? reviewGeneratedIdentityReply(answer) : null;
+    }
+
+    async function sendMessage() {
+      const text = inputEl.value.trim();
+      if (!text) return;
+
+      let chat = getActiveChat();
+      if (chat && pendingChats.has(chat.id)) return;
+      if (!chat) {
+        const now = Date.now();
+        chat = {
+          id: 'chat-' + now + '-' + Math.random().toString(36).slice(2),
+          title: text.length > 28 ? text.substring(0, 28) + '...' : text,
+          messages: [],
+          createdAt: now,
+          updatedAt: now
+        };
+        chats.push(chat);
+        activeChatId = chat.id;
+      }
+
+      const chatId = chat.id;
+      const history = chat.messages.map(message => ({ role: message.role, content: message.content }));
+      const submitted = { role: 'user', content: text };
+      chat.messages.push(submitted);
+      chat.updatedAt = Date.now();
+      pendingChats.add(chatId);
+      inputEl.value = '';
+      inputEl.style.height = 'auto';
+      saveChats();
+      renderChatList();
+      renderMessages(); // Renders exactly ONE typing indicator.
+
+      let reply = null;
+      try {
+        reply = await getAIResponse(text, history);
+      } catch {
+      } finally {
+        pendingChats.delete(chatId);
+      }
+
+      const originalChat = chats.find(savedChat => savedChat.id === chatId);
+      if (!originalChat) return;
+      if (reply) {
+        originalChat.messages.push({ role: 'assistant', content: reply });
+        originalChat.updatedAt = Date.now();
+      }
+      saveChats();
+      renderChatList();
+      renderMessages();
+    }
+
+    function sendSuggestion(el) {
+      inputEl.value = el.textContent;
+      sendMessage();
+    }
+
+    function newChat() {
+      activeChatId = null;
+      inputEl.value = '';
+      inputEl.style.height = 'auto';
+      saveChats();
+      renderChatList();
+      renderMessages();
+    }
+
+    function requestDeleteChat(id) {
+      if (!chats.some(chat => chat.id === id)) return;
+      pendingDeleteId = id;
+      previousDeleteFocus = document.activeElement;
+      deleteConfirmOverlay.hidden = false;
+      cancelDeleteButton.focus();
+    }
+
+    function closeDeleteConfirmation() {
+      deleteConfirmOverlay.hidden = true;
+      pendingDeleteId = null;
+      if (previousDeleteFocus && previousDeleteFocus.isConnected) previousDeleteFocus.focus();
+      previousDeleteFocus = null;
+    }
+
+    function confirmDeleteChat() {
+      const id = pendingDeleteId;
+      closeDeleteConfirmation();
+      if (id !== null) deleteChat(id);
+    }
+
+    cancelDeleteButton.addEventListener('click', closeDeleteConfirmation);
+    confirmDeleteButton.addEventListener('click', confirmDeleteChat);
+    deleteConfirmOverlay.addEventListener('click', event => {
+      if (event.target === deleteConfirmOverlay) closeDeleteConfirmation();
+    });
+    document.addEventListener('keydown', event => {
+      if (deleteConfirmOverlay.hidden) return;
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeDeleteConfirmation();
+      } else if (event.key === 'Tab') {
+        const buttons = [cancelDeleteButton, confirmDeleteButton];
+        const index = buttons.indexOf(document.activeElement);
+        if (event.shiftKey && index <= 0) {
+          event.preventDefault();
+          confirmDeleteButton.focus();
+        } else if (!event.shiftKey && index === 1) {
+          event.preventDefault();
+          cancelDeleteButton.focus();
+        }
+      }
+    });
+
+    function deleteChat(id) {
+      chats = chats.filter(chat => chat.id !== id);
+      if (activeChatId === id) activeChatId = null;
+      saveChats();
+      renderChatList();
+      renderMessages();
+    }
+
+    function handleKey(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    }
+
+    // Auto-resize textarea
+    inputEl.addEventListener('input', () => {
+      inputEl.style.height = 'auto';
+      inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + 'px';
+    });
+
+    loadChats();
+    renderChatList();
+    renderMessages();
+  </script>
+</body>
+</html>
