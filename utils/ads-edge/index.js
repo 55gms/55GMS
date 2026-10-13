@@ -688,7 +688,9 @@ export function createAdsRouter(options = {}) {
     if (!canServe(domain)) return single ? send(res, 204) : send(res, 200, { ads: groups.map(() => null) });
     // On sites approved for Google, ads.js renders an AdSense unit in every
     // slot and campaigns stay out. The single-ad form has no way to say so.
-    if (google && hostMatchesAny(google.domains, domain)) {
+    // ads.js asks again with fallback=1 for a slot Google left empty, and
+    // that one gets a campaign.
+    if (google && query.get('fallback') !== '1' && hostMatchesAny(google.domains, domain)) {
       stats.google += groups.length;
       return single ? send(res, 204) : send(res, 200, { ads: groups.map(() => null), google: { client: google.client, slot: google.slot } });
     }

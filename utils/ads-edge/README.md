@@ -18,7 +18,7 @@ app.use('/_ads', ads);
 | Route | Purpose |
 |---|---|
 | `GET /serve?sizes=728x90,468x60` | One ad for the request's `Host`, or 204 |
-| `GET /serve?slots=728x90,468x60;300x250` | Several slots in one call: `{ ads: [ad or null, ...] }`. Used by `ads.js`. On a host listed under the Google provider the reply is `{ ads: [null, ...], google: { client, slot } }` and `ads.js` renders an AdSense unit in each slot |
+| `GET /serve?slots=728x90,468x60;300x250` | Several slots in one call: `{ ads: [ad or null, ...] }`. Used by `ads.js`. On a host listed under the Google provider the reply is `{ ads: [null, ...], google: { client, slot } }` and `ads.js` renders an AdSense unit in each slot. With `&fallback=1` the reply is campaigns as on any other host, which is how `ads.js` fills a slot Google left empty |
 | `GET /site` | `{ google: true or false }`: whether Google fills the banner slots on the request's `Host`. For page scripts that must keep other ad code off those sites |
 | `POST /i` | Body `{ serveId }` or `{ serveIds: [...] }`. Counts once per serve, within 10 minutes |
 | `GET /c/:serveId` | Counts the click once and redirects to the campaign's click URL |
