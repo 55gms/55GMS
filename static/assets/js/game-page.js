@@ -22,12 +22,11 @@
   const AD_MAX_SCALE = 1.15;
 
   const showAds = typeof adChoices !== "function" || adChoices().banners;
-  // A square ad fills its cells with a frame the size of a big tile, and the
-  // ad sits in the middle of it.
+  // The box ads are 250x250, scaled to fill a frame the size of a big tile.
   const ads = {
     left: { width: 160, height: 600 },
-    box: { width: 300, height: 250, square: true },
-    box2: { width: 300, height: 250, square: true },
+    box: { width: 250, height: 250, square: true },
+    box2: { width: 250, height: 250, square: true },
     wide: { width: 728, height: 90 },
   };
   // The embed scans the page once, so an ad that has no place in the first
@@ -267,7 +266,7 @@
       if (!ad.box) createAd(ad);
       ad.box.hidden = false;
       setArea(ad.box, area);
-      // A square ad fills its frame's width; the others keep to the window's
+      // A square ad fills its frame; the others keep to the window's
       // scale.
       const scale = Math.min(
         span(area.cols) / ad.width,
