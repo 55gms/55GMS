@@ -1,4 +1,4 @@
-// Lays out a game page (/misc/play/): the game, up to four ad boxes and tiles of
+// Lays out a game page (/misc/play/): the game, three ad boxes and tiles of
 // random games on a grid of square cells that spans the window. The cell size
 // and the number of columns and rows come from the window's width and height,
 // and the last row holds the banner ad. The page ships only the game frame
@@ -154,17 +154,14 @@
     let board;
 
     if (stacked) {
-      // The game, the box ads with columns of tiles between them (one box on
-      // a narrow screen), two rows of tiles, then the banner.
+      // The game, the box ad beside columns of tiles, two rows of tiles, then
+      // the banner.
       const gameRows = Math.max(3, Math.round(cols * 0.5));
       const boxRows = wanted(ads.box) ? 3 : 0;
       rows = gameRows + boxRows + 2 + (wanted(ads.wide) ? 1 : 0);
       board = createBoard(cols, rows);
       game = board.take(1, 1, cols, gameRows);
       if (boxRows) placed.box = board.take(1, gameRows + 1, 3, 3);
-      if (boxRows && cols >= 8 && wanted(ads.box2)) {
-        placed.box2 = board.take(cols - 2, gameRows + 1, 3, 3);
-      }
       big[0] = board.take(1, gameRows + boxRows + 1, 2, 2);
       if (wanted(ads.wide)) {
         const wide = Math.min(8, cols);
@@ -174,9 +171,9 @@
     } else {
       // The game in the middle with as many columns to its left as to its
       // right (the right gets the odd one). A wide window has a skyscraper on
-      // the left; the box ads, each the size of a big tile, go at the top of
-      // the right and of the left (under the skyscraper, when it fits), with
-      // the big tiles under them.
+      // the left; a narrower one (a Chromebook's 1366px) has a second box ad
+      // there instead, so a page never shows more than three ads. The box
+      // ads are the size of a big tile, with the big tiles under them.
       // The game gets about two thirds of the columns, and all but six in a
       // wide window; a short window narrows it to keep its shape. The banner
       // has the window's last row, unless the window is so short that the
@@ -210,15 +207,9 @@
       if (left) {
         placed.left = board.take(1, 1, 2, Math.min(rows - 1, 6));
       }
-      if (wanted(ads.box2) && leftCols >= boxSize) {
+      if (!left && wanted(ads.box2) && leftCols >= boxSize) {
         // Above the banner's row, as the big tiles are.
-        placed.box2 = board.take(
-          1,
-          placed.left ? placed.left.rows + 1 : 1,
-          boxSize,
-          boxSize,
-          rows - 1,
-        );
+        placed.box2 = board.take(1, 1, boxSize, boxSize, rows - 1);
       }
       if (wanted(ads.box)) {
         placed.box = board.take(
