@@ -704,7 +704,10 @@
 
         // Refresh the handle, send an account that still has to choose one
         // to the chooser, and sign out a browser whose account is gone.
-        fetch("/api/me", { headers: { "X-User-UUID": uuid } })
+        fetch("/api/me", {
+          cache: "no-store",
+          headers: { "X-User-UUID": uuid },
+        })
           .then((response) => {
             if (response.status === 404) {
               localStorage.removeItem("uuid");
@@ -716,7 +719,8 @@
             return response.ok ? response.json() : null;
           })
           .then((me) => {
-            if (!me) return;
+            // An answer for another account came from a cache, not from us.
+            if (!me || me.uuid !== uuid) return;
             if (me.handlePending) {
               location.replace("/choose-handle");
               return;

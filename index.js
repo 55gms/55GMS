@@ -162,6 +162,14 @@ try {
     next();
   });
 
+  // API answers depend on who is asking. Without this, a CDN in front of the
+  // site (the Bunny pull zones cache for 30 days) serves one account's
+  // /api/me to everyone. Routes that want caching set their own header.
+  app.use("/api", (req, res, next) => {
+    res.setHeader("Cache-Control", "private, no-store");
+    next();
+  });
+
   if (features.accounts) {
     const [auth, users, admin] = await Promise.all([
       import("./routes/auth.js"),

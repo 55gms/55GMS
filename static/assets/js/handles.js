@@ -54,6 +54,7 @@
     let me = null;
     try {
       const response = await fetch("/api/me", {
+        cache: "no-store",
         headers: { "X-User-UUID": uuid },
       });
       if (response.status === 404) {
@@ -62,6 +63,8 @@
         return;
       }
       if (response.ok) me = await response.json();
+      // An answer for another account came from a cache, not from us.
+      if (me && me.uuid !== uuid) me = null;
     } catch (error) {
       console.error(error);
     }

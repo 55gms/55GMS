@@ -40,6 +40,7 @@ async function initializeChat() {
   // has to choose one cannot use chat yet.
   try {
     const response = await fetch("/api/me", {
+      cache: "no-store",
       headers: { "X-User-UUID": currentUser.uuid },
     });
     if (response.status === 404) {
@@ -48,8 +49,9 @@ async function initializeChat() {
       window.location.href = "/login";
       return;
     }
-    if (response.ok) {
-      const me = await response.json();
+    const me = response.ok ? await response.json() : null;
+    // An answer for another account came from a cache, not from us.
+    if (me && me.uuid === currentUser.uuid) {
       if (me.handlePending) {
         window.location.href = "/choose-handle";
         return;
