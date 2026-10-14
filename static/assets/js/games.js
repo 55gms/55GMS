@@ -2,17 +2,11 @@ const PRIORITY_THUMBNAILS = 24;
 const FAVORITES_KEY = "55gms.favoriteGames.v1";
 const RECENT_KEY = "55gms.recentGames.v1";
 const RECENT_LIMIT = 24;
-// Ad tiles among the cards (ad-tiles.js): where the first one goes, how many
-// cards apart they are, and how many at most.
-const GAME_AD_FIRST = 7;
-const GAME_AD_EVERY = 20;
-const GAME_AD_LIMIT = 4;
 let loadingFadeTimer;
 let loadingHideTimer;
 let progressFrame = 0;
 let progressShown = 0;
 let gameCards = [];
-let gameAds = [];
 let activeGameView = "all";
 let orderedGameView = "all";
 let favoriteGameIds = new Set(readStoredIds(FAVORITES_KEY));
@@ -83,7 +77,6 @@ async function loadGames() {
   clearTimeout(loadingFadeTimer);
   clearTimeout(loadingHideTimer);
   gameCards = [];
-  gameAds = [];
   orderedGameView = "all";
   gameContainer.replaceChildren();
   document.getElementById("game-empty").hidden = true;
@@ -127,7 +120,6 @@ async function loadGames() {
     }
     applyGameFilters();
     animateFirstScreen(cards);
-    loadGameAds();
 
     await glideProgress(1, 110);
     finishLoading(cards.length);
@@ -296,55 +288,6 @@ function createGameCard(game) {
   return entry;
 }
 
-// Puts the cards in `order`, with each ad tile at its place among them. Only
-// game cards are moved: moving an ad would reload the frame of a Google unit.
-function arrangeGameCards(container, order) {
-  const cards = order.map((entry) => entry.card);
-  gameAds.forEach((ad) => {
-    cards.splice(Math.min(ad.index, cards.length), 0, ad.card);
-  });
-  let next = null;
-  for (let i = cards.length - 1; i >= 0; i--) {
-    const isAd = cards[i].classList.contains("game-ad");
-    if (!isAd) container.insertBefore(cards[i], next);
-    next = cards[i];
-  }
-}
-
-// Asks for the ad tiles once the cards are in, and drops one that turns out
-// to have no ad.
-async function loadGameAds() {
-  if (typeof requestAdTiles !== "function") return;
-  if (gameCards.length <= GAME_AD_FIRST) return;
-  const cards = gameCards;
-  const count = Math.min(
-    GAME_AD_LIMIT,
-    Math.floor((cards.length - GAME_AD_FIRST) / GAME_AD_EVERY) + 1,
-  );
-  const ads = await requestAdTiles(count);
-  const gameContainer = document.getElementById("game-container");
-  if (!ads.length || cards !== gameCards || gameAds.length) return;
-
-  ads.forEach((ad, position) => {
-    const card = document.createElement("div");
-    card.className = "game game-ad";
-    const entry = { card, index: GAME_AD_FIRST + position * GAME_AD_EVERY };
-    gameAds.push(entry);
-    gameContainer.append(card);
-    fillAdTile(card, ad, {
-      linkClass: "game-link",
-      labelTag: "p",
-      labelClass: "text",
-      onEmpty: () => {
-        gameAds = gameAds.filter((other) => other !== entry);
-        card.remove();
-      },
-    });
-  });
-  orderedGameView = null;
-  applyGameFilters();
-}
-
 function applyGameFilters() {
   const gameContainer = document.getElementById("game-container");
   if (!gameContainer) return;
@@ -363,7 +306,7 @@ function applyGameFilters() {
               (recentPositions.get(b.id) ?? Infinity),
           )
         : gameCards;
-    arrangeGameCards(gameContainer, reordered);
+    gameContainer.append(...reordered.map((entry) => entry.card));
     orderedGameView = activeGameView;
   }
 
@@ -376,11 +319,6 @@ function applyGameFilters() {
     const shows = matchesView && entry.game.name.toLowerCase().includes(query);
     entry.card.style.display = shows ? "inline-block" : "none";
     if (shows) visible++;
-  });
-  // Ads sit among all the games, not in a search or a list of the visitor's.
-  const showAds = activeGameView === "all" && !query;
-  gameAds.forEach((ad) => {
-    ad.card.style.display = showAds ? "inline-block" : "none";
   });
 
   const favoritesCount = gameCards.filter((entry) =>
