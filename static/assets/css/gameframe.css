@@ -322,7 +322,7 @@
   pointer-events: none;
 }
 /* On a Google host the tile holds an AdSense unit, scaled to the tile. It
-   lifts on hover as a tile does, but is never dimmed or covered. */
+   hovers as a tile does: lifted and dimmed, with the label over it. */
 .ad-tile-window {
   display: block;
   position: relative;
@@ -332,10 +332,13 @@
   background-color: var(--site-surface-2, #3d4756);
   border-radius: var(--site-radius-md, 14px);
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.24);
-  transition: transform 0.35s ease;
+  transition:
+    transform 0.35s ease,
+    filter 0.35s ease;
 }
 .ad-tile--google:hover .ad-tile-window {
   transform: scale(1.05) translateY(-3px);
+  filter: brightness(0.7);
 }
 .ad-tile-fit {
   position: absolute;

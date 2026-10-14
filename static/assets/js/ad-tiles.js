@@ -4,7 +4,7 @@
 // banners, not tiles. A campaign's square creative becomes the tile's image
 // and its alt text the label, so the tile hovers like a game. On a host where
 // Google fills the ads, the tile holds an AdSense unit instead, and a campaign
-// takes its place when Google has nothing for it.
+// takes its place when Google has nothing for it. Both kinds hover the same.
 //
 //   requestAdTiles(count)          -> Promise of up to `count` ads
 //   fillAdTile(box, ad, options)   draws `ad` inside `box`
@@ -121,8 +121,13 @@
     const fit = document.createElement("div");
     fit.className = "ad-tile-fit";
     frame.append(fit);
+    // Google names no advertiser, so the hover label is a plain one. It lets
+    // clicks through to the ad under it.
+    const label = document.createElement(options.labelTag || "span");
+    label.className = options.labelClass || "";
+    label.textContent = "Sponsored";
     box.classList.add("ad-tile--google");
-    box.replaceChildren(frame);
+    box.replaceChildren(frame, label);
 
     let size = 0;
     let done = false;
