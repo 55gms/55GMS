@@ -669,7 +669,7 @@ h6 {
 }
 
 /* On a Google host the card holds an AdSense unit the size of a thumbnail.
-   It hovers as a card does: lifted and dimmed, with the label over it. */
+   It lifts on hover as a card does, but is never dimmed or covered. */
 .ad-tile-window {
   display: inline-block;
   position: relative;
@@ -678,14 +678,11 @@ h6 {
   overflow: hidden;
   background-color: var(--site-surface-2, #3d4756);
   border-radius: var(--site-radius-md, 14px);
-  transition:
-    transform 0.35s ease,
-    filter 0.35s ease;
+  transition: transform 0.35s ease;
 }
 
 .ad-tile--google:hover .ad-tile-window {
   transform: scale(1.05) translateY(-0.2vw);
-  filter: brightness(0.7);
 }
 
 .ad-tile-fit {
@@ -699,8 +696,4 @@ h6 {
   .ad-tile-window {
     transition: none;
   }
-}
-
-.ad-tile--google .text {
-  pointer-events: none;
 }
