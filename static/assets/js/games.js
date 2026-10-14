@@ -2,6 +2,51 @@ const PRIORITY_THUMBNAILS = 24;
 const FAVORITES_KEY = "55gms.favoriteGames.v1";
 const RECENT_KEY = "55gms.recentGames.v1";
 const RECENT_LIMIT = 24;
+const CATEGORY_SHORT_NAMES = {
+  "Action & Fighting": "Action",
+  "Adventure & Exploration": "Adventure",
+  "Arcade & Casual": "Arcade",
+  "Card & Board": "Cards",
+  "Cooking & Management": "Cooking",
+  "Horror": "Horror",
+  "Idle & Clicker": "Idle",
+  "Multiplayer & .io": ".io",
+  "Platformer & Parkour": "Parkour",
+  "Puzzle & Brain": "Puzzle",
+  "Racing & Driving": "Racing",
+  "Rhythm & Music": "Rhythm",
+  "Sandbox & Creative": "Sandbox",
+  "Shooter": "Shooter",
+  "Simulation": "Sim",
+  "Sports": "Sports",
+  "Strategy & Defense": "Strategy",
+  "Other": "Other",
+};
+
+function getGameCategory(game) {
+  return typeof game.category === "string" && game.category.trim()
+    ? game.category.trim()
+    : "Other";
+}
+
+function populateGameCategories(games) {
+  const select = document.getElementById("game-view-select");
+  if (!select) return;
+  select.querySelectorAll("option[data-game-category]").forEach((option) => option.remove());
+  const counts = new Map();
+  games.forEach((game) => {
+    const category = getGameCategory(game);
+    counts.set(category, (counts.get(category) || 0) + 1);
+  });
+  [...counts.keys()].sort((a, b) => a.localeCompare(b)).forEach((category) => {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = `${category} (${counts.get(category)})`;
+    option.dataset.gameCategory = "true";
+    select.appendChild(option);
+  });
+}
+
 let loadingFadeTimer;
 let loadingHideTimer;
 let progressFrame = 0;
@@ -113,6 +158,7 @@ async function loadGames() {
 
     gameCards = cards;
     gameContainer.appendChild(fragment);
+    populateGameCategories(cards.map(({ game }) => game));
 
     const searchbar = document.querySelector(".searchbar");
     if (searchbar) {
@@ -274,13 +320,19 @@ function createGameCard(game) {
   label.className = "text";
   label.textContent = game.name;
 
+  const category = getGameCategory(game);
+  const categoryBadge = document.createElement("span");
+  categoryBadge.className = "game-category-badge";
+  categoryBadge.textContent = CATEGORY_SHORT_NAMES[category] || category;
+  categoryBadge.title = category;
+
   const favoriteButton = document.createElement("button");
   favoriteButton.type = "button";
   favoriteButton.className = "game-favorite";
   favoriteButton.innerHTML =
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.9 2.8 5.7 6.3.9-4.55 4.44 1.08 6.27L12 17.25l-5.63 2.96 1.08-6.27L2.9 9.5l6.3-.9z"/></svg>';
 
-  control.append(image, label);
+  control.append(image, label, categoryBadge);
   card.append(control, favoriteButton);
   const entry = { id, game, card, image, imageUrl: game.image, favoriteButton };
   favoriteButton.addEventListener("click", () => toggleFavorite(entry));
@@ -315,7 +367,8 @@ function applyGameFilters() {
     const matchesView =
       activeGameView === "all" ||
       (activeGameView === "favorites" && favoriteGameIds.has(entry.id)) ||
-      (activeGameView === "recent" && recentPositions.has(entry.id));
+      (activeGameView === "recent" && recentPositions.has(entry.id)) ||
+      getGameCategory(entry.game) === activeGameView;
     const shows = matchesView && entry.game.name.toLowerCase().includes(query);
     entry.card.style.display = shows ? "inline-block" : "none";
     if (shows) visible++;
