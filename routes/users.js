@@ -5,8 +5,11 @@ import defaultAccounts, {
   areAccountWritesFrozen,
 } from "../services/accounts.js";
 import { noteSeen } from "../utils/lastSeen.js";
+import { isProxyStorageKey, withoutProxyKeys } from "../utils/saveKeys.js";
 
 // Keys the profile page rewrites on its own, left out of the fingerprint.
+// Proxied sites' storage is left out too: saves uploaded before it was
+// stripped still hold it, and Restore skips it.
 const SAVE_HASH_IGNORED_KEYS = new Set(["premium"]);
 const SAVE_HASH_CACHE_MAX = 1000;
 
@@ -20,7 +23,9 @@ function fingerprintSave(saveJson) {
     throw new Error("Save is not an object");
   }
   const keys = Object.keys(save)
-    .filter((key) => !SAVE_HASH_IGNORED_KEYS.has(key))
+    .filter(
+      (key) => !SAVE_HASH_IGNORED_KEYS.has(key) && !isProxyStorageKey(key),
+    )
     .sort();
   const entries = keys.map((key) => {
     const value = save[key];
@@ -62,7 +67,7 @@ export function createUsersRouter({ accounts = defaultAccounts } = {}) {
   });
 
   router.post("/uploadSave", async (req, res) => {
-    let saveData = req.body;
+    let saveData = withoutProxyKeys(req.body);
     let uuid = req.headers["uuid"];
 
     if (!saveData || !uuid) {

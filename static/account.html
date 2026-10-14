@@ -914,10 +914,59 @@
           syncHint.textContent = SYNC_HINTS[state];
         }
 
+        // The proxy keeps a proxied site's storage in ours as "<host>@<key>".
+        // It stays out of the cloud save. Older saves also hold scrambled
+        // copies of keys: the key URI-encoded, in base64, with letters and
+        // digits shifted by five, sometimes several times over.
+        // Must match isProxyStorageKey() in utils/saveKeys.js.
+        const PROXY_KEY = /^[a-z0-9-]+(\.[a-z0-9-]+)+(:\d+)?@/i;
+
+        function unscrambleKey(key) {
+          if (key.length % 4 !== 0 || !/^[A-Za-z0-9+/]+={0,2}$/.test(key))
+            return null;
+          const shifted = key.replace(/[A-Za-z0-9]/g, (char) => {
+            const code = char.charCodeAt(0);
+            if (code <= 57)
+              return String.fromCharCode(48 + ((code - 48 + 5) % 10));
+            const base = code >= 97 ? 97 : 65;
+            return String.fromCharCode(base + ((code - base + 21) % 26));
+          });
+          try {
+            const raw = atob(shifted);
+            if (!/^[\x20-\x7e]+$/.test(raw)) return null;
+            return decodeURIComponent(raw);
+          } catch {
+            return null;
+          }
+        }
+
+        function isProxyStorageKey(key) {
+          let plain = String(key);
+          for (let layer = 0; layer < 8; layer++) {
+            if (PROXY_KEY.test(plain)) return true;
+            const next = unscrambleKey(plain);
+            if (next === null) return false;
+            plain = next;
+          }
+          return PROXY_KEY.test(plain);
+        }
+
         function localSaveKeys() {
           return Object.keys(localStorage)
-            .filter((key) => !SYNC_IGNORED_KEYS.includes(key))
+            .filter(
+              (key) =>
+                !SYNC_IGNORED_KEYS.includes(key) && !isProxyStorageKey(key),
+            )
             .sort();
+        }
+
+        // What Upload sends: this browser's storage without the proxy's.
+        function localSave() {
+          const save = {};
+          for (const key of Object.keys(localStorage)) {
+            if (!isProxyStorageKey(key)) save[key] = localStorage.getItem(key);
+          }
+          return save;
         }
 
         // Must match fingerprintSave() in routes/users.js.
@@ -974,7 +1023,7 @@
               "Content-Type": "application/json",
               uuid: uuid,
             },
-            body: JSON.stringify(localStorage),
+            body: JSON.stringify(localSave()),
           })
             .then((response) => response.json())
             .then((data) => {
@@ -1018,6 +1067,8 @@
               const previous = new Map();
               try {
                 for (const key in data) {
+                  // Saves uploaded before proxy storage was left out.
+                  if (isProxyStorageKey(key)) continue;
                   const value =
                     typeof data[key] === "object"
                       ? JSON.stringify(data[key])

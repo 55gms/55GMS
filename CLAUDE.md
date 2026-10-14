@@ -73,6 +73,7 @@ For chat, run a PostgreSQL instance and `node setup-db.js` after configuring `PO
 | `utils/avatars.js`           | The preset avatar ids an account can pick; images are `static/img/avatars/<id>.svg`                               |
 | `scripts/migrate-handles.js` | One-off username-to-handle migration; steps in `docs/handles-rollout.md`                                          |
 | `utils/blockingCache.js`     | In-memory blocked-user cache                                                                                      |
+| `utils/saveKeys.js`          | Which localStorage keys stay out of a cloud save (the proxy's `host@key` storage); mirrored in `account.html`      |
 | `utils/ads.js`               | Mounts 55GMS Ads at `/_ads` when `ADS_SERVER_URL` and `ADS_API_KEY` are set                                       |
 | `utils/gameAssets.js`        | Relays `/misc/` files that are not on disk from the 55gms/assets mirror on jsDelivr                               |
 | `utils/ads-edge/`            | Vendored edge module from the gms-ads repo; do not edit here                                                      |
