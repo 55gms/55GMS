@@ -645,3 +645,46 @@ h6 {
     transform: none;
   }
 }
+
+.game-category-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 3;
+  display: block;
+  box-sizing: border-box;
+  max-width: calc(100% - 58px);
+  padding: 5px 8px;
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
+  font-family: "Roboto", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.game:hover .game-category-badge,
+.game:has(:focus-visible) .game-category-badge {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .game-category-badge {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-category-badge {
+    transition: none;
+  }
+}
+
