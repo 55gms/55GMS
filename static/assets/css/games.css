@@ -546,8 +546,6 @@ h6 {
   border-radius: 11px;
   color: var(--site-text, #ffffff);
   background: color-mix(in srgb, var(--site-button, #263b57) 32%, transparent);
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
@@ -558,8 +556,12 @@ h6 {
     opacity 0.35s ease;
 }
 
+/* The blur is only on the star in use: one on every card, shown or not, is
+   several hundred blurred layers for the browser to keep up while scrolling. */
 .game:hover .game-favorite,
 .game:has(:focus-visible) .game-favorite {
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
   opacity: 0.78;
   pointer-events: auto;
   transform: scale(1.05) translateY(-0.2vw);
@@ -621,7 +623,10 @@ h6 {
 }
 
 @media (hover: none) {
+  /* Every star shows on a touch screen, so none is blurred: a darker fill
+     keeps it readable over the thumbnail. */
   .game-favorite {
+    background: color-mix(in srgb, var(--site-button, #263b57) 70%, transparent);
     opacity: 0.78;
     pointer-events: auto;
   }
