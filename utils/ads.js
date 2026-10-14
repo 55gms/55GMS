@@ -28,7 +28,7 @@ export function mountAds(app) {
       `worker-${process.env.NODE_APP_INSTANCE || 0}`,
     ),
   });
-  app.use("/_ads", serveLocalhost, router);
+  app.use("/_ads", serveLocalhost, skipGoogle, router);
   return router;
 }
 
@@ -48,5 +48,26 @@ function serveLocalhost(req, res, next) {
   if (!LOCAL_HOSTS.has(host)) return next();
   if (req.path === "/i") return res.status(204).end();
   if (req.path === "/serve") req.headers.host = LOCAL_AD_DOMAIN;
+  next();
+}
+
+// Bunny pull zones (*.b-cdn.net) reach this server with Host: 55gms.com, so
+// the edge would give them Google ads, which are not approved there. script.js
+// points the embed at /_ads/no-google on those hosts instead. That prefix is
+// stripped here, and every /serve under it is answered as a fallback, which
+// the edge fills with campaigns only.
+const NO_GOOGLE = "/no-google";
+
+function skipGoogle(req, res, next) {
+  if (req.url !== NO_GOOGLE && !req.url.startsWith(`${NO_GOOGLE}/`)) {
+    return next();
+  }
+  req.url = req.url.slice(NO_GOOGLE.length) || "/";
+  const url = new URL(req.url, "http://edge.local");
+  if (url.pathname === "/site") return res.json({ google: false });
+  if (url.pathname === "/serve") {
+    url.searchParams.set("fallback", "1");
+    req.url = url.pathname + url.search;
+  }
   next();
 }

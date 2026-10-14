@@ -167,6 +167,11 @@ function whenDomReady(callback) {
       adsScript.integrity =
         "sha384-mQ/P4Pg92IA0slUqUgSpo8vMyWjV0gnjECz0xZrc1lSmEJ6wF2u43pGJbDSXo26m";
       adsScript.crossOrigin = "anonymous";
+      // Google is not approved on Bunny pull zones, and the server cannot tell
+      // them from 55gms.com, so they ask for campaign ads only (utils/ads.js).
+      if (/\.b-cdn\.net$/i.test(window.location.hostname)) {
+        adsScript.setAttribute("data-endpoint", "/_ads/no-google");
+      }
       document.head.append(adsScript);
     });
   }
