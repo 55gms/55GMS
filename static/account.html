@@ -1012,12 +1012,31 @@
               }),
             )
             .then((data) => {
-              for (const key in data) {
-                if (typeof data[key] === "object") {
-                  localStorage.setItem(key, JSON.stringify(data[key]));
-                } else {
-                  localStorage.setItem(key, data[key]);
+              // Restore adds to what this browser holds, so the two together
+              // can pass the storage limit. Put back what was there rather
+              // than leave half a save behind.
+              const previous = new Map();
+              try {
+                for (const key in data) {
+                  const value =
+                    typeof data[key] === "object"
+                      ? JSON.stringify(data[key])
+                      : String(data[key]);
+                  previous.set(key, localStorage.getItem(key));
+                  localStorage.setItem(key, value);
                 }
+              } catch (error) {
+                for (const [key, value] of previous) {
+                  if (value === null) localStorage.removeItem(key);
+                  else localStorage.setItem(key, value);
+                }
+                if (error.name !== "QuotaExceededError") throw error;
+                updateLocalSize();
+                toast(
+                  "error",
+                  "Your cloud save doesn't fit next to the data already in this browser, so nothing was changed. Upload first if you want to keep this browser's data, then use Clear local data and restore again.",
+                );
+                return;
               }
               updateLocalSize();
               toast("success", "Restored from the cloud.");
