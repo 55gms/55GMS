@@ -388,8 +388,13 @@ a:hover {
 .site-ad:has(> [data-55gms-ad][style]:not([style*="display: none"])) {
   margin-block: var(--site-ad-gap, 28px);
 }
+/* When Google leaves a slot unfilled, AdSense sets an inline height: 0 on the
+   box and keeps it there after ads.js puts a campaign in its place, which
+   leaves the campaign invisible. The box's height always comes from its
+   content (ads.js hides it with display: none when there is none). */
 .site-ad > [data-55gms-ad],
 .site-ad-rail > [data-55gms-ad] {
+  height: auto !important;
   margin: 0 auto;
   border-radius: var(--site-radius-sm, 10px);
   background-color: color-mix(
