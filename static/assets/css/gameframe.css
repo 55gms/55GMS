@@ -285,3 +285,67 @@
     transition: none;
   }
 }
+
+/* Ad tiles (ad-tiles.js): a campaign's square image in a tile, so the hover
+   is the tile's. The badge says what it is. */
+.ad-tile > a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  border-radius: var(--site-radius-md, 14px);
+}
+.ad-tile:has(:focus-visible) {
+  z-index: 1;
+}
+.ad-tile:has(:focus-visible) img {
+  transform: scale(1.05) translateY(-3px);
+  filter: brightness(0.7);
+}
+.ad-tile:has(:focus-visible) .game-tile-name {
+  opacity: 1;
+  transform: translate(-50%, -10px);
+}
+.ad-tile-badge {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+  padding: 1px 5px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  font-family: "Roboto", serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  line-height: 1.2;
+  pointer-events: none;
+}
+/* On a Google host the tile holds an AdSense unit, scaled to the tile. It
+   lifts on hover as a tile does, but is never dimmed or covered. */
+.ad-tile-window {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--site-surface-2, #3d4756);
+  border-radius: var(--site-radius-md, 14px);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.24);
+  transition: transform 0.35s ease;
+}
+.ad-tile--google:hover .ad-tile-window {
+  transform: scale(1.05) translateY(-3px);
+}
+.ad-tile-fit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ad-tile-window {
+    transition: none;
+  }
+}

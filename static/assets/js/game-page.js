@@ -1,5 +1,6 @@
 // Lays out a game page (/misc/play/): the game, three ad boxes and tiles of
-// random games on a grid of square cells that spans the window. The cell size
+// random games on a grid of square cells that spans the window. A couple of
+// the tiles are ads shaped like a game (ad-tiles.js). The cell size
 // and the number of columns and rows come from the window's width and height,
 // and the last row holds the banner ad. The page ships only the game frame
 // inside #gamepage; the look is in gameframe.css. Runs at the end of <body>,
@@ -20,6 +21,8 @@
   const AD_FULL_WIDTH = 1700; // the window width at which an ad is its own size
   const AD_MIN_SCALE = 0.6;
   const AD_MAX_SCALE = 1.15;
+  const AD_TILES = 2; // tiles that are ads, at most
+  const AD_TILE_REACH = 12; // they go among the first this many tiles
 
   const showAds = typeof adChoices !== "function" || adChoices().banners;
   // The box ads are 250x250, scaled to fill a frame the size of a big tile.
@@ -331,7 +334,7 @@
   }
 
   function show(tile, big) {
-    if (tile.game || !queue.length) return;
+    if (tile.ad || tile.game || !queue.length) return;
     // A big tile has room for a clip, so it takes a game that has one.
     const index = big
       ? Math.max(
@@ -358,6 +361,33 @@
     tile.addEventListener("click", () => {
       recordGamePlayed(game);
       if (game.alert) window.alert(game.alert);
+    });
+  }
+
+  // Turns some of the tiles into ad tiles, at most one tile in four. One
+  // that ends up with no ad goes back to being a game.
+  function placeAdTiles(found) {
+    const spots = shuffle([...tiles.keys()].slice(0, AD_TILE_REACH));
+    found.slice(0, Math.floor(tiles.length / 4)).forEach((ad, position) => {
+      const index = spots[position];
+      const old = tiles[index];
+      if (old.game) queue?.push(old.game);
+      const tile = document.createElement("div");
+      tile.className = "game-tile";
+      tile.ad = true;
+      tiles[index] = tile;
+      old.replaceWith(tile);
+      fillAdTile(tile, ad, {
+        labelClass: "game-tile-name",
+        onEmpty: () => {
+          const at = tiles.indexOf(tile);
+          if (at === -1) return;
+          const fresh = createTile(false);
+          tiles[at] = fresh;
+          tile.replaceWith(fresh);
+          if (queue) show(fresh, false);
+        },
+      });
     });
   }
 
@@ -419,6 +449,10 @@
     cancelAnimationFrame(resizeFrame);
     resizeFrame = requestAnimationFrame(layout);
   });
+
+  if (showAds && typeof requestAdTiles === "function") {
+    requestAdTiles(AD_TILES).then(placeAdTiles);
+  }
 
   fetch("/assets/json/load/g.json")
     .then((response) => {
