@@ -273,8 +273,14 @@
         span(area.rows) / ad.height,
         ad.square ? Infinity : adScale,
       );
-      ad.fit.style.width = `${Math.floor(ad.width * scale)}px`;
-      ad.fit.style.height = `${Math.floor(ad.height * scale)}px`;
+      const fitWidth = Math.floor(ad.width * scale);
+      const fitHeight = Math.floor(ad.height * scale);
+      ad.fit.style.width = `${fitWidth}px`;
+      ad.fit.style.height = `${fitHeight}px`;
+      // A Google ad is a fixed size in pixels; the stylesheet scales it by
+      // these to fill the box.
+      ad.fit.style.setProperty("--ad-scale-x", fitWidth / ad.width);
+      ad.fit.style.setProperty("--ad-scale-y", fitHeight / ad.height);
     }
     adsOpen = false;
 

@@ -187,6 +187,11 @@
   height: 100% !important;
   object-fit: fill;
 }
+/* A Google ad comes at its own size in pixels, so it is scaled to the box. */
+.ad-fit [data-55gms-ad] ins.adsbygoogle {
+  transform: scale(var(--ad-scale-x, 1), var(--ad-scale-y, 1));
+  transform-origin: 0 0;
+}
 
 /* Game tiles: the hover and the clip are the games page's (games.css). */
 .game-tile {
