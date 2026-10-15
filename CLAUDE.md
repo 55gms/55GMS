@@ -134,19 +134,20 @@ The proxy surface (phases 3–5) is not built: see `docs/superpowers/specs/2026-
 
 The site uses Mercury Workshop libraries for browser-based proxying, pinned in `package.json`:
 
-- `@mercuryworkshop/scramjet`, `scramjet-controller`, `scramjet-utils`, `epoxy-transport`, `wisp-js`
+- `@mercuryworkshop/scramjet`, `scramjet-controller`, `scramjet-utils` (versions only; the bundles come from jsDelivr), `epoxy-transport`, `wisp-js`
 
-The bundles are not copied into `static/`. `utils/proxyAssets.js` serves seven files straight from `node_modules` under neutral names in `/assets/lib/`, mounted by `mountProxyAssets(app)` in `index.js` ahead of the static middleware:
+The Scramjet bundles load from jsDelivr: the renamed `jet.*` build from [TongSherbet/storage](https://github.com/TongSherbet/storage/tree/main/sj), patched by `scripts/build-proxy-cdn.js` and committed under neutral names to `lib/` in 55gms/assets, pinned to a commit (`https://cdn.jsdelivr.net/gh/55gms/assets@<commit>/lib/`). Their globals are `$jet`, `$jetController` and `$jetUtils`.
 
-| URL                            | Source (`node_modules/@mercuryworkshop/`)       |
-| ------------------------------ | ----------------------------------------------- |
-| `/assets/lib/vendor-core.js`   | `scramjet/dist/scramjet.js`                     |
-| `/assets/lib/vendor-core.wasm` | `scramjet/dist/scramjet.wasm`                   |
-| `/assets/lib/vendor-frame.js`  | `scramjet-controller/dist/controller.api.js`    |
-| `/assets/lib/vendor-page.js`   | `scramjet-controller/dist/controller.inject.js` |
-| `/assets/lib/vendor-worker.js` | `scramjet-controller/dist/controller.sw.js`     |
-| `/assets/lib/vendor-util.js`   | `scramjet-utils` (`scramjet-utils.js`)          |
-| `/assets/lib/vendor-net.js`    | `epoxy-transport/dist/index.js`                 |
+| File               | Source          |
+| ------------------ | --------------- |
+| `vendor-core.js`   | `jet.core.js`   |
+| `vendor-core.wasm` | `jet.wasm`      |
+| `vendor-frame.js`  | `jet.api.js`    |
+| `vendor-page.js`   | `jet.inject.js` |
+| `vendor-worker.js` | `jet.sw.js`     |
+| `vendor-util.js`   | `jet.utils.js`  |
+
+The commit appears in `static/embed.html`, `static/sw.js`, `CDN_BASE` in `static/assets/js/frame-runtime.js` and `scripts/smoke.mjs`; change all four together. Only the Epoxy transport is still served from `node_modules`, by `utils/proxyAssets.js` (`mountProxyAssets(app)`) at `/assets/lib/vendor-net.js`.
 
 The rest of the stack:
 

@@ -1,21 +1,22 @@
 "use strict";
 
 window.frameRuntime = (() => {
-  const CORE_VERSION = "2.0.67-alpha.2-3";
-  const CONTROLLER_VERSION = "0.0.14-1";
-  // Not derived from CORE_VERSION: the worker only loads the controller's
-  // worker bundle, and a new URL makes returning browsers install a second
-  // worker that cannot take over while the old one still has frame requests
-  // pending, so the page times out. Change it only when sw.js or that bundle
-  // changes.
-  const WORKER_URL = "/sw.js?v=2.0.67-alpha.2-1-0.0.14-1-2";
+  // The bundles are published to jsDelivr from 55gms/assets (lib/), pinned to
+  // a commit so the URLs never change underneath a cached page. Built by
+  // scripts/build-proxy-cdn.js; sw.js and embed.html carry the same base.
+  const CDN_BASE =
+    "https://cdn.jsdelivr.net/gh/55gms/assets@bfac352da7d391bcb68e867ca5e55f20ea2b0fb7/lib/";
+  // A new URL makes returning browsers install a second worker that cannot
+  // take over while the old one still has frame requests pending, so the page
+  // times out. Change it only when sw.js or the worker bundle changes.
+  const WORKER_URL = "/sw.js?v=bfac352";
   const PREFIX = "/stream/";
   const LEGACY_SCOPES = ["/", "/~/sj/"];
   const VIRTUAL_DATA = "vendor-data.js";
 
   // The vendor bundles publish themselves as globals. Look them up by
   // assembled name so this file never spells out which libraries they are.
-  const ns = ["$scr", "amj", "et"].join("");
+  const ns = ["$j", "et"].join("");
   const core = window[ns];
   const frames = window[ns + "Controller"];
   const helpers = window[ns + "Utils"];
@@ -399,9 +400,9 @@ window.frameRuntime = (() => {
       config: {
         prefix: PREFIX,
         // Computed keys: the option names are the library's, not ours.
-        [ns.slice(1) + "Path"]: `/assets/lib/vendor-core.js?v=${CORE_VERSION}`,
-        wasmPath: `/assets/lib/vendor-core.wasm?v=${CORE_VERSION}`,
-        injectPath: `/assets/lib/vendor-page.js?v=${CONTROLLER_VERSION}`,
+        [ns.slice(1) + "Path"]: CDN_BASE + "vendor-core.js",
+        wasmPath: CDN_BASE + "vendor-core.wasm",
+        injectPath: CDN_BASE + "vendor-page.js",
         virtualWasmPath: VIRTUAL_DATA,
         codec,
       },

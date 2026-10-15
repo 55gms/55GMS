@@ -16,7 +16,20 @@ The compatible package versions are pinned in `package.json` and `package-lock.j
 
 `proxy-transports` replaces BareMux through the controller/core dependencies. Epoxy uses Wisp protocol version 2. The site connects to `/api/live/`; the server still accepts `/wisp/` for external clients. The embed no longer reads a saved endpoint from `localStorage`.
 
-`utils/proxyAssets.js` serves exactly seven bundle files under neutral names in `/assets/lib/` (`vendor-core.js`, `vendor-core.wasm`, `vendor-frame.js`, `vendor-page.js`, `vendor-worker.js`, `vendor-util.js`, `vendor-net.js`); the package directories themselves are not mounted. Core, WASM, API, injection, worker, transport, and helper URLs include their versions so an upgrade does not mix cached generations. `static/assets/js/frame-runtime.js` gives a replacement service worker a short grace period to activate, then starts on the one that is already active (it only insists on activation for a first install) and waits for the controller handshake before navigating; if a replacement worker activates later, `followWorker` re-points the controller at it. Registration and transport initialization run concurrently, with bounded startup deadlines.
+The Scramjet bundles (core, WASM, controller API, injection, worker and helpers) load from jsDelivr, not this server. They come from the renamed build in [TongSherbet/storage](https://github.com/TongSherbet/storage/tree/main/sj) (`jet.*`, globals `$jet`, `$jetController`, `$jetUtils`), the same versions as the table above. `scripts/build-proxy-cdn.js` downloads them from a pinned commit, patches them (below) and writes them under neutral names; they are committed to `lib/` in [55gms/assets](https://github.com/55gms/assets) and loaded from `https://cdn.jsdelivr.net/gh/55gms/assets@<commit>/lib/`:
+
+| File               | Source          |
+| ------------------ | --------------- |
+| `vendor-core.js`   | `jet.core.js`   |
+| `vendor-core.wasm` | `jet.wasm`      |
+| `vendor-frame.js`  | `jet.api.js`    |
+| `vendor-page.js`   | `jet.inject.js` |
+| `vendor-worker.js` | `jet.sw.js`     |
+| `vendor-util.js`   | `jet.utils.js`  |
+
+The URL is pinned to a commit, so a cached page never mixes generations. The base appears in `static/embed.html`, `static/sw.js` (`importScripts`), `static/assets/js/frame-runtime.js` (`CDN_BASE`) and `scripts/smoke.mjs`. To change the bundles: run `node scripts/build-proxy-cdn.js <out-dir>`, commit the output to `lib/` in 55gms/assets, replace the commit in those four files, and bump `WORKER_URL` in `frame-runtime.js` because `sw.js` changes. Only the Epoxy transport is still served from `node_modules`, by `utils/proxyAssets.js` at `/assets/lib/vendor-net.js`.
+
+`static/assets/js/frame-runtime.js` gives a replacement service worker a short grace period to activate, then starts on the one that is already active (it only insists on activation for a first install) and waits for the controller handshake before navigating; if a replacement worker activates later, `followWorker` re-points the controller at it. Registration and transport initialization run concurrently, with bounded startup deadlines.
 
 The HTTP cache plugin stores upstream bytes for scripts, styles, fonts, images, and WASM, respecting upstream cache directives. A policy wrapper excludes media streams, range requests, API responses, mismatched content types, and responses declaring more than 8 MiB. Cached upstream bytes are rewritten again for the requesting frame's prefix.
 
@@ -26,7 +39,11 @@ When publishing a new proxy generation, reload existing proxy/media tabs. The ne
 
 Nothing the browser requests or renders for the player names the libraries. Served site files (`embed.html`, `sw.js`, `frame-runtime.js`, the media pages) look the bundles' globals up by assembled name and expose them as `frameRuntime.core` and friends. Frame URLs are `/stream/<controller>/<frame>/<token>`, where the token is the controller codec's XOR + base64url encoding of the destination; the watch pages pass the same token to the embed as `/embed.html#~<token>` (`mediaPlayer.token` in `player.js` must stay in sync with the codec). The browser shell (`static/browser.html`, served at `/b`) passes the same token via `frameHash` in `browser.js`; the embed still accepts a plain URL in the hash.
 
-The core tags frame URLs with request metadata (`$io=<origin>`, `$rfs=<referrer>`, `$dest`, …) as a plain query string. `utils/proxyAssets.js` edits `vendor-core.js` as it serves it (`packFrameQuery`) so that query is packed into a single `?_=<token>` parameter with the same codec, and unpacked where the core reads it. Static `import` specifiers are the exception: the WASM rewriter writes `?%24module=module&%24io=<origin>` itself and ties its output to a position map, so that tail is swapped in place for a same-length `?_=.<rotated text>` instead. The four anchors it edits must each match exactly once or the server refuses to start, so re-check them on a core upgrade, and bump `CORE_VERSION` whenever the edits change. `WORKER_URL` in `frame-runtime.js` is deliberately a fixed string: bumping it makes a returning browser install a second worker, which cannot take over while the old one still has frame requests pending, and the embed then fails with "The service worker did not activate". Change it only when `sw.js` or the worker bundle changes.
+The core tags frame URLs with request metadata (`$io=<origin>`, `$rfs=<referrer>`, `$dest`, …) as a plain query string. `scripts/build-proxy-cdn.js` edits `vendor-core.js` so that query is packed into a single `?_=<token>` parameter with the same codec, and unpacked where the core reads it. Static `import` specifiers are the exception: the WASM rewriter writes `?%24module=module&%24io=<origin>` itself and ties its output to a position map, so that tail is swapped in place for a same-length `?_=.<rotated text>` instead. The anchors it edits must each match exactly once or the build fails, so re-check them when the source changes.
+
+The renamed core defines its realm helper as `$jet$setrealmfn`, but the rebuilt WASM still emits calls to `$scramjet$setrealmfn`, which would throw in any page whose code it rewrites that way. The build gives both the same 20-character name, `$jet$setrealmfn_____`, swapping the WASM bytes in place so its string data keeps its length. It also swaps the one other `scramjet` string in the WASM, an error message.
+
+`WORKER_URL` in `frame-runtime.js` is deliberately a fixed string: bumping it makes a returning browser install a second worker, which cannot take over while the old one still has frame requests pending, and the embed then fails with "The service worker did not activate". Change it only when `sw.js` or the worker bundle changes.
 
 Limits: the bundle bodies still contain their own names.
 

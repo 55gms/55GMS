@@ -1,6 +1,8 @@
-importScripts("/assets/lib/vendor-worker.js?v=0.0.14-1");
+importScripts(
+  "https://cdn.jsdelivr.net/gh/55gms/assets@bfac352da7d391bcb68e867ca5e55f20ea2b0fb7/lib/vendor-worker.js",
+);
 
-const frames = self[["$scr", "amj", "etController"].join("")];
+const frames = self[["$j", "etController"].join("")];
 
 // The controller owns RPC, activation, client claiming and worker recovery.
 // Leave local requests to the browser instead of intercepting every asset.

@@ -1,141 +1,19 @@
-import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
-import { scramjetPath } from "@mercuryworkshop/scramjet/path";
 import { getStaticCacheControl } from "./httpPerformance.js";
 
 const require = createRequire(import.meta.url);
 const packageDir = (name) => dirname(require.resolve(name));
 
-// Each bundle is published under a neutral URL: the browser never requests a
-// path that names the package it came from, and nothing else in those
-// package directories is reachable.
+// The transport bundle is published under a neutral URL: the browser never
+// requests a path that names the package it came from, and nothing else in
+// that package directory is reachable. The other proxy bundles load from
+// jsDelivr; see scripts/build-proxy-cdn.js.
 export const proxyAssetFiles = {
-  "/assets/lib/vendor-core.js": join(scramjetPath, "scramjet.js"),
-  "/assets/lib/vendor-core.wasm": join(scramjetPath, "scramjet.wasm"),
-  "/assets/lib/vendor-frame.js": join(
-    packageDir("@mercuryworkshop/scramjet-controller"),
-    "controller.api.js",
-  ),
-  "/assets/lib/vendor-page.js": join(
-    packageDir("@mercuryworkshop/scramjet-controller"),
-    "controller.inject.js",
-  ),
-  "/assets/lib/vendor-worker.js": join(
-    packageDir("@mercuryworkshop/scramjet-controller"),
-    "controller.sw.js",
-  ),
-  "/assets/lib/vendor-util.js": join(
-    packageDir("@mercuryworkshop/scramjet-utils"),
-    "scramjet-utils.js",
-  ),
   "/assets/lib/vendor-net.js": join(
     packageDir("@mercuryworkshop/epoxy-transport"),
     "index.js",
   ),
-};
-
-// The core tags frame URLs with request metadata as a readable query string,
-// e.g. `?$io=https://example.com`, which spells out the site being visited.
-// These edits pack that query into one `?_=<token>` parameter using the same
-// codec as the path, and unpack it where the core reads it back. Each anchor
-// must match exactly once, so a core upgrade that moves them fails at startup
-// instead of quietly serving readable URLs again.
-// Static `import` specifiers are tagged inside the WASM rewriter, which writes
-// `?%24module=module&%24io=<origin>` itself. Its output is tied to a position
-// map, so that tail is swapped in place for one of the same length:
-// `?_=.` followed by this character rotation of twenty zeros and the origin.
-// Both functions are injected into the core as source, so they must stay
-// self-contained.
-function rotateTail(text, sign) {
-  const set =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~";
-  let out = "";
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    const at = set.indexOf(c);
-    if (at < 0) out += c === "%" ? "!" : c === "!" ? "%" : c;
-    else out += set[(((at + sign * (11 + i * 7)) % 66) + 66) % 66];
-  }
-  return out;
-}
-
-function hideImportTails(js, rotate) {
-  const mark = "?%24module=module&%24io=";
-  const swap = (origin) => "?_=." + rotate("0".repeat(20) + origin, 1);
-  if (typeof js === "string")
-    return js.replace(
-      /\?%24module=module&%24io=([\w.~%:\/-]*)/g,
-      (all, origin) => swap(origin),
-    );
-  for (let i = js.indexOf(63); i !== -1; i = js.indexOf(63, i + 1)) {
-    let j = 0;
-    while (j < mark.length && js[i + j] === mark.charCodeAt(j)) j++;
-    if (j < mark.length) continue;
-    let end = i + j;
-    let origin = "";
-    while (end < js.length) {
-      const c = String.fromCharCode(js[end]);
-      if (!/[\w.~%:\/-]/.test(c)) break;
-      origin += c;
-      end++;
-    }
-    const tail = swap(origin);
-    for (j = 0; j < tail.length; j++) js[i + j] = tail.charCodeAt(j);
-    i = end - 1;
-  }
-  return js;
-}
-
-const UNPACK = (params, context, known) =>
-  `(()=>{let P=new URLSearchParams([...${params}.entries()]),V=P.get("_");` +
-  `if(V&&V[0]===".")try{let T=(${rotateTail})(V.slice(1),-1);` +
-  `if(T.startsWith("0".repeat(20))){P.delete("_");P.set("$module","module");` +
-  `P.set("$io",decodeURIComponent(T.slice(20)))}}catch{}` +
-  `else if(V)try{let D=new URLSearchParams(${context}.interface.codecDecode(V)),` +
-  `N=[...D.keys()];if(N.length&&N.every(k=>${known})){P.delete("_");` +
-  `for(let[k,v]of D)P.set(k,v)}}catch{}return P})()`;
-
-const coreEdits = [
-  // Building a frame URL.
-  [
-    'let g="";return c.toString()&&(g="?"+c.toString()),',
-    'let g="";return c.toString()&&(g="?_="+t.interface.codecEncode(c.toString())),',
-  ],
-  // Reading the metadata back off a frame request.
-  [
-    '}(e.rawUrl.searchParams);a.search=""',
-    `}(${UNPACK("e.rawUrl.searchParams", "t.context", "Object.hasOwn(A,k)")});a.search=""`,
-  ],
-  // Redirects add more metadata to an already-built frame URL: fold it into
-  // the packed parameter.
-  [
-    'b.set("location",o.href)',
-    'b.set("location",(()=>{let K=Object.values(s.QP),' +
-      `Q=${UNPACK("o.searchParams", "e.context", "K.includes(k)")},R=new URLSearchParams;` +
-      "for(let k of K){let v=Q.get(k);null!==v&&R.set(k,v);o.searchParams.delete(k)}" +
-      'o.searchParams.delete("_");' +
-      'R.toString()&&o.searchParams.set("_",e.context.interface.codecEncode(R.toString()));' +
-      "return o.href})())",
-  ],
-  // Module scripts coming out of the WASM rewriter.
-  [
-    'return{js:"string"==typeof e?(0,s.hS)(u):u,tag:d,map:g,errors:p}',
-    `return{js:(${hideImportTails})("string"==typeof e?(0,s.hS)(u):u,${rotateTail}),tag:d,map:g,errors:p}`,
-  ],
-];
-
-export function packFrameQuery(source) {
-  for (const [find, replace] of coreEdits) {
-    if (source.split(find).length !== 2)
-      throw new Error(`Proxy core changed; cannot find: ${find}`);
-    source = source.replace(find, () => replace);
-  }
-  return source;
-}
-
-const proxyAssetEdits = {
-  "/assets/lib/vendor-core.js": packFrameQuery,
 };
 
 export function mountProxyAssets(app) {
@@ -144,20 +22,7 @@ export function mountProxyAssets(app) {
     // file is actually sent: set up front, it would also ride along on the 404
     // for a missing file, and browsers would keep that 404 for a day.
     const headers = { "Cache-Control": getStaticCacheControl(file) };
-    const edit = proxyAssetEdits[route];
-    let body;
-    if (edit) {
-      let source;
-      try {
-        source = readFileSync(file, "utf8");
-      } catch (err) {
-        // A missing file falls through to sendFile and its 404.
-        if (err.code !== "ENOENT") throw err;
-      }
-      if (source !== undefined) body = Buffer.from(edit(source));
-    }
     app.get(route, (req, res, next) => {
-      if (body) return res.set(headers).type("js").send(body);
       res.sendFile(file, { headers }, (err) => err && next(err));
     });
   }

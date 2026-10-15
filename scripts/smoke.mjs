@@ -8,7 +8,7 @@
 // This is the check that would have caught the "vendor-core.js 404 / text-html"
 // failure: it loads /embed.html and every bundle frame-runtime needs, asserts
 // each is served as JavaScript/WASM (not the SPA fallback HTML), and confirms
-// the served vendor-core.js still defines $scramjet. Exits non-zero on the
+// the vendor-core.js on jsDelivr still defines $jet. Exits non-zero on the
 // first problem so it is usable in a pre-push check.
 
 import { spawn } from "node:child_process";
@@ -22,6 +22,10 @@ const PORT = portArg !== -1 ? Number(args[portArg + 1]) : 8199;
 const BASE = `http://localhost:${PORT}`;
 const forceSource = args.includes("--source");
 
+// The bundles frame-runtime.js, sw.js and embed.html load from jsDelivr.
+const CDN =
+  "https://cdn.jsdelivr.net/gh/55gms/assets@bfac352da7d391bcb68e867ca5e55f20ea2b0fb7/lib/";
+
 // Each check: a URL, the HTTP status we expect, and a substring the
 // Content-Type must contain. The SPA fallback answers unmatched routes with
 // `text/html`, so a bundle served as `text/html` is the failure we are hunting.
@@ -29,11 +33,13 @@ const checks = [
   { url: "/embed.html", status: 200, type: "text/html" },
   { url: "/b", status: 200, type: "text/html" },
   { url: "/assets/js/frame-runtime.js", status: 200, type: "javascript" },
-  { url: "/assets/lib/vendor-core.js?v=2.0.67-alpha.2-3", status: 200, type: "javascript" },
-  { url: "/assets/lib/vendor-frame.js?v=0.0.14-1", status: 200, type: "javascript" },
-  { url: "/assets/lib/vendor-util.js?v=0.0.3-1", status: 200, type: "javascript" },
   { url: "/assets/lib/vendor-net.js?v=3.0.1-1", status: 200, type: "javascript" },
-  { url: "/assets/lib/vendor-core.wasm?v=2.0.67-alpha.2-3", status: 200, type: "wasm" },
+  { url: CDN + "vendor-core.js", status: 200, type: "javascript" },
+  { url: CDN + "vendor-frame.js", status: 200, type: "javascript" },
+  { url: CDN + "vendor-util.js", status: 200, type: "javascript" },
+  { url: CDN + "vendor-page.js", status: 200, type: "javascript" },
+  { url: CDN + "vendor-worker.js", status: 200, type: "javascript" },
+  { url: CDN + "vendor-core.wasm", status: 200, type: "wasm" },
   { url: "/sw.js", status: 200, type: "javascript" },
 ];
 
@@ -76,7 +82,7 @@ async function main() {
     for (const c of checks) {
       let line;
       try {
-        const res = await fetch(`${BASE}${c.url}`, { redirect: "manual" });
+        const res = await fetch(new URL(c.url, BASE), { redirect: "manual" });
         const type = res.headers.get("content-type") || "";
         const ok = res.status === c.status && type.includes(c.type);
         if (!ok) failed++;
@@ -92,10 +98,10 @@ async function main() {
     // stack destructures; an empty/HTML body would pass the type check in
     // theory but fail here.
     try {
-      const body = await (await fetch(`${BASE}/assets/lib/vendor-core.js?v=2.0.67-alpha.2-3`)).text();
-      const defines = /\$scramjet/.test(body) && body.length > 1000;
+      const body = await (await fetch(CDN + "vendor-core.js")).text();
+      const defines = /self\.\$jet=/.test(body) && body.length > 1000;
       if (!defines) failed++;
-      console.log(`${defines ? "ok  " : "FAIL"} vendor-core defines $scramjet (${body.length} bytes)`);
+      console.log(`${defines ? "ok  " : "FAIL"} vendor-core defines $jet (${body.length} bytes)`);
     } catch (err) {
       failed++;
       console.log(`FAIL reading vendor-core body: ${err.message}`);
