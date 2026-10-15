@@ -75,28 +75,65 @@ window.GameLoader = (() => {
     render();
   }
 
+  // jsDelivr's main host sometimes caches GitHub's rate-limit page ("429: Too
+  // Many Requests", sent with a 200) in place of a file. Its other hosts keep
+  // their own caches, so a file that fails or comes back as such a page is
+  // asked for again from them.
+  const MIRRORS = ["fastly.jsdelivr.net", "gcore.jsdelivr.net"];
+  function sources(url) {
+    if (new URL(url).hostname !== "cdn.jsdelivr.net") return [url];
+    return [
+      url,
+      ...MIRRORS.map((host) => {
+        const mirror = new URL(url);
+        mirror.hostname = host;
+        return mirror.href;
+      }),
+    ];
+  }
+
+  // GitHub's error pages are a few bytes of text such as "404: Not Found".
+  async function isErrorPage(blob) {
+    return blob.size <= 1024 && /^\d{3}: /.test(await blob.text());
+  }
+
   function download(path) {
     const url = new URL(path, document.baseURI).href;
     if (downloads.has(url)) return downloads.get(url);
     const promise = (async () => {
-      const response = await fetch(url);
-      if (!response.ok)
-        throw new Error(`Failed to load ${path}: ${response.status}`);
-      const reader = response.body.getReader();
-      const chunks = [];
-      let received = 0;
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        chunks.push(value);
-        received += value.byteLength;
-        loaded += value.byteLength;
-        render();
+      let error;
+      for (const source of sources(url)) {
+        let received = 0;
+        try {
+          const response = await fetch(source);
+          if (!response.ok)
+            throw new Error(`Failed to load ${path}: ${response.status}`);
+          const reader = response.body.getReader();
+          const chunks = [];
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            chunks.push(value);
+            received += value.byteLength;
+            loaded += value.byteLength;
+            render();
+          }
+          const blob = new Blob(chunks);
+          if (await isErrorPage(blob))
+            throw new Error(
+              `Failed to load ${path}: the CDN sent an error page`,
+            );
+          sizes.set(url, received);
+          completed += 1;
+          render();
+          return blob;
+        } catch (failure) {
+          error = failure;
+          loaded -= received;
+          render();
+        }
       }
-      sizes.set(url, received);
-      completed += 1;
-      render();
-      return new Blob(chunks);
+      throw error;
     })();
     downloads.set(url, promise);
     return promise;

@@ -27,16 +27,45 @@ window.GameParts = (() => {
     }
   };
 
-  async function join(parts, type, lazy) {
-    if (window.GameLoader && !lazy) return GameLoader.merge(parts, type);
-    const blobs = await Promise.all(
-      parts.map(async (part) => {
-        const response = await fetch(new URL(part, document.baseURI));
+  // jsDelivr's main host sometimes caches GitHub's rate-limit page ("429: Too
+  // Many Requests", sent with a 200) in place of a file. Its other hosts keep
+  // their own caches, so a part that fails or comes back as such a page is
+  // asked for again from them. GameLoader.download does the same.
+  const MIRRORS = ["fastly.jsdelivr.net", "gcore.jsdelivr.net"];
+  function sources(url) {
+    if (url.hostname !== "cdn.jsdelivr.net") return [url];
+    return [
+      url,
+      ...MIRRORS.map((host) => {
+        const mirror = new URL(url);
+        mirror.hostname = host;
+        return mirror;
+      }),
+    ];
+  }
+
+  async function download(part) {
+    let error;
+    for (const url of sources(new URL(part, document.baseURI))) {
+      try {
+        const response = await fetch(url);
         if (!response.ok)
           throw new Error(`Failed to load ${part}: ${response.status}`);
-        return response.blob();
-      }),
-    );
+        const blob = await response.blob();
+        // GitHub's error pages are a few bytes of text such as "404: Not Found".
+        if (blob.size <= 1024 && /^\d{3}: /.test(await blob.text()))
+          throw new Error(`Failed to load ${part}: the CDN sent an error page`);
+        return blob;
+      } catch (failure) {
+        error = failure;
+      }
+    }
+    throw error;
+  }
+
+  async function join(parts, type, lazy) {
+    if (window.GameLoader && !lazy) return GameLoader.merge(parts, type);
+    const blobs = await Promise.all(parts.map(download));
     return URL.createObjectURL(new Blob(blobs, { type }));
   }
 

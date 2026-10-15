@@ -88,6 +88,8 @@ For game pages, prefer the existing jsDelivr base pattern when possible because 
 />
 ```
 
+Write a new page with `@main`, push its files to 55gms/assets, then run `node scripts/pin-game-assets.js` and commit the result: it pins every `55gms/assets` URL to the last commit that changed that game's folder. jsDelivr keeps a commit's files for good, while `@main` makes it keep asking GitHub, and GitHub's "429: Too Many Requests" page can then be cached in place of a file. Re-run it whenever a game's files change in 55gms/assets, or the page keeps loading the old ones.
+
 Use relative asset paths inside the game page (`index.js`, `main.js`, `data/file.wasm`, etc.) so the `<base>` URL controls where game assets load from. Keep site-wide assets that should come from this server, such as `/assets/js/script.js`, as absolute paths, and put their tags before the `<base>`: after it, `/assets/...` resolves against `cdn.jsdelivr.net`. For the same reason a `/misc/...` path after the `<base>` must be written as the full jsDelivr URL.
 
 jsDelivr serves the [55gms/assets](https://github.com/55gms/assets) repo. This repo keeps only the game pages under `static/misc/`; every other game file lives in that repo's `misc/<folder>/` and must be committed there, not here. A `/misc/` file requested from this server that is not on disk is relayed from the mirror (`utils/gameAssets.js`), but files over jsDelivr's size limit cannot be. The page itself (`index.html`) is always served by this server, since jsDelivr serves HTML as plain text.
