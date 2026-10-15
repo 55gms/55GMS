@@ -6,6 +6,47 @@ function script(text) {
   );
 }
 
+// Account, save, chat and billing answers under /api must come from the
+// server. It sends no-store, but a Bunny pull zone (*.b-cdn.net) with a
+// cache-time override ignores that and hands one visitor's /api/me or chat
+// list to the next. A query string of its own makes every GET a cache miss
+// there, and cache: "no-store" keeps the browser's cache out of it too.
+// POSTs (login, saves, uploads) are never cached, so they pass as they are.
+(function freshApiRequests() {
+  const nativeFetch = window.fetch;
+  if (typeof nativeFetch !== "function") return;
+  // The same for every visitor, so caching them is fine.
+  const shared = /^\/api\/(music|autocomplete)(\/|$)/;
+  let count = 0;
+
+  window.fetch = function (input, init) {
+    try {
+      const method = String((init && init.method) || "GET").toUpperCase();
+      if (
+        (typeof input === "string" || input instanceof URL) &&
+        (method === "GET" || method === "HEAD")
+      ) {
+        const url = new URL(input, location.href);
+        if (
+          url.origin === location.origin &&
+          url.pathname.startsWith("/api/") &&
+          !shared.test(url.pathname)
+        ) {
+          url.searchParams.set(
+            "_",
+            Date.now().toString(36) + (count++).toString(36),
+          );
+          input = url.pathname + url.search;
+          init = Object.assign({}, init, { cache: "no-store" });
+        }
+      }
+    } catch (error) {
+      // Anything unexpected goes through untouched.
+    }
+    return nativeFetch.call(window, input, init);
+  };
+})();
+
 (function applySavedTheme() {
   const allowedThemes = new Set([
     "blue",
