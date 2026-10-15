@@ -55,39 +55,39 @@
 
   const $ = (id) => document.getElementById(id);
   const el = {
-    browser: $("browser"),
-    tabs: $("tabs"),
-    tabsScroller: $("tabs-scroller"),
-    newTab: $("new-tab"),
-    frames: $("frames"),
-    progress: $("progress"),
-    ntp: $("ntp"),
-    ntpShortcuts: $("ntp-shortcuts"),
-    banner: $("page-banner"),
-    bannerText: $("page-banner-text"),
-    bannerRetry: $("page-banner-retry"),
-    bannerDismiss: $("page-banner-dismiss"),
-    dockClip: document.querySelector(".dock-clip"),
-    dockWrap: $("dock-wrap"),
-    dockCollapse: $("dock-collapse"),
-    dockExpand: $("dock-expand"),
-    home: $("btn-home"),
-    back: $("btn-back"),
-    forward: $("btn-forward"),
-    reload: $("btn-reload"),
-    bookmarkBtn: $("btn-bookmark"),
-    bookmarkPanel: $("bookmark-panel"),
-    bookmarkList: $("bookmark-list"),
-    bookmarkClose: $("bookmark-panel-close"),
-    tabContext: $("tab-context-menu"),
-    menuBtn: $("btn-menu"),
-    menu: $("menu"),
-    omnibox: $("omnibox"),
-    form: $("omnibox-form"),
-    input: $("omnibox-input"),
-    inputIcon: $("omnibox-icon"),
-    suggestions: $("suggestions"),
-    toasts: $("toasts"),
+    browser: $("xxbjs"),
+    tabs: $("zn76j"),
+    tabsScroller: $("zjag8z"),
+    newTab: $("sfshi3"),
+    frames: $("trkd31i"),
+    progress: $("zwo69g"),
+    ntp: $("v74mrg"),
+    ntpShortcuts: $("usxf98b"),
+    banner: $("fdloq4d"),
+    bannerText: $("tls82"),
+    bannerRetry: $("jeze9dd"),
+    bannerDismiss: $("tfjzze"),
+    dockClip: document.querySelector(".qgbgr6o"),
+    dockWrap: $("vbedu2h"),
+    dockCollapse: $("kvfvdv"),
+    dockExpand: $("sazoy"),
+    home: $("tiordb"),
+    back: $("un6id"),
+    forward: $("fgczjjc"),
+    reload: $("vvkynq8"),
+    bookmarkBtn: $("tzatlc"),
+    bookmarkPanel: $("wr1nine"),
+    bookmarkList: $("z2ph8v"),
+    bookmarkClose: $("aocw5c9"),
+    tabContext: $("bjepr"),
+    menuBtn: $("uvwywv8"),
+    menu: $("zffhok"),
+    omnibox: $("p9yavka"),
+    form: $("vl4nbyy"),
+    input: $("bkhpd"),
+    inputIcon: $("znijk"),
+    suggestions: $("oyncvy"),
+    toasts: $("emk9po"),
   };
 
   const IPV4 = /^(\d{1,3}\.){3}\d{1,3}(:\d+)?(\/.*)?$/;
@@ -179,28 +179,28 @@
 
   function createTabNode(tab) {
     const node = document.createElement("div");
-    node.className = "tab entering";
+    node.className = "yaioh9w aihfic";
     node.id = "tab-" + tab.id;
     node.setAttribute("role", "tab");
     node.setAttribute("aria-selected", "false");
     node.tabIndex = -1;
     node.innerHTML = `
-      <span class="tab-icon">
-        <img loading="eager" class="tab-favicon" alt="" draggable="false" />
-        <svg class="icon tab-fallback" aria-hidden="true"><use href="#i-globe" /></svg>
-        <span class="tab-spinner" aria-hidden="true"></span>
+      <span class="f6fawdj">
+        <img loading="eager" class="azbweq" alt="" draggable="false" />
+        <svg class="qapv7vq mahozv" aria-hidden="true"><use href="#i-globe" /></svg>
+        <span class="akk1h" aria-hidden="true"></span>
       </span>
-      <span class="tab-title"></span>
-      <button class="tab-close" type="button" aria-label="Close tab" tabindex="-1">
-        <svg class="icon" aria-hidden="true"><use href="#i-x" /></svg>
+      <span class="h6c4m"></span>
+      <button class="kvsxy3x" type="button" aria-label="Close tab" tabindex="-1">
+        <svg class="qapv7vq" aria-hidden="true"><use href="#i-x" /></svg>
       </button>`;
     node.addEventListener(
       "animationend",
-      () => node.classList.remove("entering"),
+      () => node.classList.remove("aihfic"),
       { once: true },
     );
 
-    node.querySelector(".tab-favicon").addEventListener("error", (e) => {
+    node.querySelector(".azbweq").addEventListener("error", (e) => {
       if (e.currentTarget.dataset.src)
         tab.failedIcons.add(e.currentTarget.dataset.src);
       renderTab(tab);
@@ -213,10 +213,10 @@
       if (e.button === 1) closeTab(tab.id);
     });
     node.addEventListener("click", (e) => {
-      if (e.target.closest(".tab-close")) return;
+      if (e.target.closest(".kvsxy3x")) return;
       activateTab(tab.id);
     });
-    node.querySelector(".tab-close").addEventListener("click", (e) => {
+    node.querySelector(".kvsxy3x").addEventListener("click", (e) => {
       e.stopPropagation();
       closeTab(tab.id);
     });
@@ -242,31 +242,31 @@
 
   function renderTab(tab) {
     const { node } = tab;
-    node.classList.toggle("pinned", !!tab.pinned);
+    node.classList.toggle("jkxfif", !!tab.pinned);
     const title =
       tab.title ||
       (tab.url ? hostnameOf(tab.url) : NEW_TAB_TITLE) ||
       NEW_TAB_TITLE;
-    const titleEl = node.querySelector(".tab-title");
+    const titleEl = node.querySelector(".h6c4m");
     if (titleEl.textContent !== title) titleEl.textContent = title;
     node.title = title;
     node.setAttribute("aria-label", title);
 
     const failed = tab.error && tab.error.kind === "transport";
     const favicon = failed ? "" : pickFavicon(tab);
-    const img = node.querySelector(".tab-favicon");
+    const img = node.querySelector(".azbweq");
     if (img.dataset.src !== favicon) {
       img.dataset.src = favicon;
       if (favicon) img.src = favicon;
       else img.removeAttribute("src");
     }
-    node.querySelector(".tab-icon").classList.toggle("no-favicon", !favicon);
+    node.querySelector(".f6fawdj").classList.toggle("wizpl", !favicon);
     node
-      .querySelector(".tab-fallback use")
+      .querySelector(".mahozv use")
       .setAttribute("href", failed ? "#i-alert" : "#i-globe");
 
-    node.classList.toggle("loading", tab.loading);
-    node.classList.toggle("errored", !!tab.error);
+    node.classList.toggle("q3jdy", tab.loading);
+    node.classList.toggle("unk3hw8", !!tab.error);
     node.setAttribute("aria-busy", String(tab.loading));
   }
 
@@ -389,7 +389,7 @@
     tab.iframe = iframe;
     tab.ready = false;
     tab.loading = true;
-    iframe.classList.toggle("active", tab.id === activeId);
+    iframe.classList.toggle("qbohi", tab.id === activeId);
     el.frames.appendChild(iframe);
   }
 
@@ -402,13 +402,13 @@
     if (previous && previous !== tab) {
       previous.node.setAttribute("aria-selected", "false");
       previous.node.tabIndex = -1;
-      if (previous.iframe) previous.iframe.classList.remove("active");
+      if (previous.iframe) previous.iframe.classList.remove("qbohi");
     }
     tab.node.setAttribute("aria-selected", "true");
     tab.node.tabIndex = 0;
 
     ensureFrame(tab);
-    if (tab.iframe) tab.iframe.classList.add("active");
+    if (tab.iframe) tab.iframe.classList.add("qbohi");
 
     closeSuggestions();
     syncChrome({ force: true });
@@ -617,13 +617,13 @@
 
   function setProgress(loading) {
     if (loading && progressState !== "running") {
-      el.progress.classList.remove("done");
+      el.progress.classList.remove("xo7pl");
       void el.progress.offsetWidth;
-      el.progress.classList.add("running");
+      el.progress.classList.add("s6rrkvk");
       progressState = "running";
     } else if (!loading && progressState === "running") {
-      el.progress.classList.remove("running");
-      el.progress.classList.add("done");
+      el.progress.classList.remove("s6rrkvk");
+      el.progress.classList.add("xo7pl");
       progressState = "idle";
     }
   }
@@ -640,7 +640,7 @@
     el.back.disabled = !tab.canGoBack;
     el.forward.disabled = !tab.canGoForward;
     el.reload.disabled = !tab.url;
-    el.reload.classList.toggle("is-loading", tab.loading);
+    el.reload.classList.toggle("utygywe", tab.loading);
     el.reload.setAttribute(
       "aria-label",
       tab.loading ? "Stop loading" : "Reload",
@@ -665,7 +665,7 @@
       secure = value.startsWith("https://");
       name = secure ? "lock" : "globe";
     }
-    el.inputIcon.classList.toggle("secure", secure);
+    el.inputIcon.classList.toggle("ap4d7", secure);
     el.inputIcon.querySelector("use").setAttribute("href", "#i-" + name);
   }
 
@@ -676,7 +676,7 @@
   let suggestAbort = null;
 
   function focusOmnibox() {
-    if (el.browser.classList.contains("dock-collapsed"))
+    if (el.browser.classList.contains("n8vuyk5"))
       setDockCollapsed(false);
     el.input.focus();
     el.input.select();
@@ -684,7 +684,7 @@
 
   function openSuggestions() {
     el.suggestions.hidden = false;
-    el.omnibox.classList.add("open");
+    el.omnibox.classList.add("vpe4k1u");
     el.input.setAttribute("aria-expanded", "true");
     setPopupOverflow(true);
   }
@@ -696,7 +696,7 @@
     selectedIndex = -1;
     el.suggestions.hidden = true;
     el.suggestions.replaceChildren();
-    el.omnibox.classList.remove("open");
+    el.omnibox.classList.remove("vpe4k1u");
     el.input.setAttribute("aria-expanded", "false");
     el.input.removeAttribute("aria-activedescendant");
   }
@@ -725,18 +725,18 @@
     el.suggestions.replaceChildren(
       ...items.map((item, i) => {
         const li = document.createElement("li");
-        li.className = "suggestion";
+        li.className = "r7m8x";
         li.id = "suggestion-" + i;
         li.setAttribute("role", "option");
         li.setAttribute("aria-selected", "false");
-        li.innerHTML = `<svg class="icon" aria-hidden="true"><use href="#i-${item.kind === "url" ? "globe" : "search"}" /></svg>`;
+        li.innerHTML = `<svg class="qapv7vq" aria-hidden="true"><use href="#i-${item.kind === "url" ? "globe" : "search"}" /></svg>`;
         const text = document.createElement("span");
-        text.className = "suggestion-text";
+        text.className = "orrtzug";
         text.textContent = item.label;
         li.append(text);
         if (item.hint) {
           const hint = document.createElement("span");
-          hint.className = "suggestion-hint";
+          hint.className = "mcwlx4x";
           hint.textContent = item.hint;
           li.append(hint);
         }
@@ -920,7 +920,7 @@
   el.reload.title = `Reload (${modLabel}R)`;
 
   function menuItems() {
-    return [...el.menu.querySelectorAll(".menu-item")].filter(
+    return [...el.menu.querySelectorAll(".zkivham")].filter(
       (i) => !i.disabled && i.offsetParent !== null,
     );
   }
@@ -932,12 +932,11 @@
     item("forward").disabled = !tab || !tab.canGoForward;
     item("copy-link").disabled = !tab || !tab.url;
     item("pin").disabled = !tab;
-    $("menu-pin-label").textContent = tab?.pinned ? "Unpin tab" : "Pin tab";
+    $("a9hm3").textContent = tab?.pinned ? "Unpin tab" : "Pin tab";
     item("fullscreen").disabled = false;
-    $("menu-fullscreen-label").textContent = document.fullscreenElement
+    $("a1n9l7").textContent = document.fullscreenElement
       ? "Unfullscreen"
       : "Fullscreen page";
-    item("devtools").disabled = !tab || !tab.ready;
   }
 
   function openMenu() {
@@ -977,7 +976,7 @@
   });
 
   el.menu.addEventListener("click", async (e) => {
-    const item = e.target.closest(".menu-item");
+    const item = e.target.closest(".zkivham");
     if (!item || item.disabled) return;
     closeMenu();
     const tab = activeTab();
@@ -1014,17 +1013,14 @@
           toast("Fullscreen isn't available");
         }
         break;
-      case "devtools":
-        sendCommand(tab, "devtools");
-        break;
     }
   });
 
   document.addEventListener("pointerdown", (e) => {
-    if (!el.menu.hidden && !e.target.closest(".menu-anchor")) closeMenu();
+    if (!el.menu.hidden && !e.target.closest(".b1gtzke")) closeMenu();
   });
   document.addEventListener("fullscreenchange", () => {
-    $("menu-fullscreen-label").textContent = document.fullscreenElement
+    $("a1n9l7").textContent = document.fullscreenElement
       ? "Unfullscreen"
       : "Fullscreen page";
   });
@@ -1036,8 +1032,8 @@
 
   function setPopupOverflow(on) {
     el.dockClip.classList.toggle(
-      "overflow-visible",
-      on && !el.browser.classList.contains("dock-collapsed"),
+      "qe7iib",
+      on && !el.browser.classList.contains("n8vuyk5"),
     );
   }
 
@@ -1049,7 +1045,7 @@
   ) {
     closeMenu();
     closeSuggestions();
-    el.browser.classList.toggle("dock-collapsed", collapsed);
+    el.browser.classList.toggle("n8vuyk5", collapsed);
     clearTimeout(unclipTimer);
     if (collapsed) setPopupOverflow(false);
     else
@@ -1139,11 +1135,11 @@
 
   function toast(message) {
     const node = document.createElement("div");
-    node.className = "toast";
+    node.className = "ooqjp";
     node.textContent = message;
     el.toasts.append(node);
     setTimeout(() => {
-      node.classList.add("leaving");
+      node.classList.add("j27uw");
       setTimeout(() => node.remove(), 200);
     }, 2400);
   }
@@ -1151,7 +1147,7 @@
   el.ntpShortcuts.replaceChildren(
     ...SHORTCUTS.map(({ title, url, img }) => {
       const link = document.createElement("a");
-      link.className = "ntp-shortcut";
+      link.className = "r98trp5";
       link.href = "#";
       link.innerHTML = `<img alt="" loading="eager" /><span></span>`;
       link.querySelector("img").src = img;
@@ -1187,7 +1183,7 @@
     const tab = activeTab();
     const marked = !!tab?.url && bookmarks.some((b) => b.url === tab.url);
     el.bookmarkBtn.disabled = !tab?.url;
-    el.bookmarkBtn.classList.toggle("is-bookmarked", marked);
+    el.bookmarkBtn.classList.toggle("h8zvi", marked);
     el.bookmarkBtn.setAttribute(
       "aria-label",
       marked ? "Remove bookmark" : "Bookmark this page",
@@ -1215,17 +1211,17 @@
     el.bookmarkList.replaceChildren();
     if (!bookmarks.length) {
       const empty = document.createElement("div");
-      empty.className = "bookmark-empty";
+      empty.className = "ucm5gl";
       empty.textContent = "No bookmarks yet";
       el.bookmarkList.append(empty);
       return;
     }
     for (const item of bookmarks) {
       const row = document.createElement("div");
-      row.className = "bookmark-entry";
+      row.className = "sl2e1lb";
       const open = document.createElement("button");
       open.type = "button";
-      open.className = "bookmark-open";
+      open.className = "fl7r1";
       const name = document.createElement("strong");
       const address = document.createElement("small");
       name.textContent = item.title || hostnameOf(item.url);
@@ -1237,11 +1233,11 @@
         el.bookmarkPanel.hidden = true;
       });
       const remove = document.createElement("button");
-      remove.className = "icon-btn icon-btn-sm bookmark-remove";
+      remove.className = "t9ohzr y3oz7 kpfpu3";
       remove.type = "button";
       remove.setAttribute("aria-label", `Remove ${name.textContent} bookmark`);
       remove.innerHTML =
-        '<svg class="icon" aria-hidden="true"><use href="#i-x" /></svg>';
+        '<svg class="qapv7vq" aria-hidden="true"><use href="#i-x" /></svg>';
       remove.addEventListener("click", () => {
         bookmarks = bookmarks.filter((b) => b.url !== item.url);
         saveBookmarks();
@@ -1358,7 +1354,7 @@
     for (const entry of entries) {
       const button = document.createElement("button");
       button.type = "button";
-      button.className = "tab-context-action";
+      button.className = "ekr46";
       button.disabled = !entry.enabled;
       const icon = document.createElementNS(
         "http://www.w3.org/2000/svg",
@@ -1394,7 +1390,7 @@
   });
 
   function beginTabDrag(e, tab) {
-    if (e.button !== 0 || e.target.closest(".tab-close")) return;
+    if (e.button !== 0 || e.target.closest(".kvsxy3x")) return;
     el.tabContext.hidden = true;
     const node = tab.node;
     const startX = e.clientX;
@@ -1407,9 +1403,9 @@
       if (!dragging && Math.abs(lastX - startX) < 6) return;
       if (!dragging) {
         dragging = true;
-        document.body.classList.add("is-dragging-tabs");
-        el.tabs.classList.add("is-reordering");
-        node.classList.add("dragging");
+        document.body.classList.add("x7gaiu");
+        el.tabs.classList.add("xfko3g");
+        node.classList.add("c5nc0");
       }
       ev.preventDefault();
       let i = tabs.indexOf(tab);
@@ -1444,9 +1440,9 @@
       window.removeEventListener("pointercancel", end);
       if (dragging) {
         node.dataset.suppressClick = "true";
-        document.body.classList.remove("is-dragging-tabs");
-        el.tabs.classList.remove("is-reordering");
-        node.classList.remove("dragging");
+        document.body.classList.remove("x7gaiu");
+        el.tabs.classList.remove("xfko3g");
+        node.classList.remove("c5nc0");
         node.style.transform = "";
         node.style.removeProperty("--tab-drag-x");
         saveSession();
