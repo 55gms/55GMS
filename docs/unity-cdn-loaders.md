@@ -6,10 +6,15 @@ builds and game SDK startup scripts are retained in an inert HTML template and
 run after oversized assets have been reconstructed.
 
 Game assets resolve against the page's jsDelivr base for
-`55gms/assets@main/misc/<folder>/` (the [55gms/assets](https://github.com/55gms/assets) repo). The shared loading code and site-wide
+`55gms/assets@<commit>/misc/<folder>/` (the [55gms/assets](https://github.com/55gms/assets) repo). The shared loading code and site-wide
 resources stay on the app origin. Changes to game assets must reach GitHub's
-`main` branch before these CDN URLs can serve them; deploying the HTML alone is
-insufficient.
+`main` branch, and `node scripts/pin-game-assets.js` must move the page's pin to
+the commit that has them; deploying the HTML alone is insufficient.
+
+A part that fails, or that jsDelivr's main host answers with GitHub's
+"429: Too Many Requests" page, is downloaded again from `fastly.jsdelivr.net`,
+then `gcore.jsdelivr.net` (`unity-cdn-assets.js`, `game-loader.js`,
+`game-parts.js`).
 
 Files larger than 20,000,000 bytes are split into parts of at most 10,000,000
 bytes. `unity-assets.json` records their paths, lengths and original SHA-256

@@ -6,8 +6,38 @@ export function assetKey(input, base) {
   return url.href;
 }
 
+// jsDelivr's main host sometimes caches GitHub's rate-limit page ("429: Too
+// Many Requests", sent with a 200) in place of a file. Its other hosts keep
+// their own caches, so a part that fails is asked for again from them.
+const MIRRORS = ["fastly.jsdelivr.net", "gcore.jsdelivr.net"];
+
+export function partSources(url) {
+  if (url.hostname !== "cdn.jsdelivr.net") return [url];
+  return [
+    url,
+    ...MIRRORS.map((host) => {
+      const mirror = new URL(url);
+      mirror.hostname = host;
+      return mirror;
+    }),
+  ];
+}
+
 export async function downloadPart(part, base, onProgress, fetchFile = fetch) {
-  const response = await fetchFile(new URL(part.path, base));
+  let error;
+  for (const url of partSources(new URL(part.path, base))) {
+    try {
+      return await fetchPart(part, url, onProgress, fetchFile);
+    } catch (failure) {
+      error = failure;
+      onProgress(part.path, 0);
+    }
+  }
+  throw error;
+}
+
+async function fetchPart(part, url, onProgress, fetchFile) {
+  const response = await fetchFile(url);
   if (!response.ok) throw new Error(`${part.path}: HTTP ${response.status}`);
   const bytes = new Uint8Array(part.size);
   let received = 0;

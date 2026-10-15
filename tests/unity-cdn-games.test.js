@@ -33,9 +33,11 @@ for (const folder of folders) {
   test(`${folder}: CDN page and byte-exact Unity payloads`, async () => {
     const root = new URL(`../static/misc/${folder}/`, import.meta.url);
     const page = await readFile(new URL("index.html", root), "utf8");
-    assert.ok(
-      page.includes(
-        `<base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/${folder}/">`,
+    // Pinned to a commit by scripts/pin-game-assets.js.
+    assert.match(
+      page,
+      new RegExp(
+        `<base href="https://cdn\\.jsdelivr\\.net/gh/55gms/assets@[0-9a-f]{40}/misc/${folder}/">`,
       ),
     );
     assert.ok(page.includes('id="unity-cdn-loading"'));

@@ -9,7 +9,8 @@ import { getStaticCacheControl } from "./httpPerformance.js";
 // this server (a page without the base, or a script that builds URLs from
 // `location`). A file that is no longer on disk here is fetched from the mirror
 // and passed through, so those requests keep working from the same origin.
-const DEFAULT_BASE = "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/";
+const DEFAULT_BASE =
+  "https://cdn.jsdelivr.net/gh/55gms/assets@bfac352da7d391bcb68e867ca5e55f20ea2b0fb7/misc/";
 
 // Pages are always served from disk: jsDelivr serves HTML as plain text.
 const PAGE = /\.html?$/i;

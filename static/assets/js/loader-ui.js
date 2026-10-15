@@ -4,11 +4,13 @@
 window.LoaderUI = (() => {
   // .js/.css/images are cached for a day. After changing any loader asset run
   // `node scripts/bump-loader-version.js` to refresh this and every ?v= tag.
-  const VERSION = "2re0106df4";
+  const VERSION = "5gz9swuael";
   const asset = (path) => new URL(`${path}?v=${VERSION}`, location.origin).href;
   const CATALOG = "/assets/json/load/g.json";
-  // Catalogue covers under /misc/ are served from the 55gms/assets repo.
-  const CDN_MISC = "https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/";
+  // Catalogue covers under /misc/ are served from the 55gms/assets repo, on
+  // the commit scripts/pin-game-assets.js pins each folder to.
+  const CDN_MISC =
+    /^https:\/\/cdn\.jsdelivr\.net\/gh\/55gms\/assets@[^/]+\/misc\//;
   // The deployed catalogue is encoded by scripts/build/catalogue.js: base64url
   // of a 16-byte key followed by the JSON XORed with that key. Plain JSON
   // (development, or an older deploy) is read as-is.
