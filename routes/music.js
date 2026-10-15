@@ -201,6 +201,16 @@ router.all("/*", async (req, res) => {
     const streamingHeaders = getStreamingHeaders(response.headers);
 
     res.status(response.status);
+    // Media is the same for everyone, so it may be cached, unlike the rest
+    // of /api (see setNoStoreHeaders).
+    for (const name of [
+      "CDN-Cache-Control",
+      "Surrogate-Control",
+      "Pragma",
+      "Expires",
+    ]) {
+      res.removeHeader(name);
+    }
     res.set(streamingHeaders);
 
     response.data.on("error", (error) => {

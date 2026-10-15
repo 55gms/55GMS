@@ -90,7 +90,11 @@ export function disabledPageRedirect(features) {
     const off = disabled.some(
       (prefix) => page === prefix || page.startsWith(prefix + "/"),
     );
-    if (off && req.method === "GET") return res.redirect("/");
+    if (off && req.method === "GET") {
+      // Not cached, so the page comes back once its feature is turned on.
+      res.setHeader("Cache-Control", "no-store");
+      return res.redirect("/");
+    }
     next();
   };
 }

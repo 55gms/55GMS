@@ -11,7 +11,11 @@ import cors from "cors";
 import "dotenv/config";
 import { Op } from "sequelize";
 import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
-import { createCompression, staticOptions } from "./utils/httpPerformance.js";
+import {
+  createCompression,
+  setNoStoreHeaders,
+  staticOptions,
+} from "./utils/httpPerformance.js";
 
 import { mountProxyAssets } from "./utils/proxyAssets.js";
 import { mountAds } from "./utils/ads.js";
@@ -164,9 +168,10 @@ try {
 
   // API answers depend on who is asking. Without this, a CDN in front of the
   // site (the Bunny pull zones cache for 30 days) serves one account's
-  // /api/me to everyone. Routes that want caching set their own header.
+  // /api/me, saves or chats to everyone. Routes that want caching set their
+  // own header (only /api/music does).
   app.use("/api", (req, res, next) => {
-    res.setHeader("Cache-Control", "private, no-store");
+    setNoStoreHeaders(res);
     next();
   });
 
