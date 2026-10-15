@@ -676,8 +676,7 @@
   let suggestAbort = null;
 
   function focusOmnibox() {
-    if (el.browser.classList.contains("n8vuyk5"))
-      setDockCollapsed(false);
+    if (el.browser.classList.contains("n8vuyk5")) setDockCollapsed(false);
     el.input.focus();
     el.input.select();
   }
