@@ -859,6 +859,30 @@
   font-weight: 700;
 }
 
+.auth-prose ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 1.2em;
+  color: var(--a-muted);
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.auth-prose ul li::marker {
+  color: var(--a-accent);
+}
+
+.auth-prose a {
+  color: var(--a-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.auth-prose a:hover {
+  color: var(--a-accent-hover);
+}
+
 /* What each kind of old username turned into */
 .auth-cases {
   display: grid;
