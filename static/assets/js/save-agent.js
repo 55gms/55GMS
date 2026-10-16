@@ -92,6 +92,8 @@
   try {
     storage = window.localStorage;
   } catch (error) {}
+  // What the game sees as window.localStorage; see below.
+  var wrapper = null;
 
   // claim id -> record, waiting to be written to IndexedDB.
   var pending = {};
@@ -166,9 +168,14 @@
     removeItem = proto.removeItem;
     var clear = proto.clear;
 
+    // A call made on the wrapper below runs on the real storage.
+    var real = function (self) {
+      return self === wrapper ? storage : self;
+    };
     proto.getItem = function (key) {
-      var value = getItem.apply(this, arguments);
-      if (this === storage) {
+      var self = real(this);
+      var value = getItem.apply(self, arguments);
+      if (self === storage) {
         try {
           noteKey(key, value !== null);
         } catch (error) {}
@@ -176,8 +183,9 @@
       return value;
     };
     proto.setItem = function (key) {
-      var result = setItem.apply(this, arguments);
-      if (this === storage) {
+      var self = real(this);
+      var result = setItem.apply(self, arguments);
+      if (self === storage) {
         try {
           if (!isSiteKey(String(key))) {
             noteKey(key, true);
@@ -188,8 +196,9 @@
       return result;
     };
     proto.removeItem = function (key) {
-      var result = removeItem.apply(this, arguments);
-      if (this === storage) {
+      var self = real(this);
+      var result = removeItem.apply(self, arguments);
+      if (self === storage) {
         try {
           if (ownedKeys[String(key)] === 1) changed();
         } catch (error) {}
@@ -197,10 +206,83 @@
       return result;
     };
     proto.clear = function () {
-      var result = clear.apply(this, arguments);
-      if (this === storage) changed();
+      var self = real(this);
+      var result = clear.apply(self, arguments);
+      if (self === storage) changed();
       return result;
     };
+    var keyAt = proto.key;
+    proto.key = function () {
+      return keyAt.apply(real(this), arguments);
+    };
+
+    // Games that read and write `localStorage[name]` (GameMaker, among
+    // others) skip the methods above, so the game's window gets a wrapper
+    // that turns those into getItem, setItem and removeItem. A read while
+    // the game lists every key (Object.keys, for…in) is not a claim: it
+    // would hand this game every other game's keys.
+    var listing = false;
+    var stopListing = function () {
+      listing = false;
+    };
+    var member = function (name) {
+      return typeof name !== "string" || name in proto;
+    };
+    var methods = {};
+    try {
+      var own = Object.getOwnPropertyDescriptor(window, "localStorage");
+      if (window.Proxy && window.Reflect && (!own || own.configurable)) {
+        wrapper = new Proxy(storage, {
+          get: function (target, name) {
+            if (member(name)) {
+              var value = Reflect.get(target, name, target);
+              if (typeof value !== "function") return value;
+              if (!methods[name] || methods[name].of !== value) {
+                methods[name] = { of: value, bound: value.bind(target) };
+              }
+              return methods[name].bound;
+            }
+            var item = listing
+              ? getItem.call(target, name)
+              : target.getItem(name);
+            return item === null ? undefined : item;
+          },
+          set: function (target, name, value) {
+            if (typeof name !== "string") {
+              return Reflect.set(target, name, value, target);
+            }
+            target.setItem(name, value);
+            return true;
+          },
+          deleteProperty: function (target, name) {
+            if (
+              typeof name === "string" &&
+              getItem.call(target, name) !== null
+            ) {
+              target.removeItem(name);
+              return true;
+            }
+            return Reflect.deleteProperty(target, name);
+          },
+          ownKeys: function (target) {
+            if (!listing) {
+              listing = true;
+              setTimeout(stopListing, 0);
+            }
+            return Reflect.ownKeys(target);
+          },
+        });
+        Object.defineProperty(window, "localStorage", {
+          configurable: true,
+          enumerable: true,
+          get: function () {
+            return wrapper;
+          },
+        });
+      }
+    } catch (error) {
+      wrapper = null;
+    }
 
     // Keys another document changed (another tab, the page around the game)
     // are not this game's, even when they change while it runs.
@@ -210,10 +292,10 @@
       }
     });
 
-    // Games that write `localStorage.key = value` skip the methods above.
-    // Their keys are found by comparing storage now and then: a key that
-    // changed, that this document did not see another document change, is
-    // this game's.
+    // Where the wrapper cannot be installed, keys written as
+    // `localStorage.key = value` are found by comparing storage now and
+    // then: a key that changed, that this document did not see another
+    // document change, is this game's.
     var fingerprints = null;
     var fingerprint = function (value) {
       var hash = 2166136261;
@@ -297,14 +379,18 @@
     if (database === DB_NAME || IGNORED_DATABASES.test(database)) return;
     if (IGNORED_DATABASES.test(store.name)) return;
     changed();
-    var found = claimFor(keyOf(store, value, explicit));
+    recordClaim(database, store.name, keyOf(store, value, explicit));
+  }
+
+  function recordClaim(database, storeName, key) {
+    var found = claimFor(key);
     if (!found) return;
     var id =
       gameId +
       "\u0000idb\u0000" +
       database +
       "\u0000" +
-      store.name +
+      storeName +
       "\u0000" +
       (found.prefix !== undefined ? "p:" + found.prefix : "k:" + found.key);
     if (idbClaims[id] === 1) return;
@@ -314,7 +400,7 @@
       gameId: gameId,
       kind: "idb",
       db: database,
-      store: store.name,
+      store: storeName,
       prefix: found.prefix,
       key: found.key,
       at: Date.now(),
@@ -358,6 +444,141 @@
       } catch (error) {}
       return request;
     };
+  }
+
+  // ---- Workers ---------------------------------------------------------
+
+  // Some engines save from a Worker, where the patches above do not reach:
+  // Construct 3 in worker mode, Eaglercraft's world server. Games here start
+  // their workers from blobs (their scripts are on jsDelivr, another
+  // origin), so a worker started from a blob first runs workerHook, which
+  // reports its IndexedDB writes back to this document. It is turned into
+  // source, so it uses nothing from outside itself but its arguments.
+  function workerHook(channelName, ignored, ownDatabase, keyOf) {
+    var proto = self.IDBObjectStore && IDBObjectStore.prototype;
+    if (!proto || !self.BroadcastChannel) return;
+    var channel = new BroadcastChannel(channelName);
+    var sent = {};
+    var waiting = 0;
+    function report(store, value, explicit, write) {
+      try {
+        var database = store.transaction.db.name;
+        if (database === ownDatabase || ignored.test(database)) return;
+        if (ignored.test(store.name)) return;
+        if (write) {
+          var key = keyOf(store, value, explicit);
+          if (typeof key === "string" || typeof key === "number") {
+            var id = database + "\u0000" + store.name + "\u0000" + key;
+            if (!sent[id]) {
+              sent[id] = 1;
+              channel.postMessage({
+                db: database,
+                store: store.name,
+                key: key,
+              });
+            }
+          }
+        }
+        if (!waiting) {
+          waiting = setTimeout(function () {
+            waiting = 0;
+            channel.postMessage({ changed: true });
+          }, 1000);
+        }
+      } catch (error) {}
+    }
+    function wrap(name, write) {
+      var original = proto[name];
+      proto[name] = function (value, key) {
+        var request = original.apply(this, arguments);
+        report(this, value, arguments.length > 1 ? key : undefined, write);
+        return request;
+      };
+    }
+    wrap("put", true);
+    wrap("add", true);
+    wrap("delete", false);
+    wrap("clear", false);
+  }
+
+  var NativeWorker = window.Worker;
+  if (NativeWorker && window.BroadcastChannel && window.Blob && window.URL) {
+    try {
+      var channelName =
+        "gms-save-agent-" +
+        Date.now().toString(36) +
+        Math.random().toString(36).slice(2);
+      var workerChannel = new BroadcastChannel(channelName);
+      workerChannel.onmessage = function (event) {
+        var data = event.data;
+        if (!data) return;
+        try {
+          if (typeof data.db === "string" && typeof data.store === "string") {
+            if (data.db === DB_NAME || IGNORED_DATABASES.test(data.db)) return;
+            recordClaim(data.db, data.store, data.key);
+          }
+          changed();
+        } catch (error) {}
+      };
+      var hookSource =
+        "(" +
+        workerHook +
+        ")(" +
+        JSON.stringify(channelName) +
+        ", " +
+        IGNORED_DATABASES +
+        ", " +
+        JSON.stringify(DB_NAME) +
+        ", " +
+        keyOf +
+        ");\n";
+
+      // The blob behind each blob: URL, to start a worker from it.
+      var blobs = {};
+      var createUrl = URL.createObjectURL;
+      var revokeUrl = URL.revokeObjectURL;
+      URL.createObjectURL = function (object) {
+        var url = createUrl.apply(this, arguments);
+        try {
+          if (object instanceof Blob) blobs[url] = object;
+        } catch (error) {}
+        return url;
+      };
+      URL.revokeObjectURL = function (url) {
+        try {
+          delete blobs[url];
+        } catch (error) {}
+        return revokeUrl.apply(this, arguments);
+      };
+      var script = function (parts) {
+        return createUrl.call(
+          URL,
+          new Blob(parts, { type: "text/javascript" }),
+        );
+      };
+      // The hook and the game's script stay two scripts, so a "use strict"
+      // at the top of the game's still applies.
+      var withHook = function (url, options) {
+        var blob = blobs[String(url)];
+        if (!blob) return url;
+        var hook = JSON.stringify(script([hookSource]));
+        var game = JSON.stringify(script([blob]));
+        return options && options.type === "module"
+          ? script(["import " + hook + ";\nimport " + game + ";\n"])
+          : script(["importScripts(" + hook + ", " + game + ");\n"]);
+      };
+      window.Worker = class Worker extends NativeWorker {
+        constructor(url, options) {
+          var target = url;
+          try {
+            target = withHook(url, options);
+          } catch (error) {
+            target = url;
+          }
+          super(target, options);
+        }
+      };
+    } catch (error) {}
   }
 
   // ---- Recording -------------------------------------------------------
@@ -504,9 +725,21 @@
   window.__gmsSaveAgent = {
     gameId: gameId,
     flush: flush,
+    // They run on the real storage whatever they are called on, as
+    // localStorage in this window is the wrapper.
     raw:
       storage && window.Storage
-        ? { getItem: getItem, setItem: setItem, removeItem: removeItem }
+        ? {
+            getItem: function (name) {
+              return getItem.call(storage, name);
+            },
+            setItem: function (name, value) {
+              return setItem.call(storage, name, value);
+            },
+            removeItem: function (name) {
+              return removeItem.call(storage, name);
+            },
+          }
         : null,
   };
 })();

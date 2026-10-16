@@ -44,6 +44,28 @@ const CURATED = {
     ],
     progress: { adapter: "universal-paperclips" },
   },
+  // GameMaker: files live under "<display name>.<game id>." in localStorage.
+  "retro-bowl-game": {
+    keys: [
+      "RetroBowl.0.optiondata.dat",
+      "RetroBowl.0.savedata.ini",
+      "RetroBowl.0.savedata2.ini",
+      "RetroBowl.0.savedata3.ini",
+      "RetroBowl.0.savedata4.ini",
+      "RetroBowl.0.savedata5.ini",
+    ],
+  },
+  retrobowlcollege: {
+    keys: [
+      "RetroBowlCollege.0.optiondata.dat",
+      "RetroBowlCollege.0.savedata.ini",
+      "RetroBowlCollege.0.savedata2.ini",
+      "RetroBowlCollege.0.savedata3.ini",
+      "RetroBowlCollege.0.savedata4.ini",
+      "RetroBowlCollege.0.savedata5.ini",
+      "RetroBowlCollege.0.savedata_exh.ini",
+    ],
+  },
 };
 
 function idFromUrl(url) {

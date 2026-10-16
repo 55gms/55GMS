@@ -2463,7 +2463,15 @@
    "name": "Retro Bowl",
    "play": "/misc/play/?title=Retro%20Bowl&link=retro-bowl-game",
    "frame": "/misc/retro-bowl-game/index.html",
-   "status": "observed"
+   "status": "observed",
+   "keys": [
+    "RetroBowl.0.optiondata.dat",
+    "RetroBowl.0.savedata.ini",
+    "RetroBowl.0.savedata2.ini",
+    "RetroBowl.0.savedata3.ini",
+    "RetroBowl.0.savedata4.ini",
+    "RetroBowl.0.savedata5.ini"
+   ]
   },
   "retro-highway": {
    "id": "retro-highway",
@@ -2477,7 +2485,16 @@
    "name": "Retro Bowl College",
    "play": "/misc/play/?title=Retro%20Bowl%20College&author=New%20Star%20Games&link=retrobowlcollege",
    "frame": "/misc/retrobowlcollege/index.html",
-   "status": "observed"
+   "status": "observed",
+   "keys": [
+    "RetroBowlCollege.0.optiondata.dat",
+    "RetroBowlCollege.0.savedata.ini",
+    "RetroBowlCollege.0.savedata2.ini",
+    "RetroBowlCollege.0.savedata3.ini",
+    "RetroBowlCollege.0.savedata4.ini",
+    "RetroBowlCollege.0.savedata5.ini",
+    "RetroBowlCollege.0.savedata_exh.ini"
+   ]
   },
   "riddleschool": {
    "id": "riddleschool",

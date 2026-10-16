@@ -17,7 +17,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MISC = path.join(ROOT, "static/misc");
 const PLAY = path.join(MISC, "play");
-const AGENT_TAG = '<script src="/assets/js/save-agent.js?v=2"></script>';
+const AGENT_TAG = '<script src="/assets/js/save-agent.js?v=3"></script>';
 const ENGINE_TAG = '<script src="/assets/js/cloud-saves.js?v=3"></script>';
 const LAUNCHER =
   '<script>(function(f){window.GMSSaves?GMSSaves.launch(f):f.src=f.dataset.src})(document.getElementById("iframe"))</script>';

@@ -48,9 +48,13 @@ the game's window, before any game code runs, and records:
 
 - a localStorage key the game writes, or reads while it has a value: owned
 - a key it reads while empty: wanted (only used to look in a legacy backup)
-- keys written as `localStorage.key = value`, found by comparing storage every
-  minute and on hide, minus keys the `storage` event says another document
-  changed
+- keys read or written as `localStorage[key]` (GameMaker games such as Retro
+  Bowl do this): the game's `window.localStorage` is a Proxy that turns
+  property reads, writes and deletes into the methods above. Reads while the
+  game lists every key (`Object.keys`, `for…in`) are not claims. Where the
+  Proxy cannot be installed, written keys are still found by comparing
+  storage every minute and on hide, minus keys the `storage` event says
+  another document changed
 - IndexedDB records the game puts or adds. Engines that keep every game in one
   database claim the game's folder: Unity `/idbfs/<hash>/…`, Godot
   `/userfs/godot/app_userdata/<project>/…`; other file paths claim their
@@ -59,6 +63,10 @@ the game's window, before any game code runs, and records:
   content the game downloaded, such as Mad Skills Motocross 2's 22 MB level
   archive: it stays out of the save, a restore leaves it in place, and where it
   is missing the game downloads it again.
+- IndexedDB records written from a Worker (Construct 3 in worker mode,
+  Eaglercraft's world server). A worker started from a blob, as every game
+  here starts its workers, first runs a hook that reports its writes to the
+  agent over a `BroadcastChannel`; the agent records them like its own.
 
 Records go to the IndexedDB database `gms-cloud-saves` (stores `claims`,
 `dirty`, `state`, `meta`), shared by the agent and the engine. A localStorage
