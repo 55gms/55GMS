@@ -80,10 +80,11 @@ agent ran there (one from before per-game saves, say) belongs to no game.
 Every accepted upload records the storage names in it (localStorage keys,
 IndexedDB database, store, folder prefixes and record keys; never a value) in
 `game_save_keys`, per account. `GET /api/saves-keys` publishes a name for a
-game once `MIN_ACCOUNTS` (2) accounts uploaded it for that game, and only if
-no other game reaches that count for the same name; with a session it adds the
-account's own names. One account can neither teach nor hide a name, and a name
-holding one player's id is never published.
+game once `MIN_ACCOUNTS` (2) accounts uploaded it for that game, or the
+owner's account (`jiayang`, `TRUSTED_USERNAME`) did, and only if no other
+game qualifies for the same name; with a session it adds the account's own
+names. Any other single account can neither teach nor hide a name, and a name
+holding one player's id is never published (unless the owner's save holds it).
 
 `cloud-saves.js` keeps the answer for an hour and treats a name as a claim
 when this browser has data under it, unless this browser already gave that

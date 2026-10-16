@@ -11,6 +11,9 @@ import { sequelize } from "../models/index.js";
 // one account can neither teach nor hide a key, and a name holding an id
 // unique to one player is never shared.
 export const MIN_ACCOUNTS = 2;
+// An upload from this account (the site owner, as in routes/admin.js) is
+// enough on its own.
+const TRUSTED_USERNAME = "jiayang";
 const MAX_NAMES = 300;
 const MAX_NAME_LENGTH = 512;
 const PUBLISHED_TTL_MS = 10 * 60 * 1000;
@@ -95,8 +98,8 @@ function group(rows) {
   return games;
 }
 
-// A name that MIN_ACCOUNTS accounts uploaded for two or more games belongs
-// to no single one (an engine's settings key, say) and is left out.
+// A name that qualifies for two or more games belongs to no single one (an
+// engine's settings key, say) and is left out.
 async function loadPublished() {
   return await sequelize.query(
     `WITH counted AS (
@@ -104,12 +107,18 @@ async function loadPublished() {
        FROM game_save_keys
        GROUP BY game_id, kind, db, store, name
        HAVING count(*) >= :min
+         OR bool_or(user_uuid IN (
+           SELECT uuid FROM users WHERE username = :trusted
+         ))
      ), owners AS (
        SELECT *, count(*) OVER (PARTITION BY kind, db, store, name) AS games
        FROM counted
      )
      SELECT game_id, kind, db, store, name FROM owners WHERE games = 1`,
-    { replacements: { min: MIN_ACCOUNTS }, type: sequelize.QueryTypes.SELECT },
+    {
+      replacements: { min: MIN_ACCOUNTS, trusted: TRUSTED_USERNAME },
+      type: sequelize.QueryTypes.SELECT,
+    },
   );
 }
 
