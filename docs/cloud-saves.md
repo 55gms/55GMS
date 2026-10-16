@@ -71,7 +71,8 @@ the game's window, before any game code runs, and records:
 Records go to the IndexedDB database `gms-cloud-saves` (stores `claims`,
 `dirty`, `state`, `meta`), shared by the agent and the engine. A localStorage
 key two games both use goes in neither save, unless the registry's `keys`
-gives it to one of them. Site keys (`uuid`, `username`, `premium`, settings,
+gives it to one of them. The games known to share one keep their storage
+under names of their own (see [Renamed storage](#renamed-storage)). Site keys (`uuid`, `username`, `premium`, settings,
 `55gms*`, `gms-*`, the proxy's `host@key` storage) are never recorded, and the
 server refuses a save holding one. The session is an HttpOnly cookie, and
 the login also returns its token, kept as the site key `gms-session` and sent
@@ -106,6 +107,65 @@ Restoring writes each database in one transaction after checking it can do so
 without changing the database's version under the game, then the localStorage
 keys, and puts back what was there if anything fails. The game's keys the save
 lacks are removed, so the game starts on exactly the save.
+
+### Renamed storage
+
+Some games use the same storage name as another game: a key two games share
+goes in neither save, and a shared database lets one game overwrite
+another's data. These were found by reading every game's code in
+55gms/assets. Each such game keeps its storage under its own names, written in
+the registry as `renamed` from `RENAMED` in `scripts/build-save-registry.js`,
+which also writes the table into `save-agent.js`:
+
+- **localStorage**: the agent stores every key the game uses (site keys
+  aside) as `<game id>:<key>`. The first time the game reads a key it has no
+  value for, it gets the value under the old name, copied to the new one; the
+  old name stays for any other game. After that, or once the game wrote or
+  removed the key, the old name is never read again (`gms-renamed:<game id>`
+  lists those keys). `key()`, `Object.keys`, `in` and `localStorage[name]`
+  show the game its own names, and `clear()` clears only its own keys.
+- **IndexedDB** (`renamed.idb`): the game opens those databases as
+  `<game id>:<name>`, but only after `GMSSaves.launch` has copied the whole
+  database there, before the game starts (`gms-renamed-idb:<game id>`). A
+  copy not done within 4 s, or done while the game runs elsewhere, is dropped
+  and tried on the next launch; until then the game keeps the old database.
+- **Poki's Unity loader** (`renamed.unityFolder`): `master-loader.js` keeps
+  the save folder of the first game it ran in `savegame_idbfs_hash` and sends
+  every later game's files to `/idbfs/<that folder>/`. At launch the game
+  gets a copy of that folder under a name of its own, which its own
+  `savegame_idbfs_hash` then names.
+
+A save made before a game was renamed has the old names; the engine puts any
+save under this browser's names (`inLayout`), and progress adapters read
+renamed keys by their old names. A game opened by its own address (not
+through a play page) never copies its databases or Poki folder; it keeps the
+old ones until a play page launches it.
+
+| Shared                                                                                        | Games                                                                                                                                                                                                      |
+| --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `savegame_idbfs_hash`, so one Unity save folder for all                                       | dadish3d, digging-master, golforbit, idle-digging-tycoon, idle-lumber-inc, mrracer, my-perfect-hotel, policechase, ragdoll-fall, redball-4, slime-journey, smash-it, stunt-bike-extreme, stunt-car-extreme |
+| `/:Globals`, the whole save (OpenFL, local path `/`)                                          | baseballbros-io, soccerbros                                                                                                                                                                                |
+| `GameData`, the whole save (Pinpin's Unity template)                                          | kick-the-buddy, snow-train-odyssey                                                                                                                                                                         |
+| `Coin` (PlayCanvas)                                                                           | car-machines, steal-a-brainrot                                                                                                                                                                             |
+| `settings`; Little Alchemy's `uid` is also the Poki SDK's                                     | littlealchemy, sandboxels, wordle                                                                                                                                                                          |
+| `muted` (Famobi)                                                                              | archeryworldtour, tabletennisworldtour                                                                                                                                                                     |
+| Eaglercraft X settings, profile and resource packs                                            | eaglercraftx, misc-eloader                                                                                                                                                                                 |
+| `startup-time` and the `/sandbox` database (Defold)                                           | dino-bros, drive-mad, gobble, longcat, monster-match, monster-track, recoil, roller, roper, snake-pivot, stacktris                                                                                         |
+| `localforage` (Construct 2 LocalStorage plugin) and `_C2SaveStates` (Construct 2 System save) | asmallworldcup, big-tower-tiny-square, eggy-car, idle-cowshed, knifehit, ovo, ovo3, paper-plane, stickman-boost                                                                                            |
+| `_C2SaveStates`; mrbullet's WebStorage keys are plain localStorage                            | bad-time-simulator, choppyorc, mrbullet, penalty-shooters-2, thereisnogame                                                                                                                                 |
+| One Ruffle page for every Flash game; its SharedObjects are localStorage keys the SWF names   | every `flash-*` game                                                                                                                                                                                       |
+
+Shared names left as they are, as they hold no progress: storage checks that
+are removed at once (`test`, `testingLocalStorage`, `__missing`, `laya`,
+`storage`), SDK and analytics ids (`gd_tag`, `gd_debug`, `uid`, `uid_new`,
+`__sak`, `user`, `_ga`), TurboWarp's logger settings (`minilog*`, FNAF 3 to 5,
+whose saves are TurboWarp cloud variables), Unity's `/idbfs` (a folder per
+game) and Construct 3's databases (one per project). Vex 3 to 5 and Fireboy
+and Watergirl name their keys per game already.
+
+To rename another game, add it to `RENAMED` and run
+`node scripts/build-save-registry.js`; the agent changes, so bump its `?v=`
+in the game pages.
 
 ## Conflicts: higher progress wins
 

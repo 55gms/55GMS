@@ -88,6 +88,110 @@
   var gameId = findGameId();
   if (!gameId) return;
 
+  // Games that would share storage with another game keep theirs under
+  // names of their own: every localStorage key as "<game id>:<key>", and
+  // the databases in idb as "<game id>:<name>". The table and why each game
+  // is in it: RENAMED in scripts/build-save-registry.js, which writes it here.
+  // <renamed> Written by scripts/build-save-registry.js; do not edit.
+  var RENAMED = {
+    archeryworldtour: {},
+    asmallworldcup: { idb: ["_C2SaveStates", "localforage"] },
+    "bad-time-simulator": { idb: ["_C2SaveStates"] },
+    "baseballbros-io": {},
+    "big-tower-tiny-square": { idb: ["_C2SaveStates", "localforage"] },
+    "car-machines": {},
+    choppyorc: { idb: ["_C2SaveStates"] },
+    dadish3d: { unityFolder: true },
+    "digging-master": { unityFolder: true },
+    "dino-bros": { idb: ["/sandbox"] },
+    "drive-mad": { idb: ["/sandbox"] },
+    eaglercraftx: {},
+    "eggy-car": { idb: ["_C2SaveStates", "localforage"] },
+    "flash-1on1soccer": {},
+    "flash-alien-hominid": {},
+    "flash-bloons-tower-defense-2": {},
+    "flash-bloonstd1": {},
+    "flash-bloonstd3": {},
+    "flash-cubefield": {},
+    "flash-duck-life": {},
+    "flash-duck-life-2": {},
+    "flash-duck-life-3": {},
+    "flash-duck-life-4": {},
+    "flash-fancy-pants-adventure2": {},
+    "flash-fancypantsadventure": {},
+    "flash-gfiles-btd4": {},
+    "flash-gmayhem2": {},
+    "flash-gun-mayhem-3": {},
+    "flash-happywheels": {},
+    "flash-hobo": {},
+    "flash-hobo-2": {},
+    "flash-hobo-3": {},
+    "flash-hobo-4": {},
+    "flash-hobo-5": {},
+    "flash-hobo-6": {},
+    "flash-hobo-7": {},
+    "flash-learn-to-fly-2": {},
+    "flash-tetris": {},
+    "flash-thebindingofisaac": {},
+    "flash-whack-your-boss-24": {},
+    "flash-whack-your-computer-12-ways": {},
+    "flash-whack-your-ex": {},
+    "flash-worlds-hardest-game-2": {},
+    gobble: { idb: ["/sandbox"] },
+    golforbit: { unityFolder: true },
+    "idle-cowshed": { idb: ["_C2SaveStates", "localforage"] },
+    "idle-digging-tycoon": { unityFolder: true },
+    "idle-lumber-inc": { unityFolder: true },
+    "kick-the-buddy": {},
+    knifehit: { idb: ["_C2SaveStates", "localforage"] },
+    littlealchemy: {},
+    longcat: { idb: ["/sandbox"] },
+    "misc-eloader": {},
+    "monster-match": { idb: ["/sandbox"] },
+    "monster-track": { idb: ["/sandbox"] },
+    mrbullet: { idb: ["_C2SaveStates"] },
+    mrracer: { unityFolder: true },
+    "my-perfect-hotel": { unityFolder: true },
+    ovo: { idb: ["_C2SaveStates", "localforage"] },
+    ovo3: { idb: ["_C2SaveStates", "localforage"] },
+    "paper-plane": { idb: ["_C2SaveStates", "localforage"] },
+    "penalty-shooters-2": { idb: ["_C2SaveStates"] },
+    policechase: { unityFolder: true },
+    "ragdoll-fall": { unityFolder: true },
+    recoil: { idb: ["/sandbox"] },
+    "redball-4": { unityFolder: true },
+    roller: { idb: ["/sandbox"] },
+    roper: { idb: ["/sandbox"] },
+    sandboxels: {},
+    "slime-journey": { unityFolder: true },
+    "smash-it": { unityFolder: true },
+    "snake-pivot": { idb: ["/sandbox"] },
+    "snow-train-odyssey": {},
+    soccerbros: {},
+    stacktris: { idb: ["/sandbox"] },
+    "steal-a-brainrot": {},
+    "stickman-boost": { idb: ["_C2SaveStates", "localforage"] },
+    "stunt-bike-extreme": { unityFolder: true },
+    "stunt-car-extreme": { unityFolder: true },
+    tabletennisworldtour: {},
+    thereisnogame: { idb: ["_C2SaveStates"] },
+    wordle: {},
+  };
+  // </renamed>
+  var renamed = Object.prototype.hasOwnProperty.call(RENAMED, gameId)
+    ? RENAMED[gameId]
+    : null;
+  var PREFIX = gameId + ":";
+  // Keys whose old value was taken over, or that the game wrote or removed
+  // under its new name: the old name is never read for them again. "~<key>"
+  // per key, "*" for all of them once the game cleared its storage.
+  var SETTLED_KEY = "gms-renamed:" + gameId;
+  // Set by cloud-saves.js once it has copied the game's databases (and
+  // Poki's folder) to their new names; until then the game keeps the old.
+  var MOVED_KEY = "gms-renamed-idb:" + gameId;
+  var FOLDER_KEY = "savegame_idbfs_hash";
+  var moved = !(renamed && (renamed.idb || renamed.unityFolder));
+
   var storage = null;
   try {
     storage = window.localStorage;
@@ -160,13 +264,77 @@
 
   // ---- localStorage ----------------------------------------------------
 
-  var getItem, setItem, removeItem;
+  var getItem, setItem, removeItem, keyAt;
+
+  var settled = null;
+  var settledTimer = 0;
+  function isSettled(key) {
+    if (!settled) {
+      settled = {};
+      try {
+        var saved = JSON.parse(getItem.call(storage, SETTLED_KEY) || "{}");
+        if (saved && typeof saved === "object") settled = saved;
+      } catch (error) {}
+    }
+    return settled["*"] === 1 || settled["~" + key] === 1;
+  }
+  function settle(key) {
+    if (isSettled(key)) return;
+    settled["~" + key] = 1;
+    if (!settledTimer) settledTimer = setTimeout(saveSettled, 0);
+  }
+  function saveSettled() {
+    clearTimeout(settledTimer);
+    settledTimer = 0;
+    try {
+      if (settled) setItem.call(storage, SETTLED_KEY, JSON.stringify(settled));
+    } catch (error) {}
+  }
+
+  // Whether a renamed game's key is kept under its new name. Site keys
+  // never are; Poki's folder key only once its folder was copied.
+  function mapped(key) {
+    if (!renamed || isSiteKey(key)) return false;
+    return key !== FOLDER_KEY || !renamed.unityFolder || moved;
+  }
+
+  // What a renamed game finds under a key: its own value, else, the first
+  // time, the value under the old name, which becomes its own. Poki's
+  // folder key is never taken over: sharing it is what put every game's
+  // files in one folder. quiet reads without taking anything over.
+  function readMapped(key, quiet) {
+    var value = getItem.call(storage, PREFIX + key);
+    if (value !== null || isSettled(key)) return value;
+    if (renamed.unityFolder && key === FOLDER_KEY) return null;
+    var old = getItem.call(storage, key);
+    if (quiet) return old;
+    if (old === null) {
+      settle(key);
+      return null;
+    }
+    try {
+      setItem.call(storage, PREFIX + key, old);
+      settle(key);
+      changed();
+    } catch (error) {}
+    return old;
+  }
+  function peek(key) {
+    return mapped(key) ? readMapped(key, true) : getItem.call(storage, key);
+  }
+
   if (storage && window.Storage) {
     var proto = Storage.prototype;
     getItem = proto.getItem;
     setItem = proto.setItem;
     removeItem = proto.removeItem;
+    keyAt = proto.key;
     var clear = proto.clear;
+    if (!moved) {
+      try {
+        moved = getItem.call(storage, MOVED_KEY) === "1";
+      } catch (error) {}
+    }
 
     // A call made on the wrapper below runs on the real storage.
     var real = function (self) {
@@ -174,6 +342,14 @@
     };
     proto.getItem = function (key) {
       var self = real(this);
+      if (self === storage && mapped(String(key))) {
+        var found = readMapped(String(key), false);
+        try {
+          if (found !== null) noteKey(PREFIX + key, true);
+          else noteKey(key, false);
+        } catch (error) {}
+        return found;
+      }
       var value = getItem.apply(self, arguments);
       if (self === storage) {
         try {
@@ -184,6 +360,17 @@
     };
     proto.setItem = function (key) {
       var self = real(this);
+      if (self === storage && mapped(String(key))) {
+        var args = Array.prototype.slice.call(arguments);
+        args[0] = PREFIX + key;
+        var stored = setItem.apply(self, args);
+        try {
+          settle(String(key));
+          noteKey(args[0], true);
+          changed();
+        } catch (error) {}
+        return stored;
+      }
       var result = setItem.apply(self, arguments);
       if (self === storage) {
         try {
@@ -197,23 +384,54 @@
     };
     proto.removeItem = function (key) {
       var self = real(this);
-      var result = removeItem.apply(self, arguments);
+      var name = String(key);
+      if (self === storage && mapped(name)) {
+        name = PREFIX + name;
+        removeItem.call(self, name);
+        try {
+          settle(String(key));
+        } catch (error) {}
+      } else {
+        removeItem.apply(self, arguments);
+      }
       if (self === storage) {
         try {
-          if (ownedKeys[String(key)] === 1) changed();
+          if (ownedKeys[name] === 1) changed();
         } catch (error) {}
       }
-      return result;
     };
     proto.clear = function () {
       var self = real(this);
+      if (self === storage && renamed) {
+        // A renamed game clears its own keys, not every game's.
+        var own = [];
+        for (var i = 0; i < storage.length; i++) {
+          var name = keyAt.call(storage, i);
+          if (name !== null && name.indexOf(PREFIX) === 0) own.push(name);
+        }
+        for (var j = 0; j < own.length; j++) removeItem.call(storage, own[j]);
+        settled = { "*": 1 };
+        saveSettled();
+        changed();
+        return;
+      }
       var result = clear.apply(self, arguments);
       if (self === storage) changed();
       return result;
     };
-    var keyAt = proto.key;
+    // A renamed game sees its keys under the names it gave them.
     proto.key = function () {
-      return keyAt.apply(real(this), arguments);
+      var self = real(this);
+      var name = keyAt.apply(self, arguments);
+      if (
+        renamed &&
+        self === storage &&
+        typeof name === "string" &&
+        name.indexOf(PREFIX) === 0
+      ) {
+        return name.slice(PREFIX.length);
+      }
+      return name;
     };
 
     // Games that read and write `localStorage[name]` (GameMaker, among
@@ -242,9 +460,7 @@
               }
               return methods[name].bound;
             }
-            var item = listing
-              ? getItem.call(target, name)
-              : target.getItem(name);
+            var item = listing ? peek(name) : target.getItem(name);
             return item === null ? undefined : item;
           },
           set: function (target, name, value) {
@@ -255,10 +471,7 @@
             return true;
           },
           deleteProperty: function (target, name) {
-            if (
-              typeof name === "string" &&
-              getItem.call(target, name) !== null
-            ) {
+            if (typeof name === "string" && peek(name) !== null) {
               target.removeItem(name);
               return true;
             }
@@ -269,7 +482,41 @@
               listing = true;
               setTimeout(stopListing, 0);
             }
-            return Reflect.ownKeys(target);
+            var names = Reflect.ownKeys(target);
+            if (!renamed) return names;
+            var seen = {};
+            var own = [];
+            for (var i = 0; i < names.length; i++) {
+              var name = names[i];
+              if (typeof name === "string") {
+                if (name.indexOf(PREFIX) === 0)
+                  name = name.slice(PREFIX.length);
+                if (seen["~" + name] === 1) continue;
+                seen["~" + name] = 1;
+              }
+              own.push(name);
+            }
+            return own;
+          },
+          // A renamed game's keys are not the target's own properties, so
+          // `in` and Object.keys ask here.
+          has: function (target, name) {
+            if (!renamed || member(name)) return Reflect.has(target, name);
+            return peek(name) !== null;
+          },
+          getOwnPropertyDescriptor: function (target, name) {
+            if (!renamed || member(name)) {
+              return Reflect.getOwnPropertyDescriptor(target, name);
+            }
+            var item = listing ? peek(name) : target.getItem(name);
+            return item === null
+              ? undefined
+              : {
+                  value: item,
+                  writable: true,
+                  enumerable: true,
+                  configurable: true,
+                };
           },
         });
         Object.defineProperty(window, "localStorage", {
@@ -308,7 +555,7 @@
       var next = {};
       try {
         for (var i = 0; i < storage.length; i++) {
-          var key = storage.key(i);
+          var key = keyAt.call(storage, i);
           if (key === null || isSiteKey(key)) continue;
           var value = getItem.call(storage, key);
           next[key] = value === null ? "" : fingerprint(value);
@@ -444,6 +691,49 @@
       } catch (error) {}
       return request;
     };
+  }
+
+  // A renamed game's databases, under their new names once cloud-saves.js
+  // has copied them there (moved). Only this document is covered: none of
+  // these games opens them from a Worker.
+  if (renamed && renamed.idb && moved && window.IDBFactory) {
+    var databases = {};
+    for (var d = 0; d < renamed.idb.length; d++) {
+      databases["~" + renamed.idb[d]] = 1;
+    }
+    var factory = IDBFactory.prototype;
+    var renameOn = function (method) {
+      var original = factory[method];
+      if (!original) return;
+      factory[method] = function (name) {
+        var args = Array.prototype.slice.call(arguments);
+        if (databases["~" + name] === 1) args[0] = PREFIX + name;
+        return original.apply(this, args);
+      };
+    };
+    renameOn("open");
+    renameOn("deleteDatabase");
+    var listDatabases = factory.databases;
+    if (listDatabases) {
+      factory.databases = function () {
+        return listDatabases.apply(this, arguments).then(function (list) {
+          var out = [];
+          for (var i = 0; i < list.length; i++) {
+            var info = list[i];
+            if (databases["~" + info.name] === 1) continue;
+            var short = info.name.slice(PREFIX.length);
+            if (
+              info.name.indexOf(PREFIX) === 0 &&
+              databases["~" + short] === 1
+            ) {
+              info = { name: short, version: info.version };
+            }
+            out.push(info);
+          }
+          return out;
+        });
+      };
+    }
   }
 
   // ---- Workers ---------------------------------------------------------
@@ -662,6 +952,7 @@
   }
 
   window.addEventListener("pagehide", function () {
+    if (settledTimer) saveSettled();
     clearTimeout(flushTimer);
     flush();
     tellEngine("closing");
@@ -686,7 +977,7 @@
     }
     var script = document.createElement("script");
     // Absolute: game pages set <base> to the CDN.
-    script.src = location.origin + "/assets/js/cloud-saves.js?v=6";
+    script.src = location.origin + "/assets/js/cloud-saves.js?v=7";
     script.async = true;
     script.onload = function () {
       if (window.GMSSaves) window.GMSSaves.attach(gameId, { standalone: true });
