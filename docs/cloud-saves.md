@@ -146,6 +146,10 @@ by it.
   10-minute token from `/api/saves-socket-token`. A device running that game
   marks it "Newer in the cloud" and takes it on the next launch; otherwise a
   game it has a copy of is refreshed in the background.
+- **Load from cloud** (`GMSSaves.restoreAll`, on `/profile`): restores every
+  game that is only in the cloud or newer there. Games with changes in this
+  browser that are not uploaded yet are skipped; Restore one by hand to
+  replace it.
 - **Running game vs. newer cloud save**: the running game is never written to.
   If its upload loses, uploads for it stop until the next launch, which settles
   it again.

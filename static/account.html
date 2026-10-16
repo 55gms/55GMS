@@ -445,6 +445,27 @@
           </div>
           <div class="acct-row">
             <span class="acct-row-icon" aria-hidden="true">
+              <svg class="acct-icon"><use href="#i-down" /></svg>
+            </span>
+            <div class="acct-row-text">
+              <p class="profile-row-title">Load from cloud</p>
+              <p class="profile-row-desc">
+                Brings every cloud save into this browser that it's missing or
+                has an older copy of.
+              </p>
+            </div>
+            <button type="button" class="p-btn" id="loadCloudButton">
+              <span class="p-btn-label">
+                <svg class="acct-icon" aria-hidden="true">
+                  <use href="#i-down" />
+                </svg>
+                Load
+              </span>
+              <span class="p-spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="acct-row">
+            <span class="acct-row-icon" aria-hidden="true">
               <svg class="acct-icon"><use href="#i-list" /></svg>
             </span>
             <div class="acct-row-text">
@@ -1739,9 +1760,53 @@
           }
         }
 
+        const loadCloudButton = document.getElementById("loadCloudButton");
+        async function loadFromCloud() {
+          if (loadCloudButton.disabled) return;
+          loadCloudButton.disabled = true;
+          setLoading(loadCloudButton, true);
+          setOverall("checking", "Loading…", "Loading your cloud saves…");
+          try {
+            const { results, skipped } = await GMSSaves.restoreAll({
+              onProgress: (finished, total) => {
+                savesHint.textContent = `Loading ${finished} of ${total}…`;
+              },
+            });
+            const failed = results.filter((result) => result.error);
+            const loaded = results.length - failed.length;
+            const notes = [];
+            if (skipped)
+              notes.push(
+                `${skipped} with unsynced changes here were left alone`,
+              );
+            if (failed.length) notes.push(`${failed.length} couldn't load`);
+            const tail = notes.length ? ` (${notes.join(", ")})` : "";
+            if (!results.length)
+              toast(
+                skipped ? "error" : "success",
+                skipped
+                  ? `Nothing loaded${tail}. Sync them first.`
+                  : "This browser already has every cloud save.",
+              );
+            else
+              toast(
+                failed.length ? "error" : "success",
+                `${loaded} game${loaded === 1 ? "" : "s"} loaded from the cloud${tail}.`,
+              );
+          } catch (error) {
+            toast("error", error.message || "Couldn't load right now.");
+          } finally {
+            setLoading(loadCloudButton, false);
+            loadCloudButton.disabled = false;
+            await refreshSaves();
+            updateLocalSize();
+          }
+        }
+
         if (perGame) {
           savesStatus.addEventListener("click", () => refreshSaves());
           syncNowButton.addEventListener("click", syncNow);
+          loadCloudButton.addEventListener("click", loadFromCloud);
           document
             .getElementById("manageSavesButton")
             .addEventListener("click", () => {

@@ -1702,6 +1702,37 @@ window.GMSSaves = (() => {
     });
   }
 
+  // Load from cloud: takes every cloud save this browser lacks or has an
+  // older copy of. Games with changes here that aren't uploaded yet, and
+  // games running in another tab, are left alone and counted as skipped.
+  async function restoreAll({ onProgress } = {}) {
+    const { games } = await overview();
+    const work = games.filter(
+      (game) =>
+        game.cloud &&
+        game.support !== "local-only" &&
+        ["cloud-only", "cloud-newer"].includes(game.status),
+    );
+    const skipped = games.filter(
+      (game) =>
+        game.cloud &&
+        game.support !== "local-only" &&
+        ["not-synced", "offline", "failed", "error"].includes(game.status),
+    ).length;
+    let finished = 0;
+    const results = [];
+    for (const game of work) {
+      try {
+        results.push({ gameId: game.gameId, state: await restore(game.gameId) });
+      } catch (error) {
+        results.push({ gameId: game.gameId, error });
+      }
+      finished += 1;
+      onProgress?.(finished, work.length);
+    }
+    return { results, skipped };
+  }
+
   async function history(gameId) {
     return api(`${gamePath(gameId)}/history`);
   }
@@ -1750,6 +1781,7 @@ window.GMSSaves = (() => {
     syncAll,
     overview,
     restore,
+    restoreAll,
     restoreVersion,
     history,
     entitlement,
