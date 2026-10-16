@@ -470,10 +470,10 @@
     "usesProxy": false
   },
   {
-    "name": "E Parkour.Io",
-    "url": "https://eparkour.io/",
-    "image": "/img/games/eparkour.webp",
-    "usesProxy": true
+    "name": "eParkour",
+    "author": "Kaan Games",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@861ca05049786b98199e41369f4fc2dac1d0ece0/misc/eparkour/img.webp",
+    "usesProxy": false
   },
   {
     "name": "Snowball.io",
@@ -1328,10 +1328,10 @@
     "author": "Evil Objective"
   },
   {
-    "name": "Big Flappy Tower Tiny Square",
-    "url": "https://big-flappy-tower-vs-tiny-square.game-files.crazygames.com/big-flappy-tower-vs-tiny-square/1/index.html",
-    "image": "/img/games/flappy.webp",
-    "usesProxy": true
+    "name": "Big Flappy Tower vs Tiny Square",
+    "author": "EO Interactive",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@861ca05049786b98199e41369f4fc2dac1d0ece0/misc/big-flappy-tower/img.webp",
+    "usesProxy": false
   },
   {
     "name": "Retro Bowl",

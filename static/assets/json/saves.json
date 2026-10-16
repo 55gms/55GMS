@@ -4,7 +4,7 @@
   "2048": {
    "id": "2048",
    "name": "2048",
-   "play": "/misc/play/?title=2048&author=Gabriele%20Cirulli&link=2048&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/2048/2048.webp",
+   "play": "/misc/play/?title=2048&author=Gabriele%20Cirulli&link=2048",
    "frame": "/misc/2048/index.html",
    "status": "observed"
   },
@@ -24,21 +24,21 @@
   "2doom": {
    "id": "2doom",
    "name": "2Doom",
-   "play": "/misc/play/?title=2Doom&author=Damien%20Mayance&link=2doom&img=/img/games/2doom.webp",
+   "play": "/misc/play/?title=2Doom&author=Damien%20Mayance&link=2doom",
    "frame": "/misc/2doom/index.html",
    "status": "observed"
   },
   "2drocketleague": {
    "id": "2drocketleague",
    "name": "2D Rocket League",
-   "play": "/misc/play/?title=2D%20Rocket%20League&author=Gurpreet%20Singh%20Matharoo&link=2drocketleague&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/2drocketleague/unnamed.webp",
+   "play": "/misc/play/?title=2D%20Rocket%20League&author=Gurpreet%20Singh%20Matharoo&link=2drocketleague",
    "frame": "/misc/2drocketleague/index.html",
    "status": "observed"
   },
   "60-sec-burger-run": {
    "id": "60-sec-burger-run",
    "name": "60 Second Burger Run",
-   "play": "/misc/play/?title=60%20Second%20Burger%20Run&author=Gameshot&link=60-sec-burger-run&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/60-sec-burger-run/img.webp",
+   "play": "/misc/play/?title=60%20Second%20Burger%20Run&author=Gameshot&link=60-sec-burger-run",
    "frame": "/misc/60-sec-burger-run/index.html",
    "status": "observed"
   },
@@ -52,7 +52,7 @@
   "a-dance-of-fire-and-ice": {
    "id": "a-dance-of-fire-and-ice",
    "name": "A Dance Of Fire & Ice",
-   "play": "/misc/play/?title=A%20Dance%20Of%20Fire%20%26%20Ice&link=a-dance-of-fire-and-ice&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/a-dance-of-fire-and-ice/splash.webp",
+   "play": "/misc/play/?title=A%20Dance%20Of%20Fire%20%26%20Ice&link=a-dance-of-fire-and-ice",
    "frame": "/misc/a-dance-of-fire-and-ice/index.html",
    "status": "observed"
   },
@@ -66,7 +66,7 @@
   "adventure-capitalist": {
    "id": "adventure-capitalist",
    "name": "Adventure Capitalist",
-   "play": "/misc/play/?title=Adventure%20Capitalist&author=Hyper%20Hippo&link=adventure-capitalist&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/adventure-capitalist/img.webp",
+   "play": "/misc/play/?title=Adventure%20Capitalist&author=Hyper%20Hippo&link=adventure-capitalist",
    "frame": "/misc/adventure-capitalist/index.html",
    "status": "observed"
   },
@@ -94,7 +94,7 @@
   "amazing-rope-police": {
    "id": "amazing-rope-police",
    "name": "Amazing Rope Police",
-   "play": "/misc/play/?title=Amazing%20Rope%20Police&link=amazing-rope-police&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/amazing-rope-police/img.webp",
+   "play": "/misc/play/?title=Amazing%20Rope%20Police&link=amazing-rope-police",
    "frame": "/misc/amazing-rope-police/index.html",
    "status": "observed"
   },
@@ -129,35 +129,35 @@
   "archeryworldtour": {
    "id": "archeryworldtour",
    "name": "Archery World Tour",
-   "play": "/misc/play/?title=Archery%20World%20Tour&author=Famobi&link=archeryWorldTour&img=https://cdn.jsdelivr.net/gh/55gms/assets@00698fd3d67cef4cd2f19b8435b0a7d7e213ea57/misc/archeryWorldTour/img.webp%3Fv%3D1",
+   "play": "/misc/play/?title=Archery%20World%20Tour&author=Famobi&link=archeryWorldTour",
    "frame": "/misc/archeryWorldTour/index.html",
    "status": "observed"
   },
   "asmallworldcup": {
    "id": "asmallworldcup",
    "name": "A Small World Cup",
-   "play": "/misc/play/?title=A%20Small%20World%20Cup&author=Rujo%20Games&link=asmallworldcup&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/asmallworldcup/img.webp",
+   "play": "/misc/play/?title=A%20Small%20World%20Cup&author=Rujo%20Games&link=asmallworldcup",
    "frame": "/misc/asmallworldcup/index.html",
    "status": "observed"
   },
   "astrosurvivor": {
    "id": "astrosurvivor",
    "name": "Astro Survivors",
-   "play": "/misc/play/?title=Astro%20Survivors&author=Venturous&link=astrosurvivor&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/astrosurvivor/img.webp",
+   "play": "/misc/play/?title=Astro%20Survivors&author=Venturous&link=astrosurvivor",
    "frame": "/misc/astrosurvivor/index.html",
    "status": "observed"
   },
   "awesometanks": {
    "id": "awesometanks",
    "name": "Awesome Tanks",
-   "play": "/misc/play/?title=Awesome%20Tanks&author=Alexander%20Gette&link=awesometanks&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/awesometanks/game.webp",
+   "play": "/misc/play/?title=Awesome%20Tanks&author=Alexander%20Gette&link=awesometanks",
    "frame": "/misc/awesometanks/index.html",
    "status": "observed"
   },
   "awsometanks2": {
    "id": "awsometanks2",
    "name": "Awesome Tanks 2",
-   "play": "/misc/play/?title=Awesome%20Tanks%202&author=Alexander%20Gette&link=awsometanks2&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/awsometanks2/icon.webp",
+   "play": "/misc/play/?title=Awesome%20Tanks%202&author=Alexander%20Gette&link=awsometanks2",
    "frame": "/misc/awsometanks2/index.html",
    "status": "observed"
   },
@@ -199,21 +199,21 @@
   "badicecream": {
    "id": "badicecream",
    "name": "Bad Ice Cream",
-   "play": "/misc/play/?title=Bad%20Ice%20Cream&author=Nitrome&link=badicecream&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/badicecream/img.webp",
+   "play": "/misc/play/?title=Bad%20Ice%20Cream&author=Nitrome&link=badicecream",
    "frame": "/misc/badicecream/index.html",
    "status": "observed"
   },
   "badicecream2": {
    "id": "badicecream2",
    "name": "Bad Ice Cream 2",
-   "play": "/misc/play/?title=Bad%20Ice%20Cream%202&author=Nitrome&link=badicecream2&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/badicecream2/img.webp",
+   "play": "/misc/play/?title=Bad%20Ice%20Cream%202&author=Nitrome&link=badicecream2",
    "frame": "/misc/badicecream2/index.html",
    "status": "observed"
   },
   "badicecream3": {
    "id": "badicecream3",
    "name": "Bad Ice Cream 3",
-   "play": "/misc/play/?title=Bad%20Ice%20Cream%203&author=Nitrome&link=badicecream3&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/badicecream3/img.webp",
+   "play": "/misc/play/?title=Bad%20Ice%20Cream%203&author=Nitrome&link=badicecream3",
    "frame": "/misc/badicecream3/index.html",
    "status": "observed"
   },
@@ -248,7 +248,7 @@
   "basket-random": {
    "id": "basket-random",
    "name": "Basket Random",
-   "play": "/misc/play/?title=Basket%20Random&author=RHM%20Interactive&link=basket-random&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/basket-random/img.webp",
+   "play": "/misc/play/?title=Basket%20Random&author=RHM%20Interactive&link=basket-random",
    "frame": "/misc/basket-random/index.html",
    "status": "observed"
   },
@@ -262,7 +262,7 @@
   "basketball-stars": {
    "id": "basketball-stars",
    "name": "Basketball Stars",
-   "play": "/misc/play/?title=Basketball%20Stars&author=Madpuffers&link=basketball-stars&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/basketball-stars/basketstars.webp",
+   "play": "/misc/play/?title=Basketball%20Stars&author=Madpuffers&link=basketball-stars",
    "frame": "/misc/basketball-stars/index.html",
    "status": "observed"
   },
@@ -276,7 +276,7 @@
   "basketbros-io": {
    "id": "basketbros-io",
    "name": "Basketbros",
-   "play": "/misc/play/?title=Basketbros&author=Blue%20Wizard%20Digital&link=basketbros-io&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/basketbros-io/thumb.webp",
+   "play": "/misc/play/?title=Basketbros&author=Blue%20Wizard%20Digital&link=basketbros-io",
    "frame": "/misc/basketbros-io/index.html",
    "status": "observed"
   },
@@ -292,6 +292,13 @@
    "name": "Bendy",
    "play": "/misc/play/?title=Bendy&link=bendy",
    "frame": "/misc/bendy/index.html",
+   "status": "observed"
+  },
+  "big-flappy-tower": {
+   "id": "big-flappy-tower",
+   "name": "Big Flappy Tower vs Tiny Square",
+   "play": "/misc/play/?title=Big%20Flappy%20Tower%20vs%20Tiny%20Square&link=big-flappy-tower",
+   "frame": "/misc/big-flappy-tower/index.html",
    "status": "observed"
   },
   "big-tower-tiny-square": {
@@ -311,21 +318,21 @@
   "bitlife": {
    "id": "bitlife",
    "name": "BitLife",
-   "play": "/misc/play/?title=BitLife&author=Candywriter%20LLC&link=bitlife&img=/img/games/bitlife.webp",
+   "play": "/misc/play/?title=BitLife&author=Candywriter%20LLC&link=bitlife",
    "frame": "/misc/bitlife/index.html",
    "status": "observed"
   },
   "block-blast": {
    "id": "block-blast",
    "name": "Block Blast",
-   "play": "/misc/play/?title=Block%20Blast&author=Hungry%20Studio&link=block-blast&img=/img/games/blockblast.webp",
+   "play": "/misc/play/?title=Block%20Blast&author=Hungry%20Studio&link=block-blast",
    "frame": "/misc/block-blast/index.html",
    "status": "observed"
   },
   "bloxrz": {
    "id": "bloxrz",
    "name": "Bloxrz",
-   "play": "/misc/play/?title=Bloxrz&author=Damien%20Clarke&link=bloxrz&img=https://cdn.jsdelivr.net/gh/55gms/assets@ebf9186ef591082d1704bdb3a8a834263b164368/misc/bloxrz/img.webp",
+   "play": "/misc/play/?title=Bloxrz&author=Damien%20Clarke&link=bloxrz",
    "frame": "/misc/bloxrz/index.html",
    "status": "observed"
   },
@@ -395,14 +402,14 @@
   "blumgiracers": {
    "id": "blumgiracers",
    "name": "Blumgi Racers",
-   "play": "/misc/play/?title=Blumgi%20Racers&author=Blumgi&link=blumgiracers&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/blumgiracers/img.webp",
+   "play": "/misc/play/?title=Blumgi%20Racers&author=Blumgi&link=blumgiracers",
    "frame": "/misc/blumgiracers/index.html",
    "status": "observed"
   },
   "blumgislime": {
    "id": "blumgislime",
    "name": "Blumgi Slime",
-   "play": "/misc/play/?title=Blumgi%20Slime&author=Blumgi&link=blumgislime&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/blumgislime/img.webp",
+   "play": "/misc/play/?title=Blumgi%20Slime&author=Blumgi&link=blumgislime",
    "frame": "/misc/blumgislime/index.html",
    "status": "observed"
   },
@@ -423,14 +430,14 @@
   "bottleflip": {
    "id": "bottleflip",
    "name": "Bottle Flip",
-   "play": "/misc/play/?title=Bottle%20Flip&author=Creator&link=BottleFlip&img=https://cdn.jsdelivr.net/gh/55gms/assets@7e412f6101ae566968f32d97a48f44c09adae3e1/misc/BottleFlip/icons/icon-256.webp",
+   "play": "/misc/play/?title=Bottle%20Flip&author=Creator&link=BottleFlip",
    "frame": "/misc/BottleFlip/index.html",
    "status": "observed"
   },
   "bottleflip3d": {
    "id": "bottleflip3d",
    "name": "Bottle Flip 3D",
-   "play": "/misc/play/?title=Bottle%20Flip%203D&author=Tastypill&link=BottleFlip3D&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/BottleFlip3D/img.webp",
+   "play": "/misc/play/?title=Bottle%20Flip%203D&author=Tastypill&link=BottleFlip3D",
    "frame": "/misc/BottleFlip3D/index.html",
    "status": "observed"
   },
@@ -444,7 +451,7 @@
   "bouncybasketball": {
    "id": "bouncybasketball",
    "name": "Bouncy Basketball",
-   "play": "/misc/play/?title=Bouncy%20Basketball&author=Dreamon%20Studios%20AB&link=bouncybasketball&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/bouncybasketball/img.webp",
+   "play": "/misc/play/?title=Bouncy%20Basketball&author=Dreamon%20Studios%20AB&link=bouncybasketball",
    "frame": "/misc/bouncybasketball/index.html",
    "status": "observed"
   },
@@ -457,7 +464,7 @@
   "boxing-random": {
    "id": "boxing-random",
    "name": "Boxing Random",
-   "play": "/misc/play/?title=Boxing%20Random&author=RHM%20Interactive&link=boxing-random&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/boxing-random/img.webp",
+   "play": "/misc/play/?title=Boxing%20Random&author=RHM%20Interactive&link=boxing-random",
    "frame": "/misc/boxing-random/index.html",
    "status": "observed"
   },
@@ -513,7 +520,7 @@
   "capibara-clicker": {
    "id": "capibara-clicker",
    "name": "Capybara Clicker",
-   "play": "/misc/play/?title=Capybara%20Clicker&author=Euclides&link=capibara-clicker&img=/img/games/capybaraclicker.webp",
+   "play": "/misc/play/?title=Capybara%20Clicker&author=Euclides&link=capibara-clicker",
    "frame": "/misc/capibara-clicker/index.html",
    "status": "observed"
   },
@@ -576,7 +583,7 @@
   "cluster-rush": {
    "id": "cluster-rush",
    "name": "Cluster Rush",
-   "play": "/misc/play/?title=Cluster%20Rush&author=Creator&link=cluster-rush&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/cluster-rush/icon.webp",
+   "play": "/misc/play/?title=Cluster%20Rush&author=Creator&link=cluster-rush",
    "frame": "/misc/cluster-rush/index.html",
    "status": "observed"
   },
@@ -590,7 +597,7 @@
   "cookieclicker": {
    "id": "cookieclicker",
    "name": "Cookie Clicker",
-   "play": "/misc/play/?title=Cookie%20Clicker&author=Orteil&link=cookieclicker&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/cookieclicker/clicker.webp",
+   "play": "/misc/play/?title=Cookie%20Clicker&author=Orteil&link=cookieclicker",
    "frame": "/misc/cookieclicker/index.html",
    "status": "progress",
    "keys": [
@@ -625,21 +632,21 @@
   "crazycars": {
    "id": "crazycars",
    "name": "Crazy Cars",
-   "play": "/misc/play/?title=Crazy%20Cars&author=No%20Pressure%20Studios&link=crazycars&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/crazycars/img.webp",
+   "play": "/misc/play/?title=Crazy%20Cars&author=No%20Pressure%20Studios&link=crazycars",
    "frame": "/misc/crazycars/index.html",
    "status": "observed"
   },
   "crossy-road": {
    "id": "crossy-road",
    "name": "Crossy Road",
-   "play": "/misc/play/?title=Crossy%20Road&author=Hipster%20Whale&link=crossy-road&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/crossy-road/crossyroad.webp",
+   "play": "/misc/play/?title=Crossy%20Road&author=Hipster%20Whale&link=crossy-road",
    "frame": "/misc/crossy-road/index.html",
    "status": "observed"
   },
   "csgo-clicker": {
    "id": "csgo-clicker",
    "name": "CSGO Clicker",
-   "play": "/misc/play/?title=CSGO%20Clicker&author=GOECORUSH%20Media&link=csgo-clicker&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/csgo-clicker/new.webp",
+   "play": "/misc/play/?title=CSGO%20Clicker&author=GOECORUSH%20Media&link=csgo-clicker",
    "frame": "/misc/csgo-clicker/index.html",
    "status": "observed"
   },
@@ -660,21 +667,21 @@
   "dadish": {
    "id": "dadish",
    "name": "Dadish",
-   "play": "/misc/play/?title=Dadish&author=Thomas%20K.%20Young&link=dadish&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/dadish/img.webp",
+   "play": "/misc/play/?title=Dadish&author=Thomas%20K.%20Young&link=dadish",
    "frame": "/misc/dadish/index.html",
    "status": "observed"
   },
   "dadish2": {
    "id": "dadish2",
    "name": "Dadish 2",
-   "play": "/misc/play/?title=Dadish%202&author=Thomas%20K.%20Young&link=dadish2&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/dadish2/2.webp",
+   "play": "/misc/play/?title=Dadish%202&author=Thomas%20K.%20Young&link=dadish2",
    "frame": "/misc/dadish2/index.html",
    "status": "observed"
   },
   "dadish3": {
    "id": "dadish3",
    "name": "Dadish 3",
-   "play": "/misc/play/?title=Dadish%203&author=Thomas%20K.%20Young&link=dadish3&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/dadish3/img-cover.webp",
+   "play": "/misc/play/?title=Dadish%203&author=Thomas%20K.%20Young&link=dadish3",
    "frame": "/misc/dadish3/index.html",
    "status": "observed"
   },
@@ -688,7 +695,7 @@
   "dailydadish": {
    "id": "dailydadish",
    "name": "Daily Dadish",
-   "play": "/misc/play/?title=Daily%20Dadish&author=Thomas%20K.%20Young&link=dailydadish&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/dadish3/img.webp",
+   "play": "/misc/play/?title=Daily%20Dadish&author=Thomas%20K.%20Young&link=dailydadish",
    "frame": "/misc/dailydadish/index.html",
    "status": "observed"
   },
@@ -716,7 +723,7 @@
   "deal-or-no-deal": {
    "id": "deal-or-no-deal",
    "name": "Deal or No Deal",
-   "play": "/misc/play/?title=Deal%20or%20No%20Deal&author=Mindscape&link=deal-or-no-deal&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/deal-or-no-deal/index.webp",
+   "play": "/misc/play/?title=Deal%20or%20No%20Deal&author=Mindscape&link=deal-or-no-deal",
    "frame": "/misc/deal-or-no-deal/index.html",
    "status": "observed"
   },
@@ -765,7 +772,7 @@
   "dogeminer": {
    "id": "dogeminer",
    "name": "Doge Miner",
-   "play": "/misc/play/?title=Doge%20Miner&author=rkn&link=dogeminer&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/dogeminer/img.webp",
+   "play": "/misc/play/?title=Doge%20Miner&author=rkn&link=dogeminer",
    "frame": "/misc/dogeminer/index.html",
    "status": "observed"
   },
@@ -779,35 +786,35 @@
   "doodlejump": {
    "id": "doodlejump",
    "name": "Doodle Jump",
-   "play": "/misc/play/?title=Doodle%20Jump&author=Igor%20Pusenjak&link=doodlejump&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/doodlejump/icon.webp",
+   "play": "/misc/play/?title=Doodle%20Jump&author=Igor%20Pusenjak&link=doodlejump",
    "frame": "/misc/doodlejump/index.html",
    "status": "observed"
   },
   "draw-the-hill": {
    "id": "draw-the-hill",
    "name": "Draw The Hill",
-   "play": "/misc/play/?title=Draw%20The%20Hill&author=Herman%20Tulleken&link=draw_the_hill&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/draw_the_hill/icons/icon-512.webp",
+   "play": "/misc/play/?title=Draw%20The%20Hill&author=Herman%20Tulleken&link=draw_the_hill",
    "frame": "/misc/draw_the_hill/index.html",
    "status": "observed"
   },
   "drift-boss": {
    "id": "drift-boss",
    "name": "Drift Boss",
-   "play": "/misc/play/?title=Drift%20Boss&author=Rayan%20Studio&link=drift-boss&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/drift-boss/img.webp",
+   "play": "/misc/play/?title=Drift%20Boss&author=Rayan%20Studio&link=drift-boss",
    "frame": "/misc/drift-boss/index.html",
    "status": "observed"
   },
   "drift-hunters": {
    "id": "drift-hunters",
    "name": "Drift Hunters",
-   "play": "/misc/play/?title=Drift%20Hunters&author=Ilya%20Kaminetsky&link=drift-hunters&img=/img/games/drifthunters.webp",
+   "play": "/misc/play/?title=Drift%20Hunters&author=Ilya%20Kaminetsky&link=drift-hunters",
    "frame": "/misc/drift-hunters/index.html",
    "status": "observed"
   },
   "drive-mad": {
    "id": "drive-mad",
    "name": "Drive Mad",
-   "play": "/misc/play/?title=Drive%20Mad&author=Martin%20Magni&link=drive-mad&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/drive-mad/img.webp",
+   "play": "/misc/play/?title=Drive%20Mad&author=Martin%20Magni&link=drive-mad",
    "frame": "/misc/drive-mad/index.html",
    "status": "observed"
   },
@@ -854,14 +861,14 @@
   "edgenotfound": {
    "id": "edgenotfound",
    "name": "Edge Not Found",
-   "play": "/misc/play/?title=Edge%20Not%20Found&author=Auroriax&link=edgenotfound&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/edgenotfound/edge.webp",
+   "play": "/misc/play/?title=Edge%20Not%20Found&author=Auroriax&link=edgenotfound",
    "frame": "/misc/edgenotfound/index.html",
    "status": "observed"
   },
   "eggy-car": {
    "id": "eggy-car",
    "name": "Eggy Car",
-   "play": "/misc/play/?title=Eggy%20Car&author=Beedo%20Games&link=eggy-car&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/eggy-car/img.webp",
+   "play": "/misc/play/?title=Eggy%20Car&author=Beedo%20Games&link=eggy-car",
    "frame": "/misc/eggy-car/index.html",
    "status": "observed"
   },
@@ -874,78 +881,85 @@
   "emulator-games-mortal": {
    "id": "emulator-games-mortal",
    "name": "Mortal Kombat",
-   "play": "/misc/play/?title=Mortal%20Kombat&author=Ed%20Boon%2C%20John%20Tobias%2C%20John%20Vogel%2C%20Dan%20Forden&link=emulator/games/mortal&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/emulator/games/mortal/mka.webp",
+   "play": "/misc/play/?title=Mortal%20Kombat&author=Ed%20Boon%2C%20John%20Tobias%2C%20John%20Vogel%2C%20Dan%20Forden&link=emulator/games/mortal",
    "frame": "/misc/emulator/games/mortal/index.html",
    "status": "observed"
   },
   "emulator-games-street": {
    "id": "emulator-games-street",
    "name": "Street Fighter 2",
-   "play": "/misc/play/?title=Street%20Fighter%202&author=Capcom&link=emulator/games/street&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/emulator/games/street/sf2.webp",
+   "play": "/misc/play/?title=Street%20Fighter%202&author=Capcom&link=emulator/games/street",
    "frame": "/misc/emulator/games/street/index.html",
    "status": "observed"
   },
   "emulator-games-street-3": {
    "id": "emulator-games-street-3",
    "name": "Street Fighter 3",
-   "play": "/misc/play/?title=Street%20Fighter%203&author=Capcom&link=emulator/games/street/3&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/emulator/games/street/3/sf3.webp",
+   "play": "/misc/play/?title=Street%20Fighter%203&author=Capcom&link=emulator/games/street/3",
    "frame": "/misc/emulator/games/street/3/index.html",
    "status": "observed"
   },
   "emulator-pokemon-black": {
    "id": "emulator-pokemon-black",
    "name": "Pokemon Chaos Black",
-   "play": "/misc/play/?title=Pokemon%20Chaos%20Black&author=Nintendo&link=emulator/pokemon/black&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/emulator/pokemon/black/chaosblack.webp",
+   "play": "/misc/play/?title=Pokemon%20Chaos%20Black&author=Nintendo&link=emulator/pokemon/black",
    "frame": "/misc/emulator/pokemon/black/index.html",
    "status": "observed"
   },
   "emulator-pokemon-crystal": {
    "id": "emulator-pokemon-crystal",
    "name": "Pokemon Crystal",
-   "play": "/misc/play/?title=Pokemon%20Crystal&author=Nintendo&link=emulator/pokemon/crystal&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/emulator/pokemon/crystal/crystal.webp",
+   "play": "/misc/play/?title=Pokemon%20Crystal&author=Nintendo&link=emulator/pokemon/crystal",
    "frame": "/misc/emulator/pokemon/crystal/index.html",
    "status": "observed"
   },
   "emulator-pokemon-emerald": {
    "id": "emulator-pokemon-emerald",
    "name": "Pokemon Emerald",
-   "play": "/misc/play/?title=Pokemon%20Emerald&author=Nintendo&link=emulator/pokemon/emerald&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/emulator/pokemon/emerald/img.webp",
+   "play": "/misc/play/?title=Pokemon%20Emerald&author=Nintendo&link=emulator/pokemon/emerald",
    "frame": "/misc/emulator/pokemon/emerald/index.html",
    "status": "observed"
   },
   "emulator-pokemon-florasky": {
    "id": "emulator-pokemon-florasky",
    "name": "Pokemon Flora Sky",
-   "play": "/misc/play/?title=Pokemon%20Flora%20Sky&author=Nintendo&link=emulator/pokemon/florasky&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/emulator/pokemon/florasky/florasky.webp",
+   "play": "/misc/play/?title=Pokemon%20Flora%20Sky&author=Nintendo&link=emulator/pokemon/florasky",
    "frame": "/misc/emulator/pokemon/florasky/index.html",
    "status": "observed"
   },
   "emulator-pokemon-red": {
    "id": "emulator-pokemon-red",
    "name": "Pokemon Fire Red",
-   "play": "/misc/play/?title=Pokemon%20Fire%20Red&author=Nintendo&link=emulator/pokemon/red&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/emulator/pokemon/red/pred.webp",
+   "play": "/misc/play/?title=Pokemon%20Fire%20Red&author=Nintendo&link=emulator/pokemon/red",
    "frame": "/misc/emulator/pokemon/red/index.html",
    "status": "observed"
   },
   "emulator-pokemon-ruby": {
    "id": "emulator-pokemon-ruby",
    "name": "Pokemon Ruby Red",
-   "play": "/misc/play/?title=Pokemon%20Ruby%20Red&author=Nintendo&link=emulator/pokemon/ruby&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/emulator/pokemon/ruby/pruby.webp",
+   "play": "/misc/play/?title=Pokemon%20Ruby%20Red&author=Nintendo&link=emulator/pokemon/ruby",
    "frame": "/misc/emulator/pokemon/ruby/index.html",
    "status": "observed"
   },
   "emulator-pokemon-sapphire": {
    "id": "emulator-pokemon-sapphire",
    "name": "Pokemon Sapphire",
-   "play": "/misc/play/?title=Pokemon%20Sapphire&author=Nintendo&link=emulator/pokemon/sapphire&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/emulator/pokemon/sapphire/psapphire.webp",
+   "play": "/misc/play/?title=Pokemon%20Sapphire&author=Nintendo&link=emulator/pokemon/sapphire",
    "frame": "/misc/emulator/pokemon/sapphire/index.html",
    "status": "observed"
   },
   "emulator-pokemon-ultraviolent": {
    "id": "emulator-pokemon-ultraviolent",
    "name": "Pokemon Ultraviolet",
-   "play": "/misc/play/?title=Pokemon%20Ultraviolet&author=Nintendo&link=emulator/pokemon/ultraviolent&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/emulator/pokemon/ultraviolent/ultraviolent.webp",
+   "play": "/misc/play/?title=Pokemon%20Ultraviolet&author=Nintendo&link=emulator/pokemon/ultraviolent",
    "frame": "/misc/emulator/pokemon/ultraviolent/index.html",
+   "status": "observed"
+  },
+  "eparkour": {
+   "id": "eparkour",
+   "name": "eParkour",
+   "play": "/misc/play/?title=eParkour&link=eparkour",
+   "frame": "/misc/eparkour/index.html",
    "status": "observed"
   },
   "escape-road-3": {
@@ -986,7 +1000,7 @@
   "fbwg": {
    "id": "fbwg",
    "name": "Fire Boy Water Girl",
-   "play": "/misc/play/?title=Fire%20Boy%20Water%20Girl&author=Oslo%20Albet&link=fbwg&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/fbwg/logo.webp",
+   "play": "/misc/play/?title=Fire%20Boy%20Water%20Girl&author=Oslo%20Albet&link=fbwg",
    "frame": "/misc/fbwg/index.html",
    "status": "observed"
   },
@@ -1013,91 +1027,91 @@
   "flash-1on1soccer": {
    "id": "flash-1on1soccer",
    "name": "1 on 1 Soccer",
-   "play": "/misc/play/?title=1%20on%201%20Soccer&author=Jayden%20Shin&link=flash/index.html%3Fswf%3D1on1soccer.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/1o1.webp",
+   "play": "/misc/play/?title=1%20on%201%20Soccer&author=Jayden%20Shin&link=flash/index.html%3Fswf%3D1on1soccer.swf",
    "frame": "/misc/flash/index.html?swf=1on1soccer.swf",
    "status": "observed"
   },
   "flash-alien-hominid": {
    "id": "flash-alien-hominid",
    "name": "Alien Hominid",
-   "play": "/misc/play/?title=Alien%20Hominid&author=Tom%20Fulp&link=flash/index.html%3Fswf%3Dalien-hominid.swf&img=/img/games/alien.webp",
+   "play": "/misc/play/?title=Alien%20Hominid&author=Tom%20Fulp&link=flash/index.html%3Fswf%3Dalien-hominid.swf",
    "frame": "/misc/flash/index.html?swf=alien-hominid.swf",
    "status": "observed"
   },
   "flash-bloons-tower-defense-2": {
    "id": "flash-bloons-tower-defense-2",
    "name": "Bloons TD 2",
-   "play": "/misc/play/?title=Bloons%20TD%202&author=Ninja%20Kiwi&link=flash/index.html%3Fswf%3Dbloons-tower-defense-2.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/btd2.webp",
+   "play": "/misc/play/?title=Bloons%20TD%202&author=Ninja%20Kiwi&link=flash/index.html%3Fswf%3Dbloons-tower-defense-2.swf",
    "frame": "/misc/flash/index.html?swf=bloons-tower-defense-2.swf",
    "status": "observed"
   },
   "flash-bloonstd1": {
    "id": "flash-bloonstd1",
    "name": "Bloons TD",
-   "play": "/misc/play/?title=Bloons%20TD&author=Ninja%20Kiwi&link=flash/index.html%3Fswf%3Dbloonstd1.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/btd.webp",
+   "play": "/misc/play/?title=Bloons%20TD&author=Ninja%20Kiwi&link=flash/index.html%3Fswf%3Dbloonstd1.swf",
    "frame": "/misc/flash/index.html?swf=bloonstd1.swf",
    "status": "observed"
   },
   "flash-bloonstd3": {
    "id": "flash-bloonstd3",
    "name": "Bloons TD 3",
-   "play": "/misc/play/?title=Bloons%20TD%203&author=Ninja%20Kiwi&link=flash/index.html%3Fswf%3Dbloonstd3.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/btd3.webp",
+   "play": "/misc/play/?title=Bloons%20TD%203&author=Ninja%20Kiwi&link=flash/index.html%3Fswf%3Dbloonstd3.swf",
    "frame": "/misc/flash/index.html?swf=bloonstd3.swf",
    "status": "observed"
   },
   "flash-cubefield": {
    "id": "flash-cubefield",
    "name": "Cubefield",
-   "play": "/misc/play/?title=Cubefield&author=Nils%20Asejevs&link=flash/index.html%3Fswf%3Dcubefield.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/cubefield.webp",
+   "play": "/misc/play/?title=Cubefield&author=Nils%20Asejevs&link=flash/index.html%3Fswf%3Dcubefield.swf",
    "frame": "/misc/flash/index.html?swf=cubefield.swf",
    "status": "observed"
   },
   "flash-duck-life": {
    "id": "flash-duck-life",
    "name": "Duck Life",
-   "play": "/misc/play/?title=Duck%20Life&author=Wix%20Games&link=flash/index.html%3Fswf%3Dduck-life.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/dl.webp",
+   "play": "/misc/play/?title=Duck%20Life&author=Wix%20Games&link=flash/index.html%3Fswf%3Dduck-life.swf",
    "frame": "/misc/flash/index.html?swf=duck-life.swf",
    "status": "observed"
   },
   "flash-duck-life-2": {
    "id": "flash-duck-life-2",
    "name": "Duck Life 2",
-   "play": "/misc/play/?title=Duck%20Life%202&author=Wix%20Games&link=flash/index.html%3Fswf%3Dduck-life-2.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/dl2.webp",
+   "play": "/misc/play/?title=Duck%20Life%202&author=Wix%20Games&link=flash/index.html%3Fswf%3Dduck-life-2.swf",
    "frame": "/misc/flash/index.html?swf=duck-life-2.swf",
    "status": "observed"
   },
   "flash-duck-life-3": {
    "id": "flash-duck-life-3",
    "name": "Duck Life 3",
-   "play": "/misc/play/?title=Duck%20Life%203&author=Wix%20Games&link=flash/index.html%3Fswf%3Dduck-life-3.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/dl3.webp",
+   "play": "/misc/play/?title=Duck%20Life%203&author=Wix%20Games&link=flash/index.html%3Fswf%3Dduck-life-3.swf",
    "frame": "/misc/flash/index.html?swf=duck-life-3.swf",
    "status": "observed"
   },
   "flash-duck-life-4": {
    "id": "flash-duck-life-4",
    "name": "Duck Life 4",
-   "play": "/misc/play/?title=Duck%20Life%204&author=Wix%20Games&link=flash/index.html%3Fswf%3Dduck-life-4.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/dl4.webp",
+   "play": "/misc/play/?title=Duck%20Life%204&author=Wix%20Games&link=flash/index.html%3Fswf%3Dduck-life-4.swf",
    "frame": "/misc/flash/index.html?swf=duck-life-4.swf",
    "status": "observed"
   },
   "flash-fancy-pants-adventure2": {
    "id": "flash-fancy-pants-adventure2",
    "name": "FancyPants Adventure 2",
-   "play": "/misc/play/?title=FancyPants%20Adventure%202&author=Brad%20Borne&link=flash/index.html%3Fswf%3Dfancy-pants-adventure2.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/fpa2.webp",
+   "play": "/misc/play/?title=FancyPants%20Adventure%202&author=Brad%20Borne&link=flash/index.html%3Fswf%3Dfancy-pants-adventure2.swf",
    "frame": "/misc/flash/index.html?swf=fancy-pants-adventure2.swf",
    "status": "observed"
   },
   "flash-fancypantsadventure": {
    "id": "flash-fancypantsadventure",
    "name": "FancyPants Adventure",
-   "play": "/misc/play/?title=FancyPants%20Adventure&author=Brad%20Borne&link=flash/index.html%3Fswf%3Dfancypantsadventure.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/fpa.webp",
+   "play": "/misc/play/?title=FancyPants%20Adventure&author=Brad%20Borne&link=flash/index.html%3Fswf%3Dfancypantsadventure.swf",
    "frame": "/misc/flash/index.html?swf=fancypantsadventure.swf",
    "status": "observed"
   },
   "flash-gfiles-btd4": {
    "id": "flash-gfiles-btd4",
    "name": "Bloons TD 4",
-   "play": "/misc/play/?title=Bloons%20TD%204&author=Ninja%20Kiwi&link=flash/gfiles/btd4&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/btd4.webp",
+   "play": "/misc/play/?title=Bloons%20TD%204&author=Ninja%20Kiwi&link=flash/gfiles/btd4",
    "frame": "/misc/flash/gfiles/btd4/index.html",
    "status": "observed"
   },
@@ -1116,105 +1130,105 @@
   "flash-happywheels": {
    "id": "flash-happywheels",
    "name": "Happy Wheels",
-   "play": "/misc/play/?title=Happy%20Wheels&author=Jim%20Bonacci&link=flash/index.html%3Fswf%3Dhappywheels.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/happyweels/b.webp",
+   "play": "/misc/play/?title=Happy%20Wheels&author=Jim%20Bonacci&link=flash/index.html%3Fswf%3Dhappywheels.swf",
    "frame": "/misc/flash/index.html?swf=happywheels.swf",
    "status": "observed"
   },
   "flash-hobo": {
    "id": "flash-hobo",
    "name": "Hobo",
-   "play": "/misc/play/?title=Hobo&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/hobo.webp",
+   "play": "/misc/play/?title=Hobo&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo.swf",
    "frame": "/misc/flash/index.html?swf=hobo.swf",
    "status": "observed"
   },
   "flash-hobo-2": {
    "id": "flash-hobo-2",
    "name": "Hobo 2",
-   "play": "/misc/play/?title=Hobo%202&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-2.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/hobo2.webp",
+   "play": "/misc/play/?title=Hobo%202&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-2.swf",
    "frame": "/misc/flash/index.html?swf=hobo-2.swf",
    "status": "observed"
   },
   "flash-hobo-3": {
    "id": "flash-hobo-3",
    "name": "Hobo 3",
-   "play": "/misc/play/?title=Hobo%203&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-3.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/hobo3.webp",
+   "play": "/misc/play/?title=Hobo%203&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-3.swf",
    "frame": "/misc/flash/index.html?swf=hobo-3.swf",
    "status": "observed"
   },
   "flash-hobo-4": {
    "id": "flash-hobo-4",
    "name": "Hobo 4",
-   "play": "/misc/play/?title=Hobo%204&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-4.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/hobo4.webp",
+   "play": "/misc/play/?title=Hobo%204&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-4.swf",
    "frame": "/misc/flash/index.html?swf=hobo-4.swf",
    "status": "observed"
   },
   "flash-hobo-5": {
    "id": "flash-hobo-5",
    "name": "Hobo 5",
-   "play": "/misc/play/?title=Hobo%205&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-5.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/hobo5.webp",
+   "play": "/misc/play/?title=Hobo%205&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-5.swf",
    "frame": "/misc/flash/index.html?swf=hobo-5.swf",
    "status": "observed"
   },
   "flash-hobo-6": {
    "id": "flash-hobo-6",
    "name": "Hobo 6",
-   "play": "/misc/play/?title=Hobo%206&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-6.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/hobo6.webp",
+   "play": "/misc/play/?title=Hobo%206&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-6.swf",
    "frame": "/misc/flash/index.html?swf=hobo-6.swf",
    "status": "observed"
   },
   "flash-hobo-7": {
    "id": "flash-hobo-7",
    "name": "Hobo 7",
-   "play": "/misc/play/?title=Hobo%207&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-7.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/hobo7.webp",
+   "play": "/misc/play/?title=Hobo%207&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-7.swf",
    "frame": "/misc/flash/index.html?swf=hobo-7.swf",
    "status": "observed"
   },
   "flash-learn-to-fly-2": {
    "id": "flash-learn-to-fly-2",
    "name": "Learn to Fly 2",
-   "play": "/misc/play/?title=Learn%20to%20Fly%202&author=Light%20Bringer%20Games&link=flash/index.html%3Fswf%3Dlearn-to-fly-2.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@58a8abcbb34a8f5f220ee1fd564aa76ecf5a7917/misc/learn-to-fly/1.webp",
+   "play": "/misc/play/?title=Learn%20to%20Fly%202&author=Light%20Bringer%20Games&link=flash/index.html%3Fswf%3Dlearn-to-fly-2.swf",
    "frame": "/misc/flash/index.html?swf=learn-to-fly-2.swf",
    "status": "observed"
   },
   "flash-tetris": {
    "id": "flash-tetris",
    "name": "Tetris",
-   "play": "/misc/play/?title=Tetris&author=Nintendo&link=flash/index.html%3Fswf%3Dtetris.swf&img=/img/games/tetris.webp",
+   "play": "/misc/play/?title=Tetris&author=Nintendo&link=flash/index.html%3Fswf%3Dtetris.swf",
    "frame": "/misc/flash/index.html?swf=tetris.swf",
    "status": "observed"
   },
   "flash-thebindingofisaac": {
    "id": "flash-thebindingofisaac",
    "name": "The Binding Of Issac",
-   "play": "/misc/play/?title=The%20Binding%20Of%20Issac&author=Edmund%20McMillens&link=flash/index.html%3Fswf%3Dthebindingofisaac.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/thebindingofissac/img.webp",
+   "play": "/misc/play/?title=The%20Binding%20Of%20Issac&author=Edmund%20McMillens&link=flash/index.html%3Fswf%3Dthebindingofisaac.swf",
    "frame": "/misc/flash/index.html?swf=thebindingofisaac.swf",
    "status": "observed"
   },
   "flash-whack-your-boss-24": {
    "id": "flash-whack-your-boss-24",
    "name": "Whack Your Boss",
-   "play": "/misc/play/?title=Whack%20Your%20Boss&author=Doodieman&link=flash/index.html%3Fswf%3Dwhack-your-boss-24.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/1.webp",
+   "play": "/misc/play/?title=Whack%20Your%20Boss&author=Doodieman&link=flash/index.html%3Fswf%3Dwhack-your-boss-24.swf",
    "frame": "/misc/flash/index.html?swf=whack-your-boss-24.swf",
    "status": "observed"
   },
   "flash-whack-your-computer-12-ways": {
    "id": "flash-whack-your-computer-12-ways",
    "name": "Whack Your Computer",
-   "play": "/misc/play/?title=Whack%20Your%20Computer&author=Doodieman&link=flash/index.html%3Fswf%3Dwhack_your_computer_12_ways.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/wyc.webp",
+   "play": "/misc/play/?title=Whack%20Your%20Computer&author=Doodieman&link=flash/index.html%3Fswf%3Dwhack_your_computer_12_ways.swf",
    "frame": "/misc/flash/index.html?swf=whack_your_computer_12_ways.swf",
    "status": "observed"
   },
   "flash-whack-your-ex": {
    "id": "flash-whack-your-ex",
    "name": "Whack Your Ex",
-   "play": "/misc/play/?title=Whack%20Your%20Ex&author=Doodieman&link=flash/index.html%3Fswf%3Dwhack-your-ex.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/flash/img/wyx.webp",
+   "play": "/misc/play/?title=Whack%20Your%20Ex&author=Doodieman&link=flash/index.html%3Fswf%3Dwhack-your-ex.swf",
    "frame": "/misc/flash/index.html?swf=whack-your-ex.swf",
    "status": "observed"
   },
   "flash-worlds-hardest-game-2": {
    "id": "flash-worlds-hardest-game-2",
    "name": "Worlds Hardest Game 2",
-   "play": "/misc/play/?title=Worlds%20Hardest%20Game%202&author=Armor%20Games%20Inc.&link=flash/index.html%3Fswf%3Dworlds-hardest-game-2.swf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/worldshardestgame/img.webp",
+   "play": "/misc/play/?title=Worlds%20Hardest%20Game%202&author=Armor%20Games%20Inc.&link=flash/index.html%3Fswf%3Dworlds-hardest-game-2.swf",
    "frame": "/misc/flash/index.html?swf=worlds-hardest-game-2.swf",
    "status": "observed"
   },
@@ -1235,7 +1249,7 @@
   "flippyfish": {
    "id": "flippyfish",
    "name": "Flippy Fish",
-   "play": "/misc/play/?title=Flippy%20Fish&author=Humongous%20Entertainment&link=flippyfish&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/flippyfish/icon.webp",
+   "play": "/misc/play/?title=Flippy%20Fish&author=Humongous%20Entertainment&link=flippyfish",
    "frame": "/misc/flippyfish/index.html",
    "status": "observed"
   },
@@ -1284,7 +1298,7 @@
   "fnf": {
    "id": "fnf",
    "name": "Friday Night Funkin",
-   "play": "/misc/play/?title=Friday%20Night%20Funkin&author=Funkin'%20Crew%20Inc.&link=fnf&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/fnf/img.webp",
+   "play": "/misc/play/?title=Friday%20Night%20Funkin&author=Funkin'%20Crew%20Inc.&link=fnf",
    "frame": "/misc/fnf/index.html",
    "status": "observed"
   },
@@ -1305,14 +1319,14 @@
   "fruit-merge": {
    "id": "fruit-merge",
    "name": "Fruit Merge",
-   "play": "/misc/play/?title=Fruit%20Merge&author=Aladdin%20X&link=fruit-merge&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/fruit-merge/icons/icon-256.webp",
+   "play": "/misc/play/?title=Fruit%20Merge&author=Aladdin%20X&link=fruit-merge",
    "frame": "/misc/fruit-merge/index.html",
    "status": "observed"
   },
   "fruit-ninja": {
    "id": "fruit-ninja",
    "name": "Fruit Ninja",
-   "play": "/misc/play/?title=Fruit%20Ninja&author=Halfbrick&link=fruit-ninja&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/fruit-ninja/img.webp",
+   "play": "/misc/play/?title=Fruit%20Ninja&author=Halfbrick&link=fruit-ninja",
    "frame": "/misc/fruit-ninja/index.html",
    "status": "observed"
   },
@@ -1340,7 +1354,7 @@
   "funny-shooter-2": {
    "id": "funny-shooter-2",
    "name": "Funny Shooter 2",
-   "play": "/misc/play/?title=Funny%20Shooter%202&author=GoGoMan&link=funny-shooter-2&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/funny-shooter-2/img.webp",
+   "play": "/misc/play/?title=Funny%20Shooter%202&author=GoGoMan&link=funny-shooter-2",
    "frame": "/misc/funny-shooter-2/index.html",
    "status": "observed"
   },
@@ -1361,7 +1375,7 @@
   "geometry-dash": {
    "id": "geometry-dash",
    "name": "Geometry Dash Lite",
-   "play": "/misc/play/?title=Geometry%20Dash%20Lite&author=Robotop&link=geometry-dash&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/geometry-dash/img.webp",
+   "play": "/misc/play/?title=Geometry%20Dash%20Lite&author=Robotop&link=geometry-dash",
    "frame": "/misc/geometry-dash/index.html",
    "status": "observed"
   },
@@ -1389,14 +1403,14 @@
   "gimme-the-airpod": {
    "id": "gimme-the-airpod",
    "name": "Gimme the Airpod",
-   "play": "/misc/play/?title=Gimme%20the%20Airpod&author=Onefin&link=gimme-the-airpod&img=/img/games/gimmetheairpod.webp",
+   "play": "/misc/play/?title=Gimme%20the%20Airpod&author=Onefin&link=gimme-the-airpod",
    "frame": "/misc/gimme-the-airpod/index.html",
    "status": "observed"
   },
   "gladihoppers": {
    "id": "gladihoppers",
    "name": "Gladihoppers",
-   "play": "/misc/play/?title=Gladihoppers&author=Dreamon%20Studios%20AB&link=gladihoppers&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/gladihoppers/img.webp",
+   "play": "/misc/play/?title=Gladihoppers&author=Dreamon%20Studios%20AB&link=gladihoppers",
    "frame": "/misc/gladihoppers/index.html",
    "status": "observed"
   },
@@ -1438,7 +1452,7 @@
   "google-snake": {
    "id": "google-snake",
    "name": "Google Snake",
-   "play": "/misc/play/?title=Google%20Snake&author=Google&link=google-snake&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/google-snake/img.webp",
+   "play": "/misc/play/?title=Google%20Snake&author=Google&link=google-snake",
    "frame": "/misc/google-snake/index.html",
    "status": "observed"
   },
@@ -1452,7 +1466,7 @@
   "grandprixhero": {
    "id": "grandprixhero",
    "name": "Grand Prix Hero",
-   "play": "/misc/play/?title=Grand%20Prix%20Hero&author=Asher%20Lee&link=grandprixhero&img=/img/games/grandprixhero.webp",
+   "play": "/misc/play/?title=Grand%20Prix%20Hero&author=Asher%20Lee&link=grandprixhero",
    "frame": "/misc/grandprixhero/index.html",
    "status": "observed"
   },
@@ -1466,21 +1480,21 @@
   "grindcraft": {
    "id": "grindcraft",
    "name": "Grindcraft",
-   "play": "/misc/play/?title=Grindcraft&author=Jetspice%20Games&link=grindcraft&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/grindcraft/img.webp",
+   "play": "/misc/play/?title=Grindcraft&author=Jetspice%20Games&link=grindcraft",
    "frame": "/misc/grindcraft/index.html",
    "status": "observed"
   },
   "gunblood": {
    "id": "gunblood",
    "name": "Gunblood",
-   "play": "/misc/play/?title=Gunblood&author=Wolf%20Games&link=gunblood&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/gunblood/img.webp",
+   "play": "/misc/play/?title=Gunblood&author=Wolf%20Games&link=gunblood",
    "frame": "/misc/gunblood/index.html",
    "status": "observed"
   },
   "gunspin": {
    "id": "gunspin",
    "name": "Gun Spin",
-   "play": "/misc/play/?title=Gun%20Spin&author=MiniJuegos&link=gunspin&img=/img/games/gunspin.webp",
+   "play": "/misc/play/?title=Gun%20Spin&author=MiniJuegos&link=gunspin",
    "frame": "/misc/gunspin/index.html",
    "status": "observed"
   },
@@ -1521,7 +1535,7 @@
   "helixjump": {
    "id": "helixjump",
    "name": "Helix Jump",
-   "play": "/misc/play/?title=Helix%20Jump&author=VooDoo&link=helixjump&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/helixjump/gameIcon.webp",
+   "play": "/misc/play/?title=Helix%20Jump&author=VooDoo&link=helixjump",
    "frame": "/misc/helixjump/index.html",
    "status": "observed"
   },
@@ -1577,7 +1591,7 @@
   "hextris": {
    "id": "hextris",
    "name": "Hextris",
-   "play": "/misc/play/?title=Hextris&author=David%20King&link=hextris&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/hextris/images/icons/apple-touch-512.webp",
+   "play": "/misc/play/?title=Hextris&author=David%20King&link=hextris",
    "frame": "/misc/hextris/index.html",
    "status": "observed"
   },
@@ -1626,7 +1640,7 @@
   "houseofhazards": {
    "id": "houseofhazards",
    "name": "House Of Hazards",
-   "play": "/misc/play/?title=House%20Of%20Hazards&author=New%20Eich%20Games&link=houseofhazards&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/houseofhazards/img.webp",
+   "play": "/misc/play/?title=House%20Of%20Hazards&author=New%20Eich%20Games&link=houseofhazards",
    "frame": "/misc/houseofhazards/index.html",
    "status": "observed"
   },
@@ -1640,7 +1654,7 @@
   "idle-breakout": {
    "id": "idle-breakout",
    "name": "Idle Breakout",
-   "play": "/misc/play/?title=Idle%20Breakout&author=Kodiqi&link=idle-breakout&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/idle-breakout/img/thumbnail.webp",
+   "play": "/misc/play/?title=Idle%20Breakout&author=Kodiqi&link=idle-breakout",
    "frame": "/misc/idle-breakout/index.html",
    "status": "observed"
   },
@@ -1654,7 +1668,7 @@
   "idle-dice": {
    "id": "idle-dice",
    "name": "Idle Dice",
-   "play": "/misc/play/?title=Idle%20Dice&author=Lutz%20Schoenfelder&link=idle_dice&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/idle_dice/img.webp",
+   "play": "/misc/play/?title=Idle%20Dice&author=Lutz%20Schoenfelder&link=idle_dice",
    "frame": "/misc/idle_dice/index.html",
    "status": "observed"
   },
@@ -1675,7 +1689,7 @@
   "idle-mining-empire": {
    "id": "idle-mining-empire",
    "name": "Idle Mining Empire",
-   "play": "/misc/play/?title=Idle%20Mining%20Empire&author=Kolibri%20Games&link=idle-mining-empire&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/idle-mining-empire/img.webp",
+   "play": "/misc/play/?title=Idle%20Mining%20Empire&author=Kolibri%20Games&link=idle-mining-empire",
    "frame": "/misc/idle-mining-empire/index.html",
    "status": "observed"
   },
@@ -1696,21 +1710,21 @@
   "idlerestaurants": {
    "id": "idlerestaurants",
    "name": "Idle Restaurants",
-   "play": "/misc/play/?title=Idle%20Restaurants&author=Asher%20Lee&link=IdleRestaurants&img=https://cdn.jsdelivr.net/gh/55gms/assets@7e412f6101ae566968f32d97a48f44c09adae3e1/misc/IdleRestaurants/img.webp",
+   "play": "/misc/play/?title=Idle%20Restaurants&author=Asher%20Lee&link=IdleRestaurants",
    "frame": "/misc/IdleRestaurants/index.html",
    "status": "observed"
   },
   "impossible-quiz": {
    "id": "impossible-quiz",
    "name": "Impossible Quiz",
-   "play": "/misc/play/?title=Impossible%20Quiz&author=SplappMeDo&link=impossible-quiz&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/impossible-quiz/img.webp",
+   "play": "/misc/play/?title=Impossible%20Quiz&author=SplappMeDo&link=impossible-quiz",
    "frame": "/misc/impossible-quiz/index.html",
    "status": "observed"
   },
   "impossible-quiz2": {
    "id": "impossible-quiz2",
    "name": "Impossible Quiz 2",
-   "play": "/misc/play/?title=Impossible%20Quiz%202&author=SplappMeDo&link=impossible-quiz2&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/impossible-quiz/2.webp",
+   "play": "/misc/play/?title=Impossible%20Quiz%202&author=SplappMeDo&link=impossible-quiz2",
    "frame": "/misc/impossible-quiz2/index.html",
    "status": "observed"
   },
@@ -1780,7 +1794,7 @@
   "karlsont": {
    "id": "karlsont",
    "name": "KARLSON'T",
-   "play": "/misc/play/?title=KARLSON'T&author=Allan%20Lu&link=karlsont&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/karlsont/img.webp",
+   "play": "/misc/play/?title=KARLSON'T&author=Allan%20Lu&link=karlsont",
    "frame": "/misc/karlsont/index.html",
    "status": "observed"
   },
@@ -1808,7 +1822,7 @@
   "kiwiclicker": {
    "id": "kiwiclicker",
    "name": "Kiwi Clicker",
-   "play": "/misc/play/?title=Kiwi%20Clicker&author=Dimitri%20Kipper&link=kiwiclicker&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/kiwiclicker/img.webp",
+   "play": "/misc/play/?title=Kiwi%20Clicker&author=Dimitri%20Kipper&link=kiwiclicker",
    "frame": "/misc/kiwiclicker/index.html",
    "status": "observed"
   },
@@ -1822,14 +1836,14 @@
   "knifehit": {
    "id": "knifehit",
    "name": "Knife Hit",
-   "play": "/misc/play/?title=Knife%20Hit&author=Ketchapp&link=knifehit&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/knifehit/icon.webp",
+   "play": "/misc/play/?title=Knife%20Hit&author=Ketchapp&link=knifehit",
    "frame": "/misc/knifehit/index.html",
    "status": "observed"
   },
   "learn-to-fly": {
    "id": "learn-to-fly",
    "name": "Learn to Fly 3",
-   "play": "/misc/play/?title=Learn%20to%20Fly%203&author=Light%20Bringer%20Games&link=learn-to-fly&img=/img/games/learntofly3.webp",
+   "play": "/misc/play/?title=Learn%20to%20Fly%203&author=Light%20Bringer%20Games&link=learn-to-fly",
    "frame": "/misc/learn-to-fly/index.html",
    "status": "observed"
   },
@@ -1843,7 +1857,7 @@
   "leveldevil": {
    "id": "leveldevil",
    "name": "Level Devil",
-   "play": "/misc/play/?title=Level%20Devil&author=Unept&link=leveldevil&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/leveldevil/img.webp",
+   "play": "/misc/play/?title=Level%20Devil&author=Unept&link=leveldevil",
    "frame": "/misc/leveldevil/index.html",
    "status": "observed"
   },
@@ -1857,7 +1871,7 @@
   "littlealchemy": {
    "id": "littlealchemy",
    "name": "Little Alchemy",
-   "play": "/misc/play/?title=Little%20Alchemy&author=Recloak%20Games&link=littlealchemy&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/littlealchemy/little.webp",
+   "play": "/misc/play/?title=Little%20Alchemy&author=Recloak%20Games&link=littlealchemy",
    "frame": "/misc/littlealchemy/index.html",
    "status": "observed"
   },
@@ -1878,7 +1892,7 @@
   "madstunt-cars": {
    "id": "madstunt-cars",
    "name": "Madalin Stunt Cars 3",
-   "play": "/misc/play/?title=Madalin%20Stunt%20Cars%203&author=Madalin&link=madstunt-cars&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/madstunt-cars/img.webp",
+   "play": "/misc/play/?title=Madalin%20Stunt%20Cars%203&author=Madalin&link=madstunt-cars",
    "frame": "/misc/madstunt-cars/index.html",
    "status": "observed"
   },
@@ -1899,7 +1913,7 @@
   "marblessorting": {
    "id": "marblessorting",
    "name": "Marbles Sorting",
-   "play": "/misc/play/?title=Marbles%20Sorting&link=MarblesSorting&img=https://cdn.jsdelivr.net/gh/55gms/assets@7e412f6101ae566968f32d97a48f44c09adae3e1/misc/MarblesSorting/img.webp",
+   "play": "/misc/play/?title=Marbles%20Sorting&link=MarblesSorting",
    "frame": "/misc/MarblesSorting/index.html",
    "status": "observed"
   },
@@ -1947,7 +1961,7 @@
   "monster-track": {
    "id": "monster-track",
    "name": "Monster Tracks",
-   "play": "/misc/play/?title=Monster%20Tracks&author=Martin%20Magni&link=monster-track&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/monster-track/thumb.webp",
+   "play": "/misc/play/?title=Monster%20Tracks&author=Martin%20Magni&link=monster-track",
    "frame": "/misc/monster-track/index.html",
    "status": "observed"
   },
@@ -1968,28 +1982,28 @@
   "motox3m": {
    "id": "motox3m",
    "name": "MotoX3M",
-   "play": "/misc/play/?title=MotoX3M&author=MadPuffers&link=motox3m&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/motox3m/splash.webp",
+   "play": "/misc/play/?title=MotoX3M&author=MadPuffers&link=motox3m",
    "frame": "/misc/motox3m/index.html",
    "status": "observed"
   },
   "motox3m-pool": {
    "id": "motox3m-pool",
    "name": "MotoX3M Pool Party",
-   "play": "/misc/play/?title=MotoX3M%20Pool%20Party&author=MadPuffers&link=motox3m-pool&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/motox3m-pool/splash.webp",
+   "play": "/misc/play/?title=MotoX3M%20Pool%20Party&author=MadPuffers&link=motox3m-pool",
    "frame": "/misc/motox3m-pool/index.html",
    "status": "observed"
   },
   "motox3m-spooky": {
    "id": "motox3m-spooky",
    "name": "MotoX3M Spooky",
-   "play": "/misc/play/?title=MotoX3M%20Spooky&author=MadPuffers&link=motox3m-spooky&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/motox3m-spooky/splash.webp",
+   "play": "/misc/play/?title=MotoX3M%20Spooky&author=MadPuffers&link=motox3m-spooky",
    "frame": "/misc/motox3m-spooky/index.html",
    "status": "observed"
   },
   "motox3m-winter": {
    "id": "motox3m-winter",
    "name": "MotoX3M Winter",
-   "play": "/misc/play/?title=MotoX3M%20Winter&author=MadPuffers&link=motox3m-winter&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/motox3m-winter/download.webp",
+   "play": "/misc/play/?title=MotoX3M%20Winter&author=MadPuffers&link=motox3m-winter",
    "frame": "/misc/motox3m-winter/index.html",
    "status": "observed"
   },
@@ -2003,7 +2017,7 @@
   "mrbullet": {
    "id": "mrbullet",
    "name": "Mr. Bullet",
-   "play": "/misc/play/?title=Mr.%20Bullet&author=Lion%20Studios&link=mrbullet&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/mrbullet/icon-256.webp",
+   "play": "/misc/play/?title=Mr.%20Bullet&author=Lion%20Studios&link=mrbullet",
    "frame": "/misc/mrbullet/index.html",
    "status": "observed"
   },
@@ -2037,7 +2051,7 @@
   "n-gon": {
    "id": "n-gon",
    "name": "N Gon",
-   "play": "/misc/play/?title=N%20Gon&author=Ross%20Landgreen&link=n-gon&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/n-gon/img.webp",
+   "play": "/misc/play/?title=N%20Gon&author=Ross%20Landgreen&link=n-gon",
    "frame": "/misc/n-gon/index.html",
    "status": "observed"
   },
@@ -2058,7 +2072,7 @@
   "nowgg": {
    "id": "nowgg",
    "name": "1v1.lol",
-   "play": "/misc/play/?title=1v1.lol&author=JustPlay.LOL&link=nowgg&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/1v1-lol/splash.webp",
+   "play": "/misc/play/?title=1v1.lol&author=JustPlay.LOL&link=nowgg",
    "frame": "/misc/nowgg/index.html",
    "status": "observed"
   },
@@ -2086,112 +2100,112 @@
   "ovo": {
    "id": "ovo",
    "name": "OvO",
-   "play": "/misc/play/?title=OvO&author=Dedra%20Games&link=ovo&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/ovo/ovo.webp",
+   "play": "/misc/play/?title=OvO&author=Dedra%20Games&link=ovo",
    "frame": "/misc/ovo/index.html",
    "status": "observed"
   },
   "ovo2": {
    "id": "ovo2",
    "name": "OvO 2",
-   "play": "/misc/play/?title=OvO%202&author=Dedra%20Games&link=ovo2&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/ovo2/img.webp",
+   "play": "/misc/play/?title=OvO%202&author=Dedra%20Games&link=ovo2",
    "frame": "/misc/ovo2/index.html",
    "status": "observed"
   },
   "ovo3": {
    "id": "ovo3",
    "name": "OvO Dimensions",
-   "play": "/misc/play/?title=OvO%20Dimensions&author=Dedra%20Games&link=ovo3&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/ovo3/img.webp",
+   "play": "/misc/play/?title=OvO%20Dimensions&author=Dedra%20Games&link=ovo3",
    "frame": "/misc/ovo3/index.html",
    "status": "observed"
   },
   "papas-papas-burgeria": {
    "id": "papas-papas-burgeria",
    "name": "Papas Burgeria",
-   "play": "/misc/play/?title=Papas%20Burgeria&author=Flipline%20Studios&link=papas/papas-burgeria&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/papas/papas-burgeria/img.webp",
+   "play": "/misc/play/?title=Papas%20Burgeria&author=Flipline%20Studios&link=papas/papas-burgeria",
    "frame": "/misc/papas/papas-burgeria/index.html",
    "status": "observed"
   },
   "papas-papas-cheeseria": {
    "id": "papas-papas-cheeseria",
    "name": "Papas Cheeseria",
-   "play": "/misc/play/?title=Papas%20Cheeseria&author=Flipline%20Studios&link=papas/papas-cheeseria&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/papas/papas-cheeseria/img.webp",
+   "play": "/misc/play/?title=Papas%20Cheeseria&author=Flipline%20Studios&link=papas/papas-cheeseria",
    "frame": "/misc/papas/papas-cheeseria/index.html",
    "status": "observed"
   },
   "papas-papas-cupcakeria": {
    "id": "papas-papas-cupcakeria",
    "name": "Papas Cupcakeria",
-   "play": "/misc/play/?title=Papas%20Cupcakeria&author=Flipline%20Studios&link=papas/papas-cupcakeria&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/papas/papas-cupcakeria/img.webp",
+   "play": "/misc/play/?title=Papas%20Cupcakeria&author=Flipline%20Studios&link=papas/papas-cupcakeria",
    "frame": "/misc/papas/papas-cupcakeria/index.html",
    "status": "observed"
   },
   "papas-papas-donuteria": {
    "id": "papas-papas-donuteria",
    "name": "Papas Donuteria",
-   "play": "/misc/play/?title=Papas%20Donuteria&author=Flipline%20Studios&link=papas/papas-donuteria&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/papas/papas-donuteria/img.webp",
+   "play": "/misc/play/?title=Papas%20Donuteria&author=Flipline%20Studios&link=papas/papas-donuteria",
    "frame": "/misc/papas/papas-donuteria/index.html",
    "status": "observed"
   },
   "papas-papas-freezeria": {
    "id": "papas-papas-freezeria",
    "name": "Papas Freezeria",
-   "play": "/misc/play/?title=Papas%20Freezeria&author=Flipline%20Studios&link=papas/papas-freezeria&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/papas/papas-freezeria/img.webp%3Fv%3D1",
+   "play": "/misc/play/?title=Papas%20Freezeria&author=Flipline%20Studios&link=papas/papas-freezeria",
    "frame": "/misc/papas/papas-freezeria/index.html",
    "status": "observed"
   },
   "papas-papas-hot-doggeria": {
    "id": "papas-papas-hot-doggeria",
    "name": "Papas Hot Doggeria",
-   "play": "/misc/play/?title=Papas%20Hot%20Doggeria&author=Flipline%20Studios&link=papas/papas-hot-doggeria&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/papas/papas-hot-doggeria/img.webp",
+   "play": "/misc/play/?title=Papas%20Hot%20Doggeria&author=Flipline%20Studios&link=papas/papas-hot-doggeria",
    "frame": "/misc/papas/papas-hot-doggeria/index.html",
    "status": "observed"
   },
   "papas-papas-pancakeria": {
    "id": "papas-papas-pancakeria",
    "name": "Papas Pancakeria",
-   "play": "/misc/play/?title=Papas%20Pancakeria&author=Flipline%20Studios&link=papas/papas-pancakeria&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/papas/papas-pancakeria/img.webp",
+   "play": "/misc/play/?title=Papas%20Pancakeria&author=Flipline%20Studios&link=papas/papas-pancakeria",
    "frame": "/misc/papas/papas-pancakeria/index.html",
    "status": "observed"
   },
   "papas-papas-pastaria": {
    "id": "papas-papas-pastaria",
    "name": "Papas Pasteria",
-   "play": "/misc/play/?title=Papas%20Pasteria&author=Flipline%20Studios&link=papas/papas-pastaria&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/papas/papas-pastaria/img.webp",
+   "play": "/misc/play/?title=Papas%20Pasteria&author=Flipline%20Studios&link=papas/papas-pastaria",
    "frame": "/misc/papas/papas-pastaria/index.html",
    "status": "observed"
   },
   "papas-papas-pizzaria": {
    "id": "papas-papas-pizzaria",
    "name": "Papas Pizzaria",
-   "play": "/misc/play/?title=Papas%20Pizzaria&author=Flipline%20Studios&link=papas/papas-pizzaria&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/papas/papas-pizzaria/img.webp",
+   "play": "/misc/play/?title=Papas%20Pizzaria&author=Flipline%20Studios&link=papas/papas-pizzaria",
    "frame": "/misc/papas/papas-pizzaria/index.html",
    "status": "observed"
   },
   "papas-papas-scooperia": {
    "id": "papas-papas-scooperia",
    "name": "Papas Scooperia",
-   "play": "/misc/play/?title=Papas%20Scooperia&author=Flipline%20Studios&link=papas/papas-scooperia&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/papas/papas-scooperia/img.webp%3Fv%3D1",
+   "play": "/misc/play/?title=Papas%20Scooperia&author=Flipline%20Studios&link=papas/papas-scooperia",
    "frame": "/misc/papas/papas-scooperia/index.html",
    "status": "observed"
   },
   "papas-papas-sushiria": {
    "id": "papas-papas-sushiria",
    "name": "Papas Sushiria",
-   "play": "/misc/play/?title=Papas%20Sushiria&author=Flipline%20Studios&link=papas/papas-sushiria&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/papas/papas-sushiria/img.webp",
+   "play": "/misc/play/?title=Papas%20Sushiria&author=Flipline%20Studios&link=papas/papas-sushiria",
    "frame": "/misc/papas/papas-sushiria/index.html",
    "status": "observed"
   },
   "papas-papas-taco-mia": {
    "id": "papas-papas-taco-mia",
    "name": "Papas Taco Mia",
-   "play": "/misc/play/?title=Papas%20Taco%20Mia&author=Flipline%20Studios&link=papas/papas-taco-mia&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/papas/papas-taco-mia/img.webp",
+   "play": "/misc/play/?title=Papas%20Taco%20Mia&author=Flipline%20Studios&link=papas/papas-taco-mia",
    "frame": "/misc/papas/papas-taco-mia/index.html",
    "status": "observed"
   },
   "papas-papas-wingeria": {
    "id": "papas-papas-wingeria",
    "name": "Papas Wingeria",
-   "play": "/misc/play/?title=Papas%20Wingeria&author=Flipline%20Studios&link=papas/papas-wingeria&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/papas/papas-wingeria/img.webp",
+   "play": "/misc/play/?title=Papas%20Wingeria&author=Flipline%20Studios&link=papas/papas-wingeria",
    "frame": "/misc/papas/papas-wingeria/index.html",
    "status": "observed"
   },
@@ -2205,14 +2219,14 @@
   "paperio2": {
    "id": "paperio2",
    "name": "Paper.io 2",
-   "play": "/misc/play/?title=Paper.io%202&author=VooDoo&link=paperio2&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/paperio2/images/icon512.webp",
+   "play": "/misc/play/?title=Paper.io%202&author=VooDoo&link=paperio2",
    "frame": "/misc/paperio2/index.html",
    "status": "observed"
   },
   "papery-planes": {
    "id": "papery-planes",
    "name": "Papery Planes",
-   "play": "/misc/play/?title=Papery%20Planes&author=Saucecup%20Studios&link=papery-planes&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/papery-planes/splash.webp",
+   "play": "/misc/play/?title=Papery%20Planes&author=Saucecup%20Studios&link=papery-planes",
    "frame": "/misc/papery-planes/index.html",
    "status": "observed"
   },
@@ -2233,7 +2247,7 @@
   "penalty-kick-online": {
    "id": "penalty-kick-online",
    "name": "Penalty Kick Online",
-   "play": "/misc/play/?title=Penalty%20Kick%20Online&author=Goalbound%20Studios&link=penalty-kick-online&img=https://cdn.jsdelivr.net/gh/55gms/assets@7e412f6101ae566968f32d97a48f44c09adae3e1/misc/penalty-kick-online/img.webp",
+   "play": "/misc/play/?title=Penalty%20Kick%20Online&author=Goalbound%20Studios&link=penalty-kick-online",
    "frame": "/misc/penalty-kick-online/index.html",
    "status": "observed"
   },
@@ -2282,7 +2296,7 @@
   "pingponggo": {
    "id": "pingponggo",
    "name": "Ping Pong Go",
-   "play": "/misc/play/?title=Ping%20Pong%20Go&author=Happylander&link=pingponggo&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/pingponggo/img.webp",
+   "play": "/misc/play/?title=Ping%20Pong%20Go&author=Happylander&link=pingponggo",
    "frame": "/misc/pingponggo/index.html",
    "status": "observed"
   },
@@ -2315,7 +2329,7 @@
   "poor-bunny": {
    "id": "poor-bunny",
    "name": "Poor Bunny",
-   "play": "/misc/play/?title=Poor%20Bunny&author=Jussi%20Simpanen&link=poor-bunny&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/poor-bunny/img.webp",
+   "play": "/misc/play/?title=Poor%20Bunny&author=Jussi%20Simpanen&link=poor-bunny",
    "frame": "/misc/poor-bunny/index.html",
    "status": "observed"
   },
@@ -2405,7 +2419,7 @@
   "recoil": {
    "id": "recoil",
    "name": "Recoil",
-   "play": "/misc/play/?title=Recoil&author=Martin%20Magni&link=recoil&img=/img/games/recoil.webp",
+   "play": "/misc/play/?title=Recoil&author=Martin%20Magni&link=recoil",
    "frame": "/misc/recoil/index.html",
    "status": "observed"
   },
@@ -2419,7 +2433,7 @@
   "redvsbluez": {
    "id": "redvsbluez",
    "name": "Red Vs. Bluez",
-   "play": "/misc/play/?title=Red%20Vs.%20Bluez&author=Some%20Russain%20Guy&link=redvsbluez&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/redvsbluez/img.webp",
+   "play": "/misc/play/?title=Red%20Vs.%20Bluez&author=Some%20Russain%20Guy&link=redvsbluez",
    "frame": "/misc/redvsbluez/index.html",
    "status": "observed"
   },
@@ -2461,56 +2475,56 @@
   "retrobowlcollege": {
    "id": "retrobowlcollege",
    "name": "Retro Bowl College",
-   "play": "/misc/play/?title=Retro%20Bowl%20College&author=New%20Star%20Games&link=retrobowlcollege&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/retrobowlcollege/img.webp",
+   "play": "/misc/play/?title=Retro%20Bowl%20College&author=New%20Star%20Games&link=retrobowlcollege",
    "frame": "/misc/retrobowlcollege/index.html",
    "status": "observed"
   },
   "riddleschool": {
    "id": "riddleschool",
    "name": "Riddle School",
-   "play": "/misc/play/?title=Riddle%20School&author=Jonochrome&link=riddleschool&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/riddleschool/riddleschool.webp",
+   "play": "/misc/play/?title=Riddle%20School&author=Jonochrome&link=riddleschool",
    "frame": "/misc/riddleschool/index.html",
    "status": "observed"
   },
   "riddleschool2": {
    "id": "riddleschool2",
    "name": "Riddle School 2",
-   "play": "/misc/play/?title=Riddle%20School%202&author=Jonochrome&link=riddleschool2&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/riddleschool2/riddleschool2.webp",
+   "play": "/misc/play/?title=Riddle%20School%202&author=Jonochrome&link=riddleschool2",
    "frame": "/misc/riddleschool2/index.html",
    "status": "observed"
   },
   "riddleschool3": {
    "id": "riddleschool3",
    "name": "Riddle School 3",
-   "play": "/misc/play/?title=Riddle%20School%203&author=Jonochrome&link=riddleschool3&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/riddleschool3/riddleschool3.webp",
+   "play": "/misc/play/?title=Riddle%20School%203&author=Jonochrome&link=riddleschool3",
    "frame": "/misc/riddleschool3/index.html",
    "status": "observed"
   },
   "riddleschool4": {
    "id": "riddleschool4",
    "name": "Riddle School 4",
-   "play": "/misc/play/?title=Riddle%20School%204&author=Jonochrome&link=riddleschool4&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/riddleschool4/riddleschool4.webp",
+   "play": "/misc/play/?title=Riddle%20School%204&author=Jonochrome&link=riddleschool4",
    "frame": "/misc/riddleschool4/index.html",
    "status": "observed"
   },
   "riddleschool5": {
    "id": "riddleschool5",
    "name": "Riddle School 5",
-   "play": "/misc/play/?title=Riddle%20School%205&author=Jonochrome&link=riddleschool5&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/riddleschool5/riddleschool5.webp",
+   "play": "/misc/play/?title=Riddle%20School%205&author=Jonochrome&link=riddleschool5",
    "frame": "/misc/riddleschool5/index.html",
    "status": "observed"
   },
   "riddletransfer": {
    "id": "riddletransfer",
    "name": "Riddle School Transfer",
-   "play": "/misc/play/?title=Riddle%20School%20Transfer&author=Jonochrome&link=riddletransfer&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/riddletransfer/riddletransfer.webp",
+   "play": "/misc/play/?title=Riddle%20School%20Transfer&author=Jonochrome&link=riddletransfer",
    "frame": "/misc/riddletransfer/index.html",
    "status": "observed"
   },
   "riddletransfer2": {
    "id": "riddletransfer2",
    "name": "Riddle Transfer 2",
-   "play": "/misc/play/?title=Riddle%20Transfer%202&author=Jonochrome&link=riddletransfer2&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/riddletransfer2/riddletransfer2.webp",
+   "play": "/misc/play/?title=Riddle%20Transfer%202&author=Jonochrome&link=riddletransfer2",
    "frame": "/misc/riddletransfer2/index.html",
    "status": "observed"
   },
@@ -2551,14 +2565,14 @@
   "rooftop-snipers": {
    "id": "rooftop-snipers",
    "name": "Rooftop Snipers",
-   "play": "/misc/play/?title=Rooftop%20Snipers&author=New%20Eich%20Games&link=rooftop-snipers&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/rooftop-snipers/rooftop.webp",
+   "play": "/misc/play/?title=Rooftop%20Snipers&author=New%20Eich%20Games&link=rooftop-snipers",
    "frame": "/misc/rooftop-snipers/index.html",
    "status": "observed"
   },
   "rooftop-snipers2": {
    "id": "rooftop-snipers2",
    "name": "Rooftop Snipers 2",
-   "play": "/misc/play/?title=Rooftop%20Snipers%202&author=New%20Eich%20Games&link=rooftop-snipers2&img=/img/games/rooftopsnipers.webp",
+   "play": "/misc/play/?title=Rooftop%20Snipers%202&author=New%20Eich%20Games&link=rooftop-snipers2",
    "frame": "/misc/rooftop-snipers2/index.html",
    "status": "observed"
   },
@@ -2676,21 +2690,21 @@
   "slope": {
    "id": "slope",
    "name": "Slope",
-   "play": "/misc/play/?title=Slope&author=Y8%20Games&link=slope&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/slope/slope.webp",
+   "play": "/misc/play/?title=Slope&author=Y8%20Games&link=slope",
    "frame": "/misc/slope/index.html",
    "status": "observed"
   },
   "slowrds": {
    "id": "slowrds",
    "name": "Slowroads",
-   "play": "/misc/play/?title=Slowroads&author=Slow&link=slowrds&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/slowrds/img.webp",
+   "play": "/misc/play/?title=Slowroads&author=Slow&link=slowrds",
    "frame": "/misc/slowrds/index.html",
    "status": "observed"
   },
   "sm64": {
    "id": "sm64",
    "name": "Super Mario 64",
-   "play": "/misc/play/?title=Super%20Mario%2064&author=Nintendo&link=sm64&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/sm64/img.webp",
+   "play": "/misc/play/?title=Super%20Mario%2064&author=Nintendo&link=sm64",
    "frame": "/misc/sm64/index.html",
    "status": "observed"
   },
@@ -2724,14 +2738,14 @@
   "snowrider3d": {
    "id": "snowrider3d",
    "name": "Snow Rider 3D",
-   "play": "/misc/play/?title=Snow%20Rider%203D&link=SnowRider3D&img=/img/games/snowrider.webp",
+   "play": "/misc/play/?title=Snow%20Rider%203D&link=SnowRider3D",
    "frame": "/misc/SnowRider3D/index.html",
    "status": "observed"
   },
   "soccer-random": {
    "id": "soccer-random",
    "name": "Soccer Random",
-   "play": "/misc/play/?title=Soccer%20Random&author=RHM%20Interactive&link=soccer-random&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/soccer-random/img.webp",
+   "play": "/misc/play/?title=Soccer%20Random&author=RHM%20Interactive&link=soccer-random",
    "frame": "/misc/soccer-random/index.html",
    "status": "observed"
   },
@@ -2745,7 +2759,7 @@
   "soccerbros": {
    "id": "soccerbros",
    "name": "Soccer Bros",
-   "play": "/misc/play/?title=Soccer%20Bros&author=Blue%20Wizard%20Digital&link=soccerbros&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/soccerbros/icon.webp",
+   "play": "/misc/play/?title=Soccer%20Bros&author=Blue%20Wizard%20Digital&link=soccerbros",
    "frame": "/misc/soccerbros/index.html",
    "status": "observed"
   },
@@ -2766,7 +2780,7 @@
   "spacebarclicker": {
    "id": "spacebarclicker",
    "name": "Spacebar Clicker",
-   "play": "/misc/play/?title=Spacebar%20Clicker&author=Bruno%20Croci&link=spacebarclicker&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/spacebarclicker/img.webp",
+   "play": "/misc/play/?title=Spacebar%20Clicker&author=Bruno%20Croci&link=spacebarclicker",
    "frame": "/misc/spacebarclicker/index.html",
    "status": "observed"
   },
@@ -2828,7 +2842,7 @@
   "steelhills": {
    "id": "steelhills",
    "name": "Steel Hills",
-   "play": "/misc/play/?title=Steel%20Hills&author=Superplus%20Games&link=steelhills&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/steelhills/img.webp",
+   "play": "/misc/play/?title=Steel%20Hills&author=Superplus%20Games&link=steelhills",
    "frame": "/misc/steelhills/index.html",
    "status": "observed"
   },
@@ -2877,7 +2891,7 @@
   "stickman-boost": {
    "id": "stickman-boost",
    "name": "Stickman Boost",
-   "play": "/misc/play/?title=Stickman%20Boost&author=Nikhil%20Shakya&link=stickman-boost&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/stickman-boost/img.webp",
+   "play": "/misc/play/?title=Stickman%20Boost&author=Nikhil%20Shakya&link=stickman-boost",
    "frame": "/misc/stickman-boost/index.html",
    "status": "observed"
   },
@@ -2898,7 +2912,7 @@
   "stickman-hook": {
    "id": "stickman-hook",
    "name": "Stickman Hook",
-   "play": "/misc/play/?title=Stickman%20Hook&author=MadBox&link=stickman-hook&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/stickman-hook/unnamed.webp",
+   "play": "/misc/play/?title=Stickman%20Hook&author=MadBox&link=stickman-hook",
    "frame": "/misc/stickman-hook/index.html",
    "status": "observed"
   },
@@ -2946,14 +2960,14 @@
   "subway-surfers": {
    "id": "subway-surfers",
    "name": "Subway Surfers",
-   "play": "/misc/play/?title=Subway%20Surfers&author=SYBO&link=subway-surfers&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/subway-surfers/NewYorkIcon.webp",
+   "play": "/misc/play/?title=Subway%20Surfers&author=SYBO&link=subway-surfers",
    "frame": "/misc/subway-surfers/index.html",
    "status": "observed"
   },
   "super-foulist": {
    "id": "super-foulist",
    "name": "Super Foulist",
-   "play": "/misc/play/?title=Super%20Foulist&author=Thomas%20K.%20Young&link=super-foulist&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/super-foulist/img.webp",
+   "play": "/misc/play/?title=Super%20Foulist&author=Thomas%20K.%20Young&link=super-foulist",
    "frame": "/misc/super-foulist/index.html",
    "status": "observed"
   },
@@ -2967,7 +2981,7 @@
   "superhot": {
    "id": "superhot",
    "name": "Superhot",
-   "play": "/misc/play/?title=Superhot&author=Superhot%20Team&link=superhot&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/superhot/hot.webp",
+   "play": "/misc/play/?title=Superhot&author=Superhot%20Team&link=superhot",
    "frame": "/misc/superhot/index.html",
    "status": "observed"
   },
@@ -2981,28 +2995,28 @@
   "superstarcar": {
    "id": "superstarcar",
    "name": "Super Star Car",
-   "play": "/misc/play/?title=Super%20Star%20Car&author=Barnzmu&link=superstarcar&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/superstarcar/splash.webp",
+   "play": "/misc/play/?title=Super%20Star%20Car&author=Barnzmu&link=superstarcar",
    "frame": "/misc/superstarcar/index.html",
    "status": "observed"
   },
   "survival-race": {
    "id": "survival-race",
    "name": "Race Survival",
-   "play": "/misc/play/?title=Race%20Survival&author=Brain%20Message&link=survival-race&img=/img/games/racesurvival.webp",
+   "play": "/misc/play/?title=Race%20Survival&author=Brain%20Message&link=survival-race",
    "frame": "/misc/survival-race/index.html",
    "status": "observed"
   },
   "swingo": {
    "id": "swingo",
    "name": "Swingo",
-   "play": "/misc/play/?title=Swingo&author=Blumgi&link=swingo&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/swingo/img.webp",
+   "play": "/misc/play/?title=Swingo&author=Blumgi&link=swingo",
    "frame": "/misc/swingo/index.html",
    "status": "observed"
   },
   "tabletennisworldtour": {
    "id": "tabletennisworldtour",
    "name": "Table Tennis: WT",
-   "play": "/misc/play/?title=Table%20Tennis:%20WT&author=ITTF&link=tabletennisworldtour&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/tabletennisworldtour/img.webp",
+   "play": "/misc/play/?title=Table%20Tennis:%20WT&author=ITTF&link=tabletennisworldtour",
    "frame": "/misc/tabletennisworldtour/index.html",
    "status": "observed"
   },
@@ -3016,7 +3030,7 @@
   "tanuki-sunset": {
    "id": "tanuki-sunset",
    "name": "Takuni Sunset",
-   "play": "/misc/play/?title=Takuni%20Sunset&author=Rewind%20Games&link=Tanuki-Sunset&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/Tanuki-Sunset/img.webp",
+   "play": "/misc/play/?title=Takuni%20Sunset&author=Rewind%20Games&link=Tanuki-Sunset",
    "frame": "/misc/Tanuki-Sunset/index.html",
    "status": "observed"
   },
@@ -3065,21 +3079,21 @@
   "time-shooter1": {
    "id": "time-shooter1",
    "name": "Time Shooter 1",
-   "play": "/misc/play/?title=Time%20Shooter%201&author=GoGoMan&link=time-shooter1&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/time-shooter1/img.webp",
+   "play": "/misc/play/?title=Time%20Shooter%201&author=GoGoMan&link=time-shooter1",
    "frame": "/misc/time-shooter1/index.html",
    "status": "observed"
   },
   "time-shooter2": {
    "id": "time-shooter2",
    "name": "Time Shooter 2",
-   "play": "/misc/play/?title=Time%20Shooter%202&author=GoGoMan&link=time-shooter2&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/time-shooter2/img.webp",
+   "play": "/misc/play/?title=Time%20Shooter%202&author=GoGoMan&link=time-shooter2",
    "frame": "/misc/time-shooter2/index.html",
    "status": "observed"
   },
   "tiny-fishing": {
    "id": "tiny-fishing",
    "name": "Tiny Fishing",
-   "play": "/misc/play/?title=Tiny%20Fishing&author=Mad%20Buffer&link=tiny-fishing&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/tiny-fishing/thumb.webp",
+   "play": "/misc/play/?title=Tiny%20Fishing&author=Mad%20Buffer&link=tiny-fishing",
    "frame": "/misc/tiny-fishing/index.html",
    "status": "observed"
   },
@@ -3100,14 +3114,14 @@
   "tombofthemask": {
    "id": "tombofthemask",
    "name": "Tomb Of The Mask",
-   "play": "/misc/play/?title=Tomb%20Of%20The%20Mask&author=Playgendary&link=tombofthemask&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/tombofthemask/img.webp",
+   "play": "/misc/play/?title=Tomb%20Of%20The%20Mask&author=Playgendary&link=tombofthemask",
    "frame": "/misc/tombofthemask/index.html",
    "status": "observed"
   },
   "tosstheturtle": {
    "id": "tosstheturtle",
    "name": "Toss the Turtle",
-   "play": "/misc/play/?title=Toss%20the%20Turtle&author=Gonzossm&link=tosstheturtle&img=/img/games/turtle.webp",
+   "play": "/misc/play/?title=Toss%20the%20Turtle&author=Gonzossm&link=tosstheturtle",
    "frame": "/misc/tosstheturtle/index.html",
    "status": "observed"
   },
@@ -3121,14 +3135,14 @@
   "tunnel-rush": {
    "id": "tunnel-rush",
    "name": "Tunnel Rush",
-   "play": "/misc/play/?title=Tunnel%20Rush&author=Deer%20cat%20games&link=tunnel-rush&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/tunnel-rush/img/tunnel.webp",
+   "play": "/misc/play/?title=Tunnel%20Rush&author=Deer%20cat%20games&link=tunnel-rush",
    "frame": "/misc/tunnel-rush/index.html",
    "status": "observed"
   },
   "tunnelrush2": {
    "id": "tunnelrush2",
    "name": "Tunnel Rush 2",
-   "play": "/misc/play/?title=Tunnel%20Rush%202&author=Deer%20Cat%20games&link=tunnelrush2&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/tunnelrush2/img.webp",
+   "play": "/misc/play/?title=Tunnel%20Rush%202&author=Deer%20Cat%20games&link=tunnelrush2",
    "frame": "/misc/tunnelrush2/index.html",
    "status": "observed"
   },
@@ -3142,7 +3156,7 @@
   "twitchtetris": {
    "id": "twitchtetris",
    "name": "Twitch Tetris",
-   "play": "/misc/play/?title=Twitch%20Tetris&author=author&link=twitchtetris&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/twitchtetris/logo.webp",
+   "play": "/misc/play/?title=Twitch%20Tetris&author=author&link=twitchtetris",
    "frame": "/misc/twitchtetris/index.html",
    "status": "observed"
   },
@@ -3163,14 +3177,14 @@
   "unfair-mario": {
    "id": "unfair-mario",
    "name": "Unfair Mario",
-   "play": "/misc/play/?title=Unfair%20Mario&author=Creator&link=unfair-mario&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/unfair-mario/img.webp",
+   "play": "/misc/play/?title=Unfair%20Mario&author=Creator&link=unfair-mario",
    "frame": "/misc/unfair-mario/index.html",
    "status": "observed"
   },
   "unicycle-heros": {
    "id": "unicycle-heros",
    "name": "Unicycle Hero",
-   "play": "/misc/play/?title=Unicycle%20Hero&author=Unept&link=unicycle-heros&img=/img/games/hero.webp",
+   "play": "/misc/play/?title=Unicycle%20Hero&author=Unept&link=unicycle-heros",
    "frame": "/misc/unicycle-heros/index.html",
    "status": "observed"
   },
@@ -3184,7 +3198,7 @@
   "universal-paperclips": {
    "id": "universal-paperclips",
    "name": "Universal Paperclips",
-   "play": "/misc/play/?title=Universal%20Paperclips&author=Frank%20Lantz&link=universal-paperclips&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/universal-paperclips/img.webp",
+   "play": "/misc/play/?title=Universal%20Paperclips&author=Frank%20Lantz&link=universal-paperclips",
    "frame": "/misc/universal-paperclips/index.html",
    "status": "progress",
    "keys": [
@@ -3219,49 +3233,49 @@
   "vex3": {
    "id": "vex3",
    "name": "Vex 3",
-   "play": "/misc/play/?title=Vex%203&author=Amazing%20Adam&link=vex3&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/vex3/vex3.webp",
+   "play": "/misc/play/?title=Vex%203&author=Amazing%20Adam&link=vex3",
    "frame": "/misc/vex3/index.html",
    "status": "observed"
   },
   "vex4": {
    "id": "vex4",
    "name": "Vex 4",
-   "play": "/misc/play/?title=Vex%204&author=Amazing%20Adam&link=vex4&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/vex4/vex4.webp",
+   "play": "/misc/play/?title=Vex%204&author=Amazing%20Adam&link=vex4",
    "frame": "/misc/vex4/index.html",
    "status": "observed"
   },
   "vex5": {
    "id": "vex5",
    "name": "Vex 5",
-   "play": "/misc/play/?title=Vex%205&author=Amazing%20Adam&link=vex5&img=https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/vex5/vex5.webp",
+   "play": "/misc/play/?title=Vex%205&author=Amazing%20Adam&link=vex5",
    "frame": "/misc/vex5/index.html",
    "status": "observed"
   },
   "vex6": {
    "id": "vex6",
    "name": "Vex 6",
-   "play": "/misc/play/?title=Vex%206&author=Amazing%20Adam&link=vex6&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/vex6/assets/icon.webp",
+   "play": "/misc/play/?title=Vex%206&author=Amazing%20Adam&link=vex6",
    "frame": "/misc/vex6/index.html",
    "status": "observed"
   },
   "vex7": {
    "id": "vex7",
    "name": "Vex 7",
-   "play": "/misc/play/?title=Vex%207&author=Amazing%20Adam&link=vex7&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/vex7/assets/icon.webp",
+   "play": "/misc/play/?title=Vex%207&author=Amazing%20Adam&link=vex7",
    "frame": "/misc/vex7/index.html",
    "status": "observed"
   },
   "vex8": {
    "id": "vex8",
    "name": "Vex 8",
-   "play": "/misc/play/?title=Vex%208&author=Amazing%20Adam&link=vex8&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/vex8/assets/icon.webp",
+   "play": "/misc/play/?title=Vex%208&author=Amazing%20Adam&link=vex8",
    "frame": "/misc/vex8/index.html",
    "status": "observed"
   },
   "volley-random": {
    "id": "volley-random",
    "name": "Volley Random",
-   "play": "/misc/play/?title=Volley%20Random&author=RHM%20Interactive&link=volley-random&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/volley-random/img.webp",
+   "play": "/misc/play/?title=Volley%20Random&author=RHM%20Interactive&link=volley-random",
    "frame": "/misc/volley-random/index.html",
    "status": "observed"
   },
@@ -3282,7 +3296,7 @@
   "webecomewhatwebehold": {
    "id": "webecomewhatwebehold",
    "name": "WBWWB",
-   "play": "/misc/play/?title=WBWWB&author=Mismatch%20Studio&link=webecomewhatwebehold&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/webecomewhatwebehold/img.webp",
+   "play": "/misc/play/?title=WBWWB&author=Mismatch%20Studio&link=webecomewhatwebehold",
    "frame": "/misc/webecomewhatwebehold/index.html",
    "status": "observed"
   },
@@ -3323,7 +3337,7 @@
   "worldshardestgame": {
    "id": "worldshardestgame",
    "name": "Worlds Hardest Game",
-   "play": "/misc/play/?title=Worlds%20Hardest%20Game&author=Armor%20Games%20Inc.&link=worldshardestgame&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/worldshardestgame/img.webp",
+   "play": "/misc/play/?title=Worlds%20Hardest%20Game&author=Armor%20Games%20Inc.&link=worldshardestgame",
    "frame": "/misc/worldshardestgame/index.html",
    "status": "observed"
   },
@@ -3344,7 +3358,7 @@
   "zombiederby": {
    "id": "zombiederby",
    "name": "Zombie Derby",
-   "play": "/misc/play/?title=Zombie%20Derby&author=BrineMedia&link=zombiederby&img=https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/zombiederby/img.webp",
+   "play": "/misc/play/?title=Zombie%20Derby&author=BrineMedia&link=zombiederby",
    "frame": "/misc/zombiederby/index.html",
    "status": "observed"
   }

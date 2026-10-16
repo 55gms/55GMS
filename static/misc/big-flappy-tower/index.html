@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <script src="/assets/js/save-agent.js?v=2"></script>
+    <meta charset="UTF-8" />
+    <base href="https://cdn.jsdelivr.net/gh/55gms/assets@861ca05049786b98199e41369f4fc2dac1d0ece0/misc/big-flappy-tower/" />
+    <title>Big FLAPPY Tower</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="generator" content="Construct 3" />
+    <meta name="author" content="EO Interactive Ltd." />
+    <link rel="icon" type="image/png" href="icons/icon-256.png" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <script src="box2d.wasm.js"></script>
+    <noscript>
+      <div id="notSupportedWrap">
+        <h2 id="notSupportedTitle">This content requires JavaScript</h2>
+        <p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content.</p>
+      </div>
+    </noscript>
+    <script src="scripts/supportcheck.js"></script>
+    <script src="scripts/main.js" type="module"></script>
+    <script>
+      window.addEventListener(
+        "keydown",
+        function (e) {
+          if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) e.preventDefault();
+        },
+        false,
+      );
+    </script>
+  </body>
+</html>
