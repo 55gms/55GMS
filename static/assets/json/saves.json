@@ -1341,6 +1341,13 @@
    "frame": "/misc/flippyfish/index.html",
    "status": "observed"
   },
+  "flying-car-simulator": {
+   "id": "flying-car-simulator",
+   "name": "Flying Car Simulator",
+   "play": "/misc/play/?title=Flying%20Car%20Simulator&link=flying-car-simulator",
+   "frame": "/misc/flying-car-simulator/index.html",
+   "status": "observed"
+  },
   "fnae": {
    "id": "fnae",
    "name": "Five Nights at Epstien's",
