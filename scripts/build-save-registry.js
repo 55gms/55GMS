@@ -7,6 +7,7 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { adapterCompares } from "../utils/saveProgress.js";
 import { gameIdFromLocation } from "../utils/saveRegistry.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -17,7 +18,10 @@ const OUTPUT = path.join(STATIC, "assets/json/saves.json");
 // Games whose save format was read from their source. keys are the
 // localStorage keys that hold the save, known before the game has run on a
 // device, so a returning player's existing save and a legacy cloud backup
-// can be found. progress names the adapter in utils/saveProgress.js.
+// can be found; generic names ("progress", "settings") stay out, as a key
+// given to one game is taken from every other. progress names the adapter
+// in utils/saveProgress.js, which describes the save on /profile and, when
+// it compares (adapterCompares), settles conflicts.
 const CURATED = {
   cookieclicker: {
     keys: ["CookieClickerGame", "CookieClickerGameBeta"],
@@ -54,6 +58,7 @@ const CURATED = {
       "RetroBowl.0.savedata4.ini",
       "RetroBowl.0.savedata5.ini",
     ],
+    progress: { adapter: "retro-bowl" },
   },
   retrobowlcollege: {
     keys: [
@@ -65,7 +70,20 @@ const CURATED = {
       "RetroBowlCollege.0.savedata5.ini",
       "RetroBowlCollege.0.savedata_exh.ini",
     ],
+    progress: { adapter: "retro-bowl-college" },
   },
+  littlealchemy: { progress: { adapter: "little-alchemy" } },
+  dogeminer: {
+    keys: ["dogeminer2015", "achis"],
+    progress: { adapter: "doge-miner" },
+  },
+  spacebarclicker: {
+    keys: ["spacebar_clicker_game"],
+    progress: { adapter: "spacebar-clicker" },
+  },
+  "csgo-clicker": { progress: { adapter: "csgo-clicker" } },
+  wordle: { progress: { adapter: "wordle" } },
+  hextris: { progress: { adapter: "hextris" } },
 };
 
 function idFromUrl(url) {
@@ -153,7 +171,8 @@ for (const id of [...games.keys()].sort()) {
   const entry = games.get(id);
   const curated = CURATED[id];
   let status = "observed";
-  if (curated?.progress) status = "progress";
+  if (curated?.progress && adapterCompares(curated.progress.adapter))
+    status = "progress";
   if (!curated && runsOffSite(documentFor(entry.frame))) status = "local-only";
   output[id] = {
     id,

@@ -648,7 +648,10 @@
    "name": "CSGO Clicker",
    "play": "/misc/play/?title=CSGO%20Clicker&author=GOECORUSH%20Media&link=csgo-clicker",
    "frame": "/misc/csgo-clicker/index.html",
-   "status": "observed"
+   "status": "observed",
+   "progress": {
+    "adapter": "csgo-clicker"
+   }
   },
   "cuphead": {
    "id": "cuphead",
@@ -774,7 +777,14 @@
    "name": "Doge Miner",
    "play": "/misc/play/?title=Doge%20Miner&author=rkn&link=dogeminer",
    "frame": "/misc/dogeminer/index.html",
-   "status": "observed"
+   "status": "observed",
+   "keys": [
+    "dogeminer2015",
+    "achis"
+   ],
+   "progress": {
+    "adapter": "doge-miner"
+   }
   },
   "dogeminer-2": {
    "id": "dogeminer-2",
@@ -1593,7 +1603,10 @@
    "name": "Hextris",
    "play": "/misc/play/?title=Hextris&author=David%20King&link=hextris",
    "frame": "/misc/hextris/index.html",
-   "status": "observed"
+   "status": "observed",
+   "progress": {
+    "adapter": "hextris"
+   }
   },
   "hill-climb-racing": {
    "id": "hill-climb-racing",
@@ -1873,7 +1886,10 @@
    "name": "Little Alchemy",
    "play": "/misc/play/?title=Little%20Alchemy&author=Recloak%20Games&link=littlealchemy",
    "frame": "/misc/littlealchemy/index.html",
-   "status": "observed"
+   "status": "observed",
+   "progress": {
+    "adapter": "little-alchemy"
+   }
   },
   "longcat": {
    "id": "longcat",
@@ -2471,7 +2487,10 @@
     "RetroBowl.0.savedata3.ini",
     "RetroBowl.0.savedata4.ini",
     "RetroBowl.0.savedata5.ini"
-   ]
+   ],
+   "progress": {
+    "adapter": "retro-bowl"
+   }
   },
   "retro-highway": {
    "id": "retro-highway",
@@ -2494,7 +2513,10 @@
     "RetroBowlCollege.0.savedata4.ini",
     "RetroBowlCollege.0.savedata5.ini",
     "RetroBowlCollege.0.savedata_exh.ini"
-   ]
+   ],
+   "progress": {
+    "adapter": "retro-bowl-college"
+   }
   },
   "riddleschool": {
    "id": "riddleschool",
@@ -2799,7 +2821,13 @@
    "name": "Spacebar Clicker",
    "play": "/misc/play/?title=Spacebar%20Clicker&author=Bruno%20Croci&link=spacebarclicker",
    "frame": "/misc/spacebarclicker/index.html",
-   "status": "observed"
+   "status": "observed",
+   "keys": [
+    "spacebar_clicker_game"
+   ],
+   "progress": {
+    "adapter": "spacebar-clicker"
+   }
   },
   "spaceflight-simulator": {
    "id": "spaceflight-simulator",
@@ -3342,7 +3370,10 @@
    "id": "wordle",
    "name": "Wordle",
    "frame": "/misc/wordle/index.html",
-   "status": "observed"
+   "status": "observed",
+   "progress": {
+    "adapter": "wordle"
+   }
   },
   "world-of-screw": {
    "id": "world-of-screw",

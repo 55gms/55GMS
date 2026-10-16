@@ -139,6 +139,29 @@ branches fall back to the latest save.
 | Cookie Clicker       | `CookieClickerGame`: ascensions, cookies baked over all ascensions  | dominance     |
 | Universal Paperclips | `saveGame`, `savePrestige`: finished games, stage (1–3), clips made | lexicographic |
 
+Other adapters only describe a save on `/profile` (its numbers can go back, as
+with a new career, so they never decide a conflict, and the game keeps the
+"most recent save" rule):
+
+| Game                           | Shows                                                               |
+| ------------------------------ | ------------------------------------------------------------------- |
+| Cookie Clicker (also)          | bakery name, cookies in the bank, buildings, achievements, prestige |
+| Universal Paperclips (also)    | stage name, funds (stage 1), probes and % explored (stage 3)        |
+| Retro Bowl, Retro Bowl College | furthest career's season and week, titles and bowl wins (College)   |
+| Little Alchemy                 | elements discovered                                                 |
+| Doge Miner                     | planet, Dogecoins mined, clicks                                     |
+| Spacebar Clicker               | points, upgrades                                                    |
+| CS:GO Clicker                  | money, skins                                                        |
+| Wordle                         | per mode: games played, % won, best streak                          |
+| Hextris                        | best score                                                          |
+
+An adapter with `metrics: []` in `utils/saveProgress.js` is one of these;
+`adapterCompares()` tells them apart, and `scripts/build-save-registry.js`
+gives only comparing ones the `progress` status. Progress is read when a save
+is uploaded; after adding or changing an adapter, `node
+scripts/refresh-save-progress.js` reads it again for the saves already in the
+cloud.
+
 A game built for 55GMS can use the SDK in the game window: `gmsSaves.save(data,
 { progress: { level: 12 } })` and `gmsSaves.load()`. Its data goes under
 `native-save/<gameId>`; give its registry entry `progress: { adapter:

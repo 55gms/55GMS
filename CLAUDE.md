@@ -29,6 +29,9 @@ node scripts/add-game-saves.js
 # Fill the learned save-key table from the saves already in the cloud (safe to re-run)
 node scripts/learn-save-keys.js
 
+# Read progress again for saves already in the cloud, after adding or changing an adapter (safe to re-run)
+node scripts/refresh-save-progress.js
+
 # Split legacy full-browser backups into per-game saves (dry run; --apply, --rollback)
 node scripts/migrate-legacy-saves.js
 
