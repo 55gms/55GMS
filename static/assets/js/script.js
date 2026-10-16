@@ -293,7 +293,7 @@ function whenDomReady(callback) {
     setTimeout(() => {
       if (window.GMSSaves) return window.GMSSaves.background();
       const script = document.createElement("script");
-      script.src = "/assets/js/cloud-saves.js?v=1";
+      script.src = "/assets/js/cloud-saves.js?v=2";
       script.async = true;
       script.onload = () => window.GMSSaves?.background();
       document.head.appendChild(script);

@@ -53,7 +53,10 @@ the game's window, before any game code runs, and records:
   database claim the game's folder: Unity `/idbfs/<hash>/…`, Godot
   `/userfs/godot/app_userdata/<project>/…`; other file paths claim their
   folder, other keys themselves. Databases or stores named like a cache are
-  ignored.
+  ignored. A record over 4 MB (`RECORD_MAX_BYTES` in `cloud-saves.js`) is
+  content the game downloaded, such as Mad Skills Motocross 2's 22 MB level
+  archive: it stays out of the save, a restore leaves it in place, and where it
+  is missing the game downloads it again.
 
 Records go to the IndexedDB database `gms-cloud-saves` (stores `claims`,
 `dirty`, `state`, `meta`), shared by the agent and the engine. A localStorage

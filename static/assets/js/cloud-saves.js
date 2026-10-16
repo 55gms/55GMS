@@ -393,6 +393,34 @@ window.GMSSaves = (() => {
     "BigUint64Array",
   ];
 
+  // Files a game downloads into IndexedDB (level packs, asset archives) are
+  // content, not progress, and one of them can fill a save past its limit.
+  // A record holding more than this is left out of saves, and a restore
+  // leaves it where it is; the game downloads it again where it is missing.
+  const RECORD_MAX_BYTES = 4 * 1024 * 1024;
+
+  function bytesIn(value, depth = 0) {
+    if (typeof value === "string") return value.length;
+    if (!value || typeof value !== "object" || depth > 8) return 0;
+    if (value instanceof ArrayBuffer) return value.byteLength;
+    if (ArrayBuffer.isView(value)) return value.byteLength;
+    if (typeof Blob !== "undefined" && value instanceof Blob) return value.size;
+    const items =
+      value instanceof Map
+        ? value.values()
+        : Array.isArray(value) || value instanceof Set
+          ? value
+          : Object.values(value);
+    let total = 0;
+    for (const item of items) {
+      total += bytesIn(item, depth + 1);
+      if (total > RECORD_MAX_BYTES) break;
+    }
+    return total;
+  }
+  const tooLarge = (value) => bytesIn(value) > RECORD_MAX_BYTES;
+  const recordId = (key) => JSON.stringify([typeof key, key]);
+
   // IndexedDB values as JSON, with the types JSON lacks tagged: { $t: type }.
   // An object that has its own "$t" is wrapped, so nothing is misread.
   async function encodeValue(value) {
@@ -608,7 +636,7 @@ window.GMSSaves = (() => {
         const found = new Map();
         const keep = (records) => {
           for (const [key, value] of records)
-            found.set(JSON.stringify([typeof key, key]), [key, value]);
+            if (!tooLarge(value)) found.set(recordId(key), [key, value]);
         };
         for (const prefix of target.prefixes) {
           keep(await readRecords(objectStore, below(prefix)));
@@ -688,6 +716,44 @@ window.GMSSaves = (() => {
     );
   }
 
+  // The records already here that a restore must not delete: those too
+  // large to be in a save. For each store, the folders holding one, with the
+  // other keys in them, and the large records' ids.
+  async function findLarge(opened, snapshot) {
+    const found = new Map();
+    const names = snapshot.stores
+      .map((target) => target.name)
+      .filter((name) => opened.objectStoreNames.contains(name));
+    if (!names.length) return found;
+    const transaction = opened.transaction(names, "readonly");
+    for (const target of snapshot.stores) {
+      if (!names.includes(target.name)) continue;
+      const objectStore = transaction.objectStore(target.name);
+      const folders = new Map();
+      const large = new Set();
+      for (const prefix of target.prefixes || []) {
+        const others = [];
+        let holds = false;
+        for (const [key, value] of await readRecords(
+          objectStore,
+          below(prefix),
+        )) {
+          if (tooLarge(value)) {
+            large.add(recordId(key));
+            holds = true;
+          } else others.push(key);
+        }
+        if (holds) folders.set(prefix, others);
+      }
+      for (const key of (target.keys || []).map(decodeValue)) {
+        const value = await done(objectStore.get(key));
+        if (value !== undefined && tooLarge(value)) large.add(recordId(key));
+      }
+      if (large.size) found.set(target.name, { folders, large });
+    }
+    return found;
+  }
+
   async function writeDatabase(plan) {
     const { snapshot } = plan;
     const opened = await openDatabase(
@@ -713,6 +779,7 @@ window.GMSSaves = (() => {
       },
     );
     try {
+      const kept = await findLarge(opened, snapshot);
       await new Promise((resolve, reject) => {
         const transaction = opened.transaction(
           snapshot.stores.map((target) => target.name),
@@ -720,12 +787,15 @@ window.GMSSaves = (() => {
         );
         for (const target of snapshot.stores) {
           const objectStore = transaction.objectStore(target.name);
+          const large = kept.get(target.name);
           for (const prefix of target.prefixes || []) {
             objectStore.delete(prefix);
-            objectStore.delete(below(prefix));
+            const others = large?.folders.get(prefix);
+            if (others) for (const key of others) objectStore.delete(key);
+            else objectStore.delete(below(prefix));
           }
           for (const key of (target.keys || []).map(decodeValue))
-            objectStore.delete(key);
+            if (!large?.large.has(recordId(key))) objectStore.delete(key);
           for (const [key, value] of target.records) {
             if (objectStore.keyPath === null)
               objectStore.put(decodeValue(value), decodeValue(key));
