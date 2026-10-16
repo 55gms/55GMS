@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
     <link rel="stylesheet" href="/assets/css/profile.css?v=5" />
     <link rel="stylesheet" href="/assets/css/premium.css?v=1" />
-    <link rel="stylesheet" href="/assets/css/account.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/account.css?v=5" />
     <title>Google</title>
     <meta name="author" content="Rednotsus" />
     <meta http-equiv="Cache-control" content="public" />
@@ -802,6 +802,45 @@
         </div>
       </dialog>
 
+      <dialog
+        class="avatar-dialog"
+        id="reauthDialog"
+        aria-labelledby="reauth-heading"
+      >
+        <form class="avatar-dialog-body acct-confirm" id="reauthForm">
+          <h2 id="reauth-heading">Sign in again</h2>
+          <p>
+            Your session on this browser has ended. Enter the password for
+            <strong id="reauthHandle"></strong> to continue.
+          </p>
+          <input
+            type="text"
+            id="reauthUsername"
+            autocomplete="username"
+            hidden
+          />
+          <label class="acct-field">
+            <span class="visually-hidden">Password</span>
+            <input
+              type="password"
+              id="reauthPassword"
+              autocomplete="current-password"
+              placeholder="Password"
+            />
+          </label>
+          <p class="acct-field-error" id="reauthError" role="alert" hidden></p>
+          <div class="acct-confirm-actions">
+            <button type="button" class="p-btn" id="reauthCancel">
+              <span class="p-btn-label">Cancel</span>
+            </button>
+            <button type="submit" class="p-btn p-btn-primary" id="reauthSubmit">
+              <span class="p-btn-label">Sign in</span>
+              <span class="p-spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+        </form>
+      </dialog>
+
       <div class="site-ad"><div data-55gms-ad></div></div>
 
       <div class="p-toasts" id="toasts" role="status" aria-live="polite"></div>
@@ -979,7 +1018,7 @@
           markAvatarChoice();
 
           try {
-            const response = await fetch("/api/avatar", {
+            const response = await fetchWithSession("/api/avatar", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -1029,6 +1068,115 @@
         function setLoading(button, loading) {
           button.classList.toggle("is-loading", loading);
           button.setAttribute("aria-busy", String(loading));
+        }
+
+        // ---------- Signing in again ----------
+        // Cloud saves and avatars need the session cookie a login sets, but
+        // the page knows the account from localStorage, which outlives it:
+        // browsers signed in before the cookie existed, or whose cookie ran
+        // out. Rather than sign out, they confirm the password here and the
+        // action that needed it runs again.
+        const reauthDialog = document.getElementById("reauthDialog");
+        const reauthPassword = document.getElementById("reauthPassword");
+        const reauthError = document.getElementById("reauthError");
+        const reauthSubmit = document.getElementById("reauthSubmit");
+        let reauthWaiters = [];
+
+        // Resolves true once this browser has a session again, false if
+        // the dialog was closed without one.
+        function askToSignIn() {
+          return new Promise((resolve) => {
+            reauthWaiters.push(resolve);
+            if (reauthDialog.open) return;
+            document.getElementById("reauthHandle").textContent = "@" + handle;
+            document.getElementById("reauthUsername").value = handle;
+            reauthPassword.value = "";
+            reauthError.hidden = true;
+            reauthDialog.showModal();
+            reauthPassword.focus();
+          });
+        }
+
+        function settleReauth(signedIn) {
+          const waiters = reauthWaiters;
+          reauthWaiters = [];
+          for (const resolve of waiters) resolve(signedIn);
+        }
+
+        function showReauthError(text) {
+          reauthError.textContent = text;
+          reauthError.hidden = false;
+          reauthPassword.focus();
+        }
+
+        reauthDialog.addEventListener("close", () => settleReauth(false));
+        document
+          .getElementById("reauthCancel")
+          .addEventListener("click", () => reauthDialog.close());
+        document
+          .getElementById("reauthForm")
+          .addEventListener("submit", async (event) => {
+            event.preventDefault();
+            if (reauthSubmit.disabled) return;
+            if (!reauthPassword.value)
+              return showReauthError("Enter your password.");
+            reauthSubmit.disabled = true;
+            setLoading(reauthSubmit, true);
+            reauthError.hidden = true;
+            try {
+              const response = await fetch("/api/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  username: handle,
+                  password: reauthPassword.value,
+                }),
+              });
+              const data = await response.json().catch(() => ({}));
+              if (!response.ok) {
+                return showReauthError(
+                  !data.error || data.error === "Invalid Email or password"
+                    ? "Wrong password."
+                    : data.error,
+                );
+              }
+              if (data.uuid !== uuid) {
+                // Never leave this page acting for a different account.
+                await fetch("/api/logout", { method: "POST" }).catch(() => {});
+                return showReauthError(
+                  "That's a different account. Sign out and sign in to it instead.",
+                );
+              }
+              settleReauth(true);
+              reauthDialog.close();
+              toast("success", "Signed in again.");
+            } catch {
+              showReauthError("Couldn't reach 55GMS. Try again.");
+            } finally {
+              setLoading(reauthSubmit, false);
+              reauthSubmit.disabled = false;
+            }
+          });
+
+        // Runs work; if it ran into a missing session (a 401, or a result
+        // isSignedOut recognises), asks for the password and runs it once
+        // more.
+        async function withSession(work, isSignedOut = () => false) {
+          try {
+            const result = await work();
+            if (!isSignedOut(result) || !(await askToSignIn())) return result;
+          } catch (error) {
+            if (error.status !== 401 || !(await askToSignIn())) throw error;
+          }
+          return work();
+        }
+
+        // fetch(), signing in again on a 401.
+        function fetchWithSession(url, options) {
+          return withSession(
+            () => fetch(url, options),
+            (response) => response.status === 401,
+          );
         }
 
         function setSyncDisabled(disabled) {
@@ -1216,7 +1364,7 @@
         uploadButton.addEventListener("click", () => {
           if (!beginSync(uploadButton)) return;
 
-          fetch("/api/uploadSave", {
+          fetchWithSession("/api/uploadSave", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -1246,7 +1394,7 @@
         downloadButton.addEventListener("click", () => {
           if (!beginSync(downloadButton)) return;
 
-          fetch("/api/readSave", {
+          fetchWithSession("/api/readSave", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ uuid }),
@@ -1400,6 +1548,22 @@
           savesHint.textContent = hint || "";
         }
 
+        function showSignedOut() {
+          setOverall(
+            "error",
+            "Sign in again",
+            "Your session on this browser has ended. ",
+          );
+          const action = document.createElement("button");
+          action.type = "button";
+          action.className = "acct-hint-action";
+          action.textContent = "Sign in again to keep syncing";
+          action.addEventListener("click", async () => {
+            if (await askToSignIn()) syncNow();
+          });
+          savesHint.append(action);
+        }
+
         function renderOverview() {
           const { games, manifest } = overviewData;
           const lastSynced = Math.max(
@@ -1438,11 +1602,7 @@
           const unsynced = games.filter((game) => game.status === "not-synced");
           unsyncedGames = failing.length + waiting.length + unsynced.length;
           if (games.some((game) => game.status === "signed-out")) {
-            setOverall(
-              "error",
-              "Sign in again",
-              "Your session has ended. Sign out and back in to keep syncing.",
-            );
+            showSignedOut();
           } else if (failing.length) {
             setOverall(
               "error",
@@ -1496,11 +1656,7 @@
           } catch (error) {
             if (error.status === 503) return useLegacySync();
             if (error.status === 401) {
-              setOverall(
-                "error",
-                "Sign in again",
-                "Your session has ended. Sign out and back in to sync saves.",
-              );
+              showSignedOut();
             } else {
               setOverall(
                 "error",
@@ -1539,7 +1695,10 @@
           setLoading(element, true);
           element.disabled = true;
           try {
-            const result = await work();
+            const result = await withSession(
+              work,
+              (state) => state?.status === "signed-out",
+            );
             if (
               result &&
               ["failed", "error", "offline", "signed-out"].includes(
@@ -1727,11 +1886,16 @@
           setLoading(syncNowButton, true);
           setOverall("checking", "Syncing…", "Syncing your games…");
           try {
-            const results = await GMSSaves.syncAll({
-              onProgress: (finished, total) => {
-                savesHint.textContent = `Syncing ${finished} of ${total}…`;
-              },
-            });
+            const results = await withSession(
+              () =>
+                GMSSaves.syncAll({
+                  onProgress: (finished, total) => {
+                    savesHint.textContent = `Syncing ${finished} of ${total}…`;
+                  },
+                }),
+              (states) =>
+                states.some((state) => state?.status === "signed-out"),
+            );
             const failed = results.filter(
               (state) =>
                 state &&
@@ -1767,11 +1931,13 @@
           setLoading(loadCloudButton, true);
           setOverall("checking", "Loading…", "Loading your cloud saves…");
           try {
-            const { results, skipped } = await GMSSaves.restoreAll({
-              onProgress: (finished, total) => {
-                savesHint.textContent = `Loading ${finished} of ${total}…`;
-              },
-            });
+            const { results, skipped } = await withSession(() =>
+              GMSSaves.restoreAll({
+                onProgress: (finished, total) => {
+                  savesHint.textContent = `Loading ${finished} of ${total}…`;
+                },
+              }),
+            );
             const failed = results.filter((result) => result.error);
             const loaded = results.length - failed.length;
             const notes = [];

@@ -21,7 +21,7 @@ import { mountProxyAssets } from "./utils/proxyAssets.js";
 import { mountAds } from "./utils/ads.js";
 import { mountGameAssetFallback } from "./utils/gameAssets.js";
 import { mountLegacyPlayRedirects } from "./utils/legacyPlayPages.js";
-import { verifyScopedToken } from "./utils/sessionToken.js";
+import { renewSessionCookie, verifyScopedToken } from "./utils/sessionToken.js";
 
 logging.set_level(logging.ERROR);
 
@@ -183,6 +183,10 @@ try {
       import("./routes/users.js"),
       import("./routes/admin.js"),
     ]);
+    app.use("/api", (req, res, next) => {
+      if (req.path !== "/logout") renewSessionCookie(req, res);
+      next();
+    });
     app.use("/api", auth.default);
     app.use("/api", users.createUsersRouter({ perGameSaves: features.saves }));
     if (features.saves) {
