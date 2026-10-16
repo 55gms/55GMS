@@ -12,6 +12,10 @@ function script(text) {
 // list to the next. A query string of its own makes every GET a cache miss
 // there, and cache: "no-store" keeps the browser's cache out of it too.
 // POSTs (login, saves, uploads) are never cached, so they pass as they are.
+//
+// Every /api request also carries the session the login handed back
+// ("gms-session"), as Bunny pull zones strip the session cookie. A renewed
+// one comes back in the same header.
 (function freshApiRequests() {
   const nativeFetch = window.fetch;
   if (typeof nativeFetch !== "function") return;
@@ -20,16 +24,16 @@ function script(text) {
   let count = 0;
 
   window.fetch = function (input, init) {
+    let ours = false;
     try {
       const method = String((init && init.method) || "GET").toUpperCase();
-      if (
-        (typeof input === "string" || input instanceof URL) &&
-        (method === "GET" || method === "HEAD")
-      ) {
+      if (typeof input === "string" || input instanceof URL) {
         const url = new URL(input, location.href);
+        ours =
+          url.origin === location.origin && url.pathname.startsWith("/api/");
         if (
-          url.origin === location.origin &&
-          url.pathname.startsWith("/api/") &&
+          ours &&
+          (method === "GET" || method === "HEAD") &&
           !shared.test(url.pathname)
         ) {
           url.searchParams.set(
@@ -39,11 +43,26 @@ function script(text) {
           input = url.pathname + url.search;
           init = Object.assign({}, init, { cache: "no-store" });
         }
+        const session = ours && localStorage.getItem("gms-session");
+        if (session) {
+          const headers = new Headers((init && init.headers) || undefined);
+          if (!headers.has("X-GMS-Session"))
+            headers.set("X-GMS-Session", session);
+          init = Object.assign({}, init, { headers });
+        }
       }
     } catch (error) {
       // Anything unexpected goes through untouched.
     }
-    return nativeFetch.call(window, input, init);
+    const request = nativeFetch.call(window, input, init);
+    if (!ours) return request;
+    return request.then((response) => {
+      try {
+        const renewed = response.headers.get("X-GMS-Session");
+        if (renewed) localStorage.setItem("gms-session", renewed);
+      } catch (error) {}
+      return response;
+    });
   };
 })();
 
@@ -293,7 +312,7 @@ function whenDomReady(callback) {
     setTimeout(() => {
       if (window.GMSSaves) return window.GMSSaves.background();
       const script = document.createElement("script");
-      script.src = "/assets/js/cloud-saves.js?v=5";
+      script.src = "/assets/js/cloud-saves.js?v=6";
       script.async = true;
       script.onload = () => window.GMSSaves?.background();
       document.head.appendChild(script);

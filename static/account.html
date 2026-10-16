@@ -940,6 +940,7 @@
               localStorage.removeItem("uuid");
               localStorage.removeItem("username");
               localStorage.removeItem("premium");
+              localStorage.removeItem("gms-session");
               location.replace("/login");
               return null;
             }
@@ -1147,6 +1148,8 @@
                   "That's a different account. Sign out and sign in to it instead.",
                 );
               }
+              if (data.session)
+                localStorage.setItem("gms-session", data.session);
               settleReauth(true);
               reauthDialog.close();
               toast("success", "Signed in again.");
@@ -1243,7 +1246,7 @@
             "Couldn't compare with your cloud save. Try again in a moment.",
         };
         // Keys this page rewrites on its own; the server skips them too.
-        const SYNC_IGNORED_KEYS = ["premium"];
+        const SYNC_IGNORED_KEYS = ["premium", "gms-session"];
         let syncCheckId = 0;
 
         function setSyncState(state) {
@@ -1304,7 +1307,8 @@
         function localSave() {
           const save = {};
           for (const key of Object.keys(localStorage)) {
-            if (!isProxyStorageKey(key)) save[key] = localStorage.getItem(key);
+            if (!isProxyStorageKey(key) && key !== "gms-session")
+              save[key] = localStorage.getItem(key);
           }
           return save;
         }
@@ -2094,7 +2098,7 @@
 
         // Clearing keeps the keys that sign this browser in, so the page
         // still works afterwards.
-        const SESSION_KEYS = ["uuid", "username", "premium"];
+        const SESSION_KEYS = ["uuid", "username", "premium", "gms-session"];
         const clearDialog = document.getElementById("clearDialog");
 
         document.getElementById("clearButton").addEventListener("click", () => {
@@ -2129,6 +2133,7 @@
             localStorage.removeItem("uuid");
             localStorage.removeItem("username");
             localStorage.removeItem("premium");
+            localStorage.removeItem("gms-session");
             // Clear the session cookie before leaving the page.
             fetch("/api/logout", { method: "POST" })
               .catch(() => {})

@@ -1,6 +1,12 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 
 export const SESSION_COOKIE = "session";
+// The same token, sent by the page as a request header and returned there
+// when it is renewed. Bunny pull zones (*.b-cdn.net) strip cookies, so on
+// those hosts the cookie never reaches the browser and only this carries
+// the session. The page keeps it in localStorage as "gms-session", a site
+// key no game save may hold (utils/saveRegistry.js).
+export const SESSION_HEADER = "x-gms-session";
 export const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 // How old a session gets before a request renews it (renewSessionCookie).
 const SESSION_RENEW_AFTER_MS = 24 * 60 * 60 * 1000;
@@ -52,24 +58,27 @@ function cookieOptions(req) {
   };
 }
 
-// The session lives in an HttpOnly cookie, never in localStorage: cloud
-// saves upload all of localStorage, and a save can be read by uuid alone.
-// Does nothing while ADMIN_TOKEN_SECRET is unset.
+// Sets the session cookie and returns its token, for the page to send as
+// SESSION_HEADER where the cookie does not survive. Does nothing and returns
+// null while ADMIN_TOKEN_SECRET is unset.
 export function setSessionCookie(req, res, uuid) {
   const secret = process.env.ADMIN_TOKEN_SECRET;
-  if (!secret) return;
+  if (!secret) return null;
 
-  res.cookie(SESSION_COOKIE, createSessionToken(uuid, secret), {
+  const token = createSessionToken(uuid, secret);
+  res.cookie(SESSION_COOKIE, token, {
     ...cookieOptions(req),
     maxAge: SESSION_TTL_MS,
   });
+  return token;
 }
 
 export function clearSessionCookie(req, res) {
   res.clearCookie(SESSION_COOKIE, cookieOptions(req));
 }
 
-// Returns the session payload for the request's cookie, or null.
+// Returns the session payload for the request's cookie, else for its
+// SESSION_HEADER, or null.
 export function readSession(req) {
   const secret = process.env.ADMIN_TOKEN_SECRET;
   if (!secret) return null;
@@ -78,10 +87,15 @@ export function readSession(req) {
   for (const cookie of cookies) {
     const index = cookie.indexOf("=");
     if (index !== -1 && cookie.slice(0, index).trim() === SESSION_COOKIE) {
-      return verifySessionToken(cookie.slice(index + 1).trim(), secret);
+      const session = verifySessionToken(
+        cookie.slice(index + 1).trim(),
+        secret,
+      );
+      if (session) return session;
+      break;
     }
   }
-  return null;
+  return verifySessionToken(req.headers[SESSION_HEADER], secret);
 }
 
 // Pushes the session's expiry forward for an account that keeps using the
@@ -93,7 +107,8 @@ export function renewSessionCookie(req, res, now = Date.now()) {
   const session = readSession(req);
   if (!session?.uuid) return;
   if (session.exp - now > SESSION_TTL_MS - SESSION_RENEW_AFTER_MS) return;
-  setSessionCookie(req, res, session.uuid);
+  const token = setSessionCookie(req, res, session.uuid);
+  if (token) res.set(SESSION_HEADER, token);
 }
 
 // A short-lived token naming an account for one purpose, such as joining

@@ -193,6 +193,8 @@
     localStorage.setItem("uuid", data.uuid);
     localStorage.setItem("username", data.username);
     localStorage.setItem("premium", data.premium);
+    if (data.session) localStorage.setItem("gms-session", data.session);
+    else localStorage.removeItem("gms-session");
 
     // With per-game cloud saves on, nothing is uploaded wholesale: the
     // profile page syncs each game once on arrival (cloud-saves.js). Only a

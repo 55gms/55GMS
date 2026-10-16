@@ -104,6 +104,34 @@ window.GMSSaves = (() => {
     }
   };
 
+  // An /api request as this account. It carries the login's session, as
+  // Bunny pull zones (*.b-cdn.net) strip the cookie, and a GET gets a query
+  // of its own, as a pull zone that overrides cache times would otherwise
+  // hand one account's answer to the next. script.js does the same for the
+  // site's pages; game frames load this without it.
+  let requestCount = 0;
+  function apiRequest(path, init = {}) {
+    const url = new URL(path, location.origin);
+    const method = String(init.method || "GET").toUpperCase();
+    if (method === "GET" || method === "HEAD")
+      url.searchParams.set(
+        "_",
+        Date.now().toString(36) + (requestCount++).toString(36),
+      );
+    const headers = new Headers(init.headers || undefined);
+    try {
+      const session = store.get("gms-session");
+      if (session) headers.set("X-GMS-Session", session);
+    } catch {}
+    return fetch(url, { ...init, headers }).then((response) => {
+      try {
+        const renewed = response.headers.get("X-GMS-Session");
+        if (renewed) store.set("gms-session", renewed);
+      } catch {}
+      return response;
+    });
+  }
+
   // ---- Local database (shared with save-agent.js) ---------------------
 
   let dbPromise = null;
@@ -259,7 +287,7 @@ window.GMSSaves = (() => {
       try {
         const controller = new AbortController();
         const timer = setTimeout(() => controller.abort(), LEARNED_TIMEOUT_MS);
-        const response = await fetch(new URL(LEARNED_URL, location.origin), {
+        const response = await apiRequest(LEARNED_URL, {
           credentials: "same-origin",
           signal: controller.signal,
         }).finally(() => clearTimeout(timer));
@@ -1120,7 +1148,7 @@ window.GMSSaves = (() => {
     }
     let response;
     try {
-      response = await fetch(new URL(path, location.origin), {
+      response = await apiRequest(path, {
         method,
         headers,
         body: payload,

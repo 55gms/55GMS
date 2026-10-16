@@ -46,6 +46,7 @@ async function initializeChat() {
     if (response.status === 404) {
       localStorage.removeItem("uuid");
       localStorage.removeItem("username");
+      localStorage.removeItem("gms-session");
       window.location.href = "/login";
       return;
     }

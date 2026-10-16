@@ -114,9 +114,9 @@ export function createAuthRouter({
 
       const user = await accounts.createUser({ username: handle, password });
 
-      setSessionCookie(req, res, user.uuid);
+      const session = setSessionCookie(req, res, user.uuid);
       noteSeen(user.uuid, accounts);
-      res.status(200).json(user);
+      res.status(200).json({ ...user, session });
     } catch (error) {
       if (sendHandleError(res, error)) return;
       res
@@ -139,9 +139,9 @@ export function createAuthRouter({
         return res.status(500).json({ error: "Invalid Email or password" });
       }
 
-      setSessionCookie(req, res, user.uuid);
+      const session = setSessionCookie(req, res, user.uuid);
       noteSeen(user.uuid, accounts);
-      res.status(200).json(user);
+      res.status(200).json({ ...user, session });
     } catch (error) {
       res.status(500).json({ error: "Invalid Email or password" });
     }
