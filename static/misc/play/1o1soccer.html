@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/assets/css/gameframe.css?v=13" />
     <script src="/assets/js/script.js?v=28"></script>
 
+    <script src="/assets/js/cloud-saves.js?v=1"></script>
 </head>
 
 <body>
@@ -35,7 +36,7 @@
     <div id="gameframe">
         <div class="gameDisplay">
             <div class="game">
-                <iframe id="iframe" src="/misc/flash/index.html?swf=1on1soccer.swf"></iframe>
+                <iframe id="iframe" data-src="/misc/flash/index.html?swf=1on1soccer.swf"></iframe><script>(function(f){window.GMSSaves?GMSSaves.launch(f):f.src=f.dataset.src})(document.getElementById("iframe"))</script>
             </div>
             <div class="options">
                 <div class="left">

@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="/assets/css/gameframe.css?v=13" />
     <script src="/assets/js/script.js?v=28"></script>
 
+    <script src="/assets/js/cloud-saves.js?v=1"></script>
 </head>
 
 <body>
@@ -81,7 +82,9 @@
 
             titleElement.textContent = title;
             byTextElement.textContent = 'By ' + author;
-            iframeElement.src = `/misc/${encodeURIComponent(link)}/index.html`;
+            iframeElement.dataset.src = `/misc/${encodeURIComponent(link)}/index.html`;
+            if (window.GMSSaves) GMSSaves.launch(iframeElement);
+            else iframeElement.src = iframeElement.dataset.src;
             gameIconElement.src = `https://cdn.jsdelivr.net/gh/55gms/assets@bfac352da7d391bcb68e867ca5e55f20ea2b0fb7/misc/${encodeURIComponent(link)}/img.webp`;
             gameIconElement.alt = title;
         });
