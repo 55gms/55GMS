@@ -425,8 +425,8 @@
             <div class="acct-row-text">
               <p class="profile-row-title">Sync now</p>
               <p class="profile-row-desc" id="syncNowDesc">
-                Uploads games changed in this browser and brings in newer cloud
-                saves.
+                Uploads this browser's games and brings in cloud saves it's
+                missing or has an older copy of.
               </p>
             </div>
             <button
@@ -1428,8 +1428,8 @@
           }
           document.getElementById("syncNowDesc").textContent =
             manifest?.autoSync
-              ? "Premium syncs as you play. Use this to sync every game in this browser right away."
-              : "Uploads games changed in this browser and brings in newer cloud saves.";
+              ? "Premium syncs as you play. Use this to sync every game right away, including cloud saves this browser is missing."
+              : "Uploads this browser's games and brings in cloud saves it's missing or has an older copy of.";
 
           const failing = games.filter((game) =>
             ["failed", "error"].includes(game.status),

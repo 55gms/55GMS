@@ -1796,15 +1796,23 @@ window.GMSSaves = (() => {
 
   // Sync now: every game this browser has a save of. Changed ones are
   // uploaded and settled; unchanged ones take a newer cloud save. Games only
-  // in the cloud are left for their own Restore, or a premium launch.
+  // in the cloud are brought into this browser.
   async function syncAll({ onProgress } = {}) {
     const { games } = await overview();
-    const work = games.filter(
+    const synced = games.filter(
       (game) => game.local && game.support !== "local-only",
     );
+    const missing = games.filter(
+      (game) =>
+        !game.local &&
+        game.cloud &&
+        game.support !== "local-only" &&
+        game.status === "cloud-only",
+    );
+    const total = synced.length + missing.length;
     let finished = 0;
     const results = [];
-    for (const game of work) {
+    for (const game of synced) {
       const running = await isRunningElsewhere(game.gameId);
       results.push(
         await syncGame(game.gameId, {
@@ -1813,7 +1821,16 @@ window.GMSSaves = (() => {
         }),
       );
       finished += 1;
-      onProgress?.(finished, work.length);
+      onProgress?.(finished, total);
+    }
+    for (const game of missing) {
+      try {
+        results.push(await restore(game.gameId));
+      } catch (error) {
+        results.push({ status: "failed", error: error.message });
+      }
+      finished += 1;
+      onProgress?.(finished, total);
     }
     return results;
   }
