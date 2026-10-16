@@ -1723,7 +1723,10 @@ window.GMSSaves = (() => {
     const results = [];
     for (const game of work) {
       try {
-        results.push({ gameId: game.gameId, state: await restore(game.gameId) });
+        results.push({
+          gameId: game.gameId,
+          state: await restore(game.gameId),
+        });
       } catch (error) {
         results.push({ gameId: game.gameId, error });
       }
