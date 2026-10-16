@@ -251,3 +251,9 @@ img {
   color: #89b4fa;
   font-size: 20px;
 }
+
+/* The rows are full width: no padding, except the room the gutter rails take
+   (style.css) once one of them has an ad. */
+main {
+  padding: 0;
+}

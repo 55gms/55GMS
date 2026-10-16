@@ -2,7 +2,9 @@ import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { minify } from "terser";
 import JavaScriptObfuscator from "javascript-obfuscator";
-import { JS_SKIP, SERIALIZED_FN_SCRIPTS } from "./util.js";
+import { existsSync } from "node:fs";
+import { JS_SKIP, SERIALIZED_FN_SCRIPTS, walkFiles } from "./util.js";
+import { BUILT_MISC } from "./prepare.js";
 
 // script mode: these are classic scripts (no type="module"). renameGlobals
 // stays OFF so $, io, frameRuntime.* and inline on* handlers keep resolving.
@@ -89,6 +91,42 @@ function assertModuleSyntax(code, name) {
   }
 }
 
+// Minifies and obfuscates one script in place. Returns whether it was parsed
+// as an ES module.
+async function obfuscateFile(file) {
+  const name = path.basename(file);
+  const src = await readFile(file, "utf8");
+  const { code, isModule } = await minifyScript(src, name);
+  const prefix = "_" + name.replace(/[^a-z0-9]/gi, "").slice(0, 6) + "_";
+  const options = SERIALIZED_FN_SCRIPTS.has(name)
+    ? serializedFnObfuscatorOptions(prefix)
+    : obfuscatorOptions(prefix);
+  const out = JavaScriptObfuscator.obfuscate(code, options).getObfuscatedCode();
+  // A module's import/export statements and top-level await must survive,
+  // or the pages that load it with type="module" would break.
+  if (isModule) assertModuleSyntax(out, name);
+  await writeFile(file, out);
+  return isModule;
+}
+
+// The scripts of the site-code folders copied into misc/ (prepare.js), such
+// as the media player's. A checkout without static/misc (CI) has none.
+export async function obfuscateMiscScripts(outStatic) {
+  const done = [];
+  for (const folder of BUILT_MISC) {
+    const dir = path.join(outStatic, "misc", folder);
+    if (!existsSync(dir)) continue;
+    for await (const file of walkFiles(dir)) {
+      if (!file.endsWith(".js")) continue;
+      await obfuscateFile(file);
+      done.push(path.relative(outStatic, file));
+    }
+  }
+  console.log(
+    `[build] obfuscated ${done.length} misc scripts: ${done.join(", ") || "none"}`,
+  );
+}
+
 export async function obfuscateScripts(outStatic) {
   const jsDir = path.join(outStatic, "assets", "js");
   const obfuscated = [];
@@ -105,23 +143,8 @@ export async function obfuscateScripts(outStatic) {
       continue;
     }
 
-    const file = path.join(jsDir, entry.name);
-    const src = await readFile(file, "utf8");
-    const { code, isModule } = await minifyScript(src, entry.name);
+    const isModule = await obfuscateFile(path.join(jsDir, entry.name));
     if (isModule) modules.push(entry.name);
-    const prefix =
-      "_" + entry.name.replace(/[^a-z0-9]/gi, "").slice(0, 6) + "_";
-    const options = SERIALIZED_FN_SCRIPTS.has(entry.name)
-      ? serializedFnObfuscatorOptions(prefix)
-      : obfuscatorOptions(prefix);
-    const out = JavaScriptObfuscator.obfuscate(
-      code,
-      options,
-    ).getObfuscatedCode();
-    // A module's import/export statements and top-level await must survive,
-    // or the pages that load it with type="module" would break.
-    if (isModule) assertModuleSyntax(out, entry.name);
-    await writeFile(file, out);
     obfuscated.push(entry.name);
   }
 

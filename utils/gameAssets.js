@@ -1,4 +1,4 @@
-import { readdirSync } from "node:fs";
+import { readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
@@ -30,10 +30,17 @@ export function mountGameAssetFallback(app, staticRoot) {
   const base = process.env.GAME_ASSETS_BASE || DEFAULT_BASE;
   let folders;
   try {
+    // In a build, each game folder is a symlink to static/misc (prepare.js),
+    // so the check follows links.
+    const misc = path.join(staticRoot, "misc");
     folders = new Set(
-      readdirSync(path.join(staticRoot, "misc"), { withFileTypes: true })
-        .filter((entry) => entry.isDirectory())
-        .map((entry) => entry.name),
+      readdirSync(misc).filter((name) => {
+        try {
+          return statSync(path.join(misc, name)).isDirectory();
+        } catch {
+          return false;
+        }
+      }),
     );
   } catch {
     // A checkout without static/misc has no games to fall back for.
