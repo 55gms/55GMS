@@ -49,7 +49,7 @@
             <div class="options">
                 <div class="left">
                     <div class="gametext">
-                        <img src="#" class="gameicon" />
+                        <img class="gameicon" />
                         <div class="margin">
                             <div class="flex">
                                 <h1 class="titletext">&nbsp;</h1>
@@ -84,7 +84,6 @@
                 location.origin,
             );
             const folder = linkPath.split('/')[0];
-            const image = urlParams.get('img') || '';
 
             const titleElement = document.querySelector('.titletext');
             const byTextElement = document.querySelector('.bytext');
@@ -93,9 +92,8 @@
 
             titleElement.textContent = title;
             byTextElement.textContent = 'By ' + author;
-            gameIconElement.src = /^(https:\/\/cdn\.jsdelivr\.net\/|\/img\/)/.test(image)
-                ? image
-                : `https://cdn.jsdelivr.net/gh/55gms/assets@986005e191dc455b97b71ed6fcf180748c7f7dc1/misc/${encodeURIComponent(folder)}/img.webp`;
+            // game-page.js shows the game's cover from the catalogue, or this.
+            gameIconElement.dataset.fallback = `https://cdn.jsdelivr.net/gh/55gms/assets@986005e191dc455b97b71ed6fcf180748c7f7dc1/misc/${encodeURIComponent(folder)}/img.webp`;
             gameIconElement.alt = title;
 
             // Only game documents: nothing outside /misc/, and not this page.
@@ -133,7 +131,7 @@
         reloadbtn.onclick = reload;
     </script>
 
-    <script src="/assets/js/game-page.js?v=12"></script>
+    <script src="/assets/js/game-page.js?v=13"></script>
     <script src="/assets/js/hover-preview.js?v=1" defer></script>
 </body>
 

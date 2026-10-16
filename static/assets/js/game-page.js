@@ -413,14 +413,29 @@
     resizeFrame = requestAnimationFrame(layout);
   });
 
+  // The shared play page names its game by title; its cover is the one the
+  // catalogue gives that game, else the page's fallback.
+  function showCover(games) {
+    const icon = document.querySelector("#gameframe .gameicon");
+    if (!icon || icon.getAttribute("src")) return;
+    const title = new URLSearchParams(location.search).get("title");
+    const game = games.find((item) => item?.name === title && item.image);
+    const src = game?.image || icon.dataset.fallback;
+    if (src) icon.src = src;
+  }
+
   fetch("/assets/json/load/g.json")
     .then((response) => {
       if (!response.ok) throw new Error(`Catalogue: ${response.status}`);
       return readCatalogue(response);
     })
     .then((games) => {
+      showCover(games);
       queue = shuffle(games.filter(playable));
       layout();
     })
-    .catch((error) => console.error("Could not load more games", error));
+    .catch((error) => {
+      showCover([]);
+      console.error("Could not load more games", error);
+    });
 })();
