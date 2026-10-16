@@ -14,6 +14,9 @@ window.GMSSaves = (() => {
   const DB_NAME = "gms-cloud-saves";
   const REGISTRY_URL = "/assets/json/saves.json";
   const API = "/api/saves";
+  const LEARNED_URL = "/api/saves-keys";
+  const LEARNED_TTL_MS = 60 * 60 * 1000;
+  const LEARNED_TIMEOUT_MS = 2500;
   const ENTITLEMENT_TTL_MS = 10 * 60 * 1000;
   const UPLOAD_DEBOUNCE_MS = 20000;
   const UPLOAD_MAX_WAIT_MS = 60000;
@@ -242,13 +245,166 @@ window.GMSSaves = (() => {
     return registryPromise;
   }
 
+  // The storage names the server learned each game uses, from every
+  // account's uploads and this account's own (services/learnedSaveKeys.js).
+  // Kept for an hour so a launch does not wait on them; a stale copy is
+  // used when the server cannot be reached.
+  let learnedPromise = null;
+  function learned() {
+    learnedPromise ||= (async () => {
+      const uuid = account() || null;
+      const cached = await meta("learnedKeys").catch(() => null);
+      if (cached?.uuid === uuid && Date.now() - cached.at < LEARNED_TTL_MS)
+        return cached.games;
+      try {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), LEARNED_TIMEOUT_MS);
+        const response = await fetch(new URL(LEARNED_URL, location.origin), {
+          credentials: "same-origin",
+          signal: controller.signal,
+        }).finally(() => clearTimeout(timer));
+        if (!response.ok) throw new Error(String(response.status));
+        const games = (await response.json()).games || {};
+        await setMeta("learnedKeys", { uuid, at: Date.now(), games }).catch(
+          () => {},
+        );
+        return games;
+      } catch {
+        return cached?.games || {};
+      }
+    })();
+    return learnedPromise;
+  }
+
+  async function databaseNames() {
+    if (!indexedDB.databases) return null;
+    try {
+      return new Set((await indexedDB.databases()).map((info) => info.name));
+    } catch {
+      return null;
+    }
+  }
+
+  // Learned names as claims, for the storage this browser actually has,
+  // leaving out any name this browser already gave to another game.
+  async function learnedClaims(claims) {
+    const games = await learned();
+    if (!Object.keys(games).length) return [];
+    const localOwners = new Map();
+    const own = (id, gameId) => {
+      if (!localOwners.has(id)) localOwners.set(id, new Set());
+      localOwners.get(id).add(gameId);
+    };
+    for (const claim of claims) {
+      if (claim.kind === "ls") own(`ls\u0000${claim.key}`, claim.gameId);
+      else if (claim.kind === "idb")
+        own(
+          `idb\u0000${claim.db}\u0000${claim.store}\u0000${claim.prefix ?? claim.key}`,
+          claim.gameId,
+        );
+    }
+    const takenElsewhere = (id, gameId) =>
+      localOwners.has(id) && !localOwners.get(id).has(gameId);
+    const databases = await databaseNames();
+    const out = [];
+    const idb = [];
+    for (const [gameId, names] of Object.entries(games)) {
+      for (const key of names.ls || []) {
+        if (typeof key !== "string" || isSiteKey(key)) continue;
+        if (takenElsewhere(`ls\u0000${key}`, gameId)) continue;
+        if (store.get(key) === null) continue;
+        out.push({ gameId, kind: "ls", key });
+      }
+      for (const target of names.idb || []) {
+        if (databases && !databases.has(target.db)) continue;
+        const at = `idb\u0000${target.db}\u0000${target.store}\u0000`;
+        for (const prefix of target.prefixes || []) {
+          if (takenElsewhere(at + prefix, gameId)) continue;
+          idb.push({
+            gameId,
+            kind: "idb",
+            db: target.db,
+            store: target.store,
+            prefix,
+          });
+        }
+        for (const encoded of target.keys || []) {
+          const key = decodeValue(encoded);
+          if (typeof key !== "string" && typeof key !== "number") continue;
+          if (takenElsewhere(at + key, gameId)) continue;
+          idb.push({
+            gameId,
+            kind: "idb",
+            db: target.db,
+            store: target.store,
+            key,
+          });
+        }
+      }
+    }
+    return out.concat(await presentRecords(idb));
+  }
+
+  // The IndexedDB claims with a record here: one read per name, in one
+  // transaction per database. A database that cannot be opened is skipped.
+  async function presentRecords(candidates) {
+    const byDatabase = new Map();
+    for (const claim of candidates) {
+      if (!byDatabase.has(claim.db)) byDatabase.set(claim.db, []);
+      byDatabase.get(claim.db).push(claim);
+    }
+    const found = [];
+    for (const [name, list] of byDatabase) {
+      let opened = null;
+      try {
+        if (!(await databaseExists(name))) continue;
+        opened = await openDatabase(name);
+        const names = [...new Set(list.map((claim) => claim.store))].filter(
+          (store) => opened.objectStoreNames.contains(store),
+        );
+        if (!names.length) continue;
+        const transaction = opened.transaction(names, "readonly");
+        for (const claim of list) {
+          if (!names.includes(claim.store)) continue;
+          const objectStore = transaction.objectStore(claim.store);
+          const there =
+            claim.prefix !== undefined
+              ? (await done(objectStore.getKey(below(claim.prefix)))) !==
+                  undefined ||
+                (await done(objectStore.getKey(claim.prefix))) !== undefined
+              : (await done(objectStore.getKey(claim.key))) !== undefined;
+          if (there) found.push(claim);
+        }
+      } catch {
+      } finally {
+        opened?.close();
+      }
+    }
+    return found;
+  }
+
+  // Learned claims change only with this browser's storage, so a run of
+  // syncs (Sync now, Load from cloud) works them out once.
+  let learnedCache = null;
+  function learnedClaimsCached(local) {
+    if (!learnedCache || Date.now() - learnedCache.at > 15000) {
+      learnedCache = {
+        at: Date.now(),
+        claims: learnedClaims(local).catch(() => []),
+      };
+    }
+    return learnedCache.claims;
+  }
+
   // ---- Ownership -----------------------------------------------------------
 
-  // Which storage belongs to which game, from save-agent.js's records and
-  // the registry's known keys. A localStorage key two games both use is
-  // left out of both saves, unless the registry gives it to one of them.
+  // Which storage belongs to which game, from save-agent.js's records, the
+  // names learned from uploads, and the registry's known keys. A
+  // localStorage key two games both use is left out of both saves, unless
+  // the registry gives it to one of them.
   async function ownership() {
-    const [claims, games] = await Promise.all([getAll("claims"), registry()]);
+    const [local, games] = await Promise.all([getAll("claims"), registry()]);
+    const claims = [...local, ...(await learnedClaimsCached(local))];
     const byGame = new Map();
     const keyOwners = new Map();
     const entry = (gameId) => {

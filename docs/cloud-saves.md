@@ -15,11 +15,13 @@ read-only, beside the new saves.
 | `utils/saveRegistry.js`           | Reads the registry; the game id rule; which localStorage keys are the site's, never a game's. |
 | `utils/saveProgress.js`           | Progress adapters and the comparison rule.                                                    |
 | `services/gameSaves.js`           | Storage, conflict resolution, history, legacy import, retention sweep.                        |
+| `services/learnedSaveKeys.js`     | Storage names learned from uploads, so a browser finds saves from before the agent ran.       |
 | `services/saveBlobs.js`           | gzip in Postgres, or a BunnyCDN storage zone for large saves.                                 |
 | `routes/saves.js`                 | `/api/saves*`, all behind the session cookie.                                                 |
 | `scripts/build-save-registry.js`  | Regenerates `saves.json`. Hand-checked adapters live in its `CURATED` table.                  |
 | `scripts/add-save-agent.js`       | Puts the agent in game documents and gates play-page frames. Idempotent.                      |
-| `scripts/add-game-saves.js`       | Creates `game_saves` and `game_save_versions`.                                                |
+| `scripts/add-game-saves.js`       | Creates `game_saves`, `game_save_versions` and `game_save_keys`.                              |
+| `scripts/learn-save-keys.js`      | Fills `game_save_keys` from the saves already in the cloud. Safe to re-run.                   |
 | `scripts/migrate-legacy-saves.js` | Splits legacy backups into per-game saves for games with known keys. Dry run by default.      |
 
 The feature is on when accounts use Postgres (`ACCOUNT_BACKEND=postgres`), the
@@ -70,6 +72,23 @@ A save is `{ v: 1, ls?: { key: value }, idb?: [ { name, version, stores } ] }`,
 with IndexedDB values tagged where JSON has no type (`Date`, typed arrays,
 `Blob`, `Map`…). It is serialized with sorted keys, so the same data always
 has the same SHA-256; the server checks the hash.
+
+### Learned names
+
+A browser only knows what its own agent saw, so a save a game wrote before the
+agent ran there (one from before per-game saves, say) belongs to no game.
+Every accepted upload records the storage names in it (localStorage keys,
+IndexedDB database, store, folder prefixes and record keys; never a value) in
+`game_save_keys`, per account. `GET /api/saves-keys` publishes a name for a
+game once `MIN_ACCOUNTS` (2) accounts uploaded it for that game, and only if
+no other game reaches that count for the same name; with a session it adds the
+account's own names. One account can neither teach nor hide a name, and a name
+holding one player's id is never published.
+
+`cloud-saves.js` keeps the answer for an hour and treats a name as a claim
+when this browser has data under it, unless this browser already gave that
+name to another game. Sync now (also run once after login) then uploads those
+games. The legacy import tries the learned keys as well.
 
 Restoring writes each database in one transaction after checking it can do so
 without changing the database's version under the game, then the localStorage
@@ -173,7 +192,7 @@ limit.
 
 ## API
 
-All routes need the session cookie; the account is the session's, never a
+All routes but `/api/saves-keys` need the session cookie; the account is the session's, never a
 uuid from the request.
 
 | Route                                 | Does                                                              |
@@ -186,6 +205,7 @@ uuid from the request.
 | `POST /api/saves/:game/backup`        | Keep a copy in history only (before a Restore)                    |
 | `POST /api/saves/:game/import-legacy` | First save from the legacy backup `{ keys }`                      |
 | `POST /api/saves-socket-token`        | Token for `saves_subscribe`                                       |
+| `GET /api/saves-keys`                 | Learned storage names per game (no session needed)                |
 
 ## Legacy backups
 
@@ -214,6 +234,8 @@ uuid from the request.
    (and `BUNNY_SAVES_HOST` for a regional endpoint) to send saves over
    `SAVE_INLINE_MAX_BYTES` (512 KB gzipped) to a private storage zone.
 3. `node scripts/migrate-legacy-saves.js` to see the counts, then `--apply`.
+4. `node scripts/learn-save-keys.js` once, so saves synced before learned
+   names existed count towards them.
 
 After adding a game: `node scripts/build-save-registry.js` and
 `node scripts/add-save-agent.js`, then commit both outputs. Game pages are
@@ -224,9 +246,9 @@ bumped when those files change.
 ## Limits and known gaps
 
 - Most games sync by observation: a game's storage is known once it has run
-  with the agent on that device, or once a cloud save of it has been restored
-  there. Data from before the agent ran is found when the game reads or
-  rewrites it.
+  with the agent on that device, once a cloud save of it has been restored
+  there, or once two accounts have synced it (learned names). Otherwise data
+  from before the agent ran is found when the game reads or rewrites it.
 - Only two games compare by progress; the rest keep the latest save, with the
   loser in history. Adding an adapter means reading the game's save format.
 - IndexedDB records in auto-increment stores without explicit keys are not
