@@ -1,0 +1,3352 @@
+{
+ "version": 1,
+ "games": {
+  "2048": {
+   "id": "2048",
+   "name": "2048",
+   "play": "/misc/play/2048.html",
+   "frame": "/misc/2048/index.html",
+   "status": "observed"
+  },
+  "10-minutes-til-dawn": {
+   "id": "10-minutes-til-dawn",
+   "name": "10 Minutes Till Dawn",
+   "play": "/misc/play/?title=10%20Minutes%20Till%20Dawn&link=10-minutes-til-dawn",
+   "frame": "/misc/10-minutes-til-dawn/index.html",
+   "status": "observed"
+  },
+  "1v1-lol": {
+   "id": "1v1-lol",
+   "name": "1v1 lol",
+   "frame": "/misc/1v1-lol/index.html",
+   "status": "observed"
+  },
+  "2doom": {
+   "id": "2doom",
+   "name": "2Doom",
+   "play": "/misc/play/2doom.html",
+   "frame": "/misc/2doom/",
+   "status": "observed"
+  },
+  "2drocketleague": {
+   "id": "2drocketleague",
+   "name": "2D Rocket League",
+   "play": "/misc/play/2drocketleague.html",
+   "frame": "/misc/2drocketleague/index.html",
+   "status": "observed"
+  },
+  "60-sec-burger-run": {
+   "id": "60-sec-burger-run",
+   "name": "60 Second Burger Run",
+   "play": "/misc/play/60-sec-burger-run.html",
+   "frame": "/misc/60-sec-burger-run/",
+   "status": "observed"
+  },
+  "60-seconds-reatomized": {
+   "id": "60-seconds-reatomized",
+   "name": "60 Seconds! Reatomized",
+   "play": "/misc/play/?title=60%20Seconds!%20Reatomized&link=60-seconds-reatomized",
+   "frame": "/misc/60-seconds-reatomized/index.html",
+   "status": "observed"
+  },
+  "a-dance-of-fire-and-ice": {
+   "id": "a-dance-of-fire-and-ice",
+   "name": "A Dance Of Fire & Ice",
+   "play": "/misc/play/a-dance-of-fire-and-ice.html",
+   "frame": "/misc/a-dance-of-fire-and-ice/index.html",
+   "status": "observed"
+  },
+  "a-small-world-cup-2": {
+   "id": "a-small-world-cup-2",
+   "name": "A Small World Cup 2",
+   "play": "/misc/play/?title=A%20Small%20World%20Cup%202&link=a-small-world-cup-2",
+   "frame": "/misc/a-small-world-cup-2/index.html",
+   "status": "observed"
+  },
+  "adventure-capitalist": {
+   "id": "adventure-capitalist",
+   "name": "Adventure Capitalist",
+   "play": "/misc/play/adcap.html",
+   "frame": "/misc/adventure-capitalist/index.html",
+   "status": "observed"
+  },
+  "adventure-drivers": {
+   "id": "adventure-drivers",
+   "name": "Adventure Drivers",
+   "play": "/misc/play/?title=Adventure%20Drivers&link=adventure-drivers",
+   "frame": "/misc/adventure-drivers/index.html",
+   "status": "observed"
+  },
+  "adventure-miner": {
+   "id": "adventure-miner",
+   "name": "Adventure Miner",
+   "play": "/misc/play/?title=Adventure%20Miner&link=adventure-miner",
+   "frame": "/misc/adventure-miner/index.html",
+   "status": "observed"
+  },
+  "airplane-manager": {
+   "id": "airplane-manager",
+   "name": "Airplane Manager",
+   "play": "/misc/play/?title=Airplane%20Manager&link=airplane-manager",
+   "frame": "/misc/airplane-manager/index.html",
+   "status": "observed"
+  },
+  "amazing-rope-police": {
+   "id": "amazing-rope-police",
+   "name": "Amazing Strange Rope Police",
+   "play": "/misc/play/amazing-rope-police.html",
+   "frame": "/misc/amazing-rope-police/",
+   "status": "observed"
+  },
+  "american-football-real": {
+   "id": "american-football-real",
+   "name": "American Football REAL",
+   "play": "/misc/play/?title=American%20Football%20REAL&link=american-football-real",
+   "frame": "/misc/american-football-real/index.html",
+   "status": "observed"
+  },
+  "apple-worm": {
+   "id": "apple-worm",
+   "name": "Apple Worm",
+   "play": "/misc/play/?title=Apple%20Worm&link=apple-worm",
+   "frame": "/misc/apple-worm/index.html",
+   "status": "observed"
+  },
+  "aquapark-io": {
+   "id": "aquapark-io",
+   "name": "Aquapark.io",
+   "play": "/misc/play/?title=Aquapark.io&link=aquapark-io",
+   "frame": "/misc/aquapark-io/index.html",
+   "status": "observed"
+  },
+  "arcade-car-drift": {
+   "id": "arcade-car-drift",
+   "name": "Arcade Car Drift",
+   "play": "/misc/play/?title=Arcade%20Car%20Drift&link=arcade-car-drift",
+   "frame": "/misc/arcade-car-drift/index.html",
+   "status": "observed"
+  },
+  "archeryworldtour": {
+   "id": "archeryworldtour",
+   "name": "Archery World Tour",
+   "play": "/misc/play/archeryworldtour.html",
+   "frame": "/misc/archeryWorldTour/index.html",
+   "status": "observed"
+  },
+  "asmallworldcup": {
+   "id": "asmallworldcup",
+   "name": "A Small World Cup",
+   "play": "/misc/play/asmallworldcup.html",
+   "frame": "/misc/asmallworldcup/",
+   "status": "observed"
+  },
+  "astrosurvivor": {
+   "id": "astrosurvivor",
+   "name": "Astro Survivors",
+   "play": "/misc/play/astrosurvivor.html",
+   "frame": "/misc/astrosurvivor/index.html",
+   "status": "observed"
+  },
+  "awesometanks": {
+   "id": "awesometanks",
+   "name": "Awesome Tanks",
+   "play": "/misc/play/awesometanks.html",
+   "frame": "/misc/awesometanks/",
+   "status": "observed"
+  },
+  "awsometanks2": {
+   "id": "awsometanks2",
+   "name": "Awesome Tanks 2",
+   "play": "/misc/play/awesometanks2.html",
+   "frame": "/misc/awsometanks2/",
+   "status": "observed"
+  },
+  "backrooms": {
+   "id": "backrooms",
+   "name": "Backrooms",
+   "play": "/misc/play/?title=Backrooms&link=backrooms",
+   "frame": "/misc/backrooms/index.html",
+   "status": "observed"
+  },
+  "backrooms-recovery": {
+   "id": "backrooms-recovery",
+   "name": "Backrooms Recovery",
+   "play": "/misc/play/?title=Backrooms%20Recovery&link=backrooms-recovery",
+   "frame": "/misc/backrooms-recovery/index.html",
+   "status": "observed"
+  },
+  "bacon-may-die": {
+   "id": "bacon-may-die",
+   "name": "Bacon May Die",
+   "play": "/misc/play/?title=Bacon%20May%20Die&link=bacon-may-die",
+   "frame": "/misc/bacon-may-die/index.html",
+   "status": "observed"
+  },
+  "bacon-survivor": {
+   "id": "bacon-survivor",
+   "name": "Bacon Survivor",
+   "play": "/misc/play/?title=Bacon%20Survivor&link=bacon-survivor",
+   "frame": "/misc/bacon-survivor/index.html",
+   "status": "observed"
+  },
+  "bad-time-simulator": {
+   "id": "bad-time-simulator",
+   "name": "Bad Time Simulator",
+   "play": "/misc/play/?title=Bad%20Time%20Simulator&link=bad-time-simulator",
+   "frame": "/misc/bad-time-simulator/index.html",
+   "status": "observed"
+  },
+  "badicecream": {
+   "id": "badicecream",
+   "name": "Bad Ice Cream",
+   "play": "/misc/play/Badicecream.html",
+   "frame": "/misc/badicecream/",
+   "status": "observed"
+  },
+  "badicecream2": {
+   "id": "badicecream2",
+   "name": "Bad Ice Cream 2",
+   "play": "/misc/play/bad-ice-cream-2.html",
+   "frame": "/misc/badicecream2/",
+   "status": "observed"
+  },
+  "badicecream3": {
+   "id": "badicecream3",
+   "name": "Bad Ice Cream 3",
+   "play": "/misc/play/bad-ice-cream-3.html",
+   "frame": "/misc/badicecream3/",
+   "status": "observed"
+  },
+  "balatro": {
+   "id": "balatro",
+   "name": "Balatro",
+   "play": "/misc/play/?title=Balatro&link=balatro",
+   "frame": "/misc/balatro/index.html",
+   "status": "observed"
+  },
+  "baldis-basics": {
+   "id": "baldis-basics",
+   "name": "Baldi's Basics",
+   "play": "/misc/play/?title=Baldi's%20Basics&link=baldis-basics",
+   "frame": "/misc/baldis-basics/index.html",
+   "status": "observed"
+  },
+  "bankrob2": {
+   "id": "bankrob2",
+   "name": "Bank Robbery 2",
+   "play": "/misc/play/?title=Bank Robbery 2&link=bankrob2&author=justaliendev",
+   "frame": "/misc/bankrob2/index.html",
+   "status": "observed"
+  },
+  "baseballbros-io": {
+   "id": "baseballbros-io",
+   "name": "Baseball Bros",
+   "play": "/misc/play/?title=Baseball%20Bros&link=baseballbros-io",
+   "frame": "/misc/baseballbros-io/index.html",
+   "status": "observed"
+  },
+  "basket-random": {
+   "id": "basket-random",
+   "name": "Basket Random",
+   "play": "/misc/play/basket-random.html",
+   "frame": "/misc/basket-random/",
+   "status": "observed"
+  },
+  "basketball-real": {
+   "id": "basketball-real",
+   "name": "Basketball REAL",
+   "play": "/misc/play/?title=Basketball%20REAL&link=basketball-real",
+   "frame": "/misc/basketball-real/index.html",
+   "status": "observed"
+  },
+  "basketball-stars": {
+   "id": "basketball-stars",
+   "name": "Basket Random",
+   "play": "/misc/play/basketball-stars.html",
+   "frame": "/misc/basketball-stars/",
+   "status": "observed"
+  },
+  "basketball-superstars": {
+   "id": "basketball-superstars",
+   "name": "Basketball Superstars",
+   "play": "/misc/play/?title=Basketball%20Superstars&link=basketball-superstars",
+   "frame": "/misc/basketball-superstars/index.html",
+   "status": "observed"
+  },
+  "basketbros-io": {
+   "id": "basketbros-io",
+   "name": "Basketbros",
+   "play": "/misc/play/basketbros.html",
+   "frame": "/misc/basketbros-io/",
+   "status": "observed"
+  },
+  "bee-swarm-simulator": {
+   "id": "bee-swarm-simulator",
+   "name": "Bee Swarm Simulator",
+   "play": "/misc/play/?title=Bee%20Swarm%20Simulator&link=bee-swarm-simulator",
+   "frame": "/misc/bee-swarm-simulator/index.html",
+   "status": "observed"
+  },
+  "bendy": {
+   "id": "bendy",
+   "name": "Bendy",
+   "play": "/misc/play/?title=Bendy&link=bendy",
+   "frame": "/misc/bendy/index.html",
+   "status": "observed"
+  },
+  "big-tower-tiny-square": {
+   "id": "big-tower-tiny-square",
+   "name": "Big Tower Tiny Square",
+   "play": "/misc/play/?title=Big%20Tower%20Tiny%20Square&link=big-tower-tiny-square",
+   "frame": "/misc/big-tower-tiny-square/index.html",
+   "status": "observed"
+  },
+  "bikeobby": {
+   "id": "bikeobby",
+   "name": "Bike Obby",
+   "play": "/misc/play/?title=Bike Obby&author=Asher Lee&link=bikeobby",
+   "frame": "/misc/bikeobby/index.html",
+   "status": "observed"
+  },
+  "bitlife": {
+   "id": "bitlife",
+   "name": "Bitlife",
+   "play": "/misc/play/bitlife.html",
+   "frame": "/misc/bitlife/",
+   "status": "observed"
+  },
+  "block-blast": {
+   "id": "block-blast",
+   "name": "Block Blast",
+   "play": "/misc/play/block-blast.html",
+   "frame": "/misc/block-blast/",
+   "status": "observed"
+  },
+  "bloxrz": {
+   "id": "bloxrz",
+   "name": "Bloxrz",
+   "play": "/misc/play/bloxrz.html",
+   "frame": "/misc/bloxrz/",
+   "status": "observed"
+  },
+  "blumgi-ball": {
+   "id": "blumgi-ball",
+   "name": "Blumgi Ball",
+   "play": "/misc/play/?title=Blumgi%20Ball&link=blumgi-ball",
+   "frame": "/misc/blumgi-ball/index.html",
+   "status": "observed"
+  },
+  "blumgi-bloom": {
+   "id": "blumgi-bloom",
+   "name": "Blumgi Bloom",
+   "play": "/misc/play/?title=Blumgi%20Bloom&link=blumgi-bloom",
+   "frame": "/misc/blumgi-bloom/index.html",
+   "status": "observed"
+  },
+  "blumgi-bounce": {
+   "id": "blumgi-bounce",
+   "name": "Blumgi Bounce",
+   "play": "/misc/play/?title=Blumgi%20Bounce&link=blumgi-bounce",
+   "frame": "/misc/blumgi-bounce/index.html",
+   "status": "observed"
+  },
+  "blumgi-castle": {
+   "id": "blumgi-castle",
+   "name": "Blumgi Castle",
+   "play": "/misc/play/?title=Blumgi%20Castle&link=blumgi-castle",
+   "frame": "/misc/blumgi-castle/index.html",
+   "status": "observed"
+  },
+  "blumgi-dragon": {
+   "id": "blumgi-dragon",
+   "name": "Blumgi Dragon",
+   "play": "/misc/play/?title=Blumgi%20Dragon&link=blumgi-dragon",
+   "frame": "/misc/blumgi-dragon/index.html",
+   "status": "observed"
+  },
+  "blumgi-merge": {
+   "id": "blumgi-merge",
+   "name": "Blumgi Merge",
+   "play": "/misc/play/?title=Blumgi%20Merge&link=blumgi-merge",
+   "frame": "/misc/blumgi-merge/index.html",
+   "status": "observed"
+  },
+  "blumgi-paintball": {
+   "id": "blumgi-paintball",
+   "name": "Blumgi Paintball",
+   "play": "/misc/play/?title=Blumgi%20Paintball&link=blumgi-paintball",
+   "frame": "/misc/blumgi-paintball/index.html",
+   "status": "observed"
+  },
+  "blumgi-soccer": {
+   "id": "blumgi-soccer",
+   "name": "Blumgi Soccer",
+   "play": "/misc/play/?title=Blumgi%20Soccer&link=blumgi-soccer",
+   "frame": "/misc/blumgi-soccer/index.html",
+   "status": "observed"
+  },
+  "blumgi-splash": {
+   "id": "blumgi-splash",
+   "name": "Blumgi Splash",
+   "play": "/misc/play/?title=Blumgi%20Splash&link=blumgi-splash",
+   "frame": "/misc/blumgi-splash/index.html",
+   "status": "observed"
+  },
+  "blumgiracers": {
+   "id": "blumgiracers",
+   "name": "Blumgi Racers",
+   "play": "/misc/play/blumgiracers.html",
+   "frame": "/misc/blumgiracers/",
+   "status": "observed"
+  },
+  "blumgislime": {
+   "id": "blumgislime",
+   "name": "Blumgi Slime",
+   "play": "/misc/play/blumgislime.html",
+   "frame": "/misc/blumgislime/",
+   "status": "observed"
+  },
+  "bob-the-robber-2": {
+   "id": "bob-the-robber-2",
+   "name": "Bob The Robber 2",
+   "play": "/misc/play/?title=Bob%20The%20Robber%202&link=bob-the-robber-2",
+   "frame": "/misc/bob-the-robber-2/index.html",
+   "status": "observed"
+  },
+  "boomslingersreboom": {
+   "id": "boomslingersreboom",
+   "name": "Boom Slingers Reboom",
+   "play": "/misc/play/?title=Boom%20Slingers%20Reboom&link=boomslingersreboom",
+   "frame": "/misc/boomslingersreboom/index.html",
+   "status": "observed"
+  },
+  "bottleflip": {
+   "id": "bottleflip",
+   "name": "Bottle Flip",
+   "play": "/misc/play/bottleflip.html",
+   "frame": "/misc/BottleFlip/index.html",
+   "status": "observed"
+  },
+  "bottleflip3d": {
+   "id": "bottleflip3d",
+   "name": "Bottle Flip 3D",
+   "play": "/misc/play/bottleflip3d.html",
+   "frame": "/misc/BottleFlip3D/index.html",
+   "status": "observed"
+  },
+  "bouncemasters": {
+   "id": "bouncemasters",
+   "name": "Bouncemasters",
+   "play": "/misc/play/?title=Bouncemasters&link=bouncemasters",
+   "frame": "/misc/bouncemasters/index.html",
+   "status": "observed"
+  },
+  "bouncybasketball": {
+   "id": "bouncybasketball",
+   "name": "Bouncy Basketball",
+   "play": "/misc/play/bouncybasketball.html",
+   "frame": "/misc/bouncybasketball/index.html",
+   "status": "observed"
+  },
+  "bowmasters": {
+   "id": "bowmasters",
+   "name": "Bowmasters",
+   "frame": "/misc/bowmasters/index.html",
+   "status": "observed"
+  },
+  "boxing-random": {
+   "id": "boxing-random",
+   "name": "Boxing Random",
+   "play": "/misc/play/boxing-random.html",
+   "frame": "/misc/boxing-random/index.html",
+   "status": "observed"
+  },
+  "boxrob": {
+   "id": "boxrob",
+   "name": "BoxRob",
+   "play": "/misc/play/?title=BoxRob&link=boxrob",
+   "frame": "/misc/boxrob/index.html",
+   "status": "observed"
+  },
+  "brain-test": {
+   "id": "brain-test",
+   "name": "Brain Test",
+   "play": "/misc/play/?title=Brain%20Test&link=brain-test",
+   "frame": "/misc/brain-test/index.html",
+   "status": "observed"
+  },
+  "brawl": {
+   "id": "brawl",
+   "name": "Brawl Simulator 3D",
+   "play": "/misc/play/?title=Brawl%20Simulator%203D&link=brawl",
+   "frame": "/misc/brawl/index.html",
+   "status": "observed"
+  },
+  "brotato": {
+   "id": "brotato",
+   "name": "Brotato",
+   "play": "/misc/play/?title=Brotato&link=brotato",
+   "frame": "/misc/brotato/index.html",
+   "status": "observed"
+  },
+  "buck-bounce": {
+   "id": "buck-bounce",
+   "name": "Buck Bounce",
+   "play": "/misc/play/?title=Buck%20Bounce&link=buck-bounce",
+   "frame": "/misc/buck-bounce/index.html",
+   "status": "observed"
+  },
+  "buckshot": {
+   "id": "buckshot",
+   "name": "Buckshot Roulette",
+   "play": "/misc/play/?title=Buckshot%20Roulette&link=buckshot",
+   "frame": "/misc/buckshot/index.html",
+   "status": "observed"
+  },
+  "bullet-bros": {
+   "id": "bullet-bros",
+   "name": "Bullet Bros",
+   "play": "/misc/play/?title=Bullet%20Bros&link=bullet-bros",
+   "frame": "/misc/bullet-bros/index.html",
+   "status": "observed"
+  },
+  "capibara-clicker": {
+   "id": "capibara-clicker",
+   "name": "Capybara Clicker",
+   "play": "/misc/play/capybaraclicker.html",
+   "frame": "/misc/capibara-clicker/index.html",
+   "status": "observed"
+  },
+  "capitalist-bus-driver": {
+   "id": "capitalist-bus-driver",
+   "name": "Capitalist Bus Driver",
+   "play": "/misc/play/?title=Capitalist%20Bus%20Driver&link=capitalist-bus-driver",
+   "frame": "/misc/capitalist-bus-driver/index.html",
+   "status": "observed"
+  },
+  "car-circle": {
+   "id": "car-circle",
+   "name": "Car Circle",
+   "play": "/misc/play/?title=Car%20Circle&link=car-circle",
+   "frame": "/misc/car-circle/index.html",
+   "status": "observed"
+  },
+  "car-machines": {
+   "id": "car-machines",
+   "name": "Car Machines",
+   "play": "/misc/play/?title=Car%20Machines&link=car-machines",
+   "frame": "/misc/car-machines/index.html",
+   "status": "observed"
+  },
+  "carnado-stunt-car": {
+   "id": "carnado-stunt-car",
+   "name": "Carnado Stunt Car",
+   "play": "/misc/play/?title=Carnado%20Stunt%20Car&link=carnado-stunt-car",
+   "frame": "/misc/carnado-stunt-car/index.html",
+   "status": "observed"
+  },
+  "catpizza": {
+   "id": "catpizza",
+   "name": "Cat Pizza",
+   "play": "/misc/play/?title=Cat Pizza&link=catpizza&author=JetGames",
+   "frame": "/misc/catpizza/index.html",
+   "status": "observed"
+  },
+  "choppyorc": {
+   "id": "choppyorc",
+   "name": "Choppy Orc",
+   "play": "/misc/play/?title=Choppy Orc&author=Y8&link=choppyorc",
+   "frame": "/misc/choppyorc/index.html",
+   "status": "observed"
+  },
+  "circloo": {
+   "id": "circloo",
+   "name": "CircloO",
+   "play": "/misc/play/?title=CircloO&link=circloo",
+   "frame": "/misc/circloo/index.html",
+   "status": "observed"
+  },
+  "clover-pit": {
+   "id": "clover-pit",
+   "name": "Clover Pit",
+   "play": "/misc/play/?title=Clover%20Pit&link=clover-pit",
+   "frame": "/misc/clover-pit/index.html",
+   "status": "observed"
+  },
+  "cluster-rush": {
+   "id": "cluster-rush",
+   "name": "Cluster Rush",
+   "play": "/misc/play/cluster-rush.html",
+   "frame": "/misc/cluster-rush/index.html",
+   "status": "observed"
+  },
+  "color-pencil-run": {
+   "id": "color-pencil-run",
+   "name": "Color Pencil Run",
+   "play": "/misc/play/?title=Color%20Pencil%20Run&link=color-pencil-run",
+   "frame": "/misc/color-pencil-run/index.html",
+   "status": "observed"
+  },
+  "cookieclicker": {
+   "id": "cookieclicker",
+   "name": "Cookie Clicker",
+   "play": "/misc/play/cookieclicker.html",
+   "frame": "/misc/cookieclicker/index.html",
+   "status": "progress",
+   "keys": [
+    "CookieClickerGame",
+    "CookieClickerGameBeta"
+   ],
+   "progress": {
+    "adapter": "cookie-clicker"
+   }
+  },
+  "core-ball": {
+   "id": "core-ball",
+   "name": "Core Ball",
+   "play": "/misc/play/?title=Core%20Ball&link=core-ball",
+   "frame": "/misc/core-ball/index.html",
+   "status": "observed"
+  },
+  "crazy-bikes": {
+   "id": "crazy-bikes",
+   "name": "Crazy Bikes",
+   "play": "/misc/play/?title=Crazy%20Bikes&link=crazy-bikes",
+   "frame": "/misc/crazy-bikes/index.html",
+   "status": "observed"
+  },
+  "crazy-cattle": {
+   "id": "crazy-cattle",
+   "name": "Crazy Cattle 3D",
+   "play": "/misc/play/?title=Crazy Cattle 3D&author=Anna Mayberry&link=crazy-cattle",
+   "frame": "/misc/crazy-cattle/index.html",
+   "status": "observed"
+  },
+  "crazycars": {
+   "id": "crazycars",
+   "name": "Crazy Cars",
+   "play": "/misc/play/crazycars.html",
+   "frame": "/misc/crazycars/",
+   "status": "observed"
+  },
+  "crossy-road": {
+   "id": "crossy-road",
+   "name": "Crossy Road",
+   "play": "/misc/play/crossyroad.html",
+   "frame": "/misc/crossy-road/index.html",
+   "status": "observed"
+  },
+  "csgo-clicker": {
+   "id": "csgo-clicker",
+   "name": "CSGO Clicker",
+   "play": "/misc/play/csgo-clicker.html",
+   "frame": "/misc/csgo-clicker/index.html",
+   "status": "observed"
+  },
+  "cuphead": {
+   "id": "cuphead",
+   "name": "Cuphead",
+   "play": "/misc/play/?title=Cuphead&link=cuphead",
+   "frame": "/misc/cuphead/index.html",
+   "status": "observed"
+  },
+  "cut-the-rope": {
+   "id": "cut-the-rope",
+   "name": "Cut The Rope",
+   "play": "/misc/play/?title=Cut%20The%20Rope&link=cut-the-rope",
+   "frame": "/misc/cut-the-rope/index.html",
+   "status": "observed"
+  },
+  "dadish": {
+   "id": "dadish",
+   "name": "Dadish",
+   "play": "/misc/play/Dadish.html",
+   "frame": "/misc/dadish/index.html",
+   "status": "observed"
+  },
+  "dadish2": {
+   "id": "dadish2",
+   "name": "Dadish 2",
+   "play": "/misc/play/Dadish-2.html",
+   "frame": "/misc/dadish2/index.html",
+   "status": "observed"
+  },
+  "dadish3": {
+   "id": "dadish3",
+   "name": "Dadish 3",
+   "play": "/misc/play/Dadish-3.html",
+   "frame": "/misc/dadish3/index.html",
+   "status": "observed"
+  },
+  "dadish3d": {
+   "id": "dadish3d",
+   "name": "Dadish 3D",
+   "play": "/misc/play/?title=Dadish%203D&link=dadish3d",
+   "frame": "/misc/dadish3d/index.html",
+   "status": "observed"
+  },
+  "dailydadish": {
+   "id": "dailydadish",
+   "name": "Daily Dadish",
+   "play": "/misc/play/dailydadish.html",
+   "frame": "/misc/dailydadish/index.html",
+   "status": "observed"
+  },
+  "dante": {
+   "id": "dante",
+   "name": "Dante",
+   "play": "/misc/play/?title=Dante&link=dante",
+   "frame": "/misc/dante/index.html",
+   "status": "observed"
+  },
+  "day-of-meat-radiation": {
+   "id": "day-of-meat-radiation",
+   "name": "Day Of Meat: Radiation",
+   "play": "/misc/play/?title=Day%20Of%20Meat%3A%20Radiation&link=day-of-meat-radiation",
+   "frame": "/misc/day-of-meat-radiation/index.html",
+   "status": "observed"
+  },
+  "deadly-descent": {
+   "id": "deadly-descent",
+   "name": "Deadly Descent",
+   "play": "/misc/play/?title=Deadly%20Descent&link=deadly-descent",
+   "frame": "/misc/deadly-descent/index.html",
+   "status": "observed"
+  },
+  "deal-or-no-deal": {
+   "id": "deal-or-no-deal",
+   "name": "Deal or No Deal",
+   "play": "/misc/play/deal-or-no-deal.html",
+   "frame": "/misc/deal-or-no-deal/index.html",
+   "status": "observed"
+  },
+  "dhp": {
+   "id": "dhp",
+   "name": "Dread Head Parkour",
+   "play": "/misc/play/?title=Dread%20Head%20Parkour&link=dhp",
+   "frame": "/misc/dhp/index.html",
+   "status": "observed"
+  },
+  "digger-escape": {
+   "id": "digger-escape",
+   "name": "Digger Escape",
+   "play": "/misc/play/?title=Digger%20Escape&link=digger-escape",
+   "frame": "/misc/digger-escape/index.html",
+   "status": "observed"
+  },
+  "digging-master": {
+   "id": "digging-master",
+   "name": "Digging Master",
+   "play": "/misc/play/?title=Digging%20Master&link=digging-master",
+   "frame": "/misc/digging-master/index.html",
+   "status": "observed"
+  },
+  "dino-bros": {
+   "id": "dino-bros",
+   "name": "Dino Bros",
+   "play": "/misc/play/?title=Dino%20Bros&link=dino-bros",
+   "frame": "/misc/dino-bros/index.html",
+   "status": "observed"
+  },
+  "dino-fighter": {
+   "id": "dino-fighter",
+   "name": "Dino Fighter",
+   "play": "/misc/play/?title=Dino%20Fighter&link=dino-fighter",
+   "frame": "/misc/dino-fighter/index.html",
+   "status": "observed"
+  },
+  "dino-simulator": {
+   "id": "dino-simulator",
+   "name": "Dino Simulator",
+   "play": "/misc/play/?title=Dino%20Simulator&link=dino-simulator",
+   "frame": "/misc/dino-simulator/index.html",
+   "status": "observed"
+  },
+  "dogeminer": {
+   "id": "dogeminer",
+   "name": "Doge Miner",
+   "play": "/misc/play/dogeminer.html",
+   "frame": "/misc/dogeminer/index.html",
+   "status": "observed"
+  },
+  "dogeminer-2": {
+   "id": "dogeminer-2",
+   "name": "Dogeminer 2",
+   "play": "/misc/play/?title=Dogeminer%202&link=dogeminer-2",
+   "frame": "/misc/dogeminer-2/index.html",
+   "status": "observed"
+  },
+  "doodlejump": {
+   "id": "doodlejump",
+   "name": "Doodle Jump",
+   "play": "/misc/play/doodlejump.html",
+   "frame": "/misc/doodlejump/index.html",
+   "status": "observed"
+  },
+  "draw-the-hill": {
+   "id": "draw-the-hill",
+   "name": "Draw the Hill",
+   "play": "/misc/play/draw_the_hill.html",
+   "frame": "/misc/draw_the_hill/index.html",
+   "status": "observed"
+  },
+  "drift-boss": {
+   "id": "drift-boss",
+   "name": "Drift Boss",
+   "play": "/misc/play/drift-boss.html",
+   "frame": "/misc/drift-boss/",
+   "status": "observed"
+  },
+  "drift-hunters": {
+   "id": "drift-hunters",
+   "name": "Drift Hunters",
+   "play": "/misc/play/drift-hunters.html",
+   "frame": "/misc/drift-hunters/",
+   "status": "observed"
+  },
+  "drive-mad": {
+   "id": "drive-mad",
+   "name": "Drive Mad",
+   "play": "/misc/play/drive-mad.html",
+   "frame": "/misc/drive-mad/",
+   "status": "observed"
+  },
+  "duck-merge": {
+   "id": "duck-merge",
+   "name": "Duck Merge",
+   "play": "/misc/play/?title=Duck%20Merge&link=duck-merge",
+   "frame": "/misc/duck-merge/index.html",
+   "status": "observed"
+  },
+  "ducklings-io": {
+   "id": "ducklings-io",
+   "name": "Ducklings.io",
+   "play": "/misc/play/?title=Ducklings.io&link=ducklings-io",
+   "frame": "/misc/ducklings-io/index.html",
+   "status": "observed"
+  },
+  "dune": {
+   "id": "dune",
+   "name": "Dune",
+   "play": "/misc/play/?title=Dune&link=dune",
+   "frame": "/misc/dune/index.html",
+   "status": "observed"
+  },
+  "eagle-ride": {
+   "id": "eagle-ride",
+   "name": "Eagle Ride",
+   "play": "/misc/play/?title=Eagle%20Ride&link=eagle-ride",
+   "frame": "/misc/eagle-ride/index.html",
+   "status": "observed"
+  },
+  "eaglercraft": {
+   "id": "eaglercraft",
+   "name": "eaglercraft",
+   "frame": "/misc/eaglercraft/index.html",
+   "status": "observed"
+  },
+  "eaglercraftx": {
+   "id": "eaglercraftx",
+   "name": "eaglercraftx",
+   "frame": "/misc/eaglercraftx/index.html",
+   "status": "observed"
+  },
+  "edgenotfound": {
+   "id": "edgenotfound",
+   "name": "Edge Not Found",
+   "play": "/misc/play/edgenotfound.html",
+   "frame": "/misc/edgenotfound/",
+   "status": "observed"
+  },
+  "eggy-car": {
+   "id": "eggy-car",
+   "name": "Eggy Car",
+   "play": "/misc/play/eggy-car.html",
+   "frame": "/misc/eggy-car/index.html",
+   "status": "observed"
+  },
+  "emulator-emulatorjs": {
+   "id": "emulator-emulatorjs",
+   "name": "Emulator JS",
+   "frame": "/misc/emulator/emulatorjs/index.html",
+   "status": "observed"
+  },
+  "emulator-games-mortal": {
+   "id": "emulator-games-mortal",
+   "name": "Mortal Kombat",
+   "play": "/misc/play/Mortal-Kombat.html",
+   "frame": "/misc/emulator/games/mortal/index.html",
+   "status": "observed"
+  },
+  "emulator-games-street": {
+   "id": "emulator-games-street",
+   "name": "Street Fighter 2",
+   "play": "/misc/play/streetfight2.html",
+   "frame": "/misc/emulator/games/street/index.html",
+   "status": "observed"
+  },
+  "emulator-games-street-3": {
+   "id": "emulator-games-street-3",
+   "name": "Street Fighter 3",
+   "play": "/misc/play/streetfight3.html",
+   "frame": "/misc/emulator/games/street/3/index.html",
+   "status": "observed"
+  },
+  "emulator-pokemon-black": {
+   "id": "emulator-pokemon-black",
+   "name": "Pokemon Chaos Black",
+   "play": "/misc/play/pokemonCB.html",
+   "frame": "/misc/emulator/pokemon/black/index.html",
+   "status": "observed"
+  },
+  "emulator-pokemon-crystal": {
+   "id": "emulator-pokemon-crystal",
+   "name": "Pokemon Crystal",
+   "play": "/misc/play/pokemonc.html",
+   "frame": "/misc/emulator/pokemon/crystal/index.html",
+   "status": "observed"
+  },
+  "emulator-pokemon-emerald": {
+   "id": "emulator-pokemon-emerald",
+   "name": "Pokemon Emerald",
+   "play": "/misc/play/pokemone.html",
+   "frame": "/misc/emulator/pokemon/emerald/index.html",
+   "status": "observed"
+  },
+  "emulator-pokemon-florasky": {
+   "id": "emulator-pokemon-florasky",
+   "name": "Pokemon Flora Sky",
+   "play": "/misc/play/pokemonFS.html",
+   "frame": "/misc/emulator/pokemon/florasky/index.html",
+   "status": "observed"
+  },
+  "emulator-pokemon-red": {
+   "id": "emulator-pokemon-red",
+   "name": "Pokemon Fire Red",
+   "play": "/misc/play/pokemonFR.html",
+   "frame": "/misc/emulator/pokemon/red/index.html",
+   "status": "observed"
+  },
+  "emulator-pokemon-ruby": {
+   "id": "emulator-pokemon-ruby",
+   "name": "Pokemon Ruby Red",
+   "play": "/misc/play/pokemonRR.html",
+   "frame": "/misc/emulator/pokemon/ruby/index.html",
+   "status": "observed"
+  },
+  "emulator-pokemon-sapphire": {
+   "id": "emulator-pokemon-sapphire",
+   "name": "Pokemon Sapphire",
+   "play": "/misc/play/pokemonS.html",
+   "frame": "/misc/emulator/pokemon/sapphire/index.html",
+   "status": "observed"
+  },
+  "emulator-pokemon-ultraviolent": {
+   "id": "emulator-pokemon-ultraviolent",
+   "name": "Pokemon Ultraviolet",
+   "play": "/misc/play/pokemonU.html",
+   "frame": "/misc/emulator/pokemon/ultraviolent/index.html",
+   "status": "observed"
+  },
+  "escape-road-3": {
+   "id": "escape-road-3",
+   "name": "Escape Road 3",
+   "play": "/misc/play/?title=Escape%20Road%203&link=escape-road-3",
+   "frame": "/misc/escape-road-3/index.html",
+   "status": "observed"
+  },
+  "escaperoad": {
+   "id": "escaperoad",
+   "name": "Escape Road",
+   "play": "/misc/play/?title=Escape Road&author=AZ Games&link=escaperoad",
+   "frame": "/misc/escaperoad/index.html",
+   "status": "observed"
+  },
+  "escaperoad2": {
+   "id": "escaperoad2",
+   "name": "Escape Road 2",
+   "play": "/misc/play/?title=Escape%20Road%202&link=escaperoad2",
+   "frame": "/misc/escaperoad2/index.html",
+   "status": "observed"
+  },
+  "escaperoadcity2": {
+   "id": "escaperoadcity2",
+   "name": "Escape Road City 2",
+   "play": "/misc/play/?title=Escape%20Road%20City%202&link=escaperoadcity2",
+   "frame": "/misc/escaperoadcity2/index.html",
+   "status": "observed"
+  },
+  "fashion-legends": {
+   "id": "fashion-legends",
+   "name": "Fashion Legends",
+   "play": "/misc/play/?title=Fashion%20Legends&link=fashion-legends",
+   "frame": "/misc/fashion-legends/index.html",
+   "status": "observed"
+  },
+  "fbwg": {
+   "id": "fbwg",
+   "name": "Fire Boy Water Girl",
+   "play": "/misc/play/fbwg.html",
+   "frame": "/misc/fbwg/index.html",
+   "status": "observed"
+  },
+  "fear-response": {
+   "id": "fear-response",
+   "name": "Fear Response",
+   "play": "/misc/play/?title=Fear%20Response&link=fear-response",
+   "frame": "/misc/fear-response/index.html",
+   "status": "observed"
+  },
+  "fish-eat-fish": {
+   "id": "fish-eat-fish",
+   "name": "Fish Eat Fish",
+   "play": "/misc/play/?title=Fish%20Eat%20Fish&link=fish-eat-fish",
+   "frame": "/misc/fish-eat-fish/index.html",
+   "status": "observed"
+  },
+  "flash": {
+   "id": "flash",
+   "name": "flash",
+   "frame": "/misc/flash/index.html",
+   "status": "observed"
+  },
+  "flash-1on1soccer": {
+   "id": "flash-1on1soccer",
+   "name": "One on One Soccer",
+   "play": "/misc/play/1o1soccer.html",
+   "frame": "/misc/flash/index.html?swf=1on1soccer.swf",
+   "status": "observed"
+  },
+  "flash-alien-hominid": {
+   "id": "flash-alien-hominid",
+   "name": "Alien Hominid",
+   "play": "/misc/play/alienhonminid.html",
+   "frame": "/misc/flash/index.html?swf=alien-hominid.swf",
+   "status": "observed"
+  },
+  "flash-bloons-tower-defense-2": {
+   "id": "flash-bloons-tower-defense-2",
+   "name": "Bloons TD 2",
+   "play": "/misc/play/bloontd2.html",
+   "frame": "/misc/flash/index.html?swf=bloons-tower-defense-2.swf",
+   "status": "observed"
+  },
+  "flash-bloonstd1": {
+   "id": "flash-bloonstd1",
+   "name": "Bloons TD",
+   "play": "/misc/play/bloontd.html",
+   "frame": "/misc/flash/index.html?swf=bloonstd1.swf",
+   "status": "observed"
+  },
+  "flash-bloonstd3": {
+   "id": "flash-bloonstd3",
+   "name": "Bloons TD 3",
+   "play": "/misc/play/bloontd3.html",
+   "frame": "/misc/flash/index.html?swf=bloonstd3.swf",
+   "status": "observed"
+  },
+  "flash-cubefield": {
+   "id": "flash-cubefield",
+   "name": "Cubefield",
+   "play": "/misc/play/cubefield.html",
+   "frame": "/misc/flash/index.html?swf=cubefield.swf",
+   "status": "observed"
+  },
+  "flash-duck-life": {
+   "id": "flash-duck-life",
+   "name": "Duck Life",
+   "play": "/misc/play/duck-life.html",
+   "frame": "/misc/flash/index.html?swf=duck-life.swf",
+   "status": "observed"
+  },
+  "flash-duck-life-2": {
+   "id": "flash-duck-life-2",
+   "name": "Duck Life 2",
+   "play": "/misc/play/duck-life2.html",
+   "frame": "/misc/flash/index.html?swf=duck-life-2.swf",
+   "status": "observed"
+  },
+  "flash-duck-life-3": {
+   "id": "flash-duck-life-3",
+   "name": "Duck Life 3",
+   "play": "/misc/play/duck-life3.html",
+   "frame": "/misc/flash/index.html?swf=duck-life-3.swf",
+   "status": "observed"
+  },
+  "flash-duck-life-4": {
+   "id": "flash-duck-life-4",
+   "name": "Duck Life 4",
+   "play": "/misc/play/duck-life4.html",
+   "frame": "/misc/flash/index.html?swf=duck-life-4.swf",
+   "status": "observed"
+  },
+  "flash-fancy-pants-adventure2": {
+   "id": "flash-fancy-pants-adventure2",
+   "name": "Fancy Pants Adventure 2",
+   "play": "/misc/play/fpa2.html",
+   "frame": "/misc/flash/index.html?swf=fancy-pants-adventure2.swf",
+   "status": "observed"
+  },
+  "flash-fancypantsadventure": {
+   "id": "flash-fancypantsadventure",
+   "name": "Fancy Pants Adventure",
+   "play": "/misc/play/fpa.html",
+   "frame": "/misc/flash/index.html?swf=fancypantsadventure.swf",
+   "status": "observed"
+  },
+  "flash-gfiles-btd4": {
+   "id": "flash-gfiles-btd4",
+   "name": "Bloons TD 4",
+   "play": "/misc/play/bloontd4.html",
+   "frame": "/misc/flash/gfiles/btd4/",
+   "status": "observed"
+  },
+  "flash-gmayhem2": {
+   "id": "flash-gmayhem2",
+   "name": "Gun Mayhem 2",
+   "frame": "/misc/flash/index.html?swf=gmayhem2.swf",
+   "status": "observed"
+  },
+  "flash-gun-mayhem-3": {
+   "id": "flash-gun-mayhem-3",
+   "name": "Gun Mayhem 3",
+   "frame": "/misc/flash/index.html?swf=gun-mayhem-3.swf",
+   "status": "observed"
+  },
+  "flash-happywheels": {
+   "id": "flash-happywheels",
+   "name": "Happy Wheels",
+   "play": "/misc/play/happywheels.html",
+   "frame": "/misc/flash/index.html?swf=happywheels.swf",
+   "status": "observed"
+  },
+  "flash-hobo": {
+   "id": "flash-hobo",
+   "name": "Hobo",
+   "play": "/misc/play/hobo.html",
+   "frame": "/misc/flash/index.html?swf=hobo.swf",
+   "status": "observed"
+  },
+  "flash-hobo-2": {
+   "id": "flash-hobo-2",
+   "name": "Hobo 2",
+   "play": "/misc/play/hobo2.html",
+   "frame": "/misc/flash/index.html?swf=hobo-2.swf",
+   "status": "observed"
+  },
+  "flash-hobo-3": {
+   "id": "flash-hobo-3",
+   "name": "Hobo 3",
+   "play": "/misc/play/hobo3.html",
+   "frame": "/misc/flash/index.html?swf=hobo-3.swf",
+   "status": "observed"
+  },
+  "flash-hobo-4": {
+   "id": "flash-hobo-4",
+   "name": "Hobo 4",
+   "play": "/misc/play/hobo4.html",
+   "frame": "/misc/flash/index.html?swf=hobo-4.swf",
+   "status": "observed"
+  },
+  "flash-hobo-5": {
+   "id": "flash-hobo-5",
+   "name": "Hobo 5",
+   "play": "/misc/play/hobo5.html",
+   "frame": "/misc/flash/index.html?swf=hobo-5.swf",
+   "status": "observed"
+  },
+  "flash-hobo-6": {
+   "id": "flash-hobo-6",
+   "name": "Hobo 6",
+   "play": "/misc/play/hobo6.html",
+   "frame": "/misc/flash/index.html?swf=hobo-6.swf",
+   "status": "observed"
+  },
+  "flash-hobo-7": {
+   "id": "flash-hobo-7",
+   "name": "Hobo 7",
+   "play": "/misc/play/hobo7.html",
+   "frame": "/misc/flash/index.html?swf=hobo-7.swf",
+   "status": "observed"
+  },
+  "flash-learn-to-fly-2": {
+   "id": "flash-learn-to-fly-2",
+   "name": "Learn to fly 2",
+   "play": "/misc/play/learn-to-fly-2.html",
+   "frame": "/misc/flash/index.html?swf=learn-to-fly-2.swf",
+   "status": "observed"
+  },
+  "flash-tetris": {
+   "id": "flash-tetris",
+   "name": "Tetris",
+   "play": "/misc/play/tetris.html",
+   "frame": "/misc/flash/index.html?swf=tetris.swf",
+   "status": "observed"
+  },
+  "flash-thebindingofisaac": {
+   "id": "flash-thebindingofisaac",
+   "name": "The Binding Of Issac",
+   "play": "/misc/play/thebindingofissac.html",
+   "frame": "/misc/flash/index.html?swf=thebindingofisaac.swf",
+   "status": "observed"
+  },
+  "flash-whack-your-boss-24": {
+   "id": "flash-whack-your-boss-24",
+   "name": "Whack Your Boss",
+   "play": "/misc/play/wyb.html",
+   "frame": "/misc/flash/index.html?swf=whack-your-boss-24.swf",
+   "status": "observed"
+  },
+  "flash-whack-your-computer-12-ways": {
+   "id": "flash-whack-your-computer-12-ways",
+   "name": "Whack your computer",
+   "play": "/misc/play/wyc.html",
+   "frame": "/misc/flash/index.html?swf=whack_your_computer_12_ways.swf",
+   "status": "observed"
+  },
+  "flash-whack-your-ex": {
+   "id": "flash-whack-your-ex",
+   "name": "Whack your Ex",
+   "play": "/misc/play/wye.html",
+   "frame": "/misc/flash/index.html?swf=whack-your-ex.swf",
+   "status": "observed"
+  },
+  "flash-worlds-hardest-game-2": {
+   "id": "flash-worlds-hardest-game-2",
+   "name": "Worlds Hardest Game 2",
+   "play": "/misc/play/whg2.html",
+   "frame": "/misc/flash/index.html?swf=worlds-hardest-game-2.swf",
+   "status": "observed"
+  },
+  "flickgoal": {
+   "id": "flickgoal",
+   "name": "Flick Goal",
+   "play": "/misc/play/?title=Flick%20Goal&link=flickgoal",
+   "frame": "/misc/flickgoal/index.html",
+   "status": "observed"
+  },
+  "flip-bros": {
+   "id": "flip-bros",
+   "name": "Flip Bros",
+   "play": "/misc/play/?title=Flip%20Bros&link=flip-bros",
+   "frame": "/misc/flip-bros/index.html",
+   "status": "observed"
+  },
+  "flippyfish": {
+   "id": "flippyfish",
+   "name": "Flippy Fish",
+   "play": "/misc/play/Flippy-Fish.html",
+   "frame": "/misc/flippyfish/index.html",
+   "status": "observed"
+  },
+  "fnae": {
+   "id": "fnae",
+   "name": "Five Nights at Epstien's",
+   "play": "/misc/play/?title=Five%20Nights%20at%20Epstien's&link=fnae",
+   "frame": "/misc/fnae/index.html",
+   "status": "observed"
+  },
+  "fnaf": {
+   "id": "fnaf",
+   "name": "FNAF",
+   "play": "/misc/play/?title=FNAF&link=fnaf",
+   "frame": "/misc/fnaf/index.html",
+   "status": "observed"
+  },
+  "fnaf2": {
+   "id": "fnaf2",
+   "name": "FNAF 2",
+   "play": "/misc/play/?title=FNAF%202&link=fnaf2",
+   "frame": "/misc/fnaf2/index.html",
+   "status": "observed"
+  },
+  "fnaf3": {
+   "id": "fnaf3",
+   "name": "FNAF 3",
+   "play": "/misc/play/?title=FNAF%203&link=fnaf3",
+   "frame": "/misc/fnaf3/index.html",
+   "status": "observed"
+  },
+  "fnaf4": {
+   "id": "fnaf4",
+   "name": "FNAF 4",
+   "play": "/misc/play/?title=FNAF%204&link=fnaf4",
+   "frame": "/misc/fnaf4/index.html",
+   "status": "observed"
+  },
+  "fnaf5": {
+   "id": "fnaf5",
+   "name": "FNAF: Sister Location",
+   "play": "/misc/play/?title=FNAF%3A%20Sister%20Location&link=fnaf5",
+   "frame": "/misc/fnaf5/index.html",
+   "status": "observed"
+  },
+  "fnf": {
+   "id": "fnf",
+   "name": "Friday Night Funkin'",
+   "play": "/misc/play/fnf.html",
+   "frame": "/misc/fnf/",
+   "status": "observed"
+  },
+  "footballbros": {
+   "id": "footballbros",
+   "name": "Football Bros",
+   "play": "/misc/play/?title=Football%20Bros&link=footballbros",
+   "frame": "/misc/footballbros/index.html",
+   "status": "observed"
+  },
+  "free-rider-jumps": {
+   "id": "free-rider-jumps",
+   "name": "Free Rider Jumps",
+   "play": "/misc/play/?title=Free%20Rider%20Jumps&link=free-rider-jumps",
+   "frame": "/misc/free-rider-jumps/index.html",
+   "status": "observed"
+  },
+  "fruit-merge": {
+   "id": "fruit-merge",
+   "name": "Fruit Merge",
+   "play": "/misc/play/fruit-merge.html",
+   "frame": "/misc/fruit-merge/",
+   "status": "observed"
+  },
+  "fruit-ninja": {
+   "id": "fruit-ninja",
+   "name": "Fruit Ninja",
+   "play": "/misc/play/fruitninja.html",
+   "frame": "/misc/fruit-ninja/",
+   "status": "observed"
+  },
+  "fruits-of-fury": {
+   "id": "fruits-of-fury",
+   "name": "Fruits of Fury",
+   "play": "/misc/play/?title=Fruits%20of%20Fury&link=fruits-of-fury",
+   "frame": "/misc/fruits-of-fury/index.html",
+   "status": "observed"
+  },
+  "fryingnemo": {
+   "id": "fryingnemo",
+   "name": "Frying Nemo",
+   "play": "/misc/play/?title=Frying Nemo&link=fryingnemo&author=ytkimirti",
+   "frame": "/misc/fryingnemo/index.html",
+   "status": "observed"
+  },
+  "full-speed-racing": {
+   "id": "full-speed-racing",
+   "name": "Full Speed Racing",
+   "play": "/misc/play/?title=Full%20Speed%20Racing&link=full-speed-racing",
+   "frame": "/misc/full-speed-racing/index.html",
+   "status": "observed"
+  },
+  "funny-shooter-2": {
+   "id": "funny-shooter-2",
+   "name": "Funny Shooter 2",
+   "play": "/misc/play/funnyshooter2.html",
+   "frame": "/misc/funny-shooter-2/index.html",
+   "status": "observed"
+  },
+  "gas-station": {
+   "id": "gas-station",
+   "name": "Gas Station",
+   "play": "/misc/play/?title=Gas%20Station&link=gas-station",
+   "frame": "/misc/gas-station/index.html",
+   "status": "observed"
+  },
+  "geometry": {
+   "id": "geometry",
+   "name": "Geometry Dash",
+   "play": "/misc/play/?title=Geometry%20Dash&link=geometry",
+   "frame": "/misc/geometry/index.html",
+   "status": "observed"
+  },
+  "geometry-dash": {
+   "id": "geometry-dash",
+   "name": "Geometry Dash",
+   "play": "/misc/play/geometry-dash.html",
+   "frame": "/misc/geometry-dash/",
+   "status": "observed"
+  },
+  "geometry-dash-subzero": {
+   "id": "geometry-dash-subzero",
+   "name": "Geometry Dash SubZero",
+   "play": "/misc/play/?title=Geometry%20Dash%20SubZero&link=geometry-dash-subzero",
+   "frame": "/misc/geometry-dash-subzero/index.html",
+   "status": "observed"
+  },
+  "getaway-shootout": {
+   "id": "getaway-shootout",
+   "name": "Getaway Shootout",
+   "play": "/misc/play/?title=Getaway Shootout&author=New Eich Games&link=getaway-shootout",
+   "frame": "/misc/getaway-shootout/index.html",
+   "status": "observed"
+  },
+  "gettingoverit": {
+   "id": "gettingoverit",
+   "name": "Getting Over It",
+   "play": "/misc/play/?title=Getting%20Over%20It&link=gettingoverit",
+   "frame": "/misc/gettingoverit/index.html",
+   "status": "observed"
+  },
+  "gimme-the-airpod": {
+   "id": "gimme-the-airpod",
+   "name": "Gimmi The Airpod",
+   "play": "/misc/play/gimme-the-airpod.html",
+   "frame": "/misc/gimme-the-airpod/index.html",
+   "status": "observed"
+  },
+  "gladihoppers": {
+   "id": "gladihoppers",
+   "name": "Gladihoppers",
+   "play": "/misc/play/gladihoppers.html",
+   "frame": "/misc/gladihoppers/",
+   "status": "observed"
+  },
+  "gobble": {
+   "id": "gobble",
+   "name": "Gobble",
+   "play": "/misc/play/?title=Gobble&author=Fancade&link=gobble",
+   "frame": "/misc/gobble/index.html",
+   "status": "observed"
+  },
+  "going-balls": {
+   "id": "going-balls",
+   "name": "Going Balls",
+   "play": "/misc/play/?title=Going%20Balls&link=going-balls",
+   "frame": "/misc/going-balls/index.html",
+   "status": "observed"
+  },
+  "golforbit": {
+   "id": "golforbit",
+   "name": "Golf Orbit",
+   "play": "/misc/play/?title=Golf%20Orbit&link=golforbit",
+   "frame": "/misc/golforbit/index.html",
+   "status": "observed"
+  },
+  "goods-master": {
+   "id": "goods-master",
+   "name": "Goods Master",
+   "play": "/misc/play/?title=Goods%20Master&link=goods-master",
+   "frame": "/misc/goods-master/index.html",
+   "status": "observed"
+  },
+  "google-feud": {
+   "id": "google-feud",
+   "name": "Google Feud",
+   "play": "/misc/play/?title=Google%20Feud&link=google-feud",
+   "frame": "/misc/google-feud/index.html",
+   "status": "observed"
+  },
+  "google-snake": {
+   "id": "google-snake",
+   "name": "Google Snake",
+   "play": "/misc/play/google-snake.html",
+   "frame": "/misc/google-snake/index.html",
+   "status": "observed"
+  },
+  "googlebaseball": {
+   "id": "googlebaseball",
+   "name": "Google Baseball",
+   "play": "/misc/play/?title=Google Baseball&author=Google Doodles&link=googlebaseball",
+   "frame": "/misc/googlebaseball/index.html",
+   "status": "observed"
+  },
+  "grandprixhero": {
+   "id": "grandprixhero",
+   "name": "Grand Prix Hero",
+   "play": "/misc/play/grandprixhero.html",
+   "frame": "/misc/grandprixhero/index.html",
+   "status": "observed"
+  },
+  "granny": {
+   "id": "granny",
+   "name": "Granny",
+   "play": "/misc/play/?title=Granny&link=granny",
+   "frame": "/misc/granny/index.html",
+   "status": "observed"
+  },
+  "grindcraft": {
+   "id": "grindcraft",
+   "name": "Grindcraft",
+   "play": "/misc/play/grindcraft.html",
+   "frame": "/misc/grindcraft/",
+   "status": "observed"
+  },
+  "gunblood": {
+   "id": "gunblood",
+   "name": "Gunblood",
+   "play": "/misc/play/gunblood.html",
+   "frame": "/misc/gunblood/index.html",
+   "status": "observed"
+  },
+  "gunspin": {
+   "id": "gunspin",
+   "name": "Gun Spin",
+   "play": "/misc/play/Gun-Spin.html",
+   "frame": "/misc/gunspin/",
+   "status": "observed"
+  },
+  "gym-stack": {
+   "id": "gym-stack",
+   "name": "Gym Stack",
+   "play": "/misc/play/?title=Gym%20Stack&link=gym-stack",
+   "frame": "/misc/gym-stack/index.html",
+   "status": "observed"
+  },
+  "happy-glass": {
+   "id": "happy-glass",
+   "name": "Happy Glass",
+   "play": "/misc/play/?title=Happy%20Glass&link=happy-glass",
+   "frame": "/misc/happy-glass/index.html",
+   "status": "observed"
+  },
+  "happyweels": {
+   "id": "happyweels",
+   "name": "happyweels",
+   "frame": "/misc/happyweels/index.html",
+   "status": "observed"
+  },
+  "harvest-loop": {
+   "id": "harvest-loop",
+   "name": "Harvest Loop",
+   "play": "/misc/play/?title=Harvest%20Loop&link=harvest-loop",
+   "frame": "/misc/harvest-loop/index.html",
+   "status": "observed"
+  },
+  "harvestsimulator": {
+   "id": "harvestsimulator",
+   "name": "Harvest Simulator",
+   "play": "/misc/play/?title=Harvest Simulator&author=Camu&link=harvestsimulator",
+   "frame": "/misc/harvestsimulator/index.html",
+   "status": "observed"
+  },
+  "helixjump": {
+   "id": "helixjump",
+   "name": "Helix Jump",
+   "play": "/misc/play/helixjump.html",
+   "frame": "/misc/helixjump/index.html",
+   "status": "observed"
+  },
+  "henry-stickmin-breaking-the-bank": {
+   "id": "henry-stickmin-breaking-the-bank",
+   "name": "Henry Stickmin - Breaking The Bank",
+   "play": "/misc/play/?title=Henry%20Stickmin%20-%20Breaking%20The%20Bank&link=henry-stickmin-breaking-the-bank",
+   "frame": "/misc/henry-stickmin-breaking-the-bank/index.html",
+   "status": "observed"
+  },
+  "henry-stickmin-escaping-the-prison": {
+   "id": "henry-stickmin-escaping-the-prison",
+   "name": "Henry Stickmin - Escaping The Prison",
+   "play": "/misc/play/?title=Henry%20Stickmin%20-%20Escaping%20The%20Prison&link=henry-stickmin-escaping-the-prison",
+   "frame": "/misc/henry-stickmin-escaping-the-prison/index.html",
+   "status": "observed"
+  },
+  "henry-stickmin-fleeing-the-complex": {
+   "id": "henry-stickmin-fleeing-the-complex",
+   "name": "Henry Stickmin - Fleeing The Complex",
+   "play": "/misc/play/?title=Henry%20Stickmin%20-%20Fleeing%20The%20Complex&link=henry-stickmin-fleeing-the-complex",
+   "frame": "/misc/henry-stickmin-fleeing-the-complex/index.html",
+   "status": "observed"
+  },
+  "henry-stickmin-infiltrating-the-airship": {
+   "id": "henry-stickmin-infiltrating-the-airship",
+   "name": "Henry Stickmin - Infiltrating The Airship",
+   "play": "/misc/play/?title=Henry%20Stickmin%20-%20Infiltrating%20The%20Airship&link=henry-stickmin-infiltrating-the-airship",
+   "frame": "/misc/henry-stickmin-infiltrating-the-airship/index.html",
+   "status": "observed"
+  },
+  "henry-stickmin-stealing-the-diamond": {
+   "id": "henry-stickmin-stealing-the-diamond",
+   "name": "Henry Stickmin - Stealing The Diamond",
+   "play": "/misc/play/?title=Henry%20Stickmin%20-%20Stealing%20The%20Diamond&link=henry-stickmin-stealing-the-diamond",
+   "frame": "/misc/henry-stickmin-stealing-the-diamond/index.html",
+   "status": "observed"
+  },
+  "hexellent": {
+   "id": "hexellent",
+   "name": "Hexellent",
+   "play": "/misc/play/?title=Hexellent&link=hexellent",
+   "frame": "/misc/hexellent/index.html",
+   "status": "observed"
+  },
+  "hexgl": {
+   "id": "hexgl",
+   "name": "HexGL",
+   "play": "/misc/play/?title=HexGL&link=hexgl",
+   "frame": "/misc/hexgl/index.html",
+   "status": "observed"
+  },
+  "hextris": {
+   "id": "hextris",
+   "name": "Hextris",
+   "play": "/misc/play/hextris.html",
+   "frame": "/misc/hextris/index.html",
+   "status": "observed"
+  },
+  "hill-climb-racing": {
+   "id": "hill-climb-racing",
+   "name": "Hill Climb Racing",
+   "play": "/misc/play/?title=Hill%20Climb%20Racing&link=hill-climb-racing",
+   "frame": "/misc/hill-climb-racing/index.html",
+   "status": "observed"
+  },
+  "hole-io": {
+   "id": "hole-io",
+   "name": "Hole.io",
+   "play": "/misc/play/?title=Hole.io&link=hole-io",
+   "frame": "/misc/hole-io/index.html",
+   "status": "observed"
+  },
+  "hollow-night": {
+   "id": "hollow-night",
+   "name": "Hollow Night",
+   "play": "/misc/play/?title=Hollow%20Night&link=hollow-night",
+   "frame": "/misc/hollow-night/index.html",
+   "status": "observed"
+  },
+  "hollow-night-silksong": {
+   "id": "hollow-night-silksong",
+   "name": "Hollow Night Silksong",
+   "play": "/misc/play/?title=Hollow%20Night%20Silksong&link=hollow-night-silksong",
+   "frame": "/misc/hollow-night-silksong/index.html",
+   "status": "observed"
+  },
+  "horde-killer-you-vs-100": {
+   "id": "horde-killer-you-vs-100",
+   "name": "Horde Killer You VS 100",
+   "play": "/misc/play/?title=Horde%20Killer%20You%20VS%20100&link=horde-killer-you-vs-100",
+   "frame": "/misc/horde-killer-you-vs-100/index.html",
+   "status": "observed"
+  },
+  "hotlinemiami": {
+   "id": "hotlinemiami",
+   "name": "Hotline Miami",
+   "play": "/misc/play/?title=Hotline%20Miami&link=hotlinemiami",
+   "frame": "/misc/hotlinemiami/index.html",
+   "status": "observed"
+  },
+  "houseofhazards": {
+   "id": "houseofhazards",
+   "name": "House Of Hazards",
+   "play": "/misc/play/houseofhazards.html",
+   "frame": "/misc/houseofhazards/",
+   "status": "observed"
+  },
+  "idle-ants": {
+   "id": "idle-ants",
+   "name": "Idle Ants",
+   "play": "/misc/play/?title=Idle%20Ants&link=idle-ants",
+   "frame": "/misc/idle-ants/index.html",
+   "status": "observed"
+  },
+  "idle-breakout": {
+   "id": "idle-breakout",
+   "name": "Idle Breakout",
+   "play": "/misc/play/idle-breakout.html",
+   "frame": "/misc/idle-breakout/",
+   "status": "observed"
+  },
+  "idle-cowshed": {
+   "id": "idle-cowshed",
+   "name": "Idle Cowshed",
+   "play": "/misc/play/?title=Idle%20Cowshed&link=idle-cowshed",
+   "frame": "/misc/idle-cowshed/index.html",
+   "status": "observed"
+  },
+  "idle-dice": {
+   "id": "idle-dice",
+   "name": "Idle dice",
+   "play": "/misc/play/idle_dice.html",
+   "frame": "/misc/idle_dice/",
+   "status": "observed"
+  },
+  "idle-digging-tycoon": {
+   "id": "idle-digging-tycoon",
+   "name": "Idle Digging Tycoon",
+   "play": "/misc/play/?title=Idle%20Digging%20Tycoon&link=idle-digging-tycoon",
+   "frame": "/misc/idle-digging-tycoon/index.html",
+   "status": "observed"
+  },
+  "idle-lumber-inc": {
+   "id": "idle-lumber-inc",
+   "name": "Idle Lumber Inc",
+   "play": "/misc/play/?title=Idle%20Lumber%20Inc&link=idle-lumber-inc",
+   "frame": "/misc/idle-lumber-inc/index.html",
+   "status": "observed"
+  },
+  "idle-mining-empire": {
+   "id": "idle-mining-empire",
+   "name": "Idle Mining Empire",
+   "play": "/misc/play/idleminingempire.html",
+   "frame": "/misc/idle-mining-empire/",
+   "status": "observed"
+  },
+  "idle-revolution": {
+   "id": "idle-revolution",
+   "name": "Idle Revolution",
+   "play": "/misc/play/?title=Idle%20Revolution&link=idle-revolution",
+   "frame": "/misc/idle-revolution/index.html",
+   "status": "observed"
+  },
+  "idle-success": {
+   "id": "idle-success",
+   "name": "Idle Success",
+   "play": "/misc/play/?title=Idle%20Success&link=idle-success",
+   "frame": "/misc/idle-success/index.html",
+   "status": "observed"
+  },
+  "idlerestaurants": {
+   "id": "idlerestaurants",
+   "name": "Idle Restaurants",
+   "play": "/misc/play/IdleRestaurants.html",
+   "frame": "/misc/IdleRestaurants/",
+   "status": "observed"
+  },
+  "impossible-quiz": {
+   "id": "impossible-quiz",
+   "name": "Impossible Quiz",
+   "play": "/misc/play/impossiblequiz.html",
+   "frame": "/misc/impossible-quiz/",
+   "status": "observed"
+  },
+  "impossible-quiz2": {
+   "id": "impossible-quiz2",
+   "name": "Impossible Quiz",
+   "play": "/misc/play/impossiblequiz2.html",
+   "frame": "/misc/impossible-quiz2/",
+   "status": "observed"
+  },
+  "iron-snout": {
+   "id": "iron-snout",
+   "name": "Iron Snout",
+   "play": "/misc/play/?title=Iron%20Snout&link=iron-snout",
+   "frame": "/misc/iron-snout/index.html",
+   "status": "observed"
+  },
+  "jellydrift": {
+   "id": "jellydrift",
+   "name": "Jelly Drift",
+   "play": "/misc/play/?title=Jelly%20Drift&link=jellydrift",
+   "frame": "/misc/jellydrift/index.html",
+   "status": "observed"
+  },
+  "jetpack-joyride": {
+   "id": "jetpack-joyride",
+   "name": "Jetpack Joyride",
+   "play": "/misc/play/?title=Jetpack%20Joyride&link=jetpack-joyride",
+   "frame": "/misc/jetpack-joyride/index.html",
+   "status": "observed"
+  },
+  "johnny-trigger": {
+   "id": "johnny-trigger",
+   "name": "Johnny Trigger",
+   "play": "/misc/play/?title=Johnny%20Trigger&link=johnny-trigger",
+   "frame": "/misc/johnny-trigger/index.html",
+   "status": "observed"
+  },
+  "johnny-trigger-sniper": {
+   "id": "johnny-trigger-sniper",
+   "name": "Johnny Trigger Sniper",
+   "play": "/misc/play/?title=Johnny%20Trigger%20Sniper&link=johnny-trigger-sniper",
+   "frame": "/misc/johnny-trigger-sniper/index.html",
+   "status": "observed"
+  },
+  "jumping-shell": {
+   "id": "jumping-shell",
+   "name": "Jumping Shell",
+   "play": "/misc/play/?title=Jumping%20Shell&link=jumping-shell",
+   "frame": "/misc/jumping-shell/index.html",
+   "status": "observed"
+  },
+  "jumponly": {
+   "id": "jumponly",
+   "name": "Jump Only",
+   "play": "/misc/play/?title=Jump Only&author=Kimo&link=jumponly",
+   "frame": "/misc/jumponly/index.html",
+   "status": "observed"
+  },
+  "just-shapes-and-beats": {
+   "id": "just-shapes-and-beats",
+   "name": "Just Shapes & Beats",
+   "play": "/misc/play/?title=Just%20Shapes%20%26%20Beats&link=just-shapes-and-beats",
+   "frame": "/misc/just-shapes-and-beats/index.html",
+   "status": "observed"
+  },
+  "karlson": {
+   "id": "karlson",
+   "name": "Karlson",
+   "play": "/misc/play/?title=Karlson&link=karlson",
+   "frame": "/misc/karlson/index.html",
+   "status": "observed"
+  },
+  "karlsont": {
+   "id": "karlsont",
+   "name": "Karlson'T",
+   "play": "/misc/play/karlsont.html",
+   "frame": "/misc/karlsont/",
+   "status": "observed"
+  },
+  "kick-the-buddy": {
+   "id": "kick-the-buddy",
+   "name": "Kick The Buddy",
+   "play": "/misc/play/?title=Kick%20The%20Buddy&link=kick-the-buddy",
+   "frame": "/misc/kick-the-buddy/index.html",
+   "status": "observed"
+  },
+  "kindergarden": {
+   "id": "kindergarden",
+   "name": "Kindergarden",
+   "play": "/misc/play/?title=Kindergarden&link=kindergarden",
+   "frame": "/misc/kindergarden/index.html",
+   "status": "observed"
+  },
+  "kindergarden2": {
+   "id": "kindergarden2",
+   "name": "Kindergarden 2",
+   "play": "/misc/play/?title=Kindergarden%202&link=kindergarden2",
+   "frame": "/misc/kindergarden2/index.html",
+   "status": "observed"
+  },
+  "kiwiclicker": {
+   "id": "kiwiclicker",
+   "name": "Kiwi Clicker",
+   "play": "/misc/play/kiwiclicker.html",
+   "frame": "/misc/kiwiclicker/index.html",
+   "status": "observed"
+  },
+  "knife-merge": {
+   "id": "knife-merge",
+   "name": "Knife Merge",
+   "play": "/misc/play/?title=Knife%20Merge&link=knife-merge",
+   "frame": "/misc/knife-merge/index.html",
+   "status": "observed"
+  },
+  "knifehit": {
+   "id": "knifehit",
+   "name": "Knife Kit",
+   "play": "/misc/play/knifehit.html",
+   "frame": "/misc/knifehit/index.html",
+   "status": "observed"
+  },
+  "learn-to-fly": {
+   "id": "learn-to-fly",
+   "name": "Learn to fly 3",
+   "play": "/misc/play/learn-to-fly-3.html",
+   "frame": "/misc/learn-to-fly/index.html",
+   "status": "observed"
+  },
+  "learntofly": {
+   "id": "learntofly",
+   "name": "Learn to Fly",
+   "play": "/misc/play/?title=Learn%20to%20Fly&link=learntofly",
+   "frame": "/misc/learntofly/index.html",
+   "status": "observed"
+  },
+  "leveldevil": {
+   "id": "leveldevil",
+   "name": "Level Devil",
+   "play": "/misc/play/leveldevil.html",
+   "frame": "/misc/leveldevil/index.html",
+   "status": "observed"
+  },
+  "lightthelamp": {
+   "id": "lightthelamp",
+   "name": "Light The Lamp",
+   "play": "/misc/play/?title=Light The Lamp&author=Eray Zesen&link=lightthelamp",
+   "frame": "/misc/lightthelamp/index.html",
+   "status": "observed"
+  },
+  "littlealchemy": {
+   "id": "littlealchemy",
+   "name": "Little Alchemy",
+   "play": "/misc/play/little-alchemy.html",
+   "frame": "/misc/littlealchemy/index.html",
+   "status": "observed"
+  },
+  "longcat": {
+   "id": "longcat",
+   "name": "Longcat",
+   "play": "/misc/play/?title=Longcat&link=longcat",
+   "frame": "/misc/longcat/index.html",
+   "status": "observed"
+  },
+  "mad-skills-motocross-2": {
+   "id": "mad-skills-motocross-2",
+   "name": "Mad Skills Motocross 2",
+   "play": "/misc/play/?title=Mad%20Skills%20Motocross%202&link=mad-skills-motocross-2",
+   "frame": "/misc/mad-skills-motocross-2/index.html",
+   "status": "observed"
+  },
+  "madstunt-cars": {
+   "id": "madstunt-cars",
+   "name": "Madalin Stunt Cars 3",
+   "play": "/misc/play/madalincars3.html",
+   "frame": "/misc/madstunt-cars/",
+   "status": "observed"
+  },
+  "magic-battleground": {
+   "id": "magic-battleground",
+   "name": "Magic Battleground",
+   "play": "/misc/play/?title=Magic%20Battleground&link=magic-battleground",
+   "frame": "/misc/magic-battleground/index.html",
+   "status": "observed"
+  },
+  "marble-run-3d": {
+   "id": "marble-run-3d",
+   "name": "Marble Run 3D",
+   "play": "/misc/play/?title=Marble%20Run%203D&link=marble-run-3d",
+   "frame": "/misc/marble-run-3d/index.html",
+   "status": "observed"
+  },
+  "marblessorting": {
+   "id": "marblessorting",
+   "name": "Marbles Sorting",
+   "play": "/misc/play/marbles-sorting.html",
+   "frame": "/misc/MarblesSorting/index.html",
+   "status": "observed"
+  },
+  "master-chess": {
+   "id": "master-chess",
+   "name": "Master Chess",
+   "play": "/misc/play/?title=Master%20Chess&link=master-chess",
+   "frame": "/misc/master-chess/index.html",
+   "status": "observed"
+  },
+  "merge-round-racers": {
+   "id": "merge-round-racers",
+   "name": "Merge Round Racers",
+   "play": "/misc/play/?title=Merge%20Round%20Racers&link=merge-round-racers",
+   "frame": "/misc/merge-round-racers/index.html",
+   "status": "observed"
+  },
+  "mine-line": {
+   "id": "mine-line",
+   "name": "Mine Line",
+   "play": "/misc/play/?title=Mine%20Line&link=mine-line",
+   "frame": "/misc/mine-line/index.html",
+   "status": "observed"
+  },
+  "misc-eloader": {
+   "id": "misc-eloader",
+   "name": "Eaglercraft X",
+   "frame": "/misc/misc/eloader/",
+   "status": "observed"
+  },
+  "monkey-mart": {
+   "id": "monkey-mart",
+   "name": "Monkey Mart",
+   "play": "/misc/play/?title=Monkey%20Mart&link=monkey-mart",
+   "frame": "/misc/monkey-mart/index.html",
+   "status": "observed"
+  },
+  "monster-match": {
+   "id": "monster-match",
+   "name": "Monster Match",
+   "play": "/misc/play/?title=Monster%20Match&link=monster-match",
+   "frame": "/misc/monster-match/index.html",
+   "status": "observed"
+  },
+  "monster-track": {
+   "id": "monster-track",
+   "name": "Monster Track",
+   "play": "/misc/play/monstertrack.html",
+   "frame": "/misc/monster-track/index.html",
+   "status": "observed"
+  },
+  "mophead-dash": {
+   "id": "mophead-dash",
+   "name": "Mophead Dash",
+   "play": "/misc/play/?title=Mophead%20Dash&link=mophead-dash",
+   "frame": "/misc/mophead-dash/index.html",
+   "status": "observed"
+  },
+  "moto-trap": {
+   "id": "moto-trap",
+   "name": "Moto Trap",
+   "play": "/misc/play/?title=Moto%20Trap&link=moto-trap",
+   "frame": "/misc/moto-trap/index.html",
+   "status": "observed"
+  },
+  "motox3m": {
+   "id": "motox3m",
+   "name": "MotoX3M",
+   "play": "/misc/play/motox3m.html",
+   "frame": "/misc/motox3m/index.html",
+   "status": "observed"
+  },
+  "motox3m-pool": {
+   "id": "motox3m-pool",
+   "name": "MotoX3M Pool Party",
+   "play": "/misc/play/motox3m-party.html",
+   "frame": "/misc/motox3m-pool/index.html",
+   "status": "observed"
+  },
+  "motox3m-spooky": {
+   "id": "motox3m-spooky",
+   "name": "MotoX3M Spooky",
+   "play": "/misc/play/motox3m-spook.html",
+   "frame": "/misc/motox3m-spooky/index.html",
+   "status": "observed"
+  },
+  "motox3m-winter": {
+   "id": "motox3m-winter",
+   "name": "MotoX3M Winter",
+   "play": "/misc/play/motox3m-w.html",
+   "frame": "/misc/motox3m-winter/index.html",
+   "status": "observed"
+  },
+  "motox3m2": {
+   "id": "motox3m2",
+   "name": "MotoX3M 2",
+   "play": "/misc/play/?title=MotoX3M%202&link=motox3m2",
+   "frame": "/misc/motox3m2/index.html",
+   "status": "observed"
+  },
+  "mrbullet": {
+   "id": "mrbullet",
+   "name": "Mr. Bullet",
+   "play": "/misc/play/mrbullet.html",
+   "frame": "/misc/mrbullet/index.html",
+   "status": "observed"
+  },
+  "mrracer": {
+   "id": "mrracer",
+   "name": "Mr Racer",
+   "play": "/misc/play/?title=Mr%20Racer&link=mrracer",
+   "frame": "/misc/mrracer/index.html",
+   "status": "observed"
+  },
+  "murder": {
+   "id": "murder",
+   "name": "Murder",
+   "play": "/misc/play/?title=Murder&link=murder",
+   "frame": "/misc/murder/index.html",
+   "status": "observed"
+  },
+  "musicplayer": {
+   "id": "musicplayer",
+   "name": "musicplayer",
+   "frame": "/misc/musicplayer/index.html",
+   "status": "observed"
+  },
+  "my-perfect-hotel": {
+   "id": "my-perfect-hotel",
+   "name": "My Perfect Hotel",
+   "play": "/misc/play/?title=My%20Perfect%20Hotel&link=my-perfect-hotel",
+   "frame": "/misc/my-perfect-hotel/index.html",
+   "status": "observed"
+  },
+  "n-gon": {
+   "id": "n-gon",
+   "name": "n-gon",
+   "play": "/misc/play/n-gon1.html",
+   "frame": "/misc/n-gon/index.html",
+   "status": "observed"
+  },
+  "neon-swing": {
+   "id": "neon-swing",
+   "name": "Neon Swing",
+   "play": "/misc/play/?title=Neon%20Swing&link=neon-swing",
+   "frame": "/misc/neon-swing/index.html",
+   "status": "observed"
+  },
+  "no-pain-no-gain": {
+   "id": "no-pain-no-gain",
+   "name": "No Pain No Gain",
+   "play": "/misc/play/?title=No%20Pain%20No%20Gain&link=no-pain-no-gain",
+   "frame": "/misc/no-pain-no-gain/index.html",
+   "status": "observed"
+  },
+  "nowgg": {
+   "id": "nowgg",
+   "name": "1v1.lol",
+   "play": "/misc/play/1v1lol.html",
+   "frame": "/misc/nowgg/index.html",
+   "status": "observed"
+  },
+  "ns": {
+   "id": "ns",
+   "name": "Nut Simulator",
+   "play": "/misc/play/?title=Nut%20Simulator&link=ns",
+   "frame": "/misc/ns/index.html",
+   "status": "observed"
+  },
+  "nsr-street-car-racing": {
+   "id": "nsr-street-car-racing",
+   "name": "NSR Street Car Racing",
+   "play": "/misc/play/?title=NSR%20Street%20Car%20Racing&link=nsr-street-car-racing",
+   "frame": "/misc/nsr-street-car-racing/index.html",
+   "status": "observed"
+  },
+  "nzp": {
+   "id": "nzp",
+   "name": "Nazi Zombies: Portable",
+   "play": "/misc/play/?title=Nazi%20Zombies%3A%20Portable&link=nzp",
+   "frame": "/misc/nzp/index.html",
+   "status": "observed"
+  },
+  "ovo": {
+   "id": "ovo",
+   "name": "OvO",
+   "play": "/misc/play/ovo1.html",
+   "frame": "/misc/ovo/index.html",
+   "status": "observed"
+  },
+  "ovo2": {
+   "id": "ovo2",
+   "name": "OvO 2",
+   "play": "/misc/play/ovo2.html",
+   "frame": "/misc/ovo2/index.html",
+   "status": "observed"
+  },
+  "ovo3": {
+   "id": "ovo3",
+   "name": "OvO 3",
+   "play": "/misc/play/ovo3.html",
+   "frame": "/misc/ovo3/index.html",
+   "status": "observed"
+  },
+  "papas-papas-burgeria": {
+   "id": "papas-papas-burgeria",
+   "name": "Papas Burgeria",
+   "play": "/misc/play/papas-burgeria.html",
+   "frame": "/misc/papas/papas-burgeria/index.html",
+   "status": "observed"
+  },
+  "papas-papas-cheeseria": {
+   "id": "papas-papas-cheeseria",
+   "name": "Papas Cheeseria",
+   "play": "/misc/play/papas-cheeseria.html",
+   "frame": "/misc/papas/papas-cheeseria/",
+   "status": "observed"
+  },
+  "papas-papas-cupcakeria": {
+   "id": "papas-papas-cupcakeria",
+   "name": "Papas Cupcakeria",
+   "play": "/misc/play/papas-cupcakeria.html",
+   "frame": "/misc/papas/papas-cupcakeria/index.html",
+   "status": "observed"
+  },
+  "papas-papas-donuteria": {
+   "id": "papas-papas-donuteria",
+   "name": "Papas Donuteria",
+   "play": "/misc/play/papas-donuteria.html",
+   "frame": "/misc/papas/papas-donuteria/index.html",
+   "status": "observed"
+  },
+  "papas-papas-freezeria": {
+   "id": "papas-papas-freezeria",
+   "name": "Papas Freezeria",
+   "play": "/misc/play/papas-freezeria.html",
+   "frame": "/misc/papas/papas-freezeria/index.html",
+   "status": "observed"
+  },
+  "papas-papas-hot-doggeria": {
+   "id": "papas-papas-hot-doggeria",
+   "name": "Papas Hot Doggeria",
+   "play": "/misc/play/papas-hot-doggeria.html",
+   "frame": "/misc/papas/papas-hot-doggeria/index.html",
+   "status": "observed"
+  },
+  "papas-papas-pancakeria": {
+   "id": "papas-papas-pancakeria",
+   "name": "Papas Pancakeria",
+   "play": "/misc/play/papas-pankakeria.html",
+   "frame": "/misc/papas/papas-pancakeria/index.html",
+   "status": "observed"
+  },
+  "papas-papas-pastaria": {
+   "id": "papas-papas-pastaria",
+   "name": "Papas Pastaria",
+   "play": "/misc/play/papas-pasteria.html",
+   "frame": "/misc/papas/papas-pastaria/index.html",
+   "status": "observed"
+  },
+  "papas-papas-pizzaria": {
+   "id": "papas-papas-pizzaria",
+   "name": "Papas Pizzeria",
+   "play": "/misc/play/papas-pizzaria.html",
+   "frame": "/misc/papas/papas-pizzaria/index.html",
+   "status": "observed"
+  },
+  "papas-papas-scooperia": {
+   "id": "papas-papas-scooperia",
+   "name": "Papas Scooperia",
+   "play": "/misc/play/papas-scooperia.html",
+   "frame": "/misc/papas/papas-scooperia/index.html",
+   "status": "observed"
+  },
+  "papas-papas-sushiria": {
+   "id": "papas-papas-sushiria",
+   "name": "Papas Sushiria",
+   "play": "/misc/play/papas-sushiria.html",
+   "frame": "/misc/papas/papas-sushiria/index.html",
+   "status": "observed"
+  },
+  "papas-papas-taco-mia": {
+   "id": "papas-papas-taco-mia",
+   "name": "Papas Taco Mia",
+   "play": "/misc/play/papas-taco-mia.html",
+   "frame": "/misc/papas/papas-taco-mia/index.html",
+   "status": "observed"
+  },
+  "papas-papas-wingeria": {
+   "id": "papas-papas-wingeria",
+   "name": "Papas Wingaria",
+   "play": "/misc/play/papas-wingaria.html",
+   "frame": "/misc/papas/papas-wingeria/index.html",
+   "status": "observed"
+  },
+  "paper-plane": {
+   "id": "paper-plane",
+   "name": "Paper Plane",
+   "play": "/misc/play/?title=Paper%20Plane&link=paper-plane",
+   "frame": "/misc/paper-plane/index.html",
+   "status": "observed"
+  },
+  "paperio2": {
+   "id": "paperio2",
+   "name": "Paper.Io 2",
+   "play": "/misc/play/paperio2.html",
+   "frame": "/misc/paperio2/index.html",
+   "status": "observed"
+  },
+  "papery-planes": {
+   "id": "papery-planes",
+   "name": "Papery Planes",
+   "play": "/misc/play/paperyplanes.html",
+   "frame": "/misc/papery-planes/index.html",
+   "status": "observed"
+  },
+  "parkour-race": {
+   "id": "parkour-race",
+   "name": "Parkour Race",
+   "play": "/misc/play/?title=Parkour%20Race&link=parkour-race",
+   "frame": "/misc/parkour-race/index.html",
+   "status": "observed"
+  },
+  "path-to-glory": {
+   "id": "path-to-glory",
+   "name": "Path To Glory",
+   "play": "/misc/play/?title=Path%20To%20Glory&link=path-to-glory",
+   "frame": "/misc/path-to-glory/index.html",
+   "status": "observed"
+  },
+  "penalty-kick-online": {
+   "id": "penalty-kick-online",
+   "name": "Pentaly Kick Online",
+   "play": "/misc/play/penalty.html",
+   "frame": "/misc/penalty-kick-online/index.html",
+   "status": "observed"
+  },
+  "penalty-shooters-2": {
+   "id": "penalty-shooters-2",
+   "name": "Penalty Shooters 2",
+   "play": "/misc/play/?title=Penalty%20Shooters%202&link=penalty-shooters-2",
+   "frame": "/misc/penalty-shooters-2/index.html",
+   "status": "observed"
+  },
+  "peopleplayground": {
+   "id": "peopleplayground",
+   "name": "People Playground",
+   "play": "/misc/play/?title=People%20Playground&link=peopleplayground",
+   "frame": "/misc/peopleplayground/index.html",
+   "status": "observed"
+  },
+  "perfect-landing-plane-pilot": {
+   "id": "perfect-landing-plane-pilot",
+   "name": "Perfect Landing, Plane Pilot",
+   "play": "/misc/play/?title=Perfect%20Landing%2C%20Plane%20Pilot&link=perfect-landing-plane-pilot",
+   "frame": "/misc/perfect-landing-plane-pilot/index.html",
+   "status": "observed"
+  },
+  "perfect-peel": {
+   "id": "perfect-peel",
+   "name": "Perfect Peel",
+   "play": "/misc/play/?title=Perfect%20Peel&link=perfect-peel",
+   "frame": "/misc/perfect-peel/index.html",
+   "status": "observed"
+  },
+  "perfect-shape": {
+   "id": "perfect-shape",
+   "name": "Perfect Shape",
+   "play": "/misc/play/?title=Perfect%20Shape&link=perfect-shape",
+   "frame": "/misc/perfect-shape/index.html",
+   "status": "observed"
+  },
+  "pilot-life": {
+   "id": "pilot-life",
+   "name": "Pilot Life",
+   "play": "/misc/play/?title=Pilot%20Life&link=pilot-life",
+   "frame": "/misc/pilot-life/index.html",
+   "status": "observed"
+  },
+  "pingponggo": {
+   "id": "pingponggo",
+   "name": "Ping Pong Go",
+   "play": "/misc/play/pingponggo.html",
+   "frame": "/misc/pingponggo/",
+   "status": "observed"
+  },
+  "plonky": {
+   "id": "plonky",
+   "name": "Plonky",
+   "play": "/misc/play/?title=Plonky&link=plonky",
+   "frame": "/misc/plonky/index.html",
+   "status": "observed"
+  },
+  "policechase": {
+   "id": "policechase",
+   "name": "Police Chase",
+   "play": "/misc/play/?title=Police Chase&author=Dylan Patel&link=policechase",
+   "frame": "/misc/policechase/index.html",
+   "status": "observed"
+  },
+  "polytrack": {
+   "id": "polytrack",
+   "name": "Polytrack",
+   "frame": "/misc/polytrack/index.html",
+   "status": "observed"
+  },
+  "polytrack-0-4-1": {
+   "id": "polytrack-0-4-1",
+   "name": "Polytrack 0.4.1",
+   "frame": "/misc/polytrack-0.4.1/index.html",
+   "status": "observed"
+  },
+  "poor-bunny": {
+   "id": "poor-bunny",
+   "name": "Poor Bunny",
+   "play": "/misc/play/poorbunny.html",
+   "frame": "/misc/poor-bunny/index.html",
+   "status": "observed"
+  },
+  "poor-eddie": {
+   "id": "poor-eddie",
+   "name": "Poor Eddie",
+   "play": "/misc/play/?title=Poor%20Eddie&link=poor-eddie",
+   "frame": "/misc/poor-eddie/index.html",
+   "status": "observed"
+  },
+  "punchy-guy": {
+   "id": "punchy-guy",
+   "name": "Punchy Guy",
+   "play": "/misc/play/?title=Punchy%20Guy&link=punchy-guy",
+   "frame": "/misc/punchy-guy/index.html",
+   "status": "observed"
+  },
+  "pvz": {
+   "id": "pvz",
+   "name": "Plants vs. Zombies",
+   "play": "/misc/play/?title=Plants%20vs.%20Zombies&link=pvz",
+   "frame": "/misc/pvz/index.html",
+   "status": "observed"
+  },
+  "raft": {
+   "id": "raft",
+   "name": "Raft",
+   "play": "/misc/play/?title=Raft&link=raft",
+   "frame": "/misc/raft/index.html",
+   "status": "observed"
+  },
+  "raft-wars": {
+   "id": "raft-wars",
+   "name": "Raft Wars",
+   "play": "/misc/play/?title=Raft%20Wars&link=raft-wars",
+   "frame": "/misc/raft-wars/index.html",
+   "status": "observed"
+  },
+  "raft-wars-2": {
+   "id": "raft-wars-2",
+   "name": "Raft Wars 2",
+   "play": "/misc/play/?title=Raft%20Wars%202&link=raft-wars-2",
+   "frame": "/misc/raft-wars-2/index.html",
+   "status": "observed"
+  },
+  "ragdoll-archers": {
+   "id": "ragdoll-archers",
+   "name": "Ragdoll Archers",
+   "play": "/misc/play/?title=Ragdoll%20Archers&link=ragdoll-archers",
+   "frame": "/misc/ragdoll-archers/index.html",
+   "status": "observed"
+  },
+  "ragdoll-chaos": {
+   "id": "ragdoll-chaos",
+   "name": "Ragdoll Chaos",
+   "play": "/misc/play/?title=Ragdoll%20Chaos&link=ragdoll-chaos",
+   "frame": "/misc/ragdoll-chaos/index.html",
+   "status": "observed"
+  },
+  "ragdoll-fall": {
+   "id": "ragdoll-fall",
+   "name": "Ragdoll Fall",
+   "play": "/misc/play/?title=Ragdoll%20Fall&link=ragdoll-fall",
+   "frame": "/misc/ragdoll-fall/index.html",
+   "status": "observed"
+  },
+  "ragdoll-fight": {
+   "id": "ragdoll-fight",
+   "name": "Ragdoll Fight",
+   "play": "/misc/play/?title=Ragdoll%20Fight&link=ragdoll-fight",
+   "frame": "/misc/ragdoll-fight/index.html",
+   "status": "observed"
+  },
+  "ragdoll-hit": {
+   "id": "ragdoll-hit",
+   "name": "Ragdoll Hit",
+   "play": "/misc/play/?title=Ragdoll%20Hit&link=ragdoll-hit",
+   "frame": "/misc/ragdoll-hit/index.html",
+   "status": "observed"
+  },
+  "rb": {
+   "id": "rb",
+   "name": "rb",
+   "frame": "/misc/rb/index.html",
+   "status": "observed"
+  },
+  "recoil": {
+   "id": "recoil",
+   "name": "Recoil",
+   "play": "/misc/play/recoil.html",
+   "frame": "/misc/recoil/",
+   "status": "observed"
+  },
+  "redball-4": {
+   "id": "redball-4",
+   "name": "Red Ball 4",
+   "play": "/misc/play/?title=Red%20Ball%204&link=redball-4",
+   "frame": "/misc/redball-4/index.html",
+   "status": "observed"
+  },
+  "redvsbluez": {
+   "id": "redvsbluez",
+   "name": "Red Vs. Bluez",
+   "play": "/misc/play/redvsbluez.html",
+   "frame": "/misc/redvsbluez/index.html",
+   "status": "observed"
+  },
+  "reel-tycoon": {
+   "id": "reel-tycoon",
+   "name": "Reel Tycoon",
+   "play": "/misc/play/?title=Reel%20Tycoon&link=reel-tycoon",
+   "frame": "/misc/reel-tycoon/index.html",
+   "status": "observed"
+  },
+  "repo": {
+   "id": "repo",
+   "name": "REPO",
+   "play": "/misc/play/?title=REPO&link=repo",
+   "frame": "/misc/repo/index.html",
+   "status": "observed"
+  },
+  "rescue-the-fish": {
+   "id": "rescue-the-fish",
+   "name": "Rescue the Fish",
+   "play": "/misc/play/?title=Rescue%20the%20Fish&link=rescue-the-fish",
+   "frame": "/misc/rescue-the-fish/index.html",
+   "status": "observed"
+  },
+  "retro-bowl-game": {
+   "id": "retro-bowl-game",
+   "name": "Retro Bowl",
+   "play": "/misc/play/?title=Retro%20Bowl&link=retro-bowl-game",
+   "frame": "/misc/retro-bowl-game/index.html",
+   "status": "observed"
+  },
+  "retro-highway": {
+   "id": "retro-highway",
+   "name": "Retro Highway",
+   "play": "/misc/play/?title=Retro%20Highway&link=retro-highway",
+   "frame": "/misc/retro-highway/index.html",
+   "status": "observed"
+  },
+  "retrobowlcollege": {
+   "id": "retrobowlcollege",
+   "name": "Retro Bowl College",
+   "play": "/misc/play/retrobowlcollege.html",
+   "frame": "/misc/retrobowlcollege/",
+   "status": "observed"
+  },
+  "riddleschool": {
+   "id": "riddleschool",
+   "name": "Riddle school",
+   "play": "/misc/play/riddleschool.html",
+   "frame": "/misc/riddleschool/index.html",
+   "status": "observed"
+  },
+  "riddleschool2": {
+   "id": "riddleschool2",
+   "name": "Riddle School 2",
+   "play": "/misc/play/riddleschool2.html",
+   "frame": "/misc/riddleschool2/index.html",
+   "status": "observed"
+  },
+  "riddleschool3": {
+   "id": "riddleschool3",
+   "name": "Riddle School 3",
+   "play": "/misc/play/riddleschool3.html",
+   "frame": "/misc/riddleschool3/index.html",
+   "status": "observed"
+  },
+  "riddleschool4": {
+   "id": "riddleschool4",
+   "name": "Riddle school 4",
+   "play": "/misc/play/riddleschool4.html",
+   "frame": "/misc/riddleschool4/index.html",
+   "status": "observed"
+  },
+  "riddleschool5": {
+   "id": "riddleschool5",
+   "name": "Riddle School 5",
+   "play": "/misc/play/riddleschool5.html",
+   "frame": "/misc/riddleschool5/index.html",
+   "status": "observed"
+  },
+  "riddletransfer": {
+   "id": "riddletransfer",
+   "name": "Riddle School Transfer",
+   "play": "/misc/play/riddleschoolT.html",
+   "frame": "/misc/riddletransfer/index.html",
+   "status": "observed"
+  },
+  "riddletransfer2": {
+   "id": "riddletransfer2",
+   "name": "Riddle School Transfer 2",
+   "play": "/misc/play/riddleschoolT2.html",
+   "frame": "/misc/riddletransfer2/index.html",
+   "status": "observed"
+  },
+  "roblos": {
+   "id": "roblos",
+   "name": "Roblox",
+   "frame": "/misc/roblos/",
+   "status": "observed"
+  },
+  "robo-cleaner-simulator": {
+   "id": "robo-cleaner-simulator",
+   "name": "Robo Cleaner Simulator",
+   "play": "/misc/play/?title=Robo%20Cleaner%20Simulator&link=robo-cleaner-simulator",
+   "frame": "/misc/robo-cleaner-simulator/index.html",
+   "status": "observed"
+  },
+  "rocket-soccer-derby": {
+   "id": "rocket-soccer-derby",
+   "name": "Rocket Soccer Derby",
+   "play": "/misc/play/?title=Rocket%20Soccer%20Derby&link=rocket-soccer-derby",
+   "frame": "/misc/rocket-soccer-derby/index.html",
+   "status": "observed"
+  },
+  "rodeo-stampede": {
+   "id": "rodeo-stampede",
+   "name": "Rodeo Stampede",
+   "play": "/misc/play/?title=Rodeo%20Stampede&link=rodeo-stampede",
+   "frame": "/misc/rodeo-stampede/index.html",
+   "status": "observed"
+  },
+  "roller": {
+   "id": "roller",
+   "name": "Roller",
+   "play": "/misc/play/?title=Roller&link=roller",
+   "frame": "/misc/roller/index.html",
+   "status": "observed"
+  },
+  "rooftop-snipers": {
+   "id": "rooftop-snipers",
+   "name": "Rooftop Snipers",
+   "play": "/misc/play/rooftopsnipers.html",
+   "frame": "/misc/rooftop-snipers/index.html",
+   "status": "observed"
+  },
+  "rooftop-snipers2": {
+   "id": "rooftop-snipers2",
+   "name": "Rooftop Snipers 2",
+   "play": "/misc/play/rooftopsnipers2.html",
+   "frame": "/misc/rooftop-snipers2/",
+   "status": "observed"
+  },
+  "roper": {
+   "id": "roper",
+   "name": "Roper",
+   "play": "/misc/play/?title=Roper&link=roper",
+   "frame": "/misc/roper/index.html",
+   "status": "observed"
+  },
+  "run3": {
+   "id": "run3",
+   "name": "Run 3",
+   "play": "/misc/play/?title=Run 3&author=Joseph Cloutier&link=run3",
+   "frame": "/misc/run3/index.html",
+   "status": "observed"
+  },
+  "sandboxels": {
+   "id": "sandboxels",
+   "name": "Sandboxels",
+   "play": "/misc/play/?title=Sandboxels&author=R74N&link=sandboxels",
+   "frame": "/misc/sandboxels/index.html",
+   "status": "observed"
+  },
+  "sandtris": {
+   "id": "sandtris",
+   "name": "Sandtris",
+   "play": "/misc/play/?title=Sandtris&link=sandtris",
+   "frame": "/misc/sandtris/index.html",
+   "status": "observed"
+  },
+  "sandtrix": {
+   "id": "sandtrix",
+   "name": "SandTrix",
+   "play": "/misc/play/?title=SandTrix&author=mslivo&link=sandtrix",
+   "frame": "/misc/sandtrix/index.html",
+   "status": "observed"
+  },
+  "santy-is-home": {
+   "id": "santy-is-home",
+   "name": "Santy is Home",
+   "play": "/misc/play/?title=Santy%20is%20Home&link=santy-is-home",
+   "frame": "/misc/santy-is-home/index.html",
+   "status": "observed"
+  },
+  "sausage-flip": {
+   "id": "sausage-flip",
+   "name": "Sausage Flip",
+   "play": "/misc/play/?title=Sausage%20Flip&link=sausage-flip",
+   "frame": "/misc/sausage-flip/index.html",
+   "status": "observed"
+  },
+  "school-cleaning": {
+   "id": "school-cleaning",
+   "name": "School Cleaning",
+   "play": "/misc/play/?title=School%20Cleaning&link=school-cleaning",
+   "frame": "/misc/school-cleaning/index.html",
+   "status": "observed"
+  },
+  "shellshock": {
+   "id": "shellshock",
+   "name": "Shell Shockers",
+   "frame": "/misc/shellshock/index.html",
+   "status": "local-only"
+  },
+  "sketchbook": {
+   "id": "sketchbook",
+   "name": "Sketchbook",
+   "play": "/misc/play/?title=Sketchbook&link=sketchbook",
+   "frame": "/misc/sketchbook/index.html",
+   "status": "observed"
+  },
+  "skibidi-shooter": {
+   "id": "skibidi-shooter",
+   "name": "Skibidi Shooter",
+   "play": "/misc/play/?title=Skibidi%20Shooter&link=skibidi-shooter",
+   "frame": "/misc/skibidi-shooter/index.html",
+   "status": "observed"
+  },
+  "skyriders": {
+   "id": "skyriders",
+   "name": "Skyriders",
+   "play": "/misc/play/?title=Skyriders&author=Asher Lee&link=skyriders",
+   "frame": "/misc/skyriders/index.html",
+   "status": "observed"
+  },
+  "slice-master": {
+   "id": "slice-master",
+   "name": "Slice Master",
+   "play": "/misc/play/?title=Slice%20Master&link=slice-master",
+   "frame": "/misc/slice-master/index.html",
+   "status": "observed"
+  },
+  "slime-dunk": {
+   "id": "slime-dunk",
+   "name": "Slime Dunk",
+   "play": "/misc/play/?title=Slime%20Dunk&link=slime-dunk",
+   "frame": "/misc/slime-dunk/index.html",
+   "status": "observed"
+  },
+  "slime-journey": {
+   "id": "slime-journey",
+   "name": "Slime Journey",
+   "play": "/misc/play/?title=Slime%20Journey&link=slime-journey",
+   "frame": "/misc/slime-journey/index.html",
+   "status": "observed"
+  },
+  "slimerancher": {
+   "id": "slimerancher",
+   "name": "Slime Rancher",
+   "play": "/misc/play/?title=Slime%20Rancher&link=slimerancher",
+   "frame": "/misc/slimerancher/index.html",
+   "status": "observed"
+  },
+  "slope": {
+   "id": "slope",
+   "name": "slope",
+   "play": "/misc/play/slope.html",
+   "frame": "/misc/slope/index.html",
+   "status": "observed"
+  },
+  "slowrds": {
+   "id": "slowrds",
+   "name": "Slowroads",
+   "play": "/misc/play/slowrds.html",
+   "frame": "/misc/slowrds/",
+   "status": "observed"
+  },
+  "sm64": {
+   "id": "sm64",
+   "name": "Super Mario 64",
+   "play": "/misc/play/mario64.html",
+   "frame": "/misc/sm64/index.html",
+   "status": "observed"
+  },
+  "smash-it": {
+   "id": "smash-it",
+   "name": "Smash It",
+   "play": "/misc/play/?title=Smash%20It&link=smash-it",
+   "frame": "/misc/smash-it/index.html",
+   "status": "observed"
+  },
+  "smashkarts": {
+   "id": "smashkarts",
+   "name": "smashkarts",
+   "frame": "/misc/smashkarts/index.html",
+   "status": "local-only"
+  },
+  "snake-pivot": {
+   "id": "snake-pivot",
+   "name": "Snake Pivot",
+   "play": "/misc/play/?title=Snake%20Pivot&link=snake-pivot",
+   "frame": "/misc/snake-pivot/index.html",
+   "status": "observed"
+  },
+  "snow-train-odyssey": {
+   "id": "snow-train-odyssey",
+   "name": "Snow Train Odyssey",
+   "play": "/misc/play/?title=Snow%20Train%20Odyssey&link=snow-train-odyssey",
+   "frame": "/misc/snow-train-odyssey/index.html",
+   "status": "observed"
+  },
+  "snowrider3d": {
+   "id": "snowrider3d",
+   "name": "Snow Rider 3D",
+   "play": "/misc/play/snow3D.html",
+   "frame": "/misc/SnowRider3D/index.html",
+   "status": "observed"
+  },
+  "soccer-random": {
+   "id": "soccer-random",
+   "name": "Soccer Random",
+   "play": "/misc/play/soccerR.html",
+   "frame": "/misc/soccer-random/index.html",
+   "status": "observed"
+  },
+  "soccer-real": {
+   "id": "soccer-real",
+   "name": "Soccer REAL",
+   "play": "/misc/play/?title=Soccer%20REAL&link=soccer-real",
+   "frame": "/misc/soccer-real/index.html",
+   "status": "observed"
+  },
+  "soccerbros": {
+   "id": "soccerbros",
+   "name": "Soccer Bros",
+   "play": "/misc/play/soccerbros.html",
+   "frame": "/misc/soccerbros/",
+   "status": "observed"
+  },
+  "solar-smash": {
+   "id": "solar-smash",
+   "name": "Solar Smash",
+   "play": "/misc/play/?title=Solar%20Smash&link=solar-smash",
+   "frame": "/misc/solar-smash/index.html",
+   "status": "observed"
+  },
+  "space-waves": {
+   "id": "space-waves",
+   "name": "Space Waves",
+   "play": "/misc/play/?title=Space%20Waves&link=space-waves",
+   "frame": "/misc/space-waves/index.html",
+   "status": "observed"
+  },
+  "spacebarclicker": {
+   "id": "spacebarclicker",
+   "name": "Spacebar Clicker",
+   "play": "/misc/play/spacebarclicker.html",
+   "frame": "/misc/spacebarclicker/",
+   "status": "observed"
+  },
+  "spaceflight-simulator": {
+   "id": "spaceflight-simulator",
+   "name": "Spaceflight Simulator",
+   "play": "/misc/play/?title=Spaceflight%20Simulator&link=spaceflight-simulator",
+   "frame": "/misc/spaceflight-simulator/index.html",
+   "status": "observed"
+  },
+  "speed-stars": {
+   "id": "speed-stars",
+   "name": "Speed Stars",
+   "play": "/misc/play/?title=Speed%20Stars&link=speed-stars",
+   "frame": "/misc/speed-stars/index.html",
+   "status": "observed"
+  },
+  "spiralroll": {
+   "id": "spiralroll",
+   "name": "Spiral Roll",
+   "play": "/misc/play/?title=Spiral Roll&link=spiralroll&author=VooDoo Games",
+   "frame": "/misc/spiralroll/index.html",
+   "status": "observed"
+  },
+  "stack": {
+   "id": "stack",
+   "name": "Stack",
+   "play": "/misc/play/?title=Stack&link=stack",
+   "frame": "/misc/stack/index.html",
+   "status": "observed"
+  },
+  "stack-bounce": {
+   "id": "stack-bounce",
+   "name": "Stack Bounce",
+   "play": "/misc/play/?title=Stack%20Bounce&link=stack-bounce",
+   "frame": "/misc/stack-bounce/index.html",
+   "status": "observed"
+  },
+  "stacktris": {
+   "id": "stacktris",
+   "name": "Stacktris",
+   "play": "/misc/play/?title=Stacktrix&author=Fancade&link=stacktris",
+   "frame": "/misc/stacktris/index.html",
+   "status": "observed"
+  },
+  "stateio": {
+   "id": "stateio",
+   "name": "State IO",
+   "frame": "/misc/stateio/index.html",
+   "status": "observed"
+  },
+  "steal-a-brainrot": {
+   "id": "steal-a-brainrot",
+   "name": "Steal A Brainrot",
+   "play": "/misc/play/?title=Steal%20A%20Brainrot&link=steal-a-brainrot",
+   "frame": "/misc/steal-a-brainrot/index.html",
+   "status": "observed"
+  },
+  "steelhills": {
+   "id": "steelhills",
+   "name": "Steel Hills",
+   "play": "/misc/play/steelhills.html",
+   "frame": "/misc/steelhills/",
+   "status": "observed"
+  },
+  "stick-defenders": {
+   "id": "stick-defenders",
+   "name": "Stick Defenders",
+   "play": "/misc/play/?title=Stick%20Defenders&link=stick-defenders",
+   "frame": "/misc/stick-defenders/index.html",
+   "status": "observed"
+  },
+  "stick-fighter": {
+   "id": "stick-fighter",
+   "name": "Stick Fighter",
+   "play": "/misc/play/?title=Stick%20Fighter&link=stick-fighter",
+   "frame": "/misc/stick-fighter/index.html",
+   "status": "observed"
+  },
+  "stick-rush": {
+   "id": "stick-rush",
+   "name": "Stick Rush",
+   "play": "/misc/play/?title=Stick%20Rush&link=stick-rush",
+   "frame": "/misc/stick-rush/index.html",
+   "status": "observed"
+  },
+  "stick-war-legacy": {
+   "id": "stick-war-legacy",
+   "name": "Stick War: Legacy",
+   "play": "/misc/play/?title=Stick%20War%3A%20Legacy&link=stick-war-legacy",
+   "frame": "/misc/stick-war-legacy/index.html",
+   "status": "observed"
+  },
+  "stickman-battle": {
+   "id": "stickman-battle",
+   "name": "Stickman Battle",
+   "play": "/misc/play/?title=Stickman%20Battle&link=stickman-battle",
+   "frame": "/misc/stickman-battle/index.html",
+   "status": "observed"
+  },
+  "stickman-bike": {
+   "id": "stickman-bike",
+   "name": "Stickman Bike",
+   "play": "/misc/play/?title=Stickman%20Bike&link=stickman-bike",
+   "frame": "/misc/stickman-bike/index.html",
+   "status": "observed"
+  },
+  "stickman-boost": {
+   "id": "stickman-boost",
+   "name": "Stickman Boost",
+   "play": "/misc/play/stickmanB.html",
+   "frame": "/misc/stickman-boost/index.html",
+   "status": "observed"
+  },
+  "stickman-climb-2": {
+   "id": "stickman-climb-2",
+   "name": "Stickman Climb 2",
+   "play": "/misc/play/?title=Stickman%20Climb%202&link=stickman-climb-2",
+   "frame": "/misc/stickman-climb-2/index.html",
+   "status": "observed"
+  },
+  "stickman-climb-3d": {
+   "id": "stickman-climb-3d",
+   "name": "Stickman Climb 3D",
+   "play": "/misc/play/?title=Stickman%20Climb%203D&link=stickman-climb-3d",
+   "frame": "/misc/stickman-climb-3d/index.html",
+   "status": "observed"
+  },
+  "stickman-hook": {
+   "id": "stickman-hook",
+   "name": "Stickman Hook",
+   "play": "/misc/play/stickmanH.html",
+   "frame": "/misc/stickman-hook/index.html",
+   "status": "observed"
+  },
+  "stickman-merge": {
+   "id": "stickman-merge",
+   "name": "Stickman Merge",
+   "play": "/misc/play/?title=Stickman%20Merge&link=stickman-merge",
+   "frame": "/misc/stickman-merge/index.html",
+   "status": "observed"
+  },
+  "stickman-run": {
+   "id": "stickman-run",
+   "name": "Stickman Run",
+   "play": "/misc/play/?title=Stickman%20Run&link=stickman-run",
+   "frame": "/misc/stickman-run/index.html",
+   "status": "observed"
+  },
+  "stickmerge": {
+   "id": "stickmerge",
+   "name": "Stick Merge",
+   "play": "/misc/play/?title=Stick%20Merge&link=stickmerge",
+   "frame": "/misc/stickmerge/index.html",
+   "status": "observed"
+  },
+  "stumbleguys": {
+   "id": "stumbleguys",
+   "name": "stumbleguys",
+   "frame": "/misc/stumbleguys/index.html",
+   "status": "local-only"
+  },
+  "stunt-bike-extreme": {
+   "id": "stunt-bike-extreme",
+   "name": "Stunt Bike Extreme",
+   "play": "/misc/play/?title=Stunt%20Bike%20Extreme&link=stunt-bike-extreme",
+   "frame": "/misc/stunt-bike-extreme/index.html",
+   "status": "observed"
+  },
+  "stunt-car-extreme": {
+   "id": "stunt-car-extreme",
+   "name": "Stunt Car Extreme",
+   "play": "/misc/play/?title=Stunt%20Car%20Extreme&link=stunt-car-extreme",
+   "frame": "/misc/stunt-car-extreme/index.html",
+   "status": "observed"
+  },
+  "subway-surfers": {
+   "id": "subway-surfers",
+   "name": "Subway Surfers",
+   "play": "/misc/play/subwaysurf.html",
+   "frame": "/misc/subway-surfers/index.html",
+   "status": "observed"
+  },
+  "super-foulist": {
+   "id": "super-foulist",
+   "name": "Super Foulist",
+   "play": "/misc/play/super-foulist.html",
+   "frame": "/misc/super-foulist/",
+   "status": "observed"
+  },
+  "supercar-legends": {
+   "id": "supercar-legends",
+   "name": "Supercar Legends",
+   "play": "/misc/play/?title=Supercar%20Legends&link=supercar-legends",
+   "frame": "/misc/supercar-legends/index.html",
+   "status": "observed"
+  },
+  "superhot": {
+   "id": "superhot",
+   "name": "SuperHot",
+   "play": "/misc/play/superhot.html",
+   "frame": "/misc/superhot/index.html",
+   "status": "observed"
+  },
+  "superliquidsoccor": {
+   "id": "superliquidsoccor",
+   "name": "Super Liquid Soccer",
+   "play": "/misc/play/?title=Super%20Liquid%20Soccer&link=superliquidsoccor",
+   "frame": "/misc/superliquidsoccor/index.html",
+   "status": "observed"
+  },
+  "superstarcar": {
+   "id": "superstarcar",
+   "name": "Super Star Cars",
+   "play": "/misc/play/superstarcar.html",
+   "frame": "/misc/superstarcar/",
+   "status": "observed"
+  },
+  "survival-race": {
+   "id": "survival-race",
+   "name": "Survival Race",
+   "play": "/misc/play/survival-race.html",
+   "frame": "/misc/survival-race/",
+   "status": "observed"
+  },
+  "swingo": {
+   "id": "swingo",
+   "name": "Swingo",
+   "play": "/misc/play/swingo.html",
+   "frame": "/misc/swingo/",
+   "status": "observed"
+  },
+  "tabletennisworldtour": {
+   "id": "tabletennisworldtour",
+   "name": "Table Tennis: WT",
+   "play": "/misc/play/tabletennis.html",
+   "frame": "/misc/tabletennisworldtour/index.html",
+   "status": "observed"
+  },
+  "tag": {
+   "id": "tag",
+   "name": "Tag",
+   "play": "/misc/play/?title=Tag&link=tag&author=JetGames",
+   "frame": "/misc/tag/index.html",
+   "status": "observed"
+  },
+  "tanuki-sunset": {
+   "id": "tanuki-sunset",
+   "name": "Tanuki Sunset",
+   "play": "/misc/play/takuni-sunset.html",
+   "frame": "/misc/Tanuki-Sunset/index.html",
+   "status": "observed"
+  },
+  "temple-run-2": {
+   "id": "temple-run-2",
+   "name": "Temple Run 2",
+   "play": "/misc/play/?title=Temple%20Run%202&link=temple-run-2",
+   "frame": "/misc/temple-run-2/index.html",
+   "status": "observed"
+  },
+  "templeofboom": {
+   "id": "templeofboom",
+   "name": "Temple of Boom",
+   "play": "/misc/play/?title=Temple of Boom&author=Pierce Ozoude&link=templeofboom",
+   "frame": "/misc/templeofboom/index.html",
+   "status": "observed"
+  },
+  "the-baby-in-yellow": {
+   "id": "the-baby-in-yellow",
+   "name": "The Baby In Yellow",
+   "play": "/misc/play/?title=The%20Baby%20In%20Yellow&link=the-baby-in-yellow",
+   "frame": "/misc/the-baby-in-yellow/index.html",
+   "status": "observed"
+  },
+  "the-final-earth-2": {
+   "id": "the-final-earth-2",
+   "name": "The Final Earth 2",
+   "play": "/misc/play/?title=The%20Final%20Earth%202&link=the-final-earth-2",
+   "frame": "/misc/the-final-earth-2/index.html",
+   "status": "observed"
+  },
+  "thereisnogame": {
+   "id": "thereisnogame",
+   "name": "There Is No Game",
+   "play": "/misc/play/?title=There%20Is%20No%20Game&link=thereisnogame",
+   "frame": "/misc/thereisnogame/index.html",
+   "status": "observed"
+  },
+  "time-shooter-3": {
+   "id": "time-shooter-3",
+   "name": "Time Shooter 3",
+   "play": "/misc/play/?title=Time%20Shooter%203&link=time-shooter-3",
+   "frame": "/misc/time-shooter-3/index.html",
+   "status": "observed"
+  },
+  "time-shooter1": {
+   "id": "time-shooter1",
+   "name": "Time Shooter 1",
+   "play": "/misc/play/timeshoot1.html",
+   "frame": "/misc/time-shooter1/index.html",
+   "status": "observed"
+  },
+  "time-shooter2": {
+   "id": "time-shooter2",
+   "name": "Time Shooter 2",
+   "play": "/misc/play/timeshoot2.html",
+   "frame": "/misc/time-shooter2/index.html",
+   "status": "observed"
+  },
+  "tiny-fishing": {
+   "id": "tiny-fishing",
+   "name": "Tiny Fishing",
+   "play": "/misc/play/tinyfish.html",
+   "frame": "/misc/tiny-fishing/index.html",
+   "status": "observed"
+  },
+  "tiny-towers": {
+   "id": "tiny-towers",
+   "name": "Tiny Towers",
+   "play": "/misc/play/?title=Tiny%20Towers&link=tiny-towers",
+   "frame": "/misc/tiny-towers/index.html",
+   "status": "observed"
+  },
+  "tnmn": {
+   "id": "tnmn",
+   "name": "Thats not my Neighbor",
+   "play": "/misc/play/?title=Thats%20not%20my%20Neighbor&link=tnmn",
+   "frame": "/misc/tnmn/index.html",
+   "status": "observed"
+  },
+  "tombofthemask": {
+   "id": "tombofthemask",
+   "name": "Tomb Of The Mask",
+   "play": "/misc/play/tombofthemask.html",
+   "frame": "/misc/tombofthemask/",
+   "status": "observed"
+  },
+  "tosstheturtle": {
+   "id": "tosstheturtle",
+   "name": "Toss The Turtle",
+   "play": "/misc/play/tosstheturtle.html",
+   "frame": "/misc/tosstheturtle/index.html",
+   "status": "observed"
+  },
+  "tube-jumpers": {
+   "id": "tube-jumpers",
+   "name": "Tube Jumpers",
+   "play": "/misc/play/?title=Tube%20Jumpers&link=tube-jumpers",
+   "frame": "/misc/tube-jumpers/index.html",
+   "status": "observed"
+  },
+  "tunnel-rush": {
+   "id": "tunnel-rush",
+   "name": "Tunnel Rush",
+   "play": "/misc/play/tunnelrush.html",
+   "frame": "/misc/tunnel-rush/index.html",
+   "status": "observed"
+  },
+  "tunnelrush2": {
+   "id": "tunnelrush2",
+   "name": "Tunnel Rush 2",
+   "play": "/misc/play/tunnelrush2.html",
+   "frame": "/misc/tunnelrush2/index.html",
+   "status": "observed"
+  },
+  "turbo-moto-racer": {
+   "id": "turbo-moto-racer",
+   "name": "Turbo Moto Racer",
+   "play": "/misc/play/?title=Turbo%20Moto%20Racer&link=turbo-moto-racer",
+   "frame": "/misc/turbo-moto-racer/index.html",
+   "status": "observed"
+  },
+  "twitchtetris": {
+   "id": "twitchtetris",
+   "name": "Twitch Tetris",
+   "play": "/misc/play/twitchtetris.html",
+   "frame": "/misc/twitchtetris/index.html",
+   "status": "observed"
+  },
+  "ultrakill": {
+   "id": "ultrakill",
+   "name": "Ultrakill",
+   "play": "/misc/play/?title=Ultrakill&link=ultrakill",
+   "frame": "/misc/ultrakill/index.html",
+   "status": "observed"
+  },
+  "under-the-red-sky": {
+   "id": "under-the-red-sky",
+   "name": "Under the Red Sky",
+   "play": "/misc/play/?title=Under%20the%20Red%20Sky&link=under-the-red-sky",
+   "frame": "/misc/under-the-red-sky/index.html",
+   "status": "observed"
+  },
+  "unfair-mario": {
+   "id": "unfair-mario",
+   "name": "Unfair Mario",
+   "play": "/misc/play/unfairmario.html",
+   "frame": "/misc/unfair-mario/index.html",
+   "status": "observed"
+  },
+  "unicycle-heros": {
+   "id": "unicycle-heros",
+   "name": "Unicycle Hero",
+   "play": "/misc/play/unicyclehero.html",
+   "frame": "/misc/unicycle-heros/index.html",
+   "status": "observed"
+  },
+  "unicycle-legend": {
+   "id": "unicycle-legend",
+   "name": "Unicycle Legend",
+   "play": "/misc/play/?title=Unicycle%20Legend&link=unicycle-legend",
+   "frame": "/misc/unicycle-legend/index.html",
+   "status": "observed"
+  },
+  "universal-paperclips": {
+   "id": "universal-paperclips",
+   "name": "Universal paperclips",
+   "play": "/misc/play/universalpaper.html",
+   "frame": "/misc/universal-paperclips/index.html",
+   "status": "progress",
+   "keys": [
+    "saveGame",
+    "saveGame1",
+    "saveGame2",
+    "savePrestige",
+    "saveProjectsActive",
+    "saveProjectsActive1",
+    "saveProjectsActive2",
+    "saveProjectsFlags",
+    "saveProjectsFlags1",
+    "saveProjectsFlags2",
+    "saveProjectsUses",
+    "saveProjectsUses1",
+    "saveProjectsUses2",
+    "saveStratsActive",
+    "saveStratsActive1",
+    "saveStratsActive2"
+   ],
+   "progress": {
+    "adapter": "universal-paperclips"
+   }
+  },
+  "vex-3m": {
+   "id": "vex-3m",
+   "name": "Vex X3M",
+   "play": "/misc/play/?title=Vex%20X3M&link=vex-3m",
+   "frame": "/misc/vex-3m/index.html",
+   "status": "observed"
+  },
+  "vex3": {
+   "id": "vex3",
+   "name": "Vex 3",
+   "play": "/misc/play/vex3.html",
+   "frame": "/misc/vex3/index.html",
+   "status": "observed"
+  },
+  "vex4": {
+   "id": "vex4",
+   "name": "Vex 4",
+   "play": "/misc/play/vex4.html",
+   "frame": "/misc/vex4/index.html",
+   "status": "observed"
+  },
+  "vex5": {
+   "id": "vex5",
+   "name": "Vex 5",
+   "play": "/misc/play/vex5.html",
+   "frame": "/misc/vex5/index.html",
+   "status": "observed"
+  },
+  "vex6": {
+   "id": "vex6",
+   "name": "Vex 6",
+   "play": "/misc/play/vex6.html",
+   "frame": "/misc/vex6/index.html",
+   "status": "observed"
+  },
+  "vex7": {
+   "id": "vex7",
+   "name": "Vex 7",
+   "play": "/misc/play/vex7.html",
+   "frame": "/misc/vex7/index.html",
+   "status": "observed"
+  },
+  "vex8": {
+   "id": "vex8",
+   "name": "Vex 8",
+   "play": "/misc/play/vex8.html",
+   "frame": "/misc/vex8/index.html",
+   "status": "observed"
+  },
+  "volley-random": {
+   "id": "volley-random",
+   "name": "Volley Random",
+   "play": "/misc/play/volleyran.html",
+   "frame": "/misc/volley-random/index.html",
+   "status": "observed"
+  },
+  "war-the-knights": {
+   "id": "war-the-knights",
+   "name": "War The Knights",
+   "play": "/misc/play/?title=War%20The%20Knights&link=war-the-knights",
+   "frame": "/misc/war-the-knights/index.html",
+   "status": "observed"
+  },
+  "wave-rider": {
+   "id": "wave-rider",
+   "name": "Wave Rider",
+   "play": "/misc/play/?title=Wave%20Rider&link=wave-rider",
+   "frame": "/misc/wave-rider/index.html",
+   "status": "observed"
+  },
+  "webecomewhatwebehold": {
+   "id": "webecomewhatwebehold",
+   "name": "WBWWB",
+   "play": "/misc/play/wbwwb.html",
+   "frame": "/misc/webecomewhatwebehold/index.html",
+   "status": "observed"
+  },
+  "webfishing": {
+   "id": "webfishing",
+   "name": "Webfishing",
+   "play": "/misc/play/?title=Webfishing&link=webfishing",
+   "frame": "/misc/webfishing/index.html",
+   "status": "observed"
+  },
+  "webgl-fluid": {
+   "id": "webgl-fluid",
+   "name": "WebGL Fluid",
+   "play": "/misc/play/?title=WebGL%20Fluid&link=webgl-fluid",
+   "frame": "/misc/webgl-fluid/index.html",
+   "status": "observed"
+  },
+  "who-is": {
+   "id": "who-is",
+   "name": "Who Is?",
+   "play": "/misc/play/?title=Who%20Is%3F&link=who-is",
+   "frame": "/misc/who-is/index.html",
+   "status": "observed"
+  },
+  "wordle": {
+   "id": "wordle",
+   "name": "Wordle",
+   "frame": "/misc/wordle/index.html",
+   "status": "observed"
+  },
+  "world-of-screw": {
+   "id": "world-of-screw",
+   "name": "World of Screw",
+   "play": "/misc/play/?title=World%20of%20Screw&link=world-of-screw",
+   "frame": "/misc/world-of-screw/index.html",
+   "status": "observed"
+  },
+  "worldshardestgame": {
+   "id": "worldshardestgame",
+   "name": "World Hardest Game",
+   "play": "/misc/play/whg.html",
+   "frame": "/misc/worldshardestgame/index.html",
+   "status": "observed"
+  },
+  "yohoho": {
+   "id": "yohoho",
+   "name": "Yohoho.io",
+   "play": "/misc/play/?title=Yohoho.io&link=yohoho",
+   "frame": "/misc/yohoho/index.html",
+   "status": "local-only"
+  },
+  "you-monster": {
+   "id": "you-monster",
+   "name": "You Monster",
+   "play": "/misc/play/?title=You%20Monster&link=you-monster",
+   "frame": "/misc/you-monster/index.html",
+   "status": "observed"
+  },
+  "zombiederby": {
+   "id": "zombiederby",
+   "name": "Zombie Derby",
+   "play": "/misc/play/zombiederby.html",
+   "frame": "/misc/zombiederby/",
+   "status": "observed"
+  }
+ }
+}

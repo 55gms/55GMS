@@ -194,6 +194,18 @@
     localStorage.setItem("username", data.username);
     localStorage.setItem("premium", data.premium);
 
+    // With per-game cloud saves on, nothing is uploaded wholesale: the
+    // profile page syncs each game once on arrival (cloud-saves.js). Only a
+    // server without them (503) keeps the older full-browser backup.
+    const perGame = await fetch("/api/saves", { cache: "no-store" }).catch(
+      () => null,
+    );
+    if (perGame && perGame.status !== 503) {
+      if (perGame.ok) sessionStorage.setItem("gmsSyncOnArrival", "1");
+      location.href = data.handlePending ? "/choose-handle" : "/profile";
+      return true;
+    }
+
     const save = await postJson("/api/readSave", { uuid: data.uuid });
     if (save.status !== 200) {
       // No cloud save yet, so this browser's data becomes the first one

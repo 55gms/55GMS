@@ -6,6 +6,7 @@ import defaultAccounts, {
 } from "../services/accounts.js";
 import { noteSeen } from "../utils/lastSeen.js";
 import { isProxyStorageKey, withoutProxyKeys } from "../utils/saveKeys.js";
+import { readSession } from "../utils/sessionToken.js";
 
 // Keys the profile page rewrites on its own, left out of the fingerprint.
 // Proxied sites' storage is left out too: saves uploaded before it was
@@ -41,7 +42,24 @@ function fingerprintSave(saveJson) {
   return { hash, keys };
 }
 
-export function createUsersRouter({ accounts = defaultAccounts } = {}) {
+// The account a legacy save request may touch. Where sessions are
+// configured it must be the signed-in account: a uuid alone is known to
+// everyone the account has chatted with. Without sessions (a self-hosted copy
+// with no ADMIN_TOKEN_SECRET) the uuid sent is all there is.
+function legacySaveOwner(req, claimed) {
+  if (!process.env.ADMIN_TOKEN_SECRET) return claimed ? String(claimed) : null;
+  const uuid = readSession(req)?.uuid;
+  if (!uuid || (claimed && String(claimed) !== String(uuid))) return null;
+  return String(uuid);
+}
+
+// perGameSaves: per-game cloud saves are on (routes/saves.js). The legacy
+// full-browser backup is then read-only, so nothing replaces what existing
+// accounts already have in it before it has been split into games.
+export function createUsersRouter({
+  accounts = defaultAccounts,
+  perGameSaves = false,
+} = {}) {
   const router = express.Router();
   // uuid -> { hash, keys }, so repeat checks skip re-parsing large saves.
   const saveHashCache = new Map();
@@ -67,12 +85,19 @@ export function createUsersRouter({ accounts = defaultAccounts } = {}) {
   });
 
   router.post("/uploadSave", async (req, res) => {
+    if (perGameSaves) {
+      return res.status(410).json({
+        error: "Cloud saves now sync per game. Reload the page to use them.",
+      });
+    }
     let saveData = withoutProxyKeys(req.body);
     let uuid = req.headers["uuid"];
 
     if (!saveData || !uuid) {
       return res.status(400).json({ error: "Not enough arguments" });
     }
+    uuid = legacySaveOwner(req, uuid);
+    if (!uuid) return res.status(401).json({ error: "sign_in_again" });
     if (areAccountWritesFrozen()) {
       return res.status(503).json({ error: ACCOUNT_WRITES_FROZEN_ERROR });
     }
@@ -93,7 +118,8 @@ export function createUsersRouter({ accounts = defaultAccounts } = {}) {
     if (!uuid) {
       return res.status(400).json({ error: "Not enough arguments" });
     }
-    uuid = String(uuid);
+    uuid = legacySaveOwner(req, uuid);
+    if (!uuid) return res.status(401).json({ error: "sign_in_again" });
 
     try {
       let fingerprint = saveHashCache.get(uuid);
@@ -119,6 +145,8 @@ export function createUsersRouter({ accounts = defaultAccounts } = {}) {
     if (!uuid) {
       return res.status(400).json({ error: "Not enough arguments" });
     }
+    uuid = legacySaveOwner(req, uuid);
+    if (!uuid) return res.status(401).json({ error: "sign_in_again" });
 
     try {
       const saveJson = await accounts.readSave(uuid);

@@ -81,3 +81,26 @@ export function readSession(req) {
   }
   return null;
 }
+
+// A short-lived token naming an account for one purpose, such as joining
+// that account's cloud save notifications over Socket.IO, whose handshake
+// does not carry the /api session cookie. Null while ADMIN_TOKEN_SECRET is
+// unset.
+export function createScopedToken(uuid, scope, ttlMs, now = Date.now()) {
+  const secret = process.env.ADMIN_TOKEN_SECRET;
+  if (!secret) return null;
+  const payload = Buffer.from(
+    JSON.stringify({ uuid, scope, exp: now + ttlMs }),
+  ).toString("base64url");
+  return `${payload}.${sign(payload, `${scope}:${secret}`)}`;
+}
+
+// The account uuid a scoped token names, or null.
+export function verifyScopedToken(token, scope, now = Date.now()) {
+  const secret = process.env.ADMIN_TOKEN_SECRET;
+  if (!secret) return null;
+  const data = verifySessionToken(token, `${scope}:${secret}`, now);
+  return data && data.scope === scope && typeof data.uuid === "string"
+    ? data.uuid
+    : null;
+}

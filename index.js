@@ -20,6 +20,7 @@ import {
 import { mountProxyAssets } from "./utils/proxyAssets.js";
 import { mountAds } from "./utils/ads.js";
 import { mountGameAssetFallback } from "./utils/gameAssets.js";
+import { verifyScopedToken } from "./utils/sessionToken.js";
 
 logging.set_level(logging.ERROR);
 
@@ -182,7 +183,11 @@ try {
       import("./routes/admin.js"),
     ]);
     app.use("/api", auth.default);
-    app.use("/api", users.default);
+    app.use("/api", users.createUsersRouter({ perGameSaves: features.saves }));
+    if (features.saves) {
+      const saves = await import("./routes/saves.js");
+      app.use("/api", saves.createSavesRouter({ io }));
+    }
     if (features.billing) {
       const [billing, { recomputePremium }] = await Promise.all([
         import("./routes/billing.js"),
@@ -209,6 +214,12 @@ try {
   if (!features.billing) {
     app.use(["/api/billing", "/api/stripe"], featureOff);
   }
+  if (!features.saves) {
+    app.use(
+      ["/api/saves", "/api/saves-legacy", "/api/saves-socket-token"],
+      featureOff,
+    );
+  }
   if (!features.accounts || !features.chat) {
     // What is left under /api belongs to a feature that is off.
     app.use("/api", featureOff);
@@ -218,6 +229,21 @@ try {
   }
 
   io.on("connection", (socket) => {
+    // Cloud save notices: a device joins its account's room with a token
+    // from /api/saves-socket-token, since the handshake carries no session
+    // cookie. The room only ever hears which game changed, never a save.
+    if (features.saves) {
+      socket.on("saves_subscribe", (data) => {
+        const uuid = verifyScopedToken(data?.token, "saves");
+        if (!uuid) return socket.emit("saves_error", "sign_in_again");
+        for (const room of socket.rooms) {
+          if (room.startsWith("saves_")) socket.leave(room);
+        }
+        socket.join(`saves_${uuid}`);
+        socket.emit("saves_subscribed");
+      });
+    }
+
     // Every handler below is chat or presence, and all of them use the database.
     if (!features.chat) return;
 
@@ -564,6 +590,7 @@ try {
     console.log(`📁 Static: ${staticRoot}`);
     console.log(`👤 Accounts: ${features.accounts ? "on" : "off"}`);
     console.log(`💬 Chat: ${features.chat ? "on" : "off"}`);
+    console.log(`💾 Cloud saves: ${features.saves ? "per game" : "legacy"}`);
     console.log(`------------------------------------\n`);
     // Tells pm2 (wait_ready) this worker can take traffic. No-op otherwise.
     process.send?.("ready");
@@ -612,6 +639,10 @@ try {
         const { startMessageRetention } =
           await import("./services/messageRetention.js");
         startMessageRetention();
+      }
+      if (features.saves) {
+        const { startSaveRetention } = await import("./services/gameSaves.js");
+        startSaveRetention();
       }
       server.listen({ port });
     })

@@ -9,8 +9,10 @@ export function clientKey(req) {
 }
 
 // A fixed-window limit held in memory, so it is per pm2 worker. Good enough
-// to stop a route being scraped; not a security boundary.
-export function rateLimit({ windowMs, max, message }) {
+// to stop a route being scraped; not a security boundary. `key` picks what
+// is counted (the client address by default); `max` may be a function of the
+// request, for limits that depend on the account.
+export function rateLimit({ windowMs, max, message, key = clientKey }) {
   const hits = new Map();
 
   const sweep = setInterval(() => {
@@ -23,15 +25,15 @@ export function rateLimit({ windowMs, max, message }) {
 
   return (req, res, next) => {
     const now = Date.now();
-    const key = clientKey(req);
-    let entry = hits.get(key);
+    const id = key(req);
+    let entry = hits.get(id);
     if (!entry || entry.resetAt <= now) {
       entry = { count: 0, resetAt: now + windowMs };
-      hits.set(key, entry);
+      hits.set(id, entry);
     }
 
     entry.count += 1;
-    if (entry.count > max) {
+    if (entry.count > (typeof max === "function" ? max(req) : max)) {
       res.set("Retry-After", String(Math.ceil((entry.resetAt - now) / 1000)));
       return res.status(429).json({ error: message });
     }

@@ -7,6 +7,8 @@ import UserStatus from "./UserStatus.js";
 import User from "./User.js";
 import UserSave from "./UserSave.js";
 import Subscription from "./Subscription.js";
+import GameSave from "./GameSave.js";
+import GameSaveVersion from "./GameSaveVersion.js";
 
 // Define associations
 Chat.hasMany(Message, { foreignKey: "chatId", as: "messages" });
@@ -41,5 +43,7 @@ export {
   User,
   UserSave,
   Subscription,
+  GameSave,
+  GameSaveVersion,
   initDatabase,
 };

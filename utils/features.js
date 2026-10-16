@@ -25,6 +25,14 @@ function withAccountsAndChat(features) {
       process.env.STRIPE_WEBHOOK_SECRET &&
       process.env.ADMIN_TOKEN_SECRET,
     );
+  // Per-game cloud saves live in the local database and are authorized by
+  // the session cookie, so they need both (docs/cloud-saves.md). Without
+  // them the older full-browser backup on /profile is all there is.
+  features.saves =
+    features.accounts &&
+    features.database &&
+    process.env.ACCOUNT_BACKEND === "postgres" &&
+    Boolean(process.env.ADMIN_TOKEN_SECRET);
   return features;
 }
 
