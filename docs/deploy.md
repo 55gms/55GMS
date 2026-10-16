@@ -82,10 +82,14 @@ The stages live in `scripts/build/` and run in this order. Each one edits the
 copy in place.
 
 1. **prepare** (`prepare.js`) copies `static/` into the build directory.
-   `misc/` and `img/` are not copied: the build gets absolute symlinks to
-   `static/misc` and `static/img`. Games and images are therefore never
-   transformed, and a change to them is live as soon as it is checked out.
-   A checkout without `static/misc/` (CI) builds fine.
+   `img/` and the games are not copied: the build gets an absolute symlink to
+   `static/img`, and a `misc/` directory holding one absolute symlink per
+   entry of `static/misc`. Games and images are therefore never transformed,
+   and a change to them is live as soon as it is checked out. The exception
+   is the site code in `misc/` (`BUILT_MISC` in `prepare.js`: `media/`, the
+   media player), which is copied, and whose scripts and pages the javascript
+   and html stages obfuscate like the others. A checkout without
+   `static/misc/` (CI) builds fine.
 2. **javascript** (`javascript.js`) minifies (terser) and obfuscates
    (javascript-obfuscator: encoded string table, split strings, control-flow
    flattening) every `.js` file directly in `assets/js/`. It skips
@@ -168,7 +172,8 @@ included, browsers fetch the pages' scripts and stylesheets again.
       current -> builds/<id>         symlink, swapped by rename
       builds/<id>/manifest.json      id, assetVersion, catalogueKey, routes
       builds/<id>/static/            the tree that is served
-      builds/<id>/static/misc -> <repo>/static/misc
+      builds/<id>/static/misc/<game> -> <repo>/static/misc/<game>
+      builds/<id>/static/misc/media/  copied and obfuscated
       builds/<id>/static/img  -> <repo>/static/img
 
 `dist/` is git-ignored. `<id>` is random, 16 hex characters. A build is not

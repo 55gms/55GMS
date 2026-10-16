@@ -12,7 +12,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { prepare } from "./build/prepare.js";
 import { makeSecrets } from "./build/secrets.js";
-import { obfuscateScripts } from "./build/javascript.js";
+import {
+  obfuscateScripts,
+  obfuscateMiscScripts,
+} from "./build/javascript.js";
 import { encodeCatalogue } from "./build/catalogue.js";
 import { transformHtml } from "./build/html.js";
 import { versionAssets } from "./build/asset-version.js";
@@ -95,6 +98,7 @@ async function main() {
 
   await prepare(SRC, outStatic);
   await obfuscateScripts(outStatic);
+  await obfuscateMiscScripts(outStatic);
   await encodeCatalogue(outStatic, secrets.catalogueKey);
   await transformHtml(outStatic);
   await versionAssets(outStatic, secrets.assetVersion);

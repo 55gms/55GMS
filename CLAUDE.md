@@ -117,10 +117,10 @@ All frontend code is static files under `static/`:
 
 `static/` is the source. `npm run build` writes a transformed copy to `dist/builds/<id>/static/` and swaps the `dist/current` symlink to it; production serves that copy. `dist/` is git-ignored. Stages, in order (`scripts/build/`):
 
-1. `prepare` — copies `static/`; `misc/` and `img/` are symlinked, never copied or rebuilt
-2. `javascript` — minifies and obfuscates the scripts directly in `assets/js/`
+1. `prepare` — copies `static/`; `img/` and each game folder in `misc/` are symlinked, never copied or rebuilt; `misc/media/` (`BUILT_MISC`) is copied
+2. `javascript` — minifies and obfuscates the scripts directly in `assets/js/`, and every script under `misc/media/`
 3. `catalogue` — encodes `assets/json/load/*.json`
-4. `html` — obfuscates inline scripts, minifies, and entity-encodes visible text in `static/*.html`
+4. `html` — obfuscates inline scripts, minifies, and entity-encodes visible text in `static/*.html` and `misc/media/**/*.html`
 5. `asset-version` — rewrites `/assets/*.js|css` references to a per-build `?v=`
 
 What this means when editing the frontend:

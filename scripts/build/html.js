@@ -5,6 +5,9 @@ import { minify as terserMinify } from "terser";
 import JavaScriptObfuscator from "javascript-obfuscator";
 import { obfuscatorOptions } from "./javascript.js";
 import { configuredFeatures } from "../../utils/features.js";
+import { BUILT_MISC } from "./prepare.js";
+import { walkFiles } from "./util.js";
+import { existsSync } from "node:fs";
 
 const ENCODE_ATTRS = ["alt", "aria-label", "title", "placeholder", "value"];
 
@@ -164,11 +167,27 @@ function disabledNavLinks() {
   );
 }
 
+// The top-level pages, plus the pages of the site-code folders copied into
+// misc/ (prepare.js), such as the media player's.
+async function builtPages(outStatic) {
+  const pages = [];
+  for (const entry of await readdir(outStatic)) {
+    if (entry.endsWith(".html")) pages.push(path.join(outStatic, entry));
+  }
+  for (const folder of BUILT_MISC) {
+    const dir = path.join(outStatic, "misc", folder);
+    if (!existsSync(dir)) continue;
+    for await (const file of walkFiles(dir)) {
+      if (file.endsWith(".html")) pages.push(file);
+    }
+  }
+  return pages;
+}
+
 export async function transformHtml(outStatic) {
   const navLinks = disabledNavLinks();
-  for (const entry of await readdir(outStatic)) {
-    if (!entry.endsWith(".html")) continue;
-    const file = path.join(outStatic, entry);
+  for (const file of await builtPages(outStatic)) {
+    const entry = path.relative(outStatic, file);
     let original = await readFile(file, "utf8");
     if (navLinks) original = original.replace(navLinks, "");
     const before = visibleText(original);
