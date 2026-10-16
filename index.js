@@ -20,6 +20,7 @@ import {
 import { mountProxyAssets } from "./utils/proxyAssets.js";
 import { mountAds } from "./utils/ads.js";
 import { mountGameAssetFallback } from "./utils/gameAssets.js";
+import { mountLegacyPlayRedirects } from "./utils/legacyPlayPages.js";
 import { verifyScopedToken } from "./utils/sessionToken.js";
 
 logging.set_level(logging.ERROR);
@@ -506,6 +507,8 @@ try {
   app.use("/assets/cloaks", (req, res) => {
     res.redirect(301, "/assets/harry-potter" + req.url);
   });
+  // The old one-page-per-game play pages go to the shared play page.
+  mountLegacyPlayRedirects(app);
   app.use(express.static(staticRoot, staticOptions));
   // Game files that are not on disk are relayed from the 55gms/assets mirror.
   mountGameAssetFallback(app, staticRoot);

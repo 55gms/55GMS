@@ -29,6 +29,27 @@ function writeStoredIds(key, values) {
   } catch {}
 }
 
+// Favorites and recents saved while games had their own play pages
+// (`Name|/misc/play/name.html`) move to the game's shared play page link.
+function migrateStoredIds(games) {
+  const byName = new Map(games.map((game) => [game.name, gameId(game)]));
+  const migrate = (id) => {
+    const legacy = /^(.*)\|\/misc\/play\/[^?]+\.html$/.exec(id);
+    return (legacy && byName.get(legacy[1])) || id;
+  };
+  const stored = [...favoriteGameIds];
+  const favorites = stored.map(migrate);
+  const recent = [...new Set(recentGameIds.map(migrate))];
+  if (favorites.join("\n") !== stored.join("\n")) {
+    favoriteGameIds = new Set(favorites);
+    writeStoredIds(FAVORITES_KEY, favorites);
+  }
+  if (recent.join("\n") !== recentGameIds.join("\n")) {
+    recentGameIds = recent;
+    writeStoredIds(RECENT_KEY, recent);
+  }
+}
+
 function gameId(game) {
   return `${game.name}|${game.url || game.image || game.author || ""}`;
 }
@@ -97,6 +118,7 @@ async function loadGames() {
 
     const games = await readCatalogue(response);
     games.sort((a, b) => a.name.localeCompare(b.name));
+    migrateStoredIds(games);
 
     const cards = games.map(createGameCard).filter(Boolean);
     const fragment = document.createDocumentFragment();

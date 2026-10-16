@@ -67,13 +67,24 @@
     </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
+        // Runs before DOMContentLoaded so script.js reads the real title.
+        (function () {
+            const urlParams = new URLSearchParams(window.location.search);
 
             const title = urlParams.get('title') || 'No title provided';
             const author = urlParams.get('author') || 'Author';
+            // `link` is a game folder (`2048`) or a path under /misc/
+            // (`papas/papas-burgeria`, `flash/index.html?swf=hobo.swf`).
+            // A path whose last part has no extension opens its index.html.
             const link = (urlParams.get('link') || '').replace(/^\/+|\/+$/g, '');
+            const [linkPath, linkQuery] = link.split(/\?(.*)/s);
+            const lastPart = linkPath.split('/').pop();
+            const frame = new URL(
+                `/misc/${linkPath}${lastPart.includes('.') ? '' : '/index.html'}${linkQuery ? '?' + linkQuery : ''}`,
+                location.origin,
+            );
+            const folder = linkPath.split('/')[0];
+            const image = urlParams.get('img') || '';
 
             const titleElement = document.querySelector('.titletext');
             const byTextElement = document.querySelector('.bytext');
@@ -82,12 +93,22 @@
 
             titleElement.textContent = title;
             byTextElement.textContent = 'By ' + author;
-            iframeElement.dataset.src = `/misc/${encodeURIComponent(link)}/index.html`;
+            gameIconElement.src = /^(https:\/\/cdn\.jsdelivr\.net\/|\/img\/)/.test(image)
+                ? image
+                : `https://cdn.jsdelivr.net/gh/55gms/assets@986005e191dc455b97b71ed6fcf180748c7f7dc1/misc/${encodeURIComponent(folder)}/img.webp`;
+            gameIconElement.alt = title;
+
+            // Only game documents: nothing outside /misc/, and not this page.
+            if (
+                !linkPath ||
+                frame.origin !== location.origin ||
+                !frame.pathname.startsWith('/misc/') ||
+                frame.pathname.startsWith('/misc/play/')
+            ) return;
+            iframeElement.dataset.src = frame.pathname + frame.search;
             if (window.GMSSaves) GMSSaves.launch(iframeElement);
             else iframeElement.src = iframeElement.dataset.src;
-            gameIconElement.src = `https://cdn.jsdelivr.net/gh/55gms/assets@986005e191dc455b97b71ed6fcf180748c7f7dc1/misc/${encodeURIComponent(link)}/img.webp`;
-            gameIconElement.alt = title;
-        });
+        })();
     </script>
     </div>
     <script>
@@ -112,7 +133,7 @@
         reloadbtn.onclick = reload;
     </script>
 
-    <script src="/assets/js/game-page.js?v=11"></script>
+    <script src="/assets/js/game-page.js?v=12"></script>
     <script src="/assets/js/hover-preview.js?v=1" defer></script>
 </body>
 

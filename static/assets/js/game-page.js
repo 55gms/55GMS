@@ -392,17 +392,10 @@
   // and not the game being played.
   function playable(game) {
     if (!game?.name || !game.image || game.usesProxy) return false;
-    if (!game.url) {
-      return (
-        Boolean(game.author) &&
-        new URLSearchParams(location.search).get("title") !== game.name
-      );
+    if (game.url ? !game.url.startsWith("/misc/play/") : !game.author) {
+      return false;
     }
-    const here = location.pathname.toLowerCase().replace(/\.html$/, "");
-    return (
-      game.url.startsWith("/misc/play/") &&
-      game.url.toLowerCase().replace(/\.html$/, "") !== here
-    );
+    return new URLSearchParams(location.search).get("title") !== game.name;
   }
 
   function shuffle(list) {

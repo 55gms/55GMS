@@ -12,7 +12,6 @@ import { gameIdFromLocation } from "../utils/saveRegistry.js";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const STATIC = path.join(ROOT, "static");
 const MISC = path.join(STATIC, "misc");
-const PLAY = path.join(MISC, "play");
 const OUTPUT = path.join(STATIC, "assets/json/saves.json");
 
 // Games whose save format was read from their source. keys are the
@@ -47,15 +46,6 @@ const CURATED = {
   },
 };
 
-function decodeEntities(text) {
-  return text
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&#39;|&apos;/g, "'")
-    .replace(/&quot;/g, '"')
-    .trim();
-}
-
 function idFromUrl(url) {
   const parsed = new URL(url, "https://55gms.local");
   if (parsed.host !== "55gms.local") return null;
@@ -80,6 +70,19 @@ function runsOffSite(file) {
 
 const games = new Map();
 
+// The document the shared play page frames for its `link`, by the rule in
+// static/misc/play/index.html: a folder, or a path under /misc/ whose last
+// part opens its index.html when it has no extension.
+function playFrame(link) {
+  const [linkPath, linkQuery] = (link || "")
+    .replace(/^\/+|\/+$/g, "")
+    .split(/\?(.*)/s);
+  const lastPart = linkPath.split("/").pop();
+  return `/misc/${linkPath}${lastPart.includes(".") ? "" : "/index.html"}${
+    linkQuery ? "?" + linkQuery : ""
+  }`;
+}
+
 function add(id, fields) {
   if (!id) return;
   const entry = games.get(id) || { id };
@@ -89,22 +92,7 @@ function add(id, fields) {
   games.set(id, entry);
 }
 
-// 1. Play pages: the page players open, the document it frames, the title.
-for (const name of readdirSync(PLAY).sort()) {
-  if (!name.endsWith(".html") || name === "index.html") continue;
-  const html = readFileSync(path.join(PLAY, name), "utf8");
-  const frame = /<iframe\b[^>]*\bid=["']iframe["'][^>]*>/i.exec(html)?.[0];
-  const src = frame && /\b(?:data-)?src=["']([^"']+)["']/i.exec(frame)?.[1];
-  if (!src || /^https?:/i.test(src)) continue;
-  const title = /<h1 class="titletext">([^<]*)<\/h1>/i.exec(html)?.[1];
-  add(idFromUrl(src), {
-    name: title && decodeEntities(title),
-    play: `/misc/play/${name}`,
-    frame: src,
-  });
-}
-
-// 2. The catalogue: names, and games opened through the shared play page or
+// 1. The catalogue: names, and games opened through the shared play page or
 // straight from their own document.
 const catalogue = JSON.parse(
   readFileSync(path.join(STATIC, "assets/json/load/g.json"), "utf8"),
@@ -121,26 +109,14 @@ for (const game of catalogue) {
     parsed.pathname === "/misc/play/" ||
     parsed.pathname === "/misc/play/index.html"
   ) {
-    const folder = (parsed.searchParams.get("link") || "").replace(
-      /^\/+|\/+$/g,
-      "",
-    );
-    add(idFromUrl(`/misc/${folder}/index.html`), {
-      name: game.name,
-      play: url,
-      frame: `/misc/${folder}/index.html`,
-    });
-  } else if (parsed.pathname.startsWith("/misc/play/")) {
-    const entry = [...games.values()].find(
-      (item) => item.play === parsed.pathname,
-    );
-    if (entry && !entry.name) entry.name = game.name;
+    const frame = playFrame(parsed.searchParams.get("link"));
+    add(idFromUrl(frame), { name: game.name, play: url, frame });
   } else {
     add(idFromUrl(url), { name: game.name, frame: url });
   }
 }
 
-// 3. Every other game folder with a page of its own.
+// 2. Every other game folder with a page of its own.
 for (const name of readdirSync(MISC).sort()) {
   if (name === "play" || name === "media") continue;
   if (!existsSync(path.join(MISC, name, "index.html"))) continue;

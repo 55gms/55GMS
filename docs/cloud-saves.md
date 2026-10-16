@@ -30,7 +30,7 @@ shows the old full-browser Upload/Restore card.
 ## Game ids
 
 All games run on this site's origin (`/misc/<folder>/index.html` inside
-`/misc/play/*.html`), so they share one localStorage and one set of IndexedDB
+the shared play page `/misc/play/`), so they share one localStorage and one set of IndexedDB
 databases. A game's id comes from its document's path: the folder under
 `/misc/`, nested folders joined with `-`, and for shared players the `swf`,
 `game` or `rom` query parameter (`/misc/flash/index.html?swf=duck-life.swf` is

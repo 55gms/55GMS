@@ -25,8 +25,7 @@ const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const misc = path.join(root, "static/misc");
 
 // Catalog page for each game folder, resolved the way games.js does: author
-// cards go through the generic launcher, the rest name a wrapper page whose
-// iframe points at the folder.
+// cards and full launcher links both go through the shared play page.
 const catalog = JSON.parse(
   fs.readFileSync(path.join(root, "static/assets/json/load/g.json"), "utf8"),
 );
@@ -41,16 +40,14 @@ for (const game of catalog) {
       )}&link=${encodeURIComponent(folder)}`,
     );
   } else if (game.url?.startsWith("/misc/play/?")) {
-    // Launcher link written out in full.
-    const folder = new URLSearchParams(game.url.split("?")[1]).get("link");
-    if (folder) pages.set(folder, encodeURI(game.url));
-  } else if (game.url?.startsWith("/misc/play/")) {
-    const wrapper = path.join(root, "static", game.url);
-    if (!fs.existsSync(wrapper)) continue;
-    const frame = fs
-      .readFileSync(wrapper, "utf8")
-      .match(/<iframe[^>]*src="\/misc\/([^/"]+)\//);
-    if (frame && !pages.has(frame[1])) pages.set(frame[1], game.url);
+    // Launcher link written out in full; its link is a folder or a path.
+    const parsed = new URL(game.url, "http://55gms.local");
+    const folder = (parsed.searchParams.get("link") || "")
+      .replace(/^\/+/, "")
+      .split(/[/?]/)[0];
+    if (folder && !pages.has(folder)) {
+      pages.set(folder, parsed.pathname + parsed.search);
+    }
   }
 }
 const LOADERS = ["game-loader", "unity-cdn-loader"];
