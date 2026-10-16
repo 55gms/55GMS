@@ -523,6 +523,28 @@
   margin-top: 20px;
 }
 
+.acct-field {
+  display: block;
+  margin-top: 16px;
+}
+
+.acct-confirm .acct-field-error {
+  color: var(--p-danger);
+}
+
+/* "Sign in again" in a card's footer. */
+.acct-hint-action {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--p-text);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
 /* ---------- Cloud saves ---------- */
 
 .saves-facts {
@@ -588,7 +610,8 @@
   display: none;
 }
 
-.saves-search input {
+.saves-search input,
+.acct-field input {
   width: 100%;
   box-sizing: border-box;
   height: 36px;
@@ -601,11 +624,13 @@
   font-size: 0.875rem;
 }
 
-.saves-search input::placeholder {
+.saves-search input::placeholder,
+.acct-field input::placeholder {
   color: var(--p-muted);
 }
 
-.saves-search input:focus-visible {
+.saves-search input:focus-visible,
+.acct-field input:focus-visible {
   outline: 2px solid var(--p-text);
   outline-offset: 1px;
 }

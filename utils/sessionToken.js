@@ -2,6 +2,8 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 
 export const SESSION_COOKIE = "session";
 export const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+// How old a session gets before a request renews it (renewSessionCookie).
+const SESSION_RENEW_AFTER_MS = 24 * 60 * 60 * 1000;
 
 function sign(payload, secret) {
   return createHmac("sha256", secret).update(payload).digest("base64url");
@@ -80,6 +82,18 @@ export function readSession(req) {
     }
   }
   return null;
+}
+
+// Pushes the session's expiry forward for an account that keeps using the
+// site, at most once a day, so the cookie runs out only after SESSION_TTL_MS
+// without a visit. Pages keep the account in localStorage for good, so a
+// cookie that lapsed while they still show it as signed in leaves cloud
+// saves asking to sign in again.
+export function renewSessionCookie(req, res, now = Date.now()) {
+  const session = readSession(req);
+  if (!session?.uuid) return;
+  if (session.exp - now > SESSION_TTL_MS - SESSION_RENEW_AFTER_MS) return;
+  setSessionCookie(req, res, session.uuid);
 }
 
 // A short-lived token naming an account for one purpose, such as joining

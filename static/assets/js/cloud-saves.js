@@ -1758,11 +1758,11 @@ window.GMSSaves = (() => {
       else if (inFlight.has(gameId)) status = "saving";
       else if (local && remote && local.hash === remote.hash) status = "synced";
       else if (local && local.hash !== state.baseHash) {
-        status = ["offline", "failed", "error", "signed-out"].includes(
-          state.status,
-        )
-          ? state.status
-          : "not-synced";
+        // The manifest just loaded, so a "signed-out" left by an earlier
+        // try is out of date.
+        const kept = ["offline", "failed", "error"];
+        if (!cloud) kept.push("signed-out");
+        status = kept.includes(state.status) ? state.status : "not-synced";
       } else if (remote && !local) status = "cloud-only";
       else if (remote && remote.revision !== state.baseRevision)
         status = "cloud-newer";
