@@ -1659,19 +1659,6 @@ window.GMSSaves = (() => {
     });
   }
 
-  // The legacy full-browser backup, for "Restore everything".
-  async function legacyBackup() {
-    const response = await fetch("/api/saves-legacy", {
-      cache: "no-store",
-      credentials: "same-origin",
-    });
-    if (!response.ok) {
-      const data = await response.json().catch(() => ({}));
-      throw new SyncError(response.status, data.error, data.message);
-    }
-    return response.json();
-  }
-
   // Background start on other site pages: sync what is waiting, quietly.
   function background() {
     if (!account()) return;
@@ -1695,7 +1682,6 @@ window.GMSSaves = (() => {
     restore,
     restoreVersion,
     history,
-    legacyBackup,
     entitlement,
     registry,
     on,

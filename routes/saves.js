@@ -115,10 +115,7 @@ export function createSavesRouter({
     });
   }
 
-  router.use(
-    ["/saves", "/saves-socket-token", "/saves-legacy"],
-    requireSession,
-  );
+  router.use(["/saves", "/saves-socket-token"], requireSession);
 
   router.get("/saves", readLimit, async (req, res) => {
     try {
@@ -293,22 +290,6 @@ export function createSavesRouter({
       res.status(200).json(outcome);
     } catch (error) {
       fail(res, error, "import the old backup");
-    }
-  });
-
-  // The legacy full-browser backup, read-only. The profile page offers it as
-  // "Restore everything" for data the per-game saves do not cover.
-  router.get("/saves-legacy", readLimit, async (req, res) => {
-    try {
-      const snapshot = await accounts.readSave(req.uuid);
-      if (snapshot === null || snapshot === undefined) {
-        return res
-          .status(404)
-          .json({ error: "no_save", message: "No older backup" });
-      }
-      res.status(200).type("application/json").send(snapshot);
-    } catch (error) {
-      fail(res, error, "load the older backup");
     }
   });
 

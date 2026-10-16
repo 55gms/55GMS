@@ -178,7 +178,6 @@ uuid from the request.
 | `POST /api/saves/:game/restore`       | Make a version current `{ versionId }`                            |
 | `POST /api/saves/:game/backup`        | Keep a copy in history only (before a Restore)                    |
 | `POST /api/saves/:game/import-legacy` | First save from the legacy backup `{ keys }`                      |
-| `GET /api/saves-legacy`               | The legacy backup, read-only                                      |
 | `POST /api/saves-socket-token`        | Token for `saves_subscribe`                                       |
 
 ## Legacy backups
@@ -195,8 +194,6 @@ uuid from the request.
 - Imported saves carry the oldest possible time, so a device's own newer copy
   wins against them, and the device's copy is offered to the server before any
   restore overwrites it.
-- Profile → Cloud saves → Older full backup → Restore all puts the whole backup
-  back into the browser, as the old Restore did.
 - Rollback: `scripts/migrate-legacy-saves.js --rollback` removes imported saves
   no device has changed since. Reverting the deploy brings back the old flow;
   the new tables can then be dropped.

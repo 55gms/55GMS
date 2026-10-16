@@ -215,10 +215,7 @@ try {
     app.use(["/api/billing", "/api/stripe"], featureOff);
   }
   if (!features.saves) {
-    app.use(
-      ["/api/saves", "/api/saves-legacy", "/api/saves-socket-token"],
-      featureOff,
-    );
+    app.use(["/api/saves", "/api/saves-socket-token"], featureOff);
   }
   if (!features.accounts || !features.chat) {
     // What is left under /api belongs to a feature that is off.

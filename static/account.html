@@ -144,10 +144,6 @@
         <symbol id="i-list" viewBox="0 0 24 24">
           <path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01" />
         </symbol>
-        <symbol id="i-archive" viewBox="0 0 24 24">
-          <rect x="2" y="3" width="20" height="5" rx="1" />
-          <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8M10 12h4" />
-        </symbol>
         <symbol id="i-pine" viewBox="0 0 20 42">
           <path d="M10 0l6 12h-3l6 12h-4l5 12h-9v6H9v-6H0l5-12H1l6-12H4z" />
         </symbol>
@@ -460,22 +456,6 @@
             </div>
             <button type="button" class="p-btn" id="manageSavesButton">
               <span class="p-btn-label">Manage</span>
-            </button>
-          </div>
-          <div class="acct-row" id="legacyRow" hidden>
-            <span class="acct-row-icon" aria-hidden="true">
-              <svg class="acct-icon"><use href="#i-archive" /></svg>
-            </span>
-            <div class="acct-row-text">
-              <p class="profile-row-title">Older full backup</p>
-              <p class="profile-row-desc" id="legacyDesc">
-                Your backup of everything from before per-game saves. It is kept
-                as it is.
-              </p>
-            </div>
-            <button type="button" class="p-btn" id="legacyRestoreButton">
-              <span class="p-btn-label">Restore all</span>
-              <span class="p-spinner" aria-hidden="true"></span>
             </button>
           </div>
           <div class="acct-foot">
@@ -1484,12 +1464,6 @@
           document.getElementById("localCount").textContent =
             local.toLocaleString();
 
-          const legacyRow = document.getElementById("legacyRow");
-          legacyRow.hidden = !manifest?.legacy;
-          if (manifest?.legacy) {
-            document.getElementById("legacyDesc").textContent =
-              `Your backup of everything from before per-game saves, last changed ${ago(Date.parse(manifest.legacy.updatedAt))}. It is kept as it is.`;
-          }
           if (savesDialog.open && !savesListView.hidden) renderList();
         }
 
@@ -1765,65 +1739,9 @@
           }
         }
 
-        // Restore all: the older full backup, added to this browser's data
-        // the way the old Restore did. The keys that sign this browser in
-        // and the proxy's storage are left as they are.
-        async function restoreLegacy() {
-          const legacyButton = document.getElementById("legacyRestoreButton");
-          if (legacyButton.disabled) return;
-          legacyButton.disabled = true;
-          setLoading(legacyButton, true);
-          const previous = new Map();
-          try {
-            const data = await GMSSaves.legacyBackup();
-            try {
-              for (const key in data) {
-                if (
-                  isProxyStorageKey(key) ||
-                  ["uuid", "username", "premium"].includes(key)
-                )
-                  continue;
-                const value =
-                  typeof data[key] === "object"
-                    ? JSON.stringify(data[key])
-                    : String(data[key]);
-                previous.set(key, localStorage.getItem(key));
-                localStorage.setItem(key, value);
-              }
-            } catch (error) {
-              for (const [key, value] of previous) {
-                if (value === null) localStorage.removeItem(key);
-                else localStorage.setItem(key, value);
-              }
-              throw error.name === "QuotaExceededError"
-                ? new Error(
-                    "The older backup doesn't fit next to the data already in this browser, so nothing was changed.",
-                  )
-                : error;
-            }
-            toast(
-              "success",
-              "Older backup restored. Its games sync on their own from now on.",
-            );
-          } catch (error) {
-            toast(
-              "error",
-              error.message || "Couldn't restore the older backup.",
-            );
-          } finally {
-            setLoading(legacyButton, false);
-            legacyButton.disabled = false;
-            updateLocalSize();
-            refreshSaves();
-          }
-        }
-
         if (perGame) {
           savesStatus.addEventListener("click", () => refreshSaves());
           syncNowButton.addEventListener("click", syncNow);
-          document
-            .getElementById("legacyRestoreButton")
-            .addEventListener("click", restoreLegacy);
           document
             .getElementById("manageSavesButton")
             .addEventListener("click", () => {
