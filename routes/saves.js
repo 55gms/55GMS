@@ -32,12 +32,10 @@ export function createSavesRouter({
   async function requireSession(req, res, next) {
     const session = readSession(req);
     if (!session?.uuid) {
-      return res
-        .status(401)
-        .json({
-          error: "sign_in_again",
-          message: "Sign in again to sync saves",
-        });
+      return res.status(401).json({
+        error: "sign_in_again",
+        message: "Sign in again to sync saves",
+      });
     }
     req.uuid = String(session.uuid);
     try {
@@ -176,12 +174,10 @@ export function createSavesRouter({
     const body = req.body || {};
     // Background sync is a premium feature. Manual syncs work for everyone.
     if (body.mode === "auto" && !req.premium) {
-      return res
-        .status(403)
-        .json({
-          error: "premium_required",
-          message: "Automatic sync needs Premium",
-        });
+      return res.status(403).json({
+        error: "premium_required",
+        message: "Automatic sync needs Premium",
+      });
     }
     try {
       const deviceId = deviceOf(req);
@@ -203,6 +199,31 @@ export function createSavesRouter({
     }
   });
 
+  // A copy this browser is about to replace with the cloud's (Restore),
+  // kept in history so it can be brought back.
+  router.post("/saves/:gameId/backup", writeLimit, async (req, res) => {
+    const params = gameParams(req, res);
+    if (!params) return;
+    if (areAccountWritesFrozen()) {
+      return res
+        .status(503)
+        .json({ error: "frozen", message: ACCOUNT_WRITES_FROZEN_ERROR });
+    }
+    try {
+      const outcome = await saves.backupCopy({
+        uuid: req.uuid,
+        ...params,
+        hash: String(req.body?.hash || ""),
+        text: req.body?.data,
+        deviceId: deviceOf(req),
+        premium: req.premium,
+      });
+      res.status(200).json(outcome);
+    } catch (error) {
+      fail(res, error, "keep this browser's copy");
+    }
+  });
+
   router.get("/saves/:gameId/history", readLimit, async (req, res) => {
     const params = gameParams(req, res);
     if (!params) return;
@@ -214,13 +235,11 @@ export function createSavesRouter({
         req.premium,
       );
       const limits = saves.limitsFor(req.premium);
-      res
-        .status(200)
-        .json({
-          versions,
-          keepDays: limits.historyDays,
-          keepVersions: limits.versions,
-        });
+      res.status(200).json({
+        versions,
+        keepDays: limits.historyDays,
+        keepVersions: limits.versions,
+      });
     } catch (error) {
       fail(res, error, "load the save history");
     }

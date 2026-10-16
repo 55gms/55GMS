@@ -91,12 +91,12 @@ function universalPaperclips(save) {
 }
 
 // A game built on the 55GMS save SDK (window.gmsSaves in save-agent.js)
-// stores { data, progress } under "gms-native:<gameId>" and reports its own
+// stores { data, progress } under "native-save/<gameId>" and reports its own
 // progress. Only the metrics its registry entry names are read.
 function nativeProgress(save, game) {
   const names = game?.progress?.metrics;
   if (!Array.isArray(names) || !names.length) return null;
-  const raw = save.ls?.[`gms-native:${game.id}`];
+  const raw = save.ls?.[`native-save/${game.id}`];
   if (typeof raw !== "string") return null;
   try {
     const reported = JSON.parse(raw)?.progress || {};

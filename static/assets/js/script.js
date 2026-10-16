@@ -281,6 +281,26 @@ function whenDomReady(callback) {
   }
 })();
 
+// Per-game cloud saves: on site pages, a signed-in browser syncs saves that
+// were waiting (a closed tab, a lost connection) in the background, once the
+// page has settled. Play pages and the profile page load the engine
+// themselves, and game documents have their own agent.
+(function startCloudSaves() {
+  if (window.GMSSaves || window.__gmsSaveAgent) return;
+  if (location.pathname.startsWith("/misc/")) return;
+  if (!localStorage.getItem("uuid")) return;
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      if (window.GMSSaves) return window.GMSSaves.background();
+      const script = document.createElement("script");
+      script.src = "/assets/js/cloud-saves.js?v=1";
+      script.async = true;
+      script.onload = () => window.GMSSaves?.background();
+      document.head.appendChild(script);
+    }, 2000);
+  });
+})();
+
 // Keep the stored flag in step with the server, so a grant or revoke from
 // /admin applies on the next page load.
 (function refreshPremium() {

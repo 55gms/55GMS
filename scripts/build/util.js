@@ -7,7 +7,13 @@ import path from "node:path";
 // easteregg.min.js is third-party and already minified, so it is left alone.
 // captcha-worker.js is a plain SHA-256 search with nothing to hide, and
 // control-flow flattening would slow its loop several times over.
-export const JS_SKIP = new Set(["easteregg.min.js", "captcha-worker.js"]);
+// save-agent.js wraps localStorage.getItem, which some games call every
+// frame, and is loaded by the game pages under misc/, which are never rebuilt.
+export const JS_SKIP = new Set([
+  "easteregg.min.js",
+  "captcha-worker.js",
+  "save-agent.js",
+]);
 
 // Scripts that export functions which are later serialized with
 // Function.prototype.toString() and re-evaluated in a context that has none of

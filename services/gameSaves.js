@@ -15,7 +15,6 @@ import { deleteBlob, loadSaveText, storeSaveText } from "./saveBlobs.js";
 // same moment are settled one after the other. See docs/cloud-saves.md.
 
 const MB = 1024 * 1024;
-const DAY_MS = 24 * 60 * 60 * 1000;
 
 // What an account may keep. Current saves are never deleted by these
 // limits, whatever happens to premium; only history is trimmed.
@@ -146,14 +145,12 @@ export function parseSaveText(text) {
   return { save, format: `v1:${parts.join("+")}` };
 }
 
-// A device's own clock, kept only when it is believable: never later than
-// now, and within a year.
+// A device's own clock, never later than now. A device sends the oldest
+// time there is for a copy whose last change it never saw.
 function clientTime(value, now) {
   const time = new Date(value);
   if (Number.isNaN(time.getTime())) return now;
-  if (time > now) return now;
-  if (now - time > 365 * DAY_MS) return now;
-  return time;
+  return time > now ? now : time;
 }
 
 function toMeta(row) {
@@ -516,6 +513,52 @@ export async function uploadSave({
     });
   }
   return response;
+}
+
+// Keeps a device's copy in history without competing with the current
+// save: what a Restore replaces in the browser it runs in.
+export async function backupCopy({
+  uuid,
+  gameId,
+  slot = DEFAULT_SLOT,
+  hash,
+  text,
+  deviceId,
+  premium,
+}) {
+  const game = requireGame(gameId);
+  const limits = limitsFor(premium);
+  if (typeof text !== "string" || !text)
+    throw new SaveError(400, "invalid_save", "No save");
+  const size = Buffer.byteLength(text, "utf8");
+  if (size > limits.maxSaveBytes)
+    throw new SaveError(413, "too_large", "This save is too large to keep");
+  if (hashText(text) !== hash)
+    throw new SaveError(400, "hash_mismatch", "The save arrived damaged");
+  const { save, format } = parseSaveText(text);
+  const stored = await storeSaveText(uuid, hash, text);
+  const released = await sequelize.transaction((transaction) =>
+    keepVersion(
+      {
+        uuid,
+        gameId,
+        slot,
+        revision: null,
+        hash,
+        format,
+        size,
+        ...stored,
+        progress: readProgress(game, save),
+        deviceId,
+        modifiedAt: new Date(),
+      },
+      "replaced-locally",
+      limits,
+      transaction,
+    ),
+  );
+  releaseBlobs(released);
+  return { result: "kept" };
 }
 
 export async function getManifest(uuid) {

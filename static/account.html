@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
     <link rel="stylesheet" href="/assets/css/profile.css?v=5" />
     <link rel="stylesheet" href="/assets/css/premium.css?v=1" />
-    <link rel="stylesheet" href="/assets/css/account.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/account.css?v=3" />
     <title>Google</title>
     <meta name="author" content="Rednotsus" />
     <meta http-equiv="Cache-control" content="public" />
@@ -51,8 +51,12 @@
         ></a>
       </div>
     </nav>
-    <div class="site-ad-rail site-ad-rail--left"><div data-55gms-ad data-size="160x600"></div></div>
-    <div class="site-ad-rail site-ad-rail--right"><div data-55gms-ad data-size="160x600"></div></div>
+    <div class="site-ad-rail site-ad-rail--left">
+      <div data-55gms-ad data-size="160x600"></div>
+    </div>
+    <div class="site-ad-rail site-ad-rail--right">
+      <div data-55gms-ad data-size="160x600"></div>
+    </div>
 
     <main class="profile account">
       <svg class="acct-sprite" aria-hidden="true">
@@ -132,6 +136,17 @@
           <path
             d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"
           />
+        </symbol>
+        <symbol id="i-refresh" viewBox="0 0 24 24">
+          <path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5" />
+          <path d="M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5" />
+        </symbol>
+        <symbol id="i-list" viewBox="0 0 24 24">
+          <path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01" />
+        </symbol>
+        <symbol id="i-archive" viewBox="0 0 24 24">
+          <rect x="2" y="3" width="20" height="5" rx="1" />
+          <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8M10 12h4" />
         </symbol>
         <symbol id="i-pine" viewBox="0 0 20 42">
           <path d="M10 0l6 12h-3l6 12h-4l5 12h-9v6H9v-6H0l5-12H1l6-12H4z" />
@@ -229,7 +244,7 @@
             <svg class="acct-icon" aria-hidden="true">
               <use href="#i-gamepad" />
             </svg>
-            <dt>Local saves</dt>
+            <dt id="localCountLabel">Local saves</dt>
             <dd id="localCount">—</dd>
           </div>
           <div class="acct-stat">
@@ -364,7 +379,116 @@
           </dl>
         </section>
 
-        <section class="profile-card acct-card" aria-labelledby="sync-heading">
+        <section
+          class="profile-card acct-card acct-saves"
+          id="savesCard"
+          aria-labelledby="saves-heading"
+        >
+          <div class="acct-card-head">
+            <span class="acct-tile" aria-hidden="true">
+              <svg class="acct-icon acct-icon-solid">
+                <use href="#i-cloud" />
+              </svg>
+            </span>
+            <div class="acct-card-title">
+              <h2 id="saves-heading">Cloud saves</h2>
+              <p>
+                Every game keeps its own save, so syncing one never touches
+                another.
+              </p>
+            </div>
+            <button
+              class="profile-sync"
+              id="savesStatus"
+              type="button"
+              data-state="checking"
+              title="Check again"
+            >
+              <span class="profile-sync-dot" aria-hidden="true"></span>
+              <span id="savesStatusText" aria-live="polite">Checking…</span>
+            </button>
+          </div>
+          <dl class="acct-details saves-facts">
+            <div>
+              <dt>Games in the cloud</dt>
+              <dd id="savesCount">—</dd>
+            </div>
+            <div>
+              <dt>Last synced</dt>
+              <dd id="savesLast">—</dd>
+            </div>
+            <div>
+              <dt>Automatic sync</dt>
+              <dd id="savesAuto">—</dd>
+            </div>
+          </dl>
+          <div class="acct-row">
+            <span class="acct-row-icon" aria-hidden="true">
+              <svg class="acct-icon"><use href="#i-refresh" /></svg>
+            </span>
+            <div class="acct-row-text">
+              <p class="profile-row-title">Sync now</p>
+              <p class="profile-row-desc" id="syncNowDesc">
+                Uploads games changed in this browser and brings in newer cloud
+                saves.
+              </p>
+            </div>
+            <button
+              type="button"
+              class="p-btn p-btn-primary"
+              id="syncNowButton"
+            >
+              <span class="p-btn-label">
+                <svg class="acct-icon" aria-hidden="true">
+                  <use href="#i-refresh" />
+                </svg>
+                Sync now
+              </span>
+              <span class="p-spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="acct-row">
+            <span class="acct-row-icon" aria-hidden="true">
+              <svg class="acct-icon"><use href="#i-list" /></svg>
+            </span>
+            <div class="acct-row-text">
+              <p class="profile-row-title">Manage game saves</p>
+              <p class="profile-row-desc">
+                See each game's status, restore it, or go back to an earlier
+                version.
+              </p>
+            </div>
+            <button type="button" class="p-btn" id="manageSavesButton">
+              <span class="p-btn-label">Manage</span>
+            </button>
+          </div>
+          <div class="acct-row" id="legacyRow" hidden>
+            <span class="acct-row-icon" aria-hidden="true">
+              <svg class="acct-icon"><use href="#i-archive" /></svg>
+            </span>
+            <div class="acct-row-text">
+              <p class="profile-row-title">Older full backup</p>
+              <p class="profile-row-desc" id="legacyDesc">
+                Your backup of everything from before per-game saves. It is kept
+                as it is.
+              </p>
+            </div>
+            <button type="button" class="p-btn" id="legacyRestoreButton">
+              <span class="p-btn-label">Restore all</span>
+              <span class="p-spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="acct-foot">
+            <span id="savesHint" aria-live="polite"></span>
+          </div>
+        </section>
+
+        <section
+          class="profile-card acct-card"
+          id="legacySyncCard"
+          aria-labelledby="sync-heading"
+          hidden
+        >
           <div class="acct-card-head">
             <span class="acct-tile" aria-hidden="true">
               <svg class="acct-icon acct-icon-solid">
@@ -593,6 +717,65 @@
       </div>
 
       <dialog
+        class="avatar-dialog saves-dialog"
+        id="savesDialog"
+        aria-labelledby="saves-dialog-heading"
+      >
+        <div class="avatar-dialog-body">
+          <div class="avatar-dialog-head">
+            <div>
+              <h2 id="saves-dialog-heading">Game saves</h2>
+              <p id="savesDialogLead">
+                Each game is saved and synced on its own.
+              </p>
+            </div>
+            <button
+              type="button"
+              class="avatar-dialog-close"
+              id="savesDialogClose"
+              aria-label="Close"
+            >
+              <svg
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                aria-hidden="true"
+              >
+                <path d="m4 4 8 8M12 4l-8 8" />
+              </svg>
+            </button>
+          </div>
+          <div class="saves-view" id="savesListView">
+            <label class="saves-search">
+              <span class="visually-hidden">Search your saved games</span>
+              <input
+                type="search"
+                id="savesSearch"
+                placeholder="Search games"
+                autocomplete="off"
+                spellcheck="false"
+              />
+            </label>
+            <ul class="saves-list" id="savesList" aria-live="polite"></ul>
+            <p class="saves-empty" id="savesEmpty" hidden></p>
+          </div>
+          <div class="saves-view" id="savesHistoryView" hidden>
+            <button type="button" class="saves-back" id="savesBack">
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M10 3 5 8l5 5" />
+              </svg>
+              All games
+            </button>
+            <h3 class="saves-history-title" id="savesHistoryTitle"></h3>
+            <p class="saves-history-note" id="savesHistoryNote"></p>
+            <ul class="saves-list" id="savesHistoryList"></ul>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog
         class="avatar-dialog"
         id="clearDialog"
         aria-labelledby="clear-heading"
@@ -623,6 +806,7 @@
       <div class="p-toasts" id="toasts" role="status" aria-live="polite"></div>
     </main>
 
+    <script src="/assets/js/cloud-saves.js"></script>
     <script>
       (function () {
         const uuid = localStorage.getItem("uuid");
@@ -638,6 +822,9 @@
 
         let handle = username;
         let avatar = null;
+        // Per-game cloud saves (cloud-saves.js), unless the server has none.
+        let perGame = Boolean(window.GMSSaves);
+        let unsyncedGames = 0;
 
         function avatarUrl(id) {
           return /^a\d{2}$/.test(id || "") ? `/img/avatars/${id}.svg` : "";
@@ -1015,8 +1202,15 @@
             });
         }
 
-        syncStatus.addEventListener("click", checkSyncStatus);
-        checkSyncStatus();
+        // Only a server without per-game saves uses the full-browser
+        // backup above; useLegacySync() below turns it on.
+        function useLegacySync() {
+          perGame = false;
+          document.getElementById("savesCard").hidden = true;
+          document.getElementById("legacySyncCard").hidden = false;
+          syncStatus.addEventListener("click", checkSyncStatus);
+          checkSyncStatus();
+        }
 
         uploadButton.addEventListener("click", () => {
           if (!beginSync(uploadButton)) return;
@@ -1127,6 +1321,537 @@
           });
         }
 
+        // ---------- Per-game cloud saves ----------
+        // Statuses come from GMSSaves.overview() (cloud-saves.js): what this
+        // browser holds for each game against the cloud's manifest.
+        const STATUS_TEXT = {
+          synced: "Synced",
+          saving: "Saving…",
+          offline: "Waiting for connection",
+          failed: "Sync failed",
+          error: "Sync failed",
+          "signed-out": "Sign in again",
+          "not-synced": "Not synced",
+          "cloud-only": "In the cloud",
+          "cloud-newer": "Newer in the cloud",
+          "local-only": "Local only",
+        };
+        const STATUS_TONE = {
+          synced: "synced",
+          saving: "checking",
+          offline: "unsynced",
+          failed: "error",
+          error: "error",
+          "signed-out": "error",
+          "not-synced": "unsynced",
+          "cloud-only": "idle",
+          "cloud-newer": "unsynced",
+          "local-only": "idle",
+        };
+        const SUPPORT_TEXT = {
+          progress: "Conflicts keep the save that is furthest along",
+          observed: "Conflicts keep the most recent save",
+          "local-only": "This game's saves stay on this device",
+        };
+        const REASON_TEXT = {
+          superseded: "Replaced by a newer save",
+          conflict: "Set aside in a conflict",
+          stale: "Arrived after a restore",
+          "restored-over": "Replaced by a restore",
+          "replaced-locally": "This browser's copy, before a restore",
+        };
+        const savesStatus = document.getElementById("savesStatus");
+        const savesStatusText = document.getElementById("savesStatusText");
+        const savesHint = document.getElementById("savesHint");
+        const syncNowButton = document.getElementById("syncNowButton");
+        const savesDialog = document.getElementById("savesDialog");
+        const savesList = document.getElementById("savesList");
+        const savesEmpty = document.getElementById("savesEmpty");
+        const savesSearch = document.getElementById("savesSearch");
+        const savesListView = document.getElementById("savesListView");
+        const savesHistoryView = document.getElementById("savesHistoryView");
+        let overviewData = null;
+        let billingSold = false;
+        let refreshTimer = 0;
+        let busyGames = new Set();
+
+        function ago(time) {
+          if (!time) return "never";
+          const seconds = Math.round((Date.now() - time) / 1000);
+          if (seconds < 45) return "just now";
+          if (seconds < 3600) return `${Math.round(seconds / 60)} min ago`;
+          if (seconds < 86400) return `${Math.round(seconds / 3600)} h ago`;
+          return new Date(time).toLocaleDateString(undefined, {
+            month: "short",
+            day: "numeric",
+            year:
+              new Date(time).getFullYear() === new Date().getFullYear()
+                ? undefined
+                : "numeric",
+          });
+        }
+
+        function setOverall(tone, text, hint) {
+          savesStatus.dataset.state = tone;
+          savesStatusText.textContent = text;
+          heroSync.dataset.state = tone;
+          heroSyncText.textContent = text;
+          savesHint.textContent = hint || "";
+        }
+
+        function renderOverview() {
+          const { games, manifest } = overviewData;
+          const lastSynced = Math.max(
+            0,
+            ...games.map((game) => game.lastSyncedAt || 0),
+          );
+          document.getElementById("savesCount").textContent = manifest
+            ? manifest.saves.length.toLocaleString()
+            : "—";
+          document.getElementById("savesLast").textContent = lastSynced
+            ? ago(lastSynced)
+            : "—";
+          const auto = document.getElementById("savesAuto");
+          auto.replaceChildren();
+          if (manifest?.autoSync) {
+            auto.textContent = "On";
+          } else {
+            auto.append("Off");
+            if (billingSold) {
+              const link = document.createElement("a");
+              link.href = "/premium";
+              link.className = "saves-upsell";
+              link.textContent = "Premium";
+              auto.append(" · ", link);
+            }
+          }
+          document.getElementById("syncNowDesc").textContent =
+            manifest?.autoSync
+              ? "Premium syncs as you play. Use this to sync every game in this browser right away."
+              : "Uploads games changed in this browser and brings in newer cloud saves.";
+
+          const failing = games.filter((game) =>
+            ["failed", "error"].includes(game.status),
+          );
+          const waiting = games.filter((game) => game.status === "offline");
+          const unsynced = games.filter((game) => game.status === "not-synced");
+          unsyncedGames = failing.length + waiting.length + unsynced.length;
+          if (games.some((game) => game.status === "signed-out")) {
+            setOverall(
+              "error",
+              "Sign in again",
+              "Your session has ended. Sign out and back in to keep syncing.",
+            );
+          } else if (failing.length) {
+            setOverall(
+              "error",
+              "Sync failed",
+              `${failing.length} game${failing.length === 1 ? "" : "s"} couldn't sync. Open Manage game saves for details.`,
+            );
+          } else if (waiting.length) {
+            setOverall(
+              "unsynced",
+              "Waiting for connection",
+              "Saves stay in this browser and sync when you're back online.",
+            );
+          } else if (unsynced.length) {
+            setOverall(
+              "unsynced",
+              `${unsynced.length} not synced`,
+              manifest?.autoSync
+                ? "These sync on their own shortly, or press Sync now."
+                : "Press Sync now to back them up.",
+            );
+          } else if (games.some((game) => game.status === "saving")) {
+            setOverall("checking", "Saving…", "");
+          } else if (games.length) {
+            setOverall(
+              "synced",
+              "Synced",
+              "Your games in this browser match the cloud.",
+            );
+          } else {
+            setOverall(
+              "idle",
+              "No saves yet",
+              "Play a game and its progress shows up here.",
+            );
+          }
+
+          const local = games.filter((game) => game.local).length;
+          document.getElementById("localCountLabel").textContent =
+            "Games saved here";
+          document.getElementById("localCount").textContent =
+            local.toLocaleString();
+
+          const legacyRow = document.getElementById("legacyRow");
+          legacyRow.hidden = !manifest?.legacy;
+          if (manifest?.legacy) {
+            document.getElementById("legacyDesc").textContent =
+              `Your backup of everything from before per-game saves, last changed ${ago(Date.parse(manifest.legacy.updatedAt))}. It is kept as it is.`;
+          }
+          if (savesDialog.open && !savesListView.hidden) renderList();
+        }
+
+        async function refreshSaves({ fresh = true } = {}) {
+          if (!perGame) return;
+          try {
+            overviewData = await GMSSaves.overview({ fresh });
+            renderOverview();
+          } catch (error) {
+            if (error.status === 503) return useLegacySync();
+            if (error.status === 401) {
+              setOverall(
+                "error",
+                "Sign in again",
+                "Your session has ended. Sign out and back in to sync saves.",
+              );
+            } else {
+              setOverall(
+                "error",
+                "Couldn't check",
+                "Couldn't reach your cloud saves. Try again in a moment.",
+              );
+            }
+          }
+        }
+
+        function scheduleRefresh() {
+          clearTimeout(refreshTimer);
+          refreshTimer = setTimeout(() => refreshSaves({ fresh: false }), 1200);
+        }
+
+        function button(label, onClick, primary) {
+          const element = document.createElement("button");
+          element.type = "button";
+          element.className = primary
+            ? "p-btn p-btn-primary saves-action"
+            : "p-btn saves-action";
+          const text = document.createElement("span");
+          text.className = "p-btn-label";
+          text.textContent = label;
+          const spinner = document.createElement("span");
+          spinner.className = "p-spinner";
+          spinner.setAttribute("aria-hidden", "true");
+          element.append(text, spinner);
+          element.addEventListener("click", () => onClick(element));
+          return element;
+        }
+
+        async function runGameAction(gameId, element, work, done) {
+          if (busyGames.has(gameId)) return;
+          busyGames.add(gameId);
+          setLoading(element, true);
+          element.disabled = true;
+          try {
+            const result = await work();
+            if (
+              result &&
+              ["failed", "error", "offline", "signed-out"].includes(
+                result.status,
+              )
+            ) {
+              throw new Error(result.error || STATUS_TEXT[result.status]);
+            }
+            if (result?.status === "cloud-newer") {
+              throw new Error(
+                "This game is open in another tab. Close it to finish syncing.",
+              );
+            }
+            toast("success", done);
+          } catch (error) {
+            toast("error", error.message || "That didn't work. Try again.");
+          } finally {
+            busyGames.delete(gameId);
+            await refreshSaves({ fresh: true });
+            updateLocalSize();
+          }
+        }
+
+        function renderList() {
+          if (!overviewData) return;
+          const query = savesSearch.value.trim().toLowerCase();
+          const games = overviewData.games.filter(
+            (game) => !query || game.name.toLowerCase().includes(query),
+          );
+          savesEmpty.hidden = games.length > 0;
+          savesEmpty.textContent = overviewData.games.length
+            ? "No saved game matches that."
+            : "No game has a save yet. Play one and it shows up here.";
+          savesList.replaceChildren(
+            ...games.map((game) => {
+              const row = document.createElement("li");
+              row.className = "save-row";
+
+              const main = document.createElement("div");
+              main.className = "save-main";
+              const name = document.createElement("a");
+              name.className = "save-name";
+              name.href = game.play || "#";
+              name.textContent = game.name;
+              const detail = document.createElement("p");
+              detail.className = "save-meta";
+              const parts = [];
+              if (game.lastSyncedAt)
+                parts.push(`Synced ${ago(game.lastSyncedAt)}`);
+              const size = game.local?.size ?? game.cloud?.size;
+              if (size) parts.push(formatBytes(size));
+              if (game.cloud?.progress) parts.push(game.cloud.progress);
+              detail.textContent =
+                parts.join(" · ") ||
+                (game.local ? "Only in this browser" : "Only in the cloud");
+              const support = document.createElement("p");
+              support.className = "save-support";
+              support.textContent =
+                game.status === "error" || game.status === "failed"
+                  ? game.error || "Couldn't sync this game."
+                  : game.shared
+                    ? "Some of its data is shared with other games and stays on this device."
+                    : SUPPORT_TEXT[game.support] || "";
+              main.append(name, detail, support);
+
+              const status = document.createElement("span");
+              status.className = "save-status";
+              status.dataset.state = STATUS_TONE[game.status] || "idle";
+              const dot = document.createElement("span");
+              dot.className = "profile-sync-dot";
+              dot.setAttribute("aria-hidden", "true");
+              status.append(dot, STATUS_TEXT[game.status] || game.status);
+
+              const actions = document.createElement("div");
+              actions.className = "save-actions";
+              if (game.support !== "local-only") {
+                if (game.local && game.status !== "synced") {
+                  actions.append(
+                    button(
+                      "Sync",
+                      (element) =>
+                        runGameAction(
+                          game.gameId,
+                          element,
+                          () =>
+                            GMSSaves.syncGame(game.gameId, { mode: "manual" }),
+                          `${game.name} synced.`,
+                        ),
+                      true,
+                    ),
+                  );
+                }
+                if (game.cloud && game.status !== "synced") {
+                  actions.append(
+                    button("Restore", (element) =>
+                      runGameAction(
+                        game.gameId,
+                        element,
+                        () => GMSSaves.restore(game.gameId),
+                        `${game.name} restored from the cloud.`,
+                      ),
+                    ),
+                  );
+                }
+                if (game.cloud) {
+                  actions.append(button("History", () => openHistory(game)));
+                }
+              }
+              row.append(main, status, actions);
+              return row;
+            }),
+          );
+        }
+
+        async function openHistory(game) {
+          savesListView.hidden = true;
+          savesHistoryView.hidden = false;
+          document.getElementById("savesHistoryTitle").textContent = game.name;
+          const note = document.getElementById("savesHistoryNote");
+          const list = document.getElementById("savesHistoryList");
+          note.textContent = "Loading earlier versions…";
+          list.replaceChildren();
+          try {
+            const { versions, keepDays, keepVersions } = await GMSSaves.history(
+              game.gameId,
+            );
+            const premium = overviewData?.manifest?.premium;
+            note.textContent =
+              (versions.length ? "" : "No earlier versions yet. ") +
+              `Up to ${keepVersions} versions are kept for ${keepDays} days.` +
+              (!premium && billingSold
+                ? " Premium keeps more, for longer."
+                : "");
+            list.replaceChildren(
+              ...versions.map((version) => {
+                const row = document.createElement("li");
+                row.className = "save-row";
+                const main = document.createElement("div");
+                main.className = "save-main";
+                const title = document.createElement("p");
+                title.className = "save-name";
+                title.textContent =
+                  REASON_TEXT[version.reason] || "Earlier save";
+                const detail = document.createElement("p");
+                detail.className = "save-meta";
+                detail.textContent = [
+                  ago(Date.parse(version.keptAt)),
+                  formatBytes(version.size),
+                  version.progress,
+                ]
+                  .filter(Boolean)
+                  .join(" · ");
+                main.append(title, detail);
+                const actions = document.createElement("div");
+                actions.className = "save-actions";
+                actions.append(
+                  button("Restore", (element) =>
+                    runGameAction(
+                      game.gameId,
+                      element,
+                      () => GMSSaves.restoreVersion(game.gameId, version.id),
+                      `${game.name} is back to that version.`,
+                    ).then(() => openHistory(game)),
+                  ),
+                );
+                row.append(main, actions);
+                return row;
+              }),
+            );
+          } catch (error) {
+            note.textContent =
+              error.message || "Couldn't load earlier versions.";
+          }
+        }
+
+        function closeHistory() {
+          savesHistoryView.hidden = true;
+          savesListView.hidden = false;
+          renderList();
+        }
+
+        async function syncNow() {
+          if (syncNowButton.disabled) return;
+          syncNowButton.disabled = true;
+          setLoading(syncNowButton, true);
+          setOverall("checking", "Syncing…", "Syncing your games…");
+          try {
+            const results = await GMSSaves.syncAll({
+              onProgress: (finished, total) => {
+                savesHint.textContent = `Syncing ${finished} of ${total}…`;
+              },
+            });
+            const failed = results.filter(
+              (state) =>
+                state &&
+                ["failed", "error", "offline", "signed-out"].includes(
+                  state.status,
+                ),
+            );
+            if (!results.length) toast("success", "Nothing to sync yet.");
+            else if (failed.length)
+              toast(
+                "error",
+                `${failed.length} game${failed.length === 1 ? "" : "s"} couldn't sync.`,
+              );
+            else
+              toast(
+                "success",
+                `${results.length} game${results.length === 1 ? "" : "s"} synced.`,
+              );
+          } catch (error) {
+            toast("error", error.message || "Couldn't sync right now.");
+          } finally {
+            setLoading(syncNowButton, false);
+            syncNowButton.disabled = false;
+            await refreshSaves();
+            updateLocalSize();
+          }
+        }
+
+        // Restore all: the older full backup, added to this browser's data
+        // the way the old Restore did. The keys that sign this browser in
+        // and the proxy's storage are left as they are.
+        async function restoreLegacy() {
+          const legacyButton = document.getElementById("legacyRestoreButton");
+          if (legacyButton.disabled) return;
+          legacyButton.disabled = true;
+          setLoading(legacyButton, true);
+          const previous = new Map();
+          try {
+            const data = await GMSSaves.legacyBackup();
+            try {
+              for (const key in data) {
+                if (
+                  isProxyStorageKey(key) ||
+                  ["uuid", "username", "premium"].includes(key)
+                )
+                  continue;
+                const value =
+                  typeof data[key] === "object"
+                    ? JSON.stringify(data[key])
+                    : String(data[key]);
+                previous.set(key, localStorage.getItem(key));
+                localStorage.setItem(key, value);
+              }
+            } catch (error) {
+              for (const [key, value] of previous) {
+                if (value === null) localStorage.removeItem(key);
+                else localStorage.setItem(key, value);
+              }
+              throw error.name === "QuotaExceededError"
+                ? new Error(
+                    "The older backup doesn't fit next to the data already in this browser, so nothing was changed.",
+                  )
+                : error;
+            }
+            toast(
+              "success",
+              "Older backup restored. Its games sync on their own from now on.",
+            );
+          } catch (error) {
+            toast(
+              "error",
+              error.message || "Couldn't restore the older backup.",
+            );
+          } finally {
+            setLoading(legacyButton, false);
+            legacyButton.disabled = false;
+            updateLocalSize();
+            refreshSaves();
+          }
+        }
+
+        if (perGame) {
+          savesStatus.addEventListener("click", () => refreshSaves());
+          syncNowButton.addEventListener("click", syncNow);
+          document
+            .getElementById("legacyRestoreButton")
+            .addEventListener("click", restoreLegacy);
+          document
+            .getElementById("manageSavesButton")
+            .addEventListener("click", () => {
+              closeHistory();
+              savesDialog.showModal();
+              savesSearch.focus();
+            });
+          document
+            .getElementById("savesDialogClose")
+            .addEventListener("click", () => savesDialog.close());
+          savesDialog.addEventListener("click", (event) => {
+            if (event.target === savesDialog) savesDialog.close();
+          });
+          document
+            .getElementById("savesBack")
+            .addEventListener("click", closeHistory);
+          savesSearch.addEventListener("input", renderList);
+          GMSSaves.on("status", scheduleRefresh);
+          // Set by the login page: sync each game once, on arrival.
+          const syncOnArrival = sessionStorage.getItem("gmsSyncOnArrival");
+          sessionStorage.removeItem("gmsSyncOnArrival");
+          refreshSaves().then(() => {
+            if (syncOnArrival && perGame) syncNow();
+          });
+        } else {
+          useLegacySync();
+        }
+
         fetch("/api/checkPremium", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -1196,6 +1921,8 @@
                 if (upgradeLink) upgradeLink.hidden = true;
               }
               section.hidden = false;
+              billingSold = true;
+              if (overviewData) renderOverview();
             })
             .catch((error) => console.error("Error:", error));
 
@@ -1223,8 +1950,9 @@
 
         document.getElementById("clearButton").addEventListener("click", () => {
           const state = syncStatus.dataset.state;
-          document.getElementById("clearWarning").hidden =
-            state === "synced" || state === "checking";
+          document.getElementById("clearWarning").hidden = perGame
+            ? unsyncedGames === 0
+            : state === "synced" || state === "checking";
           clearDialog.showModal();
         });
         document
@@ -1242,7 +1970,8 @@
             clearDialog.close();
             updateLocalSize();
             toast("success", "Local data cleared.");
-            checkSyncStatus();
+            if (perGame) refreshSaves();
+            else checkSyncStatus();
           });
 
         document
