@@ -131,14 +131,21 @@
    "name": "Archery World Tour",
    "play": "/misc/play/?title=Archery%20World%20Tour&author=Famobi&link=archeryWorldTour",
    "frame": "/misc/archeryWorldTour/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "asmallworldcup": {
    "id": "asmallworldcup",
    "name": "A Small World Cup",
    "play": "/misc/play/?title=A%20Small%20World%20Cup&author=Rujo%20Games&link=asmallworldcup",
    "frame": "/misc/asmallworldcup/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "_C2SaveStates",
+     "localforage"
+    ]
+   }
   },
   "astrosurvivor": {
    "id": "astrosurvivor",
@@ -194,7 +201,12 @@
    "name": "Bad Time Simulator",
    "play": "/misc/play/?title=Bad%20Time%20Simulator&link=bad-time-simulator",
    "frame": "/misc/bad-time-simulator/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "_C2SaveStates"
+    ]
+   }
   },
   "badicecream": {
    "id": "badicecream",
@@ -243,7 +255,8 @@
    "name": "Baseball Bros",
    "play": "/misc/play/?title=Baseball%20Bros&link=baseballbros-io",
    "frame": "/misc/baseballbros-io/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "basket-random": {
    "id": "basket-random",
@@ -306,7 +319,13 @@
    "name": "Big Tower Tiny Square",
    "play": "/misc/play/?title=Big%20Tower%20Tiny%20Square&link=big-tower-tiny-square",
    "frame": "/misc/big-tower-tiny-square/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "_C2SaveStates",
+     "localforage"
+    ]
+   }
   },
   "bikeobby": {
    "id": "bikeobby",
@@ -543,7 +562,8 @@
    "name": "Car Machines",
    "play": "/misc/play/?title=Car%20Machines&link=car-machines",
    "frame": "/misc/car-machines/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "carnado-stunt-car": {
    "id": "carnado-stunt-car",
@@ -564,7 +584,12 @@
    "name": "Choppy Orc",
    "play": "/misc/play/?title=Choppy Orc&author=Y8&link=choppyorc",
    "frame": "/misc/choppyorc/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "_C2SaveStates"
+    ]
+   }
   },
   "circloo": {
    "id": "circloo",
@@ -693,7 +718,10 @@
    "name": "Dadish 3D",
    "play": "/misc/play/?title=Dadish%203D&link=dadish3d",
    "frame": "/misc/dadish3d/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "unityFolder": true
+   }
   },
   "dailydadish": {
    "id": "dailydadish",
@@ -749,14 +777,22 @@
    "name": "Digging Master",
    "play": "/misc/play/?title=Digging%20Master&link=digging-master",
    "frame": "/misc/digging-master/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "unityFolder": true
+   }
   },
   "dino-bros": {
    "id": "dino-bros",
    "name": "Dino Bros",
    "play": "/misc/play/?title=Dino%20Bros&link=dino-bros",
    "frame": "/misc/dino-bros/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "/sandbox"
+    ]
+   }
   },
   "dino-fighter": {
    "id": "dino-fighter",
@@ -826,7 +862,12 @@
    "name": "Drive Mad",
    "play": "/misc/play/?title=Drive%20Mad&author=Martin%20Magni&link=drive-mad",
    "frame": "/misc/drive-mad/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "/sandbox"
+    ]
+   }
   },
   "duck-merge": {
    "id": "duck-merge",
@@ -866,7 +907,8 @@
    "id": "eaglercraftx",
    "name": "eaglercraftx",
    "frame": "/misc/eaglercraftx/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "edgenotfound": {
    "id": "edgenotfound",
@@ -880,7 +922,13 @@
    "name": "Eggy Car",
    "play": "/misc/play/?title=Eggy%20Car&author=Beedo%20Games&link=eggy-car",
    "frame": "/misc/eggy-car/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "_C2SaveStates",
+     "localforage"
+    ]
+   }
   },
   "emulator-emulatorjs": {
    "id": "emulator-emulatorjs",
@@ -1039,208 +1087,238 @@
    "name": "1 on 1 Soccer",
    "play": "/misc/play/?title=1%20on%201%20Soccer&author=Jayden%20Shin&link=flash/index.html%3Fswf%3D1on1soccer.swf",
    "frame": "/misc/flash/index.html?swf=1on1soccer.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-alien-hominid": {
    "id": "flash-alien-hominid",
    "name": "Alien Hominid",
    "play": "/misc/play/?title=Alien%20Hominid&author=Tom%20Fulp&link=flash/index.html%3Fswf%3Dalien-hominid.swf",
    "frame": "/misc/flash/index.html?swf=alien-hominid.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-bloons-tower-defense-2": {
    "id": "flash-bloons-tower-defense-2",
    "name": "Bloons TD 2",
    "play": "/misc/play/?title=Bloons%20TD%202&author=Ninja%20Kiwi&link=flash/index.html%3Fswf%3Dbloons-tower-defense-2.swf",
    "frame": "/misc/flash/index.html?swf=bloons-tower-defense-2.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-bloonstd1": {
    "id": "flash-bloonstd1",
    "name": "Bloons TD",
    "play": "/misc/play/?title=Bloons%20TD&author=Ninja%20Kiwi&link=flash/index.html%3Fswf%3Dbloonstd1.swf",
    "frame": "/misc/flash/index.html?swf=bloonstd1.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-bloonstd3": {
    "id": "flash-bloonstd3",
    "name": "Bloons TD 3",
    "play": "/misc/play/?title=Bloons%20TD%203&author=Ninja%20Kiwi&link=flash/index.html%3Fswf%3Dbloonstd3.swf",
    "frame": "/misc/flash/index.html?swf=bloonstd3.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-cubefield": {
    "id": "flash-cubefield",
    "name": "Cubefield",
    "play": "/misc/play/?title=Cubefield&author=Nils%20Asejevs&link=flash/index.html%3Fswf%3Dcubefield.swf",
    "frame": "/misc/flash/index.html?swf=cubefield.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-duck-life": {
    "id": "flash-duck-life",
    "name": "Duck Life",
    "play": "/misc/play/?title=Duck%20Life&author=Wix%20Games&link=flash/index.html%3Fswf%3Dduck-life.swf",
    "frame": "/misc/flash/index.html?swf=duck-life.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-duck-life-2": {
    "id": "flash-duck-life-2",
    "name": "Duck Life 2",
    "play": "/misc/play/?title=Duck%20Life%202&author=Wix%20Games&link=flash/index.html%3Fswf%3Dduck-life-2.swf",
    "frame": "/misc/flash/index.html?swf=duck-life-2.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-duck-life-3": {
    "id": "flash-duck-life-3",
    "name": "Duck Life 3",
    "play": "/misc/play/?title=Duck%20Life%203&author=Wix%20Games&link=flash/index.html%3Fswf%3Dduck-life-3.swf",
    "frame": "/misc/flash/index.html?swf=duck-life-3.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-duck-life-4": {
    "id": "flash-duck-life-4",
    "name": "Duck Life 4",
    "play": "/misc/play/?title=Duck%20Life%204&author=Wix%20Games&link=flash/index.html%3Fswf%3Dduck-life-4.swf",
    "frame": "/misc/flash/index.html?swf=duck-life-4.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-fancy-pants-adventure2": {
    "id": "flash-fancy-pants-adventure2",
    "name": "FancyPants Adventure 2",
    "play": "/misc/play/?title=FancyPants%20Adventure%202&author=Brad%20Borne&link=flash/index.html%3Fswf%3Dfancy-pants-adventure2.swf",
    "frame": "/misc/flash/index.html?swf=fancy-pants-adventure2.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-fancypantsadventure": {
    "id": "flash-fancypantsadventure",
    "name": "FancyPants Adventure",
    "play": "/misc/play/?title=FancyPants%20Adventure&author=Brad%20Borne&link=flash/index.html%3Fswf%3Dfancypantsadventure.swf",
    "frame": "/misc/flash/index.html?swf=fancypantsadventure.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-gfiles-btd4": {
    "id": "flash-gfiles-btd4",
    "name": "Bloons TD 4",
    "play": "/misc/play/?title=Bloons%20TD%204&author=Ninja%20Kiwi&link=flash/gfiles/btd4",
    "frame": "/misc/flash/gfiles/btd4/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-gmayhem2": {
    "id": "flash-gmayhem2",
    "name": "Gun Mayhem 2",
    "frame": "/misc/flash/index.html?swf=gmayhem2.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-gun-mayhem-3": {
    "id": "flash-gun-mayhem-3",
    "name": "Gun Mayhem 3",
    "frame": "/misc/flash/index.html?swf=gun-mayhem-3.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-happywheels": {
    "id": "flash-happywheels",
    "name": "Happy Wheels",
    "play": "/misc/play/?title=Happy%20Wheels&author=Jim%20Bonacci&link=flash/index.html%3Fswf%3Dhappywheels.swf",
    "frame": "/misc/flash/index.html?swf=happywheels.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-hobo": {
    "id": "flash-hobo",
    "name": "Hobo",
    "play": "/misc/play/?title=Hobo&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo.swf",
    "frame": "/misc/flash/index.html?swf=hobo.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-hobo-2": {
    "id": "flash-hobo-2",
    "name": "Hobo 2",
    "play": "/misc/play/?title=Hobo%202&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-2.swf",
    "frame": "/misc/flash/index.html?swf=hobo-2.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-hobo-3": {
    "id": "flash-hobo-3",
    "name": "Hobo 3",
    "play": "/misc/play/?title=Hobo%203&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-3.swf",
    "frame": "/misc/flash/index.html?swf=hobo-3.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-hobo-4": {
    "id": "flash-hobo-4",
    "name": "Hobo 4",
    "play": "/misc/play/?title=Hobo%204&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-4.swf",
    "frame": "/misc/flash/index.html?swf=hobo-4.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-hobo-5": {
    "id": "flash-hobo-5",
    "name": "Hobo 5",
    "play": "/misc/play/?title=Hobo%205&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-5.swf",
    "frame": "/misc/flash/index.html?swf=hobo-5.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-hobo-6": {
    "id": "flash-hobo-6",
    "name": "Hobo 6",
    "play": "/misc/play/?title=Hobo%206&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-6.swf",
    "frame": "/misc/flash/index.html?swf=hobo-6.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-hobo-7": {
    "id": "flash-hobo-7",
    "name": "Hobo 7",
    "play": "/misc/play/?title=Hobo%207&author=SeethingSwarm&link=flash/index.html%3Fswf%3Dhobo-7.swf",
    "frame": "/misc/flash/index.html?swf=hobo-7.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-learn-to-fly-2": {
    "id": "flash-learn-to-fly-2",
    "name": "Learn to Fly 2",
    "play": "/misc/play/?title=Learn%20to%20Fly%202&author=Light%20Bringer%20Games&link=flash/index.html%3Fswf%3Dlearn-to-fly-2.swf",
    "frame": "/misc/flash/index.html?swf=learn-to-fly-2.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-tetris": {
    "id": "flash-tetris",
    "name": "Tetris",
    "play": "/misc/play/?title=Tetris&author=Nintendo&link=flash/index.html%3Fswf%3Dtetris.swf",
    "frame": "/misc/flash/index.html?swf=tetris.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-thebindingofisaac": {
    "id": "flash-thebindingofisaac",
    "name": "The Binding Of Issac",
    "play": "/misc/play/?title=The%20Binding%20Of%20Issac&author=Edmund%20McMillens&link=flash/index.html%3Fswf%3Dthebindingofisaac.swf",
    "frame": "/misc/flash/index.html?swf=thebindingofisaac.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-whack-your-boss-24": {
    "id": "flash-whack-your-boss-24",
    "name": "Whack Your Boss",
    "play": "/misc/play/?title=Whack%20Your%20Boss&author=Doodieman&link=flash/index.html%3Fswf%3Dwhack-your-boss-24.swf",
    "frame": "/misc/flash/index.html?swf=whack-your-boss-24.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-whack-your-computer-12-ways": {
    "id": "flash-whack-your-computer-12-ways",
    "name": "Whack Your Computer",
    "play": "/misc/play/?title=Whack%20Your%20Computer&author=Doodieman&link=flash/index.html%3Fswf%3Dwhack_your_computer_12_ways.swf",
    "frame": "/misc/flash/index.html?swf=whack_your_computer_12_ways.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-whack-your-ex": {
    "id": "flash-whack-your-ex",
    "name": "Whack Your Ex",
    "play": "/misc/play/?title=Whack%20Your%20Ex&author=Doodieman&link=flash/index.html%3Fswf%3Dwhack-your-ex.swf",
    "frame": "/misc/flash/index.html?swf=whack-your-ex.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flash-worlds-hardest-game-2": {
    "id": "flash-worlds-hardest-game-2",
    "name": "Worlds Hardest Game 2",
    "play": "/misc/play/?title=Worlds%20Hardest%20Game%202&author=Armor%20Games%20Inc.&link=flash/index.html%3Fswf%3Dworlds-hardest-game-2.swf",
    "frame": "/misc/flash/index.html?swf=worlds-hardest-game-2.swf",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "flickgoal": {
    "id": "flickgoal",
@@ -1429,7 +1507,12 @@
    "name": "Gobble",
    "play": "/misc/play/?title=Gobble&author=Fancade&link=gobble",
    "frame": "/misc/gobble/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "/sandbox"
+    ]
+   }
   },
   "going-balls": {
    "id": "going-balls",
@@ -1443,7 +1526,10 @@
    "name": "Golf Orbit",
    "play": "/misc/play/?title=Golf%20Orbit&link=golforbit",
    "frame": "/misc/golforbit/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "unityFolder": true
+   }
   },
   "goods-master": {
    "id": "goods-master",
@@ -1676,7 +1762,13 @@
    "name": "Idle Cowshed",
    "play": "/misc/play/?title=Idle%20Cowshed&link=idle-cowshed",
    "frame": "/misc/idle-cowshed/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "_C2SaveStates",
+     "localforage"
+    ]
+   }
   },
   "idle-dice": {
    "id": "idle-dice",
@@ -1690,14 +1782,20 @@
    "name": "Idle Digging Tycoon",
    "play": "/misc/play/?title=Idle%20Digging%20Tycoon&link=idle-digging-tycoon",
    "frame": "/misc/idle-digging-tycoon/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "unityFolder": true
+   }
   },
   "idle-lumber-inc": {
    "id": "idle-lumber-inc",
    "name": "Idle Lumber Inc",
    "play": "/misc/play/?title=Idle%20Lumber%20Inc&link=idle-lumber-inc",
    "frame": "/misc/idle-lumber-inc/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "unityFolder": true
+   }
   },
   "idle-mining-empire": {
    "id": "idle-mining-empire",
@@ -1816,7 +1914,8 @@
    "name": "Kick The Buddy",
    "play": "/misc/play/?title=Kick%20The%20Buddy&link=kick-the-buddy",
    "frame": "/misc/kick-the-buddy/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "kindergarden": {
    "id": "kindergarden",
@@ -1851,7 +1950,13 @@
    "name": "Knife Hit",
    "play": "/misc/play/?title=Knife%20Hit&author=Ketchapp&link=knifehit",
    "frame": "/misc/knifehit/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "_C2SaveStates",
+     "localforage"
+    ]
+   }
   },
   "learn-to-fly": {
    "id": "learn-to-fly",
@@ -1889,14 +1994,20 @@
    "status": "observed",
    "progress": {
     "adapter": "little-alchemy"
-   }
+   },
+   "renamed": {}
   },
   "longcat": {
    "id": "longcat",
    "name": "Longcat",
    "play": "/misc/play/?title=Longcat&link=longcat",
    "frame": "/misc/longcat/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "/sandbox"
+    ]
+   }
   },
   "mad-skills-motocross-2": {
    "id": "mad-skills-motocross-2",
@@ -1958,7 +2069,8 @@
    "id": "misc-eloader",
    "name": "Eaglercraft X",
    "frame": "/misc/misc/eloader/",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "monkey-mart": {
    "id": "monkey-mart",
@@ -1972,14 +2084,24 @@
    "name": "Monster Match",
    "play": "/misc/play/?title=Monster%20Match&link=monster-match",
    "frame": "/misc/monster-match/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "/sandbox"
+    ]
+   }
   },
   "monster-track": {
    "id": "monster-track",
    "name": "Monster Tracks",
    "play": "/misc/play/?title=Monster%20Tracks&author=Martin%20Magni&link=monster-track",
    "frame": "/misc/monster-track/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "/sandbox"
+    ]
+   }
   },
   "mophead-dash": {
    "id": "mophead-dash",
@@ -2035,14 +2157,22 @@
    "name": "Mr. Bullet",
    "play": "/misc/play/?title=Mr.%20Bullet&author=Lion%20Studios&link=mrbullet",
    "frame": "/misc/mrbullet/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "_C2SaveStates"
+    ]
+   }
   },
   "mrracer": {
    "id": "mrracer",
    "name": "Mr Racer",
    "play": "/misc/play/?title=Mr%20Racer&link=mrracer",
    "frame": "/misc/mrracer/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "unityFolder": true
+   }
   },
   "murder": {
    "id": "murder",
@@ -2062,7 +2192,10 @@
    "name": "My Perfect Hotel",
    "play": "/misc/play/?title=My%20Perfect%20Hotel&link=my-perfect-hotel",
    "frame": "/misc/my-perfect-hotel/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "unityFolder": true
+   }
   },
   "n-gon": {
    "id": "n-gon",
@@ -2118,7 +2251,13 @@
    "name": "OvO",
    "play": "/misc/play/?title=OvO&author=Dedra%20Games&link=ovo",
    "frame": "/misc/ovo/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "_C2SaveStates",
+     "localforage"
+    ]
+   }
   },
   "ovo2": {
    "id": "ovo2",
@@ -2132,7 +2271,13 @@
    "name": "OvO Dimensions",
    "play": "/misc/play/?title=OvO%20Dimensions&author=Dedra%20Games&link=ovo3",
    "frame": "/misc/ovo3/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "_C2SaveStates",
+     "localforage"
+    ]
+   }
   },
   "papas-papas-burgeria": {
    "id": "papas-papas-burgeria",
@@ -2230,7 +2375,13 @@
    "name": "Paper Plane",
    "play": "/misc/play/?title=Paper%20Plane&link=paper-plane",
    "frame": "/misc/paper-plane/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "_C2SaveStates",
+     "localforage"
+    ]
+   }
   },
   "paperio2": {
    "id": "paperio2",
@@ -2272,7 +2423,12 @@
    "name": "Penalty Shooters 2",
    "play": "/misc/play/?title=Penalty%20Shooters%202&link=penalty-shooters-2",
    "frame": "/misc/penalty-shooters-2/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "_C2SaveStates"
+    ]
+   }
   },
   "peopleplayground": {
    "id": "peopleplayground",
@@ -2328,7 +2484,10 @@
    "name": "Police Chase",
    "play": "/misc/play/?title=Police Chase&author=Dylan Patel&link=policechase",
    "frame": "/misc/policechase/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "unityFolder": true
+   }
   },
   "polytrack": {
    "id": "polytrack",
@@ -2410,7 +2569,10 @@
    "name": "Ragdoll Fall",
    "play": "/misc/play/?title=Ragdoll%20Fall&link=ragdoll-fall",
    "frame": "/misc/ragdoll-fall/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "unityFolder": true
+   }
   },
   "ragdoll-fight": {
    "id": "ragdoll-fight",
@@ -2437,14 +2599,22 @@
    "name": "Recoil",
    "play": "/misc/play/?title=Recoil&author=Martin%20Magni&link=recoil",
    "frame": "/misc/recoil/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "/sandbox"
+    ]
+   }
   },
   "redball-4": {
    "id": "redball-4",
    "name": "Red Ball 4",
    "play": "/misc/play/?title=Red%20Ball%204&link=redball-4",
    "frame": "/misc/redball-4/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "unityFolder": true
+   }
   },
   "redvsbluez": {
    "id": "redvsbluez",
@@ -2599,7 +2769,12 @@
    "name": "Roller",
    "play": "/misc/play/?title=Roller&link=roller",
    "frame": "/misc/roller/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "/sandbox"
+    ]
+   }
   },
   "rooftop-snipers": {
    "id": "rooftop-snipers",
@@ -2620,7 +2795,12 @@
    "name": "Roper",
    "play": "/misc/play/?title=Roper&link=roper",
    "frame": "/misc/roper/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "/sandbox"
+    ]
+   }
   },
   "run3": {
    "id": "run3",
@@ -2634,7 +2814,8 @@
    "name": "Sandboxels",
    "play": "/misc/play/?title=Sandboxels&author=R74N&link=sandboxels",
    "frame": "/misc/sandboxels/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "sandtris": {
    "id": "sandtris",
@@ -2717,7 +2898,10 @@
    "name": "Slime Journey",
    "play": "/misc/play/?title=Slime%20Journey&link=slime-journey",
    "frame": "/misc/slime-journey/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "unityFolder": true
+   }
   },
   "slimerancher": {
    "id": "slimerancher",
@@ -2752,7 +2936,10 @@
    "name": "Smash It",
    "play": "/misc/play/?title=Smash%20It&link=smash-it",
    "frame": "/misc/smash-it/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "unityFolder": true
+   }
   },
   "smashkarts": {
    "id": "smashkarts",
@@ -2765,14 +2952,20 @@
    "name": "Snake Pivot",
    "play": "/misc/play/?title=Snake%20Pivot&link=snake-pivot",
    "frame": "/misc/snake-pivot/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "/sandbox"
+    ]
+   }
   },
   "snow-train-odyssey": {
    "id": "snow-train-odyssey",
    "name": "Snow Train Odyssey",
    "play": "/misc/play/?title=Snow%20Train%20Odyssey&link=snow-train-odyssey",
    "frame": "/misc/snow-train-odyssey/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "snowrider3d": {
    "id": "snowrider3d",
@@ -2800,7 +2993,8 @@
    "name": "Soccer Bros",
    "play": "/misc/play/?title=Soccer%20Bros&author=Blue%20Wizard%20Digital&link=soccerbros",
    "frame": "/misc/soccerbros/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "solar-smash": {
    "id": "solar-smash",
@@ -2869,7 +3063,12 @@
    "name": "Stacktris",
    "play": "/misc/play/?title=Stacktrix&author=Fancade&link=stacktris",
    "frame": "/misc/stacktris/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "/sandbox"
+    ]
+   }
   },
   "stateio": {
    "id": "stateio",
@@ -2882,7 +3081,8 @@
    "name": "Steal A Brainrot",
    "play": "/misc/play/?title=Steal%20A%20Brainrot&link=steal-a-brainrot",
    "frame": "/misc/steal-a-brainrot/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "steelhills": {
    "id": "steelhills",
@@ -2938,7 +3138,13 @@
    "name": "Stickman Boost",
    "play": "/misc/play/?title=Stickman%20Boost&author=Nikhil%20Shakya&link=stickman-boost",
    "frame": "/misc/stickman-boost/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "_C2SaveStates",
+     "localforage"
+    ]
+   }
   },
   "stickman-climb-2": {
    "id": "stickman-climb-2",
@@ -2993,14 +3199,20 @@
    "name": "Stunt Bike Extreme",
    "play": "/misc/play/?title=Stunt%20Bike%20Extreme&link=stunt-bike-extreme",
    "frame": "/misc/stunt-bike-extreme/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "unityFolder": true
+   }
   },
   "stunt-car-extreme": {
    "id": "stunt-car-extreme",
    "name": "Stunt Car Extreme",
    "play": "/misc/play/?title=Stunt%20Car%20Extreme&link=stunt-car-extreme",
    "frame": "/misc/stunt-car-extreme/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "unityFolder": true
+   }
   },
   "subway-surfers": {
    "id": "subway-surfers",
@@ -3063,7 +3275,8 @@
    "name": "Table Tennis: WT",
    "play": "/misc/play/?title=Table%20Tennis:%20WT&author=ITTF&link=tabletennisworldtour",
    "frame": "/misc/tabletennisworldtour/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {}
   },
   "tag": {
    "id": "tag",
@@ -3112,7 +3325,12 @@
    "name": "There Is No Game",
    "play": "/misc/play/?title=There%20Is%20No%20Game&link=thereisnogame",
    "frame": "/misc/thereisnogame/index.html",
-   "status": "observed"
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "_C2SaveStates"
+    ]
+   }
   },
   "time-shooter-3": {
    "id": "time-shooter-3",
@@ -3373,7 +3591,8 @@
    "status": "observed",
    "progress": {
     "adapter": "wordle"
-   }
+   },
+   "renamed": {}
   },
   "world-of-screw": {
    "id": "world-of-screw",

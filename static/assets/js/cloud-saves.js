@@ -23,6 +23,7 @@ window.GMSSaves = (() => {
   const CHECK_INTERVAL_MS = 60000;
   const LAUNCH_BUDGET_MS = 5000;
   const LAUNCH_DOWNLOAD_BUDGET_MS = 12000;
+  const MOVE_BUDGET_MS = 4000;
   const KEEPALIVE_MAX_BYTES = 60000;
   const RETRYABLE = new Set([0, 408, 425, 429, 500, 502, 503, 504]);
 
@@ -441,11 +442,21 @@ window.GMSSaves = (() => {
       }
       return byGame.get(gameId);
     };
+    const namesCache = new Map();
+    const namesFor = (gameId) => {
+      if (!namesCache.has(gameId)) {
+        const renamed = games[gameId]?.renamed;
+        namesCache.set(gameId, renamed ? renamedNames(gameId, renamed) : null);
+      }
+      return namesCache.get(gameId);
+    };
     for (const claim of claims) {
       if (claim.kind === "ls") {
         entry(claim.gameId).ls.add(claim.key);
-        if (!keyOwners.has(claim.key)) keyOwners.set(claim.key, new Set());
-        keyOwners.get(claim.key).add(claim.gameId);
+        // Where the key is now: a renamed game no longer uses the old name.
+        const at = namesFor(claim.gameId)?.key(claim.key) ?? claim.key;
+        if (!keyOwners.has(at)) keyOwners.set(at, new Set());
+        keyOwners.get(at).add(claim.gameId);
       } else if (claim.kind === "want") {
         entry(claim.gameId).want.add(claim.key);
       } else if (claim.kind === "idb") {
@@ -472,7 +483,18 @@ window.GMSSaves = (() => {
     }
     return {
       games: byGame,
+      names: namesFor,
       lsKeysFor(gameId) {
+        const names = namesFor(gameId);
+        if (names) {
+          // Every key the game used, before and after it was renamed,
+          // where it is now. They are the game's alone.
+          const keys = new Set();
+          for (const key of byGame.get(gameId)?.ls || [])
+            if (!isSiteKey(key)) keys.add(names.key(key));
+          for (const key of games[gameId]?.keys || []) keys.add(names.key(key));
+          return keys;
+        }
         const keys = new Set();
         for (const key of byGame.get(gameId)?.ls || []) {
           if (isSiteKey(key)) continue;
@@ -485,15 +507,64 @@ window.GMSSaves = (() => {
         return keys;
       },
       idbFor(gameId) {
-        return [...(byGame.get(gameId)?.idb.values() || [])];
+        const targets = [...(byGame.get(gameId)?.idb.values() || [])];
+        const names = namesFor(gameId);
+        if (!names) return targets;
+        // Records claimed in a database before it was copied are in the
+        // copy under the same keys.
+        const merged = new Map();
+        for (const target of targets) {
+          const db = names.database(target.db);
+          const id = `${db}\u0000${target.store}`;
+          if (!merged.has(id))
+            merged.set(id, {
+              db,
+              store: target.store,
+              prefixes: new Set(),
+              keys: [],
+            });
+          const into = merged.get(id);
+          for (const prefix of target.prefixes) into.prefixes.add(prefix);
+          for (const key of target.keys)
+            if (!into.keys.includes(key)) into.keys.push(key);
+        }
+        // Once a Poki Unity game has its own folder, the shared one it
+        // wrote to before is not its save.
+        const shared = games[gameId].renamed.unityFolder
+          ? store.get(FOLDER_KEY)
+          : null;
+        if (
+          names.moved &&
+          shared &&
+          shared !== store.get(names.prefix + FOLDER_KEY)
+        ) {
+          const folder = `/idbfs/${shared}`;
+          for (const target of merged.values())
+            if (target.db === "/idbfs")
+              for (const prefix of target.prefixes)
+                if (prefix === folder || prefix.startsWith(`${folder}/`))
+                  target.prefixes.delete(prefix);
+        }
+        return [...merged.values()];
       },
       wantedFor(gameId) {
-        return [
+        const wanted = [
           ...(byGame.get(gameId)?.want || []),
           ...(byGame.get(gameId)?.ls || []),
         ];
+        // A legacy backup has the names from before a game was renamed.
+        const prefix = namesFor(gameId)?.prefix;
+        if (!prefix) return wanted;
+        return [
+          ...new Set(
+            wanted.map((key) =>
+              key.startsWith(prefix) ? key.slice(prefix.length) : key,
+            ),
+          ),
+        ];
       },
       shared(gameId) {
+        if (namesFor(gameId)) return [];
         return [...(byGame.get(gameId)?.ls || [])].filter(
           (key) => !registered.has(key) && keyOwners.get(key)?.size > 1,
         );
@@ -996,6 +1067,247 @@ window.GMSSaves = (() => {
     }
   }
 
+  // ---- Renamed storage -------------------------------------------------------
+
+  // Games that would share storage with another keep theirs under names of
+  // their own (RENAMED in scripts/build-save-registry.js; save-agent.js does
+  // the renaming): localStorage keys as "<game id>:<key>", and the databases
+  // in renamed.idb as "<game id>:<name>" once moveStorage() has copied them.
+  // A save made before a game was renamed has the old names; inLayout()
+  // gives any save this browser's.
+  const FOLDER_KEY = "savegame_idbfs_hash";
+  const settledKey = (gameId) => `gms-renamed:${gameId}`;
+  const movedKey = (gameId) => `gms-renamed-idb:${gameId}`;
+
+  function isMoved(gameId, renamed) {
+    if (!renamed.idb && !renamed.unityFolder) return true;
+    try {
+      return store.get(movedKey(gameId)) === "1";
+    } catch {
+      return false;
+    }
+  }
+
+  // The keys whose old value the game took over or left behind; see
+  // save-agent.js.
+  function settledFor(gameId) {
+    try {
+      const saved = JSON.parse(store.get(settledKey(gameId)) || "{}");
+      return saved && typeof saved === "object" ? saved : {};
+    } catch {
+      return {};
+    }
+  }
+
+  // Where a renamed game's storage is in this browser, from a name in
+  // either layout.
+  function renamedNames(gameId, renamed) {
+    const prefix = `${gameId}:`;
+    const moved = isMoved(gameId, renamed);
+    const base = (name) =>
+      name.startsWith(prefix) ? name.slice(prefix.length) : name;
+    return {
+      prefix,
+      moved,
+      key(name) {
+        if (isSiteKey(name)) return name;
+        const key = base(name);
+        if (key === FOLDER_KEY && renamed.unityFolder && !moved) return key;
+        return prefix + key;
+      },
+      // The old name the game still reads a stored key from, or null.
+      fallback(name, settled) {
+        if (!name.startsWith(prefix)) return null;
+        const key = name.slice(prefix.length);
+        if (settled["*"] === 1 || settled[`~${key}`] === 1) return null;
+        if (key === FOLDER_KEY && renamed.unityFolder) return null;
+        return key;
+      },
+      database(name) {
+        const short = base(name);
+        if (!renamed.idb?.includes(short)) return name;
+        return moved ? prefix + short : short;
+      },
+    };
+  }
+
+  function inLayout(names, save) {
+    if (!names || !save) return save;
+    const out = { ...save };
+    if (save.ls) {
+      out.ls = {};
+      for (const [key, value] of Object.entries(save.ls))
+        out.ls[names.key(key)] = value;
+    }
+    if (save.idb)
+      out.idb = save.idb.map((database) => ({
+        ...database,
+        name: names.database(database.name),
+      }));
+    return out;
+  }
+
+  // Copies a whole database, its stores, indexes and records, to a new
+  // name. Every game that shared it gets every record: the ones that are not
+  // its own are left alone and never synced.
+  async function copyDatabase(from, to) {
+    const source = await openDatabase(from);
+    const stores = [];
+    let version;
+    try {
+      version = source.version;
+      const names = [...source.objectStoreNames];
+      if (names.length) {
+        const transaction = source.transaction(names, "readonly");
+        for (const name of names) {
+          const objectStore = transaction.objectStore(name);
+          stores.push({
+            name,
+            keyPath: objectStore.keyPath,
+            autoIncrement: objectStore.autoIncrement,
+            indexes: [...objectStore.indexNames].map((index) => {
+              const definition = objectStore.index(index);
+              return {
+                name: index,
+                keyPath: definition.keyPath,
+                unique: definition.unique,
+                multiEntry: definition.multiEntry,
+              };
+            }),
+            records: await readRecords(objectStore),
+          });
+        }
+      }
+    } finally {
+      source.close();
+    }
+    const target = await openDatabase(to, version, (database) => {
+      for (const store of stores) {
+        const objectStore = database.createObjectStore(store.name, {
+          keyPath: store.keyPath ?? undefined,
+          autoIncrement: store.autoIncrement,
+        });
+        for (const index of store.indexes)
+          objectStore.createIndex(index.name, index.keyPath, {
+            unique: index.unique,
+            multiEntry: index.multiEntry,
+          });
+      }
+    });
+    try {
+      if (!stores.length) return;
+      await new Promise((resolve, reject) => {
+        const transaction = target.transaction(
+          stores.map((store) => store.name),
+          "readwrite",
+        );
+        for (const store of stores) {
+          const objectStore = transaction.objectStore(store.name);
+          for (const [key, value] of store.records) {
+            if (store.keyPath === null) objectStore.put(value, key);
+            else objectStore.put(value);
+          }
+        }
+        transaction.oncomplete = resolve;
+        transaction.onerror = () => reject(transaction.error);
+        transaction.onabort = () =>
+          reject(transaction.error || new Error("aborted"));
+      });
+    } finally {
+      target.close();
+    }
+  }
+
+  function deleteDatabase(name) {
+    return new Promise((resolve, reject) => {
+      const request = indexedDB.deleteDatabase(name);
+      request.onsuccess = resolve;
+      request.onerror = () => reject(request.error);
+      request.onblocked = () => reject(new Error("blocked"));
+    });
+  }
+
+  // Poki's master-loader keeps the save folder of the first Unity game it
+  // saw in FOLDER_KEY and sends every later game's files there. The game
+  // gets a copy of that folder under a name of its own, which goes in its
+  // own FOLDER_KEY once the move is done. Returns that name, or null.
+  async function copyUnityFolder(gameId, prefix) {
+    if (store.get(prefix + FOLDER_KEY) !== null) return null;
+    const shared = store.get(FOLDER_KEY);
+    if (!shared || !(await databaseExists("/idbfs"))) return null;
+    const own = (await sha256(`gms-unity-folder:${gameId}`)).slice(0, 32);
+    const from = `/idbfs/${shared}`;
+    const opened = await openDatabase("/idbfs");
+    try {
+      if (!opened.objectStoreNames.contains("FILE_DATA")) return null;
+      const read = opened
+        .transaction("FILE_DATA", "readonly")
+        .objectStore("FILE_DATA");
+      if (read.keyPath !== null) return null;
+      const records = await readRecords(read, below(from));
+      const folder = await done(read.get(from));
+      if (folder !== undefined) records.push([from, folder]);
+      if (!records.length) return own;
+      await new Promise((resolve, reject) => {
+        const transaction = opened.transaction("FILE_DATA", "readwrite");
+        const write = transaction.objectStore("FILE_DATA");
+        for (const [key, value] of records)
+          write.put(value, `/idbfs/${own}${key.slice(from.length)}`);
+        transaction.oncomplete = resolve;
+        transaction.onerror = () => reject(transaction.error);
+        transaction.onabort = () =>
+          reject(transaction.error || new Error("aborted"));
+      });
+      return own;
+    } finally {
+      opened.close();
+    }
+  }
+
+  // Copies a renamed game's databases (and Poki's folder) to their new
+  // names, once per browser, while the game is not running. save-agent.js
+  // switches to them only after the marker is set, so a game that starts
+  // first keeps the old ones and the copy is dropped. Resolves to whether
+  // the game's storage is under its new names.
+  const moving = new Map();
+  function moveStorage(gameId, renamed, allowed = () => true) {
+    if (isMoved(gameId, renamed)) return Promise.resolve(true);
+    if (!moving.has(gameId)) {
+      moving.set(
+        gameId,
+        moveNow(gameId, renamed, allowed).finally(() => moving.delete(gameId)),
+      );
+    }
+    return moving.get(gameId);
+  }
+
+  async function moveNow(gameId, renamed, allowed) {
+    const prefix = `${gameId}:`;
+    const made = [];
+    try {
+      if (await isRunningElsewhere(gameId)) return false;
+      for (const name of renamed.idb || []) {
+        // Left by a copy that never finished: nothing has used it.
+        if (await databaseExists(prefix + name))
+          await deleteDatabase(prefix + name);
+        if (!(await databaseExists(name))) continue;
+        made.push(prefix + name);
+        await copyDatabase(name, prefix + name);
+      }
+      const folder = renamed.unityFolder
+        ? await copyUnityFolder(gameId, prefix)
+        : null;
+      if (!allowed()) throw new Error("the game started first");
+      if (folder) store.set(prefix + FOLDER_KEY, folder);
+      store.set(movedKey(gameId), "1");
+      return true;
+    } catch (error) {
+      console.warn("[cloud saves] moving storage", gameId, error);
+      for (const name of made) await deleteDatabase(name).catch(() => {});
+      return false;
+    }
+  }
+
   // ---- Saves -----------------------------------------------------------------
 
   // One game's save as it is in this browser now: { save, text, hash, size },
@@ -1004,13 +1316,20 @@ window.GMSSaves = (() => {
   // save-agent.js saw the game is found too.
   async function extract(gameId, { alsoFrom = null, owners = null } = {}) {
     const map = owners || (await ownership());
+    const names = map.names(gameId);
+    alsoFrom = inLayout(names, alsoFrom);
     const keys = map.lsKeysFor(gameId);
     for (const key of Object.keys(alsoFrom?.ls || {}))
       if (!isSiteKey(key)) keys.add(key);
 
+    // A renamed game finds a key under its old name until it takes the
+    // value over (save-agent.js), so its save has what it would find.
+    const settled = names ? settledFor(gameId) : null;
     const ls = {};
     for (const key of keys) {
-      const value = store.get(key);
+      let value = store.get(key);
+      const old = value === null && names?.fallback(key, settled);
+      if (old) value = store.get(old);
       if (value !== null) ls[key] = value;
     }
 
@@ -1075,7 +1394,11 @@ window.GMSSaves = (() => {
   // not have are removed, so the game finds exactly the save. On a failure
   // halfway, what was there before is put back.
   async function apply(gameId, save) {
+    const renamed = (await registry())[gameId]?.renamed;
+    if (renamed) await moveStorage(gameId, renamed);
     const owners = await ownership();
+    const names = owners.names(gameId);
+    save = inLayout(names, save);
     const before = await extract(gameId, { alsoFrom: save, owners });
     const keys = owners.lsKeysFor(gameId);
     for (const key of Object.keys(save.ls || {})) keys.add(key);
@@ -1085,14 +1408,25 @@ window.GMSSaves = (() => {
       plans.push(await planDatabase(database));
 
     const previous = new Map();
+    const removed = [];
     try {
       for (const plan of plans) await writeDatabase(plan);
       for (const key of keys) {
         if (isSiteKey(key)) continue;
         previous.set(key, store.get(key));
         const value = save.ls?.[key];
-        if (value === undefined) store.remove(key);
-        else store.set(key, value);
+        if (value === undefined) {
+          store.remove(key);
+          if (names?.fallback(key, {})) removed.push(key);
+        } else store.set(key, value);
+      }
+      // A key the save does not have stays gone: the game must not find
+      // it under its old name.
+      if (removed.length) {
+        const settled = settledFor(gameId);
+        for (const key of removed)
+          settled[`~${key.slice(names.prefix.length)}`] = 1;
+        store.set(settledKey(gameId), JSON.stringify(settled));
       }
     } catch (error) {
       for (const [key, value] of previous) {
@@ -1616,6 +1950,24 @@ window.GMSSaves = (() => {
       if (url.origin === location.origin)
         gameId = gameIdFromLocation(url.pathname, url.search);
     } catch {}
+
+    // A renamed game's databases are copied to their new names before it
+    // first starts, signed in or not. One that takes too long is left for
+    // the next launch; the game keeps the old names meanwhile.
+    let moved = true;
+    try {
+      moved = !gameId || store.get(movedKey(gameId)) === "1";
+    } catch {}
+    if (!moved) {
+      await Promise.race([
+        registry().then((games) => {
+          const renamed = games[gameId]?.renamed;
+          if (renamed) return moveStorage(gameId, renamed, () => !started);
+        }),
+        new Promise((resolve) => setTimeout(resolve, MOVE_BUDGET_MS)),
+      ]).catch(() => {});
+    }
+
     if (!gameId || !account()) {
       clearTimeout(showOverlay);
       start();

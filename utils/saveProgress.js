@@ -342,13 +342,27 @@ export function adapterCompares(id) {
   return Boolean(adapter) && adapter.metrics?.length !== 0;
 }
 
+// A renamed game (scripts/build-save-registry.js) stores its keys as
+// "<game id>:<key>"; adapters read them by the names the game gives them.
+function withOwnNames(game, save) {
+  if (!save.ls || typeof save.ls !== "object") return save;
+  const prefix = `${game.id}:`;
+  const ls = { ...save.ls };
+  for (const [key, value] of Object.entries(save.ls))
+    if (key.startsWith(prefix)) ls[key.slice(prefix.length)] = value;
+  return { ...save, ls };
+}
+
 // { metrics, summary, adapter, order } for a parsed save, or null when the
 // game has no adapter or the adapter cannot read this save.
 export function readProgress(game, save) {
   const id = game?.progress?.adapter;
   const adapter = id && ADAPTERS[id];
   if (!adapter || !save || typeof save !== "object") return null;
-  const result = adapter.read(save, game);
+  const result = adapter.read(
+    game.renamed ? withOwnNames(game, save) : save,
+    game,
+  );
   if (!result) return null;
   return {
     adapter: id,
