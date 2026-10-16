@@ -11,7 +11,7 @@ import { readSession } from "../utils/sessionToken.js";
 // Keys the profile page rewrites on its own, left out of the fingerprint.
 // Proxied sites' storage is left out too: saves uploaded before it was
 // stripped still hold it, and Restore skips it.
-const SAVE_HASH_IGNORED_KEYS = new Set(["premium"]);
+const SAVE_HASH_IGNORED_KEYS = new Set(["premium", "gms-session"]);
 const SAVE_HASH_CACHE_MAX = 1000;
 
 // Fingerprint of a save, matching what static/account.html computes from

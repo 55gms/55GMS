@@ -73,8 +73,11 @@ Records go to the IndexedDB database `gms-cloud-saves` (stores `claims`,
 key two games both use goes in neither save, unless the registry's `keys`
 gives it to one of them. Site keys (`uuid`, `username`, `premium`, settings,
 `55gms*`, `gms-*`, the proxy's `host@key` storage) are never recorded, and the
-server refuses a save holding one. The session itself is an HttpOnly cookie
-and never in storage.
+server refuses a save holding one. The session is an HttpOnly cookie, and
+the login also returns its token, kept as the site key `gms-session` and sent
+as the `X-GMS-Session` header on `/api` requests: Bunny pull zones
+(`*.b-cdn.net`) strip cookies, so there the header is all that carries it.
+Either is renewed once a day while the account is in use.
 
 A save is `{ v: 1, ls?: { key: value }, idb?: [ { name, version, stores } ] }`,
 with IndexedDB values tagged where JSON has no type (`Date`, typed arrays,

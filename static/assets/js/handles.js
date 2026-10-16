@@ -35,6 +35,7 @@
     localStorage.removeItem("uuid");
     localStorage.removeItem("username");
     localStorage.removeItem("premium");
+    localStorage.removeItem("gms-session");
   }
 
   // ---------- /choose-handle ----------
