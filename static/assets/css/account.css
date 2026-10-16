@@ -225,7 +225,7 @@
 }
 
 /* With premium not sold here, the last card would sit alone in its row. */
-.acct-card[hidden] + .acct-card {
+.acct-premium[hidden] + .acct-card {
   grid-column: 1 / -1;
 }
 
