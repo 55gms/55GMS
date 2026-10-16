@@ -1,6 +1,7 @@
 // Adds the per-game cloud save tables: game_saves (the current save of each
-// game, per account and slot) and game_save_versions (earlier and losing
-// saves, kept for recovery). Safe to re-run, and safe to run while an older
+// game, per account and slot), game_save_versions (earlier and losing
+// saves, kept for recovery) and game_save_keys (the storage names each
+// account's uploads used, services/learnedSaveKeys.js). Safe to re-run, and safe to run while an older
 // build of the server is live, which reads neither. The legacy user_saves
 // table is not touched. Run it before deploying a build that reads them.
 //
@@ -54,6 +55,18 @@ const STATEMENTS = [
      ON game_save_versions (created_at)`,
   `CREATE INDEX IF NOT EXISTS game_save_versions_blob_key
      ON game_save_versions (blob_key) WHERE blob_key IS NOT NULL`,
+  `CREATE TABLE IF NOT EXISTS game_save_keys (
+     game_id VARCHAR(96) NOT NULL,
+     kind VARCHAR(8) NOT NULL,
+     db VARCHAR(512) NOT NULL DEFAULT '',
+     store VARCHAR(512) NOT NULL DEFAULT '',
+     name VARCHAR(512) NOT NULL,
+     user_uuid VARCHAR(255) NOT NULL,
+     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+     PRIMARY KEY (game_id, kind, db, store, name, user_uuid)
+   )`,
+  `CREATE INDEX IF NOT EXISTS game_save_keys_user
+     ON game_save_keys (user_uuid)`,
 ];
 
 try {

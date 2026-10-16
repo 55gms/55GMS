@@ -7,6 +7,7 @@ import {
 } from "../utils/saveRegistry.js";
 import { compareProgress, readProgress } from "../utils/saveProgress.js";
 import { deleteBlob, loadSaveText, storeSaveText } from "./saveBlobs.js";
+import { learnFrom, learnedLsKeys } from "./learnedSaveKeys.js";
 
 // Per-game cloud saves. Each account has at most one current save per game
 // and slot (game_saves), and earlier or losing saves are kept for a while in
@@ -500,6 +501,9 @@ export async function uploadSave({
   });
 
   releaseBlobs(released);
+  learnFrom(uuid, gameId, save).catch((error) =>
+    console.error("[saves] learning save keys failed:", error.message),
+  );
   const response = {
     result: outcome.result,
     winner: outcome.winner,
@@ -745,7 +749,8 @@ export function legacySaveFor(snapshot, keys) {
 }
 
 // Creates a game's first cloud save from the legacy backup, using the keys
-// the registry knows for it and the ones the device saw the game use. Does
+// the registry knows for it, the ones learned from uploads
+// (learnedSaveKeys.js) and the ones the device saw the game use. Does
 // nothing when the game already has a cloud save, so it can be repeated.
 export async function importLegacy({
   uuid,
@@ -755,7 +760,10 @@ export async function importLegacy({
   origin = "legacy",
 }) {
   const game = requireGame(gameId);
-  const wanted = [...new Set([...(game.keys || []), ...keys])].slice(0, 2000);
+  const learned = await learnedLsKeys(gameId, uuid).catch(() => []);
+  const wanted = [
+    ...new Set([...(game.keys || []), ...learned, ...keys]),
+  ].slice(0, 2000);
   const snapshot = await readLegacySnapshot(uuid);
   const save = snapshot && legacySaveFor(snapshot, wanted);
   if (!save) return { result: "nothing" };

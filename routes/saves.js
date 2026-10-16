@@ -4,6 +4,7 @@ import defaultAccounts, {
   areAccountWritesFrozen,
 } from "../services/accounts.js";
 import * as defaultSaves from "../services/gameSaves.js";
+import * as defaultLearned from "../services/learnedSaveKeys.js";
 import { rateLimit } from "../utils/rateLimit.js";
 import { createScopedToken, readSession } from "../utils/sessionToken.js";
 import {
@@ -25,6 +26,7 @@ const MINUTE = 60 * 1000;
 export function createSavesRouter({
   accounts = defaultAccounts,
   saves = defaultSaves,
+  learned = defaultLearned,
   io = null,
 } = {}) {
   const router = express.Router();
@@ -290,6 +292,25 @@ export function createSavesRouter({
       res.status(200).json(outcome);
     } catch (error) {
       fail(res, error, "import the old backup");
+    }
+  });
+
+  // The storage names learned for each game (services/learnedSaveKeys.js),
+  // so a browser can find saves written before the save agent ran there.
+  // Open to everyone; a session adds the account's own names.
+  const keysLimit = rateLimit({
+    windowMs: 10 * MINUTE,
+    max: 120,
+    message: "Too many requests. Try again in a few minutes.",
+  });
+  router.get("/saves-keys", keysLimit, async (req, res) => {
+    try {
+      const uuid = readSession(req)?.uuid;
+      const games = await learned.learnedKeys(uuid ? String(uuid) : null);
+      res.set("Cache-Control", "private, max-age=600");
+      res.status(200).json({ games });
+    } catch (error) {
+      fail(res, error, "load the save keys");
     }
   });
 
