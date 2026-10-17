@@ -32,6 +32,22 @@
     });
   }
 
+  // jQuery judges a relative URL by location rather than the <base>, takes it
+  // for same-origin and adds X-Requested-With, which jsDelivr's CORS refuses.
+  const xhr = window.XMLHttpRequest?.prototype;
+  if (xhr) {
+    const open = xhr.open;
+    const setRequestHeader = xhr.setRequestHeader;
+    xhr.open = function (method, url, ...rest) {
+      this._gmsOnCdn = onCdn(url);
+      return open.call(this, method, url, ...rest);
+    };
+    xhr.setRequestHeader = function (name, value) {
+      if (this._gmsOnCdn && /^x-requested-with$/i.test(name)) return;
+      return setRequestHeader.call(this, name, value);
+    };
+  }
+
   const Native = window.Worker;
   if (!Native) return;
   const classic = (href) => `const base = ${JSON.stringify(href)};
