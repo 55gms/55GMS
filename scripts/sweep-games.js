@@ -43,9 +43,7 @@ function gamePath(entry) {
     link = entry.image.split("/").filter(Boolean).at(-2);
   }
   if (!link) return null;
-  const [linkPath, linkQuery] = link
-    .replace(/^\/+|\/+$/g, "")
-    .split(/\?(.*)/s);
+  const [linkPath, linkQuery] = link.replace(/^\/+|\/+$/g, "").split(/\?(.*)/s);
   const lastPart = linkPath.split("/").pop();
   return `/misc/${linkPath}${lastPart.includes(".") ? "" : "/index.html"}${linkQuery ? "?" + linkQuery : ""}`;
 }
@@ -133,7 +131,9 @@ async function scan(game) {
   return { ...game, issues };
 }
 
-console.log(`Shard ${shard}/${shards}: ${mine.length} of ${games.length} games`);
+console.log(
+  `Shard ${shard}/${shards}: ${mine.length} of ${games.length} games`,
+);
 const queue = [...mine];
 let finished = 0;
 await Promise.all(
