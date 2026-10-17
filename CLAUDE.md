@@ -41,6 +41,10 @@ node scripts/build-save-registry.js && node scripts/add-save-agent.js
 # Pin the game pages' jsDelivr URLs to 55gms/assets commits (after pushing game files there)
 node scripts/pin-game-assets.js
 
+# Load every catalogue game on the live site and report blocked or missing files
+# (runs on GitHub's runners: gh workflow run "Game sweep")
+node scripts/sweep-games.js --shard 1/6
+
 # Build the obfuscated copy of static/ into dist/ (CI and every deploy run this)
 npm run build
 

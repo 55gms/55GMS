@@ -1,0 +1,96 @@
+name: Game sweep
+
+# Loads every catalogue game on the live site and reports the ones whose own
+# files are blocked or unreachable (scripts/sweep-games.js). Run by hand.
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: Only game paths matching this regexp (blank for all)
+        required: false
+        default: ""
+      wait:
+        description: Seconds to watch each game
+        required: false
+        default: "45"
+
+permissions:
+  contents: read
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4, 5, 6]
+    steps:
+      - name: Checkout without the games
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /scripts/
+            /static/assets/json/load/g.json
+            /package.json
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Only the browser driver, not the site's dependencies; Chrome is on the runner.
+      - name: Install playwright-core
+        run: |
+          mkdir -p "$RUNNER_TEMP/pw"
+          npm install --prefix "$RUNNER_TEMP/pw" --no-save playwright-core@1.63.0
+          ln -s "$RUNNER_TEMP/pw/node_modules" node_modules
+
+      - name: Sweep
+        env:
+          ONLY: ${{ inputs.only }}
+          WAIT: ${{ inputs.wait }}
+        run: |
+          node scripts/sweep-games.js --out sweep --shard ${{ matrix.shard }}/6 \
+            --wait "${WAIT:-45}" ${ONLY:+--only "$ONLY"}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sweep-${{ matrix.shard }}
+          path: sweep/
+          retention-days: 14
+
+  report:
+    needs: sweep
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: sweep-*
+          path: shards
+
+      - name: Merge
+        run: |
+          mkdir -p sweep/shots
+          cat shards/*/results.jsonl > sweep/results.jsonl
+          cp shards/*/shots/* sweep/shots/ 2>/dev/null || true
+          node -e '
+            const lines = require("fs").readFileSync("sweep/results.jsonl", "utf8").trim().split("\n");
+            const results = lines.filter(Boolean).map((line) => JSON.parse(line));
+            const bad = results.filter((r) => r.issues.length).sort((a, b) => b.issues.length - a.issues.length);
+            let md = `## Game sweep\n\n${results.length} games, ${bad.length} with issues\n\n`;
+            for (const r of bad) {
+              md += `<details><summary><b>${r.name}</b> <code>${r.path}</code>: ${r.issues.length}</summary>\n\n`;
+              for (const i of r.issues) md += `- \`${i.kind}\` ${i.text.replace(/[\n`|]/g, " ")}\n`;
+              md += `\n</details>\n`;
+            }
+            require("fs").appendFileSync(process.env.GITHUB_STEP_SUMMARY, md);
+          '
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sweep
+          path: sweep/
+          retention-days: 14
