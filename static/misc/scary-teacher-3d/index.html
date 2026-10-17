@@ -1,0 +1,117 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Scary Teacher 3D</title>
+<script src="/assets/js/cdn-compat.js"></script><script src="/assets/js/loader-ui.js?v=2re0106df4"></script><script src="/assets/js/game-loader.js?v=2re0106df4" data-title="Scary Teacher 3D"></script>
+<base href="https://cdn.jsdelivr.net/gh/55gms/assets@main/misc/scary-teacher-3d/"><script src="poki-sdk.js"></script><script src="portal-compat.js"></script>
+<style>html,body,canvas{width:100%;height:100%;margin:0;overflow:hidden;background:#231f20;display:block}</style></head><body><canvas id="unity-canvas" tabindex="0"></canvas>
+<script>
+let bridge;
+const send=(method,value)=>{if(bridge&&window.unityGame)window.unityGame.SendMessage(bridge,method,value)};
+window.initPokiBridge=name=>{bridge=name;send('ready')};
+window.commercialBreak=()=>PokiSDK.commercialBreak().then(()=>send('commercialBreakCompleted'));
+window.rewardedBreak=()=>PokiSDK.rewardedBreak().then(value=>send('rewardedBreakCompleted',String(value)));
+window.shareableURL=()=>send('shareableURLResolved',location.href);
+window.getUser=()=>send('getUserResolved','{}');window.getToken=()=>send('getTokenResolved','');window.login=()=>send('loginRejected');
+(async()=>{
+ const files={"data":[["Build/game.data.part1",10000000],["Build/game.data.part2",10000000],["Build/game.data.part3",520751]],"wasm":[["Build/game.wasm.part1",10000000],["Build/game.wasm.part2",10000000],["Build/game.wasm.part3",10000000],["Build/game.wasm.part4",6704967]],"framework":[["Build/game.framework.js",656732]],"loader":[["Build/game.loader.js",114207]]};
+ GameLoader.prepare(Object.values(files).flat());
+ const paths=group=>group.map(([file])=>file);
+ const [dataUrl,codeUrl,frameworkUrl,loaderUrl]=await Promise.all([
+ GameLoader.merge(paths(files.data)),GameLoader.merge(paths(files.wasm),'application/wasm'),GameLoader.merge(paths(files.framework),'application/javascript'),GameLoader.merge(paths(files.loader),'application/javascript')]);
+ await GameLoader.script(loaderUrl);
+ const canvas=document.getElementById('unity-canvas');
+ window.unityGame=await createUnityInstance(canvas,{
+ dataUrl,codeUrl,frameworkUrl,streamingAssetsUrl:new URL('StreamingAssets',document.baseURI).href,
+ companyName:"znk",productName:"Scary Teacher 3D",productVersion:"2.4",
+ showBanner(message,type){if(type==='error')GameLoader.fail(new Error(message));else console.warn(message)}
+ });GameLoader.finish();canvas.focus();
+})().catch(GameLoader.fail);
+
+// Listen for fullscreen change events
+//document.addEventListener('fullscreenchange', exitHandler);
+//document.addEventListener('webkitfullscreenchange', exitHandler);
+//document.addEventListener('mozfullscreenchange', exitHandler);
+//document.addEventListener('MSFullscreenChange', exitHandler);
+
+// Listen for cursor lock state changes
+if (!isMobileDevice()) {
+    document.addEventListener('pointerlockchange', cursorStateHandler);
+    document.addEventListener('webkitpointerlockchange', cursorStateHandler);
+    document.addEventListener('mozpointerlockchange', cursorStateHandler);
+}
+
+var wasLocked = false;
+var isUnlockEventTriggered = false;
+
+function cursorStateHandler(event) {
+    console.log(event);
+
+    var isLocked = document.pointerLockElement ||
+                   document.webkitPointerLockElement ||
+                   document.mozPointerLockElement;
+
+    if (!isLocked) {
+        if (wasLocked && !isUnlockEventTriggered) {
+            console.log('Cursor unlocked!');
+            window.postMessage('callCSharp', '*');
+            movement = { x: 0, y: 0 };
+            window.postMessage({ type: 'getinput', movement: movement }, '*');
+            isUnlockEventTriggered = true;
+        }
+    } else {
+        console.log('Cursor locked!');
+        isUnlockEventTriggered = false;
+    }
+
+    wasLocked = !!isLocked;
+}
+
+var movement = { x: 0, y: 0 };
+
+document.addEventListener('keydown', function (event) {
+    switch (event.code) {
+        case 'KeyW':
+        case 'ArrowUp':
+            movement.y = 1;
+            break;
+        case 'KeyS':
+        case 'ArrowDown':
+            movement.y = -1;
+            break;
+        case 'KeyA':
+        case 'ArrowLeft':
+            movement.x = -1;
+            break;
+        case 'KeyD':
+        case 'ArrowRight':
+            movement.x = 1;
+            break;
+    }
+    sendMovementToUnity();
+});
+
+document.addEventListener('keyup', function (event) {
+    switch (event.code) {
+        case 'KeyW':
+        case 'ArrowUp':
+        case 'KeyS':
+        case 'ArrowDown':
+            movement.y = 0;
+            break;
+        case 'KeyA':
+        case 'ArrowLeft':
+        case 'KeyD':
+        case 'ArrowRight':
+            movement.x = 0;
+            break;
+    }
+    sendMovementToUnity();
+});
+
+function sendMovementToUnity() {
+    window.postMessage({ type: 'getinput', movement: movement }, '*');
+}
+
+function isMobileDevice() {
+    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || navigator.maxTouchPoints > 0;
+}
+
+</script></body></html>
