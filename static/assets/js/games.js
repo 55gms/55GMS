@@ -338,7 +338,13 @@ function applyGameFilters() {
       activeGameView === "all" ||
       (activeGameView === "favorites" && favoriteGameIds.has(entry.id)) ||
       (activeGameView === "recent" && recentPositions.has(entry.id));
-    const shows = matchesView && entry.game.name.toLowerCase().includes(query);
+    const matchesSearch =
+      entry.game.name.toLowerCase().includes(query) ||
+      (Array.isArray(entry.game.searchTerms) &&
+        entry.game.searchTerms.some(
+          (term) => typeof term === "string" && term.toLowerCase().includes(query),
+        ));
+    const shows = matchesView && matchesSearch;
     entry.card.style.display = shows ? "inline-block" : "none";
     if (shows) visible++;
   });
