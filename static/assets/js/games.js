@@ -342,7 +342,8 @@ function applyGameFilters() {
       entry.game.name.toLowerCase().includes(query) ||
       (Array.isArray(entry.game.searchTerms) &&
         entry.game.searchTerms.some(
-          (term) => typeof term === "string" && term.toLowerCase().includes(query),
+          (term) =>
+            typeof term === "string" && term.toLowerCase().includes(query),
         ));
     const shows = matchesView && matchesSearch;
     entry.card.style.display = shows ? "inline-block" : "none";
