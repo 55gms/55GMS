@@ -115,19 +115,41 @@ async function scan(game) {
     "shots",
     `${game.path.replace(/[^a-z0-9]+/gi, "_")}.jpg`,
   );
-  try {
-    await page.goto(site + game.path, { timeout: 30000 });
+  const run = async () => {
+    // A game that keeps downloading can hold its load event for minutes;
+    // watch it anyway once the document arrives.
+    await page.goto(site + game.path, { timeout: 30000, waitUntil: "commit" });
     await page.waitForTimeout(waitMs * 0.6);
     // Past a "click to play" screen, so the game loads what it loads next.
     await page.mouse.click(640, 360).catch(() => {});
     await page.waitForTimeout(waitMs * 0.4);
-    await page
-      .screenshot({ path: shot, type: "jpeg", quality: 45 })
-      .catch(() => {});
+    await page.screenshot({
+      path: shot,
+      type: "jpeg",
+      quality: 45,
+      timeout: 15000,
+    });
+  };
+  // A page that hangs the renderer must not hold up the rest of the shard.
+  let timer;
+  try {
+    await Promise.race([
+      run(),
+      new Promise((_, reject) => {
+        timer = setTimeout(
+          () => reject(new Error("game did not finish in time")),
+          waitMs + 60000,
+        );
+      }),
+    ]);
   } catch (error) {
     add("goto", error.message.split("\n")[0]);
   }
-  await context.close().catch(() => {});
+  clearTimeout(timer);
+  await Promise.race([
+    context.close(),
+    new Promise((resolve) => setTimeout(resolve, 10000)),
+  ]).catch(() => {});
   return { ...game, issues };
 }
 
