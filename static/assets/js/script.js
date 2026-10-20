@@ -273,8 +273,10 @@ function whenDomReady(callback) {
       if (/\.b-cdn\.net$/i.test(window.location.hostname)) {
         adsScript.setAttribute("data-endpoint", "/_ads/no-google");
       }
-      // Video and rewarded calls go under /api, where the session cookie
-      // reaches the edge, so it can tell a Premium account (utils/ads.js).
+      // Video and rewarded calls go under /api, where the session reaches
+      // the edge, so it can tell a Premium account (utils/ads.js): the
+      // cookie, or on Bunny pull zones the X-GMS-Session header that
+      // freshApiRequests adds to every /api fetch, video.min.js's included.
       adsScript.setAttribute("data-video-endpoint", "/api/_ads");
       document.head.append(adsScript);
     });
