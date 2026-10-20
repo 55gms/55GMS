@@ -439,3 +439,129 @@
       console.error("Could not load more games", error);
     });
 })();
+
+// Rewarded ads: the game asks for one over postMessage, and ads.js only shows
+// something once video.min.js, the ad config, a session and any partner tag
+// have loaded, which can take seconds and looks like a frozen game. So the
+// page answers the click at once with a notice over the game, and takes it
+// down when the ad's own dialog opens or the answer goes back to the game.
+(() => {
+  const game = document.getElementById("iframe");
+  if (!game) return;
+
+  const GIVE_UP_MS = 20000; // nothing yet: the ad is not coming
+  const NOTE_MS = 2500; // how long "no ad" stays up
+  const MISSED = ["no_fill", "unavailable", "error", "timeout"];
+
+  let notice = null;
+  let text = null;
+  let pending = null; // { id, source, onReply, timer }
+  let noteTimer = 0;
+
+  function build() {
+    notice = document.createElement("div");
+    notice.className = "ad-wait";
+    notice.setAttribute("role", "status");
+    notice.setAttribute("aria-live", "polite");
+    if (typeof notice.showPopover === "function") notice.popover = "manual";
+    const spin = document.createElement("span");
+    spin.className = "ad-wait-spin";
+    text = document.createElement("span");
+    notice.append(spin, text);
+    document.body.append(notice);
+  }
+
+  // Centred on the game, or on the screen while the game is in fullscreen.
+  // As a popover it sits in the top layer, above a fullscreen frame.
+  function open(message, busy) {
+    if (!notice) build();
+    text.textContent = message;
+    notice.classList.toggle("is-busy", busy);
+    const full = document.fullscreenElement === game;
+    const box = full
+      ? { left: 0, top: 0, width: innerWidth, height: innerHeight }
+      : game.getBoundingClientRect();
+    notice.style.left = `${box.left + box.width / 2}px`;
+    notice.style.top = `${box.top + box.height / 2}px`;
+    notice.hidden = false;
+    if (notice.popover && !notice.matches(":popover-open")) {
+      try {
+        notice.showPopover();
+      } catch (_e) {
+        /* already open */
+      }
+    }
+  }
+
+  function close() {
+    clearTimeout(noteTimer);
+    if (!notice) return;
+    if (notice.popover && notice.matches(":popover-open")) notice.hidePopover();
+    notice.hidden = true;
+  }
+
+  function settle(missed) {
+    if (!pending) return;
+    clearTimeout(pending.timer);
+    try {
+      pending.source.removeEventListener("message", pending.onReply);
+    } catch (_e) {
+      /* the game went away */
+    }
+    pending = null;
+    if (!missed) return close();
+    open("No ad is available right now. Try again later.", false);
+    noteTimer = setTimeout(close, NOTE_MS);
+  }
+
+  // ads.js opens its consent prompt and the ad itself as a dialog labelled
+  // "Advertisement" on this page.
+  new MutationObserver((records) => {
+    if (!pending) return;
+    for (const record of records) {
+      for (const node of record.addedNodes) {
+        if (
+          node.nodeType === 1 &&
+          node.getAttribute("aria-label") === "Advertisement"
+        )
+          return settle(false);
+      }
+    }
+  }).observe(document.body, { childList: true });
+
+  window.addEventListener("message", (e) => {
+    const data = e.data;
+    if (
+      !data ||
+      data.gmsAds !== 1 ||
+      data.kind !== "req" ||
+      data.method !== "showRewarded"
+    )
+      return;
+    if (
+      !e.source ||
+      e.source !== game.contentWindow ||
+      typeof data.id !== "string"
+    )
+      return;
+    if (pending) settle(false);
+    clearTimeout(noteTimer);
+    const id = data.id;
+    // The answer goes to the game's window; it is on this origin, so the
+    // page can hear it there too and knows when the request is over.
+    const onReply = (reply) => {
+      const r = reply.data;
+      if (!r || r.gmsAds !== 1 || r.kind !== "res" || r.id !== id) return;
+      const status = r.ok && r.result ? r.result.status : "error";
+      settle(MISSED.includes(status));
+    };
+    pending = { id, source: e.source, onReply, timer: 0 };
+    try {
+      e.source.addEventListener("message", onReply);
+    } catch (_e) {
+      /* another origin: the dialog or the time limit takes the notice down */
+    }
+    pending.timer = setTimeout(() => settle(true), GIVE_UP_MS);
+    open("Loading ad…", true);
+  });
+})();
