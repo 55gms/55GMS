@@ -1,13 +1,19 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createAdsRouter } from "./ads-edge/index.js";
+import { readSession } from "./sessionToken.js";
 
 const rootDir = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
 // Serves 55GMS Ads (the gms-ads server) from this origin under /_ads, so the
 // same embed works on every domain the site is reached through. Mounted ahead
 // of the body parsers because the router reads request bodies itself.
-export function mountAds(app) {
+//
+// The same router also answers under /api/_ads, where the session cookie
+// (path /api) reaches it: play pages send video and rewarded calls there, so
+// the edge knows who is Premium. Premium may skip a rewarded ad after 5 s and
+// keep the reward; the ad server decides that from what resolveViewer says.
+export function mountAds(app, { accounts = false } = {}) {
   const adServerUrl = process.env.ADS_SERVER_URL;
   const apiKey = process.env.ADS_API_KEY;
   if (!adServerUrl || !apiKey) {
@@ -27,9 +33,41 @@ export function mountAds(app) {
       process.env.ADS_SPOOL_DIR || path.join(rootDir, ".ads-spool"),
       `worker-${process.env.NODE_APP_INSTANCE || 0}`,
     ),
+    resolveViewer: accounts ? resolveViewer : null,
   });
-  app.use("/_ads", serveLocalhost, skipGoogle, router);
+  app.use(["/_ads", "/api/_ads"], serveLocalhost, skipGoogle, router);
   return router;
+}
+
+const PREMIUM_TTL_MS = 60 * 1000;
+const PREMIUM_CACHE_MAX = 10000;
+const premiumCache = new Map(); // uuid -> { premium, at }
+
+// The viewer for the edge: the signed-in account and whether it is Premium,
+// or null for a signed-out visitor. Only the session (cookie or
+// X-GMS-Session header) counts, never anything the page claims. A lookup
+// that fails is treated as signed out and not cached.
+async function resolveViewer(req) {
+  const uuid = readSession(req)?.uuid;
+  if (!uuid) return null;
+  const now = Date.now();
+  const cached = premiumCache.get(uuid);
+  if (cached && now - cached.at < PREMIUM_TTL_MS) {
+    return { userId: uuid, premium: cached.premium };
+  }
+  try {
+    // Loaded on the first signed-in request, as the account routes load it
+    // only when accounts are on.
+    const accounts = (await import("../services/accounts.js")).default;
+    const found = await accounts.isPremium(uuid);
+    const premium = Boolean(found?.premium);
+    if (premiumCache.size >= PREMIUM_CACHE_MAX) premiumCache.clear();
+    premiumCache.set(uuid, { premium, at: now });
+    return { userId: uuid, premium };
+  } catch (error) {
+    console.warn("[ads] premium check failed:", error.message);
+    return null;
+  }
 }
 
 const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "[::1]"]);

@@ -76,7 +76,7 @@ try {
   const app = express();
   app.use(createCompression());
   mountProxyAssets(app);
-  mountAds(app);
+  mountAds(app, { accounts: features.accounts });
   const server = createServer(app);
 
   const io = new SocketIO({
