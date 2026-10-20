@@ -93,10 +93,38 @@ newScript.setAttribute(
   "src",
   "https://www.googletagmanager.com/gtag/js?id=G-N0LG27M8L8",
 );
+// Signals sent with every event, registered in GA as event-scoped custom
+// dimensions, so bot traffic can be split out of reports. They only label
+// traffic; nothing is filtered out.
+function botSignals() {
+  const ua = navigator.userAgent || "";
+  let automation = "none";
+  if (navigator.webdriver) automation = "webdriver";
+  else if (
+    /headless|phantomjs|puppeteer|playwright|selenium|bot|crawl|spider/i.test(
+      ua,
+    )
+  )
+    automation = "bot_ua";
+  else if (!navigator.languages || !navigator.languages.length)
+    automation = "no_languages";
+  let framed = "no";
+  try {
+    if (window.top !== window.self) framed = "yes";
+  } catch {
+    framed = "yes";
+  }
+  return {
+    automation,
+    signed_in: localStorage.getItem("uuid") ? "yes" : "no",
+    framed,
+  };
+}
 const inlinegascript = document.createElement("script");
 inlinegascript.innerHTML = `window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
+      gtag('set', ${JSON.stringify(botSignals())});
       gtag('config', 'G-N0LG27M8L8');`;
 document.head.append(newScript, inlinegascript);
 script("Injected script 1/3");
