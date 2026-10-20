@@ -95,7 +95,8 @@ newScript.setAttribute(
 );
 // Signals sent with every event, registered in GA as event-scoped custom
 // dimensions, so bot traffic can be split out of reports. They only label
-// traffic; nothing is filtered out.
+// traffic; nothing is filtered out. They go on config, as GA4 drops custom
+// parameters given to gtag('set').
 function botSignals() {
   const ua = navigator.userAgent || "";
   let automation = "none";
@@ -124,8 +125,7 @@ const inlinegascript = document.createElement("script");
 inlinegascript.innerHTML = `window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('set', ${JSON.stringify(botSignals())});
-      gtag('config', 'G-N0LG27M8L8');`;
+      gtag('config', 'G-N0LG27M8L8', ${JSON.stringify(botSignals())});`;
 document.head.append(newScript, inlinegascript);
 script("Injected script 1/3");
 
