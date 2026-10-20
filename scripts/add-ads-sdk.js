@@ -30,10 +30,11 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MISC = path.join(ROOT, "static/misc");
 const SKIP = new Set(["play", "media"]);
 
-// gms-ads embed release: the tag and embed/dist/manifest.json files.sdk.integrity.
-const SDK_VERSION = "1.3.1";
+// gms-ads embed release: the tag (or the release commit, until its tag is
+// pushed; v1.3.2 is b995962) and embed/dist/manifest.json files.sdk.integrity.
+const SDK_VERSION = "b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe";
 const SDK_INTEGRITY =
-  "sha384-qoUP32Uh4cuTWMH2h+GTUzp9xAeyxMJN7T54L5sYX/3e03d1kZspMEAlc4bpSLF9";
+  "sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT";
 const SDK_SRC = `https://cdn.jsdelivr.net/gh/55gms/gms-ads@${SDK_VERSION}/embed/dist/sdk.min.js`;
 const SDK_TAG =
   /[ \t]*<script\b[^>]*\bsrc=["'][^"']*\/gms-ads@[^"'/]+\/embed\/dist\/sdk(?:\.min)?\.js["'][^>]*>\s*<\/script>[ \t]*/i;
