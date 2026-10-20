@@ -857,7 +857,7 @@ export function createAdsRouter(options = {}) {
       const r = await upstream('/api/v1/video/click', { token });
       // A site path such as /premium is allowed, as for banner clicks, so the
       // browser stays on the site it is on. A protocol-relative //host is not.
-      if (r.status === 200 && typeof r.data?.url === 'string' && /^(https:\/\/|\/(?![\/\\]))/.test(r.data.url)) {
+      if (r.status === 200 && typeof r.data?.url === 'string' && /^(https:\/\/|\/(?![/\\]))/.test(r.data.url)) {
         return send(res, 302, undefined, { Location: r.data.url, 'Referrer-Policy': 'no-referrer' });
       }
     } catch (err) {
