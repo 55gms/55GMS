@@ -264,9 +264,9 @@ function whenDomReady(callback) {
       const adsScript = document.createElement("script");
       adsScript.async = true;
       adsScript.src =
-        "https://cdn.jsdelivr.net/gh/55gms/gms-ads@1.3.0/embed/dist/ads.min.js";
+        "https://cdn.jsdelivr.net/gh/55gms/gms-ads@1.3.1/embed/dist/ads.min.js";
       adsScript.integrity =
-        "sha384-rbmrDog/VrU/Atz3abojN4/3Me0gU/TwHsNMyjs19cLuKDobkBtWg39Zy4aTfI9O";
+        "sha384-f12KQdlwgK172JE1uWiVonIk3roy34gOCWwRtns72oA96Fi3ZpUMIKZzk24NYPhF";
       adsScript.crossOrigin = "anonymous";
       // Google is not approved on Bunny pull zones, and the server cannot tell
       // them from 55gms.com, so they ask for campaign ads only (utils/ads.js).
