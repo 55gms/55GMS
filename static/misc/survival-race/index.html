@@ -3,6 +3,13 @@
 
 <head>
   <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@1.3.0/embed/dist/sdk.min.js"
+    integrity="sha384-N7rm8C4Ekwwg4G6QyTE1Euf6Dt7CBWwwvjYAULH8s+u/3KUb5IbfO3Hk6r5LLKOc"
+    crossorigin="anonymous"
+    data-game-id="survival-race"
+    data-compat=""
+  ></script>
     <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css?v=5gz9swuael">
     <script type="module" src="/assets/js/unity-cdn-loader.js?v=5gz9swuael"></script>
     <base href="https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/survival-race/">
@@ -73,7 +80,29 @@
 
             function FullAdShow() { }
 
-            function RewardedShow(id) { }
+            // 55GMS Ads: the reward comes only with an ad GMSAds (sdk.min.js) grants.
+            function RewardedShow(id) {
+                const send = (method, arg) => {
+                    if (!window.gameInstance) return;
+                    if (arg === undefined) window.gameInstance.SendMessage("YandexGame", method);
+                    else window.gameInstance.SendMessage("YandexGame", method, arg);
+                };
+                if (!window.GMSAds) return send("ErrorVideo");
+                let opened = false;
+                const onPause = () => {
+                    opened = true;
+                    send("OpenVideo");
+                };
+                GMSAds.on("pause", onPause);
+                GMSAds.showRewardedAd({ placement: "rewarded", rewardId: String(id) }).then((r) => {
+                    GMSAds.off("pause", onPause);
+                    if (r.rewardGranted) {
+                        if (!opened) send("OpenVideo");
+                        send("RewardVideo", id);
+                        send("CloseVideo");
+                    } else send(opened ? "CloseVideo" : "ErrorVideo");
+                });
+            }
 
             function StickyAdActivity(show) { }
 

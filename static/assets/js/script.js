@@ -236,7 +236,14 @@ function whenDomReady(callback) {
     document.head.append(hideAds);
   }
 
-  if (ads.banners) {
+  // Play pages (/misc/play/) also load ads.js for the rewarded ads a game
+  // asks for through its frame (iframe[data-gms-game]). Those are the
+  // player's choice, so they stay on for everyone, Premium included, and
+  // the banners stay off for whoever turned them off. A Codespace gets none.
+  const onPlayPage = window.location.pathname.startsWith("/misc/play/");
+  const rewarded = onPlayPage && !inCodespace();
+
+  if (ads.banners || rewarded) {
     whenDomReady(() => {
       // 55GMS Ads are served from this origin (/_ads), so they work on every
       // domain. Game pages get their slots from game-page.js. The other pages
@@ -246,20 +253,31 @@ function whenDomReady(callback) {
       document.querySelectorAll(".site-ad, .site-ad-rail").forEach((ad) => {
         if (getComputedStyle(ad).display === "none") ad.remove();
       });
-      if (!document.querySelector("[data-55gms-ad]")) return;
+      if (!ads.banners) {
+        // ads.js fills whatever carries the attribute, hidden or not.
+        document
+          .querySelectorAll("[data-55gms-ad]")
+          .forEach((slot) => slot.removeAttribute("data-55gms-ad"));
+      }
+      if (!rewarded && !document.querySelector("[data-55gms-ad]")) return;
 
       const adsScript = document.createElement("script");
       adsScript.async = true;
       adsScript.src =
-        "https://cdn.jsdelivr.net/gh/55gms/gms-ads@1.2.2/embed/dist/ads.min.js";
+        "https://cdn.jsdelivr.net/gh/55gms/gms-ads@1.3.0/embed/dist/ads.min.js";
       adsScript.integrity =
-        "sha384-3BCeYLLNiBHvvRv92iLM0zqkGvR4HJ1nFngEjCim3W2m3gY1AuvBIp3yhSffrgAv";
+        "sha384-rbmrDog/VrU/Atz3abojN4/3Me0gU/TwHsNMyjs19cLuKDobkBtWg39Zy4aTfI9O";
       adsScript.crossOrigin = "anonymous";
       // Google is not approved on Bunny pull zones, and the server cannot tell
       // them from 55gms.com, so they ask for campaign ads only (utils/ads.js).
       if (/\.b-cdn\.net$/i.test(window.location.hostname)) {
         adsScript.setAttribute("data-endpoint", "/_ads/no-google");
       }
+      // Video and rewarded calls go under /api, where the session reaches
+      // the edge, so it can tell a Premium account (utils/ads.js): the
+      // cookie, or on Bunny pull zones the X-GMS-Session header that
+      // freshApiRequests adds to every /api fetch, video.min.js's included.
+      adsScript.setAttribute("data-video-endpoint", "/api/_ads");
       document.head.append(adsScript);
     });
   }

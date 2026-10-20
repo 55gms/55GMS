@@ -22,7 +22,7 @@
     <meta charset="utf-8">
 
     <link rel="stylesheet" href="/assets/css/gameframe.css?v=13" />
-    <script src="/assets/js/script.js?v=32"></script>
+    <script src="/assets/js/script.js?v=33"></script>
 
     <script src="/assets/js/cloud-saves.js?v=7"></script>
 </head>
@@ -104,6 +104,10 @@
                 frame.pathname.startsWith('/misc/play/')
             ) return;
             iframeElement.dataset.src = frame.pathname + frame.search;
+            // Marks the frame for 55GMS Ads, whose ads.js answers rewarded
+            // ad requests only from it, under the game id cloud saves use.
+            const gameId = window.GMSSaves && GMSSaves.gameIdFromLocation(frame.pathname, frame.search);
+            if (gameId) iframeElement.dataset.gmsGame = gameId;
             if (window.GMSSaves) GMSSaves.launch(iframeElement);
             else iframeElement.src = iframeElement.dataset.src;
         })();
