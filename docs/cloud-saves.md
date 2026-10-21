@@ -273,6 +273,12 @@ history before replacing them.
   10-minute token from `/api/saves-socket-token`. A device running that game
   marks it "Newer in the cloud" and takes it on the next launch; otherwise a
   game it has a copy of is refreshed in the background.
+- **Save button** (`assets/js/save-status.js`, in the play page's bar beside
+  reload and fullscreen): its icon and label show the game's status (Saved,
+  Save when this browser has changes the cloud lacks, Saving…, Newer in cloud,
+  Not saved, Offline, Sign in to save), from `GMSSaves.gameStatus`. A click
+  uploads now with `GMSSaves.saveNow`, for free accounts too; like every
+  upload while a game runs, it never writes the cloud's save into the game.
 - **Load from cloud** (`GMSSaves.restoreAll`, on `/profile`): restores every
   game that is only in the cloud or newer there. Games with changes in this
   browser that are not uploaded yet are skipped; Restore one by hand to

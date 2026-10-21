@@ -2294,6 +2294,58 @@ window.GMSSaves = (() => {
     });
   }
 
+  // ---- For the play page ------------------------------------------------------
+
+  let dirtyCache = { key: null, dirty: false };
+
+  // What the play page shows about a game's save: whether it can sync at
+  // all, its last sync state, and whether this browser has changes the
+  // cloud lacks.
+  async function gameStatus(gameId) {
+    const uuid = account();
+    const game = (await registry())[gameId];
+    if (!game) return { support: null };
+    if (!uuid) return { support: game.status, signedIn: false };
+    const [state, mark] = await Promise.all([
+      getState(gameId, uuid),
+      getOne("dirty", gameId),
+    ]);
+    // A write is not always a change (Unity rewrites its folders' times on
+    // every start), so a marked game is compared with what was last synced,
+    // once per mark.
+    let dirty = false;
+    if (mark) {
+      const key = `${gameId}|${mark.at}|${state.baseHash}`;
+      if (dirtyCache.key !== key) {
+        const local = await extract(gameId).catch(() => null);
+        dirtyCache = {
+          key,
+          dirty: Boolean(local) && local.hash !== state.baseHash,
+        };
+      }
+      dirty = dirtyCache.dirty;
+    }
+    return {
+      support: game.status,
+      signedIn: true,
+      saving: inFlight.has(gameId),
+      dirty,
+      state,
+    };
+  }
+
+  // The Save button: uploads the running game's save now, for free accounts
+  // too. Never writes into the running game; a newer cloud save waits for
+  // the next launch.
+  function saveNow(gameId) {
+    suspended.delete(gameId);
+    return syncGame(gameId, {
+      mode: "manual",
+      canApply: () => false,
+      pull: () => false,
+    });
+  }
+
   // ---- For the profile page ----------------------------------------------------
 
   // Every game with a save here or in the cloud, with what the profile page
@@ -2567,6 +2619,8 @@ window.GMSSaves = (() => {
     syncGame,
     syncGames,
     syncAll,
+    gameStatus,
+    saveNow,
     overview,
     restore,
     restoreAll,

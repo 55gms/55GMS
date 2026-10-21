@@ -124,6 +124,67 @@
 .fullscreenbtn:hover {
   transform: scaleX(1.2) scaleY(1.2) rotate(-10deg);
 }
+/* Cloud save status and Save button (save-status.js). */
+.savebtn {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(0.5 * var(--u));
+  height: calc(2.6 * var(--u));
+  padding: 0 calc(0.9 * var(--u));
+  border: 1px solid
+    color-mix(in srgb, var(--site-border, #ffffff) 70%, transparent);
+  border-radius: 999px;
+  background: var(--site-button, #19191b);
+  color: var(--site-text, #ffffff);
+  font-family: inherit;
+  font-size: calc(1.1 * var(--u));
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+.savebtn[hidden] {
+  display: none;
+}
+.savebtn i {
+  font-size: calc(1.25 * var(--u));
+}
+.savebtn:hover:not(:disabled) {
+  border-color: var(--site-muted, #cfcfcf);
+}
+.savebtn:focus-visible {
+  outline: 2px solid var(--site-accent, #f5b942);
+  outline-offset: 2px;
+}
+.savebtn[data-state="ok"] i {
+  color: #4ade80;
+}
+.savebtn[data-state="pending"] i {
+  color: var(--site-accent, #f5b942);
+}
+.savebtn[data-state="warn"] i {
+  color: #60a5fa;
+}
+.savebtn[data-state="error"] i {
+  color: #f87171;
+}
+.savebtn[data-state="busy"] {
+  cursor: progress;
+}
+.savebtn:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+/* Narrow screens: the icon alone, the label stays in its tooltip. */
+@media (max-width: 560px) {
+  .savebtn-label {
+    display: none;
+  }
+}
+
 .reloadbtn {
   font-size: calc(1.6 * var(--u));
   cursor: pointer;
