@@ -977,7 +977,7 @@
     }
     var script = document.createElement("script");
     // Absolute: game pages set <base> to the CDN.
-    script.src = location.origin + "/assets/js/cloud-saves.js?v=8";
+    script.src = location.origin + "/assets/js/cloud-saves.js?v=9";
     script.async = true;
     script.onload = function () {
       if (window.GMSSaves) window.GMSSaves.attach(gameId, { standalone: true });

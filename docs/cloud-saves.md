@@ -62,7 +62,10 @@ the game's window, before any game code runs, and records:
   ignored. A record over 4 MB (`RECORD_MAX_BYTES` in `cloud-saves.js`) is
   content the game downloaded, such as Mad Skills Motocross 2's 22 MB level
   archive: it stays out of the save, a restore leaves it in place, and where it
-  is missing the game downloads it again.
+  is missing the game downloads it again. A folder record's time (Emscripten's
+  `{ mode, timestamp }` with a directory mode) is saved as 0: every Unity or
+  Godot game rewrites all folders' times in the shared database when it
+  starts, which would make every other such game look changed.
 - IndexedDB records written from a Worker (Construct 3 in worker mode,
   Eaglercraft's world server). A worker started from a blob, as every game
   here starts its workers, first runs a hook that reports its writes to the

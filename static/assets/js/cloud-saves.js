@@ -680,6 +680,22 @@ window.GMSSaves = (() => {
   const tooLarge = (value) => bytesIn(value) > RECORD_MAX_BYTES;
   const recordId = (key) => JSON.stringify([typeof key, key]);
 
+  // Emscripten file systems (Unity's /idbfs, Godot's /userfs) give every
+  // folder a new time whenever any of their games starts and writes them all
+  // back, so a folder's time is not save data: a save holds 0 instead, or
+  // every such game would look changed each time another one ran.
+  function withoutFolderTime(value) {
+    if (
+      value &&
+      typeof value === "object" &&
+      typeof value.mode === "number" &&
+      (value.mode & 0o170000) === 0o040000 &&
+      value.timestamp instanceof Date
+    )
+      return { ...value, timestamp: new Date(0) };
+    return value;
+  }
+
   // IndexedDB values as JSON, with the types JSON lacks tagged: { $t: type }.
   // An object that has its own "$t" is wrapped, so nothing is misread.
   async function encodeValue(value) {
@@ -930,7 +946,10 @@ window.GMSSaves = (() => {
       for (const { target, found, indexes, keyPath, autoIncrement } of read) {
         const records = [];
         for (const [key, value] of found.values()) {
-          records.push([await encodeValue(key), await encodeValue(value)]);
+          records.push([
+            await encodeValue(key),
+            await encodeValue(withoutFolderTime(value)),
+          ]);
         }
         records.sort((a, b) =>
           stableStringify(a[0]) < stableStringify(b[0]) ? -1 : 1,
