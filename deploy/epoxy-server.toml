@@ -18,6 +18,9 @@ runtime = "multithread"
 extensions = ["udp"]
 
 [stream]
+# The server's unbound cache first (deploy/unbound.conf), then Cloudflare.
+# netcup's resolvers took ~100 ms per lookup and every new site paid it.
+dns_servers = ["127.0.0.1", "1.1.1.1"]
 # What wisp-js blocks by default: only public addresses are reachable, never
 # this machine or the networks it sits on. The checks run on the resolved
 # address, so a hostname pointing at 127.0.0.1 is blocked too.

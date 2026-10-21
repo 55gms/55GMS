@@ -179,7 +179,7 @@ try {
   // API answers depend on who is asking. Without this, a CDN in front of the
   // site (the Bunny pull zones cache for 30 days) serves one account's
   // /api/me, saves or chats to everyone. Routes that want caching set their
-  // own header (only /api/music does).
+  // own header (/api/music and /api/autocomplete do).
   app.use("/api", (req, res, next) => {
     setNoStoreHeaders(res);
     next();

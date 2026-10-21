@@ -260,6 +260,13 @@ from this page (the boot script, for one), the code and this page are right.
   steps in docs/proxy-stack.md ("Switching production over"). Once its unit
   exists, every deploy's health check also expects it to answer on port
   8091, and a deploy that changes `deploy/epoxy-server.toml` restarts it.
+- DNS: the server runs unbound on `127.0.0.1:53`, a cache that forwards to
+  Cloudflare and Google (`deploy/unbound.conf`, installed by hand at
+  `/etc/unbound/unbound.conf.d/55gms-forward.conf`). `/etc/resolv.conf` names
+  it, then 1.1.1.1, and is locked with `chattr +i` so DHCP cannot put back
+  netcup's resolvers, which took ~100 ms per lookup with nothing cached.
+  epoxy-server is pointed at the same two in its config. Deploys never touch
+  either file.
 
 ## Custom domains
 
