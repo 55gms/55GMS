@@ -1,0 +1,26 @@
+# epoxy-server, the Rust Wisp server production runs (docs/proxy-stack.md).
+# Caddy sends /api/live/ and /wisp/ here; the Node app runs with
+# WISP_SERVER=external. A deploy that changes this file copies it to
+# /etc/epoxy-server/config.toml and restarts the service, dropping open
+# proxy connections. Every option is documented in server/src/config.rs of
+# epoxy-tls at the commit deploy/setup-epoxy.sh builds.
+
+[server]
+bind = ["tcp", "127.0.0.1:8091"]
+# Behind Caddy: log the visitor's address, not Caddy's.
+use_real_ip_headers = true
+non_ws_response = ""
+log_level = "warn"
+runtime = "multithread"
+
+[wisp]
+# UDP only: the MOTD extension would name the server and its version.
+extensions = ["udp"]
+
+[stream]
+# What wisp-js blocks by default: only public addresses are reachable, never
+# this machine or the networks it sits on. The checks run on the resolved
+# address, so a hostname pointing at 127.0.0.1 is blocked too.
+allow_loopback = false
+allow_non_global = false
+allow_multicast = false

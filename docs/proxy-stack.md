@@ -14,7 +14,42 @@ The compatible package versions are pinned in `package.json` and `package-lock.j
 | `@mercuryworkshop/epoxy-transport`     | `3.0.1`          |
 | `@mercuryworkshop/wisp-js`             | `0.5.0`          |
 
+Production's Wisp server is not in this table: it is epoxy-server, built from the commit pinned in `deploy/setup-epoxy.sh` (see [Wisp server](#wisp-server)).
+
 `proxy-transports` replaces BareMux through the controller/core dependencies. Epoxy uses Wisp protocol version 2. The site connects to `/api/live/`; the server still accepts `/wisp/` for external clients. The embed no longer reads a saved endpoint from `localStorage`.
+
+## Wisp server
+
+Epoxy runs TLS inside the browser, so the Wisp server only relays encrypted TCP bytes between the visitor's websocket and the destination. Two servers can do that:
+
+- **Built in** (the default): `index.js` routes websocket upgrades on `/api/live/` and `/wisp/` to `wisp-js`'s server, in every worker. This is what runs in Codespaces, locally, and on forks (`render.yaml`, `vercel.json`); nothing has to be set up.
+- **epoxy-server** (production): the Rust server from [epoxy-tls](https://github.com/MercuryWorkshop/epoxy-tls), built from the commit in `deploy/setup-epoxy.sh` (the release whose client `epoxy-transport` bundles), runs as the `epoxy-server` systemd service on `127.0.0.1:8091`, and Caddy sends the two paths to it. The Node app runs with `WISP_SERVER=external`: it never loads `wisp-js`, and closes any Wisp upgrade that still reaches it. Proxy traffic then no longer shares the workers' event loops with chat and the API, and costs far less CPU and memory per connection.
+
+`deploy/epoxy-server.toml` is its config. It blocks what `wisp-js` blocks by default: loopback, private, link-local and other non-public addresses, checked after DNS resolution. epoxy-server's own defaults allow all of them, so never drop those lines. The MOTD extension is off because it names the server and its version. A deploy that changes the config installs it at `/etc/epoxy-server/config.toml` and restarts the service; the deploy health check also expects epoxy-server to answer once its unit exists.
+
+`node scripts/wisp-check.js <ws-url>` checks either server the way the proxy uses it: the handshake, a stream to a public site, and that `127.0.0.1`, `localhost`, `10.0.0.1` and `169.254.169.254` are closed as blocked. With no argument it checks the built-in server on `ws://127.0.0.1:8080/api/live/`.
+
+### Switching production over
+
+1. Push the code. With `WISP_SERVER` unset nothing changes yet.
+2. On the server, as root, in `/root/55gms`: `bash deploy/setup-epoxy.sh`. It installs a C toolchain and rustup if missing, builds epoxy-server (the toolchain is the nightly that epoxy-tls pins), installs the binary, config and unit, starts the service and runs `wisp-check.js` against it.
+3. In the Caddyfile's catch-all site block, send the Wisp paths to it ahead of the app, then `systemctl reload caddy`:
+
+   ```
+   @wisp path /api/live/* /wisp/*
+   handle @wisp {
+       reverse_proxy 127.0.0.1:8091
+   }
+   handle {
+       reverse_proxy localhost:8080
+   }
+   ```
+
+   The existing `reverse_proxy localhost:8080` moves inside the second `handle`. Open proxy tabs keep their connection to Node until they close; new ones go to epoxy-server. Check from outside with `node scripts/wisp-check.js wss://55gms.com/api/live/`.
+
+4. Add `WISP_SERVER=external` to `/root/55gms/.env` and `pm2 reload ecosystem.config.cjs --update-env`. The startup log says `Wisp: external`.
+
+To go back, undo it in reverse order: remove `WISP_SERVER` from `.env` and reload pm2 first, then put the plain `reverse_proxy localhost:8080` back in place of the two `handle` blocks and reload Caddy. In either direction, the server Caddy is about to send connections to must already be serving Wisp. `bash deploy/setup-epoxy.sh` again rebuilds and restarts epoxy-server, for example after changing `EPOXY_COMMIT` together with an `epoxy-transport` upgrade.
 
 The Scramjet bundles (core, WASM, controller API, injection, worker and helpers) load from jsDelivr, not this server. They come from the renamed build in [TongSherbet/storage](https://github.com/TongSherbet/storage/tree/main/sj) (`jet.*`, globals `$jet`, `$jetController`, `$jetUtils`), the same versions as the table above. `scripts/build-proxy-cdn.js` downloads them from a pinned commit, patches them (below) and writes them under neutral names; they are committed to `lib/` in [55gms/assets](https://github.com/55gms/assets) and loaded from `https://cdn.jsdelivr.net/gh/55gms/assets@<commit>/lib/`:
 

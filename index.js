@@ -10,7 +10,6 @@ import { dirname } from "path";
 import cors from "cors";
 import "dotenv/config";
 import { Op } from "sequelize";
-import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
 import {
   createCompression,
   setNoStoreHeaders,
@@ -23,7 +22,16 @@ import { mountGameAssetFallback } from "./utils/gameAssets.js";
 import { mountLegacyPlayRedirects } from "./utils/legacyPlayPages.js";
 import { renewSessionCookie, verifyScopedToken } from "./utils/sessionToken.js";
 
-logging.set_level(logging.ERROR);
+// Production runs the Rust Wisp server (epoxy-server) beside this one, and
+// Caddy sends /api/live/ and /wisp/ to it (docs/proxy-stack.md). Everywhere
+// else (Codespaces, forks, a local copy) this process serves Wisp itself.
+const wispExternal = process.env.WISP_SERVER === "external";
+let wisp = null;
+if (!wispExternal) {
+  const { server, logging } = await import("@mercuryworkshop/wisp-js/server");
+  logging.set_level(logging.ERROR);
+  wisp = server;
+}
 
 import searchRoutes from "./routes/search.js";
 import proxyRoutes from "./routes/music.js";
@@ -582,7 +590,9 @@ try {
     upgradedSockets.add(socket);
     socket.once("close", () => upgradedSockets.delete(socket));
     if (req.url.startsWith("/api/live/") || req.url.startsWith("/wisp/")) {
-      wisp.routeRequest(req, socket, head);
+      // With WISP_SERVER=external these should never reach this process.
+      if (wisp) wisp.routeRequest(req, socket, head);
+      else socket.destroy();
     } else {
       io.engine.handleUpgrade(req, socket, head);
     }
@@ -603,6 +613,7 @@ try {
     console.log(`👤 Accounts: ${features.accounts ? "on" : "off"}`);
     console.log(`💬 Chat: ${features.chat ? "on" : "off"}`);
     console.log(`💾 Cloud saves: ${features.saves ? "per game" : "legacy"}`);
+    console.log(`🔌 Wisp: ${wisp ? "built in" : "external"}`);
     console.log(`------------------------------------\n`);
     // Tells pm2 (wait_ready) this worker can take traffic. No-op otherwise.
     process.send?.("ready");

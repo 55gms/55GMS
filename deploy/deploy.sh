@@ -12,6 +12,11 @@ STATE_DIR="${STATE_DIR:-/root/deploy}"
 LIVE_PORT="${LIVE_PORT:-8080}"
 PREFLIGHT_PORT="${PREFLIGHT_PORT:-8099}"
 PM2_RELOAD="${PM2_RELOAD:-pm2 reload ecosystem.config.cjs --update-env}"
+# The Wisp server, if deploy/setup-epoxy.sh has installed it. Its port must
+# match deploy/epoxy-server.toml.
+EPOXY_UNIT="/etc/systemd/system/epoxy-server.service"
+EPOXY_CONFIG="/etc/epoxy-server/config.toml"
+EPOXY_PORT="${EPOXY_PORT:-8091}"
 # Must match BUILT_STATIC in ecosystem.config.cjs.
 BUILT_STATIC="dist/current/static"
 
@@ -44,6 +49,16 @@ install_and_build() {
   npm run --silent build --if-present || return 1
 }
 
+# epoxy-server reads its config only when it starts, so a changed config
+# means a restart, which drops open proxy connections.
+update_epoxy() {
+  [[ -f "$EPOXY_UNIT" ]] || return 0
+  git diff --quiet "$1" "$2" -- deploy/epoxy-server.toml && return 0
+  log "deploy/epoxy-server.toml changed, restarting epoxy-server"
+  install -m 644 deploy/epoxy-server.toml "$EPOXY_CONFIG" || return 1
+  systemctl restart epoxy-server || return 1
+}
+
 # Boots the new code on a spare port before any live worker is replaced.
 preflight() {
   local pid ok=1
@@ -71,13 +86,19 @@ preflight() {
 health() {
   for _ in $(seq 1 30); do
     if curl -fsS -o /dev/null "http://127.0.0.1:$LIVE_PORT/" &&
-      curl -fsS -o /dev/null "http://127.0.0.1:$LIVE_PORT/s"; then
+      curl -fsS -o /dev/null "http://127.0.0.1:$LIVE_PORT/s" &&
+      epoxy_health; then
       return 0
     fi
     sleep 1
   done
-  log "health check failed on port $LIVE_PORT"
+  log "health check failed on port $LIVE_PORT (or epoxy-server on $EPOXY_PORT)"
   return 1
+}
+
+epoxy_health() {
+  [[ -f "$EPOXY_UNIT" ]] || return 0
+  curl -fs -o /dev/null "http://127.0.0.1:$EPOXY_PORT/"
 }
 
 # apply <from> <to> <preflight: yes|no>
@@ -85,6 +106,7 @@ apply() {
   local root_before
   root_before="$(static_root)"
   install_and_build "$1" "$2" || return 1
+  update_epoxy "$1" "$2" || return 1
   # The first build to produce dist/ (or a build step being removed) changes
   # what the workers serve, which only a reload picks up.
   if needs_reload "$1" "$2" || [[ "$(static_root)" != "$root_before" ]]; then
@@ -130,6 +152,7 @@ git checkout --quiet --detach "$previous" || {
   exit 1
 }
 install_and_build "$sha" "$previous" || log "RESTORE: install or build failed"
+update_epoxy "$sha" "$previous" || log "RESTORE: epoxy-server restart failed"
 if [[ "$reloaded" == 1 ]]; then
   $PM2_RELOAD || log "RESTORE: reload failed"
 fi

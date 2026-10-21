@@ -92,6 +92,7 @@ jobs:
           done
           bash -n deploy/entry.sh
           bash -n deploy/deploy.sh
+          bash -n deploy/setup-epoxy.sh
 
       - name: Build
         run: npm run build --if-present

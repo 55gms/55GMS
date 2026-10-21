@@ -1,0 +1,21 @@
+# systemd unit for epoxy-server. deploy/setup-epoxy.sh installs it as
+# /etc/systemd/system/epoxy-server.service; run that again after editing.
+[Unit]
+Description=epoxy-server (Wisp for 55GMS)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/epoxy-server /etc/epoxy-server/config.toml
+Restart=always
+RestartSec=1
+# One socket per proxied connection, plus one per visitor.
+LimitNOFILE=1048576
+DynamicUser=yes
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

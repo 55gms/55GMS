@@ -51,6 +51,9 @@ npm run build
 
 # Check that the build hides what it should (CI runs this after the build)
 node scripts/build/check-output.js
+
+# Check a Wisp server: handshake, a public site answers, local addresses are blocked
+node scripts/wisp-check.js [ws://127.0.0.1:8080/api/live/]
 ```
 
 The server serves `STATIC_ROOT` if set, else `dist/current/static` if it exists, else `static/`. So after a local `npm run build`, plain `node .` serves the built copy and edits under `static/` do not show until you rebuild. To serve the sources, run `STATIC_ROOT=static node .` or delete `dist/`.
@@ -184,7 +187,7 @@ The rest of the stack:
 
 - `static/embed.html` — the proxy page shared by the browser shell and media players; loads the bundles and `static/assets/js/frame-runtime.js`
 - `static/sw.js` — service worker served at `/sw.js`, registered with scope `/stream/` (the proxied-URL prefix)
-- Wisp transport — websocket upgrades on `/api/live/` (used by the site) or `/wisp/` (external clients) are routed to the wisp-js server in `index.js`
+- Wisp transport — websocket upgrades on `/api/live/` (used by the site) or `/wisp/` (external clients). By default `index.js` routes them to the wisp-js server (Codespaces, local, forks). Production runs the Rust epoxy-server instead (`deploy/setup-epoxy.sh`, config `deploy/epoxy-server.toml`, systemd service on `127.0.0.1:8091`); Caddy sends both paths to it and the app runs with `WISP_SERVER=external`, which leaves wisp-js unloaded. Its config must keep loopback and private addresses blocked; epoxy-server's defaults allow them
 
 See `docs/proxy-stack.md` for versions, caching, the neutral-naming rules, and upgrade notes.
 

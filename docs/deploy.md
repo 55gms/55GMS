@@ -27,7 +27,10 @@ lock, then runs that commit's `deploy/deploy.sh`, which:
   `deploy/`, `.github/`, `test(s)/` and `*.md` changed, or the build output
   appeared or disappeared. Before reloading it boots the new code on port 8099
   (the preflight); if that fails, no live worker is touched;
-- checks `/` and `/s` on port 8080.
+- restarts epoxy-server if `deploy/epoxy-server.toml` changed and the
+  service is installed;
+- checks `/` and `/s` on port 8080, and that epoxy-server answers on 8091
+  once it is installed.
 
 If any step fails, the previous commit is put back and the workflow run goes
 red. Commits that only add or change games do not reload the app, so chat and
@@ -49,6 +52,7 @@ successful commit. Running it twice returns to where you started.
 - `/root/deploy/deploy.log`: full output of every deploy.
 - `/root/deploy/preflight.log`: output of the last preflight boot.
 - `pm2 logs 55gms`: the app.
+- `journalctl -u epoxy-server`: the Wisp server.
 
 To run a deploy by hand on the server:
 
@@ -251,9 +255,16 @@ from this page (the boot script, for one), the code and this page are right.
 - Repository secrets: `DEPLOY_SSH_KEY` (private key), `DEPLOY_HOST`,
   `DEPLOY_KNOWN_HOSTS` (output of `ssh-keyscan -t ed25519 <host>`).
 - pm2 is started with `pm2 start ecosystem.config.cjs && pm2 save`.
+- epoxy-server, the Wisp server: `bash deploy/setup-epoxy.sh` builds and
+  installs it as the `epoxy-server` service; Caddy and `.env` then need the
+  steps in docs/proxy-stack.md ("Switching production over"). Once its unit
+  exists, every deploy's health check also expects it to answer on port
+  8091, and a deploy that changes `deploy/epoxy-server.toml` restarts it.
 
 ## Custom domains
 
-Caddy's catch-all block proxies every hostname to `localhost:8080` and issues
+Caddy's catch-all block proxies every hostname to `localhost:8080`, except
+the Wisp paths (`/api/live/`, `/wisp/`), which go to epoxy-server on
+`127.0.0.1:8091` (docs/proxy-stack.md, "Wisp server"), and issues
 certificates on demand. Deploys never touch Caddy; they only need port 8080
 to keep answering, which the rolling reload does.
