@@ -31,3 +31,6 @@ static/misc/**
 # Handle migration inputs and reports (scripts/migrate-handles.js)
 signup-order.txt
 handle-migration-report.csv
+
+# macOS Finder metadata
+.DS_Store

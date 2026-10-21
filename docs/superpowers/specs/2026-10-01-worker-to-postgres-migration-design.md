@@ -205,7 +205,7 @@ hashes and user saves. The directory is deleted after the migration.
 8. Unset the freeze flag. Log in with a real account and load its save.
 9. After two weeks with no problems: delete the Worker, D1 database and KV
    namespace, delete `services/workerAccounts.js` and the backend switch, remove `workerAUTH` from the environment and from `EXAMPLE.env`,
-   `CLAUDE.md`, `AGENTS.md` and `CHAT_SETUP.md`, and delete `migration-data/`.
+   `CLAUDE.md`, `AGENTS.md` and `docs/chat-setup.md`, and delete `migration-data/`.
 
 Rollback before step 9: unset `ACCOUNT_BACKEND` and restart. Accounts and saves
 created after step 8 exist only in Postgres and would be lost to users until
