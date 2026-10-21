@@ -930,6 +930,51 @@
 
 
         </div>
+        <script>
+            // A hidden tab runs its timers once a second at most, which all but stops
+            // the game's 10ms loop. A worker's timers are not slowed, so the game's
+            // timers are kept there and their callbacks run here when they fire.
+            (function () {
+                var source = "var t={};onmessage=function(e){var d=e.data;if(d.clear){clearTimeout(t[d.id]);clearInterval(t[d.id]);delete t[d.id];return}" +
+                    "t[d.id]=(d.repeat?setInterval:setTimeout)(function(){if(!d.repeat)delete t[d.id];postMessage(d.id)},d.ms)}";
+                var worker;
+                try {
+                    worker = new Worker(URL.createObjectURL(new Blob([source], { type: "text/javascript" })));
+                } catch (e) {
+                    return;
+                }
+                var nativeSetTimeout = window.setTimeout, nativeSetInterval = window.setInterval;
+                var nativeClearTimeout = window.clearTimeout, nativeClearInterval = window.clearInterval;
+                // Far above the browser's own ids, so a timer set before this still clears.
+                var nextId = 1e9, timers = {};
+                worker.onmessage = function (e) {
+                    var timer = timers[e.data];
+                    if (!timer) return;
+                    if (!timer.repeat) delete timers[e.data];
+                    timer.callback.apply(window, timer.args);
+                };
+                function schedule(repeat, fallback) {
+                    return function (callback, ms) {
+                        if (typeof callback !== "function") return fallback.apply(window, arguments);
+                        var id = nextId++;
+                        timers[id] = { callback: callback, args: [].slice.call(arguments, 2), repeat: repeat };
+                        worker.postMessage({ id: id, ms: Number(ms) || 0, repeat: repeat });
+                        return id;
+                    };
+                }
+                function clear(fallback) {
+                    return function (id) {
+                        if (!timers[id]) return fallback.call(window, id);
+                        delete timers[id];
+                        worker.postMessage({ id: id, clear: true });
+                    };
+                }
+                window.setTimeout = schedule(false, nativeSetTimeout);
+                window.setInterval = schedule(true, nativeSetInterval);
+                window.clearTimeout = clear(nativeClearTimeout);
+                window.clearInterval = clear(nativeClearInterval);
+            })();
+        </script>
         <script type="text/javascript" src="combat.js?v2"></script>
         <script type="text/javascript" src="globals.js?v2"></script>
         <script type="text/javascript" src="projects.js?v2"></script>
