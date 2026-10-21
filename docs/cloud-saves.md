@@ -233,6 +233,16 @@ by it.
 
 ## When syncing happens
 
+Every sync goes through `POST /api/saves-sync`, which settles any number of
+games in one request: the queue, Sync now, a launch and a background upload
+each make one call whatever the number of games (split only past 200 games or
+8 MB of uploads). The server runs uploads one at a time, as each takes its
+save's row lock and checks the quota, and reads everything else in one query.
+A second call is made only to offer data a browser had for a game before
+`save-agent.js` saw it, once the cloud's save shows what it covers, and Load
+from cloud makes a second call to keep this browser's differing copies in
+history before replacing them.
+
 - **Site pages** (`script.js`): a signed-in premium browser syncs what is
   waiting in its queue, in the background after load.
 - **Launch** (`GMSSaves.launch` on play pages): the frame's address is in
@@ -293,6 +303,7 @@ uuid from the request.
 | Route                                 | Does                                                              |
 | ------------------------------------- | ----------------------------------------------------------------- |
 | `GET /api/saves`                      | Manifest: each game's revision, hash, size, progress; limits      |
+| `POST /api/saves-sync`                | Many games at once (below); answers `{ results, manifest }`       |
 | `GET /api/saves/:game[?meta=1]`       | One save, or only its metadata                                    |
 | `POST /api/saves/:game`               | Upload `{ baseRevision, hash, data, modifiedAt, deviceId, mode }` |
 | `GET /api/saves/:game/history`        | Kept versions                                                     |
@@ -301,6 +312,22 @@ uuid from the request.
 | `POST /api/saves/:game/import-legacy` | First save from the legacy backup `{ keys }`                      |
 | `POST /api/saves-socket-token`        | Token for `saves_subscribe`                                       |
 | `GET /api/saves-keys`                 | Learned storage names per game (no session needed)                |
+
+`/api/saves-sync` takes `{ deviceId, mode, games: [entry] }`, at most 500
+entries, and answers a result per entry, in order; an entry's failure (`result:
+"error"` with `status`, `error`, `message`) is only its own. Entries:
+
+- `{ gameId, op: "sync", baseRevision, hash, data, modifiedAt }`: an upload,
+  answered as `POST /api/saves/:game` is.
+- `{ gameId, op: "sync", baseRevision, hash, pull, legacyKeys? }`: what the
+  cloud has (`result: "current"` or `"none"`), with its `data` when `pull` is
+  set and the cloud's save is not the one the device has. `legacyKeys` imports
+  from the legacy backup when the cloud has nothing (`legacy` says how it went).
+- `{ gameId, op: "get" }`: the cloud's save with its data.
+- `{ gameId, op: "backup", hash, data }`: as `POST /api/saves/:game/backup`.
+
+The single-game routes stay for history, restoring a version, and older
+engines still cached in browsers.
 
 ## Legacy backups
 
@@ -312,7 +339,7 @@ uuid from the request.
   backup for games with registry `keys`, only where the account has none.
 - On a device, a game with no cloud save asks the server to import it from the
   legacy backup with the keys the device has seen the game use
-  (`import-legacy`), once per new set of keys.
+  (`legacyKeys` in its sync entry), once per new set of keys.
 - Imported saves carry the oldest possible time, so a device's own newer copy
   wins against them, and the device's copy is offered to the server before any
   restore overwrites it.

@@ -221,7 +221,12 @@ try {
   }
   if (!features.saves) {
     app.use(
-      ["/api/saves", "/api/saves-socket-token", "/api/saves-keys"],
+      [
+        "/api/saves",
+        "/api/saves-sync",
+        "/api/saves-socket-token",
+        "/api/saves-keys",
+      ],
       featureOff,
     );
   }

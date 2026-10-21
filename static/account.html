@@ -1923,7 +1923,8 @@
           } finally {
             setLoading(syncNowButton, false);
             syncNowButton.disabled = false;
-            await refreshSaves();
+            // The sync answered with the manifest, so it need not be asked again.
+            await refreshSaves({ fresh: false });
             updateLocalSize();
           }
         }
@@ -1968,7 +1969,7 @@
           } finally {
             setLoading(loadCloudButton, false);
             loadCloudButton.disabled = false;
-            await refreshSaves();
+            await refreshSaves({ fresh: false });
             updateLocalSize();
           }
         }

@@ -2,6 +2,8 @@ import { createHash } from "node:crypto";
 import { sequelize } from "../models/index.js";
 import {
   DEFAULT_SLOT,
+  GAME_ID_PATTERN,
+  SLOT_PATTERN,
   getGame,
   isSiteStorageKey,
 } from "../utils/saveRegistry.js";
@@ -758,13 +760,14 @@ export async function importLegacy({
   keys = [],
   deviceId,
   origin = "legacy",
+  snapshot,
 }) {
   const game = requireGame(gameId);
   const learned = await learnedLsKeys(gameId, uuid).catch(() => []);
   const wanted = [
     ...new Set([...(game.keys || []), ...learned, ...keys]),
   ].slice(0, 2000);
-  const snapshot = await readLegacySnapshot(uuid);
+  if (snapshot === undefined) snapshot = await readLegacySnapshot(uuid);
   const save = snapshot && legacySaveFor(snapshot, wanted);
   if (!save) return { result: "nothing" };
 
@@ -795,6 +798,171 @@ export async function importLegacy({
   });
   if (!row) return { result: "exists", save: await getSaveMeta(uuid, gameId) };
   return { result: "imported", save: toMeta(row), data: text };
+}
+
+const pairKey = (gameId, slot) => `${gameId}\u0000${slot}`;
+
+// The current rows of many games in one query, by game and slot. `full`
+// adds the save bytes.
+async function currentRows(uuid, pairs, full) {
+  const found = new Map();
+  if (!pairs.length) return found;
+  const rows = await query(
+    `SELECT ${full ? SAVE_COLUMNS : "game_id, slot, revision, content_hash, format, size, progress, device_id, origin, client_modified_at, updated_at, last_synced_at"}
+       FROM game_saves WHERE user_uuid = :uuid AND game_id IN (:gameIds)`,
+    { uuid, gameIds: [...new Set(pairs.map((pair) => pair.gameId))] },
+  );
+  for (const row of rows) found.set(pairKey(row.game_id, row.slot), row);
+  return found;
+}
+
+function batchError(error) {
+  if (error instanceof SaveError)
+    return {
+      result: "error",
+      status: error.status,
+      error: error.code,
+      message: error.message,
+    };
+  console.error("[saves] batch entry failed:", error);
+  return {
+    result: "error",
+    status: 500,
+    error: "server_error",
+    message: "Couldn't sync this game",
+  };
+}
+
+// Settles many games in one request (/api/saves-sync). Each entry is
+// { gameId, slot?, op, ... }:
+//   op "sync" with data: an upload, settled as uploadSave does
+//   op "sync" without data: the cloud's save of the game, with its bytes
+//     when `pull` is set and the cloud has a save the device lacks
+//     (hash and baseRevision say what it has); legacyKeys tries the old
+//     full-browser backup when the cloud has none yet
+//   op "get": the cloud's save with its bytes
+//   op "backup": a device's copy kept in history (backupCopy)
+// Writes run one at a time, as each holds its save's row lock and checks
+// the quota; every read is one query. An entry's failure is only its own.
+export async function syncBatch({
+  uuid,
+  premium,
+  deviceId,
+  entries,
+  writesFrozen = null,
+}) {
+  const results = entries.map(() => null);
+  const reads = [];
+  for (const [index, raw] of entries.entries()) {
+    const entry = raw && typeof raw === "object" ? raw : {};
+    const gameId = String(entry.gameId || "");
+    const slot = String(entry.slot || DEFAULT_SLOT);
+    const op = entry.op === "get" || entry.op === "backup" ? entry.op : "sync";
+    try {
+      if (!GAME_ID_PATTERN.test(gameId) || !SLOT_PATTERN.test(slot))
+        throw new SaveError(400, "bad_request", "Bad game or slot");
+      requireGame(gameId);
+      const writes =
+        op === "backup" || (op === "sync" && entry.data !== undefined);
+      if (writes && writesFrozen)
+        throw new SaveError(503, "frozen", writesFrozen);
+      if (op === "backup") {
+        results[index] = await backupCopy({
+          uuid,
+          gameId,
+          slot,
+          hash: String(entry.hash || ""),
+          text: entry.data,
+          deviceId,
+          premium,
+        });
+      } else if (writes) {
+        results[index] = await uploadSave({
+          uuid,
+          gameId,
+          slot,
+          baseRevision: Number(entry.baseRevision),
+          hash: String(entry.hash || ""),
+          text: entry.data,
+          modifiedAt: entry.modifiedAt,
+          deviceId,
+          premium,
+        });
+      } else {
+        reads.push({ index, entry, gameId, slot, op });
+      }
+    } catch (error) {
+      results[index] = batchError(error);
+    }
+    if (results[index]) Object.assign(results[index], { gameId, slot });
+  }
+
+  // Reads: what the cloud has, then the legacy backup for games it lacks,
+  // then the bytes of the saves the devices need, in one more query.
+  const metas = await currentRows(uuid, reads, false);
+  let snapshot;
+  for (const read of reads) {
+    read.row = metas.get(pairKey(read.gameId, read.slot)) || null;
+    const keys = read.entry.legacyKeys;
+    if (read.row || read.op !== "sync" || !Array.isArray(keys)) continue;
+    try {
+      snapshot ??= await readLegacySnapshot(uuid);
+      const imported = await importLegacy({
+        uuid,
+        gameId: read.gameId,
+        keys: keys
+          .filter((key) => typeof key === "string" && key.length <= 512)
+          .slice(0, 2000),
+        deviceId,
+        snapshot,
+      });
+      read.legacy = imported.result;
+      if (imported.save) read.reread = true;
+    } catch (error) {
+      results[read.index] = batchError(error);
+    }
+  }
+
+  const wantsData = (read, row) => {
+    if (read.op === "get") return true;
+    const entry = read.entry;
+    if (!entry.pull || row.content_hash === entry.hash) return false;
+    return !entry.hash || row.revision !== Number(entry.baseRevision);
+  };
+  const needBytes = reads.filter(
+    (read) =>
+      !results[read.index] &&
+      (read.reread || (read.row && wantsData(read, read.row))),
+  );
+  const fulls = await currentRows(uuid, needBytes, true);
+  await Promise.all(
+    reads.map(async (read) => {
+      if (results[read.index]) return;
+      const key = pairKey(read.gameId, read.slot);
+      const row = fulls.get(key) || read.row;
+      const out = { gameId: read.gameId, slot: read.slot };
+      if (read.legacy) out.legacy = read.legacy;
+      try {
+        if (!row) {
+          if (read.op === "get")
+            throw new SaveError(404, "no_save", "No cloud save");
+          results[read.index] = { ...out, result: "none", save: null };
+          return;
+        }
+        out.result = "current";
+        out.save = toMeta(row);
+        if (fulls.has(key) && wantsData(read, row))
+          out.data = await loadSaveText({
+            data: row.data,
+            blobKey: row.blob_key,
+          });
+        results[read.index] = out;
+      } catch (error) {
+        results[read.index] = { ...out, ...batchError(error) };
+      }
+    }),
+  );
+  return results;
 }
 
 const SWEEP_INTERVAL_MS = 6 * 60 * 60 * 1000;

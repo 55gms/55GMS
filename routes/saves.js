@@ -18,6 +18,7 @@ export const SAVE_SOCKET_SCOPE = "saves";
 const SOCKET_TOKEN_TTL_MS = 10 * 60 * 1000;
 const DEVICE_ID = /^[A-Za-z0-9_-]{8,64}$/;
 const MINUTE = 60 * 1000;
+const BATCH_MAX_GAMES = 500;
 
 // Per-game cloud saves (services/gameSaves.js). Every route needs the
 // session cookie set at login: a uuid alone is known to everyone the account
@@ -117,25 +118,66 @@ export function createSavesRouter({
     });
   }
 
-  router.use(["/saves", "/saves-socket-token"], requireSession);
+  router.use(["/saves", "/saves-sync", "/saves-socket-token"], requireSession);
+
+  async function manifestBody(req) {
+    const manifest = await saves.getManifest(req.uuid);
+    const limits = saves.limitsFor(req.premium);
+    return {
+      premium: req.premium,
+      autoSync: req.premium,
+      limits: {
+        versions: limits.versions,
+        historyDays: limits.historyDays,
+        quotaBytes: limits.quotaBytes,
+        maxSaveBytes: limits.maxSaveBytes,
+      },
+      ...manifest,
+    };
+  }
 
   router.get("/saves", readLimit, async (req, res) => {
     try {
-      const manifest = await saves.getManifest(req.uuid);
-      const limits = saves.limitsFor(req.premium);
-      res.status(200).json({
-        premium: req.premium,
-        autoSync: req.premium,
-        limits: {
-          versions: limits.versions,
-          historyDays: limits.historyDays,
-          quotaBytes: limits.quotaBytes,
-          maxSaveBytes: limits.maxSaveBytes,
-        },
-        ...manifest,
-      });
+      res.status(200).json(await manifestBody(req));
     } catch (error) {
       fail(res, error, "load your cloud saves");
+    }
+  });
+
+  // Many games in one request: uploads, checks, downloads and backups
+  // (services/gameSaves.js syncBatch), answered with each game's result
+  // and the account's manifest after them.
+  router.post("/saves-sync", writeLimit, async (req, res) => {
+    const body = req.body || {};
+    if (!Array.isArray(body.games) || body.games.length > BATCH_MAX_GAMES) {
+      return res
+        .status(400)
+        .json({ error: "bad_request", message: "Bad list of games" });
+    }
+    if (body.mode === "auto" && !req.premium) {
+      return res.status(403).json({
+        error: "premium_required",
+        message: "Automatic sync needs Premium",
+      });
+    }
+    try {
+      const deviceId = deviceOf(req);
+      const results = await saves.syncBatch({
+        uuid: req.uuid,
+        premium: req.premium,
+        deviceId,
+        entries: body.games,
+        writesFrozen: areAccountWritesFrozen()
+          ? ACCOUNT_WRITES_FROZEN_ERROR
+          : null,
+      });
+      for (const result of results) {
+        if (result.result === "accepted" || result.legacy === "imported")
+          announce(req.uuid, result.save, deviceId);
+      }
+      res.status(200).json({ results, manifest: await manifestBody(req) });
+    } catch (error) {
+      fail(res, error, "sync your games");
     }
   });
 

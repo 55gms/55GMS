@@ -15,6 +15,10 @@ window.GMSSaves = (() => {
   const REGISTRY_URL = "/assets/json/saves.json";
   const API = "/api/saves";
   const LEARNED_URL = "/api/saves-keys";
+  const SYNC_URL = "/api/saves-sync";
+  const BATCH_MAX_GAMES = 200;
+  const BATCH_MAX_BYTES = 8 * 1024 * 1024;
+  const RECENT_MS = 60 * 1000;
   const LEARNED_TTL_MS = 60 * 60 * 1000;
   const LEARNED_TIMEOUT_MS = 2500;
   const ENTITLEMENT_TTL_MS = 10 * 60 * 1000;
@@ -1563,12 +1567,13 @@ window.GMSSaves = (() => {
     return value;
   }
 
-  async function manifest({ fresh = true } = {}) {
+  async function manifest({ fresh = true, maxAge = Infinity } = {}) {
     const uuid = account();
     if (!uuid) return null;
     if (!fresh) {
       const cached = await meta("manifest");
-      if (cached?.uuid === uuid) return cached.manifest;
+      if (cached?.uuid === uuid && Date.now() - cached.at < maxAge)
+        return cached.manifest;
     }
     const data = await api(API);
     await rememberManifest(uuid, data);
@@ -1586,11 +1591,20 @@ window.GMSSaves = (() => {
     return work();
   }
 
+  // The games running in this tab or another one.
+  async function runningGames() {
+    const running = new Set(activeGame ? [activeGame] : []);
+    if (navigator.locks?.query) {
+      const { held = [] } = await navigator.locks.query();
+      for (const lock of held)
+        if (lock.name.startsWith("gms-game:"))
+          running.add(lock.name.slice("gms-game:".length));
+    }
+    return running;
+  }
+
   async function isRunningElsewhere(gameId) {
-    if (activeGame === gameId) return true;
-    if (!navigator.locks?.query) return false;
-    const { held = [] } = await navigator.locks.query();
-    return held.some((lock) => lock.name === `gms-game:${gameId}`);
+    return (await runningGames()).has(gameId);
   }
 
   async function clearDirty(gameId, since) {
@@ -1623,109 +1637,263 @@ window.GMSSaves = (() => {
     };
   }
 
-  // Brings one game's save and the cloud's together. mode "auto" is the
-  // background sync premium allows; "manual" is a person pressing a button.
-  // canApply says whether the cloud's save may be written into this browser
-  // now (never while the game is running). Returns the game's new state.
-  function syncGame(
-    gameId,
-    { mode = "manual", canApply = () => true, keepalive = false } = {},
-  ) {
-    if (inFlight.has(gameId)) return inFlight.get(gameId);
-    const uuid = account();
-    if (!uuid) return Promise.resolve(null);
-    const run = withLock(`gms-sync:${gameId}`, () =>
-      syncLocked(gameId, uuid, { mode, canApply, keepalive }),
-    );
-    const tracked = run.finally(() => inFlight.delete(gameId));
-    inFlight.set(gameId, tracked);
-    return tracked;
+  // Holds every lock in `names` while `work` runs. They are taken in sorted
+  // order, so two tabs syncing overlapping games never wait on each other.
+  function withLocks(names, work) {
+    if (!navigator.locks?.request) return work();
+    const sorted = [...new Set(names)].sort();
+    const take = (index) =>
+      index === sorted.length
+        ? work()
+        : navigator.locks.request(sorted[index], () => take(index + 1));
+    return take(0);
   }
 
-  async function syncLocked(gameId, uuid, { mode, canApply, keepalive }) {
-    const games = await registry();
-    const game = games[gameId];
-    if (!game) {
-      await tx(["dirty"], "readwrite", (t) =>
-        t.objectStore("dirty").delete(gameId),
+  // Runs `work` over `items`, at most `limit` at a time.
+  async function mapLimit(items, limit, work) {
+    const out = new Array(items.length);
+    let next = 0;
+    const worker = async () => {
+      while (next < items.length) {
+        const index = next++;
+        out[index] = await work(items[index], index);
+      }
+    };
+    await Promise.all(
+      Array.from({ length: Math.min(limit, items.length) }, worker),
+    );
+    return out;
+  }
+
+  // Sends entries to /api/saves-sync: one request, or a few when the games
+  // are too many or too large for one. Returns each entry's result, in
+  // order, and keeps the manifest the server answers with.
+  async function sendBatch(entries, { mode, keepalive = false }) {
+    const uuid = account();
+    const device = await deviceId();
+    const results = [];
+    let chunk = [];
+    let bytes = 0;
+    const flush = async () => {
+      if (!chunk.length) return;
+      const games = chunk;
+      chunk = [];
+      bytes = 0;
+      const answer = await api(SYNC_URL, {
+        method: "POST",
+        keepalive,
+        body: { deviceId: device, mode, games },
+      });
+      if (answer.manifest)
+        await rememberManifest(uuid, answer.manifest).catch(() => {});
+      results.push(...answer.results);
+    };
+    for (const entry of entries) {
+      const size = entry.data ? entry.data.length : 0;
+      if (
+        chunk.length &&
+        (chunk.length >= BATCH_MAX_GAMES || bytes + size > BATCH_MAX_BYTES)
+      )
+        await flush();
+      chunk.push(entry);
+      bytes += size;
+    }
+    await flush();
+    return results;
+  }
+
+  const resultError = (result) =>
+    new SyncError(result.status, result.error, result.message);
+
+  // Brings one game's save and the cloud's together; see syncGames.
+  function syncGame(gameId, options = {}) {
+    return syncGames([gameId], options).then((states) => states[0]);
+  }
+
+  // Brings games' saves and the cloud's together, all of them in one
+  // request (and a second only for a game whose older data in this browser
+  // must be offered after seeing the cloud's). mode "auto" is the background
+  // sync premium allows; "manual" is a person pressing a button.
+  // canApply(gameId) says whether the cloud's save may be written into this
+  // browser now (never while the game is running); pull(gameId) whether it
+  // is worth downloading at all. Returns each game's new state, in order.
+  function syncGames(
+    gameIds,
+    {
+      mode = "manual",
+      canApply = () => true,
+      pull = () => true,
+      keepalive = false,
+    } = {},
+  ) {
+    const uuid = account();
+    if (!uuid) return Promise.resolve(gameIds.map(() => null));
+    const fresh = [...new Set(gameIds)].filter((id) => !inFlight.has(id));
+    if (fresh.length) {
+      const run = withLocks(
+        fresh.map((id) => `gms-sync:${id}`),
+        () => syncLocked(fresh, uuid, { mode, canApply, pull, keepalive }),
       );
-      return null;
+      for (const id of fresh) {
+        const tracked = run
+          .then((states) => states.get(id) ?? null)
+          .finally(() => inFlight.delete(id));
+        inFlight.set(id, tracked);
+      }
     }
-    if (game.status === "local-only") {
-      await clearDirty(gameId, Date.now());
-      return setState(gameId, { status: "local-only" }, uuid);
+    return Promise.all(gameIds.map((id) => inFlight.get(id)));
+  }
+
+  async function syncLocked(
+    gameIds,
+    uuid,
+    { mode, canApply, pull, keepalive },
+  ) {
+    const out = new Map();
+    const [games, owners, ent] = await Promise.all([
+      registry(),
+      ownership(),
+      meta("entitlement").catch(() => null),
+    ]);
+    const items = [];
+    for (const gameId of gameIds) {
+      const game = games[gameId];
+      if (!game) {
+        await tx(["dirty"], "readwrite", (t) =>
+          t.objectStore("dirty").delete(gameId),
+        );
+        out.set(gameId, null);
+      } else if (game.status === "local-only") {
+        await clearDirty(gameId, Date.now());
+        out.set(gameId, await setState(gameId, { status: "local-only" }, uuid));
+      } else items.push({ gameId, game });
     }
+    if (!items.length) return out;
 
     const started = Date.now();
-    let state = await getState(gameId, uuid);
-    try {
-      await setState(gameId, { status: "saving" }, uuid);
-      const device = await deviceId();
-      let local = await extract(gameId);
+    const fail = async (item, error) => {
+      if (!(error instanceof SyncError))
+        console.error("[cloud saves]", item.gameId, error);
+      const status =
+        error instanceof SyncError
+          ? error
+          : new SyncError(-1, "local", error.message);
+      out.set(
+        item.gameId,
+        await setState(item.gameId, failure(status, item.state || {}), uuid),
+      );
+    };
 
-      // Settles a save the cloud kept over this browser's: written in now
-      // when allowed, else on the next launch.
-      const takeCloud = async (save, kept) => {
-        if (!canApply()) {
-          suspended.add(gameId);
-          return setState(
-            gameId,
-            {
-              status: "cloud-newer",
-              pendingRevision: kept.revision,
-              error: null,
-            },
-            uuid,
-          );
+    await mapLimit(items, 6, async (item) => {
+      item.state = await getState(item.gameId, uuid);
+      try {
+        await setState(item.gameId, { status: "saving" }, uuid);
+        item.local = await extract(item.gameId, { owners });
+      } catch (error) {
+        item.failed = true;
+        await fail(item, error);
+      }
+    });
+
+    const uploadOf = (item, copy) => {
+      item.sent = copy;
+      return {
+        gameId: item.gameId,
+        slot: "default",
+        op: "sync",
+        baseRevision: item.state.baseRevision,
+        hash: copy.hash,
+        data: copy.text,
+        // A copy whose last change this browser never saw (written before
+        // save-agent.js ran) goes as the oldest possible, so it does not
+        // beat a newer cloud save on recency; it is kept in history if it
+        // loses.
+        modifiedAt: new Date(item.state.localChangedAt || 1).toISOString(),
+      };
+    };
+    const checkOf = (item) => {
+      const { gameId, game, state, local } = item;
+      const entry = {
+        gameId,
+        slot: "default",
+        op: "sync",
+        hash: local?.hash || null,
+        baseRevision: state.baseRevision || 0,
+        pull: Boolean(pull(gameId)),
+      };
+      // Nothing in the cloud for this game: maybe in the old full backup,
+      // which the server looks in for keys not tried before.
+      if (ent?.legacy) {
+        const wanted = owners.wantedFor(gameId);
+        const tried = state.legacyTried || [];
+        const untried = [...new Set([...(game.keys || []), ...wanted])].filter(
+          (key) => !tried.includes(key),
+        );
+        if (untried.length) {
+          entry.legacyKeys = wanted;
+          item.untried = untried;
         }
-        await apply(gameId, save);
-        const after = await extract(gameId);
-        await clearDirty(gameId, started);
+      }
+      return entry;
+    };
+
+    // Settles a save the cloud kept over this browser's: written in now
+    // when allowed, else on the next launch.
+    const takeCloud = async (item, save, kept) => {
+      const { gameId } = item;
+      if (!canApply(gameId)) {
+        suspended.add(gameId);
         return setState(
           gameId,
           {
-            status: "synced",
-            baseRevision: kept.revision,
-            baseHash: after ? after.hash : kept.hash,
-            cloudHash: kept.hash,
-            lastSyncedAt: Date.now(),
-            pendingRevision: null,
-            attempts: 0,
-            nextAttemptAt: null,
+            status: "cloud-newer",
+            pendingRevision: kept.revision,
             error: null,
           },
           uuid,
         );
-      };
+      }
+      await apply(gameId, save);
+      const after = await extract(gameId);
+      await clearDirty(gameId, started);
+      return setState(
+        gameId,
+        {
+          status: "synced",
+          baseRevision: kept.revision,
+          baseHash: after ? after.hash : kept.hash,
+          cloudHash: kept.hash,
+          lastSyncedAt: Date.now(),
+          pendingRevision: null,
+          attempts: 0,
+          nextAttemptAt: null,
+          error: null,
+        },
+        uuid,
+      );
+    };
 
-      const upload = async (copy, baseRevision) => {
-        const result = await api(gamePath(gameId), {
-          method: "POST",
-          keepalive: keepalive && copy.size < KEEPALIVE_MAX_BYTES,
-          body: {
-            slot: "default",
-            baseRevision,
-            hash: copy.hash,
-            data: copy.text,
-            // A copy whose last change this browser never saw (written
-            // before save-agent.js ran) goes as the oldest possible, so it
-            // does not beat a newer cloud save on recency; it is kept in
-            // history if it loses.
-            modifiedAt: new Date(state.localChangedAt || 1).toISOString(),
-            deviceId: device,
-            mode,
-          },
-        });
-        if (result.result === "kept-cloud") {
-          return takeCloud(JSON.parse(result.data), result.save);
-        }
+    const settle = async (item, result) => {
+      const { gameId, local } = item;
+      if (result.result === "error") throw resultError(result);
+      if (result.legacy && item.untried) {
+        item.state = await setState(
+          gameId,
+          { legacyTried: [...(item.state.legacyTried || []), ...item.untried] },
+          uuid,
+        );
+      }
+      const state = item.state;
+      if (item.sent) {
+        if (result.result === "kept-cloud")
+          return takeCloud(item, JSON.parse(result.data), result.save);
         await clearDirty(gameId, started);
         return setState(
           gameId,
           {
             status: "synced",
             baseRevision: result.save.revision,
-            baseHash: copy.hash,
+            baseHash: item.sent.hash,
             cloudHash: result.save.hash,
             lastSyncedAt: Date.now(),
             attempts: 0,
@@ -1735,34 +1903,10 @@ window.GMSSaves = (() => {
           },
           uuid,
         );
-      };
+      }
 
-      const dirty = local && local.hash !== state.baseHash;
-      if (dirty) return await upload(local, state.baseRevision);
-
-      const { save: cloud } = await api(`${gamePath(gameId)}?meta=1`);
+      const cloud = result.save;
       if (!cloud) {
-        // Nothing in the cloud for this game: maybe in the old full backup.
-        const ent = await meta("entitlement");
-        const wanted = (await ownership()).wantedFor(gameId);
-        const tried = state.legacyTried || [];
-        const fresh = [...new Set([...(game.keys || []), ...wanted])].filter(
-          (key) => !tried.includes(key),
-        );
-        if (ent?.legacy && fresh.length) {
-          const imported = await api(`${gamePath(gameId)}/import-legacy`, {
-            method: "POST",
-            body: { keys: wanted, deviceId: device },
-          });
-          state = await setState(
-            gameId,
-            { legacyTried: [...tried, ...fresh] },
-            uuid,
-          );
-          if (imported.result === "imported" || imported.result === "exists") {
-            return syncLocked(gameId, uuid, { mode, canApply, keepalive });
-          }
-        }
         await clearDirty(gameId, started);
         return setState(
           gameId,
@@ -1770,7 +1914,6 @@ window.GMSSaves = (() => {
           uuid,
         );
       }
-
       if (local && local.hash === cloud.hash) {
         await clearDirty(gameId, started);
         return setState(
@@ -1793,7 +1936,7 @@ window.GMSSaves = (() => {
       }
 
       // The cloud has a newer save and this browser has not changed its own.
-      if (!canApply()) {
+      if (result.data === undefined || !canApply(gameId)) {
         return setState(
           gameId,
           {
@@ -1804,30 +1947,60 @@ window.GMSSaves = (() => {
           uuid,
         );
       }
-      const full = await api(gamePath(gameId));
-      const save = JSON.parse(full.data);
+      const save = JSON.parse(result.data);
       // Data this browser has for the game that predates save-agent.js and
-      // was never synced: offer it to the server first, so it is compared
-      // with the cloud's instead of overwritten.
+      // was never synced: offered to the server first (the second request),
+      // so it is compared with the cloud's instead of overwritten.
       const shadow = await extract(gameId, { alsoFrom: save });
       if (
         shadow &&
-        shadow.hash !== full.save.hash &&
+        shadow.hash !== cloud.hash &&
         shadow.hash !== state.baseHash
-      ) {
-        local = shadow;
-        return await upload(shadow, state.baseRevision);
+      )
+        return { shadow };
+      return takeCloud(item, save, cloud);
+    };
+
+    const round = async (list, entryOf) => {
+      if (!list.length) return [];
+      const entries = list.map(entryOf);
+      const size = entries.reduce(
+        (sum, entry) => sum + (entry.data ? entry.data.length : 0),
+        0,
+      );
+      let results;
+      try {
+        results = await sendBatch(entries, {
+          mode,
+          keepalive: keepalive && size < KEEPALIVE_MAX_BYTES,
+        });
+      } catch (error) {
+        for (const item of list) await fail(item, error);
+        return [];
       }
-      return await takeCloud(save, full.save);
-    } catch (error) {
-      if (!(error instanceof SyncError))
-        console.error("[cloud saves]", gameId, error);
-      const status =
-        error instanceof SyncError
-          ? error
-          : new SyncError(-1, "local", error.message);
-      return setState(gameId, failure(status, state), uuid);
-    }
+      const again = [];
+      for (const [index, item] of list.entries()) {
+        try {
+          const state = await settle(item, results[index] || {});
+          if (state?.shadow) {
+            item.shadow = state.shadow;
+            again.push(item);
+          } else out.set(item.gameId, state);
+        } catch (error) {
+          await fail(item, error);
+        }
+      }
+      return again;
+    };
+
+    const ready = items.filter((item) => !item.failed);
+    const shadows = await round(ready, (item) =>
+      item.local && item.local.hash !== item.state.baseHash
+        ? uploadOf(item, item.local)
+        : checkOf(item),
+    );
+    await round(shadows, (item) => uploadOf(item, item.shadow));
+    return out;
   }
 
   // Marks a game as changed in this browser, so it is synced (premium) or
@@ -1862,6 +2035,7 @@ window.GMSSaves = (() => {
       syncGame(gameId, {
         mode: "auto",
         canApply: () => false,
+        pull: () => false,
         keepalive: now,
       }).then(retryLater);
     }, wait);
@@ -2012,7 +2186,7 @@ window.GMSSaves = (() => {
   }
 
   // Syncs games changed earlier that never got to the cloud (closed tab,
-  // lost connection), oldest first, skipping one that is running.
+  // lost connection), all in one request, skipping those that are running.
   let queueRunning = false;
   async function processQueue({ skip = null } = {}) {
     if (queueRunning || !account()) return;
@@ -2031,13 +2205,19 @@ window.GMSSaves = (() => {
       for (const state of states) {
         if (state.uuid === uuid && state.nextAttemptAt) due.add(state.gameId);
       }
-      for (const gameId of due) {
-        if (gameId === skip) continue;
-        const state = await getState(gameId, uuid);
-        if (state.nextAttemptAt && state.nextAttemptAt > Date.now()) continue;
-        if (await isRunningElsewhere(gameId)) continue;
-        await syncGame(gameId, { mode: "auto" });
-      }
+      const running = await runningGames();
+      const waiting = new Map(
+        states
+          .filter((state) => state.uuid === uuid)
+          .map((state) => [state.gameId, state.nextAttemptAt]),
+      );
+      const ready = [...due].filter(
+        (gameId) =>
+          gameId !== skip &&
+          !running.has(gameId) &&
+          !(waiting.get(gameId) > Date.now()),
+      );
+      if (ready.length) await syncGames(ready, { mode: "auto" });
     } catch (error) {
       console.error("[cloud saves] queue", error);
     } finally {
@@ -2099,12 +2279,12 @@ window.GMSSaves = (() => {
 
   // Every game with a save here or in the cloud, with what the profile page
   // shows about it.
-  async function overview({ fresh = true } = {}) {
+  async function overview({ fresh = true, maxAge } = {}) {
     const uuid = account();
     const [games, owners, cloud, states, marks] = await Promise.all([
       registry(),
       ownership(),
-      manifest({ fresh }).catch((error) => {
+      manifest({ fresh, maxAge }).catch((error) => {
         if (error.status === 401 || error.status === 503) throw error;
         return null;
       }),
@@ -2120,17 +2300,17 @@ window.GMSSaves = (() => {
     const cloudOf = new Map(
       (cloud?.saves || []).map((save) => [save.gameId, save]),
     );
-    const ids = new Set([...cloudOf.keys(), ...owners.games.keys()]);
+    const ids = [...new Set([...cloudOf.keys(), ...owners.games.keys()])];
+    const locals = await mapLimit(ids, 6, (gameId) =>
+      games[gameId] ? extract(gameId, { owners }).catch(() => null) : null,
+    );
 
     const list = [];
-    for (const gameId of ids) {
+    for (const [index, gameId] of ids.entries()) {
       const game = games[gameId];
       if (!game) continue;
       const state = stateOf.get(gameId) || {};
-      let local = null;
-      try {
-        local = await extract(gameId, { owners });
-      } catch {}
+      const local = locals[index];
       if (!local && !cloudOf.has(gameId)) continue;
       const remote = cloudOf.get(gameId) || null;
       let status;
@@ -2174,92 +2354,131 @@ window.GMSSaves = (() => {
     return { games: list, manifest: cloud };
   }
 
-  // Sync now: every game this browser has a save of. Changed ones are
-  // uploaded and settled; unchanged ones take a newer cloud save. Games only
-  // in the cloud are brought into this browser.
+  // Sync now: every game this browser has a save of, and every game only in
+  // the cloud, in one request. Changed ones are uploaded and settled;
+  // unchanged ones take a newer cloud save, and games only in the cloud are
+  // brought into this browser.
   async function syncAll({ onProgress } = {}) {
-    const { games } = await overview();
-    const synced = games.filter(
-      (game) => game.local && game.support !== "local-only",
-    );
-    const missing = games.filter(
-      (game) =>
-        !game.local &&
-        game.cloud &&
-        game.support !== "local-only" &&
-        game.status === "cloud-only",
-    );
-    const total = synced.length + missing.length;
-    let finished = 0;
-    const results = [];
-    for (const game of synced) {
-      const running = await isRunningElsewhere(game.gameId);
-      results.push(
-        await syncGame(game.gameId, {
-          mode: "manual",
-          canApply: () => !running,
-        }),
-      );
-      finished += 1;
-      onProgress?.(finished, total);
-    }
-    for (const game of missing) {
-      try {
-        results.push(await restore(game.gameId));
-      } catch (error) {
-        results.push({ status: "failed", error: error.message });
-      }
-      finished += 1;
-      onProgress?.(finished, total);
-    }
+    const { games } = await overview({ fresh: false, maxAge: RECENT_MS });
+    const ids = games
+      .filter(
+        (game) =>
+          game.support !== "local-only" &&
+          (game.local || (game.cloud && game.status === "cloud-only")),
+      )
+      .map((game) => game.gameId);
+    if (!ids.length) return [];
+    const running = await runningGames();
+    onProgress?.(0, ids.length);
+    const results = await syncGames(ids, {
+      mode: "manual",
+      canApply: (gameId) => !running.has(gameId),
+      pull: (gameId) => !running.has(gameId),
+    });
+    onProgress?.(ids.length, ids.length);
     return results;
+  }
+
+  // Takes the cloud's current saves of games into this browser: one request
+  // for the saves, and one more for this browser's own copies that differ,
+  // which are kept in history instead of being lost. Returns, in order,
+  // each game's new state or { error }.
+  async function restoreGames(gameIds, { onProgress } = {}) {
+    const running = await runningGames();
+    const out = new Map();
+    for (const gameId of gameIds)
+      if (running.has(gameId))
+        out.set(gameId, {
+          error: new Error("Close the game first, then restore"),
+        });
+    const ids = gameIds.filter((gameId) => !out.has(gameId));
+    if (ids.length) {
+      await withLocks(
+        ids.map((gameId) => `gms-sync:${gameId}`),
+        async () => {
+          const fetched = await sendBatch(
+            ids.map((gameId) => ({ gameId, slot: "default", op: "get" })),
+            { mode: "manual" },
+          );
+          const items = [];
+          const backups = [];
+          for (const [index, gameId] of ids.entries()) {
+            const result = fetched[index] || {};
+            try {
+              if (result.result === "error") throw resultError(result);
+              const save = JSON.parse(result.data);
+              const local = await extract(gameId, { alsoFrom: save });
+              const state = await getState(gameId);
+              const item = { gameId, save, kept: result.save };
+              if (
+                local &&
+                local.hash !== result.save.hash &&
+                local.hash !== state.baseHash
+              ) {
+                item.backup = backups.length;
+                backups.push({
+                  gameId,
+                  slot: "default",
+                  op: "backup",
+                  hash: local.hash,
+                  data: local.text,
+                });
+              }
+              items.push(item);
+            } catch (error) {
+              out.set(gameId, { error });
+            }
+          }
+          const kept = backups.length
+            ? await sendBatch(backups, { mode: "manual" })
+            : [];
+          let finished = 0;
+          for (const item of items) {
+            try {
+              const backup = kept[item.backup];
+              if (backup?.result === "error") throw resultError(backup);
+              await apply(item.gameId, item.save);
+              const after = await extract(item.gameId);
+              await clearDirty(item.gameId, Date.now());
+              out.set(
+                item.gameId,
+                await setState(item.gameId, {
+                  status: "synced",
+                  baseRevision: item.kept.revision,
+                  baseHash: after ? after.hash : item.kept.hash,
+                  cloudHash: item.kept.hash,
+                  lastSyncedAt: Date.now(),
+                  pendingRevision: null,
+                  error: null,
+                  attempts: 0,
+                  nextAttemptAt: null,
+                }),
+              );
+            } catch (error) {
+              out.set(item.gameId, { error });
+            }
+            onProgress?.(++finished, items.length);
+          }
+        },
+      );
+    }
+    return gameIds.map((gameId) => out.get(gameId));
   }
 
   // Restore: takes the cloud's current save of a game into this browser.
   // This browser's own copy, if it differs, is offered to the server first,
   // so it lands in history instead of being lost.
   async function restore(gameId) {
-    if (await isRunningElsewhere(gameId))
-      throw new Error("Close the game first, then restore");
-    return withLock(`gms-sync:${gameId}`, async () => {
-      const full = await api(gamePath(gameId));
-      const local = await extract(gameId, { alsoFrom: JSON.parse(full.data) });
-      const state = await getState(gameId);
-      if (
-        local &&
-        local.hash !== full.save.hash &&
-        local.hash !== state.baseHash
-      ) {
-        await api(`${gamePath(gameId)}/backup`, {
-          method: "POST",
-          body: {
-            hash: local.hash,
-            data: local.text,
-            deviceId: await deviceId(),
-          },
-        });
-      }
-      await apply(gameId, JSON.parse(full.data));
-      const after = await extract(gameId);
-      await clearDirty(gameId, Date.now());
-      return setState(gameId, {
-        status: "synced",
-        baseRevision: full.save.revision,
-        baseHash: after ? after.hash : full.save.hash,
-        cloudHash: full.save.hash,
-        lastSyncedAt: Date.now(),
-        error: null,
-        attempts: 0,
-        nextAttemptAt: null,
-      });
-    });
+    const [result] = await restoreGames([gameId]);
+    if (result?.error) throw result.error;
+    return result;
   }
 
   // Load from cloud: takes every cloud save this browser lacks or has an
   // older copy of. Games with changes here that aren't uploaded yet, and
   // games running in another tab, are left alone and counted as skipped.
   async function restoreAll({ onProgress } = {}) {
-    const { games } = await overview();
+    const { games } = await overview({ fresh: false, maxAge: RECENT_MS });
     const work = games.filter(
       (game) =>
         game.cloud &&
@@ -2272,20 +2491,13 @@ window.GMSSaves = (() => {
         game.support !== "local-only" &&
         ["not-synced", "offline", "failed", "error"].includes(game.status),
     ).length;
-    let finished = 0;
-    const results = [];
-    for (const game of work) {
-      try {
-        results.push({
-          gameId: game.gameId,
-          state: await restore(game.gameId),
-        });
-      } catch (error) {
-        results.push({ gameId: game.gameId, error });
-      }
-      finished += 1;
-      onProgress?.(finished, work.length);
-    }
+    const ids = work.map((game) => game.gameId);
+    const states = ids.length ? await restoreGames(ids, { onProgress }) : [];
+    const results = ids.map((gameId, index) =>
+      states[index]?.error
+        ? { gameId, error: states[index].error }
+        : { gameId, state: states[index] },
+    );
     return { results, skipped };
   }
 
@@ -2334,6 +2546,7 @@ window.GMSSaves = (() => {
     background,
     processQueue,
     syncGame,
+    syncGames,
     syncAll,
     overview,
     restore,
