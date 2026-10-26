@@ -154,9 +154,19 @@
             function SaveCloud(jsonData, flush) { }
 
             function LoadCloud(sendback) { }
-            var environmentData = 'null';
+            // With no environment the game falls back to Russian; start in English.
+            var environmentData = JSON.stringify({
+                language: "en", domain: "com",
+                deviceType: "desktop", isMobile: false, isDesktop: true, isTablet: false, isTV: false,
+                appID: "", browserLang: navigator.language || "en", payload: "",
+                promptCanShow: false, reviewCanShow: false
+            });
 
-            function RequestingEnvironmentData(sendback) { }
+            function RequestingEnvironmentData(sendback) {
+                if (sendback && window.gameInstance)
+                    window.gameInstance.SendMessage('YandexGame', 'SetEnvirData', environmentData);
+                return environmentData;
+            }
             var playerData = 'noData';
 
             function InitPlayer(sendback) { }
