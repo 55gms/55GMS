@@ -93,9 +93,9 @@
     canvas.style.background = "url('TimeShooter2_Yandex.jpg') center / cover";
     loadingCover.style.display = "";
 
-    const script = document.createElement("script");
-    script.src = loaderUrl;
-    script.onload = () => {
+    const loaderScript = document.createElement("script");
+    loaderScript.src = loaderUrl;
+    loaderScript.onload = () => {
       createUnityInstance(canvas, config, (progress) => {
         spinner.style.display = "none";
         progressBarEmpty.style.display = "";
@@ -118,7 +118,7 @@
           alert(message);
         });
     };
-    document.body.appendChild(script);
+    document.body.appendChild(loaderScript);
   </script>
   <script src="v2.js"></script>
 
