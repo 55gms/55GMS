@@ -145,47 +145,14 @@
       sdk.adv.showFullscreenAdv({ callbacks: {} });
     });
 
+    // Off Yandex the SDK reports its Russian defaults, so always start as
+    // the .com build in English (0 Russian, 1 English, 2 Turkish).
     function checkCom() {
-      var isCom = 0;
-      var output;
-
-      if (sdk != null) {
-        var output = sdk.environment.i18n.tld;
-        if (output == "com") isCom = 1;
-      }
-
-      console.log(output);
-      console.log(isCom);
-
-      window.unityInstance.SendMessage("GameManager", "IsCom", isCom);
+      window.unityInstance.SendMessage("GameManager", "IsCom", 1);
     }
 
     function checkLanguage() {
-      var currentLanguage = 0;
-      var output;
-
-      if (sdk != null) {
-        var output = sdk.environment.i18n.lang;
-        if (
-          output == "ru" ||
-          output == "be" ||
-          output == "kk" ||
-          output == "uk" ||
-          output == "uz"
-        )
-          currentLanguage = 0;
-        else if (output == "tr") currentLanguage = 2;
-        else currentLanguage = 1;
-      }
-
-      console.log(output);
-      console.log(currentLanguage);
-
-      window.unityInstance.SendMessage(
-        "GameManager",
-        "SetLanguage",
-        currentLanguage
-      );
+      window.unityInstance.SendMessage("GameManager", "SetLanguage", 1);
     }
 
     function loadData() {
