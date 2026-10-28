@@ -388,7 +388,10 @@ var panicKey = localStorage.getItem("panicKey") || "`";
 var panicLink = localStorage.getItem("PanicLink") || "https://google.com";
 
 document.addEventListener("keydown", function (e) {
-  if (localStorage.getItem("gms-panic-enabled") !== "false" && e.key === panicKey) {
+  if (
+    localStorage.getItem("gms-panic-enabled") !== "false" &&
+    e.key === panicKey
+  ) {
     window.top.location.href = panicLink;
   }
 });
