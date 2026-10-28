@@ -34,6 +34,7 @@ if (!wispExternal) {
 }
 
 import searchRoutes from "./routes/search.js";
+import { createLinksRouter } from "./routes/links.js";
 import proxyRoutes from "./routes/music.js";
 import {
   disabledPageRedirect,
@@ -184,6 +185,8 @@ try {
     setNoStoreHeaders(res);
     next();
   });
+
+  app.use("/api/links", createLinksRouter());
 
   if (features.accounts) {
     const [auth, users, admin] = await Promise.all([
@@ -549,6 +552,7 @@ try {
     { path: "/a", file: "apps.html" },
     { path: "/g", file: "games.html" },
     { path: "/s", file: "settings.html" },
+    { path: "/links", file: "links.html" },
     { path: "/b", file: "browser.html" },
     { path: "/", file: "index.html" },
     { path: "/d", file: "dashboard.html" },
