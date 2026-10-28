@@ -23,8 +23,8 @@
   <meta http-equiv="Cache-control" content="public">
   <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=7" />
   <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
-  <script src="/assets/js/settings.js?v=8"></script>
-  <link rel="stylesheet" href="/assets/css/settings.css?v=9" />
+  <script src="/assets/js/settings.js?v=9"></script>
+  <link rel="stylesheet" href="/assets/css/settings.css?v=10" />
   <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
   <script src="/assets/js/font.js" defer></script>
   <script src="/assets/js/easteregg.min.js" async></script>
@@ -61,7 +61,7 @@
           </div>
         </div>
         <label for="siteTheme">Theme</label>
-        <select name="Site Theme" id="siteTheme" title="Site Theme">
+        <select class="site-input-small" name="Site Theme" id="siteTheme" title="Site Theme">
           <option value="legacy">Legacy</option>
           <option value="blue">Blue</option>
           <option value="midnight">Midnight</option>
@@ -80,7 +80,7 @@
           </div>
         </div>
         <label for="harry-potter-presets">Preset</label>
-        <select name="Harry Potter Presets" id="harry-potter-presets" title="Presets">
+        <select class="site-input-small" name="Harry Potter Presets" id="harry-potter-presets" title="Presets">
           <option value="bsite">BilliBilli</option>
           <option value="calendar">Google Calendar</option>
           <option value="canvas">Canvas</option>
@@ -99,12 +99,12 @@
         <div class="settings-two-column">
           <div>
             <label for="title">Custom title</label>
-            <input class="harry-potter-form" type="text" id="title" placeholder="Google" onkeyup="setTitle(this.value)"
+            <input class="site-input-small" type="text" id="title" placeholder="Google" onkeyup="setTitle(this.value)"
               name="title">
           </div>
           <div>
             <label for="icon">Custom icon URL</label>
-            <input class="harry-potter-form" type="text" id="icon" name="icon" placeholder="/img/favicon.ico"
+            <input class="site-input-small" type="text" id="icon" name="icon" placeholder="/img/favicon.ico"
               onkeyup="setFavicon(this.value.trim())">
           </div>
         </div>
@@ -140,10 +140,17 @@
             <p>Set a quick exit key and destination.</p>
           </div>
         </div>
+        <div class="settings-toggle-row">
+          <span id="panicEnabledLabel">Enable panic key</span>
+          <label class="switch">
+            <input type="checkbox" id="panicEnabled" aria-labelledby="panicEnabledLabel">
+            <span class="slider round"></span>
+          </label>
+        </div>
         <label for="key">Key</label>
-        <input class="harry-potter-form" type="text" id="key" placeholder="`" onkeyup="setPanicKey()" name="key">
+        <input class="site-input-small" type="text" id="key" placeholder="`" onkeyup="setPanicKey()" name="key">
         <label for="link">Exit URL</label>
-        <input class="harry-potter-form" type="text" id="link" name="link" placeholder="https://google.com/"
+        <input class="site-input-small" type="text" id="link" name="link" placeholder="https://google.com/"
           onkeyup="setPanicLink()">
       </article>
 

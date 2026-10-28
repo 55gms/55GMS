@@ -187,6 +187,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.getElementById("key").value = panicKey;
   document.getElementById("link").value = panicLink;
+  var panicToggle = document.getElementById("panicEnabled");
+  panicToggle.checked = localStorage.getItem("gms-panic-enabled") !== "false";
+  panicToggle.addEventListener("change", function () {
+    localStorage.setItem("gms-panic-enabled", String(panicToggle.checked));
+  });
   harryPotterElement = document.getElementById("harry-potter-presets");
   var themeSelect = document.getElementById("siteTheme");
   if (themeSelect) {

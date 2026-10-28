@@ -15,9 +15,6 @@ body {
   transform: translateX(-50%) translateY(-50%);
   width: min(420px, calc(100% - 32px));
 }
-.mainContent .site-ad {
-  width: min(336px, 100%);
-}
 
 .a404 {
   font-size: 100px;
