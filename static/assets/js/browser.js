@@ -38,7 +38,7 @@
     },
     {
       title: "now.gg",
-      url: "https://nowgg.lol",
+      url: "https://now.gg",
       img: "/img/shortcuts/nowgg.webp",
     },
     {
