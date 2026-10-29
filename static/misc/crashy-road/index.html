@@ -1,0 +1,396 @@
+<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Crashy Road","engine":"unity","files":[["/misc/crashy-road/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/6yy66%40main/Build/builds.data.br",4935314],["/misc/crashy-road/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/6yy66%40main/Build/builds.framework.js",412531],["/misc/crashy-road/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/6yy66%40main/Build/builds.loader.js",26454],["/misc/crashy-road/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/6yy66%40main/Build/builds.wasm.br.part0",8388608],["/misc/crashy-road/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/6yy66%40main/Build/builds.wasm.br.part1",8388608],["/misc/crashy-road/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/6yy66%40main/Build/builds.wasm.br.part2",8388608],["/misc/crashy-road/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/6yy66%40main/Build/builds.wasm.br.part3",281851]],"total":30821974,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Crashy Road"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Crashy Road"></script>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="/misc/crashy-road/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/6yy66%40main/style.css">
+
+<style>
+        canvas:focus {
+            outline: none;
+        }
+
+        html, body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            height: 100%;
+        }
+</style>
+<title>Crashy Road</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body class="dark">
+<div id="unity-container" class="unity-desktop">
+<canvas id="unity-canvas" tabindex="-1"></canvas>
+</div>
+<div id="loading-cover" style="display:none;" class="gms-legacy-loading-hooks"><div id="loading-bar"><div id="unity-logo"><img></div><div id="unity-progress-bar-empty" style="display: none;"><div id="unity-progress-bar-full"></div></div><div class="spinner"></div></div></div>
+
+<script>
+        const hideFullScreenButton = "";
+        const buildUrl = "/misc/crashy-road/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/6yy66%40main/Build";
+        const loaderUrl = buildUrl + "/builds.loader.js";
+        const config = {
+            dataUrl: buildUrl + "/builds.data.br",
+            frameworkUrl: buildUrl + "/builds.framework.js",
+            codeUrl: "",               // birleştirme sonrası doldurulacak
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "Linted",
+            productName: "CrashyRoad",
+            productVersion: "1"
+        };
+
+        const container = document.querySelector("#unity-container");
+        const canvas = document.querySelector("#unity-canvas");
+        const loadingCover = document.querySelector("#loading-cover");
+        const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+        const progressBarFull = document.querySelector("#unity-progress-bar-full");
+        const spinner = document.querySelector('.spinner');
+
+        const canFullscreen = (function () {
+            for (const key of [
+                'exitFullscreen',
+                'webkitExitFullscreen',
+                'webkitCancelFullScreen',
+                'mozCancelFullScreen',
+                'msExitFullscreen',
+            ]) {
+                if (key in document) {
+                    return true;
+                }
+            }
+            return false;
+        }());
+
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            container.className = "unity-mobile";
+            config.devicePixelRatio = 1.3;
+        }
+
+        loadingCover.style.background = "url('/misc/crashy-road/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/6yy66%40main/Images/background.jpg') center / cover";
+        loadingCover.style.display = "";
+
+        let StartUnityInstance;
+        let ygGameInstance = null;
+        let initYSDK = false;
+        let initGame = false;
+        let syncInit = false;
+        let isVisibility = true;
+        let isPausedGame = false;
+        const NO_DATA = 'no data';
+
+        window.ysdk = null;
+        window.player = null;
+
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('visibilitychange', () => SetVisibility(!document.hidden));
+        window.addEventListener('blur', () => SetVisibility(false));
+        window.addEventListener('focus', () => SetVisibility(true));
+
+        window.addEventListener('pointerdown', () => {
+            FocusGame();
+            SetVisibility(true);
+        });
+
+        document.addEventListener('click', () => {
+          const canvas = document.getElementById('unity-canvas');
+          if (canvas && canvas.requestPointerLock) {
+            canvas.requestPointerLock({ unadjustedMovement: true });
+          }
+        });
+
+        function InstallBlurFocusBlocker() {
+            if (!('onblur' in document)) return;
+            if (window.blurFocusHandlersInstalled) return;
+
+            window.addEventListener('blur', function () {
+                let blockerButton = document.createElement('button');
+                blockerButton.style.position = 'fixed';
+                blockerButton.style.top = '0';
+                blockerButton.style.left = '0';
+                blockerButton.style.width = '100%';
+                blockerButton.style.height = '100%';
+                blockerButton.style.zIndex = '9999';
+                blockerButton.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+                blockerButton.style.border = 'none';
+                blockerButton.style.cursor = 'default';
+
+                document.body.appendChild(blockerButton);
+
+                function removeBlocker() {
+                    if (blockerButton && blockerButton.parentNode) {
+                        blockerButton.parentNode.removeChild(blockerButton);
+                    }
+                    window.removeEventListener('focus', removeBlocker);
+                }
+
+                window.addEventListener('focus', removeBlocker);
+            });
+
+            window.blurFocusHandlersInstalled = true;
+        }
+
+        function FocusGame() {
+            canvas.focus();
+        }
+
+        function SetVisibility(visibility) {}
+
+        const PauseCallback = () => { isPausedGame = true; };
+        const ResumeCallback = () => { isPausedGame = false; };
+
+        const script = document.createElement("script");
+        script.src = loaderUrl;
+
+        // WASM PARÇALARINI BİRLEŞTİR
+        const PART_PREFIX = "builds.wasm.br.part";
+        const PART_COUNT = 4;   // PowerShell çıktısındaki parça sayısı
+
+        async function loadWasmBr() {
+            const parts = [];
+            for (let i = 0; i < PART_COUNT; i++) {
+                const url = `${buildUrl}/${PART_PREFIX}${i}`;
+                const resp = await fetch(url);
+                if (!resp.ok) throw new Error(`Parça yüklenemedi: ${url}`);
+                parts.push(await resp.arrayBuffer());
+            }
+            const total = parts.reduce((s, p) => s + p.byteLength, 0);
+            const merged = new Uint8Array(total);
+            let offset = 0;
+            for (const p of parts) {
+                merged.set(new Uint8Array(p), offset);
+                offset += p.byteLength;
+            }
+            const blob = new Blob([merged], { type: "application/wasm" });
+            config.codeUrl = URL.createObjectURL(blob);
+            console.log("builds.wasm.br birleştirildi");
+        }
+
+        // WASM birleştirildikten sonra loader.js yükle
+        (async () => {
+            try { await loadWasmBr(); } catch (e) { console.error(e); }
+            document.body.appendChild(script);
+        })();
+
+        script.onload = () => {
+            StartUnityInstance = function () {
+                createUnityInstance(canvas, config, (progress) => {
+                    spinner.style.display = "none";
+                    progressBarEmpty.style.display = "";
+                    const adjustedProgress = Math.max(progress, 0.05);
+                    progressBarFull.style.width = `${100 * adjustedProgress}%`;
+                }).then((unityInstance) => {
+                    ygGameInstance = unityInstance;
+                    loadingCover.style.background = "";
+                    loadingCover.style.display = "none";
+                    initGame = true;
+                    InstallBlurFocusBlocker();
+                }).catch((message) => {
+                    console.error(message);
+                });
+            };
+            InstallBlurFocusBlocker();
+            StartUnityInstance();
+        };
+
+        function YG2Instance(method, arg) {
+            if (ygGameInstance == null) return;
+            try {
+                if (!initGame) {
+                    setTimeout(() => { if (ygGameInstance) ygGameInstance.SendMessage('YG2Instance', method, arg); }, 100);
+                } else {
+                    ygGameInstance.SendMessage('YG2Instance', method, arg);
+                }
+            } catch(e) {}
+        }
+        function YG2Instance(method) {
+            if (ygGameInstance == null) return;
+            try {
+                if (!initGame) {
+                    setTimeout(() => { if (ygGameInstance) ygGameInstance.SendMessage('YG2Instance', method); }, 100);
+                } else {
+                    ygGameInstance.SendMessage('YG2Instance', method);
+                }
+            } catch(e) {}
+        }
+
+        function LogStyledMessage(message, style) { console.log('%c' + message, style); }
+        function LogStyledMessage(message) { console.log('%c' + message, 'color: #FFDF73; background-color: #454545'); }
+
+        async function InitYSDK() {
+            try {
+                initYSDK = true;
+                YG2Instance('InitSDKComplete');
+                LogStyledMessage('Fake YSDK Success - Oyun Başladı!');
+            } catch (e) { console.error('Fake YSDK:', e); }
+            if (spinner.style.display !== "none") StartUnityInstance();
+        }
+
+        function StartUnityInstance_IfUnloaded() {
+            if (spinner.style.display !== "none") StartUnityInstance();
+        }
+
+        function IsLocalHost() {
+            try {
+                if (window.top !== window) return false;
+                const host = window.location.hostname;
+                if (host === "localhost" || host === "127.0.0.1" || host.endsWith(".local")) {
+                    LogStyledMessage("Local Host");
+                    return true;
+                }
+            } catch (error) { console.error("Error checking the local host:", error); return false; }
+        }
+
+        function InitGame() {
+            initGame = true;
+            setTimeout(() => { if (isPausedGame) YG2Instance('SetPauseGame', 'true'); }, 100);
+        }
+
+        function StickyAdActivity(show) {}
+        function RewardedAdvShow(id) { YG2Instance('ErrorRewardedAdv'); }
+        function InitReview() { return Promise.resolve('false'); }
+        function Review() { YG2Instance('ReviewSent', 'false'); FocusGame(); }
+        function GetStats() { YG2Instance('ReceiveStats', NO_DATA); return Promise.resolve(NO_DATA); }
+        function SetStats(jsonStats) {}
+        function SetLeaderboard(name, score, extraData) {}
+        function GetLeaderboard(nameLB, quantityTop, quantityAround, photoSize, auth) {
+            YG2Instance('LeaderboardEntries', JSON.stringify({entries: NO_DATA}));
+        }
+        function InterAdvShow() { YG2Instance('ErrorInterAdv'); }
+        function InitGameLabel() { return Promise.resolve('false'); }
+        function GameLabelShowDialog() { YG2Instance('OnGameLabelFail'); FocusGame(); }
+        async function InitPlayer() {
+            const authJson = JSON.stringify({
+                "playerAuth": "rejected",
+                "playerName": "guest",
+                "playerId": "fake",
+                "playerPhoto": NO_DATA,
+                "payingStatus": "unknown"
+            });
+            YG2Instance('SetAuth', authJson);
+            return authJson;
+        }
+        function OpenAuthDialog() { YG2Instance('LoggedIn'); }
+        function NotAuthorized(isInitSDK = true) {
+            return JSON.stringify({
+                "playerAuth": "rejected",
+                "playerName": "unauthorized",
+                "playerId": "fake",
+                "playerPhoto": NO_DATA,
+                "payingStatus": "unknown"
+            });
+        }
+
+        LogStyledMessage('PluginYG2 v2.005  build: 9 - YSDK OFF');
+</script>
+
+    <!-- GOOGLE -->
+<style>
+  /* Container: Top center, fixed, with overflow hidden */
+  #ad-container {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(728px, calc(100% - 20px)); /* 728px, 10px margin on mobile */
+    height: 90px;
+    background: rgba(0, 0, 0, 0.90);
+    display: none;
+    z-index: 99999;
+    border-radius: 0; /* Sharp corners */
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+    box-sizing: border-box;
+    transition: transform 0.5s ease-in-out; /* Smooth slide-in/out animation */
+  }
+
+  /* Slide-out animation */
+  #ad-container.hidden {
+    transform: translate(-50%, -100%); /* Slide up out of view */
+  }
+
+  #ad-iframe {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 745px; /* Updated width */
+    height: 90px; /* Updated height */
+    border: 0;
+    display: block;
+    overflow: hidden;
+    pointer-events: auto;
+    box-sizing: content-box;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  #ad-iframe::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  /* Close button with arrow */
+  #close-ad {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    background: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 5px 9px;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: not-allowed;
+    opacity: 0.72;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+  }
+  #close-ad.enabled {
+    cursor: pointer;
+    opacity: 1;
+  }
+  #close-ad::before {
+    content: '↑'; /* Up arrow */
+    margin-right: 4px;
+  }
+
+  /* Right mask for scrollbar */
+  #ad-right-mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 12px;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
+    z-index: 99999;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 440px) {
+    #ad-container {
+      width: calc(100% - 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 0; /* Sharp corners on mobile */
+    }
+    #ad-iframe {
+      width: 708px;
+    }
+  }
+</style>
+
+
+
+
+
+
+
+
+</body></html>

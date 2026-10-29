@@ -6,6 +6,7 @@
 // exactly as committed in both repos.
 //
 //   node scripts/check-game.js <folder> [--wait 15] [--live] [--shot <png>]
+//                                      [--actions <json>]
 //
 // --live skips the mapping and uses the real CDN (after the files are pushed).
 // Exits 1 when a request fails or the page throws.
@@ -32,6 +33,7 @@ if (!folder || folder.startsWith("--")) {
 const waitMs = (Number(option("wait")) || 15) * 1000;
 const live = args.includes("--live");
 const shot = option("shot", path.join(os.tmpdir(), `check-${folder}.png`));
+const actionsFile = option("actions");
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const staticDir = path.join(root, "static");
@@ -178,6 +180,22 @@ await page.goto(`${local}/misc/${folder}/index.html`, {
   waitUntil: "load",
   timeout: 60000,
 });
+if (actionsFile) {
+  const actions = JSON.parse(fs.readFileSync(actionsFile, "utf8"));
+  if (!Array.isArray(actions)) throw new Error("Actions must be a JSON array");
+  await page.bringToFront();
+  for (const action of actions) {
+    if (action.wait) await page.waitForTimeout(action.wait);
+    if (action.click) await page.mouse.click(...action.click);
+    if (action.key) await page.keyboard.press(action.key);
+    if (action.type) await page.keyboard.type(action.type);
+    if (action.hold) {
+      await page.keyboard.down(action.hold);
+      await page.waitForTimeout(action.ms || 1000);
+      await page.keyboard.up(action.hold);
+    }
+  }
+}
 await page.waitForTimeout(waitMs);
 const state = await page.evaluate(() => ({
   base: document.querySelector("base")?.href || "",

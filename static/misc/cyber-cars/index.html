@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Cyber Cars","engine":"unity","files":[["/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/Build/CyberCarsPunkRacing.framework.js.unityweb",70564],["/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/Build/CyberCarsPunkRacing.loader.js",114404],["/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/Build/CyberCarsPunkRacing.wasm.unityweb",5799695],["/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/TemplateData/background.png",196125],["/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/TemplateData/progressFull.gif",25634]],"total":26985425,"preloads":false,"parts":{"/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/Build/CyberCarsPunkRacing.data.unityweb":["/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/Build/CyberCarsPunkRacing.data.unityweb.part1","/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/Build/CyberCarsPunkRacing.data.unityweb.part2","/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/Build/CyberCarsPunkRacing.data.unityweb.part3"]},"partSizes":[["/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/Build/CyberCarsPunkRacing.data.unityweb.part1",10000000],["/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/Build/CyberCarsPunkRacing.data.unityweb.part2",10000000],["/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/Build/CyberCarsPunkRacing.data.unityweb.part3",779003]]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Cyber Cars"></script><script src="/assets/js/game-parts.js?v=3"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Cyber Cars"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+    <title>Cyber Cars</title>
+    <link rel="icon" type="image/x-icon" href="/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/TemplateData/favicon.ico">
+        
+    <style>
+        html,
+        body {
+            background: #000;           
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+          #background {
+            
+            
+
+            
+            background-image: url("/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/TemplateData/background.png");
+
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center; /* Center the image */
+            
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+             position: absolute;
+            
+                    
+        }
+        div#gameContainer {
+            background: transparent !important;
+            position: absolute;
+        }
+
+         canvas {
+            position: absolute;
+        
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        div#gameContainer[data-pixelated='true'] canvas {
+            image-rendering: optimizeSpeed;
+            image-rendering: -webkit-crisp-edges;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -o-crisp-edges;
+            image-rendering: crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: optimize-contrast;
+            image-rendering: pixelated;
+            -ms-interpolation-mode: nearest-neighbor;
+        }
+        
+        
+        
+ #custom-loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+   
+        
+        
+    #custom-loader {
+    margin-top: 19%;
+    width: 60%;
+    height: 7%;
+    border: 1px solid black;
+    border-radius: 25px;
+    background: lightgray;
+    box-shadow: 0px 0px 25px 5px black;
+}
+
+#custom-loader .fill {
+    width: 100%;
+    height: 100%;
+    background: red;
+    
+    
+    
+    background-image: url('/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/TemplateData/progressFull.gif');
+    background-size: 99%;
+  
+    
+    border: 1px solid black;
+    border-radius: 25px;
+}
+
+#custom-loader .label {
+    position: relative;
+   
+    font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+    
+    text-align: center;
+    font-weight: bold;
+    font-family: cursive;
+    bottom: 85%;
+}
+                
+    </style>
+<style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+
+<body onload="onResize();"> 
+   <div id="background"> 
+     <div id="custom-loader">
+      <div class="fill"></div>
+      <div class="label"></div>
+    </div>  
+   </div>   
+        
+    <canvas id="gameContainer"></canvas>
+
+    <script src="/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/Build/CyberCarsPunkRacing.loader.js"></script>
+    
+            <script>
+        devamke();      
+         
+         function devamke() {
+            
+         
+             var buildUrl = "/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/Build/";
+             var loaderUrl = buildUrl + "/CyberCarsPunkRacing.loader.js";
+             var config = {
+                              dataUrl: "/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/Build/CyberCarsPunkRacing.data.unityweb",
+             frameworkUrl: "/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/Build/CyberCarsPunkRacing.framework.js.unityweb",
+             codeUrl: "/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/Build/CyberCarsPunkRacing.wasm.unityweb",
+             streamingAssetsUrl: "/misc/cyber-cars/_ext/cdn.jsdelivr.net/gh/google-gl-games-schools/qqq%40main/StreamingAssets/",
+             companyName: "Ozgur Aydin",
+             productName: "Cyber Cars Punk Racing",
+             productVersion: "1.0",
+             //matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+              //devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+               
+             
+               };
+               
+               var mobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+               if (mobile) {
+
+                  config.devicePixelRatio = 1.2;
+                }
+                
+               var canvas = document.querySelector("#gameContainer");
+            
+            
+             var script = document.createElement("script");
+             script.src = loaderUrl;
+             script.onload = () => {
+             createUnityInstance(canvas, config, (progress) => {
+            
+            if (progress == 1) {
+                    document.getElementById('background').style.display = "none";
+                    
+
+                 }
+                 else {
+                 
+                 setLoaderProgressTo(progress);
+                                                                            
+                 }
+                }).then((unityInstance) => {
+                 myGameInstance = unityInstance;
+                }).catch((message) => {
+                    alert(message);
+                });
+            };
+              document.body.appendChild(script);
+            
+        }   
+                
+            function setLoaderProgressTo(value)
+            {
+               const fill = document.getElementsByClassName("fill")[0];
+               const fillText = document.getElementsByClassName("label")[0];
+
+               var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+               if (isMobile) {
+ 
+               
+                }
+              else{
+                    fill.animate(
+                    [
+                       { width: (value * 100) + "%" }
+                       ],
+                    {
+                       duration: 300,
+                       fill: "forwards"
+                       }
+                    );
+                 }             
+               fillText.textContent = (value * 100).toFixed() + "%";
+            }   
+                
+                
+                
+                
+                
+        
+        function onResize() {
+            var container = document.querySelector("#gameContainer");
+            var w = 1280;
+            var h = 720;
+
+            if (true) {
+                w = window.innerWidth;
+                h = window.innerHeight;
+
+                var r = 720 / 1280;
+
+                if (w * r > window.innerHeight) {
+                    w = Math.min(w, Math.ceil(h / r));
+                }
+                h = Math.floor(w * r);
+            } else {
+                w = 1280;
+                h = 720;
+            }
+
+            container.style.width    = (w) + "px";
+            container.style.height   = (h) + "px";
+            container.style.top      = Math.floor((window.innerHeight - h) / 2) + "px";
+            container.style.left     = Math.floor((window.innerWidth - w) / 2) + "px";
+        }
+        window.addEventListener('resize', onResize);
+    
+    </script>
+        
+   
+
+
+
+
+
+
+</body></html>

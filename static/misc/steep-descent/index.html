@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Steep Descent","engine":"unity","files":[["/misc/steep-descent/_ext/cdn.jsdelivr.net/gh/z799gs/3z3z3%40main/Build/08ed5de1ab67a9c2ae11d2f97f2780e8.data.unityweb",11227524],["/misc/steep-descent/_ext/cdn.jsdelivr.net/gh/z799gs/3z3z3%40main/Build/56cfcbc5a9b96769504612ff8878b999.js.unityweb",72403],["/misc/steep-descent/_ext/cdn.jsdelivr.net/gh/z799gs/3z3z3%40main/Build/5f14ad0fdcb130010a9ca539b8acc937.wasm.unityweb",5863752],["/misc/steep-descent/_ext/cdn.jsdelivr.net/gh/z799gs/3z3z3%40main/Build/SteepDescent.loader.js",112765]],"total":17276444,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Steep Descent"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Steep Descent"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <style>
+        html, body { padding: 0; margin: 0; overflow: hidden; height: 100%; background: #000; }
+        canvas { width: 100%; height: 100%; display: block; }
+        canvas:focus { outline: none; }
+        #loading-cover {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; display: flex; justify-content: center; align-items: center;
+            flex-direction: column; z-index: 999;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1); width: 40px; height: 40px;
+            border-radius: 50%; border-left-color: #ffcc00;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        #status-text { color: #888; margin-top: 15px; font-family: sans-serif; font-size: 14px; }
+    </style>
+<title>Steep Descent</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body>
+    <div id="unity-container"><canvas id="unity-canvas"></canvas></div>
+    
+    <div id="loading-cover" class="gms-legacy-loading-hooks"><div class="spinner"></div><div id="status-text"></div></div>
+
+    <script>
+        var myGameInstance = null;
+
+        // --- THE MOCK YANDEX OBJECT (Prevents "Data cannot be saved" error) ---
+        window.YaGames = {
+            init: function() {
+                return Promise.resolve(window.ysdk);
+            }
+        };
+
+        window.ysdk = {
+            environment: { i18n: { lang: "en", tld: "com" }, app: { id: "local" }, browser: { lang: "en" }, payload: "" },
+            deviceInfo: { 
+                type: "desktop", isMobile: () => false, isDesktop: () => true, isTablet: () => false, isTV: () => false 
+            },
+            adv: {
+                showFullscreenAdv: (c) => { c.callbacks.onOpen(); setTimeout(() => c.callbacks.onClose(true), 200); },
+                showRewardedVideo: (c) => { c.callbacks.onOpen(); setTimeout(() => { c.callbacks.onRewarded(); c.callbacks.onClose(); }, 200); },
+                getBannerAdvStatus: () => Promise.resolve({ stickyAdvIsShowing: false }),
+                hideBannerAdv: () => {}, showBannerAdv: () => {}
+            },
+            shortcut: { canShowPrompt: () => Promise.resolve({canShow: false}), showPrompt: () => Promise.resolve({outcome: 'rejected'}) },
+            feedback: { canReview: () => Promise.resolve({value: false}), requestReview: () => Promise.resolve({feedbackSent: false}) },
+            getPlayer: () => Promise.resolve({
+                getName: () => "Guest", getPhoto: () => "null", getUniqueID: () => "0", getMode: () => "lite",
+                setData: () => Promise.resolve(), getData: () => Promise.resolve({saves: "noData"})
+            }),
+            getPayments: () => Promise.resolve({ getCatalog: () => Promise.resolve([]), getPurchases: () => Promise.resolve([]) }),
+            getLeaderboards: () => Promise.resolve({ 
+                getLeaderboardDescription: () => Promise.resolve({}), 
+                getLeaderboardEntries: () => Promise.resolve({entries: []}) 
+            })
+        };
+
+        // --- GLOBAL SDK FUNCTIONS ---
+        function StaticRBTDeactivate() {}
+        function PaintRBT(rbt) {}
+        function InitSDK() { 
+            // Signal Unity that the SDK is ready as soon as it asks
+            if(myGameInstance) {
+                InitPlayer();
+                RequestingEnvironmentData();
+            }
+        }
+        function InitGame() { InitSDK(); }
+        function LanguageRequest() { if(myGameInstance) myGameInstance.SendMessage('YandexGame', 'SetLanguage', 'en'); }
+
+        function RequestingEnvironmentData() {
+            var data = JSON.stringify({
+                "language": "en", "domain": "com", "deviceType": "desktop", "isMobile": false,
+                "isDesktop": true, "appID": "local", "browserLang": "en", "promptCanShow": false, "reviewCanShow": false
+            });
+            if(myGameInstance) myGameInstance.SendMessage('YandexGame', 'SetEnvironmentData', data);
+        }
+
+        function InitPlayer() {
+            var player = JSON.stringify({ "playerAuth": "resolved", "playerName": "Guest", "playerId": "0", "playerPhoto": "null" });
+            if(myGameInstance) myGameInstance.SendMessage('YandexGame', 'SetInitializationSDK', player);
+        }
+
+        function GetPayments() {
+            if(myGameInstance) myGameInstance.SendMessage('YandexGame', 'PaymentsEntries', JSON.stringify({id:[], title:[], description:[], imageURI:[], priceValue:[]}));
+        }
+
+        function FullAdShow() {
+            if(myGameInstance) {
+                myGameInstance.SendMessage('YandexGame', 'OpenFullAd');
+                setTimeout(() => myGameInstance.SendMessage('YandexGame', 'CloseFullAd', 'true'), 300);
+            }
+        }
+
+        function RewardedShow(id) {
+            if(myGameInstance) {
+                myGameInstance.SendMessage('YandexGame', 'OpenVideo');
+                setTimeout(() => { myGameInstance.SendMessage('YandexGame', 'RewardVideo', id); myGameInstance.SendMessage('YandexGame', 'CloseVideo'); }, 300);
+            }
+        }
+
+        function LoadCloud() { if(myGameInstance) myGameInstance.SendMessage('YandexGame', 'SetLoadSaves', "noData"); }
+        function SaveCloud() {}
+        function InitLeaderboard() { if(myGameInstance) myGameInstance.SendMessage('YandexGame', 'InitializedLB'); }
+        function GetLeaderboardScores() { if(myGameInstance) myGameInstance.SendMessage('YandexGame', 'LeaderboardEntries', JSON.stringify({entries: 'no data'})); }
+        function SetLeaderboardScores() {}
+        function Review() {}
+        function PromptShow() {}
+        function StickyAdActivity() {}
+        function BuyPayments() {}
+        function ConsumePurchase(id) { if(myGameInstance) myGameInstance.SendMessage('YandexGame', 'OnPurchaseSuccess', id); }
+
+        // --- UNITY LOADER ---
+        const buildUrl = "/misc/steep-descent/_ext/cdn.jsdelivr.net/gh/z799gs/3z3z3%40main/Build";
+        const loaderUrl = buildUrl + "/SteepDescent.loader.js";
+        const config = {
+            dataUrl: buildUrl + "/08ed5de1ab67a9c2ae11d2f97f2780e8.data.unityweb",
+            frameworkUrl: buildUrl + "/56cfcbc5a9b96769504612ff8878b999.js.unityweb",
+            codeUrl: buildUrl + "/5f14ad0fdcb130010a9ca539b8acc937.wasm.unityweb",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "JustPlay",
+            productName: "CarCrashTest",
+            productVersion: "1",
+        };
+
+        const script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(document.querySelector("#unity-canvas"), config, (progress) => {
+                document.querySelector("#status-text").innerText = "Loading: " + Math.round(progress * 100) + "%";
+            }).then((instance) => {
+                myGameInstance = instance;
+                document.querySelector("#loading-cover").style.display = "none";
+                
+                // Force sync environment right after load to prevent black screen
+                setTimeout(() => {
+                    InitSDK();
+                    LanguageRequest();
+                }, 500);
+
+            }).catch((err) => { console.error(err); });
+        };
+        document.body.appendChild(script);
+    </script>
+
+ 
+
+
+</body></html>

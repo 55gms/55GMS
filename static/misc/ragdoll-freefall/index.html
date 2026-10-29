@@ -1,0 +1,904 @@
+<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Ragdoll Freefall","engine":"unity","files":[["/misc/ragdoll-freefall/_ext/cdn.jsdelivr.net/npm/nxd-r8-1%401.0.0/e6162e37eb1452ce5115869403d4971f.data.br.part0.js",8388608],["/misc/ragdoll-freefall/_ext/cdn.jsdelivr.net/npm/nxd-r8-1%401.0.0/e6162e37eb1452ce5115869403d4971f.data.br.part1.js",8388608],["/misc/ragdoll-freefall/_ext/cdn.jsdelivr.net/npm/nxd-r8-1%401.0.0/e6162e37eb1452ce5115869403d4971f.data.br.part2.js",8388608],["/misc/ragdoll-freefall/_ext/cdn.jsdelivr.net/npm/nxd-r8-1%401.0.0/e6162e37eb1452ce5115869403d4971f.data.br.part3.js",6271090],["/misc/ragdoll-freefall/_ext/cdn.jsdelivr.net/npm/nxd-r8-2%401.0.0/1426a7610138929120a20e659bc71fbe.framework.js",395552],["/misc/ragdoll-freefall/_ext/cdn.jsdelivr.net/npm/nxd-r8-2%401.0.0/7a2dbded24d57e056180125b1583e7c4.loader.js",20680],["/misc/ragdoll-freefall/_ext/cdn.jsdelivr.net/npm/nxd-r8-2%401.0.0/ab5ad7cd6248d92c6af06bebd769ce68.wasm.br.js",17904082]],"total":49757228,"preloads":true,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Ragdoll Freefall"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Ragdoll Freefall"></script>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="/misc/ragdoll-freefall/_ext/cdn.jsdelivr.net/npm/nxd-r8-2%401.0.0/style.css" media="print" onload="this.media='all'">
+<style>
+canvas:focus { outline: none; }
+html, body {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  height: 100%;
+  background: #000;
+}
+#unity-container { width: 100%; height: 100%; }
+#unity-canvas { width: 100%; height: 100%; display: block; }
+</style>
+<title>Ragdoll Freefall</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body class="dark">
+<div id="unity-container" class="unity-desktop">
+<canvas id="unity-canvas" tabindex="-1"></canvas>
+</div>
+<div id="loading-cover" style="display:none;" class="gms-legacy-loading-hooks"><div id="unity-loading-bar" class="gms-legacy-loading-hooks"><div id="unity-logo"><img></div><div id="unity-progress-bar-empty" style="display: none;"><div id="unity-progress-bar-full"></div></div><div class="spinner"></div></div></div>
+
+<script>
+window.GAME_FILES = {
+  LOADER:     "/misc/ragdoll-freefall/_ext/cdn.jsdelivr.net/npm/nxd-r8-2%401.0.0/7a2dbded24d57e056180125b1583e7c4.loader.js",
+  FRAMEWORK:  "/misc/ragdoll-freefall/_ext/cdn.jsdelivr.net/npm/nxd-r8-2%401.0.0/1426a7610138929120a20e659bc71fbe.framework.js",
+  WASM:       "/misc/ragdoll-freefall/_ext/cdn.jsdelivr.net/npm/nxd-r8-2%401.0.0/ab5ad7cd6248d92c6af06bebd769ce68.wasm.br.js",
+  DATA_PARTS: [
+    "/misc/ragdoll-freefall/_ext/cdn.jsdelivr.net/npm/nxd-r8-1%401.0.0/e6162e37eb1452ce5115869403d4971f.data.br.part0.js",
+    "/misc/ragdoll-freefall/_ext/cdn.jsdelivr.net/npm/nxd-r8-1%401.0.0/e6162e37eb1452ce5115869403d4971f.data.br.part1.js",
+    "/misc/ragdoll-freefall/_ext/cdn.jsdelivr.net/npm/nxd-r8-1%401.0.0/e6162e37eb1452ce5115869403d4971f.data.br.part2.js",
+    "/misc/ragdoll-freefall/_ext/cdn.jsdelivr.net/npm/nxd-r8-1%401.0.0/e6162e37eb1452ce5115869403d4971f.data.br.part3.js"
+  ],
+  STREAMING:  "/misc/ragdoll-freefall/_ext/cdn.jsdelivr.net/npm/nxd-r8-2%401.0.0/StreamingAssets",
+  BROTLI:     "https://cdn.jsdelivr.net/npm/brotli-dec-wasm@2.3.2/index.js",
+  LANG: "en"
+};
+</script>
+
+<script>
+(function () {
+  var G = window.GAME_FILES;
+  function noop() {}
+  function res(v) { return Promise.resolve(v); }
+
+  function deep() {
+    var f = function () { return res(deep()); };
+    return new Proxy(f, {
+      get: function (t, p) {
+        if (p === "then" || p === "catch" || p === "finally") return undefined;
+        if (typeof p === "symbol") return undefined;
+        return deep();
+      },
+      apply: function () { return res(undefined); }
+    });
+  }
+
+  var store = {};
+  var stats = {};
+  try { store = JSON.parse(localStorage.getItem("yg2_saves") || "{}") || {}; } catch (e) { store = {}; }
+  try { stats = JSON.parse(localStorage.getItem("yg2_stats") || "{}") || {}; } catch (e) { stats = {}; }
+  function persist() {
+    try { localStorage.setItem("yg2_saves", JSON.stringify(store)); } catch (e) {}
+    try { localStorage.setItem("yg2_stats", JSON.stringify(stats)); } catch (e) {}
+  }
+
+  var playerObj = {
+    getData: function (keys) {
+      if (!keys || !keys.length) return res(store);
+      var o = {};
+      for (var i = 0; i < keys.length; i++) if (store[keys[i]] !== undefined) o[keys[i]] = store[keys[i]];
+      return res(o);
+    },
+    setData: function (d) { for (var k in d) store[k] = d[k]; persist(); return res(true); },
+    getStats: function () { return res(stats); },
+    setStats: function (s) { for (var k in s) stats[k] = s[k]; persist(); return res(true); },
+    incrementStats: function (s) {
+      for (var k in s) stats[k] = (stats[k] || 0) + s[k];
+      persist();
+      return res(stats);
+    },
+    getName: function () { return "Player"; },
+    getPhoto: function () { return "no data"; },
+    getUniqueID: function () { return "local-player"; },
+    getMode: function () { return "lite"; },
+    isAuthorized: function () { return false; },
+    getPayingStatus: function () { return "unknown"; },
+    signature: "",
+    scopePermissions: { avatar: "not_set", public_name: "not_set" }
+  };
+
+  var lbApi = {
+    setScore: function () { return res(true); },
+    getDescription: function (n) {
+      return res({
+        appID: "0", default: true, title: { en: n },
+        description: {
+          invert_sort_order: false,
+          score_format: { options: { decimal_offset: 0 } },
+          type: "numeric"
+        }
+      });
+    },
+    getEntries: function () { return res({ leaderboard: {}, ranges: [], userRank: 0, entries: [] }); },
+    getPlayerEntry: function () {
+      var e = new Error("no entry");
+      e.code = "LEADERBOARD_PLAYER_NOT_PRESENT";
+      return Promise.reject(e);
+    }
+  };
+
+  var base = {
+    environment: {
+      app: { id: "0" },
+      browser: { lang: G.LANG },
+      i18n: { lang: G.LANG, tld: "com" },
+      payload: null
+    },
+    deviceInfo: {
+      type: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? "mobile" : "desktop",
+      isMobile: function () { return /iPhone|iPod|Android/i.test(navigator.userAgent); },
+      isDesktop: function () { return !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent); },
+      isTablet: function () { return /iPad/i.test(navigator.userAgent); },
+      isTV: function () { return false; }
+    },
+    adv: {
+      showFullscreenAdv: function (o) {
+        var c = (o && o.callbacks) || {};
+        setTimeout(function () { try { c.onClose && c.onClose(false); } catch (e) {} }, 0);
+      },
+      showRewardedVideo: function (o) {
+        var c = (o && o.callbacks) || {};
+        setTimeout(function () {
+          try { c.onOpen && c.onOpen(); } catch (e) {}
+          try { c.onRewarded && c.onRewarded(); } catch (e) {}
+          try { c.onClose && c.onClose(); } catch (e) {}
+        }, 0);
+      },
+      showBannerAdv: function () { return res({ stickyAdvIsShowing: false, reason: "adv_is_not_connected" }); },
+      hideBannerAdv: function () { return res({ stickyAdvIsShowing: false }); },
+      getBannerAdvStatus: function () { return res({ stickyAdvIsShowing: false, reason: "adv_is_not_connected" }); }
+    },
+    features: {
+      LoadingAPI: { ready: noop },
+      GameplayAPI: { start: noop, stop: noop },
+      GamesAPI: { getAllGames: function () { return res({ games: [], developerURL: "" }); } }
+    },
+    leaderboards: lbApi,
+    getLeaderboards: function () { return res(lbApi); },
+    getPlayer: function () { return res(playerObj); },
+    getPayments: function () { return Promise.reject(new Error("payments unavailable")); },
+    getStorage: function () { return res(window.localStorage); },
+    getFlags: function () { return res({}); },
+    feedback: {
+      canReview: function () { return res({ value: false, reason: "NO_AUTH" }); },
+      requestReview: function () { return res({ feedbackSent: false }); }
+    },
+    shortcut: {
+      canShowPrompt: function () { return res({ canShow: false }); },
+      showPrompt: function () { return res({ outcome: "dismissed" }); }
+    },
+    screen: {
+      fullscreen: { status: "off", request: function () { return res(true); }, exit: function () { return res(true); } }
+    },
+    auth: { openAuthDialog: function () { return Promise.reject(new Error("no auth")); } },
+    isAvailableMethod: function () { return res(false); },
+    dispatchEvent: function () { return res(true); },
+    on: function () { return noop; },
+    off: function () { return true; },
+    EVENT_HISTORY_BACK: "HISTORY_BACK",
+    EVENT_GAME_API_PAUSE: "game_api_pause",
+    EVENT_GAME_API_RESUME: "game_api_resume"
+  };
+
+  var proxied = new Proxy(base, {
+    get: function (t, p) {
+      if (p === "then" || p === "catch" || p === "finally") return undefined;
+      if (p in t) return t[p];
+      if (typeof p === "symbol") return undefined;
+      return deep();
+    }
+  });
+
+  window.YaGames = { init: function () { return res(proxied); } };
+})();
+</script>
+
+<script>
+window.hideFullScreenButton = "";
+window.ygGameInstance = null;
+window.ysdk = null;
+window.player = null;
+window.payments = null;
+window.initYSDK = false;
+window.initGame = false;
+window.syncInit = false;
+window.isVisibility = true;
+window.isPausedGame = false;
+window.nowFullAdOpen = false;
+window.NO_DATA = "no data";
+window.cloudSaves = window.NO_DATA;
+window.statsSaves = window.NO_DATA;
+window.paymentsData = window.NO_DATA;
+window.environmentData = window.NO_DATA;
+window.playerData = window.NO_DATA;
+
+(function () {
+  var G = window.GAME_FILES;
+  var NO_DATA = window.NO_DATA;
+
+  var container = document.querySelector("#unity-container");
+  var canvas = document.querySelector("#unity-canvas");
+  var loadingCover = document.querySelector("#loading-cover");
+  var progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+  var progressBarFull = document.querySelector("#unity-progress-bar-full");
+  var spinner = document.querySelector(".spinner");
+
+  if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) container.className = "unity-mobile";
+  loadingCover.style.display = "";
+
+  window.LogStyledMessage = function (message, style) {
+    console.log("%c" + message, style || "color: #FFDF73; background-color: #454545");
+  };
+
+  var brotliMod = null;
+  function GetBrotli() {
+    if (brotliMod) return Promise.resolve(brotliMod);
+    return import(G.BROTLI).then(function (m) {
+      var d = m && m.default;
+      return (d && typeof d.then === "function") ? d : (d || m);
+    }).then(function (m) { brotliMod = m; return m; });
+  }
+
+  function LooksRaw(kind, u) {
+    if (!u || u.length < 8) return false;
+    if (kind === "wasm") return u[0] === 0x00 && u[1] === 0x61 && u[2] === 0x73 && u[3] === 0x6D;
+    if (kind === "data") return u[0] === 0x55 && u[1] === 0x6E && u[2] === 0x69 && u[3] === 0x74;
+    var n = Math.min(u.length, 256), printable = 0;
+    for (var i = 0; i < n; i++) {
+      var c = u[i];
+      if (c === 9 || c === 10 || c === 13 || (c >= 32 && c <= 126)) printable++;
+    }
+    return printable / n > 0.9;
+  }
+
+  function Decode(kind, bytes) {
+    if (LooksRaw(kind, bytes)) return Promise.resolve(bytes);
+    return GetBrotli().then(function (m) {
+      var out = m.decompress(bytes);
+      return (out && out.length) ? out : bytes;
+    }).catch(function () { return bytes; });
+  }
+
+  function FetchBytes(url) {
+    return fetch(url, { cache: "force-cache" }).then(function (r) {
+      if (!r.ok) throw new Error(url + " -> " + r.status);
+      return r.arrayBuffer();
+    }).then(function (b) { return new Uint8Array(b); });
+  }
+
+  function ToBlobUrl(u8) {
+    return URL.createObjectURL(new Blob([u8], { type: "application/octet-stream" }));
+  }
+
+  function FetchSingle(kind, url) {
+    return FetchBytes(url).then(function (u8) { return Decode(kind, u8); }).then(ToBlobUrl);
+  }
+
+  function FetchParts(kind, urls) {
+    var jobs = [];
+    for (var i = 0; i < urls.length; i++) jobs.push(FetchBytes(urls[i]));
+    return Promise.all(jobs).then(function (chunks) {
+      var total = 0, i;
+      for (i = 0; i < chunks.length; i++) total += chunks[i].length;
+      var merged = new Uint8Array(total), off = 0;
+      for (i = 0; i < chunks.length; i++) { merged.set(chunks[i], off); off += chunks[i].length; }
+      return Decode(kind, merged);
+    }).then(ToBlobUrl);
+  }
+
+  var config = null;
+  var loaderReady = false;
+  var filesReady = false;
+  var started = false;
+
+  document.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+  document.addEventListener("visibilitychange", function () { window.SetVisibility(!document.hidden); });
+  window.addEventListener("blur", function () { window.SetVisibility(false); });
+  window.addEventListener("focus", function () { window.SetVisibility(true); });
+  window.addEventListener("pointerdown", function () { window.FocusGame(); window.SetVisibility(true); });
+  window.addEventListener("resize", function () { window.FocusGame(); });
+  document.addEventListener("fullscreenchange", function () { window.FocusGame(); });
+
+  var oRequestPointerLock = Element.prototype.requestPointerLock;
+  Element.prototype.requestPointerLock = function () {
+    var args = Array.prototype.slice.call(arguments);
+    try {
+      if (!args[0]) args[0] = {};
+      args[0].unadjustedMovement = true;
+      var r = oRequestPointerLock.apply(this, args);
+      if (r && r.catch) r.catch(function () {});
+      return r;
+    } catch (e) {}
+  };
+
+  var oRequestFullscreen = Element.prototype.requestFullscreen;
+  if (oRequestFullscreen) {
+    Element.prototype.requestFullscreen = function () {
+      try {
+        var r = oRequestFullscreen.apply(this, arguments);
+        if (r && r.catch) r.catch(function () {});
+        return r;
+      } catch (e) { return Promise.resolve(); }
+    };
+  }
+
+  window.addEventListener("error", function (ev) {
+    var m = ev && ev.message ? String(ev.message) : "";
+    if (m.indexOf("pointer lock") !== -1 || m.indexOf("Fullscreen") !== -1) ev.preventDefault();
+  }, true);
+
+  window.InstallBlurFocusBlocker = function () {
+    if (!("onblur" in document)) return;
+    if (window.blurFocusHandlersInstalled) return;
+    window.addEventListener("blur", function () {
+      var b = document.createElement("button");
+      b.style.position = "fixed";
+      b.style.top = "0";
+      b.style.left = "0";
+      b.style.width = "100%";
+      b.style.height = "100%";
+      b.style.zIndex = "9999";
+      b.style.backgroundColor = "rgba(0, 0, 0, 0)";
+      b.style.border = "none";
+      b.style.cursor = "default";
+      document.body.appendChild(b);
+      function removeBlocker() {
+        if (b && b.parentNode) b.parentNode.removeChild(b);
+        window.removeEventListener("focus", removeBlocker);
+      }
+      window.addEventListener("focus", removeBlocker);
+    });
+    window.blurFocusHandlersInstalled = true;
+  };
+
+  window.FocusGame = function (checkingPauseStatus) {
+    if (checkingPauseStatus === undefined) checkingPauseStatus = true;
+    if (!canvas) return;
+    requestAnimationFrame(function () {
+      if (checkingPauseStatus && window.isPausedGame) return;
+      var active = document.activeElement;
+      if (active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA" || active.isContentEditable)) return;
+      try { canvas.focus({ preventScroll: true }); } catch (e) { try { canvas.focus(); } catch (e2) {} }
+    });
+  };
+
+  window.SetVisibility = function (visibility) {
+    if (window.ysdk !== null && window.initGame === true && window.isVisibility !== visibility) {
+      window.isVisibility = visibility;
+      window.YG2Instance("SetFocusWindowGame", visibility ? "true" : "false");
+    }
+  };
+
+  window.PauseCallback = function () {
+    window.isPausedGame = true;
+    window.YG2Instance("SetPauseGame", "true");
+  };
+
+  window.ResumeCallback = function () {
+    window.isPausedGame = false;
+    window.YG2Instance("SetPauseGame", "false");
+    window.FocusGame(false);
+  };
+
+  window.YG2Instance = function (method, arg) {
+    if (window.ygGameInstance == null) return;
+    function send() {
+      if (!window.ygGameInstance) return;
+      if (arg === undefined) window.ygGameInstance.SendMessage("YG2Instance", method);
+      else window.ygGameInstance.SendMessage("YG2Instance", method, arg);
+    }
+    if (!window.initGame) setTimeout(send, 100);
+    else send();
+  };
+
+  window.IsLocalHost = function () {
+    try {
+      if (window.top !== window) return false;
+      var host = window.location.hostname;
+      if (host === "localhost" || host === "127.0.0.1" || host.slice(-6) === ".local") return true;
+    } catch (e) { return false; }
+    return false;
+  };
+
+  window.StartUnityInstance = function () {
+    if (started || !loaderReady || !filesReady || !config) return;
+    if (typeof createUnityInstance !== "function") return;
+    started = true;
+    createUnityInstance(canvas, config, function (progress) {
+      spinner.style.display = "none";
+      progressBarEmpty.style.display = "";
+      var adjusted = Math.max(progress, 0.05);
+      progressBarFull.style.width = (100 * adjusted) + "%";
+    }).then(function (unityInstance) {
+      window.ygGameInstance = unityInstance;
+      loadingCover.style.background = "";
+      loadingCover.style.display = "none";
+      window.FocusGame();
+      if (window.initYSDK) unityInstance.SendMessage("YG2Instance", "InitSDKComplete");
+    }).catch(function (message) {
+      console.error(message);
+    });
+  };
+  window.StartUnityInstance_IfUnloaded = window.StartUnityInstance;
+
+  window.InitGame = function () {
+    window.initGame = true;
+    setTimeout(function () {
+      if (window.isPausedGame === true) window.YG2Instance("SetPauseGame", "true");
+    }, 100);
+  };
+
+  window.SaveCloud = function (jsonData, flush) {
+    if (window.player == null) return;
+    try { window.player.setData({ saves: [jsonData] }, flush); } catch (e) {}
+  };
+
+  window.LoadCloud = function () {
+    return new Promise(function (resolve) {
+      function Final(r) {
+        window.cloudSaves = r;
+        window.YG2Instance("SetLoadSaves", r);
+        resolve(r);
+      }
+      if (window.ysdk == null || window.player == null) return Final(NO_DATA);
+      try {
+        window.player.getData(["saves"]).then(function (data) {
+          if (data && data.saves) Final(JSON.stringify(data.saves));
+          else Final(NO_DATA);
+        }).catch(function () { Final(NO_DATA); });
+      } catch (e) { Final(NO_DATA); }
+    });
+  };
+
+  window.RewardedAdvShow = function (id) {
+    try {
+      window.ysdk.adv.showRewardedVideo({
+        callbacks: {
+          onOpen: function () { window.YG2Instance("OpenRewardedAdv"); },
+          onClose: function () { window.YG2Instance("CloseRewardedAdv"); window.FocusGame(); },
+          onRewarded: function () { window.YG2Instance("RewardAdv", id); },
+          onError: function () { window.YG2Instance("ErrorRewardedAdv"); }
+        }
+      });
+    } catch (e) {}
+  };
+
+  window.GetStats = function () {
+    return new Promise(function (resolve) {
+      function Final(r) {
+        window.statsSaves = r;
+        window.YG2Instance("ReceiveStats", r);
+        resolve(r);
+      }
+      if (window.ysdk == null || window.player == null) return Final(NO_DATA);
+      try {
+        window.player.getStats().then(function (s) { Final(JSON.stringify(s)); })
+          .catch(function () { Final(NO_DATA); });
+      } catch (e) { Final(NO_DATA); }
+    });
+  };
+
+  window.SetStats = function (jsonStats) {
+    if (window.ysdk == null || window.player == null) return;
+    try { window.player.setStats(JSON.parse(jsonStats)); } catch (e) {}
+  };
+
+  window.InitPayments = function () {
+    return new Promise(function (resolve) {
+      function Final(r) {
+        window.paymentsData = r;
+        window.YG2Instance("PaymentsEntries", r);
+        resolve(r);
+      }
+      try {
+        if (window.ysdk == null) return Final(NO_DATA);
+        window.ysdk.getPayments().then(function (p) {
+          window.payments = p;
+          p.getCatalog().then(function (products) {
+            p.getPurchases().then(function (purchases) {
+              var productID = [], title = [], description = [], imageURI = [], price = [];
+              var priceValue = [], priceCurrencyCode = [], currencyImageURL = [], consumed = [];
+              for (var i = 0; i < products.length; i++) {
+                productID[i] = products[i].id;
+                title[i] = products[i].title;
+                description[i] = products[i].description;
+                imageURI[i] = products[i].imageURI;
+                price[i] = products[i].price;
+                priceValue[i] = products[i].priceValue;
+                priceCurrencyCode[i] = products[i].priceCurrencyCode;
+                currencyImageURL[i] = products[i].getPriceCurrencyImage("medium");
+                consumed[i] = true;
+                for (var j = 0; j < purchases.length; j++) {
+                  if (purchases[j].productID === productID[i]) { consumed[i] = false; break; }
+                }
+              }
+              Final(JSON.stringify({
+                id: productID, title: title, description: description, imageURI: imageURI,
+                price: price, priceValue: priceValue, priceCurrencyCode: priceCurrencyCode,
+                currencyImageURL: currencyImageURL, consumed: consumed,
+                language: window.ysdk.environment.i18n.lang
+              }));
+            }).catch(function () { Final(NO_DATA); });
+          }).catch(function () { Final(NO_DATA); });
+        }).catch(function () { Final(NO_DATA); });
+      } catch (e) { Final(NO_DATA); }
+    });
+  };
+
+  window.BuyPayments = function (id) {
+    try {
+      if (window.payments != null) {
+        window.payments.purchase(id).then(function () {
+          window.ConsumePurchase(id, true);
+          window.FocusGame();
+        }).catch(function () {
+          window.YG2Instance("OnPurchaseFailed", id);
+          window.FocusGame();
+        });
+      } else {
+        window.YG2Instance("OnPurchaseFailed", id);
+      }
+    } catch (e) {
+      window.YG2Instance("OnPurchaseFailed", id);
+      window.FocusGame();
+    }
+  };
+
+  window.ConsumePurchase = function (id, onPurchaseSuccess) {
+    try {
+      if (window.payments == null) return;
+      window.payments.getPurchases().then(function (purchases) {
+        for (var i = 0; i < purchases.length; i++) {
+          if (purchases[i].productID === id) {
+            window.payments.consumePurchase(purchases[i].purchaseToken);
+            if (onPurchaseSuccess) window.YG2Instance("OnPurchaseSuccess", id);
+          }
+        }
+      });
+    } catch (e) {}
+  };
+
+  window.ConsumePurchases = function (onPurchaseSuccess) {
+    try {
+      if (window.payments == null) return;
+      window.payments.getPurchases().then(function (purchases) {
+        for (var i = 0; i < purchases.length; i++) {
+          window.payments.consumePurchase(purchases[i].purchaseToken);
+          if (onPurchaseSuccess) window.YG2Instance("OnPurchaseSuccess", purchases[i].productID);
+        }
+      });
+    } catch (e) {}
+  };
+
+  window.SetLeaderboard = function (name, score, extraData) {
+    if (!window.ysdk) return;
+    try { window.ysdk.leaderboards.setScore(name, score, extraData); } catch (e) {}
+  };
+
+  window.GetLeaderboard = function (nameLB, quantityTop, quantityAround, photoSize, auth) {
+    if (!window.ysdk) return;
+    var jsonEntries = {
+      technoName: "", isDefault: false, isInvertSortOrder: false, decimalOffset: 0, type: ""
+    };
+    window.ysdk.leaderboards.getDescription(nameLB)
+      .then(function (r) {
+        jsonEntries.technoName = nameLB;
+        jsonEntries.isDefault = r.default;
+        jsonEntries.isInvertSortOrder = r.description.invert_sort_order;
+        jsonEntries.decimalOffset = r.description.score_format.options.decimal_offset;
+        jsonEntries.type = r.description.type;
+        return window.ysdk.leaderboards.getEntries(nameLB, {
+          quantityTop: quantityTop, includeUser: auth, quantityAround: quantityAround
+        });
+      })
+      .then(function (r) {
+        var jsonPlayers = window.EntriesLB(r, photoSize);
+        var combined = {}, k;
+        for (k in jsonEntries) combined[k] = jsonEntries[k];
+        for (k in jsonPlayers) combined[k] = jsonPlayers[k];
+        window.YG2Instance("LeaderboardEntries", JSON.stringify(combined));
+      })
+      .catch(function () {});
+  };
+
+  window.EntriesLB = function (r, photoSize) {
+    var text = "";
+    var count = r.entries.length;
+    var ranks = new Array(count), photos = new Array(count), names = new Array(count);
+    var scores = new Array(count), uniqueIDs = new Array(count), extraDataArray = new Array(count);
+
+    for (var i = 0; i < count; i++) {
+      ranks[i] = r.entries[i].rank;
+      scores[i] = r.entries[i].score;
+      uniqueIDs[i] = r.entries[i].player.uniqueID;
+      photos[i] = r.entries[i].player.getAvatarSrc(photoSize);
+
+      if (r.entries[i].extraData === "" || r.entries[i].extraData == null) extraDataArray[i] = NO_DATA;
+      else extraDataArray[i] = r.entries[i].extraData;
+
+      if (r.entries[i].player.scopePermissions.public_name !== "allow") names[i] = "anonymous";
+      else names[i] = r.entries[i].player.publicName;
+
+      text += ranks[i] + ". " + names[i] + ": " + scores[i] + "\n";
+    }
+    if (count === 0) text = "no data";
+
+    return {
+      entries: text, ranks: ranks, photos: photos, names: names,
+      scores: scores, uniqueIDs: uniqueIDs, extraDataArray: extraDataArray
+    };
+  };
+
+  window.InterAdvShow = function () {
+    try {
+      if (window.ysdk == null) return;
+      if (window.nowFullAdOpen === true) return;
+      window.ysdk.adv.showFullscreenAdv({
+        callbacks: {
+          onOpen: function () {
+            window.nowFullAdOpen = true;
+            if (window.initGame === true) window.YG2Instance("OpenInterAdv");
+          },
+          onClose: function (wasShown) {
+            window.nowFullAdOpen = false;
+            if (window.initGame === true) window.YG2Instance("CloseInterAdv", wasShown ? "true" : "false");
+            window.FocusGame();
+          },
+          onError: function () {
+            window.nowFullAdOpen = false;
+            window.YG2Instance("ErrorInterAdv");
+            window.FocusGame();
+          }
+        }
+      });
+    } catch (e) {}
+  };
+
+  window.RequestingEnvironmentData = function () {
+    return new Promise(function (resolve) {
+      function Final(r) {
+        window.environmentData = r;
+        window.YG2Instance("SetEnvirData", r);
+        resolve(r);
+      }
+      if (window.ysdk == null) return Final(NO_DATA);
+      try {
+        var ua = navigator.userAgent, browser;
+        if (ua.indexOf("YaBrowser") !== -1 || ua.indexOf("YaSearchBrowser") !== -1) browser = "Yandex";
+        else if (ua.indexOf("Opera") !== -1 || ua.indexOf("OPR") !== -1) browser = "Opera";
+        else if (ua.indexOf("Firefox") !== -1) browser = "Firefox";
+        else if (ua.indexOf("MSIE") !== -1) browser = "IE";
+        else if (ua.indexOf("Edge") !== -1) browser = "Edge";
+        else if (ua.indexOf("Chrome") !== -1) browser = "Chrome";
+        else if (ua.indexOf("Safari") !== -1) browser = "Safari";
+        else browser = "Other";
+
+        Final(JSON.stringify({
+          language: window.ysdk.environment.i18n.lang,
+          domain: window.ysdk.environment.i18n.tld,
+          deviceType: window.ysdk.deviceInfo.type,
+          isMobile: window.ysdk.deviceInfo.isMobile(),
+          isDesktop: window.ysdk.deviceInfo.isDesktop(),
+          isTablet: window.ysdk.deviceInfo.isTablet(),
+          isTV: window.ysdk.deviceInfo.isTV(),
+          appID: window.ysdk.environment.app.id,
+          browserLang: window.ysdk.environment.browser.lang,
+          payload: window.ysdk.environment.payload,
+          platform: navigator.platform,
+          browser: browser
+        }));
+      } catch (e) { Final(NO_DATA); }
+    });
+  };
+
+  window.NotAuthorized = function (hasPlayer) {
+    return JSON.stringify({
+      playerAuth: "rejected",
+      playerName: "unauthorized",
+      playerId: (hasPlayer && window.player) ? window.player.getUniqueID() : "unauthorized",
+      playerPhoto: "no data",
+      payingStatus: "unknown"
+    });
+  };
+
+  window.InitPlayer = function () {
+    function Final(r) {
+      window.playerData = r;
+      window.YG2Instance("SetAuth", r);
+      return r;
+    }
+    if (!window.ysdk) return Promise.resolve(Final(window.NotAuthorized(false)));
+    return window.ysdk.getPlayer().then(function (p) {
+      window.player = p;
+      if (!p || !p.isAuthorized()) return Final(window.NotAuthorized(true));
+      return Final(JSON.stringify({
+        playerAuth: "resolved",
+        playerName: p.getName(),
+        playerId: p.getUniqueID(),
+        playerPhoto: p.getPhoto("medium"),
+        payingStatus: p.getPayingStatus()
+      }));
+    }).catch(function () {
+      return Final(window.NotAuthorized(false));
+    });
+  };
+
+  window.OpenAuthDialog = function () {
+    if (!window.ysdk) return Promise.resolve();
+    return window.ysdk.getPlayer().then(function (p) {
+      window.player = p;
+      if (p.isAuthorized()) {
+        return window.InitPlayer().then(function () { window.YG2Instance("LoggedIn"); });
+      }
+      return window.ysdk.auth.openAuthDialog().then(function () {
+        return window.ysdk.getPlayer().then(function (p2) {
+          window.player = p2;
+          return window.InitPlayer().then(function () {
+            if (p2.isAuthorized()) window.YG2Instance("LoggedIn");
+          });
+        });
+      }).catch(function () { return window.InitPlayer(); });
+    }).catch(function () {
+      window.player = null;
+      return window.InitPlayer();
+    });
+  };
+
+  window.InitYSDK = function () {
+    return window.YaGames.init().then(function (sdk) {
+      window.ysdk = sdk;
+      sdk.on("game_api_pause", window.PauseCallback);
+      sdk.on("game_api_resume", window.ResumeCallback);
+      return window.RequestingEnvironmentData();
+    }).then(function () {
+      return window.InitPlayer();
+    }).then(function () {
+      return window.LoadCloud();
+    }).then(function () {
+      return window.GetStats();
+    }).then(function () {
+      return window.InitPayments();
+    }).then(function () {
+      window.initYSDK = true;
+      if (window.ygGameInstance != null) window.ygGameInstance.SendMessage("YG2Instance", "InitSDKComplete");
+    }).catch(function (e) {
+      console.error("CRASH Initialization SDK: ", e);
+      window.initYSDK = true;
+    });
+  };
+
+  Promise.all([
+    FetchSingle("js", G.FRAMEWORK),
+    FetchSingle("wasm", G.WASM),
+    FetchParts("data", G.DATA_PARTS)
+  ]).then(function (u) {
+    config = {
+      dataUrl: u[2],
+      frameworkUrl: u[0],
+      codeUrl: u[1],
+      streamingAssetsUrl: G.STREAMING,
+      companyName: "Nepochat",
+      productName: "ABYSS_1.1",
+      productVersion: "1.1"
+    };
+    filesReady = true;
+    window.StartUnityInstance();
+  }).catch(function (e) {
+    console.error("asset load failed", e);
+  });
+
+  var script = document.createElement("script");
+  script.src = G.LOADER;
+  script.onload = function () {
+    loaderReady = true;
+    window.InstallBlurFocusBlocker();
+    window.InitYSDK();
+    window.StartUnityInstance();
+  };
+  script.onerror = function () { console.error("loader failed"); };
+  document.body.appendChild(script);
+})();
+</script>
+<style>
+  #ad-container {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(728px, calc(100% - 20px));
+    height: 90px;
+    background: rgba(0, 0, 0, 0.90);
+    display: none;
+    z-index: 99999;
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.45);
+    box-sizing: border-box;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  #ad-container.hidden {
+    transform: translate(-50%, 100%);
+  }
+
+  #ad-iframe {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 745px;
+    height: 90px;
+    border: 0;
+    display: block;
+    overflow: hidden;
+    pointer-events: auto;
+    box-sizing: content-box;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  #ad-iframe::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  #close-ad {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    background: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 5px 9px;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: not-allowed;
+    opacity: 0.72;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+  }
+  #close-ad.enabled {
+    cursor: pointer;
+    opacity: 1;
+  }
+  #close-ad::before {
+    content: '↓';
+    margin-right: 4px;
+  }
+
+  #ad-right-mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 12px;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
+    z-index: 99999;
+  }
+
+  @media (max-width: 440px) {
+    #ad-container {
+      width: calc(100% - 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 0;
+    }
+    #ad-iframe {
+      width: 728px;
+    }
+  }
+</style>
+
+
+
+
+
+
+
+
+</body></html>

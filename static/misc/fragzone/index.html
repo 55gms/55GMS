@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Fragzone","engine":"unity","files":[["/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/Build/command3VKWithoutLTO.framework.js",576731],["/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/Build/command3VKWithoutLTO.loader.js",26454],["/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/TemplateData/style.css",2078],["/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/Build/parts/command3VKWithoutLTO.data.br.part0",8388608],["/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/Build/parts/command3VKWithoutLTO.data.br.part1",8388608],["/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/Build/parts/command3VKWithoutLTO.data.br.part2",8388608],["/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/Build/parts/command3VKWithoutLTO.data.br.part3",6248258],["/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/Build/parts/command3VKWithoutLTO.wasm.br.part0",8388608],["/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/Build/parts/command3VKWithoutLTO.wasm.br.part1",8388608],["/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/Build/parts/command3VKWithoutLTO.wasm.br.part2",8388608],["/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/Build/parts/command3VKWithoutLTO.wasm.br.part3",8388608],["/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/Build/parts/command3VKWithoutLTO.wasm.br.part4",8388608],["/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/Build/parts/command3VKWithoutLTO.wasm.br.part5",8388608],["/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/Build/parts/command3VKWithoutLTO.wasm.br.part6",8388608],["/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/Build/parts/command3VKWithoutLTO.wasm.br.part7",123749]],"total":90863350,"preloads":true,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Fragzone"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Fragzone"></script>
+<link rel="stylesheet" href="/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/TemplateData/style.css">
+<script>
+    const overlayBackgroundColor = "";
+    const progressBarFillColor = "";
+    const progressBarBackgroundColor = "";
+    const progressBarBorderColor = "";
+</script>
+<style>
+    canvas:focus { outline: none; }
+    html, body {
+        padding: 0; margin: 0; overflow: hidden;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        height: 100%;
+    }
+</style>
+<title>Fragzone</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body class="dark">
+<div id="unity-container" class="unity-desktop">
+    <canvas id="unity-canvas"></canvas>
+</div>
+<div id="loading-cover" style="display:none;" class="gms-legacy-loading-hooks"><div id="unity-loading-bar" class="gms-legacy-loading-hooks"><div id="unity-logo"><img></div><div id="unity-progress-bar-empty" style="display: none;"><div id="unity-progress-bar-full"></div></div><div class="spinner"></div></div></div>
+<script>
+// ================================================================
+// DIL ZORLAMA
+// ================================================================
+Object.defineProperty(navigator, "language", { get: function() { return "en"; } });
+Object.defineProperty(navigator, "languages", { get: function() { return ["en"]; } });
+try { Object.defineProperty(navigator, "userLanguage", { get: function() { return "en"; } }); } catch(e) {}
+
+// ================================================================
+// PART BIRLESTIRME (data.br: 4 part, wasm.br: 8 part)
+// ================================================================
+var splitFiles = {
+    "command3VKWithoutLTO.data.br": 4,
+    "command3VKWithoutLTO.wasm.br": 8
+};
+var mergedFileCache = {};
+
+async function downloadAndMergeParts(fileName, partCount) {
+    var parts = [], totalLoaded = 0;
+    for (var i = 0; i < partCount; i++) {
+        var resp = await fetch("/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/Build/parts/" + fileName + ".part" + i);
+        if (!resp.ok) throw new Error("Part hata: " + fileName + ".part" + i + " (" + resp.status + ")");
+        var ab = await resp.arrayBuffer();
+        parts.push(new Uint8Array(ab));
+        totalLoaded += ab.byteLength;
+        console.log("  [" + fileName + "] Part " + (i+1) + "/" + partCount + " (" + (totalLoaded/1048576).toFixed(1) + " MB)");
+    }
+    var totalSize = parts.reduce(function(s,p){ return s+p.length; }, 0);
+    var merged = new Uint8Array(totalSize);
+    var offset = 0;
+    for (var j = 0; j < parts.length; j++) { merged.set(parts[j], offset); offset += parts[j].length; }
+    console.log("%c[Merger] " + fileName + ": " + (totalSize/1048576).toFixed(1) + " MB OK", "color:#73FF73;background:#454545");
+    return merged.buffer;
+}
+
+async function mergeAllSplitFiles() {
+    var fns = Object.keys(splitFiles);
+    for (var i = 0; i < fns.length; i++) {
+        console.log("%c[Merger] " + fns[i] + " (" + splitFiles[fns[i]] + " part)...", "color:#73DFFF;background:#454545");
+        mergedFileCache[fns[i]] = await downloadAndMergeParts(fns[i], splitFiles[fns[i]]);
+    }
+    console.log("%c[Merger] Tamamlandi!", "color:#73FF73;background:#454545");
+}
+
+// FETCH OVERRIDE
+var originalFetch = window.fetch.bind(window);
+window.fetch = function(input, init) {
+    var url = (typeof input === "string") ? input : (input && input.url ? input.url : "");
+    var keys = Object.keys(mergedFileCache);
+    for (var i = 0; i < keys.length; i++) {
+        if (url.indexOf(keys[i]) !== -1 && mergedFileCache[keys[i]]) {
+            var buf = mergedFileCache[keys[i]];
+            return Promise.resolve(new Response(buf, {
+                status: 200, statusText: "OK",
+                headers: { "Content-Type": "application/octet-stream", "Content-Length": buf.byteLength.toString() }
+            }));
+        }
+    }
+    return originalFetch(input, init);
+};
+
+// XHR OVERRIDE
+var OrigXHR = window.XMLHttpRequest;
+window.XMLHttpRequest = function PatchedXHR() {
+    var xhr = new OrigXHR();
+    var origOpen = xhr.open.bind(xhr), origSend = xhr.send.bind(xhr), intercepted = null;
+    xhr.open = function(method, url) {
+        intercepted = null;
+        if (typeof url === "string") {
+            var keys = Object.keys(mergedFileCache);
+            for (var i = 0; i < keys.length; i++) {
+                if (url.indexOf(keys[i]) !== -1 && mergedFileCache[keys[i]]) { intercepted = keys[i]; break; }
+            }
+        }
+        return origOpen.apply(xhr, arguments);
+    };
+    xhr.send = function(body) {
+        if (intercepted) {
+            var buf = mergedFileCache[intercepted];
+            Object.defineProperty(xhr, "status", { get: function(){ return 200; } });
+            Object.defineProperty(xhr, "statusText", { get: function(){ return "OK"; } });
+            Object.defineProperty(xhr, "readyState", { get: function(){ return 4; } });
+            Object.defineProperty(xhr, "response", { get: function(){ return buf; } });
+            setTimeout(function() {
+                if (xhr.onreadystatechange) xhr.onreadystatechange();
+                if (xhr.onload) xhr.onload();
+                try { xhr.dispatchEvent(new Event("load")); } catch(e) {}
+                try { xhr.dispatchEvent(new Event("loadend")); } catch(e) {}
+            }, 0);
+            return;
+        }
+        return origSend.apply(xhr, arguments);
+    };
+    return xhr;
+};
+
+// ================================================================
+// OYUN KODU
+// ================================================================
+const buildUrl = "/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/Build";
+const loaderUrl = buildUrl + "/command3VKWithoutLTO.loader.js";
+const config = {
+    dataUrl: buildUrl + "/command3VKWithoutLTO.data.br",
+    workerUrl: buildUrl + "/command3VKWithoutLTO.data.br",
+    frameworkUrl: buildUrl + "/command3VKWithoutLTO.framework.js",
+    codeUrl: buildUrl + "/command3VKWithoutLTO.wasm.br",
+    streamingAssetsUrl: "/misc/fragzone/_ext/cdn.jsdelivr.net/gh/testamalame/xh677z%40main/StreamingAssets",
+    companyName: "FullHp Ltd",
+    productName: "FRAGEN",
+    productVersion: "2.2.0",
+};
+
+const container = document.querySelector("#unity-container");
+const canvas = document.querySelector("#unity-canvas");
+const loadingCover = document.querySelector("#loading-cover");
+const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+const progressBarFull = document.querySelector("#unity-progress-bar-full");
+const spinner = document.querySelector('.spinner');
+
+if (overlayBackgroundColor !== " " && overlayBackgroundColor !== "") {
+    canvas.style.background = overlayBackgroundColor;
+}
+if (progressBarFillColor !== " " && progressBarFillColor !== "") {
+    progressBarFull.style.background = progressBarFillColor;
+}
+if (progressBarBackgroundColor !== " " && progressBarBackgroundColor !== "") {
+    progressBarEmpty.style.background = progressBarBackgroundColor;
+}
+if (progressBarBorderColor !== " " && progressBarBorderColor !== "") {
+    progressBarEmpty.style.border.color = progressBarBorderColor;
+}
+
+if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+    container.className = "unity-mobile";
+}
+
+loadingCover.style.display = "";
+
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+function FocusGame() {
+    window.focus();
+    canvas.focus();
+}
+
+window.addEventListener('pointerdown', () => { FocusGame(); });
+window.addEventListener('touchstart', () => { FocusGame(); });
+
+// ================================================================
+// LOADER: once birlestir, sonra Unity baslat
+// ================================================================
+const unityLoader = document.createElement("script");
+unityLoader.src = loaderUrl;
+unityLoader.onload = async () => {
+    // Once part'lari birlestir
+    try {
+        console.log("%c[Merger] Dosya birlestirme basliyor...", "color:#FFDF73;background:#454545");
+        await mergeAllSplitFiles();
+    } catch (err) {
+        console.error("[Merger] KRITIK HATA:", err);
+        return;
+    }
+
+    // Unity baslat (fetch override aktif, bellekten karsilanacak)
+    createUnityInstance(canvas, config, (progress) => {
+        spinner.style.display = "none";
+        progressBarEmpty.style.display = "";
+        progressBarFull.style.width = `${100 * progress}%`;
+    }).then((unityInstance) => {
+        window.unityInstance = unityInstance;
+        loadingCover.style.display = "none";
+    }).catch((message) => {
+        console.error(message);
+    });
+};
+
+document.body.appendChild(unityLoader);
+
+document.addEventListener("pointerdown", () => {
+    container.focus();
+    window.focus();
+    canvas.focus();
+});
+</script>
+
+
+
+
+</body></html>

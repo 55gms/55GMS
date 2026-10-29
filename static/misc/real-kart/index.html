@@ -1,0 +1,366 @@
+<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Real Kart","engine":"unity","files":[["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.data.part0",8388608],["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.data.part1",8388608],["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.data.part2",8388608],["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.data.part3",8388608],["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.data.part4",8388608],["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.data.part5",8388608],["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.data.part6",8388608],["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.data.part7",8388608],["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.data.part8",6688623],["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.framework.js",450160],["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.loader.js",25469],["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.wasm.part0",8388608],["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.wasm.part1",8388608],["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.wasm.part2",8388608],["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.wasm.part3",8388608],["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.wasm.part4",8388608],["/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build/Yandex.wasm.part5",1091197]],"total":117307353,"preloads":true,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Real Kart"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Real Kart"></script>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%40main/style.css">
+<style>
+    canvas:focus { outline: none; }
+    html, body {
+        padding: 0; margin: 0; overflow: hidden;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        height: 100%;
+    }
+</style>
+<title>Real Kart</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body class="dark">
+
+<div id="unity-container" class="unity-desktop">
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+</div>
+
+<div id="loading-cover" style="display:none;" class="gms-legacy-loading-hooks"><div id="unity-loading-bar" class="gms-legacy-loading-hooks"><div id="unity-logo"><img onerror="this.style.display='none'"></div><div id="unity-progress-bar-empty" style="display:none;"><div id="unity-progress-bar-full"></div></div><div class="spinner"></div></div></div>
+
+<script>
+/* ============================================================
+   CONFIG
+   ============================================================ */
+const BUILD_URL  = "/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%407595aa9/Build";
+const DATA_FILE  = "Yandex.data";   /* .br yok */
+const WASM_FILE  = "Yandex.wasm";   /* .br yok */
+const DATA_PARTS = 9;
+const WASM_PARTS = 6;
+
+/* ============================================================
+   GLOBALS  — orijinal değişken adları korundu
+   ============================================================ */
+var cloudSaves      = 'noData';
+var paymentsData    = 'none';
+var environmentData = 'null';
+var playerData      = 'noData';
+
+var player   = null;
+var payments = null;
+var leaderboard = null;
+
+let myGameInstance  = null;   /* bu oyun myGameInstance kullanıyor */
+let initGame        = false;
+let nowFullAdOpen   = false;
+
+/* ysdk stub — language:'en' */
+var ysdk = {
+    environment: {
+        i18n:    { lang: 'en', tld: 'com' },
+        app:     { id: '0' },
+        browser: { lang: 'en' },
+        payload: ''
+    },
+    deviceInfo: {
+        type:      'desktop',
+        isMobile:  () => false,
+        isDesktop: () => true,
+        isTablet:  () => false,
+        isTV:      () => false,
+    },
+    screen: { fullscreen: { status: 'off', request: ()=>{}, exit: ()=>{} } },
+    adv: {
+        showFullscreenAdv:  (o) => {
+            o?.callbacks?.onOpen?.();
+            setTimeout(() => { o?.callbacks?.onClose?.(true); }, 300);
+        },
+        showRewardedVideo:  (o) => {
+            o?.callbacks?.onOpen?.();
+            setTimeout(() => {
+                o?.callbacks?.onRewarded?.();
+                setTimeout(() => { o?.callbacks?.onClose?.(); }, 200);
+            }, 500);
+        },
+        showBannerAdv:      () => Promise.resolve({ stickyAdvIsShowing: false }),
+        hideBannerAdv:      () => Promise.resolve(),
+        getBannerAdvStatus: () => Promise.resolve({ stickyAdvIsShowing: false }),
+    },
+    auth:     { openAuthDialog: () => Promise.resolve() },
+    feedback: {
+        canReview:     () => Promise.resolve({ value: false, reason: 'YSDK_DISABLED' }),
+        requestReview: () => Promise.resolve({ feedbackSent: false }),
+    },
+    shortcut: {
+        canShowPrompt: () => Promise.resolve({ canShow: false }),
+        showPrompt:    () => Promise.resolve({ outcome: 'rejected' }),
+    },
+    getLeaderboards: () => Promise.resolve({
+        getLeaderboardDescription: () => Promise.resolve({ default: false, description: { invert_sort_order: false, score_format: { options: { decimal_offset: 0 } }, type: 'numeric' } }),
+        getLeaderboardEntries:     () => Promise.resolve({ entries: [] }),
+        setLeaderboardScore:       () => {},
+    }),
+    getPlayer:   () => Promise.resolve({
+        getMode:         () => 'lite',
+        getName:         () => '',
+        getUniqueID:     () => 'unauthorized',
+        getPhoto:        () => 'null',
+        getPayingStatus: () => 'unknown',
+        getData:         () => Promise.resolve({}),
+        setData:         () => Promise.resolve(),
+    }),
+    features: {
+        LoadingAPI:  { ready: () => {} },
+        GameplayAPI: { start: () => {}, stop: () => {} },
+        GamesAPI:    { getAllGames: () => Promise.reject() },
+    },
+    getPayments: () => Promise.reject(new Error('payments not available')),
+    on: () => {},
+};
+
+/* ============================================================
+   SendMessage helper  — target: 'YandexGame'
+   ============================================================ */
+function SendYG(method, arg) {
+    if (!myGameInstance) return;
+    try {
+        if (arg !== undefined) myGameInstance.SendMessage('YandexGame', method, arg);
+        else                   myGameInstance.SendMessage('YandexGame', method);
+    } catch(e) {}
+}
+
+/* ============================================================
+   GAME FUNCTIONS  — orijinal imzalar korundu
+   ============================================================ */
+function FocusGame() { window.focus(); canvas.focus(); }
+
+function InitGame() {
+    console.log('Init Game Success');
+    initGame = true;
+    /* FullAdShow init sırasında zaten kapandı, nowFullAdOpen=false */
+    if (nowFullAdOpen && myGameInstance) {
+        SendYG('OpenFullAd');
+    }
+}
+
+/* Interstitial — play öncesi çağrılabilir, sıralı delay ile */
+function FullAdShow() {
+    try {
+        if (nowFullAdOpen || !ysdk) return;
+        ysdk.adv.showFullscreenAdv({
+            callbacks: {
+                onOpen: () => {
+                    nowFullAdOpen = true;
+                    if (initGame) SendYG('OpenFullAd');
+                },
+                onClose: (wasShown) => {
+                    nowFullAdOpen = false;
+                    if (initGame) SendYG('CloseFullAd', wasShown ? 'true' : 'false');
+                    FocusGame();
+                },
+                onError: () => {
+                    nowFullAdOpen = false;
+                    if (initGame) { SendYG('ErrorFullAd'); FocusGame(); }
+                }
+            }
+        });
+    } catch(e) { console.error('CRASH FullAd Show:', e.message); }
+}
+
+/* Rewarded — sıralı delay ile */
+function RewardedShow(id) {
+    try {
+        ysdk.adv.showRewardedVideo({
+            callbacks: {
+                onOpen:     () => { SendYG('OpenVideo'); },
+                onRewarded: () => { SendYG('RewardVideo', id); },
+                onClose:    () => { SendYG('CloseVideo'); FocusGame(); },
+                onError:    () => { SendYG('ErrorVideo'); FocusGame(); }
+            }
+        });
+    } catch(e) { console.error('CRASH Rewarded Show:', e.message); }
+}
+
+function StickyAdActivity() {}
+
+/* Leaderboard */
+function InitLeaderboard() {
+    SendYG('InitializedLB');
+}
+function SetLeaderboardScores() {}
+function GetLeaderboardScores(nameLB, maxPlayers) {
+    SendYG('LeaderboardEntries', JSON.stringify({
+        technoName: nameLB, isDefault: false, isInvertSortOrder: false,
+        decimalOffset: 0, type: 'numeric',
+        entries: 'no data', ranks: [], photos: [], names: [], scores: [], uniqueIDs: []
+    }));
+}
+function EntriesLB() { return {}; }
+
+/* Review / Shortcut */
+function Review() { FocusGame(); }
+function PromptShow() { SendYG('OnPromptFail'); FocusGame(); }
+
+/* Cloud */
+function SaveCloud() {}
+function LoadCloud(sendback) {
+    if (sendback) SendYG('SetLoadSaves', 'noData');
+    return Promise.resolve('noData');
+}
+
+/* Payments */
+function GetPayments(sendback) {
+    if (sendback) SendYG('PaymentsEntries', 'none');
+    return Promise.resolve('none');
+}
+function BuyPayments(id)    { SendYG('OnPurchaseFailed', id); FocusGame(); }
+function ConsumePurchase()  {}
+function ConsumePurchases() {}
+
+/* Environment */
+function RequestingEnvironmentData(sendback) {
+    const j = JSON.stringify({
+        language: 'en', domain: 'com', deviceType: 'desktop',
+        isMobile: false, isDesktop: true, isTablet: false, isTV: false,
+        appID: '0', browserLang: 'en', payload: '',
+        promptCanShow: false, reviewCanShow: false,
+        platform: '', browser: 'Other'
+    });
+    if (sendback) SendYG('SetEnvirData', j);
+    return Promise.resolve(j);
+}
+
+/* Player */
+function NotAuthorized() {
+    return JSON.stringify({
+        playerAuth: 'rejected', playerName: 'unauthorized',
+        playerId: 'unauthorized', playerPhoto: 'null'
+    });
+}
+function InitPlayer(sendback) {
+    const j = NotAuthorized();
+    if (sendback) SendYG('SetInitializationSDK', j);
+    return Promise.resolve(j);
+}
+function OpenAuthDialog() {}
+
+/* ============================================================
+   POINTER LOCK FIX
+   ============================================================ */
+const oRequestPointerLock = Element.prototype.requestPointerLock;
+Element.prototype.requestPointerLock = async function(...args) {
+    try { (args[0] ||= {}).unadjustedMovement = true; await oRequestPointerLock.apply(this, args); } catch(e) {}
+};
+
+/* ============================================================
+   SETUP
+   ============================================================ */
+const container        = document.querySelector("#unity-container");
+const canvas           = document.querySelector("#unity-canvas");
+const loadingCover     = document.querySelector("#loading-cover");
+const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+const progressBarFull  = document.querySelector("#unity-progress-bar-full");
+const spinner          = document.querySelector('.spinner');
+
+canvas.style.background = "url('/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%40main/background.png') center / cover";
+loadingCover.style.display = "";
+
+if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+    container.className = "unity-mobile";
+}
+
+document.addEventListener('contextmenu', e => e.preventDefault());
+window.addEventListener('pointerdown', () => FocusGame());
+window.addEventListener('touchstart',  () => FocusGame());
+
+/* ============================================================
+   PART LOADER
+   ============================================================ */
+function setProgress(pct) {
+    spinner.style.display          = "none";
+    progressBarEmpty.style.display = "";
+    progressBarFull.style.width    = Math.min(pct, 100) + "%";
+}
+
+async function fetchParts(filename, count, startPct, endPct) {
+    const step   = (endPct - startPct) / count;
+    const chunks = [];
+    for (let i = 0; i < count; i++) {
+        const resp = await fetch(`${BUILD_URL}/${filename}.part${i}`);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status} - ${BUILD_URL}/${filename}.part${i}`);
+        chunks.push(new Uint8Array(await resp.arrayBuffer()));
+        setProgress(Math.round(startPct + step * (i + 1)));
+    }
+    const total  = chunks.reduce((s, c) => s + c.length, 0);
+    const merged = new Uint8Array(total);
+    let offset = 0;
+    for (const c of chunks) { merged.set(c, offset); offset += c.length; }
+    return URL.createObjectURL(new Blob([merged]));
+}
+
+/* ============================================================
+   MAIN
+   ============================================================ */
+(async () => {
+    try {
+        setProgress(2);
+
+        const [dataUrl, wasmUrl] = await Promise.all([
+            fetchParts(DATA_FILE, DATA_PARTS, 2,  50),
+            fetchParts(WASM_FILE, WASM_PARTS, 50, 88),
+        ]);
+
+        setProgress(92);
+
+        /* framework.js ve loader.js .br uzantısız */
+        const config = {
+            dataUrl:            dataUrl,
+            frameworkUrl:       `${BUILD_URL}/Yandex.framework.js`,
+            codeUrl:            wasmUrl,
+            streamingAssetsUrl: "/misc/real-kart/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c%40main/StreamingAssets",
+            companyName:        "new",
+            productName:        "new",
+            productVersion:     "1.0.0",
+        };
+
+        /* SDK mesajlarını Unity yüklenmeden önce gönder */
+        const _origSendYG = SendYG;
+
+        const loaderScript  = document.createElement("script");
+        loaderScript.src    = `${BUILD_URL}/Yandex.loader.js`;
+        loaderScript.onload = () => {
+            createUnityInstance(canvas, config, (p) => {
+                setProgress(Math.round(88 + p * 10));
+            }).then((inst) => {
+                myGameInstance = inst;
+                loadingCover.style.background = "";
+                loadingCover.style.display    = "none";
+
+                /* Orijinal init sırası: Cloud → Payments → EnvirData → Player */
+                setTimeout(() => {
+                    SendYG('SetLoadSaves',        'noData');
+                    SendYG('PaymentsEntries',      'none');
+                    SendYG('SetEnvirData',         JSON.stringify({
+                        language:'en', domain:'com', deviceType:'desktop',
+                        isMobile:false, isDesktop:true, isTablet:false, isTV:false,
+                        appID:'0', browserLang:'en', payload:'',
+                        promptCanShow:false, reviewCanShow:false,
+                        platform:'', browser:'Other'
+                    }));
+                    SendYG('SetInitializationSDK', NotAuthorized());
+                }, 500);
+
+                canvas.focus();
+            }).catch(e => {
+                console.error(e);
+                progressBarFull.textContent = "Hata: " + e;
+            });
+        };
+        document.body.appendChild(loaderScript);
+
+    } catch (err) {
+        console.error("Yukleme hatasi:", err);
+        progressBarFull.style.width = "100%";
+        progressBarFull.textContent = "Yukleme hatasi: " + err.message;
+    }
+})();
+</script>
+
+
+
+</body></html>

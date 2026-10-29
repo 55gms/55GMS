@@ -1,0 +1,1390 @@
+<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Kart Bros","engine":"unity","files":[["/misc/kart-bros/_ext/cdn.jsdelivr.net/gh/ertemr33/kenen%40main/Build/102190d43e90efea26d753d85e616e22.data.unityweb",14381739],["/misc/kart-bros/_ext/cdn.jsdelivr.net/gh/ertemr33/kenen%40main/Build/32e2077b8e7224301ebc457024a232dc.wasm.unityweb",10390952],["/misc/kart-bros/_ext/cdn.jsdelivr.net/gh/ertemr33/kenen%40main/Build/3df40305caf9bde478d3aa8a67021399.framework.js.unityweb",95094],["/misc/kart-bros/_ext/cdn.jsdelivr.net/gh/ertemr33/kenen%40main/Build/77aa2311d6862e6753a181896dfa2c12.loader.js",47338],["/misc/kart-bros/_ext/cdn.jsdelivr.net/gh/ertemr33/kenen%40main/TemplateData/bbbro.png",13828],["/misc/kart-bros/_ext/cdn.jsdelivr.net/gh/ertemr33/kenen%40main/TemplateData/bbro.png",17488],["/misc/kart-bros/_ext/cdn.jsdelivr.net/gh/ertemr33/kenen%40main/TemplateData/fbro.png",14235],["/misc/kart-bros/_ext/cdn.jsdelivr.net/gh/ertemr33/kenen%40main/TemplateData/kart_wheel.png",3625],["/misc/kart-bros/_ext/cdn.jsdelivr.net/gh/ertemr33/kenen%40main/TemplateData/kartbro.png",18292],["/misc/kart-bros/_ext/cdn.jsdelivr.net/gh/ertemr33/kenen%40main/TemplateData/kbro.png",16405],["/misc/kart-bros/_ext/cdn.jsdelivr.net/gh/ertemr33/kenen%40main/TemplateData/loading4.png",1176],["/misc/kart-bros/_ext/cdn.jsdelivr.net/gh/ertemr33/kenen%40main/TemplateData/sbro.png",16478],["/misc/kart-bros/_ext/cdn.jsdelivr.net/gh/ertemr33/kenen%40main/TemplateData/wbro.png",18919],["/misc/kart-bros/_ext/cdn.jsdelivr.net/gh/ranny31ranny/x99xx%40main/TemplateData/style.css",1448]],"total":25037017,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Kart Bros"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Kart Bros"></script>
+  <meta charset="utf-8">
+  <title>Kart Bros</title>
+  <link rel="stylesheet" href="/misc/kart-bros/_ext/cdn.jsdelivr.net/gh/ranny31ranny/x99xx%40main/TemplateData/style.css">
+  <link rel="manifest" href="https://cdn.jsdelivr.net/gh/ranny31ranny/x99xx@main/manifest.json">
+  <script>
+    function fit() {
+      document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    }
+
+    // 1st run
+    fit();
+
+    // instant reaction to orientation / classic resizes
+    addEventListener('resize', fit, { passive: true });
+
+    // extra pass once the URL bar has fully hidden (iOS/Chrome-Android quirk)
+    addEventListener('orientationchange', () => {
+      setTimeout(fit, 450);           // tweak if you still see a gap
+    });
+
+    // visual-viewport change (iOS 15+ / Chrome 108+)
+    if (window.visualViewport) {
+      visualViewport.addEventListener('resize', fit, { passive: true });
+    }
+  </script>
+
+  <style>
+    /* Basic styling */
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000000;
+      color: #000;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+  /* hide page scrollbar */
+  html { scrollbar-width: none; } /* Firefox */
+  body { -ms-overflow-style: none; } /* IE and Edge */
+  body::-webkit-scrollbar, body::-webkit-scrollbar-button { display: none; } /* Chrome */
+  
+  /* end hide page scrollbar */
+    /* Layout structure - main wrapper */
+    /* .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    } */
+
+    /* Fix for scrolling when mouse is over canvas - removed pointer-events: none */
+    /* Game section - made to respect pointer events */
+    .game-section {
+      width: 100%;
+      height: 100%;
+      /* aspect-ratio: 16 / 9; */
+      background: #000;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Loading screen */
+    #unity-loading-bar {
+      background: #000;
+      position: absolute;
+      top: 60%;
+      align-items: center;
+      justify-content: center;
+      z-index: 15;
+    }
+
+    /* Info section */
+    .info-section {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      position: relative;
+      padding: 20px 0;
+    }
+
+    #unity-canvas {
+      background: #000;
+      width: calc(100%);
+      float: left;
+      /* display: block; */
+      /* Add object-fit-like behavior for canvas */
+      /* position: relative; */
+    }
+
+
+    #unity-warning {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      pointer-events: none;
+      max-width: 90%;
+      text-align: center;
+      display: none;
+    }
+
+    html,
+    body,
+    .game-section,
+    #unity-canvas {
+      /* width: 100vw; */
+      height: calc(var(--vh, 1vh)*100);
+      /* replaces 100 vh */
+      overscroll-behavior: none;
+      /* avoids rubber-band scroll */
+    }
+
+    /* Container for game info */
+    .container {
+      width: calc(100% - 420px);
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    /* Content styling */
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    h1 {
+      color: #d32f2f;
+      text-align: center;
+    }
+
+    h2 {
+      color: #1976d2;
+    }
+
+    .changelog {
+      background: #e3f2fd;
+      padding: 10px;
+      border-left: 5px solid #1976d2;
+    }
+
+    .faq {
+      margin-top: 20px;
+    }
+
+    .faq-item {
+      margin-bottom: 15px;
+    }
+
+    .faq-item h3 {
+      margin: 0;
+      color: #d32f2f;
+    }
+
+    .social {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    /* Social links */
+    .social-links {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .social-links a {
+      margin: 0 10px;
+      display: inline-block;
+    }
+
+    .social-links img {
+      width: 30px;
+      height: 30px;
+    }
+
+    a {
+      color: hotpink;
+    }
+
+    #adContainerMainMenu {
+      position: absolute;
+      /* no longer fixed */
+      top: 50%;
+      /* center vertically in game-section */
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    #adContainerMainMenu>div {
+      pointer-events: auto;
+    }
+
+    /* Individual ad elements should receive clicks */
+    #kartbros-io_300x250,
+    #kartbros-io_300x250_2 {
+      pointer-events: auto;
+      /* Only the actual ad elements get clicks */
+    }
+
+    #adContainerBottom {
+      position: absolute;
+      bottom: 1px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      text-align: center;
+      display: none;
+      /* Initially hidden like other ad containers */
+      pointer-events: none;
+    }
+
+    #adContainerBottom>div {
+      pointer-events: auto;
+    }
+
+    #adContainerTop {
+      position: absolute;
+      top: 10px;
+      /* center vertically in game-section */
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      display: none;
+      /* Initially hidden like main menu ads */
+      pointer-events: none;
+    }
+
+    #adContainerTop>div {
+      pointer-events: auto;
+    }
+
+    /* Individual ad elements should receive clicks */
+    #kartbros-io_728x90 {
+      pointer-events: auto;
+    }
+
+    /* Pillar ad containers for character/track select screens */
+    #adContainerPillars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1000;
+      pointer-events: none;
+      display: none;
+      /* Initially hidden */
+    }
+
+    #adContainerPillars>div {
+      pointer-events: auto;
+    }
+
+    /* Individual pillar ad elements */
+    #kartbros-io_160x600 {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 160px;
+      height: 600px;
+      pointer-events: auto;
+      z-index: 1001;
+    }
+
+    #kartbros-io_160x600_2 {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 160px;
+      height: 600px;
+      pointer-events: auto;
+      z-index: 1001;
+    }
+
+    /* Video ad overlay */
+    #videoAdOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #videoad {
+      width: 960px;
+      height: 540px;
+      background: #000;
+    }
+
+    /* Spinning wheel animation */
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .spinning-wheel {
+      display: inline-block;
+      transform-origin: center;
+      animation: spin 1s linear infinite;
+    }
+  </style>
+
+  <script>
+    if (typeof navigator.serviceWorker !== 'undefined') {
+      navigator.serviceWorker.register('TemplateData/sw.js')
+    }
+  </script>
+
+  <!-- AdinPlay Ads Snippet Integration -->
+  <script>
+    window.aiptag = window.aiptag || { cmd: [] };
+    aiptag.cmd.display = aiptag.cmd.display || [];
+    aiptag.cmd.player = aiptag.cmd.player || [];
+
+    // CMP tool settings
+    aiptag.cmp = {
+      show: true,
+      button: true,
+      buttonText: "Privacy settings",
+      buttonPosition: "bottom-left"
+    };
+
+    // Initialize the video ad player
+    aiptag.cmd.player.push(function () {
+      aiptag.adplayer = new aipPlayer({
+        AD_WIDTH: 960,
+        AD_HEIGHT: 540,
+        AD_DISPLAY: 'default', // default, fullscreen, fill, center, modal-center
+        LOADING_TEXT: 'loading advertisement',
+        PREROLL_ELEM: function () { return document.getElementById('videoad'); },
+        AIP_COMPLETE: function (state) {
+          console.log("Video Ad Completed: " + state);
+          if (typeof SendEvent === "function") {
+            SendEvent("event", "aip_video_completed", { state: state });
+          }
+          if (typeof completeVideoAd === "function") {
+            completeVideoAd(false);
+          }
+        }
+      });
+    });
+
+  </script>
+  <script>
+    (function () {
+      function detectMsStart() {
+        var uri = window.location.pathname + window.location.search + window.location.hash;
+        var lowerUri = (uri || '').toLowerCase();
+        var params = new URLSearchParams(window.location.search || '');
+        if (params.has('ms') || params.has('msstart_sdk_init')) {
+          return true;
+        }
+        if (lowerUri.indexOf('msstart_sdk_init') !== -1) {
+          return true;
+        }
+        return lowerUri.indexOf('ms') !== -1;
+      }
+
+      window.isMsStart = detectMsStart();
+      if (window.isMsStart) {
+        window.msStart = true;
+        var msSdkScript = document.createElement('script');
+        msSdkScript.src = 'https://assets.msn.com/staticsb/statics/latest/msstart-games-sdk/msstart-v1.0.0-rc.20.min.js';
+        msSdkScript.async = true;
+        msSdkScript.addEventListener('load', function () {
+          if (typeof window.loadMsVideoAsync === 'function') {
+            window.loadMsVideoAsync();
+          }
+        });
+        document.head.appendChild(msSdkScript);
+      }
+    })();
+  </script>
+  <script async="" src="//api.adinplay.com/libs/aiptag/pub/SSK/kartbros.io/tag.min.js"></script>
+  <!-- End AdinPlay Snippet -->
+  <!-- Google tag (gtag.js) -->
+  
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-1BSXC3Y865', { cookie_flags: 'secure;samesite=none' });
+  </script>
+
+  <!-- Analytics Functions -->
+  <script>
+    // Generate unique session ID
+    function generateSessionId() {
+      const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      let result = '';
+      for (let i = 0; i < 25; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
+    }
+
+    // Session ID for tracking
+    var sid = generateSessionId();
+
+    // Status update function that records session activity
+    function updateStatus(fromEvent = false) {
+      const req = new XMLHttpRequest();
+      var aStr = "recordsession.php?s=" + sid;
+      if (fromEvent == true) aStr = aStr + "&e=1"
+      req.open("GET", aStr);
+      req.send();
+    }
+
+    function SendEvent(theEvent, theAction, theParms = '') {
+      if (theParms == '') {
+        gtag(theEvent, theAction);
+      } else {
+        gtag(theEvent, theAction, theParms);
+      }
+      updateStatus(true);
+    }
+
+    function GA4_SendEvent(eventName, paramsJson) {
+      // Parse parameters if provided
+      var parsedParams;
+      if (paramsJson && paramsJson.length > 0) {
+        try {
+          parsedParams = JSON.parse(paramsJson);
+        } catch (e) {
+          parsedParams = undefined;
+        }
+      }
+
+      // Call SendEvent function
+      if (parsedParams === undefined) {
+        SendEvent('event', eventName);
+      } else {
+        SendEvent('event', eventName, parsedParams);
+      }
+    }
+
+    updateStatus(false);
+  </script>
+  <script>
+    const MS_VIDEO_HOLD_AFTER_START_MS = 30000;
+    const MS_VIDEO_HOLD_AFTER_AD_MS = 30000;
+    const MS_VIDEO_RETRY_DELAY_MS = 5000;
+
+    var msVideoInstanceId = null;
+    var msVideoLoadPromise = null;
+    var lastUnitPlayed = null;
+    var msVideoCooldownUntil = 0;
+    var msVideoHoldUntil = Date.now() + MS_VIDEO_HOLD_AFTER_START_MS;
+    var msVideoPrimeRetryTimer = null;
+
+    function trackAdEvent(name, data) {
+      if (typeof SendEvent === "function") {
+        if (data && typeof data === "object") {
+          SendEvent("event", name, data);
+        } else {
+          SendEvent("event", name);
+        }
+      }
+    }
+
+    function focusGameCanvas() {
+      window.focus();
+      var contentElement = document.getElementById("openfl-content") || document.getElementById("unity-canvas");
+      if (contentElement && typeof contentElement.focus === "function") {
+        contentElement.focus();
+      }
+    }
+
+    function completeVideoAd(isBlocked) {
+      if (typeof window.Main !== "undefined" && typeof window.Main.DoneVideoAd === "function") {
+        try {
+          if (typeof isBlocked === "undefined") {
+            window.Main.DoneVideoAd();
+          } else {
+            window.Main.DoneVideoAd(isBlocked);
+          }
+        } catch (err) {
+          console.warn("Main.DoneVideoAd error", err);
+        }
+      }
+      focusGameCanvas();
+    }
+
+    function scheduleMsVideoPrime(delay) {
+      if (!window.isMsStart) {
+        return;
+      }
+      if (typeof delay !== "number" || delay < 0) {
+        delay = 0;
+      }
+      if (msVideoPrimeRetryTimer) {
+        clearTimeout(msVideoPrimeRetryTimer);
+        msVideoPrimeRetryTimer = null;
+      }
+      msVideoPrimeRetryTimer = setTimeout(function () {
+        msVideoPrimeRetryTimer = null;
+        primeMsVideoInstance(true).catch(function (error) {
+          console.log("MS video prime retry failed", error);
+        });
+      }, delay);
+    }
+
+    function ensureMsVideoPrimeAfterHold() {
+      var now = Date.now();
+      var delay = msVideoHoldUntil > now ? (msVideoHoldUntil - now + 500) : MS_VIDEO_RETRY_DELAY_MS;
+      scheduleMsVideoPrime(delay);
+    }
+
+    function primeMsVideoInstance(forceRefresh) {
+      if (!window.isMsStart || typeof window.$msstart === "undefined" || typeof window.$msstart.loadAdsAsync !== "function") {
+        msVideoInstanceId = null;
+        msVideoLoadPromise = null;
+        return Promise.reject(new Error("MSStart SDK unavailable"));
+      }
+
+      if (!forceRefresh && msVideoInstanceId) {
+        return Promise.resolve(msVideoInstanceId);
+      }
+
+      if (msVideoLoadPromise) {
+        return msVideoLoadPromise;
+      }
+
+      var now = Date.now();
+      if (now < msVideoCooldownUntil) {
+        var waitMs = msVideoCooldownUntil - now;
+        trackAdEvent("ms_video_load_throttled", { remaining: waitMs });
+        return Promise.reject({ code: "REQUEST_THROTTLED", remaining: waitMs });
+      }
+
+      msVideoLoadPromise = window.$msstart.loadAdsAsync().then(function (adInstance) {
+        var instanceId = adInstance && adInstance.instanceId;
+        if (instanceId) {
+          msVideoInstanceId = instanceId;
+          trackAdEvent("ms_video_loaded", { holdRemaining: Math.max(0, msVideoHoldUntil - Date.now()) });
+          return msVideoInstanceId;
+        }
+        throw { code: "LOAD_ADS_FAILURE" };
+      }).catch(function (error) {
+        var code = (error && (error.code || error.errorCode || error.message)) || "unknown";
+        msVideoInstanceId = null;
+        trackAdEvent("ms_video_load_error", { code: code });
+        var delay = MS_VIDEO_RETRY_DELAY_MS; if (code === "REQUEST_THROTTLED") { delay = MS_VIDEO_RETRY_DELAY_MS * 2; msVideoHoldUntil = Math.max(msVideoHoldUntil, Date.now() + MS_VIDEO_HOLD_AFTER_AD_MS); ensureMsVideoPrimeAfterHold(); } else { scheduleMsVideoPrime(delay); } msVideoCooldownUntil = Date.now() + delay;
+        var errOut = (error && typeof error === "object") ? error : { message: String(error || "unknown") };
+        errOut.code = code;
+        errOut.msLogged = true;
+        throw errOut;
+      }).finally(function () {
+        msVideoLoadPromise = null;
+      });
+
+      if (typeof window.SetupMSNotification === "function") {
+        try {
+          window.SetupMSNotification();
+        } catch (notificationError) {
+          console.warn("SetupMSNotification error", notificationError);
+        }
+      }
+
+      return msVideoLoadPromise;
+    }
+
+    function loadMsVideoAsync(forceRefresh) {
+      return primeMsVideoInstance(!!forceRefresh).catch(function () {
+        return null;
+      });
+    }
+
+    function startAipVideo(unitName, fallbackReason) {
+      if (fallbackReason) {
+        trackAdEvent("ms_video_fallback", { reason: fallbackReason });
+        if (window.isMsStart) {
+          scheduleMsVideoPrime(MS_VIDEO_RETRY_DELAY_MS);
+        }
+      }
+
+      if (typeof window.aiptag === "undefined" || !window.aiptag.cmd || !window.aiptag.cmd.player) {
+        console.log("VIDEO_ADBLOCKED");
+        trackAdEvent("video_adblocked");
+        completeVideoAd(true);
+        return;
+      }
+
+      lastUnitPlayed = unitName;
+      trackAdEvent("startvideo-" + unitName);
+
+      window.aiptag.cmd.player.push(function () {
+        var player = window.aiptag.adplayer || window.adplayer;
+        if (player && typeof player.startPreRoll === "function") {
+          player.startPreRoll(unitName);
+        } else {
+          console.log("AIP adplayer missing - marking video complete");
+          trackAdEvent("video_adplayer_missing");
+          completeVideoAd(true);
+        }
+      });
+    }
+
+    function ShowVideo(theUnitName, forceAip) {
+      var unitName = theUnitName || "kartbros-io_preroll";
+      var forceFallback = !!forceAip;
+      var now = Date.now();
+
+      console.log("SHOW_VIDEO", unitName, "forceAip:", forceFallback);
+      if (window.isMsStart && typeof window.$msstart !== "undefined" && typeof window.$msstart.hideDisplayAdsAsync === "function") {
+        window.$msstart.hideDisplayAdsAsync().catch(function (err) {
+          console.warn("MSStart global hide error", err);
+        });
+      }
+
+      if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) {
+        var prerollElement = document.getElementById("preroll");
+        if (prerollElement) {
+          prerollElement.style.display = "none";
+          prerollElement.style.visibility = "hidden";
+        }
+        completeVideoAd(false);
+        return;
+      }
+
+      if (now < msVideoHoldUntil) {
+        trackAdEvent("ms_video_hold_active", { remaining: msVideoHoldUntil - now });
+        ensureMsVideoPrimeAfterHold();
+        startAipVideo(unitName, forceFallback ? "forced_hold" : "hold_active");
+        return;
+      }
+
+      var msAvailable = !forceFallback && window.isMsStart && typeof window.$msstart !== "undefined" && typeof window.$msstart.showAdsAsync === "function";
+
+      if (msAvailable) {
+        primeMsVideoInstance(false).then(function (instanceId) {
+          if (!instanceId) {
+            console.log("MSStart ad not ready after load, falling back to AIP");
+            trackAdEvent("ms_video_not_ready");
+            primeMsVideoInstance(true).catch(function () { });
+            startAipVideo(unitName, "not_ready");
+            return;
+          }
+
+          var instanceIdToShow = instanceId;
+          msVideoInstanceId = null;
+
+          window.$msstart.showAdsAsync(instanceIdToShow).then(function (adInstance) {
+            msVideoHoldUntil = Date.now() + MS_VIDEO_HOLD_AFTER_AD_MS;
+            ensureMsVideoPrimeAfterHold();
+            var completion = adInstance && adInstance.showAdsCompletedAsync;
+            if (completion && typeof completion.then === "function") {
+              completion.then(function () {
+                console.log("MS Video Ad Complete");
+                trackAdEvent("ms_video_shown2");
+                completeVideoAd(false);
+              }).catch(function (err) {
+                console.log("MS video not completed", err);
+                trackAdEvent("ms_video_not_completed");
+                startAipVideo(unitName, "not_completed");
+              }).finally(function () {
+                ensureMsVideoPrimeAfterHold();
+              });
+            } else {
+              console.log("MS video completion promise missing");
+              trackAdEvent("ms_video_shown2");
+              completeVideoAd(false);
+              ensureMsVideoPrimeAfterHold();
+            }
+          }).catch(function (err) {
+            console.log("MS Video Ad Error, showing AIP fallback", err);
+            var code = (err && (err.code || err.errorCode || err.message)) || "unknown";
+            trackAdEvent("ms_video_show_error2", { code: code });
+            if (code === "REQUEST_THROTTLED") {
+              msVideoHoldUntil = Date.now() + MS_VIDEO_HOLD_AFTER_AD_MS;
+            }
+            scheduleMsVideoPrime(MS_VIDEO_RETRY_DELAY_MS);
+            startAipVideo(unitName, code === "REQUEST_THROTTLED" ? "show_throttled" : "show_error");
+          });
+        }).catch(function (err) {
+          var code = (err && (err.code || err.errorCode || err.message)) || "unknown";
+          console.log("MS video load error", err);
+          if (!err || !err.msLogged) {
+            trackAdEvent("ms_video_load_error", { code: code });
+          }
+          scheduleMsVideoPrime(MS_VIDEO_RETRY_DELAY_MS);
+          startAipVideo(unitName, "load_error");
+        });
+        return;
+      }
+
+      startAipVideo(unitName, forceFallback ? "forced" : null);
+    }
+
+    function LoadVideo() {
+      primeMsVideoInstance(true).catch(function () {
+        ensureMsVideoPrimeAfterHold();
+      });
+    }
+
+    window.LoadVideo = LoadVideo;
+    window.ShowVideo = ShowVideo;
+
+    primeMsVideoInstance(true).catch(function () { });
+  </script>
+<style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+
+<body>
+  <noscript>
+    <div style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:20px;line-height:1.4;z-index:9999;text-align:center;padding:24px">
+      Enable JavaScript bro!
+    </div>
+  </noscript>
+  <!-- Add a scroll helper that sits behind the game but allows scrolling -->
+  <!-- <div class="page-wrapper"> -->
+  <!-- Game section (full height of viewport) -->
+  <div class="game-section">
+    <canvas id="unity-canvas" tabindex="-1" onblur="window.focus(); window.scrollTo(0, 0);"></canvas>
+
+    <!-- <div id="unity-loading-bar">
+        <div id="loading-text">YOUR BROS GAME IS LOADING</div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div> -->
+
+    <div id="unity-loading-bar" class="gms-legacy-loading-hooks"><center><img class="spinning-wheel" alt="Spinning kart wheel loading indicator"><br><img alt="Loading game"><br><img alt="Football Bros character icon"><img alt="Basket Bros character icon"><img alt="Soccer Bros character icon"><img alt="Wrestle Bros character icon"><img alt="Kart Bros character icon"><img alt="Baseball Bros character icon"><img alt="Kart Bros character icon"></center></div>
+
+    <div id="unity-warning"></div>
+
+    <div id="adContainerMainMenu">
+      <div id="kartbros-io_300x250" style="width: 336px; height: 280px; visibility: visible; position: absolute; left: 50%; transform: translateX(calc(-100% - 320px)); overflow: hidden; display: block; pointer-events: auto;">
+      </div>
+      <div id="kartbros-io_300x250_2" style="width: 336px; height: 280px; visibility: visible; position: absolute; left: 50%; transform: translateX(calc(320px + 36px)); overflow: hidden; display: block; pointer-events: auto;">
+      </div>
+    </div>
+    <div id="adContainerTop">
+      <div id="kartbros-io_728x90"></div>
+    </div>
+
+    <div id="adContainerBottom">
+      <div id="kartbros-io_970x250"></div>
+    </div>
+
+    <!-- Pillar ads for character/track select screens -->
+    <div id="adContainerPillars">
+      <div id="kartbros-io_160x600"></div>
+      <div id="kartbros-io_160x600_2"></div>
+    </div>
+  </div>
+
+  <!-- Information section (scrolls below game) -->
+  <div class="info-section">
+    <!-- Main content container -->
+    <div class="container">
+      <h1>Kart Bros: Free-to-Play Online Racing</h1>
+      <p>Kart Bros is a simple, fast‑paced kart racing game that's incredibly easy to pick up—yet packed with wild
+        antics! Whether you're hugging the turns, drifting around tracks or hurling powerups with friends, Kart Bros
+        delivers non‑stop thrills in every race.</p>
+      <p>This is a free-to-play .io racing game: No downloads required—just fire up your browser (Chrome recommended)
+        and race!</p>
+      <p>Kart Bros is still in early access and receiving ongoing updates: New features, tracks, and karts are always
+        right around the corner. Provide feedback on the discord to help us develop in the right direction!</p>
+
+      <h2>Controls</h2>
+      <ul>
+        <li><strong>Drive:</strong> Arrow keys or WASD</li>
+        <li><strong>Use Powerups:</strong> Space bar</li>
+        <li><strong>Look Back:</strong> Left Shift</li>
+      </ul>
+
+      <div class="changelog">
+        <h2>Last Changelog Update (10/29/2025) v1.49</h2>
+        <p>🚀 NEW ITEM! Green Rocket: bounces off the walls until it finds a target!</p>
+        <p>🔥 TRIPLE ITEMS! triple versions of Mine, Boost and Green Rocket!</p>
+        <p>💀 FLAMING SKULL now hits players on its path - so move out the way!</p>
+        <p>⚖️ BALANCE! Items were balanced for better racing</p>
+        <p>🪲 BUG FIXES!!</p>
+      </div>
+
+      <div class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>Why isn't the game loading?</h3>
+          <p>First, check your internet connection and ensure Kart Bros isn't blocked by your network. Also, try
+            disabling any ad blockers.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do I play?</h3>
+          <p>Use the arrow keys or WASD to drive, and press the space bar to use items. It's straightforward—pick your
+            character, track, start your engines, and have fun!</p>
+        </div>
+        <div class="faq-item">
+          <h3>Which browser should I use?</h3>
+          <p>We recommend Chrome for the best experience. Kart Bros also works on Firefox and Safari, but Chrome is
+            the only browser fully supported. The game is optimized to run well in browser on all computers, from
+            school Chromebooks to the best gaming PC.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Are there more Bros games?</h3>
+          <p>Definitely! Check out <a href="https://footballbros.io" target="_blank">Football Bros</a>, <a href="https://basketbros.io" target="_blank">Basket Bros</a>, <a href="https://soccerbros.gg" target="_blank">Soccer Bros</a>, <a href="https://wrestlebros.io" target="_blank">Wrestle Bros</a>, and
+            <a href="https://baseballbros.io" target="_blank">Baseball Bros</a>. You can find additional free web
+            games at <a href="https://iogames.space" target="_blank">iogames.space</a>!
+          </p>
+        </div>
+        <div class="faq-item">
+          <h3>Do you have a favorite track or racer?</h3>
+          <p>We sure do, but we're not spilling the beans! 😉Try all 9 tracks and let us know your favorite.</p>
+        </div>
+        <div class="faq-item">
+          <h3>When is Kart Bros releasing?</h3>
+          <p>It's live right now Bro! Unlock all the content and get to the finish line first</p>
+        </div>
+        <div class="faq-item">
+          <h3>I want MORE info about the game bro!</h3>
+          <p>We highly recommend you scroll up and jump into a game, but since you asked…</p>
+
+          <h4>Single‑Player Racing</h4>
+          <p><strong>Take the lead:</strong> Start in Quick Play mode to perfect your drifting around tight corners
+            and nail those boost‑filled straights.</p>
+          <p><strong>Fire first:</strong> Earn in‑race rewards to unlock a host of weird and wonderful
+            characters—choose from your vibrant roster of drivers, each with unique stats.</p>
+          <p><strong>Tournament mode:</strong> Game for more driving? Jump into the Bro Cup to face off on three
+            back-to-back maps, racing your way to pole position and claiming the trophy.</p>
+
+          <h4>Multi‑Player Racing</h4>
+          <p><strong>Online Races:</strong> Host or Join your friends in frantic online multiplayer real‑time races
+          </p>
+          <p><strong>Chaotic Power‑Ups:</strong> Grab rockets, speed boosts, shields, and more—timing your items
+            perfectly can turn the tide of any race.</p>
+
+          <p>Get ready to rev your engines, unleash mayhem with power‑ups, and become the ultimate kart racing
+            champion—solo or online—at kartbros.io!</p>
+        </div>
+      </div>
+
+      <div class="social">
+        <p>To keep up to date, sign up for our email newsletter <a href="https://bluewizard.com/subscribe-to-bwd/">right
+            here!</a></p>
+
+        <p>Follow us on social media to stay updated with the latest news and features!</p>
+      </div>
+    </div>
+
+    <!-- Social links -->
+    <div class="social-links">
+      <a href="https://discord.com/invite/bluewizard"><img src="https://zuckvmusk.com/img/discord.png" alt="Discord"></a>
+      <a href="https://www.facebook.com/bluewizarddigital"><img src="https://zuckvmusk.com/img/facebook.png" alt="Facebook"></a>
+      <a href="https://www.tiktok.com/@bluewizarddigital"><img src="https://zuckvmusk.com/img/tiktok.png" alt="TikTok"></a>
+      <a href="https://twitter.com/bluewizardgames"><img src="https://zuckvmusk.com/img/twitter.png" alt="Twitter"></a>
+      <a href="https://www.instagram.com/bluewizardgames/"><img src="https://zuckvmusk.com/img/instagram.png" alt="Instagram"></a>
+      <a href="http://www.youtube.com/bluewizarddigital"><img src="https://zuckvmusk.com/img/youtube.png" alt="Youtube"></a>
+      <a href="mailto:info@bluewizard.com"><img src="https://zuckvmusk.com/img/email.png" alt="Email"></a>
+    </div>
+
+    <!-- Ad containers moved out of info-section to be in global scope -->
+  </div>
+  <!-- </div> -->
+
+  <!-- Video ad overlay -->
+  <div id="videoAdOverlay">
+    <div id="videoad">
+      <!-- The AdinPlay video ad will be injected here -->
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="TemplateData/pleaserotate.min.js"></script>
+  <script>
+    const AD_CONFIGS = {
+      ShowAd0: {
+        elementId: "kartbros-io_160x600",
+        msPlacementId: "left:160x600",
+        minWidth: 1200,
+        skipOnMobile: true,
+        logName: "ShowAd0"
+      },
+      ShowAd1: {
+        elementId: "kartbros-io_160x600_2",
+        msPlacementId: "right:160x600",
+        minWidth: 1200,
+        skipOnMobile: true,
+        logName: "ShowAd1"
+      },
+      ShowAd2: {
+        elementId: "kartbros-io_300x250_2",
+        msPlacementId: "right:300x250",
+        minWidth: 1200,
+        skipOnMobile: true,
+        logName: "ShowAd2"
+      },
+      ShowAd3: {
+        elementId: "kartbros-io_728x90",
+        msPlacementId: "top:728x90",
+        minWidth: 0,
+        skipOnMobile: true,
+        logName: "ShowAd3"
+      },
+      ShowAd4: {
+        elementId: null,
+        msPlacementId: "bottom:728x90",
+        minWidth: 1200,
+        skipOnMobile: true,
+        logName: "ShowAd4"
+      },
+      ShowAd6: {
+        elementId: "kartbros-io_300x250",
+        msPlacementId: "left:300x250",
+        minWidth: 1200,
+        skipOnMobile: true,
+        logName: "ShowAd6"
+      },
+      ShowAd7: {
+        elementId: null,
+        msPlacementId: "right:300x600",
+        minWidth: 1200,
+        skipOnMobile: true,
+        logName: "ShowAd7"
+      },
+      ShowAd8: {
+        elementId: null,
+        msPlacementId: "bottom:728x90_m",
+        minWidth: 0,
+        skipOnMobile: true,
+        logName: "ShowAd8"
+      },
+      ShowAd9: {
+        elementId: "kartbros-io_970x250",
+        msPlacementId: "bottomleft:300x250",
+        minWidth: 0,
+        skipOnMobile: true,
+        logName: "ShowAd9"
+      },
+      ShowAd10: {
+        elementId: null,
+        msPlacementId: null,
+        minWidth: 0,
+        skipOnMobile: true,
+        logName: "ShowAd10"
+      }
+    };
+
+    const AD_ELEMENT_TO_KEY = {};
+    Object.keys(AD_CONFIGS).forEach(function (key) {
+      var cfg = AD_CONFIGS[key];
+      if (cfg && cfg.elementId) {
+        AD_ELEMENT_TO_KEY[cfg.elementId] = key;
+      }
+    });
+
+function hideMsPlacement(placementId) {
+  if (!placementId || typeof window.$msstart === "undefined") {
+    return false;
+  }
+  try {
+    if (typeof window.$msstart.hideDisplayAdsAsync === "function") {
+      window.$msstart.hideDisplayAdsAsync(placementId).catch(function (err) {
+        console.warn("hideDisplayAdsAsync error for", placementId, err);
+      });
+      return true;
+    }
+  } catch (apiError) {
+    console.warn("MSStart hide API threw for", placementId, apiError);
+  }
+  return false;
+}
+
+    const MS_BANNER_COOLDOWN_MS = 5000;
+    const MS_BANNER_MAX_BATCH = 2;
+    var msBannerQueue = [];
+    var msBannerProcessing = false;
+    var msBannerTimer = null;
+    var msBannerLastShowTime = 0;
+
+    function scheduleMsBannerQueue(delayMs) {
+      if (delayMs < 0) {
+        delayMs = 0;
+      }
+      if (msBannerTimer) {
+        return;
+      }
+      msBannerTimer = setTimeout(function () {
+        msBannerTimer = null;
+        processMsBannerQueue();
+      }, delayMs);
+    }
+
+    function fallbackMsBannerEntry(entry) {
+      if (!entry || !entry.config) {
+        return;
+      }
+      if (entry.element) {
+        entry.element.style.visibility = "visible";
+        entry.element.style.pointerEvents = "auto";
+      }
+      if (typeof trackAdEvent === "function" && entry.config.msPlacementId) {
+        trackAdEvent("ms_banner_fallback", { placement: entry.config.msPlacementId });
+      }
+      var fallbackConfig = Object.assign({}, entry.config, { internalForceAip: true });
+      _displayBannerAd(fallbackConfig, true);
+    }
+
+    function queueMsBannerRequest(config, adElement) {
+      msBannerQueue.push({
+        config: Object.assign({}, config),
+        element: adElement
+      });
+      processMsBannerQueue();
+    }
+
+    function processMsBannerQueue() {
+      if (msBannerProcessing) {
+        return;
+      }
+      if (!msBannerQueue.length) {
+        return;
+      }
+      if (!window.isMsStart || typeof window.$msstart === "undefined" || typeof window.$msstart.showDisplayAdsAsync !== "function") {
+        while (msBannerQueue.length) {
+          fallbackMsBannerEntry(msBannerQueue.shift());
+        }
+        return;
+      }
+
+      var now = Date.now();
+      if (msBannerLastShowTime) {
+        var elapsed = now - msBannerLastShowTime;
+        if (elapsed < MS_BANNER_COOLDOWN_MS) {
+          if (typeof trackAdEvent === "function") {
+            trackAdEvent("ms_banner_throttled_global", { wait: MS_BANNER_COOLDOWN_MS - elapsed });
+          }
+          scheduleMsBannerQueue(MS_BANNER_COOLDOWN_MS - elapsed);
+          return;
+        }
+      }
+
+      var batchEntries = [];
+      var placements = [];
+      var seen = {};
+
+      while (msBannerQueue.length && placements.length < MS_BANNER_MAX_BATCH) {
+        var entry = msBannerQueue.shift();
+        if (!entry || !entry.config || !entry.config.msPlacementId) {
+          fallbackMsBannerEntry(entry);
+          continue;
+        }
+        var placementId = entry.config.msPlacementId;
+        if (seen[placementId]) {
+          fallbackMsBannerEntry(entry);
+          continue;
+        }
+        seen[placementId] = true;
+        placements.push(placementId);
+        batchEntries.push(entry);
+      }
+
+      if (!placements.length) {
+        if (msBannerQueue.length) {
+          processMsBannerQueue();
+        }
+        return;
+      }
+
+      msBannerProcessing = true;
+      msBannerLastShowTime = now;
+
+      var placementsArg = placements.length === 1 ? placements[0] : placements.slice();
+      console.log("MSStart requesting display ads for:", placements.join(","));
+
+      window.$msstart.showDisplayAdsAsync(placementsArg).then(function () {
+        placements.forEach(function (placement) {
+          if (typeof trackAdEvent === "function") {
+            trackAdEvent("ms_banner_shown", { placement: placement });
+          }
+        });
+        batchEntries.forEach(function (entry) {
+          if (entry && entry.element) {
+            entry.element.style.visibility = "visible";
+            entry.element.style.pointerEvents = "auto";
+          }
+        });
+      }).catch(function (error) {
+        var code = (error && (error.code || error.errorCode || error.message)) || "unknown";
+        console.log("MS showDisplayAdsAsync error", error);
+        if (typeof trackAdEvent === "function") {
+          trackAdEvent("ms_banner_nofill", { placement: placements.join(","), code: code });
+        }
+        batchEntries.forEach(function (entry) {
+          fallbackMsBannerEntry(entry);
+        });
+      }).finally(function () {
+        msBannerProcessing = false;
+        if (msBannerQueue.length) {
+          processMsBannerQueue();
+        }
+      });
+    }
+function _displayBannerAd(config, forceAipParam) {
+  if (!config) {
+    console.warn("_displayBannerAd called without config");
+    return;
+  }
+
+  var logName = config.logName || config.elementId || "ShowAd";
+  var blockForMobile = config.skipOnMobile && /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent);
+
+  if (!config.elementId) {
+    console.warn(logName + " - no elementId configured");
+    return;
+  }
+
+  var adElement = document.getElementById(config.elementId);
+
+  if (!adElement) {
+    console.error("Ad element not found:", config.elementId);
+    return;
+  }
+
+  if (blockForMobile) {
+    adElement.style.display = "none";
+    adElement.style.visibility = "hidden";
+    adElement.style.pointerEvents = "none";
+    return;
+  }
+
+  if (config.displayStyle) {
+    adElement.style.display = config.displayStyle;
+  } else {
+    adElement.style.display = "";
+  }
+  adElement.style.visibility = "visible";
+  adElement.style.pointerEvents = "auto";
+
+  var attemptMsStart = window.isMsStart && config.msPlacementId && !forceAipParam && !config.internalForceAip && typeof window.$msstart !== "undefined" && typeof window.$msstart.showDisplayAdsAsync === "function";
+
+  if (attemptMsStart) {
+    console.log(logName + " - queueing MSStart placement:", config.msPlacementId);
+    adElement.style.visibility = "hidden";
+    adElement.style.pointerEvents = "none";
+    queueMsBannerRequest(config, adElement);
+    return;
+  }
+
+  var aiptag = window.aiptag = window.aiptag || {};
+  var cmd = aiptag.cmd = aiptag.cmd || {};
+  var displayQueue = cmd.display = cmd.display || [];
+
+  displayQueue.push(function () {
+    var preferDisplay = forceAipParam || config.internalForceAip;
+    var didRequest = false;
+    if (preferDisplay && typeof window.aipDisplayTag !== "undefined" && typeof window.aipDisplayTag.display === "function") {
+      window.aipDisplayTag.display(config.elementId);
+      didRequest = true;
+    } else if (typeof window.aipDisplayTag !== "undefined" && typeof window.aipDisplayTag.refresh === "function") {
+      window.aipDisplayTag.refresh(config.elementId);
+      didRequest = true;
+    } else if (aiptag.display && typeof aiptag.display.refresh === "function") {
+      aiptag.display.refresh(config.elementId);
+      didRequest = true;
+    }
+
+    if (!didRequest && typeof window.aipDisplayTag !== "undefined" && typeof window.aipDisplayTag.display === "function") {
+      window.aipDisplayTag.display(config.elementId);
+    }
+
+    if (adElement) {
+      adElement.style.pointerEvents = "auto";
+    }
+  });
+
+  var eventName = window.isMsStart && (forceAipParam || config.internalForceAip) ? "ms_aip_banner_requested" : "aip_banner_requested";
+  if (typeof trackAdEvent === "function") {
+    trackAdEvent(eventName, { tag: config.elementId });
+  }
+}
+function createBannerFunction(key) {
+      return function (forceaip) {
+        var baseConfig = AD_CONFIGS[key];
+        if (!baseConfig) {
+          console.warn(key + " config missing");
+          return;
+        }
+        var cloned = Object.assign({ configKey: key }, baseConfig);
+        if (forceaip) {
+          cloned.internalForceAip = true;
+        }
+        _displayBannerAd(cloned, !!forceaip);
+      };
+    }
+
+    var ShowAd0 = createBannerFunction("ShowAd0");
+    var ShowAd1 = createBannerFunction("ShowAd1");
+    var ShowAd2 = createBannerFunction("ShowAd2");
+    var ShowAd3 = createBannerFunction("ShowAd3");
+    var ShowAd4 = createBannerFunction("ShowAd4");
+    var ShowAd6 = createBannerFunction("ShowAd6");
+    var ShowAd7 = createBannerFunction("ShowAd7");
+    var ShowAd8 = createBannerFunction("ShowAd8");
+    var ShowAd9 = createBannerFunction("ShowAd9");
+    var ShowAd10 = createBannerFunction("ShowAd10");
+
+    window.ShowAd0 = ShowAd0;
+    window.ShowAd1 = ShowAd1;
+    window.ShowAd2 = ShowAd2;
+    window.ShowAd3 = ShowAd3;
+    window.ShowAd4 = ShowAd4;
+    window.ShowAd6 = ShowAd6;
+    window.ShowAd7 = ShowAd7;
+    window.ShowAd8 = ShowAd8;
+    window.ShowAd9 = ShowAd9;
+    window.ShowAd10 = ShowAd10;
+
+    function showBannerByElementId(elementId, forceAip) {
+      var key = AD_ELEMENT_TO_KEY[elementId];
+      if (!key) {
+        console.warn("showBannerByElementId - unknown element:", elementId);
+        return false;
+      }
+      var baseConfig = AD_CONFIGS[key];
+      if (!baseConfig) {
+        console.warn("showBannerByElementId - missing config for key:", key);
+        return false;
+      }
+      var cloned = Object.assign({ configKey: key }, baseConfig);
+      if (forceAip) {
+        cloned.internalForceAip = true;
+      }
+      _displayBannerAd(cloned, !!forceAip);
+      return true;
+    }
+
+    function hideBannerByElementId(elementId) {
+      var key = AD_ELEMENT_TO_KEY[elementId];
+      var baseConfig = key ? AD_CONFIGS[key] : null;
+      var placementIdFromConfig = baseConfig ? baseConfig.msPlacementId : null;
+
+      if (placementIdFromConfig) {
+        hideMsPlacement(placementIdFromConfig);
+        trackAdEvent("ms_banner_hidden", { placement: placementIdFromConfig });
+      }
+
+      var adElement = document.getElementById(elementId);
+      if (adElement) {
+        adElement.style.display = "none";
+        adElement.style.visibility = "hidden";
+        adElement.style.pointerEvents = "none";
+        adElement.innerHTML = "";
+      }
+
+      if (typeof trackAdEvent === "function") {
+        trackAdEvent("banner_hidden", { tag: elementId });
+      }
+      return true;
+    }
+
+    window.KartBrosAds = window.KartBrosAds || {};
+    window.KartBrosAds.showBanner = showBannerByElementId;
+    window.KartBrosAds.hideBanner = hideBannerByElementId;
+    window.KartBrosAds.refreshBanner = function (elementId) {
+      return showBannerByElementId(elementId, false);
+    };
+    window.KartBrosAds.forceAipBanner = function (elementId) {
+      return showBannerByElementId(elementId, true);
+    };
+    window.KartBrosAds.isMsStart = function () {
+      return !!window.isMsStart;
+    };
+
+  window.addEventListener("DOMContentLoaded", function () {
+    try { ShowAd6(); } catch (err) { console.error("ShowAd6 error", err); } // For the left 300x250
+    try { ShowAd2(); } catch (err) { console.error("ShowAd2 error", err); } // For the right 300x250_2
+    // try { ShowAd0(); } catch (err) { console.error("ShowAd0 error", err); } // Left Pillar
+    // try { ShowAd1(); } catch (err) { console.error("ShowAd1 error", err); } // Right Pillar
+    // try { ShowAd3(); } catch (err) { console.error("ShowAd3 error", err); } // Top 728x90
+    // try { ShowAd9(); } catch (err) { console.error("ShowAd9 error", err); } // Bottom 970x250
+  });
+  </script>
+
+  <script>
+    // Toggle pointer events for scrolling
+    document.addEventListener('wheel', onScroll, false);
+    document.addEventListener('mousemove', onMouse, false);
+
+    function onMouse() {
+      const gameSection = document.querySelector('.game-section');
+      if (gameSection) {
+        gameSection.style['pointer-events'] = 'auto';
+      }
+    }
+
+    function onScroll() {
+      const gameSection = document.querySelector('.game-section');
+      if (gameSection) {
+        gameSection.style['pointer-events'] = 'none';
+
+        // Re-enable pointer events after a short delay to allow for smooth scrolling
+        setTimeout(function () {
+          gameSection.style['pointer-events'] = 'auto';
+        }, 500);
+      }
+    }
+
+    // Force exit out off fullscreen mode when the device is rotated to portrait
+    window.addEventListener('orientationchange', () => {
+      if (window.screen.orientation && window.screen.orientation.type.startsWith('portrait')) {
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+        }
+      }
+    });
+
+    let canvas = document.getElementById("unity-canvas");
+
+    function unityShowBanner(msg, type) {
+      let warningBanner = document.getElementById("unity-warning");
+      function updateBannerVisibility() {
+        warningBanner.style.display = warningBanner.children.length ? "block" : "none";
+      }
+      let div = document.createElement("div");
+      div.innerHTML = msg;
+      warningBanner.appendChild(div);
+
+      if (type === "error") {
+        div.style = "background: red; padding: 10px;";
+      } else if (type === "warning") {
+        div.style = "background: yellow; padding: 10px;";
+        setTimeout(() => {
+          warningBanner.removeChild(div);
+          updateBannerVisibility();
+        }, 5000);
+      }
+      updateBannerVisibility();
+    }
+
+    var buildUrl = "/misc/kart-bros/_ext/cdn.jsdelivr.net/gh/ertemr33/kenen%40main/Build";
+    var loaderUrl = buildUrl + "/77aa2311d6862e6753a181896dfa2c12.loader.js";
+    var config = {
+      arguments: [],
+      dataUrl: buildUrl + "/102190d43e90efea26d753d85e616e22.data.unityweb",
+      frameworkUrl: buildUrl + "/3df40305caf9bde478d3aa8a67021399.framework.js.unityweb",
+        codeUrl: buildUrl + "/32e2077b8e7224301ebc457024a232dc.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+      companyName: "BlueWizard",
+      productName: "KART BROS!",
+      productVersion: "1.49",
+      showBanner: unityShowBanner,
+    };
+
+    document.getElementById("unity-loading-bar").style.display = "block";
+
+    let script = document.createElement("script");
+    script.src = loaderUrl;
+    script.onload = () => {
+      createUnityInstance(canvas, config, (progress) => {
+        //document.getElementById("unity-progress-bar-full").style.width = (100 * progress) + "%";
+      }).then((unityInstance) => {
+        window.unityInstance = unityInstance;
+        document.getElementById("unity-loading-bar").style.display = "none";
+      }).catch((message) => {
+        alert(message);
+      });
+    };
+    document.body.appendChild(script);
+  </script>
+  
+  
+
+
+
+
+
+
+</body></html>

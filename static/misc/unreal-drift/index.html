@@ -1,0 +1,692 @@
+<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Unreal Drift","engine":"unity","files":[["/misc/unreal-drift/_ext/cdn.jsdelivr.net/gh/bodrumkat/hanhar%40main/Build/DriftH.data.unityweb.part0",8388608],["/misc/unreal-drift/_ext/cdn.jsdelivr.net/gh/bodrumkat/hanhar%40main/Build/DriftH.data.unityweb.part1",8388608],["/misc/unreal-drift/_ext/cdn.jsdelivr.net/gh/bodrumkat/hanhar%40main/Build/DriftH.data.unityweb.part2",8388608],["/misc/unreal-drift/_ext/cdn.jsdelivr.net/gh/bodrumkat/hanhar%40main/Build/DriftH.data.unityweb.part3",8388608],["/misc/unreal-drift/_ext/cdn.jsdelivr.net/gh/bodrumkat/hanhar%40main/Build/DriftH.data.unityweb.part4",8388608],["/misc/unreal-drift/_ext/cdn.jsdelivr.net/gh/bodrumkat/hanhar%40main/Build/DriftH.data.unityweb.part5",6813532],["/misc/unreal-drift/_ext/cdn.jsdelivr.net/gh/bodrumkat/hanhar%40main/Build/DriftH.framework.js.unityweb",83905],["/misc/unreal-drift/_ext/cdn.jsdelivr.net/gh/bodrumkat/hanhar%40main/Build/DriftH.loader.js",44254],["/misc/unreal-drift/_ext/cdn.jsdelivr.net/gh/bodrumkat/hanhar%40main/Build/DriftH.wasm.unityweb",8052387]],"total":56937118,"preloads":true,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Unreal Drift"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Unreal Drift"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Unreal Drift</title>
+<style>
+  canvas:focus{outline:none}
+  html,body{padding:0;margin:0;overflow:hidden;height:100%;background:#000;
+    -webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;
+    -ms-user-select:none;user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+  #unity-container{position:absolute;inset:0}
+  #unity-canvas{width:100%;height:100%;display:block;background:#000}
+  #loading-cover{position:fixed;inset:0;z-index:10;display:flex;align-items:center;
+    justify-content:center;background:#111;transition:opacity .4s ease}
+  #unity-loading-bar{display:flex;flex-direction:column;align-items:center;gap:18px}
+  #unity-logo img{max-width:60vw;image-rendering:auto}
+  #unity-progress-bar-empty{width:260px;height:16px;background:rgba(0,0,0,.55);
+    border:2px solid rgba(255,255,255,.5);border-radius:8px;overflow:hidden}
+  #unity-progress-bar-full{height:100%;width:0%;background:#ffcc33;transition:width .2s linear}
+  #load-text{font:600 14px/1 system-ui,sans-serif;color:#fff;letter-spacing:1px;
+    text-shadow:0 2px 6px rgba(0,0,0,.7)}
+  .spinner{width:44px;height:44px;border:5px solid rgba(255,255,255,.25);
+    border-top-color:#ffcc33;border-radius:50%;animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+<style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body class="dark">
+<div id="unity-container" class="unity-desktop">
+  <canvas id="unity-canvas" tabindex="-1"></canvas>
+</div>
+<div id="loading-cover" style="display:none;" class="gms-legacy-loading-hooks"><div id="unity-loading-bar" class="gms-legacy-loading-hooks"><div id="unity-logo"><img id="unity-logo-img" alt=""></div><div id="unity-progress-bar-empty" style="display:none;"><div id="unity-progress-bar-full"></div></div><div class="spinner"></div><div id="load-text"></div></div></div>
+
+<script>
+/* ═════════ AYARLAR ═════════ */
+var CDN        = "https://cdn.jsdelivr.net/gh/bodrumkat/hanhar@main"; /* repo/commit */
+var DATA_PARTS = 6;          /* DriftH.data.unityweb.part0 ... part5 */
+var BUILD      = "Build";    /* CDN icindeki klasor adi */
+/* ═══════════════════════════ */
+
+function U(p){ return CDN.replace(/\/+$/,"") + "/" + p; }
+
+var __fatalShown=false;
+function showFatal(msg){
+  if(__fatalShown) return; __fatalShown=true;
+  var lc=document.getElementById("loading-cover"); if(lc) lc.style.display="none";
+  var d=document.createElement("div");
+  d.style.cssText="position:fixed;inset:0;z-index:100000;background:#141414;color:#fff;"+
+    "display:flex;flex-direction:column;align-items:center;justify-content:center;"+
+    "text-align:center;padding:24px;gap:18px;font:600 4vw/1.5 system-ui,sans-serif;";
+  d.innerHTML="<div>"+msg+"</div>";
+  var b=document.createElement("button");
+  b.textContent="Reload";
+  b.style.cssText="font:700 3.5vw system-ui,sans-serif;padding:10px 30px;border:0;"+
+    "border-radius:8px;background:#ffcc33;color:#221a00;cursor:pointer;";
+  b.onclick=function(){location.reload()};
+  d.appendChild(b); document.body.appendChild(d);
+}
+
+/* zararsiz iframe/sandbox hatalarini yoksay */
+var __IGNORE=/pointer\s*lock|pointerlock|sandbox|SecurityError|fullscreen|sdk\.js|YaGames|NotAllowedError|AbortError|play\(\)/i;
+window.addEventListener("error",function(e){ var m=e&&e.message||""; if(__IGNORE.test(m)) return; });
+window.addEventListener("unhandledrejection",function(e){
+  var m=(e&&e.reason&&(e.reason.message||e.reason.name))||"";
+  if(__IGNORE.test(String(m))) e.preventDefault();
+});
+
+/* ── Pointer Lock / Fullscreen guard + sahte kilit ──
+   Oyun kilit isterse ve sandbox engellerse kilidi taklit ederiz.
+   Oyun hic istemediyse hicbir sey yapmayiz.                      */
+(function(){
+  var wantLock=false, faked=false, target=null;
+  var d=Object.getOwnPropertyDescriptor(Document.prototype,"pointerLockElement");
+  var realGet=d&&d.get;
+  try{
+    Object.defineProperty(Document.prototype,"pointerLockElement",{
+      configurable:true,
+      get:function(){ return faked?target:(realGet?realGet.call(this):null); }
+    });
+  }catch(e){}
+  function fire(){
+    ["pointerlockchange","mozpointerlockchange","webkitpointerlockchange"].forEach(function(n){
+      try{ document.dispatchEvent(new Event(n)); }catch(e){}
+    });
+  }
+  function fake(el){
+    if(faked) return;
+    target=el||document.getElementById("unity-canvas");
+    if(!target) return;
+    faked=true; try{ target.focus(); }catch(e){} fire();
+  }
+  function unfake(){ if(!faked) return; faked=false; target=null; fire(); }
+  var rpl=Element.prototype.requestPointerLock;
+  if(typeof rpl==="function"){
+    Element.prototype.requestPointerLock=function(){
+      wantLock=true;
+      var self=this;
+      try{
+        var r=rpl.apply(this,arguments);
+        if(r&&typeof r.then==="function"){
+          return r.catch(function(){ fake(self); });
+        }
+        /* senkron API: kisa sure sonra gercek kilit yoksa taklit et */
+        setTimeout(function(){ if(!(realGet&&realGet.call(document))) fake(self); },60);
+        return Promise.resolve();
+      }catch(e){ fake(self); return Promise.resolve(); }
+    };
+  }
+  var rex=Document.prototype.exitPointerLock;
+  Document.prototype.exitPointerLock=function(){
+    if(faked){ unfake(); return; }
+    try{ if(rex) rex.call(this); }catch(e){}
+  };
+  document.addEventListener("click",function(){
+    if(wantLock && !document.pointerLockElement) fake();
+  },true);
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"||e.keyCode===27) unfake();
+  },true);
+  function guard(o,k){
+    var f=o&&o[k]; if(typeof f!=="function") return;
+    o[k]=function(){ try{ var r=f.apply(this,arguments);
+      return (r&&r.catch)?r.catch(function(){}):Promise.resolve(); }
+      catch(e){ return Promise.resolve(); } };
+  }
+  guard(Element.prototype,"requestFullscreen");
+  guard(Element.prototype,"webkitRequestFullscreen");
+  guard(Element.prototype,"mozRequestFullScreen");
+  guard(Element.prototype,"msRequestFullscreen");
+  guard(Document.prototype,"exitFullscreen");
+})();
+</script>
+
+<script>
+const hideFullScreenButton = "";
+const buildUrl = U(BUILD);
+const loaderUrl = buildUrl + "/DriftH.loader.js";
+const config = {
+    dataUrl: null,                                        /* part'lardan blob olarak set edilir */
+    frameworkUrl: buildUrl + "/DriftH.framework.js.unityweb",
+    codeUrl: buildUrl + "/DriftH.wasm.unityweb",
+    streamingAssetsUrl: U("StreamingAssets"),
+    companyName: "DefaultCompany",
+    productName: "Drift Tuner",
+    productVersion: "1.0"
+};
+const container = document.querySelector("#unity-container");
+const canvas = document.querySelector("#unity-canvas");
+const loadingCover = document.querySelector("#loading-cover");
+const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+const progressBarFull = document.querySelector("#unity-progress-bar-full");
+const spinner = document.querySelector('.spinner');
+const loadText = document.querySelector('#load-text');
+
+/* logo + arkaplan CDN'den (yoksa sorun degil) */
+(function(){
+  var img=document.getElementById("unity-logo-img");
+  if(img){ img.onerror=function(){ img.style.display="none"; }; img.src=U("Images/logo.png"); }
+  loadingCover.style.background = "url('"+U("Images/background.png")+"') center / cover, #111";
+})();
+
+const canFullscreen = (function () {
+    for (const key of ['exitFullscreen','webkitExitFullscreen','webkitCancelFullScreen','mozCancelFullScreen','msExitFullscreen']) {
+        if (key in document) return true;
+    }
+    return false;
+}());
+if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) container.className = "unity-mobile";
+loadingCover.style.display = "";
+
+let StartUnityInstance;
+let ygGameInstance = null;
+let ysdk = null;
+let initYSDK = false;
+let initGame = false;
+let syncInit = false;
+const NO_DATA = 'no data';
+
+/* ── baslatma senkronizasyonu: loader + data hazir olmadan baslama ── */
+let __loaderReady=false, __dataReady=false, __wantStart=false, __startedOnce=false;
+function __tryStart(){
+  if(__startedOnce) return;
+  if(!__loaderReady || !__dataReady) { __wantStart=true; return; }
+  __startedOnce=true;
+  StartUnityInstance();
+}
+
+document.addEventListener('contextmenu', event => event.preventDefault());
+function FocusGame(){ window.focus(); canvas.focus(); }
+window.addEventListener('pointerdown', () => { FocusGame(); });
+window.addEventListener('touchstart', () => { FocusGame(); });
+document.addEventListener('visibilitychange', function () {
+    if (ysdk !== null && initGame == true) {
+        if (document.hidden) { YG2Instance('SetFocusWindowGame', 'false'); }
+        else {
+            YG2Instance('SetFocusWindowGame', 'true');
+            if ((ysdk.deviceInfo.isMobile() || ysdk.deviceInfo.isTablet()) && ysdk.screen.fullscreen.status == 'off')
+                ysdk.screen.fullscreen.request();
+        }
+    }
+});
+
+/* ══════ DATA PART INDIRME + BIRLESTIRME ══════ */
+async function __buildDataUrl(){
+  progressBarEmpty.style.display="";
+  spinner.style.display="none";
+  var parts=[], total=0;
+  for(var i=0;i<DATA_PARTS;i++){
+    var url = buildUrl + "/DriftH.data.unityweb.part" + i;
+    var r = await fetch(url);
+    if(!r.ok) throw new Error("part"+i+" HTTP "+r.status);
+    var ab = await r.arrayBuffer();
+    if(ab.byteLength===0) throw new Error("part"+i+" bos geldi");
+    parts.push(new Uint8Array(ab));
+    total += ab.byteLength;
+    var pct = Math.round((i+1)/DATA_PARTS*100);
+    progressBarFull.style.width = pct+"%";
+    if(loadText) loadText.textContent = "DATA "+(i+1)+"/"+DATA_PARTS+"  "+pct+"%";
+  }
+  var merged=new Uint8Array(total), off=0;
+  for(var j=0;j<parts.length;j++){ merged.set(parts[j],off); off+=parts[j].length; }
+  parts=null;
+  console.log("[DATA] merged: "+total+" bytes");
+  if(loadText) loadText.textContent="";
+  progressBarFull.style.width="0%";
+  var blob=new Blob([merged],{type:"application/octet-stream"});
+  merged=null;
+  return URL.createObjectURL(blob);
+}
+__buildDataUrl().then(function(u){
+  config.dataUrl = u;
+  __dataReady = true;
+  if(__wantStart) __tryStart();
+}).catch(function(e){
+  console.error("[DATA]",e);
+  showFatal("Failed to load game data.<br><small>"+(e&&e.message||e)+"</small>");
+});
+
+/* ══════ LOADER ══════ */
+const script = document.createElement("script");
+script.src = loaderUrl;
+script.onerror = function(){ showFatal("Failed to load DriftH.loader.js"); };
+script.onload = () => {
+    StartUnityInstance = function () {
+        createUnityInstance(canvas, config, (progress) => {
+            spinner.style.display = "none";
+            progressBarEmpty.style.display = "";
+            const adjustedProgress = Math.max(progress, 0.05);
+            progressBarFull.style.width = `${100 * adjustedProgress}%`;
+        }).then((unityInstance) => {
+            ygGameInstance = unityInstance;
+            loadingCover.style.display = "none";
+        }).catch((message) => {
+            console.error(message);
+            showFatal("Unity start error:<br><small>"+message+"</small>");
+        });
+    };
+    __loaderReady = true;
+    if (IsLocalHost() || syncInit || __wantStart) __tryStart();
+};
+function StartUnityInstance_IfUnloaded(){ __tryStart(); }
+function IsLocalHost() {
+    try {
+        if (window.top !== window) { console.warn("The application is running in an iframe"); return false; }
+        const host = window.location.hostname;
+        if (host === "localhost" || host === "127.0.0.1" || host.endsWith(".local")) { LogStyledMessage("Local Host"); return true; }
+    } catch (error) { console.error("Error checking the local host:", error); return false; }
+}
+function YG2Instance(method, arg) {
+    if (ygGameInstance == null) return;
+    if (!initGame) {
+        setTimeout(function () { if (ygGameInstance) ygGameInstance.SendMessage('YG2Instance', method, arg); }, 100);
+    } else {
+        ygGameInstance.SendMessage('YG2Instance', method, arg);
+    }
+}
+function LogStyledMessage(message) { console.log('%c' + message, 'color: #FFDF73; background-color: #454545'); }
+
+InitYSDK();
+async function InitYSDK() {
+    try {
+        if (IsLocalHost()) return;
+        ysdk = await YaGames.init();
+InterAdvShow();
+await RequestingEnvironmentData();
+LogStyledMessage('Init EnvirData ysdk');
+await InitPlayer();
+LogStyledMessage('Init Authorization ysdk');
+TVInit();
+await LoadCloud();
+LogStyledMessage('Init Storage ysdk');
+await InitReview();
+LogStyledMessage('Init Review ysdk');
+await GetStats();
+LogStyledMessage('Init PlayerStats ysdk');
+await InitPayments();
+LogStyledMessage('Init Payments ysdk');
+await GetAllGames();
+LogStyledMessage('Init OpenURL ysdk');
+await InitLeaderboards();
+LogStyledMessage('Init Leaderboards ysdk');
+await InitGameLabel();
+LogStyledMessage('Init GameLabel ysdk');
+await GetFlags();
+LogStyledMessage('Init Flags ysdk');
+        initYSDK = true;
+        if (ygGameInstance != null) ygGameInstance.SendMessage('YG2Instance', 'InitSDKComplete');
+        LogStyledMessage('Init YandexSDK Success');
+    } catch (e) {
+        console.warn('SDK yok / init edilemedi (fallback):', e && e.message);
+    }
+    if (!IsLocalHost() && !syncInit) StartUnityInstance_IfUnloaded();
+}
+function InitGame() {
+    initGame = true;
+setTimeout(function () { if (nowFullAdOpen == true) YG2Instance('OpenInterAdv'); }, 100);
+}
+LogStyledMessage('PluginYG2 v2.0032  build: 21');
+let lastBackPressTime = 0;
+let previousButtonState = {};
+function TVInit() {
+    LogStyledMessage('Init TV ysdk');
+    if (ysdk.deviceInfo.isTV()) {
+        ysdk.onEvent(ysdk.EVENTS.HISTORY_BACK, () => {
+            const currentTime = Date.now();
+            if (!initGame || currentTime - lastBackPressTime < 300) { ysdk.dispatchEvent(ysdk.EVENTS.EXIT); }
+            else { lastBackPressTime = currentTime; YG2Instance('TVKeyBack'); }
+        });
+        document.addEventListener("keydown", (e) => { YG2Instance('TVKeyDown', e.key); });
+        document.addEventListener("keyup", (e) => { YG2Instance('TVKeyUp', e.key); });
+        function UpdateGamepadState() {
+            var gamepads = navigator.getGamepads();
+            for (var i = 0; i < gamepads.length; i++) {
+                var gamepad = gamepads[i];
+                if (gamepad) {
+                    if (gamepad.buttons[12].pressed && !previousButtonState[12]) { YG2Instance('TVKeyDown', 'Up'); }
+                    else if (!gamepad.buttons[12].pressed && previousButtonState[12]) { YG2Instance('TVKeyUp', 'Up'); }
+                    if (gamepad.buttons[13].pressed && !previousButtonState[13]) { YG2Instance('TVKeyDown', 'Down'); }
+                    else if (!gamepad.buttons[13].pressed && previousButtonState[13]) { YG2Instance('TVKeyUp', 'Down'); }
+                    if (gamepad.buttons[14].pressed && !previousButtonState[14]) { YG2Instance('TVKeyDown', 'Left'); }
+                    else if (!gamepad.buttons[14].pressed && previousButtonState[14]) { YG2Instance('TVKeyUp', 'Left'); }
+                    if (gamepad.buttons[15].pressed && !previousButtonState[15]) { YG2Instance('TVKeyDown', 'Right'); }
+                    else if (!gamepad.buttons[15].pressed && previousButtonState[15]) { YG2Instance('TVKeyUp', 'Right'); }
+                    previousButtonState[12] = gamepad.buttons[12].pressed;
+                    previousButtonState[13] = gamepad.buttons[13].pressed;
+                    previousButtonState[14] = gamepad.buttons[14].pressed;
+                    previousButtonState[15] = gamepad.buttons[15].pressed;
+                }
+            }
+        }
+        function GameLoop(){ UpdateGamepadState(); requestAnimationFrame(GameLoop); }
+        GameLoop();
+    }
+}
+var cloudSaves = NO_DATA;
+function SaveCloud(jsonData, flush) {
+    if (player == null) { console.error('CRASH Save Cloud: ', 'Didnt have time to load'); return; }
+    try { player.setData({ saves: [jsonData], }, flush); } catch (e) { console.error('CRASH Save Cloud: ', e.message); }
+}
+function LoadCloud() {
+    return new Promise((resolve) => {
+        if (ysdk == null) { Final(NO_DATA); return; }
+        try {
+            player.getData(["saves"]).then(data => {
+                if (data.saves) { Final(JSON.stringify(data.saves)); } else { Final(NO_DATA); }
+            }).catch(() => { console.error('Load Cloud Error!'); Final(NO_DATA); });
+        } catch (e) { console.error('CRASH Load saves Cloud: ', e.message); Final(NO_DATA); }
+        function Final(res) { cloudSaves = res; YG2Instance('SetLoadSaves', res); resolve(res); }
+    });
+}
+function StickyAdActivity(show) {
+    try {
+        ysdk.adv.getBannerAdvStatus().then(({ stickyAdvIsShowing, reason }) => {
+            if (stickyAdvIsShowing) { if (!show) ysdk.adv.hideBannerAdv(); }
+            else if (reason) { LogStyledMessage('StickyAdv are not shown. Reason:', reason); }
+            else if (show) { ysdk.adv.showBannerAdv(); }
+        })
+    } catch (e) { console.error('CRASH StickyAdv activity: ', e.message); }
+}
+function RewardedAdvShow(id) {
+    try {
+        ysdk.adv.showRewardedVideo({ callbacks: {
+            onOpen: () => { LogStyledMessage('Opened Rewarded Adv'); YG2Instance('OpenRewardedAdv'); },
+            onClose: () => { LogStyledMessage('Closed Rewarded Adv'); YG2Instance('CloseRewardedAdv'); FocusGame(); },
+            onRewarded: () => { YG2Instance('RewardAdv', id); },
+            onError: (err) => { console.error('Error Rewarded Adv', err); YG2Instance('ErrorRewardedAdv'); }
+        }});
+    } catch (err) { console.error('CRASH Rewarded Adv Show: ', err.message); }
+}
+var reviewData = 'false';
+function InitReview() {
+    return new Promise((resolve) => {
+        if (ysdk == null) { resolve('false'); return; }
+        try {
+            ysdk.feedback.canReview().then(({ value }) => {
+                if (value) { reviewData = 'true'; resolve('true'); } else { resolve('false'); }
+            });
+        } catch (e) { console.error('CRASH Init Review: ', e.message); resolve('false'); }
+    });
+}
+function Review() {
+    try {
+        ysdk.feedback.canReview().then(({ value, reason }) => {
+            if (value) {
+                ysdk.feedback.requestReview().then(({ feedbackSent }) => {
+                    LogStyledMessage('feedbackSent ', feedbackSent);
+                    if (feedbackSent) { LogStyledMessage('Review Success'); YG2Instance('ReviewSent', 'true'); }
+                    else { YG2Instance('ReviewSent', 'false'); LogStyledMessage('Review Fail', reason); }
+                    FocusGame();
+                })
+            } else { LogStyledMessage('Review can show = false', reason); FocusGame(); }
+        })
+    } catch (e) { console.error('CRASH Review: ', e.message); FocusGame(); }
+}
+var statsSaves = NO_DATA;
+function SetState(key, value) {
+    if (player == null) { console.error('SetStats: Player is not defined'); return; }
+    try { var increments = {}; increments[key] = value; player.incrementStats(increments); }
+    catch (e) { console.error('CRASH Set Stats: ', e.message); }
+}
+function GetStats() {
+    return new Promise((resolve) => {
+        if (ysdk == null) { Final(NO_DATA); return; }
+        try {
+            player.getStats().then(stats => { Final(JSON.stringify(stats)); })
+              .catch(e => { console.error('Get Stats Error!', e.message); Final(NO_DATA); });
+        } catch (e) { console.error('CRASH Get Stats Cloud: ', e.message); Final(NO_DATA); }
+        function Final(res) { statsSaves = res; YG2Instance('ReceiveStats', res); resolve(res); }
+    });
+}
+function SetAllStats(jsonStats) {
+    if (ysdk == null || player == null) { console.error('SetAllStats: Error initialization'); return; }
+    try { player.setStats(JSON.parse(jsonStats)); } catch (e) { console.error('CRASH Set All Stats: ', e.message); }
+}
+var paymentsData = NO_DATA;
+let payments = null;
+function InitPayments(sendback) {
+    return new Promise((resolve) => {
+        try {
+            if (ysdk == null) { Final(NO_DATA); return; }
+            ysdk.getPayments().then(_payments => {
+                payments = _payments;
+                payments.getCatalog().then(products => {
+                    let productID = [], title = [], description = [], imageURI = [], price = [],
+                        priceValue = [], priceCurrencyCode = [], currencyImageURL = [], consumed = [];
+                    payments.getPurchases().then(purchases => {
+                        for (let i = 0; i < products.length; i++) {
+                            productID[i] = products[i].id; title[i] = products[i].title;
+                            description[i] = products[i].description; imageURI[i] = products[i].imageURI;
+                            price[i] = products[i].price; priceValue[i] = products[i].priceValue;
+                            priceCurrencyCode[i] = products[i].priceCurrencyCode;
+                            currencyImageURL[i] = products[i].getPriceCurrencyImage("medium");
+                            consumed[i] = true;
+                            for (i2 = 0; i2 < purchases.length; i2++) {
+                                if (purchases[i2].productID === productID[i]) { consumed[i] = false; break; }
+                            }
+                        }
+                        let jsonPayments = { "id": productID, "title": title, "description": description,
+                            "imageURI": imageURI, "price": price, "priceValue": priceValue,
+                            "priceCurrencyCode": priceCurrencyCode, "currencyImageURL": currencyImageURL,
+                            "consumed": consumed, "language": ysdk.environment.i18n.lang };
+                        Final(JSON.stringify(jsonPayments));
+                    });
+                });
+            }).catch(e => { LogStyledMessage('Purchases are not available', e.message); Final(NO_DATA); })
+        } catch (e) { console.error('CRASH Init Payments: ', e.message); Final(NO_DATA); }
+        function Final(res) { paymentsData = res; YG2Instance('PaymentsEntries', res); resolve(res); }
+    });
+}
+function BuyPayments(id) {
+    try {
+        if (payments != null) {
+            payments.purchase(id).then(() => { LogStyledMessage('Purchase Success'); ConsumePurchase(id, true); FocusGame(); })
+              .catch(e => { console.error('Purchase Failed', e.message); YG2Instance('OnPurchaseFailed', id); FocusGame(); })
+        } else { LogStyledMessage('Payments == null'); YG2Instance('OnPurchaseFailed', id); }
+    } catch (e) { console.error('CRASH Buy Payments: ', e.message); YG2Instance('OnPurchaseFailed', id); FocusGame(); }
+}
+function ConsumePurchase(id, onPurchaseSuccess) {
+    try {
+        if (payments != null) {
+            payments.getPurchases().then(purchases => {
+                for (i = 0; i < purchases.length; i++) {
+                    if (purchases[i].productID === id) {
+                        payments.consumePurchase(purchases[i].purchaseToken);
+                        if (onPurchaseSuccess) YG2Instance('OnPurchaseSuccess', id);
+                    }
+                }
+            });
+        } else { LogStyledMessage('Consume purchase: payments null'); }
+    } catch (e) { console.error('CRASH Consume Purchase: ', e.message); }
+}
+function ConsumePurchases(onPurchaseSuccess) {
+    try {
+        if (payments != null) {
+            payments.getPurchases().then(purchases => {
+                LogStyledMessage('Unprocessed purchases: ', purchases.length);
+                for (i = 0; i < purchases.length; i++) {
+                    payments.consumePurchase(purchases[i].purchaseToken);
+                    if (onPurchaseSuccess) YG2Instance('OnPurchaseSuccess', purchases[i].productID);
+                }
+            });
+        } else { LogStyledMessage('Consume purchases: payments null'); }
+    } catch (e) { console.error('CRASH Consume purchases: ', e.message); }
+}
+let allGamesData = NO_DATA;
+function GetAllGames() {
+    return new Promise((resolve) => {
+        if (ysdk == null) { Final(NO_DATA); return; }
+        try {
+            ysdk.features.GamesAPI.getAllGames().then(({ games, developerURL }) => {
+                let appID = new Array(games), title = new Array(games), url = new Array(games),
+                    coverURL = new Array(games), iconURL = new Array(games);
+                for (var i = 0; i < games.length; i++) {
+                    appID[i] = games[i].appID; title[i] = games[i].title; url[i] = games[i].url;
+                    coverURL[i] = games[i].coverURL; iconURL[i] = games[i].iconURL;
+                }
+                let jsonGames = { "appID": appID, "title": title, "url": url, "coverURL": coverURL,
+                    "iconURL": iconURL, "developerURL": developerURL };
+                Final(JSON.stringify(jsonGames));
+            }).catch(err => { console.error('Error getAllGames', err); Final(NO_DATA); })
+        } catch (e) { console.error('CRASH Get All Games: ', e.message); Final(NO_DATA); }
+        function Final(res) { allGamesData = res; resolve(res); }
+    });
+}
+let leaderboards = null;
+function InitLeaderboards() {
+    return new Promise((resolve) => {
+        ysdk.getLeaderboards().then(_lb => { leaderboards = _lb; resolve(_lb); })
+          .catch(e => { console.error('Init Leaderboards err: ', e.message); resolve(null); });
+    });
+}
+function SetLeaderboard(name, score, extraData) {
+    if (leaderboards == null) return;
+    try { leaderboards.setLeaderboardScore(name, score, extraData); }
+    catch (e) { console.error('CRASH Set Leaderboard: ', e.message); }
+}
+function GetLeaderboard(nameLB, quantityTop, quantityAround, photoSize, auth) {
+    if (leaderboards == null) return;
+    try {
+        var jsonEntries = { technoName: '', isDefault: false, isInvertSortOrder: false, decimalOffset: 0, type: '' };
+        leaderboards.getLeaderboardDescription(nameLB).then(res => {
+            jsonEntries.technoName = nameLB;
+            jsonEntries.isDefault = res.default;
+            jsonEntries.isInvertSortOrder = res.description.invert_sort_order;
+            jsonEntries.decimalOffset = res.description.score_format.options.decimal_offset;
+            jsonEntries.type = res.description.type;
+            return leaderboards.getLeaderboardEntries(nameLB, { quantityTop: quantityTop, includeUser: auth, quantityAround: quantityAround });
+        }).then(res => {
+            let jsonPlayers = EntriesLB(res, photoSize);
+            let combinedJson = { ...jsonEntries, ...jsonPlayers };
+            YG2Instance('LeaderboardEntries', JSON.stringify(combinedJson));
+        }).catch(err => {
+            if (err.code === 'LEADERBOARD_PLAYER_NOT_PRESENT') LogStyledMessage('Leaderboard player not present');
+            console.error(err);
+        });
+    } catch (e) { console.error('CRASH Get Leaderboard: ', e.message); }
+}
+function EntriesLB(res, photoSize) {
+    let LbdEntriesText = '', plCount = res.entries.length;
+    let ranks = new Array(plCount), photos = new Array(plCount), mames = new Array(plCount),
+        scores = new Array(plCount), uniqueIDs = new Array(plCount), extraDataArray = new Array(plCount);
+    for (i = 0; i < plCount; i++) {
+        ranks[i] = res.entries[i].rank; scores[i] = res.entries[i].score;
+        uniqueIDs[i] = res.entries[i].player.uniqueID;
+        photos[i] = res.entries[i].player.getAvatarSrc(photoSize);
+        if (res.entries[i].extraData == "" || res.entries[i].extraData == null) extraDataArray[i] = NO_DATA;
+        else extraDataArray[i] = res.entries[i].extraData;
+        if (res.entries[i].player.scopePermissions.public_name !== "allow") mames[i] = "anonymous";
+        else mames[i] = res.entries[i].player.publicName;
+        LbdEntriesText += ranks[i] + '. ' + mames[i] + ": " + scores[i] + '\n';
+    }
+    if (plCount === 0) LbdEntriesText = 'no data';
+    return { "entries": LbdEntriesText, "ranks": ranks, "photos": photos, "names": mames,
+             "scores": scores, "uniqueIDs": uniqueIDs, "extraDataArray": extraDataArray };
+}
+let nowFullAdOpen = false;
+function InterAdvShow() {
+    try {
+        if (ysdk == null){ LogStyledMessage('Cancel InterAdvShow: SDK is not initialized'); return; }
+        if (nowFullAdOpen == true){ LogStyledMessage('Cancel InterAdvShow: The advertisement is already open'); return; }
+        ysdk.adv.showFullscreenAdv({ callbacks: {
+            onOpen: () => { LogStyledMessage('Open Interstitial Adv'); nowFullAdOpen = true; if (initGame === true) YG2Instance('OpenInterAdv'); },
+            onClose: (wasShown) => {
+                LogStyledMessage('Close Interstitial Adv'); nowFullAdOpen = false;
+                if (initGame === true) { YG2Instance('CloseInterAdv', wasShown ? 'true' : 'false'); }
+                FocusGame();
+            },
+            onError: (error) => { console.error('Error Interstitial Adv', error); nowFullAdOpen = false; YG2Instance('ErrorInterAdv'); FocusGame(); }
+        }});
+    } catch (e) { console.error('CRASH Interstitial Adv Show: ', e.message); }
+}
+var gameLabelData = 'false';
+function InitGameLabel() {
+    return new Promise((resolve) => {
+        if (ysdk == null) { resolve('false'); return; }
+        try {
+            ysdk.shortcut.canShowPrompt().then(prompt => {
+                if (prompt.canShow) { gameLabelData = 'true'; resolve('true'); } else { resolve('false'); }
+            });
+        } catch (e) { console.error('CRASH Init Game Label: ', e.message); resolve('false'); }
+    });
+}
+function GameLabelShowDialog() {
+    try {
+        ysdk.shortcut.showPrompt().then(result => {
+            LogStyledMessage('Shortcut created?:', result);
+            if (result.outcome === 'accepted') { LogStyledMessage('Game Label Success'); YG2Instance('OnGameLabelSuccess'); }
+            else { YG2Instance('OnGameLabelFail'); }
+            FocusGame();
+        });
+    } catch (e) { console.error('CRASH Game Label Show: ', e.message); FocusGame(); }
+}
+let flasgsData = NO_DATA;
+function GetFlags() {
+    return new Promise((resolve) => {
+        if (ysdk == null) { Final(NO_DATA); return; }
+        try {
+            ysdk.getFlags().then(flags => {
+                let names = [], values = [];
+                for (let key in flags) { if (flags.hasOwnProperty(key)) { names.push(key); values.push(flags[key]); } }
+                Final(JSON.stringify({ "names": names, "values": values }));
+            });
+        } catch (e) { console.error('CRASH Get Flags: ', e.message); Final(NO_DATA); }
+        function Final(res) { flasgsData = res; resolve(res); }
+    });
+}
+var environmentData = NO_DATA;
+function RequestingEnvironmentData() {
+    return new Promise((resolve) => {
+        if (ysdk == null) { Final(NO_DATA); return; }
+        try {
+            var browser = 'Other';
+            if (browser.includes('YaBrowser') || browser.includes('YaSearchBrowser')) browser = 'Yandex';
+            else if (browser.includes('Opera') || browser.includes('OPR')) browser = 'Opera';
+            else if (browser.includes('Firefox')) browser = 'Firefox';
+            else if (browser.includes('MSIE')) browser = 'IE';
+            else if (browser.includes('Edge')) browser = 'Edge';
+            else if (browser.includes('Chrome')) browser = 'Chrome';
+            else if (browser.includes('Safari')) browser = 'Safari';
+            let jsonEnvir = {
+                "language": ysdk.environment.i18n.lang, "domain": ysdk.environment.i18n.tld,
+                "deviceType": ysdk.deviceInfo.type, "isMobile": ysdk.deviceInfo.isMobile(),
+                "isDesktop": ysdk.deviceInfo.isDesktop(), "isTablet": ysdk.deviceInfo.isTablet(),
+                "isTV": ysdk.deviceInfo.isTV(), "appID": ysdk.environment.app.id,
+                "browserLang": ysdk.environment.browser.lang, "payload": ysdk.environment.payload,
+                "platform": navigator.platform, "browser": browser
+            };
+            Final(JSON.stringify(jsonEnvir));
+            LogStyledMessage("Environment Data: " + JSON.stringify(jsonEnvir));
+        } catch (e) { console.error('CRASH Requesting Environment Data: ', e.message); Final(NO_DATA); }
+        function Final(res) { environmentData = res; YG2Instance('SetEnvirData', res); resolve(res); }
+    });
+}
+var playerData = NO_DATA;
+let player = null;
+function InitPlayer() {
+    return new Promise((resolve) => {
+        try {
+            if (ysdk == null) { Final(NotAuthorized()); }
+            else {
+                let _scopes = true;
+                ysdk.getPlayer({ scopes: _scopes }).then(_player => {
+                    player = _player;
+                    let playerName = player.getName(), playerPhoto = player.getPhoto('medium');
+                    if (!_scopes) { playerName = "anonymous"; playerPhoto = "NO_DATA"; }
+                    if (player.getMode() === 'lite') { LogStyledMessage('Not Authorized'); Final(NotAuthorized()); }
+                    else {
+                        Final(JSON.stringify({ "playerAuth": "resolved", "playerName": playerName,
+                            "playerId": player.getUniqueID(), "playerPhoto": playerPhoto,
+                            "payingStatus": player.getPayingStatus() }));
+                    }
+                }).catch(e => { console.error('Authorized err: ', e.message); Final(NotAuthorized()); });
+            }
+        } catch (e) { console.error('CRASH init Player: ', e.message); Final(NotAuthorized()); }
+        function Final(res) { playerData = res; YG2Instance('SetAuth', res); resolve(res); }
+    });
+}
+function NotAuthorized() {
+    return JSON.stringify({ "playerAuth": "rejected", "playerName": "unauthorized",
+        "playerId": "unauthorized", "playerPhoto": "null", "payingStatus": "unknown" });
+}
+function OpenAuthDialog() {
+    if (ysdk !== null) {
+        try {
+            ysdk.auth.openAuthDialog().then(() => { InitPlayer(true).then(() => { YG2Instance('LoggedIn'); }); });
+        } catch (e) { LogStyledMessage('CRASH Open Auth Dialog: ', e.message); }
+    }
+}
+document.body.appendChild(script);
+</script>
+
+
+
+</body></html>

@@ -1,0 +1,623 @@
+<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Red vs Blue - 3","engine":"unity","files":[["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.data.br.part0",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.data.br.part1",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.data.br.part10",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.data.br.part11",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.data.br.part12",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.data.br.part13",5724296],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.data.br.part2",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.data.br.part3",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.data.br.part4",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.data.br.part5",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.data.br.part6",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.data.br.part7",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.data.br.part8",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.data.br.part9",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.framework.js",474400],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.loader.js",26416],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.wasm.br.part0",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.wasm.br.part1",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.wasm.br.part2",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.wasm.br.part3",8388608],["/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build/Bleb.wasm.br.part4",6074226]],"total":154905674,"preloads":true,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Red vs Blue - 3"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Red vs Blue - 3"></script>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Red vs Blue - 3</title>
+<style>
+  *,*:before,*:after{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#111;
+    -webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;
+    -ms-user-select:none;user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+  canvas:focus{outline:none;}
+  body{display:flex;align-items:center;justify-content:center;}
+  #unity-container{
+    position:relative;
+    width:min(100vw,177.78vh);
+    height:min(56.25vw,100vh);
+  }
+  #unity-canvas{width:100%;height:100%;display:block;background:#111;}
+  #loading-cover{
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:#111;
+  }
+  #unity-logo img{max-width:280px;margin-bottom:20px;pointer-events:none;}
+  #unity-progress-bar-empty{
+    width:40%;height:8px;background:rgba(255,255,255,.15);
+    border-radius:4px;overflow:hidden;
+  }
+  #unity-progress-bar-full{height:100%;width:0%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);transition:width .3s ease;}
+  .spinner,.spinner:after{border-radius:50%;width:4em;height:4em;}
+  .spinner{
+    margin:16px;font-size:10px;position:relative;text-indent:-9999em;
+    border-top:0.8em solid rgba(255,255,255,.15);
+    border-right:0.8em solid rgba(255,255,255,.15);
+    border-bottom:0.8em solid rgba(255,255,255,.15);
+    border-left:0.8em solid #a78bfa;
+    animation:spin 1.1s infinite linear;
+  }
+  @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+  .load-label{color:#aaa;font-family:Arial,sans-serif;font-size:13px;margin-top:10px;}
+</style>
+<style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body class="dark">
+
+<div id="unity-container" class="unity-desktop">
+  <canvas id="unity-canvas" tabindex="-1"></canvas>
+</div>
+<div id="loading-cover" class="gms-legacy-loading-hooks"><div id="unity-logo"><img onerror="this.style.display='none'"></div><div class="spinner" id="spinner"></div><div id="unity-progress-bar-empty" style="display:none;"><div id="unity-progress-bar-full"></div></div><div class="load-label" id="load-label"></div></div>
+
+<script>
+/* ============================================================
+   YANDEX SDK STUB — sdk.js YÜKLENMEDEN ÖNCE
+   lang:"en"  |  Rewarded ads çalışır
+   Yeni metodlar: screen, getFlags, GamesAPI, getStats, setStats
+   ============================================================ */
+window.YaGames = {
+  init: function() {
+    var sdk = {
+      environment: {
+        app:     { id: '0' },
+        i18n:    { lang: 'en', tld: 'com' },
+        browser: { lang: 'en' },
+        payload: null
+      },
+      deviceInfo: {
+        type: 'desktop',
+        isMobile:  function(){ return false; },
+        isDesktop: function(){ return true;  },
+        isTablet:  function(){ return false; },
+        isTV:      function(){ return false; }
+      },
+      /* fullscreen API */
+      screen: {
+        fullscreen: {
+          status: 'on',
+          request: function(){ return Promise.resolve(); },
+          exit:    function(){ return Promise.resolve(); }
+        }
+      },
+      adv: {
+        showFullscreenAdv: function(o){
+          if(o&&o.callbacks&&o.callbacks.onClose) o.callbacks.onClose(false);
+        },
+        /* REWARDED — onRewarded çalışır */
+        showRewardedVideo: function(o){
+          if(!o||!o.callbacks) return;
+          if(o.callbacks.onOpen)     o.callbacks.onOpen();
+          if(o.callbacks.onRewarded) o.callbacks.onRewarded();
+          if(o.callbacks.onClose)    o.callbacks.onClose();
+        },
+        showBannerAdv:      function(){},
+        hideBannerAdv:      function(){},
+        getBannerAdvStatus: function(){ return Promise.resolve({ stickyAdvIsShowing: false }); }
+      },
+      auth:     { openAuthDialog: function(){ return Promise.resolve(); } },
+      feedback: {
+        canReview:     function(){ return Promise.resolve({ value: false, reason: '' }); },
+        requestReview: function(){ return Promise.resolve({ feedbackSent: false }); }
+      },
+      shortcut: {
+        canShowPrompt: function(){ return Promise.resolve({ canShow: false }); },
+        showPrompt:    function(){ return Promise.resolve({ outcome: 'rejected' }); }
+      },
+      getPayments: function(){ return Promise.reject('no payments'); },
+      getPlayer: function() {
+        return Promise.resolve({
+          isAuthorized:    function(){ return false; },
+          getName:         function(){ return ''; },
+          getUniqueID:     function(){ return '0'; },
+          getPhoto:        function(){ return ''; },
+          getPayingStatus: function(){ return 'unknown'; },
+          setData:         function(){ return Promise.resolve(); },
+          getData:         function(){ return Promise.resolve({}); },
+          getStats:        function(){ return Promise.resolve({}); },
+          setStats:        function(){ return Promise.resolve(); }
+        });
+      },
+      /* getFlags — boş obje döner */
+      getFlags: function(){ return Promise.resolve({}); },
+      /* GamesAPI */
+      features: {
+        LoadingAPI:  { ready: function(){} },
+        GameplayAPI: { start: function(){}, stop: function(){} },
+        GamesAPI: {
+          getAllGames: function(){
+            return Promise.resolve({ games: [], developerURL: '' });
+          }
+        }
+      },
+      serverTime: function(){ return Date.now(); },
+      on: function(){}
+    };
+    return Promise.resolve(sdk);
+  }
+};
+console.log('[Stub] YaGames hazir, lang="en", rewarded=ACTIVE');
+</script>
+
+<script>
+(function(){
+  var s = document.createElement('script');
+  s.src = '/sdk.js';
+  s.onerror = function(){ console.warn('[Stub] sdk.js yuklenemedi'); };
+  document.head.appendChild(s);
+})();
+</script>
+
+<script>
+/* ============================================================
+   CONFIG — CDN adresini doldurun
+   ============================================================ */
+var CDN        = "/misc/red-vs-blue-3/_ext/cdn.jsdelivr.net/gh/papamamia/ZALMAN%40main/Build";   /* <-- degistir */
+var DATA_PARTS = 14;  /* Bleb.data.br  112MB / 8MB = 14 part */
+var WASM_PARTS = 5;   /* Bleb.wasm.br  38.7MB/ 8MB = 5 part  */
+
+/* ============================================================ */
+var buildUrl      = CDN;
+var loaderUrl     = buildUrl + "/Bleb.loader.js";
+var config = {
+  dataUrl:            null,
+  frameworkUrl:       buildUrl + "/Bleb.framework.js",
+  codeUrl:            null,
+  streamingAssetsUrl: "StreamingAssets",
+  companyName: "Mishmek",
+  productName: "RavenBit2",
+  productVersion: "1.0.0.0"
+};
+
+var container        = document.querySelector("#unity-container");
+var canvas           = document.querySelector("#unity-canvas");
+var loadingCover     = document.querySelector("#loading-cover");
+var progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+var progressBarFull  = document.querySelector("#unity-progress-bar-full");
+var spinner          = document.querySelector("#spinner");
+var loadLabel        = document.querySelector("#load-label");
+
+if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)){
+  container.className = "unity-mobile";
+  config.devicePixelRatio = 1;
+}
+
+var NO_DATA = 'no data';
+var StartUnityInstance;
+var ygGameInstance = null;
+var ysdk = null;
+var initYSDK = false;
+var initGame = false;
+var syncInit = false;
+var cloudSaves = NO_DATA;
+var statsSaves = NO_DATA;
+var reviewData = 'false';
+var gameLabelData = 'false';
+var paymentsData = NO_DATA;
+var payments = null;
+var player = null;
+var allGamesData = NO_DATA;
+var environmentData = NO_DATA;
+var playerData = NO_DATA;
+var flasgsData = NO_DATA;
+var nowFullAdOpen = false;
+
+document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+
+function FocusGame(){ window.focus(); canvas.focus(); }
+window.addEventListener('pointerdown', FocusGame);
+window.addEventListener('touchstart',  FocusGame);
+
+document.addEventListener('visibilitychange', function(){
+  if (ysdk !== null && initGame === true) {
+    if (document.hidden) {
+      YG2Instance('SetFocusWindowGame','false');
+    } else {
+      YG2Instance('SetFocusWindowGame','true');
+      try {
+        if ((ysdk.deviceInfo.isMobile()||ysdk.deviceInfo.isTablet()) &&
+            ysdk.screen.fullscreen.status === 'off')
+          ysdk.screen.fullscreen.request();
+      } catch(e){}
+    }
+  }
+});
+
+/* ── PART İNDİRME ─────────────────────────────────────────── */
+async function fetchParts(baseUrl, partCount, label) {
+  var parts = [];
+  for (var i = 0; i < partCount; i++) {
+    loadLabel.textContent = label + ' ' + (i+1) + '/' + partCount + '...';
+    var r = await fetch(baseUrl + '.part' + i);
+    if (!r.ok) throw new Error('part' + i + ': HTTP ' + r.status);
+    parts.push(new Uint8Array(await r.arrayBuffer()));
+  }
+  var total  = parts.reduce(function(s,p){ return s+p.length; }, 0);
+  var merged = new Uint8Array(total);
+  var off = 0;
+  for (var j = 0; j < parts.length; j++){ merged.set(parts[j], off); off += parts[j].length; }
+  return merged;
+}
+
+function brotliBlobUrl(uint8, filename) {
+  var blob = new Blob([uint8], { type:'application/octet-stream' });
+  return URL.createObjectURL(blob) + '#' + encodeURIComponent(filename);
+}
+
+/* ── LOADER ───────────────────────────────────────────────── */
+var script = document.createElement("script");
+script.src = loaderUrl;
+script.onload = async function() {
+  try {
+    loadLabel.textContent = "Downloading data...";
+    var dataBytes = await fetchParts(buildUrl + '/Bleb.data.br', DATA_PARTS, 'Data');
+    var wasmBytes = await fetchParts(buildUrl + '/Bleb.wasm.br', WASM_PARTS, 'WASM');
+    config.dataUrl = brotliBlobUrl(dataBytes, 'Bleb.data.br');
+    config.codeUrl = brotliBlobUrl(wasmBytes,  'Bleb.wasm.br');
+  } catch(e) {
+    console.error('Download error:', e);
+    loadLabel.textContent = 'Error: ' + e.message;
+    return;
+  }
+
+  StartUnityInstance = function() {
+    createUnityInstance(canvas, config, function(progress){
+      spinner.style.display = "none";
+      progressBarEmpty.style.display = "";
+      progressBarFull.style.width = (100 * Math.max(progress, 0.05)) + '%';
+    }).then(function(inst){
+      ygGameInstance = inst;
+      loadingCover.style.display = "none";
+    }).catch(function(msg){ console.error(msg); });
+  };
+
+  /* SDK zaten bitmişse burada başlat, bitmemişse InitYSDK sonu başlatır */
+  StartUnityInstance_IfUnloaded();
+};
+
+function StartUnityInstance_IfUnloaded(){
+  if (typeof StartUnityInstance === 'function' && spinner.style.display !== "none")
+    StartUnityInstance();
+}
+function IsLocalHost(){
+  try {
+    if (window.top !== window) return false;
+    var h = window.location.hostname;
+    return h==="localhost"||h==="127.0.0.1"||h.endsWith(".local");
+  } catch(e){ return false; }
+}
+
+function YG2Instance(method, arg) {
+  if (ygGameInstance == null) return;
+  var send = function(){
+    arg !== undefined
+      ? ygGameInstance.SendMessage('YG2Instance', method, arg)
+      : ygGameInstance.SendMessage('YG2Instance', method);
+  };
+  if (!initGame) setTimeout(send, 100); else send();
+}
+
+function LogStyledMessage(msg){
+  console.log('%c'+msg,'color:#FFDF73;background-color:#454545');
+}
+
+/* ── SDK INIT ─────────────────────────────────────────────── */
+InitYSDK();
+async function InitYSDK() {
+  try {
+    if (IsLocalHost()) return;
+    ysdk = await YaGames.init();
+    await RequestingEnvironmentData(); LogStyledMessage('Init EnvirData ysdk');
+    await InitPlayer();               LogStyledMessage('Init Authorization ysdk');
+    await LoadCloud();                LogStyledMessage('Init Storage ysdk');
+    await InitReview();               LogStyledMessage('Init Review ysdk');
+    await GetStats();                 LogStyledMessage('Init PlayerStats ysdk');
+    await InitPayments();             LogStyledMessage('Init Payments ysdk');
+    await GetAllGames();              LogStyledMessage('Init OpenURL ysdk');
+    await InitGameLabel();            LogStyledMessage('Init GameLabel ysdk');
+    await GetFlags();                 LogStyledMessage('Init Flags ysdk');
+    initYSDK = true;
+    if (ygGameInstance != null) ygGameInstance.SendMessage('YG2Instance','InitSDKComplete');
+    LogStyledMessage('Init YandexSDK Success');
+  } catch(e){ console.error('CRASH Init SDK:', e); }
+  if (!IsLocalHost() && !syncInit) StartUnityInstance_IfUnloaded();
+}
+
+function InitGame(){
+  initGame = true;
+}
+
+LogStyledMessage('PluginYG2 v2.005  build: 11');
+
+/* ── CLOUD SAVE ───────────────────────────────────────────── */
+function SaveCloud(jsonData, flush) {
+  if (!player){ console.error('CRASH Save Cloud: no player'); return; }
+  try { player.setData({ saves:[jsonData] }, flush); } catch(e){ console.error(e); }
+}
+function LoadCloud() {
+  return new Promise(function(resolve){
+    if (!ysdk){ Final(NO_DATA); return; }
+    try {
+      player.getData(["saves"]).then(function(data){
+        Final(data.saves ? JSON.stringify(data.saves) : NO_DATA);
+      }).catch(function(){ console.error('Load Cloud Error!'); Final(NO_DATA); });
+    } catch(e){ console.error(e); Final(NO_DATA); }
+    function Final(r){ cloudSaves=r; YG2Instance('SetLoadSaves',r); resolve(r); }
+  });
+}
+
+/* ── STATS ────────────────────────────────────────────────── */
+function GetStats() {
+  return new Promise(function(resolve){
+    if (!ysdk){ Final(NO_DATA); return; }
+    try {
+      player.getStats().then(function(stats){
+        Final(JSON.stringify(stats));
+      }).catch(function(e){ console.error(e); Final(NO_DATA); });
+    } catch(e){ console.error(e); Final(NO_DATA); }
+    function Final(r){ statsSaves=r; YG2Instance('ReceiveStats',r); resolve(r); }
+  });
+}
+function SetStats(jsonStats) {
+  if (!ysdk||!player){ console.error('SetStats: not init'); return; }
+  try { player.setStats(JSON.parse(jsonStats)); } catch(e){ console.error(e); }
+}
+
+/* ── ADS ──────────────────────────────────────────────────── */
+function StickyAdActivity(show) {
+  try {
+    ysdk.adv.getBannerAdvStatus().then(function(d){
+      if (d.stickyAdvIsShowing){ if (!show) ysdk.adv.hideBannerAdv(); }
+      else if (show) ysdk.adv.showBannerAdv();
+    });
+  } catch(e){ console.error(e); }
+}
+
+/* REWARDED — mutlaka çalışır */
+function RewardedAdvShow(id) {
+  try {
+    ysdk.adv.showRewardedVideo({ callbacks: {
+      onOpen:     function(){ LogStyledMessage('Opened Rewarded Adv'); YG2Instance('OpenRewardedAdv'); },
+      onClose:    function(){ LogStyledMessage('Closed Rewarded Adv'); YG2Instance('CloseRewardedAdv'); FocusGame(); },
+      onRewarded: function(){ LogStyledMessage('Rewarded! id='+id); YG2Instance('RewardAdv', id); },
+      onError:    function(err){ console.error('Error Rewarded Adv', err); YG2Instance('ErrorRewardedAdv'); }
+    }});
+  } catch(err){ console.error('CRASH Rewarded:', err.message); }
+}
+
+var nowFullAdOpen = false;
+function InterAdvShow() {
+  try {
+    if (!ysdk||nowFullAdOpen) return;
+    ysdk.adv.showFullscreenAdv({ callbacks: {
+      onOpen:  function(){ nowFullAdOpen=true; if(initGame) YG2Instance('OpenInterAdv'); },
+      onClose: function(was){ nowFullAdOpen=false; if(initGame) YG2Instance('CloseInterAdv', was?'true':'false'); FocusGame(); },
+      onError: function(e){ console.error(e); nowFullAdOpen=false; YG2Instance('ErrorInterAdv'); FocusGame(); }
+    }});
+  } catch(e){ console.error(e); }
+}
+
+/* ── REVIEW ───────────────────────────────────────────────── */
+var reviewData='false';
+function InitReview() {
+  return new Promise(function(resolve){
+    if (!ysdk){ resolve('false'); return; }
+    try {
+      ysdk.feedback.canReview().then(function(d){
+        if (d.value) reviewData='true';
+        resolve(d.value?'true':'false');
+      });
+    } catch(e){ resolve('false'); }
+  });
+}
+function Review() {
+  try {
+    ysdk.feedback.canReview().then(function(d){
+      if (d.value) {
+        ysdk.feedback.requestReview().then(function(r){
+          YG2Instance('ReviewSent', r.feedbackSent?'true':'false');
+          FocusGame();
+        });
+      } else FocusGame();
+    });
+  } catch(e){ console.error(e); FocusGame(); }
+}
+
+/* ── PAYMENTS ─────────────────────────────────────────────── */
+function InitPayments() {
+  return new Promise(function(resolve){
+    try {
+      if (!ysdk){ Final(NO_DATA); return; }
+      ysdk.getPayments().then(function(_p){
+        payments=_p;
+        payments.getCatalog().then(function(products){
+          payments.getPurchases().then(function(purchases){
+            var ids=[],titles=[],descs=[],imgs=[],prices=[],priceVals=[],codes=[],imgURLs=[],cons=[];
+            for(var i=0;i<products.length;i++){
+              ids[i]=products[i].id; titles[i]=products[i].title;
+              descs[i]=products[i].description; imgs[i]=products[i].imageURI;
+              prices[i]=products[i].price; priceVals[i]=products[i].priceValue;
+              codes[i]=products[i].priceCurrencyCode;
+              imgURLs[i]=products[i].getPriceCurrencyImage("medium");
+              cons[i]=!purchases.some(function(p){ return p.productID===ids[i]; });
+            }
+            Final(JSON.stringify({id:ids,title:titles,description:descs,imageURI:imgs,
+              price:prices,priceValue:priceVals,priceCurrencyCode:codes,
+              currencyImageURL:imgURLs,consumed:cons,
+              language:ysdk.environment.i18n.lang}));
+          });
+        });
+      }).catch(function(){ LogStyledMessage('Purchases not available'); Final(NO_DATA); });
+    } catch(e){ console.error(e); Final(NO_DATA); }
+    function Final(r){ paymentsData=r; YG2Instance('PaymentsEntries',r); resolve(r); }
+  });
+}
+function BuyPayments(id) {
+  try {
+    if (!payments){ YG2Instance('OnPurchaseFailed',id); return; }
+    payments.purchase(id).then(function(){ LogStyledMessage('Purchase OK'); ConsumePurchase(id,true); FocusGame(); })
+      .catch(function(e){ console.error(e); YG2Instance('OnPurchaseFailed',id); FocusGame(); });
+  } catch(e){ console.error(e); YG2Instance('OnPurchaseFailed',id); FocusGame(); }
+}
+function ConsumePurchase(id, ok) {
+  try {
+    if (!payments) return;
+    payments.getPurchases().then(function(ps){
+      for(var i=0;i<ps.length;i++){
+        if(ps[i].productID===id){
+          payments.consumePurchase(ps[i].purchaseToken);
+          if(ok) YG2Instance('OnPurchaseSuccess',id);
+        }
+      }
+    });
+  } catch(e){ console.error(e); }
+}
+function ConsumePurchases(ok) {
+  try {
+    if (!payments) return;
+    payments.getPurchases().then(function(ps){
+      for(var i=0;i<ps.length;i++){
+        payments.consumePurchase(ps[i].purchaseToken);
+        if(ok) YG2Instance('OnPurchaseSuccess',ps[i].productID);
+      }
+    });
+  } catch(e){ console.error(e); }
+}
+
+/* ── GAMES API ────────────────────────────────────────────── */
+function GetAllGames() {
+  return new Promise(function(resolve){
+    if (!ysdk){ Final(NO_DATA); return; }
+    try {
+      ysdk.features.GamesAPI.getAllGames().then(function(d){
+        var appID=[],title=[],url=[],cover=[],icon=[];
+        for(var i=0;i<d.games.length;i++){
+          appID[i]=d.games[i].appID; title[i]=d.games[i].title;
+          url[i]=d.games[i].url; cover[i]=d.games[i].coverURL; icon[i]=d.games[i].iconURL;
+        }
+        Final(JSON.stringify({appID:appID,title:title,url:url,coverURL:cover,iconURL:icon,developerURL:d.developerURL}));
+      }).catch(function(e){ console.error(e); Final(NO_DATA); });
+    } catch(e){ console.error(e); Final(NO_DATA); }
+    function Final(r){ allGamesData=r; resolve(r); }
+  });
+}
+
+/* ── GAME LABEL / SHORTCUT ────────────────────────────────── */
+var gameLabelData='false';
+function InitGameLabel() {
+  return new Promise(function(resolve){
+    if (!ysdk){ resolve('false'); return; }
+    try {
+      ysdk.shortcut.canShowPrompt().then(function(p){
+        if(p.canShow){ gameLabelData='true'; resolve('true'); }
+        else resolve('false');
+      });
+    } catch(e){ console.error(e); resolve('false'); }
+  });
+}
+function GameLabelShowDialog() {
+  try {
+    ysdk.shortcut.showPrompt().then(function(r){
+      YG2Instance(r.outcome==='accepted'?'OnGameLabelSuccess':'OnGameLabelFail');
+      FocusGame();
+    });
+  } catch(e){ console.error(e); FocusGame(); }
+}
+
+/* ── FLAGS ────────────────────────────────────────────────── */
+function GetFlags() {
+  return new Promise(function(resolve){
+    if (!ysdk){ Final(NO_DATA); return; }
+    try {
+      ysdk.getFlags().then(function(flags){
+        var names=[],values=[];
+        for(var k in flags){ if(flags.hasOwnProperty(k)){ names.push(k); values.push(flags[k]); } }
+        Final(JSON.stringify({names:names,values:values}));
+      });
+    } catch(e){ console.error(e); Final(NO_DATA); }
+    function Final(r){ flasgsData=r; resolve(r); }
+  });
+}
+
+/* ── ENVIRONMENT ──────────────────────────────────────────── */
+function RequestingEnvironmentData() {
+  return new Promise(function(resolve){
+    if (!ysdk){ Final(NO_DATA); return; }
+    try {
+      var ua=navigator.userAgent, browser;
+      if(ua.includes('YaBrowser')||ua.includes('YaSearchBrowser')) browser='Yandex';
+      else if(ua.includes('Opera')||ua.includes('OPR')) browser='Opera';
+      else if(ua.includes('Firefox')) browser='Firefox';
+      else if(ua.includes('MSIE')) browser='IE';
+      else if(ua.includes('Edge')) browser='Edge';
+      else if(ua.includes('Chrome')) browser='Chrome';
+      else if(ua.includes('Safari')) browser='Safari';
+      else browser='Other';
+      Final(JSON.stringify({
+        language:   ysdk.environment.i18n.lang,
+        domain:     ysdk.environment.i18n.tld,
+        deviceType: ysdk.deviceInfo.type,
+        isMobile:   ysdk.deviceInfo.isMobile(),
+        isDesktop:  ysdk.deviceInfo.isDesktop(),
+        isTablet:   ysdk.deviceInfo.isTablet(),
+        isTV:       ysdk.deviceInfo.isTV(),
+        appID:      ysdk.environment.app.id,
+        browserLang:ysdk.environment.browser.lang,
+        payload:    ysdk.environment.payload,
+        platform:   navigator.platform,
+        browser:    browser
+      }));
+    } catch(e){ console.error(e); Final(NO_DATA); }
+    function Final(r){ environmentData=r; YG2Instance('SetEnvirData',r); resolve(r); }
+  });
+}
+
+/* ── PLAYER ───────────────────────────────────────────────── */
+async function InitPlayer() {
+  return new Promise(async function(resolve){
+    try {
+      if (!ysdk) return Final(NotAuthorized(false));
+      player = await ysdk.getPlayer();
+      if (!player.isAuthorized()) return Final(NotAuthorized());
+      return Final(JSON.stringify({
+        playerAuth:'resolved', playerName:player.getName(),
+        playerId:player.getUniqueID(), playerPhoto:player.getPhoto('medium'),
+        payingStatus:player.getPayingStatus()
+      }));
+    } catch(e){ console.error(e); return Final(NotAuthorized(false)); }
+    function Final(r){ playerData=r; YG2Instance('SetAuth',r); resolve(r); }
+  });
+}
+function NotAuthorized(isInitSDK) {
+  if (isInitSDK===undefined) isInitSDK=true;
+  return JSON.stringify({
+    playerAuth:'rejected', playerName:'unauthorized',
+    playerId: isInitSDK&&player ? player.getUniqueID() : 'unauthorized',
+    playerPhoto:'no data', payingStatus:'unknown'
+  });
+}
+function OpenAuthDialog() {
+  if (!ysdk) return;
+  try {
+    ysdk.auth.openAuthDialog().then(function(){
+      InitPlayer().then(function(){ YG2Instance('LoggedIn'); });
+    });
+  } catch(e){ console.error(e); }
+}
+
+document.body.appendChild(script);
+</script>
+
+<script>
+var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||
+  (navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+if(isIOS){
+  document.documentElement.style.height='100%';
+  document.body.style.cssText+=';height:100%;position:fixed;width:100%';
+  document.addEventListener('touchmove',function(e){e.preventDefault();},{passive:false});
+}
+</script>
+
+
+
+
+
+
+</body></html>

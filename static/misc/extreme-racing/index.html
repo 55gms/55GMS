@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Extreme Racing","engine":"unity","files":[["/misc/extreme-racing/_ext/cdn.jsdelivr.net/gh/rabanemeye/iamalwaynotgodebro%40c9df9f0/Build/634573f03653af4acb1249d8a71d937e.wasm.unityweb",8102006],["/misc/extreme-racing/_ext/cdn.jsdelivr.net/gh/rabanemeye/iamalwaynotgodebro%40c9df9f0/Build/Game.loader.js",114404],["/misc/extreme-racing/_ext/cdn.jsdelivr.net/gh/rabanemeye/iamalwaynotgodebro%40c9df9f0/Build/e5248490aabbb1922a7fc295f24662f3.js.unityweb",72607],["/misc/extreme-racing/_ext/cdn.jsdelivr.net/gh/rabanemeye/iamalwaynotgodebro%40c9df9f0/Build/f9052d44e233820eff7ef5ac5871f79e.data.part1",10485760],["/misc/extreme-racing/_ext/cdn.jsdelivr.net/gh/rabanemeye/iamalwaynotgodebro%40c9df9f0/Build/f9052d44e233820eff7ef5ac5871f79e.data.part2",10485760],["/misc/extreme-racing/_ext/cdn.jsdelivr.net/gh/rabanemeye/iamalwaynotgodebro%40c9df9f0/Build/f9052d44e233820eff7ef5ac5871f79e.data.part3",10485760],["/misc/extreme-racing/_ext/cdn.jsdelivr.net/gh/rabanemeye/iamalwaynotgodebro%40c9df9f0/Build/f9052d44e233820eff7ef5ac5871f79e.data.part4",5672225]],"total":45418522,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Extreme Racing"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Extreme Racing"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Extreme Racing</title>
+    <link rel="stylesheet" href="/misc/extreme-racing/_ext/cdn.jsdelivr.net/gh/rabanemeye/iamalwaynotgodebro%40main/style.css">
+    <!-- GameMonetize SDK Entegrasyonu -->
+    <script type="text/javascript">
+        window.SDK_OPTIONS = {
+            gameId: "jp112o3o4hzgrnc7zaewjkrfk282pul8",
+            onEvent: function (a) {
+                switch (a.name) {
+                    case "SDK_GAME_PAUSE":
+                        console.log("Oyun duraklatıldı, ses kapatılıyor...");
+                        if (typeof myGameInstance !== 'undefined' && myGameInstance) {
+                            myGameInstance.SendMessage('AudioManager', 'MuteAudio');
+                        }
+                        break;
+                    case "SDK_GAME_START":
+                        console.log("Reklam bitti, oyun devam ediyor...");
+                        if (typeof myGameInstance !== 'undefined' && myGameInstance) {
+                            myGameInstance.SendMessage('AudioManager', 'UnmuteAudio');
+                        }
+                        break;
+                    case "SDK_READY":
+                        console.log("SDK hazır.");
+                        break;
+                }
+            }
+        };
+        (function (a, b, c) {
+            var d = a.getElementsByTagName(b)[0];
+            a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "https://cdn.jsdelivr.net/gh/testamalame/sef@main/sedk.js", d.parentNode.insertBefore(a, d));
+        })(document, "script", "gamemonetize-sdk");
+    </script>
+    <style>
+        canvas:focus {
+            outline: none;
+        }
+        html, body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            height: 100%;
+        }
+    </style>
+<style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body class="dark">
+    <div id="unity-container" class="unity-desktop">
+        <canvas id="unity-canvas" tabindex="-1"></canvas>
+    </div>
+    <div id="loading-cover" style="display:none;" class="gms-legacy-loading-hooks"><div id="unity-loading-bar" class="gms-legacy-loading-hooks"><div id="unity-logo"><img></div><div id="unity-progress-bar-empty" style="display: none;"><div id="unity-progress-bar-full"></div></div><div class="spinner"></div></div></div>
+    <script>
+        const hideFullScreenButton = "";
+        const buildUrl = "/misc/extreme-racing/_ext/cdn.jsdelivr.net/gh/rabanemeye/iamalwaynotgodebro%40c9df9f0/Build";
+        const loaderUrl = buildUrl + "/Game.loader.js";
+        const config = {
+            dataUrl: buildUrl + "/f9052d44e233820eff7ef5ac5871f79e.data.unityweb",
+            frameworkUrl: buildUrl + "/e5248490aabbb1922a7fc295f24662f3.js.unityweb",
+            codeUrl: buildUrl + "/634573f03653af4acb1249d8a71d937e.wasm.unityweb",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "DefaultCompany",
+            productName: "Shashki",
+            productVersion: "3.91"
+        };
+
+        const container = document.querySelector("#unity-container");
+        const canvas = document.querySelector("#unity-canvas");
+        const loadingCover = document.querySelector("#loading-cover");
+        const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+        const progressBarFull = document.querySelector("#unity-progress-bar-full");
+        const spinner = document.querySelector('.spinner');
+
+        let isAdShown = false;
+
+        function showAdOnClick() {
+            if (!isAdShown && typeof sdk !== 'undefined' && typeof sdk.showBanner !== 'undefined') {
+                sdk.showBanner();
+                isAdShown = true;
+                console.log("Reklam çağrıldı.");
+            } else {
+                console.warn("SDK veya showBanner tanımlı değil.");
+            }
+        }
+
+        const canFullscreen = (function () {
+            for (const key of [
+                'exitFullscreen',
+                'webkitExitFullscreen',
+                'webkitCancelFullScreen',
+                'mozCancelFullScreen',
+                'msExitFullscreen',
+            ]) {
+                if (key in document) {
+                    return true;
+                }
+            }
+            return false;
+        }());
+
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            container.className = "unity-mobile";
+        }
+
+        loadingCover.style.background = "url('/misc/extreme-racing/_ext/cdn.jsdelivr.net/gh/rabanemeye/iamalwaynotgodebro%40main/background.png') center / cover";
+        loadingCover.style.display = "";
+
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        function FocusGame() {
+            window.focus();
+            canvas.focus();
+        }
+
+        window.addEventListener('pointerdown', FocusGame);
+        window.addEventListener('touchstart', FocusGame);
+
+        let StartUnityInstance;
+        let myGameInstance;
+        let ysdk = null;
+
+        let environmentData = {
+            language: "en",
+            domain: "default_domain",
+            deviceType: "desktop",
+            isMobile: false,
+            isDesktop: true,
+            isTablet: false,
+            isTV: false,
+            appID: "default_app_id",
+            browserLang: navigator.language || "en",
+            payload: null,
+            promptCanShow: false,
+            reviewCanShow: false,
+            platform: navigator.platform,
+            browser: (function () {
+                let userAgent = navigator.userAgent;
+                if (userAgent.includes("YaBrowser")) return "Yandex";
+                if (userAgent.includes("OPR") || userAgent.includes("Opera")) return "Opera";
+                if (userAgent.includes("Firefox")) return "Firefox";
+                if (userAgent.includes("MSIE") || userAgent.includes("Trident")) return "IE";
+                if (userAgent.includes("Edge")) return "Edge";
+                if (userAgent.includes("Chrome")) return "Chrome";
+                if (userAgent.includes("Safari")) return "Safari";
+                return "Other";
+            })()
+        };
+
+        let cloudSaves = 'noData';
+        let paymentsData = 'none';
+        let playerData = 'noData';
+        let player = null;
+        let payments = null;
+        let initGame = false;
+        let nowFullAdOpen = false;
+
+        function GetPayments() { console.warn("GetPayments is not implemented"); return Promise.resolve("none"); }
+        function SaveCloud() { console.warn("SaveCloud is not implemented"); }
+        function LoadCloud() { console.warn("LoadCloud is not implemented"); return Promise.resolve("noData"); }
+        function InitPlayer() { console.warn("InitPlayer is not implemented"); return Promise.resolve("noData"); }
+
+        function FullAdShow() {
+            try {
+                if (!nowFullAdOpen) {
+                    nowFullAdOpen = true;
+                    if (initGame) {
+                        myGameInstance.SendMessage("YandexGame", "OpenFullAd");
+                    }
+                    setTimeout(() => {
+                        nowFullAdOpen = false;
+                        if (initGame) {
+                            myGameInstance.SendMessage("YandexGame", "CloseFullAd", "true");
+                        }
+                        FocusGame();
+                    }, 500);
+                }
+            } catch (error) {}
+        }
+
+        function RewardedShow(rewardId) {
+            try {
+                myGameInstance.SendMessage("YandexGame", "RewardVideo", rewardId);
+                function closeRewardedAd() {
+                    myGameInstance.SendMessage("YandexGame", "CloseRewardVideo");
+                    FocusGame();
+                }
+                closeRewardedAd();
+            } catch (error) {}
+        }
+
+        function StickyAdActivity() { console.warn("StickyAdActivity is not implemented"); }
+        function Review() { console.warn("Review is not implemented"); }
+        function PromptShow() { console.warn("PromptShow is not implemented"); }
+        function InitLeaderboards() { console.warn("InitLeaderboards is not implemented"); }
+        function GetLeaderboardScores() { console.warn("GetLeaderboardScores is not implemented"); }
+        function SetLeaderboardScores() { console.warn("SetLeaderboardScores is not implemented"); }
+        function ConsumePurchase() { console.warn("ConsumePurchase is not implemented"); }
+        function ConsumePurchases() { console.warn("ConsumePurchases is not implemented"); }
+
+        async function loadSplitDataFiles() {
+            const partFiles = [
+                buildUrl + "/f9052d44e233820eff7ef5ac5871f79e.data.part1",
+                buildUrl + "/f9052d44e233820eff7ef5ac5871f79e.data.part2",
+                buildUrl + "/f9052d44e233820eff7ef5ac5871f79e.data.part3",
+                buildUrl + "/f9052d44e233820eff7ef5ac5871f79e.data.part4"
+            ];
+
+            try {
+                const blobs = [];
+                for (const partFile of partFiles) {
+                    const response = await fetch(partFile);
+                    if (!response.ok) {
+                        throw new Error(`Parça yüklenemedi: ${partFile}`);
+                    }
+                    const blob = await response.blob();
+                    blobs.push(blob);
+                }
+
+                const combinedBlob = new Blob(blobs, { type: 'application/octet-stream' });
+                const blobUrl = URL.createObjectURL(combinedBlob);
+                config.dataUrl = blobUrl;
+            } catch (error) {
+                console.error("Parça dosyalar yüklenirken hata:", error);
+                throw error;
+            }
+        }
+
+        try {
+            const script = document.createElement("script");
+            script.src = loaderUrl;
+            script.onload = async () => {
+                try {
+                    await loadSplitDataFiles();
+                    StartUnityInstance = function () {
+                        createUnityInstance(canvas, config, (progress) => {
+                            spinner.style.display = "none";
+                            progressBarEmpty.style.display = "";
+                            progressBarFull.style.width = `${100 * progress}%`;
+                        }).then((unityInstance) => {
+                            myGameInstance = unityInstance;
+                            loadingCover.style.display = "none";
+                            // Oyun yüklendiğinde tıklama olayını ekle
+                            canvas.addEventListener('pointerdown', showAdOnClick);
+                            canvas.addEventListener('touchstart', showAdOnClick);
+                            // Blob URL'yi temizle
+                            if (config.dataUrl.startsWith('blob:')) {
+                                URL.revokeObjectURL(config.dataUrl);
+                            }
+                        }).catch((message) => {
+                            console.error("Unity yükleme hatası:", message);
+                        });
+                    };
+                    StartUnityInstance();
+                } catch (error) {
+                    console.error("Dosya birleştirme veya Unity başlatma hatası:", error);
+                }
+            };
+            document.body.appendChild(script);
+        } catch (error) {
+            console.error("Başlatma sırasında hata:", error);
+        }
+
+        function InitGame() {
+            try {
+                console.log('Init Game Success');
+                initGame = true;
+                if (nowFullAdOpen === true && myGameInstance != null) {
+                    myGameInstance.SendMessage('YandexGame', 'OpenFullAd');
+                }
+            } catch (error) {
+                console.error("InitGame sırasında hata:", error);
+            }
+        }
+
+        window.addEventListener("unhandledrejection", function (event) {
+            console.warn("Hata es geçildi:", event.reason);
+            event.preventDefault();
+        });
+    </script>
+
+
+
+</body></html>

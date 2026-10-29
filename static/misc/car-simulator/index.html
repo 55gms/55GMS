@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Car Simulator","engine":"unity","files":[["/misc/car-simulator/_ext/cdn.jsdelivr.net/gh/rammyus/4563%40main/Build/24.framework.js.unityweb",100407],["/misc/car-simulator/_ext/cdn.jsdelivr.net/gh/rammyus/4563%40main/Build/24.loader.js",36690],["/misc/car-simulator/_ext/cdn.jsdelivr.net/gh/rammyus/4563%40main/Build/24.wasm.unityweb",10748426],["/misc/car-simulator/_ext/cdn.jsdelivr.net/gh/rammyus/4563%40main/Build/24_part1.data.unityweb",19922944],["/misc/car-simulator/_ext/cdn.jsdelivr.net/gh/rammyus/4563%40main/Build/24_part2.data.unityweb",19922944],["/misc/car-simulator/_ext/cdn.jsdelivr.net/gh/rammyus/4563%40main/Build/24_part3.data.unityweb",19922944],["/misc/car-simulator/_ext/cdn.jsdelivr.net/gh/rammyus/4563%40main/Build/24_part4.data.unityweb",8378074],["/misc/car-simulator/_ext/cdn.jsdelivr.net/gh/rammyus/4563%40main/TemplateData/style.css",2204]],"total":79034633,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Car Simulator"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Car Simulator"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Car Simulator</title>
+    <link rel="stylesheet" href="/misc/car-simulator/_ext/cdn.jsdelivr.net/gh/rammyus/4563%40main/TemplateData/style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: white;
+            overflow: hidden;
+        }
+
+        #unity-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+        }
+
+        #unity-loading-bar {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #fff;
+            border-radius: 10px;
+            display: block;
+        }
+
+        #unity-logo {
+            position: absolute;
+            top: calc(50% - 100px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: auto;
+        }
+
+        #unity-progress-bar-empty {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: #444;
+        }
+
+        #unity-progress-bar-full {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: #4caf50;
+            border-radius: 8px;
+            transition: width 0.3s ease;
+        }
+    </style>
+<style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+
+<body>
+    <div id="unity-container" class="unity-desktop">
+        <canvas id="unity-canvas"></canvas>
+        <div id="unity-loading-bar" class="gms-legacy-loading-hooks"><div id="unity-logo"><img alt="Game Logo"></div><div id="unity-progress-bar-empty"><div id="unity-progress-bar-full"></div></div></div>
+    </div>
+
+    <script>
+        async function mergeUnityWebFiles(baseUrl, filePrefix, totalParts, extension) {
+            const partUrls = [];
+            for (let i = 1; i <= totalParts; i++) {
+                partUrls.push(baseUrl + "/" + filePrefix + "_part" + i + "." + extension);
+            }
+
+            const buffers = [];
+            for (let i = 0; i < totalParts; i++) {
+                const response = await fetch(partUrls[i]);
+                if (!response.ok) {
+                    throw new Error("Failed to load part: " + partUrls[i]);
+                }
+                const buffer = await response.arrayBuffer();
+                buffers.push(buffer);
+
+                // Progress bar güncelle
+                const progress = ((i + 1) / totalParts) * 100;
+                document.querySelector("#unity-progress-bar-full").style.width = progress + "%";
+            }
+
+            const totalLength = buffers.reduce((acc, buffer) => acc + buffer.byteLength, 0);
+            const combinedBuffer = new Uint8Array(totalLength);
+            let offset = 0;
+
+            buffers.forEach((buffer) => {
+                combinedBuffer.set(new Uint8Array(buffer), offset);
+                offset += buffer.byteLength;
+            });
+
+            return combinedBuffer;
+        }
+
+        const buildUrl = "/misc/car-simulator/_ext/cdn.jsdelivr.net/gh/rammyus/4563%40main/Build";
+        const loaderUrl = buildUrl + "/24.loader.js";
+        const config = {
+            dataUrl: null, // Birleştirilen dosya burada ayarlanacak
+            frameworkUrl: buildUrl + "/24.framework.js.unityweb",
+            codeUrl: buildUrl + "/24.wasm.unityweb",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "DefaultCompany",
+            productName: "Ultimate Car Drive Sim Dev",
+            productVersion: "1.0",
+        };
+
+        const container = document.querySelector("#unity-container");
+        const canvas = document.querySelector("#unity-canvas");
+        const loadingBar = document.querySelector("#unity-loading-bar");
+        const progressBarFull = document.querySelector("#unity-progress-bar-full");
+
+        async function initializeGame() {
+            try {
+                // Parçaları birleştir
+                const dataBuffer = await mergeUnityWebFiles(buildUrl, "24", 4, "data.unityweb");
+                const dataBlobUrl = URL.createObjectURL(new Blob([dataBuffer], { type: "application/octet-stream" }));
+                config.dataUrl = dataBlobUrl;
+
+                const unityLoader = document.createElement("script");
+                unityLoader.src = loaderUrl;
+                unityLoader.onload = () => {
+                    createUnityInstance(canvas, config, (progress) => {
+                        progressBarFull.style.width = 100 * progress + "%";
+                    }).then((unityInstance) => {
+                        loadingBar.style.display = "none";
+                    }).catch((message) => {
+                        alert(message);
+                    });
+                };
+                document.body.appendChild(unityLoader);
+            } catch (error) {
+                console.error("Failed to load Unity WebGL:", error);
+            }
+        }
+
+        initializeGame();
+    </script>
+
+
+
+
+
+
+</body></html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html><html lang="en"><head><script type="application/json" id="gms-import-config">{"title":"Build - Defend","engine":"unity","files":[["/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/Build/StealBrainrotV19.framework.js.unityweb",70383],["/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/Build/StealBrainrotV19.loader.js",114412],["/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/Build/StealBrainrotV19.wasm.unityweb",6550284],["/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/TemplateData/logo.png",436428],["/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/TemplateData/Orientation/orientation.png",16164]],"total":27772585,"preloads":false,"parts":{"/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/Build/StealBrainrotV19.data.unityweb":["/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/Build/StealBrainrotV19.data.unityweb.part1","/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/Build/StealBrainrotV19.data.unityweb.part2","/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/Build/StealBrainrotV19.data.unityweb.part3"]},"partSizes":[["/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/Build/StealBrainrotV19.data.unityweb.part1",10000000],["/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/Build/StealBrainrotV19.data.unityweb.part2",10000000],["/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/Build/StealBrainrotV19.data.unityweb.part3",584914]]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Build - Defend"></script><script src="/assets/js/game-parts.js?v=3"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Build - Defend"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        html,
+        body {
+            background-image: url("/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/Build/Build.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            padding: 0;
+            margin: 0;
+            background-color: black;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        div#gameContainer {
+            background: transparent !important;
+            position: absolute;
+            top: 0px !important;
+            width: 100% !important;
+            height: 100% !important;
+            left: 0px !important;
+        }
+
+        div#gameContainer canvas {
+            position: absolute;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        div#gameContainer canvas[data-pixel-art="true"] {
+            position: absolute;
+            image-rendering: optimizeSpeed;
+            image-rendering: -webkit-crisp-edges;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -o-crisp-edges;
+            image-rendering: crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: optimize-contrast;
+            image-rendering: pixelated;
+            -ms-interpolation-mode: nearest-neighbor;
+        }
+
+        .loadingOut {
+            width: 350px;
+            position: fixed;
+            left: 50%;
+            top: calc(50%);
+            transform: translate(-50%);
+            border-radius: 25px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.5s ease-out;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00f5ff, #ff00ff, #00f5ff);
+            background-size: 200% 100%;
+            animation: gradientShift 2s ease-in-out infinite;
+            border-radius: 25px;
+            transition: width 0.5s ease-out;
+            position: relative;
+            width: 0%;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 1.5s ease-in-out infinite;
+            border-radius: 25px;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+
+        .centered {
+            position: fixed;
+            top: calc(50% - 120px);
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 750px;
+            text-align: center;
+            animation: pulse 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+            transition: opacity 0.5s ease-out;
+        }
+
+        #orientation-warning {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, rgba(255, 0, 100, 0.9), rgba(255, 100, 0, 0.9));
+            color: white;
+            padding: 40px 50px;
+            border-radius: 20px;
+            text-align: center;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            font-weight: 600;
+            font-size: 18px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            animation: orientationPulse 2s ease-in-out infinite;
+            max-width: 90vw;
+            max-height: 90vh;
+            min-width: 300px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        #orientation-warning.show {
+            display: flex;
+        }
+
+        @keyframes orientationPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.02); }
+        }
+
+        @keyframes rotateImage {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        #orientation-image {
+            width: 80px;
+            height: 80px;
+            display: block;
+            filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 255, 255, 0.6));
+            animation: rotateImage 3s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        .orientation-text {
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 0;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 480px) {
+            #orientation-warning {
+                padding: 30px 25px;
+                font-size: 16px;
+                min-width: 280px;
+                gap: 15px;
+            }
+            #orientation-image { width: 60px; height: 60px; }
+            .orientation-text { font-size: 14px; }
+        }
+
+        @media (max-height: 500px) {
+            #orientation-warning { padding: 20px 30px; gap: 10px; }
+            #orientation-image { width: 50px; height: 50px; }
+            .orientation-text { font-size: 14px; }
+        }
+    </style>
+<title>Build - Defend</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+
+<body>
+    <div id="orientation-warning">
+        <img id="orientation-image" src="/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/TemplateData/Orientation/orientation.png" alt="Rotate Device">
+        <div class="orientation-text">Please rotate your device to the correct orientation.</div>
+    </div>
+    <div id="gameContainer">
+        <img src="/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/TemplateData/logo.png" class="centered">
+        <div class="loadingOut">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <canvas id="unity-canvas" data-pixel-art=""></canvas>
+        <script src="/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/Build/StealBrainrotV19.loader.js"></script>
+        <script>
+            // ZORUNLU İNGİLİZCE - TÜM DİLLER KALDIRILDI
+            var orientationMessages = {
+                en: {
+                    portrait: "Please rotate your device to portrait mode.",
+                    landscape: "Please rotate your device to landscape mode."
+                }
+            };
+
+            // Dil ne olursa olsun her zaman İngilizce dönecek
+            function getCurrentLanguage() {
+                return "en";
+            }
+
+            function getOrientationMessage(requiredOrientation, isCurrentlyPortrait) {
+                var msg = orientationMessages.en;
+                if (requiredOrientation.toLowerCase() === "portrait" && !isCurrentlyPortrait) {
+                    return msg.portrait;
+                } else if (requiredOrientation.toLowerCase() === "landscape" && isCurrentlyPortrait) {
+                    return msg.landscape;
+                }
+                return "";
+            }
+
+            var canvas = document.querySelector("#unity-canvas");
+            var gameContainer = document.querySelector("#gameContainer");
+            var orientationWarning = document.querySelector("#orientation-warning");
+            var orientationText = document.querySelector(".orientation-text");
+
+            var config = {
+                dataUrl: "/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/Build/StealBrainrotV19.data.unityweb",
+                frameworkUrl: "/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/Build/StealBrainrotV19.framework.js.unityweb",
+                codeUrl: "/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/Build/StealBrainrotV19.wasm.unityweb",
+                streamingAssetsUrl: "StreamingAssets",
+                companyName: "gameVgames",
+                productName: "Steal Brainrot Duel",
+                productVersion: "1.0.0",
+            };
+
+            var scaleToFit = true;
+
+            function progressHandler(progress) {
+                var percent = Math.round(progress * 100);
+                document.querySelector("#progress-bar").style.width = percent + "%";
+                if (progress >= 1) {
+                    setTimeout(() => {
+                        document.querySelector(".loadingOut").style.opacity = "0";
+                        document.querySelector(".centered").style.opacity = "0";
+                    }, 500);
+                    setTimeout(() => {
+                        document.querySelector(".loadingOut").style.display = "none";
+                        document.querySelector(".centered").style.display = "none";
+                    }, 1000);
+                }
+            }
+
+            function onResize() {
+                var w = window.innerWidth;
+                var h = window.innerHeight;
+                var r = 1080 / 1920;
+                if (w * r > h) w = Math.ceil(h / r);
+                h = Math.floor(w * r);
+
+                canvas.style.width = gameContainer.style.width = w + "px";
+                canvas.style.height = gameContainer.style.height = h + "px";
+                gameContainer.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
+                gameContainer.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+            }
+
+            function isMobile() {
+                return /Mobi|Android/i.test(navigator.userAgent);
+            }
+
+            var currentOrientationSetting = null;
+
+            function checkOrientation(required) {
+                if (!isMobile() || !required) {
+                    orientationWarning.classList.remove("show");
+                    gameContainer.style.display = "block";
+                    return;
+                }
+
+                var isPortrait = window.innerHeight > window.innerWidth;
+                var needPortrait = required.toLowerCase() === "portrait";
+
+                if ((needPortrait && !isPortrait) || (!needPortrait && isPortrait)) {
+                    orientationWarning.classList.add("show");
+                    gameContainer.style.display = "none";
+                    orientationText.textContent = needPortrait 
+                        ? "Please rotate your device to portrait mode." 
+                        : "Please rotate your device to landscape mode.";
+                } else {
+                    orientationWarning.classList.remove("show");
+                    gameContainer.style.display = "block";
+                }
+            }
+
+            function loadTemplateConfig() {
+                if (!isMobile()) return;
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "TemplateData/Orientation/template.json", true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        try {
+                            var cfg = JSON.parse(xhr.responseText);
+                            var opt = cfg.customOptions.find(o => o.name === "orientation");
+                            if (opt) {
+                                currentOrientationSetting = opt.default;
+                                checkOrientation(currentOrientationSetting);
+                            }
+                        } catch (e) { }
+                    }
+                };
+                xhr.send();
+            }
+
+            createUnityInstance(canvas, config, progressHandler).then(function (instance) {
+                canvas = instance.Module.canvas;
+                onResize();
+            });
+
+            window.addEventListener("resize", () => { onResize(); if (currentOrientationSetting) checkOrientation(currentOrientationSetting); });
+            window.addEventListener("orientationchange", () => setTimeout(() => { if (currentOrientationSetting) checkOrientation(currentOrientationSetting); }, 100));
+
+            loadTemplateConfig();
+        </script>
+
+        <script type="text/javascript" src="/misc/build-defend/_ext/cdn.jsdelivr.net/gh/kelsimsk/zarara%40main/js/rhmApi.js"></script>
+    </div>
+
+    
+
+
+
+
+</body></html>

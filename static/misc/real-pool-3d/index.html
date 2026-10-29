@@ -1,0 +1,240 @@
+<!DOCTYPE html><html lang="en"><head><script type="application/json" id="gms-import-config">{"title":"Real Pool 3D","engine":"unity","files":[["/misc/real-pool-3d/_ext/cdn.jsdelivr.net/gh/z799gs/8poo%404d78100/Build/builld.framework.js",424491],["/misc/real-pool-3d/_ext/cdn.jsdelivr.net/gh/z799gs/8poo%404d78100/Build/builld.loader.js",13076],["/misc/real-pool-3d/_ext/cdn.jsdelivr.net/gh/z799gs/8poo%404d78100/Build/builld.wasm.br.part0",4194304],["/misc/real-pool-3d/_ext/cdn.jsdelivr.net/gh/z799gs/8poo%404d78100/Build/builld.wasm.br.part1",4194304],["/misc/real-pool-3d/_ext/cdn.jsdelivr.net/gh/z799gs/8poo%404d78100/Build/builld.wasm.br.part2",4194304],["/misc/real-pool-3d/_ext/cdn.jsdelivr.net/gh/z799gs/8poo%404d78100/Build/builld.wasm.br.part3",4194304],["/misc/real-pool-3d/_ext/cdn.jsdelivr.net/gh/z799gs/8poo%404d78100/Build/builld.wasm.br.part4",4194304],["/misc/real-pool-3d/_ext/cdn.jsdelivr.net/gh/z799gs/8poo%404d78100/Build/builld.wasm.br.part5",4194304],["/misc/real-pool-3d/_ext/cdn.jsdelivr.net/gh/z799gs/8poo%404d78100/Build/builld.wasm.br.part6",4194304],["/misc/real-pool-3d/_ext/cdn.jsdelivr.net/gh/z799gs/8poo%404d78100/Build/builld.wasm.br.part7",4194304],["/misc/real-pool-3d/_ext/cdn.jsdelivr.net/gh/z799gs/8poo%404d78100/Build/builld.wasm.br.part8",2366815],["/misc/real-pool-3d/_ext/cdn.jsdelivr.net/gh/z799gs/8poo%407a8aff0/Build/builld.data.br",9551897]],"total":45910711,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Real Pool 3D"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Real Pool 3D"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>
+  canvas:focus { outline: none; }
+  html, body {
+    padding: 0; margin: 0; overflow: hidden; height: 100%;
+    -webkit-user-select: none; user-select: none;
+    background-position: center; background-repeat: no-repeat;
+    background-size: cover; background-attachment: fixed;
+  }
+  #canvas { position: fixed; width: 100%; height: 100%; }
+  .loading_bg {
+    position: fixed; width: 100%; height: 100%; z-index: 1;
+    background: linear-gradient(#2976fa, #6919c6);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .loading { position: absolute; }
+  .loading_bar {
+    position: absolute; z-index: 6; transform: translate(-50%, -50%);
+    top: 59%; left: 50%; width: 70%; height: 3%;
+    background: #FFF; border-radius: 12px;
+    box-shadow: 0 0 0 7px rgba(34,60,80,0.2);
+  }
+  .loading_bar_fill {
+    position: absolute; z-index: 6; width: 0%; height: 100%;
+    background: #00dc15; border-radius: 12px;
+    background-image: linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 25%, transparent 50%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.25) 75%, transparent 75%, transparent);
+    background-size: 15px 15px;
+  }
+  .loading_logo {
+    position: absolute; transform: translate(-50%, -50%);
+    top: 40%; left: 50%; width: 30%; height: 30%; z-index: 6;
+    background: url('/misc/real-pool-3d/_ext/cdn.jsdelivr.net/gh/z799gs/8poo%40main/logo.png') center/contain no-repeat;
+    pointer-events: none;
+  }
+  .spinner {
+    position: absolute; border: 5px solid #FFF; border-bottom-color: transparent;
+    border-radius: 50%; box-shadow: 0 0 0 7px rgba(34,60,80,0.2);
+    width: 50px; height: 50px; margin: auto;
+    top: 70%; left: 0; right: 0; z-index: 6;
+    animation: spin 1.1s infinite linear;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+<title>Real Pool 3D</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body style="background-image:url('/misc/real-pool-3d/_ext/cdn.jsdelivr.net/gh/z799gs/8poo%40main/backGR.jpg')">
+<canvas id="canvas" tabindex="-1"></canvas>
+<div class="loading_bg">
+  <div class="loading">
+    <div class="spinner"></div>
+    <div class="loading_logo"></div>
+    <div class="loading_bar"><div class="loading_bar_fill"></div></div>
+  </div>
+</div>
+
+<script>
+var canvas = document.getElementById('canvas');
+var loading_bg = document.querySelector('.loading_bg');
+var loading_bar_fill = document.querySelector('.loading_bar_fill');
+var spinner = document.querySelector('.spinner');
+var loading = document.querySelector('.loading');
+
+// Force desktop & English
+var isDeviceTouch = false;
+var isDeviceNavigator = false;
+
+document.addEventListener('contextmenu', e => e.preventDefault());
+window.addEventListener('pointerdown', () => { window.focus(); canvas.focus(); });
+
+// --- Aspect ratio lock ---
+function lock(el, ratio) {
+  if (window.innerWidth / window.innerHeight > ratio) {
+    el.style.width = window.innerHeight * ratio + 'px';
+    el.style.height = '100%';
+  } else {
+    el.style.width = '100%';
+    el.style.height = window.innerWidth / ratio + 'px';
+  }
+  el.style.margin = 'auto';
+  el.style.top = el.style.left = el.style.bottom = el.style.right = '0';
+}
+
+function Update() {
+  lock(canvas, 16/9);
+  lock(loading, 16/9);
+}
+Update();
+window.addEventListener('resize', Update);
+
+// --- ATinstance bridge ---
+var ATinstance = null;
+function ATinstanceEnable(cb) {
+  (function check() { ATinstance ? cb() : setTimeout(check, 1000); })();
+}
+
+// --- Mock YSDK (all functions return empty/noop) ---
+var ysdk = null;
+var player = null;
+var leaderboard = null;
+var payments = null;
+var myGameInstance = null;
+var initGame = false;
+var nowFullAdOpen = false;
+
+function FullAdShow() {}
+function RewardedShow(id) {
+  if (myGameInstance) {
+    myGameInstance.SendMessage('YandexGame', 'OpenVideo');
+    myGameInstance.SendMessage('YandexGame', 'RewardVideo', id);
+    myGameInstance.SendMessage('YandexGame', 'CloseVideo');
+  }
+}
+function StickyAdActivity() {}
+function InitLeaderboard() {
+  if (myGameInstance) myGameInstance.SendMessage('YandexGame', 'InitializedLB');
+}
+function SetLeaderboardScores() {}
+function GetLeaderboardScores(nameLB) {
+  var empty = {
+    technoName: nameLB, isDefault: false, isInvertSortOrder: false,
+    decimalOffset: 0, type: '', entries: 'no data',
+    ranks: [], photos: [], names: [], scores: [], uniqueIDs: []
+  };
+  if (myGameInstance) myGameInstance.SendMessage('YandexGame', 'LeaderboardEntries', JSON.stringify(empty));
+}
+function Review() {}
+function PromptShow() {}
+function PaintRBT() {}
+function StaticRBTDeactivate() {}
+
+// Cloud saves mock
+var cloudSaves = 'noData';
+function SaveCloud() {}
+function LoadCloud(sendback) {
+  if (sendback && myGameInstance) myGameInstance.SendMessage('YandexGame', 'SetLoadSaves', 'noData');
+  return Promise.resolve('noData');
+}
+
+// Payments mock
+var paymentsData = 'none';
+function GetPayments(sendback) {
+  if (sendback && myGameInstance) myGameInstance.SendMessage('YandexGame', 'PaymentsEntries', 'none');
+  return Promise.resolve('none');
+}
+function BuyPayments(id) {
+  if (myGameInstance) myGameInstance.SendMessage('YandexGame', 'OnPurchaseFailed', id);
+}
+function ConsumePurchase() {}
+function ConsumePurchases() {}
+
+// Environment mock — forced desktop + English
+var environmentData = JSON.stringify({
+  language: 'en', domain: 'com', deviceType: 'desktop',
+  isMobile: false, isDesktop: true, isTablet: false, isTV: false,
+  appID: '0', browserLang: 'en', payload: '',
+  promptCanShow: false, reviewCanShow: false,
+  platform: navigator.platform, browser: 'Chrome'
+});
+function RequestingEnvironmentData(sendback) {
+  if (sendback && myGameInstance) myGameInstance.SendMessage('YandexGame', 'SetEnvirData', environmentData);
+  return Promise.resolve(environmentData);
+}
+
+// Player mock — not authorized
+var playerData = JSON.stringify({ playerAuth: 'rejected', playerName: 'unauthorized', playerId: 'unauthorized', playerPhoto: 'null' });
+function InitPlayer(sendback) {
+  if (sendback && myGameInstance) myGameInstance.SendMessage('YandexGame', 'SetInitializationSDK', playerData);
+  return Promise.resolve(playerData);
+}
+function OpenAuthDialog() {}
+
+function InitGame() {
+  console.log('Init Game Success');
+  initGame = true;
+}
+
+// --- Unity loader with wasm.br part merging ---
+var buildUrl = '/misc/real-pool-3d/_ext/cdn.jsdelivr.net/gh/z799gs/8poo%404d78100/Build';
+
+async function loadWasmParts() {
+  var totalParts = 9;
+  var parts = [];
+  for (var i = 0; i < totalParts; i++) {
+    var resp = await fetch(buildUrl + '/builld.wasm.br.part' + i);
+    parts.push(await resp.arrayBuffer());
+  }
+  var totalSize = parts.reduce(function(sum, p) { return sum + p.byteLength; }, 0);
+  var merged = new Uint8Array(totalSize);
+  var offset = 0;
+  for (var j = 0; j < parts.length; j++) {
+    merged.set(new Uint8Array(parts[j]), offset);
+    offset += parts[j].byteLength;
+  }
+  return URL.createObjectURL(new Blob([merged], { type: 'application/wasm' }));
+}
+
+async function startGame() {
+  var wasmUrl = await loadWasmParts();
+
+  var config = {
+    dataUrl: '/misc/real-pool-3d/_ext/cdn.jsdelivr.net/gh/z799gs/8poo%407a8aff0/Build/builld.data.br',
+    frameworkUrl: buildUrl + '/builld.framework.js',
+    codeUrl: wasmUrl,
+    streamingAssetsUrl: 'StreamingAssets',
+    companyName: 'EivaaGames',
+    productName: 'Real Pool 3D',
+    productVersion: '2.6',
+    showBanner: function() {},
+  };
+
+  var script = document.createElement('script');
+  script.src = buildUrl + '/builld.loader.js';
+  script.onload = function() {
+    createUnityInstance(canvas, config, function(progress) {
+      spinner.style.display = 'none';
+      loading_bar_fill.style.width = (111.2 * progress) + '%';
+    }).then(function(instance) {
+      myGameInstance = instance;
+      ATinstance = instance;
+      loading_bg.style.display = 'none';
+      Update();
+    }).catch(function(err) {
+      console.error('Unity load error:', err);
+    });
+  };
+  document.body.appendChild(script);
+}
+
+startGame();
+
+window.addEventListener('beforeunload', function() {
+  if (myGameInstance) myGameInstance.SendMessage('YandexGame', '_SaveProgress');
+});
+</script>
+
+
+
+
+</body></html>

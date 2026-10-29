@@ -1,0 +1,312 @@
+<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Tropical Rider 3D","engine":"unity","files":[["/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/SummerRiderV1.5.data.unityweb.part0",5242880],["/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/SummerRiderV1.5.data.unityweb.part1",5242880],["/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/SummerRiderV1.5.data.unityweb.part2",5242880],["/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/SummerRiderV1.5.data.unityweb.part3",5242880],["/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/SummerRiderV1.5.data.unityweb.part4",5242880],["/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/SummerRiderV1.5.data.unityweb.part5",5242880],["/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/SummerRiderV1.5.data.unityweb.part6",5242880],["/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/SummerRiderV1.5.data.unityweb.part7",5242880],["/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/SummerRiderV1.5.data.unityweb.part8",5042976],["/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/SummerRiderV1.5.framework.js.unityweb",72770],["/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/SummerRiderV1.5.loader.js",114374],["/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/SummerRiderV1.5.wasm.unityweb",7358671],["/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/TemplateData/logo.png",52033],["/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/TemplateData/Orientation/orientation.png",16164]],"total":54600028,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Tropical Rider 3D"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Tropical Rider 3D"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        html,
+        body {
+            background-image: url("/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/Build.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            padding: 0;
+            margin: 0;
+            background-color: black;
+        }
+
+        div#gameContainer {
+            background: transparent !important;
+            position: absolute;
+            top: 0px !important;
+            width: 100% !important;
+            height: 100% !important;
+            left: 0px !important;
+        }
+
+        div#gameContainer canvas {
+            position: absolute;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        div#gameContainer canvas[data-pixel-art="true"] {
+            position: absolute;
+            image-rendering: optimizeSpeed;
+            image-rendering: -webkit-crisp-edges;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -o-crisp-edges;
+            image-rendering: crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: optimize-contrast;
+            image-rendering: pixelated;
+            -ms-interpolation-mode: nearest-neighbor;
+        }
+
+        .loadingOut {
+            width: 250px;
+            position: fixed;
+            left: 50%;
+            top: calc(50% - 8px);
+            transform: translate(-50%);
+            border: 2px solid white;
+            height: 14px;
+            background: transparent;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, white, white 0%, transparent 0%, transparent);
+        }
+
+        .centered {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -150px;
+            margin-left: -250px;
+            width: 500px;
+        }
+
+        #orientation-warning {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: red;
+            color: white;
+            padding: 20px;
+            border: 2px solid white;
+            text-align: center;
+            z-index: 1000;
+        }
+
+         #orientation-image {
+            width: 125px;
+            height: 125px;
+            margin-top: 10px;
+            display: none;
+            position: fixed;
+            top: calc(50% - 150px);
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+<title>Tropical Rider 3D</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+
+<body>
+   <img id="orientation-image" src="/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/TemplateData/Orientation/orientation.png" alt="Orientation">
+    <div id="orientation-warning">
+        <div>Please rotate your device to the correct mode.</div>
+       
+    </div>
+    <div id="gameContainer">
+        <img src="/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/TemplateData/logo.png" class="centered">
+        <div class="loadingOut">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <canvas id="unity-canvas" data-pixel-art=""></canvas>
+        <script src="/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/SummerRiderV1.5.loader.js"></script>
+        <script>
+            var canvas = document.querySelector("#unity-canvas");
+            var progressBar = document.querySelector("#progress-bar");
+            var gameContainer = document.querySelector("#gameContainer");
+            var orientationWarning = document.querySelector("#orientation-warning");
+            var orientationImage = document.querySelector("#orientation-image");
+
+            // Multi-part configuration - 9 parts (part0 to part8)
+            var TOTAL_PARTS = 9;
+            var DATA_FILE_BASE = "/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/SummerRiderV1.5.data.unityweb";
+
+            var config = {
+                dataUrl: DATA_FILE_BASE,
+                frameworkUrl: "/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/SummerRiderV1.5.framework.js.unityweb",
+                codeUrl: "/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/Build/SummerRiderV1.5.wasm.unityweb",
+                streamingAssetsUrl: "StreamingAssets",
+                companyName: "GameVGames",
+                productName: "Summer Rider 3D",
+                productVersion: "1.0",
+            };
+
+            var scaleToFit;
+            try {
+                scaleToFit = !!JSON.parse("");
+            } catch (e) {
+                scaleToFit = true;
+            }
+
+            function progressHandler(progress) {
+                var percent = progress * 100 + '%';
+                progressBar.style.background = 'linear-gradient(to right, white, white ' + percent + ', transparent ' + percent + ', transparent)';
+            }
+
+            async function loadMultiPartData(baseUrl, totalParts) {
+                var chunks = [];
+                var totalLoaded = 0;
+                var estimatedTotalSize = 42 * 1024 * 1024;
+
+                for (var i = 0; i < totalParts; i++) {
+                    var partUrl = baseUrl + ".part" + i;
+
+                    try {
+                        var response = await fetch(partUrl);
+                        if (!response.ok) {
+                            throw new Error("Failed to load part " + i);
+                        }
+
+                        var reader = response.body.getReader();
+                        var partChunks = [];
+
+                        while (true) {
+                            var result = await reader.read();
+                            if (result.done) break;
+
+                            partChunks.push(result.value);
+                            totalLoaded += result.value.length;
+
+                            var progress = totalLoaded / estimatedTotalSize;
+                            progressHandler(Math.min(progress * 0.8, 0.8));
+                        }
+
+                        var partSize = partChunks.reduce(function(acc, chunk) { return acc + chunk.length; }, 0);
+                        var partData = new Uint8Array(partSize);
+                        var offset = 0;
+                        for (var j = 0; j < partChunks.length; j++) {
+                            partData.set(partChunks[j], offset);
+                            offset += partChunks[j].length;
+                        }
+                        chunks.push(partData);
+
+                    } catch (error) {
+                        console.error("Load error:", error);
+                        throw error;
+                    }
+                }
+
+                var totalSize = chunks.reduce(function(acc, chunk) { return acc + chunk.length; }, 0);
+                var mergedData = new Uint8Array(totalSize);
+                var mergeOffset = 0;
+
+                for (var k = 0; k < chunks.length; k++) {
+                    mergedData.set(chunks[k], mergeOffset);
+                    mergeOffset += chunks[k].length;
+                }
+
+                return mergedData;
+            }
+
+            async function initializeGame() {
+                try {
+                    var mergedData = await loadMultiPartData(DATA_FILE_BASE, TOTAL_PARTS);
+
+                    var blob = new Blob([mergedData], { type: "application/octet-stream" });
+                    var blobUrl = URL.createObjectURL(blob);
+
+                    config.dataUrl = blobUrl;
+
+                    progressHandler(0.85);
+
+                    createUnityInstance(canvas, config, function(progress) {
+                        progressHandler(0.85 + progress * 0.15);
+                    }).then(function(instance) {
+                        canvas = instance.Module.canvas;
+                        myGameInstance = instance;
+                        onResize();
+                    }).catch(function(error) {
+                        console.error("Unity init error:", error);
+                    });
+
+                } catch (error) {
+                    console.error("Game load error:", error);
+                }
+            }
+
+            function onResize() {
+                var container = canvas.parentElement;
+                var w;
+                var h;
+
+                if (scaleToFit) {
+                    w = window.innerWidth;
+                    h = window.innerHeight;
+
+                    var r = 1080 / 1920;
+
+                    if (w * r > window.innerHeight) {
+                        w = Math.min(w, Math.ceil(h / r));
+                    }
+                    h = Math.floor(w * r);
+                } else {
+                    w = 1920;
+                    h = 1080;
+                }
+
+                container.style.width = canvas.style.width = w + "px";
+                container.style.height = canvas.style.height = h + "px";
+                container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
+                container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+            }
+
+            function isMobile() {
+                return /Mobi|Android/i.test(navigator.userAgent);
+            }
+
+            function checkOrientation(orientation) {
+                if (!isMobile()) {
+                    return;
+                }
+                if (orientation === "Portrait" && window.innerHeight < window.innerWidth) {
+                    orientationWarning.style.display = 'block';
+                    gameContainer.style.display = 'none';
+                    orientationWarning.innerText = 'Please rotate your device to portrait mode.';
+                    orientationImage.style.display = 'block';
+                } else if (orientation === "Landscape" && window.innerHeight > window.innerWidth) {
+                    orientationWarning.style.display = 'block';
+                    gameContainer.style.display = 'none';
+                    orientationWarning.innerText = 'Please rotate your device to landscape mode.';
+                    orientationImage.style.display = 'block';
+                } else {
+                    orientationWarning.style.display = 'none';
+                    gameContainer.style.display = 'block';
+                    orientationImage.style.display = 'none';
+                }
+            }
+
+            function loadTemplateConfig() {
+                if (!isMobile()) {
+                    return;
+                }
+                var request = new XMLHttpRequest();
+                request.open('GET', 'TemplateData/Orientation/template.json', true);
+                request.onreadystatechange = function() {
+                    if (request.readyState === 4 && request.status === 200) {
+                        var config = JSON.parse(request.responseText);
+                        var orientation = config.customOptions.find(option => option.name === "orientation").default;
+                        checkOrientation(orientation);
+                    }
+                };
+                request.send();
+            }
+
+            initializeGame();
+
+            window.addEventListener('resize', function() {
+                onResize();
+                loadTemplateConfig();
+            });
+
+            loadTemplateConfig();
+        </script>
+
+        <!--RHM API-->
+    <script type="text/javascript" src="/misc/tropical-rider-3d/_ext/cdn.jsdelivr.net/gh/papamamia/447755%40main/js/rhmApi.js"></script>
+    </div>
+
+ 
+
+
+
+
+</body></html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Night Big City","engine":"unity","files":[["/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/Build/YD_NightCityRacing.data.unityweb.part0",8388608],["/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/Build/YD_NightCityRacing.data.unityweb.part1",8388608],["/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/Build/YD_NightCityRacing.data.unityweb.part10",3349664],["/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/Build/YD_NightCityRacing.data.unityweb.part2",8388608],["/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/Build/YD_NightCityRacing.data.unityweb.part3",8388608],["/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/Build/YD_NightCityRacing.data.unityweb.part4",8388608],["/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/Build/YD_NightCityRacing.data.unityweb.part5",8388608],["/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/Build/YD_NightCityRacing.data.unityweb.part6",8388608],["/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/Build/YD_NightCityRacing.data.unityweb.part7",8388608],["/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/Build/YD_NightCityRacing.data.unityweb.part8",8388608],["/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/Build/YD_NightCityRacing.data.unityweb.part9",8388608],["/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/Build/YD_NightCityRacing.framework.js.unityweb",72090],["/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/Build/YD_NightCityRacing.loader.js",113215],["/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/Build/YD_NightCityRacing.wasm.unityweb",7074602],["/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/TemplateData/style.css",1643]],"total":94497294,"preloads":true,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Night Big City"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Night Big City"></script>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<link rel="shortcut icon" href="/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/TemplateData/favicon.ico">
+<link rel="stylesheet" href="/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/TemplateData/style.css">
+<style>
+  html,body{width:100%;height:100%;overflow:hidden;padding:0;margin:0;
+    background:#111 url("/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/background.jpg") center/cover no-repeat;}
+  div#unity-container{background:transparent!important;position:absolute;}
+  div#unity-container canvas{position:absolute;}
+  #loading-cover{background:#111 url("/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/background.jpg") center/cover no-repeat!important;}
+  #unity-loading-bar{padding:20px;}
+  #unity-progress-bar-empty{background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.5);}
+  #unity-progress-bar-full{background:#38bdf8;}
+  #dl-status{color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.8);}
+</style>
+<!-- brotli.js: required for .unityweb BrotliDecode -->
+<script src="/misc/night-big-city/_ext/cdn.jsdelivr.net/npm/brotli%401.3.3/dec/decode.js"></script>
+<title>Night Big City</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body class="dark">
+<div id="unity-container" class="unity-desktop">
+  <canvas id="unity-canvas"></canvas>
+</div>
+<div id="loading-cover" style="display:none;" class="gms-legacy-loading-hooks"><div id="unity-loading-bar" class="gms-legacy-loading-hooks"><div id="unity-logo"><img onerror="this.style.display='none'"></div><div id="unity-progress-bar-empty" style="display:block;"><div id="unity-progress-bar-full" style="width:0%;"></div></div><div id="dl-status" style="text-align:center;font-size:12px;color:rgba(255,255,255,.7);
+         font-family:sans-serif;margin-top:6px;"></div><div class="spinner" style="display:none;"></div></div></div>
+
+<!-- YaGames stub -->
+<script>
+window.YaGames = { init: function(opts) {
+  if(opts&&opts.adv&&opts.adv.onAdvClose) opts.adv.onAdvClose(false);
+  var sdk = {
+    environment:{ app:{id:'0'}, i18n:{lang:'en',tld:'com'}, browser:{lang:'en'}, payload:null },
+    deviceInfo:{ type:'desktop',
+      isMobile:function(){return false;}, isDesktop:function(){return true;},
+      isTablet:function(){return false;}, isTV:function(){return false;}
+    },
+    adv:{
+      showFullscreenAdv:function(o){ if(o&&o.callbacks&&o.callbacks.onClose) o.callbacks.onClose(false); },
+      showRewardedVideo:function(o){
+        if(!o||!o.callbacks) return;
+        if(o.callbacks.onOpen)  o.callbacks.onOpen();
+        if(o.callbacks.onClose) o.callbacks.onClose();
+      },
+      showBannerAdv:function(){}, hideBannerAdv:function(){},
+      getBannerAdvStatus:function(){ return Promise.resolve({stickyAdvIsShowing:false}); }
+    },
+    auth:{ openAuthDialog:function(){ return Promise.resolve(); } },
+    feedback:{
+      canReview:function(){ return Promise.resolve({value:false,reason:''}); },
+      requestReview:function(){ return Promise.resolve({feedbackSent:false}); }
+    },
+    shortcut:{
+      canShowPrompt:function(){ return Promise.resolve({canShow:false}); },
+      showPrompt:function(){ return Promise.resolve({outcome:'rejected'}); }
+    },
+    getPayments:function(){ return Promise.reject('no payments'); },
+    getFlags:function(){    return Promise.resolve({}); },
+    getLeaderboards:function(){ return Promise.resolve({
+      setLeaderboardScore:function(){ return Promise.resolve(); },
+      getLeaderboardEntries:function(){ return Promise.reject('no lb'); }
+    });},
+    getPlayer:function(){ return Promise.resolve({
+      isAuthorized:function(){return false;}, getMode:function(){return 'lite';},
+      getName:function(){return '';}, getUniqueID:function(){return '0';},
+      getPhoto:function(){return '';}, getPayingStatus:function(){return 'unknown';},
+      setData:function(){return Promise.resolve();}, getData:function(){return Promise.resolve({});}
+    });},
+    serverTime:function(){ return Promise.resolve(Date.now()); },
+    on:function(){}
+  };
+  return Promise.resolve(sdk);
+}};
+</script>
+<script>
+(function(){ var s=document.createElement('script'); s.src='/sdk.js';
+  s.onerror=function(){console.warn('[Stub] sdk.js not found');}; document.head.appendChild(s); })();
+(function(){
+  function u(){
+    if(window._au) return; window._au=true;
+    try{var c=new(window.AudioContext||window.webkitAudioContext)();
+      var b=c.createBuffer(1,1,22050);var s=c.createBufferSource();
+      s.buffer=b;s.connect(c.destination);s.start(0);c.resume&&c.resume();
+    }catch(e){}
+    ['touchstart','pointerdown','click'].forEach(function(t){document.removeEventListener(t,u);});
+  }
+  ['touchstart','pointerdown','click'].forEach(function(t){document.addEventListener(t,u,{passive:true});});
+})();
+</script>
+
+<script>
+var buildUrl   = "/misc/night-big-city/_ext/cdn.jsdelivr.net/gh/school-management-google/payoneh%40main/Build";
+var DATA_PARTS = 11;  /* 85.2MB / 8MB = 11 parts */
+
+var container        = document.querySelector("#unity-container");
+var canvas           = document.querySelector("#unity-canvas");
+var loadingCover     = document.querySelector("#loading-cover");
+var progressBarFull  = document.querySelector("#unity-progress-bar-full");
+var dlStatus         = document.querySelector("#dl-status");
+
+if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))
+  container.className = "unity-mobile";
+
+loadingCover.style.display = "";
+
+/* DATA 0-55%, WASM 55-70%, Unity 70-100% */
+function setBar(pct, label) {
+  progressBarFull.style.width = pct.toFixed(1) + '%';
+  if (dlStatus) dlStatus.textContent = label || Math.round(pct) + '%';
+}
+
+var player = null;
+var lb     = null;
+var myGameInstance = null;
+var unityStarted   = false;
+
+/* ── BrotliDecode + blob URL for .unityweb files ── */
+function unitywebBlobUrl(uint8, filename) {
+  var data = uint8;
+  if (typeof BrotliDecode === 'function') {
+    try {
+      data = BrotliDecode(uint8);
+      console.log('[Brotli] ' + filename + ' decoded: ' + data.length + ' bytes');
+      filename = filename.replace('.unityweb', '');
+    } catch(e) { console.warn('[Brotli] decode failed for ' + filename + ':', e.message); }
+  }
+  var blob = new Blob([data], {type:'application/octet-stream'});
+  return URL.createObjectURL(blob) + '#' + encodeURIComponent(filename);
+}
+
+/* ── Part fetch ── */
+async function fetchParts(baseUrl, partCount, barStart, barEnd, label) {
+  var parts = [];
+  for (var i = 0; i < partCount; i++) {
+    setBar(barStart + (i/partCount)*(barEnd-barStart),
+           label + (i+1) + '/' + partCount + ' (' + Math.round(barStart+(i/partCount)*(barEnd-barStart)) + '%)');
+    var r = await fetch(baseUrl + '.part' + i);
+    if (!r.ok) throw new Error(label + 'part' + i + ' HTTP ' + r.status);
+    parts.push(new Uint8Array(await r.arrayBuffer()));
+    setBar(barStart + ((i+1)/partCount)*(barEnd-barStart),
+           label + (i+1) + '/' + partCount + ' (' + Math.round(barStart+((i+1)/partCount)*(barEnd-barStart)) + '%)');
+    console.log('[' + label.trim() + '] part' + i + ': ' + parts[parts.length-1].length + ' bytes');
+  }
+  var total = parts.reduce(function(s,p){return s+p.length;},0);
+  var merged = new Uint8Array(total); var off = 0;
+  for (var j=0;j<parts.length;j++){merged.set(parts[j],off);off+=parts[j].length;}
+  console.log('[' + label.trim() + '] merged: ' + total + ' bytes');
+  return merged;
+}
+
+/* ── Loader ── */
+var script = document.createElement("script");
+script.src = buildUrl + "/YD_NightCityRacing.loader.js";
+script.onload = async function() {
+  try {
+    /* 1. Data: 11 parts + BrotliDecode */
+    var dataBytes = await fetchParts(
+      buildUrl + '/YD_NightCityRacing.data.unityweb', DATA_PARTS, 0, 55, 'Data ');
+    var dataUrl = unitywebBlobUrl(dataBytes, 'YD_NightCityRacing.data.unityweb');
+
+    /* 2. WASM: direct fetch + BrotliDecode */
+    setBar(55, 'Downloading WASM...');
+    var wasmResp = await fetch(buildUrl + '/YD_NightCityRacing.wasm.unityweb');
+    if (!wasmResp.ok) throw new Error('WASM HTTP ' + wasmResp.status);
+    var wasmUrl = unitywebBlobUrl(
+      new Uint8Array(await wasmResp.arrayBuffer()), 'YD_NightCityRacing.wasm.unityweb');
+    setBar(70, 'Starting...');
+  } catch(e) { alert('Download error: ' + e.message); return; }
+
+  if (!unityStarted) {
+    unityStarted = true;
+    createUnityInstance(canvas, {
+      dataUrl:            dataUrl,
+      frameworkUrl:       buildUrl + "/YD_NightCityRacing.framework.js.unityweb",
+      codeUrl:            wasmUrl,
+      streamingAssetsUrl: "StreamingAssets",
+      companyName:        "Rhm Interactive",
+      productName:        "Night City Racing",
+      productVersion:     "0.1",
+      webglContextAttributes: {
+        preserveDrawingBuffer: true,
+        powerPreference: "high-performance"
+      }
+    }, function(progress) {
+      progressBarFull.style.width = (70 + progress * 30).toFixed(1) + '%';
+      if (dlStatus) dlStatus.textContent = Math.round(70 + progress * 30) + '%';
+    }).then(function(inst) {
+      myGameInstance = inst;
+      loadingCover.style.display = "none";
+    }).catch(function(msg) { alert(msg); });
+  }
+};
+document.body.appendChild(script);
+
+/* ── YaGames init ── */
+YaGames.init({ adv: { onAdvClose: function(wasShown){ console.info('adv closed!'); } } })
+  .then(function(ysdk) {
+    ysdk.adv.showFullscreenAdv();
+    window.ysdk = ysdk;
+  });
+
+/* ── Game functions ── */
+function initPlayer(photoSize, _scopes) {
+  return window.ysdk.getPlayer({scopes:_scopes}).then(function(_p) {
+    player = _p;
+    var playerName = player.getName();
+    var playerPhoto = player.getPhoto(photoSize);
+    if (!_scopes) { playerName = "anonymous"; playerPhoto = "null"; }
+    if (player.getMode() === 'lite') { NotAuthorized(); }
+    else {
+      console.log('auth ok');
+      myGameInstance.SendMessage('YandexGame','SetAuthorization',JSON.stringify({
+        playerAuth:"resolved", playerName:playerName,
+        playerId:player.getUniqueID(), playerPhoto:playerPhoto
+      }));
+    }
+  }).catch(function(err) { console.log('auth err'); NotAuthorized(); });
+}
+function NotAuthorized() {
+  console.log('auth failed');
+  try {
+    myGameInstance.SendMessage('YandexGame','SetAuthorization',JSON.stringify({
+      playerAuth:"rejected", playerName:"unauthorized",
+      playerId: player ? player.getUniqueID() : "0", playerPhoto:"null"
+    }));
+  } catch(e) { console.error(e); }
+}
+function AuthorizationCheck(photoSize, scopes) { initPlayer(photoSize, scopes); }
+function OpenAuthDialog(photoSize, scopes) {
+  window.ysdk.auth.openAuthDialog()
+    .then(function(){ initPlayer(photoSize, scopes); })
+    .catch(function(){ AuthorizationCheck(photoSize, scopes); });
+}
+function SaveCloud(jsonData, flush) {
+  player.setData({saves:[jsonData]}, flush)
+    .then(function(){ console.log('Cloud saves installed'); });
+}
+function LoadCloud() {
+  player.getData(["saves"]).then(function(data) {
+    if (data.saves) myGameInstance.SendMessage('YandexGame','SetLoadSaves',JSON.stringify(data.saves));
+    else ResetProgress();
+  }).catch(function(){ console.log('load err'); });
+}
+function ResetProgress() { myGameInstance.SendMessage('YandexGame','ResetSaveCloud'); }
+
+function InitLeaderboard() {
+  window.ysdk.getLeaderboards().then(function(_lb){
+    lb=_lb; myGameInstance.SendMessage('YandexGame','InitializedLB');
+  });
+}
+function SetLeaderboardScores(name, score) {
+  window.ysdk.getLeaderboards().then(function(lb){ lb.setLeaderboardScore(name, score); });
+}
+function GetLeaderboardScores(nameLB, maxPlayers, quantityTop, quantityAround, photoSize, auth) {
+  console.log('LeaderBoard Name: ' + nameLB);
+  window.ysdk.getLeaderboards().then(function(lb) {
+    var opts = auth
+      ? {quantityTop:quantityTop, includeUser:true, quantityAround:quantityAround}
+      : {quantityTop:quantityTop};
+    lb.getLeaderboardEntries(''+nameLB, opts).then(function(res){
+      EntriesLB(res, nameLB, maxPlayers, photoSize);
+    });
+  });
+}
+function EntriesLB(res, nameLB, maxPlayers, photoSize) {
+  console.log(res);
+  var n=Math.min(res.entries.length,maxPlayers), txt='';
+  var rank=[],photo=[],playersName=[],scorePlayers=[];
+  for(var i=0;i<n;i++){
+    rank[i]=res.entries[i].rank; scorePlayers[i]=res.entries[i].score;
+    photo[i]=(photoSize==='nonePhoto'||res.entries[i].player.scopePermissions.avatar!=="allow")
+      ?'nonePhoto':res.entries[i].player.getAvatarSrc(photoSize);
+    playersName[i]=res.entries[i].player.scopePermissions.public_name!=="allow"
+      ?'Anonymous':res.entries[i].player.publicName;
+    txt+=rank[i]+'. '+playersName[i]+': '+scorePlayers[i]+'\n';
+  }
+  myGameInstance.SendMessage('YandexGame','LeaderboardEntries',JSON.stringify({
+    nameLB:nameLB, entries:n===0?'No data':txt,
+    rank:rank, photo:photo, playersName:playersName, scorePlayers:scorePlayers
+  }));
+}
+function FullscreenShow() {
+  window.ysdk.adv.showFullscreenAdv({callbacks:{
+    onOpen:  function(){ myGameInstance.SendMessage('YandexGame','OpenFullscreen'); },
+    onClose: function(){ myGameInstance.SendMessage('YandexGame','CloseFullscreen'); }
+  }});
+}
+function RewardedShow(id) {
+  window.ysdk.adv.showRewardedVideo({callbacks:{
+    onOpen:  function(){ myGameInstance.SendMessage('YandexGame','OpenVideo',id); },
+    onClose: function(){ myGameInstance.SendMessage('YandexGame','CloseVideo',id);
+                         console.log('Video ad closed. Id: '+id); }
+  }});
+}
+function LanguageRequest() {
+  myGameInstance.SendMessage('YandexGame','SetLanguage',window.ysdk.environment.i18n.lang);
+}
+function RequestingEnvironmentData() {
+  myGameInstance.SendMessage('YandexGame','SetEnvironmentData',JSON.stringify({
+    domain:window.ysdk.environment.i18n.tld,
+    deviceType:window.ysdk.deviceInfo.type,
+    isMobile:window.ysdk.deviceInfo.isMobile(),
+    isDesktop:window.ysdk.deviceInfo.isDesktop(),
+    isTablet:window.ysdk.deviceInfo.isTablet(),
+    isTV:window.ysdk.deviceInfo.isTV()
+  }));
+}
+function Review() {
+  window.ysdk.feedback.canReview().then(function(d){
+    if(d.value) window.ysdk.feedback.requestReview().then(function(r){ console.log(r.feedbackSent); });
+    else console.log(d.reason);
+  });
+}
+</script>
+
+
+
+</body></html>

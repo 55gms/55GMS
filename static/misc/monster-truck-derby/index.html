@@ -1,0 +1,519 @@
+<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Monster Truck: Derby","engine":"unity","files":[["/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/Build/Builds.data.unityweb.part0",8388608],["/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/Build/Builds.data.unityweb.part1",8388608],["/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/Build/Builds.data.unityweb.part2",8388608],["/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/Build/Builds.data.unityweb.part3",8388608],["/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/Build/Builds.data.unityweb.part4",8388608],["/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/Build/Builds.data.unityweb.part5",8388608],["/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/Build/Builds.data.unityweb.part6",8388608],["/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/Build/Builds.data.unityweb.part7",8388608],["/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/Build/Builds.data.unityweb.part8",4997045],["/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/Build/Builds.framework.js.unityweb",76993],["/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/Build/Builds.loader.js",114199],["/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/Build/Builds.wasm.unityweb",9256429],["/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/TemplateData/style.css",1901]],"total":81555431,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Monster Truck: Derby"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Monster Truck: Derby"></script>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Monster Truck: Derby</title>
+<link rel="shortcut icon" href="/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/TemplateData/favicon.ico">
+<link rel="stylesheet" href="/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/TemplateData/style.css">
+<style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body class="dark">
+<div id="unity-container" class="unity-desktop">
+<canvas id="unity-canvas"></canvas>
+</div>
+<div id="loading-cover" style="display:;" class="gms-legacy-loading-hooks"><div id="unity-loading-bar" class="gms-legacy-loading-hooks"><div id="unity-logo"><img></div><div id="unity-progress-bar-empty" style="display: ;"><div id="unity-progress-bar-full"></div></div><div class="spinner"></div></div></div>
+<script>
+    const hideFullScreenButton = "";
+    const buildUrl = "/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/Build";
+    const loaderUrl = buildUrl + "/Builds.loader.js";
+    
+    // ===== CHUNKED DATA FILE CONFIG =====
+    const DATA_CHUNK_COUNT = 9;
+    const DATA_CHUNK_BASE_URL = buildUrl + "/Builds.data.unityweb.part";
+    const ESTIMATED_TOTAL_SIZE = 70.4 * 1024 * 1024; // ~70.4MB
+
+    const container = document.querySelector("#unity-container");
+    const canvas = document.querySelector("#unity-canvas");
+    const loadingCover = document.querySelector("#loading-cover");
+    const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+    const progressBarFull = document.querySelector("#unity-progress-bar-full");
+    const spinner = document.querySelector('.spinner');
+
+    const canFullscreen = (function () {
+        for (const key of [
+            'exitFullscreen',
+            'webkitExitFullscreen',
+            'webkitCancelFullScreen',
+            'mozCancelFullScreen',
+            'msExitFullscreen',
+        ]) {
+            if (key in document) {
+                return true;
+            }
+        }
+        return false;
+    }());
+
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        container.className = "unity-mobile";
+    }
+
+    var backgroundUnity = "url('" + buildUrl + "/Builds.jpg') center / cover";
+    canvas.style.background = "url('/misc/monster-truck-derby/_ext/cdn.jsdelivr.net/gh/emrsdahclassroom/zamama%40main/background.png') center / cover";
+
+    loadingCover.style.display = "";
+
+    canvas.addEventListener("touchstart", () => { window.focus() });
+    canvas.addEventListener("pointerdown", () => { window.focus() }); 
+
+    let player = null;
+    let leaderboard = null;
+    let myGameInstance = null;
+    let payments = null;
+    let promptCanShow = false;
+    let reviewCanShow = false;
+    let initSDK = false;
+    let initGame = false;
+    let photoSizeForInit = "medium";
+    let scopesForInit = false;
+    let firstAd = false;
+
+    // ===== CHUNKED DATA LOADER =====
+    async function loadChunkedDataFile(onProgress) {
+        const chunks = [];
+        let totalLoaded = 0;
+        
+        for (let i = 0; i < DATA_CHUNK_COUNT; i++) {
+            const chunkUrl = DATA_CHUNK_BASE_URL + i;
+            console.log("Loading chunk " + i + "/" + (DATA_CHUNK_COUNT - 1) + ": " + chunkUrl);
+            
+            try {
+                const response = await fetch(chunkUrl);
+                if (!response.ok) {
+                    throw new Error("HTTP " + response.status);
+                }
+                
+                const arrayBuffer = await response.arrayBuffer();
+                chunks.push(arrayBuffer);
+                totalLoaded += arrayBuffer.byteLength;
+                
+                // Progress: 0-50% for data loading
+                if (onProgress) {
+                    const dataProgress = totalLoaded / ESTIMATED_TOTAL_SIZE;
+                    onProgress(Math.min(dataProgress * 0.5, 0.5));
+                }
+                
+                console.log("Chunk " + i + " loaded: " + (arrayBuffer.byteLength / 1024 / 1024).toFixed(2) + " MB");
+            } catch (e) {
+                console.error("Failed to load chunk " + i + ": " + e.message);
+                throw e;
+            }
+        }
+        
+        // Combine all chunks
+        const totalSize = chunks.reduce((acc, chunk) => acc + chunk.byteLength, 0);
+        const combined = new Uint8Array(totalSize);
+        let offset = 0;
+        
+        for (const chunk of chunks) {
+            combined.set(new Uint8Array(chunk), offset);
+            offset += chunk.byteLength;
+        }
+        
+        console.log("All " + DATA_CHUNK_COUNT + " chunks combined: " + (totalSize / 1024 / 1024).toFixed(2) + " MB");
+        
+        // Create Blob URL
+        const blob = new Blob([combined], { type: "application/octet-stream" });
+        return URL.createObjectURL(blob);
+    }
+
+    function updateProgress(progress) {
+        spinner.style.display = "none";
+        progressBarEmpty.style.display = "";
+        progressBarFull.style.width = `${100 * progress}%`;
+    }
+
+    // ===== MAIN GAME INITIALIZATION =====
+    async function initializeGame() {
+        try {
+            console.log("Starting chunked data file loading...");
+            
+            // Load chunked data file
+            const dataBlobUrl = await loadChunkedDataFile(updateProgress);
+            console.log("Data file loaded, initializing Unity...");
+            
+            // Unity config with blob URL
+            const config = {
+                dataUrl: dataBlobUrl,
+                frameworkUrl: buildUrl + "/Builds.framework.js.unityweb",
+                codeUrl: buildUrl + "/Builds.wasm.unityweb",
+                streamingAssetsUrl: "StreamingAssets",
+                companyName: "AA2G1LtdS",
+                productName: "Monster Truck Crash Bigfoot",
+                productVersion: "1.0",
+            };
+            
+            // Load Unity loader script
+            const script = document.createElement("script");
+            script.src = loaderUrl;
+            script.onload = () => {
+                createUnityInstance(canvas, config, (progress) => {
+                    // Unity progress: 50-100%
+                    const adjustedProgress = 0.5 + (progress * 0.5);
+                    updateProgress(adjustedProgress);
+                }).then((unityInstance) => {
+                    myGameInstance = unityInstance;
+                    loadingCover.style.display = "none";
+                    window.focus();
+                    console.log("Game loaded successfully!");
+                    
+                    // Clean up blob URL
+                    URL.revokeObjectURL(dataBlobUrl);
+                    
+                    // Auto-init SDK bypass
+                    setTimeout(() => {
+                        if (myGameInstance) {
+                            InitSDK("medium", false);
+                        }
+                    }, 1000);
+                }).catch((message) => {
+                    console.error("Unity initialization failed:", message);
+                    alert("Oyun yüklenemedi. Sayfayı yenileyin: " + message);
+                });
+            };
+            script.onerror = () => {
+                console.error("Failed to load Unity loader script");
+                alert("Oyun yükleyici yüklenemedi. Sayfayı yenileyin.");
+            };
+            document.body.appendChild(script);
+            
+        } catch (error) {
+            console.error("Failed to load game data:", error);
+            alert("Oyun verileri yüklenemedi. Sayfayı yenileyin.");
+        }
+    }
+
+    // Start game initialization
+    initializeGame();
+
+    // ===== YANDEX SDK BYPASS FUNCTIONS =====
+    // All functions are stubbed to prevent errors and keep game running
+
+    function InitSDK(photoSize, scopes) {
+        console.log('InitSDK called - SDK disabled, bypassing...');
+        initGame = true;
+        photoSizeForInit = photoSize || "medium";
+        scopesForInit = scopes || false;
+        
+        setTimeout(() => {
+            if (myGameInstance) {
+                try {
+                    let authJson = {
+                        "playerAuth": "resolved",
+                        "playerName": "Player",
+                        "playerId": "local_player_" + Date.now(),
+                        "playerPhoto": "null"
+                    };
+                    myGameInstance.SendMessage('YandexGame', 'SetInitializationSDK', JSON.stringify(authJson));
+                } catch (e) {
+                    console.log('InitSDK SendMessage error (safe to ignore):', e.message);
+                }
+            }
+            window.focus();
+        }, 100);
+    }
+
+    function NotAuthorized() {
+        console.log('NotAuthorized called - SDK disabled');
+        try {
+            if (myGameInstance) {
+                let authJson = {
+                    "playerAuth": "rejected",
+                    "playerName": "Guest",
+                    "playerId": "guest_" + Date.now(),
+                    "playerPhoto": "null"
+                };
+                myGameInstance.SendMessage('YandexGame', 'SetInitializationSDK', JSON.stringify(authJson));
+            }
+        } catch (e) {
+            console.log('NotAuthorized error (safe to ignore):', e.message);
+        }
+        window.focus();
+    }
+
+    function InitPlayer(photoSize, _scopes) {
+        console.log('InitPlayer called - SDK disabled, bypassing...');
+        setTimeout(() => {
+            if (myGameInstance) {
+                try {
+                    let authJson = {
+                        "playerAuth": "resolved",
+                        "playerName": "Player",
+                        "playerId": "local_player_" + Date.now(),
+                        "playerPhoto": "null"
+                    };
+                    myGameInstance.SendMessage('YandexGame', 'SetInitializationSDK', JSON.stringify(authJson));
+                } catch (e) {
+                    console.log('InitPlayer error (safe to ignore):', e.message);
+                }
+            }
+            window.focus();
+        }, 100);
+    }
+
+    function OpenAuthDialog(photoSize, scopes) {
+        console.log('OpenAuthDialog called - SDK disabled, bypassing...');
+        setTimeout(() => {
+            InitSDK(photoSize, scopes);
+        }, 100);
+    }
+
+    function FullAdShow() {
+        console.log('FullAdShow called - Ads disabled, skipping...');
+        setTimeout(() => {
+            if (myGameInstance) {
+                try {
+                    myGameInstance.SendMessage('YandexGame', 'CloseFullAd', 'false');
+                } catch (e) {
+                    console.log('FullAdShow error (safe to ignore):', e.message);
+                }
+            }
+            window.focus();
+        }, 10);
+    }
+
+    function RewardedShow(id) {
+        console.log('RewardedShow called with id: ' + id + ' - Ads disabled, skipping...');
+        setTimeout(() => {
+            if (myGameInstance) {
+                try {
+                    // Option 1: Give reward (for testing)
+                    // myGameInstance.SendMessage('YandexGame', 'RewardVideo', id);
+                    
+                    // Option 2: Close without reward
+                    myGameInstance.SendMessage('YandexGame', 'CloseVideo');
+                } catch (e) {
+                    console.log('RewardedShow error (safe to ignore):', e.message);
+                }
+            }
+            window.focus();
+        }, 10);
+    }
+
+    function StickyAdActivity(show) {
+        console.log('StickyAdActivity called - Ads disabled, skipping...');
+        // Do nothing
+    }
+
+    function InitPayments() {
+        console.log('InitPayments called - Payments disabled');
+        // Do nothing
+    }
+
+    function BuyPayments(id) {
+        console.log('BuyPayments called - Payments disabled, failing...');
+        setTimeout(() => {
+            if (myGameInstance) {
+                try {
+                    myGameInstance.SendMessage('YandexGame', 'OnPurchaseFailed', id);
+                } catch (e) {
+                    console.log('BuyPayments error (safe to ignore):', e.message);
+                }
+            }
+            window.focus();
+        }, 10);
+    }
+    
+    function GetPayments() {
+        console.log('GetPayments called - Payments disabled');
+        setTimeout(() => {
+            if (myGameInstance) {
+                try {
+                    let jsonPayments = {
+                        "id": [],
+                        "title": [],
+                        "description": [],
+                        "imageURI": [],
+                        "priceValue": [],
+                        "priceCurrencyCode": [],
+                        "purchased": []
+                    };
+                    myGameInstance.SendMessage('YandexGame', 'PaymentsEntries', JSON.stringify(jsonPayments));
+                } catch (e) {
+                    console.log('GetPayments error (safe to ignore):', e.message);
+                }
+            }
+        }, 10);
+    }
+
+    function DeletePurchase(id) {
+        console.log('DeletePurchase called - Payments disabled');
+        // Do nothing
+    }
+
+    function DeleteAllPurchases() {
+        console.log('DeleteAllPurchases called - Payments disabled');
+        // Do nothing
+    }
+
+    function SaveCloud(jsonData, flush) {
+        console.log('SaveCloud called - Cloud disabled, saving to localStorage...');
+        try {
+            localStorage.setItem('game_save', jsonData);
+            console.log('Saved to localStorage');
+        } catch (e) {
+            console.log('SaveCloud localStorage error:', e.message);
+        }
+    }
+
+    function LoadCloud() {
+        console.log('LoadCloud called - Cloud disabled, loading from localStorage...');
+        setTimeout(() => {
+            if (myGameInstance) {
+                try {
+                    let savedData = localStorage.getItem('game_save');
+                    if (savedData) {
+                        myGameInstance.SendMessage('YandexGame', 'SetLoadSaves', JSON.stringify([savedData]));
+                    } else {
+                        myGameInstance.SendMessage('YandexGame', 'SetLoadSaves', "noData");
+                    }
+                } catch (e) {
+                    console.log('LoadCloud error:', e.message);
+                    try {
+                        myGameInstance.SendMessage('YandexGame', 'SetLoadSaves', "noData");
+                    } catch (e2) {}
+                }
+            }
+        }, 10);
+    }
+
+    function InitLeaderboard() {
+        console.log('InitLeaderboard called - Leaderboard disabled');
+        setTimeout(() => {
+            if (myGameInstance) {
+                try {
+                    myGameInstance.SendMessage('YandexGame', 'InitializedLB');
+                } catch (e) {
+                    console.log('InitLeaderboard error (safe to ignore):', e.message);
+                }
+            }
+        }, 10);
+    }
+
+    function SetLeaderboardScores(_name, score) {
+        console.log('SetLeaderboardScores called - Leaderboard disabled, score: ' + score);
+        // Do nothing
+    }
+
+    function GetLeaderboardScores(nameLB, maxPlayers, quantityTop, quantityAround, photoSize, auth) {
+        console.log('GetLeaderboardScores called - Leaderboard disabled');
+        setTimeout(() => {
+            if (myGameInstance) {
+                try {
+                    let jsonLB = {
+                        "nameLB": nameLB,
+                        "entries": "No data",
+                        "rank": [],
+                        "photo": [],
+                        "playersName": [],
+                        "scorePlayers": []
+                    };
+                    myGameInstance.SendMessage('YandexGame', 'LeaderboardEntries', JSON.stringify(jsonLB));
+                } catch (e) {
+                    console.log('GetLeaderboardScores error (safe to ignore):', e.message);
+                }
+            }
+        }, 10);
+    }
+
+    function EntriesLB(res, nameLB, maxPlayers, photoSize) {
+        console.log('EntriesLB called - Leaderboard disabled');
+        // Do nothing
+    }
+
+    function LanguageRequest() {
+        console.log('LanguageRequest called - SDK disabled, returning "en"');
+        setTimeout(() => {
+            if (myGameInstance) {
+                try {
+                    myGameInstance.SendMessage('YandexGame', 'SetLanguage', 'en');
+                } catch (e) {
+                    console.log('LanguageRequest error (safe to ignore):', e.message);
+                }
+            }
+        }, 10);
+    }
+
+    function RequestingEnvironmentData() {
+        console.log('RequestingEnvironmentData called - SDK disabled');
+        setTimeout(() => {
+            if (myGameInstance) {
+                try {
+                    let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                    let jsonEnvir = {
+                        "language": navigator.language.substring(0, 2) || "en",
+                        "domain": "com",
+                        "deviceType": isMobile ? "mobile" : "desktop",
+                        "isMobile": isMobile,
+                        "isDesktop": !isMobile,
+                        "isTablet": false,
+                        "isTV": false,
+                        "appID": "0",
+                        "browserLang": navigator.language || "en",
+                        "payload": "",
+                        "promptCanShow": false,
+                        "reviewCanShow": false
+                    };
+                    myGameInstance.SendMessage('YandexGame', 'SetEnvironmentData', JSON.stringify(jsonEnvir));
+                } catch (e) {
+                    console.log('RequestingEnvironmentData error (safe to ignore):', e.message);
+                }
+            }
+        }, 10);
+    }
+
+    function Review() {
+        console.log('Review called - SDK disabled');
+        setTimeout(() => {
+            if (myGameInstance) {
+                try {
+                    myGameInstance.SendMessage('YandexGame', 'ReviewSent', 'false');
+                } catch (e) {
+                    console.log('Review error (safe to ignore):', e.message);
+                }
+            }
+            window.focus();
+        }, 10);
+    }
+
+    function PromptShow() {
+        console.log('PromptShow called - SDK disabled');
+        setTimeout(() => {
+            if (myGameInstance) {
+                try {
+                    myGameInstance.SendMessage('YandexGame', 'OnPromptFail');
+                } catch (e) {
+                    console.log('PromptShow error (safe to ignore):', e.message);
+                }
+            }
+            window.focus();
+        }, 10);
+    }
+
+    function PaintRBT(rbt) {
+        console.log('PaintRBT called - SDK disabled');
+        // Do nothing
+    }
+
+    function StaticRBTDeactivate() {
+        console.log('StaticRBTDeactivate called - SDK disabled');
+        // Do nothing
+    }
+
+    // ===== ADDITIONAL SAFETY: Global error handler =====
+    window.onerror = function(message, source, lineno, colno, error) {
+        console.error('Global error caught:', message);
+        // Don't let errors crash the game
+        return true;
+    };
+
+    window.onunhandledrejection = function(event) {
+        console.error('Unhandled promise rejection:', event.reason);
+        // Don't let promise rejections crash the game
+        event.preventDefault();
+    };
+</script>
+
+
+
+
+</body></html>

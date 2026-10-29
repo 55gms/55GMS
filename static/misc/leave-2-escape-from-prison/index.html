@@ -1,0 +1,685 @@
+<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Leave 2: Escape from prison","engine":"unity","files":[["/misc/leave-2-escape-from-prison/_ext/cdn.jsdelivr.net/gh/tsubasamasa/64x74%4037f1557/Build/bildYG.data.gz",6531960],["/misc/leave-2-escape-from-prison/_ext/cdn.jsdelivr.net/gh/tsubasamasa/64x74%4037f1557/Build/bildYG.framework.js",390457],["/misc/leave-2-escape-from-prison/_ext/cdn.jsdelivr.net/gh/tsubasamasa/64x74%4037f1557/Build/bildYG.loader.js",20672],["/misc/leave-2-escape-from-prison/_ext/cdn.jsdelivr.net/gh/tsubasamasa/64x74%4037f1557/Build/bildYG.wasm.gz.part0",8388608],["/misc/leave-2-escape-from-prison/_ext/cdn.jsdelivr.net/gh/tsubasamasa/64x74%4037f1557/Build/bildYG.wasm.gz.part1",8388608],["/misc/leave-2-escape-from-prison/_ext/cdn.jsdelivr.net/gh/tsubasamasa/64x74%4037f1557/Build/bildYG.wasm.gz.part2",5575611]],"total":29295916,"preloads":true,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Leave 2: Escape from prison"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Leave 2: Escape from prison"></script>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="/misc/leave-2-escape-from-prison/_ext/cdn.jsdelivr.net/gh/tsubasamasa/64x74%4037f1557/style.css">
+<style>
+canvas:focus { outline: none; }
+html, body {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  height: 100%;
+  background: #000;
+}
+#unity-container { width: 100%; height: 100%; }
+#unity-canvas { width: 100%; height: 100%; display: block; }
+</style>
+<title>Leave 2: Escape from prison</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body class="dark">
+<div id="unity-container" class="unity-desktop">
+<canvas id="unity-canvas" tabindex="-1"></canvas>
+</div>
+<div id="loading-cover" style="display:none;" class="gms-legacy-loading-hooks"><div id="unity-loading-bar" class="gms-legacy-loading-hooks"><div id="unity-progress-bar-empty" style="display: none;"><div id="unity-progress-bar-full"></div></div><div class="spinner"></div></div></div>
+
+<script>
+window.GAME_FILES = {
+  LOADER:     "/misc/leave-2-escape-from-prison/_ext/cdn.jsdelivr.net/gh/tsubasamasa/64x74%4037f1557/Build/bildYG.loader.js",
+  DATA:       "/misc/leave-2-escape-from-prison/_ext/cdn.jsdelivr.net/gh/tsubasamasa/64x74%4037f1557/Build/bildYG.data.gz",
+  FRAMEWORK:  "/misc/leave-2-escape-from-prison/_ext/cdn.jsdelivr.net/gh/tsubasamasa/64x74%4037f1557/Build/bildYG.framework.js",
+  WASM_PARTS: [
+    "/misc/leave-2-escape-from-prison/_ext/cdn.jsdelivr.net/gh/tsubasamasa/64x74%4037f1557/Build/bildYG.wasm.gz.part0",
+    "/misc/leave-2-escape-from-prison/_ext/cdn.jsdelivr.net/gh/tsubasamasa/64x74%4037f1557/Build/bildYG.wasm.gz.part1",
+    "/misc/leave-2-escape-from-prison/_ext/cdn.jsdelivr.net/gh/tsubasamasa/64x74%4037f1557/Build/bildYG.wasm.gz.part2"
+  ],
+  STREAMING:  "/misc/leave-2-escape-from-prison/_ext/cdn.jsdelivr.net/gh/tsubasamasa/64x74%4037f1557/StreamingAssets",
+  BACKGROUND: "/misc/leave-2-escape-from-prison/_ext/cdn.jsdelivr.net/gh/tsubasamasa/64x74%4037f1557/background.jpg",
+  LANG: "en"
+};
+
+(function () {
+  var G = window.GAME_FILES;
+
+  function noop() {}
+  function res(v) { return Promise.resolve(v); }
+
+  function deep() {
+    var f = function () { return res(deep()); };
+    return new Proxy(f, {
+      get: function (t, p) {
+        if (p === "then" || p === "catch" || p === "finally") return undefined;
+        if (typeof p === "symbol") return undefined;
+        return deep();
+      },
+      apply: function () { return res(undefined); }
+    });
+  }
+
+  var store = {};
+  try { store = JSON.parse(localStorage.getItem("ygs_data") || "{}") || {}; } catch (e) { store = {}; }
+  function persist() { try { localStorage.setItem("ygs_data", JSON.stringify(store)); } catch (e) {} }
+
+  var playerObj = {
+    getData: function (keys) {
+      if (!keys || !keys.length) return res(store);
+      var o = {};
+      for (var i = 0; i < keys.length; i++) if (store[keys[i]] !== undefined) o[keys[i]] = store[keys[i]];
+      return res(o);
+    },
+    setData: function (d) { for (var k in d) store[k] = d[k]; persist(); return res(true); },
+    getStats: function () { return res({}); },
+    setStats: function () { return res(true); },
+    incrementStats: function () { return res({}); },
+    getName: function () { return "Player"; },
+    getPhoto: function () { return ""; },
+    getUniqueID: function () { return "local-player"; },
+    getMode: function () { return "lite"; },
+    getPayingStatus: function () { return "unknown"; },
+    signature: "",
+    scopePermissions: { avatar: "not_set", public_name: "not_set" }
+  };
+
+  var lbObj = {
+    setLeaderboardScore: function () { return res(true); },
+    getLeaderboardDescription: function (n) {
+      return res({
+        appID: "0", default: true, title: { en: n },
+        description: { invert_sort_order: false, score_format: { options: { decimal_offset: 0 } }, type: "numeric" }
+      });
+    },
+    getLeaderboardEntries: function () { return res({ leaderboard: {}, ranges: [], userRank: 0, entries: [] }); },
+    getLeaderboardPlayerEntry: function () { return Promise.reject(new Error("no entry")); }
+  };
+
+  var base = {
+    environment: {
+      app: { id: "0" },
+      browser: { lang: G.LANG },
+      i18n: { lang: G.LANG, tld: "com" },
+      payload: null
+    },
+    deviceInfo: {
+      type: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? "mobile" : "desktop",
+      isMobile: function () { return /iPhone|iPod|Android/i.test(navigator.userAgent); },
+      isDesktop: function () { return !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent); },
+      isTablet: function () { return /iPad/i.test(navigator.userAgent); },
+      isTV: function () { return false; }
+    },
+    adv: {
+      showFullscreenAdv: function (o) {
+        var c = (o && o.callbacks) || {};
+        setTimeout(function () { try { c.onClose && c.onClose(false); } catch (e) {} }, 0);
+      },
+      showRewardedVideo: function (o) {
+        var c = (o && o.callbacks) || {};
+        setTimeout(function () {
+          try { c.onOpen && c.onOpen(); } catch (e) {}
+          try { c.onRewarded && c.onRewarded(); } catch (e) {}
+          try { c.onClose && c.onClose(); } catch (e) {}
+        }, 0);
+      },
+      showBannerAdv: function () { return res({ stickyAdvIsShowing: false, reason: "adv_is_not_connected" }); },
+      hideBannerAdv: function () { return res({ stickyAdvIsShowing: false }); },
+      getBannerAdvStatus: function () { return res({ stickyAdvIsShowing: false, reason: "adv_is_not_connected" }); }
+    },
+    features: {
+      LoadingAPI: { ready: noop },
+      GameplayAPI: { start: noop, stop: noop },
+      GamesAPI: { getAllGames: function () { return res({ games: [], developerURL: "" }); } }
+    },
+    getPlayer: function () { return res(playerObj); },
+    getLeaderboards: function () { return res(lbObj); },
+    getPayments: function () { return Promise.reject(new Error("payments unavailable")); },
+    getStorage: function () { return res(window.localStorage); },
+    getFlags: function () { return res({}); },
+    feedback: {
+      canReview: function () { return res({ value: false, reason: "NO_AUTH" }); },
+      requestReview: function () { return res({ feedbackSent: false }); }
+    },
+    shortcut: {
+      canShowPrompt: function () { return res({ canShow: false }); },
+      showPrompt: function () { return res({ outcome: "dismissed" }); }
+    },
+    screen: {
+      fullscreen: {
+        status: "off",
+        request: function () { return res(true); },
+        exit: function () { return res(true); }
+      }
+    },
+    auth: { openAuthDialog: function () { return Promise.reject(new Error("no auth")); } },
+    isAvailableMethod: function () { return res(false); },
+    dispatchEvent: function () { return res(true); },
+    on: function () { return noop; },
+    EVENT_HISTORY_BACK: "HISTORY_BACK",
+    EVENT_GAME_API_PAUSE: "GAME_API_PAUSE",
+    EVENT_GAME_API_RESUME: "GAME_API_RESUME"
+  };
+
+  var proxied = new Proxy(base, {
+    get: function (t, p) {
+      if (p === "then" || p === "catch" || p === "finally") return undefined;
+      if (p in t) return t[p];
+      if (typeof p === "symbol") return undefined;
+      return deep();
+    }
+  });
+
+  window.YaGames = { init: function () { return res(proxied); } };
+  window.ysdk = null;
+
+  try {
+    var rpl = Element.prototype.requestPointerLock;
+    Element.prototype.requestPointerLock = function () {
+      try { var r = rpl.apply(this, arguments); if (r && r.catch) r.catch(function () {}); return r; } catch (e) {}
+    };
+    var rfs = Element.prototype.requestFullscreen;
+    if (rfs) {
+      Element.prototype.requestFullscreen = function () {
+        try { var r = rfs.apply(this, arguments); if (r && r.catch) r.catch(function () {}); return r; }
+        catch (e) { return res(); }
+      };
+    }
+  } catch (e) {}
+
+  window.addEventListener("error", function (ev) {
+    var m = ev && ev.message ? String(ev.message) : "";
+    if (m.indexOf("pointer lock") !== -1 || m.indexOf("Fullscreen") !== -1 || m.indexOf("SecurityError") !== -1) {
+      ev.preventDefault();
+    }
+  }, true);
+})();
+</script>
+
+<script>
+(function () {
+  var G = window.GAME_FILES;
+
+  var container = document.querySelector("#unity-container");
+  var canvas = document.querySelector("#unity-canvas");
+  var loadingCover = document.querySelector("#loading-cover");
+  var progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+  var progressBarFull = document.querySelector("#unity-progress-bar-full");
+  var spinner = document.querySelector(".spinner");
+
+  if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) container.className = "unity-mobile";
+  canvas.style.background = "url('" + G.BACKGROUND + "') center / cover";
+  loadingCover.style.display = "";
+
+  document.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+
+  window.FocusGame = function () { try { window.focus(); canvas.focus(); } catch (e) {} };
+  window.addEventListener("pointerdown", function () { window.FocusGame(); });
+  window.addEventListener("touchstart", function () { window.FocusGame(); });
+
+  function Gunzip(bytes) {
+    if (!(bytes.length > 2 && bytes[0] === 0x1f && bytes[1] === 0x8b)) return Promise.resolve(bytes);
+    if (typeof DecompressionStream === "undefined") return Promise.resolve(bytes);
+    try {
+      var stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
+      return new Response(stream).arrayBuffer().then(function (buf) {
+        var out = new Uint8Array(buf);
+        return out.length ? out : bytes;
+      }).catch(function () { return bytes; });
+    } catch (e) { return Promise.resolve(bytes); }
+  }
+
+  function FetchBytes(url) {
+    return fetch(url, { cache: "force-cache" }).then(function (r) {
+      if (!r.ok) throw new Error(url + " -> " + r.status);
+      return r.arrayBuffer();
+    }).then(function (b) { return new Uint8Array(b); });
+  }
+
+  function FetchSingle(url) {
+    return FetchBytes(url).then(Gunzip).then(function (u8) {
+      return URL.createObjectURL(new Blob([u8], { type: "application/octet-stream" }));
+    });
+  }
+
+  function FetchParts(urls) {
+    var jobs = [];
+    for (var i = 0; i < urls.length; i++) jobs.push(FetchBytes(urls[i]));
+    return Promise.all(jobs).then(function (chunks) {
+      var total = 0, i;
+      for (i = 0; i < chunks.length; i++) total += chunks[i].length;
+      var merged = new Uint8Array(total), off = 0;
+      for (i = 0; i < chunks.length; i++) { merged.set(chunks[i], off); off += chunks[i].length; }
+      return Gunzip(merged);
+    }).then(function (u8) {
+      return URL.createObjectURL(new Blob([u8], { type: "application/octet-stream" }));
+    });
+  }
+
+  var config = null;
+  var loaderReady = false;
+  var filesReady = false;
+  var started = false;
+
+  window.myGameInstance = null;
+  window.player = null;
+  window.leaderboard = null;
+  window.payments = null;
+  window.initGame = false;
+  window.nowFullAdOpen = false;
+
+  function StartUnityInstance() {
+    if (started || !loaderReady || !filesReady || !config) return;
+    if (typeof createUnityInstance !== "function") return;
+    started = true;
+    createUnityInstance(canvas, config, function (progress) {
+      if (spinner) spinner.style.display = "none";
+      if (progressBarEmpty) progressBarEmpty.style.display = "";
+      if (progressBarFull) progressBarFull.style.width = (100 * progress) + "%";
+    }).then(function (unityInstance) {
+      window.myGameInstance = unityInstance;
+      loadingCover.style.display = "none";
+    }).catch(function (message) {
+      console.error(message);
+    });
+  }
+  window.StartUnityInstance = StartUnityInstance;
+  window.StartUnityInstance_IfUnloaded = StartUnityInstance;
+
+  Promise.all([
+    FetchSingle(G.DATA),
+    FetchSingle(G.FRAMEWORK),
+    FetchParts(G.WASM_PARTS)
+  ]).then(function (u) {
+    config = {
+      dataUrl: u[0],
+      frameworkUrl: u[1],
+      codeUrl: u[2],
+      streamingAssetsUrl: G.STREAMING,
+      companyName: "DefaultCompany",
+      productName: "My project 48",
+      productVersion: "0.1"
+    };
+    filesReady = true;
+    StartUnityInstance();
+  }).catch(function (e) {
+    console.error("asset load failed", e);
+  });
+
+  var script = document.createElement("script");
+  script.src = G.LOADER;
+  script.onload = function () { loaderReady = true; StartUnityInstance(); };
+  script.onerror = function () { console.error("loader failed"); };
+
+  var ysdkReady = false;
+
+  function Boot() {
+    InitYSDK();
+    document.body.appendChild(script);
+  }
+
+  function InitYSDK() {
+    try {
+      window.YaGames.init().then(function (sdk) {
+        window.ysdk = sdk;
+        InitPayments();
+        FullAdShow();
+        LoadCloud().then(function (v) { window.cloudSaves = v; });
+        RequestingEnvironmentData().then(function (v) { window.environmentData = v; });
+        InitPlayer().then(function (v) { window.playerData = v; });
+        ysdkReady = true;
+      }).catch(function (e) { console.error("sdk init", e); ysdkReady = true; });
+    } catch (e) { ysdkReady = true; }
+  }
+
+  window.InitGame = function () {
+    window.initGame = true;
+    if (window.nowFullAdOpen === true && window.myGameInstance != null) {
+      window.myGameInstance.SendMessage("YandexGame", "OpenFullAd");
+    }
+  };
+
+  window.FullAdShow = function FullAdShow() {
+    try {
+      if (window.nowFullAdOpen !== true && window.ysdk !== null) {
+        window.ysdk.adv.showFullscreenAdv({
+          callbacks: {
+            onOpen: function () {
+              window.nowFullAdOpen = true;
+              if (window.initGame === true) window.myGameInstance.SendMessage("YandexGame", "OpenFullAd");
+            },
+            onClose: function (wasShown) {
+              window.nowFullAdOpen = false;
+              if (window.initGame === true) {
+                window.myGameInstance.SendMessage("YandexGame", "CloseFullAd", wasShown ? "true" : "false");
+              }
+              window.FocusGame();
+            },
+            onError: function () {
+              if (window.initGame === true) window.myGameInstance.SendMessage("YandexGame", "ErrorFullAd");
+              window.FocusGame();
+            }
+          }
+        });
+      }
+    } catch (e) {}
+  };
+  var FullAdShow = window.FullAdShow;
+
+  window.RewardedShow = function (id) {
+    try {
+      window.ysdk.adv.showRewardedVideo({
+        callbacks: {
+          onOpen: function () { window.myGameInstance.SendMessage("YandexGame", "OpenVideo"); },
+          onClose: function () { window.myGameInstance.SendMessage("YandexGame", "CloseVideo"); window.FocusGame(); },
+          onRewarded: function () { window.myGameInstance.SendMessage("YandexGame", "RewardVideo", id); },
+          onError: function () { window.myGameInstance.SendMessage("YandexGame", "ErrorVideo"); }
+        }
+      });
+    } catch (e) {}
+  };
+
+  window.StickyAdActivity = function (show) {
+    try {
+      window.ysdk.adv.getBannerAdvStatus().then(function (s) {
+        if (s.stickyAdvIsShowing) { if (!show) window.ysdk.adv.hideBannerAdv(); }
+        else if (show) window.ysdk.adv.showBannerAdv();
+      });
+    } catch (e) {}
+  };
+
+  window.InitPayments = function InitPayments() {
+    try {
+      window.ysdk.getPayments().then(function (p) { window.payments = p; }).catch(function () {});
+    } catch (e) {}
+  };
+  var InitPayments = window.InitPayments;
+
+  window.BuyPayments = function (id) {
+    try {
+      if (window.payments != null) {
+        window.payments.purchase(id).then(function () {
+          window.ConsumePurchase(id);
+          window.FocusGame();
+        }).catch(function () {
+          window.myGameInstance.SendMessage("YandexGame", "OnPurchaseFailed", id);
+          window.FocusGame();
+        });
+      } else {
+        window.myGameInstance.SendMessage("YandexGame", "OnPurchaseFailed", id);
+      }
+    } catch (e) { window.FocusGame(); }
+  };
+
+  window.GetPayments = function () {
+    try {
+      if (window.payments == null) {
+        window.myGameInstance.SendMessage("YandexGame", "PaymentsEntries", JSON.stringify({
+          id: [], title: [], description: [], imageURI: [], priceValue: [], consumed: []
+        }));
+        return;
+      }
+      window.payments.getCatalog().then(function (products) {
+        window.payments.getPurchases().then(function (purchases) {
+          var productID = [], title = [], description = [], imageURI = [], priceValue = [], consumed = [];
+          for (var i = 0; i < products.length; i++) {
+            productID[i] = products[i].id;
+            title[i] = products[i].title;
+            description[i] = products[i].description;
+            imageURI[i] = products[i].imageURI;
+            priceValue[i] = products[i].priceValue;
+            consumed[i] = true;
+            for (var j = 0; j < purchases.length; j++) {
+              if (purchases[j].productID === productID[i]) { consumed[i] = false; break; }
+            }
+          }
+          window.myGameInstance.SendMessage("YandexGame", "PaymentsEntries", JSON.stringify({
+            id: productID, title: title, description: description,
+            imageURI: imageURI, priceValue: priceValue, consumed: consumed
+          }));
+        });
+      });
+    } catch (e) {}
+  };
+
+  window.ConsumePurchase = function (id) {
+    try {
+      if (window.payments == null) return;
+      window.payments.getPurchases().then(function (purchases) {
+        for (var i = 0; i < purchases.length; i++) {
+          if (purchases[i].productID === id) {
+            window.payments.consumePurchase(purchases[i].purchaseToken);
+            window.myGameInstance.SendMessage("YandexGame", "OnPurchaseSuccess", id);
+          }
+        }
+      });
+    } catch (e) {}
+  };
+
+  window.ConsumePurchases = function () {
+    try {
+      if (window.payments == null) return;
+      window.payments.getPurchases().then(function (purchases) {
+        for (var i = 0; i < purchases.length; i++) {
+          window.payments.consumePurchase(purchases[i].purchaseToken);
+          window.myGameInstance.SendMessage("YandexGame", "OnPurchaseSuccess", purchases[i].productID);
+        }
+      });
+    } catch (e) {}
+  };
+
+  window.InitLeaderboard = function () {
+    try {
+      window.ysdk.getLeaderboards().then(function (lb) {
+        window.leaderboard = lb;
+        window.myGameInstance.SendMessage("YandexGame", "InitializedLB");
+      });
+    } catch (e) {}
+  };
+
+  window.SetLeaderboardScores = function (_name, score) {
+    try {
+      window.ysdk.getLeaderboards().then(function (lb) { lb.setLeaderboardScore(_name, score); });
+    } catch (e) {}
+  };
+
+  window.GetLeaderboardScores = function (nameLB, maxPlayers, quantityTop, quantityAround, photoSize, auth) {
+    try {
+      var jsonEntries = { technoName: "", isDefault: false, isInvertSortOrder: false, decimalOffset: 0, type: "" };
+      window.ysdk.getLeaderboards()
+        .then(function (lb) {
+          return lb.getLeaderboardDescription(nameLB).then(function (r) {
+            jsonEntries.technoName = nameLB;
+            jsonEntries.isDefault = r.default;
+            jsonEntries.isInvertSortOrder = r.description.invert_sort_order;
+            jsonEntries.decimalOffset = r.description.score_format.options.decimal_offset;
+            jsonEntries.type = r.description.type;
+            return lb.getLeaderboardEntries(nameLB, {
+              quantityTop: quantityTop, includeUser: auth, quantityAround: quantityAround
+            });
+          });
+        })
+        .then(function (r) {
+          var jsonPlayers = window.EntriesLB(r, maxPlayers, photoSize);
+          var combined = {};
+          var k;
+          for (k in jsonEntries) combined[k] = jsonEntries[k];
+          for (k in jsonPlayers) combined[k] = jsonPlayers[k];
+          window.myGameInstance.SendMessage("YandexGame", "LeaderboardEntries", JSON.stringify(combined));
+        })
+        .catch(function () {});
+    } catch (e) {}
+  };
+
+  window.EntriesLB = function (res2, maxPlayers, photoSize) {
+    var text = "";
+    var count = res2.entries.length < maxPlayers ? res2.entries.length : maxPlayers;
+    var ranks = new Array(count), photos = new Array(count), names = new Array(count);
+    var scores = new Array(count), uniqueIDs = new Array(count);
+
+    for (var i = 0; i < count; i++) {
+      ranks[i] = res2.entries[i].rank;
+      scores[i] = res2.entries[i].score;
+      uniqueIDs[i] = res2.entries[i].player.uniqueID;
+
+      if (photoSize === "nonePhoto" || res2.entries[i].player.scopePermissions.avatar !== "allow") photos[i] = "nonePhoto";
+      else photos[i] = res2.entries[i].player.getAvatarSrc(photoSize);
+
+      if (res2.entries[i].player.scopePermissions.public_name !== "allow") names[i] = "anonymous";
+      else names[i] = res2.entries[i].player.publicName;
+
+      text += ranks[i] + ". " + names[i] + ": " + scores[i] + "\n";
+    }
+    if (count === 0) text = "no data";
+
+    return { entries: text, ranks: ranks, photos: photos, names: names, scores: scores, uniqueIDs: uniqueIDs };
+  };
+
+  window.Review = function () {
+    try {
+      window.ysdk.feedback.canReview().then(function (r) {
+        if (r.value) {
+          window.ysdk.feedback.requestReview().then(function (x) {
+            window.myGameInstance.SendMessage("YandexGame", "ReviewSent", x.feedbackSent ? "true" : "false");
+            window.FocusGame();
+          });
+        } else window.FocusGame();
+      });
+    } catch (e) { window.FocusGame(); }
+  };
+
+  window.PromptShow = function () {
+    try {
+      window.ysdk.shortcut.showPrompt().then(function (r) {
+        window.myGameInstance.SendMessage("YandexGame", r.outcome === "accepted" ? "OnPromptSuccess" : "OnPromptFail");
+        window.FocusGame();
+      });
+    } catch (e) { window.FocusGame(); }
+  };
+
+  window.PaintRBT = function (rbt) {
+    try { document.getElementById(rbt).style.background = "#ff0000"; } catch (e) {}
+  };
+
+  window.StaticRBTDeactivate = function () {};
+
+  window.cloudSaves = "noData";
+
+  window.SaveCloud = function (jsonData, flush) {
+    if (window.player == null) return;
+    try { window.player.setData({ saves: [jsonData] }, flush); } catch (e) {}
+  };
+
+  window.LoadCloud = function LoadCloud(sendback) {
+    return new Promise(function (resolve) {
+      function fail() {
+        if (sendback && window.myGameInstance) window.myGameInstance.SendMessage("YandexGame", "SetLoadSaves", "noData");
+        resolve("noData");
+      }
+      if (window.ysdk == null) return fail();
+      try {
+        window.ysdk.getPlayer({ scopes: false }).then(function (p) {
+          p.getData(["saves"]).then(function (data) {
+            if (data && data.saves) {
+              var s = JSON.stringify(data.saves);
+              if (sendback && window.myGameInstance) window.myGameInstance.SendMessage("YandexGame", "SetLoadSaves", s);
+              resolve(s);
+            } else fail();
+          }).catch(fail);
+        }).catch(fail);
+      } catch (e) { fail(); }
+    });
+  };
+  var LoadCloud = window.LoadCloud;
+
+  window.environmentData = "null";
+
+  window.RequestingEnvironmentData = function RequestingEnvironmentData(sendback) {
+    return new Promise(function (resolve) {
+      if (window.ysdk == null) { resolve(""); return; }
+      try {
+        window.ysdk.feedback.canReview().then(function (a) {
+          var reviewCanShow = !!a.value;
+          window.ysdk.shortcut.canShowPrompt().then(function (prompt) {
+            var jsonEnvir = {
+              language: window.ysdk.environment.i18n.lang,
+              domain: window.ysdk.environment.i18n.tld,
+              deviceType: window.ysdk.deviceInfo.type,
+              isMobile: window.ysdk.deviceInfo.isMobile(),
+              isDesktop: window.ysdk.deviceInfo.isDesktop(),
+              isTablet: window.ysdk.deviceInfo.isTablet(),
+              isTV: window.ysdk.deviceInfo.isTV(),
+              appID: window.ysdk.environment.app.id,
+              browserLang: window.ysdk.environment.browser.lang,
+              payload: window.ysdk.environment.payload,
+              promptCanShow: !!(prompt && prompt.canShow),
+              reviewCanShow: reviewCanShow
+            };
+            var s = JSON.stringify(jsonEnvir);
+            if (sendback && window.myGameInstance) window.myGameInstance.SendMessage("YandexGame", "SetEnvirData", s);
+            resolve(s);
+          });
+        });
+      } catch (e) { resolve(""); }
+    });
+  };
+  var RequestingEnvironmentData = window.RequestingEnvironmentData;
+
+  window.playerData = "noData";
+
+  window.NotAuthorized = function () {
+    return JSON.stringify({
+      playerAuth: "rejected",
+      playerName: "unauthorized",
+      playerId: "unauthorized",
+      playerPhoto: "null"
+    });
+  };
+
+  window.InitPlayer = function InitPlayer(sendback) {
+    return new Promise(function (resolve) {
+      function fail() {
+        var s = window.NotAuthorized();
+        if (sendback && window.myGameInstance) window.myGameInstance.SendMessage("YandexGame", "SetInitializationSDK", s);
+        resolve(s);
+      }
+      try {
+        if (window.ysdk == null) return fail();
+        window.ysdk.getPlayer({ scopes: true }).then(function (p) {
+          window.player = p;
+          if (p.getMode() === "lite") return fail();
+          var s = JSON.stringify({
+            playerAuth: "resolved",
+            playerName: p.getName(),
+            playerId: p.getUniqueID(),
+            playerPhoto: p.getPhoto("small")
+          });
+          if (sendback && window.myGameInstance) window.myGameInstance.SendMessage("YandexGame", "SetInitializationSDK", s);
+          resolve(s);
+        }).catch(fail);
+      } catch (e) { fail(); }
+    });
+  };
+  var InitPlayer = window.InitPlayer;
+
+  window.OpenAuthDialog = function () {
+    if (window.ysdk == null) return;
+    try {
+      window.ysdk.auth.openAuthDialog().then(function () {
+        window.InitPlayer(true).then(function () {
+          window.myGameInstance.SendMessage("YandexGame", "GetDataInvoke");
+        });
+      }).catch(function () {});
+    } catch (e) {}
+  };
+
+  Boot();
+})();
+</script>
+
+
+
+
+</body></html>

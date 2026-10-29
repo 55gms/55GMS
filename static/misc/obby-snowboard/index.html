@@ -1,0 +1,445 @@
+<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Obby Snowboard","engine":"unity","files":[["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.data_part1.unityweb",7340032],["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.data_part2.unityweb",7340032],["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.data_part3.unityweb",6698728],["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.framework.js.unityweb",72064],["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.loader.js",106810],["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.wasm.unityweb",8797591]],"total":30355257,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Obby Snowboard"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Obby Snowboard"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/style.css">
+
+<style>
+        /* Убираем выделение по нажатию клавиш */
+        canvas:focus {
+            outline: none;
+        }
+
+        html, body {
+            /* Убираем отступы */
+            padding: 0;
+            margin: 0;
+            /* Отключаем скролл и лонгтап на IOS */
+            overflow: hidden;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            /* Ставим высоту на 100% */
+            height: 100%;
+        }
+    </style>
+
+<title>Obby Snowboard</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body class="dark">
+<div id="unity-container" class="unity-desktop">
+<canvas id="unity-canvas" tabindex="-1"></canvas>
+</div>
+<div id="loading-cover" style="display:none;" class="gms-legacy-loading-hooks"><div id="unity-loading-bar" class="gms-legacy-loading-hooks"><div id="unity-logo"><img></div><div id="unity-progress-bar-empty" style="display: none;"><div id="unity-progress-bar-full"></div></div><div class="spinner"></div></div></div>
+
+
+<!-- Additional body modules -->
+<script>
+        const hideFullScreenButton = "";
+        const buildUrl = "/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build";
+        const loaderUrl = buildUrl + "/OSP.loader.js";
+        // Orijinal dataUrl pasif hale getirildi - bölünen partlar ile değiştirildi
+        // const config = {
+        //     dataUrl: buildUrl + "/OSP.data.unityweb",
+        //     frameworkUrl: buildUrl + "/OSP.framework.js.unityweb",
+        //     codeUrl: buildUrl + "/OSP.wasm.unityweb",
+        // streamingAssetsUrl: "StreamingAssets",
+        //     companyName: "MiniPoP_Games",
+        //     productName: "Obby Snowboard Parkour Racing",
+        //     productVersion: "1.2.5"
+        // };
+        const config = {
+            // dataUrl buraya dinamik olarak atanacak
+            frameworkUrl: buildUrl + "/OSP.framework.js.unityweb",
+            codeUrl: buildUrl + "/OSP.wasm.unityweb",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "MiniPoP_Games",
+            productName: "Obby Snowboard Parkour Racing",
+            productVersion: "1.2.5"
+        };
+
+        const container = document.querySelector("#unity-container");
+        const canvas = document.querySelector("#unity-canvas");
+        const loadingCover = document.querySelector("#loading-cover");
+        const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+        const progressBarFull = document.querySelector("#unity-progress-bar-full");
+        const spinner = document.querySelector('.spinner');
+
+        const canFullscreen = (function () {
+            for (const key of [
+                'exitFullscreen',
+                'webkitExitFullscreen',
+                'webkitCancelFullScreen',
+                'mozCancelFullScreen',
+                'msExitFullscreen',
+            ]) {
+                if (key in document) {
+                    return true;
+                }
+            }
+            return false;
+        }());
+
+        // HATA: Bu kısım mobil cihazlarda container.className'i "unity-mobile" yapıyordu, bu da Unity'nin mobil kontrolleri (tuşlar) göstermesine neden oluyordu.
+        // ÇÖZÜM: Bu if bloğunu kaldırdık veya yorum satırına aldık, böylece her zaman "unity-desktop" kalıyor ve desktop modu zorlanıyor.
+        // if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        //     container.className = "unity-mobile";
+        // }
+
+        // Фоновое изображение при загрузке игры. При сборке билда код меняется взависимости от настроек проекта.
+        
+        loadingCover.style.background = "url('/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/background.png') center / cover";
+
+        loadingCover.style.display = "";
+
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        function FocusGame() {
+            window.focus();
+            canvas.focus();
+        }
+
+        window.addEventListener('pointerdown', FocusGame);
+        window.addEventListener('touchstart', FocusGame);
+
+        let StartUnityInstance;
+        let myGameInstance;
+        let ysdk = null; // Yandex SDK pasif
+
+        // 
+        let environmentData = {
+            language: "en",
+            domain: "default_domain",
+            deviceType: "desktop",
+            isMobile: false,
+            isDesktop: true,
+            isTablet: false,
+            isTV: false,
+            appID: "default_app_id",
+            browserLang: navigator.language || "en",
+            payload: null,
+            promptCanShow: false,
+            reviewCanShow: false,
+            platform: navigator.platform,
+            browser: (function() {
+                let userAgent = navigator.userAgent;
+                if (userAgent.includes("YaBrowser")) return "Yandex";
+                if (userAgent.includes("OPR") || userAgent.includes("Opera")) return "Opera";
+                if (userAgent.includes("Firefox")) return "Firefox";
+                if (userAgent.includes("MSIE") || userAgent.includes("Trident")) return "IE";
+                if (userAgent.includes("Edge")) return "Edge";
+                if (userAgent.includes("Chrome")) return "Chrome";
+                if (userAgent.includes("Safari")) return "Safari";
+                return "Other";
+            })()
+        };
+        
+        let cloudSaves = 'noData';
+        let paymentsData = 'none';
+        let playerData = 'noData'; // Varsayılan playerData tanımı
+        let player = null;
+        let payments = null;
+        let initGame = false;
+        let nowFullAdOpen = false;
+
+        // 
+        function GetPayments() { console.warn("GetPayments is not implemented"); return Promise.resolve("none"); }
+        function SaveCloud() { console.warn("SaveCloud is not implemented"); }
+        function LoadCloud() { console.warn("LoadCloud is not implemented"); return Promise.resolve("noData"); }
+        function InitPlayer() { console.warn("InitPlayer is not implemented"); return Promise.resolve("noData"); }
+
+
+        function FullAdShow() {
+    try {
+        // Prevent multiple fullscreen ads from opening simultaneously
+        if (!nowFullAdOpen) {
+            nowFullAdOpen = true;
+
+            // If the game is initialized, notify Unity to open the fullscreen ad
+            if (initGame) {
+                myGameInstance.SendMessage("YandexGame", "OpenFullAd");
+            }
+
+            // Simulate ad duration (500ms) and then close it
+            setTimeout(() => {
+                nowFullAdOpen = false;
+                if (initGame) {
+                    myGameInstance.SendMessage("YandexGame", "CloseFullAd", "true");
+                }
+                FocusGame(); // Refocus the game after ad closes
+            }, 500);
+        }
+    } catch (error) {
+        // Silently handle any errors
+    }
+}
+
+
+function RewardedShow(rewardId) {
+    try {
+        // Notify Unity to open the rewarded video with the given reward ID
+        myGameInstance.SendMessage("YandexGame", "RewardVideo", rewardId);
+
+        // After the ad, close it and refocus the game
+        function closeRewardedAd() {
+            myGameInstance.SendMessage("YandexGame", "CloseRewardVideo");
+            FocusGame();
+        }
+        closeRewardedAd(); // Immediate closure for simplicity; in practice, this might be delayed or conditional
+    } catch (error) {
+        // Silently handle any errors
+    }
+}
+
+
+
+        function StickyAdActivity() { console.warn("StickyAdActivity is not implemented"); }
+        function Review() { console.warn("Review is not implemented"); }
+        function PromptShow() { console.warn("PromptShow is not implemented"); }
+        function InitLeaderboards() { console.warn("InitLeaderboards is not implemented"); }
+        function GetLeaderboardScores() { console.warn("GetLeaderboardScores is not implemented"); }
+        function SetLeaderboardScores() { console.warn("SetLeaderboardScores is not implemented"); }
+        function ConsumePurchase() { console.warn("ConsumePurchase is not implemented"); }
+        function ConsumePurchases() { console.warn("ConsumePurchases is not implemented"); } // 
+
+        // 
+        try {
+            const script = document.createElement("script");
+            script.src = loaderUrl;
+            script.onload = async () => {
+                // Bölünen part'ları yükle ve birleştir (toplam 3 part varsayılarak, PowerShell çıktısına göre ayarlayın)
+                const partCount = 3; // PowerShell'den hesaplanan parça sayısını buraya yazın
+                const parts = [];
+                for (let i = 1; i <= partCount; i++) {
+                    const partUrl = buildUrl + `/OSP.data_part${i}.unityweb`;
+                    try {
+                        const response = await fetch(partUrl);
+                        if (!response.ok) {
+                            throw new Error(`Part ${i} yüklenemedi: ${response.statusText}`);
+                        }
+                        const arrayBuffer = await response.arrayBuffer();
+                        parts.push(arrayBuffer);
+                        console.log(`Part ${i} yüklendi: ${arrayBuffer.byteLength} byte`);
+                    } catch (error) {
+                        console.error(error);
+                        alert(`Hata: ${error.message}`);
+                        return;
+                    }
+                }
+
+                // ArrayBuffer'ları birleştir
+                let totalLength = 0;
+                for (let ab of parts) {
+                    totalLength += ab.byteLength;
+                }
+                const merged = new Uint8Array(totalLength);
+                let offset = 0;
+                for (let ab of parts) {
+                    merged.set(new Uint8Array(ab), offset);
+                    offset += ab.byteLength;
+                }
+
+                // Blob oluştur ve URL üret
+                const blob = new Blob([merged], { type: 'application/octet-stream' });
+                const dataUrl = URL.createObjectURL(blob);
+                config.dataUrl = dataUrl;
+
+                console.log(`Birleştirme tamamlandı. Toplam boyut: ${totalLength} byte`);
+
+                StartUnityInstance = function () {
+                    createUnityInstance(canvas, config, (progress) => {
+                        spinner.style.display = "none";
+                        progressBarEmpty.style.display = "";
+                        progressBarFull.style.width = `${100 * progress}%`;
+                    }).then((unityInstance) => {
+                        myGameInstance = unityInstance;
+                        loadingCover.style.display = "none";
+                    }).catch((message) => {
+                        console.error("Unity yükleme hatası:", message);
+                    });
+                };
+                StartUnityInstance();
+            };
+            document.body.appendChild(script);
+        } catch (error) {
+            console.error("Başlatma sırasında hata:", error);
+        }
+
+        function InitGame() {
+            try {
+                console.log('Init Game Success');
+                initGame = true;
+                if (nowFullAdOpen === true && myGameInstance != null) {
+                    myGameInstance.SendMessage('YandexGame', 'OpenFullAd');
+                }
+            } catch (error) {
+                console.error("InitGame sırasında hata:", error);
+            }
+        }
+
+        // 
+        window.addEventListener("unhandledrejection", function(event) {
+            console.warn("Hata es geçildi:", event.reason);
+            event.preventDefault();
+        });
+    </script>
+
+    <script>
+// ----------- Yandex SDK Fallback Tam Koruma -----------
+// Bu kod, Yandex SDK olmadan çalışan unblocked sürümler içindir.
+// Tüm sdk / ysdk / YandexGame / YandexSDK fonksiyonlarını sessizce yoksayar.
+
+(function() {
+  // Tüm global objeleri güvenli hale getir
+  const fakeFn = () => {};
+  const fakePromise = () => Promise.resolve({ value: false, reason: "no_sdk" });
+
+  // Yandex SDK yoksa sahte sürümler oluştur
+  window.sdk = window.sdk || {
+    getPlayer: () => Promise.resolve({
+      getMode: () => "lite",
+      getData: () => Promise.resolve({ data: "" }),
+      setData: () => Promise.resolve(),
+    }),
+    feedback: {
+      canReview: fakePromise,
+      requestReview: fakePromise
+    },
+    adv: {
+      showRewardedVideo: fakePromise,
+      showFullscreenAdv: fakePromise
+    },
+    getLeaderboards: fakePromise,
+    getPayments: fakePromise,
+  };
+
+  window.ysdk = window.ysdk || window.sdk;
+  window.YandexSDK = window.YandexSDK || {};
+  window.YandexGame = window.YandexGame || {};
+
+  // Sessiz fallback fonksiyonlar
+  window.showFullScreenAdv = window.showFullScreenAdv || fakeFn;
+  window.ShowInter = window.ShowInter || fakeFn;
+  window.ShowRewarded = window.ShowRewarded || fakeFn;
+  window.initPlayer = window.initPlayer || fakeFn;
+  window.auth = window.auth || fakeFn;
+
+  // Olası Unity mesaj hatalarını da bastır
+  window.unityInstance = window.unityInstance || {
+    SendMessage: function() { /* yok say */ }
+  };
+
+  console.log("...");
+})();
+</script>
+
+
+<!-- GOOGLE -->
+<style>
+  /* Container: Top center, fixed, with overflow hidden */
+  #ad-container {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(728px, calc(100% - 20px)); /* 728px, 10px margin on mobile */
+    height: 90px;
+    background: rgba(0, 0, 0, 0.90);
+    display: none;
+    z-index: 99999;
+    border-radius: 0; /* Sharp corners */
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+    box-sizing: border-box;
+    transition: transform 0.5s ease-in-out; /* Smooth slide-in/out animation */
+  }
+
+  /* Slide-out animation */
+  #ad-container.hidden {
+    transform: translate(-50%, -100%); /* Slide up out of view */
+  }
+
+  #ad-iframe {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 745px; /* Updated width */
+    height: 90px; /* Updated height */
+    border: 0;
+    display: block;
+    overflow: hidden;
+    pointer-events: auto;
+    box-sizing: content-box;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  #ad-iframe::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  /* Close button with arrow */
+  #close-ad {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    background: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 5px 9px;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: not-allowed;
+    opacity: 0.72;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+  }
+  #close-ad.enabled {
+    cursor: pointer;
+    opacity: 1;
+  }
+  #close-ad::before {
+    content: '↑'; /* Up arrow */
+    margin-right: 4px;
+  }
+
+  /* Right mask for scrollbar */
+  #ad-right-mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 12px;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
+    z-index: 99999;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 440px) {
+    #ad-container {
+      width: calc(100% - 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 0; /* Sharp corners on mobile */
+    }
+    #ad-iframe {
+      width: 708px;
+    }
+  }
+</style>
+
+
+
+
+
+
+
+
+
+</body></html>

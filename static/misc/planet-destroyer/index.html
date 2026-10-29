@@ -1,0 +1,533 @@
+<!DOCTYPE html><html lang="en"><head><script type="application/json" id="gms-import-config">{"title":"Planet Destroyer","engine":"unity","files":[["/misc/planet-destroyer/_ext/cdn.jsdelivr.net/gh/netclassroom/lawyer%40main/Build/13.data.part0",8388608],["/misc/planet-destroyer/_ext/cdn.jsdelivr.net/gh/netclassroom/lawyer%40main/Build/13.data.part1",8388608],["/misc/planet-destroyer/_ext/cdn.jsdelivr.net/gh/netclassroom/lawyer%40main/Build/13.data.part2",8388608],["/misc/planet-destroyer/_ext/cdn.jsdelivr.net/gh/netclassroom/lawyer%40main/Build/13.data.part3",1073609],["/misc/planet-destroyer/_ext/cdn.jsdelivr.net/gh/netclassroom/lawyer%40main/Build/13.loader.js",26982],["/misc/planet-destroyer/_ext/cdn.jsdelivr.net/gh/netclassroom/lawyer%40main/Build/13.wasm.part0",8388608],["/misc/planet-destroyer/_ext/cdn.jsdelivr.net/gh/netclassroom/lawyer%40main/Build/13.wasm.part1",8388608],["/misc/planet-destroyer/_ext/cdn.jsdelivr.net/gh/netclassroom/lawyer%40main/Build/13.wasm.part2",8388608],["/misc/planet-destroyer/_ext/cdn.jsdelivr.net/gh/netclassroom/lawyer%40main/Build/13.wasm.part3",8388608],["/misc/planet-destroyer/_ext/cdn.jsdelivr.net/gh/netclassroom/lawyer%40main/Build/13.wasm.part4",8388608],["/misc/planet-destroyer/_ext/cdn.jsdelivr.net/gh/netclassroom/lawyer%40main/Build/13.wasm.part5",8086727],["/misc/planet-destroyer/_ext/cdn.jsdelivr.net/gh/netclassroom/lawyer%40main/Build/13.webaudio.framework.js",464335]],"total":76760517,"preloads":true,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Planet Destroyer"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Planet Destroyer"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#020611">
+<style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #020611;
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      min-width: 100%;
+      min-height: 100%;
+      margin: 0;
+      overflow: hidden;
+      overscroll-behavior: none;
+      background: #020611;
+    }
+    body {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+    }
+    #game-shell {
+      position: relative;
+      /* Unity is built for a 16:9 canvas. Keep that ratio in XML/iframe
+         environments as well; stretching to a portrait iframe clips the
+         left and right sides of the game. */
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      max-width: 100vw;
+      max-height: 100vh;
+      aspect-ratio: 16 / 9;
+    }
+    #unity-canvas,
+    #gate {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    #game-shell {
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 52% 42%, rgba(23, 75, 142, .3), transparent 34%),
+        radial-gradient(circle at 18% 20%, rgba(106, 50, 158, .18), transparent 28%),
+        #020611;
+    }
+    @supports (height: 100dvh) {
+      #game-shell {
+        width: min(100dvw, calc(100dvh * 16 / 9));
+        height: min(100dvh, calc(100dvw * 9 / 16));
+        max-width: 100dvw;
+        max-height: 100dvh;
+      }
+    }
+    #unity-canvas {
+      display: block;
+      border: 0;
+      outline: 0;
+      touch-action: none;
+      visibility: hidden;
+    }
+    #gate {
+      z-index: 10;
+      display: grid;
+      place-items: center;
+      padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
+      background:
+        radial-gradient(circle at 50% 48%, rgba(23, 87, 178, .28), transparent 30%),
+        linear-gradient(150deg, rgba(3, 9, 26, .95), rgba(0, 2, 8, .98));
+      transition: opacity .28s ease;
+    }
+    #gate[hidden] {
+      display: none;
+    }
+    .gate-panel {
+      width: min(420px, 88vw);
+      text-align: center;
+    }
+    #status {
+      min-height: 24px;
+      margin: 0 0 18px;
+      color: #dceaff;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    #progress-track {
+      height: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(120, 180, 255, .5);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, .55);
+      box-shadow: 0 0 24px rgba(36, 124, 255, .18);
+    }
+    #progress-bar {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #168cff, #71e8ff);
+      box-shadow: 0 0 14px rgba(78, 211, 255, .7);
+      transition: width .15s linear;
+    }
+    #start-button {
+      display: none;
+      width: min(280px, 74vw);
+      min-height: 64px;
+      margin: 0 auto;
+      border: 2px solid #8beaff;
+      border-radius: 18px;
+      color: #fff;
+      background: linear-gradient(145deg, #075ed0, #0e96dd);
+      box-shadow: 0 0 0 5px rgba(40, 137, 255, .16), 0 12px 38px rgba(0, 78, 190, .48);
+      font: inherit;
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    #start-button:hover {
+      filter: brightness(1.12);
+      transform: translateY(-1px);
+    }
+    #start-button:active {
+      transform: translateY(1px) scale(.99);
+    }
+    #gate.ready #status,
+    #gate.ready #progress-track {
+      display: none;
+    }
+    #gate.ready #start-button {
+      display: block;
+    }
+    #error {
+      display: none;
+      margin-top: 18px;
+      color: #ffb6b6;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    #gate.failed #progress-track,
+    #gate.failed #start-button {
+      display: none;
+    }
+    #gate.failed #error {
+      display: block;
+    }
+  </style>
+<script>
+window.GAME_CFG = {
+  CDN: "/misc/planet-destroyer/_ext/cdn.jsdelivr.net/gh/netclassroom/lawyer%40main/",
+  DATA_PARTS: 4,
+  WASM_PARTS: 6,
+  LANG: "en"
+};
+
+window.GAME_U = function (p) {
+  var base = String(window.GAME_CFG.CDN || "").replace(/\/+$/, "");
+  return base ? base + "/" + p : p;
+};
+
+(function(){
+  var LANG = window.GAME_CFG.LANG;
+  var LS="ya_player_data", LSS="ya_player_stats";
+  function rd(k,f){ try{ return JSON.parse(localStorage.getItem(k)||f); }catch(e){ return JSON.parse(f); } }
+  function wr(k,o){ try{ localStorage.setItem(k,JSON.stringify(o)); }catch(e){} }
+  var pdata=rd(LS,"{}"), pstats=rd(LSS,"{}");
+  var isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  function cb(o,n,a){ try{ if(o&&o.callbacks&&typeof o.callbacks[n]==="function") o.callbacks[n](a); }catch(e){} }
+
+  var yplayer={
+    getUniqueID:function(){ return "local-player"; },
+    getName:function(){ return "Player"; },
+    getPhoto:function(){ return ""; },
+    getMode:function(){ return "lite"; },
+    getPayingStatus:function(){ return "unknown"; },
+    getIDsPerGame:function(){ return Promise.resolve([]); },
+    getData:function(){ return Promise.resolve(JSON.parse(JSON.stringify(pdata))); },
+    setData:function(d){ pdata=Object.assign(pdata,d||{}); wr(LS,pdata); return Promise.resolve(); },
+    getStats:function(){ return Promise.resolve(JSON.parse(JSON.stringify(pstats))); },
+    setStats:function(d){ pstats=Object.assign(pstats,d||{}); wr(LSS,pstats); return Promise.resolve(); },
+    incrementStats:function(d){
+      Object.keys(d||{}).forEach(function(k){ pstats[k]=(+pstats[k]||0)+(+d[k]||0); });
+      wr(LSS,pstats); return Promise.resolve(JSON.parse(JSON.stringify(pstats)));
+    },
+    signIn:function(){ return Promise.reject(new Error("no auth")); }
+  };
+
+  var yleaderboards={
+    getLeaderboardDescription:function(n){
+      return Promise.resolve({ name:n, "default":true, title:{}, entry_style:{},
+        description:{ invert_sort_order:false, score_format:{ type:"numeric", options:{ decimal_offset:0 } }, type:"numeric" } });
+    },
+    setLeaderboardScore:function(){ return Promise.resolve(); },
+    getLeaderboardPlayerEntry:function(){ return Promise.reject(new Error("no entry")); },
+    getLeaderboardEntries:function(){ return Promise.resolve({ leaderboard:{}, ranges:[], userRank:0, entries:[] }); }
+  };
+
+  var ysdkLocal={
+    environment:{ app:{ id:"0" }, browser:{ lang:LANG }, i18n:{ lang:LANG, tld:"com" }, payload:null, isTelegram:false },
+    deviceInfo:{
+      type:isMobile?"mobile":"desktop",
+      isMobile:function(){ return isMobile; },
+      isDesktop:function(){ return !isMobile; },
+      isTablet:function(){ return false; },
+      isTV:function(){ return false; }
+    },
+    adv:{
+      showFullscreenAdv:function(o){ cb(o,"onOpen"); setTimeout(function(){ cb(o,"onClose",false); },300); },
+      showRewardedVideo:function(o){
+        cb(o,"onOpen");
+        setTimeout(function(){ cb(o,"onRewarded"); setTimeout(function(){ cb(o,"onClose"); },120); },400);
+      },
+      showBannerAdv:function(){ return Promise.resolve({ stickyAdvIsShowing:false, reason:"UNKNOWN" }); },
+      hideBannerAdv:function(){ return Promise.resolve({ stickyAdvIsShowing:false }); },
+      getBannerAdvStatus:function(){ return Promise.resolve({ stickyAdvIsShowing:false, reason:"UNKNOWN" }); }
+    },
+    features:{ LoadingAPI:{ ready:function(){} }, GameplayAPI:{ start:function(){}, stop:function(){} } },
+    screen:{
+      fullscreen:{
+        get status(){ return document.fullscreenElement ? "on" : "off"; },
+        request:function(){ try{ (document.documentElement.requestFullscreen||function(){}).call(document.documentElement); }catch(e){} return Promise.resolve(); },
+        exit:function(){ try{ if(document.exitFullscreen) document.exitFullscreen(); }catch(e){} return Promise.resolve(); }
+      }
+    },
+    feedback:{
+      canReview:function(){ return Promise.resolve({ value:false, reason:"NO_AUTH" }); },
+      requestReview:function(){ return Promise.resolve({ feedbackSent:false }); }
+    },
+    shortcut:{
+      canShowPrompt:function(){ return Promise.resolve({ canShow:false }); },
+      showPrompt:function(){ return Promise.resolve({ outcome:"rejected" }); }
+    },
+    clipboard:{ writeText:function(t){ try{ return navigator.clipboard.writeText(t); }catch(e){ return Promise.resolve(); } } },
+    auth:{ openAuthDialog:function(){ return Promise.reject(new Error("no auth")); } },
+    getPlayer:function(){ return Promise.resolve(yplayer); },
+    getLeaderboards:function(){ return Promise.resolve(yleaderboards); },
+    getPayments:function(){ return Promise.reject(new Error("payments unavailable")); },
+    getFlags:function(){ return Promise.resolve({}); },
+    getStorage:function(){ return Promise.resolve(window.localStorage); },
+    isAvailableMethod:function(){ return Promise.resolve(false); },
+    dispatchEvent:function(){ return Promise.resolve(); },
+    onEvent:function(){ return function(){}; },
+    on:function(){ return function(){}; },
+    off:function(){},
+    EVENT:{ EXIT:"EXIT", HISTORY_BACK:"HISTORY_BACK" },
+    exit:function(){ return Promise.resolve(); }
+  };
+
+  function deep(){
+    var fn=function(){ return Promise.resolve(true); };
+    return new Proxy(fn,{
+      get:function(t,p){
+        if(p==="then"||p==="catch"||p==="finally") return undefined;
+        if(p===Symbol.toPrimitive) return function(){ return 0; };
+        if(p==="toString") return function(){ return ""; };
+        return deep();
+      },
+      apply:function(){ return Promise.resolve(true); }
+    });
+  }
+  var proxied=new Proxy(ysdkLocal,{
+    get:function(t,p){
+      if(p==="then"||p==="catch"||p==="finally") return undefined;
+      if(p in t) return t[p];
+      if(typeof p==="symbol") return undefined;
+      return deep();
+    }
+  });
+
+  window.YaGames={ init:function(){ return Promise.resolve(proxied); } };
+  window.ysdk = proxied;
+  window.ysdkLang = LANG;
+})();
+document.write('<scr'+'ipt src="' + window.GAME_U("sdkgon.js") + '"><\/scr'+'ipt>');
+</script>
+<title>Planet Destroyer</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body>
+<main id="game-shell" aria-label="Game area">
+<canvas id="unity-canvas" tabindex="-1"></canvas>
+<section id="gate" aria-live="polite">
+<div class="gate-panel">
+<p id="status">Loading…</p>
+<div id="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+<div id="progress-bar"></div>
+</div>
+<button id="start-button" type="button">START</button>
+<p id="error"></p>
+</div>
+</section>
+</main>
+<script>
+(function () {
+  var CFG = window.GAME_CFG || { CDN: "", DATA_PARTS: 1, WASM_PARTS: 1, LANG: "en" };
+  var U = window.GAME_U || function (p) { return p; };
+  var LANG = CFG.LANG || "en";
+  var DATA_PARTS = CFG.DATA_PARTS;
+  var WASM_PARTS = CFG.WASM_PARTS;
+
+  var canvas = document.getElementById("unity-canvas");
+  var shell = document.getElementById("game-shell");
+  var gate = document.getElementById("gate");
+  var statusEl = document.getElementById("status");
+  var progressTrack = document.getElementById("progress-track");
+  var progressBar = document.getElementById("progress-bar");
+  var startButton = document.getElementById("start-button");
+  var errorText = document.getElementById("error");
+
+  var unityInstance = null;
+  var started = false;
+  var currentLang = LANG;
+
+  // Some XML hosts report a portrait iframe even when the Unity build is
+  // landscape. Set the shell size from the real viewport so the canvas keeps
+  // its 16:9 working area after the host resizes the frame.
+  function fitGameShell() {
+    var viewport = window.visualViewport;
+    var vw = viewport && viewport.width ? viewport.width : window.innerWidth;
+    var vh = viewport && viewport.height ? viewport.height : window.innerHeight;
+    if (!vw || !vh) return;
+    var width = Math.min(vw, vh * 16 / 9);
+    var height = width * 9 / 16;
+    shell.style.width = Math.floor(width) + "px";
+    shell.style.height = Math.floor(height) + "px";
+  }
+
+  fitGameShell();
+  window.addEventListener("resize", fitGameShell);
+  if (window.visualViewport) window.visualViewport.addEventListener("resize", fitGameShell);
+
+  var STRINGS = {
+    ru: { loading: "\u0417\u0430\u0433\u0440\u0443\u0437\u043a\u0430\u2026", start: "\u0421\u0422\u0410\u0420\u0422", error: "\u041d\u0435 \u0443\u0434\u0430\u043b\u043e\u0441\u044c \u0437\u0430\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u0438\u0433\u0440\u0443. \u041e\u0431\u043d\u043e\u0432\u0438\u0442\u0435 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0443." },
+    en: { loading: "Loading\u2026", start: "START", error: "The game could not start. Please reload the page." }
+  };
+
+  function sdkObject() {
+    try { return window.SdkGon || {}; } catch (e) { return {}; }
+  }
+
+  function sdkCall(name) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    return new Promise(function (resolve) {
+      var api, fn;
+      try { api = sdkObject(); fn = api[name]; } catch (e) { resolve(null); return; }
+      if (typeof fn !== "function") { resolve(null); return; }
+      var result;
+      try { result = fn.apply(api, args); } catch (e) { console.warn("[sdk] " + name, e); resolve(null); return; }
+      Promise.resolve(result).then(resolve, function (e) { console.warn("[sdk] " + name, e); resolve(null); });
+    });
+  }
+
+  function sdkTimed(name, ms) {
+    return Promise.race([
+      sdkCall(name),
+      new Promise(function (resolve) { setTimeout(function () { resolve(null); }, ms); })
+    ]);
+  }
+
+  function readLanguage() {
+    var api, value;
+    try { api = sdkObject(); } catch (e) { return LANG; }
+    try { if (typeof api.getLanguage === "function") value = api.getLanguage(); } catch (e) { value = null; }
+    if (!value) { try { value = api.ysdk && api.ysdk.environment && api.ysdk.environment.i18n && api.ysdk.environment.i18n.lang; } catch (e) { value = null; } }
+    return String(value || LANG);
+  }
+
+  function applyLanguage() {
+    try {
+      currentLang = readLanguage();
+      var pack = currentLang.toLowerCase().indexOf("ru") === 0 ? STRINGS.ru : STRINGS.en;
+      document.documentElement.lang = currentLang;
+      if (statusEl) statusEl.textContent = pack.loading;
+      if (startButton) startButton.textContent = pack.start;
+      if (errorText) errorText.textContent = pack.error;
+    } catch (e) {
+      console.warn("[game] language", e);
+    }
+  }
+
+  function updateProgress(value) {
+    try {
+      var percent = Math.max(0, Math.min(100, Math.round(value * 100)));
+      progressBar.style.width = percent + "%";
+      progressTrack.setAttribute("aria-valuenow", String(percent));
+    } catch (e) {}
+  }
+
+  function fail(error) {
+    console.error("[game] Startup failed", error);
+    applyLanguage();
+    gate.className = gate.className.replace(/\bready\b/g, "") + " failed";
+  }
+
+  var buildUrl = U("Build");
+  var mergedParts = 0;
+  var totalParts = DATA_PARTS + WASM_PARTS;
+
+  function mergeParts(name, count, mime) {
+    var chunks = [];
+    var total = 0;
+    var index = 0;
+
+    function next() {
+      if (index >= count) {
+        var merged = new Uint8Array(total);
+        var offset = 0;
+        for (var i = 0; i < chunks.length; i++) { merged.set(chunks[i], offset); offset += chunks[i].length; }
+        return Promise.resolve(URL.createObjectURL(new Blob([merged], { type: mime })));
+      }
+      var url = buildUrl + "/" + name + ".part" + index;
+      return fetch(url).then(function (response) {
+        if (!response.ok) throw new Error(name + ".part" + index + " " + response.status);
+        return response.arrayBuffer();
+      }).then(function (buffer) {
+        var bytes = new Uint8Array(buffer);
+        chunks.push(bytes);
+        total += bytes.length;
+        mergedParts++;
+        updateProgress((mergedParts / totalParts) * 0.4);
+        index++;
+        return next();
+      });
+    }
+    return next();
+  }
+
+  function prepareFiles() {
+    var files = {};
+    return mergeParts("13.wasm", WASM_PARTS, "application/wasm").then(function (codeUrl) {
+      files.codeUrl = codeUrl;
+      return mergeParts("13.data", DATA_PARTS, "application/octet-stream");
+    }).then(function (dataUrl) {
+      files.dataUrl = dataUrl;
+      return files;
+    });
+  }
+
+  function loadUnity(files) {
+    return new Promise(function (resolve, reject) {
+      var script = document.createElement("script");
+      script.src = buildUrl + "/13.loader.js";
+      script.onload = function () {
+        var config = {
+          dataUrl: files.dataUrl,
+          frameworkUrl: buildUrl + "/13.webaudio.framework.js",
+          codeUrl: files.codeUrl,
+          streamingAssetsUrl: U("StreamingAssets"),
+          companyName: "Game",
+          productName: "Game",
+          productVersion: "0.1.3",
+          autoSyncPersistentDataPath: true,
+          matchWebGLToCanvasSize: true,
+          devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2)
+        };
+        try {
+          createUnityInstance(canvas, config, function (p) { updateProgress(0.4 + p * 0.6); }).then(resolve, reject);
+        } catch (e) { reject(e); }
+      };
+      script.onerror = function () { reject(new Error("Unity loader is unavailable")); };
+      document.body.appendChild(script);
+    });
+  }
+
+  function boot() {
+    applyLanguage();
+    sdkTimed("init", 8000).then(function () {
+      applyLanguage();
+      return prepareFiles();
+    }).then(function (files) {
+      return loadUnity(files);
+    }).then(function (instance) {
+      unityInstance = instance;
+      try { window.unityGame = instance; } catch (e) {}
+      return sdkCall("notifyGameLoaded");
+    }).then(function () {
+      return sdkTimed("pauseAudio", 3000);
+    }).then(function () {
+      gate.className += " ready";
+      try { startButton.focus({ preventScroll: true }); } catch (e) {}
+      return sdkTimed("gameReady", 5000);
+    })["catch"](function (error) {
+      if (unityInstance) {
+        gate.className += " ready";
+        console.warn("[game] post-load step failed", error);
+      } else {
+        fail(error);
+      }
+    });
+  }
+
+  function startGame() {
+    if (started || !unityInstance) return;
+    started = true;
+    startButton.disabled = true;
+    sdkCall("markUserActivated");
+    sdkCall("gameplayStart");
+    canvas.style.visibility = "visible";
+    gate.style.opacity = "0";
+    setTimeout(function () {
+      gate.hidden = true;
+      try { canvas.focus({ preventScroll: true }); } catch (e) {}
+      window.dispatchEvent(new Event("resize"));
+    }, 280);
+  }
+
+  function block(event) { event.preventDefault(); }
+  shell.addEventListener("contextmenu", block);
+  shell.addEventListener("selectstart", block);
+  shell.addEventListener("dragstart", block);
+  startButton.addEventListener("click", startGame);
+
+  if (document.readyState === "complete") boot();
+  else window.addEventListener("load", boot);
+})();
+</script>
+
+
+
+</body></html>
