@@ -124,8 +124,21 @@
     <script>
         // --- REQUIRED GLOBALS (fix for your crash) ---
         let ysdk = null, player = null, leaderboard = null, payments = null;
-        let environmentData = "";      // Unity reads this during env init
-        let cloudSaves = "noData";
+        // Unity reads this once at startup; with none the game falls back to Russian.
+        let environmentData = JSON.stringify({
+            language: "en", domain: "com",
+            deviceType: "desktop", isMobile: false, isDesktop: true, isTablet: false, isTV: false,
+            appID: "", browserLang: navigator.language || "en", payload: "",
+            promptCanShow: false, reviewCanShow: false
+        });
+        // There is no Yandex account here, so the "cloud" save (money, unlocks)
+        // lives in this browser, in the shape the Yandex player API returns it.
+        const SAVE_KEY = "redvsbluez-saves";
+        function readSaves() {
+            try { return localStorage.getItem(SAVE_KEY) || "noData"; } catch (e) { return "noData"; }
+        }
+        let cloudSaves = readSaves();
+        let paymentsData = "none";     // read by the plugin's payments init
         let playerData = "noData";
         let flasgsData = "null";       // keep misspelling to match original expectations
 
@@ -208,20 +221,17 @@
         function GetPayments() { }
         function ConsumePurchase() { }
         function ConsumePurchases() { }
-        function SaveCloud() { }
+        function SaveCloud(jsonData) {
+            cloudSaves = JSON.stringify([jsonData]);
+            try { localStorage.setItem(SAVE_KEY, cloudSaves); } catch (e) { console.error("Save error:", e.message); }
+        }
         function LoadCloud(sendback) {
+            cloudSaves = readSaves();
             if (sendback && myGameInstance)
-                myGameInstance.SendMessage('YandexGame', 'SetLoadSaves', 'noData');
-            return Promise.resolve('noData');
+                myGameInstance.SendMessage('YandexGame', 'SetLoadSaves', cloudSaves);
+            return Promise.resolve(cloudSaves);
         }
         function RequestingEnvironmentData(sendback) {
-            const payload = {
-                language: "en", domain: "com",
-                deviceType: "desktop", isMobile: false, isDesktop: true, isTablet: false, isTV: false,
-                appID: "", browserLang: navigator.language || "en", payload: "",
-                promptCanShow: false, reviewCanShow: false
-            };
-            environmentData = JSON.stringify(payload); // <-- set the global
             if (sendback && myGameInstance)
                 myGameInstance.SendMessage('YandexGame', 'SetEnvirData', environmentData);
             return Promise.resolve(environmentData);
