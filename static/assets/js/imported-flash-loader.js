@@ -8,9 +8,7 @@
     const player = RufflePlayer.newest().createPlayer();
     document.getElementById("game").appendChild(player);
     window.gmsFlashPlayer = player;
-    await player
-      .ruffle()
-      .load({ url: config.file });
+    await player.ruffle().load({ url: config.file });
     GameLoader.finish();
     document.body.dataset.gmsReady = "true";
   } catch (error) {
