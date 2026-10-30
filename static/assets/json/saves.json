@@ -293,6 +293,13 @@
    "frame": "/misc/basketbros-io/index.html",
    "status": "observed"
   },
+  "beauty-salon": {
+   "id": "beauty-salon",
+   "name": "Beauty Salon",
+   "play": "/misc/play/?title=Beauty%20Salon&link=beauty-salon",
+   "frame": "/misc/beauty-salon/index.html",
+   "status": "observed"
+  },
   "bee-swarm-simulator": {
    "id": "bee-swarm-simulator",
    "name": "Bee Swarm Simulator",
@@ -347,6 +354,20 @@
    "play": "/misc/play/?title=Block%20Blast&author=Hungry%20Studio&link=block-blast",
    "frame": "/misc/block-blast/index.html",
    "status": "observed"
+  },
+  "blocky-snakes": {
+   "id": "blocky-snakes",
+   "name": "Blocky Snakes",
+   "play": "/misc/play/?title=Blocky%20Snakes&author=Beedo%20Games&link=blocky-snakes",
+   "frame": "/misc/blocky-snakes/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "bloxrz": {
    "id": "bloxrz",
@@ -501,6 +522,13 @@
    "frame": "/misc/brain-test/index.html",
    "status": "observed"
   },
+  "brainrot-miner": {
+   "id": "brainrot-miner",
+   "name": "Brainrot Miner",
+   "play": "/misc/play/?title=Brainrot%20Miner&link=brainrot-miner",
+   "frame": "/misc/brainrot-miner/index.html",
+   "status": "observed"
+  },
   "brawl": {
    "id": "brawl",
    "name": "Brawl Simulator 3D",
@@ -640,6 +668,13 @@
    "frame": "/misc/core-ball/index.html",
    "status": "observed"
   },
+  "count-control-legends": {
+   "id": "count-control-legends",
+   "name": "Count Control Legends",
+   "play": "/misc/play/?title=Count%20Control%20Legends&link=count-control-legends",
+   "frame": "/misc/count-control-legends/index.html",
+   "status": "observed"
+  },
   "crazy-bikes": {
    "id": "crazy-bikes",
    "name": "Crazy Bikes",
@@ -653,6 +688,20 @@
    "play": "/misc/play/?title=Crazy Cattle 3D&author=Anna Mayberry&link=crazy-cattle",
    "frame": "/misc/crazy-cattle/index.html",
    "status": "observed"
+  },
+  "crazy-roll": {
+   "id": "crazy-roll",
+   "name": "Crazy Roll",
+   "play": "/misc/play/?title=Crazy%20Roll&author=Unknown%20developer&link=crazy-roll",
+   "frame": "/misc/crazy-roll/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "crazycars": {
    "id": "crazycars",
@@ -2253,6 +2302,20 @@
    "frame": "/misc/nzp/index.html",
    "status": "observed"
   },
+  "obby-snowboard": {
+   "id": "obby-snowboard",
+   "name": "Obby Snowboard",
+   "play": "/misc/play/?title=Obby%20Snowboard&author=MiniPoP%20Games&link=obby-snowboard",
+   "frame": "/misc/obby-snowboard/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "ovo": {
    "id": "ovo",
    "name": "OvO",
@@ -2852,12 +2915,33 @@
    "frame": "/misc/sausage-flip/index.html",
    "status": "observed"
   },
+  "scary-teacher-3d": {
+   "id": "scary-teacher-3d",
+   "name": "Scary Teacher 3D",
+   "play": "/misc/play/?title=Scary%20Teacher%203D&link=scary-teacher-3d",
+   "frame": "/misc/scary-teacher-3d/index.html",
+   "status": "observed"
+  },
   "school-cleaning": {
    "id": "school-cleaning",
    "name": "School Cleaning",
    "play": "/misc/play/?title=School%20Cleaning&link=school-cleaning",
    "frame": "/misc/school-cleaning/index.html",
    "status": "observed"
+  },
+  "search-for-the-needle": {
+   "id": "search-for-the-needle",
+   "name": "Search for the Needle!",
+   "play": "/misc/play/?title=Search%20for%20the%20Needle%21&author=LuckyBox&link=search-for-the-needle",
+   "frame": "/misc/search-for-the-needle/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "shellshock": {
    "id": "shellshock",
@@ -3429,6 +3513,20 @@
    "play": "/misc/play/?title=Twitch%20Tetris&author=author&link=twitchtetris",
    "frame": "/misc/twitchtetris/index.html",
    "status": "observed"
+  },
+  "two-ball-3d": {
+   "id": "two-ball-3d",
+   "name": "Two Ball 3D",
+   "play": "/misc/play/?title=Two%20Ball%203D&author=RHM%20Interactive&link=two-ball-3d",
+   "frame": "/misc/two-ball-3d/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "ultrakill": {
    "id": "ultrakill",

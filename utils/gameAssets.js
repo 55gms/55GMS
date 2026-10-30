@@ -11,6 +11,15 @@ import { getStaticCacheControl } from "./httpPerformance.js";
 // and passed through, so those requests keep working from the same origin.
 const DEFAULT_BASE =
   "https://cdn.jsdelivr.net/gh/55gms/assets@e899179b25ba3966a87383c0e4092168d9513472/misc/";
+const IMPORTED_BASE =
+  "https://cdn.jsdelivr.net/gh/55gms/assets@ee9ee84051a82e0478f3615aa697731a5e2da0e1/misc/";
+const IMPORTED_FOLDERS = new Set([
+  "two-ball-3d",
+  "blocky-snakes",
+  "search-for-the-needle",
+  "obby-snowboard",
+  "crazy-roll",
+]);
 
 // Pages are always served from disk: jsDelivr serves HTML as plain text.
 const PAGE = /\.html?$/i;
@@ -69,14 +78,16 @@ export function mountGameAssetFallback(app, staticRoot) {
 
     let folder;
     let target;
+    let selectedBase;
     try {
       folder = decodeURIComponent(file.split("/")[0]);
-      target = new URL(file, base);
+      selectedBase = !process.env.GAME_ASSETS_BASE && IMPORTED_FOLDERS.has(folder) ? IMPORTED_BASE : base;
+      target = new URL(file, selectedBase);
     } catch {
       return next();
     }
     // The URL parser resolves `..`, so check the result is still in the mirror.
-    if (!folders.has(folder) || !target.href.startsWith(base)) return next();
+    if (!folders.has(folder) || !target.href.startsWith(selectedBase)) return next();
     if (missed(target.pathname)) return next();
 
     const controller = new AbortController();

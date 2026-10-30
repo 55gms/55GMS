@@ -23,7 +23,10 @@ import os from "node:os";
 import path from "node:path";
 import zlib from "node:zlib";
 import { chromium } from "playwright-core";
-import { createGameUrlRewriter } from "./lib/rewriteGameUrls.js";
+import {
+  createGameUrlRewriter,
+  relativeUnityManifest,
+} from "./lib/rewriteGameUrls.js";
 import {
   filesDir,
   isPage,
@@ -254,7 +257,10 @@ function rewrite(files) {
     if (!TEXT_EXT.test(rel)) continue;
     const file = path.join(outDir, rel);
     const before = fs.readFileSync(file, "utf8");
-    const text = rewriteText(before);
+    const rewritten = rewriteText(before);
+    const text = /\.json$/i.test(rel)
+      ? relativeUnityManifest(rewritten, rel, prefix)
+      : rewritten;
     if (text !== before) {
       fs.writeFileSync(file, text);
       changed++;

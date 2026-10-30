@@ -1,4 +1,12 @@
-<!DOCTYPE html><html lang="en-us"><head><script type="application/json" id="gms-import-config">{"title":"Obby Snowboard","engine":"unity","files":[["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.data_part1.unityweb",7340032],["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.data_part2.unityweb",7340032],["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.data_part3.unityweb",6698728],["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.framework.js.unityweb",72064],["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.loader.js",106810],["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.wasm.unityweb",8797591]],"total":30355257,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Obby Snowboard"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Obby Snowboard"></script>
+<!DOCTYPE html><html lang="en-us"><head>
+  <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
+    integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
+    crossorigin="anonymous"
+    data-game-id="obby-snowboard"
+    data-compat=""
+  ></script><script type="application/json" id="gms-import-config">{"title":"Obby Snowboard","engine":"unity","files":[["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.data_part1.unityweb",7340032],["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.data_part2.unityweb",7340032],["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.data_part3.unityweb",6698728],["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.framework.js.unityweb",72064],["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.loader.js",106810],["/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/Build/OSP.wasm.unityweb",8797591]],"total":30355257,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Obby Snowboard"></script><script src="/assets/js/imported-game-loader.js?v=1" data-title="Obby Snowboard"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <link rel="stylesheet" href="/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/style.css">
@@ -89,7 +97,7 @@
         // }
 
         // Фоновое изображение при загрузке игры. При сборке билда код меняется взависимости от настроек проекта.
-        
+
         loadingCover.style.background = "url('/misc/obby-snowboard/_ext/cdn.jsdelivr.net/gh/papamamia/qarama%40main/background.png') center / cover";
 
         loadingCover.style.display = "";
@@ -108,7 +116,7 @@
         let myGameInstance;
         let ysdk = null; // Yandex SDK pasif
 
-        // 
+        //
         let environmentData = {
             language: "en",
             domain: "default_domain",
@@ -135,7 +143,7 @@
                 return "Other";
             })()
         };
-        
+
         let cloudSaves = 'noData';
         let paymentsData = 'none';
         let playerData = 'noData'; // Varsayılan playerData tanımı
@@ -144,7 +152,7 @@
         let initGame = false;
         let nowFullAdOpen = false;
 
-        // 
+        //
         function GetPayments() { console.warn("GetPayments is not implemented"); return Promise.resolve("none"); }
         function SaveCloud() { console.warn("SaveCloud is not implemented"); }
         function LoadCloud() { console.warn("LoadCloud is not implemented"); return Promise.resolve("noData"); }
@@ -202,9 +210,9 @@ function RewardedShow(rewardId) {
         function GetLeaderboardScores() { console.warn("GetLeaderboardScores is not implemented"); }
         function SetLeaderboardScores() { console.warn("SetLeaderboardScores is not implemented"); }
         function ConsumePurchase() { console.warn("ConsumePurchase is not implemented"); }
-        function ConsumePurchases() { console.warn("ConsumePurchases is not implemented"); } // 
+        function ConsumePurchases() { console.warn("ConsumePurchases is not implemented"); } //
 
-        // 
+        //
         try {
             const script = document.createElement("script");
             script.src = loaderUrl;
@@ -279,7 +287,7 @@ function RewardedShow(rewardId) {
             }
         }
 
-        // 
+        //
         window.addEventListener("unhandledrejection", function(event) {
             console.warn("Hata es geçildi:", event.reason);
             event.preventDefault();

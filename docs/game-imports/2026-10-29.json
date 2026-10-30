@@ -1,0 +1,998 @@
+{
+  "target": 100,
+  "status": "in-progress",
+  "assetCommit": "ee9ee84051a82e0478f3615aa697731a5e2da0e1",
+  "baselineCommit": "e6f2f199f71813c2857dfda5c6c533a7eb31667d",
+  "existingNames": [
+    "10minutestilldawn",
+    "1on1soccer",
+    "1v1lol",
+    "2048",
+    "2doom",
+    "2drocketleague",
+    "60secondburgerrun",
+    "60secondsreatomized",
+    "adanceoffireice",
+    "adventurecapitalist",
+    "adventuredrivers",
+    "adventureminer",
+    "airplanemanager",
+    "alienhominid",
+    "amazingropepolice",
+    "americanfootballreal",
+    "appleworm",
+    "aquaparkio",
+    "arcadecardrift",
+    "archeryworldtour",
+    "asmallworldcup",
+    "asmallworldcup2",
+    "astrosurvivors",
+    "awesometanks",
+    "awesometanks2",
+    "backrooms",
+    "backroomsrecovery",
+    "baconmaydie",
+    "baconsurvivor",
+    "badicecream",
+    "badicecream2",
+    "badicecream3",
+    "badtimesimulator",
+    "balatro",
+    "baldisbasics",
+    "bankrobbery2",
+    "baseballbros",
+    "basketballreal",
+    "basketballstars",
+    "basketballsuperstars",
+    "basketbros",
+    "basketrandom",
+    "beautysalon",
+    "beeswarmsimulator",
+    "bendy",
+    "bigflappytowervstinysquare",
+    "bigtowertinysquare",
+    "bikeobby",
+    "bitlife",
+    "blockblast",
+    "bloonstd",
+    "bloonstd2",
+    "bloonstd3",
+    "bloonstd4",
+    "bloxrz",
+    "blumgiball",
+    "blumgibloom",
+    "blumgibounce",
+    "blumgicastle",
+    "blumgidragon",
+    "blumgimerge",
+    "blumgipaintball",
+    "blumgiracers",
+    "blumgislime",
+    "blumgisoccer",
+    "blumgisplash",
+    "bobtherobber2",
+    "boomslingersreboom",
+    "bottleflip",
+    "bottleflip3d",
+    "bouncemasters",
+    "bouncybasketball",
+    "bowmasters",
+    "boxingrandom",
+    "boxrob",
+    "brainrotminer",
+    "braintest",
+    "brawlsimulator3d",
+    "brotato",
+    "buckbounce",
+    "buckshotroulette",
+    "buildnowgg",
+    "bulletbros",
+    "capitalistbusdriver",
+    "capybaraclicker",
+    "carcircle",
+    "carmachines",
+    "carnadostuntcar",
+    "catpizza",
+    "choppyorc",
+    "circloo",
+    "cloverpit",
+    "clusterrush",
+    "colorpencilrun",
+    "cookieclicker",
+    "cookingfever",
+    "coreball",
+    "countcontrollegends",
+    "crazybikes",
+    "crazycars",
+    "crazycattle3d",
+    "crossyroad",
+    "csgoclicker",
+    "cubefield",
+    "cuphead",
+    "cuttherope",
+    "dadish",
+    "dadish2",
+    "dadish3",
+    "dadish3d",
+    "dailydadish",
+    "dante",
+    "dayofmeatradiation",
+    "deadlydescent",
+    "deadshotio",
+    "dealornodeal",
+    "deeeepio",
+    "digdigio",
+    "diggerescape",
+    "diggingmaster",
+    "dinobros",
+    "dinofighter",
+    "dinosimulator",
+    "dogeminer",
+    "dogeminer2",
+    "doodlejump",
+    "drawthehill",
+    "dreadheadparkour",
+    "driftboss",
+    "drifthunters",
+    "drivemad",
+    "ducklife",
+    "ducklife2",
+    "ducklife3",
+    "ducklife4",
+    "ducklingsio",
+    "duckmerge",
+    "dune",
+    "eaglercraftx",
+    "eagleride",
+    "edgenotfound",
+    "eggycar",
+    "emulatorjs",
+    "eparkour",
+    "escaperoad",
+    "escaperoad2",
+    "escaperoad3",
+    "escaperoadcity2",
+    "fancypantsadventure",
+    "fancypantsadventure2",
+    "fashionlegends",
+    "fearresponse",
+    "fireboywatergirl",
+    "fisheatfish",
+    "fivenightsatepstiens",
+    "flickgoal",
+    "flipbros",
+    "flippyfish",
+    "flyingcarsimulator",
+    "fnaf",
+    "fnaf2",
+    "fnaf3",
+    "fnaf4",
+    "fnafsisterlocation",
+    "footballbros",
+    "freeriderjumps",
+    "fridaynightfunkin",
+    "fruitmerge",
+    "fruitninja",
+    "fruitsoffury",
+    "fryingnemo",
+    "fullspeedracing",
+    "funnyshooter2",
+    "gasstation",
+    "gbagames",
+    "geometrydash",
+    "geometrydashlite",
+    "geometrydashsubzero",
+    "getawayshootout",
+    "gettingoverit",
+    "gimmetheairpod",
+    "gladihoppers",
+    "gobble",
+    "goingballs",
+    "golforbit",
+    "goodsmaster",
+    "googlebaseball",
+    "googlefeud",
+    "googlesnake",
+    "grandprixhero",
+    "granny",
+    "grindcraft",
+    "gunblood",
+    "gunmayhem2",
+    "gunmayhem3",
+    "gunspin",
+    "gymstack",
+    "happyglass",
+    "happywheels",
+    "harvestloop",
+    "harvestsimulator",
+    "helixjump",
+    "henrystickminbreakingthebank",
+    "henrystickminescapingtheprison",
+    "henrystickminfleeingthecomplex",
+    "henrystickmininfiltratingtheairship",
+    "henrystickminstealingthediamond",
+    "hexellent",
+    "hexgl",
+    "hextris",
+    "hillclimbracing",
+    "hobo",
+    "hobo2",
+    "hobo3",
+    "hobo4",
+    "hobo5",
+    "hobo6",
+    "hobo7",
+    "holeio",
+    "hollownight",
+    "hollownightsilksong",
+    "hordekilleryouvs100",
+    "hotlinemiami",
+    "houseofhazards",
+    "idleants",
+    "idlebreakout",
+    "idlecowshed",
+    "idledice",
+    "idlediggingtycoon",
+    "idlelumberinc",
+    "idleminingempire",
+    "idlerestaurants",
+    "idlerevolution",
+    "idlesuccess",
+    "impossiblequiz",
+    "impossiblequiz2",
+    "infinitecraft",
+    "ironsnout",
+    "jellydrift",
+    "jetpackjoyride",
+    "johnnytrigger",
+    "johnnytriggersniper",
+    "jumpingshell",
+    "jumponly",
+    "justshapesbeats",
+    "karlson",
+    "karlsont",
+    "kickthebuddy",
+    "kindergarden",
+    "kindergarden2",
+    "kiwiclicker",
+    "knifehit",
+    "knifemerge",
+    "kourio",
+    "learntofly",
+    "learntofly2",
+    "learntofly3",
+    "leveldevil",
+    "lightthelamp",
+    "littlealchemy",
+    "littlealchemy2",
+    "longcat",
+    "madalinstuntcars3",
+    "madskillsmotocross2",
+    "magicbattleground",
+    "marblerun3d",
+    "marblessorting",
+    "masterchess",
+    "mergeroundracers",
+    "minecraft",
+    "mineline",
+    "mk48io",
+    "monkeymart",
+    "monstermatch",
+    "monstertracks",
+    "mopheaddash",
+    "mortalkombat",
+    "mototrap",
+    "motox3m",
+    "motox3m2",
+    "motox3mpoolparty",
+    "motox3mspooky",
+    "motox3mwinter",
+    "mrbullet",
+    "mrracer",
+    "murder",
+    "myperfecthotel",
+    "nazizombiesportable",
+    "neonswing",
+    "ngon",
+    "nopainnogain",
+    "nsrstreetcarracing",
+    "nutsimulator",
+    "ovo",
+    "ovo2",
+    "ovodimensions",
+    "papasburgeria",
+    "papascheeseria",
+    "papascupcakeria",
+    "papasdonuteria",
+    "papasfreezeria",
+    "papashotdoggeria",
+    "papaspancakeria",
+    "papaspasteria",
+    "papaspizzaria",
+    "papasscooperia",
+    "papassushiria",
+    "papastacomia",
+    "papaswingeria",
+    "paperio2",
+    "paperplane",
+    "paperyplanes",
+    "parkourrace",
+    "pathtoglory",
+    "penaltykickonline",
+    "penaltyshooters2",
+    "peopleplayground",
+    "perfectlandingplanepilot",
+    "perfectpeel",
+    "perfectshape",
+    "pilotlife",
+    "pingponggo",
+    "plantsvszombies",
+    "plonky",
+    "pokemonchaosblack",
+    "pokemoncrystal",
+    "pokemonemerald",
+    "pokemonfirered",
+    "pokemonflorasky",
+    "pokemonrubyred",
+    "pokemonsapphire",
+    "pokemonshowdown",
+    "pokemonultraviolet",
+    "poker",
+    "policechase",
+    "polytrack",
+    "polytrack041",
+    "poorbunny",
+    "pooreddie",
+    "punchyguy",
+    "racesurvival",
+    "raft",
+    "raftwars",
+    "raftwars2",
+    "ragdollarchers",
+    "ragdollchaos",
+    "ragdollfall",
+    "ragdollfight",
+    "ragdollhit",
+    "rainbowtower",
+    "recoil",
+    "redball4",
+    "redvsbluez",
+    "reeltycoon",
+    "repo",
+    "requestagame",
+    "rescuethefish",
+    "retrobowl",
+    "retrobowlcollege",
+    "retrohighway",
+    "riddleschool",
+    "riddleschool2",
+    "riddleschool3",
+    "riddleschool4",
+    "riddleschool5",
+    "riddleschooltransfer",
+    "riddletransfer2",
+    "risehigher",
+    "roblox",
+    "robocleanersimulator",
+    "rocketsoccerderby",
+    "rodeostampede",
+    "roller",
+    "rooftopsnipers",
+    "rooftopsnipers2",
+    "roper",
+    "run3",
+    "sandboxels",
+    "sandtris",
+    "sandtrix",
+    "santyishome",
+    "sausageflip",
+    "scaryteacher3d",
+    "schoolcleaning",
+    "shellshockers",
+    "ships3d",
+    "sketchbook",
+    "skibidishooter",
+    "skribbleio",
+    "skyriders",
+    "slicemaster",
+    "slimedunk",
+    "slimejourney",
+    "slimerancher",
+    "slitherio",
+    "slope",
+    "slowroads",
+    "smashit",
+    "smashkarts",
+    "snakepivot",
+    "snowballio",
+    "snowrider3d",
+    "snowtrainodyssey",
+    "soccerbros",
+    "soccerrandom",
+    "soccerreal",
+    "solarsmash",
+    "spacebarclicker",
+    "spacecompany",
+    "spaceflightsimulator",
+    "spacewaves",
+    "speedstars",
+    "spiralroll",
+    "stack",
+    "stackbounce",
+    "stacktris",
+    "stateio",
+    "stealabrainrot",
+    "steelhills",
+    "stickdefenders",
+    "stickfighter",
+    "stickmanbattle",
+    "stickmanbike",
+    "stickmanboost",
+    "stickmanclimb2",
+    "stickmanclimb3d",
+    "stickmanhook",
+    "stickmanmerge",
+    "stickmanrun",
+    "stickmerge",
+    "stickrush",
+    "stickwarlegacy",
+    "streetfighter2",
+    "streetfighter3",
+    "stumbleguys",
+    "stuntbikeextreme",
+    "stuntcarextreme",
+    "subwaysurfers",
+    "supercarlegends",
+    "superfoulist",
+    "superhot",
+    "superliquidsoccer",
+    "supermario64",
+    "superstarcar",
+    "swingo",
+    "tabletenniswt",
+    "tag",
+    "takunisunset",
+    "templeofboom",
+    "templerun2",
+    "territorialio",
+    "tetris",
+    "thatsnotmyneighbor",
+    "thebabyinyellow",
+    "thebindingofissac",
+    "thefinalearth2",
+    "thereisnogame",
+    "timeshooter1",
+    "timeshooter2",
+    "timeshooter3",
+    "tinyfishing",
+    "tinytowers",
+    "tombofthemask",
+    "tosstheturtle",
+    "tubejumpers",
+    "tunnelrush",
+    "tunnelrush2",
+    "turbomotoracer",
+    "twitchtetris",
+    "ultrakill",
+    "undertheredsky",
+    "unfairmario",
+    "unicyclehero",
+    "unicyclelegend",
+    "universalpaperclips",
+    "vengeio",
+    "vex3",
+    "vex4",
+    "vex5",
+    "vex6",
+    "vex7",
+    "vex8",
+    "vexx3m",
+    "volleyrandom",
+    "wartheknights",
+    "waverider",
+    "wbwwb",
+    "webfishing",
+    "webglfluid",
+    "whackyourboss",
+    "whackyourcomputer",
+    "whackyourex",
+    "whois",
+    "wordle",
+    "worldofscrew",
+    "worldshardestgame",
+    "worldshardestgame2",
+    "yohohoio",
+    "youmonster",
+    "zombiederby",
+    "zorrpro"
+  ],
+  "selection": "Non-Flash games absent from the baseline catalog. Public play counts were unavailable; no measured popularity ranking is claimed.",
+  "games": [
+    {
+      "name": "Two Ball 3D",
+      "folder": "two-ball-3d",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/two-ball-3d",
+      "runtime": "unity",
+      "sha256": "f8d7c84b33b2ef57ca51e85ee570da53e46317e9264fe2d25edf85d87ddb4085",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/paigerodeghero/academicwebsite@897c910c65e6c68b04c44a6b6eba0b99d0f2f2cf/TemplateData/UnityProgress.js",
+          "bytes": 1186,
+          "sha256": "d0f54aef33f34fd123d1ebc048cf152e01294cb71809ce276e3e1304ba4e2830"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/paigerodeghero/academicwebsite@897c910c65e6c68b04c44a6b6eba0b99d0f2f2cf/TemplateData/progressEmpty.Dark.png",
+          "bytes": 155,
+          "sha256": "3c901e72986f57b3dd474c5b8db981da26ec1d9ad92af9edc722172678c07d44"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/paigerodeghero/academicwebsite@897c910c65e6c68b04c44a6b6eba0b99d0f2f2cf/TemplateData/progressFull.Dark.png",
+          "bytes": 137,
+          "sha256": "2832fafec86b420ee29e0e2126b95767a22bff85d30dc90ed8de36246b395fd8"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/paigerodeghero/academicwebsite@897c910c65e6c68b04c44a6b6eba0b99d0f2f2cf/TemplateData/progressLogo.Dark.png",
+          "bytes": 2343,
+          "sha256": "b95da4db2adc10af8bee6bfccb5246cc356b3164ce7caf6c7581c1002d64b71b"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/paigerodeghero/academicwebsite@897c910c65e6c68b04c44a6b6eba0b99d0f2f2cf/TemplateData/style.css",
+          "bytes": 1686,
+          "sha256": "bc587443f441dea1c211c65cc369c54d748e1c3cbc0c56c97a029f927fe9e06c"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tyler6974/TwoBall3D@2ab5c5b3871c0a240842a0c584208340743bad09/files/games/other/TwoBall3D/Build/TwoBall3D.data.unityweb",
+          "bytes": 9285908,
+          "sha256": "eb0d567fc617c1b8ffe13bf66a48e12feaf16823489a2f22d77d5762a2ba930f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tyler6974/TwoBall3D@2ab5c5b3871c0a240842a0c584208340743bad09/files/games/other/TwoBall3D/Build/TwoBall3D.jpg",
+          "bytes": 7364,
+          "sha256": "04f16e69dc5a61e585fc178daf5b7340b8f4d0cd0c0b8a6f055a7b3c3381826f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tyler6974/TwoBall3D@2ab5c5b3871c0a240842a0c584208340743bad09/files/games/other/TwoBall3D/Build/TwoBall3D.json",
+          "bytes": 430,
+          "sha256": "81f36027a407dfc658f7017f05446e9d5cfad0012129eada2de45ce9f28988d8"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tyler6974/TwoBall3D@2ab5c5b3871c0a240842a0c584208340743bad09/files/games/other/TwoBall3D/Build/TwoBall3D.wasm.code.unityweb",
+          "bytes": 16403416,
+          "sha256": "f3111ed43ec977b9a1d7bb99af190555c242e1c9f6964b1338fa33ff009e379d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tyler6974/TwoBall3D@2ab5c5b3871c0a240842a0c584208340743bad09/files/games/other/TwoBall3D/Build/TwoBall3D.wasm.framework.unityweb",
+          "bytes": 485527,
+          "sha256": "dc4e8b2983abb995ed8af0207a15ff12fbf58e7fc6f168d1aa2c3b1279ba7f06"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tyler6974/TwoBall3D@2ab5c5b3871c0a240842a0c584208340743bad09/files/games/other/TwoBall3D/Build/UnityLoader.js",
+          "bytes": 157128,
+          "sha256": "09cf226e3d59b235f51dceec11eccd0cab4e415a132af33a2eaa3e5354deddd9"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 23126,
+          "sha256": "1c63a43fc0bcdf1c6ff3f8d7af4ebabf435aebed2b4ee4f310e2bb90dd19e32c"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "wait": 5000
+          },
+          {
+            "click": [
+              420,
+              305
+            ]
+          },
+          {
+            "wait": 1000
+          },
+          {
+            "key": "Space"
+          },
+          {
+            "hold": "ArrowRight",
+            "ms": 1300
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ],
+        "observation": "Started 1P mode, applied Space and arrow controls, and reached a game-over screen with a 5 m distance score.",
+        "scope": "Opening gameplay and control smoke test; does not claim every level or optional online service was tested."
+      }
+    },
+    {
+      "name": "Blocky Snakes",
+      "folder": "blocky-snakes",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/blocky-snakes",
+      "runtime": "unity",
+      "sha256": "2e594b7c0c37c6cd38cfdea68caff312ffccca1c167a02f3c8c754c3d0d4053e",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/BlockySnakes.data.unityweb",
+          "bytes": 6592634,
+          "sha256": "97f98227d2856c07bfc9a10e023a17fd6e724b5fa2f48032de9907b1e135532d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/BlockySnakes.wasm.code.unityweb",
+          "bytes": 4453870,
+          "sha256": "bb60e8f004b97898a67e38650df564d7581292bfb818c8939d47a5f01b5cf156"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/BlockySnakes.wasm.framework.unityweb",
+          "bytes": 92163,
+          "sha256": "acb7823759ed9bedd78fcee5deeddda38b16e5d0c1b2351e0930295f7ba95a28"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/UnityLoader.js",
+          "bytes": 157128,
+          "sha256": "09cf226e3d59b235f51dceec11eccd0cab4e415a132af33a2eaa3e5354deddd9"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/UnityProgress.js",
+          "bytes": 1186,
+          "sha256": "d0f54aef33f34fd123d1ebc048cf152e01294cb71809ce276e3e1304ba4e2830"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/build.json",
+          "bytes": 403,
+          "sha256": "5384544631051a0cff4b9488a5eec428e3eed73d89e90dd24c053d8324ff42a2"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/style/progressEmpty.Dark.png",
+          "bytes": 155,
+          "sha256": "3c901e72986f57b3dd474c5b8db981da26ec1d9ad92af9edc722172678c07d44"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/style/progressFull.Dark.png",
+          "bytes": 137,
+          "sha256": "2832fafec86b420ee29e0e2126b95767a22bff85d30dc90ed8de36246b395fd8"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/style/progressLogo.Dark.png",
+          "bytes": 2343,
+          "sha256": "b95da4db2adc10af8bee6bfccb5246cc356b3164ce7caf6c7581c1002d64b71b"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/style/style.css",
+          "bytes": 1536,
+          "sha256": "0b5a307ab60c382865c7f5c9b743f5e34ae83f05b3ed933a1a53498070f55f44"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 8716,
+          "sha256": "6256b053ba9cac0e897a89791cfc255925dde784fdbc00d356659a3e06504822"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "click": [
+              640,
+              525
+            ]
+          },
+          {
+            "wait": 1200
+          },
+          {
+            "click": [
+              640,
+              360
+            ]
+          },
+          {
+            "wait": 1200
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Space"
+          },
+          {
+            "hold": "KeyW",
+            "ms": 1500
+          },
+          {
+            "hold": "ArrowUp",
+            "ms": 1500
+          },
+          {
+            "hold": "ArrowRight",
+            "ms": 500
+          }
+        ],
+        "observation": "Reached the live arena with the snake, collectible effects, minimap and updating opponent leaderboard after keyboard input.",
+        "scope": "Opening gameplay and control smoke test; does not claim every level or optional online service was tested."
+      }
+    },
+    {
+      "name": "Search for the Needle!",
+      "folder": "search-for-the-needle",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/search-for-the-needle",
+      "runtime": "unity",
+      "sha256": "a122e5ea3f3bdff83f4d6e474f25e8a12a0d9dfa048151d475fe1673c6b72c48",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.data.br.part0",
+          "bytes": 8388608,
+          "sha256": "36249e590f2b1c6ab10f4df639a6e8726cb3353a82973cc2fe40aa5140d6a448"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.data.br.part1",
+          "bytes": 8388608,
+          "sha256": "aac5f9b9fd0438f0a6ad99313459c9349aa90f1ef8126a884bead95d918eac10"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.data.br.part2",
+          "bytes": 8388608,
+          "sha256": "3fc049802ca9ed865f3b92be940875d04292d475e74239c15676403990cbab9a"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.data.br.part3",
+          "bytes": 8388608,
+          "sha256": "703c81bf21dd1a5c96c5c3dd380db631c8bc83b4157d7b296229e439b21c3361"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.data.br.part4",
+          "bytes": 8388608,
+          "sha256": "9b7cc3f142fe93d06adf353be138df0c80ed4bf13ba9e198f74d7cdae34ca5e8"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.data.br.part5",
+          "bytes": 8388608,
+          "sha256": "8ef868ed72d29a325f036534c57769d0d2479e10bff9a29e11421baac1278f9e"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.data.br.part6",
+          "bytes": 3850158,
+          "sha256": "a00d9f2bdf16f38f64a8e98a6b3b55b5a37d2b89579ce7bcea8f9eb268487cbb"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.framework.js",
+          "bytes": 343072,
+          "sha256": "0fb1b73269394e093a68eac7bec5ded3557c3a5f46c650eb6e145f94395fca27"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.loader.js",
+          "bytes": 27221,
+          "sha256": "efb8bd6fe7e619a10162d23e6cc3a765327caca260a15940f54906ded081933d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.wasm.br.part0",
+          "bytes": 8388608,
+          "sha256": "2fadcea1453ee54710a879d380a774c16dee2f5f39b6e4070652d3dbeb506b94"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.wasm.br.part1",
+          "bytes": 8388608,
+          "sha256": "a8198320121e0b4ec9b0a907b5da59fd0b8ba85d67777da7dcf3649a2ee2dbfd"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.wasm.br.part2",
+          "bytes": 8388608,
+          "sha256": "6274c0836f68c5dee7a7d2047aaa153fb3a34b818888a6e9f4b236209727531c"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.wasm.br.part3",
+          "bytes": 8388608,
+          "sha256": "c14032f010dba7fc8d1854bccd296716b17a4e377b694a9d52298ec125b54253"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.wasm.br.part4",
+          "bytes": 8388608,
+          "sha256": "429cbd042150ef6ceb0c7d51943158fea31c0fc820d9c3766fbd58b35aebf597"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.wasm.br.part5",
+          "bytes": 6629619,
+          "sha256": "30ad62629957b685bc4ea0f7bec7031b4e05ce1429132167b3285148010faeb4"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/style.css",
+          "bytes": 2751,
+          "sha256": "5684edea0b3b21611130fc78582805ad5debfab1f03c9547c35e74be775938d0"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 9328,
+          "sha256": "aff12c273da29a010d9f7e6a9555e60687adcf08e3732bede2ebbfe851ca3451"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "click": [
+              640,
+              360
+            ],
+            "delay": 300
+          },
+          {
+            "hold": "KeyW",
+            "ms": 1000
+          }
+        ],
+        "observation": "After a real center click and holding W, the black start state changed into a full-frame 3D room. Canvas and WebGL viewport measured 1280x720; no page errors or failed game-asset responses.",
+        "scope": "Opening gameplay and control smoke test; does not claim every level or optional online service was tested."
+      }
+    },
+    {
+      "name": "Obby Snowboard",
+      "folder": "obby-snowboard",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/new-games/obby-snowboard",
+      "runtime": "unity",
+      "sha256": "d1abfaede247616e1d3499822b4dd94bb5199188400820a0f9ac797d1b087d2b",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/Build/OSP.data_part1.unityweb",
+          "bytes": 7340032,
+          "sha256": "d844eaba28851955339da3b3b85666cbcfc56d0b99847fdf79f02bb382230ce6"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/Build/OSP.data_part2.unityweb",
+          "bytes": 7340032,
+          "sha256": "d095013d84750a81652a50fad087002e9816845971edd9b15b6f5bcae623da65"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/Build/OSP.data_part3.unityweb",
+          "bytes": 6698728,
+          "sha256": "16720138507b205b61248c69e5aecbc1a714dde13b06982175135d1b8fc43793"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/Build/OSP.framework.js.unityweb",
+          "bytes": 72064,
+          "sha256": "f68310e9646b616c6be7b0eade2192ca0776180652313965d6b3afa705eedeee"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/Build/OSP.loader.js",
+          "bytes": 106810,
+          "sha256": "31a657c5c31f6beb70ef287ca7b8c015069d48282358dcbd51a3e06dd5681aec"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/Build/OSP.wasm.unityweb",
+          "bytes": 8797591,
+          "sha256": "c63fa7b92bb30e7f338abd43d3bea94d6dd961a2ff69ecc4a258a80705f80924"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/background.png",
+          "bytes": 206086,
+          "sha256": "85055e702fed484a0f7d07bc5c630973614be9ece85e1d186ad2406c5ab6f47f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/logo.png",
+          "bytes": 33402,
+          "sha256": "00665512508cbd6b390f5ead4fd317538aa46387d0eea953da8fcc70810bbe9d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/style.css",
+          "bytes": 1847,
+          "sha256": "121d63d33b02046f4a3a8ea8f69326dc0b060ace1bc8d6e939a30186fe4f0c5f"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 11914,
+          "sha256": "7dabf5be5411030c7102388a4d1bc3996f3dd6653ecaf57d323957fdff5246ae"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "hold": "KeyW",
+            "ms": 1200
+          },
+          {
+            "hold": "ArrowUp",
+            "ms": 1200
+          },
+          {
+            "hold": "ArrowRight",
+            "ms": 1200
+          }
+        ],
+        "observation": "Passed the opening screen and controlled the avatar in the rendered 3D snowboarding course with the live HUD visible.",
+        "scope": "Opening gameplay and control smoke test; does not claim every level or optional online service was tested."
+      }
+    },
+    {
+      "name": "Crazy Roll",
+      "folder": "crazy-roll",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/new-games/crazy-roll",
+      "runtime": "unity",
+      "sha256": "b218d104d505e87ef9ca8a0821de2272eec89a3fe6388e1f64026d491d012e9a",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/Build/UnityLoader.js",
+          "bytes": 159256,
+          "sha256": "2e8898fe07e7b0402d9f7183235ceb50475d0d8559cf75066a517c68d2876e30"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/Build/game.data.unityweb",
+          "bytes": 2054701,
+          "sha256": "171e663562a64e61e3f4868364cfebd53f6bce53e30ab31b879c40e0019ad479"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/Build/game.json",
+          "bytes": 561,
+          "sha256": "f59680e658b7c0adabc7adc9216a4593dbc45f90a5146f7be7103f6928d0dd4b"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/Build/game.wasm.code.unityweb",
+          "bytes": 5106448,
+          "sha256": "a85761936ffcf9bb21a92931aebed1f34b97528a7029fc29fcb0ef80ac909804"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/Build/game.wasm.framework.unityweb",
+          "bytes": 86978,
+          "sha256": "18358582c02cb172fad8af4b677d92c854d4e6a00dc0a682353ca87985bad842"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/TemplateData/UnityProgress.js",
+          "bytes": 1212,
+          "sha256": "1e542a888b53f5e811ab967e08e95c629c18a3baa94d46d42fd859bd4dc13777"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/TemplateData/progressEmpty.Dark.png",
+          "bytes": 155,
+          "sha256": "3c901e72986f57b3dd474c5b8db981da26ec1d9ad92af9edc722172678c07d44"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/TemplateData/progressFull.Dark.png",
+          "bytes": 137,
+          "sha256": "2832fafec86b420ee29e0e2126b95767a22bff85d30dc90ed8de36246b395fd8"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/TemplateData/progressLogo.Dark.png",
+          "bytes": 2343,
+          "sha256": "b95da4db2adc10af8bee6bfccb5246cc356b3164ce7caf6c7581c1002d64b71b"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/TemplateData/style.css",
+          "bytes": 1668,
+          "sha256": "164c7f8cb3cbbbc7ff04bb9497dbcccaa535c43a46e7178ae53e6b46058bb9b4"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 24478,
+          "sha256": "793fa5557b4d6cb7aa9461194aa043425c95ba98a11fed3462a5268602c9992b"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "click": [
+              638.5,
+              366.5
+            ],
+            "label": "PLAY",
+            "screenshot": "/workspace/game-import/review/crazy-roll-after-step0.png"
+          },
+          {
+            "hold": "KeyW",
+            "ms": 1200
+          },
+          {
+            "hold": "ArrowUp",
+            "ms": 1200
+          },
+          {
+            "hold": "ArrowRight",
+            "ms": 1200
+          }
+        ],
+        "observation": "OCR clicked Play, then held arrow controls; the level ran and its distance counter advanced to 63 m.",
+        "scope": "Opening gameplay and control smoke test; does not claim every level or optional online service was tested."
+      }
+    }
+  ]
+}

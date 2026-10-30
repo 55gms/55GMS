@@ -2992,7 +2992,7 @@
   },
   {
     "name": "Sketchbook",
-    "author": "Jan Bláha (swift502)",
+    "author": "Jan Bl\u00e1ha (swift502)",
     "image": "https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/sketchbook/img.webp",
     "usesProxy": false
   },
@@ -3078,7 +3078,7 @@
   },
   {
     "name": "Path To Glory",
-    "author": "Rémi Vansteelandt",
+    "author": "R\u00e9mi Vansteelandt",
     "image": "https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/path-to-glory/img.webp",
     "preview": "/img/videos/preview/pathtoglory.mp4",
     "usesProxy": false
@@ -3283,6 +3283,36 @@
     "author": "Basurita Games",
     "image": "https://cdn.jsdelivr.net/gh/55gms/assets@349c81bdc5d3cce0505f7952a6261996409809f2/misc/brainrot-miner/img.webp",
     "preview": "/img/videos/preview/brainrotminer.mp4",
+    "usesProxy": false
+  },
+  {
+    "name": "Two Ball 3D",
+    "url": "/misc/play/?title=Two%20Ball%203D&author=RHM%20Interactive&link=two-ball-3d",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@ee9ee84051a82e0478f3615aa697731a5e2da0e1/misc/two-ball-3d/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Blocky Snakes",
+    "url": "/misc/play/?title=Blocky%20Snakes&author=Beedo%20Games&link=blocky-snakes",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@ee9ee84051a82e0478f3615aa697731a5e2da0e1/misc/blocky-snakes/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Search for the Needle!",
+    "url": "/misc/play/?title=Search%20for%20the%20Needle%21&author=LuckyBox&link=search-for-the-needle",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@ee9ee84051a82e0478f3615aa697731a5e2da0e1/misc/search-for-the-needle/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Obby Snowboard",
+    "url": "/misc/play/?title=Obby%20Snowboard&author=MiniPoP%20Games&link=obby-snowboard",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@ee9ee84051a82e0478f3615aa697731a5e2da0e1/misc/obby-snowboard/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Crazy Roll",
+    "url": "/misc/play/?title=Crazy%20Roll&author=Unknown%20developer&link=crazy-roll",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@ee9ee84051a82e0478f3615aa697731a5e2da0e1/misc/crazy-roll/img.webp",
     "usesProxy": false
   }
 ]
