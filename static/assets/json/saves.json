@@ -8,6 +8,20 @@
    "frame": "/misc/2048/index.html",
    "status": "observed"
   },
+  "1-on-1-basketball": {
+   "id": "1-on-1-basketball",
+   "name": "1 On 1 Basketball",
+   "play": "/misc/play/?title=1+On+1+Basketball&author=Original+developer&link=1-on-1-basketball",
+   "frame": "/misc/1-on-1-basketball/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "10-minutes-til-dawn": {
    "id": "10-minutes-til-dawn",
    "name": "10 Minutes Till Dawn",
@@ -34,6 +48,20 @@
    "play": "/misc/play/?title=2D%20Rocket%20League&author=Gurpreet%20Singh%20Matharoo&link=2drocketleague",
    "frame": "/misc/2drocketleague/index.html",
    "status": "observed"
+  },
+  "3-slices": {
+   "id": "3-slices",
+   "name": "3 Slices",
+   "play": "/misc/play/?title=3+Slices&author=Original+developer&link=3-slices",
+   "frame": "/misc/3-slices/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "60-sec-burger-run": {
    "id": "60-sec-burger-run",
@@ -63,6 +91,48 @@
    "frame": "/misc/a-small-world-cup-2/index.html",
    "status": "observed"
   },
+  "achievement-unlocked": {
+   "id": "achievement-unlocked",
+   "name": "Achievement Unlocked",
+   "play": "/misc/play/?title=Achievement+Unlocked&author=Original+developer&link=achievement-unlocked",
+   "frame": "/misc/achievement-unlocked/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "achilles": {
+   "id": "achilles",
+   "name": "Achilles",
+   "play": "/misc/play/?title=Achilles&author=Original+developer&link=achilles",
+   "frame": "/misc/achilles/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "acid-bunny": {
+   "id": "acid-bunny",
+   "name": "Acid Bunny 2",
+   "play": "/misc/play/?title=Acid+Bunny+2&author=Original+developer&link=acid-bunny",
+   "frame": "/misc/acid-bunny/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "adventure-capitalist": {
    "id": "adventure-capitalist",
    "name": "Adventure Capitalist",
@@ -91,6 +161,20 @@
    "frame": "/misc/airplane-manager/index.html",
    "status": "observed"
   },
+  "alone-in-the-madness": {
+   "id": "alone-in-the-madness",
+   "name": "Alone in The Madness",
+   "play": "/misc/play/?title=Alone+in+The+Madness&author=Original+developer&link=alone-in-the-madness",
+   "frame": "/misc/alone-in-the-madness/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "amazing-rope-police": {
    "id": "amazing-rope-police",
    "name": "Amazing Rope Police",
@@ -105,12 +189,40 @@
    "frame": "/misc/american-football-real/index.html",
    "status": "observed"
   },
+  "animal-raceway": {
+   "id": "animal-raceway",
+   "name": "Animal Raceway",
+   "play": "/misc/play/?title=Animal+Raceway&author=Original+developer&link=animal-raceway",
+   "frame": "/misc/animal-raceway/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "apple-worm": {
    "id": "apple-worm",
    "name": "Apple Worm",
    "play": "/misc/play/?title=Apple%20Worm&link=apple-worm",
    "frame": "/misc/apple-worm/index.html",
    "status": "observed"
+  },
+  "aqua-turret": {
+   "id": "aqua-turret",
+   "name": "Aqua Turret",
+   "play": "/misc/play/?title=Aqua+Turret&author=Original+developer&link=aqua-turret",
+   "frame": "/misc/aqua-turret/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "aquapark-io": {
    "id": "aquapark-io",
@@ -133,6 +245,34 @@
    "frame": "/misc/archeryWorldTour/index.html",
    "status": "observed",
    "renamed": {}
+  },
+  "armed-with-wings": {
+   "id": "armed-with-wings",
+   "name": "Armed with Wings 2",
+   "play": "/misc/play/?title=Armed+with+Wings+2&author=Original+developer&link=armed-with-wings",
+   "frame": "/misc/armed-with-wings/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "armor-mayhem": {
+   "id": "armor-mayhem",
+   "name": "Armor Mayhem",
+   "play": "/misc/play/?title=Armor+Mayhem&author=Original+developer&link=armor-mayhem",
+   "frame": "/misc/armor-mayhem/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "asmallworldcup": {
    "id": "asmallworldcup",
@@ -167,6 +307,20 @@
    "play": "/misc/play/?title=Awesome%20Tanks%202&author=Alexander%20Gette&link=awsometanks2",
    "frame": "/misc/awsometanks2/index.html",
    "status": "observed"
+  },
+  "axis-football-league": {
+   "id": "axis-football-league",
+   "name": "Axis Football League",
+   "play": "/misc/play/?title=Axis+Football+League&author=Original+developer&link=axis-football-league",
+   "frame": "/misc/axis-football-league/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "backrooms": {
    "id": "backrooms",
@@ -293,6 +447,27 @@
    "frame": "/misc/basketbros-io/index.html",
    "status": "observed"
   },
+  "batman-the-cobblebot-caper": {
+   "id": "batman-the-cobblebot-caper",
+   "name": "Batman The Cobblebot Caper",
+   "play": "/misc/play/?title=Batman+The+Cobblebot+Caper&author=Original+developer&link=batman-the-cobblebot-caper",
+   "frame": "/misc/batman-the-cobblebot-caper/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "beauty-salon": {
+   "id": "beauty-salon",
+   "name": "Beauty Salon",
+   "play": "/misc/play/?title=Beauty%20Salon&link=beauty-salon",
+   "frame": "/misc/beauty-salon/index.html",
+   "status": "observed"
+  },
   "bee-swarm-simulator": {
    "id": "bee-swarm-simulator",
    "name": "Bee Swarm Simulator",
@@ -341,12 +516,54 @@
    "frame": "/misc/bitlife/index.html",
    "status": "observed"
   },
+  "black-knight": {
+   "id": "black-knight",
+   "name": "The Black Knight",
+   "play": "/misc/play/?title=The+Black+Knight&author=Original+developer&link=black-knight",
+   "frame": "/misc/black-knight/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "block-blast": {
    "id": "block-blast",
    "name": "Block Blast",
    "play": "/misc/play/?title=Block%20Blast&author=Hungry%20Studio&link=block-blast",
    "frame": "/misc/block-blast/index.html",
    "status": "observed"
+  },
+  "blocky-snakes": {
+   "id": "blocky-snakes",
+   "name": "Blocky Snakes",
+   "play": "/misc/play/?title=Blocky%20Snakes&author=Beedo%20Games&link=blocky-snakes",
+   "frame": "/misc/blocky-snakes/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "bloons-supermonkey": {
+   "id": "bloons-supermonkey",
+   "name": "Bloons Super Monkey",
+   "play": "/misc/play/?title=Bloons+Super+Monkey&author=Original+developer&link=bloons-supermonkey",
+   "frame": "/misc/bloons-supermonkey/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "bloxrz": {
    "id": "bloxrz",
@@ -439,6 +656,20 @@
    "frame": "/misc/bob-the-robber-2/index.html",
    "status": "observed"
   },
+  "bomb-it-4": {
+   "id": "bomb-it-4",
+   "name": "Bomb it 4",
+   "play": "/misc/play/?title=Bomb+it+4&author=Original+developer&link=bomb-it-4",
+   "frame": "/misc/bomb-it-4/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "boomslingersreboom": {
    "id": "boomslingersreboom",
    "name": "Boom Slingers Reboom",
@@ -474,11 +705,39 @@
    "frame": "/misc/bouncybasketball/index.html",
    "status": "observed"
   },
+  "bounzy-2": {
+   "id": "bounzy-2",
+   "name": "Bounzy 2",
+   "play": "/misc/play/?title=Bounzy+2&author=Original+developer&link=bounzy-2",
+   "frame": "/misc/bounzy-2/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "bowmasters": {
    "id": "bowmasters",
    "name": "Bowmasters",
    "frame": "/misc/bowmasters/index.html",
    "status": "observed"
+  },
+  "boxhead-2play-rooms": {
+   "id": "boxhead-2play-rooms",
+   "name": "Boxhead 2Play Rooms",
+   "play": "/misc/play/?title=Boxhead+2Play+Rooms&author=Original+developer&link=boxhead-2play-rooms",
+   "frame": "/misc/boxhead-2play-rooms/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "boxing-random": {
    "id": "boxing-random",
@@ -501,6 +760,13 @@
    "frame": "/misc/brain-test/index.html",
    "status": "observed"
   },
+  "brainrot-miner": {
+   "id": "brainrot-miner",
+   "name": "Brainrot Miner",
+   "play": "/misc/play/?title=Brainrot%20Miner&link=brainrot-miner",
+   "frame": "/misc/brainrot-miner/index.html",
+   "status": "observed"
+  },
   "brawl": {
    "id": "brawl",
    "name": "Brawl Simulator 3D",
@@ -514,6 +780,20 @@
    "play": "/misc/play/?title=Brotato&link=brotato",
    "frame": "/misc/brotato/index.html",
    "status": "observed"
+  },
+  "browman": {
+   "id": "browman",
+   "name": "Bowman 2",
+   "play": "/misc/play/?title=Bowman+2&author=Original+developer&link=browman",
+   "frame": "/misc/browman/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "buck-bounce": {
    "id": "buck-bounce",
@@ -535,6 +815,34 @@
    "play": "/misc/play/?title=Bullet%20Bros&link=bullet-bros",
    "frame": "/misc/bullet-bros/index.html",
    "status": "observed"
+  },
+  "cactus-mccoy": {
+   "id": "cactus-mccoy",
+   "name": "Cactus McCoy",
+   "play": "/misc/play/?title=Cactus+McCoy&author=Original+developer&link=cactus-mccoy",
+   "frame": "/misc/cactus-mccoy/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "cactusmccoy2": {
+   "id": "cactusmccoy2",
+   "name": "Cactus McCoy 2",
+   "play": "/misc/play/?title=Cactus+McCoy+2&author=Original+developer&link=cactusmccoy2",
+   "frame": "/misc/cactusmccoy2/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "capibara-clicker": {
    "id": "capibara-clicker",
@@ -598,6 +906,76 @@
    "frame": "/misc/circloo/index.html",
    "status": "observed"
   },
+  "city-siege": {
+   "id": "city-siege",
+   "name": "City Siege",
+   "play": "/misc/play/?title=City+Siege&author=Original+developer&link=city-siege",
+   "frame": "/misc/city-siege/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "city-siege-2": {
+   "id": "city-siege-2",
+   "name": "City Siege 2",
+   "play": "/misc/play/?title=City+Siege+2&author=Original+developer&link=city-siege-2",
+   "frame": "/misc/city-siege-2/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "city-siege-3": {
+   "id": "city-siege-3",
+   "name": "City Siege 3",
+   "play": "/misc/play/?title=City+Siege+3&author=Original+developer&link=city-siege-3",
+   "frame": "/misc/city-siege-3/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "city-siege-4": {
+   "id": "city-siege-4",
+   "name": "City Siege 4",
+   "play": "/misc/play/?title=City+Siege+4&author=Original+developer&link=city-siege-4",
+   "frame": "/misc/city-siege-4/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "civiballs": {
+   "id": "civiballs",
+   "name": "Civiballs",
+   "play": "/misc/play/?title=Civiballs&author=Original+developer&link=civiballs",
+   "frame": "/misc/civiballs/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "clover-pit": {
    "id": "clover-pit",
    "name": "Clover Pit",
@@ -618,6 +996,20 @@
    "play": "/misc/play/?title=Color%20Pencil%20Run&link=color-pencil-run",
    "frame": "/misc/color-pencil-run/index.html",
    "status": "observed"
+  },
+  "commando": {
+   "id": "commando",
+   "name": "Commando",
+   "play": "/misc/play/?title=Commando&author=Original+developer&link=commando",
+   "frame": "/misc/commando/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "cookieclicker": {
    "id": "cookieclicker",
@@ -640,6 +1032,13 @@
    "frame": "/misc/core-ball/index.html",
    "status": "observed"
   },
+  "count-control-legends": {
+   "id": "count-control-legends",
+   "name": "Count Control Legends",
+   "play": "/misc/play/?title=Count%20Control%20Legends&link=count-control-legends",
+   "frame": "/misc/count-control-legends/index.html",
+   "status": "observed"
+  },
   "crazy-bikes": {
    "id": "crazy-bikes",
    "name": "Crazy Bikes",
@@ -653,6 +1052,48 @@
    "play": "/misc/play/?title=Crazy Cattle 3D&author=Anna Mayberry&link=crazy-cattle",
    "frame": "/misc/crazy-cattle/index.html",
    "status": "observed"
+  },
+  "crazy-flasher-3": {
+   "id": "crazy-flasher-3",
+   "name": "Crazy Flasher 3",
+   "play": "/misc/play/?title=Crazy+Flasher+3&author=Original+developer&link=crazy-flasher-3",
+   "frame": "/misc/crazy-flasher-3/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "crazy-penguin-catapult": {
+   "id": "crazy-penguin-catapult",
+   "name": "Crazy Penguin Catapult",
+   "play": "/misc/play/?title=Crazy+Penguin+Catapult&author=Original+developer&link=crazy-penguin-catapult",
+   "frame": "/misc/crazy-penguin-catapult/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "crazy-roll": {
+   "id": "crazy-roll",
+   "name": "Crazy Roll",
+   "play": "/misc/play/?title=Crazy%20Roll&author=Unknown%20developer&link=crazy-roll",
+   "frame": "/misc/crazy-roll/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "crazycars": {
    "id": "crazycars",
@@ -723,6 +1164,20 @@
     "unityFolder": true
    }
   },
+  "dads-me": {
+   "id": "dads-me",
+   "name": "Dad 'n Me",
+   "play": "/misc/play/?title=Dad+%27n+Me&author=Original+developer&link=dads-me",
+   "frame": "/misc/dads-me/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "dailydadish": {
    "id": "dailydadish",
    "name": "Daily Dadish",
@@ -743,6 +1198,34 @@
    "play": "/misc/play/?title=Day%20Of%20Meat%3A%20Radiation&link=day-of-meat-radiation",
    "frame": "/misc/day-of-meat-radiation/index.html",
    "status": "observed"
+  },
+  "dead-samurai": {
+   "id": "dead-samurai",
+   "name": "Dead Samurai",
+   "play": "/misc/play/?title=Dead+Samurai&author=Original+developer&link=dead-samurai",
+   "frame": "/misc/dead-samurai/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "dead-zed": {
+   "id": "dead-zed",
+   "name": "Dead Zed",
+   "play": "/misc/play/?title=Dead+Zed&author=Original+developer&link=dead-zed",
+   "frame": "/misc/dead-zed/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "deadly-descent": {
    "id": "deadly-descent",
@@ -782,6 +1265,20 @@
     "unityFolder": true
    }
   },
+  "diggy": {
+   "id": "diggy",
+   "name": "Diggy",
+   "play": "/misc/play/?title=Diggy&author=Original+developer&link=diggy",
+   "frame": "/misc/diggy/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "dino-bros": {
    "id": "dino-bros",
    "name": "Dino Bros",
@@ -808,6 +1305,20 @@
    "frame": "/misc/dino-simulator/index.html",
    "status": "observed"
   },
+  "dog-vs-cat": {
+   "id": "dog-vs-cat",
+   "name": "Dog vs Cat",
+   "play": "/misc/play/?title=Dog+vs+Cat&author=Original+developer&link=dog-vs-cat",
+   "frame": "/misc/dog-vs-cat/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "dogeminer": {
    "id": "dogeminer",
    "name": "Doge Miner",
@@ -829,12 +1340,110 @@
    "frame": "/misc/dogeminer-2/index.html",
    "status": "observed"
   },
+  "dont-escape": {
+   "id": "dont-escape",
+   "name": "Don't Escape",
+   "play": "/misc/play/?title=Don%27t+Escape&author=Original+developer&link=dont-escape",
+   "frame": "/misc/dont-escape/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "dont-escape-2": {
+   "id": "dont-escape-2",
+   "name": "Don't Escape 2",
+   "play": "/misc/play/?title=Don%27t+Escape+2&author=Original+developer&link=dont-escape-2",
+   "frame": "/misc/dont-escape-2/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "dont-escape-3": {
+   "id": "dont-escape-3",
+   "name": "Don't Escape 3",
+   "play": "/misc/play/?title=Don%27t+Escape+3&author=Original+developer&link=dont-escape-3",
+   "frame": "/misc/dont-escape-3/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "doodlejump": {
    "id": "doodlejump",
    "name": "Doodle Jump",
    "play": "/misc/play/?title=Doodle%20Jump&author=Igor%20Pusenjak&link=doodlejump",
    "frame": "/misc/doodlejump/index.html",
    "status": "observed"
+  },
+  "drag-racer-v3": {
+   "id": "drag-racer-v3",
+   "name": "Drag Racer V3",
+   "play": "/misc/play/?title=Drag+Racer+V3&author=Original+developer&link=drag-racer-v3",
+   "frame": "/misc/drag-racer-v3/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "dragon-ball-devolution": {
+   "id": "dragon-ball-devolution",
+   "name": "Dragon ball Devolution",
+   "play": "/misc/play/?title=Dragon+ball+Devolution&author=Original+developer&link=dragon-ball-devolution",
+   "frame": "/misc/dragon-ball-devolution/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "dragon-ball-kart": {
+   "id": "dragon-ball-kart",
+   "name": "Dragon Ball Kart",
+   "play": "/misc/play/?title=Dragon+Ball+Kart&author=Original+developer&link=dragon-ball-kart",
+   "frame": "/misc/dragon-ball-kart/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "dragon-fist-3": {
+   "id": "dragon-fist-3",
+   "name": "Dragon Fist 3",
+   "play": "/misc/play/?title=Dragon+Fist+3&author=Original+developer&link=dragon-fist-3",
+   "frame": "/misc/dragon-fist-3/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "draw-the-hill": {
    "id": "draw-the-hill",
@@ -917,6 +1526,48 @@
    "frame": "/misc/edgenotfound/index.html",
    "status": "observed"
   },
+  "effing-hail": {
+   "id": "effing-hail",
+   "name": "Effing Hail",
+   "play": "/misc/play/?title=Effing+Hail&author=Original+developer&link=effing-hail",
+   "frame": "/misc/effing-hail/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "effing-worms": {
+   "id": "effing-worms",
+   "name": "Effing Worms",
+   "play": "/misc/play/?title=Effing+Worms&author=Original+developer&link=effing-worms",
+   "frame": "/misc/effing-worms/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "effing-worms-2": {
+   "id": "effing-worms-2",
+   "name": "Effing Worms 2",
+   "play": "/misc/play/?title=Effing+Worms+2&author=Original+developer&link=effing-worms-2",
+   "frame": "/misc/effing-worms-2/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "eggy-car": {
    "id": "eggy-car",
    "name": "Eggy Car",
@@ -927,6 +1578,20 @@
     "idb": [
      "_C2SaveStates",
      "localforage"
+    ]
+   }
+  },
+  "electric-box-2": {
+   "id": "electric-box-2",
+   "name": "Electric Box 2",
+   "play": "/misc/play/?title=Electric+Box+2&author=Original+developer&link=electric-box-2",
+   "frame": "/misc/electric-box-2/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
     ]
    }
   },
@@ -1012,6 +1677,34 @@
    "play": "/misc/play/?title=Pokemon%20Ultraviolet&author=Nintendo&link=emulator/pokemon/ultraviolent",
    "frame": "/misc/emulator/pokemon/ultraviolent/index.html",
    "status": "observed"
+  },
+  "endless-war-3": {
+   "id": "endless-war-3",
+   "name": "Endless War 3",
+   "play": "/misc/play/?title=Endless+War+3&author=Original+developer&link=endless-war-3",
+   "frame": "/misc/endless-war-3/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "endless-war-7": {
+   "id": "endless-war-7",
+   "name": "Endless War 7",
+   "play": "/misc/play/?title=Endless+War+7&author=Original+developer&link=endless-war-7",
+   "frame": "/misc/endless-war-7/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "eparkour": {
    "id": "eparkour",
@@ -1341,6 +2034,34 @@
    "frame": "/misc/flippyfish/index.html",
    "status": "observed"
   },
+  "flood-runner-2": {
+   "id": "flood-runner-2",
+   "name": "Flood Runner 2",
+   "play": "/misc/play/?title=Flood+Runner+2&author=Original+developer&link=flood-runner-2",
+   "frame": "/misc/flood-runner-2/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "fly-the-plane": {
+   "id": "fly-the-plane",
+   "name": "Fly the Plane",
+   "play": "/misc/play/?title=Fly%20the%20Plane&author=AO.games&link=fly-the-plane",
+   "frame": "/misc/fly-the-plane/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "flying-car-simulator": {
    "id": "flying-car-simulator",
    "name": "Flying Car Simulator",
@@ -1495,6 +2216,20 @@
    "frame": "/misc/gettingoverit/index.html",
    "status": "observed"
   },
+  "giants-and-dwarves-td": {
+   "id": "giants-and-dwarves-td",
+   "name": "Giants And Dwarves TD",
+   "play": "/misc/play/?title=Giants+And+Dwarves+TD&author=Original+developer&link=giants-and-dwarves-td",
+   "frame": "/misc/giants-and-dwarves-td/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "gimme-the-airpod": {
    "id": "gimme-the-airpod",
    "name": "Gimme the Airpod",
@@ -1527,6 +2262,20 @@
    "play": "/misc/play/?title=Going%20Balls&link=going-balls",
    "frame": "/misc/going-balls/index.html",
    "status": "observed"
+  },
+  "gold-miner-2": {
+   "id": "gold-miner-2",
+   "name": "Gold Miner 2",
+   "play": "/misc/play/?title=Gold+Miner+2&author=Original+developer&link=gold-miner-2",
+   "frame": "/misc/gold-miner-2/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "golforbit": {
    "id": "golforbit",
@@ -1580,6 +2329,48 @@
    "frame": "/misc/granny/index.html",
    "status": "observed"
   },
+  "granny-2": {
+   "id": "granny-2",
+   "name": "Granny 2",
+   "play": "/misc/play/?title=Granny%202&author=DVloper&link=granny-2",
+   "frame": "/misc/granny-2/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "gravity-driver": {
+   "id": "gravity-driver",
+   "name": "Gravity Driver",
+   "play": "/misc/play/?title=Gravity+Driver&author=Original+developer&link=gravity-driver",
+   "frame": "/misc/gravity-driver/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "gretel-and-hansel-1": {
+   "id": "gretel-and-hansel-1",
+   "name": "Gretel and Hansel",
+   "play": "/misc/play/?title=Gretel+and+Hansel&author=Original+developer&link=gretel-and-hansel-1",
+   "frame": "/misc/gretel-and-hansel-1/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "grindcraft": {
    "id": "grindcraft",
    "name": "Grindcraft",
@@ -1587,12 +2378,68 @@
    "frame": "/misc/grindcraft/index.html",
    "status": "observed"
   },
+  "grow-island": {
+   "id": "grow-island",
+   "name": "Grow Island",
+   "play": "/misc/play/?title=Grow+Island&author=Original+developer&link=grow-island",
+   "frame": "/misc/grow-island/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "grow-valley": {
+   "id": "grow-valley",
+   "name": "Grow Valley",
+   "play": "/misc/play/?title=Grow+Valley&author=Original+developer&link=grow-valley",
+   "frame": "/misc/grow-valley/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "gun-mayhem": {
+   "id": "gun-mayhem",
+   "name": "Gun Mayhem",
+   "play": "/misc/play/?title=Gun+Mayhem&author=Original+developer&link=gun-mayhem",
+   "frame": "/misc/gun-mayhem/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "gunblood": {
    "id": "gunblood",
    "name": "Gunblood",
    "play": "/misc/play/?title=Gunblood&author=Wolf%20Games&link=gunblood",
    "frame": "/misc/gunblood/index.html",
    "status": "observed"
+  },
+  "gunmaster-onslaught": {
+   "id": "gunmaster-onslaught",
+   "name": "GunMaster Onslaught",
+   "play": "/misc/play/?title=GunMaster+Onslaught&author=Original+developer&link=gunmaster-onslaught",
+   "frame": "/misc/gunmaster-onslaught/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "gunspin": {
    "id": "gunspin",
@@ -1846,12 +2693,54 @@
    "frame": "/misc/impossible-quiz2/index.html",
    "status": "observed"
   },
+  "interactive-buddy": {
+   "id": "interactive-buddy",
+   "name": "Interactive Buddy",
+   "play": "/misc/play/?title=Interactive+Buddy&author=Original+developer&link=interactive-buddy",
+   "frame": "/misc/interactive-buddy/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "intrusion": {
+   "id": "intrusion",
+   "name": "Intrusion",
+   "play": "/misc/play/?title=Intrusion&author=Original+developer&link=intrusion",
+   "frame": "/misc/intrusion/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "iron-snout": {
    "id": "iron-snout",
    "name": "Iron Snout",
    "play": "/misc/play/?title=Iron%20Snout&link=iron-snout",
    "frame": "/misc/iron-snout/index.html",
    "status": "observed"
+  },
+  "jacksmith": {
+   "id": "jacksmith",
+   "name": "Jacksmith",
+   "play": "/misc/play/?title=Jacksmith&author=Original+developer&link=jacksmith",
+   "frame": "/misc/jacksmith/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "jellydrift": {
    "id": "jellydrift",
@@ -2023,6 +2912,20 @@
    "frame": "/misc/mad-skills-motocross-2/index.html",
    "status": "observed"
   },
+  "madness-accelerant": {
+   "id": "madness-accelerant",
+   "name": "Madness Accelerant",
+   "play": "/misc/play/?title=Madness+Accelerant&author=Original+developer&link=madness-accelerant",
+   "frame": "/misc/madness-accelerant/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "madstunt-cars": {
    "id": "madstunt-cars",
    "name": "Madalin Stunt Cars 3",
@@ -2064,6 +2967,20 @@
    "play": "/misc/play/?title=Merge%20Round%20Racers&link=merge-round-racers",
    "frame": "/misc/merge-round-racers/index.html",
    "status": "observed"
+  },
+  "miami-shark": {
+   "id": "miami-shark",
+   "name": "Miami Shark",
+   "play": "/misc/play/?title=Miami+Shark&author=Original+developer&link=miami-shark",
+   "frame": "/misc/miami-shark/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "mine-line": {
    "id": "mine-line",
@@ -2188,6 +3105,20 @@
    "frame": "/misc/murder/index.html",
    "status": "observed"
   },
+  "murloc": {
+   "id": "murloc",
+   "name": "Murloc",
+   "play": "/misc/play/?title=Murloc&author=Original+developer&link=murloc",
+   "frame": "/misc/murloc/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "musicplayer": {
    "id": "musicplayer",
    "name": "musicplayer",
@@ -2253,6 +3184,48 @@
    "frame": "/misc/nzp/index.html",
    "status": "observed"
   },
+  "obby-snowboard": {
+   "id": "obby-snowboard",
+   "name": "Obby Snowboard",
+   "play": "/misc/play/?title=Obby%20Snowboard&author=MiniPoP%20Games&link=obby-snowboard",
+   "frame": "/misc/obby-snowboard/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "obey-the-game": {
+   "id": "obey-the-game",
+   "name": "Obey The Game",
+   "play": "/misc/play/?title=Obey+The+Game&author=Original+developer&link=obey-the-game",
+   "frame": "/misc/obey-the-game/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "overkill-apache": {
+   "id": "overkill-apache",
+   "name": "Overkill Apache",
+   "play": "/misc/play/?title=Overkill+Apache&author=Original+developer&link=overkill-apache",
+   "frame": "/misc/overkill-apache/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "ovo": {
    "id": "ovo",
    "name": "OvO",
@@ -2283,6 +3256,48 @@
     "idb": [
      "_C2SaveStates",
      "localforage"
+    ]
+   }
+  },
+  "ownage-burst": {
+   "id": "ownage-burst",
+   "name": "Ownage Burst",
+   "play": "/misc/play/?title=Ownage+Burst&author=Original+developer&link=ownage-burst",
+   "frame": "/misc/ownage-burst/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "papa-louie-2-when-burgers-attack": {
+   "id": "papa-louie-2-when-burgers-attack",
+   "name": "Papa Louie 2: When Burgers Attack",
+   "play": "/misc/play/?title=Papa+Louie+2%3A+When+Burgers+Attack&author=Original+developer&link=papa-louie-2-when-burgers-attack",
+   "frame": "/misc/papa-louie-2-when-burgers-attack/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "papas-bakeria": {
+   "id": "papas-bakeria",
+   "name": "Papa’s Bakeria",
+   "play": "/misc/play/?title=Papa%E2%80%99s+Bakeria&author=Original+developer&link=papas-bakeria",
+   "frame": "/misc/papas-bakeria/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
     ]
    }
   },
@@ -2479,6 +3494,20 @@
    "frame": "/misc/pingponggo/index.html",
    "status": "observed"
   },
+  "plazma-burst": {
+   "id": "plazma-burst",
+   "name": "Plazma Burst",
+   "play": "/misc/play/?title=Plazma+Burst&author=Original+developer&link=plazma-burst",
+   "frame": "/misc/plazma-burst/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "plonky": {
    "id": "plonky",
    "name": "Plonky",
@@ -2557,6 +3586,20 @@
    "frame": "/misc/raft-wars-2/index.html",
    "status": "observed"
   },
+  "ragdoll-achievement": {
+   "id": "ragdoll-achievement",
+   "name": "Ragdoll Achievement",
+   "play": "/misc/play/?title=Ragdoll+Achievement&author=Original+developer&link=ragdoll-achievement",
+   "frame": "/misc/ragdoll-achievement/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "ragdoll-archers": {
    "id": "ragdoll-archers",
    "name": "Ragdoll Archers",
@@ -2588,6 +3631,20 @@
    "frame": "/misc/ragdoll-fight/index.html",
    "status": "observed"
   },
+  "ragdoll-freefall": {
+   "id": "ragdoll-freefall",
+   "name": "Ragdoll Freefall",
+   "play": "/misc/play/?title=Ragdoll%20Freefall&author=Nepochat&link=ragdoll-freefall",
+   "frame": "/misc/ragdoll-freefall/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "ragdoll-hit": {
    "id": "ragdoll-hit",
    "name": "Ragdoll Hit",
@@ -2595,11 +3652,39 @@
    "frame": "/misc/ragdoll-hit/index.html",
    "status": "observed"
   },
+  "rage-3": {
+   "id": "rage-3",
+   "name": "Rage 3",
+   "play": "/misc/play/?title=Rage+3&author=Original+developer&link=rage-3",
+   "frame": "/misc/rage-3/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "rb": {
    "id": "rb",
    "name": "rb",
    "frame": "/misc/rb/index.html",
    "status": "observed"
+  },
+  "real-kart": {
+   "id": "real-kart",
+   "name": "Real Kart",
+   "play": "/misc/play/?title=Real+Kart&author=Original+developer&link=real-kart",
+   "frame": "/misc/real-kart/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "recoil": {
    "id": "recoil",
@@ -2693,6 +3778,20 @@
    ],
    "progress": {
     "adapter": "retro-bowl-college"
+   }
+  },
+  "ricochet-kills": {
+   "id": "ricochet-kills",
+   "name": "Ricochet Kills",
+   "play": "/misc/play/?title=Ricochet+Kills&author=Original+developer&link=ricochet-kills",
+   "frame": "/misc/ricochet-kills/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
    }
   },
   "riddleschool": {
@@ -2838,6 +3937,20 @@
    "frame": "/misc/sandtrix/index.html",
    "status": "observed"
   },
+  "santa-run-2": {
+   "id": "santa-run-2",
+   "name": "Santa Run 2",
+   "play": "/misc/play/?title=Santa+Run+2&author=Original+developer&link=santa-run-2",
+   "frame": "/misc/santa-run-2/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "santy-is-home": {
    "id": "santy-is-home",
    "name": "Santy is Home",
@@ -2852,6 +3965,13 @@
    "frame": "/misc/sausage-flip/index.html",
    "status": "observed"
   },
+  "scary-teacher-3d": {
+   "id": "scary-teacher-3d",
+   "name": "Scary Teacher 3D",
+   "play": "/misc/play/?title=Scary%20Teacher%203D&link=scary-teacher-3d",
+   "frame": "/misc/scary-teacher-3d/index.html",
+   "status": "observed"
+  },
   "school-cleaning": {
    "id": "school-cleaning",
    "name": "School Cleaning",
@@ -2859,11 +3979,67 @@
    "frame": "/misc/school-cleaning/index.html",
    "status": "observed"
   },
+  "search-for-the-needle": {
+   "id": "search-for-the-needle",
+   "name": "Search for the Needle!",
+   "play": "/misc/play/?title=Search%20for%20the%20Needle%21&author=LuckyBox&link=search-for-the-needle",
+   "frame": "/misc/search-for-the-needle/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "shellshock": {
    "id": "shellshock",
    "name": "Shell Shockers",
    "frame": "/misc/shellshock/index.html",
    "status": "local-only"
+  },
+  "shopping-cart-hero": {
+   "id": "shopping-cart-hero",
+   "name": "Shopping Cart Hero",
+   "play": "/misc/play/?title=Shopping+Cart+Hero&author=Original+developer&link=shopping-cart-hero",
+   "frame": "/misc/shopping-cart-hero/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "siegius": {
+   "id": "siegius",
+   "name": "Siegius",
+   "play": "/misc/play/?title=Siegius&author=Original+developer&link=siegius",
+   "frame": "/misc/siegius/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "sift-heads-world-ultimatum": {
+   "id": "sift-heads-world-ultimatum",
+   "name": "Sift Heads World: Act 1",
+   "play": "/misc/play/?title=Sift+Heads+World%3A+Act+1&author=Original+developer&link=sift-heads-world-ultimatum",
+   "frame": "/misc/sift-heads-world-ultimatum/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "sketchbook": {
    "id": "sketchbook",
@@ -2885,6 +4061,20 @@
    "play": "/misc/play/?title=Skyriders&author=Asher Lee&link=skyriders",
    "frame": "/misc/skyriders/index.html",
    "status": "observed"
+  },
+  "slap-aura": {
+   "id": "slap-aura",
+   "name": "Slap Aura",
+   "play": "/misc/play/?title=Slap%20Aura&author=Unknown%20developer&link=slap-aura",
+   "frame": "/misc/slap-aura/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "slice-master": {
    "id": "slice-master",
@@ -2953,6 +4143,20 @@
    "name": "smashkarts",
    "frame": "/misc/smashkarts/index.html",
    "status": "local-only"
+  },
+  "smileys-war": {
+   "id": "smileys-war",
+   "name": "Smileys War",
+   "play": "/misc/play/?title=Smileys+War&author=Original+developer&link=smileys-war",
+   "frame": "/misc/smileys-war/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "snake-pivot": {
    "id": "snake-pivot",
@@ -3119,6 +4323,20 @@
    "frame": "/misc/stick-rush/index.html",
    "status": "observed"
   },
+  "stick-war-2": {
+   "id": "stick-war-2",
+   "name": "Stick War 2",
+   "play": "/misc/play/?title=Stick+War+2&author=Original+developer&link=stick-war-2",
+   "frame": "/misc/stick-war-2/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "stick-war-legacy": {
    "id": "stick-war-legacy",
    "name": "Stick War: Legacy",
@@ -3195,6 +4413,76 @@
    "frame": "/misc/stickmerge/index.html",
    "status": "observed"
   },
+  "storm-ops-4": {
+   "id": "storm-ops-4",
+   "name": "Storm Ops 4",
+   "play": "/misc/play/?title=Storm+Ops+4&author=Original+developer&link=storm-ops-4",
+   "frame": "/misc/storm-ops-4/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "strike-force-heroes-2": {
+   "id": "strike-force-heroes-2",
+   "name": "Strike Force Heroes 2",
+   "play": "/misc/play/?title=Strike+Force+Heroes+2&author=Original+developer&link=strike-force-heroes-2",
+   "frame": "/misc/strike-force-heroes-2/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "strike-force-kitty": {
+   "id": "strike-force-kitty",
+   "name": "Strike Force Kitty",
+   "play": "/misc/play/?title=Strike+Force+Kitty&author=Original+developer&link=strike-force-kitty",
+   "frame": "/misc/strike-force-kitty/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "strike-force-kitty-2": {
+   "id": "strike-force-kitty-2",
+   "name": "Strike Force Kitty 2",
+   "play": "/misc/play/?title=Strike+Force+Kitty+2&author=Original+developer&link=strike-force-kitty-2",
+   "frame": "/misc/strike-force-kitty-2/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "strike-force-kitty-3": {
+   "id": "strike-force-kitty-3",
+   "name": "StrikeForce Kitty: Last Stand",
+   "play": "/misc/play/?title=StrikeForce+Kitty%3A+Last+Stand&author=Original+developer&link=strike-force-kitty-3",
+   "frame": "/misc/strike-force-kitty-3/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "stumbleguys": {
    "id": "stumbleguys",
    "name": "stumbleguys",
@@ -3235,6 +4523,20 @@
    "frame": "/misc/super-foulist/index.html",
    "status": "observed"
   },
+  "super-mario-63": {
+   "id": "super-mario-63",
+   "name": "Super Mario 63",
+   "play": "/misc/play/?title=Super+Mario+63&author=Original+developer&link=super-mario-63",
+   "frame": "/misc/super-mario-63/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "supercar-legends": {
    "id": "supercar-legends",
    "name": "Supercar Legends",
@@ -3256,6 +4558,20 @@
    "frame": "/misc/superliquidsoccor/index.html",
    "status": "observed"
   },
+  "supermario-world-flash": {
+   "id": "supermario-world-flash",
+   "name": "Super Mario World Flash",
+   "play": "/misc/play/?title=Super+Mario+World+Flash&author=Original+developer&link=supermario-world-flash",
+   "frame": "/misc/supermario-world-flash/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "superstarcar": {
    "id": "superstarcar",
    "name": "Super Star Car",
@@ -3276,6 +4592,34 @@
    "play": "/misc/play/?title=Swingo&author=Blumgi&link=swingo",
    "frame": "/misc/swingo/index.html",
    "status": "observed"
+  },
+  "swords-and-sandals-2": {
+   "id": "swords-and-sandals-2",
+   "name": "Swords and Sandals 2",
+   "play": "/misc/play/?title=Swords+and+Sandals+2&author=Original+developer&link=swords-and-sandals-2",
+   "frame": "/misc/swords-and-sandals-2/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "swords-and-souls": {
+   "id": "swords-and-souls",
+   "name": "Swords and souls",
+   "play": "/misc/play/?title=Swords+and+souls&author=Original+developer&link=swords-and-souls",
+   "frame": "/misc/swords-and-souls/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "tabletennisworldtour": {
    "id": "tabletennisworldtour",
@@ -3320,12 +4664,40 @@
    "frame": "/misc/the-baby-in-yellow/index.html",
    "status": "observed"
   },
+  "the-enchanted-cave": {
+   "id": "the-enchanted-cave",
+   "name": "The Enchanted Cave 2",
+   "play": "/misc/play/?title=The+Enchanted+Cave+2&author=Original+developer&link=the-enchanted-cave",
+   "frame": "/misc/the-enchanted-cave/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "the-final-earth-2": {
    "id": "the-final-earth-2",
    "name": "The Final Earth 2",
    "play": "/misc/play/?title=The%20Final%20Earth%202&link=the-final-earth-2",
    "frame": "/misc/the-final-earth-2/index.html",
    "status": "observed"
+  },
+  "the-last-stand": {
+   "id": "the-last-stand",
+   "name": "The Last Stand",
+   "play": "/misc/play/?title=The+Last+Stand&author=Original+developer&link=the-last-stand",
+   "frame": "/misc/the-last-stand/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "thereisnogame": {
    "id": "thereisnogame",
@@ -3336,6 +4708,20 @@
    "renamed": {
     "idb": [
      "_C2SaveStates"
+    ]
+   }
+  },
+  "thing-thing-4": {
+   "id": "thing-thing-4",
+   "name": "Thing Thing 4",
+   "play": "/misc/play/?title=Thing+Thing+4&author=Original+developer&link=thing-thing-4",
+   "frame": "/misc/thing-thing-4/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
     ]
    }
   },
@@ -3430,6 +4816,20 @@
    "frame": "/misc/twitchtetris/index.html",
    "status": "observed"
   },
+  "two-ball-3d": {
+   "id": "two-ball-3d",
+   "name": "Two Ball 3D",
+   "play": "/misc/play/?title=Two%20Ball%203D&author=RHM%20Interactive&link=two-ball-3d",
+   "frame": "/misc/two-ball-3d/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "ultrakill": {
    "id": "ultrakill",
    "name": "Ultrakill",
@@ -3491,6 +4891,20 @@
    ],
    "progress": {
     "adapter": "universal-paperclips"
+   }
+  },
+  "vavex": {
+   "id": "vavex",
+   "name": "VaVeX",
+   "play": "/misc/play/?title=VaVeX&author=Unknown%20developer&link=vavex",
+   "frame": "/misc/vavex/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
    }
   },
   "vex-3m": {
@@ -3556,12 +4970,40 @@
    "frame": "/misc/war-the-knights/index.html",
    "status": "observed"
   },
+  "warfare-1917": {
+   "id": "warfare-1917",
+   "name": "Warfare 1917",
+   "play": "/misc/play/?title=Warfare+1917&author=Original+developer&link=warfare-1917",
+   "frame": "/misc/warfare-1917/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "wave-rider": {
    "id": "wave-rider",
    "name": "Wave Rider",
    "play": "/misc/play/?title=Wave%20Rider&link=wave-rider",
    "frame": "/misc/wave-rider/index.html",
    "status": "observed"
+  },
+  "weapon": {
+   "id": "weapon",
+   "name": "Weapon",
+   "play": "/misc/play/?title=Weapon&author=Original+developer&link=weapon",
+   "frame": "/misc/weapon/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "webecomewhatwebehold": {
    "id": "webecomewhatwebehold",

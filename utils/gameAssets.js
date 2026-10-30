@@ -11,6 +11,111 @@ import { getStaticCacheControl } from "./httpPerformance.js";
 // and passed through, so those requests keep working from the same origin.
 const DEFAULT_BASE =
   "https://cdn.jsdelivr.net/gh/55gms/assets@e899179b25ba3966a87383c0e4092168d9513472/misc/";
+const IMPORTED_BASE =
+  "https://cdn.jsdelivr.net/gh/55gms/assets@d9deca77d305dcc8fbfce6c068865a4c374812cb/misc/";
+const IMPORTED_FOLDERS = new Set([
+  "real-kart",
+  "two-ball-3d",
+  "blocky-snakes",
+  "search-for-the-needle",
+  "obby-snowboard",
+  "crazy-roll",
+  "granny-2",
+  "vavex",
+  "fly-the-plane",
+  "slap-aura",
+  "ragdoll-freefall",
+  "jacksmith",
+  "swords-and-souls",
+  "cactus-mccoy",
+  "cactusmccoy2",
+  "super-mario-63",
+  "achievement-unlocked",
+  "dont-escape",
+  "dont-escape-2",
+  "dont-escape-3",
+  "warfare-1917",
+  "the-enchanted-cave",
+  "gun-mayhem",
+  "swords-and-sandals-2",
+  "the-last-stand",
+  "strike-force-heroes-2",
+  "bloons-supermonkey",
+  "city-siege",
+  "city-siege-2",
+  "city-siege-3",
+  "city-siege-4",
+  "shopping-cart-hero",
+  "grow-island",
+  "grow-valley",
+  "armor-mayhem",
+  "electric-box-2",
+  "civiballs",
+  "papas-bakeria",
+  "papa-louie-2-when-burgers-attack",
+  "diggy",
+  "murloc",
+  "madness-accelerant",
+  "boxhead-2play-rooms",
+  "endless-war-3",
+  "armed-with-wings",
+  "stick-war-2",
+  "dragon-fist-3",
+  "miami-shark",
+  "rage-3",
+  "flood-runner-2",
+  "dads-me",
+  "plazma-burst",
+  "strike-force-kitty",
+  "strike-force-kitty-2",
+  "strike-force-kitty-3",
+  "browman",
+  "ricochet-kills",
+  "interactive-buddy",
+  "dead-zed",
+  "3-slices",
+  "effing-worms",
+  "effing-hail",
+  "dragon-ball-devolution",
+  "bomb-it-4",
+  "bounzy-2",
+  "commando",
+  "intrusion",
+  "gunmaster-onslaught",
+  "giants-and-dwarves-td",
+  "gretel-and-hansel-1",
+  "obey-the-game",
+  "black-knight",
+  "crazy-penguin-catapult",
+  "achilles",
+  "thing-thing-4",
+  "sift-heads-world-ultimatum",
+  "animal-raceway",
+  "drag-racer-v3",
+  "ragdoll-achievement",
+  "gold-miner-2",
+  "crazy-flasher-3",
+  "gravity-driver",
+  "weapon",
+  "smileys-war",
+  "batman-the-cobblebot-caper",
+  "acid-bunny",
+  "dead-samurai",
+  "dog-vs-cat",
+  "alone-in-the-madness",
+  "dragon-ball-kart",
+  "endless-war-7",
+  "storm-ops-4",
+  "effing-worms-2",
+  "supermario-world-flash",
+  "1-on-1-basketball",
+  "santa-run-2",
+  "axis-football-league",
+  "siegius",
+  "aqua-turret",
+  "ownage-burst",
+  "overkill-apache",
+]);
 
 // Pages are always served from disk: jsDelivr serves HTML as plain text.
 const PAGE = /\.html?$/i;
@@ -69,14 +174,20 @@ export function mountGameAssetFallback(app, staticRoot) {
 
     let folder;
     let target;
+    let selectedBase;
     try {
       folder = decodeURIComponent(file.split("/")[0]);
-      target = new URL(file, base);
+      selectedBase =
+        !process.env.GAME_ASSETS_BASE && IMPORTED_FOLDERS.has(folder)
+          ? IMPORTED_BASE
+          : base;
+      target = new URL(file, selectedBase);
     } catch {
       return next();
     }
     // The URL parser resolves `..`, so check the result is still in the mirror.
-    if (!folders.has(folder) || !target.href.startsWith(base)) return next();
+    if (!folders.has(folder) || !target.href.startsWith(selectedBase))
+      return next();
     if (missed(target.pathname)) return next();
 
     const controller = new AbortController();

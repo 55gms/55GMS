@@ -282,6 +282,18 @@ for (const group of RENAMED) {
   }
 }
 
+// Imported portal builds reuse generic Yandex player keys and Construct's
+// default databases. Give each import its own storage before its SDK runs.
+for (const [id, entry] of games) {
+  const file = documentFor(entry.frame);
+  if (
+    existsSync(file) &&
+    /id=["']gms-(?:import|flash)-config["']/.test(readFileSync(file, "utf8"))
+  ) {
+    renamed.set(id, { idb: ["localforage", "_C2SaveStates", "_C3SaveStates"] });
+  }
+}
+
 const output = {};
 for (const id of [...games.keys()].sort()) {
   const entry = games.get(id);

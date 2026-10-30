@@ -1,0 +1,4508 @@
+{
+  "target": 100,
+  "status": "verification-incomplete",
+  "assetCommit": "d9deca77d305dcc8fbfce6c068865a4c374812cb",
+  "baselineCommit": "1ed1283bc0a9a44c4a00dbeee44b4b7eac51bf63",
+  "existingNames": [
+    "10minutestilldawn",
+    "1on1soccer",
+    "1v1lol",
+    "2048",
+    "2doom",
+    "2drocketleague",
+    "60secondburgerrun",
+    "60secondsreatomized",
+    "adanceoffireice",
+    "adventurecapitalist",
+    "adventuredrivers",
+    "adventureminer",
+    "airplanemanager",
+    "alienhominid",
+    "amazingropepolice",
+    "americanfootballreal",
+    "appleworm",
+    "aquaparkio",
+    "arcadecardrift",
+    "archeryworldtour",
+    "asmallworldcup",
+    "asmallworldcup2",
+    "astrosurvivors",
+    "awesometanks",
+    "awesometanks2",
+    "backrooms",
+    "backroomsrecovery",
+    "baconmaydie",
+    "baconsurvivor",
+    "badicecream",
+    "badicecream2",
+    "badicecream3",
+    "badtimesimulator",
+    "balatro",
+    "baldisbasics",
+    "bankrobbery2",
+    "baseballbros",
+    "basketballreal",
+    "basketballstars",
+    "basketballsuperstars",
+    "basketbros",
+    "basketrandom",
+    "beautysalon",
+    "beeswarmsimulator",
+    "bendy",
+    "bigflappytowervstinysquare",
+    "bigtowertinysquare",
+    "bikeobby",
+    "bitlife",
+    "blockblast",
+    "bloonstd",
+    "bloonstd2",
+    "bloonstd3",
+    "bloonstd4",
+    "bloxrz",
+    "blumgiball",
+    "blumgibloom",
+    "blumgibounce",
+    "blumgicastle",
+    "blumgidragon",
+    "blumgimerge",
+    "blumgipaintball",
+    "blumgiracers",
+    "blumgislime",
+    "blumgisoccer",
+    "blumgisplash",
+    "bobtherobber2",
+    "boomslingersreboom",
+    "bottleflip",
+    "bottleflip3d",
+    "bouncemasters",
+    "bouncybasketball",
+    "bowmasters",
+    "boxingrandom",
+    "boxrob",
+    "brainrotminer",
+    "braintest",
+    "brawlsimulator3d",
+    "brotato",
+    "buckbounce",
+    "buckshotroulette",
+    "buildnowgg",
+    "bulletbros",
+    "capitalistbusdriver",
+    "capybaraclicker",
+    "carcircle",
+    "carmachines",
+    "carnadostuntcar",
+    "catpizza",
+    "choppyorc",
+    "circloo",
+    "cloverpit",
+    "clusterrush",
+    "colorpencilrun",
+    "cookieclicker",
+    "cookingfever",
+    "coreball",
+    "countcontrollegends",
+    "crazybikes",
+    "crazycars",
+    "crazycattle3d",
+    "crossyroad",
+    "csgoclicker",
+    "cubefield",
+    "cuphead",
+    "cuttherope",
+    "dadish",
+    "dadish2",
+    "dadish3",
+    "dadish3d",
+    "dailydadish",
+    "dante",
+    "dayofmeatradiation",
+    "deadlydescent",
+    "deadshotio",
+    "dealornodeal",
+    "deeeepio",
+    "digdigio",
+    "diggerescape",
+    "diggingmaster",
+    "dinobros",
+    "dinofighter",
+    "dinosimulator",
+    "dogeminer",
+    "dogeminer2",
+    "doodlejump",
+    "drawthehill",
+    "dreadheadparkour",
+    "driftboss",
+    "drifthunters",
+    "drivemad",
+    "ducklife",
+    "ducklife2",
+    "ducklife3",
+    "ducklife4",
+    "ducklingsio",
+    "duckmerge",
+    "dune",
+    "eaglercraftx",
+    "eagleride",
+    "edgenotfound",
+    "eggycar",
+    "emulatorjs",
+    "eparkour",
+    "escaperoad",
+    "escaperoad2",
+    "escaperoad3",
+    "escaperoadcity2",
+    "fancypantsadventure",
+    "fancypantsadventure2",
+    "fashionlegends",
+    "fearresponse",
+    "fireboywatergirl",
+    "fisheatfish",
+    "fivenightsatepstiens",
+    "flickgoal",
+    "flipbros",
+    "flippyfish",
+    "flyingcarsimulator",
+    "fnaf",
+    "fnaf2",
+    "fnaf3",
+    "fnaf4",
+    "fnafsisterlocation",
+    "footballbros",
+    "freeriderjumps",
+    "fridaynightfunkin",
+    "fruitmerge",
+    "fruitninja",
+    "fruitsoffury",
+    "fryingnemo",
+    "fullspeedracing",
+    "funnyshooter2",
+    "gasstation",
+    "gbagames",
+    "geometrydash",
+    "geometrydashlite",
+    "geometrydashsubzero",
+    "getawayshootout",
+    "gettingoverit",
+    "gimmetheairpod",
+    "gladihoppers",
+    "gobble",
+    "goingballs",
+    "golforbit",
+    "goodsmaster",
+    "googlebaseball",
+    "googlefeud",
+    "googlesnake",
+    "grandprixhero",
+    "granny",
+    "grindcraft",
+    "gunblood",
+    "gunmayhem2",
+    "gunmayhem3",
+    "gunspin",
+    "gymstack",
+    "happyglass",
+    "happywheels",
+    "harvestloop",
+    "harvestsimulator",
+    "helixjump",
+    "henrystickminbreakingthebank",
+    "henrystickminescapingtheprison",
+    "henrystickminfleeingthecomplex",
+    "henrystickmininfiltratingtheairship",
+    "henrystickminstealingthediamond",
+    "hexellent",
+    "hexgl",
+    "hextris",
+    "hillclimbracing",
+    "hobo",
+    "hobo2",
+    "hobo3",
+    "hobo4",
+    "hobo5",
+    "hobo6",
+    "hobo7",
+    "holeio",
+    "hollownight",
+    "hollownightsilksong",
+    "hordekilleryouvs100",
+    "hotlinemiami",
+    "houseofhazards",
+    "idleants",
+    "idlebreakout",
+    "idlecowshed",
+    "idledice",
+    "idlediggingtycoon",
+    "idlelumberinc",
+    "idleminingempire",
+    "idlerestaurants",
+    "idlerevolution",
+    "idlesuccess",
+    "impossiblequiz",
+    "impossiblequiz2",
+    "infinitecraft",
+    "ironsnout",
+    "jellydrift",
+    "jetpackjoyride",
+    "johnnytrigger",
+    "johnnytriggersniper",
+    "jumpingshell",
+    "jumponly",
+    "justshapesbeats",
+    "karlson",
+    "karlsont",
+    "kickthebuddy",
+    "kindergarden",
+    "kindergarden2",
+    "kiwiclicker",
+    "knifehit",
+    "knifemerge",
+    "kourio",
+    "learntofly",
+    "learntofly2",
+    "learntofly3",
+    "leveldevil",
+    "lightthelamp",
+    "littlealchemy",
+    "littlealchemy2",
+    "longcat",
+    "madalinstuntcars3",
+    "madskillsmotocross2",
+    "magicbattleground",
+    "marblerun3d",
+    "marblessorting",
+    "masterchess",
+    "mergeroundracers",
+    "minecraft",
+    "mineline",
+    "mk48io",
+    "monkeymart",
+    "monstermatch",
+    "monstertracks",
+    "mopheaddash",
+    "mortalkombat",
+    "mototrap",
+    "motox3m",
+    "motox3m2",
+    "motox3mpoolparty",
+    "motox3mspooky",
+    "motox3mwinter",
+    "mrbullet",
+    "mrracer",
+    "murder",
+    "myperfecthotel",
+    "nazizombiesportable",
+    "neonswing",
+    "ngon",
+    "nopainnogain",
+    "nsrstreetcarracing",
+    "nutsimulator",
+    "ovo",
+    "ovo2",
+    "ovodimensions",
+    "papasburgeria",
+    "papascheeseria",
+    "papascupcakeria",
+    "papasdonuteria",
+    "papasfreezeria",
+    "papashotdoggeria",
+    "papaspancakeria",
+    "papaspasteria",
+    "papaspizzaria",
+    "papasscooperia",
+    "papassushiria",
+    "papastacomia",
+    "papaswingeria",
+    "paperio2",
+    "paperplane",
+    "paperyplanes",
+    "parkourrace",
+    "pathtoglory",
+    "penaltykickonline",
+    "penaltyshooters2",
+    "peopleplayground",
+    "perfectlandingplanepilot",
+    "perfectpeel",
+    "perfectshape",
+    "pilotlife",
+    "pingponggo",
+    "plantsvszombies",
+    "plonky",
+    "pokemonchaosblack",
+    "pokemoncrystal",
+    "pokemonemerald",
+    "pokemonfirered",
+    "pokemonflorasky",
+    "pokemonrubyred",
+    "pokemonsapphire",
+    "pokemonshowdown",
+    "pokemonultraviolet",
+    "poker",
+    "policechase",
+    "polytrack",
+    "polytrack041",
+    "poorbunny",
+    "pooreddie",
+    "punchyguy",
+    "racesurvival",
+    "raft",
+    "raftwars",
+    "raftwars2",
+    "ragdollarchers",
+    "ragdollchaos",
+    "ragdollfall",
+    "ragdollfight",
+    "ragdollhit",
+    "rainbowtower",
+    "recoil",
+    "redball4",
+    "redvsbluez",
+    "reeltycoon",
+    "repo",
+    "requestagame",
+    "rescuethefish",
+    "retrobowl",
+    "retrobowlcollege",
+    "retrohighway",
+    "riddleschool",
+    "riddleschool2",
+    "riddleschool3",
+    "riddleschool4",
+    "riddleschool5",
+    "riddleschooltransfer",
+    "riddletransfer2",
+    "risehigher",
+    "roblox",
+    "robocleanersimulator",
+    "rocketsoccerderby",
+    "rodeostampede",
+    "roller",
+    "rooftopsnipers",
+    "rooftopsnipers2",
+    "roper",
+    "run3",
+    "sandboxels",
+    "sandtris",
+    "sandtrix",
+    "santyishome",
+    "sausageflip",
+    "scaryteacher3d",
+    "schoolcleaning",
+    "shellshockers",
+    "ships3d",
+    "sketchbook",
+    "skibidishooter",
+    "skribbleio",
+    "skyriders",
+    "slicemaster",
+    "slimedunk",
+    "slimejourney",
+    "slimerancher",
+    "slitherio",
+    "slope",
+    "slowroads",
+    "smashit",
+    "smashkarts",
+    "snakepivot",
+    "snowballio",
+    "snowrider3d",
+    "snowtrainodyssey",
+    "soccerbros",
+    "soccerrandom",
+    "soccerreal",
+    "solarsmash",
+    "spacebarclicker",
+    "spacecompany",
+    "spaceflightsimulator",
+    "spacewaves",
+    "speedstars",
+    "spiralroll",
+    "stack",
+    "stackbounce",
+    "stacktris",
+    "stateio",
+    "stealabrainrot",
+    "steelhills",
+    "stickdefenders",
+    "stickfighter",
+    "stickmanbattle",
+    "stickmanbike",
+    "stickmanboost",
+    "stickmanclimb2",
+    "stickmanclimb3d",
+    "stickmanhook",
+    "stickmanmerge",
+    "stickmanrun",
+    "stickmerge",
+    "stickrush",
+    "stickwarlegacy",
+    "streetfighter2",
+    "streetfighter3",
+    "stumbleguys",
+    "stuntbikeextreme",
+    "stuntcarextreme",
+    "subwaysurfers",
+    "supercarlegends",
+    "superfoulist",
+    "superhot",
+    "superliquidsoccer",
+    "supermario64",
+    "superstarcar",
+    "swingo",
+    "tabletenniswt",
+    "tag",
+    "takunisunset",
+    "templeofboom",
+    "templerun2",
+    "territorialio",
+    "tetris",
+    "thatsnotmyneighbor",
+    "thebabyinyellow",
+    "thebindingofissac",
+    "thefinalearth2",
+    "thereisnogame",
+    "timeshooter1",
+    "timeshooter2",
+    "timeshooter3",
+    "tinyfishing",
+    "tinytowers",
+    "tombofthemask",
+    "tosstheturtle",
+    "tubejumpers",
+    "tunnelrush",
+    "tunnelrush2",
+    "turbomotoracer",
+    "twitchtetris",
+    "ultrakill",
+    "undertheredsky",
+    "unfairmario",
+    "unicyclehero",
+    "unicyclelegend",
+    "universalpaperclips",
+    "vengeio",
+    "vex3",
+    "vex4",
+    "vex5",
+    "vex6",
+    "vex7",
+    "vex8",
+    "vexx3m",
+    "volleyrandom",
+    "wartheknights",
+    "waverider",
+    "wbwwb",
+    "webfishing",
+    "webglfluid",
+    "whackyourboss",
+    "whackyourcomputer",
+    "whackyourex",
+    "whois",
+    "wordle",
+    "worldofscrew",
+    "worldshardestgame",
+    "worldshardestgame2",
+    "yohohoio",
+    "youmonster",
+    "zombiederby",
+    "zorrpro"
+  ],
+  "selection": "Non-Flash games absent from the baseline catalog. Public play counts were unavailable; no measured popularity ranking is claimed.",
+  "games": [
+    {
+      "name": "Two Ball 3D",
+      "folder": "two-ball-3d",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/two-ball-3d",
+      "runtime": "unity",
+      "sha256": "f8d7c84b33b2ef57ca51e85ee570da53e46317e9264fe2d25edf85d87ddb4085",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/paigerodeghero/academicwebsite@897c910c65e6c68b04c44a6b6eba0b99d0f2f2cf/TemplateData/UnityProgress.js",
+          "bytes": 1186,
+          "sha256": "d0f54aef33f34fd123d1ebc048cf152e01294cb71809ce276e3e1304ba4e2830"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/paigerodeghero/academicwebsite@897c910c65e6c68b04c44a6b6eba0b99d0f2f2cf/TemplateData/progressEmpty.Dark.png",
+          "bytes": 155,
+          "sha256": "3c901e72986f57b3dd474c5b8db981da26ec1d9ad92af9edc722172678c07d44"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/paigerodeghero/academicwebsite@897c910c65e6c68b04c44a6b6eba0b99d0f2f2cf/TemplateData/progressFull.Dark.png",
+          "bytes": 137,
+          "sha256": "2832fafec86b420ee29e0e2126b95767a22bff85d30dc90ed8de36246b395fd8"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/paigerodeghero/academicwebsite@897c910c65e6c68b04c44a6b6eba0b99d0f2f2cf/TemplateData/progressLogo.Dark.png",
+          "bytes": 2343,
+          "sha256": "b95da4db2adc10af8bee6bfccb5246cc356b3164ce7caf6c7581c1002d64b71b"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/paigerodeghero/academicwebsite@897c910c65e6c68b04c44a6b6eba0b99d0f2f2cf/TemplateData/style.css",
+          "bytes": 1686,
+          "sha256": "bc587443f441dea1c211c65cc369c54d748e1c3cbc0c56c97a029f927fe9e06c"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tyler6974/TwoBall3D@2ab5c5b3871c0a240842a0c584208340743bad09/files/games/other/TwoBall3D/Build/TwoBall3D.data.unityweb",
+          "bytes": 9285908,
+          "sha256": "eb0d567fc617c1b8ffe13bf66a48e12feaf16823489a2f22d77d5762a2ba930f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tyler6974/TwoBall3D@2ab5c5b3871c0a240842a0c584208340743bad09/files/games/other/TwoBall3D/Build/TwoBall3D.jpg",
+          "bytes": 7364,
+          "sha256": "04f16e69dc5a61e585fc178daf5b7340b8f4d0cd0c0b8a6f055a7b3c3381826f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tyler6974/TwoBall3D@2ab5c5b3871c0a240842a0c584208340743bad09/files/games/other/TwoBall3D/Build/TwoBall3D.json",
+          "bytes": 430,
+          "sha256": "81f36027a407dfc658f7017f05446e9d5cfad0012129eada2de45ce9f28988d8"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tyler6974/TwoBall3D@2ab5c5b3871c0a240842a0c584208340743bad09/files/games/other/TwoBall3D/Build/TwoBall3D.wasm.code.unityweb",
+          "bytes": 16403416,
+          "sha256": "f3111ed43ec977b9a1d7bb99af190555c242e1c9f6964b1338fa33ff009e379d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tyler6974/TwoBall3D@2ab5c5b3871c0a240842a0c584208340743bad09/files/games/other/TwoBall3D/Build/TwoBall3D.wasm.framework.unityweb",
+          "bytes": 485527,
+          "sha256": "dc4e8b2983abb995ed8af0207a15ff12fbf58e7fc6f168d1aa2c3b1279ba7f06"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tyler6974/TwoBall3D@2ab5c5b3871c0a240842a0c584208340743bad09/files/games/other/TwoBall3D/Build/UnityLoader.js",
+          "bytes": 157128,
+          "sha256": "09cf226e3d59b235f51dceec11eccd0cab4e415a132af33a2eaa3e5354deddd9"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 23126,
+          "sha256": "1c63a43fc0bcdf1c6ff3f8d7af4ebabf435aebed2b4ee4f310e2bb90dd19e32c"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "wait": 5000
+          },
+          {
+            "click": [420, 305]
+          },
+          {
+            "wait": 1000
+          },
+          {
+            "key": "Space"
+          },
+          {
+            "hold": "ArrowRight",
+            "ms": 1300
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ],
+        "observation": "Started 1P mode, applied Space and arrow controls, and reached a game-over screen with a 5 m distance score.",
+        "scope": "Opening gameplay and control smoke test; does not claim every level or optional online service was tested."
+      }
+    },
+    {
+      "name": "Blocky Snakes",
+      "folder": "blocky-snakes",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/blocky-snakes",
+      "runtime": "unity",
+      "sha256": "2e594b7c0c37c6cd38cfdea68caff312ffccca1c167a02f3c8c754c3d0d4053e",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/BlockySnakes.data.unityweb",
+          "bytes": 6592634,
+          "sha256": "97f98227d2856c07bfc9a10e023a17fd6e724b5fa2f48032de9907b1e135532d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/BlockySnakes.wasm.code.unityweb",
+          "bytes": 4453870,
+          "sha256": "bb60e8f004b97898a67e38650df564d7581292bfb818c8939d47a5f01b5cf156"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/BlockySnakes.wasm.framework.unityweb",
+          "bytes": 92163,
+          "sha256": "acb7823759ed9bedd78fcee5deeddda38b16e5d0c1b2351e0930295f7ba95a28"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/UnityLoader.js",
+          "bytes": 157128,
+          "sha256": "09cf226e3d59b235f51dceec11eccd0cab4e415a132af33a2eaa3e5354deddd9"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/UnityProgress.js",
+          "bytes": 1186,
+          "sha256": "d0f54aef33f34fd123d1ebc048cf152e01294cb71809ce276e3e1304ba4e2830"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/build.json",
+          "bytes": 403,
+          "sha256": "5384544631051a0cff4b9488a5eec428e3eed73d89e90dd24c053d8324ff42a2"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/style/progressEmpty.Dark.png",
+          "bytes": 155,
+          "sha256": "3c901e72986f57b3dd474c5b8db981da26ec1d9ad92af9edc722172678c07d44"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/style/progressFull.Dark.png",
+          "bytes": 137,
+          "sha256": "2832fafec86b420ee29e0e2126b95767a22bff85d30dc90ed8de36246b395fd8"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/style/progressLogo.Dark.png",
+          "bytes": 2343,
+          "sha256": "b95da4db2adc10af8bee6bfccb5246cc356b3164ce7caf6c7581c1002d64b71b"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/malpig/HTML-Games-V2@c80f20e7b02c5a026c9fede3366477ff7efa628c/blocky-snakes/style/style.css",
+          "bytes": 1536,
+          "sha256": "0b5a307ab60c382865c7f5c9b743f5e34ae83f05b3ed933a1a53498070f55f44"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 8716,
+          "sha256": "6256b053ba9cac0e897a89791cfc255925dde784fdbc00d356659a3e06504822"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "click": [640, 525]
+          },
+          {
+            "wait": 1200
+          },
+          {
+            "click": [640, 360]
+          },
+          {
+            "wait": 1200
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Space"
+          },
+          {
+            "hold": "KeyW",
+            "ms": 1500
+          },
+          {
+            "hold": "ArrowUp",
+            "ms": 1500
+          },
+          {
+            "hold": "ArrowRight",
+            "ms": 500
+          }
+        ],
+        "observation": "Reached the live arena with the snake, collectible effects, minimap and updating opponent leaderboard after keyboard input.",
+        "scope": "Opening gameplay and control smoke test; does not claim every level or optional online service was tested."
+      }
+    },
+    {
+      "name": "Search for the Needle!",
+      "folder": "search-for-the-needle",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/search-for-the-needle",
+      "runtime": "unity",
+      "sha256": "a122e5ea3f3bdff83f4d6e474f25e8a12a0d9dfa048151d475fe1673c6b72c48",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.data.br.part0",
+          "bytes": 8388608,
+          "sha256": "36249e590f2b1c6ab10f4df639a6e8726cb3353a82973cc2fe40aa5140d6a448"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.data.br.part1",
+          "bytes": 8388608,
+          "sha256": "aac5f9b9fd0438f0a6ad99313459c9349aa90f1ef8126a884bead95d918eac10"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.data.br.part2",
+          "bytes": 8388608,
+          "sha256": "3fc049802ca9ed865f3b92be940875d04292d475e74239c15676403990cbab9a"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.data.br.part3",
+          "bytes": 8388608,
+          "sha256": "703c81bf21dd1a5c96c5c3dd380db631c8bc83b4157d7b296229e439b21c3361"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.data.br.part4",
+          "bytes": 8388608,
+          "sha256": "9b7cc3f142fe93d06adf353be138df0c80ed4bf13ba9e198f74d7cdae34ca5e8"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.data.br.part5",
+          "bytes": 8388608,
+          "sha256": "8ef868ed72d29a325f036534c57769d0d2479e10bff9a29e11421baac1278f9e"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.data.br.part6",
+          "bytes": 3850158,
+          "sha256": "a00d9f2bdf16f38f64a8e98a6b3b55b5a37d2b89579ce7bcea8f9eb268487cbb"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.framework.js",
+          "bytes": 343072,
+          "sha256": "0fb1b73269394e093a68eac7bec5ded3557c3a5f46c650eb6e145f94395fca27"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.loader.js",
+          "bytes": 27221,
+          "sha256": "efb8bd6fe7e619a10162d23e6cc3a765327caca260a15940f54906ded081933d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.wasm.br.part0",
+          "bytes": 8388608,
+          "sha256": "2fadcea1453ee54710a879d380a774c16dee2f5f39b6e4070652d3dbeb506b94"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.wasm.br.part1",
+          "bytes": 8388608,
+          "sha256": "a8198320121e0b4ec9b0a907b5da59fd0b8ba85d67777da7dcf3649a2ee2dbfd"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.wasm.br.part2",
+          "bytes": 8388608,
+          "sha256": "6274c0836f68c5dee7a7d2047aaa153fb3a34b818888a6e9f4b236209727531c"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.wasm.br.part3",
+          "bytes": 8388608,
+          "sha256": "c14032f010dba7fc8d1854bccd296716b17a4e377b694a9d52298ec125b54253"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.wasm.br.part4",
+          "bytes": 8388608,
+          "sha256": "429cbd042150ef6ceb0c7d51943158fea31c0fc820d9c3766fbd58b35aebf597"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/Build/NeedleGame.wasm.br.part5",
+          "bytes": 6629619,
+          "sha256": "30ad62629957b685bc4ea0f7bec7031b4e05ce1429132167b3285148010faeb4"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/tsubasamasa/masabatasabasa@dd67bc4/style.css",
+          "bytes": 2751,
+          "sha256": "5684edea0b3b21611130fc78582805ad5debfab1f03c9547c35e74be775938d0"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 9328,
+          "sha256": "aff12c273da29a010d9f7e6a9555e60687adcf08e3732bede2ebbfe851ca3451"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "click": [640, 360],
+            "delay": 300
+          },
+          {
+            "hold": "KeyW",
+            "ms": 1000
+          }
+        ],
+        "observation": "After a real center click and holding W, the black start state changed into a full-frame 3D room. Canvas and WebGL viewport measured 1280x720; no page errors or failed game-asset responses.",
+        "scope": "Opening gameplay and control smoke test; does not claim every level or optional online service was tested."
+      }
+    },
+    {
+      "name": "Obby Snowboard",
+      "folder": "obby-snowboard",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/new-games/obby-snowboard",
+      "runtime": "unity",
+      "sha256": "d1abfaede247616e1d3499822b4dd94bb5199188400820a0f9ac797d1b087d2b",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/Build/OSP.data_part1.unityweb",
+          "bytes": 7340032,
+          "sha256": "d844eaba28851955339da3b3b85666cbcfc56d0b99847fdf79f02bb382230ce6"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/Build/OSP.data_part2.unityweb",
+          "bytes": 7340032,
+          "sha256": "d095013d84750a81652a50fad087002e9816845971edd9b15b6f5bcae623da65"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/Build/OSP.data_part3.unityweb",
+          "bytes": 6698728,
+          "sha256": "16720138507b205b61248c69e5aecbc1a714dde13b06982175135d1b8fc43793"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/Build/OSP.framework.js.unityweb",
+          "bytes": 72064,
+          "sha256": "f68310e9646b616c6be7b0eade2192ca0776180652313965d6b3afa705eedeee"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/Build/OSP.loader.js",
+          "bytes": 106810,
+          "sha256": "31a657c5c31f6beb70ef287ca7b8c015069d48282358dcbd51a3e06dd5681aec"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/Build/OSP.wasm.unityweb",
+          "bytes": 8797591,
+          "sha256": "c63fa7b92bb30e7f338abd43d3bea94d6dd961a2ff69ecc4a258a80705f80924"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/background.png",
+          "bytes": 206086,
+          "sha256": "85055e702fed484a0f7d07bc5c630973614be9ece85e1d186ad2406c5ab6f47f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/logo.png",
+          "bytes": 33402,
+          "sha256": "00665512508cbd6b390f5ead4fd317538aa46387d0eea953da8fcc70810bbe9d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/papamamia/qarama@main/style.css",
+          "bytes": 1847,
+          "sha256": "121d63d33b02046f4a3a8ea8f69326dc0b060ace1bc8d6e939a30186fe4f0c5f"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 11914,
+          "sha256": "7dabf5be5411030c7102388a4d1bc3996f3dd6653ecaf57d323957fdff5246ae"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "hold": "KeyW",
+            "ms": 1200
+          },
+          {
+            "hold": "ArrowUp",
+            "ms": 1200
+          },
+          {
+            "hold": "ArrowRight",
+            "ms": 1200
+          }
+        ],
+        "observation": "Passed the opening screen and controlled the avatar in the rendered 3D snowboarding course with the live HUD visible.",
+        "scope": "Opening gameplay and control smoke test; does not claim every level or optional online service was tested."
+      }
+    },
+    {
+      "name": "Crazy Roll",
+      "folder": "crazy-roll",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/new-games/crazy-roll",
+      "runtime": "unity",
+      "sha256": "b218d104d505e87ef9ca8a0821de2272eec89a3fe6388e1f64026d491d012e9a",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/Build/UnityLoader.js",
+          "bytes": 159256,
+          "sha256": "2e8898fe07e7b0402d9f7183235ceb50475d0d8559cf75066a517c68d2876e30"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/Build/game.data.unityweb",
+          "bytes": 2054701,
+          "sha256": "171e663562a64e61e3f4868364cfebd53f6bce53e30ab31b879c40e0019ad479"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/Build/game.json",
+          "bytes": 561,
+          "sha256": "f59680e658b7c0adabc7adc9216a4593dbc45f90a5146f7be7103f6928d0dd4b"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/Build/game.wasm.code.unityweb",
+          "bytes": 5106448,
+          "sha256": "a85761936ffcf9bb21a92931aebed1f34b97528a7029fc29fcb0ef80ac909804"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/Build/game.wasm.framework.unityweb",
+          "bytes": 86978,
+          "sha256": "18358582c02cb172fad8af4b677d92c854d4e6a00dc0a682353ca87985bad842"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/TemplateData/UnityProgress.js",
+          "bytes": 1212,
+          "sha256": "1e542a888b53f5e811ab967e08e95c629c18a3baa94d46d42fd859bd4dc13777"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/TemplateData/progressEmpty.Dark.png",
+          "bytes": 155,
+          "sha256": "3c901e72986f57b3dd474c5b8db981da26ec1d9ad92af9edc722172678c07d44"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/TemplateData/progressFull.Dark.png",
+          "bytes": 137,
+          "sha256": "2832fafec86b420ee29e0e2126b95767a22bff85d30dc90ed8de36246b395fd8"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/TemplateData/progressLogo.Dark.png",
+          "bytes": 2343,
+          "sha256": "b95da4db2adc10af8bee6bfccb5246cc356b3164ce7caf6c7581c1002d64b71b"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/school-management-google/roll@main/TemplateData/style.css",
+          "bytes": 1668,
+          "sha256": "164c7f8cb3cbbbc7ff04bb9497dbcccaa535c43a46e7178ae53e6b46058bb9b4"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 24478,
+          "sha256": "793fa5557b4d6cb7aa9461194aa043425c95ba98a11fed3462a5268602c9992b"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "click": [638.5, 366.5],
+            "label": "PLAY",
+            "screenshot": "/workspace/game-import/review/crazy-roll-after-step0.png"
+          },
+          {
+            "hold": "KeyW",
+            "ms": 1200
+          },
+          {
+            "hold": "ArrowUp",
+            "ms": 1200
+          },
+          {
+            "hold": "ArrowRight",
+            "ms": 1200
+          }
+        ],
+        "observation": "OCR clicked Play, then held arrow controls; the level ran and its distance counter advanced to 63 m.",
+        "scope": "Opening gameplay and control smoke test; does not claim every level or optional online service was tested."
+      }
+    },
+    {
+      "name": "Granny 2",
+      "folder": "granny-2",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/granny-2",
+      "runtime": "unity",
+      "sha256": "96e2429bd69466440935f1e7f1a6e9a9d66954124f0b1fbdbbf6e2c8eebb0c9a",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/events-files-manager/responsive@090adb8/Build/Granny 2_part1.data",
+          "bytes": 19922944,
+          "sha256": "8abd42ed0a7c445c24394b7221065b602d2037a80795dd0feae6567ec2e7f8bd"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/events-files-manager/responsive@090adb8/Build/Granny 2_part2.data",
+          "bytes": 19922944,
+          "sha256": "e24d241f0858f9045df55ad83e1ccd98019f7fb0cd3022ea425bdea0fa5612e5"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/events-files-manager/responsive@090adb8/Build/Granny 2_part3.data",
+          "bytes": 7797679,
+          "sha256": "76a29b74112edfe169f376062942b38b26c0315d3005ad87363522d6279ccddd"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/events-files-manager/responsive@090adb8/TemplateData/background.png",
+          "bytes": 206086,
+          "sha256": "85055e702fed484a0f7d07bc5c630973614be9ece85e1d186ad2406c5ab6f47f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/events-files-manager/responsive@090adb8/TemplateData/logo.png",
+          "bytes": 97267,
+          "sha256": "82079e2821e2b00bd4120348c19e4cd4190318b1f0535bf2f19b2f637226028d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/events-files-manager/responsive@090adb8/TemplateData/progress-bar-empty-dark.png",
+          "bytes": 96,
+          "sha256": "bbee7131afe8a3365906240d89184dc86234c119467f390bc4bc6802328fdb4d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/events-files-manager/responsive@090adb8/TemplateData/progress-bar-full-dark.png",
+          "bytes": 74,
+          "sha256": "3306a6244dcb3926fca38a28e3ced589df8ff1beed955eb17c0bbf01c918bc62"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/events-files-manager/responsive@090adb8/TemplateData/style.css",
+          "bytes": 2109,
+          "sha256": "08d03eb837114ad67dd06b1c538a7ec7568b73dc0791e739f826f64fa1214fc7"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/events-files-manager/stles@e37df5d/f/Granny 2_part1.wasm",
+          "bytes": 19922944,
+          "sha256": "b603039291ea0362ae06f698c1ef06042a81b1f0a1873010db08a480b49e5f12"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/events-files-manager/stles@e37df5d/f/Granny 2_part2.wasm",
+          "bytes": 10786591,
+          "sha256": "42da4198d76b7ef0119e4eae8bfe4281800f2fd4df07c34a6e59a77bbc067820"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/forms-docs-slides-glgl/ngng@main/Build/Granny 2.frameworkx.js",
+          "bytes": 249933,
+          "sha256": "8acc45557d71da41f66eafa779e079d06c0d46ab7da11d1718a235b72ca129ce"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/forms-docs-slides-glgl/ngng@main/Build/Granny 2.loader.js",
+          "bytes": 20672,
+          "sha256": "75083a3271c601c2933e0b94cb8b59c17f7ff8fed2c923868dfd978e82bde964"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 7826,
+          "sha256": "288eb2be081b7180ceadeec7e0162cebf8c26d614dcfb48fa68692b4db03f9ed"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "click": [
+              1070,
+              515,
+              {
+                "delay": 300
+              }
+            ]
+          },
+          {
+            "click": [
+              1090,
+              605,
+              {
+                "delay": 300
+              }
+            ]
+          },
+          {
+            "wait": 1500
+          },
+          {
+            "click": [
+              1090,
+              620,
+              {
+                "delay": 400
+              }
+            ]
+          },
+          {
+            "wait": 4500
+          },
+          {
+            "click": [
+              1120,
+              645,
+              {
+                "delay": 500
+              }
+            ]
+          },
+          {
+            "wait": 5000
+          },
+          {
+            "hold": "Space",
+            "ms": 500
+          },
+          {
+            "hold": "KeyW",
+            "ms": 1000
+          }
+        ],
+        "observation": "Clicked through English play/options/Continue and held W; the game entered a full first-person room scene and responded to movement input.",
+        "scope": "Opening gameplay and control smoke test; does not claim every level or optional online service was tested."
+      }
+    },
+    {
+      "name": "VaVeX",
+      "folder": "vavex",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/new-games/vavex",
+      "runtime": "unity",
+      "sha256": "517f34e5df9a26108751c0b39b07ec0851a9f4f9365b31610d89fffec4beba2b",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/Build/154a6d654bb7b874851fc229ea03288b.data.br",
+          "bytes": 4744487,
+          "sha256": "b9fae4218d97d1b8bac51adf71e2f05a5aacfa7ffb16f94ba94a6cf87cfb7282"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/Build/24be5287a2ac010d7044d719825a6b47.framework.js",
+          "bytes": 373062,
+          "sha256": "f7942073195f3943c57915f6848ac10f8ea115b3e3ef16db88714a78238742d6"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/Build/76f034cff49013ce85bd6945ebf32347.loader.js",
+          "bytes": 20437,
+          "sha256": "441455412293faf048b6b02e4dbd6e8690477dbeeed6f6b943417fd6654bd4bf"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/Build/bfcb74df6ba4bd08a501593eb4da5cfa.wasm.br.part0",
+          "bytes": 10485760,
+          "sha256": "fdfd6b841944e1a49f4c6f69a53285f4268f3d13bf55eade734181227a359a09"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/Build/bfcb74df6ba4bd08a501593eb4da5cfa.wasm.br.part1",
+          "bytes": 10485760,
+          "sha256": "7a3268fa8d515aa20eb587ec1442f83cb37d8d374772bd5e3ead65c5ce64288c"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/Build/bfcb74df6ba4bd08a501593eb4da5cfa.wasm.br.part2",
+          "bytes": 1559106,
+          "sha256": "0c4e9803e6f74d5b1a0aec0d040bff85314f6cb7533cf31c32f367c4bf5dd945"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/c7c9898c55729c78dfbedc7a285ab01d_unitybuiltinshaders_d8760c7f73e5b777cab7c8b699d55cc0.bundle",
+          "bytes": 76076,
+          "sha256": "466b155b1b4b09b56d09dec5e0b1be3f4eace4804a89a804ae168e8d6050659f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/character_1_assets_all_4667feb499b13390e40b8e5f613ed930.bundle",
+          "bytes": 76483,
+          "sha256": "b9e09b61be7ee8aa559a775c9bdee5763eaad605a2206ce7fc8ff1fe1fd6f2d7"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/character_2_assets_all_f2b21aa3fe9cad1b03c03f7e82541e12.bundle",
+          "bytes": 78135,
+          "sha256": "e6e6ef57dc48235c539e419bc47fcdc8dd818c59fbb3e9acd7ddad768b9b87ec"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/character_3_assets_all_8e4293773fff5950416e19d628ddae87.bundle",
+          "bytes": 77259,
+          "sha256": "1b65c012bb15f4cf971150fc63d286941fc82d0d39572a01159bd06cd73d5dea"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/character_4_assets_all_22985b0c37f4d17ecf97644f4dc92845.bundle",
+          "bytes": 77755,
+          "sha256": "cf24fdc952762175592a5f4a17d2f3c6b48e573ec0042b7011f76ae1576292e0"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/character_5_assets_all_2c0564a7b3924d8610eb9a90ba39f567.bundle",
+          "bytes": 78661,
+          "sha256": "b454afcd07c020e3285a73e6afc7fc9453f5837668ffd023b65d263d254d6fb7"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/character_6_assets_all_37f30833642d2bc554ea624803bdadcf.bundle",
+          "bytes": 77267,
+          "sha256": "fd9f08bc7f2bd7b7d53b5eae373c14bdb6ce00a262da3c3638ff9d1b719ad38d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/character_7_assets_all_bc91618551cce374dc05e2bff24fa1ac.bundle",
+          "bytes": 77124,
+          "sha256": "e6fcfd9ea70713d8c1851aebab14cb88515592f146d9fc1ce99cd3bc9562b694"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/character_8_assets_all_e2ed5535a9de7fa91f2277ced588e5ef.bundle",
+          "bytes": 78424,
+          "sha256": "575b1422f23da657e76127aa56abe1167114a79119dd67ba2079044b8dafc025"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/graphics_assets_all_12dd3a645f66b731c63a3f882c65c09d.bundle",
+          "bytes": 128390,
+          "sha256": "3d1f164047966c3f9ddbed09439fa289657ac6ecf3a8a96f04d48d8553dc197f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/level_1_assets_all_870de69f624804b6a99ee8c71712d941.bundle",
+          "bytes": 95798,
+          "sha256": "f90cc008ab2360a0d2ce434aa6c754ce6283013367ef0ba068284ab19c485105"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/level_2_assets_all_f731c5dcc3ba88c04029f068631bf9e3.bundle",
+          "bytes": 96736,
+          "sha256": "3750fcc213ba86726d745f39e4e4affe471fce8312cbd78d8e9fbe983b872152"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/level_3_assets_all_1cd9c862da1da7bf1244142c302e3c8a.bundle",
+          "bytes": 99760,
+          "sha256": "81281e93c24203346eb27731852ef37999dc9154952862265b1a64f136c86427"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/level_4_assets_all_80d3dc4e4024843685f4c25ad39326ff.bundle",
+          "bytes": 100045,
+          "sha256": "0b8580aab2a35ac0de95bab30139573a4822c2882a9fbf1cc4038c1bc80cedc6"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/level_5_assets_all_3ef6a0cc4a8a0441aea71ee3a08c848c.bundle",
+          "bytes": 103592,
+          "sha256": "7b8d781454d3f48f30c306f998ce85e64c8dd19b4f7d276ec6ca2e746abdd4b7"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/level_6_assets_all_5530e207a284b0e8016b17bde2d5ccbd.bundle",
+          "bytes": 104349,
+          "sha256": "2c4bf88eae6520171ab1e2c9e2d0162e415646d4115400734bad3a95e6d00e60"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/level_7_assets_all_cf2a47e8b3c3b843d3f787c18ed854f7.bundle",
+          "bytes": 103045,
+          "sha256": "0ec4b9a8dfa5276f1ad3ba503791ca1b86767afa3fb85df6d1fa9e238b94e32f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/level_8_assets_all_c0269a58b39db24073cf3a30efe4e886.bundle",
+          "bytes": 105109,
+          "sha256": "269a5f0b7c05b01ac51669fe5da8d12230481a3fb9ddc2fc1081327915fa0756"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/skinswindow_assets_all_a281940ab134c0ef46a37784bd9a920d.bundle",
+          "bytes": 142039,
+          "sha256": "1da453e1d6eed63c4aae3abaeb7aaf8001411f0b2d842973700e0f34d3781381"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/track_01_assets_all_11086fbba6ed38abcd981b3479dfd4bb.bundle",
+          "bytes": 2509027,
+          "sha256": "e109cc3bcf86cfb7c92b1a9375afe3eb7603f690af0964b0a6ca8208fed0d231"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/track_02_assets_all_4bc28b300ca13cdf81c8c7f8b24d0ad6.bundle",
+          "bytes": 2437444,
+          "sha256": "4af55b81f0f9f6e6f17ef01d3db03c5d79d4da3897de1c85ba5576da643e537e"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/track_03_assets_all_8483757cb7f63bc4bb358cfddb6030a3.bundle",
+          "bytes": 2423010,
+          "sha256": "b2f759c82e4c062e2ad6c28d901e63e286449fbd1c71628a70aa784f1ec18f47"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/track_04_assets_all_2c613f58b722496fd980c73a92258d35.bundle",
+          "bytes": 2442115,
+          "sha256": "504adeb3e8f354d7bf5dc5a3d11cebb432771f34b03a8ccc974d06b091bdf719"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/track_05_assets_all_47fc55ba80cbb2d450774613a8f89967.bundle",
+          "bytes": 2449693,
+          "sha256": "760dcf3e2480a62cfd0bdb56fa1e879bfc9aed25129fa604e3239e93e364562e"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/WebGL/track_06_assets_all_157ed24a3ff369d8a28eaad304ffb9bf.bundle",
+          "bytes": 2435208,
+          "sha256": "0f37e2f3caffcabbd48b619389102334d3479792c822b9a368f97021702d41d1"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/catalog.json",
+          "bytes": 53965,
+          "sha256": "2c26bd4ff7e177ac6b2409752aea37ef3800a573967a7e98562b1733b7712336"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/StreamingAssets/aa/settings.json",
+          "bytes": 1590,
+          "sha256": "984407f3a3d6e545a68979bed4426dbd9ff07e09396928a636ef03f2e43286c7"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/background.png",
+          "bytes": 206086,
+          "sha256": "85055e702fed484a0f7d07bc5c630973614be9ece85e1d186ad2406c5ab6f47f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/logo.png",
+          "bytes": 27881,
+          "sha256": "c8960256acb6d60d65889510c824806183c38b4535639ac900e89bd9f0457f9a"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/okyesgoogl/why@main/style.css",
+          "bytes": 1847,
+          "sha256": "121d63d33b02046f4a3a8ea8f69326dc0b060ace1bc8d6e939a30186fe4f0c5f"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 8954,
+          "sha256": "06a05b253341ca919c2ac479d4954e0bf67bcfd69578648ef8c9b783522a79f2"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "click": [741.5, 200.5],
+            "label": "1",
+            "screenshot": "/workspace/game-import/review/vavex-after-step0.png"
+          },
+          {
+            "click": [501, 221],
+            "label": "1",
+            "screenshot": "/workspace/game-import/review/vavex-after-step1.png"
+          },
+          {
+            "hold": "KeyW",
+            "ms": 1200
+          },
+          {
+            "hold": "ArrowUp",
+            "ms": 1200
+          },
+          {
+            "hold": "ArrowRight",
+            "ms": 1200
+          },
+          {
+            "drag": [
+              [640, 360],
+              [440, 360],
+              [840, 360]
+            ],
+            "holdMs": 1400
+          }
+        ],
+        "observation": "Entered a level with real clicks, then applied movement controls; the run advanced to a Crashed screen showing score 1.",
+        "scope": "Opening gameplay and control smoke test; does not claim every level or optional online service was tested."
+      }
+    },
+    {
+      "name": "Fly the Plane",
+      "folder": "fly-the-plane",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/new-games/fly-the-plane",
+      "runtime": "unity",
+      "sha256": "8544c9f7258dc08670e400e14756eb39f607d0d67a2dcc01141999b07bc6925f",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/testamalame/ta7x7x7@main/Build/Build.data.unityweb",
+          "bytes": 8170888,
+          "sha256": "dcb119d4e0ce241042a3097a85f818b7e6919b5edf51ea5a55329b7f2d07ff6b"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/testamalame/ta7x7x7@main/Build/Build.framework.js.unityweb",
+          "bytes": 85322,
+          "sha256": "186297de5e8e9e9e508bd0af970cf55b81d30d8cebd866b1daf0694f281042c4"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/testamalame/ta7x7x7@main/Build/Build.loader.js",
+          "bytes": 44292,
+          "sha256": "d7a3ee7acf704a81c53418d29e8d58d9b34f9674e01c1bdb44bcbdf6406d7bfa"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/testamalame/ta7x7x7@main/Build/Build.wasm.unityweb",
+          "bytes": 9188807,
+          "sha256": "5c4f61009407e3b027970c87450442670196bf0fda1339866679e246e696065f"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 24714,
+          "sha256": "20add260fcc7b35e8f4999fb4b5710ecd239037d825858637d386c494b37c267"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "hold": "KeyW",
+            "ms": 1200
+          },
+          {
+            "hold": "ArrowUp",
+            "ms": 1200
+          },
+          {
+            "hold": "ArrowRight",
+            "ms": 1200
+          },
+          {
+            "drag": [
+              [640, 360],
+              [440, 360],
+              [840, 360]
+            ],
+            "holdMs": 1400
+          }
+        ],
+        "observation": "The 3D flight scene advanced under recorded inputs to a plane crash with an Again prompt. No required asset requests failed. Payments are unsupported by this offline port.",
+        "scope": "Opening gameplay and control smoke test; does not claim every level or optional online service was tested."
+      }
+    },
+    {
+      "name": "Slap Aura",
+      "folder": "slap-aura",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/new-games/slap-aura",
+      "runtime": "unity",
+      "sha256": "964c72cc173b28fc4657e9b2cd7edf316a1f575b7b57d8798b65937bdcf6c796",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/ahert7s777-spec/x8x8@main/Build/Slap Aura.data.br",
+          "bytes": 16843019,
+          "sha256": "6cafbf7001c0cd2f04be092f398debd757c1853a5c259189cc81de49dafaa735"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/ahert7s777-spec/x8x8@main/Build/Slap Aura.framework.js",
+          "bytes": 449420,
+          "sha256": "b4e3aa57c793b47e42fa887984fd6c4c5945c09c8e882dc796d742d1ba745af3"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/ahert7s777-spec/x8x8@main/Build/Slap Aura.loader.js",
+          "bytes": 26982,
+          "sha256": "1adf6acf59fd30d5c71d8cfdde8e8e237b25af5cb0854829c4929432e1e48eb6"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/ahert7s777-spec/x8x8@main/Build/Slap Aura.wasm.br.part0",
+          "bytes": 8388608,
+          "sha256": "b313213fe0b812cfb92914c80953b01f2008520b95a898a687495460c2e86d53"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/ahert7s777-spec/x8x8@main/Build/Slap Aura.wasm.br.part1",
+          "bytes": 8388608,
+          "sha256": "5443eb0e48fe8a0da6d18b084882e1cc48daa82d9957ff2feb60c61c0ca175c8"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/ahert7s777-spec/x8x8@main/Build/Slap Aura.wasm.br.part2",
+          "bytes": 8388608,
+          "sha256": "74a6788bc509a57d3dee0efd7e5b9e16ca937335f1cd2338da038aff221c9b9b"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/ahert7s777-spec/x8x8@main/Build/Slap Aura.wasm.br.part3",
+          "bytes": 8388608,
+          "sha256": "3bfdde649276cc05204fe5acdd61b0ecac40116c7aea590232d95e1bb94177f2"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/ahert7s777-spec/x8x8@main/Build/Slap Aura.wasm.br.part4",
+          "bytes": 8388608,
+          "sha256": "5a030c842f5b2f4fa361e4a0270aaf4d1322a35d51acb7b742cc7105edf58163"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/ahert7s777-spec/x8x8@main/Build/Slap Aura.wasm.br.part5",
+          "bytes": 8388608,
+          "sha256": "5cbefa48c66034ce2cd4f510148d6630416bf62cd8867b608f7dfd2f8caebcdc"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/ahert7s777-spec/x8x8@main/Build/Slap Aura.wasm.br.part6",
+          "bytes": 5330840,
+          "sha256": "803e7903f0d7d9bb3c77cd3c5b15cef4750c9600a56fc853a0ef41dfc1877c33"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/ahert7s777-spec/x8x8@main/style.css",
+          "bytes": 2709,
+          "sha256": "960194c522d2cbf432861306a88a086b2c4a74e1042275c29dba64eb4d4ee332"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 8342,
+          "sha256": "591a7c19af9b62e74a7d9ac12a3ce9b65671b01a4c35666b39973169817b10a1"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "hold": "KeyW",
+            "ms": 1200
+          },
+          {
+            "hold": "ArrowUp",
+            "ms": 1200
+          },
+          {
+            "hold": "ArrowRight",
+            "ms": 1200
+          },
+          {
+            "drag": [
+              [640, 360],
+              [440, 360],
+              [840, 360]
+            ],
+            "holdMs": 1400
+          }
+        ],
+        "observation": "The game entered the rendered 3D avatar arena with the Dash prompt; recorded keyboard and pointer controls were applied after startup, without missing game assets.",
+        "scope": "Opening gameplay and control smoke test; does not claim every level or optional online service was tested."
+      }
+    },
+    {
+      "name": "Ragdoll Freefall",
+      "folder": "ragdoll-freefall",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/ragdoll-freefall",
+      "runtime": "unity",
+      "sha256": "e7364f091057c9a8d1d3bbf7208464b691d80587eaaa732846a7d45f8eb8e8ff",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/npm/nxd-r8-1@1.0.0/e6162e37eb1452ce5115869403d4971f.data.br.part0.js",
+          "bytes": 8388608,
+          "sha256": "b93748abd1498e137d19615d079dd8cff16bebdfdc897351534f8b85f4600b09"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/npm/nxd-r8-1@1.0.0/e6162e37eb1452ce5115869403d4971f.data.br.part1.js",
+          "bytes": 8388608,
+          "sha256": "93596c279c32c37be20e5a0d7c832f2d2dd9faa337d58760f8e828863a5973ab"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/npm/nxd-r8-1@1.0.0/e6162e37eb1452ce5115869403d4971f.data.br.part2.js",
+          "bytes": 8388608,
+          "sha256": "b7a52de69583dcc8275b25e384e5e70aac909e53b89186809ba5c187e3430075"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/npm/nxd-r8-1@1.0.0/e6162e37eb1452ce5115869403d4971f.data.br.part3.js",
+          "bytes": 6271090,
+          "sha256": "3c88c3b810f6338c4759d36a74be81bdf789598acd9054a44d3cfc346844ed4d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/npm/nxd-r8-2@1.0.0/1426a7610138929120a20e659bc71fbe.framework.js",
+          "bytes": 395552,
+          "sha256": "cfad6c70a0231c04ab2f8af29277713a90d757151d241616253e39e8215956ab"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/npm/nxd-r8-2@1.0.0/7a2dbded24d57e056180125b1583e7c4.loader.js",
+          "bytes": 20680,
+          "sha256": "95d413ec942c6764ee89174a13da7a4c7f80567f6a4fb43992a6e8273c3b93d2"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/npm/nxd-r8-2@1.0.0/ab5ad7cd6248d92c6af06bebd769ce68.wasm.br.js",
+          "bytes": 17904082,
+          "sha256": "eb70dd01d245659053c46d7a74856aa3f0d72e67c70b68a48fbbce3c43a22b9a"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/npm/nxd-r8-2@1.0.0/logo.png",
+          "bytes": 33402,
+          "sha256": "00665512508cbd6b390f5ead4fd317538aa46387d0eea953da8fcc70810bbe9d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/npm/nxd-r8-2@1.0.0/style.css",
+          "bytes": 2636,
+          "sha256": "5710ce3e4400cf0a85fb16fe208ee55ae1d51fb78e5d2ab3233df6244be974ad"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 32610,
+          "sha256": "8ee723bece69a1b0f83b4c8b37759be45d35d1b8972172b8a26331a232e8ab3c"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "hold": "KeyW",
+            "ms": 1200
+          },
+          {
+            "hold": "ArrowUp",
+            "ms": 1200
+          },
+          {
+            "hold": "ArrowRight",
+            "ms": 1200
+          },
+          {
+            "drag": [
+              [640, 360],
+              [440, 360],
+              [840, 360]
+            ],
+            "holdMs": 1400
+          }
+        ],
+        "observation": "The first-person arena rendered a weapon, enemy, and live health/currency HUD after keyboard and pointer inputs. Required game assets loaded; only optional analytics/ad requests were blocked.",
+        "scope": "Opening gameplay and control smoke test; does not claim every level or optional online service was tested."
+      }
+    },
+    {
+      "name": "Jacksmith",
+      "folder": "jacksmith",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/jacksmith",
+      "runtime": "flash",
+      "sha256": "d88da878df58e4894d73e0250ade42d6ccd9108ac8034ea311eb01aa2f4aa69f",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 6464349,
+          "sha256": "d88da878df58e4894d73e0250ade42d6ccd9108ac8034ea311eb01aa2f4aa69f"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 16614,
+          "sha256": "95e4242300bfc74e042b72a7363420a16f30811c7885ade00346e68ca96916bb"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Swords and souls",
+      "folder": "swords-and-souls",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/swords-and-souls",
+      "runtime": "flash",
+      "sha256": "cd35bf3cc564f789cc59214bf259325bb0841263728cbcba51d14827fccbb2df",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 8647002,
+          "sha256": "cd35bf3cc564f789cc59214bf259325bb0841263728cbcba51d14827fccbb2df"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 3852,
+          "sha256": "70f773a625d7dd74a9d94adf1bd82435549bcf8cf85c8912a197b7af2d7e8821"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Cactus McCoy",
+      "folder": "cactus-mccoy",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/cactus-mccoy",
+      "runtime": "flash",
+      "sha256": "abf4a98ac053a6af6b2be48a58d8b2429d09c4786dfee21a2e04b1ee76d5827e",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 6913412,
+          "sha256": "abf4a98ac053a6af6b2be48a58d8b2429d09c4786dfee21a2e04b1ee76d5827e"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 27670,
+          "sha256": "f295bc0049c175e1aee68c19e4691d31df8187b6b63d03d69d505212786476b9"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Cactus McCoy 2",
+      "folder": "cactusmccoy2",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/cactusmccoy2",
+      "runtime": "flash",
+      "sha256": "827f2dc692f047d7043665db1efbd71b7c0c62cd8b3f2d29523b64f5b542b778",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 10380845,
+          "sha256": "827f2dc692f047d7043665db1efbd71b7c0c62cd8b3f2d29523b64f5b542b778"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 27662,
+          "sha256": "4df3b5163e798c6bf0943bea6dcf3c795b4c5209e19af1204e4a9f302f3fe29a"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Super Mario 63",
+      "folder": "super-mario-63",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/super-mario-63",
+      "runtime": "flash",
+      "sha256": "b1ddb2f7ac6c09e7154771ac2335d962d58536b8dba5720b8c5ff18bb65c917a",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 15295370,
+          "sha256": "b1ddb2f7ac6c09e7154771ac2335d962d58536b8dba5720b8c5ff18bb65c917a"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 11476,
+          "sha256": "1505e0dcd3c7e8cc033fa6828246ae9c0e1a6ad3ebbf04cd6a5f9f9619b0bfd3"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Achievement Unlocked",
+      "folder": "achievement-unlocked",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/achievement-unlocked",
+      "runtime": "flash",
+      "sha256": "19b8067740489165d3b207d1ba547e5349ed0af402c57afe92415c7da17bb9b7",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 2499931,
+          "sha256": "19b8067740489165d3b207d1ba547e5349ed0af402c57afe92415c7da17bb9b7"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 8282,
+          "sha256": "39a39e94028fe48ce1ef3adf2f611087afec39d8aa13dce32f9333cd1349682b"
+        }
+      ],
+      "verification": {
+        "status": "failed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: failed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Don't Escape",
+      "folder": "dont-escape",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/dont-escape",
+      "runtime": "flash",
+      "sha256": "597aa95f1547e7f0d4fe7423724511f04df8b05ba5727fbdb6aeed0202a461a4",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 6717144,
+          "sha256": "597aa95f1547e7f0d4fe7423724511f04df8b05ba5727fbdb6aeed0202a461a4"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 3636,
+          "sha256": "c4c2ad6650d5afb41a73e3b7b14628d0cc360fd8bf6dbfa53cb69171b1d10a0b"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Don't Escape 2",
+      "folder": "dont-escape-2",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/dont-escape-2",
+      "runtime": "flash",
+      "sha256": "79bb210c787413a536dfef265d29b6819c5e1152589b62000f1f20d4a53ce8bd",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 11154820,
+          "sha256": "79bb210c787413a536dfef265d29b6819c5e1152589b62000f1f20d4a53ce8bd"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 11470,
+          "sha256": "60916f6e14e5b475c967102c446c6d4d8068ff3904b39e197308f208b0d115f5"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Don't Escape 3",
+      "folder": "dont-escape-3",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/dont-escape-3",
+      "runtime": "flash",
+      "sha256": "07636d3b84ba4221181d1b40a1f359c482c4f2a5496316dde74089adc6287e44",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 11323925,
+          "sha256": "07636d3b84ba4221181d1b40a1f359c482c4f2a5496316dde74089adc6287e44"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 5326,
+          "sha256": "ba5706cc7c0924553b84f9e896d58a4d129e7051f432e7de5673cc9a8aaf74da"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Warfare 1917",
+      "folder": "warfare-1917",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/warfare-1917",
+      "runtime": "flash",
+      "sha256": "dbe8338565885ab88f48091b8af01051f39969750edcc9ae99d798b0afdd202a",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 5678896,
+          "sha256": "dbe8338565885ab88f48091b8af01051f39969750edcc9ae99d798b0afdd202a"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 11096,
+          "sha256": "cffecda37c47213a064a96ad656a8b1078daf0aac9a33f74524b99b80968916e"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "The Enchanted Cave 2",
+      "folder": "the-enchanted-cave",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/the-enchanted-cave",
+      "runtime": "flash",
+      "sha256": "9915e65ef133eca82ab57f3c23b67348e529f08ecdfe6421b6fefeeae86a968d",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 15356248,
+          "sha256": "9915e65ef133eca82ab57f3c23b67348e529f08ecdfe6421b6fefeeae86a968d"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 11062,
+          "sha256": "7fa94c42a486178feff49da4e8a674344658d9c6ad896edd7d7a38f709e03b5a"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Gun Mayhem",
+      "folder": "gun-mayhem",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/gun-mayhem",
+      "runtime": "flash",
+      "sha256": "6691b98e1702384c34fcd460b5d1f85f8d0d854445a2ea88ffc1ade62e51f09a",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 5957887,
+          "sha256": "6691b98e1702384c34fcd460b5d1f85f8d0d854445a2ea88ffc1ade62e51f09a"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 25984,
+          "sha256": "068ea861621fb8ffbde210ea151c9b44d9d18d3550551d58ed4f28051fbcd7fc"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Swords and Sandals 2",
+      "folder": "swords-and-sandals-2",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/swords-and-sandals-2",
+      "runtime": "flash",
+      "sha256": "bb77989dfda8aaec04e38abebe57bd172c208907896b35b315d9824960f639d3",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 2685452,
+          "sha256": "bb77989dfda8aaec04e38abebe57bd172c208907896b35b315d9824960f639d3"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 1642,
+          "sha256": "c8d4d514d67cbec00d13766a4d87a2ae124eeb6dfc7f047fde58a430e715e2cd"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "The Last Stand",
+      "folder": "the-last-stand",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/the-last-stand",
+      "runtime": "flash",
+      "sha256": "8d09a739e32ccc4460602119cca52d392e2cc8fd28a3dac675ee4dd9adbf0284",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 4470872,
+          "sha256": "8d09a739e32ccc4460602119cca52d392e2cc8fd28a3dac675ee4dd9adbf0284"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 2654,
+          "sha256": "477b3961d7d3d7baa421e52e053fdb38f208c5f6b5290b007ee0c137f3655266"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Strike Force Heroes 2",
+      "folder": "strike-force-heroes-2",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/strike-force-heroes-2",
+      "runtime": "flash",
+      "sha256": "cdb5f1b929c419c5709f8a5fbee541fbbadf66b2f5ac1bb4af31c5149015b6e0",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 16361371,
+          "sha256": "cdb5f1b929c419c5709f8a5fbee541fbbadf66b2f5ac1bb4af31c5149015b6e0"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 23276,
+          "sha256": "5df3c0aeede506481adc55857c3090ace8b11cd4420d92112c06fd80c585034b"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Bloons Super Monkey",
+      "folder": "bloons-supermonkey",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/bloons-supermonkey",
+      "runtime": "flash",
+      "sha256": "120e3fe73c5a3a749edcc9077cc227610cd54c429eea7f82d0caccdcb4150223",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 2669914,
+          "sha256": "120e3fe73c5a3a749edcc9077cc227610cd54c429eea7f82d0caccdcb4150223"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 7132,
+          "sha256": "ddd89ef04cbbe04e46473830f63b9e5ca06fedc63ec080a2afa9fa4558bc6ff6"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "City Siege",
+      "folder": "city-siege",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/city-siege",
+      "runtime": "flash",
+      "sha256": "537d252f13bd043770ce5f2a0a505adbb7c979fe286e56df66328c4af9fc0b4f",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 3255206,
+          "sha256": "537d252f13bd043770ce5f2a0a505adbb7c979fe286e56df66328c4af9fc0b4f"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 3360,
+          "sha256": "76e4e1411f0708bc3b32384f719d9dd8382bbceeb4e814a3ea987bbb575c5861"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "City Siege 2",
+      "folder": "city-siege-2",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/city-siege-2",
+      "runtime": "flash",
+      "sha256": "ac11c1b1c84814601c1763cf43ae3bb9a7f3e6e86d0f31fdc09651864cdc0e22",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 3751938,
+          "sha256": "ac11c1b1c84814601c1763cf43ae3bb9a7f3e6e86d0f31fdc09651864cdc0e22"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 2606,
+          "sha256": "834509d09e3f4aa7289d39ff4d482716fbc2ff809f313340bef0d88f046d0a3c"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "City Siege 3",
+      "folder": "city-siege-3",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/city-siege-3",
+      "runtime": "flash",
+      "sha256": "e98c34abe364af18ac7fa5b53e25a2a539a827ccdc028d5349708052eafa5fa3",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 4906369,
+          "sha256": "e98c34abe364af18ac7fa5b53e25a2a539a827ccdc028d5349708052eafa5fa3"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 10386,
+          "sha256": "b47d365d91dffabafb37522ad1350aee8de1c7bd0feb45b268fccca4cb25b017"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "City Siege 4",
+      "folder": "city-siege-4",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/city-siege-4",
+      "runtime": "flash",
+      "sha256": "3ee31ab77cbab1be1961fd983fa4341e17f0874718827f035a19d565e344eb8d",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 5619157,
+          "sha256": "3ee31ab77cbab1be1961fd983fa4341e17f0874718827f035a19d565e344eb8d"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 8286,
+          "sha256": "89922f66e20e6635bbcdee3c42118fae0a2c0719e1c06217a223c9740ce6fcfe"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Shopping Cart Hero",
+      "folder": "shopping-cart-hero",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/shopping-cart-hero",
+      "runtime": "flash",
+      "sha256": "9f7f03be259843f3d3be49d97beb45339b71bfcc61c91c1a719947adebf1318d",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 150964,
+          "sha256": "9f7f03be259843f3d3be49d97beb45339b71bfcc61c91c1a719947adebf1318d"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 4112,
+          "sha256": "7c164923fefe164b42ffb104f74cb1ba19958344a35da99eea18dd67a996ccd9"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Grow Island",
+      "folder": "grow-island",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/grow-island",
+      "runtime": "flash",
+      "sha256": "0471ebf1452ede2b0f7def752c78294bff0fc5d764613bee31574021a127a2a8",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 1071676,
+          "sha256": "0471ebf1452ede2b0f7def752c78294bff0fc5d764613bee31574021a127a2a8"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 22360,
+          "sha256": "3ecf551859a1b4b17bbe03770f692cdf37199ddac119a52bba877ca376b3f03b"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Grow Valley",
+      "folder": "grow-valley",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/grow-valley",
+      "runtime": "flash",
+      "sha256": "2e3e5550a0f14b21f7161e753ed6f64a73688a82c438fae1b920b7a249169b62",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 3120613,
+          "sha256": "2e3e5550a0f14b21f7161e753ed6f64a73688a82c438fae1b920b7a249169b62"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 17378,
+          "sha256": "be5e71f8ba5c4076a2b208c6344a51ca4db575c9b756cee60bc053e8f5867c93"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Armor Mayhem",
+      "folder": "armor-mayhem",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/armor-mayhem",
+      "runtime": "flash",
+      "sha256": "c05b9ba0874ae12dc059297ba01eca7ffda887e9a9786d9e142e07f6fb8f1a31",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 10172444,
+          "sha256": "c05b9ba0874ae12dc059297ba01eca7ffda887e9a9786d9e142e07f6fb8f1a31"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 13112,
+          "sha256": "1bc8aa22cc539d9c377fe007dadbfecbd9601fc795ab308cd8ac8ca8c480d036"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Electric Box 2",
+      "folder": "electric-box-2",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/electric-box-2",
+      "runtime": "flash",
+      "sha256": "11207091b8fea61fc5c8230b7cf4780b2088818419b8df3d4303e5ccb0181add",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 3893329,
+          "sha256": "11207091b8fea61fc5c8230b7cf4780b2088818419b8df3d4303e5ccb0181add"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 7992,
+          "sha256": "ee788f022d53270c0e21902fd706e1c7e7e3a5d9fc40fb80d294e7c44861bc67"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Civiballs",
+      "folder": "civiballs",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/civiballs",
+      "runtime": "flash",
+      "sha256": "50d611f3b2cc4cbfa3520cb734d477c47222bec7a5cd97cda40ac57bccccdcf7",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 1987096,
+          "sha256": "50d611f3b2cc4cbfa3520cb734d477c47222bec7a5cd97cda40ac57bccccdcf7"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 2754,
+          "sha256": "544772d5ae9dd1a9a4c37d20a2ae349e4df6d9f3ff0804a7921e9965bb1b112b"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Papa’s Bakeria",
+      "folder": "papas-bakeria",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/papas-bakeria",
+      "runtime": "flash",
+      "sha256": "40dcbad03aef77d439d0b5e0ef1addb4aa2be0eb3c9f07ef4e282b8ca0c23544",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 14439725,
+          "sha256": "40dcbad03aef77d439d0b5e0ef1addb4aa2be0eb3c9f07ef4e282b8ca0c23544"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 29332,
+          "sha256": "032ad63416e088f95c44b71f73dca29b82b753edf51a1ef9f7bf4f2b069e133b"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Papa Louie 2: When Burgers Attack",
+      "folder": "papa-louie-2-when-burgers-attack",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/papa-louie-2-when-burgers-attack",
+      "runtime": "flash",
+      "sha256": "8b3ac80fe6dbbaaccb0cfa649453a883f771ca5366680a029d8e551da1aa8490",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 9122003,
+          "sha256": "8b3ac80fe6dbbaaccb0cfa649453a883f771ca5366680a029d8e551da1aa8490"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 23652,
+          "sha256": "996a28e1afe9dcf0f7766c9662195e0f81ca8788dd9ebbf87aedb5591ccb93ba"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Diggy",
+      "folder": "diggy",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/diggy",
+      "runtime": "flash",
+      "sha256": "93b420014022c3d3f1e2cbf7cccc86b470a8796bc80dac76c0810ef627418e5a",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 4506069,
+          "sha256": "93b420014022c3d3f1e2cbf7cccc86b470a8796bc80dac76c0810ef627418e5a"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 10942,
+          "sha256": "add2cb4a4c8f467de65c3c6144ed87fb1ebea5590d5ef4c17de09d5ce83c6af8"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Murloc",
+      "folder": "murloc",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/murloc",
+      "runtime": "flash",
+      "sha256": "7f5205745c8209c212884e812c654913c9c51ba68a1ddc3ed45d6692228913c2",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 8375414,
+          "sha256": "7f5205745c8209c212884e812c654913c9c51ba68a1ddc3ed45d6692228913c2"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 3568,
+          "sha256": "dbaf2d509a3b5eb5a2e971860e340c9c7609dc9f252656cb8a95760ad728d318"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Madness Accelerant",
+      "folder": "madness-accelerant",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/madness-accelerant",
+      "runtime": "flash",
+      "sha256": "ebc41d1f5afa6f6f5197d157cf73d5d48756318b01d68bcdebf4d76d3d5c9d6b",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 17983308,
+          "sha256": "ebc41d1f5afa6f6f5197d157cf73d5d48756318b01d68bcdebf4d76d3d5c9d6b"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 16406,
+          "sha256": "9d9e07653503cfff3631e9c93854e08d80db1d8af85bfd7c3c42efc271a164ac"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Boxhead 2Play Rooms",
+      "folder": "boxhead-2play-rooms",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/boxhead-2play-rooms",
+      "runtime": "flash",
+      "sha256": "34ff145d96891ddea20278700c8b1fb6fd6273ca0e71b73d8bdf0df183fdbece",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 1943061,
+          "sha256": "34ff145d96891ddea20278700c8b1fb6fd6273ca0e71b73d8bdf0df183fdbece"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 7748,
+          "sha256": "30a0321c2ce299f8124a5bb0c42c36f17487c88c87fddb85480998884d99f1ef"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Endless War 3",
+      "folder": "endless-war-3",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/endless-war-3",
+      "runtime": "flash",
+      "sha256": "360220f4d49613029a918280c8b03f1fae6d19e0a90cc9238c7d70691ccd0402",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 1104039,
+          "sha256": "360220f4d49613029a918280c8b03f1fae6d19e0a90cc9238c7d70691ccd0402"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 5860,
+          "sha256": "fcf4b1a2aaebd006a0795062c9f864bfcecea873e68e6e29aef1192c24ea76d7"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Armed with Wings 2",
+      "folder": "armed-with-wings",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/armed-with-wings",
+      "runtime": "flash",
+      "sha256": "bdd02d51e73a73cc768b0cd3b7f3db26e0e82934b2f49c6238ea3f202bdc072f",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 9540690,
+          "sha256": "bdd02d51e73a73cc768b0cd3b7f3db26e0e82934b2f49c6238ea3f202bdc072f"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 5096,
+          "sha256": "b4025a10c672f178d7b1f659c78cdc633cb4045f8e16e8e59ab31535773d7635"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Stick War 2",
+      "folder": "stick-war-2",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/stick-war-2",
+      "runtime": "flash",
+      "sha256": "03aa17bc25851fb14aefbe9a7223c738f427bff22580e16ec93e5e1232b167b5",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 18886237,
+          "sha256": "03aa17bc25851fb14aefbe9a7223c738f427bff22580e16ec93e5e1232b167b5"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 16586,
+          "sha256": "f408e983b42abb18d8b54594371ee5422b56fb4acca0920ff2293b3515265569"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Dragon Fist 3",
+      "folder": "dragon-fist-3",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/dragon-fist-3",
+      "runtime": "flash",
+      "sha256": "b022ad7b41f57ec5a9a8c6841e8385882c1d854fe7e8eb26f669c08ef8006729",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 4841533,
+          "sha256": "b022ad7b41f57ec5a9a8c6841e8385882c1d854fe7e8eb26f669c08ef8006729"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 8352,
+          "sha256": "96456d2eef0e24e2cce4c0f9715948b29600eae63198dd5f7cadd3772f3de45c"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Miami Shark",
+      "folder": "miami-shark",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/miami-shark",
+      "runtime": "flash",
+      "sha256": "bbaee9d25b66fb856bfff8fda4eef045bb58f2556826722c8af67cd4914e01ac",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 4111036,
+          "sha256": "bbaee9d25b66fb856bfff8fda4eef045bb58f2556826722c8af67cd4914e01ac"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 19966,
+          "sha256": "4f9b71f16029f67fecdbcba87908627c0de929eb61f16cbc8ae42ed10761d0fe"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Rage 3",
+      "folder": "rage-3",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/rage-3",
+      "runtime": "flash",
+      "sha256": "48dcbd3e617978aa65454efbca0e85f8ed0c640026f7e051f5641c91aa41414f",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 2316014,
+          "sha256": "48dcbd3e617978aa65454efbca0e85f8ed0c640026f7e051f5641c91aa41414f"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 3494,
+          "sha256": "cc151822c14c737cb036b232ffec8db59da6db72fcac1d23d2a4e1cbbfb80367"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Flood Runner 2",
+      "folder": "flood-runner-2",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flood-runner-2",
+      "runtime": "flash",
+      "sha256": "cf9eda2204518ce2142b1a6094d7584f641e3d0f725efade19c0d6cabd2dfd79",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 1784323,
+          "sha256": "cf9eda2204518ce2142b1a6094d7584f641e3d0f725efade19c0d6cabd2dfd79"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 5790,
+          "sha256": "3a51170089e210c464e0d9361e0b9179a0a236238f1d43fc368ad186dd9c8434"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Dad 'n Me",
+      "folder": "dads-me",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/dads-me",
+      "runtime": "flash",
+      "sha256": "7c53c5df5da6908d402b3b31f361fd6e96ce5ed621f8b9ce13232df3183788d0",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 3082038,
+          "sha256": "7c53c5df5da6908d402b3b31f361fd6e96ce5ed621f8b9ce13232df3183788d0"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 30922,
+          "sha256": "74f6e156c9773fc581b2d758fd8124286605b370f7ed1410b35cf08e2bcba2ac"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Plazma Burst",
+      "folder": "plazma-burst",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/plazma-burst",
+      "runtime": "flash",
+      "sha256": "16dc0ce6502a1a81772073053b5221b4e39fa7b2646b370fba923dfe777267ae",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 3657690,
+          "sha256": "16dc0ce6502a1a81772073053b5221b4e39fa7b2646b370fba923dfe777267ae"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 1612,
+          "sha256": "55ff9bb2066a85b237b7937823e0a4c81d806438b0a5163adcbc76177fb6fe4a"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Strike Force Kitty",
+      "folder": "strike-force-kitty",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/strike-force-kitty",
+      "runtime": "flash",
+      "sha256": "02c27f0178c03e203f4a1cfc72ab8953e123245c11cff084a6df290645a0fa6c",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 3856887,
+          "sha256": "02c27f0178c03e203f4a1cfc72ab8953e123245c11cff084a6df290645a0fa6c"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 7596,
+          "sha256": "32b76eb8cbd0c468cf770f72f9853db3f3daa99c1582171abe40d5dc6675e867"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Strike Force Kitty 2",
+      "folder": "strike-force-kitty-2",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/strike-force-kitty-2",
+      "runtime": "flash",
+      "sha256": "6fc11db0e83102fd4c26a8d98fac87c5947d95eeaf3e9d5d7d3a74fc6ddd3fb9",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 11333639,
+          "sha256": "6fc11db0e83102fd4c26a8d98fac87c5947d95eeaf3e9d5d7d3a74fc6ddd3fb9"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 7344,
+          "sha256": "f3ef15f49f5c0f3952d81582c33c956cc548d80a7fc7bcfcba1a56fac4134972"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "StrikeForce Kitty: Last Stand",
+      "folder": "strike-force-kitty-3",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/strike-force-kitty-3",
+      "runtime": "flash",
+      "sha256": "92a385d8da160e75ad10bf806690570fc284b58c69a5edd5c1af3b72862bc44e",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 6040256,
+          "sha256": "92a385d8da160e75ad10bf806690570fc284b58c69a5edd5c1af3b72862bc44e"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 3856,
+          "sha256": "0e6e0539dcc7c06aa2ac2e74c354fbdc0280eed6d6e1cd02f6c02563b0de9da9"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Bowman 2",
+      "folder": "browman",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/browman",
+      "runtime": "flash",
+      "sha256": "0a34701a7d64bb79f623991385b9203de2cf4e7a51d6bb9cef972faa0840e6ab",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 103509,
+          "sha256": "0a34701a7d64bb79f623991385b9203de2cf4e7a51d6bb9cef972faa0840e6ab"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 6916,
+          "sha256": "1b18ea270b719a94a7fa0dbe5383b4bfcf3ee3efb46b7005d84331cc0d865a40"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Ricochet Kills",
+      "folder": "ricochet-kills",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/ricochet-kills",
+      "runtime": "flash",
+      "sha256": "c1e470ee35f0623ecc7b1257d73ecae1dc7a484cd1bfb2180f086104449fedc6",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 765614,
+          "sha256": "c1e470ee35f0623ecc7b1257d73ecae1dc7a484cd1bfb2180f086104449fedc6"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 3100,
+          "sha256": "0004e913270de726026e119838a2c605b0170db52fbc32c2f37a5b2638cf73f0"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Interactive Buddy",
+      "folder": "interactive-buddy",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/interactive-buddy",
+      "runtime": "flash",
+      "sha256": "bec7ff26ebb4ffab6a6793255e606dfbdfe19ed71055d8660380a677e5751179",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 1224969,
+          "sha256": "bec7ff26ebb4ffab6a6793255e606dfbdfe19ed71055d8660380a677e5751179"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 2528,
+          "sha256": "a226e0382f0ab67f12c0c8af1b069b2c0242495f02626d31c1cb5857c5dd3ba3"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Dead Zed",
+      "folder": "dead-zed",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/dead-zed",
+      "runtime": "flash",
+      "sha256": "ae61b5f0cbe8fc466c7c26d275afc4ad08a4ea758b931a4455bc026770be8c97",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 8435658,
+          "sha256": "ae61b5f0cbe8fc466c7c26d275afc4ad08a4ea758b931a4455bc026770be8c97"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 1646,
+          "sha256": "a4619694103299787571e3a304e3537f2d90765ca9a1b2ea882210305c8168da"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "3 Slices",
+      "folder": "3-slices",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/3-slices",
+      "runtime": "flash",
+      "sha256": "52356691aa172592aac0eff4f390191a7aa661dbcb9da1b9cca412702c8f457a",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 389009,
+          "sha256": "52356691aa172592aac0eff4f390191a7aa661dbcb9da1b9cca412702c8f457a"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 3864,
+          "sha256": "9474fd375d275510e748814fd91e259a4312d3c3148bb3b5caf0ca4c6a131601"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Effing Worms",
+      "folder": "effing-worms",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/effing-worms",
+      "runtime": "flash",
+      "sha256": "cf24ffe4ff7d6321f96a8a7e5acd4556174c8179cc1bd93d5bc3ef5f2e6dcc13",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 4211662,
+          "sha256": "cf24ffe4ff7d6321f96a8a7e5acd4556174c8179cc1bd93d5bc3ef5f2e6dcc13"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 13496,
+          "sha256": "dba101e7d0126f5a1d3db5b61fcf6143a4914c3614d3a446f8f8c386e2c49642"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Effing Hail",
+      "folder": "effing-hail",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/effing-hail",
+      "runtime": "flash",
+      "sha256": "bbd1af01de95dec283b0923c07e08b6bd1d5f791262d821903d0db0102bf443f",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 1198798,
+          "sha256": "bbd1af01de95dec283b0923c07e08b6bd1d5f791262d821903d0db0102bf443f"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 1454,
+          "sha256": "0711b2975f03c9a79ba66b327d1a04222b03e7ef1fac4d2a2ea9f2a9a7173ba7"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Dragon ball Devolution",
+      "folder": "dragon-ball-devolution",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/dragon-ball-devolution",
+      "runtime": "flash",
+      "sha256": "25af215cbb19751b200febe017f8fe19e446b5b9619b2f172a41de722d9add0f",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 6295713,
+          "sha256": "25af215cbb19751b200febe017f8fe19e446b5b9619b2f172a41de722d9add0f"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 6702,
+          "sha256": "62e5fadb0ff3ecd3163b6c62b0688d713ed19b27ff9fe57ed85cfbf7c2439ef0"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Bomb it 4",
+      "folder": "bomb-it-4",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/bomb-it-4",
+      "runtime": "flash",
+      "sha256": "a37e9795575e46482e11c7ec76acab87cafb393f5315bf5d5e6d79f412527f95",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 5084623,
+          "sha256": "a37e9795575e46482e11c7ec76acab87cafb393f5315bf5d5e6d79f412527f95"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 28564,
+          "sha256": "6a68b1e4801bc4308291e3c5974054aa6f2e2f3ab05bfdda8f1a4543d6e558d1"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Bounzy 2",
+      "folder": "bounzy-2",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/bounzy-2",
+      "runtime": "flash",
+      "sha256": "42ac5a521418a2732ed71e0997b8b5dfd1631c2dcb0522aac557c0d6c696b9ab",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 4910662,
+          "sha256": "42ac5a521418a2732ed71e0997b8b5dfd1631c2dcb0522aac557c0d6c696b9ab"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 10078,
+          "sha256": "3e54de30f4a37bef7b4b9501a81192decabab9e1eb0bae91ed642a725947cfc4"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Commando",
+      "folder": "commando",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/commando",
+      "runtime": "flash",
+      "sha256": "65878540f979b7b3f0926fda762f09c75028a97389fec7223e4adabc73dd48c7",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 6388010,
+          "sha256": "65878540f979b7b3f0926fda762f09c75028a97389fec7223e4adabc73dd48c7"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 4722,
+          "sha256": "765b5b88d30a473db63a240a11fb53ed8f35d3c6b49c4de0a857f421309303b1"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Intrusion",
+      "folder": "intrusion",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/intrusion",
+      "runtime": "flash",
+      "sha256": "ee210814ab495af838b7edf6fadb0d1abe23a424ef0965a02f19d4988db32241",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 5495620,
+          "sha256": "ee210814ab495af838b7edf6fadb0d1abe23a424ef0965a02f19d4988db32241"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 1868,
+          "sha256": "f62ede364a254d592be51c927f1e758fc249f4742db9cda9e5339bde6f97aeab"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "GunMaster Onslaught",
+      "folder": "gunmaster-onslaught",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/gunmaster-onslaught",
+      "runtime": "flash",
+      "sha256": "d0c8d3b14093703e744db27ede8314a81eb38ea7a1fe3a51a36e6ae2e412fdbf",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 467955,
+          "sha256": "d0c8d3b14093703e744db27ede8314a81eb38ea7a1fe3a51a36e6ae2e412fdbf"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 10562,
+          "sha256": "6728aa65b9919ce59f571f020fab4bd4fbb98389770b4d700d5176847b50ed04"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Giants And Dwarves TD",
+      "folder": "giants-and-dwarves-td",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/giants-and-dwarves-td",
+      "runtime": "flash",
+      "sha256": "2a751f3c042659a7ffc9a9145287de44c2f7e0661b7998c34190b9f72fbe4148",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 19893897,
+          "sha256": "2a751f3c042659a7ffc9a9145287de44c2f7e0661b7998c34190b9f72fbe4148"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 1024,
+          "sha256": "ed878b454d90d0ddde45e1addcbff83ea449c1d9607ac678a1243da13f983f2a"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Gretel and Hansel",
+      "folder": "gretel-and-hansel-1",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/gretel-and-hansel-1",
+      "runtime": "flash",
+      "sha256": "b90f8c55b8144c32fd65da79628f47bd717e3ebac5e81ebb5664df1bfb68b2d9",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 10874692,
+          "sha256": "b90f8c55b8144c32fd65da79628f47bd717e3ebac5e81ebb5664df1bfb68b2d9"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 890,
+          "sha256": "38a679ac0f4a3ea3379e2e58538c982d9ddf0dc9fac9a8ff6f47ea37855dcdcf"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Obey The Game",
+      "folder": "obey-the-game",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/obey-the-game",
+      "runtime": "flash",
+      "sha256": "ebb24c05b5b5a0e9a23453211f400e16cfa4334aebec7bc54229ef14f1ed79bd",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 961381,
+          "sha256": "ebb24c05b5b5a0e9a23453211f400e16cfa4334aebec7bc54229ef14f1ed79bd"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 830,
+          "sha256": "4481b39511a17c17b853228157bcc770f52f2142ce4aaa46173b0afe809f755f"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "The Black Knight",
+      "folder": "black-knight",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/black-knight",
+      "runtime": "flash",
+      "sha256": "ac9e6cd34e0aaa005ad073a6eda79fe9260acb3c4d786f24ea7c025c55dd269c",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 1147086,
+          "sha256": "ac9e6cd34e0aaa005ad073a6eda79fe9260acb3c4d786f24ea7c025c55dd269c"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 898,
+          "sha256": "231a86739ff033f70c768fe25c098bb08d74d37272939b8fc3d12d7d237eb73a"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Crazy Penguin Catapult",
+      "folder": "crazy-penguin-catapult",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/crazy-penguin-catapult",
+      "runtime": "flash",
+      "sha256": "f2508c89fea4c5444c005e4fe9ae40fa33541ee56eb5291fa78a2e7452253261",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 4023320,
+          "sha256": "f2508c89fea4c5444c005e4fe9ae40fa33541ee56eb5291fa78a2e7452253261"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 1092,
+          "sha256": "4a6975383bb304e230dbf3ee975c761d34a971ccfd0e3053b62833e28b5df357"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Achilles",
+      "folder": "achilles",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/achilles",
+      "runtime": "flash",
+      "sha256": "2decfdae43d8bc390172d8f9474fd66c65b8d2c51c8ab7a83177d7602450b79e",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 1798525,
+          "sha256": "2decfdae43d8bc390172d8f9474fd66c65b8d2c51c8ab7a83177d7602450b79e"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 612,
+          "sha256": "fcc3d0ee9c161ce7d341733a846c4b0995840b447f6d34bcf41eda50770f7248"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Thing Thing 4",
+      "folder": "thing-thing-4",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/thing-thing-4",
+      "runtime": "flash",
+      "sha256": "c7cdb4d9fbd65939dd6506673ec50c7488ca233639289eac9936ec223a28e07f",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 4686685,
+          "sha256": "c7cdb4d9fbd65939dd6506673ec50c7488ca233639289eac9936ec223a28e07f"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 776,
+          "sha256": "f2d3d89c6cd9d6448b5cc4ad96d26c2bbc9f1299c4ad7b37effbe721d9660b86"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Sift Heads World: Act 1",
+      "folder": "sift-heads-world-ultimatum",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/sift-heads-world-ultimatum",
+      "runtime": "flash",
+      "sha256": "7a6bd7bfb0a739718e6b733417af161005273f23a3461c1eba2ec23291ac8b06",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 5574983,
+          "sha256": "7a6bd7bfb0a739718e6b733417af161005273f23a3461c1eba2ec23291ac8b06"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 1022,
+          "sha256": "871afbf7fc188c8d2be310071ec828a3fa2b94a58901f5cea5f7d9276f039a90"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Animal Raceway",
+      "folder": "animal-raceway",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/animal-raceway",
+      "runtime": "flash",
+      "sha256": "cc3b5df39592e6bc98854ca9ad445f1e8e408035297d4173619e56b1ed2a8973",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 3214373,
+          "sha256": "cc3b5df39592e6bc98854ca9ad445f1e8e408035297d4173619e56b1ed2a8973"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 800,
+          "sha256": "5bdfd24e650aadbaf7145bb77734759a7c7da1f68a360845df98f7ec9f5b5d7d"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Drag Racer V3",
+      "folder": "drag-racer-v3",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/drag-racer-v3",
+      "runtime": "flash",
+      "sha256": "49fe7bd6ccf0df8dc40aea5d8fc23b4cad84b289357b1badefd6b6882bdd048f",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 3067380,
+          "sha256": "49fe7bd6ccf0df8dc40aea5d8fc23b4cad84b289357b1badefd6b6882bdd048f"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 772,
+          "sha256": "0ebc9641b7e3a6a16fa79bde6163809039ca9b96606e08269837744321d9974a"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Ragdoll Achievement",
+      "folder": "ragdoll-achievement",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/ragdoll-achievement",
+      "runtime": "flash",
+      "sha256": "1f813327f714588578a6ffd8625ddbe0a2cc9576f94fa3201e5d393b409392ec",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 1850184,
+          "sha256": "1f813327f714588578a6ffd8625ddbe0a2cc9576f94fa3201e5d393b409392ec"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 984,
+          "sha256": "c0113133b7ad05c4a15b17597dfb910e2e1ca50abe6c81f5d5bbe644e700c881"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Gold Miner 2",
+      "folder": "gold-miner-2",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/gold-miner-2",
+      "runtime": "flash",
+      "sha256": "f3080068c890826bb7faf6b58977cbd7d36d29b2cf5641df2f3225f683998b8b",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 298548,
+          "sha256": "f3080068c890826bb7faf6b58977cbd7d36d29b2cf5641df2f3225f683998b8b"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 754,
+          "sha256": "7fe0ef7e0e6e3c0f41dc3e45238f242b4fd38dded7d211bac1791fa1cb0463cc"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Crazy Flasher 3",
+      "folder": "crazy-flasher-3",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/crazy-flasher-3",
+      "runtime": "flash",
+      "sha256": "2b38d831cdd1ce1a2b816564eb6806d3218b490710a84664f1fafed7785e4012",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 2537695,
+          "sha256": "2b38d831cdd1ce1a2b816564eb6806d3218b490710a84664f1fafed7785e4012"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 816,
+          "sha256": "57c8c20d6319581e08c0e151ba9cb688ae22568e3401f54a8ee1dfb644395a72"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Gravity Driver",
+      "folder": "gravity-driver",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/gravity-driver",
+      "runtime": "flash",
+      "sha256": "bdf827d440eead7936205464783d8f2551a7f0e2385a0a247bb1c1d61b7f1fba",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 5115197,
+          "sha256": "bdf827d440eead7936205464783d8f2551a7f0e2385a0a247bb1c1d61b7f1fba"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 780,
+          "sha256": "41222398c2215a119cda70f75c9a1cfcc2603d011981378f283232c3231b0748"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Weapon",
+      "folder": "weapon",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/weapon",
+      "runtime": "flash",
+      "sha256": "401038d155aec03df034ded8399445385ab04c5264e7d563086d4c3f6cb1f41b",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 3846888,
+          "sha256": "401038d155aec03df034ded8399445385ab04c5264e7d563086d4c3f6cb1f41b"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 616,
+          "sha256": "3c7b37009da46d6b351d4691cf331e7542bc40f052cf9b8896a98ae3a9900804"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Smileys War",
+      "folder": "smileys-war",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/smileys-war",
+      "runtime": "flash",
+      "sha256": "66ede8064afa121f6568b84445b8a9175900c97c9c5671cb39d51ab25a7019a6",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 3850857,
+          "sha256": "66ede8064afa121f6568b84445b8a9175900c97c9c5671cb39d51ab25a7019a6"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 742,
+          "sha256": "f46a0f2cc6918117e5c34aa662a82657e8c3e4e494ad0ac03284c277a99cc71d"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Batman The Cobblebot Caper",
+      "folder": "batman-the-cobblebot-caper",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/batman-the-cobblebot-caper",
+      "runtime": "flash",
+      "sha256": "3d9e1992404313bc2e2652d46a5838160ef721e2ad559fdd7455f3c54f8ac1ed",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 2819100,
+          "sha256": "3d9e1992404313bc2e2652d46a5838160ef721e2ad559fdd7455f3c54f8ac1ed"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 1224,
+          "sha256": "7d0c1f5a6a05c04de548b62c3406e98c24269bcfe8e3c1cec51490c627b2f70e"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Acid Bunny 2",
+      "folder": "acid-bunny",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/acid-bunny",
+      "runtime": "flash",
+      "sha256": "03343a421274cd20924ae77aac05197d0a8cf6e1a510d01cf5ce6dc580a97895",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 7545779,
+          "sha256": "03343a421274cd20924ae77aac05197d0a8cf6e1a510d01cf5ce6dc580a97895"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 762,
+          "sha256": "964fa49fd902a71bdfa4003e54a73156b625f9a5d8006e127effb538d190adad"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Dead Samurai",
+      "folder": "dead-samurai",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/dead-samurai",
+      "runtime": "flash",
+      "sha256": "71a13527ccf7f8848162c069c0578e18f5cc7728b2b3ff9ae3223536cfb8bdb7",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 8883164,
+          "sha256": "71a13527ccf7f8848162c069c0578e18f5cc7728b2b3ff9ae3223536cfb8bdb7"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 770,
+          "sha256": "7394a3d3e678299dc73942fbb765e89b14d3b970a83df52700cd527d3e0e5a5d"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Dog vs Cat",
+      "folder": "dog-vs-cat",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/dog-vs-cat",
+      "runtime": "flash",
+      "sha256": "a4f64bc6ef66d270c57027dc4edbee6dc1aee67d39de24ebe0ec303a4b5ffb30",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 217575,
+          "sha256": "a4f64bc6ef66d270c57027dc4edbee6dc1aee67d39de24ebe0ec303a4b5ffb30"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 658,
+          "sha256": "cbbc04acc808b1b1aa3ad4756817a4fe74c6db3a74d8f82c6a5bff333f8dfff9"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Alone in The Madness",
+      "folder": "alone-in-the-madness",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/alone-in-the-madness",
+      "runtime": "flash",
+      "sha256": "dc51bb18996921e599e7164c72453a9699c655e4e2176edf91d83b2ca09d26d4",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 8965147,
+          "sha256": "dc51bb18996921e599e7164c72453a9699c655e4e2176edf91d83b2ca09d26d4"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 982,
+          "sha256": "babbb1ff0b3b8cc2196cffc602ae9177f817fdeb93764f6d6f57f985763bb4ba"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Dragon Ball Kart",
+      "folder": "dragon-ball-kart",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/dragon-ball-kart",
+      "runtime": "flash",
+      "sha256": "905b48d7c0602ddd6bfb6975d5450092d341d432a3c9f1e7ea29b500b9402735",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 716673,
+          "sha256": "905b48d7c0602ddd6bfb6975d5450092d341d432a3c9f1e7ea29b500b9402735"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 834,
+          "sha256": "efac8be6db8e865e6d424104621e19ad5bdf80bff258c5b7c9b99bbcba8abd0b"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Endless War 7",
+      "folder": "endless-war-7",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/endless-war-7",
+      "runtime": "flash",
+      "sha256": "8a2fdbf61f08c9f19fd1afff2ed88fca99bafb444fa28696a7d4a15ea6e86d9c",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 9411772,
+          "sha256": "8a2fdbf61f08c9f19fd1afff2ed88fca99bafb444fa28696a7d4a15ea6e86d9c"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 776,
+          "sha256": "ba5b6a62e2086aef39ca63c8728910debfe4d16d73b21ed2c69b49122dfeeb2e"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Storm Ops 4",
+      "folder": "storm-ops-4",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/storm-ops-4",
+      "runtime": "flash",
+      "sha256": "c7e1ac50600f17b46ed8066a2566bbdf1ef430b8bc1060b32e781b6c3b10fc37",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 11671729,
+          "sha256": "c7e1ac50600f17b46ed8066a2566bbdf1ef430b8bc1060b32e781b6c3b10fc37"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 718,
+          "sha256": "6e2095c84e6d3a089ad16c52df2c1dd8678b75966ae809258e125b61aafe340c"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Effing Worms 2",
+      "folder": "effing-worms-2",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/effing-worms-2",
+      "runtime": "flash",
+      "sha256": "6b5dc5de2641b857b44910dab0cdafdf3c647104870b06bd2d23926d39bb6f53",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 5391372,
+          "sha256": "6b5dc5de2641b857b44910dab0cdafdf3c647104870b06bd2d23926d39bb6f53"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 824,
+          "sha256": "c32d91ca1dfbb9241d58bdf2b7ac2729d00563f35d220770d2558a43e8ad52df"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Super Mario World Flash",
+      "folder": "supermario-world-flash",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/supermario-world-flash",
+      "runtime": "flash",
+      "sha256": "18c553930ef887cc165775b24cf5eedcf2b0a530e4f4baf9047feefa19547cda",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 8825160,
+          "sha256": "18c553930ef887cc165775b24cf5eedcf2b0a530e4f4baf9047feefa19547cda"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 1106,
+          "sha256": "f71a0612af119beddb9c5a3325b1cae2092090f632e20fcaa0acb5f543b81e8d"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "1 On 1 Basketball",
+      "folder": "1-on-1-basketball",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/1-on-1-basketball",
+      "runtime": "flash",
+      "sha256": "d394cf9907a502517e9170520a56dfaf8e79579df2ea82942b0992238f76a101",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 418715,
+          "sha256": "d394cf9907a502517e9170520a56dfaf8e79579df2ea82942b0992238f76a101"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 842,
+          "sha256": "fa88f2d2a1fa69aae31f88384850256d26460f1d6749b4ec8719513240be65b7"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Santa Run 2",
+      "folder": "santa-run-2",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/santa-run-2",
+      "runtime": "flash",
+      "sha256": "53dabae190fd08fd8b3fed57e084e5c821eaf170c43920194720063a746c2947",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 2118656,
+          "sha256": "53dabae190fd08fd8b3fed57e084e5c821eaf170c43920194720063a746c2947"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 722,
+          "sha256": "ed4c2a65714ac64254bbcb368783d913a21e85ff010fd3423a073dff48694daf"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Axis Football League",
+      "folder": "axis-football-league",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/axis-football-league",
+      "runtime": "flash",
+      "sha256": "0e8df110b978ffb47e6aeb42ffdfcd1ce39cfb5ad3c262f253a3bf9ff5b36334",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 6479058,
+          "sha256": "0e8df110b978ffb47e6aeb42ffdfcd1ce39cfb5ad3c262f253a3bf9ff5b36334"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 958,
+          "sha256": "d4451e91aae1bdebcb3d47a5d5ce891d216202e462ce24ce1426670e3d13ce53"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Siegius",
+      "folder": "siegius",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/siegius",
+      "runtime": "flash",
+      "sha256": "e152a6f47a6aa63f2d021ca60febb675a7431b12b55e9918a73e2cfb60f91eb6",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 6071842,
+          "sha256": "e152a6f47a6aa63f2d021ca60febb675a7431b12b55e9918a73e2cfb60f91eb6"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 600,
+          "sha256": "b35c93cf6f6071aa64546c8fe086b3674445747cca0dac6e88d44e8b7f070307"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Aqua Turret",
+      "folder": "aqua-turret",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/aqua-turret",
+      "runtime": "flash",
+      "sha256": "47856e9b6f22b2ff651cc8b2ab8481932268dcd1d8c1ac09844b3ef659f2fef8",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 4899579,
+          "sha256": "47856e9b6f22b2ff651cc8b2ab8481932268dcd1d8c1ac09844b3ef659f2fef8"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 690,
+          "sha256": "1d1b8cf223f355a6edd4ff0fae817c918c9074873ae2c8a7b8cf083e1cff6036"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Ownage Burst",
+      "folder": "ownage-burst",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/ownage-burst",
+      "runtime": "flash",
+      "sha256": "6f7052982d339286d92f16ea109f5d8ba1478fd31d2b1b8b82bcf47f5b1ce309",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 2024534,
+          "sha256": "6f7052982d339286d92f16ea109f5d8ba1478fd31d2b1b8b82bcf47f5b1ce309"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 792,
+          "sha256": "c0358f77cf39d7ed0794f1a4b951e468dbcdc2bcb143eec6049ce9f7fe9823cf"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Overkill Apache",
+      "folder": "overkill-apache",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/flash-games/overkill-apache",
+      "runtime": "flash",
+      "sha256": "d23557fa56ca2fb94f8a994e31a5fb0becb953da52d74f6fbf5656661ed6cb14",
+      "assets": [
+        {
+          "path": "game.swf",
+          "bytes": 1094541,
+          "sha256": "d23557fa56ca2fb94f8a994e31a5fb0becb953da52d74f6fbf5656661ed6cb14"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 830,
+          "sha256": "bd0eeed88e63058bb36788db995e5860825fd471e4d28acabcffec9a77afc3bb"
+        }
+      ],
+      "verification": {
+        "status": "runtime-input-smoke-passed",
+        "actions": [
+          "click 400,420 delay250",
+          "Enter delay150",
+          "ArrowRight hold450",
+          "Space delay200"
+        ],
+        "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
+        "scope": "Not certified as fully functional; requires gameplay review before merging."
+      }
+    },
+    {
+      "name": "Real Kart",
+      "folder": "real-kart",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/real-kart",
+      "runtime": "unity",
+      "sha256": "f75634087a1f22210900a724ee79306fba64cb7dca7246b06cbd3da1a7f4bfe0",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part0",
+          "bytes": 8388608,
+          "sha256": "15a1dd2289f346918c0016ad0154b563daa894717aa287520aed6616bdaa9774"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part1",
+          "bytes": 8388608,
+          "sha256": "5ae9ac801721a034fa2eb5740369fc345285033f90b6549a35909bdcfd76741a"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part2",
+          "bytes": 8388608,
+          "sha256": "cf912c5fd9f44453cb9565596904e4ad4876e8b51f9e5963089a1797aa69f93d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part3",
+          "bytes": 8388608,
+          "sha256": "db172690c8b17df62eb45ea02bc3cb184772e3ad9f4f939c9f4c2edbadc410d5"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part4",
+          "bytes": 8388608,
+          "sha256": "b9b10cf872e134036faf6b43eaf62d87f2371f8f60f41cf3351dffbb5134315f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part5",
+          "bytes": 8388608,
+          "sha256": "1ea5b5fb38661a82663c6dde0f19a47e5aaff6db8ba3e7bfdb0dd28d2dd82a3a"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part6",
+          "bytes": 8388608,
+          "sha256": "c0273fa665f13d931147e14984edaa69c933a603b6a44755ae20a45322bd0fc8"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part7",
+          "bytes": 8388608,
+          "sha256": "a052178fbbd55a7c4f4b258b8860a0bbfabcfad69abaeecb31edee7ee6fcaba0"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part8",
+          "bytes": 6688623,
+          "sha256": "66edb858cdc66173b33bf9f06236b39c6218c35058199e87a432ec1e8ea319cb"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.framework.js",
+          "bytes": 450158,
+          "sha256": "2f28f7e61158c01b4897bea7a23aed05076d8f15d54b8ab40a475b49ff9bb74d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.loader.js",
+          "bytes": 25469,
+          "sha256": "bd23672ae6628c2fcbcb7a24c33e66087c6b5e3249f0e2f4aca59092d1d371a0"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.wasm.part0",
+          "bytes": 8388608,
+          "sha256": "e4012d894c6d8e5a67069b454921b172c95379b32438332d909f1857741d4ab3"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.wasm.part1",
+          "bytes": 8388608,
+          "sha256": "9ce806cc41c3472c6be56925e9212ede6652848f1283ad383ed7cf3f5b30b4f9"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.wasm.part2",
+          "bytes": 8388608,
+          "sha256": "3f237ce3e6b3ef39cfdaeb71b49be156ab851e94769924d20c8c3d7bb2f25ed2"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.wasm.part3",
+          "bytes": 8388608,
+          "sha256": "f078a1537513c5c71de38971bfcb9fda95e7bdc8efb917c6a43fa49022d9db9b"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.wasm.part4",
+          "bytes": 8388608,
+          "sha256": "54755a91b2678d2d09f5dd8c72214ff88cfba8ecc225b16111199c26d9b5c8eb"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.wasm.part5",
+          "bytes": 1091197,
+          "sha256": "4b39decfb1a26df9755824d59ba3c059a156cf9afc9ed7399e4a7744a32c12e8"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@main/StreamingAssets/aa/WebGL/defaultlocalgroup_assets_all_26f745922bba63fa3acebe607a7249d2.bundle",
+          "bytes": 13177806,
+          "sha256": "26f748a5f20c5e3cfe754ca465ae87334e54d4af6396a2196fd627ad49a3edbc"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@main/StreamingAssets/aa/catalog.json",
+          "bytes": 42424,
+          "sha256": "43bf5d57bbee2d40411008a15e49c0f04c6f21d379e748bcb15e7e725b1b6763"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@main/StreamingAssets/aa/settings.json",
+          "bytes": 1593,
+          "sha256": "a00d88103b444a124873476afc32b9e2fa7eaa13a5e7ad8b35d9537d54429195"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@main/background.png",
+          "bytes": 206086,
+          "sha256": "85055e702fed484a0f7d07bc5c630973614be9ece85e1d186ad2406c5ab6f47f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@main/logo.png",
+          "bytes": 52033,
+          "sha256": "1cdc5781bcab6dee8b8db39c8c6de5d1ef16fd15c34db9dcac8efcb87fa77734"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@main/style.css",
+          "bytes": 1847,
+          "sha256": "121d63d33b02046f4a3a8ea8f69326dc0b060ace1bc8d6e939a30186fe4f0c5f"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 18662,
+          "sha256": "486e2b3cefeaabe269aec7f8fb095643eb025a02314eb04ba52d8ea20e40b3a9"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "click": [335, 610]
+          },
+          {
+            "wait": 2000
+          },
+          {
+            "click": [220, 400]
+          },
+          {
+            "wait": 6000
+          },
+          {
+            "click": [1020, 640]
+          },
+          {
+            "wait": 6000
+          },
+          {
+            "hold": "ArrowUp",
+            "ms": 3500
+          },
+          {
+            "click": [1235, 130]
+          },
+          {
+            "wait": 500
+          },
+          {
+            "click": [980, 145]
+          },
+          {
+            "hold": "ArrowDown",
+            "ms": 3500
+          },
+          {
+            "key": "KeyE"
+          },
+          {
+            "wait": 500
+          },
+          {
+            "click": [1230, 45]
+          },
+          {
+            "wait": 500
+          },
+          {
+            "hold": "ArrowLeft",
+            "ms": 1800
+          },
+          {
+            "key": "KeyE"
+          },
+          {
+            "wait": 500
+          },
+          {
+            "click": [450, 355]
+          },
+          {
+            "hold": "ArrowUp",
+            "ms": 4000
+          },
+          {
+            "hold": "ArrowRight",
+            "ms": 700
+          },
+          {
+            "key": "KeyF"
+          },
+          {
+            "hold": "ArrowUp",
+            "ms": 5000
+          },
+          {
+            "hold": "ArrowRight",
+            "ms": 800
+          }
+        ],
+        "observation": "Selected Techno City, started the track, moved the character, opened the race message, approached the kart, pressed F to enter, accelerated and steered. The driving HUD showed gear 1 and 6 km/h. No missing game assets or uncaught page errors; 55GMS loading UI finished.",
+        "scope": "Opening gameplay and kart control smoke test. All laps, the second track, optional online leaderboards, cloud services and rewards are not certified.",
+        "evidence": "real-kart-gameplay.webp"
+      }
+    }
+  ],
+  "addedCount": 101
+}
