@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Links - 55GMS</title>
+    <link rel="icon" href="/img/favicon.ico" />
+    <link rel="stylesheet" href="/assets/css/style.css?v=7" />
+    <link rel="stylesheet" href="/assets/css/links.css?v=1" />
+    <script src="/assets/js/script.js?v=27"></script>
+    <script src="/assets/js/links.js?v=1" defer></script>
+  </head>
+  <body>
+    <main class="links-page">
+      <a class="links-brand" href="/">Reds Exploit Corner</a>
+      <section class="links-card" aria-labelledby="linksTitle">
+        <div class="links-icon" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+          >
+            <path
+              d="m10 13 4-4m-6 7-1 1a4.2 4.2 0 0 1-6-6l4-4a4.2 4.2 0 0 1 6 0m2 1 1-1a4.2 4.2 0 0 1 6 6l-4 4a4.2 4.2 0 0 1-6 0"
+              transform="translate(1 1)"
+            ></path>
+          </svg>
+        </div>
+        <p class="links-kicker">Another way in</p>
+        <h1 id="linksTitle">Links</h1>
+        <p class="links-description">
+          Watch a video ad to reveal another link to this website.
+        </p>
+        <div class="links-notice">
+          One ad unlocks one random link. Links you reveal are only shown for
+          this visit.
+        </div>
+        <button class="links-primary" id="watchAd" type="button" disabled>
+          Watch ad &amp; reveal a link
+        </button>
+        <p
+          class="links-status"
+          id="linksStatus"
+          role="status"
+          aria-live="polite"
+        >
+          Checking availability…
+        </p>
+        <noscript>Enable JavaScript to watch an ad and reveal a link.</noscript>
+      </section>
+      <section
+        class="links-results"
+        id="linksResults"
+        aria-labelledby="revealedTitle"
+        hidden
+      >
+        <div class="links-results-heading">
+          <h2 id="revealedTitle">Your links</h2>
+          <span id="revealedCount"></span>
+        </div>
+        <ul id="revealedLinks"></ul>
+        <p class="links-footnote">
+          Reloading clears this list. Keep a copy of any link you want to use
+          later.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
