@@ -155,123 +155,51 @@
       window.unityInstance.SendMessage("GameManager", "SetLanguage", 1);
     }
 
+    // There is no Yandex player here (the SDK cannot init outside Yandex),
+    // so progress lives in this browser under the names the player API used.
+    var SAVE_KEY = "time-shooter2-data";
+
+    function readSave() {
+      try {
+        return JSON.parse(localStorage.getItem(SAVE_KEY)) || {};
+      } catch (e) {
+        return {};
+      }
+    }
+
     function loadData() {
       checkCom();
-      if (player != null) {
-        player
-          .getData([
-            "levels",
-            "sounds",
-            "music",
-            "language",
-            "tutor",
-            "sensitivity",
-          ])
-          .then((data) => {
-            if (data.levels) {
-              var sounds;
-              var music;
-              var tutor;
-              if (data.sounds) {
-                sounds = 1;
-              } else {
-                sounds = 0;
-              }
-              if (data.music) {
-                music = 1;
-              } else {
-                music = 0;
-              }
-              if (data.tutor) {
-                tutor = 1;
-              } else {
-                tutor = 0;
-              }
-              var dataStr =
-                data.levels +
-                " " +
-                sounds +
-                " " +
-                music +
-                " " +
-                data.language +
-                " " +
-                tutor +
-                " " +
-                data.sensitivity;
-              console.log("Get Data ", dataStr);
-              window.unityInstance.SendMessage(
-                "GameManager",
-                "LoadData",
-                dataStr
-              );
-            }
-          })
-          .catch(() => {
-            console.log("No Data");
-          });
-      }
+      var data = readSave();
+      if (!data.levels) return;
+      var dataStr = [
+        data.levels,
+        data.sounds ? 1 : 0,
+        data.music ? 1 : 0,
+        data.language,
+        data.tutor ? 1 : 0,
+        data.sensitivity,
+      ].join(" ");
+      console.log("Get Data ", dataStr);
+      window.unityInstance.SendMessage("GameManager", "LoadData", dataStr);
     }
   </script>
 
   <script>
     function saveData(level, isSound, isMusic, language, tutor, sensitivity) {
-      console.log("Saving....");
-      if (player != null) {
-        player
-          .getData([
-            "levels",
-            "sounds",
-            "music",
-            "language",
-            "tutor",
-            "sensitivity",
-          ])
-          .then((data) => {
-            if (data.levels) {
-              if (data.levels <= level) {
-                player
-                  .setData({
-                    levels: level,
-                    sounds: isSound,
-                    music: isMusic,
-                    language: language,
-                    tutor: tutor,
-                    sensitivity: sensitivity,
-                  })
-                  .then(() => {
-                    console.log("data is set -update");
-                  });
-              }
-            } else {
-              player
-                .setData({
-                  levels: level,
-                  sounds: isSound,
-                  music: isMusic,
-                  language: language,
-                  tutor: tutor,
-                  sensitivity: sensitivity,
-                })
-                .then(() => {
-                  console.log("data is set -first");
-                });
-            }
-          })
-          .catch(() => {
-            player
-              .setData({
-                levels: level,
-                sounds: isSound,
-                music: isMusic,
-                language: language,
-                tutor: tutor,
-                sensitivity: sensitivity,
-              })
-              .then(() => {
-                console.log("data is set -first");
-              });
-          });
+      var data = readSave();
+      // Like the Yandex version, never move the level back.
+      if (data.levels && data.levels > level) level = data.levels;
+      try {
+        localStorage.setItem(SAVE_KEY, JSON.stringify({
+          levels: level,
+          sounds: isSound,
+          music: isMusic,
+          language: language,
+          tutor: tutor,
+          sensitivity: sensitivity,
+        }));
+      } catch (e) {
+        console.error("Save error:", e.message);
       }
     }
   </script>
