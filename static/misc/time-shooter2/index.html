@@ -213,7 +213,24 @@
   </script>
 
   <script>
-    function showRewardedAd(id) { }
+    // 55GMS Ads: the reward comes only with an ad GMSAds (sdk.min.js) grants.
+    function showRewardedAd(id) {
+      var send = function (granted) {
+        window.unityInstance.SendMessage(
+          "GameManager",
+          granted ? "OnRewardedVideoSuccess" : "OnRewardedVideoFailure",
+          id
+        );
+      };
+      if (!window.GMSAds) return send(false);
+      GMSAds.showRewardedAd({ placement: "rewarded", rewardId: String(id) })
+        .then(function (r) {
+          send(r.rewardGranted);
+        })
+        .catch(function () {
+          send(false);
+        });
+    }
   </script>
 </body>
 
