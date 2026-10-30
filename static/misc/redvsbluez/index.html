@@ -140,7 +140,7 @@
         let cloudSaves = readSaves();
         let paymentsData = "none";     // read by the plugin's payments init
         let playerData = "noData";
-        let flasgsData = "null";       // keep misspelling to match original expectations
+        let flasgsData = "{}";         // misspelt as the plugin reads it; "null" throws and stops its init
 
         // --- Config: same public build you shared ---
         const loaderUrl = "BlueVSRed1.loader.js";
@@ -246,7 +246,7 @@
             return Promise.resolve(unauth);
         }
         function OpenAuthDialog() { }
-        function GetFlags() { flasgsData = "null"; return Promise.resolve('null'); }
+        function GetFlags() { flasgsData = "{}"; return Promise.resolve("{}"); }
         function PaintRBT() { }
         function StaticRBTDeactivate() { }
         function InitGame() { console.log("Unity signaled ready"); }
