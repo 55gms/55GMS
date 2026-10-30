@@ -67,6 +67,21 @@
       });
       if (Runtime) Runtime = wrap(Runtime);
     } else if (config.engine === "construct2") {
+      // Minified C2 builds rename runtime fields. This exported callback is
+      // invoked after the first layout starts, including in those builds.
+      let registerSW = window.C2_RegisterSW;
+      const ready = function (...args) {
+        const result = registerSW?.apply(this, args);
+        loader.finish();
+        return result;
+      };
+      Object.defineProperty(window, "C2_RegisterSW", {
+        configurable: true,
+        get: () => ready,
+        set: (callback) => {
+          registerSW = callback;
+        },
+      });
       const poll = setInterval(() => {
         const runtime = window.cr_getC2Runtime?.();
         if (runtime && runtime.isLoading === false) {

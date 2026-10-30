@@ -41,7 +41,9 @@ test("each published batch contains distinct, reviewed games with working launch
     assert.match(game.sha256, /^[0-9a-f]{64}$/);
     assert.ok(!payloads.has(game.sha256), `identical payload: ${game.name}`);
     payloads.add(game.sha256);
-    assert.notEqual(game.runtime, "flash");
+    assert.ok(
+      ["unity", "construct2", "construct3", "flash"].includes(game.runtime),
+    );
     assert.ok(game.assets.length > 0);
     assert.ok(
       game.assets.every(

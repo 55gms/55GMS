@@ -245,9 +245,14 @@ try {
       await page.screenshot({ path: menu });
       const { stdout } = await promisify(execFile)(
         "tesseract",
-        [menu, "stdout", "tsv"],
-        { maxBuffer: 4e6 },
-      );
+        [menu, "stdout", "--psm", "11", "tsv"],
+        {
+          maxBuffer: 4e6,
+          timeout: 3000,
+          killSignal: "SIGKILL",
+          env: { ...process.env, OMP_THREAD_LIMIT: "1" },
+        },
+      ).catch(() => ({ stdout: "" }));
       const words = stdout
         .split("\n")
         .slice(1)
@@ -269,11 +274,18 @@ try {
         "CLAIM",
         "1P",
         "SINGLEPLAYER",
+        "1PLAYER",
+        "SINGLE-PLAYER",
         "SINGLE",
         "START",
         "PLAY",
         "READY",
         "CONTINUE",
+        "SELECT",
+        "EASY",
+        "NORMAL",
+        "BEGIN",
+        "SKIP",
         "NEXT",
         "GO",
         "FREE",

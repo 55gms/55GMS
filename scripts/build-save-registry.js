@@ -288,7 +288,7 @@ for (const [id, entry] of games) {
   const file = documentFor(entry.frame);
   if (
     existsSync(file) &&
-    /id=["']gms-import-config["']/.test(readFileSync(file, "utf8"))
+    /id=["']gms-(?:import|flash)-config["']/.test(readFileSync(file, "utf8"))
   ) {
     renamed.set(id, { idb: ["localforage", "_C2SaveStates", "_C3SaveStates"] });
   }

@@ -101,3 +101,19 @@ test("a completed site rewarded ad grants exactly one game reward", async () => 
   assert.equal(opened, 1);
   close();
 });
+
+test("minified Construct 2 reports readiness through its exported startup callback", (t) => {
+  const { window, calls, close } = page("construct2");
+  t.after(close);
+  let registered = 0;
+  window.C2_RegisterSW = () => registered++;
+  assert.equal(
+    calls.some((call) => call[0] === "finish"),
+    false,
+  );
+  // This is the exported callback used after the first layout starts in c2runtime.js.
+  window.C2_RegisterSW();
+  assert.equal(registered, 1);
+  assert.equal(calls.filter((call) => call[0] === "finish").length, 1);
+  close();
+});

@@ -55,7 +55,7 @@ export function prepareImportedPage(html, config) {
     ...(Object.keys(config.parts || {}).length
       ? ["/assets/js/game-parts.js?v=3"]
       : []),
-    "/assets/js/imported-game-loader.js?v=1",
+    "/assets/js/imported-game-loader.js?v=2",
   ]) {
     const script = document.createElement("script");
     script.src = src;
