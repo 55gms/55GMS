@@ -3672,6 +3672,20 @@
    "frame": "/misc/rb/index.html",
    "status": "observed"
   },
+  "real-kart": {
+   "id": "real-kart",
+   "name": "Real Kart",
+   "play": "/misc/play/?title=Real+Kart&author=Original+developer&link=real-kart",
+   "frame": "/misc/real-kart/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "recoil": {
    "id": "recoil",
    "name": "Recoil",

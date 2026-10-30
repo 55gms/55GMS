@@ -287,6 +287,7 @@
       idb: ["localforage", "_C2SaveStates", "_C3SaveStates"],
     },
     "rage-3": { idb: ["localforage", "_C2SaveStates", "_C3SaveStates"] },
+    "real-kart": { idb: ["localforage", "_C2SaveStates", "_C3SaveStates"] },
     recoil: { idb: ["/sandbox"] },
     "redball-4": { unityFolder: true },
     "ricochet-kills": {

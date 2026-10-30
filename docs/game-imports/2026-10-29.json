@@ -1,7 +1,7 @@
 {
   "target": 100,
   "status": "verification-incomplete",
-  "assetCommit": "e5e13eb8e2fcbc529bdd89ec25988c2979e83e67",
+  "assetCommit": "d9deca77d305dcc8fbfce6c068865a4c374812cb",
   "baselineCommit": "1ed1283bc0a9a44c4a00dbeee44b4b7eac51bf63",
   "existingNames": [
     "10minutestilldawn",
@@ -583,10 +583,7 @@
             "wait": 5000
           },
           {
-            "click": [
-              420,
-              305
-            ]
+            "click": [420, 305]
           },
           {
             "wait": 1000
@@ -673,19 +670,13 @@
         "status": "gameplay-verified",
         "actions": [
           {
-            "click": [
-              640,
-              525
-            ]
+            "click": [640, 525]
           },
           {
             "wait": 1200
           },
           {
-            "click": [
-              640,
-              360
-            ]
+            "click": [640, 360]
           },
           {
             "wait": 1200
@@ -810,10 +801,7 @@
         "status": "gameplay-verified",
         "actions": [
           {
-            "click": [
-              640,
-              360
-            ],
+            "click": [640, 360],
             "delay": 300
           },
           {
@@ -970,10 +958,7 @@
         "status": "gameplay-verified",
         "actions": [
           {
-            "click": [
-              638.5,
-              366.5
-            ],
+            "click": [638.5, 366.5],
             "label": "PLAY",
             "screenshot": "/workspace/game-import/review/crazy-roll-after-step0.png"
           },
@@ -1325,18 +1310,12 @@
         "status": "gameplay-verified",
         "actions": [
           {
-            "click": [
-              741.5,
-              200.5
-            ],
+            "click": [741.5, 200.5],
             "label": "1",
             "screenshot": "/workspace/game-import/review/vavex-after-step0.png"
           },
           {
-            "click": [
-              501,
-              221
-            ],
+            "click": [501, 221],
             "label": "1",
             "screenshot": "/workspace/game-import/review/vavex-after-step1.png"
           },
@@ -1354,18 +1333,9 @@
           },
           {
             "drag": [
-              [
-                640,
-                360
-              ],
-              [
-                440,
-                360
-              ],
-              [
-                840,
-                360
-              ]
+              [640, 360],
+              [440, 360],
+              [840, 360]
             ],
             "holdMs": 1400
           }
@@ -1424,18 +1394,9 @@
           },
           {
             "drag": [
-              [
-                640,
-                360
-              ],
-              [
-                440,
-                360
-              ],
-              [
-                840,
-                360
-              ]
+              [640, 360],
+              [440, 360],
+              [840, 360]
             ],
             "holdMs": 1400
           }
@@ -1529,18 +1490,9 @@
           },
           {
             "drag": [
-              [
-                640,
-                360
-              ],
-              [
-                440,
-                360
-              ],
-              [
-                840,
-                360
-              ]
+              [640, 360],
+              [440, 360],
+              [840, 360]
             ],
             "holdMs": 1400
           }
@@ -1624,18 +1576,9 @@
           },
           {
             "drag": [
-              [
-                640,
-                360
-              ],
-              [
-                440,
-                360
-              ],
-              [
-                840,
-                360
-              ]
+              [640, 360],
+              [440, 360],
+              [840, 360]
             ],
             "holdMs": 1400
           }
@@ -2425,7 +2368,7 @@
       }
     },
     {
-      "name": "Papa\u2019s Bakeria",
+      "name": "Papa’s Bakeria",
       "folder": "papas-bakeria",
       "sourceUrl": "https://sites.google.com/view/drive-u-7-home/papas-bakeria",
       "runtime": "flash",
@@ -4343,7 +4286,223 @@
         "observation": "Final shared Ruffle wrapper boot/input smoke: runtime-input-smoke-passed. Full gameplay is not certified.",
         "scope": "Not certified as fully functional; requires gameplay review before merging."
       }
+    },
+    {
+      "name": "Real Kart",
+      "folder": "real-kart",
+      "sourceUrl": "https://sites.google.com/view/drive-u-7-home/real-kart",
+      "runtime": "unity",
+      "sha256": "f75634087a1f22210900a724ee79306fba64cb7dca7246b06cbd3da1a7f4bfe0",
+      "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part0",
+          "bytes": 8388608,
+          "sha256": "15a1dd2289f346918c0016ad0154b563daa894717aa287520aed6616bdaa9774"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part1",
+          "bytes": 8388608,
+          "sha256": "5ae9ac801721a034fa2eb5740369fc345285033f90b6549a35909bdcfd76741a"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part2",
+          "bytes": 8388608,
+          "sha256": "cf912c5fd9f44453cb9565596904e4ad4876e8b51f9e5963089a1797aa69f93d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part3",
+          "bytes": 8388608,
+          "sha256": "db172690c8b17df62eb45ea02bc3cb184772e3ad9f4f939c9f4c2edbadc410d5"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part4",
+          "bytes": 8388608,
+          "sha256": "b9b10cf872e134036faf6b43eaf62d87f2371f8f60f41cf3351dffbb5134315f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part5",
+          "bytes": 8388608,
+          "sha256": "1ea5b5fb38661a82663c6dde0f19a47e5aaff6db8ba3e7bfdb0dd28d2dd82a3a"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part6",
+          "bytes": 8388608,
+          "sha256": "c0273fa665f13d931147e14984edaa69c933a603b6a44755ae20a45322bd0fc8"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part7",
+          "bytes": 8388608,
+          "sha256": "a052178fbbd55a7c4f4b258b8860a0bbfabcfad69abaeecb31edee7ee6fcaba0"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.data.part8",
+          "bytes": 6688623,
+          "sha256": "66edb858cdc66173b33bf9f06236b39c6218c35058199e87a432ec1e8ea319cb"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.framework.js",
+          "bytes": 450158,
+          "sha256": "2f28f7e61158c01b4897bea7a23aed05076d8f15d54b8ab40a475b49ff9bb74d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.loader.js",
+          "bytes": 25469,
+          "sha256": "bd23672ae6628c2fcbcb7a24c33e66087c6b5e3249f0e2f4aca59092d1d371a0"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.wasm.part0",
+          "bytes": 8388608,
+          "sha256": "e4012d894c6d8e5a67069b454921b172c95379b32438332d909f1857741d4ab3"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.wasm.part1",
+          "bytes": 8388608,
+          "sha256": "9ce806cc41c3472c6be56925e9212ede6652848f1283ad383ed7cf3f5b30b4f9"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.wasm.part2",
+          "bytes": 8388608,
+          "sha256": "3f237ce3e6b3ef39cfdaeb71b49be156ab851e94769924d20c8c3d7bb2f25ed2"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.wasm.part3",
+          "bytes": 8388608,
+          "sha256": "f078a1537513c5c71de38971bfcb9fda95e7bdc8efb917c6a43fa49022d9db9b"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.wasm.part4",
+          "bytes": 8388608,
+          "sha256": "54755a91b2678d2d09f5dd8c72214ff88cfba8ecc225b16111199c26d9b5c8eb"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@7595aa9/Build/Yandex.wasm.part5",
+          "bytes": 1091197,
+          "sha256": "4b39decfb1a26df9755824d59ba3c059a156cf9afc9ed7399e4a7744a32c12e8"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@main/StreamingAssets/aa/WebGL/defaultlocalgroup_assets_all_26f745922bba63fa3acebe607a7249d2.bundle",
+          "bytes": 13177806,
+          "sha256": "26f748a5f20c5e3cfe754ca465ae87334e54d4af6396a2196fd627ad49a3edbc"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@main/StreamingAssets/aa/catalog.json",
+          "bytes": 42424,
+          "sha256": "43bf5d57bbee2d40411008a15e49c0f04c6f21d379e748bcb15e7e725b1b6763"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@main/StreamingAssets/aa/settings.json",
+          "bytes": 1593,
+          "sha256": "a00d88103b444a124873476afc32b9e2fa7eaa13a5e7ad8b35d9537d54429195"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@main/background.png",
+          "bytes": 206086,
+          "sha256": "85055e702fed484a0f7d07bc5c630973614be9ece85e1d186ad2406c5ab6f47f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@main/logo.png",
+          "bytes": 52033,
+          "sha256": "1cdc5781bcab6dee8b8db39c8c6de5d1ef16fd15c34db9dcac8efcb87fa77734"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/real-99-c@main/style.css",
+          "bytes": 1847,
+          "sha256": "121d63d33b02046f4a3a8ea8f69326dc0b060ace1bc8d6e939a30186fe4f0c5f"
+        },
+        {
+          "path": "img.webp",
+          "bytes": 18662,
+          "sha256": "486e2b3cefeaabe269aec7f8fb095643eb025a02314eb04ba52d8ea20e40b3a9"
+        }
+      ],
+      "verification": {
+        "status": "gameplay-verified",
+        "actions": [
+          {
+            "click": [335, 610]
+          },
+          {
+            "wait": 2000
+          },
+          {
+            "click": [220, 400]
+          },
+          {
+            "wait": 6000
+          },
+          {
+            "click": [1020, 640]
+          },
+          {
+            "wait": 6000
+          },
+          {
+            "hold": "ArrowUp",
+            "ms": 3500
+          },
+          {
+            "click": [1235, 130]
+          },
+          {
+            "wait": 500
+          },
+          {
+            "click": [980, 145]
+          },
+          {
+            "hold": "ArrowDown",
+            "ms": 3500
+          },
+          {
+            "key": "KeyE"
+          },
+          {
+            "wait": 500
+          },
+          {
+            "click": [1230, 45]
+          },
+          {
+            "wait": 500
+          },
+          {
+            "hold": "ArrowLeft",
+            "ms": 1800
+          },
+          {
+            "key": "KeyE"
+          },
+          {
+            "wait": 500
+          },
+          {
+            "click": [450, 355]
+          },
+          {
+            "hold": "ArrowUp",
+            "ms": 4000
+          },
+          {
+            "hold": "ArrowRight",
+            "ms": 700
+          },
+          {
+            "key": "KeyF"
+          },
+          {
+            "hold": "ArrowUp",
+            "ms": 5000
+          },
+          {
+            "hold": "ArrowRight",
+            "ms": 800
+          }
+        ],
+        "observation": "Selected Techno City, started the track, moved the character, opened the race message, approached the kart, pressed F to enter, accelerated and steered. The driving HUD showed gear 1 and 6 km/h. No missing game assets or uncaught page errors; 55GMS loading UI finished.",
+        "scope": "Opening gameplay and kart control smoke test. All laps, the second track, optional online leaderboards, cloud services and rewards are not certified.",
+        "evidence": "real-kart-gameplay.webp"
+      }
     }
   ],
-  "addedCount": 100
+  "addedCount": 101
 }
