@@ -901,6 +901,20 @@
    "frame": "/misc/catpizza/index.html",
    "status": "observed"
   },
+  "chicken-royale": {
+   "id": "chicken-royale",
+   "name": "Chicken Royale",
+   "play": "/misc/play/?title=Chicken+Royale&author=Creator+not+credited&link=chicken-royale",
+   "frame": "/misc/chicken-royale/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "choppyorc": {
    "id": "choppyorc",
    "name": "Choppy Orc",
@@ -981,6 +995,20 @@
    "name": "Civiballs",
    "play": "/misc/play/?title=Civiballs&author=Hunter+Hamster&link=civiballs",
    "frame": "/misc/civiballs/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "climb-hard": {
+   "id": "climb-hard",
+   "name": "Climb Hard",
+   "play": "/misc/play/?title=Climb+Hard&author=Pontypants&link=climb-hard",
+   "frame": "/misc/climb-hard/index.html",
    "status": "observed",
    "renamed": {
     "idb": [
@@ -1122,6 +1150,20 @@
    "play": "/misc/play/?title=Crossy%20Road&author=Hipster%20Whale&link=crossy-road",
    "frame": "/misc/crossy-road/index.html",
    "status": "observed"
+  },
+  "cs-1-6": {
+   "id": "cs-1-6",
+   "name": "CS 1.6",
+   "play": "/misc/play/?title=CS+1.6&author=FoXSkr&link=cs-1-6",
+   "frame": "/misc/cs-1-6/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "csgo-clicker": {
    "id": "csgo-clicker",
@@ -1487,6 +1529,20 @@
     ]
    }
   },
+  "draw-climber": {
+   "id": "draw-climber",
+   "name": "Draw Climber",
+   "play": "/misc/play/?title=Draw+Climber&author=VOODOO&link=draw-climber",
+   "frame": "/misc/draw-climber/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "draw-the-hill": {
    "id": "draw-the-hill",
    "name": "Draw The Hill",
@@ -1517,6 +1573,20 @@
    "renamed": {
     "idb": [
      "/sandbox"
+    ]
+   }
+  },
+  "driven-wild": {
+   "id": "driven-wild",
+   "name": "Driven Wild",
+   "play": "/misc/play/?title=Driven+Wild&author=Frank+Force&link=driven-wild",
+   "frame": "/misc/driven-wild/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
     ]
    }
   },
@@ -2448,6 +2518,20 @@
     ]
    }
   },
+  "gta-vice-city": {
+   "id": "gta-vice-city",
+   "name": "Criminal Russia 3D: Boris",
+   "play": "/misc/play/?title=Criminal+Russia+3D%3A+Boris&author=LIMANSKYGAMES+LTD&link=gta-vice-city",
+   "frame": "/misc/gta-vice-city/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "gun-mayhem": {
    "id": "gun-mayhem",
    "name": "Gun Mayhem",
@@ -3160,6 +3244,20 @@
    "frame": "/misc/motox3m2/index.html",
    "status": "observed"
   },
+  "mr-dude": {
+   "id": "mr-dude",
+   "name": "Mr. Dude",
+   "play": "/misc/play/?title=Mr.+Dude&author=SeriousGames&link=mr-dude",
+   "frame": "/misc/mr-dude/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "mrbullet": {
    "id": "mrbullet",
    "name": "Mr. Bullet",
@@ -3281,6 +3379,20 @@
    "play": "/misc/play/?title=Nazi%20Zombies%3A%20Portable&link=nzp",
    "frame": "/misc/nzp/index.html",
    "status": "observed"
+  },
+  "obby-99-will-lose": {
+   "id": "obby-99-will-lose",
+   "name": "Obby: 99% Will Lose",
+   "play": "/misc/play/?title=Obby%3A+99%25+Will+Lose&author=Creator+not+credited&link=obby-99-will-lose",
+   "frame": "/misc/obby-99-will-lose/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
   },
   "obby-snowboard": {
    "id": "obby-snowboard",
@@ -3980,6 +4092,20 @@
     ]
    }
   },
+  "rooftop-run": {
+   "id": "rooftop-run",
+   "name": "Rooftop Run",
+   "play": "/misc/play/?title=Rooftop+Run&author=Creator+not+credited&link=rooftop-run",
+   "frame": "/misc/rooftop-run/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "rooftop-snipers": {
    "id": "rooftop-snipers",
    "name": "Rooftop Snipers",
@@ -4116,6 +4242,20 @@
    "name": "Shopping Cart Hero",
    "play": "/misc/play/?title=Shopping+Cart+Hero&author=MonkeyWantBanana&link=shopping-cart-hero",
    "frame": "/misc/shopping-cart-hero/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "shrek-escape": {
+   "id": "shrek-escape",
+   "name": "Shrek Escape",
+   "play": "/misc/play/?title=Shrek+Escape&author=Creator+not+credited&link=shrek-escape",
+   "frame": "/misc/shrek-escape/index.html",
    "status": "observed",
    "renamed": {
     "idb": [
@@ -4414,6 +4554,20 @@
    "frame": "/misc/steelhills/index.html",
    "status": "observed"
   },
+  "steep-descent": {
+   "id": "steep-descent",
+   "name": "Steep Descent",
+   "play": "/misc/play/?title=Steep+Descent&author=JustPlay&link=steep-descent",
+   "frame": "/misc/steep-descent/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
   "stick-defenders": {
    "id": "stick-defenders",
    "name": "Stick Defenders",
@@ -4675,6 +4829,20 @@
    "name": "Super Mario Flash 3",
    "play": "/misc/play/?title=Super+Mario+Flash+3&author=Hiro&link=supermario-world-flash",
    "frame": "/misc/supermario-world-flash/index.html",
+   "status": "observed",
+   "renamed": {
+    "idb": [
+     "localforage",
+     "_C2SaveStates",
+     "_C3SaveStates"
+    ]
+   }
+  },
+  "supermarket-simulator": {
+   "id": "supermarket-simulator",
+   "name": "Supermarket Simulator",
+   "play": "/misc/play/?title=Supermarket+Simulator&author=AppLinkor&link=supermarket-simulator",
+   "frame": "/misc/supermarket-simulator/index.html",
    "status": "observed",
    "renamed": {
     "idb": [

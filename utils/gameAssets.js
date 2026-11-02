@@ -12,8 +12,21 @@ import { getStaticCacheControl } from "./httpPerformance.js";
 const DEFAULT_BASE =
   "https://cdn.jsdelivr.net/gh/55gms/assets@e899179b25ba3966a87383c0e4092168d9513472/misc/";
 const IMPORTED_BASE =
-  "https://cdn.jsdelivr.net/gh/55gms/assets@12298bbb44ef4de56fcc0b05fa268f6d99f6c195/misc/";
+  "https://cdn.jsdelivr.net/gh/55gms/assets@dc54309b727fcb4772b775ab70280e83719410b1/misc/";
 const IMPORTED_FOLDERS = new Set([
+  "steep-descent",
+  "gta-vice-city",
+  "rooftop-run",
+  "shrek-escape",
+  "mr-dude",
+  "driven-wild",
+  "supermarket-simulator",
+  "climb-hard",
+  "cs-1-6",
+  "obby-99-will-lose",
+  "draw-climber",
+  "chicken-royale",
+
   "half-life",
   "nitro-car",
   "delivery-mystery",

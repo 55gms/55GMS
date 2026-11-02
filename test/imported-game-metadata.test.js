@@ -9,7 +9,8 @@ test('every imported game has a unique catalog entry, pinned artwork and source-
   const update = read('../docs/game-imports/2026-11-02.json');
   const metadata = read('../docs/game-imports/metadata.json');
   const catalog = read('../static/assets/json/load/g.json');
-  const games = [...baseline.games, ...update.games];
+  const latest = read('../docs/game-imports/2026-11-02-batch2.json');
+  const games = [...baseline.games, ...update.games, ...latest.games];
   assert.equal(metadata.length, games.length);
   assert.equal(new Set(metadata.map(game => game.folder)).size, games.length);
   for (const game of games) {
