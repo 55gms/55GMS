@@ -30,7 +30,7 @@
 <title>Ks2 Teams</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
 <body>
     <div id="unity-container"><canvas id="unity-canvas"></canvas></div>
-    
+
     <div id="loading-cover" class="gms-legacy-loading-hooks"><div id="unity-logo"><h2 style="color:white;"></h2></div><div class="spinner"></div><div id="status-text"></div></div>
 
     <script>
@@ -52,11 +52,11 @@
         var paymentsData = 'none';
 
         // --- ALL SDK FUNCTIONS (Empty/Mock to prevent ReferenceErrors) ---
-        
+
         // Initialization
         function InitYSDK() { console.log("SDK: Initialized"); }
         function InitGame() { console.log("Game: Ready"); }
-        
+
         // Data Requests
         function InitPlayer(sendback) {
             if (sendback && myGameInstance) myGameInstance.SendMessage('YandexGame', 'SetInitializationSDK', playerData);
@@ -68,10 +68,10 @@
         }
 
         // --- PAYMENT SYSTEM (Fixed the GetPayments error) ---
-        function GetPayments() { 
+        function GetPayments() {
             console.log("SDK: Payments requested");
             if (myGameInstance) myGameInstance.SendMessage('YandexGame', 'PaymentsEntries', 'none');
-            return "none"; 
+            return "none";
         }
         function BuyPayments(id) { console.log("SDK: Purchase attempt: " + id); }
         function ConsumePurchase(token) { console.log("SDK: Consuming: " + token); }
@@ -89,7 +89,7 @@
 
         // Cloud Storage
         function SaveCloud(data, flush) { console.log("SDK: Data Saved to Cloud"); }
-        function LoadCloud() { 
+        function LoadCloud() {
             if (myGameInstance) myGameInstance.SendMessage('YandexGame', 'SetLoadSaves', cloudSaves);
             return cloudSaves;
         }
@@ -112,7 +112,7 @@
         // --- LOADER CONFIGURATION ---
         const buildUrl = "/misc/ks2-teams/_ext/cdn.jsdelivr.net/gh/z799gs/c2@main/Build";
         const loaderUrl = buildUrl + "/CS2Teams.loader.js";
-        const DATA_PARTS = 4; 
+        const DATA_PARTS = 4;
         const WASM_PARTS = 4;
 
         const canvas = document.querySelector("#unity-canvas");
@@ -167,8 +167,8 @@
 
         window.onload = StartApp;
     </script>
-    
- 
+
+
 
 
 </body></html>
