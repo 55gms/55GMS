@@ -20,14 +20,15 @@ export function prepareImportedPage(html, config) {
     const src = script.getAttribute("src") || "";
     const text = script.textContent;
     if (
-      /googletagmanager|google-analytics|script\.google\.com/.test(src) ||
+      /googletagmanager|google-analytics|googlesyndication|doubleclick|cloudflareinsights|script\.google\.com/.test(src) ||
       (/ad-container|close-ad/.test(text) &&
         !/createUnityInstance|UnityLoader|C3_/.test(text))
     ) {
       script.remove();
     } else if (!src) script.textContent = routeImportedRewards(text);
   }
-  for (const node of document.querySelectorAll(LEGACY_LOADING)) {
+  const legacyLoading = [LEGACY_LOADING, ...(config.legacyLoadingSelectors || [])].join(',');
+  for (const node of document.querySelectorAll(legacyLoading)) {
     if (node.querySelector("canvas")) continue;
     node.classList.add("gms-legacy-loading-hooks");
     for (const image of node.querySelectorAll("img"))
@@ -55,7 +56,7 @@ export function prepareImportedPage(html, config) {
     ...(Object.keys(config.parts || {}).length
       ? ["/assets/js/game-parts.js?v=3"]
       : []),
-    "/assets/js/imported-game-loader.js?v=2",
+    "/assets/js/imported-game-loader.js?v=3",
   ]) {
     const script = document.createElement("script");
     script.src = src;

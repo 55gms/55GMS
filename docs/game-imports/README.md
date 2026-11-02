@@ -1,3 +1,9 @@
+# November 2 update
+
+The batch now contains **110 entries**: the prior 101 plus nine requested games. Soccer Aim resolves to the existing Soccer REAL and was excluded. Every entry has a thumbnail and credit record in [metadata.json](metadata.json); 100 thumbnails are mirrored and ten use source-hosted artwork. VaVeX has no identifiable creator in its source and is explicitly labeled uncredited.
+
+The current user acceptance scope is **loading only**. Historical incomplete gameplay verification remains recorded below. See [new requests and duplicate decision](2026-11-02.json). No merge or deployment was performed.
+
 # 101-game import — draft, verification incomplete
 
 This branch stages **101 distinct game additions: 11 non-Flash games and 90 Flash classics**. The eleven non-Flash entries have opening-gameplay smoke evidence. The classic SWFs have download/header/hash validation; existing browser records cover part of that set, but **full gameplay is not verified for all 101 games**. This draft must not be represented as 101 completely functional, playtested games.

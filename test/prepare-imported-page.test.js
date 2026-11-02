@@ -40,3 +40,46 @@ test("source reward stubs route through the real 55GMS ad result", () => {
   assert.ok(html.includes("window.GMSImportedAds.yandex(options)"));
   assert.ok(!html.includes("options.callbacks.onRewarded()"));
 });
+
+test("custom portal loading hooks are hidden without removing their runtime IDs or the game canvas", () => {
+  const html = prepareImportedPage('<html><head></head><body><div id="boot"><img src="portal.png"><span id="btxt">Classroom Resources</span></div><div id="loading"><span>old progress</span></div><div id="root"><canvas></canvas></div></body></html>', {
+    title: 'Half-Life', engine: 'web', legacyLoadingSelectors: ['#boot', '#loading', '#root'], parts: {},
+  });
+  const dom = new JSDOM(html);
+  const doc = dom.window.document;
+  for (const id of ['boot', 'loading']) {
+    assert.ok(doc.getElementById(id).classList.contains('gms-legacy-loading-hooks'));
+    assert.equal(doc.getElementById(id).textContent.trim(), '');
+  }
+  assert.ok(doc.getElementById('btxt'));
+  assert.ok(!doc.getElementById('boot').querySelector('img').hasAttribute('src'));
+  assert.ok(!doc.getElementById('root').classList.contains('gms-legacy-loading-hooks'));
+  dom.window.close();
+});
+
+test('import preparation removes external advertising scripts while preserving game scripts and integrity', () => {
+  const html = prepareImportedPage('<html><head><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script src="game.js" integrity="sha384-game"></script></head><body></body></html>', {title:'Nitro Car',engine:'web',parts:{}});
+  const dom = new JSDOM(html);
+  assert.equal(dom.window.document.querySelector('script[src*="googlesyndication"]'), null);
+  assert.equal(dom.window.document.querySelector('script[src="game.js"]').getAttribute('integrity'), 'sha384-game');
+  dom.window.close();
+});
+
+test('Unity rewarded stand-ins only send RewardVideo after the real ad callback', () => {
+  const html = prepareImportedPage('<html><head></head><body><script>function RewardedShow(id) { if(myGameInstance) { myGameInstance.SendMessage("YandexGame", "OpenVideo"); setTimeout(() => { myGameInstance.SendMessage("YandexGame", "RewardVideo", id); myGameInstance.SendMessage("YandexGame", "CloseVideo"); }, 500); } }</script></body></html>', {title:'Ks2 Teams',engine:'unity',parts:{}});
+  const dom = new JSDOM(html, {runScripts:'outside-only'});
+  const calls=[];
+  let options;
+  dom.window.myGameInstance={SendMessage:(...args)=>calls.push(args)};
+  dom.window.GMSImportedAds={yandex:value=>{options=value;}};
+  const original=[...dom.window.document.scripts].find(script=>script.textContent.includes('function RewardedShow'));
+  dom.window.eval(original.textContent);
+  dom.window.RewardedShow('armor');
+  assert.equal(calls.filter(call=>call[1]==='RewardVideo').length,0);
+  assert.ok(options?.callbacks);
+  options.callbacks.onOpen();
+  options.callbacks.onRewarded();
+  options.callbacks.onClose();
+  assert.deepEqual(calls.map(call=>Array.from(call)),[['YandexGame','OpenVideo'],['YandexGame','RewardVideo','armor'],['YandexGame','CloseVideo']]);
+  dom.window.close();
+});

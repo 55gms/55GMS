@@ -34,6 +34,30 @@
   );
   const files = config.files || [];
   const loader = window.GameLoader;
+  if (config.readyCallback) {
+    let callback = window[config.readyCallback];
+    const ready = function (...args) {
+      const result = callback?.apply(this, args);
+      if (result !== false) loader.finish();
+      return result;
+    };
+    Object.defineProperty(window, config.readyCallback, {
+      configurable: true,
+      get: () => ready,
+      set: (value) => { callback = value; },
+    });
+  }
+  if (config.readySelector) {
+    const observer = new MutationObserver(() => {
+      if (document.querySelector(config.readySelector)) {
+        observer.disconnect();
+        loader.finish();
+      }
+    });
+    if (document.querySelector(config.readySelector)) loader.finish();
+    else observer.observe(document.documentElement, { childList: true, subtree: true });
+    window.addEventListener('pagehide', () => observer.disconnect(), { once: true });
+  }
   if (config.engine === "unity") {
     loader.unity(files, { preloads: Boolean(config.preloads) });
     loader.expect(

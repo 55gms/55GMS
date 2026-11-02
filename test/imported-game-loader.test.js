@@ -6,9 +6,9 @@ const source = await readFile(
   new URL("../static/assets/js/imported-game-loader.js", import.meta.url),
   "utf8",
 );
-function page(engine) {
+function page(engine, extra = {}) {
   const dom = new JSDOM(
-    `<script type="application/json" id="gms-import-config">${JSON.stringify({ engine, files: [["game.data", 100]], total: 100, parts: {} })}</script>`,
+    `<script type="application/json" id="gms-import-config">${JSON.stringify({ engine, files: [["game.data", 100]], total: 100, parts: {}, ...extra })}</script>`,
     { runScripts: "outside-only", url: "https://55gms.test/misc/game/" },
   );
   const calls = [];
@@ -28,6 +28,32 @@ test("imported Unity games use the existing loader and its real file sizes", () 
   assert.equal(calls[0][1][0][0], "game.data");
   assert.equal(calls[0][1][0][1], 100);
   assert.ok(calls.some((c) => c[0] === "expect" && c[1] === 100));
+  close();
+});
+
+test("web engines keep the loader until their own ready callback succeeds and preserve callback behavior", () => {
+  const { window, calls, close } = page('web', { readyCallback: 'gameLoadReady' });
+  let value;
+  window.gameLoadReady = (arg) => { value = arg; return arg; };
+  assert.equal(calls.filter(c => c[0] === 'finish').length, 0);
+  assert.equal(window.gameLoadReady(false), false);
+  assert.equal(calls.filter(c => c[0] === 'finish').length, 0);
+  assert.equal(window.gameLoadReady('started'), 'started');
+  assert.equal(value, 'started');
+  assert.equal(calls.filter(c => c[0] === 'finish').length, 1);
+  close();
+});
+
+test("a web launcher removes its loader when its actual menu appears", async () => {
+  const { window, calls, close } = page('web', { readySelector: '#root > *' });
+  const root = window.document.createElement('div');
+  root.id = 'root';
+  window.document.body.append(root);
+  await new Promise(resolve => window.setTimeout(resolve, 0));
+  assert.equal(calls.filter(c => c[0] === 'finish').length, 0);
+  root.append(window.document.createElement('button'));
+  await new Promise(resolve => window.setTimeout(resolve, 0));
+  assert.equal(calls.filter(c => c[0] === 'finish').length, 1);
   close();
 });
 test("Construct 3 hides the 55GMS loader only after the runtime reports ready", () => {

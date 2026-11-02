@@ -1,0 +1,596 @@
+<!DOCTYPE html><html lang="en"><head>
+  <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
+    integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
+    crossorigin="anonymous"
+    data-game-id="nitro-car"
+    data-compat=""
+  ></script><script type="application/json" id="gms-import-config">{"title":"Nitro Car","engine":"web","files":[["/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/1d797a334c.bin",1222054],["/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/445e742403.bin",264782],["/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/83dfb536e3.bin",600579],["/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/97371e4baa.bin",243365],["/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/CZQ9MG8D.js",929606],["/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/DHYxZjz1.js",682306],["/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/OZZl9xHC.bin",1184852],["/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/c99c310975.bin",1192081],["/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/fonts/Barlow-Bold.ttf",108220],["/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/fonts/Barlow-ExtraBoldItalic.ttf",113112],["/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/fonts/Barlow-Medium.ttf",103536],["/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/fonts/Barlow-Regular.ttf",104068],["/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/fonts/Barlow-SemiBold.ttf",108348],["/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/mt9sAKpN.wasm",980169],["/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/tZvHSYx0.css",153614],["/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/favicon-32.png",3097]],"total":7993789,"preloads":false,"parts":{},"partSizes":[],"legacyLoadingSelectors":["#loading"],"readyCallback":"gameLoadReady"}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Nitro Car"></script><script src="/assets/js/imported-game-loader.js?v=3" data-title="Nitro Car"></script><base href="/misc/nitro-car/_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/">
+    <script>(()=>{let e=false;try{e=WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,0,0,1,5,1,96,0,1,123,3,2,1,0,10,10,1,8,0,65,0,253,15,253,98,11]))}catch{}const s=document.createElement("link");Object.assign(s,{rel:"preload",as:"fetch",crossOrigin:"anonymous",href:e?"./assets/mt9sAKpN.wasm":"./assets/5ZzLvcXp.wasm"});document.head.append(s)})();</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+    <meta name="theme-color" content="#101d2f">
+    
+    <style>
+      :root { background: #0a1730; color: #f3f7ff; color-scheme: dark; }
+      body { visibility: hidden; }
+      #error:not(.hidden) { visibility: visible; }
+    </style>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="nitro.car">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="google-adsense-account" content="ca-pub-9272968315602800">
+    
+    
+    <link rel="manifest" href="./manifest.webmanifest">
+    <title>Nitro Car</title>
+    <meta name="description" content="Free rocket car soccer game in your browser! Play car football online with 100,000+ players a day: 1v1 to 4v4, 2 player with friends or bots. No download.">
+    <link rel="canonical" href="https://nitro.car/">
+    
+    <meta name="copyright" content="(c) 2026 Thinking Games Inc. All rights reserved. Proprietary; not licensed for copying, extraction or reuse. https://nitro.car/terms">
+    <meta name="robots" content="noai, noimageai">
+    <link rel="terms-of-service" href="https://nitro.car/terms">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="nitro.car">
+    <meta property="og:url" content="https://nitro.car/">
+    <meta property="og:title" content="nitro.car - Free Online Car Soccer Game | Play Now">
+    <meta property="og:description" content="Free rocket car soccer game in your browser! Play car football online with 100,000+ players a day: 1v1 to 4v4, 2 player with friends or bots. No download.">
+    <meta property="og:image" content="https://nitro.car/og-image.jpg?v=3">
+    <meta property="og:image:secure_url" content="https://nitro.car/og-image.jpg?v=3">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="A red car and a cyan car boosting through the air toward the ball in a sunny stadium, with the nitro.car logo">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="nitro.car - Free Online Car Soccer Game | Play Now">
+    <meta name="twitter:description" content="Free rocket car soccer game in your browser! Play car football online with 100,000+ players a day: 1v1 to 4v4, 2 player with friends or bots. No download.">
+    <meta name="twitter:image" content="https://nitro.car/og-image.jpg?v=3">
+    
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "name": "nitro.car",
+            "alternateName": ["Nitro Car", "nitrocar"],
+            "url": "https://nitro.car/"
+          },
+          {
+            "@type": "VideoGame",
+            "name": "nitro.car",
+            "alternateName": ["Nitro Car", "nitrocar"],
+            "url": "https://nitro.car/",
+            "description": "Free rocket car soccer game in your browser! Play car football online with 100,000+ players a day: 1v1 to 4v4, 2 player with friends or bots. No download.",
+            "image": "https://nitro.car/og-image.jpg?v=3",
+            "genre": ["Sports", "Soccer", "Racing", "Multiplayer"],
+            "gamePlatform": ["Web browser", "PC", "Mobile"],
+            "applicationCategory": "Game",
+            "operatingSystem": "Windows, macOS, ChromeOS, Linux, Android, iOS",
+            "playMode": ["SinglePlayer", "MultiPlayer"],
+            "numberOfPlayers": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 8 },
+            "inLanguage": "en",
+            "isAccessibleForFree": true,
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+            "sameAs": ["https://discord.gg/nitrocar"]
+          }
+        ]
+      }
+    </script>
+    <link rel="icon" href="./favicon.ico" sizes="16x16 32x32 48x48">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="./favicon-48.png">
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+    <script type="module" src="./assets/CZQ9MG8D.js" integrity="sha384-fR90WXfuoJ0/wUrtHC2l8fss88+2IHBP2khcLiTNBWNognDhU5R61KESbEQZll8Q" crossorigin="anonymous"></script>
+    <link rel="modulepreload" href="./assets/DHYxZjz1.js" integrity="sha384-PAvk7O/QTjpjAI8fvCMEqPDoqfd0Z9+RZpfNPqJH8oTAp9xsZdcVN3IenkMF7ZLD" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/tZvHSYx0.css" integrity="sha384-y4s7GBdw4CgpNh5pRfk6tsEPpB27lIgQm8/TybnA+urkz0bTy/JDz9ggkdZCdQ7c" crossorigin="anonymous">
+  <style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+  <body>
+  <div id="jk" aria-label="Match players" hidden=""></div>
+    <canvas id="game" aria-label="nitro.car 3D arena" tabindex="0"></canvas>
+    <canvas id="bk" hidden="" aria-hidden="true"></canvas>
+    <div class="vignette"></div>
+    
+    <div id="ip" class="ip" aria-hidden="true" hidden=""></div>
+    <div class="showcase-flare" aria-hidden="true"></div>
+    <div id="loading" class="loading gms-legacy-loading-hooks"><h1 class="nitro-logo"><strong></strong></h1><div class="load-track"><i></i></div><p id="load-status"></p></div>
+    
+    <div id="rotate-prompt" class="rotate-prompt" role="dialog" aria-modal="true" aria-labelledby="co" hidden="">
+      <svg class="bo" viewBox="0 0 140 108" aria-hidden="true" focusable="false">
+        <rect x="8" y="6" width="50" height="92" rx="11"></rect>
+        <path d="M27 16h12M28 88h10"></path>
+        <path d="M58 54h56a12 12 0 0 1 12 12v20a12 12 0 0 1-12 12H58"></path>
+        <path d="M117 68v16"></path>
+        <path d="M68 18q30-8 40 22"></path>
+        <path d="M99 35l9 7 5-11"></path>
+      </svg>
+      <h2 id="co">Rotate to landscape</h2>
+      <button id="ao" type="button" data-ua="rotate-prompt.continue" data-rotate-continue="">Continue</button>
+    </div>
+    
+    <div id="install-prompt" class="install-prompt" role="dialog" aria-modal="true" aria-labelledby="uh" aria-describedby="sh" hidden="">
+      <div class="qh">
+        <h2 class="nitro-logo" aria-hidden="true">nitro<strong>.car</strong></h2>
+        <h3 id="uh">Install the game</h3>
+        <p id="sh" data-install-text="">Play full screen from your home screen, like an app.</p>
+        <ol class="rh" data-install-steps="" hidden="">
+          <li>Tap <strong>Share</strong> (in Safari: <strong>More</strong>, then <strong>Share</strong>).</li>
+          <li>Tap <strong>Add to Home Screen</strong>, then <strong>Add</strong>.</li>
+        </ol>
+        <div class="ph">
+          <button type="button" data-ua="install-prompt.later" data-install-later="">Not now</button>
+          <button type="button" class="wh" data-ua="install-prompt.yes" data-install-yes="">Install</button>
+        </div>
+      </div>
+    </div>
+    <div id="error" class="modal hidden">
+      <div class="panel">
+        <span id="error-kind" class="eyebrow">CONNECTION ERROR</span>
+        <h2 id="error-title">UNABLE TO START</h2>
+        <p id="error-message"></p>
+        <button data-ua="error.reload" onclick="location.reload()">RELOAD GAME</button>
+      </div>
+    </div>
+    
+    <div id="graphics-lost" class="modal graphics-lost hidden" role="dialog" aria-modal="true" aria-labelledby="zg" aria-describedby="wg">
+      <div id="xg" class="panel hidden">
+        <span class="eyebrow">GRAPHICS</span>
+        <h2 id="zg">GRAPHICS STOPPED</h2>
+        <p id="wg">The browser stopped the game's graphics. Close this tab, wait about 2 minutes, then open the game again. If it keeps happening, restart the browser.</p>
+        <button data-ua="graphics-lost.reload" id="yg" class="primary" type="button">RELOAD GAME</button>
+      </div>
+    </div>
+    <header class="topline">
+      <a data-ua="top.home" class="wordmark nitro-logo" href="#" id="lh" aria-label="nitro.car menu">nitro<strong>.car</strong></a>
+      <div class="yp">
+        <button data-ua="top.mute" data-ua-value="on" id="rp" class="nh" title="Mute (M)" aria-label="Mute sound">♪</button>
+        <button data-ua="top.help" id="bh" class="nh" title="Controls (H)" aria-label="Show controls">?</button>
+      </div>
+    </header>
+    <main id="menu" class="menu matchday hidden" data-panel="">
+      <button data-ua="main.settings" id="lobby-settings" class="lobby-settings" aria-label="Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M10 2h4l.6 2.4 1.2.5 2.1-1.3 2.8 2.8-1.3 2.1.5 1.2L22 10v4l-2.4.6-.5 1.2 1.3 2.1-2.8 2.8-2.1-1.3-1.2.5L14 22h-4l-.6-2.4-1.2-.5-2.1 1.3-2.8-2.8 1.3-2.1-.5-1.2L2 14v-4l2.4-.6.5-1.2-1.3-2.1 2.8-2.8 2.1 1.3 1.2-.5Z"></path>
+          <circle cx="12" cy="12" r="3.5"></circle>
+        </svg>
+      </button>
+      <button data-ua="main.fullscreen" id="lobby-fullscreen" class="lobby-settings" aria-label="Enter fullscreen" title="Enter fullscreen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M9 3H3v6M15 3h6v6M21 15v6h-6M9 21H3v-6"></path>
+        </svg>
+      </button>
+      <button data-ua="main.discord" id="mj" class="lobby-settings" aria-label="Join our Discord (opens in a new tab)" title="Join our Discord">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"></path>
+        </svg>
+      </button>
+      <button data-ua="main.controller" id="lobby-controller" class="lobby-settings" aria-label="Connect a controller" title="Connect a controller">
+        <img alt="" draggable="false">
+        <span class="lobby-controller-label" aria-hidden="true"><span>CONNECT A</span> <span>CONTROLLER</span></span>
+        <span class="lobby-controller-dot" aria-hidden="true"></span>
+      </button>
+      <p id="lobby-online" class="lobby-online" hidden=""><span class="lobby-online-dot" aria-hidden="true"></span><span id="tj"></span><span id="uj"></span></p>
+      <div id="lobby-players" aria-label="Your party">
+        <div id="ck" class="lobby-nameplate local" data-slot="0">
+          <strong id="ek">Player</strong>
+          <input data-ua="main.name" id="player-name" hidden="" inputmode="none" maxlength="24" autocomplete="nickname" placeholder="Player" aria-label="Player name" spellcheck="false">
+          <button data-ua="main.name-edit" id="pm" type="button" class="pm" aria-label="Edit player name" title="Edit name">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"></path><path d="m13.5 6.5 4 4"></path></svg>
+          </button>
+          <span class="sl" aria-label="Party leader" hidden="">♛</span>
+          <p id="qm" class="qm" role="alert" hidden=""></p>
+        </div>
+      </div>
+      <nav id="sj" aria-label="Main menu">
+        
+        <div id="fj" class="lobby-blox-party" hidden="">
+          <button data-ua="main.blox-party" id="lobby-blox-party" type="button" aria-label="Play blox.party (opens in a new tab)" title="Play blox.party">
+            <img alt="" draggable="false" decoding="async">
+            <span class="lobby-blox-party-label" aria-hidden="true">Play blox.party</span>
+          </button>
+        </div>
+        <button data-ua="main.customize" id="rf" class="lobby-action" data-open="garage">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21.2 3.2 17 7.4l-3-3L18.2.2a7 7 0 0 0-8.6 8.6L1.2 17.2a3.4 3.4 0 0 0 4.8 4.8l8.4-8.4a7 7 0 0 0 6.8-10.4ZM3.6 20.2a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>
+          CUSTOMIZE
+        </button>
+        <div id="wj" aria-label="Party">
+          <h2 class="yj"><svg class="zj" viewBox="0 0 36 36" aria-hidden="true" focusable="false"><defs><clipPath id="party-hat-clip"><path d="M2.7 4.7 6.6 16.8 14.7 8.6Z"></path></clipPath><clipPath id="party-horn-clip"><path d="m18.6 25.2 10.6 2.2-.6 3.2-10.5-2.6Z"></path></clipPath></defs><circle cx="19" cy="21" r="13" fill="#fff"></circle><path d="M12.6 19.6q2.1-2.8 4.2 0M21.4 19.6q2.1-2.8 4.2 0" fill="none" stroke="#071723" stroke-width="1.9" stroke-linecap="round"></path><path d="M2.7 4.7 6.6 16.8 14.7 8.6Z" fill="#ff6b3d"></path><path clip-path="url(#party-hat-clip)" d="M-2 10 12-4M0 14 16-2M3 17 19 1M6 20 22 4" stroke="#ffe14d" stroke-width="1.7"></path><circle cx="2.9" cy="4.6" r="2.3" fill="#3ddc84"></circle><path d="m18.6 25.2 10.6 2.2-.6 3.2-10.5-2.6Z" fill="#ff4d8d"></path><path clip-path="url(#party-horn-clip)" d="M21 23v10M24.5 23v10M28 23v10" stroke="#3ddc84" stroke-width="1.6"></path><path d="M29 29q4.2.8 3.4-2.6-.8-2.2-3.1-.6" fill="none" stroke="#ff4d8d" stroke-width="1.5" stroke-linecap="round"></path><circle cx="18.6" cy="26.6" r="1.4" fill="#071723"></circle><rect x="25.9" y="2" width="2.2" height="4" rx=".6" fill="#ff4d8d" transform="rotate(30 27 4)"></rect><circle cx="33" cy="11" r="1.3" fill="#3fa9ff"></circle><circle cx="31" cy="3.5" r="1.3" fill="#3ddc84"></circle><rect x="1.9" y="27" width="2.2" height="4" rx=".6" fill="#ffd23f" transform="rotate(-25 3 29)"></rect><rect x="32.9" y="16" width="2.2" height="4" rx=".6" fill="#ff6b3d" transform="rotate(60 34 18)"></rect></svg>PARTY</h2>
+          <div class="pj">
+            <div class="kj">
+              <input data-ua="main.party-code" id="lobby-party-code" type="text" inputmode="none" aria-label="Party code or invite link" placeholder="# PARTY CODE" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-1p-ignore="" data-lpignore="true" data-bwignore="" data-form-type="other">
+            </div>
+            <span id="lobby-code-copied" class="lj" role="status" hidden="">copied!</span>
+            <button data-ua="main.join" id="oj" class="lobby-action">JOIN</button>
+            <button data-ua="main.invite" id="nj" class="lobby-action" hidden="">INVITE</button>
+          </div>
+          <hr class="xj">
+          <button data-ua="main.create-party" id="party-button" class="lobby-action">CREATE PARTY</button>
+          <button data-ua="main.leave-party" id="qj" class="lobby-action" hidden="">LEAVE PARTY</button>
+        </div>
+        <div id="ak">
+          <div id="rj" aria-label="Choose a mode">
+            <button data-ua="main.online" data-ua-value="1v1" class="bb" data-lobby-size="1" aria-label="Online 1v1"><span class="wk" aria-hidden="true"></span><strong>1v1<span class="yk" data-mode-live="1v1" aria-hidden="true" hidden=""></span></strong></button>
+            <button data-ua="main.online" data-ua-value="2v2" class="bb" data-lobby-size="2" aria-label="Online 2v2"><span class="wk" aria-hidden="true"></span><strong>2v2<span class="yk" data-mode-live="2v2" aria-hidden="true" hidden=""></span></strong></button>
+            <button data-ua="main.online" data-ua-value="3v3" class="bb" data-lobby-size="3" hidden=""><span class="wk" aria-hidden="true"></span><strong>3v3<span class="yk" data-mode-live="3v3" aria-hidden="true" hidden=""></span></strong></button>
+            <button data-ua="main.bots" class="bb" id="lobby-bots" data-solo-mode=""><span class="wk" aria-hidden="true"></span><strong>BOTS MATCH<span class="yk" data-mode-live="bots" aria-hidden="true" hidden=""></span></strong></button>
+            <button data-ua="main.training" data-ua-value="freeplay" class="bb" data-training="freeplay" data-solo-mode=""><span class="wk" aria-hidden="true"></span><strong>FREE PLAY<span class="yk" data-mode-live="freeplay" aria-hidden="true" hidden=""></span></strong></button>
+            <button data-ua="main.training" data-ua-value="shooter" class="bb" data-training="shooter" data-solo-mode=""><span class="wk" aria-hidden="true"></span><strong><span>SHOOTER</span><span class="zk" data-mode-rating="shooter" hidden=""><small>RATING</small><b></b></span><span class="yk" data-mode-live="shooter" aria-hidden="true" hidden=""></span></strong></button>
+            <button data-ua="main.training" data-ua-value="goalkeeper" class="bb" data-training="goalkeeper" data-solo-mode=""><span class="wk" aria-hidden="true"></span><strong><span>GOALKEEPER</span><span class="zk" data-mode-rating="goalkeeper" hidden=""><small>RATING</small><b></b></span><span class="yk" data-mode-live="goalkeeper" aria-hidden="true" hidden=""></span></strong></button>
+            <button data-ua="main.private" id="lobby-special-mode" class="bb" data-open="private-match" hidden=""><span class="wk" aria-hidden="true"></span><strong>PRIVATE PARTY<span class="yk" data-mode-live="private" aria-hidden="true" hidden=""></span></strong></button>
+          </div>
+          <div id="qc" hidden="">
+            <label for="bot-difficulty">BOTS DIFFICULTY</label>
+            <select data-ua="bots.difficulty" id="bot-difficulty"><option value="original">HARD</option><option value="easy">MEDIUM</option><option value="low">EASY</option><option value="rookie" selected="">ROOKIE</option></select>
+            <p id="nc" role="status" aria-live="polite"></p>
+          </div>
+          <div id="gj" hidden=""><button data-ua="bots.size" data-ua-value="1v1" class="bb" data-bot-size="1"><span class="wk" aria-hidden="true"></span><strong>1v1 BOTS</strong></button><button data-ua="bots.size" data-ua-value="2v2" class="bb" data-bot-size="2"><span class="wk" aria-hidden="true"></span><strong>2v2 BOTS</strong></button><button data-ua="bots.size" data-ua-value="3v3" class="bb" data-bot-size="3"><span class="wk" aria-hidden="true"></span><strong>3v3 BOTS</strong></button><button data-ua="bots.size" data-ua-value="4v4" class="bb" data-bot-size="4"><span class="wk" aria-hidden="true"></span><strong>4v4 BOTS</strong></button></div>
+          <p id="online-status" class="uk" aria-live="polite"></p>
+          <button data-ua="main.cancel-search" id="jj" class="ml" hidden="">CANCEL SEARCH</button>
+          <p id="online-blocked" class="uk" role="status" hidden=""></p>
+          <button data-ua="bots.back" id="ij" class="ml lobby-action" hidden="">BACK</button>
+        </div>
+      </nav>
+      <section id="private-match" class="vj" aria-labelledby="rm" aria-hidden="true" inert="">
+        <h2 id="rm">PRIVATE PARTY</h2>
+        <div id="um" hidden="" aria-label="Private party teams"></div>
+        <p id="mm" class="uk" aria-live="polite"></p>
+        <button data-ua="private.start" id="start-match" class="primary ll">START MATCH</button>
+        <button data-ua="private.back" class="ml lobby-action" data-back="">BACK</button>
+        <button data-ua="private.leave" id="yf" class="ml lobby-action" hidden="">LEAVE PARTY</button>
+      </section>
+      <section id="garage" class="vj" aria-labelledby="tg" aria-hidden="true" inert="">
+        <h2 id="tg">CUSTOMIZE</h2>
+        <div class="vk" role="tablist" aria-label="Customization">
+          <button data-ua="garage.tab" data-ua-value="body" id="body-tab" role="tab" aria-selected="true" aria-controls="body-options" data-garage-tab="body">BODY</button>
+          <button data-ua="garage.tab" data-ua-value="paint" id="paint-tab" role="tab" aria-selected="false" aria-controls="paint-options" data-garage-tab="paint">PAINT</button>
+        </div>
+        <div id="body-options" class="sp" role="tabpanel" aria-labelledby="body-tab">
+                <div class="rg qg">
+                  <button data-ua="garage.body" data-ua-value="monkey" class="hc" data-car-body="monkey" aria-pressed="true">
+                    <img alt="" width="360" height="220">
+                    <span>MONKEY</span>
+                  </button>
+                  <button data-ua="garage.body" data-ua-value="magna" class="hc" data-car-body="magna" aria-pressed="false">
+                    <img alt="" width="360" height="220">
+                    <span>MAGNA</span>
+                  </button>
+                  <button data-ua="garage.body" data-ua-value="retro" class="hc" data-car-body="retro" aria-pressed="false">
+                    <img alt="" width="360" height="220">
+                    <span>RETRO</span>
+                  </button>
+                  <button data-ua="garage.body" data-ua-value="demon" class="hc" data-car-body="demon" aria-pressed="false">
+                    <img alt="" width="360" height="220">
+                    <span>DEMON</span>
+                  </button>
+                  <button data-ua="garage.body" data-ua-value="roadster" class="hc" data-car-body="roadster" aria-pressed="false">
+                    <img alt="" width="360" height="220">
+                    <span>ROADSTER</span>
+                  </button>
+                </div>
+
+        </div>
+        <div id="paint-options" class="sp" role="tabpanel" aria-labelledby="paint-tab" hidden="">
+          <div class="kl">
+            <button data-ua="garage.paint" data-ua-value="blue" id="sf" class="sg" data-car-color="#4096e6" style="--paint:#4096e6" aria-pressed="false">BLUE</button>
+            <button data-ua="garage.paint" data-ua-value="red" id="fn" class="sg" data-car-color="#ff403d" style="--paint:#ff403d" aria-pressed="true">RED</button>
+          </div>
+        </div>
+        <button data-ua="garage.back" class="ml lobby-action" data-back="">BACK</button>
+      </section>
+      
+      <div data-ua-off="" id="online" hidden="" inert="">
+        <h2 id="xc">CONNECT</h2>
+        <div class="vk" role="tablist" aria-label="Connection">
+          <button id="invite-tab" role="tab" aria-selected="true" aria-controls="invite-options" data-connect-tab="invite">INVITE</button>
+          <button id="join-tab" role="tab" aria-selected="false" aria-controls="join-options" data-connect-tab="join">JOIN</button>
+        </div>
+        <div id="invite-options" class="sp" role="tabpanel" aria-labelledby="invite-tab">
+          <div id="rl"><button id="qf" class="primary ll">CREATE PARTY</button></div>
+          <div id="ql" class="hidden">
+            <span class="field-label">CODE</span>
+            <button id="nf" class="party-code" aria-label="Copy party code"><strong id="party-code-label"></strong><span aria-hidden="true">⧉</span></button>
+            <input data-ua-off="" id="online-invite" readonly="" aria-label="Invite link" hidden="">
+            <button id="pf" class="primary ll">COPY LINK</button>
+          </div>
+        </div>
+        <div id="join-options" class="sp" role="tabpanel" aria-labelledby="join-tab" hidden="">
+          <input id="zn" type="text" inputmode="none" aria-label="Party code or invite link" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-1p-ignore="" data-lpignore="true" data-bwignore="" data-form-type="other" placeholder="# PARTY CODE">
+          <div id="bi" class="hidden"><label for="zh">FRIEND'S REGION</label><select id="zh" aria-label="Friend's server region"></select></div>
+          <button id="di" class="primary ll">JOIN PARTY</button>
+        </div>
+        <details id="connection-options" class="connection-options">
+          <summary>OPTIONS <span aria-hidden="true">⌄</span></summary>
+          <button id="leave-party" class="hidden">LEAVE PARTY</button>
+        </details>
+        <button id="uc" class="ml lobby-action" data-back="">BACK</button>
+      </div>
+    </main>
+    <dialog id="analytics-consent" hidden="" tabindex="-1" aria-label="Analytics preference">
+      <p>Allow Google Analytics cookies to measure visits and gameplay. No player names or party codes are collected.</p>
+      <div class="eb">
+        <button data-ua="consent.accept" id="analytics-accept" type="button">Allow Cookies</button>
+        <button data-ua="consent.decline" id="analytics-decline" type="button">No thanks</button>
+      </div>
+      <small>You can change your choice in Settings.</small>
+    </dialog>
+    <section id="hud" class="hidden" aria-label="Match display">
+      <div id="goal-pointer" class="hidden" aria-hidden="true"><span class="ug">➤</span><span id="goal-pointer-label"></span></div>
+      <div id="yr">
+      <div id="zr" class="hidden" aria-live="polite"></div>
+      <div id="ns" class="hidden"></div>
+      <div id="training-rating" class="hidden" role="group" aria-label="Drill ratings and controls">
+        <dl>
+          <div class="gs"><dt>DRILL RATING</dt><dd id="xr">—</dd></div>
+          <div class="gs"><dt>YOUR RATING</dt><dd><span id="ds">—</span><small id="hs"></small></dd></div>
+        </dl>
+        <div class="training-actions">
+          
+          <button data-ua="hud.retry" id="ks" type="button"><kbd data-binding-hint="retryDrill|resetShot" data-binding-hint-single="">R</kbd>RETRY</button>
+          <button data-ua="hud.next" id="bs" type="button"><kbd data-binding-hint="skipDrill" data-binding-hint-single="">N</kbd>NEXT</button>
+        </div>
+      </div>
+      </div>
+      
+      <div id="queue-status" class="queue-status hidden" role="status"><span class="queue-status-dot" aria-hidden="true"></span><span id="wm"></span><span id="queue-status-time" aria-hidden="true"></span></div>
+      <div class="scoreboard">
+        <div class="team red" aria-label="Red score">
+          <svg class="tp" viewBox="0 0 24 28" aria-hidden="true"><path d="M12 1 22 5v10q0 7-10 12Q2 22 2 15V5Z" fill="#07121c" stroke="#f3f6f9" stroke-width="1.4"></path><path d="m12 3 8 3v9q0 6-8 10-8-4-8-10V6Z" fill="none" stroke="currentColor"></path><g transform="translate(3 5) scale(.5625)"><circle cx="16" cy="16" r="14" fill="#f3f6f9" stroke="#f3f6f9" stroke-width="2"></circle><g fill="#09151e" stroke="#09151e" stroke-width="1"><path d="m16 9 7 5-3 8h-8l-3-8Z"></path><path d="m3 10 6-5 3 2-3 7-6 1Zm18-5 6 5 2 5-6-1-3-7ZM7 23l5-1 4 6-3 2-6-3Zm13-1 5 1v4l-6 3-3-2ZM12 2h8l1 3-5 4-5-4Z"></path></g><g fill="none" stroke="#09151e" stroke-width="1"><path d="m9 14-6 1m20-1 6 1M12 22l-5 1m13-1 5 1M16 9V3"></path></g></g></svg><span id="fc">YOU</span><strong id="gc">0</strong>
+        </div>
+        <div class="wc" aria-hidden="true"></div>
+        <div class="clock" aria-label="Match timer">
+          <span id="mode-label">1v1 · MATCH</span><strong id="timer">3:00</strong>
+        </div>
+        <div class="team blue" aria-label="Blue score">
+          <strong id="fl">0</strong><span id="el">BOT</span><svg class="tp" viewBox="0 0 24 28" aria-hidden="true"><path d="M12 1 22 5v10q0 7-10 12Q2 22 2 15V5Z" fill="#07121c" stroke="#f3f6f9" stroke-width="1.4"></path><path d="m12 3 8 3v9q0 6-8 10-8-4-8-10V6Z" fill="none" stroke="currentColor"></path><g transform="translate(3 5) scale(.5625)"><circle cx="16" cy="16" r="14" fill="#f3f6f9" stroke="#f3f6f9" stroke-width="2"></circle><g fill="#09151e" stroke="#09151e" stroke-width="1"><path d="m16 9 7 5-3 8h-8l-3-8Z"></path><path d="m3 10 6-5 3 2-3 7-6 1Zm18-5 6 5 2 5-6-1-3-7ZM7 23l5-1 4 6-3 2-6-3Zm13-1 5 1v4l-6 3-3-2ZM12 2h8l1 3-5 4-5-4Z"></path></g><g fill="none" stroke="#09151e" stroke-width="1"><path d="m9 14-6 1m20-1 6 1M12 22l-5 1m13-1 5 1M16 9V3"></path></g></g></svg>
+        </div>
+        <div class="eo" aria-hidden="true">
+          <div class="io">
+            <div class="ho"><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="fo"><span>G</span><span>O</span><span>A</span><span>L</span></div>
+          </div>
+        </div>
+      </div>
+      <div id="vg" role="status" hidden=""></div>
+      <ul id="ei" aria-label="Game controls"></ul>
+      <div class="lower-left">
+        <div class="camera-label">
+          <svg class="rc" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#f3f6f9" stroke="#f3f6f9" stroke-width="2"></circle><g fill="#09151e" stroke="#09151e" stroke-width="1"><path d="m16 9 7 5-3 8h-8l-3-8Z"></path><path d="m3 10 6-5 3 2-3 7-6 1Zm18-5 6 5 2 5-6-1-3-7ZM7 23l5-1 4 6-3 2-6-3Zm13-1 5 1v4l-6 3-3-2ZM12 2h8l1 3-5 4-5-4Z"></path></g><g fill="none" stroke="#09151e" stroke-width="1"><path d="m9 14-6 1m20-1 6 1M12 22l-5 1m13-1 5 1M16 9V3"></path></g></svg><b id="tc">BALL CAM</b><span id="camera-dot"></span>
+        </div>
+        <div class="speed"><strong id="speed">0</strong><span>KM/H</span></div>
+        <div class="ab">
+          <kbd data-binding-hint="powerslide">SHIFT</kbd> drift <kbd data-binding-hint="jump">RIGHT MOUSE / SPACE</kbd> jump <kbd data-binding-hint="boost">LEFT MOUSE</kbd> boost
+        </div>
+      </div>
+      <div class="lc">
+        <div id="ic" role="meter" aria-label="Boost remaining" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
+          <svg class="kc" viewBox="0 0 28 40" aria-hidden="true"><path d="M19 0 1 23h11l-3 17 18-25H16Z" fill="currentColor"></path></svg>
+          <div class="mc" aria-hidden="true"><div class="jc"></div></div>
+          <strong id="boost-value">100</strong>
+        </div>
+      </div>
+      <button data-ua="hud.pause" id="vl" class="vl" aria-label="Pause game">
+        <svg viewBox="0 0 20 24" aria-hidden="true"><path d="M1 1h6v22H1Zm12 0h6v22h-6Z" fill="currentColor"></path></svg><span>PAUSE</span><kbd>ESC</kbd>
+      </button>
+      <button data-ua="hud.change-controls" id="vc" class="vc" type="button">CHANGE<br>CONTROLS</button>
+      <div class="telemetry">
+        <span id="surface">ON THE PITCH</span>
+      </div>
+    </section>
+    <div id="gk" class="gk hidden" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div id="announcement" class="announcement hidden">
+      <span id="hb"></span><strong id="announce-title"></strong>
+      <p id="announce-detail"></p>
+    </div>
+    
+    <section id="qs" class="qs hidden" aria-labelledby="pp" aria-live="polite">
+      <header class="showcase-title">
+        <span class="jp">WINNER</span>
+        <strong id="pp">RED</strong>
+      </header>
+      <div id="lp" class="lp"></div>
+    </section>
+    
+    <div id="oq" class="modal hk hidden" role="dialog" aria-modal="true" aria-labelledby="rq" aria-describedby="pq" aria-hidden="true" inert="">
+      <div class="qq panel">
+        <h2 id="rq">CHOOSE YOUR CONTROLS STYLE</h2>
+        <div class="touch-layout-options" role="group" aria-label="Controls style"></div>
+        <p id="pq" class="pq">* You can always switch between styles in Settings or with Change Controls in a match.</p>
+        <button data-ua="touch-style.how-to" id="hq" type="button" hidden="">▶ HOW TO PLAY</button>
+        <button data-ua="touch-style.continue" id="nq" type="button" class="primary" data-back="">CONTINUE</button>
+        <div id="eq" class="eq" hidden="">
+          <div class="gq"></div>
+          <ol class="kq">
+            <li>Put your phone down flat on a table.</li>
+            <li>Your left hand drives with the keys: W forward, S reverse, A and D steer, Q and E air roll.</li>
+            <li>Your right hand clicks the mouse: the left button boosts, the right button jumps.</li>
+            <li>Play with both hands at once: you have more control than with the phone in your hands.</li>
+          </ol>
+        </div>
+        <div class="jq" hidden=""></div>
+        <button data-ua="touch-style.how-to-done" id="fq" type="button" class="primary" data-back="" hidden="">GOT IT</button>
+      </div>
+    </div>
+    <div id="pause" class="modal hk hidden" role="dialog" aria-modal="true" aria-labelledby="lm" aria-hidden="true" inert="">
+      <div class="panel">
+        <h2 id="lm">PAUSED</h2>
+        <p id="pause-reason" role="status" hidden=""></p>
+        <div id="zl">
+          <button data-ua="pause.resume" id="resume-button" class="tl"><span class="pause-icon" aria-hidden="true">▶</span><span id="resume-label">RESUME GAME</span></button>
+          <button data-ua="pause.fullscreen" id="bm" class="tl"><svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M21 15v6h-6M9 21H3v-6"></path></svg>FULLSCREEN</button>
+          <button data-ua="pause.settings" id="hm" class="tl jm"><svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg>SETTINGS</button>
+          <div class="gm dm">
+            <div class="ko"><span id="quality-label">GRAPHICS</span><button data-ua="pause.quality" id="quality" class="fm vm" value="ultra" aria-labelledby="quality-label quality-value"><span id="quality-value">ULTRA</span></button></div>
+            <div class="sc vf">
+              <label for="pause-master-volume">MASTER VOLUME</label>
+              <input data-ua="pause.volume" data-ua-value="master" id="pause-master-volume" data-mix-volume="master" type="range" min="0" max="100" step="1" value="100" aria-valuetext="100 percent">
+              <output id="pause-master-volume-value" for="pause-master-volume" aria-hidden="true">100%</output>
+            </div>
+          </div>
+          <div class="am">
+            <button data-ua="pause.restart" id="ln" class="tl"><span class="pause-icon" aria-hidden="true">↻</span>RESTART MATCH</button>
+            <button data-ua="pause.end-match" id="uf" class="tl hidden"><svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1.5"></rect></svg>END PRIVATE MATCH</button>
+            <button data-ua="pause.quit" id="quit-button" class="tl"><svg class="pause-icon wf" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4h10v16H10M2 12h12m-4-4 4 4-4 4"></path></svg>EXIT TO MAIN MENU</button>
+          </div>
+        </div>
+        <div id="pause-confirm" hidden="">
+          <h3 id="yl"></h3>
+          <p id="pause-confirm-detail"></p>
+          <button data-ua="pause.cancel" id="wl" class="tl" data-back="">CANCEL</button>
+          <button data-ua="pause.confirm" id="xl" class="tl"></button>
+        </div>
+        <div class="cm" aria-hidden="true">
+          <span><kbd class="jh" data-pad-glyph="dpad"></kbd>MOVE</span><span><kbd class="kh" data-pad-glyph="0"></kbd>SELECT</span><span><kbd class="fh" data-pad-glyph="1"></kbd><b id="pause-back-label">RESUME</b></span>
+        </div>
+      </div>
+    </div>
+    <div id="finish" class="modal hk hidden" role="dialog" aria-modal="true" aria-labelledby="yn" aria-hidden="true" inert="">
+      <section class="pn">
+        <span class="eyebrow">FULL TIME</span>
+        <h2 id="yn">RED WINS!</h2>
+        <div class="tn"><span class="wn red">RED</span><strong id="nn">0</strong><i>:</i><strong id="rn">0</strong><span class="wn blue">BLUE</span></div>
+      </section>
+      <div class="panel vn">
+        <header><h2>MATCH STATS</h2><span id="qn"></span></header>
+        <table aria-label="Player match stats"><thead><tr><th scope="col">PLAYER</th><th scope="col">GOALS</th><th scope="col">ASSISTS</th><th scope="col">SAVES</th></tr></thead><tbody id="sn"></tbody></table>
+        <div class="mn"><button data-ua="results.again" id="jn" class="primary">PLAY AGAIN</button><p id="kn" class="hl" hidden="">Party owner must start the game.</p><button data-ua="results.menu" id="xf">EXIT TO MAIN MENU</button></div>
+        <div class="cm" aria-hidden="true"><span><kbd class="jh" data-pad-glyph="dpad"></kbd>MOVE</span><span><kbd class="kh" data-pad-glyph="0"></kbd>SELECT</span></div>
+      </div>
+    </div>
+    <div id="help" class="modal hk hidden" role="dialog" aria-modal="true" aria-labelledby="dh" aria-hidden="true" inert="">
+      <div class="ap">
+      <div class="panel controls">
+        <h2 id="dh">SETTINGS</h2>
+        <button data-ua="controls.back" id="close-help" type="button" data-nav="">BACK</button>
+        <div id="settings-body" class="settings-body">
+          <div id="uo" class="xo vo">
+            <section class="mo" aria-label="Controls and camera">
+              <div class="yb" id="zm">Controls</div>
+              <div id="ym" role="group" aria-labelledby="zm"></div>
+              <div id="jf"></div>
+              <div id="menu-camera-settings" role="group" aria-label="Camera settings"></div>
+            </section>
+            <section class="mo">
+              <div class="yb">Graphics</div>
+              <div class="settings-row"><span id="menu-quality-label" class="settings-label">Quality</span><button data-ua="settings.quality" id="menu-quality" class="fm vm" value="ultra" aria-labelledby="menu-quality-label menu-quality-value"><span id="menu-quality-value">ULTRA</span></button></div>
+              <label class="settings-row"><span class="settings-label">Show FPS</span><input data-ua="settings.show-fps" id="settings-show-fps" type="checkbox" checked=""></label>
+              <div class="yb">Sound</div>
+              <div class="settings-row sc vf">
+                <label for="menu-master-volume">Master volume</label>
+                <input data-ua="settings.volume" data-ua-value="master" id="menu-master-volume" data-mix-volume="master" type="range" min="0" max="100" step="1" value="100" aria-valuetext="100 percent">
+                <output id="menu-master-volume-value" for="menu-master-volume" aria-hidden="true">100%</output>
+              </div>
+              <div class="settings-row sc vf">
+                <label for="menu-effects-volume">Effects volume</label>
+                <input data-ua="settings.volume" data-ua-value="effects" id="menu-effects-volume" data-mix-volume="sfx" type="range" min="0" max="100" step="1" value="100" aria-valuetext="100 percent">
+                <output id="menu-effects-volume-value" for="menu-effects-volume" aria-hidden="true">100%</output>
+              </div>
+              <div class="settings-row sc vf">
+                <label for="menu-crowd-volume">Crowd volume</label>
+                <input data-ua="settings.volume" data-ua-value="crowd" id="menu-crowd-volume" data-mix-volume="crowd" type="range" min="0" max="100" step="1" value="100" aria-valuetext="100 percent">
+                <output id="menu-crowd-volume-value" for="menu-crowd-volume" aria-hidden="true">100%</output>
+              </div>
+              <div class="yb">Game</div>
+              <div class="settings-row">
+                <label for="party-region" class="settings-label">Region</label>
+                <select data-ua="settings.region" id="party-region" aria-label="Party region">
+                <option value="eu">Europe</option>
+                <option value="me">Middle East</option>
+                <option value="use">US East</option>
+                <option value="usw">US West</option>
+                <option value="sa">South America</option>
+                <option value="asia">Asia</option>
+                <option value="oc">Oceania</option>
+                </select>
+              </div>
+              <label class="settings-row"><span class="settings-label">Show ping</span><input data-ua="settings.show-ping" id="zo" type="checkbox" checked=""></label>
+              <div class="settings-row settings-section"><label for="fb" class="settings-label">Cookies</label><select data-ua="settings.cookies" id="fb"><option value="denied">Off</option><option value="granted">On</option></select></div>
+              <nav class="settings-row wo" aria-label="Legal">
+                <a data-ua="settings.legal" data-ua-value="terms" href="https://nitro.car/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+                <a data-ua="settings.legal" data-ua-value="privacy" href="https://nitro.car/privacy" target="_blank" rel="noopener noreferrer">Privacy policy</a>
+                <span class="oo">© 2026 Thinking Games Inc. All rights reserved.</span>
+              </nav>
+            </section>
+          </div>
+        </div>
+        <div class="po">
+          <div class="settings-foot-main">
+            <div class="nb"><span id="ec" role="status" aria-live="polite"></span><button data-ua="controls.bind-cancel" type="button" id="jb" hidden="">Cancel</button><button data-ua="controls.bind-clear" type="button" id="sb" hidden="">Clear</button></div>
+            <div id="kf" role="group" aria-label="Control preferences">
+              <button data-ua="controls.vibration" data-ua-value="off" id="pause-vibration" class="fm" value="off" data-nav="" aria-labelledby="pause-vibration-label pause-vibration-value" title="Gamepad rumble and supported phone vibration"><span id="pause-vibration-label">Controller vibration</span><strong id="pause-vibration-value">OFF</strong></button>
+              <button data-ua="controls.hide-touch" data-ua-value="auto" id="pause-controller-zen" class="fm" value="auto" data-nav="" aria-labelledby="pause-controller-zen-label pause-controller-zen-value" title="Auto hides touch controls with controller input. Tap the screen to bring them back."><span id="pause-controller-zen-label">Hide touch controls</span><strong id="pause-controller-zen-value">ON</strong></button>
+              <button data-ua="controls.hints" id="pause-keybinding-hints" class="fm" value="show" data-nav="" aria-labelledby="pause-keybinding-hints-label pause-keybinding-hints-value"><span id="pause-keybinding-hints-label">Show controls in game</span><strong id="pause-keybinding-hints-value">ON</strong></button>
+            </div>
+            <span id="zb" class="bp"></span>
+          </div>
+          <div class="qo">
+            <button data-ua="controls.defaults" type="button" id="bc" data-nav="">Defaults</button>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div id="cp" class="cp" role="status" aria-live="polite"></div>
+    </div>
+    <div id="te" class="hidden" role="dialog" aria-modal="true" aria-labelledby="xe" aria-hidden="true" inert="">
+      <div class="we" tabindex="-1">
+        <div class="ve">
+          <h2 id="xe">CONNECT A CONTROLLER</h2>
+          <button data-ua="controller.close" id="qd" class="qd" aria-label="Close">✕</button>
+        </div>
+        <ol class="oe" aria-label="Steps">
+          <li>1&nbsp;CONTROLLER</li><li>2&nbsp;CONNECTION</li><li id="ge">3&nbsp;SET UP</li>
+        </ol>
+        <section data-controller-step="pick" aria-labelledby="le">
+          <p id="le" class="pe">Which controller do you have?</p>
+          <div class="od">
+            <button data-ua="controller.pick" data-ua-value="ps5" class="nd" data-controller="ps5" aria-pressed="false"><span class="ne"><img alt="" draggable="false"></span><strong>PLAYSTATION</strong></button>
+            <button data-ua="controller.pick" data-ua-value="xbox" class="nd" data-controller="xbox" aria-pressed="false"><span class="ne"><img alt="" draggable="false"></span><strong>XBOX</strong></button>
+          </div>
+        </section>
+        <section data-controller-step="connection" aria-labelledby="wd" hidden="">
+          <p id="wd" class="pe">How do you want to connect it?</p>
+          <div class="od">
+            <button data-ua="controller.connection" data-ua-value="cable" class="nd" data-connection="cable" aria-pressed="false"><span class="ne"><img alt="" draggable="false"><span class="pk" aria-hidden="true" inert=""></span></span><strong>WITH A CABLE</strong></button>
+            <button data-ua="controller.connection" data-ua-value="bluetooth" class="nd" data-connection="bluetooth" aria-pressed="false"><span class="ne"><img alt="" draggable="false"><span class="pk" aria-hidden="true" inert=""></span></span><strong>BLUETOOTH</strong></button>
+          </div>
+        </section>
+        <section data-controller-step="connect" aria-labelledby="vd" hidden="">
+          <div class="rd">
+            
+            <div class="ud">
+              <p id="vd" class="pe"></p>
+              <ol id="ce" class="ce"></ol>
+            </div>
+            <div id="he" class="he"></div>
+            <div class="sd">
+              <p id="ze" class="ze" role="status" aria-live="polite"><i aria-hidden="true"></i><span></span></p>
+              <span id="hf" class="hf"></span>
+            </div>
+          </div>
+        </section>
+        <div class="ue">
+          <button data-ua="controller.back" id="jd" class="jd" hidden="">◀ BACK</button>
+          <p id="qe" class="qe" role="status" hidden=""><i aria-hidden="true"></i>Your controller is connected!</p>
+          <button data-ua="controller.done" id="yd" class="yd" hidden="">DONE</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mh">
+      <div class="zf" aria-hidden="true">FPS: <span id="fps">60</span></div>
+      <div id="jo" class="jo hidden">Ping: <span id="ping"></span></div>
+    </div>
+    <div id="toast" class="toast hidden"></div>
+    <div id="network-status" class="network-status hidden" aria-live="polite"></div>
+    <script>(()=>{let e="loading";const t=document.getElementById("loading");const a=document.getElementById("error");const o=document.getElementById("error-message");document.documentElement.dataset.gameReady="false";const n="https://api.nitro.car";let r="";const i=/googletagmanager\.com|google-analytics\.com|googlesyndication\.com|adtrafficquality\.google|doubleclick\.net|cloudflareinsights\.com|\/beacon\.min\.js\b/i;const d=e=>/\/(?:assets|src)\/[^/?#]+\.m?js(?:[?#]|$)/.test(e)&&!/^(?:chrome|moz|safari-web)-extension:|^user-script:/.test(e);const s=e=>{try{return new URL(e).pathname}catch{return""}};const l=()=>(e==="loading"||e==="timeout")&&!window.gameScriptStarted;const m="The game could not start in this browser. Update the browser to the latest version, or try another one. If it is up to date, your network, a firewall or a browser extension may be blocking the game: reload, or try another network.";window.addEventListener?.("error",e=>{const t=e.target;if(t&&t!==window&&t.tagName){const e=t.src||t.href||"";if(i.test(e))return;r=`${t.tagName} failed to load${e?`: ${s(e)}`:""}`;if(t.tagName==="SCRIPT"&&t.type==="module"&&l())window.gameLoadFailed(m,"The game's module failed to load");return}if(i.test(e.filename||""))return;r=String(e.message||"");if(l()&&d(e.filename||""))window.gameLoadFailed(m,"The game's scripts failed to run")},true);const c=()=>{const e={arm:"",draw:"",arm_stamp:4};try{const t=JSON.parse(localStorage.getItem("nitro.car.matchmaking:global")||"null")?.id;const a=JSON.parse(localStorage.getItem("nitro.car.training-group.v1")||"null");if(t&&a?.account===t&&typeof a.arm==="string"&&a.arm)return{...e,arm:a.arm,draw:typeof a.draw==="string"?a.draw:""}}catch{}return e};const g=(e,t)=>{try{if(window.errorReporterReady||!/^https:\/\//.test(n)||/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname))return;navigator.sendBeacon(n.replace(/\/$/,"")+"/errors",new Blob([JSON.stringify({kind:e,fatal:true,name:"BootError",message:(r?`${t} (${r})`:t).slice(0,500),release:"1.3.0-preview.1",screen:"loading",ua:navigator.userAgent.slice(0,300),uptimeMs:Math.round(performance.now()),...c()})],{type:"text/plain"}))}catch{}};const u=(e,n,r)=>{t.classList.add("hidden");a.dataset.loadFailure=n;a.classList.remove("hidden");document.getElementById("error-kind").textContent=n==="timeout"?"LOAD IN PROGRESS":r||"CONNECTION ERROR";document.getElementById("error-title").textContent=n==="timeout"?"STILL LOADING":"UNABLE TO START";o.textContent=e};window.gameLoadFailed=function(t,a,o){e="fatal";clearTimeout(window.gameLoadWatchdog);g("fatal",String(a||t));document.documentElement.dataset.gameReady="false";u(t,"fatal",o)};window.gameLoadTimedOut=function(){if(e!=="loading")return;e="timeout";g("load-timeout","Still loading after 45 s");u("Loading is taking longer than expected. The game is still loading and will open when ready. You can also reload to try again.","timeout")};window.gameLoadReady=function(){clearTimeout(window.gameLoadWatchdog);t.classList.add("hidden");if(e==="fatal")return false;if(e==="timeout"&&a.dataset.loadFailure==="timeout"){a.classList.add("hidden");delete a.dataset.loadFailure;o.textContent=""}e="ready";document.documentElement.dataset.gameReady="true";return true};window.gameLoadWatchdog=setTimeout(window.gameLoadTimedOut,45e3)})();</script>
+    <div id="fk" class="fk" hidden="" aria-hidden="true">
+      <svg viewBox="0 0 16 24"><path d="M1 1v17.5l4.2-3.9 2.9 6.6 2.7-1.2-2.9-6.5H14Z"></path></svg>
+    </div>
+    
+  
+
+</body></html>

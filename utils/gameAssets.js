@@ -12,8 +12,18 @@ import { getStaticCacheControl } from "./httpPerformance.js";
 const DEFAULT_BASE =
   "https://cdn.jsdelivr.net/gh/55gms/assets@e899179b25ba3966a87383c0e4092168d9513472/misc/";
 const IMPORTED_BASE =
-  "https://cdn.jsdelivr.net/gh/55gms/assets@d9deca77d305dcc8fbfce6c068865a4c374812cb/misc/";
+  "https://cdn.jsdelivr.net/gh/55gms/assets@12298bbb44ef4de56fcc0b05fa268f6d99f6c195/misc/";
 const IMPORTED_FOLDERS = new Set([
+  "half-life",
+  "nitro-car",
+  "delivery-mystery",
+  "dig-out-of-prison",
+  "call-of-battle",
+  "unreal-drift",
+  "scary-shawarma-kiosk",
+  "ks2-teams",
+  "mad-pursuit",
+
   "real-kart",
   "two-ball-3d",
   "blocky-snakes",

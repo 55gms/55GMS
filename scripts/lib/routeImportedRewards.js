@@ -12,6 +12,14 @@ export function routeImportedRewards(source) {
   const edits = [];
   function visit(node) {
     if (!node || typeof node !== "object") return;
+    if (node.type === 'FunctionDeclaration' && node.id?.name === 'RewardedShow' && node.params[0]?.type === 'Identifier') {
+      const body = source.slice(node.body.start, node.body.end);
+      if (/myGameInstance\.SendMessage\(['"]YandexGame['"],\s*['"]RewardVideo['"]/.test(body)) {
+        const id = node.params[0].name;
+        edits.push([node.body.start, node.body.end, `{ if (!myGameInstance) return; return window.GMSImportedAds.yandex({ callbacks: { onOpen: () => myGameInstance.SendMessage('YandexGame', 'OpenVideo'), onRewarded: () => myGameInstance.SendMessage('YandexGame', 'RewardVideo', ${id}), onClose: () => myGameInstance.SendMessage('YandexGame', 'CloseVideo') } }); }`]);
+        return;
+      }
+    }
     if (
       node.type === "Property" &&
       (node.key.name || node.key.value) === "showRewardedVideo"
