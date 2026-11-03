@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="en-us"><head>
+  <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
+    integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
+    crossorigin="anonymous"
+    data-game-id="chicken-royale"
+    data-compat=""
+  ></script><script type="application/json" id="gms-import-config">{"title":"Chicken Royale","engine":"unity","files":[["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/Build/6de906397cd579daa7f7e8fa16294d67.data.part0",8388608],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/Build/6de906397cd579daa7f7e8fa16294d67.data.part1",8388608],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/Build/6de906397cd579daa7f7e8fa16294d67.data.part2",8388608],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/Build/6de906397cd579daa7f7e8fa16294d67.data.part3",8388608],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/Build/6de906397cd579daa7f7e8fa16294d67.data.part4",7674068],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/Build/a5d4f54385c367ba46a38df80e9e248a.wasm.part0",8388608],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/Build/a5d4f54385c367ba46a38df80e9e248a.wasm.part1",8388608],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/Build/a5d4f54385c367ba46a38df80e9e248a.wasm.part2",8388608],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/Build/a5d4f54385c367ba46a38df80e9e248a.wasm.part3",4605455],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/Build/d50cc3ee055c5f5e237cc0492cefedce.js",16534],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/Build/dab8e12a279f50c78945c1f0088553e9.js",794900],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/TemplateData/internet-274b576a2a65c.json",3],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/TemplateData/internet-8e5bde76fed1e.json",3],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/TemplateData/internet-ab9dec406156b.json",3],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/TemplateData/internet-bbb49313ee5258.json",3],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/TemplateData/internet-c9f54b8c4520c8.json",3],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/TemplateData/internet-cd7238d2e90c2.json",3],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/TemplateData/internet-dcb41f0b4aa998.json",3],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/TemplateData/internet-f66b3acfd57428.json",3],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/TemplateData/internet.json",3],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/TemplateData/unityapp-0.8.4.css",2253],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/TemplateData/unityapp-0.8.4.min.js",22259],["/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/logo.png",83892]],"total":71919644,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Chicken Royale"></script><script src="/assets/js/imported-game-loader.js?v=3" data-title="Chicken Royale"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,viewport-fit=cover,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="shortcut icon" href="/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/TemplateData/favicon.png">
+<link rel="stylesheet" href="/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/TemplateData/unityapp-0.8.4.css">
+
+<!-- 1) YaGames STUB — unityapp.js öncesinde -->
+<script>
+window.YaGames = {
+    init: () => Promise.resolve({
+        on: () => {},
+        environment: { i18n: { lang: 'ru' } },
+        adv: {
+            showFullscreenAdv:  (o) => { o?.callbacks?.onOpen?.(); setTimeout(()=>{ o?.callbacks?.onClose?.(true); },50); },
+            showRewardedVideo:  (o) => { return window.GMSImportedAds.yandex(o); },
+            showBannerAdv:      () => Promise.resolve({ stickyAdvIsShowing: false }),
+            hideBannerAdv:      () => Promise.resolve(),
+            getBannerAdvStatus: () => Promise.resolve({ stickyAdvIsShowing: false }),
+        },
+        auth:         { openAuthDialog: () => Promise.resolve() },
+        getPlayer:    () => Promise.resolve({
+            isAuthorized:     () => false,
+            getName:          () => '',
+            getUniqueID:      () => 'stub-id',
+            getPhoto:         () => '',
+            getPayingStatus:  () => 'unknown',
+            getData:          () => Promise.resolve({}),
+            setData:          () => Promise.resolve(),
+        }),
+        getPayments:  () => Promise.reject(new Error('payments not available')),
+        leaderboards: {
+            getDescription: () => Promise.resolve({ default: false, description: { invert_sort_order: false, score_format: { options: { decimal_offset: 0 } }, type: 'numeric' } }),
+            getEntries:     () => Promise.resolve({ entries: [] }),
+            setScore:       () => {},
+        },
+    })
+};
+</script>
+
+<!-- 2) unityapp yükleniyor — en sonunda window.initUnity'yi tanımlar -->
+<script type="application/javascript" src="/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/TemplateData/unityapp-0.8.4.min.js"></script>
+
+<!-- 3) PART CONFIG + initUnity OVERRIDE
+     unityapp.js'den SONRA yüklenir → onun tanımını ezer.
+     DOMContentLoaded henüz tetiklenmedi, bu yüzden override geçerli olur. -->
+<script>
+const BUILD_URL  = "/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/Build";
+const DATA_FILE  = "6de906397cd579daa7f7e8fa16294d67.data";
+const WASM_FILE  = "a5d4f54385c367ba46a38df80e9e248a.wasm";
+const DATA_PARTS = 5;
+const WASM_PARTS = 4;
+
+/* Part loader promise — parçalar hazır olunca resolve edilir */
+let _resolveBlobs;
+const _blobsReady = new Promise(res => { _resolveBlobs = res; });
+
+/* unityapp'in kendi initUnity'sini EZİYORUZ */
+window.initUnity = async function () {
+    const { dataUrl, wasmUrl } = await _blobsReady;   /* parçaları bekle */
+
+    const cfg        = window.unityapp.initUnityConfig;
+    const buildUrl   = cfg.buildUrl || BUILD_URL;
+    const canvas     = document.querySelector("#unity-canvas");
+    const progressEl = document.querySelector("#unity-progress-bar-fill");
+    const warningEl  = document.querySelector("#unity-warning");
+
+    /* Blob URL'leri DOĞRUDAN veriyoruz — buildUrl+ concat YOK */
+    const unityConfig = {
+        dataUrl:                dataUrl,
+        frameworkUrl: /^(?:https?:)?\//.test(cfg.filenameFramework) ? cfg.filenameFramework : `${buildUrl}/${cfg.filenameFramework}`,
+        codeUrl:                wasmUrl,
+        streamingAssetsUrl:     "StreamingAssets",
+        companyName:            cfg.companyName,
+        productName:            cfg.productName,
+        productVersion:         cfg.productVersion,
+        matchWebGLToCanvasSize: true,
+        devicePixelRatio:       1,
+        showBanner: function (msg, type) {
+            if (!warningEl) return;
+            const d = document.createElement("div");
+            d.innerHTML = msg;
+            if (type === "error")        d.style = "background:red;padding:10px;";
+            else if (type === "warning") d.style = "background:yellow;padding:10px;";
+            warningEl.appendChild(d);
+            setTimeout(() => { warningEl.removeChild(d); }, 5000);
+            warningEl.style.display = warningEl.children.length ? "block" : "none";
+        }
+    };
+
+    const loaderScript  = document.createElement("script");
+    const loaderSrc = /^(?:https?:)?\//.test(cfg.filenameLoader) ? cfg.filenameLoader : `${buildUrl}/${cfg.filenameLoader}`;
+    loaderScript.src    = loaderSrc;
+    loaderScript.onload = function () {
+        window.unityapp.createUnityInstance(
+            canvas, unityConfig,
+            (p) => {                                    /* progress */
+                if (progressEl) progressEl.style.width =
+                    `calc(2.6rem + (100% - 2.6rem) * ${Math.min(p,1).toFixed(2)})`;
+            },
+            (instance) => {                             /* success */
+                window.unityInstance = instance;
+                const content = document.getElementById("unity-content");
+                if (content) {
+                    content.classList.toggle("fade-out");
+                    setTimeout(() => { content.style.display = "none"; }, 500);
+                }
+            },
+            () => { setTimeout(() => { window.unsupportedDevice?.(); }, 5000); },  /* error */
+            () => {                                     /* pause/resume */
+                const content = document.getElementById("unity-content");
+                if (content) { content.style.display=""; content.classList.toggle("fade-out"); }
+            }
+        );
+    };
+    document.body.appendChild(loaderScript);
+};
+</script>
+<title>Chicken Royale</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style><style>#unity-content{display:none!important}</style></head>
+
+<body style="width:100vw;height:100vh;overflow:hidden">
+
+<div id="unity-container" class="unity-desktop">
+    <canvas id="unity-canvas" tabindex="0"></canvas>
+
+    <div id="unity-content">
+        <div></div><div></div><div></div><div></div>
+
+        <!-- Logo resimleri — istediğin src ile değiştir -->
+        <div id="unity-game-logo">
+            <img width="100%" src="/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/logo.png" alt="logo" onerror="this.style.display='none'">
+        </div>
+
+        <div></div><div></div>
+
+        <div class="unity-progress-bar stripes animated reverse slower">
+            <span id="unity-progress-bar-fill" class="progress-bar-inner"></span>
+        </div>
+        <div></div>
+    </div>
+
+    <div id="unity-warning"></div>
+</div>
+
+<!-- 4) unityapp.init() — storage config -->
+<script>
+window.unityapp.init({
+    unity: {
+        companyName:       "new",
+        productName:       "new",
+        productVersion:    "1.0.0",
+        filenameLoader:    "/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/Build/d50cc3ee055c5f5e237cc0492cefedce.js",
+        filenameData:      DATA_FILE,
+        filenameFramework: "/misc/chicken-royale/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/Build/dab8e12a279f50c78945c1f0088553e9.js",
+        filenameCode:      WASM_FILE,
+        filenameMemory:    "",
+        filenameSymbols:   "",
+        configPreset:      "1x1-1",
+    },
+    yandex: {
+        adv: { onAdvClose: () => {} },
+        screen: {
+            fullscreen: true,
+            orientation: {
+                value: window.unityapp.isMobile ? "portrait" : "landscape",
+                lock:  window.unityapp.isMobile,
+            },
+        },
+    },
+    storage: { autoSavePeriod: 10000, remoteKey: "matches_played" },
+});
+</script>
+
+<!-- 5) PART LOADER — parçaları indir, birleştir, Blob URL üret -->
+<script>
+(async () => {
+    const bar    = document.querySelector("#unity-progress-bar-fill");
+    const setBar = (pct) => {
+        if (bar) bar.style.width =
+            `calc(2.6rem + (100% - 2.6rem) * ${(pct / 100).toFixed(2)})`;
+    };
+
+    async function fetchParts(filename, count, startPct, endPct) {
+        const step   = (endPct - startPct) / count;
+        const chunks = [];
+        for (let i = 0; i < count; i++) {
+            const resp = await fetch(`${BUILD_URL}/${filename}.part${i}`);
+            if (!resp.ok) throw new Error(`HTTP ${resp.status} → ${BUILD_URL}/${filename}.part${i}`);
+            chunks.push(new Uint8Array(await resp.arrayBuffer()));
+            setBar(Math.round(startPct + step * (i + 1)));
+        }
+        const total  = chunks.reduce((s, c) => s + c.length, 0);
+        const merged = new Uint8Array(total);
+        let offset = 0;
+        for (const c of chunks) { merged.set(c, offset); offset += c.length; }
+        return URL.createObjectURL(new Blob([merged]));
+    }
+
+    try {
+        setBar(2);
+        const [dataUrl, wasmUrl] = await Promise.all([
+            fetchParts(DATA_FILE, DATA_PARTS, 2,  55),
+            fetchParts(WASM_FILE, WASM_PARTS, 55, 90),
+        ]);
+        setBar(92);
+        _resolveBlobs({ dataUrl, wasmUrl });   /* initUnity'nin beklemesini bitir */
+    } catch (err) {
+        console.error("Yükleme hatası:", err);
+        const w = document.getElementById("unity-warning");
+        if (w) { w.textContent = "Yükleme hatası: " + err.message; w.style.display = "block"; }
+    }
+})();
+</script>
+
+
+
+
+</body></html>

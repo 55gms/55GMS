@@ -1,0 +1,643 @@
+<!DOCTYPE html><html lang="en-us"><head>
+  <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
+    integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
+    crossorigin="anonymous"
+    data-game-id="supermarket-simulator"
+    data-compat=""
+  ></script><script type="application/json" id="gms-import-config">{"title":"Supermarket Simulator","engine":"unity","files":[["/misc/supermarket-simulator/_ext/cdn.jsdelivr.net/gh/centerclassroom/99u99@main/Build/YandexBuilde.framework.js",437667],["/misc/supermarket-simulator/_ext/cdn.jsdelivr.net/gh/centerclassroom/99u99@main/Build/YandexBuilde.loader.js",20680],["/misc/supermarket-simulator/_ext/cdn.jsdelivr.net/gh/centerclassroom/99u99@main/Build/parts/YandexBuilde.data.br.part0",8388608],["/misc/supermarket-simulator/_ext/cdn.jsdelivr.net/gh/centerclassroom/99u99@main/Build/parts/YandexBuilde.data.br.part1",8388608],["/misc/supermarket-simulator/_ext/cdn.jsdelivr.net/gh/centerclassroom/99u99@main/Build/parts/YandexBuilde.data.br.part2",8388608],["/misc/supermarket-simulator/_ext/cdn.jsdelivr.net/gh/centerclassroom/99u99@main/Build/parts/YandexBuilde.data.br.part3",3508790],["/misc/supermarket-simulator/_ext/cdn.jsdelivr.net/gh/centerclassroom/99u99@main/Build/parts/YandexBuilde.wasm.br.part0",8388608],["/misc/supermarket-simulator/_ext/cdn.jsdelivr.net/gh/centerclassroom/99u99@main/Build/parts/YandexBuilde.wasm.br.part1",8388608],["/misc/supermarket-simulator/_ext/cdn.jsdelivr.net/gh/centerclassroom/99u99@main/Build/parts/YandexBuilde.wasm.br.part2",8388608],["/misc/supermarket-simulator/_ext/cdn.jsdelivr.net/gh/centerclassroom/99u99@main/Build/parts/YandexBuilde.wasm.br.part3",8388608],["/misc/supermarket-simulator/_ext/cdn.jsdelivr.net/gh/centerclassroom/99u99@main/Build/parts/YandexBuilde.wasm.br.part4",8298066],["/misc/supermarket-simulator/_ext/cdn.jsdelivr.net/gh/centerclassroom/99u99@main/style.css",2709]],"total":70988168,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Supermarket Simulator"></script><script src="/assets/js/imported-game-loader.js?v=3" data-title="Supermarket Simulator"></script>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="/misc/supermarket-simulator/_ext/cdn.jsdelivr.net/gh/centerclassroom/99u99@main/style.css">
+<style>
+    canvas:focus { outline: none; }
+    html, body {
+        padding: 0; margin: 0; overflow: hidden;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        height: 100%;
+    }
+</style>
+<title>Supermarket Simulator</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body class="dark">
+<div id="unity-container" class="unity-desktop">
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+</div>
+<div id="loading-cover" style="display:none;" class="gms-legacy-loading-hooks"><div id="unity-loading-bar" class="gms-legacy-loading-hooks"><div id="unity-progress-bar-empty" style="display: none;"><div id="unity-progress-bar-full"></div></div><div class="spinner"></div></div></div>
+<script>
+    // ============================================================
+    // GLOBAL YSDK MOCK OBJESI
+    // Framework.js dogrudan "ysdk" degiskenine erisir.
+    // Dil: "en", Cihaz: "desktop" olarak zorlanir.
+    // ============================================================
+    var ysdk = {
+        environment: {
+            app: { id: "local" },
+            browser: { lang: "en" },
+            i18n: { lang: "en", tld: "com" },
+            payload: ""
+        },
+        deviceInfo: {
+            type: "desktop",
+            isMobile: function() { return false; },
+            isDesktop: function() { return true; },
+            isTablet: function() { return false; },
+            isTV: function() { return false; }
+        },
+        auth: {
+            openAuthDialog: function() {
+                return Promise.resolve();
+            }
+        },
+        adv: {
+            showFullscreenAdv: function(opts) {
+                if (opts && opts.callbacks) {
+                    if (opts.callbacks.onOpen) opts.callbacks.onOpen();
+                    setTimeout(function() {
+                        if (opts.callbacks.onClose) opts.callbacks.onClose(true);
+                        FocusGame();
+                    }, 100);
+                }
+            },
+            showRewardedVideo: function(opts) { return window.GMSImportedAds.yandex(opts); },
+            showBannerAdv: function() { return Promise.resolve(); },
+            hideBannerAdv: function() { return Promise.resolve(); },
+            getBannerAdvStatus: function() {
+                return Promise.resolve({ stickyAdvIsShowing: false, reason: "not supported" });
+            }
+        },
+        feedback: {
+            canReview: function() { return Promise.resolve({ value: false, reason: "NO_AUTH" }); },
+            requestReview: function() { return Promise.resolve({ feedbackSent: false }); }
+        },
+        clipboard: {
+            writeText: function(text) { return Promise.resolve(); }
+        },
+        getPlayer: function(opts) {
+            return Promise.resolve({
+                isAuthorized: function() { return true; },
+                getName: function() { return "LocalPlayer"; },
+                getUniqueID: function() { return "local_player_001"; },
+                getPhoto: function(size) { return ""; },
+                getPayingStatus: function() { return "unknown"; },
+                getData: function(keys) {
+                    return Promise.resolve({});
+                },
+                setData: function(data, flush) {
+                    return Promise.resolve();
+                },
+                getStats: function(keys) {
+                    return Promise.resolve({});
+                },
+                setStats: function(data) {
+                    return Promise.resolve();
+                },
+                incrementStats: function(data) {
+                    return Promise.resolve();
+                }
+            });
+        },
+        getPayments: function() {
+            return Promise.resolve({
+                getCatalog: function() { return Promise.resolve([]); },
+                getPurchases: function() { return Promise.resolve([]); },
+                purchase: function(opts) { return Promise.resolve({ purchaseToken: "stub_token" }); },
+                consumePurchase: function(token) { return Promise.resolve(); }
+            });
+        },
+        leaderboards: {
+            setScore: function(name, score, extraData) { return Promise.resolve(); },
+            getEntries: function(name, opts) {
+                return Promise.resolve({ entries: [], ranges: [] });
+            },
+            getDescription: function(name) {
+                return Promise.resolve({
+                    default: false,
+                    description: {
+                        invert_sort_order: false,
+                        score_format: { options: { decimal_offset: 0 } },
+                        type: "numeric"
+                    }
+                });
+            }
+        },
+        shortcut: {
+            canShowPrompt: function() { return Promise.resolve({ canShow: false }); },
+            showPrompt: function() { return Promise.resolve({ outcome: "rejected" }); }
+        },
+        isAvailableMethod: function(method) { return Promise.resolve(false); },
+        features: {
+            LoadingAPI: {
+                ready: function() {
+                    LogStyledMessage("[Stub] ysdk.features.LoadingAPI.ready()");
+                }
+            },
+            GameplayAPI: {
+                start: function() { LogStyledMessage("[Stub] GameplayAPI.start()"); },
+                stop: function() { LogStyledMessage("[Stub] GameplayAPI.stop()"); }
+            }
+        },
+        on: function(eventName, callback) { /* bos listener */ },
+        dispatchEvent: function(eventName) { /* bos */ },
+        onEvent: function(eventName, callback) { /* bos */ },
+        EVENTS: {}
+    };
+
+    // YaGames.init() mock (eger framework bunu da cagiriyorsa)
+    var YaGames = {
+        init: function() { return Promise.resolve(ysdk); }
+    };
+
+    var initYSDK = true;
+    var syncInit = false;
+
+    const hideFullScreenButton = "";
+    const buildUrl = "/misc/supermarket-simulator/_ext/cdn.jsdelivr.net/gh/centerclassroom/99u99@main/Build";
+    const loaderUrl = buildUrl + "/YandexBuilde.loader.js";
+
+    // ============================================================
+    // PART YAPILANDIRMASI (gercek part sayilari - resimden)
+    // ============================================================
+    const splitFiles = {
+        "YandexBuilde.data.br": 4,   // part0-part3
+        "YandexBuilde.wasm.br": 5    // part0-part4
+    };
+
+    // Birlestirilen dosyalar burada tutulur (key: dosya adi, value: ArrayBuffer)
+    const mergedFileCache = {};
+
+    // ============================================================
+    // PART'LARI INDIRIP BIRLESTIR
+    // ============================================================
+    async function downloadAndMergeParts(fileName, partCount) {
+        const parts = [];
+        let totalLoaded = 0;
+
+        for (let i = 0; i < partCount; i++) {
+            const partUrl = buildUrl + "/parts/" + fileName + ".part" + i;
+            const response = await fetch(partUrl);
+            if (!response.ok) {
+                throw new Error("Part indirilemedi: " + partUrl + " (HTTP " + response.status + ")");
+            }
+            const arrayBuffer = await response.arrayBuffer();
+            parts.push(new Uint8Array(arrayBuffer));
+            totalLoaded += arrayBuffer.byteLength;
+            console.log("  [" + fileName + "] Part " + (i + 1) + "/" + partCount + " (" + (totalLoaded / 1048576).toFixed(1) + " MB)");
+        }
+
+        // Birlestir
+        const totalSize = parts.reduce(function(sum, p) { return sum + p.length; }, 0);
+        const merged = new Uint8Array(totalSize);
+        let offset = 0;
+        for (let j = 0; j < parts.length; j++) {
+            merged.set(parts[j], offset);
+            offset += parts[j].length;
+        }
+
+        LogStyledMessage("[Merger] " + fileName + " birlestirildi: " + (totalSize / 1048576).toFixed(1) + " MB");
+        return merged.buffer;
+    }
+
+    async function mergeAllSplitFiles() {
+        const fileNames = Object.keys(splitFiles);
+        for (let i = 0; i < fileNames.length; i++) {
+            const fileName = fileNames[i];
+            const partCount = splitFiles[fileName];
+            LogStyledMessage("[Merger] " + fileName + " birlestiriliyor (" + partCount + " part)...");
+            mergedFileCache[fileName] = await downloadAndMergeParts(fileName, partCount);
+        }
+        LogStyledMessage("[Merger] Tum dosyalar basariyla birlestirildi!");
+    }
+
+    // ============================================================
+    // FETCH OVERRIDE
+    // Unity loader .data.br ve .wasm.br istediginde bellekten dondur.
+    // Sunucudan orijinal dosyalar ALINMAZ.
+    // ============================================================
+    const originalFetch = window.fetch.bind(window);
+
+    window.fetch = function(input, init) {
+        const url = (typeof input === "string") ? input : (input && input.url ? input.url : "");
+        const cachedNames = Object.keys(mergedFileCache);
+
+        for (let i = 0; i < cachedNames.length; i++) {
+            if (url.indexOf(cachedNames[i]) !== -1 && mergedFileCache[cachedNames[i]]) {
+                LogStyledMessage("[FetchOverride] " + cachedNames[i] + " -> bellekten veriliyor");
+                var buf = mergedFileCache[cachedNames[i]];
+                var resp = new Response(buf, {
+                    status: 200,
+                    statusText: "OK",
+                    headers: {
+                        "Content-Type": "application/octet-stream",
+                        "Content-Length": buf.byteLength.toString()
+                    }
+                });
+                return Promise.resolve(resp);
+            }
+        }
+
+        return originalFetch(input, init);
+    };
+
+    // ============================================================
+    // XMLHttpRequest OVERRIDE (Unity bazen XHR kullanir)
+    // ============================================================
+    const OrigXHR = window.XMLHttpRequest;
+
+    window.XMLHttpRequest = function PatchedXHR() {
+        const xhr = new OrigXHR();
+        const origOpen = xhr.open.bind(xhr);
+        const origSend = xhr.send.bind(xhr);
+        let interceptedFile = null;
+
+        xhr.open = function(method, url) {
+            interceptedFile = null;
+            if (typeof url === "string") {
+                const cachedNames = Object.keys(mergedFileCache);
+                for (let i = 0; i < cachedNames.length; i++) {
+                    if (url.indexOf(cachedNames[i]) !== -1 && mergedFileCache[cachedNames[i]]) {
+                        interceptedFile = cachedNames[i];
+                        break;
+                    }
+                }
+            }
+            return origOpen.apply(xhr, arguments);
+        };
+
+        xhr.send = function(body) {
+            if (interceptedFile) {
+                LogStyledMessage("[XHROverride] " + interceptedFile + " -> bellekten veriliyor");
+                var buf = mergedFileCache[interceptedFile];
+
+                Object.defineProperty(xhr, "status", { get: function() { return 200; } });
+                Object.defineProperty(xhr, "statusText", { get: function() { return "OK"; } });
+                Object.defineProperty(xhr, "readyState", { get: function() { return 4; } });
+                Object.defineProperty(xhr, "response", { get: function() { return buf; } });
+
+                setTimeout(function() {
+                    if (xhr.onreadystatechange) xhr.onreadystatechange();
+                    if (xhr.onload) xhr.onload();
+                    try { xhr.dispatchEvent(new Event("load")); } catch(e) {}
+                    try { xhr.dispatchEvent(new Event("loadend")); } catch(e) {}
+                }, 0);
+                return;
+            }
+            return origSend.apply(xhr, arguments);
+        };
+
+        return xhr;
+    };
+
+    // ============================================================
+    // UNITY CONFIG & ELEMENTS
+    // ============================================================
+    const config = {
+        dataUrl: buildUrl + "/YandexBuilde.data.br",
+        frameworkUrl: buildUrl + "/YandexBuilde.framework.js",
+        codeUrl: buildUrl + "/YandexBuilde.wasm.br",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "AppLinkor",
+        productName: "Mini Supermarket Simulator",
+        productVersion: "0.6"
+    };
+
+    const container = document.querySelector("#unity-container");
+    const canvas = document.querySelector("#unity-canvas");
+    const loadingCover = document.querySelector("#loading-cover");
+    const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+    const progressBarFull = document.querySelector("#unity-progress-bar-full");
+    const spinner = document.querySelector(".spinner");
+
+    const canFullscreen = (function () {
+        var keys = ["exitFullscreen","webkitExitFullscreen","webkitCancelFullScreen","mozCancelFullScreen","msExitFullscreen"];
+        for (var i = 0; i < keys.length; i++) { if (keys[i] in document) return true; }
+        return false;
+    }());
+
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        container.className = "unity-mobile";
+    }
+
+    loadingCover.style.display = "";
+
+    var StartUnityInstance;
+    var ygGameInstance = null;
+    var initGame = false;
+    var isVisibility = true;
+    var isPausedGame = false;
+    var NO_DATA = "no data";
+
+    document.addEventListener("contextmenu", function(e) { e.preventDefault(); });
+    document.addEventListener("visibilitychange", function() { SetVisibility(!document.hidden); });
+    window.addEventListener("blur", function() { SetVisibility(false); });
+    window.addEventListener("focus", function() { SetVisibility(true); });
+    window.addEventListener("pointerdown", function() { FocusGame(); SetVisibility(true); });
+
+    // ============================================================
+    // POINTER LOCK
+    // ============================================================
+    var oRequestPointerLock = Element.prototype.requestPointerLock;
+    Element.prototype.requestPointerLock = async function hkRequestPointerLock() {
+        try {
+            var args = arguments;
+            (args[0] ||= {}).unadjustedMovement = true;
+            await oRequestPointerLock.apply(this, args);
+        } catch (err) { console.log(err); }
+    };
+
+    // ============================================================
+    // BLUR / FOCUS BLOCKER
+    // ============================================================
+    function InstallBlurFocusBlocker() {
+        if (!("onblur" in document)) return;
+        if (window.blurFocusHandlersInstalled) return;
+        window.addEventListener("blur", function () {
+            var b = document.createElement("button");
+            b.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;background:rgba(0,0,0,0);border:none;cursor:default;";
+            document.body.appendChild(b);
+            function rm() {
+                if (b && b.parentNode) b.parentNode.removeChild(b);
+                window.removeEventListener("focus", rm);
+            }
+            window.addEventListener("focus", rm);
+        });
+        window.blurFocusHandlersInstalled = true;
+    }
+
+    function FocusGame() {
+        if (!isPausedGame) canvas.focus();
+    }
+
+    function SetVisibility(visibility) {
+        if (initGame === true && isVisibility !== visibility) {
+            isVisibility = visibility;
+            YG2Instance("SetFocusWindowGame", visibility ? "true" : "false");
+        }
+    }
+
+    // ============================================================
+    // YG2Instance - Unity'ye mesaj gonder
+    // ============================================================
+    function YG2Instance(method, arg) {
+        if (ygGameInstance == null) return;
+        if (!initGame) {
+            setTimeout(function () {
+                if (ygGameInstance) {
+                    if (arg !== undefined) ygGameInstance.SendMessage("YG2Instance", method, arg);
+                    else ygGameInstance.SendMessage("YG2Instance", method);
+                }
+            }, 100);
+        } else {
+            if (arg !== undefined) ygGameInstance.SendMessage("YG2Instance", method, arg);
+            else ygGameInstance.SendMessage("YG2Instance", method);
+        }
+    }
+
+    function LogStyledMessage(message, style) {
+        console.log("%c" + message, style || "color: #FFDF73; background-color: #454545");
+    }
+
+    // ============================================================
+    // LOADER & UNITY BASLATMA
+    // Sira: part birlestir -> fetch override aktif -> Unity baslat
+    // ============================================================
+    var script = document.createElement("script");
+    script.src = loaderUrl;
+    script.onload = async function() {
+        InstallBlurFocusBlocker();
+
+        // 1) Part'lari indir ve birlestir (fetch override zaten yukarida tanimli)
+        try {
+            LogStyledMessage("[Merger] Dosya birlestirme basliyor...");
+            await mergeAllSplitFiles();
+        } catch (err) {
+            console.error("[Merger] KRITIK HATA - birlestirme basarisiz:", err);
+            return; // Basarisizsa Unity baslatilmaz
+        }
+
+        // 2) Unity'yi baslat - fetch override orijinal URL isteklerini yakalayacak
+        StartUnityInstance = function () {
+            createUnityInstance(canvas, config, function(progress) {
+                spinner.style.display = "none";
+                progressBarEmpty.style.display = "";
+                progressBarFull.style.width = (100 * Math.max(progress, 0.05)) + "%";
+            }).then(function(unityInstance) {
+                ygGameInstance = unityInstance;
+                loadingCover.style.background = "";
+                loadingCover.style.display = "none";
+
+                // YSDK init tamamlandi sinyali
+                setTimeout(function() {
+                    if (ygGameInstance) {
+                        ygGameInstance.SendMessage("YG2Instance", "InitSDKComplete");
+                    }
+                }, 500);
+            }).catch(function(message) {
+                console.error(message);
+            });
+        };
+
+        StartUnityInstance();
+    };
+
+    // ============================================================
+    // OYUN BASLANGIC (Unity tarafindan cagirilir)
+    // ============================================================
+    function InitGame() {
+        initGame = true;
+        setTimeout(function () {
+            if (isPausedGame == true)
+                YG2Instance("SetPauseGame", "true");
+        }, 100);
+    }
+
+    // ============================================================
+    // YSDK STUB FONKSIYONLARI
+    // ============================================================
+    LogStyledMessage("[PluginYG2 v2.007] [Build: 487] [Platform: LocalBuild - YSDK Stub]");
+
+    // --- CLOUD SAVES ---
+    var cloudSaves = NO_DATA;
+
+    function SaveCloud(jsonData, flush) {
+        try {
+            localStorage.setItem("unity_cloud_save", jsonData);
+            LogStyledMessage("[Stub] Cloud Save OK");
+        } catch (e) {
+            console.warn("[Stub] SaveCloud hatasi:", e.message);
+        }
+    }
+
+    function LoadCloud() {
+        return new Promise(function(resolve) {
+            try {
+                var saved = localStorage.getItem("unity_cloud_save");
+                if (saved) {
+                    cloudSaves = JSON.stringify([saved]);
+                } else {
+                    cloudSaves = NO_DATA;
+                }
+            } catch (e) {
+                cloudSaves = NO_DATA;
+            }
+            YG2Instance("SetLoadSaves", cloudSaves);
+            resolve(cloudSaves);
+        });
+    }
+
+    // --- STICKY AD (atla, fokus koru) ---
+    function StickyAdActivity(show) {
+        LogStyledMessage("[Stub] StickyAd(" + show + ") -> atlandi");
+        FocusGame();
+    }
+
+    // --- REWARDED AD (hemen odul ver, fokus koru) ---
+    function RewardedAdvShow(id) {
+        LogStyledMessage("[Stub] RewardedAdv id:" + id + " -> odul veriliyor");
+        YG2Instance("OpenRewardedAdv");
+        setTimeout(function() {
+            YG2Instance("RewardAdv", id);
+            YG2Instance("CloseRewardedAdv");
+            FocusGame();
+        }, 100);
+    }
+
+    // --- INTERSTITIAL AD (atla, fokus koru) ---
+    var nowFullAdOpen = false;
+
+    function InterAdvShow() {
+        LogStyledMessage("[Stub] InterstitialAdv -> atlandi");
+        YG2Instance("OpenInterAdv");
+        setTimeout(function() {
+            YG2Instance("CloseInterAdv", "true");
+            FocusGame();
+        }, 100);
+    }
+
+    // --- PAYMENTS (bos katalog) ---
+    var paymentsData = NO_DATA;
+    var payments = null;
+
+    function InitPayments() {
+        return new Promise(function(resolve) {
+            var emptyPayments = {
+                "id": [], "title": [], "description": [],
+                "imageURI": [], "price": [], "priceValue": [],
+                "priceCurrencyCode": [], "currencyImageURL": [],
+                "consumed": [], "language": "en"
+            };
+            paymentsData = JSON.stringify(emptyPayments);
+            YG2Instance("PaymentsEntries", paymentsData);
+            LogStyledMessage("[Stub] Payments OK (bos)");
+            resolve(paymentsData);
+        });
+    }
+
+    function BuyPayments(id) {
+        LogStyledMessage("[Stub] BuyPayments: " + id);
+        YG2Instance("OnPurchaseSuccess", id);
+        FocusGame();
+    }
+
+    function ConsumePurchase(id, onPurchaseSuccess) {
+        if (onPurchaseSuccess) YG2Instance("OnPurchaseSuccess", id);
+    }
+
+    function ConsumePurchases(onPurchaseSuccess) {
+        LogStyledMessage("[Stub] ConsumePurchases -> bos");
+    }
+
+    // --- LEADERBOARD ---
+    function SetLeaderboard(name, score, extraData) {
+        LogStyledMessage("[Stub] SetLeaderboard: " + name + " = " + score);
+    }
+
+    function GetLeaderboard(nameLB, quantityTop, quantityAround, photoSize, auth) {
+        var emptyLB = {
+            technoName: nameLB, isDefault: false, isInvertSortOrder: false,
+            decimalOffset: 0, type: "numeric",
+            entries: "no data", ranks: [], photos: [],
+            names: [], scores: [], uniqueIDs: [], extraDataArray: []
+        };
+        YG2Instance("LeaderboardEntries", JSON.stringify(emptyLB));
+    }
+
+    // --- ENVIRONMENT DATA ---
+    var environmentData = NO_DATA;
+
+    function RequestingEnvironmentData() {
+        return new Promise(function(resolve) {
+            var browser = "Chrome";
+            var ua = navigator.userAgent;
+            if (ua.indexOf("Firefox") !== -1) browser = "Firefox";
+            else if (ua.indexOf("Safari") !== -1 && ua.indexOf("Chrome") === -1) browser = "Safari";
+            else if (ua.indexOf("Edge") !== -1) browser = "Edge";
+
+            var jsonEnvir = {
+                "language": (navigator.language || "en").substring(0, 2),
+                "domain": "com",
+                "deviceType": "desktop",
+                "isMobile": /iPhone|iPad|iPod|Android/i.test(ua),
+                "isDesktop": !/iPhone|iPad|iPod|Android/i.test(ua),
+                "isTablet": false, "isTV": false,
+                "appID": "local",
+                "browserLang": navigator.language || "en",
+                "payload": "",
+                "platform": navigator.platform,
+                "browser": browser
+            };
+            environmentData = JSON.stringify(jsonEnvir);
+            YG2Instance("SetEnvirData", environmentData);
+            LogStyledMessage("[Stub] EnvironmentData OK");
+            resolve(environmentData);
+        });
+    }
+
+    // --- PLAYER / AUTH (yetkili) ---
+    var playerData = NO_DATA;
+    var player = null;
+
+    function InitPlayer() {
+        return new Promise(function(resolve) {
+            var authJson = {
+                "playerAuth": "resolved",
+                "playerName": "LocalPlayer",
+                "playerId": "local_player_001",
+                "playerPhoto": "",
+                "payingStatus": "unknown"
+            };
+            playerData = JSON.stringify(authJson);
+            YG2Instance("SetAuth", playerData);
+            LogStyledMessage("[Stub] Player OK (yetkili)");
+            resolve(playerData);
+        });
+    }
+
+    function OpenAuthDialog() {
+        LogStyledMessage("[Stub] OpenAuthDialog -> zaten yetkili");
+        YG2Instance("LoggedIn");
+    }
+
+    // --- STUB INIT ---
+    (async function StubInit() {
+        try {
+            await RequestingEnvironmentData();
+            await InitPlayer();
+            await LoadCloud();
+            await InitPayments();
+            LogStyledMessage("[Stub] Tum YSDK stub modulleri hazir");
+        } catch (e) {
+            console.error("[Stub] Init hatasi:", e);
+        }
+    })();
+
+    document.body.appendChild(script);
+</script>
+
+
+
+</body></html>

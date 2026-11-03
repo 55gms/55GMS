@@ -24,6 +24,10 @@ import path from "node:path";
 import zlib from "node:zlib";
 import { chromium } from "playwright-core";
 import {
+  createGameUrlRewriter,
+  relativeUnityManifest,
+} from "./lib/rewriteGameUrls.js";
+import {
   filesDir,
   isPage,
   pagesDir,
@@ -245,46 +249,18 @@ function waitForEnter(message) {
   });
 }
 
-const escapeRegExp = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
 // Points absolute URLs in saved text files at the local copies.
 function rewrite(files) {
-  const absolute = []; // [url without scheme, local absolute path]
-  const rootRelative = []; // [/path on the game's origin, local absolute path]
-  for (const [source, rel] of sources) {
-    const u = new URL(source);
-    const inside = !rel.startsWith("_ext/");
-    const target = prefix + rel.split("/").map(encodeURIComponent).join("/");
-    if (!inside || u.origin !== gameRoot.origin) {
-      absolute.push([`//${u.host}${u.pathname}`, target]);
-    }
-    if (u.origin === gameRoot.origin && !inside && u.pathname.length > 1) {
-      rootRelative.push([u.pathname, target]);
-    }
-  }
-  // Longest first so /a/b.js is not clobbered by a rewrite of /a/b
-  absolute.sort((a, b) => b[0].length - a[0].length);
+  const rewriteText = createGameUrlRewriter(sources, gameRoot, prefix);
   let changed = 0;
   for (const rel of files) {
     if (!TEXT_EXT.test(rel)) continue;
     const file = path.join(outDir, rel);
     const before = fs.readFileSync(file, "utf8");
-    let text = before;
-    for (const [from, to] of absolute) {
-      if (!text.includes(from)) continue;
-      text = text.replace(
-        new RegExp(`(?:https?:)?${escapeRegExp(from)}(?![\\w.%-])`, "g"),
-        to,
-      );
-    }
-    for (const [from, to] of rootRelative) {
-      if (!text.includes(from)) continue;
-      // Only whole quoted strings and url(...) values, optionally with a query
-      text = text.replace(
-        new RegExp(`(["'\`(=])${escapeRegExp(from)}(?=["'\`)?#\\s>])`, "g"),
-        `$1${to}`,
-      );
-    }
+    const rewritten = rewriteText(before);
+    const text = /\.json$/i.test(rel)
+      ? relativeUnityManifest(rewritten, rel, prefix)
+      : rewritten;
     if (text !== before) {
       fs.writeFileSync(file, text);
       changed++;

@@ -1,0 +1,538 @@
+<!DOCTYPE html><html lang="en-us"><head>
+  <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
+    integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
+    crossorigin="anonymous"
+    data-game-id="mr-dude"
+    data-compat="yandex"
+  ></script><script type="application/json" id="gms-import-config">{"title":"Mr. Dude","engine":"unity","files":[["/misc/mr-dude/_ext/cdn.jsdelivr.net/gh/familiapablo/mrsr@main/Build/Build.data.br.part1",8388608],["/misc/mr-dude/_ext/cdn.jsdelivr.net/gh/familiapablo/mrsr@main/Build/Build.data.br.part2",8388608],["/misc/mr-dude/_ext/cdn.jsdelivr.net/gh/familiapablo/mrsr@main/Build/Build.data.br.part3",5144857],["/misc/mr-dude/_ext/cdn.jsdelivr.net/gh/familiapablo/mrsr@main/Build/Build.framework.js",430833],["/misc/mr-dude/_ext/cdn.jsdelivr.net/gh/familiapablo/mrsr@main/Build/Build.loader.js",25469],["/misc/mr-dude/_ext/cdn.jsdelivr.net/gh/familiapablo/mrsr@main/Build/Build.wasm.br.part1",8388608],["/misc/mr-dude/_ext/cdn.jsdelivr.net/gh/familiapablo/mrsr@main/Build/Build.wasm.br.part2",8388608],["/misc/mr-dude/_ext/cdn.jsdelivr.net/gh/familiapablo/mrsr@main/Build/Build.wasm.br.part3",8388608],["/misc/mr-dude/_ext/cdn.jsdelivr.net/gh/familiapablo/mrsr@main/Build/Build.wasm.br.part4",8388608],["/misc/mr-dude/_ext/cdn.jsdelivr.net/gh/familiapablo/mrsr@main/Build/Build.wasm.br.part5",5194006],["/misc/mr-dude/_ext/cdn.jsdelivr.net/gh/familiapablo/mrsr@main/TemplateData/style.css",728]],"total":61127541,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Mr. Dude"></script><script src="/assets/js/imported-game-loader.js?v=3" data-title="Mr. Dude"></script>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Mr. Dude</title>
+<link rel="shortcut icon" href="/misc/mr-dude/_ext/cdn.jsdelivr.net/gh/familiapablo/mrsr@main/TemplateData/favicon.ico">
+<link rel="stylesheet" href="/misc/mr-dude/_ext/cdn.jsdelivr.net/gh/familiapablo/mrsr@main/TemplateData/style.css">
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #231F20;
+}
+#unity-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+#unity-canvas {
+  width: 100%;
+  height: 100%;
+  background: #231F20;
+}
+#loading-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #231F20;
+  z-index: 1000;
+}
+#unity-loading-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  max-width: 400px;
+}
+#unity-progress-bar-empty {
+  width: 100%;
+  height: 24px;
+  background: #333;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 20px 0;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+}
+#unity-progress-bar-full {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  transition: width 0.3s;
+  border-radius: 12px;
+}
+.loading-text {
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.loading-detail {
+  color: #888;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  margin-top: 5px;
+}
+#skip-button {
+  display: none;
+  padding: 15px 50px;
+  font-size: 20px;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 30px;
+  font-weight: bold;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+}
+#skip-button:hover {
+  background: linear-gradient(135deg, #45a049, #3d8b40);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+}
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 6px 25px rgba(76, 175, 80, 0.6); }
+  100% { transform: scale(1); box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4); }
+}
+.pulse-animation {
+  animation: pulse 1.5s infinite;
+}
+</style>
+<style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body>
+<div id="unity-container">
+  <canvas id="unity-canvas" tabindex="-1"></canvas>
+</div>
+
+<div id="loading-cover" class="gms-legacy-loading-hooks"><div id="unity-loading-bar" class="gms-legacy-loading-hooks"><div class="loading-text" id="loading-status"></div><div id="unity-progress-bar-empty"><div id="unity-progress-bar-full"></div></div><div class="loading-detail" id="loading-detail"></div><button id="skip-button" onclick="startGame()"></button></div></div>
+
+<script>
+// ==================== CDN AYARLARI ====================
+var CDN_BASE = "/misc/mr-dude/_ext/cdn.jsdelivr.net/gh/familiapablo/mrsr@main/Build";
+
+// Part bilgileri
+var FILE_PARTS = {
+  "Build.data.br": { parts: 3, totalSize: 22544384 },
+  "Build.wasm.br": { parts: 5, totalSize: 39636173 }
+};
+
+// ==================== GLOBAL PLAYER OBJESİ ====================
+// Bu obje GLOBAL olmalı - Unity framework bunu arıyor
+var player = {
+  getData: function(keys) {
+    console.log("player.getData called", keys);
+    try {
+      var saved = localStorage.getItem("gameData");
+      if (saved) {
+        return Promise.resolve(JSON.parse(saved));
+      }
+    } catch(e) {
+      console.log("getData error:", e);
+    }
+    return Promise.resolve({});
+  },
+  setData: function(data, flush) {
+    console.log("player.setData called", data);
+    try {
+      localStorage.setItem("gameData", JSON.stringify(data));
+    } catch(e) {
+      console.log("setData error:", e);
+    }
+    return Promise.resolve();
+  },
+  getStats: function(keys) {
+    console.log("player.getStats called", keys);
+    try {
+      var saved = localStorage.getItem("gameStats");
+      if (saved) {
+        return Promise.resolve(JSON.parse(saved));
+      }
+    } catch(e) {
+      console.log("getStats error:", e);
+    }
+    return Promise.resolve({});
+  },
+  setStats: function(data) {
+    console.log("player.setStats called", data);
+    try {
+      localStorage.setItem("gameStats", JSON.stringify(data));
+    } catch(e) {
+      console.log("setStats error:", e);
+    }
+    return Promise.resolve();
+  },
+  incrementStats: function(data) {
+    console.log("player.incrementStats called", data);
+    return Promise.resolve();
+  },
+  getMode: function() { return "lite"; },
+  getName: function() { return "Player"; },
+  getPhoto: function(size) { return ""; },
+  getUniqueID: function() { return "guest_" + Date.now(); },
+  getIDsPerGame: function() { return Promise.resolve([]); }
+};
+
+// ==================== FAKE YANDEX SDK ====================
+window.ysdk = {
+  deviceInfo: {
+    type: "desktop",
+    isDesktop: function() { return true; },
+    isMobile: function() { return false; },
+    isTablet: function() { return false; }
+  },
+  environment: {
+    app: { id: "0" },
+    browser: { lang: "en" },
+    i18n: { lang: "en", tld: "com" }
+  },
+  features: {
+    LoadingAPI: {
+      ready: function() { console.log("Game Ready"); }
+    }
+  },
+  adv: {
+    showFullscreenAdv: function(options) {
+      console.log("Fullscreen ad skipped");
+      if (options && options.callbacks) {
+        if (options.callbacks.onClose) {
+          setTimeout(function() { options.callbacks.onClose(false); }, 100);
+        }
+      }
+    },
+    showRewardedVideo: function(options) { return window.GMSImportedAds.yandex(options); },
+    showBannerAdv: function() { return Promise.resolve(); },
+    hideBannerAdv: function() { return Promise.resolve(); }
+  },
+  // getPlayer artık GLOBAL player objesini döndürüyor
+  getPlayer: function(options) {
+    console.log("ysdk.getPlayer called");
+    return Promise.resolve(player);
+  },
+  getPayments: function(options) {
+    return Promise.resolve({
+      purchase: function(options) { return Promise.reject("Not available"); },
+      getPurchases: function() { return Promise.resolve([]); },
+      getCatalog: function() { return Promise.resolve([]); },
+      consumePurchase: function(token) { return Promise.resolve(); }
+    });
+  },
+  getLeaderboards: function() {
+    return Promise.resolve({
+      getLeaderboardDescription: function(name) { return Promise.resolve({}); },
+      setLeaderboardScore: function(name, score, extra) { return Promise.resolve(); },
+      getLeaderboardPlayerEntry: function(name) { return Promise.resolve(null); },
+      getLeaderboardEntries: function(name, options) {
+        return Promise.resolve({ entries: [], ranges: [], userRank: 0 });
+      }
+    });
+  },
+  feedback: {
+    canReview: function() { return Promise.resolve({ value: false, reason: "NO_AUTH" }); },
+    requestReview: function() { return Promise.resolve({ feedbackSent: false }); }
+  },
+  clipboard: {
+    writeText: function(text) {
+      if (navigator.clipboard) {
+        return navigator.clipboard.writeText(text);
+      }
+      return Promise.resolve();
+    }
+  },
+  getStorage: function() {
+    return Promise.resolve({
+      getItem: function(key) { return localStorage.getItem(key); },
+      setItem: function(key, value) { localStorage.setItem(key, value); },
+      removeItem: function(key) { localStorage.removeItem(key); },
+      clear: function() { localStorage.clear(); }
+    });
+  },
+  isAvailableMethod: function(methodName) {
+    return Promise.resolve(true);
+  }
+};
+
+window.YaGames = {
+  init: function(options) {
+    console.log("YaGames.init() called - returning fake SDK");
+    return Promise.resolve(window.ysdk);
+  }
+};
+
+// ==================== DOSYA BİRLEŞTİRME ====================
+var downloadedParts = {};
+var totalDownloaded = 0;
+var totalToDownload = FILE_PARTS["Build.data.br"].totalSize + FILE_PARTS["Build.wasm.br"].totalSize;
+
+function updateProgress(loaded, fileName, partNum) {
+  var percent = Math.min(99, Math.round((totalDownloaded / totalToDownload) * 100));
+  progressBarFull.style.width = percent + "%";
+  loadingDetail.textContent = fileName + " part " + partNum + "...";
+}
+
+async function downloadPart(fileName, partNum) {
+  var url = CDN_BASE + "/" + fileName + ".part" + partNum;
+  console.log("Downloading: " + url);
+
+  var response = await fetch(url);
+  if (!response.ok) {
+    throw new Error("Failed to download " + fileName + " part " + partNum);
+  }
+
+  var buffer = await response.arrayBuffer();
+  totalDownloaded += buffer.byteLength;
+  updateProgress(totalDownloaded, fileName, partNum);
+
+  return buffer;
+}
+
+async function downloadAndMergeFile(fileName) {
+  var partCount = FILE_PARTS[fileName].parts;
+  var parts = [];
+
+  loadingStatus.textContent = "Downloading " + fileName + "...";
+
+  for (var i = 1; i <= partCount; i++) {
+    var part = await downloadPart(fileName, i);
+    parts.push(part);
+  }
+
+  var totalLength = parts.reduce(function(sum, part) { return sum + part.byteLength; }, 0);
+  var merged = new Uint8Array(totalLength);
+  var offset = 0;
+
+  for (var j = 0; j < parts.length; j++) {
+    merged.set(new Uint8Array(parts[j]), offset);
+    offset += parts[j].byteLength;
+  }
+
+  console.log(fileName + " merged: " + totalLength + " bytes");
+  return merged.buffer;
+}
+
+async function createBlobUrl(fileName) {
+  var buffer = await downloadAndMergeFile(fileName);
+  var blob = new Blob([buffer], { type: "application/octet-stream" });
+  return URL.createObjectURL(blob);
+}
+
+// ==================== GAME VARIABLES ====================
+var myGameInstance = null;
+var playerData = "{}";
+var needSend = false;
+var fullscreenOpened = false;
+var isActive = false;
+var gameReady = false;
+
+var canvas = document.querySelector("#unity-canvas");
+var loadingCover = document.querySelector("#loading-cover");
+var progressBarFull = document.querySelector("#unity-progress-bar-full");
+var skipButton = document.querySelector("#skip-button");
+var loadingStatus = document.querySelector("#loading-status");
+var loadingDetail = document.querySelector("#loading-detail");
+
+// ==================== GAME FUNCTIONS ====================
+function startGame() {
+  console.log("Starting game...");
+  loadingCover.style.display = "none";
+
+  if (myGameInstance) {
+    try {
+      myGameInstance.SendMessage('InitObject', 'OnInit', '{}');
+      console.log("Sent OnInit message");
+    } catch(e) {
+      console.log("OnInit failed, trying alternatives...");
+      try {
+        myGameInstance.SendMessage('InitObject', 'OnInitNoPlayer', 'desktop');
+      } catch(e2) {
+        console.log("Alternative init also failed");
+      }
+    }
+  }
+
+  window.focus();
+  canvas.focus();
+}
+
+function GameReadyAPI() {
+  console.log("GameReadyAPI called");
+  if (window.ysdk && window.ysdk.features && window.ysdk.features.LoadingAPI) {
+    window.ysdk.features.LoadingAPI.ready();
+  }
+}
+
+function OpenFullscreen() {
+  console.log("OpenFullscreen called - skipping ad");
+  fullscreenOpened = false;
+  if (myGameInstance) {
+    try {
+      myGameInstance.SendMessage('ADSManager', 'OnCloseFullscreen');
+    } catch(e) {
+      console.log("ADSManager message failed");
+    }
+  }
+}
+
+function ShowRewarded() {
+  console.log("ShowRewarded called - giving reward");
+  if (myGameInstance) {
+    try {
+      myGameInstance.SendMessage('ADSManager', 'OnRewardedCallback');
+      myGameInstance.SendMessage('ADSManager', 'OnCloseRewarded');
+    } catch(e) {
+      console.log("Rewarded message failed");
+    }
+  }
+}
+
+// ==================== SAVE/LOAD FUNCTIONS (Global) ====================
+// Unity bunları doğrudan çağırabilir
+function SaveData(data) {
+  console.log("SaveData called:", data);
+  if (player && player.setData) {
+    player.setData(data, true);
+  }
+}
+
+function LoadData() {
+  console.log("LoadData called");
+  if (player && player.getData) {
+    return player.getData();
+  }
+  return Promise.resolve({});
+}
+
+function setActive() {
+  isActive = true;
+  window.removeEventListener('keydown', setActive);
+  window.removeEventListener('mousedown', setActive);
+  window.removeEventListener('touchstart', setActive);
+  window.removeEventListener('pointerdown', setActive);
+}
+
+window.addEventListener('keydown', setActive);
+window.addEventListener('mousedown', setActive);
+window.addEventListener('touchstart', setActive);
+window.addEventListener('pointerdown', setActive);
+
+function unityShowBanner(msg, type) {
+  console.log("Unity Banner:", msg, type);
+}
+
+// ==================== UNITY LOADER ====================
+var buildUrl = "/misc/mr-dude/_ext/cdn.jsdelivr.net/gh/familiapablo/mrsr@main/Build";
+var loaderUrl = buildUrl + "/Build.loader.js";
+
+// Mobile viewport
+if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+  var meta = document.createElement('meta');
+  meta.name = 'viewport';
+  meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+  document.getElementsByTagName('head')[0].appendChild(meta);
+
+  if (window.ysdk && window.ysdk.deviceInfo) {
+    window.ysdk.deviceInfo.type = "mobile";
+    window.ysdk.deviceInfo.isDesktop = function() { return false; };
+    window.ysdk.deviceInfo.isMobile = function() { return true; };
+  }
+}
+
+// ==================== ANA YÜKLEME FONKSİYONU ====================
+async function loadGame() {
+  try {
+    loadingStatus.textContent = "Downloading game files...";
+    loadingDetail.textContent = "This may take a moment...";
+
+    console.log("Starting file download and merge...");
+
+    var dataBlobUrl = await createBlobUrl("Build.data.br");
+    console.log("Build.data.br ready");
+
+    var wasmBlobUrl = await createBlobUrl("Build.wasm.br");
+    console.log("Build.wasm.br ready");
+
+    loadingStatus.textContent = "Starting game engine...";
+    loadingDetail.textContent = "Almost ready...";
+    progressBarFull.style.width = "100%";
+
+    var config = {
+      arguments: [],
+      dataUrl: dataBlobUrl,
+      frameworkUrl: buildUrl + "/Build.framework.js",
+      codeUrl: wasmBlobUrl,
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "SeriousGames",
+      productName: "Mr Chel",
+      productVersion: "0.4",
+      showBanner: unityShowBanner,
+    };
+
+    var script = document.createElement("script");
+    script.src = loaderUrl;
+    script.onload = function() {
+      createUnityInstance(canvas, config, function(progress) {
+        var totalProgress = 50 + (progress * 50);
+        progressBarFull.style.width = totalProgress + "%";
+        loadingDetail.textContent = "Loading... " + Math.round(progress * 100) + "%";
+      }).then(function(unityInstance) {
+        console.log("Unity loaded successfully!");
+        myGameInstance = unityInstance;
+        window.gameInstance = unityInstance;
+        gameReady = true;
+
+        URL.revokeObjectURL(dataBlobUrl);
+        URL.revokeObjectURL(wasmBlobUrl);
+
+        loadingStatus.textContent = "Ready!";
+        loadingDetail.textContent = "";
+        skipButton.style.display = "block";
+        skipButton.classList.add("pulse-animation");
+
+        if (needSend) {
+          try {
+            myGameInstance.SendMessage('InitObject', 'OnInit', '{}');
+          } catch(e) {
+            console.log("needSend message failed:", e);
+          }
+        }
+
+      }).catch(function(message) {
+        console.error("Unity load error:", message);
+        loadingStatus.textContent = "Error loading game";
+        loadingDetail.textContent = message;
+      });
+    };
+
+    script.onerror = function() {
+      console.error("Failed to load Unity loader script");
+      loadingStatus.textContent = "Error";
+      loadingDetail.textContent = "Failed to load game engine";
+    };
+
+    document.body.appendChild(script);
+
+  } catch (error) {
+    console.error("Game loading error:", error);
+    loadingStatus.textContent = "Error";
+    loadingDetail.textContent = error.message;
+  }
+}
+
+// Oyunu başlat
+loadGame();
+</script>
+
+
+
+
+
+<script>const boot=setInterval(()=>{if(window.myGameInstance){clearInterval(boot);startGame()}},100);window.addEventListener("pagehide",()=>clearInterval(boot),{once:true});</script></body></html>
