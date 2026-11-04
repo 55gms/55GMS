@@ -1,5 +1,3 @@
-/* Premium page. Sits on top of profile.css and uses its tokens. */
-
 .premium-header {
   margin-bottom: 32px;
   text-align: center;
@@ -16,6 +14,41 @@
   font-size: 1.75rem;
   font-weight: 600;
   letter-spacing: -0.025em;
+  display: inline-block;
+  color: transparent;
+  background: linear-gradient(
+    110deg,
+    var(--p-text) 0%,
+    var(--p-text) 40%,
+    #ffe9a6 48%,
+    #ffffff 50%,
+    #ffe9a6 52%,
+    var(--p-text) 60%,
+    var(--p-text) 100%
+  );
+  background-size: 250% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: premiumShine 2s ease-in-out infinite;
+}
+
+@keyframes premiumShine {
+  0%, 10% {
+    background-position: 100% 0;
+  }
+
+  65%, 100% {
+    background-position: 0% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .premium-header h1 {
+    animation: none;
+    color: var(--p-text);
+    background: none;
+  }
 }
 
 .premium-header p {
@@ -131,8 +164,6 @@
   }
 }
 
-/* Buttons that are links, and buttons hidden with the hidden attribute
-   (.p-btn sets display, which would otherwise win over it). */
 .p-btn[hidden] {
   display: none;
 }
