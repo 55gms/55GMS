@@ -1359,7 +1359,7 @@
         "http://www.w3.org/2000/svg",
         "svg",
       );
-      icon.setAttribute("class", "icon");
+      icon.setAttribute("class", "qapv7vq");
       icon.setAttribute("aria-hidden", "true");
       const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
       use.setAttribute("href", "#i-" + entry.icon);
