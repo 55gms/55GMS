@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="55GMS Support - Request a game to be added to 55GMS." />
+  <title>Google</title>
+
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+  <link rel="stylesheet" href="/assets/css/style.css?v=7" />
+  <link rel="stylesheet" href="/assets/css/nav.css?v=8" />
+
+  <script src="/assets/js/script.js?v=28"></script>
+  <script src="/assets/js/font.js" defer></script>
+
+  <style>
+    .support-page {
+      max-width: 760px;
+      margin: 70px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .support-page h1 {
+      margin: 0 0 12px;
+      font-size: 42px;
+      font-weight: 700;
+    }
+
+    .support-intro {
+      color: var(--site-muted);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .support-card {
+      margin-top: 35px;
+      padding: 28px;
+      text-align: left;
+      border: 1px solid var(--site-border);
+      border-radius: 14px;
+      background: var(--site-surface-3);
+    }
+
+    .support-card h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .support-card p {
+      margin: 0 0 22px;
+      color: var(--site-muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .support-icon {
+      margin-bottom: 18px;
+      color: var(--site-accent);
+      font-size: 28px;
+    }
+
+    .support-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      background: var(--site-accent-hover);
+      color: var(--site-accent-text);
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .support-button:hover {
+      background: var(--site-accent);
+      color: var(--site-accent-text);
+      transform: scale(1.03);
+    }
+
+    .support-button:focus-visible {
+      outline: 2px solid var(--site-text);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 560px) {
+      .support-page {
+        margin-top: 45px;
+      }
+
+      .support-page h1 {
+        font-size: 32px;
+      }
+
+      .support-card {
+        padding: 20px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .support-button {
+        transition: none;
+      }
+
+      .support-button:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="navbar">
+      <a id="nav-title" href="/">Reds Exploit Corner</a>
+      <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
+      <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
+      <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
+      <a href="/s"><i class="fa-solid fa-gears">&nbsp;</i>Settings</a>
+      <a href="/support"><i class="fa-solid fa-circle-question">&nbsp;</i>Support</a>
+      <a href="/chat"><i class="fa-solid fa-comments">&nbsp;</i></a>
+      <a href="/profile"><i class="fa-solid fa-user"></i></a>
+    </div>
+  </nav>
+
+  <main class="support-page">
+    <h1>Support</h1>
+    <p class="support-intro">
+      Need something added to 55GMS? You're in the right place.
+    </p>
+
+    <section class="support-card">
+      <div class="support-icon">
+        <i class="fa-solid fa-gamepad" aria-hidden="true"></i>
+      </div>
+
+      <h2>Request a Game</h2>
+
+      <p>
+        Have a game you want to see on 55GMS?
+        Submit a request and let us know what game you'd like added.
+      </p>
+
+      <a
+        class="support-button"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSfY7Eh5sWLn9DcNHilyp2Xi_I8YA0MxXbENQDsatkwD_F1qeA/viewform"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Request a Game
+        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+      </a>
+    </section>
+  </main>
+</body>
+
+</html>
