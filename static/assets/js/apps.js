@@ -48,7 +48,13 @@ function createAppCard(app) {
   button.className = "game-link";
   button.addEventListener("click", () => {
     if (app.alert) window.alert(app.alert);
-    hire(app.url);
+   
+if (app.direct) {
+  window.location.href = app.url;
+} else {
+  hire(app.url);
+}
+
   });
 
   const image = document.createElement("img");
