@@ -440,3 +440,52 @@ function formatTime(date) {
     hour12: true,
   });
 }
+
+document.addEventListener("keydown", function (event) {
+  if (event.code !== "Space" || event.repeat) return;
+
+  if (event.ctrlKey || event.altKey || event.metaKey || event.shiftKey) {
+    return;
+  }
+
+  if (window.self !== window.top) return;
+
+  const path = window.location.pathname.toLowerCase();
+
+  const excludedPaths = [
+    "/misc/",
+    "/embed.html",
+    "/browser.html",
+    "/play/",
+    "/watch/",
+    "/b/",
+    "/b"
+  ];
+
+  if (excludedPaths.some(pathname => path === pathname || path.startsWith(pathname))) {
+    return;
+  }
+
+  const active = document.activeElement;
+
+  if (
+    active &&
+    (
+      active.matches("input, textarea, select, button, a, iframe") ||
+      active.isContentEditable
+    )
+  ) {
+    return;
+  }
+
+  if (document.fullscreenElement) return;
+
+  const playingVideo = Array.from(document.querySelectorAll("video"))
+    .some(video => !video.paused && !video.ended);
+
+  if (playingVideo) return;
+
+  event.preventDefault();
+
+  window.location.href = "https://classroom.google.com/";
+});
