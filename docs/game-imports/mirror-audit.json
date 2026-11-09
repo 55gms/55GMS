@@ -17,5 +17,13 @@
   "backup": "A missing file with a recorded source is relayed through the server; the browser keeps using same-origin URLs.",
   "gameFiles": 1010,
   "sharedRuntimeFiles": 12,
-  "sharedRuntime": "lib/game-runtime: loaders, save scripts, Socket.IO client, CSS, catalog and save registry"
+  "sharedRuntime": "lib/game-runtime: loaders, save scripts, Socket.IO client, CSS, catalog and save registry",
+  "assetsOnlyBrowserAudit": {
+    "games": 122,
+    "httpErrors": 0,
+    "standaloneParentFrameErrors": [
+      "obby-99-will-lose"
+    ],
+    "scope": "Four-second startup checks served only from the assets repository; no site static files were available."
+  }
 }
