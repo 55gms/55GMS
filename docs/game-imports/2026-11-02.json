@@ -188,6 +188,11 @@
           "path": "img.webp",
           "bytes": 12588,
           "sha256": "a0d7b46fddcc6d3787f74eaf745ec112e9a5814681b57217ec63b432bf9f5617"
+        },
+        {
+          "path": "index.html",
+          "bytes": 37564,
+          "sha256": "52861e2701b4302e3d18a1bf9d1e6542c5f836d0d9016b5bfb3d2f0b9553d8b0"
         }
       ],
       "duplicateCheck": {
@@ -208,9 +213,49 @@
       "sha256": "9adf6c00aa4d514e6aa63f771f57b1f25a2b89345325c564d4fad28f3214b07c",
       "assets": [
         {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/404.html",
+          "bytes": 1723,
+          "sha256": "8329832239519740d8af4770c1d0605f98abfb8a5044df1222ea35ef42e92189"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/NOTICE.txt",
+          "bytes": 740,
+          "sha256": "54b2917de8e4f98015a7df646e24b3114a305d49eace3461fddf66fc5c78a89e"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/THIRD-PARTY-NOTICES.txt",
+          "bytes": 5388,
+          "sha256": "7936705e085a355ad4c81d71d7f6da64508419177bd60086b85fb85f2cf5638c"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/ads.txt",
+          "bytes": 59,
+          "sha256": "5988756ee75de7d20b5a1fcc0f4b77db7a5f656ad0d95136529712da33d480d2"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/apple-touch-icon.png",
+          "bytes": 72590,
+          "sha256": "5ec242de6901f41a1573f5d83cadec6ed1a01e4f05931afc96fd7e41a55d2268"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/0989739505.bin",
+          "bytes": 86121,
+          "sha256": "098973950538093e16a2e9eb9ca6e8c4e9b831718d2a5423f66533c56fb21213"
+        },
+        {
           "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/1d797a334c.bin",
           "bytes": 1222054,
           "sha256": "1d797a334ccabe84a54a252e2d48973a6b3059fc19a5f69f0cc7b3e2c1fbd4c5"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/2e7789e67b.bin",
+          "bytes": 6126992,
+          "sha256": "2e7789e67b3504c0b0caca1ddb88ba26f17dc9f921f8d22c515823644e18e22a"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/3b2750d4ed.bin",
+          "bytes": 27407,
+          "sha256": "3b2750d4eda6fde5b689b4768ad42a931bc95e109e6e322bb15c7a3375815dd7"
         },
         {
           "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/445e742403.bin",
@@ -218,9 +263,44 @@
           "sha256": "445e742403cb696602bebf7474fd1028a407f9edcb7e0d2488ff3250554f8a38"
         },
         {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/56c1291b8a.bin",
+          "bytes": 8139,
+          "sha256": "56c1291b8afb901ee3338b7539edc3af32325a75187c8517d0a10cc29bedebdf"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/5ZzLvcXp.wasm",
+          "bytes": 973857,
+          "sha256": "e59ccbbdc5e986fac7661916a17e777d75aa4097ad03d9c4b1fa3a75e7335476"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/6dea35d16e.bin",
+          "bytes": 867513,
+          "sha256": "6dea35d16e278cd06b36ccba03ee31724501aba1824fe0ede90dc79ac1bbc471"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/7ba0272253.bin",
+          "bytes": 2075691,
+          "sha256": "7ba02722536c4b45452300cd3e58e1147696f7e35885fe352c292b73ea7f9fcd"
+        },
+        {
           "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/83dfb536e3.bin",
           "bytes": 600579,
           "sha256": "83dfb536e3a23986ff3ebd3852a6cc47543937a0ae4ec5ddd2663bb307366cb1"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/8403a2a1a0.bin",
+          "bytes": 142628,
+          "sha256": "8403a2a1a0af2be624df75b3573bd033069defa3c775c485d9dc15c86e8cf7f1"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/924c712ee0.bin",
+          "bytes": 139597,
+          "sha256": "924c712ee09c7758ee5005d38363b6801080dc96a3065384e88df138a4a36905"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/92c94a5794.bin",
+          "bytes": 86232,
+          "sha256": "92c94a5794808b66a88c79c7a1b9831605c30e0e46d16a74931081ec4c0a4b56"
         },
         {
           "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/97371e4baa.bin",
@@ -228,9 +308,19 @@
           "sha256": "97371e4baacce6769b37253dd40731415fcb3856bf1bcb10c4b818ac39b82290"
         },
         {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/BlZhR6DU.js",
+          "bytes": 13927,
+          "sha256": "3ebd0d9b71dfcffc110a0a7e991973592bf26b85f3cdc1f5a4c3279070dd193a"
+        },
+        {
           "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/CZQ9MG8D.js",
-          "bytes": 929606,
-          "sha256": "54285405ebdeeb9e7242055111f797aeda82459406194590eedf1a2d7fd7651f"
+          "bytes": 929603,
+          "sha256": "1ad552a9d356b3034c673ad2b108bf4b768c5629299e4426c4d5cba05f9a3e85"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/CwwCU11Z.js",
+          "bytes": 2742,
+          "sha256": "5708aee3200016afdaf7d9a17d3e91be4fd9fbc42af6c01c06a55ea44bcc62e3"
         },
         {
           "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/DHYxZjz1.js",
@@ -243,9 +333,44 @@
           "sha256": "399665f711c2055150cb5f6e57bbd2d44e9a74fc2b9f1439a374ac8fbf3e95bf"
         },
         {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/VCj7iT7o.js",
+          "bytes": 39083,
+          "sha256": "cbe29eab76ec4a3261f63c494054a35de816a00f5297b88ab5ea533339f23edd"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/ad244385d7.bin",
+          "bytes": 2319426,
+          "sha256": "ad244385d77c26d758d5b4cc5b498b21c3ebfec6c8e73855e643e24da3142190"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/bgzTXy-6.js",
+          "bytes": 6908,
+          "sha256": "bd254cb6d6f5e63f0f1ca7a9807d61fa862d577dbb4e4050968f4cc8bd860ecc"
+        },
+        {
           "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/c99c310975.bin",
           "bytes": 1192081,
           "sha256": "c99c310975b12a237d7f641093eb6cb1f2f308b9892e527ce18f120b3495769c"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/daba7f6100.bin",
+          "bytes": 93089,
+          "sha256": "daba7f61007e291694357080765aac2183cf693da6d600b89f6c41534d84bb92"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/e13dfcd2f5.bin",
+          "bytes": 65705,
+          "sha256": "e13dfcd2f5358bd1cf0c9a1291564d576109022189e978c860b006f9177b0869"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/f036af2e39.bin",
+          "bytes": 224198,
+          "sha256": "f036af2e39f4ebdf5d8638e93463b7dfa3fec64e8a859ec79ad1f0c2fc3ca8e9"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/fonts/Anton-Regular.ttf",
+          "bytes": 170812,
+          "sha256": "a4ba3a92350ebb031da0cb47630ac49eb265082ca1bc0450442f4a83ab947cab"
         },
         {
           "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/fonts/Barlow-Bold.ttf",
@@ -283,14 +408,364 @@
           "sha256": "b59bc7498c74e495f21ec5ede81b9435ed967270194058857c921fd15cb793c9"
         },
         {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/assets/ubtmXNht.js",
+          "bytes": 36375,
+          "sha256": "5715359c971f37c41b08a61754addc43f9dd1c14817d3b9d70224582725a7eeb"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/favicon-16.png",
+          "bytes": 944,
+          "sha256": "b247ed289093735abe7e950ef67721071dfec1de3124a48684eaeba41c96eb01"
+        },
+        {
           "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/favicon-32.png",
           "bytes": 3097,
           "sha256": "926e06256a31bfc7f0a9405117ce2ab7a42a4c85b0fe4ffafa0cb4d4fe6a57be"
         },
         {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/favicon-48.png",
+          "bytes": 6442,
+          "sha256": "7d15046581f683ac4be4cd34be1697f2601e1620b89a44cd8e626b297ddb819d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/favicon.ico",
+          "bytes": 10537,
+          "sha256": "028d11e380f82eb66596d324326fc2ab6a1d55d9d85ccc79b32750f468f823c5"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/icon-192.png",
+          "bytes": 80705,
+          "sha256": "30771ca8b8063b7417fc563a516e4af12af6915a94c6d008e8ba464671ab908e"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/icon-512.png",
+          "bytes": 474446,
+          "sha256": "a71eab5cd818dc0729697559c8f99823572b4ebb2668fe59f707a2b206109e29"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/index.html",
+          "bytes": 50686,
+          "sha256": "6d18236aa00f24b08225e7d1c64016eae384e39430fcfdea75e33e39e95d37a1"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/llms.txt",
+          "bytes": 1543,
+          "sha256": "5a3984debcfdc81400aa915bad3cc1e7cefc39fefb0c6b006f870b4df7a47928"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/manifest.webmanifest",
+          "bytes": 474,
+          "sha256": "3e13e9e28ee0931fd178e3ff96bc017389c30d6da256c49aa7ff8f775a959e03"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/og-image.jpg",
+          "bytes": 212043,
+          "sha256": "770f6ecd725256b6691f9319b1afc65b9f79913843751a14d385d2800a56ad08"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/release.json",
+          "bytes": 130,
+          "sha256": "b442df591b62368f23871a273c743a9ce233d00aba7a275746cae5659871be5d"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/robots.txt",
+          "bytes": 1098,
+          "sha256": "f24265ae63e586d4728b7402bc243c332afff71c2b4d6c1795c5594d73ef531f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sitemap.xml",
+          "bytes": 161,
+          "sha256": "c6fe185b492b746965cd37b0b926ad05db9bb07bf937e1e897a235796683ee27"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/076d3d199ce6eb5b.bin",
+          "bytes": 499263,
+          "sha256": "076d3d199ce6eb5be773c97fdc09a4ae762a3dd52b2bbee0c3eebeb626830663"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/0abf5576a6798d38.bin",
+          "bytes": 47873,
+          "sha256": "0abf5576a6798d386ff543449789149c274592f5890f0c6c035f086e723a03f7"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/10fe3dcccb3ec9ac.bin",
+          "bytes": 95110,
+          "sha256": "10fe3dcccb3ec9accb3ccca4387741bce52453214f53b52b95f4c38c3e933909"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/166495991ae87cff.bin",
+          "bytes": 41823,
+          "sha256": "166495991ae87cff41af14c8f30c259f2a5d9d4e6a17c2bc4b0c39ff12c06aba"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/1a30bbb0d2f3c42d.bin",
+          "bytes": 635750,
+          "sha256": "1a30bbb0d2f3c42d7ba4d6c44fad4121bcf233290f26dcd2043ef834228d130c"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/1cd712d8c30bda2b.bin",
+          "bytes": 6327360,
+          "sha256": "1cd712d8c30bda2bfd2f944566522c589c4de26dfadc96928efd3936e0eb0570"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/23e6ad63d245450b.bin",
+          "bytes": 417007,
+          "sha256": "23e6ad63d245450b4a160eb2011e166274c74638fa275730eb4e8750657bb9a6"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/334742be81527351.bin",
+          "bytes": 111493,
+          "sha256": "334742be8152735177adf10fb3098dfae071b64a81c893fc9c30316574e70838"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/3582e0b03002b1a1.bin",
+          "bytes": 23917,
+          "sha256": "3582e0b03002b1a1a9fae28d65e4b58c59fc6678dfb7324cd04375ec43cab5cb"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/3d03d07ca085fdcf.bin",
+          "bytes": 73107,
+          "sha256": "3d03d07ca085fdcfd55f1a2489b0fedf0e263be0d4faaf658a0630d3e9ba7320"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/3e80f5595835deb7.bin",
+          "bytes": 167210,
+          "sha256": "3e80f5595835deb7709af759ded256bd65e52793b6820a2402beb9a47e5439da"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/3fd76e561b41d1bd.bin",
+          "bytes": 83619,
+          "sha256": "3fd76e561b41d1bd29d5ffa77020f2806f3490fdbcaf628864758b3340c56eaf"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/4284b93610f81f23.bin",
+          "bytes": 2738543,
+          "sha256": "4284b93610f81f2327b11140f35d885837c97e92cdf7a3a340c58f64344b0647"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/4297b454a55c8072.bin",
+          "bytes": 41823,
+          "sha256": "4297b454a55c80722d0cb0a34fecedfac004142b988f363f0205eea1370f72e3"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/4674f454288dd828.bin",
+          "bytes": 167355,
+          "sha256": "4674f454288dd828272de52587bc5955db4f4947214da1d3d255e0efc0878ed5"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/4c101ab56da85fdd.bin",
+          "bytes": 18171,
+          "sha256": "4c101ab56da85fdd920c8338ca61b209162a4273a053a3dbde8d61ed46bbc568"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/4ee1c697d16a8345.bin",
+          "bytes": 1059581,
+          "sha256": "4ee1c697d16a83457bde3b630a93bc88d742a2718e9eeddb536716959cec53aa"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/4fac82e0aae24511.bin",
+          "bytes": 417986,
+          "sha256": "4fac82e0aae24511228b4e63048ac5ffe82a743ee3659c053b5427ebbaa5f63b"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/51e128663ae035ac.bin",
+          "bytes": 41823,
+          "sha256": "51e128663ae035aca76ff7323ce2e48733e5718bd7455e8fcf627a980a621e28"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/52b32d6781dce5e2.bin",
+          "bytes": 4755538,
+          "sha256": "52b32d6781dce5e22528865897f63bd8dfc3996fcdc3310904ffbe638db40486"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/5560e5d9a6174f6b.bin",
+          "bytes": 114497,
+          "sha256": "5560e5d9a6174f6b116f60944b868bd51254bb3152cf434581b997f08d5f7e17"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/5784f66d19703f9c.bin",
+          "bytes": 8386,
+          "sha256": "5784f66d19703f9c97063279377dc1b349b556727aeddd2ae138f44493f0fb92"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/65bafa75d9bd91eb.bin",
+          "bytes": 161522,
+          "sha256": "65bafa75d9bd91eb58f7180ce812324ca734604bf4926ad4a8a4bf81c2396b6c"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/670771707e0dce89.bin",
+          "bytes": 83619,
+          "sha256": "670771707e0dce89e87f33359b3d526bb8445420ff07f9c082c893af0b2d1609"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/6973c6b997c2c362.bin",
+          "bytes": 1360905,
+          "sha256": "6973c6b997c2c362a1f7d38887bdc3c9b86eb5dcbb4db21aeeddf525dfdb4225"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/6c9c4e73fd74144e.bin",
+          "bytes": 41823,
+          "sha256": "6c9c4e73fd74144e43f4d0b490766d4b800df910a9e802bc603f4e9e172cb35e"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/7aa7018ce130901e.bin",
+          "bytes": 100858,
+          "sha256": "7aa7018ce130901e0562cb0c51994766c7fc0bc98819c739ec673f1a045a88cd"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/7ae824f7dc57f8f6.bin",
+          "bytes": 52272,
+          "sha256": "7ae824f7dc57f8f68dabb6b52ec673ddf2a72c9cbd92da7eff0b3a94c2d21ffd"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/7e6b68f9b05b19ca.bin",
+          "bytes": 126548,
+          "sha256": "7e6b68f9b05b19cab8c2f1a8b1f6f4e2d2384a5f230ad84a90e299b70272e1af"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/91a538664b0b1cd3.bin",
+          "bytes": 41823,
+          "sha256": "91a538664b0b1cd3f9858785db7837181c3be01845c915e3b6137d64ec13f283"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/98dd2b44d1069b16.bin",
+          "bytes": 41823,
+          "sha256": "98dd2b44d1069b16c86a6ee8150b12448da1d05aaaf2bac3ecce9650ebfe70a0"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/9958d2a28ead05cc.bin",
+          "bytes": 975239,
+          "sha256": "9958d2a28ead05cce98be4ed0f314cfa8c37ae352e4e5b100bf122b1c3047826"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/a052fc60edc0a8d4.bin",
+          "bytes": 250500,
+          "sha256": "a052fc60edc0a8d48b19b6d4df26ee569fd29c2d6f90d64297c946ee810fa5a9"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/ab8bdf775984c79d.bin",
+          "bytes": 420495,
+          "sha256": "ab8bdf775984c79de0225726ad8518aaaa3426350e7caa72a4066c7e620e37df"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/ac24a56f3f629366.bin",
+          "bytes": 527138,
+          "sha256": "ac24a56f3f629366699d6516191a9d9f36ab805e911f58a05a5500ed80c5b71f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/af2741eaf45497b3.bin",
+          "bytes": 573564,
+          "sha256": "af2741eaf45497b36a3c3d759cbc963ccc058e6a812492673e4fda8210005ff3"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/afbdc4157f25b6a1.bin",
+          "bytes": 1158772,
+          "sha256": "afbdc4157f25b6a199e87c0e1726802c6fe30fe84a327ef6732594e44afa069c"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/b05afb8027ff9387.bin",
+          "bytes": 203101,
+          "sha256": "b05afb8027ff93874cfc179e1782ae41dd836229d9713685738e8f828e5a2c5f"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/b26f9619ed81334b.bin",
+          "bytes": 93002,
+          "sha256": "b26f9619ed81334b2cbc525b8179306000ab1faf5331a07ca483bfc0dba1b4d9"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/b2c5f8db14b739cf.bin",
+          "bytes": 199642,
+          "sha256": "b2c5f8db14b739cf3af090ce98de170c377b3bd46aa575b5ecea05ba214e3aed"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/bab54a4b84c871aa.bin",
+          "bytes": 67405,
+          "sha256": "bab54a4b84c871aa741c32e31f112757893329918793df6c0f5f049d52ea6302"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/bd93bb62d9b4a166.bin",
+          "bytes": 944871,
+          "sha256": "bd93bb62d9b4a166026556a49720cd7b25e4872a6ed9a54f6a58e9508ebe3b79"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/be2d71970c63a95f.bin",
+          "bytes": 115928,
+          "sha256": "be2d71970c63a95f720d046734d028bfaa343ee90e7cad301fe4de7ee2861606"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/c1eae04cf83f573f.bin",
+          "bytes": 83619,
+          "sha256": "c1eae04cf83f573f58c46adfe2013d6328df20ff33166f02c591755504139c00"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/c395ff79f1608391.bin",
+          "bytes": 104696,
+          "sha256": "c395ff79f1608391e577a0f9c2552b0a977fefa9029faf32de58b5cdb40c8e12"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/c97ca26c088b6e73.bin",
+          "bytes": 134884,
+          "sha256": "c97ca26c088b6e734fc710d065ba064b05a846d9a08c30066663938d5f2c16e9"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/d5a645bb28b56ee5.bin",
+          "bytes": 1823587,
+          "sha256": "d5a645bb28b56ee5d5b8b48319edf0a81925e83c2e7adafc5d055400821c76bc"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/da8b6fc0245823f5.bin",
+          "bytes": 104187,
+          "sha256": "da8b6fc0245823f5aa40469b29e194dbded06213ee5bda94cafa0ab728b80292"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/dc1f26bf14643f13.bin",
+          "bytes": 4783695,
+          "sha256": "dc1f26bf14643f1304f8c5032d792054373b01ca48f2b4ddd1bec6fb09ff2ea5"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/dc4e31267e0fd01d.bin",
+          "bytes": 26982,
+          "sha256": "dc4e31267e0fd01db70222fa294fd537344e693668e329fd9d4fe9c096f29fc1"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/e1cf7acd297f6c0e.bin",
+          "bytes": 37189,
+          "sha256": "e1cf7acd297f6c0e82c5e54c816a4a041902dfa3248f44ca0eb759a16fc9a30b"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/e7af94656ca5d6b8.bin",
+          "bytes": 89147,
+          "sha256": "e7af94656ca5d6b8194518e9bd9a403b9b9a0a48451da0854d734f8ddbf48232"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/ed9b6ba7c9aab272.bin",
+          "bytes": 102378,
+          "sha256": "ed9b6ba7c9aab27260f998572c996e61105c9e200ed74fad5dab7d84c11b44b6"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/f46d0577c1de407e.bin",
+          "bytes": 102424,
+          "sha256": "f46d0577c1de407ef00e801f41f7e83bbb13fadd7aae8d7d7ecbc7955c9f6a9e"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/f883918b1981be10.bin",
+          "bytes": 165622,
+          "sha256": "f883918b1981be10f2836181c630a012178100bce1bc23f04882df33224c03e2"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/nitrocargit/files@7dd72a3bb91b01bab27aed39c0bbdd01b6e89a66/sound-review/index.bin",
+          "bytes": 6175,
+          "sha256": "1cb8fabf2b76e0ca6eabc0e27f91e3faa9fe8fa83f564282b5bf1d92e72d1e1f"
+        },
+        {
           "path": "img.webp",
           "bytes": 32902,
           "sha256": "b583e862bd07d8ee426b27aed635bb38357191bea8385474348773eaa0d1d4f7"
+        },
+        {
+          "path": "index.html",
+          "bytes": 53297,
+          "sha256": "f5cf6e7e3b2b8aa47b5169f0dadb4bb78fbc41ffd32403a36002f0f25d7dc12a"
         }
       ],
       "duplicateCheck": {
@@ -376,6 +851,11 @@
           "sha256": "0dc85322e427c084ad2ac651c779d0d3246c3eb20fedce98e42ad32b8246dfe0"
         },
         {
+          "path": "_ext/cdn.jsdelivr.net/gh/familiapablo/safa@main/TemplateData/favicon.ico",
+          "bytes": 2305,
+          "sha256": "9c13beb90ee8f70580d52a21d5233970d1c89e71e4a34a462c22610941c3c77f"
+        },
+        {
           "path": "_ext/cdn.jsdelivr.net/gh/familiapablo/safa@main/TemplateData/fullscreen-button.png",
           "bytes": 175,
           "sha256": "21221581673a54b8139d408d4a3f8d2b879e86827d4b6fc53b995ff7a99ee3e9"
@@ -409,6 +889,11 @@
           "path": "img.webp",
           "bytes": 23630,
           "sha256": "5d158c6e767731819d0f5586c5abbda0656c48a8713dc7cfee8868d9d642b498"
+        },
+        {
+          "path": "index.html",
+          "bytes": 10686,
+          "sha256": "a80d689bf67b926d7d3faabfffc1799204d6140614a1bb9bf809b5b14f3870af"
         }
       ],
       "duplicateCheck": {
@@ -428,6 +913,31 @@
       "runtime": "unity",
       "sha256": "1444b8cf9e004ed1f8e46cc1e99fcfce2c0a6dd0218743e256fabc7079e1b1da",
       "assets": [
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/ftbaldana/yojex@3723a4d/Build/7596a49439dcfec08e5215bed2a9eec3.wasm.br.part0",
+          "bytes": 8388608,
+          "sha256": "f4a2e5acc868916c43a3db1da9fe37b391b2a0101fa66b7f1a68c837d0172fc3"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/ftbaldana/yojex@3723a4d/Build/7596a49439dcfec08e5215bed2a9eec3.wasm.br.part1",
+          "bytes": 8388608,
+          "sha256": "0363c1839f62643facb4357fdcf09e8d994e752afa37b32fe427b618c90febeb"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/ftbaldana/yojex@3723a4d/Build/7596a49439dcfec08e5215bed2a9eec3.wasm.br.part2",
+          "bytes": 8388608,
+          "sha256": "b8ed4ebb0deec4217a2ac90565f6ac3edfb79f69bfe1ffd8eae284dd408de607"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/ftbaldana/yojex@3723a4d/Build/7596a49439dcfec08e5215bed2a9eec3.wasm.br.part3",
+          "bytes": 8388608,
+          "sha256": "5794aefc99e510f2a8ee31ee6c8553b24297acc557ce739c07a1ef784c40252b"
+        },
+        {
+          "path": "_ext/cdn.jsdelivr.net/gh/ftbaldana/yojex@3723a4d/Build/7596a49439dcfec08e5215bed2a9eec3.wasm.br.part4",
+          "bytes": 5094957,
+          "sha256": "a2cbf44d71bf9d11aa6f2c25bbf10af7577f21ede45f75b73f955ae53b746275"
+        },
         {
           "path": "_ext/cdn.jsdelivr.net/gh/ftbaldana/yojex@3723a4d/Build/a25d3e539f772ceb6e8712015eceb9e4.framework.js",
           "bytes": 367946,
@@ -492,6 +1002,11 @@
           "path": "img.webp",
           "bytes": 13328,
           "sha256": "35779542eb164e1ae122c6dce92dfb5cab47a4d49be644225902771d8be9b85d"
+        },
+        {
+          "path": "index.html",
+          "bytes": 24430,
+          "sha256": "c1348c3841aada35312e799a232551b8fb0fbf85cb17b234c605b29e74956c6d"
         }
       ],
       "duplicateCheck": {
@@ -560,6 +1075,11 @@
           "path": "img.webp",
           "bytes": 18714,
           "sha256": "eb87abe72192e7dd08e63e45e57ab4ed068c0ee8ed4d0fab4972c3577b81a0d1"
+        },
+        {
+          "path": "index.html",
+          "bytes": 13366,
+          "sha256": "15f1ce19bf69ddfe67fdce0c697051a22a382e0f8b679b1842031433b03eeabc"
         }
       ],
       "duplicateCheck": {
@@ -638,6 +1158,11 @@
           "path": "img.webp",
           "bytes": 18480,
           "sha256": "19f6cf8449d5810a3c949e5c36cca9d86470ccefab20c37adc45b4ddb655753c"
+        },
+        {
+          "path": "index.html",
+          "bytes": 36336,
+          "sha256": "d5d48b524883cf4b5fe12b3c991ca4beda0e6dff0f591641c899f6e32ab6ed3c"
         }
       ],
       "duplicateCheck": {
@@ -841,6 +1366,11 @@
           "path": "img.webp",
           "bytes": 24668,
           "sha256": "10e84d9e88fa143c5d198dd655d32f2182ff049ef6961d17272a8dde6de5f730"
+        },
+        {
+          "path": "index.html",
+          "bytes": 14069,
+          "sha256": "71399b666ed0ef56182a8dbde7662e290ac44ebe85446704c336404bcd27c427"
         }
       ],
       "duplicateCheck": {
@@ -919,6 +1449,11 @@
           "path": "img.webp",
           "bytes": 13820,
           "sha256": "2408cae4a797e9ce6ad15c55b01f5e25243ad6224b0a6f0dbd7dd7eef8cdc4d8"
+        },
+        {
+          "path": "index.html",
+          "bytes": 9326,
+          "sha256": "f1c7dfc4e606a57e401cf3343ec014418f7875bcff6919e78a2f0ed631726471"
         }
       ],
       "duplicateCheck": {
@@ -1022,6 +1557,11 @@
           "path": "img.webp",
           "bytes": 18832,
           "sha256": "78462d9100249f2b8d6e7001ef8b06456b145f78029673d1f307542d696218c8"
+        },
+        {
+          "path": "index.html",
+          "bytes": 17743,
+          "sha256": "cc02e6dc442cbb11dc4eeb78b0d60d499de50e6c6f265945517b840b1105e4f7"
         }
       ],
       "duplicateCheck": {
@@ -1035,6 +1575,6 @@
       }
     }
   ],
-  "assetCommit": "8fd8d6116ee8bf917fa9546265462fa056af0648",
+  "assetCommit": "267531b05cc9658579f87c6d888b45279d1d0869",
   "acceptanceScope": "Loading only, per current user instruction; historical incomplete gameplay evidence is preserved."
 }

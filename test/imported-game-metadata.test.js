@@ -5,7 +5,7 @@ import test from "node:test";
 const read = (file) =>
   JSON.parse(readFileSync(new URL(file, import.meta.url), "utf8"));
 
-test("every imported game has a unique catalog entry, pinned artwork and source-backed creator credit", () => {
+test("every imported game has a unique catalog entry, local artwork and source-backed creator credit", () => {
   const baseline = read("../docs/game-imports/2026-10-29.json");
   const update = read("../docs/game-imports/2026-11-02.json");
   const metadata = read("../docs/game-imports/metadata.json");
@@ -32,7 +32,7 @@ test("every imported game has a unique catalog entry, pinned artwork and source-
       assert.match(
         entry.image,
         new RegExp(
-          `^https://cdn\\.jsdelivr\\.net/gh/55gms/assets@[0-9a-f]{40}/misc/${game.folder}/img\\.webp$`,
+          `^/misc/${game.folder}/img\\.webp$`,
         ),
         game.name,
       );

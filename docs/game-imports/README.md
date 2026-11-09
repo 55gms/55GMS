@@ -1,3 +1,9 @@
+## November 9 mirror update
+
+The assets PR now contains 1,010 files (2,644,877,755 bytes) across all 122 imported game folders, including their HTML entrypoints. See `mirror-audit.json`, `source-inventory.json` and `startup-network-audit.json` for coverage and limitations. Games use local server paths; deployment installs the pinned assets commit before building. Missing files with a recorded upstream source have a server-side emergency backup, with mirror misses logged. Browser CSP blocks third-party asset and telemetry requests. Half-Life still depends on an external WebSocket service and is not standalone. Source inventories returned five 404 refs; five Draw Climber particle metadata filenames remain unavailable, without an observed startup request. The short all-game sweep found zero missing HTTP responses, which does not establish full gameplay or late-level asset coverage.
+
+---
+
 # November 2 update
 
 The batch now contains **110 entries**: the prior 101 plus nine requested games. Soccer Aim resolves to the existing Soccer REAL and was excluded. Every entry has a thumbnail and credit record in [metadata.json](metadata.json); 100 thumbnails are mirrored and ten use source-hosted artwork. VaVeX has no identifiable creator in its source and is explicitly labeled uncredited.
