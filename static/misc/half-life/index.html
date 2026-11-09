@@ -1,0 +1,741 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; connect-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' data: blob:; font-src 'self' data:; worker-src 'self' blob:; frame-src 'self' blob:; object-src 'none'; form-action 'self'; base-uri 'self'">
+  <script  src="/lib/game-runtime/assets/js/save-agent.js?v=4" data-game-id="half-life"></script>
+  <script type="application/json" id="gms-import-config">{"title":"Half-Life","engine":"web","files":[["/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/D1X4HkNG.png",1927312],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/FiraSans-Regular-BN6hITtY.ttf",440984],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/Launcher-DlEgIUBT.js",838716],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/bot_emscripten_wasm32-_UT8vnK3.wasm",1220611],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/client_emscripten_wasm32-B8wrzvvT.wasm",247594],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/crossfire.bsp-2fX3FfnW.webp",87988],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/filesystem_stdio-DBiLmSxk.wasm",71248],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/hldm-D1X4HkNG.png",1927312],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/index-BORoamJR.js",492933],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/libref_webgl2-Dp0z5xFS.wasm",260334],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/xash-iHQixqHD.wasm",5937344],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/settings@138ab53eba0bd57465552ae2a4a267990ec71f22/data.p5.js",8388608],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/settings@138ab53eba0bd57465552ae2a4a267990ec71f22/data.p6.js",8388608],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/settings@138ab53eba0bd57465552ae2a4a267990ec71f22/data.p7.js",8388608],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/settings@138ab53eba0bd57465552ae2a4a267990ec71f22/data.p8.js",7295260],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/styles@6d87de57b579672a18997a2b54d9e0fed9057198/data.p0.js",8388608],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/styles@6d87de57b579672a18997a2b54d9e0fed9057198/data.p1.js",8388608],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/styles@6d87de57b579672a18997a2b54d9e0fed9057198/data.p2.js",8388608],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/styles@6d87de57b579672a18997a2b54d9e0fed9057198/data.p3.js",8388608],["/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/styles@6d87de57b579672a18997a2b54d9e0fed9057198/data.p4.js",8388608]],"total":87856500,"preloads":false,"parts":{},"partSizes":[],"legacyLoadingSelectors":["#boot"],"readySelector":"#root > *"}</script><script src="/lib/game-runtime/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/lib/game-runtime/assets/js/game-loader.js?v=5gz9swuael" data-title="Half-Life"></script><script src="/lib/game-runtime/assets/js/imported-game-loader.js?v=3" data-title="Half-Life"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, width=device-width">
+<title>Half-Life</title>
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;font-size:12px;background:#0b0705;
+ -webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+*{overflow:hidden}
+#boot{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;opacity:1;transition:opacity .45s ease}
+#boot.fade{opacity:0;pointer-events:none}
+#boot.gone{display:none}
+#bootbg{position:absolute;inset:0;background:#120b06 center center/cover no-repeat;filter:saturate(.85) contrast(1.05);
+ opacity:0;transform:scale(1.06);transition:opacity .6s ease;animation:bkz 18s ease-out forwards}
+#bootbg.on{opacity:1}
+@keyframes bkz{from{transform:scale(1.06)}to{transform:scale(1.14)}}
+#bootveil{position:absolute;inset:0;
+ background:radial-gradient(120% 90% at 50% 38%, rgba(255,138,31,.20) 0%, rgba(11,7,5,.72) 55%, rgba(11,7,5,.94) 100%)}
+#bootin{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;padding:0 20px;text-align:center}
+#btitle{margin:0;font:700 clamp(15px,2.2vw,19px)/1.25 system-ui,-apple-system,"Segoe UI",sans-serif;
+ letter-spacing:.2em;text-transform:uppercase;color:#ffb259;text-shadow:0 2px 18px rgba(255,138,31,.45),0 1px 2px rgba(0,0,0,.7)}
+#brule{width:54px;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(255,138,31,0),#ff8a1f,rgba(255,138,31,0))}
+#bbar{position:relative;width:min(320px,62vw);height:5px;border-radius:999px;background:rgba(255,255,255,.12);
+ overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,138,31,.18)}
+#bfill{width:0%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#ff7a0d,#ffc46b);
+ transition:width .25s ease;box-shadow:0 0 14px rgba(255,138,31,.6)}
+#btxt{font:600 10px/1 ui-monospace,Consolas,monospace;letter-spacing:.26em;color:#f0c79a;opacity:.85}
+#brl{display:none;margin-top:4px;font:700 11px/1 system-ui,sans-serif;letter-spacing:.14em;padding:10px 26px;border:0;
+ border-radius:999px;background:linear-gradient(90deg,#ff7a0d,#ffb259);color:#2a1403;cursor:pointer}
+#boot.err #brl{display:block}
+#boot.err #btxt{color:#ffb3a0;letter-spacing:.06em;max-width:min(420px,88vw);line-height:1.6;font-size:11px}
+#boot.err #bfill{background:linear-gradient(90deg,#c0392b,#e8674f)}
+
+@media (prefers-reduced-motion:reduce){#bfill{transition:none}#bootbg{animation:none;transform:none}#boot{transition:none}}
+</style>
+<style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body>
+<div id="boot" class="gms-legacy-loading-hooks"><div id="bootbg"></div><div id="bootveil"></div><div id="bootin"><h3 id="btitle"></h3><div id="brule"></div><div id="bbar"><div id="bfill"></div></div><div id="btxt"></div><button id="brl" onclick="window.__reload&amp;&amp;window.__reload()"></button></div></div>
+<div id="root"></div>
+
+
+
+
+<script>
+window.F = {
+  "bot_emscripten_wasm32-_UT8vnK3.wasm": "/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/bot_emscripten_wasm32-_UT8vnK3.wasm",
+  "client_emscripten_wasm32-B8wrzvvT.wasm": "/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/client_emscripten_wasm32-B8wrzvvT.wasm",
+  "crossfire.bsp-2fX3FfnW.webp": "/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/crossfire.bsp-2fX3FfnW.webp",
+  "filesystem_stdio-DBiLmSxk.wasm": "/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/filesystem_stdio-DBiLmSxk.wasm",
+  "FiraSans-Regular-BN6hITtY.ttf": "/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/FiraSans-Regular-BN6hITtY.ttf",
+  "hldm-D1X4HkNG.png": "/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/hldm-D1X4HkNG.png",
+  "D1X4HkNG.png": "/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/D1X4HkNG.png",
+  "index-BORoamJR.js": "/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/index-BORoamJR.js",
+  "Launcher-DlEgIUBT.js": "/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/Launcher-DlEgIUBT.js",
+  "libref_webgl2-Dp0z5xFS.wasm": "/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/libref_webgl2-Dp0z5xFS.wasm",
+  "xash-iHQixqHD.wasm": "/misc/half-life/_ext/cdn.jsdelivr.net/gh/tyuuunicorn/rbulox@00958494fd9ab529618f905eec91e53e1146d02c/xash-iHQixqHD.wasm"
+};
+
+window.DATA_TOTAL = 74404124;
+window.DATA_PARTS = [
+  { url: "/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/styles@6d87de57b579672a18997a2b54d9e0fed9057198/data.p0.js", size: 8388608 },
+  { url: "/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/styles@6d87de57b579672a18997a2b54d9e0fed9057198/data.p1.js", size: 8388608 },
+  { url: "/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/styles@6d87de57b579672a18997a2b54d9e0fed9057198/data.p2.js", size: 8388608 },
+  { url: "/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/styles@6d87de57b579672a18997a2b54d9e0fed9057198/data.p3.js", size: 8388608 },
+  { url: "/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/styles@6d87de57b579672a18997a2b54d9e0fed9057198/data.p4.js", size: 8388608 },
+  { url: "/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/settings@138ab53eba0bd57465552ae2a4a267990ec71f22/data.p5.js", size: 8388608 },
+  { url: "/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/settings@138ab53eba0bd57465552ae2a4a267990ec71f22/data.p6.js", size: 8388608 },
+  { url: "/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/settings@138ab53eba0bd57465552ae2a4a267990ec71f22/data.p7.js", size: 8388608 },
+  { url: "/misc/half-life/_ext/cdn.jsdelivr.net/gh/unboxstreamsettings/settings@138ab53eba0bd57465552ae2a4a267990ec71f22/data.p8.js", size: 7295260 }
+];
+</script>
+
+<script>
+try {
+  window.__home = location.href;
+  var want = new URL('../index.html', window.F['index-BORoamJR.js']).pathname;
+  // Preserve the imported game URL.
+} catch (e) {}
+window.__reload = function () {
+  try { location.replace(window.__home || location.href); } catch (e) { location.reload(); }
+};
+</script>
+
+<script>
+(function () {
+  function noop() {}
+  function ok(v) { return function () { return Promise.resolve(v); }; }
+  function advCall(o, n, a) { try { if (o && o.callbacks && typeof o.callbacks[n] === 'function') o.callbacks[n](a); } catch (e) {} }
+
+  var player = {
+    getUniqueID: function () { return 'local'; },
+    getName: function () { return 'Player'; },
+    getPhoto: function () { return ''; },
+    getMode: function () { return 'lite'; },
+    getData: function () { var d = {}; try { d = JSON.parse(localStorage.getItem('cr_save') || '{}'); } catch (e) {} return Promise.resolve(d); },
+    setData: function (d) { try { localStorage.setItem('cr_save', JSON.stringify(d || {})); } catch (e) {} return Promise.resolve(); },
+    getStats: ok({}), setStats: ok(), incrementStats: ok({}),
+    signIn: function () { return Promise.reject(new Error('no auth')); }
+  };
+
+  var sdk = {
+    dispatchEvent: function () { return Promise.resolve(); },
+    environment: { app: { id: 'local' }, browser: { lang: 'en' }, i18n: { lang: 'en', tld: 'com' }, payload: null },
+    deviceInfo: { type: 'desktop', isDesktop: function () { return true; }, isMobile: function () { return false; },
+                  isTablet: function () { return false; }, isTV: function () { return false; } },
+    adv: {
+      showFullscreenAdv: function (o) { setTimeout(function () { advCall(o, 'onClose', false); }, 0); },
+      showRewardedVideo: function (o) { return window.GMSImportedAds.yandex(o); },
+      showBannerAdv: ok({ reason: 'unknown' }), hideBannerAdv: ok({}),
+      getBannerAdvStatus: ok({ stickyAdvIsShowing: false })
+    },
+    features: { LoadingAPI: { ready: noop }, GameplayAPI: { start: noop, stop: noop } },
+    screen: { fullscreen: { status: 'off', request: ok(), exit: ok() } },
+    getPlayer: ok(player),
+    getLeaderboards: ok({ getLeaderboardDescription: ok({}),
+      getLeaderboardPlayerEntry: function () { return Promise.reject(new Error('no entry')); },
+      getLeaderboardEntries: ok({ entries: [] }), setLeaderboardScore: ok() }),
+    getPayments: ok({ purchase: ok({}), getPurchases: ok([]), getCatalog: ok([]), consumePurchase: ok() }),
+    getStorage: ok(window.localStorage), getFlags: ok({}), isAvailableMethod: ok(false),
+    clipboard: { writeText: ok() },
+    shortcut: { canShowPrompt: ok({ canShow: false }), showPrompt: ok({ outcome: 'rejected' }) },
+    feedback: { canReview: ok({ value: false }), requestReview: ok({ feedbackSent: false }) },
+    EVENTS: {}, on: noop, off: noop
+  };
+  window.ysdk = sdk;
+  window.YaGames = { init: function () { return Promise.resolve(sdk); } };
+})();
+</script>
+
+<script>
+(function () {
+  var ready = false, on = false, cv = null, drag = false, pid = null, btn = 0;
+  var t0 = 0, dist = 0, fire = false, hold = null, last = null, tipped = false;
+  var HOLD = 260, TAP = 7;
+
+  function L(k, m) { if (window.__log) window.__log(k, m); }
+
+  function pick(el) {
+    if (el && el.tagName === 'CANVAS') return el;
+    var c = document.querySelectorAll('canvas'), i, b = null;
+    for (i = 0; i < c.length; i++) if (!b || c[i].width * c[i].height > b.width * b.height) b = c[i];
+    return b;
+  }
+
+  function mk(type, src, mx, my, buttons) {
+    var o = {
+      bubbles: true, cancelable: true, view: window, detail: 1,
+      clientX: src ? src.clientX : 0, clientY: src ? src.clientY : 0,
+      screenX: src ? src.screenX : 0, screenY: src ? src.screenY : 0,
+      button: 0, buttons: buttons || 0, movementX: mx || 0, movementY: my || 0
+    };
+    var e;
+    try { e = new MouseEvent(type, o); } catch (err) {
+      e = document.createEvent('MouseEvents');
+      e.initMouseEvent(type, true, true, window, 1, o.screenX, o.screenY, o.clientX, o.clientY, false, false, false, false, 0, null);
+    }
+    try { if (e.movementX !== o.movementX) Object.defineProperty(e, 'movementX', { value: o.movementX, configurable: true }); } catch (x) {}
+    try { if (e.movementY !== o.movementY) Object.defineProperty(e, 'movementY', { value: o.movementY, configurable: true }); } catch (x) {}
+    try { if (e.buttons !== o.buttons) Object.defineProperty(e, 'buttons', { value: o.buttons, configurable: true }); } catch (x) {}
+    e.__syn = 1;
+    return e;
+  }
+  function send(type, src, mx, my, buttons) { if (cv) cv.dispatchEvent(mk(type, src, mx, my, buttons)); }
+
+  function eat(e) {
+    if (!on || e.__syn) return;
+    if (e.target !== cv && !drag) return;
+    e.stopImmediatePropagation(); e.stopPropagation();
+  }
+
+  function startFire() {
+    hold = null;
+    if (!drag || fire || btn !== 0) return;
+    fire = true;
+    send('mousedown', last, 0, 0, 1);
+  }
+
+  function down(e) {
+    if (!on || e.pointerType === 'touch' || drag) return;
+    if (e.button !== 0 && e.button !== 2) return;
+    drag = true; pid = e.pointerId; btn = e.button; t0 = Date.now(); dist = 0; fire = false; last = e;
+    try { cv.setPointerCapture(pid); } catch (x) {}
+    try { cv.focus({ preventScroll: true }); } catch (x) { try { cv.focus(); } catch (y) {} }
+    e.preventDefault();
+    if (btn === 0) hold = setTimeout(startFire, HOLD);
+  }
+
+  function move(e) {
+    if (!on) return;
+    last = e;
+    if (!drag || e.pointerId !== pid) return;
+    var mx = e.movementX || 0, my = e.movementY || 0;
+    dist += Math.abs(mx) + Math.abs(my);
+    if (hold && dist >= TAP) { clearTimeout(hold); hold = null; }
+    if (mx || my) send('mousemove', e, mx, my, fire ? 1 : 0);
+    e.preventDefault();
+  }
+
+  function stop(e) {
+    if (hold) { clearTimeout(hold); hold = null; }
+    if (pid !== null) { try { cv.releasePointerCapture(pid); } catch (x) {} }
+    if (fire) send('mouseup', e || last, 0, 0, 0);
+    drag = false; fire = false; pid = null; dist = 0;
+  }
+
+  function up(e) {
+    if (!on || !drag || e.pointerId !== pid) return;
+    var quick = (Date.now() - t0) < HOLD && dist < TAP, wasFire = fire, b = btn;
+    stop(e);
+    if (!wasFire && quick && b === 0) {
+      send('mousedown', e, 0, 0, 1);
+      setTimeout(function () { send('mouseup', e, 0, 0, 0); }, 70);
+    }
+    e.preventDefault();
+  }
+
+  function tip() {
+    if (tipped) return; tipped = true;
+    var n = document.createElement('div');
+    n.style.cssText = 'position:fixed;left:50%;top:14px;transform:translateX(-50%);z-index:100001;max-width:min(540px,92vw);' +
+      'padding:10px 16px;border-radius:10px;background:rgba(18,10,4,.93);border:1px solid rgba(255,138,31,.5);' +
+      'color:#ffd2a1;font:600 11.5px/1.6 system-ui,-apple-system,sans-serif;text-align:center;cursor:pointer;' +
+      'box-shadow:0 8px 24px rgba(0,0,0,.5)';
+    n.innerHTML = 'Mouse look is limited in this window.<br>' +
+      '<b style="color:#ffb259">Hold the mouse button and move</b> to look around &nbsp;&middot;&nbsp; ' +
+      '<b style="color:#ffb259">quick click</b> to shoot &nbsp;&middot;&nbsp; ' +
+      '<b style="color:#ffb259">right button</b> to look without shooting';
+    n.onclick = function () { if (n.parentNode) n.parentNode.removeChild(n); };
+    document.body.appendChild(n);
+    setTimeout(function () { if (n.parentNode) n.parentNode.removeChild(n); }, 16000);
+  }
+
+  function setup(el) {
+    if (ready) return true;
+    cv = pick(el);
+    if (!cv) return false;
+    ready = true;
+    window.addEventListener('mousemove', eat, true);
+    window.addEventListener('mousedown', eat, true);
+    window.addEventListener('mouseup', eat, true);
+    cv.addEventListener('pointerdown', down, true);
+    window.addEventListener('pointermove', move, true);
+    window.addEventListener('pointerup', up, true);
+    window.addEventListener('pointercancel', function (e) { if (on && drag && e.pointerId === pid) stop(e); }, true);
+    cv.addEventListener('contextmenu', function (e) { if (on) e.preventDefault(); }, true);
+    return true;
+  }
+
+  function arm(el, tries) {
+    if (!setup(el)) {
+      if ((tries || 0) < 25) setTimeout(function () { arm(el, (tries || 0) + 1); }, 400);
+      return;
+    }
+    if (on) return;
+    on = true;
+    try { cv.style.cursor = 'none'; } catch (x) {}
+    try { cv.style.touchAction = 'none'; } catch (x) {}
+    L('w', 'mouse lock blocked - drag look ON');
+    tip();
+  }
+
+  function disarm() {
+    if (!on) return;
+    on = false;
+    stop(null);
+    try { cv.style.cursor = ''; } catch (x) {}
+  }
+  window.__dragLook = arm;
+  window.__dragLookOff = disarm;
+
+  var rq = Element.prototype.requestPointerLock;
+  if (rq) Element.prototype.requestPointerLock = function () {
+    var el = this, r;
+    try { r = rq.apply(el, arguments); }
+    catch (e) { arm(el, 0); return; }
+    if (r && typeof r.catch === 'function') r.catch(function () { arm(el, 0); });
+    else setTimeout(function () { if (document.pointerLockElement !== el) arm(el, 0); }, 500);
+    return r;
+  };
+
+  var ex = document.exitPointerLock;
+  if (ex) document.exitPointerLock = function () { disarm(); try { return ex.apply(document, arguments); } catch (e) {} };
+
+  document.addEventListener('pointerlockchange', function () { if (document.pointerLockElement) disarm(); });
+
+  window.addEventListener('unhandledrejection', function (e) {
+    var m = '';
+    try { m = String((e.reason && (e.reason.message || e.reason)) || ''); } catch (x) {}
+    if (m.indexOf('requestPointerLock') >= 0 || m.indexOf('ointer lock') >= 0) arm(null, 0);
+  });
+})();
+</script>
+
+<script>
+(function () {
+  var F = window.F;
+  var boot = document.getElementById('boot'), txt = document.getElementById('btxt'), fill = document.getElementById('bfill');
+  var shown = 0;
+
+  var bgEl = document.getElementById('bootbg');
+  var bootStart = Date.now();
+
+  function setPct(p) {
+    p = Math.max(0, Math.min(100, p | 0));
+    if (p < shown) return;
+    shown = p; fill.style.width = p + '%'; txt.textContent = 'LOADING ' + p + '%';
+  }
+  function fail(m) { boot.classList.add('err'); txt.textContent = m; fill.style.width = '100%'; }
+
+  var KEYS = Object.keys(F).sort(function (a, b) { return b.length - a.length; });
+  function lookup(raw) {
+    var u = String(raw || '');
+    if (!u || /^(blob:|data:)/i.test(u)) return null;
+    var p = u.split('#')[0].split('?')[0];
+    for (var i = 0; i < KEYS.length; i++) {
+      var k = KEYS[i];
+      if (p === k || p.slice(-(k.length + 1)) === '/' + k) return F[k];
+    }
+    return null;
+  }
+  function named(u, name) {
+    var p = String(u || '').split('#')[0].split('?')[0];
+    return p === name || p.slice(-(name.length + 1)) === '/' + name;
+  }
+  function urlOf(x) {
+    if (typeof x === 'string') return x;
+    if (x && typeof x.url === 'string') return x.url;
+    if (x && typeof x.href === 'string') return x.href;
+    try { return String(x || ''); } catch (e) { return ''; }
+  }
+
+  var DB = 'cr_cache', STORE = 'f', TTL = 365 * 24 * 60 * 60 * 1000;
+  var MIN_FREE = 300 * 1024 * 1024;
+  function idbOk() { try { return !!window.indexedDB; } catch (e) { return false; } }
+  var dbp = null, cacheOn = idbOk(), roomy = true;
+
+  try {
+    if (navigator.storage && navigator.storage.persist)
+      navigator.storage.persisted().then(function (o) { if (!o) navigator.storage.persist(); });
+    if (navigator.storage && navigator.storage.estimate)
+      navigator.storage.estimate().then(function (s) {
+        if (s && s.quota !== undefined && s.usage !== undefined && (s.quota - s.usage) < MIN_FREE) roomy = false;
+      });
+  } catch (e) {}
+
+  function db() {
+    if (!cacheOn) return Promise.resolve(null);
+    return dbp || (dbp = new Promise(function (res) {
+      var rq;
+      try { if (!idbOk()) { cacheOn = false; return res(null); } rq = window.indexedDB.open(DB, 1); } catch (e) { cacheOn = false; return res(null); }
+      rq.onupgradeneeded = function () { try { rq.result.createObjectStore(STORE); } catch (e) {} };
+      rq.onsuccess = function () { res(rq.result); };
+      rq.onerror = function () { cacheOn = false; res(null); };
+    }));
+  }
+  function cGet(k) {
+    return db().then(function (d) {
+      if (!d) return null;
+      return new Promise(function (res) {
+        try {
+          var r = d.transaction(STORE, 'readonly').objectStore(STORE).get(k);
+          r.onsuccess = function () { var v = r.result; res(v && v.b && (Date.now() - v.t) < TTL ? v : null); };
+          r.onerror = function () { res(null); };
+        } catch (e) { res(null); }
+      });
+    }).catch(function () { return null; });
+  }
+  function cPut(k, b, c) {
+    if (!roomy) return Promise.resolve();
+    return db().then(function (d) {
+      if (!d) return;
+      try {
+        var tx = d.transaction(STORE, 'readwrite');
+        tx.onerror = function () { roomy = false; };
+        tx.objectStore(STORE).put({ b: b, c: c || '', t: Date.now() }, k);
+      } catch (e) { roomy = false; }
+    }).catch(function () {});
+  }
+  (function () {
+    db().then(function (d) {
+      if (!d) return;
+      try {
+        var cur = d.transaction(STORE, 'readwrite').objectStore(STORE).openCursor();
+        cur.onsuccess = function () {
+          var c = cur.result; if (!c) return;
+          var v = c.value, k = String(c.key || '');
+          if (!v || !v.t || (Date.now() - v.t) >= TTL || /\/data\.p\d+\.js$/.test(k)) { try { c.delete(); } catch (e) {} }
+          c.continue();
+        };
+      } catch (e) {}
+    });
+  })();
+
+  var _fetch = window.fetch.bind(window), lastZip = -25;
+
+  function grab(url) {
+    return cGet(url).then(function (hit) {
+      if (hit) return { b: hit.b, c: hit.c, cached: true };
+      return _fetch(url).then(function (r) {
+        if (!r.ok) throw new Error(r.status + ' ' + url.split('/').pop());
+        var c = r.headers.get('content-type') || '';
+        return r.arrayBuffer().then(function (b) { cPut(url, b, c); return { b: b, c: c, cached: false }; });
+      });
+    });
+  }
+
+  grab(F['D1X4HkNG.png']).then(function (res) {
+    var u = URL.createObjectURL(new Blob([res.b], { type: res.c || 'image/png' }));
+    var im = new Image();
+    im.onload = function () { bgEl.style.backgroundImage = 'url("' + u + '")'; bgEl.classList.add('on'); };
+    im.onerror = function () { bgEl.classList.add('on'); };
+    im.src = u;
+  }).catch(function () {
+    bgEl.style.backgroundImage = 'url("' + F['D1X4HkNG.png'] + '")';
+    bgEl.classList.add('on');
+  });
+
+  function hideBoot() {
+    var wait = Math.max(0, 1600 - (Date.now() - bootStart));
+    setTimeout(function () {
+      boot.classList.add('fade');
+      setTimeout(function () { boot.classList.add('gone'); }, 500);
+    }, wait);
+  }
+
+  function merged(parts, total, type, onPct) {
+    var i = 0, sent = 0;
+    var stream = new ReadableStream({
+      pull: function (c) {
+        if (i >= parts.length) { c.close(); return; }
+        var p = parts[i++];
+        return _fetch(p.url).then(function (r) {
+          if (!r.ok) throw new Error(r.status + ' ' + p.url.split('/').pop());
+          return r.arrayBuffer();
+        }).then(function (b) {
+          sent += b.byteLength;
+          if (onPct) onPct(sent / total);
+          c.enqueue(new Uint8Array(b));
+        }, function (e) { c.error(e); });
+      }
+    });
+    return new Response(stream, { status: 200, headers: { 'Content-Type': type, 'Content-Length': String(total) } });
+  }
+
+  function hasDylink(u8) {
+    var p = 8;
+    while (p < u8.length) {
+      var id = u8[p++], sz = 0, sh = 0, b;
+      do { b = u8[p++]; sz += (b & 127) * Math.pow(2, sh); sh += 7; } while (b & 128);
+      if (id === 0) {
+        var q = p, nl = 0, ns = 0, nb;
+        do { nb = u8[q++]; nl += (nb & 127) * Math.pow(2, ns); ns += 7; } while (nb & 128);
+        var nm = '';
+        for (var i = 0; i < nl; i++) nm += String.fromCharCode(u8[q + i]);
+        if (nm.indexOf('dylink') === 0) return true;
+      }
+      p += sz;
+    }
+    return false;
+  }
+  function addDylink(buf) {
+    var u8 = new Uint8Array(buf);
+    if (u8.length < 8 || u8[0] !== 0 || u8[1] !== 0x61 || u8[2] !== 0x73 || u8[3] !== 0x6d) return buf;
+    try { if (hasDylink(u8)) return buf; } catch (e) { return buf; }
+    var sec = new Uint8Array([0, 15, 8, 100, 121, 108, 105, 110, 107, 46, 48, 1, 4, 0, 0, 0, 0]);
+    var out = new Uint8Array(u8.length + sec.length);
+    out.set(u8.subarray(0, 8), 0); out.set(sec, 8); out.set(u8.subarray(8), 8 + sec.length);
+    return out.buffer;
+  }
+
+  var GAP = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==';
+  function blank() {
+    var raw = atob(GAP), u8 = new Uint8Array(raw.length);
+    for (var i = 0; i < raw.length; i++) u8[i] = raw.charCodeAt(i);
+    return new Response(u8, { status: 200, headers: { 'Content-Type': 'image/png' } });
+  }
+
+  function redirect(input, init, target) {
+    if (typeof Request !== 'undefined' && input instanceof Request) return _fetch(new Request(target, input));
+    return _fetch(target, init);
+  }
+
+  window.fetch = function (input, init) {
+    var url = urlOf(input);
+
+    if (named(url, 'data-B-Y9J8oy.zip')) {
+      if (window.__log) window.__log('i', 'game data: ' + window.DATA_PARTS.length + ' parts, ' +
+        (window.DATA_TOTAL / 1048576).toFixed(0) + ' MB');
+      return Promise.resolve(merged(window.DATA_PARTS, window.DATA_TOTAL, 'application/zip', function (f) {
+        var p = Math.round(f * 100);
+        if (p - lastZip >= 25 || (p >= 100 && lastZip < 100)) { lastZip = p; if (window.__log) window.__log('', 'game data ' + p + '%'); }
+      }));
+    }
+
+    if (named(url, 'xash-iHQixqHD.wasm')) {
+      setPct(12);
+      return grab(F['xash-iHQixqHD.wasm']).then(function (res) {
+        setPct(55);
+        var fixed = addDylink(res.b);
+        if (window.__log) window.__log('ok', 'engine ' + (res.b.byteLength / 1048576).toFixed(1) + ' MB' +
+          (fixed.byteLength !== res.b.byteLength ? ' (dylink added)' : '') + (res.cached ? ' [cache]' : ''));
+        return new Response(fixed, { status: 200, headers: { 'Content-Type': 'application/wasm' } });
+      }, function (e) {
+        if (window.__log) window.__log('e', 'engine FAILED: ' + (e && e.message));
+        throw e;
+      });
+    }
+
+    if (/\.bsp-[A-Za-z0-9_-]+\.webp$/i.test(url) || /icon-[A-Za-z0-9_-]+\.png$/i.test(url)) {
+      var k = lookup(url);
+      if (!k) return Promise.resolve(blank());
+      return grab(k).then(function (res) {
+        return new Response(res.b, { status: 200, headers: { 'Content-Type': res.c || 'image/webp' } });
+      });
+    }
+
+    var hit = lookup(url);
+    if (!hit || (init && init.method && init.method !== 'GET')) return hit ? redirect(input, init, hit) : _fetch(input, init);
+    return grab(hit).then(function (res) {
+      return new Response(res.b, { status: 200, headers: res.c ? { 'Content-Type': res.c } : {} });
+    }, function () { return redirect(input, init, hit); });
+  };
+
+  try {
+    var XP = XMLHttpRequest.prototype, _xo = XP.open;
+    XP.open = function (m, u) { var h = lookup(urlOf(u)); if (h) arguments[1] = h; return _xo.apply(this, arguments); };
+  } catch (e) {}
+
+  (function () {
+    function scrub() {
+      try {
+        var el = document.querySelectorAll('input,textarea');
+        for (var i = 0; i < el.length; i++) {
+          var v = el[i].value;
+          if (typeof v === 'string' && v.indexOf('yandex') >= 0) {
+            el[i].value = '';
+            el[i].setAttribute('value', '');
+            el[i].placeholder = '';
+          }
+        }
+        var a = document.querySelectorAll('a[href*="yandex"]');
+        for (var j = 0; j < a.length; j++) { a[j].removeAttribute('href'); a[j].textContent = ''; }
+      } catch (e) {}
+    }
+    try { new MutationObserver(scrub).observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['value', 'href'] }); } catch (e) {}
+    setInterval(scrub, 400);
+  })();
+
+function makeMemIDB() {
+  var DBS = {};
+  function fire(fn, target) { if (typeof fn === 'function') fn({ target: target, preventDefault: function () {} }); }
+  function later(f) { setTimeout(f, 0); }
+
+  function Store(name) { this.name = name; this.map = new Map(); this.idx = {}; }
+
+  function TxStore(store, tx) {
+    this.store = store; this.tx = tx;
+    this.indexNames = { contains: function (n) { return !!store.idx[n]; } };
+  }
+  TxStore.prototype.createIndex = function (n) { this.store.idx[n] = true; return { name: n }; };
+  TxStore.prototype.index = function () {
+    var st = this.store, tx = this.tx;
+    return {
+      openKeyCursor: function () {
+        var req = { onsuccess: null, onerror: null, result: null };
+        var keys = Array.from(st.map.keys());
+        keys.sort(function (a, b) {
+          var x = st.map.get(a), y = st.map.get(b);
+          var tx1 = x && x.timestamp ? +x.timestamp : 0, ty = y && y.timestamp ? +y.timestamp : 0;
+          return tx1 - ty;
+        });
+        var i = 0;
+        tx._add();
+        function step() {
+          if (i >= keys.length) { req.result = null; fire(req.onsuccess, req); tx._done(); return; }
+          var k = keys[i++], v = st.map.get(k);
+          req.result = { key: (v && v.timestamp) || new Date(0), primaryKey: k, continue: function () { later(step); } };
+          fire(req.onsuccess, req);
+        }
+        later(step);
+        return req;
+      }
+    };
+  };
+  TxStore.prototype.get = function (k) {
+    var st = this.store, tx = this.tx;
+    var req = { onsuccess: null, onerror: null, result: undefined };
+    tx._add();
+    later(function () { req.result = st.map.get(k); fire(req.onsuccess, req); tx._done(); });
+    return req;
+  };
+  TxStore.prototype.put = function (v, k) {
+    var st = this.store, tx = this.tx;
+    var req = { onsuccess: null, onerror: null, result: k };
+    tx._add();
+    later(function () { st.map.set(k, v); fire(req.onsuccess, req); tx._done(); });
+    return req;
+  };
+  TxStore.prototype.delete = function (k) {
+    var st = this.store, tx = this.tx;
+    var req = { onsuccess: null, onerror: null, result: undefined };
+    tx._add();
+    later(function () { st.map.delete(k); fire(req.onsuccess, req); tx._done(); });
+    return req;
+  };
+
+  function Tx(db) {
+    this.db = db; this.onerror = null; this.onabort = null; this.oncomplete = null;
+    this.error = null; this._n = 0; this._fin = false; this._started = false;
+    var self = this;
+    later(function () { self._started = true; if (self._n === 0) self._finish(); });
+  }
+  Tx.prototype._add = function () { this._n++; };
+  Tx.prototype._done = function () {
+    this._n--;
+    var self = this;
+    if (this._n === 0) later(function () { if (self._n === 0) self._finish(); });
+  };
+  Tx.prototype._finish = function () { if (this._fin) return; this._fin = true; fire(this.oncomplete, this); };
+  Tx.prototype.objectStore = function (n) {
+    var st = this.db._stores[n];
+    if (!st) { st = this.db._stores[n] = new Store(n); }
+    return new TxStore(st, this);
+  };
+
+  function DB(name) {
+    this.name = name; this._stores = {};
+    var self = this;
+    this.objectStoreNames = { contains: function (n) { return !!self._stores[n]; } };
+  }
+  DB.prototype.createObjectStore = function (n) {
+    var st = this._stores[n] = new Store(n);
+    return new TxStore(st, { _add: function () {}, _done: function () {} });
+  };
+  DB.prototype.transaction = function (names, mode) { return new Tx(this); };
+  DB.prototype.close = function () {};
+
+  return {
+    __memory: true,
+    open: function (name) {
+      var req = { onsuccess: null, onerror: null, onupgradeneeded: null, onblocked: null, result: null, error: null };
+      var fresh = !DBS[name];
+      later(function () {
+        if (fresh) {
+          var db = DBS[name] = new DB(name);
+          req.result = db;
+          var upTx = new Tx(db);
+          if (typeof req.onupgradeneeded === 'function')
+            req.onupgradeneeded({ target: { result: db, transaction: upTx }, preventDefault: function () {} });
+        } else req.result = DBS[name];
+        fire(req.onsuccess, req);
+      });
+      return req;
+    },
+    deleteDatabase: function (name) {
+      var req = { onsuccess: null, onerror: null };
+      later(function () { delete DBS[name]; fire(req.onsuccess, req); });
+      return req;
+    }
+  };
+}
+
+  function probeIDB() {
+    return new Promise(function (res) {
+      var done = false;
+      function fin(v) { if (!done) { done = true; res(v); } }
+      setTimeout(function () { fin(false); }, 4000);
+      var rq;
+      try { if (!idbOk()) return fin(false); rq = window.indexedDB.open('cr_probe'); } catch (e) { return fin(false); }
+      if (!rq) return fin(false);
+      rq.onsuccess = function () {
+        try { rq.result.close(); } catch (e) {}
+        try { window.indexedDB.deleteDatabase('cr_probe'); } catch (e) {}
+        fin(true);
+      };
+      rq.onerror = function () { fin(false); };
+      rq.onblocked = function () { fin(false); };
+    });
+  }
+
+  function notice(msg) {
+    var n = document.createElement('div');
+    n.style.cssText = 'position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:100000;max-width:min(560px,92vw);' +
+      'padding:9px 15px;border-radius:999px;background:rgba(18,10,4,.92);border:1px solid rgba(255,138,31,.45);' +
+      'color:#ffd2a1;font:600 11px/1.5 system-ui,sans-serif;letter-spacing:.04em;text-align:center;cursor:pointer';
+    n.textContent = msg;
+    n.onclick = function () { if (n.parentNode) n.parentNode.removeChild(n); };
+    document.body.appendChild(n);
+    setTimeout(function () { if (n.parentNode) n.parentNode.removeChild(n); }, 15000);
+  }
+
+  window.addEventListener('error', function (e) {
+    var m = String((e && (e.message || (e.error && e.error.message))) || '');
+    if (/quota|storage|indexeddb|idbfs|securityerror|databaseclosed/i.test(m)) {
+      clearInterval(creep);
+      fail('Your network blocks game storage. Ask for the fullscreen link, or try another browser.');
+    }
+  });
+
+  setPct(3);
+  var creep = setInterval(function () { if (shown < 12) setPct(shown + 1); }, 240);
+
+  var s = document.createElement('script');
+  s.type = 'module';
+  s.crossOrigin = '';
+  s.src = F['index-BORoamJR.js'];
+  s.onerror = function () { clearInterval(creep); fail('The game could not start. Main script failed to load.'); };
+  s.onload = function () {
+    var root = document.getElementById('root');
+    var wait = setInterval(function () {
+      if (root && root.children.length) {
+        clearInterval(wait); clearInterval(creep); setPct(100);
+        if (window.__log) window.__log('ok', 'menu ready');
+        hideBoot();
+      }
+    }, 150);
+    setTimeout(function () { clearInterval(wait); clearInterval(creep); hideBoot(); }, 90000);
+  };
+  probeIDB().then(function (realIDB) {
+    if (window.__log) window.__log(realIDB ? 'ok' : 'w', 'storage: ' + (realIDB ? 'available' : 'BLOCKED - using memory'));
+    try {
+      if (navigator.storage && navigator.storage.estimate)
+        navigator.storage.estimate().then(function (q) {
+          if (window.__log && q && q.quota) window.__log('i', 'space: ' + ((q.quota - (q.usage || 0)) / 1048576).toFixed(0) + ' MB free');
+        });
+    } catch (e) {}
+    if (!realIDB) {
+      cacheOn = false; roomy = false;
+      try { Object.defineProperty(window, 'indexedDB', { value: makeMemIDB(), configurable: true, writable: true }); }
+      catch (e) { try { window.indexedDB = makeMemIDB(); } catch (e2) {} }
+      setTimeout(function () { notice('Saving is blocked on this network - the game still works, but progress is not kept.'); }, 2600);
+    }
+    document.body.appendChild(s);
+  });
+})();
+</script>
+
+
+
+</body></html>

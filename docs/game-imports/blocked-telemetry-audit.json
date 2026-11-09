@@ -1,0 +1,49 @@
+[
+  {
+    "folder": "blocky-snakes",
+    "external": [
+      "https://config.uca.cloud.unity3d.com/",
+      "https://cdp.cloud.unity3d.com/v1/events",
+      "https://cdp.cloud.unity3d.com/v1/events",
+      "https://cdp.cloud.unity3d.com/v1/events"
+    ],
+    "missing": [],
+    "violations": [
+      {
+        "url": "https://config.uca.cloud.unity3d.com/",
+        "directive": "connect-src"
+      },
+      {
+        "url": "https://cdp.cloud.unity3d.com/v1/events",
+        "directive": "connect-src"
+      },
+      {
+        "url": "https://cdp.cloud.unity3d.com/v1/events",
+        "directive": "connect-src"
+      },
+      {
+        "url": "https://cdp.cloud.unity3d.com/v1/events",
+        "directive": "connect-src"
+      }
+    ],
+    "errors": [],
+    "failure": [
+      {
+        "url": "https://config.uca.cloud.unity3d.com/",
+        "reason": "csp"
+      },
+      {
+        "url": "https://cdp.cloud.unity3d.com/v1/events",
+        "reason": "csp"
+      },
+      {
+        "url": "https://cdp.cloud.unity3d.com/v1/events",
+        "reason": "csp"
+      },
+      {
+        "url": "https://cdp.cloud.unity3d.com/v1/events",
+        "reason": "csp"
+      }
+    ]
+  }
+]

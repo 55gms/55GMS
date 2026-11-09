@@ -1,0 +1,519 @@
+<!DOCTYPE html><html lang="en-us"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; connect-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' data: blob:; font-src 'self' data:; worker-src 'self' blob:; frame-src 'self' blob:; object-src 'none'; form-action 'self'; base-uri 'self'">
+  <script  src="/lib/game-runtime/assets/js/save-agent.js?v=4" data-game-id="shrek-escape"></script>
+  <script type="application/json" id="gms-import-config">{"title":"Shrek Escape","engine":"unity","files":[["/misc/shrek-escape/_ext/cdn.jsdelivr.net/gh/777kze777/shreh@main/Build/Shrek2.data.br.part0",8388608],["/misc/shrek-escape/_ext/cdn.jsdelivr.net/gh/777kze777/shreh@main/Build/Shrek2.data.br.part1",8388608],["/misc/shrek-escape/_ext/cdn.jsdelivr.net/gh/777kze777/shreh@main/Build/Shrek2.data.br.part2",8388608],["/misc/shrek-escape/_ext/cdn.jsdelivr.net/gh/777kze777/shreh@main/Build/Shrek2.data.br.part3",8388608],["/misc/shrek-escape/_ext/cdn.jsdelivr.net/gh/777kze777/shreh@main/Build/Shrek2.data.br.part4",8388608],["/misc/shrek-escape/_ext/cdn.jsdelivr.net/gh/777kze777/shreh@main/Build/Shrek2.data.br.part5",8388608],["/misc/shrek-escape/_ext/cdn.jsdelivr.net/gh/777kze777/shreh@main/Build/Shrek2.data.br.part6",8388608],["/misc/shrek-escape/_ext/cdn.jsdelivr.net/gh/777kze777/shreh@main/Build/Shrek2.data.br.part7",5288982],["/misc/shrek-escape/_ext/cdn.jsdelivr.net/gh/777kze777/shreh@main/Build/Shrek2.loader.js",20642],["/misc/shrek-escape/_ext/cdn.jsdelivr.net/gh/777kze777/shreh@main/background.jpg",296849],["/misc/shrek-escape/_ext/cdn.jsdelivr.net/gh/777kze777/shreh@main/logo.png",4338],["/misc/shrek-escape/_ext/cdn.jsdelivr.net/gh/777kze777/shreh@main/style.css",1847]],"total":64332914,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/lib/game-runtime/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/lib/game-runtime/assets/js/game-loader.js?v=5gz9swuael" data-title="Shrek Escape"></script><script src="/lib/game-runtime/assets/js/imported-game-loader.js?v=3" data-title="Shrek Escape"></script>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Shrek Escape</title>
+<link rel="stylesheet" href="/misc/shrek-escape/_ext/cdn.jsdelivr.net/gh/777kze777/shreh@main/style.css">
+<style>
+  canvas:focus{outline:none;}
+  html,body{padding:0;margin:0;overflow:hidden;height:100%;
+    -webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;
+    -ms-user-select:none;user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+</style>
+<style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body class="dark">
+<div id="unity-container" class="unity-desktop">
+  <canvas id="unity-canvas" tabindex="-1"></canvas>
+</div>
+<div id="loading-cover" style="display:none;" class="gms-legacy-loading-hooks"><div id="unity-loading-bar" class="gms-legacy-loading-hooks"><div id="unity-logo"><img></div><div id="unity-progress-bar-empty" style="display:none;"><div id="unity-progress-bar-full"></div></div><div class="spinner"></div></div></div>
+
+<script>
+window.YaGames = { init: function() {
+  var sdk = {
+    environment: { app:{id:'0'}, i18n:{lang:'en',tld:'com'}, browser:{lang:'en'}, payload:null },
+    deviceInfo: { type:'desktop',
+      isMobile:  function(){ return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); },
+      isDesktop: function(){ return !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent); },
+      isTablet:  function(){ return false; },
+      isTV:      function(){ return false; }
+    },
+    screen: { fullscreen:{ status:'off',
+      request:function(){ return Promise.resolve(); },
+      exit:function(){ return Promise.resolve(); }
+    }},
+    adv: {
+      showFullscreenAdv: function(o){
+        if(o&&o.callbacks){
+          if(o.callbacks.onOpen) o.callbacks.onOpen();
+          setTimeout(function(){ if(o.callbacks.onClose) o.callbacks.onClose(false); },100);
+        }
+      },
+      showRewardedVideo: function(o){ return window.GMSImportedAds.yandex(o); },
+      showBannerAdv:function(){},hideBannerAdv:function(){},
+      getBannerAdvStatus:function(){ return Promise.resolve({stickyAdvIsShowing:false}); }
+    },
+    auth:{ openAuthDialog:function(){ return Promise.resolve(); } },
+    feedback:{
+      canReview:function(){ return Promise.resolve({value:false,reason:''}); },
+      requestReview:function(){ return Promise.resolve({feedbackSent:false}); }
+    },
+    shortcut:{
+      canShowPrompt:function(){ return Promise.resolve({canShow:false}); },
+      showPrompt:function(){ return Promise.resolve({outcome:'rejected'}); }
+    },
+    getLeaderboards:function(){
+      return Promise.resolve({
+        setLeaderboardScore:function(){ return Promise.resolve(); },
+        getLeaderboardDescription:function(){ return Promise.reject('no lb'); },
+        getLeaderboardEntries:function(){ return Promise.reject('no lb'); }
+      });
+    },
+    getPayments:function(){
+      return Promise.resolve({
+        getCatalog:function(){ return Promise.resolve([]); },
+        getPurchases:function(){ return Promise.resolve([]); },
+        purchase:function(){ return Promise.reject('unavailable'); },
+        consumePurchase:function(){ return Promise.resolve(); }
+      });
+    },
+    getPlayer:function(o){
+      return Promise.resolve({
+        isAuthorized:function(){return false;},getMode:function(){return 'lite';},
+        getName:function(){return '';},getUniqueID:function(){return '0';},
+        getPhoto:function(){return '';},getPayingStatus:function(){return 'unknown';},
+        setData:function(){return Promise.resolve();},
+        getData:function(){ return Promise.resolve({}); }
+      });
+    },
+    serverTime:function(){ return Date.now(); },
+    on:function(){},
+    features:{
+      LoadingAPI:{ready:function(){}},
+      GameplayAPI:{start:function(){},stop:function(){}}
+    }
+  };
+  return Promise.resolve(sdk);
+}};
+</script>
+<script>
+(function(){ var s=document.createElement('script'); s.src = 'data:text/javascript,';
+  s.onerror=function(){console.warn('[Stub] sdk.js yuklenemedi');}; document.head.appendChild(s); })();
+/* AudioContext unlock — kullanici dokununca ses aktif olur */
+(function(){
+  function unlockAudio(){
+    if(window._audioUnlocked) return;
+    window._audioUnlocked = true;
+    try{
+      var ctx = new (window.AudioContext||window.webkitAudioContext)();
+      var buf = ctx.createBuffer(1,1,22050);
+      var src = ctx.createBufferSource();
+      src.buffer=buf; src.connect(ctx.destination); src.start(0);
+      ctx.resume && ctx.resume();
+    }catch(e){}
+    document.removeEventListener('touchstart', unlockAudio);
+    document.removeEventListener('pointerdown', unlockAudio);
+    document.removeEventListener('click', unlockAudio);
+  }
+  document.addEventListener('touchstart',  unlockAudio, {passive:true});
+  document.addEventListener('pointerdown', unlockAudio, {passive:true});
+  document.addEventListener('click',       unlockAudio, {passive:true});
+})();
+
+</script>
+
+<script>
+var CDN        = "/misc/shrek-escape/_ext/cdn.jsdelivr.net/gh/777kze777/shreh@main/Build";   /* <-- degistir */
+var DATA_PARTS = 8;   /* 62.5MB / 8MB = 8 part */
+var WASM_PARTS = 4;   /* 31.8MB / 8MB = 4 part */
+
+var buildUrl = CDN;
+var config = {
+  dataUrl:            null,
+  frameworkUrl:       buildUrl + "/Shrek2.framework.js",
+  codeUrl:            null,
+  streamingAssetsUrl: "StreamingAssets",
+  companyName:        "DefaultCompany",
+  productName:        "DeliviryYandex",
+  productVersion:     "0.1.0"
+};
+
+var container        = document.querySelector("#unity-container");
+var canvas           = document.querySelector("#unity-canvas");
+var loadingCover     = document.querySelector("#loading-cover");
+var progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+var progressBarFull  = document.querySelector("#unity-progress-bar-full");
+var spinner          = document.querySelector('.spinner');
+
+if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))
+  container.className = "unity-mobile";
+
+loadingCover.style.background = "url('/misc/shrek-escape/_ext/cdn.jsdelivr.net/gh/777kze777/shreh@main/background.jpg') center / cover";
+loadingCover.style.display = "";
+
+document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+
+function FocusGame(){ window.focus(); canvas.focus(); }
+window.addEventListener('pointerdown', FocusGame);
+window.addEventListener('touchstart',  FocusGame);
+
+document.addEventListener('visibilitychange', function(){
+  if (ysdk !== null && initGame === true){
+    if (document.hidden){
+      myGameInstance.SendMessage('YandexGame','OnVisibilityGameWindow','false');
+    } else {
+      myGameInstance.SendMessage('YandexGame','OnVisibilityGameWindow','true');
+      if ((ysdk.deviceInfo.isMobile()||ysdk.deviceInfo.isTablet()) && ysdk.screen.fullscreen.status==='off')
+        ysdk.screen.fullscreen.request();
+    }
+  }
+});
+
+var StartUnityInstance;
+var myGameInstance = null;
+var ysdk = null;
+var player = null;
+var payments = null;
+var leaderboard = null;
+var initGame = false;
+var nowFullAdOpen = false;
+var cloudSaves = 'noData';
+var paymentsData = 'none';
+var environmentData = 'null';
+var playerData = 'noData';
+
+/* ── PART İNDİRME ─────────────────────────────────────────── */
+async function fetchParts(baseUrl, partCount) {
+  var parts=[];
+  for(var i=0;i<partCount;i++){
+    var r=await fetch(baseUrl+'.part'+i);
+    if(!r.ok) throw new Error('part'+i+': HTTP '+r.status);
+    parts.push(new Uint8Array(await r.arrayBuffer()));
+  }
+  var total=parts.reduce(function(s,p){return s+p.length;},0);
+  var merged=new Uint8Array(total); var off=0;
+  for(var j=0;j<parts.length;j++){merged.set(parts[j],off);off+=parts[j].length;}
+  return merged;
+}
+function brotliBlobUrl(uint8,filename){
+  var blob=new Blob([uint8],{type:'application/octet-stream'});
+  return URL.createObjectURL(blob)+'#'+encodeURIComponent(filename);
+}
+
+/* ── LOADER ───────────────────────────────────────────────── */
+var script=document.createElement("script");
+script.src=buildUrl+"/Shrek2.loader.js";
+script.onload=async function(){
+  try{
+    var dataBytes=await fetchParts(buildUrl+"/Shrek2.data.br", DATA_PARTS);
+    var wasmBytes=await fetchParts(buildUrl+"/Shrek2.wasm.br", WASM_PARTS);
+    config.dataUrl = brotliBlobUrl(dataBytes,"Shrek2.data.br");
+    config.codeUrl = brotliBlobUrl(wasmBytes,"Shrek2.wasm.br");
+  }catch(e){ alert("Download error: "+e.message); return; }
+
+  StartUnityInstance=function(){
+    createUnityInstance(canvas,config,function(progress){
+      spinner.style.display="none";
+      progressBarEmpty.style.display="";
+      progressBarFull.style.width=(100*progress)+'%';
+    }).then(function(inst){
+      myGameInstance=inst;
+      loadingCover.style.display="none";
+    }).catch(function(msg){console.error(msg);});
+  };
+  StartUnityInstance_IfUnloaded();
+};
+
+function StartUnityInstance_IfUnloaded(){
+  if(typeof StartUnityInstance==='function'&&spinner.style.display!=="none")
+    StartUnityInstance();
+}
+function LocalHost(){
+  var h=window.location.hostname;
+  return h==="localhost"||h==="127.0.0.1";
+}
+
+/* ── SDK INIT ─────────────────────────────────────────────── */
+InitYSDK();
+async function InitYSDK(){
+  try{
+    if(LocalHost()) return;
+    console.log('Init Yandex SDK');
+    ysdk=await YaGames.init();
+    FullAdShow();
+    cloudSaves   = await LoadCloud();       console.log('Init Storage ysdk');
+    paymentsData = await GetPayments();     console.log('Init Payments ysdk');
+    InitLeaderboards();                     console.log('Init Leaderboards');
+    environmentData = await RequestingEnvironmentData(); console.log('Init Envir ysdk');
+    playerData   = await InitPlayer();      console.log('Init Player ysdk');
+  }catch(e){console.error('CRASH Init SDK:',e);}
+  StartUnityInstance_IfUnloaded();
+}
+
+function InitGame(){
+  console.log('Init Game Success');
+  initGame=true;
+  if(nowFullAdOpen&&myGameInstance) myGameInstance.SendMessage('YandexGame','OpenFullAd');
+}
+
+/* ── ADS ──────────────────────────────────────────────────── */
+function FullAdShow(){
+  try{
+    if(!nowFullAdOpen&&ysdk!==null){
+      ysdk.adv.showFullscreenAdv({callbacks:{
+        onOpen:  function(){nowFullAdOpen=true; console.log('Open Ad Interstitial'); if(initGame) myGameInstance.SendMessage('YandexGame','OpenFullAd');},
+        onClose: function(was){nowFullAdOpen=false; if(initGame) myGameInstance.SendMessage('YandexGame','CloseFullAd',was?'true':'false'); FocusGame();},
+        onError: function(e){console.error('Error Ad Interstitial',e); if(myGameInstance) myGameInstance.SendMessage('YandexGame','ErrorFullAd'); FocusGame();}
+      }});
+    }
+  }catch(e){console.error('CRASH FullAd Show:',e.message);}
+}
+function RewardedShow(id){ if (!myGameInstance) return; return window.GMSImportedAds.yandex({ callbacks: { onOpen: () => myGameInstance.SendMessage('YandexGame', 'OpenVideo'), onRewarded: () => myGameInstance.SendMessage('YandexGame', 'RewardVideo', id), onClose: () => myGameInstance.SendMessage('YandexGame', 'CloseVideo') } }); }
+function StickyAdActivity(show){
+  try{
+    ysdk.adv.getBannerAdvStatus().then(function(d){
+      if(d.stickyAdvIsShowing){if(!show)ysdk.adv.hideBannerAdv();}
+      else if(d.reason) console.log('Sticky not shown. Reason:',d.reason);
+      else if(show) ysdk.adv.showBannerAdv();
+    });
+  }catch(e){console.error('CRASH Sticky Activity:',e.message);}
+}
+
+/* ── REVIEW / PROMPT ──────────────────────────────────────── */
+function Review(){
+  try{
+    ysdk.feedback.canReview().then(function(d){
+      if(d.value){
+        ysdk.feedback.requestReview().then(function(r){
+          myGameInstance.SendMessage('YandexGame','ReviewSent',r.feedbackSent?'true':'false'); FocusGame();
+        });
+      } else { FocusGame(); }
+    });
+  }catch(e){console.error('CRASH Review:',e.message); FocusGame();}
+}
+function PromptShow(){
+  try{
+    ysdk.shortcut.showPrompt().then(function(r){
+      myGameInstance.SendMessage('YandexGame',r.outcome==='accepted'?'OnPromptSuccess':'OnPromptFail');
+      FocusGame();
+    });
+  }catch(e){console.error('CRASH Prompt Show:',e.message); FocusGame();}
+}
+
+/* ── CLOUD SAVE ───────────────────────────────────────────── */
+function SaveCloud(jsonData,flush){
+  if(!player){console.error('CRASH Save Cloud: no player');return;}
+  try{player.setData({saves:[jsonData]},flush);}catch(e){console.error(e);}
+}
+function LoadCloud(sendback){
+  return new Promise(function(resolve){
+    if(!ysdk){ if(sendback&&myGameInstance) myGameInstance.SendMessage('YandexGame','SetLoadSaves','noData'); resolve('noData'); return; }
+    try{
+      ysdk.getPlayer({scopes:false}).then(function(_p){
+        _p.getData(["saves"]).then(function(data){
+          var r=data.saves?JSON.stringify(data.saves):'noData';
+          if(sendback&&myGameInstance) myGameInstance.SendMessage('YandexGame','SetLoadSaves',r);
+          resolve(r);
+        }).catch(function(){ if(sendback&&myGameInstance) myGameInstance.SendMessage('YandexGame','SetLoadSaves','noData'); resolve('noData'); });
+      }).catch(function(e){ console.error(e); if(sendback&&myGameInstance) myGameInstance.SendMessage('YandexGame','SetLoadSaves','noData'); resolve('noData'); });
+    }catch(e){ console.error(e); if(sendback&&myGameInstance) myGameInstance.SendMessage('YandexGame','SetLoadSaves','noData'); resolve('noData'); }
+  });
+}
+
+/* ── PAYMENTS ─────────────────────────────────────────────── */
+function GetPayments(sendback){
+  return new Promise(function(resolve){
+    try{
+      if(!ysdk){resolve('none');return;}
+      ysdk.getPayments().then(function(_p){
+        payments=_p;
+        _p.getCatalog().then(function(products){
+          _p.getPurchases().then(function(purchases){
+            var ids=[],titles=[],descs=[],imgs=[],prices=[],pvals=[],codes=[],imgURLs=[],cons=[];
+            for(var i=0;i<products.length;i++){
+              ids[i]=products[i].id;titles[i]=products[i].title;descs[i]=products[i].description;
+              imgs[i]=products[i].imageURI;prices[i]=products[i].price;pvals[i]=products[i].priceValue;
+              codes[i]=products[i].priceCurrencyCode;imgURLs[i]=products[i].getPriceCurrencyImage("medium");
+              cons[i]=!purchases.some(function(p){return p.productID===ids[i];});
+            }
+            var j=JSON.stringify({id:ids,title:titles,description:descs,imageURI:imgs,price:prices,
+              priceValue:pvals,priceCurrencyCode:codes,currencyImageURL:imgURLs,consumed:cons,
+              language:ysdk.environment.i18n.lang});
+            if(sendback&&myGameInstance) myGameInstance.SendMessage('YandexGame','PaymentsEntries',j);
+            resolve(j);
+          });
+        });
+      }).catch(function(e){console.log('Purchases not available',e.message);resolve('none');});
+    }catch(e){console.error(e);resolve('none');}
+  });
+}
+function BuyPayments(id){
+  try{
+    if(payments){
+      payments.purchase(id).then(function(){console.log('Purchase Success');ConsumePurchase(id);FocusGame();})
+        .catch(function(e){console.error(e);myGameInstance.SendMessage('YandexGame','OnPurchaseFailed',id);FocusGame();});
+    } else console.log('Payments == null');
+  }catch(e){console.error(e);FocusGame();}
+}
+function ConsumePurchase(id){
+  try{
+    if(payments){
+      payments.getPurchases().then(function(ps){
+        for(var i=0;i<ps.length;i++){
+          if(ps[i].productID===id){
+            payments.consumePurchase(ps[i].purchaseToken);
+            myGameInstance.SendMessage('YandexGame','OnPurchaseSuccess',id);
+          }
+        }
+      });
+    }
+  }catch(e){console.error(e);}
+}
+function ConsumePurchases(){
+  try{
+    if(payments){
+      payments.getPurchases().then(function(ps){
+        console.log('Unprocessed purchases:',ps.length);
+        for(var i=0;i<ps.length;i++){
+          payments.consumePurchase(ps[i].purchaseToken);
+          myGameInstance.SendMessage('YandexGame','OnPurchaseSuccess',ps[i].productID);
+        }
+      });
+    }
+  }catch(e){console.error(e);}
+}
+
+/* ── LEADERBOARDS ─────────────────────────────────────────── */
+function InitLeaderboards(){
+  ysdk.getLeaderboards().then(function(_lb){ leaderboard=_lb; });
+}
+function WaitForLeaderboard(){
+  return new Promise(function(resolve,reject){
+    var iv=setInterval(function(){
+      if(leaderboard!==null){clearInterval(iv);clearTimeout(to);resolve();}
+    },100);
+    var to=setTimeout(function(){clearInterval(iv);reject(new Error("LB timeout"));},5000);
+  });
+}
+async function GetLeaderboardScores(nameLB,maxPlayers,quantityTop,quantityAround,photoSize,auth){
+  try{
+    if(!leaderboard) await WaitForLeaderboard();
+    var jsonEntries={technoName:'',isDefault:false,isInvertSortOrder:false,decimalOffset:0,type:''};
+    ysdk.getLeaderboards().then(function(lb){
+      return lb.getLeaderboardDescription(nameLB);
+    }).then(function(res){
+      jsonEntries.technoName=nameLB;jsonEntries.isDefault=res.default;
+      jsonEntries.isInvertSortOrder=res.description.invert_sort_order;
+      jsonEntries.decimalOffset=res.description.score_format.options.decimal_offset;
+      jsonEntries.type=res.description.type;
+      return leaderboard.getLeaderboardEntries(nameLB,{quantityTop:quantityTop,includeUser:auth,quantityAround:quantityAround});
+    }).then(function(res){
+      var jp=EntriesLB(res,maxPlayers,photoSize);
+      myGameInstance.SendMessage('YandexGame','LeaderboardEntries',JSON.stringify(Object.assign({},jsonEntries,jp)));
+    }).catch(function(e){console.error(e);});
+  }catch(e){console.error('CRASH Get LB:',e.message);}
+}
+async function SetLeaderboardScores(name,score){
+  try{
+    if(!leaderboard) await WaitForLeaderboard();
+    ysdk.getLeaderboards().then(function(lb){lb.setLeaderboardScore(name,score);});
+  }catch(e){console.error('CRASH Set LB:',e.message);}
+}
+function EntriesLB(res,maxPlayers,photoSize){
+  var n=Math.min(res.entries.length,maxPlayers);
+  var txt='',ranks=[],photos=[],names=[],scores=[],uids=[];
+  for(var i=0;i<n;i++){
+    ranks[i]=res.entries[i].rank; scores[i]=res.entries[i].score;
+    uids[i]=res.entries[i].player.uniqueID;
+    photos[i]=res.entries[i].player.getAvatarSrc(photoSize);
+    names[i]=res.entries[i].player.scopePermissions.public_name==='allow'
+      ?res.entries[i].player.publicName:'anonymous';
+    txt+=ranks[i]+'. '+names[i]+': '+scores[i]+'\n';
+  }
+  return{entries:n===0?'no data':txt,ranks:ranks,photos:photos,names:names,scores:scores,uniqueIDs:uids};
+}
+
+/* ── ENVIRONMENT ──────────────────────────────────────────── */
+function RequestingEnvironmentData(sendback){
+  return new Promise(function(resolve){
+    if(!ysdk){resolve('null');return;}
+    try{
+      var promptCanShow=false,reviewCanShow=false;
+      ysdk.feedback.canReview().then(function(d){
+        if(d.value) reviewCanShow=true;
+        ysdk.shortcut.canShowPrompt().then(function(prompt){
+          if(prompt.canShow) promptCanShow=true;
+          var ua=navigator.userAgent,browser;
+          if(ua.includes('YaBrowser')||ua.includes('YaSearchBrowser')) browser='Yandex';
+          else if(ua.includes('Opera')||ua.includes('OPR')) browser='Opera';
+          else if(ua.includes('Firefox')) browser='Firefox';
+          else if(ua.includes('MSIE')) browser='IE';
+          else if(ua.includes('Edge')) browser='Edge';
+          else if(ua.includes('Chrome')) browser='Chrome';
+          else if(ua.includes('Safari')) browser='Safari';
+          else browser='Other';
+          var j=JSON.stringify({
+            language:ysdk.environment.i18n.lang, domain:ysdk.environment.i18n.tld,
+            deviceType:ysdk.deviceInfo.type, isMobile:ysdk.deviceInfo.isMobile(),
+            isDesktop:ysdk.deviceInfo.isDesktop(), isTablet:ysdk.deviceInfo.isTablet(),
+            isTV:ysdk.deviceInfo.isTV(), appID:ysdk.environment.app.id,
+            browserLang:ysdk.environment.browser.lang, payload:ysdk.environment.payload,
+            promptCanShow:promptCanShow, reviewCanShow:reviewCanShow,
+            platform:navigator.platform, browser:browser
+          });
+          if(sendback&&myGameInstance) myGameInstance.SendMessage('YandexGame','SetEnvirData',j);
+          resolve(j);
+        });
+      });
+    }catch(e){console.error(e);resolve('null');}
+  });
+}
+
+/* ── PLAYER ───────────────────────────────────────────────── */
+function InitPlayer(sendback){
+  return new Promise(function(resolve){
+    try{
+      if(!ysdk){
+        var r=NotAuthorized();
+        if(sendback&&myGameInstance) myGameInstance.SendMessage('YandexGame','SetInitializationSDK',r);
+        resolve(r); return;
+      }
+      ysdk.getPlayer({scopes:true}).then(function(_p){
+        player=_p;
+        if(player.getMode()==='lite'){
+          var r=NotAuthorized();
+          if(sendback&&myGameInstance) myGameInstance.SendMessage('YandexGame','SetInitializationSDK',r);
+          resolve(r);
+        } else {
+          var j=JSON.stringify({playerAuth:'resolved',playerName:player.getName(),
+            playerId:player.getUniqueID(),playerPhoto:player.getPhoto('small'),
+            payingStatus:player.getPayingStatus()});
+          if(sendback&&myGameInstance) myGameInstance.SendMessage('YandexGame','SetInitializationSDK',j);
+          resolve(j);
+        }
+      }).catch(function(e){
+        console.error(e);
+        var r=NotAuthorized();
+        if(sendback&&myGameInstance) myGameInstance.SendMessage('YandexGame','SetInitializationSDK',r);
+        resolve(r);
+      });
+    }catch(e){
+      console.error(e);
+      var r=NotAuthorized();
+      if(sendback&&myGameInstance) myGameInstance.SendMessage('YandexGame','SetInitializationSDK',r);
+      resolve(r);
+    }
+  });
+}
+function NotAuthorized(){
+  return JSON.stringify({playerAuth:'rejected',playerName:'unauthorized',
+    playerId:'unauthorized',playerPhoto:'unknown',payingStatus:'unknown'});
+}
+function OpenAuthDialog(){
+  if(!ysdk) return;
+  try{
+    ysdk.auth.openAuthDialog().then(function(){
+      InitPlayer(true).then(function(){ myGameInstance.SendMessage('YandexGame','GetDataInvoke'); });
+    });
+  }catch(e){console.log('CRASH Open Auth Dialog:',e.message);}
+}
+
+document.body.appendChild(script);
+</script>
+
+
+
+
+
+</body></html>

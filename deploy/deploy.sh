@@ -33,6 +33,7 @@ static_root() {
 # A reload drops chat and proxy websockets, so skip it when only files the
 # server reads from disk per request (or never loads) changed.
 needs_reload() {
+  git diff --quiet "$1" "$2" -- docs/game-imports/asset-mirror.json || return 0
   git diff --name-only "$1" "$2" |
     grep -qvE '^(static/|docs/|scripts/|deploy/|\.github/|tests?/)|\.md$'
 }
@@ -45,6 +46,9 @@ install_and_build() {
     npm install --no-audit --no-fund || return 1
     # Never leave npm's rewrites behind; the next deploy refuses a dirty tree.
     git checkout --quiet -- package.json package-lock.json
+  fi
+  if [[ -f scripts/sync-game-assets.js ]]; then
+    node scripts/sync-game-assets.js || return 1
   fi
   npm run --silent build --if-present || return 1
 }
@@ -132,6 +136,9 @@ previous="$(git rev-parse HEAD)"
 
 if [[ "$previous" == "$sha" ]]; then
   log "$sha is already checked out; rebuilding"
+  if [[ -f scripts/sync-game-assets.js ]]; then
+    node scripts/sync-game-assets.js || exit 1
+  fi
   npm run --silent build --if-present && health || exit 1
   echo "$(date -u +%FT%TZ) $sha" >>"$STATE_DIR/releases.log"
   exit 0

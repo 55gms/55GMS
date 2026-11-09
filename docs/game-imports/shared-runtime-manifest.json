@@ -1,0 +1,62 @@
+{
+  "sourceRepository": "55gms/55GMS",
+  "sourceCommit": "3ca3ef3a67b19dc37d4ce3c77eace27e59018ee0",
+  "games": 122,
+  "files": [
+    {
+      "path": "lib/game-runtime/assets/js/save-agent.js",
+      "bytes": 44128,
+      "sha256": "ef890042bccb6311359b0a85a6becfc6f44dcf861270ad7f6f8c6d05852e558c"
+    },
+    {
+      "path": "lib/game-runtime/assets/js/loader-ui.js",
+      "bytes": 10724,
+      "sha256": "51766fce79693c37df5336efe3a8eb58dd8cf6c5e05a12a4913b1dca7372b313"
+    },
+    {
+      "path": "lib/game-runtime/assets/js/game-loader.js",
+      "bytes": 13898,
+      "sha256": "bdf420707c01f65024daee06db293263b9585d24cafa62b2f90bb0f1e65b0ed3"
+    },
+    {
+      "path": "lib/game-runtime/assets/js/imported-game-loader.js",
+      "bytes": 4147,
+      "sha256": "cb8f98eafa11509e6a6e2565d3c29130f5a6b526179f18214b747a1d0f906af6"
+    },
+    {
+      "path": "lib/game-runtime/assets/js/imported-flash-loader.js",
+      "bytes": 616,
+      "sha256": "13321520137d9a55c60c2283c2c46616f688d5d36fee87da21d0f43f568f5e9c"
+    },
+    {
+      "path": "lib/game-runtime/assets/js/cloud-saves.js",
+      "bytes": 89957,
+      "sha256": "38d4f9b404acb704274b5217302c9bea889842db7ceaf7f28b9ced709d5bda5d"
+    },
+    {
+      "path": "lib/game-runtime/assets/json/load/g.json",
+      "bytes": 161862,
+      "sha256": "ccea16fe0f0f13a281be7617146faba8ac34903886d5cb6313f9865a0b403255"
+    },
+    {
+      "path": "lib/game-runtime/assets/css/loader-ui.css",
+      "bytes": 9593,
+      "sha256": "0e05dbdb4d0465ab808c9de3d837a5b1ec3788f152424a4c0366d96fb7be0fca"
+    },
+    {
+      "path": "lib/game-runtime/assets/json/saves.json",
+      "bytes": 155622,
+      "sha256": "82218dba62d19ba34eae3ed798c23ddb58b610ff74516401c324cee1fc4938c8"
+    },
+    {
+      "path": "lib/game-runtime/socket.io/socket.io.js",
+      "bytes": 155836,
+      "sha256": "bc425714aa8f2547d6939e3721ebafd3830a7562a1f6cb08acc1e794bd707954"
+    },
+    {
+      "path": "lib/game-runtime/socket.io/socket.io.js.map",
+      "bytes": 310154,
+      "sha256": "08aff03d7b1a397d2d1023aec24ca5bc0a0040fbf05e0f203e5a9952320d0f00"
+    }
+  ]
+}

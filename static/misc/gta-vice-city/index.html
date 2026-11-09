@@ -1,0 +1,553 @@
+<!DOCTYPE html><html lang="en-us"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; connect-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' data: blob:; font-src 'self' data:; worker-src 'self' blob:; frame-src 'self' blob:; object-src 'none'; form-action 'self'; base-uri 'self'">
+  <script  src="/lib/game-runtime/assets/js/save-agent.js?v=4" data-game-id="gta-vice-city"></script>
+  <script type="application/json" id="gms-import-config">{"title":"Criminal Russia 3D: Boris","engine":"unity","files":[["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.data.br.000.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.data.br.001.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.data.br.002.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.data.br.003.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.data.br.004.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.data.br.005.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.data.br.006.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.data.br.007.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.data.br.008.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.data.br.009.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.data.br.010.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.data.br.011.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.data.br.012.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.data.br.013.part",4235868],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.framework.js",460956],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.loader.js",26454],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.wasm.br.000.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.wasm.br.001.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.wasm.br.002.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.wasm.br.003.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.wasm.br.004.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.wasm.br.005.part",8388608],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build/Boris_15_1_4_R.wasm.br.006.part",4518465],["/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Images/logo.png",1108289]],"total":169733584,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/lib/game-runtime/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/lib/game-runtime/assets/js/game-loader.js?v=5gz9swuael" data-title="Criminal Russia 3D: Boris"></script><script src="/lib/game-runtime/assets/js/imported-game-loader.js?v=3" data-title="Criminal Russia 3D: Boris"></script>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<style>
+    canvas:focus {
+        outline: none;
+    }
+
+    html, body {
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        height: 100%;
+    }
+
+    #unity-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    #unity-canvas {
+        width: 100%;
+        height: 100%;
+        background: #231F20;
+    }
+
+    #loading-cover {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #231F20;
+    }
+
+    #unity-loading-bar {
+        text-align: center;
+    }
+
+    #unity-logo {
+        margin-bottom: 20px;
+    }
+
+    #unity-logo img {
+        max-width: 200px;
+    }
+
+    #unity-progress-bar-empty {
+        width: 300px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 20px auto;
+    }
+
+    #unity-progress-bar-full {
+        height: 100%;
+        background: linear-gradient(90deg, #4CAF50, #8BC34A);
+        width: 0%;
+        transition: width 0.3s;
+    }
+
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid rgba(255, 255, 255, 0.1);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+</style>
+<title>Criminal Russia 3D: Boris</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body>
+<div id="unity-container">
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+</div>
+<div id="loading-cover" class="gms-legacy-loading-hooks"><div id="unity-loading-bar" class="gms-legacy-loading-hooks"><div id="unity-logo"><img onerror="this.style.display='none'"></div><div id="unity-progress-bar-empty" style="display: none;"><div id="unity-progress-bar-full"></div></div><div class="spinner"></div></div></div>
+
+<script>
+    const buildUrl = "/misc/gta-vice-city/_ext/cdn.jsdelivr.net/gh/papamamia/zama7nana@main/Build";
+    const loaderUrl = buildUrl + "/Boris_15_1_4_R.loader.js";
+
+    // Parçalı dosya yapılandırması
+    const dataPartCount = 14;  // Boris_15_1_4_R.data.br.000.part - .013.part
+    const wasmPartCount = 7;   // Boris_15_1_4_R.wasm.br.000.part - .006.part
+
+    const config = {
+        dataUrl: buildUrl + "/Boris_15_1_4_R.data.br",  // Dinamik olarak oluşturulacak
+        frameworkUrl: buildUrl + "/Boris_15_1_4_R.framework.js",
+        codeUrl: buildUrl + "/Boris_15_1_4_R.wasm.br",  // Dinamik olarak oluşturulacak
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "LIMANSKYGAMES LTD",
+        productName: "Criminal Russia 3D. Boris",
+        productVersion: "15.1.4"
+    };
+
+    const container = document.querySelector("#unity-container");
+    const canvas = document.querySelector("#unity-canvas");
+    const loadingCover = document.querySelector("#loading-cover");
+    const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+    const progressBarFull = document.querySelector("#unity-progress-bar-full");
+    const spinner = document.querySelector('.spinner');
+
+    let ygGameInstance = null;
+    let initGame = false;
+
+    // SDK değişkenleri
+    const NO_DATA = 'no data';
+    let ysdk = null;
+    let player = null;
+    let payments = null;
+    let cloudSaves = NO_DATA;
+    let paymentsData = NO_DATA;
+    let allGamesData = NO_DATA;
+    let environmentData = NO_DATA;
+    let playerData = NO_DATA;
+    let nowFullAdOpen = false;
+
+    // Parçalı dosya birleştirme fonksiyonu
+    async function mergePartFiles(baseUrl, partCount, progressCallback) {
+        LogStyledMessage(`Merging ${partCount} parts for: ${baseUrl}`);
+
+        const chunks = [];
+        let totalSize = 0;
+
+        for (let i = 0; i < partCount; i++) {
+            const partUrl = `${baseUrl}.${String(i).padStart(3, '0')}.part`;
+
+            try {
+                LogStyledMessage(`Downloading part ${i + 1}/${partCount}: ${partUrl}`);
+
+                const response = await fetch(partUrl);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch ${partUrl}: ${response.status}`);
+                }
+
+                const arrayBuffer = await response.arrayBuffer();
+                chunks.push(arrayBuffer);
+                totalSize += arrayBuffer.byteLength;
+
+                if (progressCallback) {
+                    progressCallback((i + 1) / partCount);
+                }
+
+            } catch (error) {
+                console.error(`Error downloading part ${i}:`, error);
+                throw error;
+            }
+        }
+
+        LogStyledMessage(`Merging ${chunks.length} chunks, total size: ${totalSize} bytes`);
+
+        // Tüm parçaları birleştir
+        const mergedArray = new Uint8Array(totalSize);
+        let offset = 0;
+
+        for (const chunk of chunks) {
+            mergedArray.set(new Uint8Array(chunk), offset);
+            offset += chunk.byteLength;
+        }
+
+        LogStyledMessage(`Merge completed: ${mergedArray.byteLength} bytes`);
+
+        // Blob URL oluştur
+        const blob = new Blob([mergedArray], { type: 'application/octet-stream' });
+        return URL.createObjectURL(blob);
+    }
+
+    // Unity loader'ı özelleştir
+    async function prepareUnityFiles() {
+        LogStyledMessage('Preparing Unity files from parts...');
+
+        const dataUrl = await mergePartFiles(
+            buildUrl + "/Boris_15_1_4_R.data.br",
+            dataPartCount,
+            (progress) => {
+                const percent = Math.floor(progress * 50); // İlk %50
+                progressBarFull.style.width = `${percent}%`;
+            }
+        );
+
+        const wasmUrl = await mergePartFiles(
+            buildUrl + "/Boris_15_1_4_R.wasm.br",
+            wasmPartCount,
+            (progress) => {
+                const percent = 50 + Math.floor(progress * 50); // Son %50
+                progressBarFull.style.width = `${percent}%`;
+            }
+        );
+
+        // Config'i güncelle
+        config.dataUrl = dataUrl;
+        config.codeUrl = wasmUrl;
+
+        LogStyledMessage('Unity files prepared successfully');
+    }
+
+    // Log fonksiyonu
+    function LogStyledMessage(message, style) {
+        if (style) {
+            console.log('%c' + message, style);
+        } else {
+            console.log('%c' + message, 'color: #FFDF73; background-color: #454545');
+        }
+    }
+
+    // Mock SDK için boş objeler
+    const mockYSDK = {
+        environment: {
+            i18n: { lang: 'en', tld: 'com' },
+            app: { id: 'mock-app' },
+            browser: { lang: 'en' },
+            payload: ''
+        },
+        deviceInfo: {
+            type: 'desktop',
+            isMobile: () => false,
+            isDesktop: () => true,
+            isTablet: () => false,
+            isTV: () => false
+        },
+        adv: {
+            showRewardedVideo: (options) => { return window.GMSImportedAds.yandex(options); },
+            showFullscreenAdv: (options) => {
+                console.log('Mock: Fullscreen ad');
+                if (options.callbacks.onOpen) options.callbacks.onOpen();
+                setTimeout(() => {
+                    if (options.callbacks.onClose) options.callbacks.onClose(true);
+                }, 100);
+            }
+        },
+        getPlayer: async () => ({
+            isAuthorized: () => false,
+            getName: () => 'Player',
+            getUniqueID: () => 'mock-id',
+            getPhoto: () => '',
+            getPayingStatus: () => 'unknown',
+            setData: () => Promise.resolve(),
+            getData: () => Promise.resolve({})
+        }),
+        getPayments: async () => ({
+            getCatalog: () => Promise.resolve([]),
+            getPurchases: () => Promise.resolve([]),
+            purchase: () => Promise.resolve(),
+            consumePurchase: () => Promise.resolve()
+        }),
+        leaderboards: {
+            setScore: () => {},
+            getDescription: () => Promise.resolve({ default: false, description: { invert_sort_order: false, score_format: { options: { decimal_offset: 0 } }, type: 'numeric' } }),
+            getEntries: () => Promise.resolve({ entries: [] })
+        },
+        features: {
+            GamesAPI: {
+                getAllGames: () => Promise.resolve({ games: [], developerURL: '' })
+            }
+        },
+        auth: {
+            openAuthDialog: () => Promise.resolve()
+        },
+        on: () => {}
+    };
+
+    // Context menu engelle
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // Pointer lock düzeltmesi
+    const oRequestPointerLock = Element.prototype.requestPointerLock;
+    Element.prototype.requestPointerLock = async function(...args) {
+        try {
+            (args[0] ||= {}).unadjustedMovement = true;
+            await oRequestPointerLock.apply(this, args);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    // Focus yönetimi
+    function FocusGame() {
+        canvas.focus();
+    }
+
+    window.addEventListener('pointerdown', FocusGame);
+
+    // Unity instance mesaj gönderme
+    function YG2Instance(method, arg) {
+        if (!ygGameInstance) return;
+
+        const send = () => {
+            try {
+                if (arg !== undefined) {
+                    ygGameInstance.SendMessage('YG2Instance', method, arg);
+                } else {
+                    ygGameInstance.SendMessage('YG2Instance', method);
+                }
+            } catch (e) {
+                console.log('YG2Instance message:', method, arg);
+            }
+        };
+
+        if (!initGame) {
+            setTimeout(send, 100);
+        } else {
+            send();
+        }
+    }
+
+    // Mock fonksiyonlar
+    function InitGame() {
+        initGame = true;
+        LogStyledMessage('Game initialized');
+    }
+
+    function SaveCloud(jsonData, flush) {
+        LogStyledMessage('Mock: Save cloud');
+        try {
+            cloudSaves = jsonData;
+        } catch (e) {
+            console.error('Save cloud error:', e);
+        }
+    }
+
+    function LoadCloud() {
+        return Promise.resolve(cloudSaves);
+    }
+
+    function ConsumePurchase(id, onPurchaseSuccess) {
+        LogStyledMessage('Mock: Consume purchase ' + id);
+        if (onPurchaseSuccess) {
+            YG2Instance('OnPurchaseSuccess', id);
+        }
+    }
+
+    function ConsumePurchases(onPurchaseSuccess) {
+        LogStyledMessage('Mock: Consume purchases');
+    }
+
+    function RewardedAdvShow(id) {
+        LogStyledMessage('Mock: Rewarded ad ' + id);
+        YG2Instance('OpenRewardedAdv');
+        setTimeout(() => {
+            YG2Instance('RewardAdv', id);
+            YG2Instance('CloseRewardedAdv');
+            FocusGame();
+        }, 100);
+    }
+
+    function InterAdvShow() {
+        if (nowFullAdOpen) {
+            LogStyledMessage('Cancel InterAdvShow: The advertisement is already open');
+            return;
+        }
+
+        LogStyledMessage('Open Interstitial Adv');
+        nowFullAdOpen = true;
+        YG2Instance('OpenInterAdv');
+
+        setTimeout(() => {
+            LogStyledMessage('Close Interstitial Adv');
+            nowFullAdOpen = false;
+            YG2Instance('CloseInterAdv', 'true');
+            FocusGame();
+        }, 100);
+    }
+
+    function BuyPayments(id) {
+        LogStyledMessage('Mock: Purchase ' + id);
+        YG2Instance('OnPurchaseSuccess', id);
+        FocusGame();
+    }
+
+    function SetLeaderboard(name, score, extraData) {
+        LogStyledMessage('Mock: Leaderboard ' + name + ' score: ' + score);
+    }
+
+    function GetLeaderboard(nameLB, quantityTop, quantityAround, photoSize, auth) {
+        LogStyledMessage('Mock: Get leaderboard ' + nameLB);
+        const mockData = {
+            technoName: nameLB,
+            isDefault: false,
+            isInvertSortOrder: false,
+            decimalOffset: 0,
+            type: 'numeric',
+            entries: 'no data',
+            ranks: [],
+            photos: [],
+            names: [],
+            scores: [],
+            uniqueIDs: [],
+            extraDataArray: []
+        };
+        YG2Instance('LeaderboardEntries', JSON.stringify(mockData));
+    }
+
+    function OpenAuthDialog() {
+        LogStyledMessage('Mock: Auth dialog');
+    }
+
+    function InitPlayer() {
+        return Promise.resolve(playerData);
+    }
+
+    function InitPayments() {
+        return Promise.resolve(paymentsData);
+    }
+
+    function GetAllGames() {
+        return Promise.resolve(allGamesData);
+    }
+
+    function RequestingEnvironmentData() {
+        return Promise.resolve(environmentData);
+    }
+
+    // Mock SDK başlatma
+    async function InitMockSDK() {
+        LogStyledMessage('[PluginYG2 v2.007] [Build: 32] [Platform: YandexGames]');
+        LogStyledMessage('Initializing mock SDK...');
+
+        // Environment data
+        const envData = {
+            language: 'en',
+            domain: 'com',
+            deviceType: 'desktop',
+            isMobile: false,
+            isDesktop: true,
+            isTablet: false,
+            isTV: false,
+            appID: 'mock-app',
+            browserLang: navigator.language || 'en',
+            payload: '',
+            platform: navigator.platform,
+            browser: 'browser'
+        };
+        environmentData = JSON.stringify(envData);
+        YG2Instance('SetEnvirData', environmentData);
+        LogStyledMessage('Init EnvirData ysdk');
+
+        // Player data
+        const authData = {
+            playerAuth: 'rejected',
+            playerName: 'Player',
+            playerId: 'mock-id',
+            playerPhoto: '',
+            payingStatus: 'unknown'
+        };
+        playerData = JSON.stringify(authData);
+        YG2Instance('SetAuth', playerData);
+        LogStyledMessage('Init Authorization ysdk');
+
+        // Load saves
+        cloudSaves = NO_DATA;
+        YG2Instance('SetLoadSaves', cloudSaves);
+        LogStyledMessage('Init Storage ysdk');
+
+        // Payments
+        const payments = {
+            id: [],
+            title: [],
+            description: [],
+            imageURI: [],
+            price: [],
+            priceValue: [],
+            priceCurrencyCode: [],
+            currencyImageURL: [],
+            consumed: [],
+            language: 'en'
+        };
+        paymentsData = JSON.stringify(payments);
+        YG2Instance('PaymentsEntries', paymentsData);
+        LogStyledMessage('Init Payments ysdk');
+
+        // All games
+        const games = {
+            appID: [],
+            title: [],
+            url: [],
+            coverURL: [],
+            iconURL: [],
+            developerURL: ''
+        };
+        allGamesData = JSON.stringify(games);
+        LogStyledMessage('Init OpenURL ysdk');
+
+        // SDK initialized
+        setTimeout(() => {
+            YG2Instance('InitSDKComplete');
+            LogStyledMessage('Init YandexSDK Success');
+        }, 100);
+    }
+
+    // Unity yükleme
+    const script = document.createElement("script");
+    script.src = loaderUrl;
+    script.onload = async () => {
+        try {
+            // Önce parçalı dosyaları birleştir
+            spinner.style.display = "none";
+            progressBarEmpty.style.display = "";
+
+            await prepareUnityFiles();
+
+            // Sonra Unity instance'ı başlat
+            createUnityInstance(canvas, config, (progress) => {
+                const adjustedProgress = Math.max(progress, 0.05);
+                progressBarFull.style.width = `${100 * adjustedProgress}%`;
+            }).then((unityInstance) => {
+                ygGameInstance = unityInstance;
+                loadingCover.style.display = "none";
+
+                // Mock SDK'yı başlat
+                InitMockSDK();
+
+                LogStyledMessage('Game loaded successfully');
+            }).catch((message) => {
+                console.error('Game load error:', message);
+            });
+
+        } catch (error) {
+            console.error('File preparation error:', error);
+            spinner.innerHTML = '<p style="color:white">Failed to load game files: ' + error.message + '</p>';
+        }
+    };
+    script.onerror = () => {
+        console.error('Failed to load Unity loader');
+        spinner.innerHTML = '<p style="color:white">Failed to load game files</p>';
+    };
+
+    document.body.appendChild(script);
+</script>
+
+
+
+
+</body></html>

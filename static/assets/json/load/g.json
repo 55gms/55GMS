@@ -3284,5 +3284,859 @@
     "image": "https://cdn.jsdelivr.net/gh/55gms/assets@349c81bdc5d3cce0505f7952a6261996409809f2/misc/brainrot-miner/img.webp",
     "preview": "/img/videos/preview/brainrotminer.mp4",
     "usesProxy": false
+  },
+  {
+    "name": "Two Ball 3D",
+    "url": "/misc/play/?title=Two+Ball+3D&author=RHM+Interactive+O%C3%9C&link=two-ball-3d",
+    "image": "/misc/two-ball-3d/img.webp",
+    "usesProxy": false,
+    "author": "RHM Interactive OÜ"
+  },
+  {
+    "name": "Blocky Snakes",
+    "url": "/misc/play/?title=Blocky+Snakes&author=BeedoGames&link=blocky-snakes",
+    "image": "/misc/blocky-snakes/img.webp",
+    "usesProxy": false,
+    "author": "BeedoGames"
+  },
+  {
+    "name": "Search for the Needle!",
+    "url": "/misc/play/?title=Search+for+the+Needle%21&author=LuckyBox&link=search-for-the-needle",
+    "image": "/misc/search-for-the-needle/img.webp",
+    "usesProxy": false,
+    "author": "LuckyBox"
+  },
+  {
+    "name": "Obby Snowboard",
+    "url": "/misc/play/?title=Obby+Snowboard&author=MiniPoP+Games&link=obby-snowboard",
+    "image": "/misc/obby-snowboard/img.webp",
+    "usesProxy": false,
+    "author": "MiniPoP Games"
+  },
+  {
+    "name": "Crazy Roll",
+    "url": "/misc/play/?title=Crazy+Roll&author=JulGames&link=crazy-roll",
+    "image": "/misc/crazy-roll/img.webp",
+    "usesProxy": false,
+    "author": "JulGames"
+  },
+  {
+    "name": "Granny 2",
+    "url": "/misc/play/?title=Granny+2&author=Awesome&link=granny-2",
+    "image": "/misc/granny-2/img.webp",
+    "usesProxy": false,
+    "author": "Awesome"
+  },
+  {
+    "name": "VaVeX",
+    "url": "/misc/play/?title=VaVeX&author=Creator+not+credited&link=vavex",
+    "image": "/misc/vavex/img.webp",
+    "usesProxy": false,
+    "author": "Creator not credited"
+  },
+  {
+    "name": "Fly the Plane",
+    "url": "/misc/play/?title=Fly+the+Plane&author=AO.games&link=fly-the-plane",
+    "image": "/misc/fly-the-plane/img.webp",
+    "usesProxy": false,
+    "author": "AO.games"
+  },
+  {
+    "name": "Slap Aura",
+    "url": "/misc/play/?title=Slap+Aura&author=Nil&link=slap-aura",
+    "image": "/misc/slap-aura/img.webp",
+    "usesProxy": false,
+    "author": "Nil"
+  },
+  {
+    "name": "Ragdoll Freefall",
+    "url": "/misc/play/?title=Ragdoll+Freefall&author=Nepochat&link=ragdoll-freefall",
+    "image": "/misc/ragdoll-freefall/img.webp",
+    "usesProxy": false,
+    "author": "Nepochat"
+  },
+  {
+    "name": "Jacksmith",
+    "url": "/misc/play/?title=Jacksmith&author=Flipline+Studios&link=jacksmith",
+    "image": "/misc/jacksmith/img.webp",
+    "usesProxy": false,
+    "author": "Flipline Studios"
+  },
+  {
+    "name": "Swords and souls",
+    "url": "/misc/play/?title=Swords+and+souls&author=SoulGame&link=swords-and-souls",
+    "image": "/misc/swords-and-souls/img.webp",
+    "usesProxy": false,
+    "author": "SoulGame"
+  },
+  {
+    "name": "Cactus McCoy",
+    "url": "/misc/play/?title=Cactus+McCoy&author=Flipline+Studios&link=cactus-mccoy",
+    "image": "/misc/cactus-mccoy/img.webp",
+    "usesProxy": false,
+    "author": "Flipline Studios"
+  },
+  {
+    "name": "Cactus McCoy 2",
+    "url": "/misc/play/?title=Cactus+McCoy+2&author=Flipline+Studios&link=cactusmccoy2",
+    "image": "/misc/cactusmccoy2/img.webp",
+    "usesProxy": false,
+    "author": "Flipline Studios"
+  },
+  {
+    "name": "Super Mario 63",
+    "url": "/misc/play/?title=Super+Mario+63&author=Runouw&link=super-mario-63",
+    "image": "/misc/super-mario-63/img.webp",
+    "usesProxy": false,
+    "author": "Runouw"
+  },
+  {
+    "name": "Achievement Unlocked",
+    "url": "/misc/play/?title=Achievement+Unlocked&author=John+Cooney&link=achievement-unlocked",
+    "image": "/misc/achievement-unlocked/img.webp",
+    "usesProxy": false,
+    "author": "John Cooney"
+  },
+  {
+    "name": "Don't Escape",
+    "url": "/misc/play/?title=Don%27t+Escape&author=scriptwelder&link=dont-escape",
+    "image": "/misc/dont-escape/img.webp",
+    "usesProxy": false,
+    "author": "scriptwelder"
+  },
+  {
+    "name": "Don't Escape 2",
+    "url": "/misc/play/?title=Don%27t+Escape+2&author=scriptwelder&link=dont-escape-2",
+    "image": "/misc/dont-escape-2/img.webp",
+    "usesProxy": false,
+    "author": "scriptwelder"
+  },
+  {
+    "name": "Don't Escape 3",
+    "url": "/misc/play/?title=Don%27t+Escape+3&author=scriptwelder&link=dont-escape-3",
+    "image": "/misc/dont-escape-3/img.webp",
+    "usesProxy": false,
+    "author": "scriptwelder"
+  },
+  {
+    "name": "Warfare 1917",
+    "url": "/misc/play/?title=Warfare+1917&author=Con+Artist&link=warfare-1917",
+    "image": "/misc/warfare-1917/img.webp",
+    "usesProxy": false,
+    "author": "Con Artist"
+  },
+  {
+    "name": "The Enchanted Cave 2",
+    "url": "/misc/play/?title=The+Enchanted+Cave+2&author=Dustin+Auxier&link=the-enchanted-cave",
+    "image": "/misc/the-enchanted-cave/img.webp",
+    "usesProxy": false,
+    "author": "Dustin Auxier"
+  },
+  {
+    "name": "Gun Mayhem",
+    "url": "/misc/play/?title=Gun+Mayhem&author=Kevin+Gu&link=gun-mayhem",
+    "image": "/misc/gun-mayhem/img.webp",
+    "usesProxy": false,
+    "author": "Kevin Gu"
+  },
+  {
+    "name": "Swords and Sandals 2",
+    "url": "/misc/play/?title=Swords+and+Sandals+2&author=Oliver+Joyce&link=swords-and-sandals-2",
+    "image": "/misc/swords-and-sandals-2/img.webp",
+    "usesProxy": false,
+    "author": "Oliver Joyce"
+  },
+  {
+    "name": "The Last Stand",
+    "url": "/misc/play/?title=The+Last+Stand&author=Con+Artist+Games&link=the-last-stand",
+    "image": "/misc/the-last-stand/img.webp",
+    "usesProxy": false,
+    "author": "Con Artist Games"
+  },
+  {
+    "name": "Strike Force Heroes 2",
+    "url": "/misc/play/?title=Strike+Force+Heroes+2&author=Sky9+Games&link=strike-force-heroes-2",
+    "image": "/misc/strike-force-heroes-2/img.webp",
+    "usesProxy": false,
+    "author": "Sky9 Games"
+  },
+  {
+    "name": "Bloons Super Monkey",
+    "url": "/misc/play/?title=Bloons+Super+Monkey&author=Ninja+Kiwi&link=bloons-supermonkey",
+    "image": "/misc/bloons-supermonkey/img.webp",
+    "usesProxy": false,
+    "author": "Ninja Kiwi"
+  },
+  {
+    "name": "City Siege",
+    "url": "/misc/play/?title=City+Siege&author=thepodge&link=city-siege",
+    "image": "/misc/city-siege/img.webp",
+    "usesProxy": false,
+    "author": "thepodge"
+  },
+  {
+    "name": "City Siege 2",
+    "url": "/misc/play/?title=City+Siege+2&author=thepodge&link=city-siege-2",
+    "image": "/misc/city-siege-2/img.webp",
+    "usesProxy": false,
+    "author": "thepodge"
+  },
+  {
+    "name": "City Siege 3",
+    "url": "/misc/play/?title=City+Siege+3&author=The+Podge&link=city-siege-3",
+    "image": "/misc/city-siege-3/img.webp",
+    "usesProxy": false,
+    "author": "The Podge"
+  },
+  {
+    "name": "City Siege 4",
+    "url": "/misc/play/?title=City+Siege+4&author=The+Podge&link=city-siege-4",
+    "image": "/misc/city-siege-4/img.webp",
+    "usesProxy": false,
+    "author": "The Podge"
+  },
+  {
+    "name": "Shopping Cart Hero",
+    "url": "/misc/play/?title=Shopping+Cart+Hero&author=MonkeyWantBanana&link=shopping-cart-hero",
+    "image": "/misc/shopping-cart-hero/img.webp",
+    "usesProxy": false,
+    "author": "MonkeyWantBanana"
+  },
+  {
+    "name": "Grow Island",
+    "url": "/misc/play/?title=Grow+Island&author=Eyezmaze&link=grow-island",
+    "image": "/misc/grow-island/img.webp",
+    "usesProxy": false,
+    "author": "Eyezmaze"
+  },
+  {
+    "name": "Grow Valley",
+    "url": "/misc/play/?title=Grow+Valley&author=Eyezmaze&link=grow-valley",
+    "image": "/misc/grow-valley/img.webp",
+    "usesProxy": false,
+    "author": "Eyezmaze"
+  },
+  {
+    "name": "Armor Mayhem",
+    "url": "/misc/play/?title=Armor+Mayhem&author=JuicyBit&link=armor-mayhem",
+    "image": "/misc/armor-mayhem/img.webp",
+    "usesProxy": false,
+    "author": "JuicyBit"
+  },
+  {
+    "name": "Electric Box 2",
+    "url": "/misc/play/?title=Electric+Box+2&author=TwinkleStarGames&link=electric-box-2",
+    "image": "/misc/electric-box-2/img.webp",
+    "usesProxy": false,
+    "author": "TwinkleStarGames"
+  },
+  {
+    "name": "Civiballs",
+    "url": "/misc/play/?title=Civiballs&author=Hunter+Hamster&link=civiballs",
+    "image": "/misc/civiballs/img.webp",
+    "usesProxy": false,
+    "author": "Hunter Hamster"
+  },
+  {
+    "name": "Papa’s Bakeria",
+    "url": "/misc/play/?title=Papa%E2%80%99s+Bakeria&author=Flipline+Studios&link=papas-bakeria",
+    "image": "/misc/papas-bakeria/img.webp",
+    "usesProxy": false,
+    "author": "Flipline Studios"
+  },
+  {
+    "name": "Papa Louie 2: When Burgers Attack",
+    "url": "/misc/play/?title=Papa+Louie+2%3A+When+Burgers+Attack&author=Flipline+Studios&link=papa-louie-2-when-burgers-attack",
+    "image": "/misc/papa-louie-2-when-burgers-attack/img.webp",
+    "usesProxy": false,
+    "author": "Flipline Studios"
+  },
+  {
+    "name": "Diggy",
+    "url": "/misc/play/?title=Diggy&author=Vogd+and+Assaulter&link=diggy",
+    "image": "/misc/diggy/img.webp",
+    "usesProxy": false,
+    "author": "Vogd and Assaulter"
+  },
+  {
+    "name": "Murloc",
+    "url": "/misc/play/?title=Murloc&author=un-mediocre&link=murloc",
+    "image": "/misc/murloc/img.webp",
+    "usesProxy": false,
+    "author": "un-mediocre"
+  },
+  {
+    "name": "Madness Accelerant",
+    "url": "/misc/play/?title=Madness+Accelerant&author=MindChamber+and+Tom+Fulp&link=madness-accelerant",
+    "image": "/misc/madness-accelerant/img.webp",
+    "usesProxy": false,
+    "author": "MindChamber and Tom Fulp"
+  },
+  {
+    "name": "Boxhead 2Play Rooms",
+    "url": "/misc/play/?title=Boxhead+2Play+Rooms&author=Sean+Cooper&link=boxhead-2play-rooms",
+    "image": "/misc/boxhead-2play-rooms/img.webp",
+    "usesProxy": false,
+    "author": "Sean Cooper"
+  },
+  {
+    "name": "Endless War 3",
+    "url": "/misc/play/?title=Endless+War+3&author=Vitaly+Zaborov&link=endless-war-3",
+    "image": "/misc/endless-war-3/img.webp",
+    "usesProxy": false,
+    "author": "Vitaly Zaborov"
+  },
+  {
+    "name": "Armed with Wings 2",
+    "url": "/misc/play/?title=Armed+with+Wings+2&author=SuN+Studios&link=armed-with-wings",
+    "image": "/misc/armed-with-wings/img.webp",
+    "usesProxy": false,
+    "author": "SuN Studios"
+  },
+  {
+    "name": "Stick War 2",
+    "url": "/misc/play/?title=Stick+War+2&author=StickpageDOTcom&link=stick-war-2",
+    "image": "/misc/stick-war-2/img.webp",
+    "usesProxy": false,
+    "author": "StickpageDOTcom"
+  },
+  {
+    "name": "Dragon Fist 3",
+    "url": "/misc/play/?title=Dragon+Fist+3&author=DJStatika&link=dragon-fist-3",
+    "image": "/misc/dragon-fist-3/img.webp",
+    "usesProxy": false,
+    "author": "DJStatika"
+  },
+  {
+    "name": "Miami Shark",
+    "url": "/misc/play/?title=Miami+Shark&author=Mausland&link=miami-shark",
+    "image": "/misc/miami-shark/img.webp",
+    "usesProxy": false,
+    "author": "Mausland"
+  },
+  {
+    "name": "Rage 3",
+    "url": "/misc/play/?title=Rage+3&author=Cosmoseth&link=rage-3",
+    "image": "/misc/rage-3/img.webp",
+    "usesProxy": false,
+    "author": "Cosmoseth"
+  },
+  {
+    "name": "Flood Runner 2",
+    "url": "/misc/play/?title=Flood+Runner+2&author=BenRad&link=flood-runner-2",
+    "image": "/misc/flood-runner-2/img.webp",
+    "usesProxy": false,
+    "author": "BenRad"
+  },
+  {
+    "name": "Dad 'n Me",
+    "url": "/misc/play/?title=Dad+%27n+Me&author=Tom+Fulp+and+Dan+Paladin&link=dads-me",
+    "image": "/misc/dads-me/img.webp",
+    "usesProxy": false,
+    "author": "Tom Fulp and Dan Paladin"
+  },
+  {
+    "name": "Plazma Burst",
+    "url": "/misc/play/?title=Plazma+Burst&author=Eric+Gurt&link=plazma-burst",
+    "image": "/misc/plazma-burst/img.webp",
+    "usesProxy": false,
+    "author": "Eric Gurt"
+  },
+  {
+    "name": "Strike Force Kitty",
+    "url": "/misc/play/?title=Strike+Force+Kitty&author=Deqaf+Studio&link=strike-force-kitty",
+    "image": "/misc/strike-force-kitty/img.webp",
+    "usesProxy": false,
+    "author": "Deqaf Studio"
+  },
+  {
+    "name": "Strike Force Kitty 2",
+    "url": "/misc/play/?title=Strike+Force+Kitty+2&author=Deqaf+Studio&link=strike-force-kitty-2",
+    "image": "/misc/strike-force-kitty-2/img.webp",
+    "usesProxy": false,
+    "author": "Deqaf Studio"
+  },
+  {
+    "name": "StrikeForce Kitty: Last Stand",
+    "url": "/misc/play/?title=StrikeForce+Kitty%3A+Last+Stand&author=Deqaf+Studio+%2F+MARTINIRosso&link=strike-force-kitty-3",
+    "image": "/misc/strike-force-kitty-3/img.webp",
+    "usesProxy": false,
+    "author": "Deqaf Studio / MARTINIRosso"
+  },
+  {
+    "name": "Bowman 2",
+    "url": "/misc/play/?title=Bowman+2&author=FreeWorldGroup&link=browman",
+    "image": "/misc/browman/img.webp",
+    "usesProxy": false,
+    "author": "FreeWorldGroup"
+  },
+  {
+    "name": "Ricochet Kills",
+    "url": "/misc/play/?title=Ricochet+Kills&author=Mibix&link=ricochet-kills",
+    "image": "/misc/ricochet-kills/img.webp",
+    "usesProxy": false,
+    "author": "Mibix"
+  },
+  {
+    "name": "Interactive Buddy",
+    "url": "/misc/play/?title=Interactive+Buddy&author=Shock+Value&link=interactive-buddy",
+    "image": "/misc/interactive-buddy/img.webp",
+    "usesProxy": false,
+    "author": "Shock Value"
+  },
+  {
+    "name": "Dead Zed",
+    "url": "/misc/play/?title=Dead+Zed&author=3KG+Games&link=dead-zed",
+    "image": "/misc/dead-zed/img.webp",
+    "usesProxy": false,
+    "author": "3KG Games"
+  },
+  {
+    "name": "3 Slices",
+    "url": "/misc/play/?title=3+Slices&author=Gaz+Thomas&link=3-slices",
+    "image": "/misc/3-slices/img.webp",
+    "usesProxy": false,
+    "author": "Gaz Thomas"
+  },
+  {
+    "name": "Effing Worms",
+    "url": "/misc/play/?title=Effing+Worms&author=EffingGames&link=effing-worms",
+    "image": "/misc/effing-worms/img.webp",
+    "usesProxy": false,
+    "author": "EffingGames"
+  },
+  {
+    "name": "Effing Hail",
+    "url": "/misc/play/?title=Effing+Hail&author=Jacob+Grahn+and+aeiowu&link=effing-hail",
+    "image": "/misc/effing-hail/img.webp",
+    "usesProxy": false,
+    "author": "Jacob Grahn and aeiowu"
+  },
+  {
+    "name": "Dragon ball Devolution",
+    "url": "/misc/play/?title=Dragon+ball+Devolution&author=Txori&link=dragon-ball-devolution",
+    "image": "/misc/dragon-ball-devolution/img.webp",
+    "usesProxy": false,
+    "author": "Txori"
+  },
+  {
+    "name": "Bomb it 4",
+    "url": "/misc/play/?title=Bomb+it+4&author=Azerion+Casual+Studio&link=bomb-it-4",
+    "image": "/misc/bomb-it-4/img.webp",
+    "usesProxy": false,
+    "author": "Azerion Casual Studio"
+  },
+  {
+    "name": "Bounzy 2",
+    "url": "/misc/play/?title=Bounzy+2&author=Argentin&link=bounzy-2",
+    "image": "/misc/bounzy-2/img.webp",
+    "usesProxy": false,
+    "author": "Argentin"
+  },
+  {
+    "name": "Commando",
+    "url": "/misc/play/?title=Commando&author=Miniclip&link=commando",
+    "image": "/misc/commando/img.webp",
+    "usesProxy": false,
+    "author": "Miniclip"
+  },
+  {
+    "name": "Intrusion",
+    "url": "/misc/play/?title=Intrusion&author=vapgames&link=intrusion",
+    "image": "/misc/intrusion/img.webp",
+    "usesProxy": false,
+    "author": "vapgames"
+  },
+  {
+    "name": "GunMaster Onslaught",
+    "url": "/misc/play/?title=GunMaster+Onslaught&author=lostvector&link=gunmaster-onslaught",
+    "image": "/misc/gunmaster-onslaught/img.webp",
+    "usesProxy": false,
+    "author": "lostvector"
+  },
+  {
+    "name": "Giants And Dwarves TD",
+    "url": "/misc/play/?title=Giants+And+Dwarves+TD&author=Labu+Games&link=giants-and-dwarves-td",
+    "image": "/misc/giants-and-dwarves-td/img.webp",
+    "usesProxy": false,
+    "author": "Labu Games"
+  },
+  {
+    "name": "Gretel and Hansel",
+    "url": "/misc/play/?title=Gretel+and+Hansel&author=Makopudding&link=gretel-and-hansel-1",
+    "image": "/misc/gretel-and-hansel-1/img.webp",
+    "usesProxy": false,
+    "author": "Makopudding"
+  },
+  {
+    "name": "Obey The Game",
+    "url": "/misc/play/?title=Obey+The+Game&author=Armor+Games&link=obey-the-game",
+    "image": "/misc/obey-the-game/img.webp",
+    "usesProxy": false,
+    "author": "Armor Games"
+  },
+  {
+    "name": "The Black Knight",
+    "url": "/misc/play/?title=The+Black+Knight&author=Brain+Jam+Studios&link=black-knight",
+    "image": "/misc/black-knight/img.webp",
+    "usesProxy": false,
+    "author": "Brain Jam Studios"
+  },
+  {
+    "name": "Crazy Penguin Catapult",
+    "url": "/misc/play/?title=Crazy+Penguin+Catapult&author=Digital+Chocolate&link=crazy-penguin-catapult",
+    "image": "/misc/crazy-penguin-catapult/img.webp",
+    "usesProxy": false,
+    "author": "Digital Chocolate"
+  },
+  {
+    "name": "Achilles",
+    "url": "/misc/play/?title=Achilles&author=Ben+Olding&link=achilles",
+    "image": "/misc/achilles/img.webp",
+    "usesProxy": false,
+    "author": "Ben Olding"
+  },
+  {
+    "name": "Thing Thing 4",
+    "url": "/misc/play/?title=Thing+Thing+4&author=Diseased+Production&link=thing-thing-4",
+    "image": "/misc/thing-thing-4/img.webp",
+    "usesProxy": false,
+    "author": "Diseased Production"
+  },
+  {
+    "name": "Sift Heads World: Act 1",
+    "url": "/misc/play/?title=Sift+Heads+World%3A+Act+1&author=Pyrozen&link=sift-heads-world-ultimatum",
+    "image": "/misc/sift-heads-world-ultimatum/img.webp",
+    "usesProxy": false,
+    "author": "Pyrozen"
+  },
+  {
+    "name": "Animal Raceway",
+    "url": "/misc/play/?title=Animal+Raceway&author=robotJAM&link=animal-raceway",
+    "image": "/misc/animal-raceway/img.webp",
+    "usesProxy": false,
+    "author": "robotJAM"
+  },
+  {
+    "name": "Drag Racer V3",
+    "url": "/misc/play/?title=Drag+Racer+V3&author=Phantom+Games&link=drag-racer-v3",
+    "image": "/misc/drag-racer-v3/img.webp",
+    "usesProxy": false,
+    "author": "Phantom Games"
+  },
+  {
+    "name": "Ragdoll Achievement",
+    "url": "/misc/play/?title=Ragdoll+Achievement&author=PegasGames&link=ragdoll-achievement",
+    "image": "/misc/ragdoll-achievement/img.webp",
+    "usesProxy": false,
+    "author": "PegasGames"
+  },
+  {
+    "name": "Gold Miner 2",
+    "url": "/misc/play/?title=Gold+Miner+2&author=GameRival&link=gold-miner-2",
+    "image": "/misc/gold-miner-2/img.webp",
+    "usesProxy": false,
+    "author": "GameRival"
+  },
+  {
+    "name": "Crazy Flasher 3",
+    "url": "/misc/play/?title=Crazy+Flasher+3&author=gerheart&link=crazy-flasher-3",
+    "image": "/misc/crazy-flasher-3/img.webp",
+    "usesProxy": false,
+    "author": "gerheart"
+  },
+  {
+    "name": "Gravity Driver",
+    "url": "/misc/play/?title=Gravity+Driver&author=Filipe+Sheepwolf&link=gravity-driver",
+    "image": "/misc/gravity-driver/img.webp",
+    "usesProxy": false,
+    "author": "Filipe Sheepwolf"
+  },
+  {
+    "name": "Weapon",
+    "url": "/misc/play/?title=Weapon&author=simonhason&link=weapon",
+    "image": "/misc/weapon/img.webp",
+    "usesProxy": false,
+    "author": "simonhason"
+  },
+  {
+    "name": "Smileys War",
+    "url": "/misc/play/?title=Smileys+War&author=bruky123&link=smileys-war",
+    "image": "/misc/smileys-war/img.webp",
+    "usesProxy": false,
+    "author": "bruky123"
+  },
+  {
+    "name": "Batman The Cobblebot Caper",
+    "url": "/misc/play/?title=Batman+The+Cobblebot+Caper&author=Cartoon+Network&link=batman-the-cobblebot-caper",
+    "image": "/misc/batman-the-cobblebot-caper/img.webp",
+    "usesProxy": false,
+    "author": "Cartoon Network"
+  },
+  {
+    "name": "Acid Bunny 2",
+    "url": "/misc/play/?title=Acid+Bunny+2&author=SoGood&link=acid-bunny",
+    "image": "/misc/acid-bunny/img.webp",
+    "usesProxy": false,
+    "author": "SoGood"
+  },
+  {
+    "name": "Dead Samurai",
+    "url": "/misc/play/?title=Dead+Samurai&author=Wolfcom&link=dead-samurai",
+    "image": "/misc/dead-samurai/img.webp",
+    "usesProxy": false,
+    "author": "Wolfcom"
+  },
+  {
+    "name": "Dog vs Cat",
+    "url": "/misc/play/?title=Dog+vs+Cat&author=Gametuner&link=dog-vs-cat",
+    "image": "/misc/dog-vs-cat/img.webp",
+    "usesProxy": false,
+    "author": "Gametuner"
+  },
+  {
+    "name": "Alone in The Madness",
+    "url": "/misc/play/?title=Alone+in+The+Madness&author=Djjaner&link=alone-in-the-madness",
+    "image": "/misc/alone-in-the-madness/img.webp",
+    "usesProxy": false,
+    "author": "Djjaner"
+  },
+  {
+    "name": "Dragon Ball Kart",
+    "url": "/misc/play/?title=Dragon+Ball+Kart&author=Kwachii&link=dragon-ball-kart",
+    "image": "/misc/dragon-ball-kart/img.webp",
+    "usesProxy": false,
+    "author": "Kwachii"
+  },
+  {
+    "name": "Endless War 7",
+    "url": "/misc/play/?title=Endless+War+7&author=Vitaly+Zaborov&link=endless-war-7",
+    "image": "/misc/endless-war-7/img.webp",
+    "usesProxy": false,
+    "author": "Vitaly Zaborov"
+  },
+  {
+    "name": "Storm Ops 4",
+    "url": "/misc/play/?title=Storm+Ops+4&author=3KG+Games&link=storm-ops-4",
+    "image": "/misc/storm-ops-4/img.webp",
+    "usesProxy": false,
+    "author": "3KG Games"
+  },
+  {
+    "name": "Effing Worms 2",
+    "url": "/misc/play/?title=Effing+Worms+2&author=EffingGames&link=effing-worms-2",
+    "image": "/misc/effing-worms-2/img.webp",
+    "usesProxy": false,
+    "author": "EffingGames"
+  },
+  {
+    "name": "Super Mario Flash 3",
+    "url": "/misc/play/?title=Super+Mario+Flash+3&author=Hiro&link=supermario-world-flash",
+    "image": "/misc/supermario-world-flash/img.webp",
+    "usesProxy": false,
+    "author": "Hiro"
+  },
+  {
+    "name": "1 On 1 Basketball",
+    "url": "/misc/play/?title=1+On+1+Basketball&author=%E3%82%BF%E3%82%AB%E3%83%92%E3%83%AD%E3%82%A6+%28Takahirou%29&link=1-on-1-basketball",
+    "image": "/misc/1-on-1-basketball/img.webp",
+    "usesProxy": false,
+    "author": "タカヒロウ (Takahirou)"
+  },
+  {
+    "name": "Santa Run 2",
+    "url": "/misc/play/?title=Santa+Run+2&author=whileworking&link=santa-run-2",
+    "image": "/misc/santa-run-2/img.webp",
+    "usesProxy": false,
+    "author": "whileworking"
+  },
+  {
+    "name": "Axis Football League",
+    "url": "/misc/play/?title=Axis+Football+League&author=Djugan&link=axis-football-league",
+    "image": "/misc/axis-football-league/img.webp",
+    "usesProxy": false,
+    "author": "Djugan"
+  },
+  {
+    "name": "Siegius",
+    "url": "/misc/play/?title=Siegius&author=Sky9+Games&link=siegius",
+    "image": "/misc/siegius/img.webp",
+    "usesProxy": false,
+    "author": "Sky9 Games"
+  },
+  {
+    "name": "Aqua Turret",
+    "url": "/misc/play/?title=Aqua+Turret&author=Zlong+Games&link=aqua-turret",
+    "image": "/misc/aqua-turret/img.webp",
+    "usesProxy": false,
+    "author": "Zlong Games"
+  },
+  {
+    "name": "Ownage Burst",
+    "url": "/misc/play/?title=Ownage+Burst&author=The+Style+Machine&link=ownage-burst",
+    "image": "/misc/ownage-burst/img.webp",
+    "usesProxy": false,
+    "author": "The Style Machine"
+  },
+  {
+    "name": "Overkill Apache",
+    "url": "/misc/play/?title=Overkill+Apache&author=Playerthree&link=overkill-apache",
+    "image": "/misc/overkill-apache/img.webp",
+    "usesProxy": false,
+    "author": "Playerthree"
+  },
+  {
+    "name": "Real Kart",
+    "url": "/misc/play/?title=Real+Kart&author=Aglobex&link=real-kart",
+    "image": "/misc/real-kart/img.webp",
+    "usesProxy": false,
+    "author": "Aglobex"
+  },
+  {
+    "name": "Half-Life",
+    "author": "Valve",
+    "url": "/misc/play/?title=Half-Life&author=Valve&link=half-life",
+    "image": "/misc/half-life/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Nitro Car",
+    "author": "Thinking Games Inc.",
+    "url": "/misc/play/?title=Nitro+Car&author=Thinking+Games+Inc.&link=nitro-car",
+    "image": "/misc/nitro-car/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Delivery Mystery",
+    "author": "Maximillium",
+    "url": "/misc/play/?title=Delivery+Mystery&author=Maximillium&link=delivery-mystery",
+    "image": "/misc/delivery-mystery/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Dig out of Prison",
+    "author": "polar men",
+    "url": "/misc/play/?title=Dig+out+of+Prison&author=polar+men&link=dig-out-of-prison",
+    "image": "/misc/dig-out-of-prison/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Call of Battle",
+    "author": "KolesoDobrogo",
+    "url": "/misc/play/?title=Call+of+Battle&author=KolesoDobrogo&link=call-of-battle",
+    "image": "/misc/call-of-battle/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Unreal Drift",
+    "author": "WolfVay",
+    "url": "/misc/play/?title=Unreal+Drift&author=WolfVay&link=unreal-drift",
+    "image": "/misc/unreal-drift/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Scary Shawarma Kiosk",
+    "author": "Hidden Miracles Studio",
+    "url": "/misc/play/?title=Scary+Shawarma+Kiosk&author=Hidden+Miracles+Studio&link=scary-shawarma-kiosk",
+    "image": "/misc/scary-shawarma-kiosk/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Ks2 Teams",
+    "author": "JustPlay",
+    "url": "/misc/play/?title=Ks2+Teams&author=JustPlay&link=ks2-teams",
+    "image": "/misc/ks2-teams/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Mad Pursuit",
+    "author": "Solo Forge",
+    "url": "/misc/play/?title=Mad+Pursuit&author=Solo+Forge&link=mad-pursuit",
+    "image": "/misc/mad-pursuit/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Steep Descent",
+    "author": "JustPlay",
+    "url": "/misc/play/?title=Steep+Descent&author=JustPlay&link=steep-descent",
+    "image": "/misc/steep-descent/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Criminal Russia 3D: Boris",
+    "author": "LIMANSKYGAMES LTD",
+    "url": "/misc/play/?title=Criminal+Russia+3D%3A+Boris&author=LIMANSKYGAMES+LTD&link=gta-vice-city",
+    "image": "/misc/gta-vice-city/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Rooftop Run",
+    "author": "Creator not credited",
+    "url": "/misc/play/?title=Rooftop+Run&author=Creator+not+credited&link=rooftop-run",
+    "image": "/misc/rooftop-run/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Shrek Escape",
+    "author": "Creator not credited",
+    "url": "/misc/play/?title=Shrek+Escape&author=Creator+not+credited&link=shrek-escape",
+    "image": "/misc/shrek-escape/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Mr. Dude",
+    "author": "SeriousGames",
+    "url": "/misc/play/?title=Mr.+Dude&author=SeriousGames&link=mr-dude",
+    "image": "/misc/mr-dude/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Driven Wild",
+    "author": "Frank Force",
+    "url": "/misc/play/?title=Driven+Wild&author=Frank+Force&link=driven-wild",
+    "image": "/misc/driven-wild/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Supermarket Simulator",
+    "author": "AppLinkor",
+    "url": "/misc/play/?title=Supermarket+Simulator&author=AppLinkor&link=supermarket-simulator",
+    "image": "/misc/supermarket-simulator/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Climb Hard",
+    "author": "Pontypants",
+    "url": "/misc/play/?title=Climb+Hard&author=Pontypants&link=climb-hard",
+    "image": "/misc/climb-hard/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "CS 1.6",
+    "author": "FoXSkr",
+    "url": "/misc/play/?title=CS+1.6&author=FoXSkr&link=cs-1-6",
+    "image": "/misc/cs-1-6/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Obby: 99% Will Lose",
+    "author": "Creator not credited",
+    "url": "/misc/play/?title=Obby%3A+99%25+Will+Lose&author=Creator+not+credited&link=obby-99-will-lose",
+    "image": "/misc/obby-99-will-lose/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Draw Climber",
+    "author": "VOODOO",
+    "url": "/misc/play/?title=Draw+Climber&author=VOODOO&link=draw-climber",
+    "image": "/misc/draw-climber/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Chicken Royale",
+    "author": "Creator not credited",
+    "url": "/misc/play/?title=Chicken+Royale&author=Creator+not+credited&link=chicken-royale",
+    "image": "/misc/chicken-royale/img.webp",
+    "usesProxy": false
   }
 ]

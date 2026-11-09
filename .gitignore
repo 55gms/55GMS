@@ -34,3 +34,6 @@ handle-migration-report.csv
 
 # macOS Finder metadata
 .DS_Store
+
+# Immutable local game repository checkouts installed before deployment.
+.game-assets/

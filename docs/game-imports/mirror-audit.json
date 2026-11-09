@@ -1,0 +1,29 @@
+{
+  "games": 122,
+  "files": 1022,
+  "bytes": 2645844478,
+  "assetCommit": "ca0df11691cb1b99255b497b5cb9badb2a9b8bc0",
+  "inventorySourceRefs": 44,
+  "sourceRefsAvailable": 39,
+  "sourceRefsUnavailable": 5,
+  "newSourceFiles": 76,
+  "limitations": [
+    "Five source refs return 404; retained mirrored files remain present.",
+    "Five Draw Climber particle editor texture names could not be downloaded; no observed startup request for them.",
+    "Half-Life requires an external WebSocket service; it is blocked by the local network policy.",
+    "Embedded Flash ad/portal attempts remain blocked.",
+    "Startup network sweeps do not establish gameplay coverage."
+  ],
+  "backup": "A missing file with a recorded source is relayed through the server; the browser keeps using same-origin URLs.",
+  "gameFiles": 1010,
+  "sharedRuntimeFiles": 12,
+  "sharedRuntime": "lib/game-runtime: loaders, save scripts, Socket.IO client, CSS, catalog and save registry",
+  "assetsOnlyBrowserAudit": {
+    "games": 122,
+    "httpErrors": 0,
+    "standaloneParentFrameErrors": [
+      "obby-99-will-lose"
+    ],
+    "scope": "Four-second startup checks served only from the assets repository; no site static files were available."
+  }
+}

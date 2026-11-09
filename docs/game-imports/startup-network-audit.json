@@ -1,0 +1,956 @@
+[
+  {
+    "folder": "fly-the-plane",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "search-for-the-needle",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "obby-snowboard",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "vavex",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "granny-2",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "crazy-roll",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "two-ball-3d",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "slap-aura",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "jacksmith",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "cactus-mccoy",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "swords-and-souls",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "cactusmccoy2",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "super-mario-63",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "blocky-snakes",
+    "external": [
+      "https://config.uca.cloud.unity3d.com/",
+      "https://cdp.cloud.unity3d.com/v1/events"
+    ],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "ragdoll-freefall",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "achievement-unlocked",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "dont-escape",
+    "external": [],
+    "missing": [],
+    "violations": [
+      {
+        "url": "http://server.cpmstar.com/adviewas3.swf?contentspotid=11268Q58EC4FC8",
+        "directive": "connect-src"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "folder": "dont-escape-2",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "warfare-1917",
+    "external": [],
+    "missing": [],
+    "violations": [
+      {
+        "url": "http://server.cpmstar.com/adviewas2.swf?poolid=1052&subpoolid=24",
+        "directive": "connect-src"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "folder": "the-enchanted-cave",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "dont-escape-3",
+    "external": [],
+    "missing": [],
+    "violations": [
+      {
+        "url": "http://server.cpmstar.com/adviewas3.swf?contentspotid=13694Q43649C8B",
+        "directive": "connect-src"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "folder": "swords-and-sandals-2",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "gun-mayhem",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "the-last-stand",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "strike-force-heroes-2",
+    "external": [],
+    "missing": [],
+    "violations": [
+      {
+        "url": "http://core.mochibot.com/my/core.swf",
+        "directive": "connect-src"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "folder": "bloons-supermonkey",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "city-siege",
+    "external": [],
+    "missing": [],
+    "violations": [
+      {
+        "url": "http://tracker.swfstats.com/Games/q.aspx?guid=83b7e4c6b0544fe5&swfid=1419&q=v/1&url=http%3A//127.0.0.1%3A42841/misc/city-siege/game.swf&0.36535209929570556z",
+        "directive": "connect-src"
+      },
+      {
+        "url": "http://agi.armorgames.com/assets/agi/AGI.swf",
+        "directive": "connect-src"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "folder": "city-siege-2",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "city-siege-3",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "grow-island",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "shopping-cart-hero",
+    "external": [],
+    "missing": [],
+    "violations": [
+      {
+        "url": "http://mochibot.com/my/core.swf?mv=8&fv=7&v=LNX%2032%2C0%2C0%2C0&swfid=cbe78bf2&l=10301&f=_level0&sb=remote&t=1",
+        "directive": "connect-src"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "folder": "city-siege-4",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "grow-valley",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "armor-mayhem",
+    "external": [],
+    "missing": [],
+    "violations": [
+      {
+        "url": "htt1",
+        "directive": "connect-src"
+      },
+      {
+        "url": "htt2",
+        "directive": "connect-src"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "folder": "electric-box-2",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "civiballs",
+    "external": [],
+    "missing": [],
+    "violations": [
+      {
+        "url": "http://www.mygame.com/king/loadcount.jsp?from=http%3A%2F%2F127%2E0%2E0%2E1%3A42841%2Fmisc%2Fciviballs%2Fgame%2Eswf&session=fac81c1b40811fb5&game=civiballs",
+        "directive": "connect-src"
+      },
+      {
+        "url": "http://core.mochibot.com/my/core.swf",
+        "directive": "connect-src"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "folder": "papas-bakeria",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "murloc",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "papa-louie-2-when-burgers-attack",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "diggy",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "madness-accelerant",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "boxhead-2play-rooms",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "endless-war-3",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "armed-with-wings",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "stick-war-2",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "dragon-fist-3",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "miami-shark",
+    "external": [],
+    "missing": [],
+    "violations": [
+      {
+        "url": "http://www.ngads.com/gateway_v2.php?seed=0.484318519476801",
+        "directive": "connect-src"
+      },
+      {
+        "url": "http://www.ngads.com/gateway_v2.php?seed=0.84125343663618",
+        "directive": "connect-src"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "folder": "rage-3",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "flood-runner-2",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "dads-me",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "plazma-burst",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "strike-force-kitty",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "strike-force-kitty-2",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "strike-force-kitty-3",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "ricochet-kills",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "browman",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "interactive-buddy",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "dead-zed",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "3-slices",
+    "external": [],
+    "missing": [],
+    "violations": [
+      {
+        "url": "http://core.mochibot.com/my/core.swf",
+        "directive": "connect-src"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "folder": "effing-worms",
+    "external": [],
+    "missing": [],
+    "violations": [
+      {
+        "url": "http://mochibot.com/my/core.swf?mv=8&fv=9&v=LNX%2032%2C0%2C0%2C0&swfid=d2759e54&l=10301&f=_level0&sb=remote&t=1",
+        "directive": "connect-src"
+      },
+      {
+        "url": "http://server.cpmstar.com/adviewas2.swf?poolid=12941&subpoolid=1",
+        "directive": "connect-src"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "folder": "commando",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "dragon-ball-devolution",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "effing-hail",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "bomb-it-4",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "bounzy-2",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "intrusion",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "gunmaster-onslaught",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "giants-and-dwarves-td",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "obey-the-game",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "gretel-and-hansel-1",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "crazy-penguin-catapult",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "black-knight",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "achilles",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "thing-thing-4",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "sift-heads-world-ultimatum",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "animal-raceway",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "drag-racer-v3",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "gold-miner-2",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "gravity-driver",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "crazy-flasher-3",
+    "external": [],
+    "missing": [],
+    "violations": [
+      {
+        "url": "http://bbplayer.net/gamead/ad600X80.swf",
+        "directive": "connect-src"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "folder": "ragdoll-achievement",
+    "external": [],
+    "missing": [],
+    "violations": [
+      {
+        "url": "http://server.cpmstar.com/adviewas3.swf?contentspotid=7302QB881B4DD",
+        "directive": "connect-src"
+      },
+      {
+        "url": "http://core.mochibot.com/my/core.swf",
+        "directive": "connect-src"
+      },
+      {
+        "url": "http://g447046787ad4443a.api.playtomic.com/tracker/q.aspx?q=v/1&url=http://127.0.0.1:42841/misc/ragdoll-achievement/game.swf&swfid=939597&0.5266142054460943Z",
+        "directive": "connect-src"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "folder": "weapon",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "smileys-war",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "batman-the-cobblebot-caper",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "acid-bunny",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "dog-vs-cat",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "alone-in-the-madness",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "storm-ops-4",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "dragon-ball-kart",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "endless-war-7",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "dead-samurai",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "effing-worms-2",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "supermario-world-flash",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "1-on-1-basketball",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "axis-football-league",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "aqua-turret",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "siegius",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "santa-run-2",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "ownage-burst",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "overkill-apache",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "real-kart",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "half-life",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "call-of-battle",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "dig-out-of-prison",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "nitro-car",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "unreal-drift",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "scary-shawarma-kiosk",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "delivery-mystery",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "ks2-teams",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "mad-pursuit",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "steep-descent",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "gta-vice-city",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "rooftop-run",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "shrek-escape",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "mr-dude",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "supermarket-simulator",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "climb-hard",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "cs-1-6",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "obby-99-will-lose",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": [
+      "Error: No parent to post message",
+      "Error: No parent to post message",
+      "Error: No parent to post message"
+    ]
+  },
+  {
+    "folder": "driven-wild",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "draw-climber",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "folder": "chicken-royale",
+    "external": [],
+    "missing": [],
+    "violations": [],
+    "errors": []
+  }
+]

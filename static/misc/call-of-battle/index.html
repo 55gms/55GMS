@@ -1,0 +1,252 @@
+<!DOCTYPE html><html lang="en-us"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; connect-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' data: blob:; font-src 'self' data:; worker-src 'self' blob:; frame-src 'self' blob:; object-src 'none'; form-action 'self'; base-uri 'self'">
+  <script  src="/lib/game-runtime/assets/js/save-agent.js?v=4" data-game-id="call-of-battle"></script>
+  <script type="application/json" id="gms-import-config">{"title":"Call of Battle","engine":"unity","files":[["/misc/call-of-battle/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/rte@main/Build/Build.data.unityweb.part0",14680064],["/misc/call-of-battle/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/rte@main/Build/Build.data.unityweb.part1",14680064],["/misc/call-of-battle/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/rte@main/Build/Build.data.unityweb.part2",3381660],["/misc/call-of-battle/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/rte@main/Build/Build.framework.js.unityweb",79934],["/misc/call-of-battle/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/rte@main/Build/Build.loader.js",117327],["/misc/call-of-battle/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/rte@main/Build/Build.wasm.unityweb",9224878],["/misc/call-of-battle/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/rte@main/background.png",206086],["/misc/call-of-battle/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/rte@main/logo.png",33402],["/misc/call-of-battle/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/rte@main/style.css",1847]],"total":42405262,"preloads":false,"parts":{},"partSizes":[]}</script><script src="/lib/game-runtime/assets/js/loader-ui.js?v=5gz9swuael"></script><script src="/lib/game-runtime/assets/js/game-loader.js?v=5gz9swuael" data-title="Call of Battle"></script><script src="/lib/game-runtime/assets/js/imported-game-loader.js?v=3" data-title="Call of Battle"></script>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="/misc/call-of-battle/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/rte@main/style.css">
+<style>
+        canvas:focus { outline: none; }
+        html, body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            height: 100%;
+        }
+</style>
+<title>Call of Battle</title><style>html,body{margin:0;padding:0;overflow:hidden;background:#000}html body .gms-legacy-loading-hooks{display:none!important;visibility:hidden!important;pointer-events:none!important}</style></head>
+<body class="dark">
+<div id="unity-container" class="unity-desktop">
+<canvas id="unity-canvas" tabindex="-1"></canvas>
+</div>
+<div id="loading-cover" style="display:none;" class="gms-legacy-loading-hooks"><div id="unity-loading-bar" class="gms-legacy-loading-hooks"><div id="unity-logo"><img width="300"></div><div id="unity-progress-bar-empty" style="display: none;"><div id="unity-progress-bar-full"></div></div><div class="spinner"></div></div></div>
+<script>
+        const hideFullScreenButton = "";
+        const buildUrl = "/misc/call-of-battle/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/rte@main/Build";
+        const loaderUrl = buildUrl + "/Build.loader.js";
+
+        // Bölünmüş dosyaları birleştirme işlemi
+        async function loadDataUrl() {
+            const parts = [
+                buildUrl + "/Build.data.unityweb.part0",
+                buildUrl + "/Build.data.unityweb.part1",
+                buildUrl + "/Build.data.unityweb.part2"
+            ];
+            const blobs = await Promise.all(parts.map(url => fetch(url).then(resp => resp.blob())));
+            const combinedBlob = new Blob(blobs, { type: "application/octet-stream" });
+            return URL.createObjectURL(combinedBlob);
+        }
+
+        // Config nesnesini asenkron olarak oluşturma
+        async function initializeConfig() {
+            const dataUrl = await loadDataUrl();
+            return {
+                dataUrl: dataUrl,
+                frameworkUrl: buildUrl + "/Build.framework.js.unityweb",
+                codeUrl: buildUrl + "/Build.wasm.unityweb",
+                streamingAssetsUrl: "StreamingAssets",
+                companyName: "DefaultCompany",
+                productName: "Battlefield",
+                productVersion: "1.0.0.0"
+            };
+        }
+
+        const container = document.querySelector("#unity-container");
+        const canvas = document.querySelector("#unity-canvas");
+        const loadingCover = document.querySelector("#loading-cover");
+        const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+        const progressBarFull = document.querySelector("#unity-progress-bar-full");
+        const spinner = document.querySelector('.spinner');
+
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            container.className = "unity-mobile";
+        }
+
+        loadingCover.style.background = "url('/misc/call-of-battle/_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/rte@main/background.png') center / cover";
+        loadingCover.style.display = "";
+
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        function FocusGame() {
+            window.focus();
+            canvas.focus();
+        }
+
+        window.addEventListener('pointerdown', FocusGame);
+        window.addEventListener('touchstart', FocusGame);
+
+        let StartUnityInstance;
+        let myGameInstance;
+        let ysdk = null; // Yandex SDK pasif
+
+var environmentData = 'null';
+
+function RequestingEnvironmentData(sendback) {
+    return new Promise((resolve) => {
+        if (ysdk == null) {
+            resolve('null');
+            return;
+        }
+        try {
+            var promptCanShow = false;
+            var reviewCanShow = false;
+
+            ysdk.feedback.canReview()
+                .then(({ value }) => {
+                    if (value)
+                        reviewCanShow = true;
+
+                    ysdk.shortcut.canShowPrompt().then(prompt => {
+                        if (prompt.canShow)
+                            promptCanShow = true;
+
+                        var browser = navigator.userAgent;
+                        if (browser.includes('YaBrowser') || browser.includes('YaSearchBrowser'))
+                            browser = 'Yandex';
+                        else if (browser.includes('Opera') || browser.includes('OPR'))
+                            browser = 'Opera';
+                        else if (browser.includes('Firefox'))
+                            browser = 'Firefox';
+                        else if (browser.includes('MSIE'))
+                            browser = 'IE';
+                        else if (browser.includes('Edge'))
+                            browser = 'Edge';
+                        else if (browser.includes('Chrome'))
+                            browser = 'Chrome';
+                        else if (browser.includes('Safari'))
+                            browser = 'Safari';
+                        else
+                            browser = 'Other';
+
+                        let jsonEnvir = {
+                            "language": ysdk.environment.i18n.lang,
+                            "domain": ysdk.environment.i18n.tld,
+                            "deviceType": ysdk.deviceInfo.type,
+                            "isMobile": ysdk.deviceInfo.isMobile(),
+                            "isDesktop": ysdk.deviceInfo.isDesktop(),
+                            "isTablet": ysdk.deviceInfo.isTablet(),
+                            "isTV": ysdk.deviceInfo.isTV(),
+                            "appID": ysdk.environment.app.id,
+                            "browserLang": ysdk.environment.browser.lang,
+                            "payload": ysdk.environment.payload,
+                            "promptCanShow": promptCanShow,
+                            "reviewCanShow": reviewCanShow,
+                            "platform": navigator.platform,
+                            "browser": browser
+                        };
+                        if (sendback)
+                            myGameInstance.SendMessage('YandexGame', 'SetEnvirData', JSON.stringify(jsonEnvir));
+                        resolve(JSON.stringify(jsonEnvir));
+                        console.log("Environment Data: " + JSON.stringify(jsonEnvir));
+                    });
+                });
+        } catch (e) {
+            console.error('CRASH Requesting Environment Data: ', e.message);
+            resolve('null');
+        }
+    });
+}
+
+        let cloudSaves = 'noData';
+        let paymentsData = 'none';
+        let playerData = 'noData';
+        let player = null;
+        let payments = null;
+        let initGame = false;
+        let nowFullAdOpen = false;
+
+        function GetPayments() { console.warn("GetPayments is not implemented"); return Promise.resolve("none"); }
+        function SaveCloud() { console.warn("SaveCloud is not implemented"); }
+        function LoadCloud() { console.warn("LoadCloud is not implemented"); return Promise.resolve("noData"); }
+        function InitPlayer() { console.warn("InitPlayer is not implemented"); return Promise.resolve("noData"); }
+        function InitLeaderboard() { console.warn("InitLeaderboard is not implemented"); return Promise.resolve("noData"); }
+
+        function FullAdShow() {
+            try {
+                if (!nowFullAdOpen) {
+                    nowFullAdOpen = true;
+                    if (initGame) {
+                        myGameInstance.SendMessage("YandexGame", "OpenFullAd");
+                    }
+                    setTimeout(() => {
+                        nowFullAdOpen = false;
+                        if (initGame) {
+                            myGameInstance.SendMessage("YandexGame", "CloseFullAd", "true");
+                        }
+                        FocusGame();
+                    }, 500);
+                }
+            } catch (error) {}
+        }
+
+        function RewardedShow(rewardId) { if (!myGameInstance) return; return window.GMSImportedAds.yandex({ callbacks: { onOpen: () => myGameInstance.SendMessage('YandexGame', 'OpenVideo'), onRewarded: () => myGameInstance.SendMessage('YandexGame', 'RewardVideo', rewardId), onClose: () => myGameInstance.SendMessage('YandexGame', 'CloseVideo') } }); }
+
+        function StickyAdActivity() { console.warn("StickyAdActivity is not implemented"); }
+        function Review() { console.warn("Review is not implemented"); }
+        function PromptShow() { console.warn("PromptShow is not implemented"); }
+        function InitLeaderboards() { console.warn("InitLeaderboards is not implemented"); }
+        function GetLeaderboardScores() { console.warn("GetLeaderboardScores is not implemented"); }
+        function SetLeaderboardScores() { console.warn("SetLeaderboardScores is not implemented"); }
+        function ConsumePurchase() { console.warn("ConsumePurchase is not implemented"); }
+        function ConsumePurchases() { console.warn("ConsumePurchases is not implemented"); }
+
+        // Unity başlatma
+        try {
+            const script = document.createElement("script");
+            script.src = loaderUrl;
+            script.onload = () => {
+                StartUnityInstance = function (config) {
+                    createUnityInstance(canvas, config, (progress) => {
+                        spinner.style.display = "none";
+                        progressBarEmpty.style.display = "";
+                        progressBarFull.style.width = `${100 * progress}%`;
+                    }).then((unityInstance) => {
+                        myGameInstance = unityInstance;
+                        loadingCover.style.display = "none";
+                    }).catch((message) => {
+                        console.error("Unity yükleme hatası:", message);
+                    });
+                };
+
+                // Config hazır olduğunda StartUnityInstance'ı çağır
+                initializeConfig().then(config => {
+                    StartUnityInstance(config);
+                }).catch(error => {
+                    console.error("Dosya birleştirme hatası:", error);
+                });
+            };
+            document.body.appendChild(script);
+        } catch (error) {
+            console.error("Başlatma sırasında hata:", error);
+        }
+
+        function InitGame() {
+            try {
+                console.log('Init Game Success');
+                initGame = true;
+                if (nowFullAdOpen === true && myGameInstance != null) {
+                    myGameInstance.SendMessage('YandexGame', 'OpenFullAd');
+                }
+            } catch (error) {
+                console.error("InitGame sırasında hata:", error);
+            }
+        }
+
+        window.addEventListener("unhandledrejection", function(event) {
+            console.warn("Hata es geçildi:", event.reason);
+            event.preventDefault();
+        });
+    </script>
+
+
+
+
+
+</body></html>
