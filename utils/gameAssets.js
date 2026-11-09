@@ -13,13 +13,22 @@ import { getStaticCacheControl } from "./httpPerformance.js";
 // and passed through, so those requests keep working from the same origin.
 const DEFAULT_BASE =
   "https://cdn.jsdelivr.net/gh/55gms/assets@e899179b25ba3966a87383c0e4092168d9513472/misc/";
-const IMPORTED_CSP = "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; connect-src 'self' data: blob:; style-src 'self' 'unsafe-inline' data:; img-src 'self' data: blob:; media-src 'self' data: blob:; font-src 'self' data:; worker-src 'self' blob:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'";
+const IMPORTED_CSP =
+  "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; connect-src 'self' data: blob:; style-src 'self' 'unsafe-inline' data:; img-src 'self' data: blob:; media-src 'self' data: blob:; font-src 'self' data:; worker-src 'self' blob:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'";
 const APP_ROOT = fileURLToPath(new URL("../", import.meta.url));
 export function importedAssetsRoot() {
-  if (process.env.GAME_ASSETS_ROOT) return path.resolve(process.env.GAME_ASSETS_ROOT);
-  const pin = JSON.parse(readFileSync(path.join(APP_ROOT, "docs/game-imports/asset-mirror.json"), "utf8"));
+  if (process.env.GAME_ASSETS_ROOT)
+    return path.resolve(process.env.GAME_ASSETS_ROOT);
+  const pin = JSON.parse(
+    readFileSync(
+      path.join(APP_ROOT, "docs/game-imports/asset-mirror.json"),
+      "utf8",
+    ),
+  );
   const installed = path.join(APP_ROOT, ".game-assets", pin.commit);
-  return existsSync(installed) ? installed : path.resolve(APP_ROOT, "../assets");
+  return existsSync(installed)
+    ? installed
+    : path.resolve(APP_ROOT, "../assets");
 }
 const IMPORTED_FOLDERS = new Set([
   "steep-descent",
@@ -164,11 +173,23 @@ const MISS_LIMIT = 5000;
 
 export function mountGameAssetFallback(app, staticRoot) {
   const base = process.env.GAME_ASSETS_BASE || DEFAULT_BASE;
-  const sourceBackups = JSON.parse(readFileSync(path.join(APP_ROOT, "docs/game-imports/asset-mirror.json"), "utf8")).upstreamBackups || [];
+  const sourceBackups =
+    JSON.parse(
+      readFileSync(
+        path.join(APP_ROOT, "docs/game-imports/asset-mirror.json"),
+        "utf8",
+      ),
+    ).upstreamBackups || [];
   async function backupImported(req, res, next) {
     let file;
-    try { file = decodeURIComponent(req.path.slice(1)); } catch { return res.status(404).end(); }
-    const source = sourceBackups.find(item => file.startsWith(item.folder + "/" + item.prefix));
+    try {
+      file = decodeURIComponent(req.path.slice(1));
+    } catch {
+      return res.status(404).end();
+    }
+    const source = sourceBackups.find((item) =>
+      file.startsWith(item.folder + "/" + item.prefix),
+    );
     if (!source) return res.status(404).end();
     const suffix = file.slice(source.folder.length + 1 + source.prefix.length);
     const target = new URL(suffix, source.url);
@@ -178,27 +199,47 @@ export function mountGameAssetFallback(app, staticRoot) {
     try {
       const headers = { "accept-encoding": "identity" };
       if (req.headers.range) headers.range = req.headers.range;
-      const upstream = await fetch(target, {method:req.method, headers, signal:controller.signal});
-      if (![200,206].includes(upstream.status)) { await upstream.body?.cancel(); return res.status(404).end(); }
-      console.warn(`[game-assets] local mirror miss; source backup used: ${file}`);
+      const upstream = await fetch(target, {
+        method: req.method,
+        headers,
+        signal: controller.signal,
+      });
+      if (![200, 206].includes(upstream.status)) {
+        await upstream.body?.cancel();
+        return res.status(404).end();
+      }
+      console.warn(
+        `[game-assets] local mirror miss; source backup used: ${file}`,
+      );
       res.status(upstream.status);
-      for (const name of PASS_HEADERS) { const value=upstream.headers.get(name); if(value)res.setHeader(name,value); }
+      for (const name of PASS_HEADERS) {
+        const value = upstream.headers.get(name);
+        if (value) res.setHeader(name, value);
+      }
       res.setHeader("Cache-Control", "no-cache");
       res.setHeader("X-Game-Asset-Source", "upstream-backup");
       res.setHeader("Content-Security-Policy", IMPORTED_CSP);
-      if(req.method === "HEAD" || !upstream.body) return res.end();
-      await pipeline(Readable.fromWeb(upstream.body),res);
-    } catch (error) { if(res.headersSent)res.destroy();else res.status(502).end(); }
-    finally { clearTimeout(timer); }
+      if (req.method === "HEAD" || !upstream.body) return res.end();
+      await pipeline(Readable.fromWeb(upstream.body), res);
+    } catch (error) {
+      if (res.headersSent) res.destroy();
+      else res.status(502).end();
+    } finally {
+      clearTimeout(timer);
+    }
   }
-  const localImported = express.static(path.join(importedAssetsRoot(), "misc"), {
-    index: false, redirect: false,
-    setHeaders(res, file) {
-      res.setHeader("Cache-Control", getStaticCacheControl(file));
-      res.setHeader("Cross-Origin-Resource-Policy", "same-origin");
-      res.setHeader("Content-Security-Policy", IMPORTED_CSP);
+  const localImported = express.static(
+    path.join(importedAssetsRoot(), "misc"),
+    {
+      index: false,
+      redirect: false,
+      setHeaders(res, file) {
+        res.setHeader("Cache-Control", getStaticCacheControl(file));
+        res.setHeader("Cross-Origin-Resource-Policy", "same-origin");
+        res.setHeader("Content-Security-Policy", IMPORTED_CSP);
+      },
     },
-  });
+  );
   let folders;
   try {
     // In a build, each game folder is a symlink to static/misc (prepare.js),
@@ -237,7 +278,11 @@ export function mountGameAssetFallback(app, staticRoot) {
     if (req.method !== "GET" && req.method !== "HEAD") return next();
     const file = req.path.slice(1);
     let importedFolder;
-    try { importedFolder = decodeURIComponent(file.split("/")[0]); } catch { return next(); }
+    try {
+      importedFolder = decodeURIComponent(file.split("/")[0]);
+    } catch {
+      return next();
+    }
     if (IMPORTED_FOLDERS.has(importedFolder)) {
       // Prefer committed local files. A recorded source is an emergency backup;
       // misses are logged so the next mirror update can include them.
@@ -246,14 +291,25 @@ export function mountGameAssetFallback(app, staticRoot) {
         // Engines also request StreamingAssets relative to the page instead of
         // their recorded source root. Resolve those against the local mirror.
         const suffix = file.slice(importedFolder.length + 1);
-        for (const source of sourceBackups.filter(item => item.folder === importedFolder)) {
+        for (const source of sourceBackups.filter(
+          (item) => item.folder === importedFolder,
+        )) {
           const relative = importedFolder + "/" + source.prefix + suffix;
           const root = path.join(importedAssetsRoot(), "misc");
           const candidate = path.resolve(root, relative);
-          if (candidate.startsWith(root + path.sep) && existsSync(candidate) && statSync(candidate).isFile()) {
+          if (
+            candidate.startsWith(root + path.sep) &&
+            existsSync(candidate) &&
+            statSync(candidate).isFile()
+          ) {
             const original = req.url;
-            req.url = "/" + relative.split("/").map(encodeURIComponent).join("/");
-            return localImported(req, res, (failure) => { req.url = original; if(failure)return next(failure);return backupImported(req,res,next); });
+            req.url =
+              "/" + relative.split("/").map(encodeURIComponent).join("/");
+            return localImported(req, res, (failure) => {
+              req.url = original;
+              if (failure) return next(failure);
+              return backupImported(req, res, next);
+            });
           }
         }
         return backupImported(req, res, next);
