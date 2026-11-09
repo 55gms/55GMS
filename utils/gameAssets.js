@@ -243,6 +243,19 @@ export function mountGameAssetFallback(app, staticRoot) {
       // misses are logged so the next mirror update can include them.
       return localImported(req, res, (error) => {
         if (error) return next(error);
+        // Engines also request StreamingAssets relative to the page instead of
+        // their recorded source root. Resolve those against the local mirror.
+        const suffix = file.slice(importedFolder.length + 1);
+        for (const source of sourceBackups.filter(item => item.folder === importedFolder)) {
+          const relative = importedFolder + "/" + source.prefix + suffix;
+          const root = path.join(importedAssetsRoot(), "misc");
+          const candidate = path.resolve(root, relative);
+          if (candidate.startsWith(root + path.sep) && existsSync(candidate) && statSync(candidate).isFile()) {
+            const original = req.url;
+            req.url = "/" + relative.split("/").map(encodeURIComponent).join("/");
+            return localImported(req, res, (failure) => { req.url = original; if(failure)return next(failure);return backupImported(req,res,next); });
+          }
+        }
         return backupImported(req, res, next);
       });
     }
