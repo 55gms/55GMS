@@ -164,6 +164,13 @@ const MISS_LIMIT = 5000;
 
 export function mountGameAssetFallback(app, staticRoot) {
   const base = process.env.GAME_ASSETS_BASE || DEFAULT_BASE;
+  app.use("/lib/game-runtime", express.static(path.join(importedAssetsRoot(), "lib/game-runtime"), {
+    index: false, redirect: false,
+    setHeaders(res, file) {
+      res.setHeader("Cache-Control", getStaticCacheControl(file));
+      res.setHeader("Cross-Origin-Resource-Policy", "same-origin");
+    },
+  }));
   const sourceBackups = JSON.parse(readFileSync(path.join(APP_ROOT, "docs/game-imports/asset-mirror.json"), "utf8")).upstreamBackups || [];
   async function backupImported(req, res, next) {
     let file;

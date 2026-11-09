@@ -14,7 +14,8 @@ mkdirSync(path.dirname(destination),{recursive:true});
 const git=(...args)=>execFileSync('git',args,{cwd:stage,stdio:'inherit'});
 try{
  mkdirSync(stage);git('init','--quiet');git('remote','add','origin',pin.repository);git('fetch','--depth=1','--filter=blob:none','origin',pin.commit);
- git('sparse-checkout','init','--cone');git('sparse-checkout','set',...pin.folders.map(f=>'misc/'+f));git('checkout','--quiet','--detach','FETCH_HEAD');
+ git('sparse-checkout','init','--cone');git('sparse-checkout','set','lib/game-runtime',...pin.folders.map(f=>'misc/'+f));git('checkout','--quiet','--detach','FETCH_HEAD');
  for(const folder of pin.folders)if(!existsSync(path.join(stage,'misc',folder,'index.html')))throw new Error('Missing mirrored entrypoint: '+folder);
+ if(!existsSync(path.join(stage,'lib/game-runtime/manifest.json')))throw new Error('Missing shared runtime manifest');
  writeFileSync(path.join(stage,'.mirror-ready'),pin.commit+'\n');renameSync(stage,destination);console.log(`Installed game assets ${pin.commit}`);
 }catch(error){rmSync(stage,{recursive:true,force:true});throw error;}

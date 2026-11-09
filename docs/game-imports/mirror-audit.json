@@ -1,8 +1,8 @@
 {
   "games": 122,
-  "files": 1010,
-  "bytes": 2644877755,
-  "assetCommit": "267531b05cc9658579f87c6d888b45279d1d0869",
+  "files": 1022,
+  "bytes": 2645844478,
+  "assetCommit": "ca0df11691cb1b99255b497b5cb9badb2a9b8bc0",
   "inventorySourceRefs": 44,
   "sourceRefsAvailable": 39,
   "sourceRefsUnavailable": 5,
@@ -14,5 +14,8 @@
     "Embedded Flash ad/portal attempts remain blocked.",
     "Startup network sweeps do not establish gameplay coverage."
   ],
-  "backup": "A missing file with a recorded source is relayed through the server; the browser keeps using same-origin URLs."
+  "backup": "A missing file with a recorded source is relayed through the server; the browser keeps using same-origin URLs.",
+  "gameFiles": 1010,
+  "sharedRuntimeFiles": 12,
+  "sharedRuntime": "lib/game-runtime: loaders, save scripts, Socket.IO client, CSS, catalog and save registry"
 }

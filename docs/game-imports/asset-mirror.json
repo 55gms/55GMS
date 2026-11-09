@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/55gms/assets.git",
-  "commit": "267531b05cc9658579f87c6d888b45279d1d0869",
+  "commit": "ca0df11691cb1b99255b497b5cb9badb2a9b8bc0",
   "folders": [
     "two-ball-3d",
     "blocky-snakes",
@@ -356,5 +356,6 @@
       "prefix": "_ext/cdn.jsdelivr.net/gh/docs-g-classroommyflies/zalman@main/",
       "url": "https://raw.githubusercontent.com/docs-g-classroommyflies/zalman/main/"
     }
-  ]
+  ],
+  "sharedRuntimeManifest": "lib/game-runtime/manifest.json"
 }

@@ -1,3 +1,7 @@
+## Shared runtime mirror
+
+The assets PR also includes the shared game JavaScript and its static dependencies under the existing `lib/` hierarchy, in `lib/game-runtime/`. All 122 game entrypoints reference these copies. `shared-runtime-manifest.json` lists the 11 shared files and hashes; the assets repository additionally has the manifest itself. Deployment now checks out this directory alongside `misc/<game>/`. Cloud-save HTTP APIs and the Half-Life service are server functionality, not downloadable static files. Prior source-availability limitations remain.
+
 ## November 9 mirror update
 
 The assets PR now contains 1,010 files (2,644,877,755 bytes) across all 122 imported game folders, including their HTML entrypoints. See `mirror-audit.json`, `source-inventory.json` and `startup-network-audit.json` for coverage and limitations. Games use local server paths; deployment installs the pinned assets commit before building. Missing files with a recorded upstream source have a server-side emergency backup, with mirror misses logged. Browser CSP blocks third-party asset and telemetry requests. Half-Life still depends on an external WebSocket service and is not standalone. Source inventories returned five 404 refs; five Draw Climber particle metadata filenames remain unavailable, without an observed startup request. The short all-game sweep found zero missing HTTP responses, which does not establish full gameplay or late-level asset coverage.
