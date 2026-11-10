@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -395,45 +394,28 @@
           button.setAttribute("title", "Forward 10 Seconds");
           if (button.tagName === "BUTTON") button.type = "button";
           const rewindIcon = rewind.querySelector("svg");
-          let forwardDigits = null;
-          let forwardViewBox = null;
-          if (rewindIcon) {
-            const forwardIcon = rewindIcon.cloneNode(true);
-            const paths = forwardIcon.querySelectorAll("path");
-            const segments = paths.length === 1
-              ? paths[0].getAttribute("d")?.match(/M[^M]*/g)
-              : null;
-            if (segments?.length === 3) {
-              forwardViewBox = forwardIcon.viewBox.baseVal;
-              const arrow = paths[0];
-              arrow.setAttribute("d", segments[2]);
-              arrow.setAttribute(
-                "transform",
-                `translate(${2 * forwardViewBox.x + forwardViewBox.width} 0) scale(-1 1)`,
-              );
-              forwardDigits = arrow.cloneNode(false);
-              forwardDigits.setAttribute("d", segments[0] + segments[1]);
-              forwardDigits.removeAttribute("transform");
-              forwardIcon.appendChild(forwardDigits);
-            } else {
-              forwardIcon.style.transform = "scaleX(-1)";
-            }
-            button.replaceChildren(forwardIcon);
-          } else {
-            button.innerHTML = `
-              <svg class="jw-svg-icon" viewBox="0 0 32 32" aria-hidden="true">
-                <path d="M7.5 24.5A10.5 10.5 0 1 1 25 13" fill="none"
-                  stroke="currentColor" stroke-width="2.5"
-                  stroke-linecap="round" />
-                <path d="M24.5 4.5V12H17" fill="none"
-                  stroke="currentColor" stroke-width="2.5"
-                  stroke-linecap="round" stroke-linejoin="round" />
-                <text x="16" y="20" text-anchor="middle"
-                  font-family="Arial, sans-serif" font-size="10" font-weight="bold"
-                  fill="currentColor">10</text>
-              </svg>
-            `;
-          }
+          const forwardIcon = rewindIcon
+            ? rewindIcon.cloneNode(false)
+            : doc.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+          forwardIcon.setAttribute(
+            "class",
+            rewindIcon?.getAttribute("class") || "jw-svg-icon jw-svg-icon-rewind"
+          );
+          forwardIcon.setAttribute("viewBox", "0 0 240 240");
+          forwardIcon.setAttribute("aria-hidden", "true");
+          forwardIcon.style.transform = "none";
+
+          const forwardShape = doc.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "path"
+          );
+          forwardShape.setAttribute(
+            "d",
+            "M193.14,131.08a21.57,21.57,0,0,0-17.7-10.6,21.58,21.58,0,0,0-17.7,10.6,44.77,44.77,0,0,0,0,46.3,21.63,21.63,0,0,0,17.7,10.6,21.61,21.61,0,0,0,17.7-10.6A44.77,44.77,0,0,0,193.14,131.08Zm-17.7,47.2c-7.8,0-14.4-11-14.4-24.1s6.6-24.1,14.4-24.1,14.4,11,14.4,24.1S183.34,178.28,175.44,178.28ZM132,188V137l-4.8,4.8-6.8-6.8,13-13a4.8,4.8,0,0,1,8.2,3.4v62.7ZM30.89,52.88H161V33.58c0-5.3,3.6-7.2,8-4.3l41.8,27.9a5.8,5.8,0,0,1,2.7,2.7,6,6,0,0,1-2.7,8L169,95.78c-4.4,2.9-8,1-8-4.3V72.18H45.29v96.4h48.2v19.3H30.79a4.88,4.88,0,0,1-4.8-4.8V57.78A5,5,0,0,1,30.89,52.88Z"
+          );
+          forwardIcon.appendChild(forwardShape);
+          button.replaceChildren(forwardIcon);
 
           button.addEventListener("click", (event) => {
             event.preventDefault();
@@ -449,13 +431,6 @@
           }, true);
 
           rewind.insertAdjacentElement("afterend", button);
-          if (forwardDigits && forwardViewBox) {
-            const bounds = forwardDigits.getBBox();
-            forwardDigits.setAttribute(
-              "transform",
-              `translate(${2 * (forwardViewBox.x + forwardViewBox.width / 2 - bounds.x - bounds.width / 2)} 0)`,
-            );
-          }
         }
 
         for (const child of doc.querySelectorAll("iframe")) {
