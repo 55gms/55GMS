@@ -293,6 +293,13 @@
    "frame": "/misc/basketbros-io/index.html",
    "status": "observed"
   },
+  "beauty-salon": {
+   "id": "beauty-salon",
+   "name": "Beauty Salon",
+   "play": "/misc/play/?title=Beauty%20Salon&link=beauty-salon",
+   "frame": "/misc/beauty-salon/index.html",
+   "status": "observed"
+  },
   "bee-swarm-simulator": {
    "id": "bee-swarm-simulator",
    "name": "Bee Swarm Simulator",
@@ -501,6 +508,13 @@
    "frame": "/misc/brain-test/index.html",
    "status": "observed"
   },
+  "brainrot-miner": {
+   "id": "brainrot-miner",
+   "name": "Brainrot Miner",
+   "play": "/misc/play/?title=Brainrot%20Miner&link=brainrot-miner",
+   "frame": "/misc/brainrot-miner/index.html",
+   "status": "observed"
+  },
   "brawl": {
    "id": "brawl",
    "name": "Brawl Simulator 3D",
@@ -638,6 +652,13 @@
    "name": "Core Ball",
    "play": "/misc/play/?title=Core%20Ball&link=core-ball",
    "frame": "/misc/core-ball/index.html",
+   "status": "observed"
+  },
+  "count-control-legends": {
+   "id": "count-control-legends",
+   "name": "Count Control Legends",
+   "play": "/misc/play/?title=Count%20Control%20Legends&link=count-control-legends",
+   "frame": "/misc/count-control-legends/index.html",
    "status": "observed"
   },
   "crazy-bikes": {
@@ -1067,6 +1088,13 @@
    "name": "Fear Response",
    "play": "/misc/play/?title=Fear%20Response&link=fear-response",
    "frame": "/misc/fear-response/index.html",
+   "status": "observed"
+  },
+  "find-the-needle-in-haystack": {
+   "id": "find-the-needle-in-haystack",
+   "name": "Find The Needle in Haystack",
+   "play": "/misc/play/?title=Find%20The%20Needle%20in%20Haystack&link=find-the-needle-in-haystack",
+   "frame": "/misc/find-the-needle-in-haystack/index.html",
    "status": "observed"
   },
   "fish-eat-fish": {
@@ -2850,6 +2878,13 @@
    "name": "Sausage Flip",
    "play": "/misc/play/?title=Sausage%20Flip&link=sausage-flip",
    "frame": "/misc/sausage-flip/index.html",
+   "status": "observed"
+  },
+  "scary-teacher-3d": {
+   "id": "scary-teacher-3d",
+   "name": "Scary Teacher 3D",
+   "play": "/misc/play/?title=Scary%20Teacher%203D&link=scary-teacher-3d",
+   "frame": "/misc/scary-teacher-3d/index.html",
    "status": "observed"
   },
   "school-cleaning": {
