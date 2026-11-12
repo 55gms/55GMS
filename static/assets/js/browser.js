@@ -459,7 +459,9 @@
     tab.node.setAttribute("aria-hidden", "true");
     tab.node.inert = true;
     tab.node.classList.add("gms-tab-motion", "gms-tab-collapsed");
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     setTimeout(() => tab.node.remove(), reducedMotion ? 0 : 290);
     if (tab.iframe) tab.iframe.remove();
 
