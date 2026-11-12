@@ -1069,3 +1069,40 @@ body.x7gaiu { cursor: grabbing; user-select: none; }
 }
 .ekr46 .qapv7vq { color: var(--text-2); }
 .ekr46:focus-visible { background: var(--surface-hover); }
+
+
+.rxlmd {
+  gap: 0;
+}
+
+.yaioh9w {
+  margin-right: 2px;
+  transition:
+    flex-basis 270ms var(--ease),
+    min-width 270ms var(--ease),
+    max-width 270ms var(--ease),
+    margin-right 270ms var(--ease),
+    padding-left 270ms var(--ease),
+    padding-right 270ms var(--ease),
+    opacity 270ms var(--ease),
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+
+.yaioh9w.gms-tab-motion {
+  overflow: hidden;
+}
+
+.yaioh9w.gms-tab-collapsed {
+  flex: 0 0 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  opacity: 0;
+  pointer-events: none;
+}
