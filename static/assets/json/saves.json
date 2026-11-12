@@ -3423,6 +3423,13 @@
    "frame": "/misc/tnmn/index.html",
    "status": "observed"
   },
+  "tnt-sandbox": {
+   "id": "tnt-sandbox",
+   "name": "TNT Sandbox",
+   "play": "/misc/play/?title=TNT%20Sandbox&link=tnt-sandbox",
+   "frame": "/misc/tnt-sandbox/index.html",
+   "status": "observed"
+  },
   "tombofthemask": {
    "id": "tombofthemask",
    "name": "Tomb Of The Mask",
