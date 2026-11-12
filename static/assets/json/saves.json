@@ -3001,6 +3001,13 @@
     ]
    }
   },
+  "snow-plow": {
+   "id": "snow-plow",
+   "name": "Snow Plow",
+   "play": "/misc/play/?title=Snow%20Plow&link=snow-plow",
+   "frame": "/misc/snow-plow/index.html",
+   "status": "observed"
+  },
   "snow-train-odyssey": {
    "id": "snow-train-odyssey",
    "name": "Snow Train Odyssey",
