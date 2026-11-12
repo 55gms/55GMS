@@ -39,6 +39,9 @@ node scripts/migrate-legacy-saves.js
 # and to 55GMS Ads' rewarded SDK (reads the game's files from ../assets)
 node scripts/build-save-registry.js && node scripts/add-save-agent.js && node scripts/add-ads-sdk.js
 
+# Download a game's hover clip from Poki into static/img/videos/preview/ (the catalog's "preview")
+node scripts/poki-preview.js "<Game Name>" [<poki url or slug>]
+
 # Pin the game pages' jsDelivr URLs to 55gms/assets commits (after pushing game files there)
 node scripts/pin-game-assets.js
 
