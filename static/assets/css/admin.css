@@ -135,3 +135,166 @@
     right: 16px;
   }
 }
+
+/* ---------- Add games (the game bot) ---------- */
+
+.games-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 20px;
+}
+
+.admin-input.games-links {
+  flex: none;
+  height: auto;
+  min-height: 112px;
+  padding: 10px 12px;
+  font-family: var(--p-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.games-form-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.games-over {
+  color: var(--p-danger);
+}
+
+.games-batches {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.games-empty {
+  margin: 0;
+}
+
+.games-batch-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--p-border);
+}
+
+.games-batch-head .profile-row-title,
+.games-batch-head .profile-row-desc {
+  margin: 0;
+}
+
+.games-jobs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.games-job + .games-job {
+  border-top: 1px solid var(--p-border);
+}
+
+.games-job-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+}
+
+.games-job-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.games-job-text p {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.games-job-actions {
+  display: flex;
+  flex: none;
+  gap: 6px;
+}
+
+.games-btn {
+  height: 28px;
+  padding: 0 10px;
+  font-size: 0.8125rem;
+  text-decoration: none;
+}
+
+.games-status {
+  flex: none;
+  min-width: 84px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--p-text) 10%, transparent);
+  color: var(--p-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.games-status[data-status="running"],
+.games-status[data-status="publishing"] {
+  background: color-mix(in srgb, var(--p-warning) 18%, transparent);
+  color: var(--p-warning);
+}
+
+.games-status[data-status="pr_open"],
+.games-status[data-status="merged"] {
+  background: color-mix(in srgb, var(--p-success) 18%, transparent);
+  color: var(--p-success);
+}
+
+.games-status[data-status="failed"],
+.games-status[data-status="needs_attention"] {
+  background: color-mix(in srgb, var(--p-danger) 18%, transparent);
+  color: var(--p-danger);
+}
+
+.games-log {
+  max-height: 320px;
+  margin: 0 20px 12px;
+  padding: 10px 12px;
+  overflow: auto;
+  border: 1px solid var(--p-border);
+  border-radius: var(--p-radius-sm);
+  background: var(--p-inset);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+@media (max-width: 560px) {
+  .games-form,
+  .games-batch-head,
+  .games-job-main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .games-job-main {
+    flex-wrap: wrap;
+  }
+
+  .games-job-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .games-log {
+    margin: 0 16px 12px;
+  }
+}
