@@ -39,6 +39,9 @@ node scripts/migrate-legacy-saves.js
 # and to 55GMS Ads' rewarded SDK (reads the game's files from ../assets)
 node scripts/build-save-registry.js && node scripts/add-save-agent.js && node scripts/add-ads-sdk.js
 
+# Download a game's hover clip from Poki into static/img/videos/preview/ (the catalog's "preview")
+node scripts/poki-preview.js "<Game Name>" [<poki url or slug>]
+
 # Pin the game pages' jsDelivr URLs to 55gms/assets commits (after pushing game files there)
 node scripts/pin-game-assets.js
 
@@ -196,6 +199,9 @@ See `docs/proxy-stack.md` for versions, caching, the neutral-naming rules, and u
 Production is a single server (SSH host `55gms`, `/root/55gms`) running pm2 behind Caddy. A push to `main` is deployed by the `Deploy` GitHub Actions workflow, which SSHes in with a key limited to `/root/deploy/entry.sh`; that runs the commit's `deploy/deploy.sh` (checkout, install, build, preflight boot, rolling reload, health check, restore on failure). Rollback is the workflow's manual `rollback` run. Do not edit files on the server by hand: the deploy refuses to run over local changes. See `docs/deploy.md`.
 
 ### Game bot
+
+The `add-game` skill lives in this repo, at `.claude/skills/add-game/`, so Claude Code loads it in any checkout of 55GMS and `git pull` updates it everywhere, the game bot included (it runs every job in a fresh checkout of `main`). Change it here, not in a copy under `~/.claude/skills`.
+
 
 The [game-bot](https://github.com/55gms/game-bot) service runs the `add-game` skill unattended: give it links on `/admin` ("Add games", `static/assets/js/admin-games.js`) or in an "Add games" issue (`.github/ISSUE_TEMPLATE/add-games.yml`, label `add-games`), and for each link it pushes the game files to 55gms/assets and opens a `bot/add-<folder>` PR here with a screenshot. `routes/admin.js` passes the admin page's calls on to it with `GAME_BOT_URL` and `GAME_BOT_TOKEN`; without them the section stays hidden. Setup and the security model are in that repo's README.
 
