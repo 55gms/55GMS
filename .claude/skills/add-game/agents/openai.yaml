@@ -1,0 +1,4 @@
+interface:
+  display_name: "Add Game"
+  short_description: "Add a game to 55GMS from a GN-Math or website link"
+  default_prompt: "Use $add-game to add https://example.com/game to the current 55GMS checkout."

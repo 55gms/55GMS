@@ -200,6 +200,9 @@ Production is a single server (SSH host `55gms`, `/root/55gms`) running pm2 behi
 
 ### Game bot
 
+The `add-game` skill lives in this repo, at `.claude/skills/add-game/`, so Claude Code loads it in any checkout of 55GMS and `git pull` updates it everywhere, the game bot included (it runs every job in a fresh checkout of `main`). Change it here, not in a copy under `~/.claude/skills`.
+
+
 The [game-bot](https://github.com/55gms/game-bot) service runs the `add-game` skill unattended: give it links on `/admin` ("Add games", `static/assets/js/admin-games.js`) or in an "Add games" issue (`.github/ISSUE_TEMPLATE/add-games.yml`, label `add-games`), and for each link it pushes the game files to 55gms/assets and opens a `bot/add-<folder>` PR here with a screenshot. `routes/admin.js` passes the admin page's calls on to it with `GAME_BOT_URL` and `GAME_BOT_TOKEN`; without them the section stays hidden. Setup and the security model are in that repo's README.
 
 `render.yaml` and `vercel.json` remain for forks; their start command is `node .`.
