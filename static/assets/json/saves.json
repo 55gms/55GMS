@@ -2000,6 +2000,13 @@
     ]
    }
   },
+  "krillion": {
+   "id": "krillion",
+   "name": "Krillion",
+   "play": "/misc/play/?title=Krillion&link=krillion",
+   "frame": "/misc/krillion/index.html",
+   "status": "observed"
+  },
   "learn-to-fly": {
    "id": "learn-to-fly",
    "name": "Learn to Fly 3",
@@ -2642,6 +2649,13 @@
    "name": "Ragdoll Hit",
    "play": "/misc/play/?title=Ragdoll%20Hit&link=ragdoll-hit",
    "frame": "/misc/ragdoll-hit/index.html",
+   "status": "observed"
+  },
+  "rainbow-obby": {
+   "id": "rainbow-obby",
+   "name": "Rainbow Obby",
+   "play": "/misc/play/?title=Rainbow%20Obby&link=rainbow-obby",
+   "frame": "/misc/rainbow-obby/index.html",
    "status": "observed"
   },
   "rb": {
@@ -3752,13 +3766,7 @@
    "id": "zorr-pro",
    "name": "Zorr.pro",
    "play": "/misc/play/?title=Zorr.pro&link=zorr-pro",
-   "frame": "/misc/zorr-pro/index.html"
-  },
-  "krillion": {
-   "id": "krillion",
-   "name": "Krillion",
-   "play": "/misc/play/?title=Krillion&link=krillion",
-   "frame": "/misc/krillion/index.html",
+   "frame": "/misc/zorr-pro/index.html",
    "status": "observed"
   }
  }
