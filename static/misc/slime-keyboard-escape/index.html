@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+    <head>
+  <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
+    integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
+    crossorigin="anonymous"
+    data-game-id="slime-keyboard-escape"
+    data-compat="poki"
+  ></script>
+        <meta charset="utf-8" />
+        <base href="https://cdn.jsdelivr.net/gh/55gms/assets@ec0e6eab7150f288035707e321d26c9498cfffd3/misc/slime-keyboard-escape/" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+        />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="format-detection" content="telephone=no, address=no, email=no" />
+        <meta name="google" content="notranslate" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="color-scheme" content="dark" />
+        <link rel="icon" type="image/svg+xml" href="favicon.svg?v=49a6af966e67eb7e" />
+        <script src="poki-sdk.js"></script>
+        <link rel="stylesheet" href="fonts/inter/inter.css?v=49a6af966e67eb7e" />
+        <link data-client-asset rel="stylesheet" href='assets/client-DOyVU0om.css' />
+        <title>Slime Keyboard Escape</title>
+    </head>
+
+    <body>
+        <div id="game-root">
+            <!-- Initial loading screen — ui/loadingScreens.ts drives the keys, percent and tip. -->
+            <div id="loading-screen" class="loader">
+                <div class="loader-content">
+                    <div class="loader-brand">
+                        <img
+                            src="textures/menu/GameLogoMini.jpg?v=49a6af966e67eb7e"
+                            alt="Game logo"
+                            data-i18n-alt="loading.logoAlt"
+                            class="loader-logo"
+                        />
+                        <div class="loader-title" data-i18n="loading.title">SLIME KEYBOARD ESCAPE</div>
+                    </div>
+                    <div id="loading-keys" class="loader-keys" aria-hidden="true">
+                        <div class="loader-key">L</div>
+                        <div class="loader-key">O</div>
+                        <div class="loader-key">A</div>
+                        <div class="loader-key">D</div>
+                        <div class="loader-key">I</div>
+                        <div class="loader-key">N</div>
+                        <div class="loader-key">G</div>
+                        <div class="loader-slime"><div class="loader-slime-body"></div></div>
+                    </div>
+                    <div id="loading-percent" class="loader-percent" role="status"></div>
+                    <div class="loader-tip pending">
+                        <span class="loader-tip-chip" data-i18n="loading.tipLabel">TIP</span>
+                        <span id="loading-tip" class="loader-tip-text"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map-switch loading screen — stays mounted, toggled via `.hidden` by
+         gameUI.showMapLoadingScreen/hideMapLoadingScreen during world hops, so the scene teardown is never
+         visible. -->
+            <div id="map-loading-screen" class="loader hidden">
+                <div class="loader-content">
+                    <div class="loader-spacebar-stage">
+                        <div class="loader-slime" aria-hidden="true"><div class="loader-slime-body"></div></div>
+                        <div id="map-loading-destination" class="loader-spacebar" role="status"></div>
+                    </div>
+                    <div class="loader-tip">
+                        <span class="loader-tip-chip" data-i18n="loading.tipLabel">TIP</span>
+                        <span id="map-loading-tip" class="loader-tip-text"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game -->
+            <div id="game">
+                <!-- HUD root. Contains every in-game element (touch controls,
+             picker menu, popups). -->
+                <div id="hud-ui">
+                    <!-- Top-left HUD: picker menu contains Options and the
+                 GOD_MODE-only Debug control. -->
+                    <div class="hud-topleft">
+                        <!-- Picker menu with the presence pill ("N players here")
+                     sitting directly below it, both sharing one column
+                     so the pill matches the menu's width. -->
+                        <div class="hud-menu-col">
+                            <picker-menu></picker-menu>
+                            <presence-pill></presence-pill>
+                        </div>
+                    </div>
+
+                    <!-- Leaderboard popup (Today / Week tabs, top-3 in 3D).
+                 Hidden until the top-right Ranking action dispatches
+                 leaderboard:open. -->
+                    <leaderboard-popup></leaderboard-popup>
+
+                    <!-- Moderated room chat. The popup is opened from the top-right action
+                 (or Enter on desktop); the feed shows recent signed messages. -->
+                    <chat-popup></chat-popup>
+                    <chat-feed></chat-feed>
+
+                    <!-- Shop popup (Trails/Auras/Skins + live 3D preview). Opened by the
+                 left-side hud-button-stack's Shop icon dispatching
+                 game-open-shop. -->
+                    <shop-popup></shop-popup>
+
+                    <!-- Rebirth popup + full-screen celebration. Opened by the
+                 left-side hud-button-stack's Rebirth icon dispatching
+                 pok-open-rebirth. -->
+                    <rebirth-popup></rebirth-popup>
+
+                    <!-- World-unlock confirm popup — opened by walking into a locked
+                 world portal (scene/worldPortals.ts dispatching
+                 pok-open-world-portal). Buys with Wins, then travels. -->
+                    <world-portal-popup></world-portal-popup>
+
+                    <!-- Champion-reward popup. Shown after spawn
+                 when the login payload carries pendingRewards; previewable via
+                 ?reward=daily|weekly. -->
+                    <reward-popup></reward-popup>
+
+                    <!-- Profile popup (stats + rename). Opened by the local-player
+                 nametag's pencil icon dispatching profile:open. -->
+                    <profile-popup></profile-popup>
+
+                    <!-- Options popup. Opened by the picker-menu Options row
+                 dispatching options:open. -->
+                    <options-popup></options-popup>
+
+                    <!-- GOD_MODE stage-teleport popup. Opened by the picker-menu
+                 Debug row (only rendered when ClientGlobals.GOD_MODE)
+                 dispatching debug:open. -->
+                    <debug-popup></debug-popup>
+
+                    <!-- HUD. All Lit custom elements; GameUI pushes state via reactive
+                 properties. See src/client/ui/components/. -->
+                    <div class="hud-topright">
+                        <div class="world-region-hud">
+                            <region-selector></region-selector>
+                            <world-name-label></world-name-label>
+                        </div>
+                        <wins-counter></wins-counter>
+                        <hud-quick-actions></hud-quick-actions>
+                    </div>
+                    <controls-legend></controls-legend>
+
+                    <!-- Left-edge icon stack: Rebirth + Shop (Milestone E screen
+                 grammar). Fixed-positioned via its own CSS, mid-height. -->
+                    <hud-button-stack></hud-button-stack>
+
+                    <!-- Big bottom-center speed counter + level progress bar
+                 (Milestone A). Fixed-positioned via its own CSS. -->
+                    <speed-counter></speed-counter>
+
+                    <!-- Top-center LEVEL UP banner — pops on speedStats.bankStep's
+                 pok-level-up event with the old → new run speed. -->
+                    <level-up-banner></level-up-banner>
+
+                    <!-- Shown on death: free Restart plus rewarded-ad stage revive /
+                 skip. The server resolves every destination and record penalty. -->
+                    <death-panel></death-panel>
+
+                    <!-- Touch HUD region. GameUI flips display:block/none on this
+                 wrapper based on IS_TOUCH_DEVICE. -->
+                    <div id="touch-controls" class="touch-controls">
+                        <character-controls></character-controls>
+                        <!-- Full-screen camera-look surface behind the bottom-left
+                     movement zone. The camera joystick is hidden with CSS; the
+                     movement zone wins where the two overlap. -->
+                        <div id="nipple-look-zone"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script data-client-asset type="module" src='assets/bundle-CeSpThyB.js'></script>
+
+        <script>
+            // Prevent gestures on ipad / iphone
+            document.addEventListener('gesturestart', (e) => e.preventDefault())
+            document.addEventListener('gesturechange', (e) => e.preventDefault())
+            document.addEventListener('gestureend', (e) => e.preventDefault())
+
+            // Prevents pinch-zoom (use touches.length, not event.scale which is Safari-only)
+            document.addEventListener(
+                'touchmove',
+                function (event) {
+                    if (event.touches.length > 1) {
+                        event.preventDefault()
+                    }
+                },
+                { passive: false }
+            )
+
+            // Prevents double-tap zoom
+            let lastTouchEnd = 0
+            document.addEventListener(
+                'touchend',
+                function (event) {
+                    let now = new Date().getTime()
+                    if (now - lastTouchEnd <= 300) {
+                        event.preventDefault()
+                    }
+                    lastTouchEnd = now
+                },
+                { passive: false }
+            )
+        </script>
+    </body>
+</html>
