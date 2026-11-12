@@ -179,7 +179,7 @@
 
   function createTabNode(tab) {
     const node = document.createElement("div");
-    node.className = "yaioh9w aihfic";
+    node.className = "yaioh9w";
     node.id = "tab-" + tab.id;
     node.setAttribute("role", "tab");
     node.setAttribute("aria-selected", "false");
@@ -194,12 +194,6 @@
       <button class="kvsxy3x" type="button" aria-label="Close tab" tabindex="-1">
         <svg class="qapv7vq" aria-hidden="true"><use href="#i-x" /></svg>
       </button>`;
-    node.addEventListener(
-      "animationend",
-      () => node.classList.remove("aihfic"),
-      { once: true },
-    );
-
     node.querySelector(".azbweq").addEventListener("error", (e) => {
       if (e.currentTarget.dataset.src)
         tab.failedIcons.add(e.currentTarget.dataset.src);
@@ -338,6 +332,7 @@
     activate = true,
     index = tabs.length,
     pinned = false,
+    animate = activate,
   } = {}) {
     const tab = {
       id: String(nextId++),
@@ -355,12 +350,35 @@
       node: null,
     };
     tab.node = createTabNode(tab);
+    const shouldAnimate =
+      animate && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (shouldAnimate) {
+      tab.node.classList.add("gms-tab-motion", "gms-tab-collapsed");
+    }
+
     const pinCount = tabs.filter((t) => t.pinned).length;
     index = tab.pinned ? Math.min(index, pinCount) : Math.max(index, pinCount);
     tabs.splice(index, 0, tab);
-    el.tabs.insertBefore(tab.node, el.tabs.children[index] || null);
+    el.tabs.insertBefore(tab.node, tabs[index + 1]?.node || null);
     renderTab(tab);
     if (activate) activateTab(tab.id);
+
+    if (shouldAnimate) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (!tab.node.isConnected) return;
+          tab.node.classList.remove("gms-tab-collapsed");
+          setTimeout(() => {
+            tab.node.classList.remove("gms-tab-motion");
+            if (getTab(tab.id) && activeId === tab.id) {
+              scrollTabIntoView(tab);
+            }
+          }, 280);
+        });
+      });
+    }
+
     saveSession();
     return tab;
   }
@@ -435,7 +453,14 @@
       });
       if (closedTabs.length > MAX_CLOSED) closedTabs.shift();
     }
-    tab.node.remove();
+
+    // Update the app immediately, but animate the tab before removing its DOM.
+    tab.node.setAttribute("aria-selected", "false");
+    tab.node.setAttribute("aria-hidden", "true");
+    tab.node.inert = true;
+    tab.node.classList.add("gms-tab-motion", "gms-tab-collapsed");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setTimeout(() => tab.node.remove(), reducedMotion ? 0 : 290);
     if (tab.iframe) tab.iframe.remove();
 
     if (tabs.length === 0) {
