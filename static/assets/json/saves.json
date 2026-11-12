@@ -3188,6 +3188,13 @@
     ]
    }
   },
+  "stickman-climb": {
+   "id": "stickman-climb",
+   "name": "Stickman Climb",
+   "play": "/misc/play/?title=Stickman%20Climb&link=stickman-climb",
+   "frame": "/misc/stickman-climb/index.html",
+   "status": "observed"
+  },
   "stickman-climb-2": {
    "id": "stickman-climb-2",
    "name": "Stickman Climb 2",
