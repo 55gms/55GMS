@@ -4,8 +4,10 @@
 }
 
 .premium-mark {
+  display: block;
   width: 40px;
   height: 40px;
+  margin: 0 auto;
   border-radius: 10px;
 }
 
