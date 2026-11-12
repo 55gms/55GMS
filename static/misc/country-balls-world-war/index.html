@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
+    integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
+    crossorigin="anonymous"
+    data-game-id="country-balls-world-war"
+    data-compat="poki"
+  ></script>
+  <meta charset="utf-8">
+  <script src="/assets/js/loader-ui.js?v=5gz9swuael"></script>
+  <script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Country Balls World War"></script>
+  <base href="https://cdn.jsdelivr.net/gh/55gms/assets@bc2dda70f52868f8a0dccd6a73788290c0aca271/misc/country-balls-world-war/">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Country Balls World War</title>
+  <style>
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #1d1d1d; }
+    #unity-canvas { display: block; width: 100%; height: 100%; background: #1d1d1d; }
+  </style>
+  <script src="poki-sdk.js"></script>
+</head>
+<body>
+  <canvas id="unity-canvas" tabindex="-1"></canvas>
+  <script>
+    (async () => {
+      // The build files are stored gzipped (the CDN sends them without a
+      // Content-Encoding), so they are unpacked here before Unity gets them.
+      const data = [
+        ["Build/cbww.data.gz.part1", 10000000],
+        ["Build/cbww.data.gz.part2", 10000000],
+        ["Build/cbww.data.gz.part3", 6435128],
+      ];
+      const wasm = [["Build/cbww.wasm.gz", 12937656]];
+      const framework = [["Build/cbww.framework.js.gz", 96188]];
+      const loader = [["Build/cbww.loader.js", 26982]];
+      GameLoader.prepare([...data, ...wasm, ...framework, ...loader]);
+
+      const paths = (files) => files.map(([path]) => path);
+      const gunzip = async (url, type) => {
+        const response = await fetch(url);
+        const body = response.body.pipeThrough(new DecompressionStream("gzip"));
+        const blob = await new Response(body).blob();
+        URL.revokeObjectURL(url);
+        return URL.createObjectURL(new Blob([blob], { type }));
+      };
+      const [dataGz, wasmGz, frameworkGz, loaderUrl] = await Promise.all([
+        GameLoader.merge(paths(data)),
+        GameLoader.merge(paths(wasm)),
+        GameLoader.merge(paths(framework)),
+        GameLoader.merge(paths(loader), "application/javascript"),
+      ]);
+      GameLoader.status("Unpacking game files");
+      const [dataUrl, codeUrl, frameworkUrl] = await Promise.all([
+        gunzip(dataGz, "application/octet-stream"),
+        gunzip(wasmGz, "application/wasm"),
+        gunzip(frameworkGz, "application/javascript"),
+      ]);
+      await GameLoader.script(loaderUrl);
+
+      const canvas = document.getElementById("unity-canvas");
+      const instance = await createUnityInstance(canvas, {
+        dataUrl,
+        codeUrl,
+        frameworkUrl,
+        streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
+        companyName: "koro.games",
+        productName: "Country Balls World War",
+        productVersion: "0.4.25",
+        showBanner(message, type) {
+          type === "error"
+            ? GameLoader.fail(new Error(message))
+            : console.warn(message);
+        },
+      });
+      window.unityGame = instance;
+      GameLoader.finish();
+      canvas.focus();
+    })().catch(GameLoader.fail);
+  </script>
+</body>
+</html>
