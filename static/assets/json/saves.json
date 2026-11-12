@@ -2000,6 +2000,13 @@
     ]
    }
   },
+  "krillion": {
+   "id": "krillion",
+   "name": "Krillion",
+   "play": "/misc/play/?title=Krillion&link=krillion",
+   "frame": "/misc/krillion/index.html",
+   "status": "observed"
+  },
   "learn-to-fly": {
    "id": "learn-to-fly",
    "name": "Learn to Fly 3",
@@ -2980,6 +2987,13 @@
     "unityFolder": true
    }
   },
+  "slime-keyboard-escape": {
+   "id": "slime-keyboard-escape",
+   "name": "Slime Keyboard Escape",
+   "play": "/misc/play/?title=Slime%20Keyboard%20Escape&link=slime-keyboard-escape",
+   "frame": "/misc/slime-keyboard-escape/index.html",
+   "status": "observed"
+  },
   "slimerancher": {
    "id": "slimerancher",
    "name": "Slime Rancher",
@@ -3752,13 +3766,7 @@
    "id": "zorr-pro",
    "name": "Zorr.pro",
    "play": "/misc/play/?title=Zorr.pro&link=zorr-pro",
-   "frame": "/misc/zorr-pro/index.html"
-  },
-  "krillion": {
-   "id": "krillion",
-   "name": "Krillion",
-   "play": "/misc/play/?title=Krillion&link=krillion",
-   "frame": "/misc/krillion/index.html",
+   "frame": "/misc/zorr-pro/index.html",
    "status": "observed"
   }
  }
