@@ -1,0 +1,21 @@
+name: Add games
+description: Paste game links for the game bot to add. Maintainers only; anyone else's request waits for a maintainer.
+title: "Add games"
+labels: ["add-games"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The game bot rips each game, pushes its files to 55gms/assets and opens a pull request with a screenshot. It keeps a status comment on this issue up to date.
+
+        Comment `/retry <job>`, `/retry failed`, `/cancel <job>` or `/add <links>` here once it has started.
+  - type: textarea
+    id: links
+    attributes:
+      label: Links
+      description: One game link or GN-Math id per line, up to 25.
+      placeholder: |
+        https://example.com/some-game
+        1234
+    validations:
+      required: true

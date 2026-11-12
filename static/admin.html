@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=7" />
     <link rel="stylesheet" href="/assets/css/nav.css?v=7" />
     <link rel="stylesheet" href="/assets/css/profile.css?v=5" />
-    <link rel="stylesheet" href="/assets/css/admin.css?v=1" />
+    <link rel="stylesheet" href="/assets/css/admin.css?v=2" />
     <title>Google</title>
 
     <script src="/assets/js/script.js?v=28"></script>
@@ -111,9 +111,54 @@
         </div>
       </section>
 
+      <section class="profile-section" id="gamesSection" hidden>
+        <div class="profile-section-head">
+          <h2>Add games</h2>
+          <p>
+            Paste game links or GN-Math ids, one per line. The bot adds each one
+            and opens a pull request with a screenshot.
+          </p>
+        </div>
+        <div class="profile-card">
+          <form class="games-form" id="gamesForm">
+            <textarea
+              class="admin-input games-links"
+              id="gamesLinks"
+              rows="5"
+              placeholder="https://example.com/some-game&#10;1234"
+              aria-label="Game links"
+              autocomplete="off"
+              spellcheck="false"
+            ></textarea>
+            <div class="games-form-foot">
+              <span class="profile-row-desc" id="gamesCount"
+                >Up to 25 at a time.</span
+              >
+              <button
+                type="submit"
+                class="p-btn p-btn-primary"
+                id="gamesSubmit"
+              >
+                <span class="p-btn-label">Add games</span>
+                <span class="p-spinner" aria-hidden="true"></span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="profile-section" id="batchesSection" hidden>
+        <div class="profile-section-head">
+          <h2>Recent batches</h2>
+          <p>From this page and from "Add games" issues. Updates live.</p>
+        </div>
+        <div class="games-batches" id="batches"></div>
+      </section>
+
       <div class="p-toasts" id="toasts" role="status" aria-live="polite"></div>
     </main>
 
     <script src="/assets/js/admin.js?v=2"></script>
+    <script src="/assets/js/admin-games.js?v=1"></script>
   </body>
 </html>

@@ -93,7 +93,7 @@ For chat, run a PostgreSQL instance and `node setup-db.js` after configuring `PO
 | `services/saveBlobs.js`       | Save bytes: gzip in Postgres, or a BunnyCDN storage zone above `SAVE_INLINE_MAX_BYTES`                                                           |
 | `utils/saveRegistry.js`       | The game id rule, the site keys a game save may never hold, and `static/assets/json/saves.json`                                                  |
 | `utils/saveProgress.js`       | Progress adapters (read from the save, never guessed) and how two saves compare                                                                  |
-| `routes/admin.js`             | Premium management for `/admin`; allowed only for the session cookie of user `jiayang`                                                           |
+| `routes/admin.js`             | Premium management for `/admin` and the game bot's Add games calls (`/api/admin/games/*`); allowed only for the session cookie of user `jiayang` |
 | `routes/billing.js`           | Stripe checkout, portal and status routes, and the webhook; loaded only with billing on                                                          |
 | `services/billing.js`         | Every Stripe call and the rule for who is premium (`recomputePremium`); see `docs/billing.md`                                                    |
 | `services/accounts.js`        | Account/save store; `ACCOUNT_BACKEND` picks the Worker (default) or local Postgres                                                               |
@@ -194,6 +194,10 @@ See `docs/proxy-stack.md` for versions, caching, the neutral-naming rules, and u
 ## Deployment
 
 Production is a single server (SSH host `55gms`, `/root/55gms`) running pm2 behind Caddy. A push to `main` is deployed by the `Deploy` GitHub Actions workflow, which SSHes in with a key limited to `/root/deploy/entry.sh`; that runs the commit's `deploy/deploy.sh` (checkout, install, build, preflight boot, rolling reload, health check, restore on failure). Rollback is the workflow's manual `rollback` run. Do not edit files on the server by hand: the deploy refuses to run over local changes. See `docs/deploy.md`.
+
+### Game bot
+
+The [game-bot](https://github.com/55gms/game-bot) service runs the `add-game` skill unattended: give it links on `/admin` ("Add games", `static/assets/js/admin-games.js`) or in an "Add games" issue (`.github/ISSUE_TEMPLATE/add-games.yml`, label `add-games`), and for each link it pushes the game files to 55gms/assets and opens a `bot/add-<folder>` PR here with a screenshot. `routes/admin.js` passes the admin page's calls on to it with `GAME_BOT_URL` and `GAME_BOT_TOKEN`; without them the section stays hidden. Setup and the security model are in that repo's README.
 
 `render.yaml` and `vercel.json` remain for forks; their start command is `node .`.
 
