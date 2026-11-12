@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
+    integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
+    crossorigin="anonymous"
+    data-game-id="tnt-sandbox"
+    data-compat="poki"
+  ></script>
+    <meta charset="UTF-8" />
+    <base href="https://cdn.jsdelivr.net/gh/55gms/assets@2dd0c88bc21229898473ccccb46f3facae27c222/misc/tnt-sandbox/" />
+    <script>
+      // The game's workers live on the CDN; a page may not start a cross-origin
+      // worker, so start a same-origin blob worker that imports the CDN script.
+      (() => {
+        const NativeWorker = window.Worker;
+        function Worker(url, options) {
+          const target = new URL(url, document.baseURI);
+          if (target.origin !== location.origin) {
+            const href = JSON.stringify(target.href);
+            const module = options && options.type === "module";
+            const src = module ? `import ${href};` : `importScripts(${href});`;
+            url = URL.createObjectURL(new Blob([src], { type: "text/javascript" }));
+          }
+          return new NativeWorker(url, options);
+        }
+        Worker.prototype = NativeWorker.prototype;
+        window.Worker = Worker;
+      })();
+    </script>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>TNT SANDBOX — voxel demolition range</title>
+    <style>html,body{overscroll-behavior:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;background:#0b0d0e;height:100%;margin:0;padding:0;overflow:hidden}#gpu{touch-action:none;cursor:url("data:image/svg+xml,%3c!--%20The%20pointer%20—%20index.html%20has%20the%20why,%20the%203%203%20hotspot%20and%20why%20this%20is%20not%20in%20assets/ui/.%20Kept%20terse%20because%20this%20one%20SHIPS:%20it%20is%20small%20enough%20to%20inline,%20so%20every%20byte%20here%20is%20a%20byte%20of%20the%20page.%20--%3e%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='36'%20viewBox='0%200%2016%2024'%3e%3cdefs%3e%3clinearGradient%20id='body'%20gradientUnits='userSpaceOnUse'%20x1='2'%20y1='2'%20x2='14'%20y2='22'%3e%3cstop%20offset='0'%20stop-color='%23e6ebee'/%3e%3cstop%20offset='0.55'%20stop-color='%23b6bfc5'/%3e%3cstop%20offset='1'%20stop-color='%238b949b'/%3e%3c/linearGradient%3e%3c/defs%3e%3cpath%20d='M2%202%20L2%2019.6%20L6.3%2015.7%20L9%2022%20L12%2020.7%20L9.3%2014.4%20L14.5%2013.9%20Z'%20fill='url(%23body)'%20stroke='%2322282b'%20stroke-width='0.85'%20stroke-linejoin='miter'/%3e%3c/svg%3e") 3 3,crosshair;width:100%;height:100%;display:block;position:fixed;inset:0}#hud,#nav{pointer-events:none;width:100%;height:100%;display:block;position:fixed;inset:0}</style>
+    <script type="module" crossorigin src="./assets/index-Dcloz3bG.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/rolldown-runtime-DK3Fl9T5.js">
+    <link rel="modulepreload" crossorigin href="./assets/game-events-CVGS72hs.js">
+    <link rel="modulepreload" crossorigin href="./assets/loader-drawing-46T_n9YF.js">
+    <link rel="modulepreload" crossorigin href="./assets/preload-helper-ChxXz101.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-CHIjM83-.css">
+  </head>
+  <body>
+    <canvas id="gpu"></canvas>
+  </body>
+</html>
