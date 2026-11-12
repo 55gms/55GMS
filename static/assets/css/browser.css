@@ -1,6 +1,3 @@
-
-/* 55GMS browser shell — tabs on top, web content in the middle, dock at the bottom. */
-
 :root {
   color-scheme: dark;
 
@@ -77,16 +74,12 @@ button {
   outline-offset: 1px;
 }
 
-/* ---------- Shell layout ---------- */
-
 .q82s00 {
   display: grid;
   grid-template-rows: var(--tabstrip-h) minmax(0, 1fr) auto;
   height: 100vh;
   height: 100dvh;
 }
-
-/* ---------- Buttons ---------- */
 
 .t9ohzr {
   display: inline-grid;
@@ -139,8 +132,6 @@ button {
 .oqmiv:hover {
   background: var(--surface-hover);
 }
-
-/* ---------- Tab strip ---------- */
 
 .s8r38gp {
   display: flex;
@@ -204,7 +195,6 @@ button {
   color: var(--text);
 }
 
-/* Separator between two inactive, un-hovered tabs. */
 .yaioh9w + .yaioh9w::before {
   content: "";
   position: absolute;
@@ -339,8 +329,6 @@ button {
   flex: none;
 }
 
-/* ---------- Viewport ---------- */
-
 .t1wbh0u {
   position: relative;
   min-height: 0;
@@ -359,7 +347,6 @@ button {
   height: 100%;
   border: 0;
   background: var(--bg);
-  /* Background tabs stay alive (scroll, media, JS state) but are hidden. */
   visibility: hidden;
   pointer-events: none;
 }
@@ -369,7 +356,6 @@ button {
   pointer-events: auto;
 }
 
-/* Loading progress */
 .tfzkdl2 {
   position: absolute;
   top: 0;
@@ -404,8 +390,6 @@ button {
     width: 85%;
   }
 }
-
-/* ---------- New tab page ---------- */
 
 .fi5cm2u {
   position: absolute;
@@ -488,8 +472,6 @@ button {
   background: var(--surface);
 }
 
-/* ---------- Page banner (per-tab errors) ---------- */
-
 .ze5tq {
   position: absolute;
   top: 10px;
@@ -523,8 +505,6 @@ button {
   flex: none;
 }
 
-/* ---------- Dock ---------- */
-
 .frs03u {
   display: grid;
   grid-template-rows: 1fr;
@@ -540,7 +520,6 @@ button {
   grid-template-rows: 0fr;
 }
 
-/* Suggestions and menus pop up above the dock, so let them escape the clip while open. */
 .q82s00:not(.n8vuyk5) .qgbgr6o.qe7iib {
   overflow: visible;
 }
@@ -597,7 +576,6 @@ button {
   display: block;
 }
 
-/* Reopen handle when the dock is collapsed */
 .ad92fv4 {
   position: absolute;
   bottom: 0;
@@ -643,8 +621,6 @@ button {
 .q82s00.n8vuyk5 .ad92fv4:hover {
   opacity: 1;
 }
-
-/* ---------- Omnibox ---------- */
 
 .dz3sf {
   position: relative;
@@ -715,7 +691,6 @@ button {
   color: var(--text-3);
 }
 
-/* Suggestions open upward, best match nearest the input. */
 .n6zlk {
   position: absolute;
   left: 0;
@@ -775,8 +750,6 @@ button {
   background: none;
   color: var(--text-2);
 }
-
-/* ---------- Overflow menu ---------- */
 
 .b1gtzke {
   position: relative;
@@ -848,8 +821,6 @@ button {
   display: none;
 }
 
-/* ---------- Toasts ---------- */
-
 .aw3bc {
   position: fixed;
   left: 50%;
@@ -886,8 +857,6 @@ button {
     transform 160ms var(--ease);
 }
 
-/* ---------- Animations ---------- */
-
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -907,8 +876,6 @@ button {
     transform: translate(-50%, -4px);
   }
 }
-
-/* ---------- Responsive ---------- */
 
 @media (max-width: 760px) {
   .wlkcma {
@@ -976,18 +943,36 @@ button {
   padding: 0;
   justify-content: center;
 }
+
 .yaioh9w.jkxfif .h6c4m,
-.yaioh9w.jkxfif .kvsxy3x { display: none; }
+.yaioh9w.jkxfif .kvsxy3x {
+  display: none;
+}
+
 .yaioh9w.c5nc0 {
   z-index: 15;
   cursor: grabbing;
   box-shadow: 0 8px 19px rgba(0,0,0,.45);
   transition: none !important;
 }
-.rxlmd.xfko3g .yaioh9w:not(.c5nc0) { transition: transform 160ms var(--ease); }
-body.x7gaiu { cursor: grabbing; user-select: none; }
-#tzatlc.h8zvi { color: var(--accent); }
-#tzatlc.h8zvi .qapv7vq { fill: currentColor; }
+
+.rxlmd.xfko3g .yaioh9w:not(.c5nc0) {
+  transition: transform 160ms var(--ease);
+}
+
+body.x7gaiu {
+  cursor: grabbing;
+  user-select: none;
+}
+
+#tzatlc.h8zvi {
+  color: var(--accent);
+}
+
+#tzatlc.h8zvi .qapv7vq {
+  fill: currentColor;
+}
+
 .jqrps {
   position: fixed;
   z-index: 35;
@@ -1003,6 +988,7 @@ body.x7gaiu { cursor: grabbing; user-select: none; }
   box-shadow: var(--shadow-pop);
   overflow: hidden;
 }
+
 .e5u4ic {
   display: flex;
   justify-content: space-between;
@@ -1010,14 +996,23 @@ body.x7gaiu { cursor: grabbing; user-select: none; }
   padding: 12px 12px 8px;
   font-size: 14px;
 }
-.fuo8y { overflow-y: auto; padding: 4px 8px 8px; }
+
+.fuo8y {
+  overflow-y: auto;
+  padding: 4px 8px 8px;
+}
+
 .sl2e1lb {
   display: flex;
   align-items: center;
   gap: 4px;
   border-radius: 6px;
 }
-.sl2e1lb:hover { background: var(--surface-hover); }
+
+.sl2e1lb:hover {
+  background: var(--surface-hover);
+}
+
 .fl7r1 {
   flex: 1;
   min-width: 0;
@@ -1028,11 +1023,30 @@ body.x7gaiu { cursor: grabbing; user-select: none; }
   color: var(--text);
   cursor: pointer;
 }
+
 .fl7r1 strong,
-.fl7r1 small { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.fl7r1 small { color: var(--text-3); margin-top: 2px; }
-.kpfpu3 { flex: none; }
-.ucm5gl { color: var(--text-2); padding: 20px 12px; text-align: center; }
+.fl7r1 small {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fl7r1 small {
+  color: var(--text-3);
+  margin-top: 2px;
+}
+
+.kpfpu3 {
+  flex: none;
+}
+
+.ucm5gl {
+  color: var(--text-2);
+  padding: 20px 12px;
+  text-align: center;
+}
+
 .blu88c {
   position: fixed;
   z-index: 45;
@@ -1045,6 +1059,7 @@ body.x7gaiu { cursor: grabbing; user-select: none; }
   background: var(--chrome);
   box-shadow: var(--shadow-pop);
 }
+
 .blu88c button {
   text-align: left;
   border: 0;
@@ -1053,11 +1068,27 @@ body.x7gaiu { cursor: grabbing; user-select: none; }
   padding: 8px 10px;
   cursor: pointer;
 }
-.blu88c button:hover { background: var(--surface-hover); }
-.blu88c button:disabled { opacity: .4; cursor: default; }
+
+.blu88c button:hover {
+  background: var(--surface-hover);
+}
+
+.blu88c button:disabled {
+  opacity: .4;
+  cursor: default;
+}
+
 @media (max-width: 520px) {
-  .yaioh9w.jkxfif { min-width: 40px; max-width: 40px; flex-basis: 40px; }
-  .jqrps { right: 7px; bottom: calc(var(--dock-h) + 7px); }
+  .yaioh9w.jkxfif {
+    min-width: 40px;
+    max-width: 40px;
+    flex-basis: 40px;
+  }
+
+  .jqrps {
+    right: 7px;
+    bottom: calc(var(--dock-h) + 7px);
+  }
 }
 
 .ekr46 {
@@ -1067,9 +1098,14 @@ body.x7gaiu { cursor: grabbing; user-select: none; }
   width: 100%;
   color: var(--text);
 }
-.ekr46 .qapv7vq { color: var(--text-2); }
-.ekr46:focus-visible { background: var(--surface-hover); }
 
+.ekr46 .qapv7vq {
+  color: var(--text-2);
+}
+
+.ekr46:focus-visible {
+  background: var(--surface-hover);
+}
 
 .rxlmd {
   gap: 0;
@@ -1091,6 +1127,9 @@ body.x7gaiu { cursor: grabbing; user-select: none; }
 }
 
 .yaioh9w.gms-tab-motion {
+  flex: 0 0 var(--gms-tab-width, 122px);
+  min-width: 0;
+  max-width: var(--gms-tab-width, 122px);
   overflow: hidden;
 }
 
