@@ -2959,6 +2959,13 @@
     "unityFolder": true
    }
   },
+  "slime-keyboard-escape": {
+   "id": "slime-keyboard-escape",
+   "name": "Slime Keyboard Escape",
+   "play": "/misc/play/?title=Slime%20Keyboard%20Escape&link=slime-keyboard-escape",
+   "frame": "/misc/slime-keyboard-escape/index.html",
+   "status": "observed"
+  },
   "slimerancher": {
    "id": "slimerancher",
    "name": "Slime Rancher",
