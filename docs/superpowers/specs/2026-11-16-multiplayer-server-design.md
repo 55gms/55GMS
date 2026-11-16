@@ -54,7 +54,7 @@ PlayCanvas + Colyseus) is a likely second.
 - `PhotonServerSettings`: AppId `82620531-8737-4824-8fd2-a4d29e2417d8`,
   AppVersion `0.239`, using the name server. The PUN RPC list in the same
   asset: `ActivateBuilding, BuildingStatusUpdate, ClickRpc, DestroyRpc, …,
-  UpdateAllPartyUI` (about 50 names; the server only relays them).
+UpdateAllPartyUI` (about 50 names; the server only relays them).
 - The exchange on connect, as captured (hex):
   - server → `f3 01 00` (init response, right after the socket opens)
   - client → `f3 06 01 01 01 0d …` (ping)

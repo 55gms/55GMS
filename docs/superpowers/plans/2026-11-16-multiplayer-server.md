@@ -36,9 +36,11 @@
 ### Task 1: Repo, core server, GitHub
 
 **Files:**
+
 - Create: `package.json` (`"type": "module"`, dep `ws`, `"start": "node ."`), `index.js`, `src/server.js`, `src/limits.js`, `src/log.js`, `games/index.js`, `README.md`, `.gitignore`, `.prettierrc` (copy 55GMS's)
 
 **Interfaces:**
+
 - Produces:
   - `createServer({ games }) -> http.Server` in `src/server.js`. `GET /api/mp/health` → `200 {"ok":true,"games":[...],"connections":n}`. An upgrade on `/api/mp/<game>/<rest>` calls `games[<game>].upgrade(req, socket, head, rest)`; any other upgrade or unknown game → `socket.destroy()`. HTTP `/api/mp/<game>/<rest>` calls `games[<game>].http?.(req, res, rest)`, else 404.
   - A game module: `{ name: string, upgrade(req, socket, head, rest: string), http?(req, res, rest: string) }`.
@@ -53,9 +55,11 @@
 ### Task 2: Photon protocol 1.8 codec
 
 **Files:**
+
 - Create: `src/photon/protocol18.js`, `src/photon/codes.js`, `tools/frames.txt` (the captured frames below)
 
 **Interfaces:**
+
 - Produces (`protocol18.js`):
   - `class Typed { constructor(type: 'byte'|'short'|'long'|'float'|'double', v) }` plus helpers `byte(n)`, `short(n)`, `long(n)`, `float(n)`, `double(n)`. Decoding returns `Typed` for those types and a plain `number` only for `int`, so a decoded value re-encodes to the same types. Booleans, strings, `null` are plain; byte arrays are `Uint8Array`; Hashtables and Dictionaries are `Map`; object arrays are `Array`; typed arrays (`int[]`, `string[]`, …) are `{ $array: '<type>', items: [...] }`; custom types are `{ $custom: code, bytes: Uint8Array }`. Dictionaries keep their key/value type bytes on the `Map` as `map.$dict = [keyType, valueType]`.
   - `keyId(key) -> string` (`"b:255"`, `"s:name"`, `"i:3"`), for property maps keyed by mixed Photon keys.
@@ -75,9 +79,11 @@
 ### Task 3: Photon peer (framing and connection)
 
 **Files:**
+
 - Create: `src/photon/peer.js`
 
 **Interfaces:**
+
 - Consumes: `Reader`, `Writer` (Task 2); `acceptConnection`, `rateLimiter`, `clientIp`, `MAX_MESSAGE_BYTES`, `IDLE_MS`, `log` (Task 1).
 - Produces:
   - `photonUpgrade(wss: WebSocketServer, onPeer: (peer: Peer) => void) -> (req, socket, head) => void`. Accepts subprotocol `GpBinaryV18`, enforces the per-IP cap, then wraps the socket in a `Peer`. One `WebSocketServer({ noServer: true, maxPayload: MAX_MESSAGE_BYTES, handleProtocols })` per role is fine.
@@ -91,10 +97,12 @@
 ### Task 4: 1v1.lol name server, and the page shim (first milestone)
 
 **Files:**
+
 - Create: `games/1v1/index.js` (module wiring and roles), `games/1v1/nameserver.js`, `tools/capture.mjs` (Playwright: opens a URL, logs websocket frames, console lines matching Photon/connect/error, failed requests, and saves a screenshot; uses `playwright-core` with `CHROME_PATH`)
 - Modify: `games/index.js` (register `1v1`), `55GMS: static/misc/nowgg/index.html` (shim)
 
 **Interfaces:**
+
 - Consumes: `photonUpgrade`, `Peer` (Task 3); `Op`, `Param`, `Err` (Task 2).
 - Produces:
   - `games/1v1/index.js` default export `{ name: "1v1", upgrade, http, stats }`, routing `rest` = `ns` | `master` | `game` (ignore anything after the role, such as a query string).
@@ -108,9 +116,11 @@
 ### Task 5: Master server and room registry
 
 **Files:**
+
 - Create: `games/1v1/rooms.js`, `games/1v1/master.js`
 
 **Interfaces:**
+
 - Consumes: Tasks 2–4.
 - Produces (`rooms.js`):
   - `class Room { name; props: Map<string /*keyId*/, [key, value]>; maxPlayers; isOpen; isVisible; actors: Map<number, Actor>; nextActorNr = 1; masterActorNr; cache: Array<{ actorNr, code, rawData, receiverGroup }>; reservedUntil /* ms, for a slot handed out by master but not joined yet */ }`
@@ -128,9 +138,11 @@
 ### Task 6: Game server (rooms in play)
 
 **Files:**
+
 - Create: `games/1v1/game.js`
 
 **Interfaces:**
+
 - Consumes: `registry`, `Room`, `Actor` (Task 5), `Peer.eventRaw` (Task 3).
 - Produces (all on the game role):
   - `Authenticate` → Ok. `CreateGame`/`JoinGame` (`JoinMode` honoured) → add an `Actor`, release the reservation. Response Ok with `ActorNr`, `ActorList` (`int[]`), `GameProperties` (Hashtable, including the well-known keys MaxPlayers as byte, IsOpen, IsVisible, MasterClientId as int), `PlayerProperties` (Hashtable actorNr → props), `MasterClientId`. Then replay `room.cache` to the joiner in order, as events from their original actors. Then broadcast event `Join` (`ActorNr`, `ActorList`, `PlayerProperties` = the joiner's props) to everyone including the joiner.
@@ -148,6 +160,7 @@
 ### Task 7: Production
 
 **Files:**
+
 - Create: `deploy/entry.sh` (forced command; `deploy <sha>` → `git fetch && git checkout <sha> && npm ci --omit=dev && systemctl restart gms-multiplayer`, then `curl -sf 127.0.0.1:8093/api/mp/health` or check out the previous sha and restart; `status`), `deploy/gms-multiplayer.service` (systemd, `WorkingDirectory=/root/multiplayer`, `Environment=PORT=8093 HOST=127.0.0.1`, `Restart=always`), `.github/workflows/deploy.yml` (on push to `main`: `node --check` every `.js`, then SSH with the same three secrets and steps as 55GMS's `deploy.yml`)
 - Modify: `README.md` (endpoints, local dev with the shim override, the capture tool, server setup steps below), 55GMS `docs/multiplayer.md` (new: what it is, the Caddy route, the shim) and `CLAUDE.md` (one line under Proxy infrastructure or Frontend pointing at it)
 
