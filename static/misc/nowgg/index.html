@@ -38,6 +38,18 @@
         GMSWebSocket.prototype = Native.prototype;
         for (const k of ["CONNECTING", "OPEN", "CLOSING", "CLOSED"]) GMSWebSocket[k] = Native[k];
         window.WebSocket = GMSWebSocket;
+
+        // The game's server clock (userSettings/time, a dead Firebase function)
+        // picks the day's modes; the multiplayer server answers it instead.
+        const httpBase = base.replace(/^ws/, "http");
+        const clock = /^https:\/\/us-central1-justbuild-cdb86\.cloudfunctions\.net\/userSettings\/time\b/;
+        const open = XMLHttpRequest.prototype.open;
+        XMLHttpRequest.prototype.open = function (method, url, ...rest) {
+          return open.call(this, method, clock.test(String(url)) ? `${httpBase}/1v1/time` : url, ...rest);
+        };
+        const nativeFetch = window.fetch;
+        window.fetch = (input, init) =>
+          nativeFetch(typeof input === "string" && clock.test(input) ? `${httpBase}/1v1/time` : input, init);
       })();
     </script>
     <base href="https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/nowgg/">
