@@ -13,6 +13,33 @@
     <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css?v=5gz9swuael">
     <script type="module" src="/assets/js/unity-cdn-loader.js?v=5gz9swuael"></script>
     <script src="/assets/js/script.js?v=28"></script>
+    <script>
+      // 1v1.lol's Photon servers are shut down. Send the game to the 55GMS
+      // multiplayer server instead (github.com/55gms/multiplayer), on this
+      // page's own host so every domain works.
+      (() => {
+        let base = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/api/mp`;
+        try {
+          base = localStorage.getItem("gms-mp-base") || base;
+        } catch {}
+        const photon = /(^|\.)(exitgames\.com|exitgamescloud\.com|photonengine\.io)$/i;
+        const rewrite = (url) => {
+          try {
+            const u = new URL(url, location.href);
+            if (photon.test(u.hostname)) return `${base}/1v1/ns`;
+            if (u.pathname.startsWith("/api/mp/")) return base + u.pathname.slice("/api/mp".length) + u.search;
+          } catch {}
+          return url;
+        };
+        const Native = window.WebSocket;
+        function GMSWebSocket(url, protocols) {
+          return protocols === undefined ? new Native(rewrite(url)) : new Native(rewrite(url), protocols);
+        }
+        GMSWebSocket.prototype = Native.prototype;
+        for (const k of ["CONNECTING", "OPEN", "CLOSING", "CLOSED"]) GMSWebSocket[k] = Native[k];
+        window.WebSocket = GMSWebSocket;
+      })();
+    </script>
     <base href="https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/nowgg/">
 
 	<meta charset="utf-8" />
