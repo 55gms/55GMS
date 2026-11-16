@@ -191,6 +191,10 @@ The rest of the stack:
 
 See `docs/proxy-stack.md` for versions, caching, the neutral-naming rules, and upgrade notes.
 
+### Multiplayer server
+
+Games whose multiplayer servers are gone play against [55gms/multiplayer](https://github.com/55gms/multiplayer): a separate process (`gms-multiplayer`, `127.0.0.1:8093`) that Caddy reaches at `/api/mp/*` on every hostname, with endpoints per game speaking that game's own protocol. 1v1.lol (`static/misc/nowgg/`) is the first: an inline script in its page sends Photon's addresses to `/api/mp/1v1/…` on the page's host. See `docs/multiplayer.md`.
+
 ## Deployment
 
 Production is a single server (SSH host `55gms`, `/root/55gms`) running pm2 behind Caddy. A push to `main` is deployed by the `Deploy` GitHub Actions workflow, which SSHes in with a key limited to `/root/deploy/entry.sh`; that runs the commit's `deploy/deploy.sh` (checkout, install, build, preflight boot, rolling reload, health check, restore on failure). Rollback is the workflow's manual `rollback` run. Do not edit files on the server by hand: the deploy refuses to run over local changes. See `docs/deploy.md`.
