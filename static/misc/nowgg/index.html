@@ -22,12 +22,27 @@
         try {
           base = localStorage.getItem("gms-mp-base") || base;
         } catch {}
+        // The game's guest names came from its dead login service, so players
+        // join with no name. Use the 55GMS handle, or a saved guest name; the
+        // server hands it to the game as its Photon nickname.
+        let name = "";
+        try {
+          name = localStorage.getItem("username") || localStorage.getItem("gms-1v1-guest") || "";
+          if (!name) localStorage.setItem("gms-1v1-guest", (name = `Guest${Math.floor(1000 + Math.random() * 9000)}`));
+        } catch {
+          name = `Guest${Math.floor(1000 + Math.random() * 9000)}`;
+        }
+        const withName = (url) => {
+          const u = new URL(url);
+          u.searchParams.set("name", name);
+          return u.toString();
+        };
         const photon = /(^|\.)(exitgames\.com|exitgamescloud\.com|photonengine\.io)$/i;
         const rewrite = (url) => {
           try {
             const u = new URL(url, location.href);
-            if (photon.test(u.hostname)) return `${base}/1v1/ns`;
-            if (u.pathname.startsWith("/api/mp/")) return base + u.pathname.slice("/api/mp".length) + u.search;
+            if (photon.test(u.hostname)) return withName(`${base}/1v1/ns`);
+            if (u.pathname.startsWith("/api/mp/")) return withName(base + u.pathname.slice("/api/mp".length) + u.search);
           } catch {}
           return url;
         };
@@ -43,13 +58,22 @@
         // picks the day's modes; the multiplayer server answers it instead.
         const httpBase = base.replace(/^ws/, "http");
         const clock = /^https:\/\/us-central1-justbuild-cdb86\.cloudfunctions\.net\/userSettings\/time\b/;
+        // PUN times an HTTP GET to https://<region host>/photon/m/?ping to pick
+        // a region; with every ping failing it never settles on one, and the
+        // mode list stays on its offline set.
+        const regionPing = /^https?:\/\/[^/]+\/photon\/m\//;
+        const route = (url) => {
+          const u = String(url);
+          if (clock.test(u)) return `${httpBase}/1v1/time`;
+          if (regionPing.test(u)) return `${httpBase}/1v1/ping`;
+          return url;
+        };
         const open = XMLHttpRequest.prototype.open;
         XMLHttpRequest.prototype.open = function (method, url, ...rest) {
-          return open.call(this, method, clock.test(String(url)) ? `${httpBase}/1v1/time` : url, ...rest);
+          return open.call(this, method, route(url), ...rest);
         };
         const nativeFetch = window.fetch;
-        window.fetch = (input, init) =>
-          nativeFetch(typeof input === "string" && clock.test(input) ? `${httpBase}/1v1/time` : input, init);
+        window.fetch = (input, init) => nativeFetch(typeof input === "string" ? route(input) : input, init);
       })();
     </script>
     <base href="https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/nowgg/">
@@ -383,7 +407,25 @@
 			initializeFireBase();
 		}
 
-		initRemoteConfig();
+		// Firebase Remote Config refuses every domain but 1v1.lol, and
+		// sendConfig() waits for it forever, which left the game with only the
+		// practice modes. Use the defaults from js/firebase-config.js.
+		try {
+			const defaults = {};
+			setDefaultValues(defaults);
+			conf = {};
+			for (const [key, value] of Object.entries(defaults.defaultConfig)) conf[key] = String(value);
+			// This build reads SettingsV6 (the defaults are from an older one) and
+			// a few sections the older settings lack.
+			const settings = JSON.parse(conf.SettingsV5);
+			for (const section of ["emotes_data", "bp_boost_data", "rv_settings", "main_menu_settings"]) {
+				if (!(section in settings)) settings[section] = {};
+			}
+			conf.SettingsV6 = JSON.stringify(settings);
+		} catch (e) {
+			console.warn("remote config defaults:", e);
+			initRemoteConfig();
+		}
 	</script>
 <script src="js/windowResize.js"></script>
 <script src="js/adblockManager.js"></script>
