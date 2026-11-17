@@ -212,11 +212,15 @@ try {
       app.use("/api", admin.default);
     }
     if (features.onev1) {
-      const [{ createOneV1Router }, game] = await Promise.all([
+      const [{ createOneV1Router }, game, coins] = await Promise.all([
         import("./routes/onev1.js"),
         import("./services/onev1.js"),
+        import("./services/onev1Coins.js"),
       ]);
-      app.use("/api", createOneV1Router({ game }));
+      app.use(
+        "/api",
+        createOneV1Router({ game, coins, billing: features.billing }),
+      );
     }
   }
   if (features.chat) {

@@ -44,7 +44,7 @@ function requireInternal(req, res, next) {
   next();
 }
 
-export function createOneV1Router({ game, coins } = {}) {
+export function createOneV1Router({ game, coins, billing = false } = {}) {
   const router = express.Router();
 
   router.post("/1v1/token", async (req, res) => {
@@ -70,6 +70,8 @@ export function createOneV1Router({ game, coins } = {}) {
       res.status(503).json({ error: "unavailable" });
     }
   });
+
+  if (coins) router.get("/1v1/coins/done", coins.coinsDonePage);
 
   router.get("/1v1/config", (req, res) => {
     res.set("Cache-Control", "public, max-age=300");
@@ -115,7 +117,7 @@ export function createOneV1Router({ game, coins } = {}) {
     }
   };
   if (game) game.mount(fn, handle);
-  if (coins) coins.mount(fn, handle);
+  if (coins) coins.mount(fn, handle, { billing });
   // Calls this build makes that change nothing here: the game's own
   // reports of results (the multiplayer server decides those), renames (the
   // name is the 55GMS handle) and the rest of docs/1v1-backend.md.
