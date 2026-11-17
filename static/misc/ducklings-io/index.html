@@ -13,6 +13,32 @@
     data-game-id="ducklings-io"
     data-compat="poki"
   ></script>
+<script>
+  // The game connects to wss://ducklings.io/ws, which moved, refuses other
+  // sites' pages and is blocked on many networks. Send it to the 55GMS
+  // multiplayer server (github.com/55gms/multiplayer), which relays it to
+  // the real server. Locally: localStorage["gms-mp-base"] = "ws://localhost:8093/api/mp"
+  (() => {
+    let base = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/api/mp`;
+    try {
+      base = localStorage.getItem("gms-mp-base") || base;
+    } catch {}
+    const Native = window.WebSocket;
+    const target = (url) => {
+      try {
+        const u = new URL(String(url), location.href);
+        if (/^wss?:$/.test(u.protocol) && /(^|\.)ducklings\.io$/i.test(u.hostname)) return `${base}/ducklings/play`;
+      } catch {}
+      return url;
+    };
+    function GMSWebSocket(url, protocols) {
+      return protocols == null ? new Native(target(url)) : new Native(target(url), protocols);
+    }
+    GMSWebSocket.prototype = Native.prototype;
+    for (const k of ["CONNECTING", "OPEN", "CLOSING", "CLOSED"]) GMSWebSocket[k] = Native[k];
+    window.WebSocket = GMSWebSocket;
+  })();
+</script>
 <base href="https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/ducklings-io/">
 <script>
   // The game's files come from the CDN, another origin than this page.

@@ -44,6 +44,20 @@ side. Accounts are not involved: names and records are the game's own. The
 protocol is in that repo's README. Bump the `?v=` on `bros-mp.js` in the four
 pages when it changes (game pages are never rebuilt).
 
+## Ducklings.io (`static/misc/ducklings-io/`)
+
+Ducklings.io's own server still runs, so this one is a relay, not a server
+of ours. The game dials `wss://ducklings.io/ws`, which now redirects to
+`wss://multiplayer.ducklings.io/ws` (browsers do not follow WebSocket
+redirects); that server refuses any `Origin` but `https://ducklings.io`, and
+filters block the domain. An inline script before the `<base>` in the game's
+page sends any `ducklings.io` WebSocket to `/api/mp/ducklings/play`, and the
+multiplayer server opens the real socket with the origin it accepts and
+passes frames through unchanged. It carries matchmaking and WebRTC
+signalling only: the match itself runs between the players' browsers over
+WebRTC (or the game's TURN server), so a network that blocks WebRTC still
+breaks it after a room is found.
+
 Design and plan for accounts: `docs/superpowers/specs/2026-11-16-1v1-accounts-competitive-design.md`,
 `docs/superpowers/plans/2026-11-16-1v1-accounts-competitive.md`.
 
