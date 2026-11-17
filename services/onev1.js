@@ -25,7 +25,9 @@ export class GameError extends Error {
   }
 }
 
-const DEFAULT_RATING = 1000;
+// Unranked players start at 0: the game shows this number as the competitive
+// rank, so a default of 1000 looked like 1000 trophies never earned.
+const DEFAULT_RATING = 0;
 const ELO_K = 32;
 const COMPETITIVE_1V1 = "1v1_Competitive";
 const COMPETITIVE_2V2 = "Teams_2v2_Competitive";

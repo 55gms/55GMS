@@ -38,7 +38,7 @@ multiplayer server's). Coin sales also need billing (`docs/billing.md`).
 - **Nothing the game reports changes a number.** Rating, wins, kills, XP and
   battle pass XP come only from results the multiplayer server decides
   (`/api/1v1/internal/match`, `services/onev1.js` `applyMatch`): Elo with
-  K 32 from 1000, a team's rating the mean of its members, rated matches
+  K 32 from 0 (the game shows it as the competitive rank, so it starts empty), a team's rating the mean of its members, rated matches
   between the same two accounts worth 1, ½, ¼ and then nothing within 24
   hours, at most 20 rated matches an hour, 50 XP for a win and 25 otherwise
   (none for leaving). `rating/updateMMR` and `player/updateProgressAndStats`
@@ -103,11 +103,11 @@ adds the 55GMS game token to the Photon websocket URL itself.
   "HardCurrency": 777,
   "SoftCurrency": 0,
   "XP": 3456,
-  "Elo": 1000,
-  "DuosRating": 1000,
-  "Rating": 1000,
-  "BoxRating": 1000,
-  "CustomRating": 1000,
+  "Elo": 0,
+  "DuosRating": 0,
+  "Rating": 0,
+  "BoxRating": 0,
+  "CustomRating": 0,
   "Deviation": 350,
   "Volatility": 0.06,
   "Stats": {
