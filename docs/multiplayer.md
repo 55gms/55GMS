@@ -29,6 +29,21 @@ ratings, XP and battle pass. Both sides need the same `MP_SHARED_SECRET`.
 Friends and parties do not work. Details, setup and the capture tool are in
 that repo's README.
 
+## BasketBros, SoccerBros, BaseballBros, FootballBros
+
+Blue Wizard's games find their servers from the page's own hostname, so on
+55GMS they dialled `wss://EA.55gms.com/0` (and pinged `https://EA.55gms.com/ping`
+for the region list), which does not exist; their real servers are on
+`*.basketbros.io`, which filters block. `static/assets/js/bros-mp.js`, loaded
+before the game on `static/misc/{basketbros-io,soccerbros,baseballbros-io,footballbros}/index.html`
+with `data-game` set to the server's name for it, sends both to
+`/api/mp/<game>/play` and `/api/mp/<game>/ping` on the page's host. Only the
+`EA` ("US Atlanta") ping answers, so the game lists one server. Public games,
+private codes and chat work; FootballBros keeps its lobby of up to three a
+side. Accounts are not involved: names and records are the game's own. The
+protocol is in that repo's README. Bump the `?v=` on `bros-mp.js` in the four
+pages when it changes (game pages are never rebuilt).
+
 Design and plan for accounts: `docs/superpowers/specs/2026-11-16-1v1-accounts-competitive-design.md`,
 `docs/superpowers/plans/2026-11-16-1v1-accounts-competitive.md`.
 
