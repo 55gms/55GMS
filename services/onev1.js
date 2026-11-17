@@ -180,7 +180,8 @@ export async function loginReply(uuid) {
       DuosRating: ratingOf(profile, COMPETITIVE_2V2),
       Rating: DEFAULT_RATING,
       BoxRating: DEFAULT_RATING,
-      CustomRating: DEFAULT_RATING,
+      // The game searches ranked 1v1 opponents around CustomRating.
+      CustomRating: ratingOf(profile, COMPETITIVE_1V1),
       Deviation: 350,
       Volatility: 0.06,
       Stats: {
