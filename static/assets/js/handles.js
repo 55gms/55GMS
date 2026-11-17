@@ -40,6 +40,15 @@
 
   // ---------- /choose-handle ----------
 
+  // Where to go once a handle is chosen, from ?next= (set by the login page):
+  // only a path on this site.
+  function nextPage() {
+    const value = new URLSearchParams(location.search).get("next");
+    if (typeof value !== "string" || value.length > 512) return "/profile";
+    if (!/^\/(?![\/\\])/.test(value) || /[\s\\]/.test(value)) return "/profile";
+    return value;
+  }
+
   async function setUpChooser(form) {
     const ui = wire(form);
     const input = form.querySelector("#handle");
@@ -77,7 +86,7 @@
 
     localStorage.setItem("username", me.username);
     if (!me.handlePending) {
-      location.replace("/profile");
+      location.replace(nextPage());
       return;
     }
 
@@ -127,7 +136,7 @@
 
         if (response.ok) {
           localStorage.setItem("username", data.username);
-          location.href = "/profile";
+          location.href = nextPage();
           return;
         }
         if (response.status === 401) {
