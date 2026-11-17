@@ -39,7 +39,6 @@
 </head>
 
 <body class="chat-page">
-    <!-- Icon sprite: referenced with <svg class="icon"><use href="#i-name" /></svg> -->
     <svg xmlns="http://www.w3.org/2000/svg" class="icon-sprite" aria-hidden="true" focusable="false">
         <symbol id="i-plus" viewBox="0 0 24 24">
             <path d="M5 12h14M12 5v14" />
@@ -116,7 +115,6 @@
     </nav>
 
     <div class="chat-container">
-        <!-- Sidebar -->
         <aside class="chat-sidebar" aria-label="Conversations">
             <div class="chat-header">
                 <h2>Messages</h2>
@@ -183,7 +181,6 @@
             </div>
         </aside>
 
-        <!-- Main Chat Area -->
         <div class="chat-main">
             <div class="chat-welcome" id="chatWelcome">
                 <div class="welcome-content">
@@ -271,7 +268,6 @@
 
                 <div class="messages-container" id="messagesContainer">
                     <div class="messages" id="messages" role="log" aria-live="polite">
-                        <!-- Messages will be loaded here -->
                     </div>
                 </div>
 
@@ -304,7 +300,6 @@
         </div>
     </div>
 
-    <!-- Friends Modal -->
     <div id="friendsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="friendsModalTitle"
         style="display: none;">
         <div class="modal-content">
@@ -350,7 +345,6 @@
         </div>
     </div>
 
-    <!-- New Conversation Modal -->
     <div id="newChatModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="newChatModalTitle"
         style="display: none;">
         <div class="modal-content">
@@ -416,7 +410,6 @@
         </div>
     </div>
 
-    <!-- Group Members Modal -->
     <div id="groupMembersModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="groupMembersTitle"
         style="display: none;">
         <div class="modal-content">
@@ -430,18 +423,15 @@
             </div>
             <div class="modal-body">
                 <div id="groupMembersList" class="row-list">
-                    <!-- Group members will be loaded here -->
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Notification Container -->
     <div id="notificationContainer" class="notification-container" aria-live="polite"></div>
 
     <script src="/assets/js/chat.js?v=8"></script>
     <script>
-        // Check authentication
         const uuid = localStorage.getItem('uuid');
         const username = localStorage.getItem('username');
 
@@ -449,11 +439,12 @@
             window.location.href = '/login';
         }
 
-        // Initialize chat system
         document.addEventListener('DOMContentLoaded', () => {
             initializeChat();
         });
     </script>
+
+    <script src="/assets/js/lightning-transition.js" defer></script>
 </body>
 
 </html>
