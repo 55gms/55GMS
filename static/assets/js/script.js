@@ -40,7 +40,9 @@ function script(text) {
             "_",
             Date.now().toString(36) + (count++).toString(36),
           );
-          input = url.pathname + url.search;
+          // Absolute: a page with a <base> elsewhere (the game pages under
+          // /misc/) would resolve a bare path against that instead.
+          input = url.href;
           init = Object.assign({}, init, { cache: "no-store" });
         }
         const session = ours && localStorage.getItem("gms-session");

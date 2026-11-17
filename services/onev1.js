@@ -156,7 +156,8 @@ function ratingOf(profile, mode) {
 // --- player/login ----------------------------------------------------------
 
 // The ServerUser the game builds its signed-in menus from. Settings is left
-// out while empty: the game throws on a settings object without its keys.
+// out: the game looks up keys in it it never sent, and throws on a settings
+// object without them (docs/1v1-backend.md). What it sends is still kept.
 export async function loginReply(uuid) {
   return sequelize.transaction(async (transaction) => {
     const account = await accountOf(uuid, transaction);
@@ -168,6 +169,7 @@ export async function loginReply(uuid) {
     ]);
     const stats = profile.stats || {};
     const premium = Boolean(account.premium);
+    const claimed = [...pass.claimed_free, ...pass.claimed_premium];
     const reply = {
       ID: uuid,
       Nickname: account.username,
@@ -201,8 +203,11 @@ export async function loginReply(uuid) {
           [SEASON]: {
             XP: pass.xp,
             IsPremium: premium,
-            ClaimedRewards: [...pass.claimed_free, ...pass.claimed_premium],
-            EarnedRewards: earnedRewards(pass.xp, premium),
+            ClaimedRewards: claimed,
+            // Reached and not yet claimed: the game claims these itself.
+            EarnedRewards: earnedRewards(pass.xp, premium).filter(
+              (id) => !claimed.includes(id),
+            ),
           },
         },
       },
@@ -212,9 +217,6 @@ export async function loginReply(uuid) {
         LastRvSkinDateTime: (profile.rv_skin_at || new Date(0)).toISOString(),
       },
     };
-    if (Object.keys(profile.settings || {}).length) {
-      reply.Settings = profile.settings;
-    }
     return reply;
   });
 }

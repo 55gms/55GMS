@@ -23,11 +23,20 @@ export function competitiveModes() {
     .filter((rotation) => rotation.length);
 }
 
+// The season has no end here, but the game shows the pass only while
+// end_date is ahead and hides it for dates far ahead (2037 and later did; 2030
+// did not), so the config always ends it a year from now.
+const SEASON_LENGTH_MS = 365 * 24 * 3600e3;
+
 // The config as the game reads it, with the competitive list narrowed.
-export function gameConfig() {
+export function gameConfig(now = Date.now()) {
   return {
     ...config,
     SettingsV6: { ...config.SettingsV6, competitive_modes: competitiveModes() },
+    BattlePass: {
+      ...config.BattlePass,
+      end_date: new Date(now + SEASON_LENGTH_MS).toISOString(),
+    },
   };
 }
 
