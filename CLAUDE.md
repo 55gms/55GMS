@@ -26,6 +26,9 @@ node scripts/setup-stripe.js
 # Add the 1v1.lol account tables to an existing database (safe to re-run)
 node scripts/add-1v1.js
 
+# Clear every 1v1.lol competitive rating back to unranked (dry run; --apply)
+node scripts/reset-1v1-ratings.js
+
 # Add the per-game cloud save tables to an existing database (safe to re-run)
 node scripts/add-game-saves.js
 
