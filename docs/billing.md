@@ -118,3 +118,15 @@ uuids are visible to chat members.
 
 Both are handled in the Stripe dashboard. Cancelling the subscription there
 removes premium through the webhook; a refund alone does not.
+
+## 1v1.lol coins
+
+1v1.lol sells its coin packs through the same Stripe account
+(`services/onev1Coins.js`, `docs/1v1-backend.md`): one-off Checkout payments
+priced from the pack, marked `app: 55gms-1v1-coins` on the session and its
+PaymentIntent. `handleWebhook` passes those events there first:
+`checkout.session.completed` (and `checkout.session.async_payment_succeeded`)
+credits the coins, `charge.refunded` takes back the refunded share, and
+`charge.dispute.created` takes back the whole pack. The webhook endpoint needs
+those three events too; `node scripts/setup-stripe.js --webhook <url>` adds
+them to an existing endpoint.

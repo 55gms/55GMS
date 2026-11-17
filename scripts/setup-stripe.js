@@ -32,6 +32,10 @@ const WEBHOOK_EVENTS = [
   "customer.subscription.created",
   "customer.subscription.updated",
   "customer.subscription.deleted",
+  // 1v1.lol coins (services/onev1Coins.js)
+  "checkout.session.async_payment_succeeded",
+  "charge.refunded",
+  "charge.dispute.created",
 ];
 
 if (!process.env.STRIPE) {
@@ -128,6 +132,17 @@ try {
     const endpoint = endpoints.find((item) => item.url === webhookUrl);
     if (endpoint) {
       console.log(`found:   webhook endpoint ${endpoint.id}`);
+      const missing = WEBHOOK_EVENTS.filter(
+        (name) => !endpoint.enabled_events.includes(name),
+      );
+      if (missing.length && !endpoint.enabled_events.includes("*")) {
+        await stripe.webhookEndpoints.update(endpoint.id, {
+          enabled_events: [
+            ...new Set([...endpoint.enabled_events, ...WEBHOOK_EVENTS]),
+          ],
+        });
+        console.log(`updated: webhook events (${missing.join(", ")})`);
+      }
       console.log(
         "         Its signing secret is shown only in the dashboard now.",
       );

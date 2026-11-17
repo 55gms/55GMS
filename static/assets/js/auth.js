@@ -13,6 +13,31 @@
 
   const HANDLE_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
+  // Where to go after signing in, from ?next=: only a path on this site, so
+  // the parameter cannot send anyone elsewhere.
+  function safeNext(value) {
+    if (typeof value !== "string" || value.length > 512) return null;
+    if (!/^\/(?![\/\\])/.test(value) || /[\s\\]/.test(value)) return null;
+    return value;
+  }
+  const next = safeNext(new URLSearchParams(location.search).get("next"));
+  // Login and signup link to each other; keep where the person is headed.
+  if (next) {
+    document
+      .querySelectorAll('a[href="/login"], a[href="/signup"]')
+      .forEach((link) => {
+        link.href = `${link.getAttribute("href")}?next=${encodeURIComponent(next)}`;
+      });
+  }
+  function afterSignIn(handlePending) {
+    if (handlePending) {
+      return next
+        ? `/choose-handle?next=${encodeURIComponent(next)}`
+        : "/choose-handle";
+    }
+    return next || "/profile";
+  }
+
   // What the person typed as a handle: no "@", lowercase.
   function typedHandle() {
     return usernameInput.value.trim().replace(/^@/, "").toLowerCase();
@@ -204,7 +229,7 @@
     );
     if (perGame && perGame.status !== 503) {
       if (perGame.ok) sessionStorage.setItem("gmsSyncOnArrival", "1");
-      location.href = data.handlePending ? "/choose-handle" : "/profile";
+      location.href = afterSignIn(data.handlePending);
       return true;
     }
 
@@ -225,7 +250,7 @@
       }
     }
 
-    location.href = data.handlePending ? "/choose-handle" : "/profile";
+    location.href = afterSignIn(data.handlePending);
     return true;
   }
 

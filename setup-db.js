@@ -1,4 +1,5 @@
-import { initDatabase } from "./models/index.js";
+import { initDatabase, sequelize } from "./models/index.js";
+import { ensureOneV1Schema } from "./services/onev1Schema.js";
 
 async function setupDatabase() {
   try {
@@ -7,6 +8,8 @@ async function setupDatabase() {
       sync: true,
       alter: process.env.DB_SYNC_ALTER === "true",
     });
+    // Tables without a model, created in raw SQL.
+    await ensureOneV1Schema(sequelize);
     console.log("✅ Database setup completed successfully!");
     process.exit(0);
   } catch (error) {

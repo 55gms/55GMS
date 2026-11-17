@@ -33,6 +33,14 @@ function withAccountsAndChat(features) {
     features.database &&
     process.env.ACCOUNT_BACKEND === "postgres" &&
     Boolean(process.env.ADMIN_TOKEN_SECRET);
+  // 1v1.lol on 55GMS accounts (docs/1v1-backend.md): its data lives in the
+  // local database and the multiplayer server reports match results with
+  // MP_SHARED_SECRET. Coin sales also need billing.
+  features.onev1 =
+    features.accounts &&
+    features.database &&
+    process.env.ACCOUNT_BACKEND === "postgres" &&
+    Boolean(process.env.ADMIN_TOKEN_SECRET && process.env.MP_SHARED_SECRET);
   return features;
 }
 

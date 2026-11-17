@@ -211,6 +211,17 @@ try {
     } else {
       app.use("/api", admin.default);
     }
+    if (features.onev1) {
+      const [{ createOneV1Router }, game, coins] = await Promise.all([
+        import("./routes/onev1.js"),
+        import("./services/onev1.js"),
+        import("./services/onev1Coins.js"),
+      ]);
+      app.use(
+        "/api",
+        createOneV1Router({ game, coins, billing: features.billing }),
+      );
+    }
   }
   if (features.chat) {
     const messaging = await import("./routes/messaging.js");
@@ -226,6 +237,9 @@ try {
   };
   if (!features.billing) {
     app.use(["/api/billing", "/api/stripe"], featureOff);
+  }
+  if (!features.onev1) {
+    app.use("/api/1v1", featureOff);
   }
   if (!features.saves) {
     app.use(
@@ -612,6 +626,7 @@ try {
     console.log(`📁 Static: ${staticRoot}`);
     console.log(`👤 Accounts: ${features.accounts ? "on" : "off"}`);
     console.log(`💬 Chat: ${features.chat ? "on" : "off"}`);
+    console.log(`🎯 1v1.lol accounts: ${features.onev1 ? "on" : "off"}`);
     console.log(`💾 Cloud saves: ${features.saves ? "per game" : "legacy"}`);
     console.log(`🔌 Wisp: ${wisp ? "built in" : "external"}`);
     console.log(`------------------------------------\n`);

@@ -12,7 +12,7 @@
   ></script>
     <link rel="stylesheet" href="/assets/css/unity-cdn-loader.css?v=5gz9swuael">
     <script type="module" src="/assets/js/unity-cdn-loader.js?v=5gz9swuael"></script>
-    <script src="/assets/js/script.js?v=28"></script>
+    <script src="/assets/js/script.js?v=29"></script>
     <script>
       // 1v1.lol's Photon servers are shut down. Send the game to the 55GMS
       // multiplayer server instead (github.com/55gms/multiplayer), on this
@@ -22,19 +22,61 @@
         try {
           base = localStorage.getItem("gms-mp-base") || base;
         } catch {}
+        // The 55GMS account stands in for the game's Google login
+        // (docs/1v1-backend.md). A game token for the signed-in account is
+        // fetched now; the login stand-ins at the end of the page hand it to
+        // the game, and Photon connections carry it so the multiplayer server
+        // knows who is playing. Without an account the player is a guest.
+        const account = { token: null, handle: null };
+        window.GMS1v1 = account;
+        async function fetchToken() {
+          try {
+            let session = null;
+            try {
+              session = localStorage.getItem("gms-session");
+            } catch {}
+            const response = await fetch(`${location.origin}/api/1v1/token`, {
+              method: "POST",
+              credentials: "same-origin",
+              headers: session ? { "X-GMS-Session": session } : {},
+            });
+            if (!response.ok) {
+              // Signed out: forget the account, so the game cannot use it.
+              if (response.status === 401 || response.status === 409) account.token = account.handle = null;
+              return false;
+            }
+            const data = await response.json();
+            account.token = data.token;
+            account.handle = data.handle;
+            return true;
+          } catch {
+            return false;
+          }
+        }
+        account.ready = fetchToken();
+        // Signing out in another tab removes the session; stop using it here.
+        window.addEventListener("storage", (event) => {
+          if ((event.key === "gms-session" || event.key === "uuid" || event.key === null) && !event.newValue) {
+            account.token = account.handle = null;
+          }
+        });
+        // Tokens last 12 hours; keep a long session's fresh.
+        setInterval(() => account.token && fetchToken(), 6 * 3600e3);
+
         // The game's guest names came from its dead login service, so players
         // join with no name. Use the 55GMS handle, or a saved guest name; the
         // server hands it to the game as its Photon nickname.
-        let name = "";
+        let guestName = "";
         try {
-          name = localStorage.getItem("username") || localStorage.getItem("gms-1v1-guest") || "";
-          if (!name) localStorage.setItem("gms-1v1-guest", (name = `Guest${Math.floor(1000 + Math.random() * 9000)}`));
+          guestName = localStorage.getItem("gms-1v1-guest") || "";
+          if (!guestName) localStorage.setItem("gms-1v1-guest", (guestName = `Guest${Math.floor(1000 + Math.random() * 9000)}`));
         } catch {
-          name = `Guest${Math.floor(1000 + Math.random() * 9000)}`;
+          guestName = `Guest${Math.floor(1000 + Math.random() * 9000)}`;
         }
         const withName = (url) => {
           const u = new URL(url);
-          u.searchParams.set("name", name);
+          u.searchParams.set("name", account.handle || guestName);
+          if (account.token) u.searchParams.set("gms", account.token);
           return u.toString();
         };
         const photon = /(^|\.)(exitgames\.com|exitgamescloud\.com|photonengine\.io)$/i;
@@ -62,18 +104,133 @@
         // a region; with every ping failing it never settles on one, and the
         // mode list stays on its offline set.
         const regionPing = /^https?:\/\/[^/]+\/photon\/m\//;
+        // Every other call to the game's backend goes to 55GMS, which keeps
+        // signed-in players' data (routes/onev1.js).
+        const backend = /^https:\/\/us-central1-justbuild-cdb86\.cloudfunctions\.net\//;
         const route = (url) => {
           const u = String(url);
           if (clock.test(u)) return `${httpBase}/1v1/time`;
           if (regionPing.test(u)) return `${httpBase}/1v1/ping`;
+          if (backend.test(u)) return `${location.origin}/api/1v1/fn/${u.replace(backend, "")}`;
           return url;
         };
         const open = XMLHttpRequest.prototype.open;
+        const send = XMLHttpRequest.prototype.send;
         XMLHttpRequest.prototype.open = function (method, url, ...rest) {
-          return open.call(this, method, route(url), ...rest);
+          this.gmsUrl = route(url);
+          return open.call(this, method, this.gmsUrl, ...rest);
+        };
+        XMLHttpRequest.prototype.send = function (body) {
+          const url = String(this.gmsUrl || "");
+          if (url.includes("/api/1v1/fn/")) {
+            // Game calls need the 55GMS session too (the cookie does not reach
+            // every host), as other pages send it.
+            try {
+              const session = localStorage.getItem("gms-session");
+              if (session) this.setRequestHeader("X-GMS-Session", session);
+            } catch {}
+            // A rewarded-ad watch carries the grant 55GMS Ads gave for it.
+            if (url.includes("/api/1v1/fn/player/rv") && account.adGrant) {
+              const grant = new URLSearchParams({ grantId: account.adGrant.id, signature: account.adGrant.signature });
+              body = body ? `${body}&${grant}` : String(grant);
+              account.adGrant = null;
+            }
+            this.addEventListener("load", () => {
+              // Signed out of 55GMS elsewhere, or the token ran out.
+              if (this.status === 401) account.token = null;
+              // LOL Pass premium comes with 55GMS Premium.
+              if (this.status === 402 && url.includes("/battlePass/buyPremium")) account.offerPremium?.();
+            });
+          }
+          return send.call(this, body);
         };
         const nativeFetch = window.fetch;
         window.fetch = (input, init) => nativeFetch(typeof input === "string" ? route(input) : input, init);
+
+        // The shop pays through Xsolla's widget, loaded from its CDN by the
+        // game. Stripe takes its place: the "token" 55GMS returned for the
+        // purchase is a Stripe Checkout address, opened in a new tab from a
+        // panel here, and the panel waits for 55GMS to see the payment.
+        const scriptSrc = Object.getOwnPropertyDescriptor(HTMLScriptElement.prototype, "src");
+        Object.defineProperty(HTMLScriptElement.prototype, "src", {
+          ...scriptSrc,
+          set(value) {
+            if (/^https:\/\/cdn\.xsolla\.net\//.test(String(value))) value = "data:text/javascript,";
+            scriptSrc.set.call(this, value);
+          },
+        });
+        function panel(title, text, actions) {
+          const shade = document.createElement("div");
+          shade.style.cssText = "position:fixed;inset:0;z-index:2147483647;background:rgba(5,10,20,.75);display:grid;place-items:center;font:16px system-ui,sans-serif;color:#fff";
+          const box = document.createElement("div");
+          box.style.cssText = "background:#1f2f45;border-radius:12px;padding:24px;max-width:340px;text-align:center;box-shadow:0 10px 40px #0008";
+          const h = document.createElement("h2");
+          h.style.cssText = "margin:0 0 8px;font-size:20px";
+          h.textContent = title;
+          const p = document.createElement("p");
+          p.style.cssText = "margin:0 0 16px;line-height:1.4;opacity:.9";
+          p.textContent = text;
+          const row = document.createElement("div");
+          row.style.cssText = "display:flex;gap:8px;justify-content:center;flex-wrap:wrap";
+          for (const [label, action, href] of actions) {
+            const b = document.createElement(href ? "a" : "button");
+            b.textContent = label;
+            b.style.cssText = "border:0;border-radius:8px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;color:#fff;background:" + (href ? "#01b6d8" : "#46566d");
+            if (href) Object.assign(b, { href, target: "_blank", rel: "noopener" });
+            b.addEventListener("click", () => action?.(b));
+            row.append(b);
+          }
+          box.append(h, p, row);
+          shade.append(box);
+          document.body.append(shade);
+          return { close: () => shade.remove(), text: (value) => (p.textContent = value) };
+        }
+        account.offerPremium = () => {
+          const view = panel("LOL Pass Premium", "The premium pass comes with 55GMS Premium. Get it, then reload the game.", [
+            ["Get Premium", () => view.close(), `${location.origin}/premium`],
+            ["Not now", () => view.close()],
+          ]);
+        };
+        const XPay = { handlers: {}, token: null };
+        window.XPayStationWidget = {
+          eventTypes: { STATUS_DONE: "done", STATUS_TROUBLED: "troubled", CLOSE: "close" },
+          init(options) {
+            XPay.token = String(options?.access_token || "");
+            XPay.handlers = {};
+          },
+          on(type, handler) {
+            (XPay.handlers[type] ||= []).push(handler);
+          },
+          open() {
+            const url = XPay.token;
+            const session = (url.match(/cs_[A-Za-z0-9_]+/) || [])[0];
+            const fire = (type) => (XPay.handlers[type] || []).forEach((handler) => handler({}, {}));
+            if (!session || !account.token) return fire("troubled");
+            let polling = null;
+            const finish = (type) => {
+              clearInterval(polling);
+              view.close();
+              fire(type);
+            };
+            const view = panel("Buy coins", "You pay on Stripe in a new tab. The coins arrive here once it's done.", [
+              ["Continue to payment", () => {
+                view.text("Waiting for your payment… Keep this tab open.");
+                clearInterval(polling);
+                const started = Date.now();
+                polling = setInterval(async () => {
+                  if (Date.now() - started > 30 * 60e3) return finish("troubled");
+                  try {
+                    const r = await nativeFetch(`${location.origin}/api/1v1/fn/coins/status?session=${session}`, { headers: { "auth-token": account.token } });
+                    const s = await r.json();
+                    if (s.done) finish("done");
+                    else if (s.expired) finish("troubled");
+                  } catch {}
+                }, 3000);
+              }, url],
+              ["Cancel", () => finish("close")],
+            ]);
+          },
+        };
       })();
     </script>
     <base href="https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/nowgg/">
@@ -409,23 +566,100 @@
 
 		// Firebase Remote Config refuses every domain but 1v1.lol, and
 		// sendConfig() waits for it forever, which left the game with only the
-		// practice modes. Use the defaults from js/firebase-config.js.
-		try {
+		// practice modes. 55GMS serves the config (modes, shop, LOL Pass);
+		// sendConfig() waits while conf is undefined, so the game gets it.
+		// Without the server (accounts off), the defaults from
+		// js/firebase-config.js are used.
+		function defaultConf() {
 			const defaults = {};
 			setDefaultValues(defaults);
-			conf = {};
-			for (const [key, value] of Object.entries(defaults.defaultConfig)) conf[key] = String(value);
+			const out = {};
+			for (const [key, value] of Object.entries(defaults.defaultConfig)) out[key] = String(value);
 			// This build reads SettingsV6 (the defaults are from an older one) and
 			// a few sections the older settings lack.
-			const settings = JSON.parse(conf.SettingsV5);
+			const settings = JSON.parse(out.SettingsV5);
 			for (const section of ["emotes_data", "bp_boost_data", "rv_settings", "main_menu_settings"]) {
 				if (!(section in settings)) settings[section] = {};
 			}
-			conf.SettingsV6 = JSON.stringify(settings);
-		} catch (e) {
-			console.warn("remote config defaults:", e);
-			initRemoteConfig();
+			out.SettingsV6 = JSON.stringify(settings);
+			return out;
 		}
+		conf = undefined;
+		fetch(`${location.origin}/api/1v1/config`)
+			.then((response) => (response.ok ? response.json() : Promise.reject(response.status)))
+			.then((served) => {
+				const out = {};
+				for (const [key, value] of Object.entries(served)) out[key] = typeof value === "string" ? value : JSON.stringify(value);
+				conf = out;
+			})
+			.catch(() => {
+				try {
+					conf = defaultConf();
+				} catch (e) {
+					console.warn("remote config defaults:", e);
+					initRemoteConfig();
+				}
+			});
+
+		// The game's login is Firebase (js/login.js); a 55GMS account takes its
+		// place. "anonymous" stays the guest login the game starts with. Any
+		// other provider is the menu's login button: signed in to 55GMS, the
+		// game gets the 55GMS game token and handle; signed out, the player is
+		// sent to sign in and comes back here after.
+		(() => {
+			const account = window.GMS1v1;
+			function signInPage() {
+				let here = "/";
+				try {
+					here = window.top.location.pathname + window.top.location.search;
+				} catch {}
+				// Absolute: this page's <base> is the game's CDN folder.
+				const target = `${location.origin}/login?next=${encodeURIComponent(here)}`;
+				try {
+					window.top.location.href = target;
+				} catch {
+					location.href = target;
+				}
+			}
+			window.firebaseLogin = (provider, ok, err) => {
+				if (provider === "anonymous") return ok({ token: "", displayName: "guest" });
+				account.ready.then(() => {
+					if (account.token) ok({ token: account.token, displayName: account.handle });
+					else {
+						err?.("Sign in to 55GMS");
+						signInPage();
+					}
+				});
+			};
+			window.retrieveIdToken = (ok, err) => {
+				account.ready.then(() => {
+					if (account.token) ok({ token: account.token, displayName: account.handle });
+					else err?.("User is null");
+				});
+			};
+			window.getCurrentUserDisplayName = () => account.handle || "";
+			// Logging out in the game leaves the 55GMS account signed in.
+			window.firebaseLogout = () => {};
+
+			// Rewarded ads (js/IronSourceRV.js loads IronSource's) go through
+			// 55GMS Ads, whose grant 55GMS checks before counting the watch.
+			window.InitRV = () => {
+				const instance = window.gameInstance || window.unityInstance;
+				if (window.GMSAds) instance?.SendMessage("MainMenuManagers", "RvReady");
+			};
+			window.showRV = async () => {
+				const instance = window.gameInstance || window.unityInstance;
+				let granted = false;
+				try {
+					const result = await window.GMSAds.showRewardedAd({ placement: "rv", rewardId: "1v1-rv" });
+					if (result.rewardGranted && result.grant?.id) {
+						account.adGrant = result.grant;
+						granted = true;
+					}
+				} catch {}
+				instance?.SendMessage("MainMenuManagers", "RvWatchComplete", granted ? "true" : "false");
+			};
+		})();
 	</script>
 <script src="js/windowResize.js"></script>
 <script src="js/adblockManager.js"></script>

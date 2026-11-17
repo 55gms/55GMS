@@ -40,7 +40,7 @@ const LIVE_STATUSES = new Set(["active", "trialing", "past_due"]);
 export class BillingSignatureError extends Error {}
 
 let stripeClient;
-function stripe() {
+export function stripe() {
   stripeClient ||= new Stripe(process.env.STRIPE);
   return stripeClient;
 }
@@ -252,6 +252,12 @@ export async function handleWebhook(rawBody, signature) {
     );
   } catch (error) {
     throw new BillingSignatureError(error.message);
+  }
+
+  // 1v1.lol coin payments, refunds and disputes (services/onev1Coins.js).
+  if (process.env.MP_SHARED_SECRET) {
+    const { handleCoinEvent } = await import("./onev1Coins.js");
+    if (await handleCoinEvent(event)) return;
   }
 
   const object = event.data.object;
