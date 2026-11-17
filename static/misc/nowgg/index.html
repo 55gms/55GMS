@@ -233,7 +233,7 @@
         };
       })();
     </script>
-    <base href="https://cdn.jsdelivr.net/gh/55gms/assets@86dba3822eb145dd1780438a918249e111dc9cae/misc/nowgg/">
+    <base href="https://cdn.jsdelivr.net/gh/55gms/assets@2c05066a1a62b4eba0d75cfe3b821cb2aa17e90a/misc/nowgg/">
 
 	<meta charset="utf-8" />
 	<title>1v1.LOL</title>
@@ -250,6 +250,13 @@
 	<meta property="og:description"
 		content="Discover 1v1, the online building simulator & third person shooting game. Battle royale, build fight, box fight, zone wars and more game modes to enjoy!" />
 	<link rel="stylesheet" href="css/style.css" />
+	<style>
+		/* A box whose 55GMS Ads slot went unfilled (ads.js hides it) or was
+		   never added shows nothing, not an empty dark square. */
+		.ads .ad:not(:has(> [data-55gms-ad]:not([style*="display: none"]))) {
+			visibility: hidden;
+		}
+	</style>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 	<meta name="description"
 		content="Discover 1v1, the online building simulator & third person shooting game. Battle royale, build fight, box fight, zone wars and more game modes to enjoy!" />
@@ -264,19 +271,19 @@
 
 <body>
     <div id="unity-cdn-loading" data-title="1v1.lol" role="status" aria-live="polite">LOADING...</div>
+	<!-- The menu's ad column (the game calls showAds/hideAds) holds 55GMS Ads.
+	     The upper slot is in the markup, so script.js loads the embed (or
+	     drops the slot when the visitor has banners off); the lower one is
+	     added by injectAdByWindowSize for the window's height. -->
 	<div class="ads">
 		<div class="ad-smallscreen">
 			<div class="ad ad-rectangle-bottom"></div>
 		</div>
 		<div class="ad ad-rectangle-upper" id="adRectangleUpper">
-			<!-- 300X250B PLACEMENT TAG - PLACE INTO BODY (ZONE TAG REQUIRED) -->
-
+			<div data-55gms-ad data-size="300x250"></div>
 		</div>
 		<div class="ad-largescreen">
-			<div class="ad ad-leaderboard-bottom">
-				<!-- 300X600B PLACEMENT TAG - PLACE INTO BODY (ZONE TAG REQUIRED) -->
-
-			</div>
+			<div class="ad ad-leaderboard-bottom"></div>
 		</div>
 	</div>
 
@@ -333,38 +340,6 @@
 	</script>
 <script type="text/javascript" src="js/sdkloader/ima3.js"></script>
 <script>
-		(function (zonefile) {
-			var y = window.location.href
-				.split("#")[0]
-				.split("")
-				.reduce(function (a, b) {
-					return ((a << 5) - a + b.charCodeAt(0)) >>> 1;
-				}, 0);
-			y = (10 + ((y * 7) % 26)).toString(36) + y.toString(36);
-			var drutObj = (window[y] = window[y] || {});
-			function failCpmstarAPI() {
-				var failFn = function (o) {
-					o && typeof o === "object" && o.fail && o.fail();
-				};
-				drutObj && Array.isArray(drutObj.cmd) && drutObj.cmd.forEach(failFn) && (drutObj.cmd.length = 0);
-				window.cpmstarAPI = window["_" + zonefile] = failFn;
-			}
-			var rnd = Math.round(Math.random() * 999999);
-			var s = document.createElement("script");
-			s.type = "text/javascript";
-			s.async = true;
-			s.onerror = failCpmstarAPI;
-			var proto = document.location.protocol;
-			var host = proto == "https:" || proto == "file:" ? "https://server" : "//cdn";
-			if (window.location.hash == "#cpmstarDev") host = "//dev.server";
-			if (window.location.hash == "#cpmstarStaging") host = "//staging.server";
-			s.src = host + ".cpmstar.com/cached/zonefiles/" + zonefile + ".js?rnd=" + rnd;
-			var s2 = document.getElementsByTagName("script")[0];
-			s2.parentNode.insertBefore(s, s2);
-			window.cpmstarAPI = function (o) {
-				(drutObj.cmd = drutObj.cmd || []).push(o);
-			};
-		})("372_49986_1v1");
 		Object.defineProperty(window.performance.__proto__, "measures", Object.getOwnPropertyDescriptor(window.performance.__proto__, "now")),
 			delete window.performance.__proto__.now,
 			(window.performance.__proto__.now = {}),
@@ -385,7 +360,6 @@
 				},
 			});
 	</script>
-<script src="js/cpmstar.js"></script>
 <script id="unity-loader" src="UnityLoader.js"></script>
 <script>
 		// var gameJsonUrl = ;
@@ -445,20 +419,31 @@
 
 		window.addEventListener("resize", injectAdByWindowSize);
 
+		// 55GMS Ads: a 300x250 under the upper one on short windows, a 300x600
+		// on tall ones. Nothing when the visitor has banners off (script.js).
+		function bannersOn() {
+			try {
+				return typeof adChoices !== "function" || adChoices().banners;
+			} catch (e) {
+				return true;
+			}
+		}
+
+		function addSlot(el, id, size) {
+			if (!bannersOn() || document.getElementById(id) != null) return;
+			el.id = id;
+			var slot = document.createElement("div");
+			slot.setAttribute("data-55gms-ad", "");
+			slot.setAttribute("data-size", size);
+			el.appendChild(slot);
+		}
+
 		function injectAdByWindowSize() {
 			// Inject small ad if screen is small, or large ad if screen is large
 			if (window.innerHeight < 900) {
-				if (document.getElementById("adRectangleBottom") == null) {
-					var el = document.getElementsByClassName("ad-rectangle-bottom")[0];
-					el.id = "adRectangleBottom";
-					cpmstarAPI({ kind: "go", module: "POOL 83025", config: { conditions: { target: { el: el, kind: "replace" } } } });
-				}
+				addSlot(document.getElementsByClassName("ad-rectangle-bottom")[0], "adRectangleBottom", "300x250");
 			} else {
-				if (document.getElementById("adLeaderboardBottom") == null) {
-					var el = document.getElementsByClassName("ad-leaderboard-bottom")[0];
-					el.id = "adLeaderboardBottom";
-					cpmstarAPI({ kind: "go", module: "POOL 85420", config: { conditions: { target: { el: el, kind: "replace" } } } });
-				}
+				addSlot(document.getElementsByClassName("ad-leaderboard-bottom")[0], "adLeaderboardBottom", "300x600");
 			}
 		}
 
@@ -467,6 +452,8 @@
 		var refreshNextTime = true;
 
 		function showAds() {
+			// Banners off: leave the column empty rather than show bare boxes.
+			if (!bannersOn()) return;
 			document.getElementsByClassName("ad-rectangle-bottom")[0].style.display = "block";
 			document.getElementsByClassName("ad-leaderboard-bottom")[0].style.display = "block";
 			document.getElementById("adRectangleUpper").style.display = "block";
@@ -491,29 +478,8 @@
 		// hide ads
 		hideAds();
 
-		function refresh() {
-			//console.log("time since ads refresh = " + timeSinceRefresh + " seconds");
-			//console.log("time ads visible = " + timeAdsVisible + " seconds");
-
-			if (timeSinceRefresh <= 30 || timeAdsVisible <= 2) {
-				//console.log("don't refresh");
-				return;
-			}
-
-			if (document.getElementById("adRectangleBottom") != null && window.getComputedStyle(document.getElementsByClassName("ad-smallscreen")[0]).display != "none") {
-				cpmstarAPI({ kind: "adcmd", module: "POOL 83023", command: "refresh" });
-			}
-
-			if (document.getElementById("adLeaderboardBottom") != null && window.getComputedStyle(document.getElementsByClassName("ad-largescreen")[0]).display != "none") {
-				cpmstarAPI({ kind: "adcmd", module: "POOL 85420", command: "refresh" });
-			}
-
-			cpmstarAPI({ kind: "adcmd", module: "POOL 83025", command: "refresh" });
-
-			timeSinceRefresh = 0;
-			timeAdsVisible = 0;
-			//console.log("refresh ads");
-		}
+		// 55GMS Ads keep their slots' ads; nothing to refresh.
+		function refresh() {}
 
 		window.onfocus = function () {
 			//console.log("onfocus");
@@ -640,6 +606,20 @@
 			window.getCurrentUserDisplayName = () => account.handle || "";
 			// Logging out in the game leaves the 55GMS account signed in.
 			window.firebaseLogout = () => {};
+
+			// The game's interstitials (CPMStar's, from js/cpmstar.js) are
+			// 55GMS Ads' fullscreen video; the game waits for OnWebCallback.
+			window.requestNewAd = async () => {
+				const instance = window.gameInstance || window.unityInstance;
+				try {
+					if (window.GMSAds && bannersOn()) await window.GMSAds.showInterstitial({ placement: "break" });
+				} catch {}
+				try {
+					instance?.SendMessage("MainMenuManagers", "OnWebCallback");
+				} catch (error) {
+					console.log(error);
+				}
+			};
 
 			// Rewarded ads (js/IronSourceRV.js loads IronSource's) go through
 			// 55GMS Ads, whose grant 55GMS checks before counting the watch.
