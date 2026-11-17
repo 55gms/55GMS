@@ -24,7 +24,7 @@
 - Coin packs and prices, copied from `coins_data`: `lol.1v1.coins.pack.1` 100 coins $0.99, `.2` 420 $3.99, `.3` 770 $6.99, `.4` 1150 $9.99, `.5` 2400 $19.99, `.6` 6500 $49.99.
 - Battle pass: `win_xp` 50, `lose_xp` 25, `tier_up_price` 100 coins, one season (`current_season` 1, no rollover); premium track = `users.premium` at claim time; `battlePass/buyPremium` sends the player to `/premium`.
 - Refund or dispute of a coin pack debits its coins even below zero; a negative balance blocks spending.
-- A refund that cannot be matched to a ledger credit is logged and acknowledged, never retried forever.
+- A refund or dispute is recognised from the payment intent's coin metadata, not from an earlier ledger credit, so it debits even if it arrives first; one on a charge without that metadata is logged and acknowledged (200), never retried forever.
 - 2v2: a result counts when at least one stream from each team agrees and no two streams contradict; a leaver takes the loss alone.
 - Ranked anti-abuse: the same two accounts earn rating from each other at most 3 times per rolling 24 h (multipliers 1, 0.5, 0.25, then 0); at most 20 rated matches per account per rolling hour.
 - A mode whose result the referee cannot read gives no XP, stats, rating or battle pass progress, and a competitive mode in that state is removed from `competitive_modes`. If ranked `1v1_Competitive` cannot be read, **stop and report to the owner** (Task 2 gate).
