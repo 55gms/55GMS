@@ -250,6 +250,13 @@
 	<meta property="og:description"
 		content="Discover 1v1, the online building simulator & third person shooting game. Battle royale, build fight, box fight, zone wars and more game modes to enjoy!" />
 	<link rel="stylesheet" href="css/style.css" />
+	<style>
+		/* A box whose 55GMS Ads slot went unfilled (ads.js hides it) or was
+		   never added shows nothing, not an empty dark square. */
+		.ads .ad:not(:has(> [data-55gms-ad]:not([style*="display: none"]))) {
+			visibility: hidden;
+		}
+	</style>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 	<meta name="description"
 		content="Discover 1v1, the online building simulator & third person shooting game. Battle royale, build fight, box fight, zone wars and more game modes to enjoy!" />
