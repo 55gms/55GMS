@@ -20,8 +20,17 @@ The build's Photon app is archived (`ApplicationArchived`), so it sat on
 multiplayer server on another port with
 `localStorage["gms-mp-base"] = "ws://localhost:8093/api/mp"`.
 
-Guests only: Google login, the shop, LOL Pass, friends and parties do not
-work. Details, setup and the capture tool are in that repo's README.
+A 55GMS account stands in for the game's Google login (`docs/1v1-backend.md`):
+the page adds the account's game token to each Photon connection, the server
+asks 55GMS whose it is, and ranked (`1v1_Competitive`) is for accounts only.
+The server decides each `1v1` and ranked 1v1 result from the players' own
+messages and posts it to 55GMS at `/api/1v1/internal/match`, which keeps the
+ratings, XP and battle pass. Both sides need the same `MP_SHARED_SECRET`.
+Friends and parties do not work. Details, setup and the capture tool are in
+that repo's README.
+
+Design and plan for accounts: `docs/superpowers/specs/2026-11-16-1v1-accounts-competitive-design.md`,
+`docs/superpowers/plans/2026-11-16-1v1-accounts-competitive.md`.
 
 Design and plan: `docs/superpowers/specs/2026-11-16-multiplayer-server-design.md`,
 `docs/superpowers/plans/2026-11-16-multiplayer-server.md`.

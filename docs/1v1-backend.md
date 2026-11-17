@@ -8,6 +8,56 @@ game sends and what it accepts, worked out from its IL2CPP metadata
 (`ApiUrls`, `FirebaseManager`, `ServerUser` and the string literals) and by
 running it against a stub that logged every request.
 
+## On 55GMS
+
+A 55GMS account stands in for the game's Google login. Everything below is on
+when `utils/features.js` turns `onev1` on: the Postgres account backend,
+`ADMIN_TOKEN_SECRET` and `MP_SHARED_SECRET` (the same value as the
+multiplayer server's). Coin sales also need billing (`docs/billing.md`).
+
+- **The page** (`static/misc/nowgg/index.html`, never rebuilt) fetches a game
+  token from `POST /api/1v1/token` for the signed-in account. Its stand-ins
+  for `firebaseLogin`, `retrieveIdToken`, `getCurrentUserDisplayName` and
+  `firebaseLogout` hand the game that token and the handle; a signed-out
+  player who presses Login goes to `/login?next=<the page>` and comes back
+  signed in. Calls to the game's backend go to `/api/1v1/fn/<path>`, the
+  remote config comes from `GET /api/1v1/config`, Photon connections carry
+  the token as `?gms=`, Xsolla's payment widget is replaced by a panel that
+  opens Stripe Checkout, and LOL Pass premium offers 55GMS Premium.
+- **The routes** are `routes/onev1.js`. Game calls are authorized by the
+  game token in `auth-token` (a scoped token, 12 hours). `/api/1v1/internal/*`
+  answers only the multiplayer server: loopback, no `X-Forwarded-For`, and
+  `X-MP-Secret`.
+- **The data** (`services/onev1Schema.js`, added by `node scripts/add-1v1.js`)
+  is one profile per account (XP, stats, ratings, equipped skin), owned items,
+  battle pass progress, a coin ledger and decided matches. Coins are the sum
+  of the ledger; every change has a unique `source`, so nothing counts twice.
+- **Nothing the game reports changes a number.** Rating, wins, kills, XP and
+  battle pass XP come only from results the multiplayer server decides
+  (`/api/1v1/internal/match`, `services/onev1.js` `applyMatch`): Elo with
+  K 32 from 1000, a team's rating the mean of its members, rated matches
+  between the same two accounts worth 1, ½, ¼ and then nothing within 24
+  hours, at most 20 rated matches an hour, 50 XP for a win and 25 otherwise
+  (none for leaving). `rating/updateMMR` and `player/updateProgressAndStats`
+  answer `{}` and do nothing.
+- **Spending** happens on the server at its own prices
+  (`services/onev1Config.js`, from `utils/1v1-config.json`), under the
+  account's row lock.
+- **Coins for money** (`services/onev1Coins.js`): `product/xsollaToken`
+  makes a Stripe Checkout session (one-off payment, priced from the coin
+  pack) and returns its URL as the token; the page's panel opens it in a new
+  tab and polls `/api/1v1/fn/coins/status`, which credits a paid session if
+  the webhook has not yet. Refunds take back their share of the coins and
+  disputes all of them, even below zero; a negative balance cannot spend.
+- **LOL Pass**: season 1, 22 tiers 250 XP apart, a free reward (masks) and
+  a premium one (shop skins, coin packs) on each. Premium is
+  `users.premium` at claim time. The config's `end_date` is always a year
+  ahead: the game shows the pass only while it is in the future. The game
+  claims every reward listed as earned and not claimed by itself.
+- **Rewarded ads** are counted only with a 55GMS Ads grant the server redeems
+  (`/api/v1/rewards/redeem` on `ADS_SERVER_URL`, game id `nowgg`). This
+  build's screens never start one.
+
 ## Calling convention
 
 - Every call goes to `<base><path>`; the page rewrites the base to

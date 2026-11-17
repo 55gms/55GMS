@@ -23,6 +23,9 @@ node scripts/add-billing.js
 # Create the Stripe product, prices and portal settings for the key in .env
 node scripts/setup-stripe.js
 
+# Add the 1v1.lol account tables to an existing database (safe to re-run)
+node scripts/add-1v1.js
+
 # Add the per-game cloud save tables to an existing database (safe to re-run)
 node scripts/add-game-saves.js
 
@@ -72,7 +75,7 @@ workerAUTH=your_worker_auth_token
 PORT=8080
 ```
 
-Every value is optional. `utils/features.js` decides at boot which optional features run: accounts need their backend (`POSTGRES_URL` with `ACCOUNT_BACKEND=postgres`, or `workerAUTH` for the Worker), and chat needs `POSTGRES_URL` plus accounts. With no `.env`, or one still holding the `EXAMPLE.env` placeholders, the server boots with both off and serves games, apps and the proxy: their API routes and models are never loaded, `/api/*` calls to them return 503 JSON, their pages redirect to `/`, and the build's `html` stage leaves their navbar links (`/chat`, `/profile`) out of the built pages. The build reads the same env as the server (`configuredFeatures()`), so it must run where the server's `.env` is; served straight from `static/`, the links stay and redirect home. Paid premium (`billing`) is a third switch: it needs `STRIPE`, `STRIPE_WEBHOOK_SECRET`, `ADMIN_TOKEN_SECRET` and the Postgres account backend, and with any missing its routes return 503, `/premium` redirects home and the build drops links to `/premium`. Per-game cloud saves (`saves`) are a fourth: they need the Postgres account backend and `ADMIN_TOKEN_SECRET`; without them `/api/saves*` returns 503 and `/profile` falls back to the old full-browser backup card. A configured database that cannot be reached is fatal, except in GitHub Codespaces (`CODESPACES=true`), where the server starts without it. `.devcontainer/devcontainer.json` installs dependencies, builds, and runs `node .` in a Codespace.
+Every value is optional. `utils/features.js` decides at boot which optional features run: accounts need their backend (`POSTGRES_URL` with `ACCOUNT_BACKEND=postgres`, or `workerAUTH` for the Worker), and chat needs `POSTGRES_URL` plus accounts. With no `.env`, or one still holding the `EXAMPLE.env` placeholders, the server boots with both off and serves games, apps and the proxy: their API routes and models are never loaded, `/api/*` calls to them return 503 JSON, their pages redirect to `/`, and the build's `html` stage leaves their navbar links (`/chat`, `/profile`) out of the built pages. The build reads the same env as the server (`configuredFeatures()`), so it must run where the server's `.env` is; served straight from `static/`, the links stay and redirect home. Paid premium (`billing`) is a third switch: it needs `STRIPE`, `STRIPE_WEBHOOK_SECRET`, `ADMIN_TOKEN_SECRET` and the Postgres account backend, and with any missing its routes return 503, `/premium` redirects home and the build drops links to `/premium`. Per-game cloud saves (`saves`) are a fourth: they need the Postgres account backend and `ADMIN_TOKEN_SECRET`; without them `/api/saves*` returns 503 and `/profile` falls back to the old full-browser backup card. 1v1.lol on 55GMS accounts (`onev1`) is a fifth: it needs the Postgres account backend, `ADMIN_TOKEN_SECRET` and `MP_SHARED_SECRET` (the same value as the multiplayer server's); without them `/api/1v1/*` returns 503 and the game is guests only. A configured database that cannot be reached is fatal, except in GitHub Codespaces (`CODESPACES=true`), where the server starts without it. `.devcontainer/devcontainer.json` installs dependencies, builds, and runs `node .` in a Codespace.
 
 For chat, run a PostgreSQL instance and `node setup-db.js` after configuring `POSTGRES_URL` to create schema.
 
@@ -82,41 +85,46 @@ For chat, run a PostgreSQL instance and `node setup-db.js` after configuring `PO
 
 ### Backend layout
 
-| Path                          | Purpose                                                                                                                                          |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `index.js`                    | Server entry point — Express routes, Socket.IO events, static file serving                                                                       |
-| `config/database.js`          | Sequelize PostgreSQL connection (pool: max 10)                                                                                                   |
-| `models/`                     | Sequelize ORM models: `Chat`, `Message`, `ChatMember`, `Friend`, `UserStatus`, `User`, `UserSave`, `Subscription`, `GameSave`, `GameSaveVersion` |
-| `routes/auth.js`              | Login/signup, the handle check and the signup captcha challenge                                                                                  |
-| `utils/captcha.js`            | Self-hosted signup captcha: a signed proof of work bound to the handle                                                                           |
-| `routes/users.js`             | Premium checks, the legacy full-browser backup (read-only while per-game saves are on)                                                           |
-| `routes/saves.js`             | Per-game cloud saves API (`/api/saves*`), session-only; see `docs/cloud-saves.md`                                                                |
-| `services/gameSaves.js`       | Per-game save storage, conflict resolution (higher progress, else latest), history, legacy import, retention                                     |
-| `services/learnedSaveKeys.js` | Storage names learned from uploads (never values), so a browser finds saves from before the agent ran                                            |
-| `services/saveBlobs.js`       | Save bytes: gzip in Postgres, or a BunnyCDN storage zone above `SAVE_INLINE_MAX_BYTES`                                                           |
-| `utils/saveRegistry.js`       | The game id rule, the site keys a game save may never hold, and `static/assets/json/saves.json`                                                  |
-| `utils/saveProgress.js`       | Progress adapters (read from the save, never guessed) and how two saves compare                                                                  |
-| `routes/admin.js`             | Premium management for `/admin` and the game bot's Add games calls (`/api/admin/games/*`); allowed only for the session cookie of user `jiayang` |
-| `routes/billing.js`           | Stripe checkout, portal and status routes, and the webhook; loaded only with billing on                                                          |
-| `services/billing.js`         | Every Stripe call and the rule for who is premium (`recomputePremium`); see `docs/billing.md`                                                    |
-| `services/accounts.js`        | Account/save store; `ACCOUNT_BACKEND` picks the Worker (default) or local Postgres                                                               |
-| `routes/messaging.js`         | Full chat REST API (~962 lines)                                                                                                                  |
-| `routes/music.js`             | Proxy routes for music/media                                                                                                                     |
-| `utils/features.js`           | Turns accounts and chat on or off at boot from the env; see Environment Setup                                                                    |
-| `utils/userCache.js`          | In-memory user data cache                                                                                                                        |
-| `utils/handle.js`             | The handle rule (`@handle`: lowercase letters, numbers, dashes, 3 to 16) and the choose-by deadline                                              |
-| `utils/avatars.js`            | The preset avatar ids an account can pick; images are `static/img/avatars/<id>.svg`                                                              |
-| `scripts/migrate-handles.js`  | One-off username-to-handle migration; steps in `docs/handles-rollout.md`                                                                         |
-| `utils/blockingCache.js`      | In-memory blocked-user cache                                                                                                                     |
-| `utils/saveKeys.js`           | Which localStorage keys stay out of a cloud save (the proxy's `host@key` storage); mirrored in `account.html`                                    |
-| `utils/ads.js`                | Mounts 55GMS Ads at `/_ads` (and `/api/_ads`, where the session tells the edge who is Premium) when `ADS_SERVER_URL` and `ADS_API_KEY` are set   |
-| `utils/gameAssets.js`         | Relays `/misc/` files that are not on disk from the 55gms/assets mirror on jsDelivr                                                              |
-| `utils/legacyPlayPages.js`    | 301s the old per-game play pages (`/misc/play/<name>.html`) to the shared play page                                                              |
-| `utils/ads-edge/`             | Vendored edge module from the gms-ads repo; do not edit here                                                                                     |
-| `scripts/build.js`            | `npm run build`: builds `static/` into `dist/builds/<id>/` and points `dist/current` at it                                                       |
-| `scripts/build/`              | The build stages, and `check-output.js`, the check CI runs on the built tree                                                                     |
-| `deploy/`                     | Server-side deploy scripts run by the GitHub Actions deploy key (`docs/deploy.md`)                                                               |
-| `ecosystem.config.cjs`        | pm2 settings for production (cluster, 10 workers, `STATIC_ROOT`)                                                                                 |
+| Path                          | Purpose                                                                                                                                                                   |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index.js`                    | Server entry point — Express routes, Socket.IO events, static file serving                                                                                                |
+| `config/database.js`          | Sequelize PostgreSQL connection (pool: max 10)                                                                                                                            |
+| `models/`                     | Sequelize ORM models: `Chat`, `Message`, `ChatMember`, `Friend`, `UserStatus`, `User`, `UserSave`, `Subscription`, `GameSave`, `GameSaveVersion`                          |
+| `routes/auth.js`              | Login/signup, the handle check and the signup captcha challenge                                                                                                           |
+| `utils/captcha.js`            | Self-hosted signup captcha: a signed proof of work bound to the handle                                                                                                    |
+| `routes/users.js`             | Premium checks, the legacy full-browser backup (read-only while per-game saves are on)                                                                                    |
+| `routes/saves.js`             | Per-game cloud saves API (`/api/saves*`), session-only; see `docs/cloud-saves.md`                                                                                         |
+| `services/gameSaves.js`       | Per-game save storage, conflict resolution (higher progress, else latest), history, legacy import, retention                                                              |
+| `services/learnedSaveKeys.js` | Storage names learned from uploads (never values), so a browser finds saves from before the agent ran                                                                     |
+| `services/saveBlobs.js`       | Save bytes: gzip in Postgres, or a BunnyCDN storage zone above `SAVE_INLINE_MAX_BYTES`                                                                                    |
+| `utils/saveRegistry.js`       | The game id rule, the site keys a game save may never hold, and `static/assets/json/saves.json`                                                                           |
+| `utils/saveProgress.js`       | Progress adapters (read from the save, never guessed) and how two saves compare                                                                                           |
+| `routes/onev1.js`             | 1v1.lol's backend on 55GMS accounts (`/api/1v1/*`): game tokens, its config, the game's own calls, and the multiplayer server's internal calls; see `docs/1v1-backend.md` |
+| `services/onev1.js`           | 1v1.lol profiles, cosmetics, LOL Pass, leaderboards, and match results the multiplayer server decides (`applyMatch`)                                                      |
+| `services/onev1Coins.js`      | 1v1.lol coins: Stripe Checkout for coin packs, refunds and disputes, rewarded-ad grants                                                                                   |
+| `services/onev1Config.js`     | The 1v1.lol remote config (`utils/1v1-config.json`): prices, coin packs, LOL Pass tiers, readable competitive modes                                                       |
+| `services/onev1Schema.js`     | The `onev1_*` tables, created by `setup-db.js` and `scripts/add-1v1.js`                                                                                                   |
+| `routes/admin.js`             | Premium management for `/admin` and the game bot's Add games calls (`/api/admin/games/*`); allowed only for the session cookie of user `jiayang`                          |
+| `routes/billing.js`           | Stripe checkout, portal and status routes, and the webhook; loaded only with billing on                                                                                   |
+| `services/billing.js`         | Every Stripe call and the rule for who is premium (`recomputePremium`); see `docs/billing.md`                                                                             |
+| `services/accounts.js`        | Account/save store; `ACCOUNT_BACKEND` picks the Worker (default) or local Postgres                                                                                        |
+| `routes/messaging.js`         | Full chat REST API (~962 lines)                                                                                                                                           |
+| `routes/music.js`             | Proxy routes for music/media                                                                                                                                              |
+| `utils/features.js`           | Turns accounts and chat on or off at boot from the env; see Environment Setup                                                                                             |
+| `utils/userCache.js`          | In-memory user data cache                                                                                                                                                 |
+| `utils/handle.js`             | The handle rule (`@handle`: lowercase letters, numbers, dashes, 3 to 16) and the choose-by deadline                                                                       |
+| `utils/avatars.js`            | The preset avatar ids an account can pick; images are `static/img/avatars/<id>.svg`                                                                                       |
+| `scripts/migrate-handles.js`  | One-off username-to-handle migration; steps in `docs/handles-rollout.md`                                                                                                  |
+| `utils/blockingCache.js`      | In-memory blocked-user cache                                                                                                                                              |
+| `utils/saveKeys.js`           | Which localStorage keys stay out of a cloud save (the proxy's `host@key` storage); mirrored in `account.html`                                                             |
+| `utils/ads.js`                | Mounts 55GMS Ads at `/_ads` (and `/api/_ads`, where the session tells the edge who is Premium) when `ADS_SERVER_URL` and `ADS_API_KEY` are set                            |
+| `utils/gameAssets.js`         | Relays `/misc/` files that are not on disk from the 55gms/assets mirror on jsDelivr                                                                                       |
+| `utils/legacyPlayPages.js`    | 301s the old per-game play pages (`/misc/play/<name>.html`) to the shared play page                                                                                       |
+| `utils/ads-edge/`             | Vendored edge module from the gms-ads repo; do not edit here                                                                                                              |
+| `scripts/build.js`            | `npm run build`: builds `static/` into `dist/builds/<id>/` and points `dist/current` at it                                                                                |
+| `scripts/build/`              | The build stages, and `check-output.js`, the check CI runs on the built tree                                                                                              |
+| `deploy/`                     | Server-side deploy scripts run by the GitHub Actions deploy key (`docs/deploy.md`)                                                                                        |
+| `ecosystem.config.cjs`        | pm2 settings for production (cluster, 10 workers, `STATIC_ROOT`)                                                                                                          |
 
 ### Authentication flow
 
@@ -196,7 +204,7 @@ See `docs/proxy-stack.md` for versions, caching, the neutral-naming rules, and u
 
 ### Multiplayer server
 
-Games whose multiplayer servers are gone play against [55gms/multiplayer](https://github.com/55gms/multiplayer): a separate process (`gms-multiplayer`, `127.0.0.1:8093`) that Caddy reaches at `/api/mp/*` on every hostname, with endpoints per game speaking that game's own protocol. 1v1.lol (`static/misc/nowgg/`) is the first: an inline script in its page sends Photon's addresses to `/api/mp/1v1/…` on the page's host. See `docs/multiplayer.md`.
+Games whose multiplayer servers are gone play against [55gms/multiplayer](https://github.com/55gms/multiplayer): a separate process (`gms-multiplayer`, `127.0.0.1:8093`) that Caddy reaches at `/api/mp/*` on every hostname, with endpoints per game speaking that game's own protocol. 1v1.lol (`static/misc/nowgg/`) is the first: an inline script in its page sends Photon's addresses to `/api/mp/1v1/…` on the page's host. Signed-in 55GMS players are logged in to the game (`docs/1v1-backend.md`): ranked is accounts only, and the multiplayer server decides results and posts them to `/api/1v1/internal/match`. See `docs/multiplayer.md`.
 
 ## Deployment
 
