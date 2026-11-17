@@ -25,7 +25,10 @@ multiplayer server's). Coin sales also need billing (`docs/billing.md`).
   the token as `?gms=`, Xsolla's payment widget is replaced by a panel that
   opens Stripe Checkout, and LOL Pass premium offers 55GMS Premium.
 - **The routes** are `routes/onev1.js`. Game calls are authorized by the
-  game token in `auth-token` (a scoped token, 12 hours). `/api/1v1/internal/*`
+  game token in `auth-token` (a scoped token, 12 hours) and the 55GMS
+  session it was made for (cookie or `X-GMS-Session`, which the page adds),
+  so signing out of the site signs the game out; the page also drops the
+  token when another tab signs out. `/api/1v1/internal/*`
   answers only the multiplayer server: loopback, no `X-Forwarded-For`, and
   `X-MP-Secret`.
 - **The data** (`services/onev1Schema.js`, added by `node scripts/add-1v1.js`)

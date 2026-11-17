@@ -97,6 +97,12 @@ export function createOneV1Router({ game, coins, billing = false } = {}) {
       GAME_TOKEN_SCOPE,
     );
     if (!uuid) return res.status(401).json({ error: "User not logged in" });
+    // The token alone is not enough: the 55GMS session it was made for must
+    // still be signed in, so signing out of the site signs the game out too.
+    const session = readSession(req);
+    if (!session?.uuid || String(session.uuid) !== uuid) {
+      return res.status(401).json({ error: "User not logged in" });
+    }
     req.uuid = uuid;
     next();
   }, perAccount);

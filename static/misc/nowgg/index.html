@@ -40,7 +40,11 @@
               credentials: "same-origin",
               headers: session ? { "X-GMS-Session": session } : {},
             });
-            if (!response.ok) return false;
+            if (!response.ok) {
+              // Signed out: forget the account, so the game cannot use it.
+              if (response.status === 401 || response.status === 409) account.token = account.handle = null;
+              return false;
+            }
             const data = await response.json();
             account.token = data.token;
             account.handle = data.handle;
@@ -50,6 +54,12 @@
           }
         }
         account.ready = fetchToken();
+        // Signing out in another tab removes the session; stop using it here.
+        window.addEventListener("storage", (event) => {
+          if ((event.key === "gms-session" || event.key === "uuid" || event.key === null) && !event.newValue) {
+            account.token = account.handle = null;
+          }
+        });
         // Tokens last 12 hours; keep a long session's fresh.
         setInterval(() => account.token && fetchToken(), 6 * 3600e3);
 
@@ -113,6 +123,12 @@
         XMLHttpRequest.prototype.send = function (body) {
           const url = String(this.gmsUrl || "");
           if (url.includes("/api/1v1/fn/")) {
+            // Game calls need the 55GMS session too (the cookie does not reach
+            // every host), as other pages send it.
+            try {
+              const session = localStorage.getItem("gms-session");
+              if (session) this.setRequestHeader("X-GMS-Session", session);
+            } catch {}
             // A rewarded-ad watch carries the grant 55GMS Ads gave for it.
             if (url.includes("/api/1v1/fn/player/rv") && account.adGrant) {
               const grant = new URLSearchParams({ grantId: account.adGrant.id, signature: account.adGrant.signature });
