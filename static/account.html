@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -862,7 +863,6 @@
 
         let handle = username;
         let avatar = null;
-        // Per-game cloud saves (cloud-saves.js), unless the server has none.
         let perGame = Boolean(window.GMSSaves);
         let unsyncedGames = 0;
 
@@ -870,8 +870,6 @@
           return /^a\d{2}$/.test(id || "") ? `/img/avatars/${id}.svg` : "";
         }
 
-        // The header shows the account's avatar, or the handle's initial
-        // until it loads and where the server has no avatars.
         function showIdentity() {
           document.getElementById("username").textContent = "@" + handle;
           document.getElementById("detailHandle").textContent = "@" + handle;
@@ -929,8 +927,6 @@
           }, 4500);
         }
 
-        // Refresh the handle, send an account that still has to choose one
-        // to the chooser, and sign out a browser whose account is gone.
         fetch("/api/me", {
           cache: "no-store",
           headers: { "X-User-UUID": uuid },
@@ -947,7 +943,6 @@
             return response.ok ? response.json() : null;
           })
           .then((me) => {
-            // An answer for another account came from a cache, not from us.
             if (!me || me.uuid !== uuid) return;
             if (me.handlePending) {
               location.replace("/choose-handle");
@@ -961,9 +956,6 @@
           })
           .catch(() => {});
 
-        // The avatar picker: clicking the header avatar opens a dialog with
-        // the presets the server offers. Where it has none, the avatar is
-        // not a button.
         const avatarButton = document.getElementById("avatarButton");
         const avatarDialog = document.getElementById("avatarDialog");
         const avatarGrid = document.getElementById("avatarGrid");
@@ -1003,7 +995,6 @@
         document
           .getElementById("avatarClose")
           .addEventListener("click", () => avatarDialog.close());
-        // A click on the backdrop lands on the dialog element itself.
         avatarDialog.addEventListener("click", (event) => {
           if (event.target === avatarDialog) avatarDialog.close();
         });
@@ -1056,7 +1047,6 @@
           })
           .catch(() => {});
 
-        // Set by the login page when an old username was converted.
         const convertedHandle = sessionStorage.getItem("handleNotice");
         if (convertedHandle) {
           sessionStorage.removeItem("handleNotice");
@@ -1071,20 +1061,12 @@
           button.setAttribute("aria-busy", String(loading));
         }
 
-        // ---------- Signing in again ----------
-        // Cloud saves and avatars need the session cookie a login sets, but
-        // the page knows the account from localStorage, which outlives it:
-        // browsers signed in before the cookie existed, or whose cookie ran
-        // out. Rather than sign out, they confirm the password here and the
-        // action that needed it runs again.
         const reauthDialog = document.getElementById("reauthDialog");
         const reauthPassword = document.getElementById("reauthPassword");
         const reauthError = document.getElementById("reauthError");
         const reauthSubmit = document.getElementById("reauthSubmit");
         let reauthWaiters = [];
 
-        // Resolves true once this browser has a session again, false if
-        // the dialog was closed without one.
         function askToSignIn() {
           return new Promise((resolve) => {
             reauthWaiters.push(resolve);
@@ -1142,7 +1124,6 @@
                 );
               }
               if (data.uuid !== uuid) {
-                // Never leave this page acting for a different account.
                 await fetch("/api/logout", { method: "POST" }).catch(() => {});
                 return showReauthError(
                   "That's a different account. Sign out and sign in to it instead.",
@@ -1161,9 +1142,6 @@
             }
           });
 
-        // Runs work; if it ran into a missing session (a 401, or a result
-        // isSignedOut recognises), asks for the password and runs it once
-        // more.
         async function withSession(work, isSignedOut = () => false) {
           try {
             const result = await work();
@@ -1174,7 +1152,6 @@
           return work();
         }
 
-        // fetch(), signing in again on a 401.
         function fetchWithSession(url, options) {
           return withSession(
             () => fetch(url, options),
@@ -1233,7 +1210,6 @@
           empty: "No cloud save",
           error: "Couldn't check",
         };
-        // What each state means for the buttons above it.
         const SYNC_HINTS = {
           checking: "Comparing this browser with your cloud save…",
           synced: "This browser matches your cloud save.",
@@ -1245,7 +1221,6 @@
           error:
             "Couldn't compare with your cloud save. Try again in a moment.",
         };
-        // Keys this page rewrites on its own; the server skips them too.
         const SYNC_IGNORED_KEYS = ["premium", "gms-session"];
         let syncCheckId = 0;
 
@@ -1257,11 +1232,6 @@
           syncHint.textContent = SYNC_HINTS[state];
         }
 
-        // The proxy keeps a proxied site's storage in ours as "<host>@<key>".
-        // It stays out of the cloud save. Older saves also hold scrambled
-        // copies of keys: the key URI-encoded, in base64, with letters and
-        // digits shifted by five, sometimes several times over.
-        // Must match isProxyStorageKey() in utils/saveKeys.js.
         const PROXY_KEY = /^[a-z0-9-]+(\.[a-z0-9-]+)+(:\d+)?@/i;
 
         function unscrambleKey(key) {
@@ -1303,7 +1273,6 @@
             .sort();
         }
 
-        // What Upload sends: this browser's storage without the proxy's.
         function localSave() {
           const save = {};
           for (const key of Object.keys(localStorage)) {
@@ -1313,7 +1282,6 @@
           return save;
         }
 
-        // Must match fingerprintSave() in routes/users.js.
         async function hashLocalSave(keys) {
           const entries = keys.map((key) => [key, localStorage.getItem(key)]);
           const digest = await crypto.subtle.digest(
@@ -1343,8 +1311,6 @@
               let state = "unsynced";
               if (!cloud.exists) state = "empty";
               else if (cloud.hash === localHash) state = "synced";
-              // Restore only adds and overwrites keys, so everything in the
-              // cloud can match while this browser holds keys it lacks.
               else if ((await hashLocalSave(cloud.keys)) === cloud.hash)
                 state = "ahead";
               if (id === syncCheckId) setSyncState(state);
@@ -1355,8 +1321,6 @@
             });
         }
 
-        // Only a server without per-game saves uses the full-browser
-        // backup above; useLegacySync() below turns it on.
         function useLegacySync() {
           perGame = false;
           document.getElementById("savesCard").hidden = true;
@@ -1412,13 +1376,9 @@
               }),
             )
             .then((data) => {
-              // Restore adds to what this browser holds, so the two together
-              // can pass the storage limit. Put back what was there rather
-              // than leave half a save behind.
               const previous = new Map();
               try {
                 for (const key in data) {
-                  // Saves uploaded before proxy storage was left out.
                   if (isProxyStorageKey(key)) continue;
                   const value =
                     typeof data[key] === "object"
@@ -1454,8 +1414,6 @@
             .finally(() => endSync(downloadButton));
         });
 
-        // Copy buttons. The handle is copied without the "@", the form
-        // sign-in and friend requests take.
         const COPIES = {
           handle: { text: () => handle, done: "Username copied." },
           id: { text: () => uuid, done: "Account ID copied." },
@@ -1474,9 +1432,6 @@
           });
         }
 
-        // ---------- Per-game cloud saves ----------
-        // Statuses come from GMSSaves.overview() (cloud-saves.js): what this
-        // browser holds for each game against the cloud's manifest.
         const STATUS_TEXT = {
           synced: "Synced",
           saving: "Saving…",
@@ -1923,7 +1878,6 @@
           } finally {
             setLoading(syncNowButton, false);
             syncNowButton.disabled = false;
-            // The sync answered with the manifest, so it need not be asked again.
             await refreshSaves({ fresh: false });
             updateLocalSize();
           }
@@ -1996,7 +1950,6 @@
             .addEventListener("click", closeHistory);
           savesSearch.addEventListener("input", renderList);
           GMSSaves.on("status", scheduleRefresh);
-          // Set by the login page: sync each game once, on arrival.
           const syncOnArrival = sessionStorage.getItem("gmsSyncOnArrival");
           sessionStorage.removeItem("gmsSyncOnArrival");
           refreshSaves().then(() => {
@@ -2021,9 +1974,6 @@
           })
           .catch((error) => console.error("Error:", error));
 
-        // Paid premium. A server that does not sell it answers 503 and the
-        // section stays hidden; 401 is a browser without a session, which
-        // can still be sent to the plans.
         (function setupBilling() {
           const section = document.getElementById("premiumSection");
           const upgradeLink = document.getElementById("upgradeLink");
@@ -2097,8 +2047,6 @@
           });
         })();
 
-        // Clearing keeps the keys that sign this browser in, so the page
-        // still works afterwards.
         const SESSION_KEYS = ["uuid", "username", "premium", "gms-session"];
         const clearDialog = document.getElementById("clearDialog");
 
@@ -2135,12 +2083,12 @@
             localStorage.removeItem("username");
             localStorage.removeItem("premium");
             localStorage.removeItem("gms-session");
-            // Clear the session cookie before leaving the page.
             fetch("/api/logout", { method: "POST" })
               .catch(() => {})
               .finally(() => (location.href = "/profile"));
           });
       })();
     </script>
+    <script src="/assets/js/lightning-transition.js" defer></script>
   </body>
 </html>
