@@ -15,6 +15,13 @@
 // data-sockets  hosts whose WebSockets go through Wisp
 // data-fetch    hosts whose fetch and XMLHttpRequest calls go through Wisp
 // data-origin   the Origin header sent with both (the game's own site)
+// data-root     for a game that expects to be at the root of its own site:
+//               that site's origin. Root paths and this host's sockets go
+//               there (see remap below).
+// data-local    root path prefixes that stay in the game folder ("/data/")
+// data-block    hosts whose <script>s never load (a game's own ad code)
+// data-disable  globals to remove, such as WebTransport, which Wisp cannot
+//               carry, so the game falls back to a WebSocket
 //
 // Hosts are separated by spaces or commas: "slither.io" is that host only,
 // "*.slither.io" also its subdomains, "*" every host but this page's own.
@@ -33,7 +40,23 @@
   const socketHosts = hosts(data.sockets);
   const fetchHosts = hosts(data.fetch);
   const origin = data.origin || "";
-  if (!socketHosts.length && !fetchHosts.length) return;
+  let root = null;
+  try {
+    if (data.root) root = new URL(data.root);
+  } catch {}
+  const localPaths = String(data.local || "")
+    .split(/[\s,]+/)
+    .filter((p) => p.startsWith("/"));
+  for (const name of String(data.disable || "").split(/[\s,]+/))
+    if (name) {
+      try {
+        delete window[name];
+      } catch {}
+      if (name in window) window[name] = undefined;
+    }
+  const blocked = hosts(data.block);
+  if (!socketHosts.length && !fetchHosts.length && !root && !blocked.length)
+    return;
 
   const pageHost = location.host.toLowerCase();
   const matches = (patterns, url) => {
@@ -54,6 +77,80 @@
       return null;
     }
   };
+
+  // data-root: the game thinks it is at the root of its own site. A root
+  // path (which lands on this page's host, or on the CDN's host through the
+  // page's <base>) goes to that site, or stays in the game folder when it
+  // starts with one of data-local's prefixes; a server on a subdomain of
+  // this page's host ("2.<host>") becomes the same subdomain of that site.
+  const SITE_PATHS = /^\/(assets|api|misc|img|_ads)\//;
+  const remap = (url) => {
+    if (!root || !url) return url;
+    const base = new URL(document.baseURI);
+    const page = location.hostname.toLowerCase();
+    const host = url.hostname.toLowerCase();
+    const atRoot =
+      (url.host === location.host && !SITE_PATHS.test(url.pathname)) ||
+      (base.host !== location.host &&
+        url.host === base.host &&
+        !/^\/(gh|npm)\//.test(url.pathname));
+    const sub =
+      !atRoot && host.endsWith("." + page) ? host.slice(0, -page.length) : null;
+    if (!atRoot && sub === null) return url;
+    const path = url.pathname + url.search + url.hash;
+    if (atRoot && localPaths.some((p) => url.pathname.startsWith(p)))
+      return new URL(path.slice(1), base);
+    const out = new URL(path, root);
+    if (sub) out.hostname = sub + root.hostname;
+    if (/^wss?:$/.test(url.protocol))
+      out.protocol = root.protocol === "https:" ? "wss:" : "ws:";
+    return out;
+  };
+  // data-block: hosts whose scripts never load (the ad and tracking code a
+  // game pulls in by itself). The script fires "error", as if it had failed.
+  if (blocked.length) {
+    const desc = Object.getOwnPropertyDescriptor(
+      HTMLScriptElement.prototype,
+      "src",
+    );
+    const refuse = (el) =>
+      setTimeout(() => el.dispatchEvent(new Event("error")));
+    const isBlocked = (value) => {
+      const url = resolve(value);
+      return !!url && matches(blocked, url);
+    };
+    Object.defineProperty(HTMLScriptElement.prototype, "src", {
+      ...desc,
+      set(value) {
+        if (isBlocked(value)) refuse(this);
+        else desc.set.call(this, value);
+      },
+    });
+    const setAttribute = Element.prototype.setAttribute;
+    Element.prototype.setAttribute = function (name, value) {
+      if (
+        this instanceof HTMLScriptElement &&
+        String(name).toLowerCase() === "src" &&
+        isBlocked(value)
+      )
+        return refuse(this);
+      return setAttribute.call(this, name, value);
+    };
+  }
+
+  if (root) {
+    const src = Object.getOwnPropertyDescriptor(
+      HTMLImageElement.prototype,
+      "src",
+    );
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      ...src,
+      set(value) {
+        const url = remap(resolve(value));
+        src.set.call(this, url ? url.href : value);
+      },
+    });
+  }
 
   // The transport is the proxy's own Epoxy build (utils/proxyAssets.js). It
   // is large, so it starts loading now, while the game loads, and every
@@ -142,12 +239,24 @@
     }
   }
 
-  if (fetchHosts.length) {
+  if (fetchHosts.length || root) {
     const nativeFetch = window.fetch;
     window.fetch = function (input, init) {
-      const url = resolve(input instanceof Request ? input.url : input);
-      if (!url || !/^https?:$/.test(url.protocol) || !matches(fetchHosts, url))
-        return nativeFetch.apply(this, arguments);
+      const raw = resolve(input instanceof Request ? input.url : input);
+      const url = remap(raw);
+      if (
+        !url ||
+        !/^https?:$/.test(url.protocol) ||
+        !matches(fetchHosts, url)
+      ) {
+        if (!url || url.href === raw.href)
+          return nativeFetch.apply(this, arguments);
+        return nativeFetch.call(
+          this,
+          input instanceof Request ? new Request(url.href, input) : url.href,
+          init,
+        );
+      }
       return (async () => {
         const req = new Request(
           input instanceof Request ? input : url.href,
@@ -191,7 +300,7 @@
     XHR.open = function (method, url, async) {
       pending.delete(this);
       for (const k of RESULT) delete this[k];
-      const target = resolve(url);
+      const target = remap(resolve(url));
       if (
         target &&
         async !== false &&
@@ -203,7 +312,9 @@
           url: target,
           headers: [],
         });
-      return open.apply(this, arguments);
+      const args = [...arguments];
+      if (target) args[1] = target.href;
+      return open.apply(this, args);
     };
     XHR.setRequestHeader = function (name, value) {
       setRequestHeader.call(this, name, value);
@@ -292,7 +403,7 @@
     };
   }
 
-  if (socketHosts.length) {
+  if (socketHosts.length || root) {
     const Native = window.WebSocket;
     const [CONNECTING, OPEN, CLOSING, CLOSED] = [0, 1, 2, 3];
     const TYPES = ["open", "message", "error", "close"];
@@ -665,7 +776,8 @@
         throw new TypeError(
           "Failed to construct 'WebSocket': Please use the 'new' operator.",
         );
-      const target = resolve(url);
+      const raw = resolve(url);
+      const target = remap(raw);
       if (
         target &&
         /^(wss?|https?):$/.test(target.protocol) &&
@@ -674,6 +786,7 @@
         target.protocol = target.protocol.replace(/^http/, "ws");
         return new TunnelSocket(target, protocols);
       }
+      if (target && target.href !== raw.href) url = target.href;
       return protocols === undefined
         ? new Native(url)
         : new Native(url, protocols);
