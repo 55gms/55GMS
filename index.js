@@ -35,6 +35,8 @@ if (!wispExternal) {
 
 import searchRoutes from "./routes/search.js";
 import proxyRoutes from "./routes/music.js";
+import { createKrillionRouter } from "./routes/krillion.js";
+import { warmKrillion } from "./services/krillion.js";
 import {
   disabledPageRedirect,
   inCodespaces,
@@ -184,6 +186,11 @@ try {
     setNoStoreHeaders(res);
     next();
   });
+
+  // The Krillion daily game's API, from the day's cached answers. It needs no
+  // account or database, so it sits ahead of the feature switches below.
+  app.use("/api/krillion", createKrillionRouter());
+  warmKrillion();
 
   if (features.accounts) {
     const [auth, users, admin] = await Promise.all([

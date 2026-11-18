@@ -3752,7 +3752,13 @@
    "id": "zorr-pro",
    "name": "Zorr.pro",
    "play": "/misc/play/?title=Zorr.pro&link=zorr-pro",
-   "frame": "/misc/zorr-pro/index.html",
+   "frame": "/misc/zorr-pro/index.html"
+  },
+  "krillion": {
+   "id": "krillion",
+   "name": "Krillion",
+   "play": "/misc/play/?title=Krillion&link=krillion",
+   "frame": "/misc/krillion/index.html",
    "status": "observed"
   }
  }

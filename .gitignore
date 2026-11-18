@@ -34,3 +34,6 @@ handle-migration-report.csv
 
 # macOS Finder metadata
 .DS_Store
+
+# Cached Krillion days (services/krillion.js)
+.krillion-cache/
