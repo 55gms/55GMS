@@ -26,15 +26,16 @@ asks 55GMS whose it is, and ranked (`1v1_Competitive`) is for accounts only.
 The server decides each `1v1` and ranked 1v1 result from the players' own
 messages and posts it to 55GMS at `/api/1v1/internal/match`, which keeps the
 ratings, XP and battle pass. Both sides need the same `MP_SHARED_SECRET`.
-Friends and parties do not work. Details, setup and the capture tool are in
+Friends do not work; parties do. Details, setup and the capture tool are in
 that repo's README.
 
-A casual search that finds nobody on 55GMS within 10 seconds is sent to
-another public 1v1.lol server's queue, 1v1.lol Reloaded's
-(`wss://ws.onecloudcdn.site/ns`), logged in under the name `55gms.com`. The
-multiplayer server passes the player's master connection through and relays
-the game server connection at `/api/mp/1v1/remote`, so the page needs no
-change. Those matches give no 55GMS results; ranked stays on 55GMS.
+A casual search that finds no room on 55GMS goes straight to another public
+1v1.lol server's queue, 1v1.lol Reloaded's (`wss://ws.onecloudcdn.site/ns`).
+The multiplayer server passes the player's master connection through and
+relays the game server connection at `/api/mp/1v1/remote`, so the page needs
+no change. There the player is named `55gms.com`; on their own screen the
+players they meet there get random names from a list. Those matches give no 55GMS
+results. Ranked and parties stay on 55GMS.
 
 ## BasketBros, SoccerBros, BaseballBros, FootballBros
 
