@@ -169,11 +169,28 @@
         if (amd) window.define.amd = amd;
         tag.remove();
       };
-      tag.onload = () => {
+      // Intermediate certificates the TLS client trusts on top of its roots:
+      // browsers fetch a server's missing intermediate (AIA), rustls does
+      // not, so a game server that sends only its leaf would fail.
+      const certs = fetch(
+        location.origin + "/assets/json/tls-intermediates.json",
+      )
+        .then((r) => (r.ok ? r.json() : {}))
+        .then((j) => (Array.isArray(j.certs) ? j.certs : []))
+        .catch(() => []);
+      tag.onload = async () => {
         done();
         const Transport = window[["Epo", "xyTran", "sport"].join("")];
         if (!Transport) return reject(new Error("The transport did not load."));
         const t = new Transport.default({ wisp, wisp_v2: true });
+        const pems = await certs;
+        // The transport copies only its own options onto the client's; add
+        // the certificates while it does.
+        const setopt = t.setopt;
+        t.setopt = function (options, opt) {
+          if (pems.length) options.pem_files = pems;
+          return setopt.call(this, options, opt);
+        };
         t.init().then(() => resolve(t), reject);
       };
       tag.onerror = () => {
