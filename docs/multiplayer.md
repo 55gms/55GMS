@@ -34,8 +34,10 @@ A casual search that finds no room on 55GMS goes straight to another public
 The multiplayer server passes the player's master connection through and
 relays the game server connection at `/api/mp/1v1/remote`, so the page needs
 no change. There the player is named `55gms.com`; on their own screen the
-players they meet there get random names from a list. Those matches give no 55GMS
-results. Ranked and parties stay on 55GMS.
+players they meet there get random names from a list. The multiplayer server
+referees their casual `1v1` matches from the relayed messages, so a signed-in
+player still gets XP, stats and battle pass progress; they are never rated.
+Ranked and parties stay on 55GMS.
 
 ## BasketBros, SoccerBros, BaseballBros, FootballBros
 
