@@ -91,6 +91,37 @@ in the page's `<head>` before the `<base>`, replaces `WebSocket`, `fetch` and
   (asynchronous XHR only).
 - `data-origin`: the `Origin` header sent with both. Many game servers drop a
   connection from any other origin, and a browser cannot set it itself.
+- `data-root`: for a game built to sit at the root of its own site (MK48's
+  engine, a history-mode router): that site's origin. A root path the game
+  asks for, which lands on this host or on the CDN's root through the
+  `<base>`, goes to that site instead, and a server on a subdomain of this
+  host (`2.55gms.com`) becomes the same subdomain there (`2.mk48.io`).
+- `data-local`: root path prefixes that stay in the game folder
+  (`/data/ /translation/`), for `data-root` games.
+- `data-block`: hosts whose `<script>`s never load; the script fires `error`.
+  For ad and analytics code a game injects by itself (MK48's server-sent
+  snippet adds AdinPlay).
+- `data-disable`: globals removed before the game starts, such as
+  `WebTransport`, which Wisp cannot carry, so the game falls back to a
+  WebSocket.
+
+Every game's files stay in the 55gms/assets folder; the tunnel carries only
+live traffic (APIs, matchmaking, game sockets). When a rip misses files a
+game loads on demand, download them into the folder and point the game at
+them; do not tunnel them from the original site.
+
+What the shim also does by itself:
+
+- Images from the page's `<base>` host (jsDelivr, which always allows CORS)
+  are requested with CORS, so a game can draw them into WebGL as it could
+  from its own origin.
+- TLS through Wisp trusts Let's Encrypt's intermediates as well as the usual
+  roots (`static/assets/json/tls-intermediates.json`): browsers fetch a
+  server's missing intermediate, rustls does not, and some game servers
+  (M28's) send only their own certificate.
+- Cookies set on tunnelled responses are kept in a jar per game folder
+  (`localStorage["gms-net-cookies:/misc/<folder>"]`) and sent back on later
+  tunnelled requests and socket handshakes, so cookie logins can work.
 
 This gets past what breaks such games on 55GMS: `ws://` servers on an
 `https://` page (mixed content), origin checks, and filters that block the
@@ -107,8 +138,14 @@ about 1.7 MB) starts loading with the page. Bump the `?v=` on `game-net.js`
 in the pages that load it when it changes (game pages are never rebuilt).
 
 It does not help a game whose servers are gone (use the multiplayer server
-above), one that plays over WebRTC, or one whose login needs the original
-site's cookies.
+above), one that plays over WebRTC, or one whose sign-in is bound to its own
+domain (Google sign-in, a Turnstile or hCaptcha site key).
+
+Games often refuse to run off their own site. Patches used so far: a host
+check sending the page to the original (Zorr's `wi()`), the obfuscator's
+domain lock that blanks the page (Ships 3D), a hostname handed to WASM
+(digdig's), and an arena or route read from the page's path (MK48 and SPA
+routers: the page sets its path to `/` with `history.replaceState`).
 
 ### Slither.io (`static/misc/slither-io/`)
 
@@ -118,6 +155,32 @@ local copy) and plays on `ws://<ip>:<port>/slither`, pinging `ws://<ip>:80/ptc`
 to pick a server. The servers only answer `Origin: http://slither.io`. The
 Twitter/Facebook box and analytics were removed; images the game loads on
 demand (cosmetics, code pad, team buttons) are in the files under `s/`.
+
+### Zorr.pro, MK48.io, Territorial.io, Skribbl.io, Ships 3D
+
+- Zorr.pro (`zorr-pro`): sockets to `*.zorr.pro`. Its start function sends
+  other hosts to zorr.pro; that check is off. The default fonts are local; a
+  font picked in its settings still loads from Google Fonts.
+- MK48.io (`mk48`): Softbear's engine, `data-root="https://mk48.io"` with
+  `/data/` and `/translation/` local, `WebTransport` disabled, its ad snippet
+  blocked. `system.json` (servers, snippets) is live. The WASM's one CSS
+  sprite path was patched to a relative one of the same length.
+- Territorial.io (`territorial-io`): the 640 KB inline script is `game.js`
+  in the folder, and its maps (`maps/<id>-<version>[p].bin`) are local.
+  Turnstile only runs on its own hosts, so players get the game's own
+  captcha once before joining.
+- Skribbl.io (`skribbl-io`): `POST https://skribbl.io/api/play` names the
+  socket.io server; images, sounds and fonts are local.
+- Ships 3D (`ships`): API and game sockets on `yp3d.com`; every webpack asset
+  the bundles name is in the folder (`<hash>.png|glb`).
+
+Tried and left on the proxy for now: digdig.io (M28's game servers turn
+away the tunnelled client after its hello, for a reason not found), Deeeep.io
+(menus work, but playing needs an account and its Google sign-in is bound to
+deeeep.io), Venge.io (matchmaking works; its game server refused the
+connection when tested, and its skins come from a live CDN catalogue),
+Pokemon Showdown, deadshot.io (device attestation), and the Unity games
+(Kour.io, Smash Karts, Snowball.io, buildnow.gg, Stumble Guys).
 
 Design and plan for accounts: `docs/superpowers/specs/2026-11-16-1v1-accounts-competitive-design.md`,
 `docs/superpowers/plans/2026-11-16-1v1-accounts-competitive.md`.

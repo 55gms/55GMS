@@ -941,9 +941,9 @@
   },
   {
     "name": "MK48.io",
-    "url": "https://mk48.io/",
-    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/mk48/img.webp",
-    "usesProxy": true
+    "author": "Softbear",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@a6189fcbc3f79635cd33b76383ed51f634c800f8/misc/mk48/img.webp",
+    "usesProxy": false
   },
   {
     "name": "Monkey Mart",
@@ -1517,15 +1517,15 @@
   },
   {
     "name": "Ships 3D",
-    "url": "https://yp3d.com/ships3d/",
-    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/ships/img.webp",
-    "usesProxy": true
+    "author": "yp3d",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@a6189fcbc3f79635cd33b76383ed51f634c800f8/misc/ships/img.webp",
+    "usesProxy": false
   },
   {
-    "name": "Skribble.IO",
-    "url": "https://skribbl.io/",
-    "image": "/img/games/skribble.webp",
-    "usesProxy": true
+    "name": "Skribbl.io",
+    "url": "/misc/play/?title=Skribbl.io&link=skribbl-io",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@a6189fcbc3f79635cd33b76383ed51f634c800f8/misc/skribbl-io/img.webp",
+    "usesProxy": false
   },
   {
     "name": "Brotato",
@@ -1695,9 +1695,9 @@
   },
   {
     "name": "Territorial.io",
-    "url": "https://territorial.io/",
-    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/Territorial.io/img.webp",
-    "usesProxy": true
+    "author": "David Tschacher",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@a6189fcbc3f79635cd33b76383ed51f634c800f8/misc/territorial-io/img.webp",
+    "usesProxy": false
   },
   {
     "name": "Tetris",
@@ -1963,9 +1963,9 @@
   },
   {
     "name": "Zorr.pro",
-    "url": "zorr.pro",
-    "image": "/img/games/Beetle_(Common).webp",
-    "usesProxy": true
+    "author": "Sigma Games",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@a6189fcbc3f79635cd33b76383ed51f634c800f8/misc/zorr-pro/img.webp",
+    "usesProxy": false
   },
   {
     "name": "GBA Games",
