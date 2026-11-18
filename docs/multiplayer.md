@@ -65,6 +65,59 @@ signalling only: the match itself runs between the players' browsers over
 WebRTC (or the game's TURN server), so a network that blocks WebRTC still
 breaks it after a room is found.
 
+## Games whose own servers still run: `game-net.js`
+
+A ripped game whose official servers are still up keeps playing on them.
+Its files are served like any other game's; only its network traffic goes
+out through the site's Wisp server (`/api/live/`, the proxy's), so no game
+code changes and the full proxy is not loaded. `static/assets/js/game-net.js`,
+in the page's `<head>` before the `<base>`, replaces `WebSocket`, `fetch` and
+`XMLHttpRequest` for the hosts it is given:
+
+```html
+<script
+  src="/assets/js/game-net.js?v=1"
+  data-sockets="*"
+  data-fetch="slither.io"
+  data-origin="http://slither.io"
+></script>
+```
+
+- `data-sockets`: hosts whose WebSockets are tunnelled. `slither.io` is that
+  host, `*.slither.io` adds its subdomains, `*` is every host but the page's
+  own (needed when the servers are raw IP addresses).
+- `data-fetch`: hosts whose `fetch` and `XMLHttpRequest` calls are tunnelled
+  (asynchronous XHR only).
+- `data-origin`: the `Origin` header sent with both. Many game servers drop a
+  connection from any other origin, and a browser cannot set it itself.
+
+This gets past what breaks such games on 55GMS: `ws://` servers on an
+`https://` page (mixed content), origin checks, and filters that block the
+game's domains (the browser only talks to 55GMS). epoxy-server still refuses
+loopback and private addresses, so `*` cannot reach this machine.
+
+WebSockets are spoken by `game-net.js` itself over a raw TCP (`ws:`) or TLS
+(`wss:`) Wisp stream, not through Epoxy's WebSocket: Epoxy splits its socket
+and fastwebsockets' write half never flushes, so each frame sat in the Wisp
+stream until the next was sent, and a game that sends one message and waits
+for the answer (slither.io's handshake) hung. HTTP goes through Epoxy's
+`request`, which flushes. The Epoxy bundle (`/assets/lib/vendor-net.js`,
+about 1.7 MB) starts loading with the page. Bump the `?v=` on `game-net.js`
+in the pages that load it when it changes (game pages are never rebuilt).
+
+It does not help a game whose servers are gone (use the multiplayer server
+above), one that plays over WebRTC, or one whose login needs the original
+site's cookies.
+
+### Slither.io (`static/misc/slither-io/`)
+
+The client is the official one, ripped. It loads its server list from
+`https://slither.io/i80124.txt` (tunnelled; the rip rewrites it back from a
+local copy) and plays on `ws://<ip>:<port>/slither`, pinging `ws://<ip>:80/ptc`
+to pick a server. The servers only answer `Origin: http://slither.io`. The
+Twitter/Facebook box and analytics were removed; images the game loads on
+demand (cosmetics, code pad, team buttons) are in the files under `s/`.
+
 Design and plan for accounts: `docs/superpowers/specs/2026-11-16-1v1-accounts-competitive-design.md`,
 `docs/superpowers/plans/2026-11-16-1v1-accounts-competitive.md`.
 
