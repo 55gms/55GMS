@@ -138,7 +138,11 @@
     };
   }
 
-  if (root) {
+  // Images: root paths are remapped (data-root), and an image from the
+  // page's <base> host (the CDN, which always allows CORS) is fetched with
+  // CORS, so a game can still draw it into WebGL or read its pixels as it
+  // could when it came from its own origin.
+  {
     const src = Object.getOwnPropertyDescriptor(
       HTMLImageElement.prototype,
       "src",
@@ -147,6 +151,13 @@
       ...src,
       set(value) {
         const url = remap(resolve(value));
+        if (
+          url &&
+          url.host !== location.host &&
+          url.host === new URL(document.baseURI).host &&
+          this.crossOrigin === null
+        )
+          this.crossOrigin = "anonymous";
         src.set.call(this, url ? url.href : value);
       },
     });
