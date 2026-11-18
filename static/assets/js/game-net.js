@@ -214,6 +214,68 @@
 
   const originHeaders = () => (origin ? [["Origin", origin]] : []);
 
+  // Cookies for tunnelled requests. Responses that come through Wisp cannot
+  // set the browser's cookies, so a game whose login is a cookie session
+  // (Deeeep.io's API) keeps them here: one jar per game folder, in this
+  // site's localStorage, sent back only to the hosts that set them.
+  const jarKey =
+    "gms-net-cookies:" + location.pathname.split("/").slice(0, 3).join("/");
+  let jar = [];
+  try {
+    jar = JSON.parse(localStorage.getItem(jarKey) || "[]");
+  } catch {}
+  const live = (c) => !c.expires || c.expires > Date.now();
+  const domainMatch = (host, c) =>
+    c.hostOnly
+      ? host === c.domain
+      : host === c.domain || host.endsWith("." + c.domain);
+  const cookieFor = (url) =>
+    jar
+      .filter(
+        (c) =>
+          live(c) &&
+          domainMatch(url.hostname.toLowerCase(), c) &&
+          url.pathname.startsWith(c.path),
+      )
+      .map((c) => `${c.name}=${c.value}`)
+      .join("; ");
+  const keepCookie = (url, line) => {
+    const [pair, ...attrs] = String(line).split(";");
+    const eq = pair.indexOf("=");
+    if (eq < 1) return;
+    const host = url.hostname.toLowerCase();
+    const c = {
+      name: pair.slice(0, eq).trim(),
+      value: pair.slice(eq + 1).trim(),
+      domain: host,
+      hostOnly: true,
+      path: "/",
+      expires: 0,
+    };
+    for (const attr of attrs) {
+      const i = attr.indexOf("=");
+      const k = (i < 0 ? attr : attr.slice(0, i)).trim().toLowerCase();
+      const v = i < 0 ? "" : attr.slice(i + 1).trim();
+      if (k === "domain" && v) {
+        const d = v.replace(/^\./, "").toLowerCase();
+        if (host !== d && !host.endsWith("." + d)) return;
+        c.domain = d;
+        c.hostOnly = false;
+      } else if (k === "path" && v.startsWith("/")) c.path = v;
+      else if (k === "max-age" && v) c.expires = Date.now() + Number(v) * 1000;
+      else if (k === "expires" && !attrs.some((a) => /^\s*max-age=/i.test(a)))
+        c.expires = Date.parse(v) || 0;
+    }
+    jar = jar.filter(
+      (o) => !(o.name === c.name && o.domain === c.domain && o.path === c.path),
+    );
+    if (live(c)) jar.push(c);
+    jar = jar.filter(live);
+    try {
+      localStorage.setItem(jarKey, JSON.stringify(jar));
+    } catch {}
+  };
+
   // One HTTP request through Wisp, following redirects like fetch does.
   async function request(
     url,
@@ -227,10 +289,22 @@
   ) {
     const t = await ready();
     const sent = [...originHeaders()];
-    for (const [k, v] of headers)
-      if (k.toLowerCase() !== "origin" || !origin) sent.push([k, v]);
+    for (const [k, v] of headers) {
+      const name = k.toLowerCase();
+      if ((name !== "origin" || !origin) && name !== "cookie")
+        sent.push([k, v]);
+    }
     for (let hops = 0; ; hops++) {
-      const res = await t.request(url, method, body, sent, signal);
+      const cookie = cookieFor(url);
+      const res = await t.request(
+        url,
+        method,
+        body,
+        cookie ? [...sent, ["Cookie", cookie]] : sent,
+        signal,
+      );
+      for (const [k, v] of res.headers)
+        if (k.toLowerCase() === "set-cookie") keepCookie(url, v);
       const moved = res.headers.find(([k]) => k.toLowerCase() === "location");
       if (
         redirect === "follow" &&
@@ -529,6 +603,8 @@
           `User-Agent: ${navigator.userAgent}`,
         ];
         if (origin) lines.push(`Origin: ${origin}`);
+        const cookie = cookieFor(url);
+        if (cookie) lines.push(`Cookie: ${cookie}`);
         if (protocols.length)
           lines.push(`Sec-WebSocket-Protocol: ${protocols.join(", ")}`);
         await this.#writer.write(
@@ -559,6 +635,8 @@
         const headers = {};
         for (const line of fields) {
           const i = line.indexOf(":");
+          if (i > 0 && /^set-cookie$/i.test(line.slice(0, i).trim()))
+            keepCookie(url, line.slice(i + 1).trim());
           if (i > 0)
             headers[line.slice(0, i).trim().toLowerCase()] = line
               .slice(i + 1)
