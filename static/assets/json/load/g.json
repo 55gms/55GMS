@@ -1546,9 +1546,9 @@
   },
   {
     "name": "Slither.io",
-    "url": "https://slither.io/",
-    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/slither-io/img.webp",
-    "usesProxy": true
+    "author": "Steve Howse",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@a1477f62e98f12f880523cfe4eecee7cee256601/misc/slither-io/img.webp",
+    "usesProxy": false
   },
   {
     "name": "Level Devil",
