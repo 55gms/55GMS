@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+  <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
+    integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
+    crossorigin="anonymous"
+    data-game-id="mk48"
+    data-compat=""
+  ></script>
+    <!--
+        SPDX-FileCopyrightText: 2026 Softbear, Inc.
+    -->
+
+    <meta charset="utf-8">
+    <script
+    src="/assets/js/game-net.js?v=1"
+    data-sockets="*.mk48.io"
+    data-fetch="mk48.io *.mk48.io"
+    data-origin="https://mk48.io"
+    data-root="https://mk48.io"
+    data-local="/data/ /translation/"
+    data-disable="WebTransport"
+    data-block="*.adinplay.com *.vntsm.com *.venatusmedia.com *.inmobi.com *.affec.tv *.googlesyndication.com *.doubleclick.net"
+  ></script>
+  <base href="https://cdn.jsdelivr.net/gh/55gms/assets@a6189fcbc3f79635cd33b76383ed51f634c800f8/misc/mk48/" />
+  <script>
+    // The game reads its arena from the page's path; at /misc/mk48/ it would
+    // join a private arena named "misc" instead of the public one.
+    history.replaceState(history.state, "", location.origin + "/" + location.search);
+  </script>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <title>mk48.io - Free Multiplayer Ship Combat Game</title>
+    <meta name="description" content="Mk48.io is a multiplayer ship combat game. It is free to play online in a web browser with no install required. Start with a small warship and defeat rival players or collect floating barrels to earn upgrades to increasingly larger battleships, submarines, and aircraft carriers. Avoid torpedos and incoming shells. Team and chat with other players.">
+    <meta name="theme-color" content="#00487d">
+    <meta property="og:title" content="mk48.io"/>
+    <meta property="og:site_name" content="mk48.io"/>
+    <meta property="og:description" content="Mk48.io is a multiplayer ship combat game. It is free to play online in a web browser with no install required. Start with a small warship and defeat rival players or collect floating barrels to earn upgrades to increasingly larger battleships, submarines, and aircraft carriers. Avoid torpedos and incoming shells. Team and chat with other players."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="https://mk48.io/data/1920x1080.png"/>
+    <meta property="og:image:width" content="1920"/>
+    <meta property="og:image:height" content="1080"/>
+    <meta property="og:image:alt" content="mk48.io icon"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <link rel="canonical" href="https://mk48.io/">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":["VideoGame","WebApplication"],"applicationCategory":"GameApplication","author":{"@type":"Organization","name":"Softbear Games","url":"https://softbear.com"},"browserRequirements":"Requires WebAssembly and WebGL","description":"Mk48.io is a multiplayer ship combat game. It is free to play online in a web browser with no install required. Start with a small warship and defeat rival players or collect floating barrels to earn upgrades to increasingly larger battleships, submarines, and aircraft carriers. Avoid torpedos and incoming shells. Team and chat with other players.","genre":["ship","submarine","torpedo"],"image":"https://mk48.io/data/256x256.png","inLanguage":"en","name":"mk48.io","offers":{"@type":"Offer","availability":"https://schema.org/InStock","price":"0","priceCurrency":"USD"},"operatingSystem":"Web Browser","playMode":"MultiPlayer","screenshot":["https://mk48.io/data/screenshots/1920x1080.png","https://mk48.io/data/screenshots/1280x720.webp"],"url":"https://mk48.io/"}</script>
+    <link rel="icon" href="favicon.png"/>
+    <style>
+        #introduction, #page {
+            box-sizing: border-box;
+            max-width: calc(72ch + 40px);
+            margin: 0 auto;
+            padding: 40px 20px 64px;
+            font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            color: #e8e8f0;
+            user-select: text;
+            -webkit-user-select: text;
+        }
+        #introduction h1, #page h1 { font-size: 1.9em; line-height: 1.25; margin: 0 0 0.4em; }
+        #introduction h2, #page h3 { font-size: 1.3em; line-height: 1.3; margin: 1.5em 0 0.4em; }
+        #introduction h3, #page h4 { font-size: 1.05em; line-height: 1.3; margin: 1.2em 0 0.2em; }
+        #introduction ul, #introduction ol, #page ul, #page ol { padding-inline-start: 1.5em; }
+        #introduction a, #page a { color: #b8d4ff; }
+        #introduction img {
+            border-radius: 8px;
+            display: block;
+            height: auto;
+            margin: 1.5em 0;
+            max-width: 100%;
+        }
+        #introduction:empty, html.with-game #page { display: none; }
+        html.with-game #introduction { margin-top: 100vh; margin-top: 100svh; }
+        html.landing-held, html.landing-held body { height: 100%; }
+        html.landing-held { overflow-y: scroll; }
+        html.landing-held body { margin: 0; overflow: hidden; }
+        html.with-game:not(.scrolled) #introduction img { display: none; }
+        html.with-game body {
+            background-image: linear-gradient(to bottom, #00487d 0, #00487d 100vh, #173867 100vh, #0e223e 100%);
+            background-image: linear-gradient(to bottom, #00487d 0, #00487d 100svh, #173867 100svh, #0e223e 100%);
+        }
+        html.splash #app::after {
+            background: linear-gradient(to bottom, #17386700 0px, #17386728 10px, #17386780 20px, #173867d7 30px, #173867ff 40px);
+            bottom: 0;
+            content: "";
+            height: 60px;
+            left: 0;
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            right: 0;
+            transition: opacity 0.2s;
+            z-index: -999;
+        }
+        html.splash.scrolled #app::after { opacity: 1; }
+    </style>
+    <script>
+        function request_pointer_lock_with_unadjusted_movement(e) {
+            const promise = e.requestPointerLock({unadjustedMovement: true});
+            if (promise) {
+                promise.catch(er => {
+                    if (er.name === "NotSupportedError") {
+                        e.requestPointerLock();
+                    }
+                });
+            }
+        }
+    </script>
+    <script>(function() {
+    var loadedBytes = 0;
+    var totalBytes = 0;
+    var transferRatio = 1;
+
+    var stage = "Landed";
+    var reasonsLeft = 2;
+    var lastReason;
+
+    function describe(reason) {
+        if (reason && reason.stack) {
+            return String(reason.message || reason) + ": " + String(reason.stack);
+        }
+        return String(reason);
+    }
+
+    function report(reason) {
+        reason = describe(reason).slice(0, 512);
+        if (reason === lastReason || reasonsLeft <= 0) {
+            return;
+        }
+        lastReason = reason;
+        reasonsLeft--;
+        if (!navigator.sendBeacon) {
+            return;
+        }
+        try {
+            
+        } catch (e) {
+        }
+    }
+
+    var instantiateStreaming = WebAssembly.instantiateStreaming;
+    if (typeof instantiateStreaming === "function") {
+        WebAssembly.instantiateStreaming = function(source, imports) {
+            return instantiateStreaming.call(WebAssembly, source, imports).catch(function(e) {
+                if (e && (e.name === "CompileError" || e.name === "LinkError")) {
+                    stage = "WasmLoaded";
+                }
+                report(e);
+                throw e;
+            });
+        };
+    }
+
+    addEventListener("error", function(event) {
+        if (document.getElementById("canvas")) {
+            return;
+        }
+        var target = event.target;
+        var source = target && target !== window && (target.src || target.href);
+        report(source ? "failed to load " + source : (event.error || event.message));
+    }, true);
+    addEventListener("unhandledrejection", function(event) {
+        if (!document.getElementById("canvas")) {
+            report(event.reason);
+        }
+    });
+
+    // Google's renderer cannot handle WebAssembly.
+  var crawler = /Googlebot|Google-InspectionTool/.test(navigator.userAgent);
+  if (!crawler) {
+        document.documentElement.classList.add("with-game");
+        // The vast majority of clients will have landing re-enabled after GET system.json.
+        document.documentElement.classList.add("landing-held");
+        addEventListener("scroll", function reveal() {
+            document.documentElement.classList.add("scrolled");
+            removeEventListener("scroll", reveal);
+        }, {passive: true});
+        if ("scrollRestoration" in history) {
+            history.scrollRestoration = "manual";
+        }
+    }
+
+    var originalFetch = window.fetch;
+    window.fetch = function() {
+        var url = typeof arguments[0] === "string" ? arguments[0] : (arguments[0] && arguments[0].url) || "";
+        if (url.endsWith(".wasm")) {
+            if (crawler) {
+                return new Promise(function() {});
+            }
+            stage = "Wasm";
+            return originalFetch.apply(this, arguments).then(function(response) {
+                var contentLength = parseInt(response.headers.get("Content-Length"), 10);
+                var resourceSize = parseInt(response.headers.get("X-Resource-Size"), 10)
+                    || contentLength;
+                if (!response.body) {
+                    return response;
+                }
+                var tracking = resourceSize > 0;
+                if (tracking) {
+                    if (contentLength) {
+                        transferRatio = contentLength / resourceSize;
+                    }
+                    totalBytes += resourceSize;
+                    updateDisplay();
+                }
+                var reader = response.clone().body.getReader();
+                (function pump() {
+                    reader.read().then(function(result) {
+                        if (result.done) {
+                            stage = "WasmLoaded";
+                            return;
+                        }
+                        if (tracking) {
+                            loadedBytes += result.value.byteLength;
+                            updateDisplay();
+                        }
+                        pump();
+                    }).catch(function() {});
+                })();
+                return response;
+            });
+        }
+        return originalFetch.apply(this, arguments);
+    };
+
+    var bar, text, retry, container;
+    function ensureDom() {
+        if (!retry) {
+            bar = document.getElementById("load_bar_fill");
+            text = document.getElementById("load_text");
+            retry = document.getElementById("load_retry");
+            container = document.getElementById("load_container");
+            if (retry) {
+                retry.addEventListener("click", function() {
+                    window.location.reload();
+                });
+            }
+        }
+        return !!retry;
+    }
+
+    var startTime = Date.now();
+    var smoothedEta = 0;
+    var shown = false;
+
+    function updateDisplay() {
+        if (!ensureDom()) return;
+        if (!shown) {
+            shown = true;
+            container.style.opacity = "1";
+        }
+        if (totalBytes > 0) {
+            var fraction = Math.min(loadedBytes / totalBytes, 1);
+            bar.style.transform = "scaleX(" + fraction + ")";
+            var loadedMB = (loadedBytes * transferRatio / (1024 * 1024)).toFixed(1);
+            var totalMB = (totalBytes * transferRatio / (1024 * 1024)).toFixed(1);
+            var etaStr = "";
+            if (loadedBytes > 0 && loadedBytes < totalBytes) {
+                var elapsed = (Date.now() - startTime) / 1000;
+                var rawEta = (totalBytes - loadedBytes) / (loadedBytes / elapsed);
+                smoothedEta = smoothedEta > 0 ? smoothedEta * 0.8 + rawEta * 0.2 : rawEta;
+                etaStr = " (" + Math.ceil(smoothedEta) + "s remaining)";
+            }
+            text.textContent = loadedMB + "/" + totalMB + " MB" + etaStr;
+        }
+    }
+    var lastLoadedBytes = 0;
+    var stallTime = 0;
+
+    var interval = setInterval(function() {
+        if (!ensureDom()) return;
+        var elapsed = (Date.now() - startTime) / 1000;
+
+        if (document.getElementById("canvas")) {
+            clearInterval(interval);
+            if (container) container.style.display = "none";
+            return;
+        }
+
+        if (loadedBytes === lastLoadedBytes) {
+            stallTime += 0.5;
+        } else {
+            stallTime = 0;
+            lastLoadedBytes = loadedBytes;
+        }
+
+        var showWarning = false;
+        if (stallTime > 5) {
+            showWarning = true;
+        } else if (loadedBytes > 0 && totalBytes > 0 && loadedBytes < totalBytes) {
+            var rate = loadedBytes / elapsed;
+            var projected = totalBytes / rate;
+            if (projected > 15) {
+                showWarning = true;
+            }
+        } else if (elapsed > 15) {
+            showWarning = true;
+        }
+
+        if (showWarning) {
+            retry.style.visibility = "visible";
+        }
+    }, 500);
+})();
+</script>
+    
+<script type="module">
+import init, * as bindings from './client.js';
+init({ module_or_path: 'client_bg.wasm' }).then(wasm => {
+  
+window.wasmBindings = bindings;
+
+  
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+});
+</script>
+    
+    
+    
+<link rel="modulepreload" href="client.js" crossorigin="anonymous"><link rel="preload" href="client_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm"></head>
+<body style="background-color: #00487d;">
+    <div id="load_container" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; font-family: sans-serif; color: white; opacity: 0; transition: opacity 0.5s;">
+        <div style="margin-bottom: 0.75rem; font-size: 1rem;">Loading game...</div>
+        <div style="width: 20rem; max-width: 80vw; height: 0.5rem; background-color: #1a1a2e; border-radius: 0.25rem; overflow: hidden;">
+            <div id="load_bar_fill" style="width: 100%; height: 100%; background-color: #8888aa; transform: scaleX(0); transform-origin: left; transition: transform 0.3s;"></div>
+        </div>
+        <div id="load_text" style="margin-top: 0.5rem; font-size: 0.85rem; color: #aaa; min-height: 1.2em;">&nbsp;</div>
+        <div style="padding-top: 1rem;">
+            <button id="load_retry" style="visibility: hidden; padding: 0.4rem 1.2rem; border-radius: 0.25rem; background-color: #505050; border: 1px solid #666; color: white; font-size: 0.85rem; cursor: pointer;">Retry</button>
+        </div>
+    </div>
+    <section id="introduction">
+<h1>Mk48.io — Free Multiplayer Ship Combat Game</h1>
+<p><b>Free · No download · Plays in your browser · Works on Chromebooks</b></p>
+<p>Mk48.io is a multiplayer naval combat game you play right in your web browser. You start with a small warship and earn points by collecting crates from the sea and sinking other ships. Spend them on upgrades through ten levels of ships, from torpedo boats to destroyers, battleships, submarines and aircraft carriers. There is nothing to install and no account to create: press Play and you are at sea.</p>
+<p><img src="data/screenshots/1280x720.webp" alt="Mk48.io gameplay: a warship at sea between two oil platforms, seen from above" width="1280" height="720" loading="lazy" decoding="async"></p>
+<h2>How to play Mk48.io</h2>
+<ul>
+<li><b>Steer</b> by holding the right mouse button, or the left one. Your ship  turns toward the cursor, and the farther away the cursor is, the faster it  goes. WASD or the arrow keys also steer, and X stops. On a phone or tablet,  touch in the direction you want to go.</li>
+<li><b>Fire</b> with a click of the left mouse button, Space or E, or with a tap  on a touch screen. Choose a weapon group with 1 to 6, or cycle with Tab.</li>
+<li><b>Collect crates</b> by sailing into them. Sinking a ship also scores, and  it leaves floating loot behind.</li>
+<li><b>Upgrade</b> once you have enough points: pick a bigger ship at the top of  the screen.</li>
+<li><b>Team up.</b> In Fleet FFA, form a fleet with other players from the panel at  the top left; members of a fleet cannot hurt each other. In 2 Fleets, every  player sails for red or blue.</li>
+<li><b>Climb the ranks</b>, from Ensign through Lieutenant, Commander, Captain and  Colonel to Admiral. At the top rank you keep more points when you sink.</li>
+</ul>
+<h2>How do sensors work?</h2>
+<p>Every ship spots others with some mix of sight, radar and sonar. Radar cannot see below the surface, and sonar cannot hear anything in the air. Press Z to switch your sensors between passive and active. Active sensors show you more, but they give away your position, and homing weapons lock on to you more easily. Bigger ships are easier to detect, and passive sonar hears more when you move slowly, because your own noise drowns it out.</p>
+<h2>Tips</h2>
+<ul>
+<li><b>Grab crates when damaged.</b> Each one repairs your ship a little and speeds  up reloading.</li>
+<li><b>Upgrade with care.</b> A bigger ship runs aground more easily, damaging it.</li>
+<li><b>Stay passive to stay hidden.</b> Switch to active sensors when you need to  find a target, then switch back.</li>
+</ul>
+<h2>Play with friends</h2>
+<p>Press <b>Play with friends</b> to get an invite code. Share it, and your friends join you on the public server or on a party server of your own.</p>
+<h2>Frequently asked questions</h2>
+<h3>Is Mk48.io free?</h3>
+<p>Yes. It is free to play in your web browser, with nothing to download.</p>
+<h3>Do I need an account?</h3>
+<p>No. Press Play and you are in.</p>
+<h3>Can I play alone?</h3>
+<p>Yes. Online servers include bots, and the cloud icon on the start screen switches to single player, offline.</p>
+<h3>Does it work on a phone or Chromebook?</h3>
+<p>Yes. Mk48.io runs in any modern browser, on desktops, laptops and Chromebooks, and on phones and tablets with touch controls.</p>
+<h2>Play Mk48.io unblocked</h2>
+<p>Mk48.io is a lightweight browser game. It runs on almost any device with a modern browser, including Chromebooks and other low-powered laptops, with no downloads or plugins. <a href="#">Play Mk48.io now</a>, free.</p>
+<h2>More free games from Softbear</h2>
+<ul>
+<li><a href="https://kiomet.com/" target="_blank" rel="noopener noreferrer">Kiomet</a>: real-time strategy. Build supply lines and  upgrade your bases.</li>
+<li><a href="https://krakax.com/" target="_blank" rel="noopener noreferrer">Krakax</a>: ancient archery meets gravity.</li>
+<li><a href="https://mazean.com/" target="_blank" rel="noopener noreferrer">Mazean</a>: a first-person shooter of lasers and force  fields.</li>
+<li><a href="https://netquel.com/" target="_blank" rel="noopener noreferrer">Netquel</a>: mine asteroids and build a fleet of robotic  spacecraft.</li>
+<li><a href="https://tankgank.com/" target="_blank" rel="noopener noreferrer">Tankgank</a>: tank combat for territory.</li>
+<li><a href="https://turnfight.com/" target="_blank" rel="noopener noreferrer">Turnfight</a>: dogfights over the clouds and the ocean.</li>
+<li><a href="https://voxmaxa.com/" target="_blank" rel="noopener noreferrer">Voxmaxa</a>: duel knights and trolls, and build forts  out of blocks.</li>
+</ul>
+<p>Browse them all at <a href="https://softbear.com/" target="_blank" rel="noopener noreferrer">Softbear Games</a>.</p>
+<p><a href="/help/">Help</a> · <a href="/ships/">Ships</a> · <a href="/about/">About</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></p>
+    </section>
+</body>
+</html>

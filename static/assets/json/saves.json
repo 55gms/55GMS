@@ -2114,6 +2114,13 @@
    "status": "observed",
    "renamed": {}
   },
+  "mk48": {
+   "id": "mk48",
+   "name": "MK48.io",
+   "play": "/misc/play/?title=MK48.io&link=mk48",
+   "frame": "/misc/mk48/index.html",
+   "status": "observed"
+  },
   "monkey-mart": {
    "id": "monkey-mart",
    "name": "Monkey Mart",
@@ -2914,6 +2921,13 @@
    "frame": "/misc/shellshock/index.html",
    "status": "local-only"
   },
+  "ships": {
+   "id": "ships",
+   "name": "Ships 3D",
+   "play": "/misc/play/?title=Ships%203D&link=ships",
+   "frame": "/misc/ships/index.html",
+   "status": "observed"
+  },
   "sketchbook": {
    "id": "sketchbook",
    "name": "Sketchbook",
@@ -2926,6 +2940,13 @@
    "name": "Skibidi Shooter",
    "play": "/misc/play/?title=Skibidi%20Shooter&link=skibidi-shooter",
    "frame": "/misc/skibidi-shooter/index.html",
+   "status": "observed"
+  },
+  "skribbl-io": {
+   "id": "skribbl-io",
+   "name": "Skribbl.io",
+   "play": "/misc/play/?title=Skribbl.io&link=skribbl-io",
+   "frame": "/misc/skribbl-io/index.html",
    "status": "observed"
   },
   "skyriders": {
@@ -3383,6 +3404,13 @@
    "frame": "/misc/templeofboom/index.html",
    "status": "observed"
   },
+  "territorial-io": {
+   "id": "territorial-io",
+   "name": "Territorial.io",
+   "play": "/misc/play/?title=Territorial.io&link=territorial-io",
+   "frame": "/misc/territorial-io/index.html",
+   "status": "observed"
+  },
   "the-baby-in-yellow": {
    "id": "the-baby-in-yellow",
    "name": "The Baby In Yellow",
@@ -3719,6 +3747,12 @@
    "play": "/misc/play/?title=Zombie%20Derby&author=BrineMedia&link=zombiederby",
    "frame": "/misc/zombiederby/index.html",
    "status": "observed"
+  },
+  "zorr-pro": {
+   "id": "zorr-pro",
+   "name": "Zorr.pro",
+   "play": "/misc/play/?title=Zorr.pro&link=zorr-pro",
+   "frame": "/misc/zorr-pro/index.html"
   },
   "krillion": {
    "id": "krillion",

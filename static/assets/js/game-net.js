@@ -15,6 +15,13 @@
 // data-sockets  hosts whose WebSockets go through Wisp
 // data-fetch    hosts whose fetch and XMLHttpRequest calls go through Wisp
 // data-origin   the Origin header sent with both (the game's own site)
+// data-root     for a game that expects to be at the root of its own site:
+//               that site's origin. Root paths and this host's sockets go
+//               there (see remap below).
+// data-local    root path prefixes that stay in the game folder ("/data/")
+// data-block    hosts whose <script>s never load (a game's own ad code)
+// data-disable  globals to remove, such as WebTransport, which Wisp cannot
+//               carry, so the game falls back to a WebSocket
 //
 // Hosts are separated by spaces or commas: "slither.io" is that host only,
 // "*.slither.io" also its subdomains, "*" every host but this page's own.
@@ -33,7 +40,23 @@
   const socketHosts = hosts(data.sockets);
   const fetchHosts = hosts(data.fetch);
   const origin = data.origin || "";
-  if (!socketHosts.length && !fetchHosts.length) return;
+  let root = null;
+  try {
+    if (data.root) root = new URL(data.root);
+  } catch {}
+  const localPaths = String(data.local || "")
+    .split(/[\s,]+/)
+    .filter((p) => p.startsWith("/"));
+  for (const name of String(data.disable || "").split(/[\s,]+/))
+    if (name) {
+      try {
+        delete window[name];
+      } catch {}
+      if (name in window) window[name] = undefined;
+    }
+  const blocked = hosts(data.block);
+  if (!socketHosts.length && !fetchHosts.length && !root && !blocked.length)
+    return;
 
   const pageHost = location.host.toLowerCase();
   const matches = (patterns, url) => {
@@ -55,6 +78,91 @@
     }
   };
 
+  // data-root: the game thinks it is at the root of its own site. A root
+  // path (which lands on this page's host, or on the CDN's host through the
+  // page's <base>) goes to that site, or stays in the game folder when it
+  // starts with one of data-local's prefixes; a server on a subdomain of
+  // this page's host ("2.<host>") becomes the same subdomain of that site.
+  const SITE_PATHS = /^\/(assets|api|misc|img|_ads)\//;
+  const remap = (url) => {
+    if (!root || !url) return url;
+    const base = new URL(document.baseURI);
+    const page = location.hostname.toLowerCase();
+    const host = url.hostname.toLowerCase();
+    const atRoot =
+      (url.host === location.host && !SITE_PATHS.test(url.pathname)) ||
+      (base.host !== location.host &&
+        url.host === base.host &&
+        !/^\/(gh|npm)\//.test(url.pathname));
+    const sub =
+      !atRoot && host.endsWith("." + page) ? host.slice(0, -page.length) : null;
+    if (!atRoot && sub === null) return url;
+    const path = url.pathname + url.search + url.hash;
+    if (atRoot && localPaths.some((p) => url.pathname.startsWith(p)))
+      return new URL(path.slice(1), base);
+    const out = new URL(path, root);
+    if (sub) out.hostname = sub + root.hostname;
+    if (/^wss?:$/.test(url.protocol))
+      out.protocol = root.protocol === "https:" ? "wss:" : "ws:";
+    return out;
+  };
+  // data-block: hosts whose scripts never load (the ad and tracking code a
+  // game pulls in by itself). The script fires "error", as if it had failed.
+  if (blocked.length) {
+    const desc = Object.getOwnPropertyDescriptor(
+      HTMLScriptElement.prototype,
+      "src",
+    );
+    const refuse = (el) =>
+      setTimeout(() => el.dispatchEvent(new Event("error")));
+    const isBlocked = (value) => {
+      const url = resolve(value);
+      return !!url && matches(blocked, url);
+    };
+    Object.defineProperty(HTMLScriptElement.prototype, "src", {
+      ...desc,
+      set(value) {
+        if (isBlocked(value)) refuse(this);
+        else desc.set.call(this, value);
+      },
+    });
+    const setAttribute = Element.prototype.setAttribute;
+    Element.prototype.setAttribute = function (name, value) {
+      if (
+        this instanceof HTMLScriptElement &&
+        String(name).toLowerCase() === "src" &&
+        isBlocked(value)
+      )
+        return refuse(this);
+      return setAttribute.call(this, name, value);
+    };
+  }
+
+  // Images: root paths are remapped (data-root), and an image from the
+  // page's <base> host (the CDN, which always allows CORS) is fetched with
+  // CORS, so a game can still draw it into WebGL or read its pixels as it
+  // could when it came from its own origin.
+  {
+    const src = Object.getOwnPropertyDescriptor(
+      HTMLImageElement.prototype,
+      "src",
+    );
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      ...src,
+      set(value) {
+        const url = remap(resolve(value));
+        if (
+          url &&
+          url.host !== location.host &&
+          url.host === new URL(document.baseURI).host &&
+          this.crossOrigin === null
+        )
+          this.crossOrigin = "anonymous";
+        src.set.call(this, url ? url.href : value);
+      },
+    });
+  }
+
   // The transport is the proxy's own Epoxy build (utils/proxyAssets.js). It
   // is large, so it starts loading now, while the game loads, and every
   // connection waits for it.
@@ -72,11 +180,28 @@
         if (amd) window.define.amd = amd;
         tag.remove();
       };
-      tag.onload = () => {
+      // Intermediate certificates the TLS client trusts on top of its roots:
+      // browsers fetch a server's missing intermediate (AIA), rustls does
+      // not, so a game server that sends only its leaf would fail.
+      const certs = fetch(
+        location.origin + "/assets/json/tls-intermediates.json",
+      )
+        .then((r) => (r.ok ? r.json() : {}))
+        .then((j) => (Array.isArray(j.certs) ? j.certs : []))
+        .catch(() => []);
+      tag.onload = async () => {
         done();
         const Transport = window[["Epo", "xyTran", "sport"].join("")];
         if (!Transport) return reject(new Error("The transport did not load."));
         const t = new Transport.default({ wisp, wisp_v2: true });
+        const pems = await certs;
+        // The transport copies only its own options onto the client's; add
+        // the certificates while it does.
+        const setopt = t.setopt;
+        t.setopt = function (options, opt) {
+          if (pems.length) options.pem_files = pems;
+          return setopt.call(this, options, opt);
+        };
         t.init().then(() => resolve(t), reject);
       };
       tag.onerror = () => {
@@ -88,6 +213,68 @@
   ready().catch((err) => console.warn("game-net:", err));
 
   const originHeaders = () => (origin ? [["Origin", origin]] : []);
+
+  // Cookies for tunnelled requests. Responses that come through Wisp cannot
+  // set the browser's cookies, so a game whose login is a cookie session
+  // (Deeeep.io's API) keeps them here: one jar per game folder, in this
+  // site's localStorage, sent back only to the hosts that set them.
+  const jarKey =
+    "gms-net-cookies:" + location.pathname.split("/").slice(0, 3).join("/");
+  let jar = [];
+  try {
+    jar = JSON.parse(localStorage.getItem(jarKey) || "[]");
+  } catch {}
+  const live = (c) => !c.expires || c.expires > Date.now();
+  const domainMatch = (host, c) =>
+    c.hostOnly
+      ? host === c.domain
+      : host === c.domain || host.endsWith("." + c.domain);
+  const cookieFor = (url) =>
+    jar
+      .filter(
+        (c) =>
+          live(c) &&
+          domainMatch(url.hostname.toLowerCase(), c) &&
+          url.pathname.startsWith(c.path),
+      )
+      .map((c) => `${c.name}=${c.value}`)
+      .join("; ");
+  const keepCookie = (url, line) => {
+    const [pair, ...attrs] = String(line).split(";");
+    const eq = pair.indexOf("=");
+    if (eq < 1) return;
+    const host = url.hostname.toLowerCase();
+    const c = {
+      name: pair.slice(0, eq).trim(),
+      value: pair.slice(eq + 1).trim(),
+      domain: host,
+      hostOnly: true,
+      path: "/",
+      expires: 0,
+    };
+    for (const attr of attrs) {
+      const i = attr.indexOf("=");
+      const k = (i < 0 ? attr : attr.slice(0, i)).trim().toLowerCase();
+      const v = i < 0 ? "" : attr.slice(i + 1).trim();
+      if (k === "domain" && v) {
+        const d = v.replace(/^\./, "").toLowerCase();
+        if (host !== d && !host.endsWith("." + d)) return;
+        c.domain = d;
+        c.hostOnly = false;
+      } else if (k === "path" && v.startsWith("/")) c.path = v;
+      else if (k === "max-age" && v) c.expires = Date.now() + Number(v) * 1000;
+      else if (k === "expires" && !attrs.some((a) => /^\s*max-age=/i.test(a)))
+        c.expires = Date.parse(v) || 0;
+    }
+    jar = jar.filter(
+      (o) => !(o.name === c.name && o.domain === c.domain && o.path === c.path),
+    );
+    if (live(c)) jar.push(c);
+    jar = jar.filter(live);
+    try {
+      localStorage.setItem(jarKey, JSON.stringify(jar));
+    } catch {}
+  };
 
   // One HTTP request through Wisp, following redirects like fetch does.
   async function request(
@@ -102,10 +289,22 @@
   ) {
     const t = await ready();
     const sent = [...originHeaders()];
-    for (const [k, v] of headers)
-      if (k.toLowerCase() !== "origin" || !origin) sent.push([k, v]);
+    for (const [k, v] of headers) {
+      const name = k.toLowerCase();
+      if ((name !== "origin" || !origin) && name !== "cookie")
+        sent.push([k, v]);
+    }
     for (let hops = 0; ; hops++) {
-      const res = await t.request(url, method, body, sent, signal);
+      const cookie = cookieFor(url);
+      const res = await t.request(
+        url,
+        method,
+        body,
+        cookie ? [...sent, ["Cookie", cookie]] : sent,
+        signal,
+      );
+      for (const [k, v] of res.headers)
+        if (k.toLowerCase() === "set-cookie") keepCookie(url, v);
       const moved = res.headers.find(([k]) => k.toLowerCase() === "location");
       if (
         redirect === "follow" &&
@@ -142,12 +341,24 @@
     }
   }
 
-  if (fetchHosts.length) {
+  if (fetchHosts.length || root) {
     const nativeFetch = window.fetch;
     window.fetch = function (input, init) {
-      const url = resolve(input instanceof Request ? input.url : input);
-      if (!url || !/^https?:$/.test(url.protocol) || !matches(fetchHosts, url))
-        return nativeFetch.apply(this, arguments);
+      const raw = resolve(input instanceof Request ? input.url : input);
+      const url = remap(raw);
+      if (
+        !url ||
+        !/^https?:$/.test(url.protocol) ||
+        !matches(fetchHosts, url)
+      ) {
+        if (!url || url.href === raw.href)
+          return nativeFetch.apply(this, arguments);
+        return nativeFetch.call(
+          this,
+          input instanceof Request ? new Request(url.href, input) : url.href,
+          init,
+        );
+      }
       return (async () => {
         const req = new Request(
           input instanceof Request ? input : url.href,
@@ -191,7 +402,7 @@
     XHR.open = function (method, url, async) {
       pending.delete(this);
       for (const k of RESULT) delete this[k];
-      const target = resolve(url);
+      const target = remap(resolve(url));
       if (
         target &&
         async !== false &&
@@ -203,7 +414,9 @@
           url: target,
           headers: [],
         });
-      return open.apply(this, arguments);
+      const args = [...arguments];
+      if (target) args[1] = target.href;
+      return open.apply(this, args);
     };
     XHR.setRequestHeader = function (name, value) {
       setRequestHeader.call(this, name, value);
@@ -292,7 +505,7 @@
     };
   }
 
-  if (socketHosts.length) {
+  if (socketHosts.length || root) {
     const Native = window.WebSocket;
     const [CONNECTING, OPEN, CLOSING, CLOSED] = [0, 1, 2, 3];
     const TYPES = ["open", "message", "error", "close"];
@@ -390,6 +603,8 @@
           `User-Agent: ${navigator.userAgent}`,
         ];
         if (origin) lines.push(`Origin: ${origin}`);
+        const cookie = cookieFor(url);
+        if (cookie) lines.push(`Cookie: ${cookie}`);
         if (protocols.length)
           lines.push(`Sec-WebSocket-Protocol: ${protocols.join(", ")}`);
         await this.#writer.write(
@@ -420,6 +635,8 @@
         const headers = {};
         for (const line of fields) {
           const i = line.indexOf(":");
+          if (i > 0 && /^set-cookie$/i.test(line.slice(0, i).trim()))
+            keepCookie(url, line.slice(i + 1).trim());
           if (i > 0)
             headers[line.slice(0, i).trim().toLowerCase()] = line
               .slice(i + 1)
@@ -665,7 +882,8 @@
         throw new TypeError(
           "Failed to construct 'WebSocket': Please use the 'new' operator.",
         );
-      const target = resolve(url);
+      const raw = resolve(url);
+      const target = remap(raw);
       if (
         target &&
         /^(wss?|https?):$/.test(target.protocol) &&
@@ -674,6 +892,7 @@
         target.protocol = target.protocol.replace(/^http/, "ws");
         return new TunnelSocket(target, protocols);
       }
+      if (target && target.href !== raw.href) url = target.href;
       return protocols === undefined
         ? new Native(url)
         : new Native(url, protocols);

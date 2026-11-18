@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- Copyright © 2026 David Tschacher. All rights reserved. -->
+<html lang="en">
+
+<head>
+  <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
+    integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
+    crossorigin="anonymous"
+    data-game-id="territorial-io"
+    data-compat=""
+  ></script>
+  <meta charset="utf-8" />
+    <script
+    src="/assets/js/game-net.js?v=1"
+    data-sockets="territorial.io *.territorial.io"
+    data-fetch="territorial.io *.territorial.io"
+    data-origin="https://territorial.io"
+  ></script>
+  <base href="https://cdn.jsdelivr.net/gh/55gms/assets@a6189fcbc3f79635cd33b76383ed51f634c800f8/misc/territorial-io/" />
+  <title>Territorial.io</title>
+  <meta name="description"
+    content="Territorial.io - The Art of Conquest. A real-time strategy game in the browser: conquer land in multiplayer games or alone against bots. Wiki and API: territorial.io/wiki">
+  <link rel="help" href="https://territorial.io/wiki">
+  <link rel="canonical" href="https://territorial.io/">
+  <meta name="keywords"
+    content="territorial.io, territorial, territorial game, conquest game, conquer game, territory game">
+  <meta name="author" content="David Tschacher">
+  <meta name="viewport" content="width=device-width, maximum-scale=1">
+
+  <style>
+    html,
+    body {
+      overflow: hidden;
+      padding: 0;
+      margin: 0;
+      background: black;
+      color: white;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    a {
+      color: rgb(225, 225, 255);
+    }
+  </style>
+</head>
+
+<body>
+
+  <noscript>
+    <h1>Territorial.io</h1>
+    <p>Territorial.io is a real-time strategy game in the browser. Players conquer land in
+      multiplayer games (teams, battle royale, 1v1, zombie) or alone against bots.
+      The game needs JavaScript.</p>
+    <ul>
+      <li><a href="https://territorial.io/wiki">Wiki: all articles</a></li>
+      <li><a href="https://territorial.io/wiki/api">API: send Gold, create accounts, read
+          account and clan data over HTTP</a></li>
+      <li><a href="https://territorial.io/wiki/faq">FAQ</a></li>
+      <li><a href="https://territorial.io/changelog">Changelog</a></li>
+      <li><a href="https://territorial.io/terms">Terms of Service</a></li>
+      <li><a href="https://territorial.io/privacy">Privacy Policy</a></li>
+    </ul>
+  </noscript>
+
+  <canvas id="canvasA" width="128" height="128"></canvas>
+
+  <script src="game.js"></script>
+</body>
+
+</html>
