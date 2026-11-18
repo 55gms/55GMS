@@ -3719,6 +3719,13 @@
    "play": "/misc/play/?title=Zombie%20Derby&author=BrineMedia&link=zombiederby",
    "frame": "/misc/zombiederby/index.html",
    "status": "observed"
+  },
+  "krillion": {
+   "id": "krillion",
+   "name": "Krillion",
+   "play": "/misc/play/?title=Krillion&link=krillion",
+   "frame": "/misc/krillion/index.html",
+   "status": "observed"
   }
  }
 }
