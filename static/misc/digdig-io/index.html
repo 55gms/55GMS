@@ -62,9 +62,60 @@
 		};
 		const nativeFetch = window.fetch;
 		window.fetch = (input, init) => nativeFetch(typeof input === "string" ? rewrite(input) : input, init);
+
+		// A 55GMS account stands in for the game's Discord login. Signed in to
+		// 55GMS, the page saves a game token as the game's own login before the
+		// game starts; the game sends it to the multiplayer server, which keeps
+		// gold and skins on the account (/api/digdig/*). Signed out, the login
+		// buttons (patched in client.js and client.wasm) open the 55GMS sign-in.
+		const LOGIN_KEY = "oauth2_data_DO_NOT_SHARE";
+		// what the game keeps: base64 of id, provider, token, display name (each
+		// NUL-ended), the expiry as a little-endian f64 (ms), and an avatar
+		const saveLogin = (a) => {
+			const enc = new TextEncoder();
+			const str = (t) => [...enc.encode(t), 0];
+			const time = new Uint8Array(new Float64Array([a.expires]).buffer);
+			const bytes = [...str(a.uuid), ...str("discord"), ...str(a.token), ...str(`@${a.handle}`), ...time, ...str("")];
+			localStorage.setItem(LOGIN_KEY, btoa(String.fromCharCode(...bytes)));
+		};
+		window.gmsAccountReady = (async () => {
+			let session = null;
+			try {
+				session = localStorage.getItem("gms-session");
+			} catch {}
+			try {
+				const response = await nativeFetch(`${location.origin}/api/digdig/token`, {
+					method: "POST",
+					credentials: "same-origin",
+					headers: session ? { "X-GMS-Session": session } : {},
+				});
+				if (response.ok) saveLogin(await response.json());
+				// signed out (or the feature is off): no login, so no stale one either
+				else if ([401, 409, 503].includes(response.status)) localStorage.removeItem(LOGIN_KEY);
+			} catch {}
+		})();
+		const goTop = (path) => {
+			let here = "/";
+			try {
+				here = window.top.location.pathname + window.top.location.search;
+			} catch {}
+			// Absolute: this page's <base> is the game's CDN folder.
+			const target = `${location.origin}${path}?next=${encodeURIComponent(here)}`;
+			try {
+				window.top.location.href = target;
+			} catch {
+				location.href = target;
+			}
+		};
+		window.gmsNavigate = (url) => {
+			if (/^https:\/\/discord\.com\/api\/oauth2\/authorize/.test(url)) goTop("/login");
+			else if (/^https:\/\/appleid\.apple\.com\//.test(url)) goTop("/signup");
+			else return url;
+			return "javascript:void 0";
+		};
 	})();
 </script>
-<base href="https://cdn.jsdelivr.net/gh/55gms/assets@196bdfbd1dc38aee759b78add8442cd343f6a35b/misc/digdig-io/" />
+<base href="https://cdn.jsdelivr.net/gh/55gms/assets@53ab7203a2a57180d8b3eb016232734f6c4e2de6/misc/digdig-io/" />
 <title>digdig.io</title>
 <meta name="description" content="Dig and destroy your foes">
 <meta name="theme-color" content="#522e00">
@@ -198,11 +249,20 @@ Module.canvas = document.getElementById("canvas");
 		return;
 	}
 	document.getElementById("canvas").style.display = "block";
-	var gameScript = document.createElement('script');
-	gameScript.async = true;
-	gameScript.src = baseHref + "client.js";
-	var node = document.getElementsByTagName('script')[0];
-	node.parentNode.insertBefore(gameScript, node);
+	// the game reads its saved login as it starts: wait for the 55GMS one
+	// (a few seconds at most)
+	var started = false;
+	function start() {
+		if (started) return;
+		started = true;
+		var gameScript = document.createElement('script');
+		gameScript.async = true;
+		gameScript.src = baseHref + "client.js";
+		var node = document.getElementsByTagName('script')[0];
+		node.parentNode.insertBefore(gameScript, node);
+	}
+	setTimeout(start, 4000);
+	(window.gmsAccountReady || Promise.resolve()).then(start, start);
 })(window, document);
 </script>
 </body>
