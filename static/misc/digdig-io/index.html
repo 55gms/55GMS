@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
+    integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
+    crossorigin="anonymous"
+    data-game-id="digdig-io"
+    data-compat=""
+  ></script>
+<meta charset="utf-8">
+<script>
+	// digdig.io plays on the 55GMS multiplayer server (github.com/55gms/multiplayer,
+	// games/digdig), which speaks the client's own protocol and keeps bots in every
+	// lobby. M28's server list (api.n.m28.io) and game servers (*.s.m28n.net) are
+	// both answered on this page's own host.
+	(() => {
+		let base = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/api/mp`;
+		try {
+			base = localStorage.getItem("gms-mp-base") || base;
+		} catch {}
+		const httpBase = base.replace(/^ws/, "http");
+		const rewrite = (url) => {
+			try {
+				const u = new URL(url, location.href);
+				if (/(^|\.)m28n\.net$/i.test(u.hostname)) return base + "/digdig/play";
+				if (/(^|\.)n\.m28\.io$/i.test(u.hostname)) return httpBase + "/digdig/servers";
+			} catch {}
+			return url;
+		};
+		const Native = window.WebSocket;
+		function GMSWebSocket(url, protocols) {
+			return protocols === undefined ? new Native(rewrite(url)) : new Native(rewrite(url), protocols);
+		}
+		GMSWebSocket.prototype = Native.prototype;
+		for (const k of ["CONNECTING", "OPEN", "CLOSING", "CLOSED"]) GMSWebSocket[k] = Native[k];
+		window.WebSocket = GMSWebSocket;
+		const open = XMLHttpRequest.prototype.open;
+		XMLHttpRequest.prototype.open = function (method, url, ...rest) {
+			return open.call(this, method, rewrite(url), ...rest);
+		};
+		const nativeFetch = window.fetch;
+		window.fetch = (input, init) => nativeFetch(typeof input === "string" ? rewrite(input) : input, init);
+	})();
+</script>
+<base href="https://cdn.jsdelivr.net/gh/55gms/assets@196bdfbd1dc38aee759b78add8442cd343f6a35b/misc/digdig-io/" />
+<title>digdig.io</title>
+<meta name="description" content="Dig and destroy your foes">
+<meta name="theme-color" content="#522e00">
+<script>var baseHref = document.baseURI;</script>
+<script>var versionHash = "2749f7bafff1e95846c87486cda9d7184c0a06bf";</script>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+<meta name="viewport" content="user-scalable=no, width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, minimum-scale=1, shrink-to-fit=no, viewport-fit=cover">
+<style>
+:root {
+	--sat: env(safe-area-inset-top);
+	--sar: env(safe-area-inset-right);
+	--sab: env(safe-area-inset-bottom);
+	--sal: env(safe-area-inset-left);
+}
+html, body, #canvas {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+body {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: #181818;
+}
+a, a:visited {
+	color: #3333FF;
+	text-decoration: none
+}
+a:hover {
+	color: #6666FF;
+}
+#status-container {
+	color: #FFFFFF;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 48pt;
+	font-family: sans-serif;
+	font-weight: bold;
+	cursor: default;
+	text-align: center;
+}
+#status-container small {
+	font-size: 50%;
+}
+#canvas {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	width: 100dvw;
+	height: 100dvh;
+	cursor: default;
+}
+#canvas[data-fake-landscape="true"], #textInputContainer[data-fake-landscape="true"] {
+	width: 100vh;
+	height: 100vw;
+	width: 100dvh;
+	height: 100dvw;
+	transform: translate(100vw, 0px) rotate(90deg);
+	transform: translate(100dvw, 0px) rotate(90deg);
+	transform-origin: left top;
+}
+#canvasOverlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+#textInputContainer {
+	position: fixed;
+	pointer-events: none;
+}
+@font-face {
+	font-family: 'Game';
+	font-style: normal;
+	font-weight: 700;
+	src: url('Ubuntu-B.ttf') format('truetype');
+}
+.textInput {
+	background-color: transparent;
+	font-family: 'Game', 'Microsoft YaHei', sans-serif;
+	font-weight: 700;
+	padding: 0;
+	border: 0;
+	outline: none;
+	pointer-events: all;
+}
+</style>
+</head>
+<body>
+<div id="status-container">
+	<span id="loading">Loading...</span>
+	<span id="unsupported" style="display: none;">
+		Your browser isn't supported<br />
+		<small>try <a href="https://www.google.com/chrome/">Google Chrome</a> or <a href="https://www.mozilla.org/en-US/firefox/">Firefox</a></small>
+	</span>
+	<span id="errorDialog" style="display: none;">
+		Error<br />
+		<small>Uninstall any scripts you may have,<br />as they might be interfering with the game</small>
+	</span>
+</div>
+
+<canvas id="canvas" width="800" height="800" style="display: none;" oncontextmenu="return false;"></canvas>
+
+<div style="font-family:'Game'; display:none;">&nbsp;&#33457;</div>
+<div id="textInputContainer"></div>
+
+<script>
+window["cp6"] = window["cp6"] || {};
+window["Module"] = window["Module"] || {};
+Module.canvas = document.getElementById("canvas");
+
+(function(window, document){
+	var canvas = document.createElement("canvas");
+	if(!canvas || !canvas.getContext){
+		document.getElementById("loading").style.display = "none";
+		document.getElementById("unsupported").style.display = "block";
+		return;
+	}
+	document.getElementById("canvas").style.display = "block";
+	var gameScript = document.createElement('script');
+	gameScript.async = true;
+	gameScript.src = baseHref + "client.js";
+	var node = document.getElementsByTagName('script')[0];
+	node.parentNode.insertBefore(gameScript, node);
+})(window, document);
+</script>
+</body>
+</html>
