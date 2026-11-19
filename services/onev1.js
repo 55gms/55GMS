@@ -382,6 +382,17 @@ export async function claimReward(uuid, params) {
 }
 
 // Advances the pass to the next tier for tier_up_price coins.
+// LOL Pass premium comes with 55GMS Premium, so there is nothing to buy: a
+// premium account is told it worked (the game then shows its pass as
+// premium, as login already says), and anyone else gets a 402, on which the
+// page offers /premium. The game asks whenever it shows "Activate", which it
+// can do for a premium account that logged in before its premium started.
+export async function buyPremium(uuid) {
+  const account = await accountOf(uuid);
+  if (!account.premium) throw new GameError("premium", 402);
+  return {};
+}
+
 export async function buyTierUp(uuid) {
   return sequelize.transaction(async (transaction) => {
     await lockProfile(uuid, transaction);
@@ -694,10 +705,7 @@ export function mount(router, handle) {
   router.post("/product/rvCoinPurchase", handle(buyRvSkin));
   router.post("/battlePass/claimReward", handle(claimReward));
   router.post("/battlePass/buyTierUp", handle(buyTierUp));
-  // Premium comes with 55GMS Premium: the page opens /premium on this.
-  router.post("/battlePass/buyPremium", (req, res) =>
-    res.status(402).json({ error: "premium", url: "/premium" }),
-  );
+  router.post("/battlePass/buyPremium", handle(buyPremium));
   router.all(
     "/battlePass",
     handle(async (uuid) => (await loginReply(uuid)).BattlePass),
