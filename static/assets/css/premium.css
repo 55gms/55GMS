@@ -180,3 +180,63 @@ a.p-btn-primary,
 a.p-btn-primary:hover {
   color: var(--p-on-text);
 }
+
+@property --yearly-shine-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.premium-plan--best {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+}
+
+.premium-plan--best::before,
+.premium-plan--best::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  background: conic-gradient(
+    from var(--yearly-shine-angle),
+    transparent 0deg,
+    transparent 294deg,
+    rgba(237, 171, 61, 0.13) 310deg,
+    #e9ac43 323deg,
+    #fff5c2 336deg,
+    #f5c866 347deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: yearlyGoldShine 3.2s linear infinite;
+}
+
+.premium-plan--best::before {
+  padding: 2px;
+}
+
+.premium-plan--best::after {
+  padding: 3px;
+  filter: blur(4px);
+  opacity: 0.45;
+}
+
+@keyframes yearlyGoldShine {
+  to {
+    --yearly-shine-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .premium-plan--best::before,
+  .premium-plan--best::after {
+    animation: none;
+  }
+}
