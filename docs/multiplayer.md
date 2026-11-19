@@ -70,8 +70,7 @@ game shows (three words), Join and invite links (`?room=<code>`) find it, and
 up to six racers and eight spectators share it. As on the original, the host's
 game runs the race and the server relays it to the others; nothing goes to
 Blue Wizard's servers. Rejoining after a dropped connection is refused, so a
-player who drops joins again with the code. Quick Play, Bro Cup and Time Trial
-are offline. Locally, point it at a multiplayer server on another port with
+player who drops joins again with the code. Locally, point it at a multiplayer server on another port with
 `localStorage["gms-mp-base"] = "ws://localhost:8093/api/mp"`. The protocol is
 in that repo's README.
 
