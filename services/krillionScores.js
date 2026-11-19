@@ -10,7 +10,7 @@ import { KRILLION_CACHE_DIR } from "./krillion.js";
 // worker: a finish appends "<player> <score>", and each worker reads what the
 // others appended since it last looked. A player's last finish counts.
 const MAX_DAY_SCORE = 700; // the game's MAX_DAY_SCORE: the chart's x axis
-const BINS = 35;
+const BINS = 20; // as krillion.io sends it
 const MAX_FILE_BYTES = 20 * 1024 * 1024;
 const PLAYER = /^[A-Za-z0-9_-]{8,64}$/;
 
