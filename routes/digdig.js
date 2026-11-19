@@ -1,5 +1,9 @@
 import express from "express";
-import { createScopedToken, readSession, verifyScopedToken } from "../utils/sessionToken.js";
+import {
+  createScopedToken,
+  readSession,
+  verifyScopedToken,
+} from "../utils/sessionToken.js";
 import { requireMultiplayerServer } from "../utils/mpInternal.js";
 import * as digdig from "../services/digdig.js";
 
@@ -22,7 +26,11 @@ export function createDigdigRouter() {
       const account = await digdig.accountOf(String(session.uuid));
       if (!account) return res.status(409).json({ error: "handle_pending" });
       res.json({
-        token: createScopedToken(account.uuid, GAME_TOKEN_SCOPE, GAME_TOKEN_TTL_MS),
+        token: createScopedToken(
+          account.uuid,
+          GAME_TOKEN_SCOPE,
+          GAME_TOKEN_TTL_MS,
+        ),
         expires: Date.now() + GAME_TOKEN_TTL_MS,
         handle: account.handle,
         uuid: account.uuid,
@@ -50,7 +58,10 @@ export function createDigdigRouter() {
   internal.post(
     "/verify",
     handle(async (body) => {
-      const uuid = verifyScopedToken(String(body.token || ""), GAME_TOKEN_SCOPE);
+      const uuid = verifyScopedToken(
+        String(body.token || ""),
+        GAME_TOKEN_SCOPE,
+      );
       const account = uuid ? await digdig.accountOf(uuid) : null;
       if (!account) throw new digdig.DigdigError("unknown_token", 404);
       return account;
@@ -59,7 +70,10 @@ export function createDigdigRouter() {
   internal.post(
     "/buy",
     handle(async (body) => {
-      const account = await digdig.buySkin(String(body.uuid || ""), String(body.item || ""));
+      const account = await digdig.buySkin(
+        String(body.uuid || ""),
+        String(body.item || ""),
+      );
       if (!account) throw new digdig.DigdigError("unknown account", 404);
       return account;
     }),
@@ -67,7 +81,11 @@ export function createDigdigRouter() {
   internal.post(
     "/gold",
     handle(async (body) => ({
-      gold: await digdig.grantGold(String(body.uuid || ""), body.amount, String(body.source || "")),
+      gold: await digdig.grantGold(
+        String(body.uuid || ""),
+        body.amount,
+        String(body.source || ""),
+      ),
     })),
   );
   router.use("/digdig/internal", internal);
