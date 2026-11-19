@@ -39,19 +39,19 @@ referees their casual `1v1` matches from the relayed messages, so a signed-in
 player still gets XP, stats and battle pass progress; they are never rated.
 Ranked and parties stay on 55GMS.
 
-## BasketBros, SoccerBros, BaseballBros, FootballBros
+## BasketBros, SoccerBros, BaseballBros, FootballBros, HockeyBros
 
 Blue Wizard's games find their servers from the page's own hostname, so on
 55GMS they dialled `wss://EA.55gms.com/0` (and pinged `https://EA.55gms.com/ping`
 for the region list), which does not exist; their real servers are on
 `*.basketbros.io`, which filters block. `static/assets/js/bros-mp.js`, loaded
-before the game on `static/misc/{basketbros-io,soccerbros,baseballbros-io,footballbros}/index.html`
+before the game on `static/misc/{basketbros-io,soccerbros,baseballbros-io,footballbros,hockey-bros}/index.html`
 with `data-game` set to the server's name for it, sends both to
 `/api/mp/<game>/play` and `/api/mp/<game>/ping` on the page's host. Only the
 `EA` ("US Atlanta") ping answers, so the game lists one server. Public games,
 private codes and chat work; FootballBros keeps its lobby of up to three a
-side. Accounts are not involved: names and records are the game's own. The
-protocol is in that repo's README. Bump the `?v=` on `bros-mp.js` in the four
+side, and HockeyBros (`hockeybros`) uses the same lobby. Accounts are not
+involved: names and records are the game's own. The protocol is in that repo's README. Bump the `?v=` on `bros-mp.js` in the five
 pages when it changes (game pages are never rebuilt).
 
 ## Ducklings.io (`static/misc/ducklings-io/`)
