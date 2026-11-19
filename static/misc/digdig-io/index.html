@@ -24,7 +24,10 @@
 		const rewrite = (url) => {
 			try {
 				const u = new URL(url, location.href);
+				// Over https the client opens wss://<id>.s.m28n.net/; over plain http it
+				// dials the server list's ipv4 (127.0.0.1) on port 443 instead.
 				if (/(^|\.)m28n\.net$/i.test(u.hostname)) return base + "/digdig/play";
+				if (u.protocol === "ws:" && u.hostname === "127.0.0.1" && u.port === "443") return base + "/digdig/play";
 				if (/(^|\.)n\.m28\.io$/i.test(u.hostname)) return httpBase + "/digdig/servers";
 			} catch {}
 			return url;
