@@ -201,3 +201,7 @@ Design and plan for accounts: `docs/superpowers/specs/2026-11-16-1v1-accounts-co
 
 Design and plan: `docs/superpowers/specs/2026-11-16-multiplayer-server-design.md`,
 `docs/superpowers/plans/2026-11-16-multiplayer-server.md`.
+
+## digdig.io (`static/misc/digdig-io/`)
+
+M28 still runs digdig.io's servers, but this is a server of our own, not a relay: `games/digdig` in the multiplayer repo speaks the client's protocol (worked out from the client; the record is that folder's `README.md`) and runs the game itself: the same map as the official one (the client draws it from a seed), digging, ores, combat, fog of war and a leaderboard. Every lobby keeps bots playing (12 diggers, at least 4 bots) that farm ore, hunt smaller diggers, players and bots alike, and run from bigger ones. An inline script before the `<base>` sends the client's server list request (`api.n.m28.io`) to `/api/mp/digdig/servers` and its game socket (`*.s.m28n.net`) to `/api/mp/digdig/play` on the page's host; `localStorage["gms-mp-base"]` points it elsewhere for testing. The `client.js` in the assets repo reports `digdig.io` as the page's hostname to the game, which refuses to start on any other. Every mode button plays the same FFA lobby; squads, the shop, gold and Discord/Apple sign-in do nothing.
