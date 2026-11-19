@@ -26,19 +26,31 @@
 		// it again. Over plain http the client dials 127.0.0.1:443 instead, so the
 		// last mode asked for goes along.
 		let mode = "ffa";
+		// the server the client is on (a mode), for squads (below)
+		let serverId = "";
 		const rewrite = (url) => {
 			try {
 				const u = new URL(url, location.href);
 				if (/(^|\.)n\.m28\.io$/i.test(u.hostname)) {
+					// joining a squad of another mode asks for its server by id
+					const byId = /^\/server\/([a-z]+)\/?$/.exec(u.pathname);
+					if (byId) {
+						mode = byId[1];
+						return `${httpBase}/digdig/server?id=${mode}`;
+					}
 					const m = /\/endpoint\/digdig-([a-z]+)\//.exec(u.pathname);
 					if (m) mode = m[1];
 					return `${httpBase}/digdig/servers?mode=${mode}`;
 				}
 				if (/(^|\.)m28n\.net$/i.test(u.hostname)) {
 					const id = u.hostname.split(".")[0];
-					return `${base}/digdig/play?mode=${/^[a-z]+$/.test(id) ? id : mode}`;
+					serverId = /^[a-z]+$/.test(id) ? id : mode;
+					return `${base}/digdig/play?mode=${serverId}`;
 				}
-				if (u.protocol === "ws:" && u.hostname === "127.0.0.1" && u.port === "443") return `${base}/digdig/play?mode=${mode}`;
+				if (u.protocol === "ws:" && u.hostname === "127.0.0.1" && u.port === "443") {
+					serverId = mode;
+					return `${base}/digdig/play?mode=${mode}`;
+				}
 			} catch {}
 			return url;
 		};
@@ -94,9 +106,10 @@
 				else if ([401, 409, 503].includes(response.status)) localStorage.removeItem(LOGIN_KEY);
 			} catch {}
 		})();
-		// Tag's "You are a seeker/hider" banner shows only while a byte of the
-		// game object (memory 331776 + 10 in this build) is set, and nothing the
-		// server sends sets it. In a Tag game the page sets it.
+		// Two things the client keeps in memory that no server message sets
+		// (addresses for this build of client.wasm): Tag's "You are a
+		// seeker/hider" banner shows only while byte 331776 + 10 is set, which
+		// the page sets in Tag games; and the server id squads need (below).
 		let memory = null;
 		const keep = (result) => {
 			for (const v of Object.values((result.instance || result).exports)) if (v instanceof WebAssembly.Memory) memory = v;
@@ -106,10 +119,26 @@
 		WebAssembly.instantiate = (...a) => instantiate.apply(WebAssembly, a).then(keep);
 		const streaming = WebAssembly.instantiateStreaming;
 		if (streaming) WebAssembly.instantiateStreaming = (...a) => streaming.apply(WebAssembly, a).then(keep);
+		// Squads: Join compares the code's server id with the server the client
+		// is on, which the client keeps in its world object (a short string at
+		// offset 24 of the object at 331776 + 544) and nothing the server sends
+		// fills. The page writes it there.
+		const writeServerId = (heap) => {
+			if (!serverId || serverId.length > 10) return;
+			const world = new DataView(memory.buffer).getUint32(331776 + 544, true);
+			if (!world || world + 36 > heap.length || heap[world + 35] & 128) return;
+			const bytes = new TextEncoder().encode(serverId);
+			if (heap[world + 35] === bytes.length && bytes.every((b, i) => heap[world + 24 + i] === b)) return;
+			heap.fill(0, world + 24, world + 35);
+			heap.set(bytes, world + 24);
+			heap[world + 35] = bytes.length;
+		};
 		setInterval(() => {
-			if (mode !== "tag" || !memory) return;
+			if (!memory) return;
 			const heap = new Uint8Array(memory.buffer);
-			if (heap[331772] && heap[331776 + 8]) heap[331776 + 10] = 1;
+			if (!heap[331772] || !heap[331776 + 8]) return;
+			if (mode === "tag") heap[331776 + 10] = 1;
+			writeServerId(heap);
 		}, 250);
 		const goTop = (path) => {
 			let here = "/";
