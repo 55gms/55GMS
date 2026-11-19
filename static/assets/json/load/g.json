@@ -1878,9 +1878,9 @@
   },
   {
     "name": "digdig.io",
-    "url": "https://digdig.io/",
-    "image": "/img/games/digdigio.webp",
-    "usesProxy": true
+    "author": "M28",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@196bdfbd1dc38aee759b78add8442cd343f6a35b/misc/digdig-io/img.webp",
+    "usesProxy": false
   },
   {
     "name": "Buckshot Roulette",
