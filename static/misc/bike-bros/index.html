@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
+    integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
+    crossorigin="anonymous"
+    data-game-id="bike-bros"
+    data-compat=""
+  ></script>
+  <meta charset="utf-8">
+  <script src="/assets/js/loader-ui.js?v=5gz9swuael"></script>
+  <script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Bike Bros"></script>
+  <script src="/assets/js/game-net.js?v=1" data-sockets="*.kartbros.io" data-fetch="*.kartbros.io" data-origin="https://bikebros.io"></script>
+  <base href="https://cdn.jsdelivr.net/gh/55gms/assets@bb1433f33b0a47ea3aacae5614aafb58bc4be3b6/misc/bike-bros/" />
+  <title>Bike Bros</title>
+  <meta name="author" content="Blue Wizard Digital">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <style>
+    html, body { margin: 0; padding: 0; background: #000; overflow: hidden; height: 100vh; height: 100dvh; overscroll-behavior: none; }
+    #unity-canvas { display: block; width: 100%; height: 100vh; height: 100dvh; background: #000; }
+  </style>
+  <script>
+    // Stand-ins for the page's ad, analytics and session hooks the game calls
+    // (BikeBrosAds bridge, SendEvent). Nothing is shown and no rewards are granted;
+    // every video request completes straight back to the game.
+    function SendEvent() {}
+    function GA4_SendEvent() {}
+    function completeVideoAd() {
+      if (window.unityInstance) {
+        try { window.unityInstance.SendMessage("AdsManager", "OnVideoAdCompleted"); } catch (e) {}
+      }
+      window.focus();
+      var c = document.getElementById("unity-canvas");
+      if (c) c.focus();
+    }
+    function LoadVideo() {}
+    function ShowVideo() { setTimeout(completeVideoAd, 0); }
+    ["ShowAd0", "ShowAd1", "ShowAd2", "ShowAd3", "ShowAd4", "ShowAd6", "ShowAd7", "ShowAd8", "ShowAd9", "ShowAd10"].forEach(function (n) { window[n] = function () {}; });
+    window.BikeBrosAds = {
+      provider: "none",
+      isMsStart: function () { return false; },
+      showBanner: function () { return false; },
+      refreshBanner: function () { return false; },
+      forceAipBanner: function () { return false; },
+      hideBanner: function () { return false; },
+      showVideo: function () { ShowVideo(); return true; },
+      loadVideo: LoadVideo
+    };
+  </script>
+</head>
+<body>
+  <canvas id="unity-canvas" tabindex="-1" onblur="window.focus(); window.scrollTo(0, 0);"></canvas>
+  <script>
+    (async () => {
+      const data = [["Build/e4d6cd2a02fd41eed84f7bd7e8145b6f.data", 16079114]];
+      const wasm = [
+        ["Build/e733d2cff62a4dfdb7c6ddf89bdfc880.wasm.part1", 10000000],
+        ["Build/e733d2cff62a4dfdb7c6ddf89bdfc880.wasm.part2", 10000000],
+        ["Build/e733d2cff62a4dfdb7c6ddf89bdfc880.wasm.part3", 8807838],
+      ];
+      const framework = [["Build/89d320f3dc1d3881a0f872b09a650d83.framework.js", 372664]];
+      const loader = [["Build/122ad8264a84d60998c66c5b77ad8166.loader.js", 28051]];
+      GameLoader.prepare([...data, ...wasm, ...framework, ...loader]);
+
+      const paths = (files) => files.map(([path]) => path);
+      const [dataUrl, codeUrl, frameworkUrl, loaderUrl] = await Promise.all([
+        GameLoader.merge(paths(data)),
+        GameLoader.merge(paths(wasm), "application/wasm"),
+        GameLoader.merge(paths(framework), "application/javascript"),
+        GameLoader.merge(paths(loader), "application/javascript"),
+      ]);
+      await GameLoader.script(loaderUrl);
+
+      const canvas = document.getElementById("unity-canvas");
+      window.unityInstance = await createUnityInstance(canvas, {
+        arguments: [],
+        dataUrl,
+        codeUrl,
+        frameworkUrl,
+        streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
+        companyName: "BlueWizard",
+        productName: "BIKE BROS!",
+        productVersion: "1.19",
+        showBanner(message, type) {
+          type === "error" ? GameLoader.fail(new Error(message)) : console.warn(message);
+        },
+      });
+      GameLoader.finish();
+      canvas.focus();
+    })().catch(GameLoader.fail);
+  </script>
+</body>
+</html>
