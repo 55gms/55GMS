@@ -94,6 +94,23 @@
 				else if ([401, 409, 503].includes(response.status)) localStorage.removeItem(LOGIN_KEY);
 			} catch {}
 		})();
+		// Tag's "You are a seeker/hider" banner shows only while a byte of the
+		// game object (memory 331776 + 10 in this build) is set, and nothing the
+		// server sends sets it. In a Tag game the page sets it.
+		let memory = null;
+		const keep = (result) => {
+			for (const v of Object.values((result.instance || result).exports)) if (v instanceof WebAssembly.Memory) memory = v;
+			return result;
+		};
+		const instantiate = WebAssembly.instantiate;
+		WebAssembly.instantiate = (...a) => instantiate.apply(WebAssembly, a).then(keep);
+		const streaming = WebAssembly.instantiateStreaming;
+		if (streaming) WebAssembly.instantiateStreaming = (...a) => streaming.apply(WebAssembly, a).then(keep);
+		setInterval(() => {
+			if (mode !== "tag" || !memory) return;
+			const heap = new Uint8Array(memory.buffer);
+			if (heap[331772] && heap[331776 + 8]) heap[331776 + 10] = 1;
+		}, 250);
 		const goTop = (path) => {
 			let here = "/";
 			try {
