@@ -1,5 +1,6 @@
 import { initDatabase, sequelize } from "./models/index.js";
 import { ensureOneV1Schema } from "./services/onev1Schema.js";
+import { ensureDigdigSchema } from "./services/digdigSchema.js";
 
 async function setupDatabase() {
   try {
@@ -10,6 +11,7 @@ async function setupDatabase() {
     });
     // Tables without a model, created in raw SQL.
     await ensureOneV1Schema(sequelize);
+    await ensureDigdigSchema(sequelize);
     console.log("✅ Database setup completed successfully!");
     process.exit(0);
   } catch (error) {

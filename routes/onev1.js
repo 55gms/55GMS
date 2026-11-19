@@ -1,5 +1,4 @@
 import express from "express";
-import { timingSafeEqual } from "node:crypto";
 import { sequelize } from "../models/index.js";
 import {
   createScopedToken,
@@ -7,6 +6,7 @@ import {
   verifyScopedToken,
 } from "../utils/sessionToken.js";
 import { rateLimit } from "../utils/rateLimit.js";
+import { requireMultiplayerServer } from "../utils/mpInternal.js";
 import { gameConfig } from "../services/onev1Config.js";
 
 // 1v1.lol on 55GMS accounts (docs/1v1-backend.md):
@@ -24,24 +24,6 @@ async function accountOf(uuid) {
     { replacements: { uuid } },
   );
   return rows[0] || null;
-}
-
-// The multiplayer server runs on the same box and calls straight in. Caddy
-// also connects from loopback but always adds X-Forwarded-For, so a request
-// that came through it is refused whatever it carries.
-function requireInternal(req, res, next) {
-  const secret = process.env.MP_SHARED_SECRET || "";
-  const given = String(req.headers["x-mp-secret"] || "");
-  const address = req.socket?.remoteAddress || "";
-  const loopback = ["127.0.0.1", "::1", "::ffff:127.0.0.1"].includes(address);
-  const ok =
-    secret.length >= 16 &&
-    loopback &&
-    !req.headers["x-forwarded-for"] &&
-    given.length === secret.length &&
-    timingSafeEqual(Buffer.from(given), Buffer.from(secret));
-  if (!ok) return res.status(403).json({ error: "forbidden" });
-  next();
 }
 
 export function createOneV1Router({ game, coins, billing = false } = {}) {
@@ -141,7 +123,7 @@ export function createOneV1Router({ game, coins, billing = false } = {}) {
 
   // --- the multiplayer server -------------------------------------------
 
-  router.use("/1v1/internal", requireInternal);
+  router.use("/1v1/internal", requireMultiplayerServer);
   router.post("/1v1/internal/verify", async (req, res) => {
     const uuid = verifyScopedToken(
       String(req.body?.token || ""),
