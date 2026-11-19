@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
 
 <head>
-  <script src="/assets/js/save-agent.js?v=4"></script>
+	<script src="/assets/js/save-agent.js?v=4"></script>
   <script
     src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
     integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
@@ -10,29 +10,742 @@
     data-game-id="smashkarts"
     data-compat=""
   ></script>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-N0LG27M8L8"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+	<script src="/assets/js/loader-ui.js?v=5gz9swuael"></script>
+	<script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Smash Karts"></script>
+	<script>
+		GameLoader.unity([
+			["Build/788bbc2134cec6b5933083da2e51b126.framework.js.br", 120510],
+			["Build/912c4081ba50950104bfccaf56077268.wasm.br", 13856103],
+			["Build/e8bf158cdba0c84551b6c88c485f61c5.data.br", 15165817],
+		]);
+	</script>
+	<script>
+		// Smash Karts plays on Photon. Its name server is answered by the 55GMS
+		// multiplayer server (github.com/55gms/multiplayer) on this page's own host,
+		// which hands out its own master and game servers: rooms here for private
+		// games, and the official cloud for a PLAY that finds nobody on 55GMS.
+		(() => {
+			let base = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/api/mp`;
+			try {
+				base = localStorage.getItem("gms-mp-base") || base;
+			} catch {}
+			const photon = /(^|\.)(exitgames\.com|exitgamescloud\.com|photonengine\.io)$/i;
+			const rewrite = (url) => {
+				try {
+					const u = new URL(url, location.href);
+					if (photon.test(u.hostname)) return base + "/smashkarts/ns" + u.search;
+					if (u.pathname.startsWith("/api/mp/")) return base + u.pathname.slice("/api/mp".length) + u.search;
+				} catch {}
+				return url;
+			};
+			const Native = window.WebSocket;
+			function GMSWebSocket(url, protocols) {
+				return protocols === undefined ? new Native(rewrite(url)) : new Native(rewrite(url), protocols);
+			}
+			GMSWebSocket.prototype = Native.prototype;
+			for (const k of ["CONNECTING", "OPEN", "CLOSING", "CLOSED"]) GMSWebSocket[k] = Native[k];
+			window.WebSocket = GMSWebSocket;
+		})();
+	</script>
+	<script src="/assets/js/script.js?v=28"></script>
+	<base href="https://cdn.jsdelivr.net/gh/55gms/assets@64c4f6cbf282ed223671654b5f19e77e0eec4cdc/misc/smashkarts/">
+	<script src="scripts/constants.js"></script>
+	
+	
+	<meta charset="utf-8">
+	<link rel="icon" href="images/favicon.png" sizes="16x16">
+		<meta name="twitter:title" content="Smash Karts" />
+	<meta name="twitter:image" content="images/icon-144.png" />
+	<meta name="twitter:url" content="https://smashkarts.io/" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:description"
+		  content="Smash Karts is a free io Multiplayer Kart Battle Arena game. Drive fast. Fire rockets. Make big explosions." />
+	<meta name="description"
+		  content="Smash Karts is a free io Multiplayer Kart Battle Arena game. Drive fast. Fire rockets. Make big explosions." />
+	<meta name="google-site-verification" content="Kb9JniKgGSfuiJM_DNO2-Va7cSC00GlcBzbDw1Lgw_4" />
 
-    gtag('config', 'G-N0LG27M8L8');
-  </script>
-  <script src="/assets/js/script.js?v=28"></script>
 
-  <title>Smash Karts</title>
+	<meta name="apple-mobile-web-app-title" content="Smash Karts">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<link rel="apple-touch-icon" href="images/icon-144.png">
+
+	
+	<title>Smash Karts</title>
+	<link rel="stylesheet" href="css/main.css" />
+	<meta name="viewport" content="minimal-ui, user-scalable=no, initial-scale=1, maximum-scale=1, width=device-width, viewport-fit=cover" />
+
+	<script src="scripts/ads-stub.js"></script>
 </head>
 
 <body>
-  <iframe src="https://htmlxm.github.io/h/smash-karts/" title="Iframe" style="
-        border: 0;
-        height: 100%;
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 100%;
-      "></iframe>
-</body>
+<div id="mainContainer">
+	<div id="gameContainer">
+		<div id="gameCanvasWrapper">
+			<canvas id="gameCanvas"></canvas>
+		</div>
+		<div id="fullscreenPrompt">Tap to continue</div>
+	</div>
+	<iframe id="xsolla-iframe"></iframe>
+</div>
+<div id="loader">
+	<img class="logo" src="images/smashkarts.png">
+	<div class="spinner"></div>
+	<div class="progress">
+		<div class="full"></div>
+	</div>
+</div>
+<div id="rotate-landscape">
+	<img src="images/r.png" class="center">
+</div>
 
+<script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-functions-compat.js"></script>
+
+<script src="scripts/main.js"></script>
+<script src="scripts/auth.js"></script>
+<script src="scripts/startup-data.js"></script>
+<script src="scripts/shop.js"></script>
+ 
+
+<script>
+	//Load timing for analytics, all times are ms since navigation start (performance.now()). Read by Unity via getLoadStats()
+	var loadTiming = { loaderStartMs: -1, unityReadyMs: -1, cdnEntries: [], observer: null, returningBrowser: -1, buildFiles: null, hiddenSince: -1, hiddenIntervals: [] };
+
+	//every [start, end] the tab was hidden. Unity's main loop (requestAnimationFrame) stops while hidden, so loads that were hidden are slower for reasons unrelated to loading
+	try
+	{
+		if (document.visibilityState === "hidden") loadTiming.hiddenSince = 0;
+		document.addEventListener("visibilitychange", () =>
+		{
+			if (document.visibilityState === "hidden")
+			{
+				if (loadTiming.hiddenSince < 0) loadTiming.hiddenSince = performance.now();
+			}
+			else if (loadTiming.hiddenSince >= 0)
+			{
+				loadTiming.hiddenIntervals.push([loadTiming.hiddenSince, performance.now()]);
+				loadTiming.hiddenSince = -1;
+			}
+		});
+	}
+	catch (e) {}
+
+	//returning browser = Unity's IndexedDB cache (bundles + data file, keyed by url) already existed before this load, -1 when the browser can't tell
+	try
+	{
+		if (indexedDB.databases) indexedDB.databases().then((dbs) => { loadTiming.returningBrowser = dbs.some((db) => db.name && db.name.indexOf("UnityCache") >= 0) ? 1 : 0; }).catch(() => {});
+	}
+	catch (e) {}
+	try
+	{
+		//keep build file and addressables requests (either CDN) so they can't be lost when the browser's resource timing buffer fills up with ad requests
+		loadTiming.observer = new PerformanceObserver((list) => addCdnTimingEntries(list.getEntries()));
+		loadTiming.observer.observe({ type: "resource", buffered: true });
+	}
+	catch (e) {}
+
+	function addCdnTimingEntries(entries)
+	{
+		for (var i = 0; i < entries.length; i++)
+		{
+			var name = entries[i].name;
+			//getStartupDataMulti isn't a CDN request, it's kept for startup-data.js's token / net split (sd_token_ms / sd_net_ms)
+			if (name.indexOf("/Build2020New/") >= 0 || name.indexOf("/assetbundles/") >= 0 || name.indexOf("/getStartupDataMulti") >= 0) loadTiming.cdnEntries.push(entries[i]);
+		}
+	}
+
+
+	const firebaseConfig = {
+    apiKey: "AIzaSyAdY2qq9083amKDS0R8tn2tjIKQB8mocco",
+    authDomain: "webgltest-17af1.firebaseapp.com",
+    databaseURL: "https://webgltest-17af1.firebaseio.com",
+    projectId: "webgltest-17af1",
+    messagingSenderId: "480659433590",
+    appId: "1:480659433590:web:a01ad1599e963843a0d757",
+    measurementId: "G-1W23DRFHK9"
+};
+
+	
+	// Initialize Firebase
+	firebase.initializeApp(firebaseConfig);
+
+	
+
+	
+	firebaseSetScreen("loading_start");
+	firebaseLogEvent("loading_page_start");
+
+	updateAdBlockDetected();
+	updateLoadingAdBanner();
+	
+	var timerStart = Date.now();
+	var sentGameInstanceStartEvent = false;
+
+	// choose the data file based on whether there's support for the ASTC texture compression format
+	var dataFile = "/e8bf158cdba0c84551b6c88c485f61c5.data.br";
+	var mobileDataFile = "/9fc7d5a0137bc234c2fc599ac8c14714.data.br";
+    
+    var addressableCatalogFilename = "catalog_2026.11.17.16.51.48.json";
+    var mobileAddressableCatalogFilename = "catalog_2026.11.17.16.53.46.json";
+	var usingMobileData = false;
+
+	//vars rather than inline so build-ab.js can swap in the A/B test variant's files
+	var loaderFile = "c4ce55f6fd990c1236bc84106eb955bf.loader.js";
+	var frameworkFile = "788bbc2134cec6b5933083da2e51b126.framework.js.br";
+	var codeFile = "912c4081ba50950104bfccaf56077268.wasm.br";
+
+	//safety check to ensure we dont try to use the mobileDataFile if the filename hasnt been parsed during the build phase
+	if(!mobileDataFile.includes("MOBILE_DATA_FILENAME"))
+	{
+		var c = document.createElement("canvas");
+		var gl = c.getContext("webgl");
+		var gl2 = c.getContext("webgl2");
+		if ((gl && gl.getExtension('WEBGL_compressed_texture_astc')) || (gl2 && gl2.getExtension('WEBGL_compressed_texture_astc'))) 
+		{
+			dataFile = mobileDataFile;
+			usingMobileData = true;
+
+            if(!mobileAddressableCatalogFilename.includes("MOBILE_ADDRESSABLE_CATALOG_FILENAME"))
+            {
+                addressableCatalogFilename = mobileAddressableCatalogFilename;
+            }
+		}
+	}
+
+	//A/B group first, build-url-split.js can pick the CDN per group
+	//Web build A/B test: each player is put on this page's build (control) or a second build (variant) and kept there (localStorage) so their browser cache stays warm.
+//buildscripts/ab_pair_variant.sh fills in the line below with the variant's build-manifest.json, test id and percentage. Unpaired, every player gets control and buildAbGroup is ""
+//?build=control or ?build=variant forces one for this load without changing the stored choice
+var buildAbVariant = null; var buildAbTest = ""; var buildAbVariantPercent = 0; //__BUILD_AB_VARIANT_MANIFEST__
+//only these hosts are in the test, everywhere else (proxies, portals) stays on control
+const buildAbHosts = ["smashkarts.io", "www.smashkarts.io", "smashkarts-dev.firebaseapp.com", "smashkarts-dev.web.app", "localhost"];
+var buildAbIsNew = false;
+const buildAbGroup = (function ()
+{
+	if (buildAbVariant == null || buildAbTest === "") return "";
+	if (buildAbHosts.indexOf(window.location.hostname) < 0) return "";
+
+	try
+	{
+		var forced = new URLSearchParams(window.location.search).get("build");
+		if (forced === "control" || forced === "variant") return forced;
+	}
+	catch (e) {}
+
+	//kill switch: re-pairing with 0% sends everyone, including stored variant players, back to control
+	if (buildAbVariantPercent <= 0) return "control";
+
+	//stored as "<test id>:<group>" so a new test id re-rolls everyone
+	var storageKey = "skBuildAb";
+	var stored = null;
+	try { stored = localStorage.getItem(storageKey); } catch (e) {}
+	if (stored === buildAbTest + ":control") return "control";
+	if (stored === buildAbTest + ":variant") return "variant";
+
+	buildAbIsNew = true;
+	var picked = (Math.random() * 100 < buildAbVariantPercent) ? "variant" : "control";
+	try { localStorage.setItem(storageKey, buildAbTest + ":" + picked); } catch (e) {}
+	return picked;
+})();
+
+if (buildAbGroup === "variant")
+{
+	loaderFile = buildAbVariant.loader;
+	frameworkFile = buildAbVariant.framework;
+	codeFile = buildAbVariant.code;
+
+	//same texture format choice the page made for control, falling back to desktop files if the variant skipped the mobile build
+	var buildAbUseMobile = usingMobileData && buildAbVariant.mobileData !== "" && buildAbVariant.mobileCatalog !== "";
+	dataFile = "/" + (buildAbUseMobile ? buildAbVariant.mobileData : buildAbVariant.data);
+	addressableCatalogFilename = buildAbUseMobile ? buildAbVariant.mobileCatalog : buildAbVariant.catalog;
+
+	//auth.js reports this as build_ver on events sent before unity loads
+	if (typeof buildVersion !== "undefined") buildVersion = buildAbVariant.buildVer;
+}
+
+if (buildAbGroup !== "")
+{
+	console.log("[Build AB] test: " + buildAbTest + ", group: " + buildAbGroup + (buildAbIsNew ? " (new)" : "") + ", variant: " + buildAbVariantPercent + "%");
+
+	//the user property lets every firebase analytics event be split by A/B group. build_ab_page is sent before unity loads,
+	//so comparing it per group with later events shows variant load failures that unity never gets to report
+	try
+	{
+		if (enableFirebaseAnalytics && firebase.analytics != null)
+		{
+			firebase.analytics().setUserProperties({ build_ab: buildAbTest + ":" + buildAbGroup });
+			firebase.analytics().logEvent("build_ab_page", { test: buildAbTest, group: buildAbGroup, is_new: buildAbIsNew ? 1 : 0 });
+		}
+	}
+	catch (e) {}
+}
+
+	//CDN A/B split: each player is put on Bunny or Cloudflare R2 and kept there (localStorage) so their browser cache stays warm.
+//?cdn=bunny or ?cdn=cf forces one for this load without changing the stored choice
+//The percentage below is the default, buildscripts/set_cdn_split.sh sets it per deploy without a rebuild
+const cdnSplitCfPercent = 100;  //__CDN_SPLIT_CF_PERCENT__
+//optional per web build A/B test group percentages that replace cdnSplitCfPercent for that group, eg { control: 100, variant: 0 }.
+//Needs build-ab.js to run first (it does, index-template.html injects it just above this script).
+//Don't write the template tag names in these scripts: PostProcessBuildWebGL replaces them in comments too, which injected build-ab.js twice in skb05
+const cdnSplitCfPercentByGroup = {}; //__CDN_SPLIT_CF_PERCENT_BY_GROUP__
+//R2 only allows CORS from these hosts, everywhere else (proxies, portals) stays on Bunny
+const cdnSplitCfHosts = ["smashkarts.io", "www.smashkarts.io", "smashkarts-dev.firebaseapp.com", "smashkarts-dev.web.app", "localhost"];
+//The build files are this folder's own (Build/, served by jsDelivr); the addressables stay on the game's CDN
+const cdnUrls = {
+	bunny: { build: new URL("Build", document.baseURI).href, addressables: "https://smashkartsgc.b-cdn.net/assetbundles/remote/webgl" },
+	cf: { build: new URL("Build", document.baseURI).href, addressables: "https://cdn.tall.team/assetbundles/remote/webgl" },
+};
+var cdnIsNew = false;
+const cdnName = (function ()
+{
+	if (cdnSplitCfHosts.indexOf(window.location.hostname) < 0) return "bunny";
+
+	try
+	{
+		var forced = new URLSearchParams(window.location.search).get("cdn");
+		if (cdnUrls[forced]) return forced;
+	}
+	catch (e) {}
+
+	//each player keeps a fixed bucket in [0, 100) and is on cf while it's below the percentage, so changing the percentage
+	//only moves the players between the old and new value (eg 50 → 90 moves bunny players in [50, 90) to cf) and nobody else
+	var bucket = NaN;
+	var stored = null;
+	try
+	{
+		bucket = parseFloat(localStorage.getItem("skCdnBucket"));
+		stored = localStorage.getItem("skCdn");
+	}
+	catch (e) {}
+
+	if (!(bucket >= 0 && bucket < 100))
+	{
+		//players assigned before buckets get one that keeps their CDN at the 50% split they were assigned under
+		if (stored === "cf") bucket = Math.random() * 50;
+		else if (stored === "bunny") bucket = 50 + Math.random() * 50;
+		else bucket = Math.random() * 100;
+		try { localStorage.setItem("skCdnBucket", bucket.toString()); } catch (e) {}
+	}
+
+	var cfPercent = cdnSplitCfPercent;
+	if (typeof buildAbGroup !== "undefined" && typeof cdnSplitCfPercentByGroup[buildAbGroup] === "number") cfPercent = cdnSplitCfPercentByGroup[buildAbGroup];
+
+	var picked = (bucket < cfPercent) ? "cf" : "bunny";
+
+	//new = first load on this CDN, ie a cold browser cache, including players moved by a percentage change
+	if (picked !== stored)
+	{
+		cdnIsNew = true;
+		try { localStorage.setItem("skCdn", picked); } catch (e) {}
+	}
+	return picked;
+})();
+const buildUrl = cdnUrls[cdnName].build;
+const addressablesUrl = cdnUrls[cdnName].addressables;
+
+
+	//auth starts now rather than on window load, so a returning player's session is restored and the startup call (startup-data.js) begins
+	//before Unity starts. After the A/B block, which can set the buildVersion the call sends.
+	//Low-core Chromebooks start it once the build files are downloaded instead: early, it competes with the WASM compile for CPU (~1.6 s slower
+	//build + boot + catalog in the 6–8 Nov A/B), and they have ~2 s of slack before Unity asks for the data
+	const AUTH_DEFER_MAX_CORES = 4;
+	const AUTH_DEFER_MAX_WAIT_MS = 10000;
+	window.authDeferred = navigator.userAgent.indexOf("CrOS") >= 0 && navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency <= AUTH_DEFER_MAX_CORES;
+	if (window.authDeferred) setTimeout(registerDeferredAuthListener, AUTH_DEFER_MAX_WAIT_MS);
+	else registerAuthListener(true);
+
+	//lets every firebase analytics event (old and new) be split by CDN
+	if (typeof cdnName !== "undefined" && enableFirebaseAnalytics && firebase.analytics != null) firebase.analytics().setUserProperties({ cdn: cdnName });
+	const loaderUrl = buildUrl + "/" + loaderFile;
+	const config = {
+		dataUrl: buildUrl + dataFile,
+		frameworkUrl: buildUrl + "/" + frameworkFile,
+		codeUrl: buildUrl + "/" + codeFile,
+		// #if MEMORY_FILENAME
+		//         memoryUrl: buildUrl + "/",
+		// #endif
+		// #if SYMBOLS_FILENAME
+		//         symbolsUrl: buildUrl + "/",
+		// #endif
+		streamingAssetsUrl: "StreamingAssets",
+		companyName: "TallTeam",
+		productName: "Smash Karts",
+		productVersion: "2.16.085",
+		//the data file and bundle names are content hashes, so a copy in Unity's IndexedDB cache is valid forever. Unity's default
+		//is must-revalidate, a 304 round trip per file on every load (~330 ms each on Cloudflare), immutable uses the cached copy without asking the CDN
+		cacheControl: function (url) { return (url == config.dataUrl || url.match(/\.bundle/)) ? "immutable" : "no-store"; },
+	};
+	//the four build files, absolute so they compare with resource timing entry names, for the per file stats in getLoadStats()
+	loadTiming.buildFiles = {
+		loader: new URL(loaderUrl, document.baseURI).href,
+		framework: new URL(config.frameworkUrl, document.baseURI).href,
+		wasm: new URL(config.codeUrl, document.baseURI).href,
+		data: new URL(config.dataUrl, document.baseURI).href,
+	};
+
+	var mainContainer = document.querySelector("#mainContainer");
+	var gameContainer = document.querySelector("#gameContainer");
+	var canvas = document.querySelector("#gameCanvas");
+	var loadingBar = document.querySelector("#loader");
+	var progressBarFull = document.querySelector("#loader .progress .full");
+	var rotateLandscape = document.querySelector("#rotate-landscape");
+	
+	if (isMobile())
+	{
+		mainContainer.className = "unity-mobile";
+
+		// if(isIos())
+		// {
+		// 	//Allow scrolling on mobile iOS so user can scroll off the top tab bar
+		// 	document.body.style.overflow = "visible";
+		// }
+
+		if (isAndroid())
+		{
+			// iOS Safari doesn't support requestFullscreen() on arbitrary elements, so this
+			// is Android-only. Reuses the same fullscreen plumbing as the desktop toggle button.
+			setElementFullScreen(document.documentElement, "auto");
+
+			// Keeps `fs` accurate (e.g. if the player leaves fullscreen via the back button/
+			// gesture rather than our own toggle) and shows a "tap to continue" prompt with
+			// its own gesture handler to get back into fullscreen, since the one-time
+			// first-gesture listener above has already fired and removed itself by then.
+			initFullscreenRecovery(document.getElementById("fullscreenPrompt"));
+		}
+	}
+	else
+	{
+		rotateLandscape.id = "rotateLandscapeOff";
+		rotateLandscape.style.display = "none";
+	}
+	const progress = document.querySelector("#loader .progress");
+	progress.style.display = "block";
+	progressBarFull.style.width = "0%";
+
+	var script = document.createElement("script");
+	script.src = loaderUrl;
+
+	var progressCreateUnityInstance = 0;
+	var progressPostCreateUnityInstance = 0;
+	var updateProgressInterval = setInterval(updateProgress, 100);
+
+	var gameInstance;
+	script.onload = () =>
+	{
+		createUnityInstance(canvas, config, (progress) =>
+		{
+			progressCreateUnityInstance = 100 * progress;
+			setProgressWidth();
+			//the loader reports 0.9 once the build files are downloaded
+			if (window.authDeferred && progress >= 0.9) registerDeferredAuthListener();
+		}).then((unityInstance) =>
+		{
+			if (isMobile()) document.body.style.background = "#000000";
+			loadingBar.style.display = "none";
+			window.unityGame = unityInstance;
+			gameInstance = unityInstance;
+
+			if (updateProgressInterval) clearInterval(updateProgressInterval);
+
+			loadTiming.unityReadyMs = performance.now();
+			var lt = Date.now() - timerStart;
+			firebaseLogEventWithParam("loading_page_complete", "time", lt);
+			setV(lt);
+
+			onUnityLoadComplete();
+		}).catch((message) =>
+		{
+			alert("TT UnityLoader Error" + message);
+		});
+	};
+	loadTiming.loaderStartMs = performance.now();
+	document.body.appendChild(script);
+
+	function onUnityLoadComplete()
+	{
+		//tell unity what ad providers are enabled
+		window.unityGame.SendMessage(unityFirebaseGameOjbectName, "SetDisplayAdProvider", displayAdProvider);
+		window.unityGame.SendMessage(unityFirebaseGameOjbectName, "SetVideoAdProvider", videoAdProvider);
+
+		//log AB test assignment to analytics
+		if (abTestSelectedProvider) {
+			window.unityGame.SendMessage(unityFirebaseGameOjbectName, "OnJSABTestLoaded", abTestSelectedProvider);
+		}
+		
+		trySendAdBlockDetectedMessage();
+	}
+
+	function updateProgress()
+	{
+		if (progressCreateUnityInstance > 85)
+		{
+			progressPostCreateUnityInstance += 1;
+			setProgressWidth();
+		}
+	}
+
+	function setProgressWidth()
+	{
+		if (progressCreateUnityInstance == 100.0)
+		{
+			progressBarFull.style.width = "100%";
+		}
+		else
+		{
+			var percent;
+			if (isMobile())
+			{
+				percent = progressCreateUnityInstance * 0.6 + (progressPostCreateUnityInstance * 0.5 * 0.2 + progressCreateUnityInstance * 0.5 * 0.2 * 0.05);
+				percent = Math.min(percent, 90);
+			}
+			else
+			{
+				percent = progressCreateUnityInstance * 0.9 + progressPostCreateUnityInstance * 0.1;
+				percent = Math.min(percent, 95);
+			}
+			progressBarFull.style.width = percent + "%";
+		}
+	}
+
+	function setAdinPlaySubIdForABTest(val)
+	{
+		//set adinplay subid which enables segmented daily reports
+		aiptag.subid = val;
+	}
+
+    function getAddressableCatalogFilename()
+    {
+        return addressableCatalogFilename;
+    }
+
+    //base url Unity loads the addressables catalog and bundles from, set by the injected build-url-*.js script
+    function getAddressablesBaseUrl()
+    {
+        return (typeof addressablesUrl !== "undefined") ? addressablesUrl : "";
+    }
+
+    function getCdnName()
+    {
+        return (typeof cdnName !== "undefined") ? cdnName : "";
+    }
+
+    //true when this load put the player on a CDN for the first time, ie their browser cache for it is cold
+    function getCdnIsNew()
+    {
+        return (typeof cdnIsNew !== "undefined") && cdnIsNew;
+    }
+
+    function getReturningBrowser()
+    {
+        return loadTiming.returningBrowser;
+    }
+
+    //which of the four build files a resource timing entry is (loader, framework, wasm, data), "" for anything else
+    function getBuildFileKey(url)
+    {
+        var files = loadTiming.buildFiles;
+        if (!files) return "";
+        for (var key in files)
+        {
+            if (files[key] === url) return key;
+        }
+        return "";
+    }
+
+    //where the browser got the file from, read from the sizes resource timing exposes (they need Timing-Allow-Origin on the CDN):
+    //n = downloaded over the network (body transferred), c = browser http cache (no request sent),
+    //h = 304 revalidation, body from the browser http cache, i = 304 revalidation, body from Unity's IndexedDB cache,
+    //u = unknown (sizes hidden). x (not requested) is added by getLoadStats for build files with no entry
+    function getEntrySourceCode(e)
+    {
+        if (e.transferSize === 0 && e.encodedBodySize === 0) return "u";
+        if (e.transferSize === 0) return "c";
+        if (e.encodedBodySize === 0) return "i";
+        //a 304 only transfers headers but reports the cached body's size, a real download transfers at least the body
+        if (e.transferSize < e.encodedBodySize) return "h";
+        return "n";
+    }
+
+    var entrySourceNames = {
+        n: "network download",
+        c: "browser http cache (no request)",
+        h: "revalidated 304, body from browser http cache",
+        i: "revalidated 304, body from Unity's IndexedDB cache",
+        u: "unknown (sizes hidden, no Timing-Allow-Origin)",
+    };
+
+    function getEntrySource(e)
+    {
+        return entrySourceNames[getEntrySourceCode(e)];
+    }
+
+    //total ms at least one of the [start, end] intervals was in flight, overlaps counted once
+    function getBusyMs(intervals)
+    {
+        intervals.sort((a, b) => a[0] - b[0]);
+        var busy = 0;
+        var runStart = -1;
+        var runEnd = -1;
+        for (var i = 0; i < intervals.length; i++)
+        {
+            if (intervals[i][0] > runEnd)
+            {
+                if (runEnd >= 0) busy += runEnd - runStart;
+                runStart = intervals[i][0];
+                runEnd = intervals[i][1];
+            }
+            else if (intervals[i][1] > runEnd)
+            {
+                runEnd = intervals[i][1];
+            }
+        }
+        if (runEnd >= 0) busy += runEnd - runStart;
+        return busy;
+    }
+
+    //request sent → first byte: round trip plus the CDN's response time, including any origin fetch on an edge miss. -1 without Timing-Allow-Origin
+    function getTtfbMs(e)
+    {
+        return e.requestStart > 0 && e.responseStart > 0 ? Math.round(e.responseStart - e.requestStart) : -1;
+    }
+
+    //1 if the tab was hidden at any point since sinceMs (including now), 0 if not
+    function wasHiddenSince(sinceMs)
+    {
+        if (loadTiming.hiddenSince >= 0) return 1;
+        for (var i = 0; i < loadTiming.hiddenIntervals.length; i++)
+        {
+            if (loadTiming.hiddenIntervals[i][1] >= sinceMs) return 1;
+        }
+        return 0;
+    }
+
+    function logBuildFileEntry(key, e)
+    {
+        var ms = Math.round(e.responseEnd - e.startTime);
+        var line = "[LoadTiming] " + key + ": " + ms + " ms (start " + Math.round(e.startTime) + ", end " + Math.round(e.responseEnd) + ")";
+        //responseStart is 0 for cross-origin requests without Timing-Allow-Origin
+        if (e.responseStart > 0) line += ", first byte " + Math.round(e.responseStart - e.startTime) + " ms (" + getTtfbMs(e) + " ms after the request was sent), body " + Math.round(e.responseEnd - e.responseStart) + " ms";
+        if (e.transferSize > 0) line += ", " + Math.round(e.transferSize / 1024) + " KB transferred";
+        if (e.decodedBodySize > 0) line += ", " + Math.round(e.decodedBodySize / 1024) + " KB decoded";
+        if (e.nextHopProtocol) line += ", " + e.nextHopProtocol;
+        line += ", " + getEntrySource(e) + ", " + e.name;
+        console.log(line);
+    }
+
+    //Page load milestones plus totals for CDN requests whose url contains pathPart and started at or after sinceMs.
+    //cached = served from the browser's http cache, reval = revalidated from Unity's IndexedDB cache (304, no body).
+    //kb, cached and reval need a Timing-Allow-Origin header on the CDN, without it the browser hides sizes and they're sent as -1
+    //net = ms at least one matching request was in flight (excludes gaps where nothing was downloading, eg the loader parsing the framework before requesting the wasm).
+    //loaderMs/frameworkMs/wasmMs/dataMs (+ Kb) = each build file's request start → last byte, -1 when that file wasn't requested.
+    //src = one getEntrySourceCode letter per build file in the order loader, framework, wasm, data, x when not requested. "nnnn" = all four freshly downloaded.
+    //loaderTtfb/frameworkTtfb/wasmTtfb/dataTtfb = getTtfbMs per build file. catalogMs/catalogTtfb = the addressables catalog request, whatever pathPart is.
+    //hidden = 1 if the tab was hidden at any point since sinceMs.
+    //Each build file is also logged to the console, plus a summary line for every call.
+    function getLoadStats(pathPart, sinceMs)
+    {
+        if (loadTiming.observer) addCdnTimingEntries(loadTiming.observer.takeRecords());
+
+        var stats = {
+            now: performance.now(), loaderStart: loadTiming.loaderStartMs, unityReady: loadTiming.unityReadyMs, n: 0, start: -1, end: -1, kb: -1, cached: -1, reval: -1, net: -1,
+            loaderMs: -1, frameworkMs: -1, wasmMs: -1, dataMs: -1, loaderKb: -1, frameworkKb: -1, wasmKb: -1, dataKb: -1, src: "",
+            loaderTtfb: -1, frameworkTtfb: -1, wasmTtfb: -1, dataTtfb: -1, catalogMs: -1, catalogTtfb: -1, hidden: wasHiddenSince(sinceMs)
+        };
+        var catalogEntry = null;
+        var bytes = 0;
+        var cached = 0;
+        var reval = 0;
+        var sizesVisible = false;
+        var intervals = [];
+        var files = {};
+
+        for (var i = 0; i < loadTiming.cdnEntries.length; i++)
+        {
+            var e = loadTiming.cdnEntries[i];
+            if (!catalogEntry && /\/assetbundles\/.*catalog_[^\/]*\.json/.test(e.name)) catalogEntry = e;
+            if (e.name.indexOf(pathPart) < 0 || e.startTime < sinceMs) continue;
+
+            stats.n++;
+            if (stats.start < 0 || e.startTime < stats.start) stats.start = e.startTime;
+            if (e.responseEnd > stats.end) stats.end = e.responseEnd;
+            intervals.push([e.startTime, e.responseEnd]);
+
+            //with Timing-Allow-Origin a network response always has transferSize > 0 (headers) and a cache hit has a body size
+            var code = getEntrySourceCode(e);
+            if (code !== "u")
+            {
+                sizesVisible = true;
+                bytes += e.transferSize;
+                if (code === "c") cached++;
+                else if (code === "h" || code === "i") reval++;
+            }
+
+            //a file requested more than once (eg a retry) covers its first start → last end and the bytes of every request
+            var key = getBuildFileKey(e.name);
+            if (key)
+            {
+                var f = files[key];
+                if (!f) f = files[key] = { start: e.startTime, end: e.responseEnd, bytes: 0, sizesVisible: false, src: code, ttfb: getTtfbMs(e) };
+                f.start = Math.min(f.start, e.startTime);
+                f.end = Math.max(f.end, e.responseEnd);
+                f.bytes += e.transferSize;
+                if (code !== "u") f.sizesVisible = true;
+                //a network download in any request wins, so a retry after a failed revalidation still reads as a download
+                if (code === "n" || f.src === "u")
+                {
+                    f.src = code;
+                    f.ttfb = getTtfbMs(e);
+                }
+                logBuildFileEntry(key, e);
+            }
+        }
+
+        //no requests is a known 0, -1 only means the CDN hid the sizes
+        if (sizesVisible || stats.n === 0)
+        {
+            stats.kb = Math.round(bytes / 1024);
+            stats.cached = cached;
+            stats.reval = reval;
+        }
+
+        stats.net = Math.round(getBusyMs(intervals));
+
+        for (var fileKey in files)
+        {
+            stats[fileKey + "Ms"] = Math.round(files[fileKey].end - files[fileKey].start);
+            if (files[fileKey].sizesVisible) stats[fileKey + "Kb"] = Math.round(files[fileKey].bytes / 1024);
+            stats[fileKey + "Ttfb"] = files[fileKey].ttfb;
+        }
+
+        if (catalogEntry)
+        {
+            stats.catalogMs = Math.round(catalogEntry.responseEnd - catalogEntry.startTime);
+            stats.catalogTtfb = getTtfbMs(catalogEntry);
+        }
+
+        //only for calls that cover the build files, "" for addressables calls
+        if (loadTiming.buildFiles && loadTiming.buildFiles.loader.indexOf(pathPart) >= 0)
+        {
+            for (var buildKey in loadTiming.buildFiles) stats.src += files[buildKey] ? files[buildKey].src : "x";
+        }
+
+        console.log("[LoadTiming] " + pathPart + " since " + Math.round(sinceMs) + ": " + stats.n + " requests"
+            + (stats.n > 0 ? ", first start " + Math.round(stats.start) + " → last end " + Math.round(stats.end) + " = " + Math.round(stats.end - stats.start) + " ms elapsed, " + stats.net + " ms with a download in flight" : "")
+            + (stats.n === 0 ? "" : ", " + (stats.kb >= 0 ? stats.kb + " KB transferred, " + stats.cached + " from http cache, " + stats.reval + " revalidated" : "sizes hidden (no Timing-Allow-Origin)"))
+            + (stats.src ? ", src " + stats.src + " (loader, framework, wasm, data)" : "")
+            + (stats.hidden ? ", tab was hidden" : ""));
+        if (stats.src && catalogEntry)
+        {
+            console.log("[LoadTiming] catalog: " + stats.catalogMs + " ms (start " + Math.round(catalogEntry.startTime) + ", end " + Math.round(catalogEntry.responseEnd) + "), "
+                + stats.catalogTtfb + " ms request sent → first byte, " + getEntrySource(catalogEntry) + ", " + catalogEntry.name);
+        }
+
+        return JSON.stringify(stats);
+    }
+
+</script>
+</body>
 </html>
