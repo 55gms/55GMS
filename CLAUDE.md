@@ -26,7 +26,7 @@ node scripts/setup-stripe.js
 # Add the 1v1.lol account tables to an existing database (safe to re-run)
 node scripts/add-1v1.js
 
-# Add the digdig.io gold and skin tables to an existing database (safe to re-run)
+# Add the digdig.io gold and skin tables by hand (the server also creates them as it starts; safe to re-run)
 node scripts/add-digdig.js
 
 # Clear every 1v1.lol competitive rating back to unranked (dry run; --apply)
