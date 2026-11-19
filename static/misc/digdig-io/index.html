@@ -21,14 +21,24 @@
 			base = localStorage.getItem("gms-mp-base") || base;
 		} catch {}
 		const httpBase = base.replace(/^ws/, "http");
+		// The mode buttons ask for /endpoint/digdig-<mode>/findEach/; the server
+		// answers with the mode as the server id, so wss://<mode>.s.m28n.net/ names
+		// it again. Over plain http the client dials 127.0.0.1:443 instead, so the
+		// last mode asked for goes along.
+		let mode = "ffa";
 		const rewrite = (url) => {
 			try {
 				const u = new URL(url, location.href);
-				// Over https the client opens wss://<id>.s.m28n.net/; over plain http it
-				// dials the server list's ipv4 (127.0.0.1) on port 443 instead.
-				if (/(^|\.)m28n\.net$/i.test(u.hostname)) return base + "/digdig/play";
-				if (u.protocol === "ws:" && u.hostname === "127.0.0.1" && u.port === "443") return base + "/digdig/play";
-				if (/(^|\.)n\.m28\.io$/i.test(u.hostname)) return httpBase + "/digdig/servers";
+				if (/(^|\.)n\.m28\.io$/i.test(u.hostname)) {
+					const m = /\/endpoint\/digdig-([a-z]+)\//.exec(u.pathname);
+					if (m) mode = m[1];
+					return `${httpBase}/digdig/servers?mode=${mode}`;
+				}
+				if (/(^|\.)m28n\.net$/i.test(u.hostname)) {
+					const id = u.hostname.split(".")[0];
+					return `${base}/digdig/play?mode=${/^[a-z]+$/.test(id) ? id : mode}`;
+				}
+				if (u.protocol === "ws:" && u.hostname === "127.0.0.1" && u.port === "443") return `${base}/digdig/play?mode=${mode}`;
 			} catch {}
 			return url;
 		};
