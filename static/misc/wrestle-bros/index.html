@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
+    integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
+    crossorigin="anonymous"
+    data-game-id="wrestle-bros"
+    data-compat=""
+  ></script>
+  <meta charset="utf-8">
+  <script src="/assets/js/bros-mp.js?v=2" data-game="wrestlebros"></script>
+  <base href="https://cdn.jsdelivr.net/gh/55gms/assets@916ef900d7ada6161142bb2c62822f05cb9071e1/misc/wrestle-bros/" />
+  <title>Wrestle Bros</title>
+  <meta name="description" content="Online multiplayer PRO WRESTLING! Beat up your bros!" />
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="author" content="Blue Wizard Digital">
+  <link rel="shortcut icon" type="image/png" href="./favicon.png">
+  <script type="text/javascript" src="./WrestleBros.js?th=717"></script>
+  <script>
+    window.addEventListener("touchmove", function (e) { e.preventDefault(); }, { capture: false, passive: false });
+    if (typeof window.devicePixelRatio != "undefined" && window.devicePixelRatio > 2) {
+      document.getElementById("viewport").setAttribute("content", "width=device-width, initial-scale=" + (2 / window.devicePixelRatio) + ", user-scalable=no");
+    }
+    window.addEventListener("keydown", function (e) {
+      if ([32, 38, 40].includes(e.keyCode) && e.target === document.body) e.preventDefault();
+    });
+  </script>
+  <style>
+    html, body { margin: 0; padding: 0; background: #000; color: orange; height: 100vh; width: 100vw; overflow: hidden; }
+    #openfl-content { background: #000; width: 100%; height: 100%; }
+  </style>
+  <script>
+    // Stand-ins for the page-level ad and analytics hooks the game calls.
+    // Nothing is shown and no rewards are granted.
+    function SendEvent() {}
+    function ShowVideo() {
+      var p = document.getElementById("preroll");
+      if (p) p.style.display = "none";
+      Main.DoneVideoAd();
+      window.focus();
+      var c = document.getElementById("openfl-content");
+      if (c) c.focus();
+    }
+    function showAdBreak() { Main.DoneInterstitialAd(false); }
+    function ShowAdBreak() { Main.DoneInterstitialAd(false); }
+    function ShowAd1() {}
+    function ShowAd2() {}
+    function ShowAd3() {}
+    function ShowAd4() {}
+    function ShowAd6() {}
+    function ShowAd7() {}
+    function ShowAd8() {}
+    function ShowAd9() {}
+    function HideSetupAds() {}
+    function HideAd() {}
+    function HideAllAds() {}
+    function GamePlayStart() {}
+    function GamePlayStop() {}
+    function HappyTime() {}
+    function setCGInviteLink() {}
+    function EmailSignup() {}
+    function translateAllDesktopAds() {}
+  </script>
+</head>
+<body style="overflow:hidden;">
+  <div id="loading" style="position: absolute; z-index: 15; top: 60%; left: 50%; transform: translate(-50%, 0); background: #000; text-align: center;">
+    <img src="assets/loading4.png"><br>
+    <img src="assets/fbro.png">
+    <img src="assets/sbro.png">
+    <img src="assets/wbro.png">
+    <img src="assets/bbro.png">
+  </div>
+  <div id="game2" style="width: 100%; height: 100%;">
+    <div id="openfl-content" style="width: 100%; float: left;">
+      <script type="text/javascript">
+        lime.embed("WrestleBros", "openfl-content", 0, 0, { parameters: {} });
+      </script>
+    </div>
+    <div id="preroll" style="display: none !important;"></div>
+  </div>
+  <script>
+    var element = document.getElementById("openfl-content");
+    function keepFocus() { element.focus(); }
+    element.addEventListener("blur", keepFocus);
+    element.addEventListener("focusout", keepFocus);
+  </script>
+</body>
+</html>
