@@ -16,7 +16,7 @@ const gunzip = promisify(zlib.gunzip);
 // One copy per day, on disk, shared by every pm2 worker: the first worker to
 // need a new day fetches it under a lock file, the rest read the files.
 const UPSTREAM = "https://krillion.io";
-const CACHE_DIR =
+export const KRILLION_CACHE_DIR =
   process.env.KRILLION_CACHE_DIR ||
   path.join(
     path.dirname(fileURLToPath(import.meta.url)),
@@ -29,6 +29,8 @@ const LOCK_STALE_MS = 2 * 60_000;
 const LOCK_WAIT_MS = 30_000;
 const KEEP_FILES = 3;
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+const CACHE_DIR = KRILLION_CACHE_DIR;
 
 const todayFile = (date) => path.join(CACHE_DIR, `${date}.today.json`);
 const revealFile = (date) => path.join(CACHE_DIR, `${date}.reveal.json.gz`);
@@ -172,6 +174,7 @@ async function prune() {
       await Promise.all([
         fs.rm(todayFile(date), { force: true }),
         fs.rm(revealFile(date), { force: true }),
+        fs.rm(path.join(CACHE_DIR, `${date}.scores.log`), { force: true }),
       ]);
     }
   } catch {
