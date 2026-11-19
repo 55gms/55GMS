@@ -39,19 +39,23 @@ referees their casual `1v1` matches from the relayed messages, so a signed-in
 player still gets XP, stats and battle pass progress; they are never rated.
 Ranked and parties stay on 55GMS.
 
-## BasketBros, SoccerBros, BaseballBros, FootballBros, HockeyBros
+## BasketBros, SoccerBros, BaseballBros, FootballBros, HockeyBros, Fight Bros, Wrestle Bros
 
 Blue Wizard's games find their servers from the page's own hostname, so on
 55GMS they dialled `wss://EA.55gms.com/0` (and pinged `https://EA.55gms.com/ping`
 for the region list), which does not exist; their real servers are on
 `*.basketbros.io`, which filters block. `static/assets/js/bros-mp.js`, loaded
-before the game on `static/misc/{basketbros-io,soccerbros,baseballbros-io,footballbros,hockey-bros}/index.html`
+before the game on `static/misc/{basketbros-io,soccerbros,baseballbros-io,footballbros,hockey-bros,fight-bros,wrestle-bros}/index.html`
 with `data-game` set to the server's name for it, sends both to
 `/api/mp/<game>/play` and `/api/mp/<game>/ping` on the page's host. Only the
 `EA` ("US Atlanta") ping answers, so the game lists one server. Public games,
-private codes and chat work; FootballBros keeps its lobby of up to three a
-side, and HockeyBros (`hockeybros`) uses the same lobby. Accounts are not
-involved: names and records are the game's own. The protocol is in that repo's README. Bump the `?v=` on `bros-mp.js` in the five
+private codes and chat work. Wrestle Bros (`wrestlebros`) is one against one
+like BasketBros; FootballBros keeps its lobby of up to three a
+side, HockeyBros (`hockeybros`) uses the same lobby, and Fight Bros
+(`fightbros`) uses it for up to four fighters, who pick their bros and the
+host's stage through the lobby chat. The server runs every match itself (it
+sends the shared 60 Hz tick); nothing goes to Blue Wizard's servers. Accounts are not
+involved: names and records are the game's own. The protocol is in that repo's README. Bump the `?v=` on `bros-mp.js` in these
 pages when it changes (game pages are never rebuilt).
 
 ## Ducklings.io (`static/misc/ducklings-io/`)
@@ -201,3 +205,7 @@ Design and plan for accounts: `docs/superpowers/specs/2026-11-16-1v1-accounts-co
 
 Design and plan: `docs/superpowers/specs/2026-11-16-multiplayer-server-design.md`,
 `docs/superpowers/plans/2026-11-16-multiplayer-server.md`.
+
+## digdig.io (`static/misc/digdig-io/`)
+
+M28 still runs digdig.io's servers, but this is a server of our own, not a relay: `games/digdig` in the multiplayer repo speaks the client's protocol (worked out from the client; the record is that folder's `README.md`) and runs the game itself: the same map as the official one (the client draws it from a seed), digging, ores, combat, fog of war and a leaderboard. Every lobby keeps bots playing (12 diggers, at least 4 bots) that farm ore, hunt smaller diggers, players and bots alike, and run from bigger ones. An inline script before the `<base>` sends the client's server list request (`api.n.m28.io`) to `/api/mp/digdig/servers` and its game socket (`*.s.m28n.net`) to `/api/mp/digdig/play` on the page's host; `localStorage["gms-mp-base"]` points it elsewhere for testing. The `client.js` in the assets repo reports `digdig.io` as the page's hostname to the game, which refuses to start on any other. Every mode button plays the same FFA lobby; squads, the shop, gold and Discord/Apple sign-in do nothing.

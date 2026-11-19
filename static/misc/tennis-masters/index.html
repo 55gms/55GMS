@@ -1,0 +1,49 @@
+<!doctype html><html lang="en"><head>
+  <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
+    integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
+    crossorigin="anonymous"
+    data-game-id="tennis-masters"
+    data-compat="gamedistribution"
+  ></script><meta charset="utf-8"/><base href="https://cdn.jsdelivr.net/gh/55gms/assets@8b927508dc4343c6e56b99f7ed07b4724872b104/misc/tennis-masters/" /><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no"/><link rel="stylesheet" href="assets/css/app.css"/><title>Tennis Masters</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><script>(function(){var d=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,"src");if(!d||!d.set)return;Object.defineProperty(HTMLImageElement.prototype,"src",{configurable:true,enumerable:d.enumerable,get:d.get,set:function(v){if(!this.crossOrigin)this.crossOrigin="anonymous";d.set.call(this,v);}});})();</script><script src="gd-sdk.js"></script><script defer="defer" src="tennis_masters.min.js?4503fe247b570061ed6a"></script></head><body><div id="content"></div><div id="loader">Loading ...</div><script src="assets/lib/nape.min.js">var nape = "nape.min.js";</script><script>var useEvents = (typeof(Event) === 'function');
+
+        var myDispatchEvent = function (name){
+            var event;
+            if (useEvents){
+                event =  new Event(name);
+            }else{
+                event = document.createEvent('Event');
+                event.initEvent(name, true, true);
+            }
+            document.getElementById("content").dispatchEvent(event);
+        }
+
+        window["GD_OPTIONS"] = {
+            "gameId": "ab2f156d72894fd8a5dedb85b34a05e4",
+            "onEvent": function(event) {
+                switch (event.name) {
+                    case "SDK_GAME_START":
+                        // advertisement done, resume game logic and unmute audio
+                        myDispatchEvent('SDK_GAME_START');
+                        break;
+                    case "SDK_GAME_PAUSE":
+                        // pause game logic / mute audio
+                        myDispatchEvent('SDK_GAME_PAUSE');
+                        break;
+                    case "SDK_GDPR_TRACKING":
+                        // this event is triggered when your user doesn't want to be tracked
+                        console.log("SDK_GDPR_TRACKING");
+                        break;
+                    case "SDK_GDPR_TARGETING":
+                        // this event is triggered when your user doesn't want personalised targeting of ads and such
+                        console.log("SDK_GDPR_TARGETING");
+                        break;
+                    case "SDK_READY":
+                        // this event is triggered when your user doesn't want personalised targeting of ads and such
+                        console.log("SDK_READY");
+                        break;
+                }
+            },
+        };
+</script></body></html>
