@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
+    integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
+    crossorigin="anonymous"
+    data-game-id="kart-bros"
+    data-compat=""
+  ></script>
+  <meta charset="utf-8" />
+  <script src="/assets/js/loader-ui.js?v=5gz9swuael"></script>
+  <script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Kart Bros"></script>
+  <script
+    src="/assets/js/game-net.js?v=1"
+    data-sockets="kartbros.io,*.kartbros.io"
+    data-fetch="kartbros.io,*.kartbros.io"
+    data-origin="https://kartbros.io"
+  ></script>
+  <base href="https://cdn.jsdelivr.net/gh/55gms/assets@0607d857845b7b2d5493ee94e615975b5ec1c04b/misc/kart-bros/" />
+  <title>Kart Bros</title>
+  <meta name="author" content="Blue Wizard Digital" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <style>
+    html, body { margin: 0; padding: 0; background: #000; overflow: hidden; height: 100%; }
+    #unity-canvas { background: #000; width: 100%; height: 100%; display: block; }
+  </style>
+  <script>
+    // Stand-ins for the page-level hooks the game calls. No ads are shown and
+    // no rewards are granted; the game's video-ad call completes at once.
+    window.aiptag = { cmd: { display: [], player: [] } };
+    function SendEvent() {}
+    function GA4_SendEvent() {}
+    function LoadVideo() {}
+    function ShowVideo() {
+      setTimeout(function () {
+        if (window.unityInstance) {
+          try { window.unityInstance.SendMessage("AdsManager", "OnVideoAdCompleted"); } catch (e) {}
+        }
+      }, 0);
+    }
+  </script>
+  <script>
+    GameLoader.prepare([
+      ["Build/71ce6758078c3b085481c4e852cecb74.data", 18214150],
+      ["Build/7b24a18aa743e6b82553e73219fed4e3.wasm.part1", 10000000],
+      ["Build/7b24a18aa743e6b82553e73219fed4e3.wasm.part2", 10000000],
+      ["Build/7b24a18aa743e6b82553e73219fed4e3.wasm.part3", 7580350],
+      ["Build/4a089c56c41f56531f63e288a46bf699.framework.js", 391868],
+      ["Build/5197804118a499f65846e96ad2079d2a.loader.js", 27914],
+    ]);
+  </script>
+</head>
+<body>
+  <canvas id="unity-canvas" tabindex="-1"></canvas>
+  <script>
+    (async () => {
+      const canvas = document.getElementById("unity-canvas");
+      canvas.addEventListener("wheel", (e) => { if (e.cancelable) e.preventDefault(); }, { passive: false });
+      const [dataUrl, codeUrl, frameworkUrl, loaderUrl] = await Promise.all([
+        GameLoader.merge(["Build/71ce6758078c3b085481c4e852cecb74.data"]),
+        GameLoader.merge(
+          [
+            "Build/7b24a18aa743e6b82553e73219fed4e3.wasm.part1",
+            "Build/7b24a18aa743e6b82553e73219fed4e3.wasm.part2",
+            "Build/7b24a18aa743e6b82553e73219fed4e3.wasm.part3",
+          ],
+          "application/wasm"
+        ),
+        GameLoader.merge(["Build/4a089c56c41f56531f63e288a46bf699.framework.js"], "application/javascript"),
+        GameLoader.merge(["Build/5197804118a499f65846e96ad2079d2a.loader.js"], "application/javascript"),
+      ]);
+      await GameLoader.script(loaderUrl);
+      window.unityInstance = await createUnityInstance(canvas, {
+        arguments: [],
+        dataUrl,
+        frameworkUrl,
+        codeUrl,
+        streamingAssetsUrl: new URL("StreamingAssets", document.baseURI).href,
+        companyName: "BlueWizard",
+        productName: "KART BROS!",
+        productVersion: "1.84",
+        showBanner(message, type) {
+          type === "error" ? GameLoader.fail(new Error(message)) : console.warn(message);
+        },
+      });
+      GameLoader.finish();
+      canvas.focus();
+    })().catch(GameLoader.fail);
+  </script>
+</body>
+</html>
