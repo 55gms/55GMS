@@ -66,6 +66,18 @@ signalling only: the match itself runs between the players' browsers over
 WebRTC (or the game's TURN server), so a network that blocks WebRTC still
 breaks it after a room is found.
 
+## Smash Karts (`static/misc/smashkarts/`)
+
+Smash Karts' own Photon servers still run, and its build still plays on them. 55GMS hosts the build itself (the page, and `Build/`, `StreamingAssets/`, `scripts/` in the assets repo) and puts the multiplayer server in front of its Photon traffic, so that private games and parties are on 55GMS and PLAY still reaches everyone who plays on the official cloud. An inline script before the `<base>` wraps `WebSocket`: any `*.exitgames.com`, `*.exitgamescloud.com` or `*.photonengine.io` address becomes `/api/mp/smashkarts/ns` on the page's host, and the server's own `/api/mp/…` addresses are kept on that host. Locally, point it at a multiplayer server on another port with `localStorage["gms-mp-base"] = "ws://localhost:8093/api/mp"`.
+
+PLAY looks for a matching room on 55GMS; with none it goes on to the official cloud with the player's own Firebase login (a lone player meets the people who play there, and the game shows no difference). Create and Join (private games, parties) stay on 55GMS: a code the 55GMS server does not know gets "Game does not exist", so a code from a private game on smashkarts.io does not work here. Details are in that repo's README.
+
+The page is the official one with everything that was not the game taken out:
+
+- no ads (`scripts/ads-stub.js` answers the ad calls with nothing and never grants a reward), no house promotions, frame bar or ad-block detection, no analytics (the Firebase Analytics script is not loaded), no `cc.js` (a console warning);
+- the build is `Build/*.br` in the assets folder, which jsDelivr serves as `Content-Encoding: br` (all four files are under its 20 MB limit, so nothing is split). The mobile data file (`9fc7…`) and the desktop one (`e8bf…`) are both there, as the page picks one by ASTC support. Keep them as downloaded (`curl --raw -H "Accept-Encoding: br"`): a browser's copy is the decoded bytes;
+- the game's addressable bundles and the catalog stay on its own CDN (`smashkartsgc.b-cdn.net`), as the official page does for hosts it does not know. `StreamingAssets/aa/settings.json` names the catalog for the build; the CDN removes old catalogs when Tall Team publishes a new one, so **the build goes stale on their next release** and must be ripped again (`node scripts/rip-game.js https://smashkarts.io/ --name smashkarts --force --headless --wait 60`, then redo the clean-up above, and re-download the four `Build/` files raw) before PLAY can load. The client version in the Photon login also has to be current for the cloud to accept it.
+
 ## Games whose own servers still run: `game-net.js`
 
 A ripped game whose official servers are still up keeps playing on them.
@@ -180,7 +192,7 @@ away the tunnelled client after its hello, for a reason not found), Deeeep.io
 deeeep.io), Venge.io (matchmaking works; its game server refused the
 connection when tested, and its skins come from a live CDN catalogue),
 Pokemon Showdown, deadshot.io (device attestation), and the Unity games
-(Kour.io, Smash Karts, Snowball.io, buildnow.gg, Stumble Guys).
+(Kour.io, Snowball.io, buildnow.gg, Stumble Guys).
 
 Design and plan for accounts: `docs/superpowers/specs/2026-11-16-1v1-accounts-competitive-design.md`,
 `docs/superpowers/plans/2026-11-16-1v1-accounts-competitive.md`.

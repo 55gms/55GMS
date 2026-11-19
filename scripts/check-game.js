@@ -13,6 +13,7 @@ import fs from "node:fs";
 import http from "node:http";
 import os from "node:os";
 import path from "node:path";
+import zlib from "node:zlib";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright-core";
 import { assetsRepo, filesDir, requireAssetsRepo } from "./lib/gameFiles.js";
@@ -137,6 +138,16 @@ if (!live) {
     if (fs.statSync(file).size > CDN_LIMIT) {
       failed.set(url.href, "over jsDelivr's 20 MB limit, split it into parts");
       return route.fulfill({ status: 403, headers, body: "" });
+    }
+    // jsDelivr sends .br files as Content-Encoding: br and the browser hands
+    // Unity the decoded bytes; a fulfilled route skips that step, so decode here.
+    if (file.endsWith(".br")) {
+      return route.fulfill({
+        status: 200,
+        headers,
+        contentType: mime(file),
+        body: zlib.brotliDecompressSync(fs.readFileSync(file)),
+      });
     }
     return route.fulfill({
       status: 200,
