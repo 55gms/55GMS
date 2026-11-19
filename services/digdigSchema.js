@@ -1,7 +1,7 @@
 // The tables behind digdig.io on 55GMS accounts (docs/multiplayer.md). Only
-// services/digdig.js reads and writes them, in raw SQL. scripts/add-digdig.js
-// adds them to an existing database and setup-db.js to a new one; every
-// statement is safe to re-run.
+// services/digdig.js reads and writes them, in raw SQL. The server creates
+// them as it starts with the digdig feature on (index.js); setup-db.js and
+// scripts/add-digdig.js do the same by hand. Every statement is safe to re-run.
 export const DIGDIG_SCHEMA = [
   // Owned skins (utils/digdig-skins.json ids).
   `CREATE TABLE IF NOT EXISTS digdig_items (
@@ -24,6 +24,18 @@ export const DIGDIG_SCHEMA = [
   `CREATE INDEX IF NOT EXISTS digdig_gold_ledger_uuid ON digdig_gold_ledger (uuid)`,
 ];
 
+// Any digdig number, so the server's cluster workers, which all start at
+// once, create the tables one at a time: concurrent CREATE TABLE IF NOT
+// EXISTS can fail in Postgres.
+const SCHEMA_LOCK = 5524843;
+
 export async function ensureDigdigSchema(sequelize) {
-  for (const statement of DIGDIG_SCHEMA) await sequelize.query(statement);
+  await sequelize.transaction(async (transaction) => {
+    await sequelize.query(`SELECT pg_advisory_xact_lock(${SCHEMA_LOCK})`, {
+      transaction,
+    });
+    for (const statement of DIGDIG_SCHEMA) {
+      await sequelize.query(statement, { transaction });
+    }
+  });
 }

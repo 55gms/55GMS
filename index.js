@@ -230,7 +230,16 @@ try {
       );
     }
     if (features.digdig) {
-      const { createDigdigRouter } = await import("./routes/digdig.js");
+      const [{ createDigdigRouter }, { ensureDigdigSchema }] =
+        await Promise.all([
+          import("./routes/digdig.js"),
+          import("./services/digdigSchema.js"),
+        ]);
+      // Its tables come with the deploy; a failure leaves digdig.io's
+      // accounts unusable (players are guests) but the site up.
+      await ensureDigdigSchema(features.models.sequelize).catch((error) =>
+        console.error("[digdig] creating its tables failed:", error),
+      );
       app.use("/api", createDigdigRouter());
     }
   }
