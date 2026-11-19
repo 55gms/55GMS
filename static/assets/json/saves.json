@@ -1743,6 +1743,13 @@
    "frame": "/misc/hill-climb-racing/index.html",
    "status": "observed"
   },
+  "hockey-bros": {
+   "id": "hockey-bros",
+   "name": "Hockey Bros",
+   "play": "/misc/play/?title=Hockey%20Bros&link=hockey-bros",
+   "frame": "/misc/hockey-bros/index.html",
+   "status": "observed"
+  },
   "hole-io": {
    "id": "hole-io",
    "name": "Hole.io",
@@ -1999,6 +2006,13 @@
      "localforage"
     ]
    }
+  },
+  "krillion": {
+   "id": "krillion",
+   "name": "Krillion",
+   "play": "/misc/play/?title=Krillion&link=krillion",
+   "frame": "/misc/krillion/index.html",
+   "status": "observed"
   },
   "learn-to-fly": {
    "id": "learn-to-fly",
@@ -3027,9 +3041,10 @@
   },
   "smashkarts": {
    "id": "smashkarts",
-   "name": "smashkarts",
+   "name": "Smash Karts",
+   "play": "/misc/play/?title=Smash%20Karts&author=Tall%20Team&link=smashkarts",
    "frame": "/misc/smashkarts/index.html",
-   "status": "local-only"
+   "status": "observed"
   },
   "snake-pivot": {
    "id": "snake-pivot",
@@ -3752,13 +3767,7 @@
    "id": "zorr-pro",
    "name": "Zorr.pro",
    "play": "/misc/play/?title=Zorr.pro&link=zorr-pro",
-   "frame": "/misc/zorr-pro/index.html"
-  },
-  "krillion": {
-   "id": "krillion",
-   "name": "Krillion",
-   "play": "/misc/play/?title=Krillion&link=krillion",
-   "frame": "/misc/krillion/index.html",
+   "frame": "/misc/zorr-pro/index.html",
    "status": "observed"
   }
  }

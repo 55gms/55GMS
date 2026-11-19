@@ -1,12 +1,12 @@
 // Blue Wizard's sports games (BasketBros, SoccerBros, BaseballBros,
-// FootballBros) look for their servers at <region>.<this page's host>:
+// FootballBros, HockeyBros) look for their servers at <region>.<this page's host>:
 // https://EA.55gms.com/ping to list regions, wss://EA.55gms.com/0 to play.
 // Those hosts do not exist, and the games' own servers are on blocked
 // domains, so send both to the 55GMS multiplayer server
 // (github.com/55gms/multiplayer) on this page's own host instead.
 //
 // Load it before the game, with the server's name for the game:
-//   <script src="/assets/js/bros-mp.js?v=1" data-game="soccerbros"></script>
+//   <script src="/assets/js/bros-mp.js?v=2" data-game="soccerbros"></script>
 // Locally, point it at a multiplayer server on another port with
 //   localStorage["gms-mp-base"] = "ws://localhost:8093/api/mp"
 (() => {
@@ -26,6 +26,7 @@
     "soccerbros.gg",
     "footballbros.io",
     "baseballbros.io",
+    "hockeybros.io",
   ];
   const page = location.hostname.toLowerCase();
   const region = (host) => {
