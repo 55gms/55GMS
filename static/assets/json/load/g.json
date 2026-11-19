@@ -1585,10 +1585,10 @@
   },
   {
     "name": "Smash Karts",
-    "url": "https://htmlxm.github.io/h/smash-karts/",
+    "url": "/misc/play/?title=Smash%20Karts&author=Tall%20Team&link=smashkarts",
     "image": "https://cdn.jsdelivr.net/gh/55gms/assets@e6dafba78d77deea9bf03d88e4d94efec394ef58/misc/smashkarts/img.webp",
     "preview": "/img/videos/preview/smashkarts.mp4",
-    "usesProxy": true
+    "usesProxy": false
   },
   {
     "name": "Snow Rider 3D",
