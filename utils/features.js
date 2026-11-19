@@ -41,6 +41,8 @@ function withAccountsAndChat(features) {
     features.database &&
     process.env.ACCOUNT_BACKEND === "postgres" &&
     Boolean(process.env.ADMIN_TOKEN_SECRET && process.env.MP_SHARED_SECRET);
+  // digdig.io's gold and skins on 55GMS accounts: the same needs as 1v1.lol.
+  features.digdig = features.onev1;
   return features;
 }
 

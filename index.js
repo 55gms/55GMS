@@ -229,6 +229,10 @@ try {
         createOneV1Router({ game, coins, billing: features.billing }),
       );
     }
+    if (features.digdig) {
+      const { createDigdigRouter } = await import("./routes/digdig.js");
+      app.use("/api", createDigdigRouter());
+    }
   }
   if (features.chat) {
     const messaging = await import("./routes/messaging.js");
@@ -247,6 +251,9 @@ try {
   }
   if (!features.onev1) {
     app.use("/api/1v1", featureOff);
+  }
+  if (!features.digdig) {
+    app.use("/api/digdig", featureOff);
   }
   if (!features.saves) {
     app.use(
@@ -634,6 +641,7 @@ try {
     console.log(`👤 Accounts: ${features.accounts ? "on" : "off"}`);
     console.log(`💬 Chat: ${features.chat ? "on" : "off"}`);
     console.log(`🎯 1v1.lol accounts: ${features.onev1 ? "on" : "off"}`);
+    console.log(`⛏️  digdig.io accounts: ${features.digdig ? "on" : "off"}`);
     console.log(`💾 Cloud saves: ${features.saves ? "per game" : "legacy"}`);
     console.log(`🔌 Wisp: ${wisp ? "built in" : "external"}`);
     console.log(`------------------------------------\n`);
