@@ -334,6 +334,13 @@
     ]
    }
   },
+  "bike-bros": {
+   "id": "bike-bros",
+   "name": "Bike Bros",
+   "play": "/misc/play/?title=Bike%20Bros&link=bike-bros",
+   "frame": "/misc/bike-bros/index.html",
+   "status": "observed"
+  },
   "bikeobby": {
    "id": "bikeobby",
    "name": "Bike Obby",
@@ -791,6 +798,13 @@
    "name": "Dread Head Parkour",
    "play": "/misc/play/?title=Dread%20Head%20Parkour&link=dhp",
    "frame": "/misc/dhp/index.html",
+   "status": "observed"
+  },
+  "digdig-io": {
+   "id": "digdig-io",
+   "name": "digdig.io",
+   "play": "/misc/play/?title=digdig.io&link=digdig-io",
+   "frame": "/misc/digdig-io/index.html",
    "status": "observed"
   },
   "digger-escape": {
@@ -3431,6 +3445,13 @@
    "name": "Temple of Boom",
    "play": "/misc/play/?title=Temple of Boom&author=Pierce Ozoude&link=templeofboom",
    "frame": "/misc/templeofboom/index.html",
+   "status": "observed"
+  },
+  "tennis-masters": {
+   "id": "tennis-masters",
+   "name": "Tennis Masters",
+   "play": "/misc/play/?title=Tennis%20Masters&link=tennis-masters",
+   "frame": "/misc/tennis-masters/index.html",
    "status": "observed"
   },
   "territorial-io": {

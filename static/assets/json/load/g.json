@@ -1878,9 +1878,9 @@
   },
   {
     "name": "digdig.io",
-    "url": "https://digdig.io/",
-    "image": "/img/games/digdigio.webp",
-    "usesProxy": true
+    "author": "M28",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@196bdfbd1dc38aee759b78add8442cd343f6a35b/misc/digdig-io/img.webp",
+    "usesProxy": false
   },
   {
     "name": "Buckshot Roulette",
@@ -3355,6 +3355,18 @@
     "name": "Fireboy and Watergirl 7: And Friends",
     "author": "Septimaniac",
     "image": "https://cdn.jsdelivr.net/gh/55gms/assets@bc9df1c92d0f5751d4c24d04b1cc6a7304d62312/misc/fireboy-and-watergirl-7/img.webp",
+    "usesProxy": false
+  },
+  {
+    "name": "Tennis Masters",
+    "author": "MadPuffers",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@8b927508dc4343c6e56b99f7ed07b4724872b104/misc/tennis-masters/img.webp",
+    "preview": "/img/videos/preview/tennismasters.mp4",
+  },
+  {
+    "name": "Bike Bros",
+    "author": "Blue Wizard Digital",
+    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@bb1433f33b0a47ea3aacae5614aafb58bc4be3b6/misc/bike-bros/img.webp",
     "usesProxy": false
   }
 ]
