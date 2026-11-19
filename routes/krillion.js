@@ -2,6 +2,7 @@ import express from "express";
 import zlib from "node:zlib";
 import { rateLimit } from "../utils/rateLimit.js";
 import { findAnswer, getDay, getReveal, isDate } from "../services/krillion.js";
+import { recordScore } from "../services/krillionScores.js";
 
 // The API the Krillion page under /misc/krillion/ talks to, answered from the
 // day's cached copy (services/krillion.js). Everything else the real site
@@ -87,9 +88,35 @@ export function createKrillionRouter() {
     });
   });
 
-  // Finished days are not recorded anywhere but the player's own browser.
-  router.post("/today/complete", (req, res) => {
-    res.json({ ok: true });
+  const completeLimit = rateLimit({
+    windowMs: 60_000,
+    max: 20,
+    message: "Too many finishes. Wait a moment.",
+  });
+
+  // A finished day: counted among today's scores (services/krillionScores.js)
+  // for the results screen's percentile and distribution chart.
+  router.post("/today/complete", completeLimit, withDay, async (req, res) => {
+    const { date, playerId, score } = req.body ?? {};
+    if (date !== req.krillionDay.date || !Number.isFinite(score)) {
+      return res.json({ ok: true });
+    }
+    try {
+      const { betterThan, dist } = await recordScore(
+        date,
+        String(playerId ?? ""),
+        score,
+      );
+      res.json({ ok: true, betterThan, dist });
+    } catch {
+      res.json({ ok: true });
+    }
+  });
+
+  // Live answer popularity needs krillion.io's player counts. A 403 tells
+  // the page to stop asking (a 404 would be retried every 45 seconds).
+  router.get("/answer-popularity", (req, res) => {
+    res.status(403).json({ error: "Not part of the cached daily game" });
   });
 
   router.use("/account", (req, res) => {
