@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="/assets/js/save-agent.js?v=4"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/55gms/gms-ads@b995962daa60e71ea2ab3bdaf6e10f8c6853a7fe/embed/dist/sdk.min.js"
+    integrity="sha384-TshTwF2bDJgpoZFNenR6Wn1Ldh7BMyNG42LqxG2OTTuBEUk0+Nabn9pIPCWz5AIT"
+    crossorigin="anonymous"
+    data-game-id="fight-bros"
+    data-compat=""
+  ></script>
+	<meta charset="utf-8">
+	<script src="/assets/js/bros-mp.js?v=2" data-game="fightbros"></script>
+	<base href="https://cdn.jsdelivr.net/gh/55gms/assets@04b261f296011df2e83283813dee5f9427b9b96c/misc/fight-bros/" />
+	<title>Fight Bros</title>
+	<meta name="description" content="Online multiplayer FIGHTING! Chop up your bros!" />
+	<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="author" content="Blue Wizard Digital">
+	<script>
+		window.adPrefix = "fightbros-io";
+		window.prerollId = "fightbros.io_preroll";
+	</script>
+	<script type="text/javascript" src="./FightBros.js?th=1794837264"></script>
+	<script>
+		window.addEventListener ("touchmove", function (event) { event.preventDefault (); }, { capture: false, passive: false });
+		if (typeof window.devicePixelRatio != "undefined" && window.devicePixelRatio > 2) {
+			var meta = document.getElementById ("viewport");
+			meta.setAttribute ("content", "width=device-width, initial-scale=" + (2 / window.devicePixelRatio) + ", user-scalable=no");
+		}
+		window.addEventListener("keydown", function(e) {
+			var tag = e.target.tagName;
+			if (tag !== "INPUT" && tag !== "TEXTAREA") {
+				e.preventDefault();
+			}
+		});
+		var aCo = "US";
+	</script>
+	<style>
+		html,body { margin: 0; padding: 0; background: #000000; color: orange; height: 100vh; width: 100vw; overflow: hidden; }
+		#openfl-content { background: #000000; width: 100%; height: 100%; }
+	</style>
+	<script>
+		// Stand-ins for the page-level ad, analytics and sign-in hooks the game calls.
+		// Nothing is shown and no rewards are granted. Sign-in and cloud saves are off:
+		// progress stays in this browser (55GMS cloud saves cover it).
+		var scrollerMessage = "   WELCOME TO FIGHT BROS!";
+		function SendEvent() {}
+		function ShowVideo() {
+			var p = document.getElementById("preroll");
+			if (p) p.style.display = "none";
+			Main.DoneVideoAd();
+			window.focus();
+			var c = document.getElementById("openfl-content");
+			if (c) c.focus();
+		}
+		function ShowAdBreak() { Main.DoneInterstitialAd(false); }
+		function ShowAscAd() {}
+		function HideAscAd() {}
+		function AscManageAdSizes() {}
+		function ShowOptiAd() {}
+		function HideOptiAd() {}
+		function SetOptiAdUnit() {}
+		function SetSetupadUnit() {}
+		function ShowAdPosition() {}
+		function ShowUnitBannerAd() {}
+		function ShowAd1() {}
+		function ShowAd2() {}
+		function ShowAd3() {}
+		function ShowAd4() {}
+		function ShowAd6() {}
+		function ShowAd7() {}
+		function ShowAd8() {}
+		function ShowAd9() {}
+		function ShowAd10() {}
+		function HideAd(id) {
+			var e = typeof id === "string" && document.getElementById(id);
+			if (e) e.style.display = "none";
+		}
+		function HideAllAds() {}
+		function GamePlayStart() {}
+		function GamePlayStop() {}
+		function HappyTime() {}
+		function SetCGInviteLink() {}
+		function triggerSignIn() {}
+		function signOut() {}
+		function isUserLoggedIn() { return false; }
+		function saveGameData() {}
+		function loadGameData() { return ""; }
+		function loadGameDataAsync() {}
+	</script>
+</head>
+<body style="overflow:hidden;">
+	<div id="loading" style="position: absolute; z-index: 15; top: 60%; left: 50%; transform: translate(-50%, 0); background: black;">
+		<center><img src="assets/loading4.png"><br/>
+		<img src="assets/fbro.png">
+		<img src="assets/bbbro.png">
+		<img src="assets/sbro.png">
+		<img src="assets/wbro.png">
+		<img src="assets/bbro.png">
+		<br/>
+		</center>
+	</div>
+	<div id="game2" style="width: 100%; height: 100%; ">
+		<div id="openfl-content" onblur="window.focus();" style="width: 100%; float:left;">
+			<script type="text/javascript">
+				lime.embed ("FightBros", "openfl-content", 0, 0, { parameters: {} });
+			</script>
+		</div>
+		<div id="preroll" style="display: none !important;"></div>
+	</div>
+	<script>
+		var element = document.getElementById("openfl-content");
+		function keepFocus() { element.focus(); }
+		element.addEventListener("blur", keepFocus);
+		element.addEventListener("focusout", keepFocus);
+	</script>
+</body>
+</html>
