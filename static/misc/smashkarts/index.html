@@ -13,13 +13,6 @@
 	<script src="/assets/js/loader-ui.js?v=5gz9swuael"></script>
 	<script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Smash Karts"></script>
 	<script>
-		GameLoader.unity([
-			["Build/788bbc2134cec6b5933083da2e51b126.framework.js.br", 120510],
-			["Build/912c4081ba50950104bfccaf56077268.wasm.br", 13856103],
-			["Build/e8bf158cdba0c84551b6c88c485f61c5.data.br", 15165817],
-		]);
-	</script>
-	<script>
 		// Smash Karts plays on Photon. Its name server is answered by the 55GMS
 		// multiplayer server (github.com/55gms/multiplayer) on this page's own host,
 		// which hands out its own master and game servers: rooms here for private
@@ -48,7 +41,7 @@
 		})();
 	</script>
 	<script src="/assets/js/script.js?v=28"></script>
-	<base href="https://cdn.jsdelivr.net/gh/55gms/assets@64c4f6cbf282ed223671654b5f19e77e0eec4cdc/misc/smashkarts/">
+	<base href="https://cdn.jsdelivr.net/gh/55gms/assets@0af9b9e9b95b780314478a575b91d5ee5a33c434/misc/smashkarts/">
 	<script src="scripts/constants.js"></script>
 	
 	
@@ -185,8 +178,8 @@
 	var sentGameInstanceStartEvent = false;
 
 	// choose the data file based on whether there's support for the ASTC texture compression format
-	var dataFile = "/e8bf158cdba0c84551b6c88c485f61c5.data.br";
-	var mobileDataFile = "/9fc7d5a0137bc234c2fc599ac8c14714.data.br";
+	var dataFile = "/e8bf158cdba0c84551b6c88c485f61c5.data";
+	var mobileDataFile = "/9fc7d5a0137bc234c2fc599ac8c14714.data";
     
     var addressableCatalogFilename = "catalog_2026.11.17.16.51.48.json";
     var mobileAddressableCatalogFilename = "catalog_2026.11.17.16.53.46.json";
@@ -194,8 +187,8 @@
 
 	//vars rather than inline so build-ab.js can swap in the A/B test variant's files
 	var loaderFile = "c4ce55f6fd990c1236bc84106eb955bf.loader.js";
-	var frameworkFile = "788bbc2134cec6b5933083da2e51b126.framework.js.br";
-	var codeFile = "912c4081ba50950104bfccaf56077268.wasm.br";
+	var frameworkFile = "788bbc2134cec6b5933083da2e51b126.framework.js";
+	var codeFile = "912c4081ba50950104bfccaf56077268.wasm";
 
 	//safety check to ensure we dont try to use the mobileDataFile if the filename hasnt been parsed during the build phase
 	if(!mobileDataFile.includes("MOBILE_DATA_FILENAME"))
@@ -425,6 +418,29 @@ const addressablesUrl = cdnUrls[cdnName].addressables;
 	progress.style.display = "block";
 	progressBarFull.style.width = "0%";
 
+	//The big files are stored as 10 MB parts (jsDelivr refuses anything over 20 MB and
+	//compresses what it sends), joined here and handed to Unity as blobs
+	const buildParts = {
+		"/912c4081ba50950104bfccaf56077268.wasm": [10000000, 10000000, 10000000, 10000000, 10000000, 3597201],
+		"/e8bf158cdba0c84551b6c88c485f61c5.data": [10000000, 10000000, 2598993],
+		"/9fc7d5a0137bc234c2fc599ac8c14714.data": [10000000, 10000000, 2542348],
+	};
+	async function loadBuildFiles()
+	{
+		const parts = (name) => buildParts[name].map((size, i) => ["Build" + name + ".part" + (i + 1), size]);
+		const wasm = parts("/" + codeFile);
+		const data = parts(dataFile);
+		GameLoader.prepare([...wasm, ...data, ["Build/" + frameworkFile, 529086]]);
+		const paths = (list) => list.map(([path]) => path);
+		[config.codeUrl, config.dataUrl, config.frameworkUrl] = await Promise.all([
+			GameLoader.merge(paths(wasm), "application/wasm"),
+			GameLoader.merge(paths(data)),
+			GameLoader.merge(["Build/" + frameworkFile], "application/javascript"),
+		]);
+		//the data file is a blob url, new every load, so Unity's cache of it would never be read
+		config.cacheControl = (url) => (url.match(/\.bundle/) ? "immutable" : "no-store");
+	}
+
 	var script = document.createElement("script");
 	script.src = loaderUrl;
 
@@ -456,13 +472,14 @@ const addressablesUrl = cdnUrls[cdnName].addressables;
 			setV(lt);
 
 			onUnityLoadComplete();
+			GameLoader.finish();
 		}).catch((message) =>
 		{
-			alert("TT UnityLoader Error" + message);
+			GameLoader.fail(new Error("TT UnityLoader Error" + message));
 		});
 	};
 	loadTiming.loaderStartMs = performance.now();
-	document.body.appendChild(script);
+	loadBuildFiles().then(() => document.body.appendChild(script)).catch(GameLoader.fail);
 
 	function onUnityLoadComplete()
 	{
