@@ -12,12 +12,54 @@
   <meta charset="utf-8" />
   <script src="/assets/js/loader-ui.js?v=5gz9swuael"></script>
   <script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Kart Bros"></script>
-  <script
-    src="/assets/js/game-net.js?v=1"
-    data-sockets="kartbros.io,*.kartbros.io"
-    data-fetch="kartbros.io,*.kartbros.io"
-    data-origin="https://kartbros.io"
-  ></script>
+  <script>
+    // Online play is on the 55GMS multiplayer server (github.com/55gms/multiplayer,
+    // games/kartbros), not Blue Wizard's: the game's socket
+    // (wss://kart<xx>.kartbros.io/<n>) and its region ping
+    // (https://kart<xx>.kartbros.io/ping) go to /api/mp/kartbros/ on this host.
+    // Locally: localStorage["gms-mp-base"] = "ws://localhost:8093/api/mp"
+    (() => {
+      let base = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/api/mp";
+      try {
+        base = localStorage.getItem("gms-mp-base") || base;
+      } catch (e) {}
+      const httpBase = base.replace(/^ws/, "http");
+      const region = (host) => {
+        const m = /^kart([a-z]{2})\.kartbros\.io$/i.exec(host);
+        return m && m[1].toUpperCase();
+      };
+      const Native = window.WebSocket;
+      function KartSocket(url, protocols) {
+        try {
+          const u = new URL(String(url), location.href);
+          const r = /^wss?:$/.test(u.protocol) && region(u.hostname);
+          if (r) url = base + "/kartbros/play?region=" + r;
+        } catch (e) {}
+        return protocols == null ? new Native(url) : new Native(url, protocols);
+      }
+      KartSocket.prototype = Native.prototype;
+      for (const k of ["CONNECTING", "OPEN", "CLOSING", "CLOSED"]) KartSocket[k] = Native[k];
+      window.WebSocket = KartSocket;
+
+      const pingUrl = (url) => {
+        try {
+          const u = new URL(String(url), location.href);
+          const r = u.pathname === "/ping" && region(u.hostname);
+          if (r) return httpBase + "/kartbros/ping?region=" + r;
+        } catch (e) {}
+        return null;
+      };
+      const nativeFetch = window.fetch;
+      window.fetch = function (input, init) {
+        const url = typeof input === "string" || input instanceof URL ? String(input) : input && input.url;
+        return nativeFetch.call(this, (url && pingUrl(url)) || input, init);
+      };
+      const open = XMLHttpRequest.prototype.open;
+      XMLHttpRequest.prototype.open = function (method, url, ...rest) {
+        return open.call(this, method, pingUrl(url) || url, ...rest);
+      };
+    })();
+  </script>
   <base href="https://cdn.jsdelivr.net/gh/55gms/assets@0607d857845b7b2d5493ee94e615975b5ec1c04b/misc/kart-bros/" />
   <title>Kart Bros</title>
   <meta name="author" content="Blue Wizard Digital" />
