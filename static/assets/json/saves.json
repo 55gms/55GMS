@@ -334,6 +334,13 @@
     ]
    }
   },
+  "bike-bros": {
+   "id": "bike-bros",
+   "name": "Bike Bros",
+   "play": "/misc/play/?title=Bike%20Bros&link=bike-bros",
+   "frame": "/misc/bike-bros/index.html",
+   "status": "observed"
+  },
   "bikeobby": {
    "id": "bikeobby",
    "name": "Bike Obby",
