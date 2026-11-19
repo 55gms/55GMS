@@ -30,8 +30,15 @@
 			return url;
 		};
 		const Native = window.WebSocket;
+		// The client compares the hostname it asked for with the socket's url and
+		// shows "Uninstall any scripts" when they differ, so the socket reports
+		// the address the client gave it.
 		function GMSWebSocket(url, protocols) {
-			return protocols === undefined ? new Native(rewrite(url)) : new Native(rewrite(url), protocols);
+			const ws = protocols === undefined ? new Native(rewrite(url)) : new Native(rewrite(url), protocols);
+			try {
+				Object.defineProperty(ws, "url", { value: new URL(url, location.href).href });
+			} catch {}
+			return ws;
 		}
 		GMSWebSocket.prototype = Native.prototype;
 		for (const k of ["CONNECTING", "OPEN", "CLOSING", "CLOSED"]) GMSWebSocket[k] = Native[k];
