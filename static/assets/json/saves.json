@@ -2065,6 +2065,13 @@
     ]
    }
   },
+  "lucky-escape": {
+   "id": "lucky-escape",
+   "name": "+1 Speed Keyboard Lucky Escape",
+   "play": "/misc/play/?title=%2B1%20Speed%20Keyboard%20Lucky%20Escape&link=lucky-escape",
+   "frame": "/misc/lucky-escape/index.html",
+   "status": "observed"
+  },
   "mad-skills-motocross-2": {
    "id": "mad-skills-motocross-2",
    "name": "Mad Skills Motocross 2",
