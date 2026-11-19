@@ -58,6 +58,22 @@ sends the shared 60 Hz tick); nothing goes to Blue Wizard's servers. Accounts ar
 involved: names and records are the game's own. The protocol is in that repo's README. Bump the `?v=` on `bros-mp.js` in these
 pages when it changes (game pages are never rebuilt).
 
+## Kart Bros (`static/misc/kart-bros/`)
+
+Kart Bros's servers are hard-coded (`wss://kart{da,ea,eu,mw,we}.kartbros.io/<n>`,
+pinged at `https://kart<xx>.kartbros.io/ping`) on a domain filters block. An
+inline script at the top of its page sends the socket to
+`/api/mp/kartbros/play` and the pings to `/api/mp/kartbros/ping` on the page's
+host, so it lists one server ("US Dallas"). The multiplayer server is the
+game's whole session server: Host makes a lobby there under the code the
+game shows (three words), Join and invite links (`?room=<code>`) find it, and
+up to six racers and eight spectators share it. As on the original, the host's
+game runs the race and the server relays it to the others; nothing goes to
+Blue Wizard's servers. Rejoining after a dropped connection is refused, so a
+player who drops joins again with the code. Locally, point it at a multiplayer server on another port with
+`localStorage["gms-mp-base"] = "ws://localhost:8093/api/mp"`. The protocol is
+in that repo's README.
+
 ## Ducklings.io (`static/misc/ducklings-io/`)
 
 Ducklings.io's own server still runs, so this one is a relay, not a server
