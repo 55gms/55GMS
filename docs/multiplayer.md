@@ -74,6 +74,24 @@ player who drops joins again with the code. Locally, point it at a multiplayer s
 `localStorage["gms-mp-base"] = "ws://localhost:8093/api/mp"`. The protocol is
 in that repo's README.
 
+## Fartnership (`static/misc/fartnership/`)
+
+Fartnership's online rooms ran on its developer's server,
+`wss://64-225-56-42.sslip.io/ws` (with `/api/presence` for the menu's "N
+online" line), a bare-IP host that may disappear. They now run on the
+multiplayer server: an inline script before the `<base>` in the game's page
+sends any WebSocket to that host to `/api/mp/fartnership/ws` and any `fetch`
+to it to `/api/mp/fartnership/…` on the page's host. Locally, point it at
+another server with `localStorage["gms-mp-base"] = "ws://localhost:8093/api/mp"`.
+
+The server is authoritative: clients send stick and fart input, the server
+steps the game's world at 60 Hz and sends snapshots at 20 Hz. The world is
+the game's own code, cut from the client bundle by
+`tools/fartnership-sim.mjs` in the multiplayer repo, so snapshots and results
+are in the client's format by construction. If the game's files are updated
+in 55gms/assets, run that tool on the new bundle. The protocol is in the
+multiplayer repo's README.
+
 ## Ducklings.io (`static/misc/ducklings-io/`)
 
 Ducklings.io's own server still runs, so this one is a relay, not a server
