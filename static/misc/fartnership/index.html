@@ -10,12 +10,47 @@
     data-compat=""
   ></script>
     <meta charset="UTF-8" />
-    <script
-      src="/assets/js/game-net.js?v=1"
-      data-sockets="64-225-56-42.sslip.io"
-      data-fetch="64-225-56-42.sslip.io"
-      data-origin="https://files.twoplayergames.org"
-    ></script>
+    <script>
+      // Online rooms ran on the developer's server (64-225-56-42.sslip.io),
+      // a bare-IP host that may go away. Send the game's socket and the
+      // menu's presence call to the 55GMS multiplayer server instead
+      // (github.com/55gms/multiplayer, games/fartnership), which runs the
+      // game's own world. Locally: localStorage["gms-mp-base"] = "ws://localhost:8093/api/mp"
+      (() => {
+        const HOST = /^64-225-56-42\.sslip\.io$/i;
+        let base = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/api/mp`;
+        try {
+          base = localStorage.getItem("gms-mp-base") || base;
+        } catch {}
+        base = `${base.replace(/\/+$/, "")}/fartnership`;
+        const httpBase = base.replace(/^ws/, "http");
+        const parse = (url) => {
+          try {
+            const u = new URL(String(url), location.href);
+            return HOST.test(u.hostname) ? u : null;
+          } catch {
+            return null;
+          }
+        };
+
+        const Native = window.WebSocket;
+        function GMSWebSocket(url, protocols) {
+          const u = parse(url);
+          const target = u && /^wss?:$/.test(u.protocol) ? `${base}${u.pathname}${u.search}` : url;
+          return protocols == null ? new Native(target) : new Native(target, protocols);
+        }
+        GMSWebSocket.prototype = Native.prototype;
+        for (const k of ["CONNECTING", "OPEN", "CLOSING", "CLOSED"]) GMSWebSocket[k] = Native[k];
+        window.WebSocket = GMSWebSocket;
+
+        const nativeFetch = window.fetch;
+        window.fetch = function (input, init) {
+          const u = parse(input instanceof Request ? input.url : input);
+          if (u && /^https?:$/.test(u.protocol)) return nativeFetch.call(this, `${httpBase}${u.pathname}${u.search}`, init);
+          return nativeFetch.call(this, input, init);
+        };
+      })();
+    </script>
     <base href="https://cdn.jsdelivr.net/gh/55gms/assets@52946b8fa18cc45a4d3713a79e6976a7081528a5/misc/fartnership/" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Fartnership</title>
