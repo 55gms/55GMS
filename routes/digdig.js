@@ -12,7 +12,8 @@ import * as digdig from "../services/digdig.js";
 //   (static/misc/digdig-io/index.html) saves it as the game's own login, which
 //   the game sends to the multiplayer server
 // - /api/digdig/internal/*: for the multiplayer server only, which checks
-//   tokens, grants the gold a player earned and asks for purchases
+//   tokens, grants the gold a player earned, asks for purchases, unlocks
+//   achievements and adds each life's stats
 export const GAME_TOKEN_SCOPE = "digdig";
 const GAME_TOKEN_TTL_MS = 12 * 60 * 60 * 1000;
 
@@ -84,6 +85,25 @@ export function createDigdigRouter() {
       gold: await digdig.grantGold(
         String(body.uuid || ""),
         body.amount,
+        String(body.source || ""),
+      ),
+    })),
+  );
+  internal.post(
+    "/achievement",
+    handle(async (body) =>
+      digdig.unlockAchievement(
+        String(body.uuid || ""),
+        String(body.achievement || ""),
+      ),
+    ),
+  );
+  internal.post(
+    "/stats",
+    handle(async (body) => ({
+      stats: await digdig.addStats(
+        String(body.uuid || ""),
+        body.stats,
         String(body.source || ""),
       ),
     })),

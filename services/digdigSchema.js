@@ -22,6 +22,31 @@ export const DIGDIG_SCHEMA = [
      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
    )`,
   `CREATE INDEX IF NOT EXISTS digdig_gold_ledger_uuid ON digdig_gold_ledger (uuid)`,
+  // Achievements an account has unlocked (the client's ids, services/digdig.js
+  // ACHIEVEMENT_REWARDS); the reward is paid with the row, once.
+  `CREATE TABLE IF NOT EXISTS digdig_achievements (
+     uuid VARCHAR(255) NOT NULL REFERENCES users(uuid) ON DELETE CASCADE,
+     achievement_id VARCHAR(32) NOT NULL,
+     unlocked_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+     PRIMARY KEY (uuid, achievement_id)
+   )`,
+  // Lifetime totals the achievements count towards. ores is a bit set of the
+  // ores ever dug (bit = material number).
+  `CREATE TABLE IF NOT EXISTS digdig_stats (
+     uuid VARCHAR(255) PRIMARY KEY REFERENCES users(uuid) ON DELETE CASCADE,
+     kills BIGINT NOT NULL DEFAULT 0,
+     dirt BIGINT NOT NULL DEFAULT 0,
+     gold BIGINT NOT NULL DEFAULT 0,
+     tags BIGINT NOT NULL DEFAULT 0,
+     br_wins BIGINT NOT NULL DEFAULT 0,
+     ores INTEGER NOT NULL DEFAULT 0,
+     updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+   )`,
+  // Each life's stats are added once: the multiplayer server retries.
+  `CREATE TABLE IF NOT EXISTS digdig_stat_sources (
+     source VARCHAR(255) PRIMARY KEY,
+     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+   )`,
 ];
 
 // Any digdig number, so the server's cluster workers, which all start at
