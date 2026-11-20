@@ -3388,16 +3388,16 @@
     "image": "https://cdn.jsdelivr.net/gh/55gms/assets@0607d857845b7b2d5493ee94e615975b5ec1c04b/misc/kart-bros/img.webp",
     "usesProxy": false
   },
-  {
-    "name": "MX OffRoad Master",
-    "author": "RHM Interactive",
-    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@ef898ca80a6b89faf73fe23270939ef9cd737338/misc/mx-offroad-master/img.webp",
-    "usesProxy": false
-  },
-  {
-    "name": "Fartnership",
-    "author": "Unknown",
-    "image": "https://cdn.jsdelivr.net/gh/55gms/assets@b8997c68537d4615478f0e6734068f7580776aa1/misc/fartnership/img.webp",
-    "usesProxy": false
-  }
+ {
+  "name": "MX OffRoad Master",
+  "author": "RHM Interactive",
+  "image": "https://cdn.jsdelivr.net/gh/55gms/assets@ef898ca80a6b89faf73fe23270939ef9cd737338/misc/mx-offroad-master/img.webp",
+  "usesProxy": false
+},
+{
+  "name": "TurboClash",
+  "url": "https://turboclash.pages.dev/",
+  "image": "/img/games/turboclash.svg",
+  "usesProxy": true
+}
 ]
