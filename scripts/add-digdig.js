@@ -1,5 +1,5 @@
-// Adds the digdig.io tables (services/digdigSchema.js): owned skins and the
-// gold ledger. Safe to re-run, and safe to run while an older build of the
+// Adds the digdig.io tables (services/digdigSchema.js): owned skins, the gold
+// ledger, achievements and lifetime stats. Safe to re-run, and safe to run while an older build of the
 // server is live, which reads neither. Run it before deploying a build that
 // does.
 //
