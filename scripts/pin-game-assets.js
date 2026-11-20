@@ -83,7 +83,8 @@ try {
     if (/^[0-9a-f]{40}$/.test(line)) commit = line;
     else if (line.startsWith("misc/")) {
       const folder = line.split("/")[1];
-      if (onMain.has(folder) && !folders.has(folder)) folders.set(folder, commit);
+      if (onMain.has(folder) && !folders.has(folder))
+        folders.set(folder, commit);
     }
   }
 
