@@ -223,7 +223,13 @@ for (const file of htmlFiles(MISC)) {
     ? "\r\n"
     : "\n";
   let compat = COMPAT[folder];
-  if (!compat && !haveClone && existing) {
+  // Without the game's files to read (no clone, or a sparse one such as the
+  // game bot's, which holds only the folder it adds), keep what the tag says.
+  if (
+    !compat &&
+    existing &&
+    !(haveClone && existsSync(path.join(clone, "misc", folder)))
+  ) {
     const kept = /\bdata-compat=["']([^"']*)["']/i.exec(existing[0]);
     compat = kept ? kept[1].split(",").filter(Boolean) : [];
   }
