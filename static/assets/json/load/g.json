@@ -1301,6 +1301,14 @@
     "preview": "/img/videos/preview/tag.mp4",
     "usesProxy": false
   },
+  
+{
+  "name": "TurboClash",
+  "url": "https://turboclash.pages.dev/",
+  "image": "/img/games/turboclash.webp",
+  "usesProxy": true
+},
+  
   {
     "name": "Frying Nemo",
     "url": "/misc/play/?title=Frying Nemo&link=fryingnemo&author=ytkimirti",
