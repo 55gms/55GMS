@@ -58,13 +58,23 @@ try {
   const head = git(clone, "rev-parse", "origin/main").trim();
 
   // The first commit seen for a folder, newest first, is its last change.
+  // Only folders still on main count: a removed one keeps its pin.
+  const onMain = new Set(
+    git(clone, "ls-tree", "-d", "-z", "--name-only", "origin/main", "misc/")
+      .split("\0")
+      .filter(Boolean)
+      .map((dir) => dir.slice("misc/".length)),
+  );
   const folders = new Map();
   let commit;
+  // --no-renames: rename detection reads file contents, which a partial
+  // clone (this script's own, or a sparse ../assets) fetches one at a time.
   const log = git(
     clone,
     "log",
     "--format=%H",
     "--name-only",
+    "--no-renames",
     "origin/main",
     "--",
     "misc",
@@ -73,7 +83,7 @@ try {
     if (/^[0-9a-f]{40}$/.test(line)) commit = line;
     else if (line.startsWith("misc/")) {
       const folder = line.split("/")[1];
-      if (!folders.has(folder)) folders.set(folder, commit);
+      if (onMain.has(folder) && !folders.has(folder)) folders.set(folder, commit);
     }
   }
 
