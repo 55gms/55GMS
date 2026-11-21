@@ -12,7 +12,67 @@
   <meta charset="utf-8">
   <script src="/assets/js/loader-ui.js?v=5gz9swuael"></script>
   <script src="/assets/js/game-loader.js?v=5gz9swuael" data-title="Bike Bros"></script>
-  <script src="/assets/js/game-net.js?v=1" data-sockets="*.kartbros.io" data-fetch="*.kartbros.io" data-origin="https://bikebros.io"></script>
+  <script>
+    // Online play is on the 55GMS multiplayer server (github.com/55gms/multiplayer,
+    // games/kartbros, which serves Bike Bros at bikebros), not Blue Wizard's: the game's socket
+    // (wss://kart<xx>.kartbros.io/<n>) and its region ping
+    // (https://kart<xx>.kartbros.io/ping) go to /api/mp/bikebros/ on this host.
+    // Locally: localStorage["gms-mp-base"] = "ws://localhost:8093/api/mp"
+    (() => {
+      let base = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/api/mp";
+      try {
+        base = localStorage.getItem("gms-mp-base") || base;
+      } catch (e) {}
+      const httpBase = base.replace(/^ws/, "http");
+      const region = (host) => {
+        const m = /^kart([a-z]{2})\.kartbros\.io$/i.exec(host);
+        return m && m[1].toUpperCase();
+      };
+      const Native = window.WebSocket;
+      function KartSocket(url, protocols) {
+        try {
+          const u = new URL(String(url), location.href);
+          const r = /^wss?:$/.test(u.protocol) && region(u.hostname);
+          if (r) url = base + "/bikebros/play?region=" + r;
+        } catch (e) {}
+        return protocols == null ? new Native(url) : new Native(url, protocols);
+      }
+      KartSocket.prototype = Native.prototype;
+      for (const k of ["CONNECTING", "OPEN", "CLOSING", "CLOSED"]) KartSocket[k] = Native[k];
+      window.WebSocket = KartSocket;
+
+      const pingUrl = (url) => {
+        try {
+          const u = new URL(String(url), location.href);
+          const r = u.pathname === "/ping" && region(u.hostname);
+          if (r) return httpBase + "/bikebros/ping?region=" + r;
+        } catch (e) {}
+        return null;
+      };
+      // The tracks are Addressables bundles the game asks for next to the page
+      // (TrackContent/WebGL/…); they are in the assets repo, under <base>.
+      const tracks = location.pathname.replace(/[^/]*$/, "") + "TrackContent/";
+      const trackUrl = (url) => {
+        try {
+          const u = new URL(String(url), location.href);
+          if (u.origin === location.origin && u.pathname.startsWith(tracks)) {
+            return new URL(u.pathname.slice(tracks.length - "TrackContent/".length), document.baseURI).href;
+          }
+        } catch (e) {}
+        return null;
+      };
+      const rewrite = (url) => pingUrl(url) || trackUrl(url);
+      const nativeFetch = window.fetch;
+      window.fetch = function (input, init) {
+        const url = typeof input === "string" || input instanceof URL ? String(input) : input && input.url;
+        return nativeFetch.call(this, (url && rewrite(url)) || input, init);
+      };
+      const open = XMLHttpRequest.prototype.open;
+      XMLHttpRequest.prototype.open = function (method, url, ...rest) {
+        return open.call(this, method, rewrite(url) || url, ...rest);
+      };
+    })();
+  </script>
   <base href="https://cdn.jsdelivr.net/gh/55gms/assets@bb1433f33b0a47ea3aacae5614aafb58bc4be3b6/misc/bike-bros/" />
   <title>Bike Bros</title>
   <meta name="author" content="Blue Wizard Digital">
@@ -54,14 +114,14 @@
   <canvas id="unity-canvas" tabindex="-1" onblur="window.focus(); window.scrollTo(0, 0);"></canvas>
   <script>
     (async () => {
-      const data = [["Build/e4d6cd2a02fd41eed84f7bd7e8145b6f.data", 16079114]];
+      const data = [["Build/d2d4abcbed33b53ddbc49506d4beba91.data", 16081212]];
       const wasm = [
-        ["Build/e733d2cff62a4dfdb7c6ddf89bdfc880.wasm.part1", 10000000],
-        ["Build/e733d2cff62a4dfdb7c6ddf89bdfc880.wasm.part2", 10000000],
-        ["Build/e733d2cff62a4dfdb7c6ddf89bdfc880.wasm.part3", 8807838],
+        ["Build/1335248c0b322785ee6a5fc8e217125b.wasm.part1", 10000000],
+        ["Build/1335248c0b322785ee6a5fc8e217125b.wasm.part2", 10000000],
+        ["Build/1335248c0b322785ee6a5fc8e217125b.wasm.part3", 8812077],
       ];
-      const framework = [["Build/89d320f3dc1d3881a0f872b09a650d83.framework.js", 372664]];
-      const loader = [["Build/122ad8264a84d60998c66c5b77ad8166.loader.js", 28051]];
+      const framework = [["Build/c89429ecd0bc28dba38b6ba49b789706.framework.js", 372664]];
+      const loader = [["Build/96b075ebac401afce219dcbac451e193.loader.js", 28051]];
       GameLoader.prepare([...data, ...wasm, ...framework, ...loader]);
 
       const paths = (files) => files.map(([path]) => path);
