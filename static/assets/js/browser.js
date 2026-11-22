@@ -1346,6 +1346,12 @@
         action: () => moveTab(tab, index + 1),
       },
       {
+        label: "Refresh tab",
+        icon: "rotate",
+        enabled: !!tab.url,
+        action: () => reloadTab(tab),
+      },
+      {
         label: tab.pinned ? "Unpin tab" : "Pin tab",
         icon: "pin",
         enabled: true,
