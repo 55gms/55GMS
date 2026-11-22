@@ -62,9 +62,28 @@ const mine = games.filter((_, index) => index % shards === shard - 1);
 const INTERESTING =
   /\[patched\] blocked (external request|analytics|redirect)|SecurityError|Failed to construct 'Worker'|tainted|cross-origin|CORS|net::ERR|Uncaught|abort\(|RuntimeError|is not defined|Cannot read prop/i;
 const SKIP_CONSOLE = /^Failed to load resource|^\[UnityCache\]/;
-// Ads, analytics and portal SDKs: failing is expected and harmless.
-const IGNORE_URL =
-  /cloudflareinsights|cdn-cgi\/rum|google-analytics|googletagmanager|doubleclick|googlesyndication|\/_ads\/|poki\.(io|com)|gameanalytics|facebook|adinplay|cpmstar|crazygames|gamedistribution|imasdk/i;
+// A game whose files are on jsDelivr cannot register a service worker or look
+// one up from this origin; the games play on without one.
+const SKIP_ERROR = /Failed to (register|get) a ServiceWorker/;
+// Failing is expected and harmless for these: ads, ad-exchange syncs,
+// analytics and portal SDKs; the addresses rips point blocked analytics at
+// (null.html?<url>, patch/json/null.json?<url>, __request_blocked__,
+// *.blocked.invalid); the Bros servers' region pings, which only the one
+// region the multiplayer server plays answers (55gms/multiplayer games/bros).
+const IGNORE_URL = new RegExp(
+  [
+    /cloudflareinsights|cdn-cgi\/rum|google-analytics|googletagmanager|doubleclick|googlesyndication|\/_ads\//,
+    /poki\.(io|com)|gameanalytics|facebook|adinplay|cpmstar|crazygames|gamedistribution|imasdk|gamedock/,
+    /amazon-adsystem|3lift|sharethrough|adkernel|iqzone|bluevoox|krushmedia|rtb-oveeo|crwdcntrl|pubmatic|syncingbridge/,
+    /tunnl\.com|ngads\.com|ngfiles\.com|mochibot|playtomic|vntsm|atmtd|weborama|stpd\.cloud|fliplineads|agi\.armorgames/,
+    /stats\.unity3d|cdp\.cloud\.unity3d|config\.uca\.cloud\.unity3d|perf-events\.cloud\.unity3d|analytics\.unity3d/,
+    /\/null\.(html|json|js)\?|__request_blocked__|\.blocked\.invalid/,
+    /\/api\/mp\/[a-z]+\/ping\?region=/,
+  ]
+    .map((pattern) => pattern.source)
+    .join("|"),
+  "i",
+);
 
 fs.mkdirSync(path.join(outDir, "shots"), { recursive: true });
 const resultsFile = path.join(outDir, "results.jsonl");
@@ -96,11 +115,14 @@ async function scan(game) {
     if (
       INTERESTING.test(text) &&
       !SKIP_CONSOLE.test(text) &&
+      !SKIP_ERROR.test(text) &&
       !IGNORE_URL.test(text)
     )
       add(`console:${message.type()}`, text);
   });
-  page.on("pageerror", (error) => add("pageerror", error.message));
+  page.on("pageerror", (error) => {
+    if (!SKIP_ERROR.test(error.message)) add("pageerror", error.message);
+  });
   page.on("requestfailed", (request) => {
     const reason = request.failure()?.errorText;
     if (!IGNORE_URL.test(request.url()) && reason !== "net::ERR_ABORTED")
