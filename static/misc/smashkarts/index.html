@@ -38,6 +38,25 @@
 			GMSWebSocket.prototype = Native.prototype;
 			for (const k of ["CONNECTING", "OPEN", "CLOSING", "CLOSED"]) GMSWebSocket[k] = Native[k];
 			window.WebSocket = GMSWebSocket;
+			// PUN pings each region with an HTTP GET to <host>/photon/m/?ping. It finds
+			// the host by cutting the region address at its last ":", which for an
+			// address with no port (wss://host/api/mp/...) leaves "wss"; answer the
+			// ping from the multiplayer server instead.
+			const pingUrl = base.replace(/^ws(s?):/i, "http$1:") + "/smashkarts/ping";
+			const ping = (url) => {
+				try {
+					if (new URL(String(url), location.href).pathname === "/photon/m/") return pingUrl;
+				} catch {}
+				return url;
+			};
+			const open = XMLHttpRequest.prototype.open;
+			XMLHttpRequest.prototype.open = function (method, url, ...rest) {
+				return open.call(this, method, ping(url), ...rest);
+			};
+			const nativeFetch = window.fetch;
+			window.fetch = function (input, init) {
+				return nativeFetch.call(this, typeof input === "string" || input instanceof URL ? ping(input) : input, init);
+			};
 		})();
 	</script>
 	<script src="/assets/js/script.js?v=28"></script>
