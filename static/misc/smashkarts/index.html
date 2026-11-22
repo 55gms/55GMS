@@ -42,7 +42,7 @@
 			// the host by cutting the region address at its last ":", which for an
 			// address with no port (wss://host/api/mp/...) leaves "wss"; answer the
 			// ping from the multiplayer server instead.
-			const pingUrl = `${location.protocol}//${location.host}/api/mp/smashkarts/ping`;
+			const pingUrl = base.replace(/^ws(s?):/i, "http$1:") + "/smashkarts/ping";
 			const ping = (url) => {
 				try {
 					if (new URL(String(url), location.href).pathname === "/photon/m/") return pingUrl;
