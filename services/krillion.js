@@ -278,6 +278,38 @@ export async function getDay() {
   return current ?? pending;
 }
 
+let pastDay = null;
+
+async function getPastDay(date) {
+  if (!isDate(date)) return null;
+  if (pastDay?.date === date) return pastDay;
+  const past = await readDay(date);
+  if (past?.date !== date) return null;
+  pastDay = past;
+  return past;
+}
+
+// The day a player is on, for scoring: today's, the new one this worker is
+// still loading (its old day is returned meanwhile, while the page may have
+// had the new one from another worker), or a recent one from disk, so a game
+// started before the reset can be finished even if today's load fails.
+export async function getDayFor(date) {
+  let day;
+  try {
+    day = await getDay();
+  } catch (error) {
+    const past = await getPastDay(date);
+    if (past) return past;
+    throw error;
+  }
+  if (day.date === date) return day;
+  if (loading) {
+    const next = await loading.catch(() => null);
+    if (next?.date === date) return next;
+  }
+  return getPastDay(date);
+}
+
 // The compressed reveal for a day: today's from memory, a recent one from disk.
 export async function getReveal(date) {
   const day = await getDay().catch(() => null);

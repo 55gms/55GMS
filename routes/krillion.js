@@ -1,7 +1,13 @@
 import express from "express";
 import zlib from "node:zlib";
 import { rateLimit } from "../utils/rateLimit.js";
-import { findAnswer, getDay, getReveal, isDate } from "../services/krillion.js";
+import {
+  findAnswer,
+  getDay,
+  getDayFor,
+  getReveal,
+  isDate,
+} from "../services/krillion.js";
 import { recordScore } from "../services/krillionScores.js";
 
 // The API the Krillion page under /misc/krillion/ talks to, answered from the
@@ -58,10 +64,18 @@ export function createKrillionRouter() {
 
   // Scores what the player typed against the day's answer table. There is no
   // leaderboard here, so no receipt comes back.
-  router.post("/submit", submitLimit, withDay, (req, res) => {
-    const day = req.krillionDay;
+  // A game started before the reset is scored against its own day.
+  router.post("/submit", submitLimit, async (req, res) => {
     const { date, promptId, answer } = req.body ?? {};
-    if (date !== day.date) {
+    let day;
+    try {
+      day = await getDayFor(date);
+    } catch {
+      return res
+        .status(503)
+        .json({ error: "Today's prompts are not available yet" });
+    }
+    if (!day) {
       return res.status(409).json({ error: "That day is over" });
     }
     if (typeof promptId !== "string" || !day.prompts.has(promptId)) {
