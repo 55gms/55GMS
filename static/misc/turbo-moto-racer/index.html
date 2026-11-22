@@ -100,7 +100,9 @@
     // };
     window.origBlob = window.Blob;
     window.Blob = function (array, options) {
-      if (array[1] instanceof Uint8Array) {
+      // Only the framework script UnityLoader wraps; binary files the page
+      // joins from parts are Blobs too and must pass through untouched.
+      if (options && /javascript/.test(options.type) && array[1] instanceof Uint8Array) {
         array[1] = new TextDecoder("utf-8").decode(array[1]).replace(/window\.top\.location\.href|window\.location\.href|document\.referrer|document\.URL/g, '"https://storage.y8.com/"');
       }
       return new window.origBlob(array, options);
