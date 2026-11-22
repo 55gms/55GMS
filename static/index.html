@@ -18,7 +18,46 @@
   <meta name="twitter:title" content="55GMS - Reds Exploit Corner" />
   <meta name="twitter:description" content="55GMS - Reds Exploit Corner - Join the discord for links! Play hundreds of free unblocked games, watch movies and TV, use apps like Discord and Cool Math Games, and chat with friends, all in your browser with no downloads." />
   <meta name="twitter:image" content="https://55gms.com/img/55gms.png" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://55gms.com/#website","url":"https://55gms.com/","name":"55GMS","alternateName":["Reds Exploit Corner","55GMS - Reds Exploit Corner","55 GMS"],"description":"55GMS - Reds Exploit Corner - Join the discord for links! Play hundreds of free unblocked games, watch movies and TV, use apps like Discord and Cool Math Games, and chat with friends, all in your browser with no downloads."},{"@type":"Organization","@id":"https://55gms.com/#org","name":"55GMS","url":"https://55gms.com/","logo":"https://55gms.com/img/55gms.png"},{"@type":"ItemList","name":"55GMS sections","itemListElement":[{"@type":"SiteNavigationElement","position":1,"name":"Games","url":"https://55gms.com/g"},{"@type":"SiteNavigationElement","position":2,"name":"Media","url":"https://55gms.com/-"},{"@type":"SiteNavigationElement","position":3,"name":"Apps","url":"https://55gms.com/a"},{"@type":"SiteNavigationElement","position":4,"name":"Dashboard","url":"https://55gms.com/d"},{"@type":"SiteNavigationElement","position":5,"name":"Settings","url":"https://55gms.com/s"},{"@type":"SiteNavigationElement","position":6,"name":"Chat","url":"https://55gms.com/chat"}]}]}</script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://55gms.com/#website",
+          "url": "https://55gms.com/",
+          "name": "55GMS",
+          "alternateName": [
+            "Reds Exploit Corner",
+            "55GMS - Reds Exploit Corner",
+            "55 GMS"
+          ],
+          "description": "55GMS - Reds Exploit Corner - Join the discord for links! Play hundreds of free unblocked games, watch movies and TV, use apps like Discord and Cool Math Games, and chat with friends, all in your browser with no downloads."
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://55gms.com/#org",
+          "name": "55GMS",
+          "url": "https://55gms.com/",
+          "logo": "https://55gms.com/img/55gms.png"
+        },
+        {
+          "@type": "ItemList",
+          "name": "55GMS sections",
+          "itemListElement": [
+            {"@type":"SiteNavigationElement","position":1,"name":"Games","url":"https://55gms.com/g"},
+            {"@type":"SiteNavigationElement","position":2,"name":"Media","url":"https://55gms.com/-"},
+            {"@type":"SiteNavigationElement","position":3,"name":"Apps","url":"https://55gms.com/a"},
+            {"@type":"SiteNavigationElement","position":4,"name":"Dashboard","url":"https://55gms.com/d"},
+            {"@type":"SiteNavigationElement","position":5,"name":"Settings","url":"https://55gms.com/s"},
+            {"@type":"SiteNavigationElement","position":6,"name":"Chat","url":"https://55gms.com/chat"}
+          ]
+        }
+      ]
+    }
+  </script>
+
   <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
   <script src="/assets/js/font.js" defer></script>
   <script src="/assets/js/randomSentence.js?v=3"></script>
@@ -32,16 +71,230 @@
   <meta name="author" content="Rednotsus" />
   <meta http-equiv="Cache-control" content="public">
   <script src="/assets/js/script.js?v=28"></script>
-
   <script src="/assets/js/easteregg.min.js" async></script>
   <script src="/assets/sj/index.js?v=2" defer></script>
   <script src="/assets/sj/hiring.js?v=2" defer></script>
+
+  <style>
+    .daily-feature {
+      box-sizing: border-box;
+      width: min(820px, calc(100% - 32px));
+      margin: 34px auto 52px;
+      font-family: "Roboto", Arial, sans-serif;
+      color: var(--site-text, #fff);
+    }
+
+    .daily-feature * {
+      box-sizing: border-box;
+    }
+
+    .daily-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 2px 14px;
+    }
+
+    .daily-heading {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 23px;
+      font-weight: 700;
+      letter-spacing: -.4px;
+    }
+
+    .daily-date {
+      color: var(--site-muted, #d9e5f5);
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .daily-card {
+      display: flex;
+      align-items: stretch;
+      gap: 23px;
+      border: 1px solid color-mix(
+        in srgb,
+        var(--site-text, #fff) 20%,
+        transparent
+      );
+      border-radius: var(--site-radius-lg, 18px);
+      padding: 16px;
+      background: linear-gradient(
+        120deg,
+        var(--site-surface, #7a8fab),
+        var(--site-surface-3, #4a5f7a)
+      );
+      box-shadow:
+        0 15px 34px var(--site-shadow, rgba(0, 0, 0, .24)),
+        inset 0 1px 0 rgba(255,255,255,.12);
+    }
+
+    .daily-cover {
+      flex: 0 0 230px;
+      width: 230px;
+      min-height: 168px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: var(--site-surface-3, #4a5f7a);
+    }
+
+    .daily-content {
+      flex: 1;
+      min-width: 0;
+      padding: 5px 6px 3px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .daily-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: color-mix(
+        in srgb,
+        var(--site-accent, #f5b942) 19%,
+        transparent
+      );
+      color: var(--site-text, white);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+    }
+
+    .daily-title {
+      font-size: clamp(23px, 3vw, 32px);
+      font-weight: 700;
+      letter-spacing: -.8px;
+      line-height: 1.15;
+      margin: 11px 0 7px;
+    }
+
+    .daily-description {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--site-muted, #e0eaf5);
+      margin: 0 0 17px;
+    }
+
+    .daily-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: auto;
+    }
+
+    .daily-play {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 11px 18px;
+      border-radius: var(--site-radius-sm, 10px);
+      background: var(--site-accent, #f5b942);
+      color: var(--site-accent-text, #292e3c);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition:
+        transform .15s ease,
+        background .15s ease;
+    }
+
+    .daily-play:hover {
+      transform: translateY(-2px);
+      background: var(--site-accent-hover, #f8cd6b);
+    }
+
+    .daily-play:focus-visible {
+      outline: 3px solid var(--site-text, #fff);
+      outline-offset: 3px;
+    }
+
+    .daily-change {
+      color: var(--site-muted, #e0eaf5);
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .daily-feature {
+        margin-top: 28px;
+      }
+
+      .daily-head {
+        align-items: baseline;
+      }
+
+      .daily-heading {
+        font-size: 19px;
+      }
+
+      .daily-date {
+        font-size: 11px;
+      }
+
+      .daily-card {
+        gap: 13px;
+        padding: 12px;
+      }
+
+      .daily-cover {
+        flex: 0 0 115px;
+        width: 115px;
+        min-height: 154px;
+      }
+
+      .daily-content {
+        padding: 0;
+      }
+
+      .daily-tag {
+        font-size: 9px;
+        letter-spacing: .5px;
+        padding: 5px 7px;
+      }
+
+      .daily-title {
+        font-size: 21px;
+        margin: 8px 0 5px;
+      }
+
+      .daily-description {
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+
+      .daily-play {
+        padding: 9px 12px;
+        font-size: 12px;
+      }
+
+      .daily-change {
+        display: none;
+      }
+    }
+
+    @media (max-width: 370px) {
+      .daily-cover {
+        flex-basis: 90px;
+        width: 90px;
+      }
+    }
+  </style>
 </head>
 
 <body>
+
   <nav>
     <div class="navbar">
-      <a id="nav-title" class='title' href="/">Reds Exploit Corner</a>
+      <a id="nav-title" class="title" href="/">Reds Exploit Corner</a>
       <a href="/g"><i class="fa-solid fa-gamepad">&nbsp;</i>Games</a>
       <a href="/a"><i class="fa-solid fa-box-archive">&nbsp;</i>Apps</a>
       <a href="/-"><i class="fa-solid fa-tv">&nbsp;</i>Media</a>
@@ -51,50 +304,283 @@
     </div>
   </nav>
 
-  <div class="site-ad-rail site-ad-rail--left site-ad-rail--gutter"><div data-55gms-ad data-size="160x600"></div></div>
-  <div class="site-ad-rail site-ad-rail--right site-ad-rail--gutter"><div data-55gms-ad data-size="160x600"></div></div>
+  <div class="site-ad-rail site-ad-rail--left site-ad-rail--gutter">
+    <div data-55gms-ad data-size="160x600"></div>
+  </div>
+
+  <div class="site-ad-rail site-ad-rail--right site-ad-rail--gutter">
+    <div data-55gms-ad data-size="160x600"></div>
+  </div>
 
   <h1 id="titles">Reds Exploit Corner</h1>
-  <h1 id="sub">
-    &nbsp;
-  </h1>
+  <h1 id="sub">&nbsp;</h1>
 
   <div style="text-align: center">
     <br />
+
     <form class="searchbar">
-      <input tag="searchbar" placeholder="Search Google or Enter a Link" class="form__input" autocomplete="off">
+      <input
+        tag="searchbar"
+        placeholder="Search Google or Enter a Link"
+        class="form__input"
+        autocomplete="off"
+      >
     </form>
+
     <div class="quicklinks">
-      <a class="quicklink" href="d"><img loading="eager" class='shortcut' src="/img/shortcuts/Dashboard.webp"></a>
-      <a class="quicklink" onclick="hire('https://discord.gg')"><img loading="eager" class='shortcut'
-          src="/img/shortcuts/dc.webp"></a>
-      <a class="quicklink" onclick="hire('https://www.espn.com/watch/')"><img loading="eager" class='shortcut'
-          src="/img/shortcuts/ESPN.webp"></a>
-      <a class="quicklink" onclick="hire('https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1')"><img
-          loading="eager" class='shortcut' src="/img/shortcuts/freegpt.webp"></a>
-      <a class="quicklink" onclick="hire('https://github.com')"><img loading="eager" class='shortcut'
-          src="/img/shortcuts/GitHub.webp"></a>
-      <a class="quicklink" onclick="hire('https://google.com')"><img loading="eager" class='shortcut'
-          src="/img/shortcuts/Google.webp"></a>
-      <a class="quicklink" onclick="hire('https://now.gg')"><img loading="eager" class='shortcut'
-          src="/img/shortcuts/nowgg.webp"></a>
-      <a class="quicklink" href='-'><img loading="eager" class='shortcut' src="/img/shortcuts/gmsmovies.webp"></a>
-      <a class="quicklink" onclick="hire('https://tiktok.com')"><img loading="eager" class='shortcut'
-          src="/img/shortcuts/tt.webp"></a>
-      <a class="quicklink" onclick="hire('https://twitch.tv')"><img loading="eager" class='shortcut'
-          src="/img/shortcuts/Twitch.webp"></a>
+      <a class="quicklink" href="d">
+        <img loading="eager" class="shortcut" src="/img/shortcuts/Dashboard.webp">
+      </a>
+
+      <a class="quicklink" onclick="hire('https://discord.gg')">
+        <img loading="eager" class="shortcut" src="/img/shortcuts/dc.webp">
+      </a>
+
+      <a class="quicklink" onclick="hire('https://www.espn.com/watch/')">
+        <img loading="eager" class="shortcut" src="/img/shortcuts/ESPN.webp">
+      </a>
+
+      <a class="quicklink" onclick="hire('https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1')">
+        <img loading="eager" class="shortcut" src="/img/shortcuts/freegpt.webp">
+      </a>
+
+      <a class="quicklink" onclick="hire('https://github.com')">
+        <img loading="eager" class="shortcut" src="/img/shortcuts/GitHub.webp">
+      </a>
+
+      <a class="quicklink" onclick="hire('https://google.com')">
+        <img loading="eager" class="shortcut" src="/img/shortcuts/Google.webp">
+      </a>
+
+      <a class="quicklink" onclick="hire('https://now.gg')">
+        <img loading="eager" class="shortcut" src="/img/shortcuts/nowgg.webp">
+      </a>
+
+      <a class="quicklink" href="-">
+        <img loading="eager" class="shortcut" src="/img/shortcuts/gmsmovies.webp">
+      </a>
+
+      <a class="quicklink" onclick="hire('https://tiktok.com')">
+        <img loading="eager" class="shortcut" src="/img/shortcuts/tt.webp">
+      </a>
+
+      <a class="quicklink" onclick="hire('https://twitch.tv')">
+        <img loading="eager" class="shortcut" src="/img/shortcuts/Twitch.webp">
+      </a>
     </div>
   </div>
 
-  <div class="site-ad"><div data-55gms-ad></div></div>
+  <!-- GAME OF THE DAY -->
+  <section class="daily-feature" aria-labelledby="daily-heading">
+    <div class="daily-head">
+      <div class="daily-heading" id="daily-heading">
+        Game of the Day
+      </div>
+      <span class="daily-date" id="daily-date"></span>
+    </div>
 
-  <div class="info">
-    <a class="infobtn" href="#" onclick="event.preventDefault(); hire('https://discord.gg/xdaJ6Wytsu');"><i class="fa-brands fa-discord"></i></a>
-    <a class="infobtn" href="https://www.youtube.com/@55gms" title="55GMS YouTube" aria-label="55GMS YouTube"><i class="fa-brands fa-youtube"></i></a>
-    <a class="infobtn" href="https://github.com/55gms"><i class="fa-brands fa-github"></i></a>
-    <a class="infobtn" href="/privacy" title="Privacy Policy" aria-label="Privacy Policy"><i class="fa-solid fa-shield-halved"></i></a>
+    <div class="daily-card">
+      <img
+        id="daily-cover"
+        class="daily-cover"
+        src="/img/games/snowrider.webp"
+        alt="Snow Rider 3D game thumbnail"
+        width="230"
+        height="168"
+      />
+
+      <div class="daily-content">
+        <span class="daily-tag">TODAY'S PICK</span>
+
+        <h2 class="daily-title" id="daily-title">
+          Snow Rider 3D
+        </h2>
+
+        <p class="daily-description">
+          A different game to discover every day.
+        </p>
+
+        <div class="daily-actions">
+          <a
+            class="daily-play"
+            id="daily-play"
+            href="/misc/play/?title=Snow%20Rider%203D&amp;link=SnowRider3D"
+          >
+            ▶ &nbsp; Play Now
+          </a>
+
+          <span class="daily-change">
+            New pick every day
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="site-ad">
+    <div data-55gms-ad></div>
   </div>
 
-</body>
+  <div class="info">
+    <a
+      class="infobtn"
+      href="#"
+      onclick="event.preventDefault(); hire('https://discord.gg/xdaJ6Wytsu');"
+    >
+      <i class="fa-brands fa-discord"></i>
+    </a>
 
+    <a
+      class="infobtn"
+      href="https://www.youtube.com/@55gms"
+      title="55GMS YouTube"
+      aria-label="55GMS YouTube"
+    >
+      <i class="fa-brands fa-youtube"></i>
+    </a>
+
+    <a class="infobtn" href="https://github.com/55gms">
+      <i class="fa-brands fa-github"></i>
+    </a>
+
+    <a
+      class="infobtn"
+      href="/privacy"
+      title="Privacy Policy"
+      aria-label="Privacy Policy"
+    >
+      <i class="fa-solid fa-shield-halved"></i>
+    </a>
+  </div>
+
+  <!-- DAILY GAME ROTATION -->
+  <script>
+    (() => {
+      const games = [
+        {
+          name: "Polytrack",
+          url: "/misc/polytrack/index.html",
+          image: "/img/games/polytrack.webp"
+        },
+        {
+          name: "Block Blast",
+          url: "/misc/play/?title=Block%20Blast&author=Hungry%20Studio&link=block-blast",
+          image: "/img/games/blockblast.webp"
+        },
+        {
+          name: "Drift Hunters",
+          url: "/misc/play/?title=Drift%20Hunters&author=Ilya%20Kaminetsky&link=drift-hunters",
+          image: "/img/games/drifthunters.webp"
+        },
+        {
+          name: "Snow Rider 3D",
+          url: "/misc/play/?title=Snow%20Rider%203D&link=SnowRider3D",
+          image: "/img/games/snowrider.webp"
+        },
+        {
+          name: "Capybara Clicker",
+          url: "/misc/play/?title=Capybara%20Clicker&author=Euclides&link=capibara-clicker",
+          image: "/img/games/capybaraclicker.webp"
+        },
+        {
+          name: "Rooftop Snipers 2",
+          url: "/misc/play/?title=Rooftop%20Snipers%202&author=New%20Eich%20Games&link=rooftop-snipers2",
+          image: "/img/games/rooftopsnipers.webp"
+        },
+        {
+          name: "Race Survival",
+          url: "/misc/play/?title=Race%20Survival&author=Brain%20Message&link=survival-race",
+          image: "/img/games/racesurvival.webp"
+        },
+        {
+          name: "Tetris",
+          url: "/misc/play/?title=Tetris&author=Nintendo&link=flash/index.html%3Fswf%3Dtetris.swf",
+          image: "/img/games/tetris.webp"
+        },
+        {
+          name: "Gun Spin",
+          url: "/misc/play/?title=Gun%20Spin&author=MiniJuegos&link=gunspin",
+          image: "/img/games/gunspin.webp"
+        },
+        {
+          name: "Grand Prix Hero",
+          url: "/misc/play/?title=Grand%20Prix%20Hero&author=Asher%20Lee&link=grandprixhero",
+          image: "/img/games/grandprixhero.webp"
+        },
+        {
+          name: "BitLife",
+          url: "/misc/play/?title=BitLife&author=Candywriter%20LLC&link=bitlife",
+          image: "/img/games/bitlife.webp"
+        },
+        {
+          name: "Alien Hominid",
+          url: "/misc/play/?title=Alien%20Hominid&author=Tom%20Fulp&link=flash/index.html%3Fswf%3Dalien-hominid.swf",
+          image: "/img/games/alien.webp"
+        },
+        {
+          name: "Unicycle Hero",
+          url: "/misc/play/?title=Unicycle%20Hero&author=Unept&link=unicycle-heros",
+          image: "/img/games/hero.webp"
+        },
+        {
+          name: "Recoil",
+          url: "/misc/play/?title=Recoil&author=Martin%20Magni&link=recoil",
+          image: "/img/games/recoil.webp"
+        },
+        {
+          name: "Bowmasters",
+          url: "/misc/bowmasters/index.html",
+          image: "/img/games/bowmasters.webp"
+        },
+        {
+          name: "Learn to Fly 3",
+          url: "/misc/play/?title=Learn%20to%20Fly%203&author=Light%20Bringer%20Games&link=learn-to-fly",
+          image: "/img/games/learntofly3.webp"
+        },
+        {
+          name: "2Doom",
+          url: "/misc/play/?title=2Doom&author=Damien%20Mayance&link=2doom",
+          image: "/img/games/2doom.webp"
+        },
+        {
+          name: "Toss the Turtle",
+          url: "/misc/play/?title=Toss%20the%20Turtle&author=Gonzossm&link=tosstheturtle",
+          image: "/img/games/turtle.webp"
+        },
+        {
+          name: "Gimme the Airpod",
+          url: "/misc/play/?title=Gimme%20the%20Airpod&author=Onefin&link=gimme-the-airpod",
+          image: "/img/games/gimmetheairpod.webp"
+        }
+      ];
+
+      const now = new Date();
+
+      const day = Math.floor(
+        Date.UTC(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate()
+        ) / 86400000
+      );
+
+      const game = games[day % games.length];
+
+      const cover = document.getElementById("daily-cover");
+      cover.src = game.image;
+      cover.alt = game.name + " game thumbnail";
+
+      document.getElementById("daily-title").textContent = game.name;
+      document.getElementById("daily-play").href = game.url;
+
+      document.getElementById("daily-date").textContent =
+        now.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric"
+        });
+    })();
+  </script>
+
+</body>
 </html>
