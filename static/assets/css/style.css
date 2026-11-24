@@ -55,7 +55,7 @@
 :root[data-theme="blue"] {
   color-scheme: dark;
   --site-bg: #0b1220;
-  --site-grid-line: rgba(148, 163, 184, 0.08);
+  --site-grid-line: transparent; /* idk why you wanted grid it look bad like really bad */
   --site-text: #e6edf7;
   --site-muted: #8fa0b8;
   --site-surface: #111d2f;
