@@ -91,6 +91,116 @@
     <a href="https://www.themoviedb.org/"><img loading="eager" src="/img/tmdb.svg" alt="TMDB Logo"
         style="height: 20px; vertical-align: middle;"></a>
   </div>
+
+  <style>
+    .intro-title .word {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .intro-title .ch {
+      display: inline-block;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .intro-title .ch {
+        animation: intro-letter 1s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+        animation-delay: calc(var(--i) * 32ms + 80ms);
+      }
+
+      .game-search-row,
+      main > .searchbar,
+      input[tag="searchbar"] {
+        animation: intro-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s backwards;
+      }
+
+      #bigDiv .title {
+        animation: intro-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s backwards;
+      }
+
+      #game-container > .game.intro-tile,
+      #bigDiv .card.intro-tile {
+        animation: intro-pop 0.7s cubic-bezier(0.34, 1.4, 0.64, 1) backwards;
+        animation-delay: calc(var(--base, 0ms) + min(var(--i, 0), 40) * 28ms);
+      }
+    }
+
+    @keyframes intro-letter {
+      from {
+        opacity: 0;
+        transform: translateY(0.45em) rotate(6deg) scale(0.9);
+        filter: blur(10px);
+      }
+    }
+
+    @keyframes intro-rise {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+    }
+
+    @keyframes intro-pop {
+      from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.85);
+      }
+    }
+  </style>
+  <script>
+    (function () {
+      var title = document.querySelector("h1");
+      if (title && !title.dataset.split) {
+        var text = title.textContent.trim();
+        var index = 0;
+        title.dataset.split = "1";
+        title.classList.add("intro-title");
+        title.setAttribute("aria-label", text);
+        title.textContent = "";
+        text.split(/\s+/).forEach(function (word, wordIndex, words) {
+          var wordSpan = document.createElement("span");
+          wordSpan.className = "word";
+          wordSpan.setAttribute("aria-hidden", "true");
+          Array.from(word).forEach(function (letter) {
+            var span = document.createElement("span");
+            span.className = "ch";
+            span.style.setProperty("--i", String(index++));
+            span.textContent = letter;
+            wordSpan.appendChild(span);
+          });
+          title.appendChild(wordSpan);
+          if (wordIndex < words.length - 1) title.appendChild(document.createTextNode(" "));
+        });
+      }
+      var page = document.querySelector("main");
+      if (!page || !window.MutationObserver) return;
+      new MutationObserver(function (changes) {
+        var base = Math.max(0, 650 - performance.now());
+        var tiles = [];
+        changes.forEach(function (change) {
+          change.addedNodes.forEach(function (node) {
+            if (node.nodeType !== 1 || !node.isConnected) return;
+            if (node.classList.contains("game") || node.classList.contains("card")) tiles.push(node);
+          });
+        });
+        if (!tiles.length) return;
+        var boxes = tiles.map(function (tile) {
+          return tile.getBoundingClientRect();
+        });
+        var counts = new Map();
+        tiles.forEach(function (tile, i) {
+          var box = boxes[i];
+          if (box.top > window.innerHeight || box.bottom < 0 || box.left > window.innerWidth) return;
+          var n = counts.get(tile.parentNode) || 0;
+          counts.set(tile.parentNode, n + 1);
+          tile.style.setProperty("--i", String(n));
+          tile.style.setProperty("--base", base + "ms");
+          tile.classList.add("intro-tile");
+        });
+      }).observe(page, { childList: true, subtree: true });
+    })();
+  </script>
+  
 </body>
 
 </html>
